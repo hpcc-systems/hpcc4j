@@ -25,12 +25,35 @@ public class HPCCWsFileIOClient
     private WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy    =  null;
     private boolean verbosemode = false;
     private final int defaultUploadChunkSize = 5000000;
+    private boolean verbose = false;
 
-    public WsFileIOServiceSoapProxy getSoapProxy()
+    /**
+     * @param verbose - sets verbose mode
+     */
+    public void setVerbose(boolean verbose)
     {
-        return wsFileIOServiceSoapProxy;
+        this.verbose = verbose;
     }
 
+    /**
+     * Provides soapproxy object for HPCCWsFileIOClient which can be used to access
+     * the web service methods directly
+     * @return  soapproxy for HPCCWsFileIOClient
+     * @throws Exception if soapproxy not available.
+     */
+    public WsFileIOServiceSoapProxy getSoapProxy() throws Exception
+    {
+        if (wsFileIOServiceSoapProxy != null)
+            return wsFileIOServiceSoapProxy;
+        else
+            throw new Exception("wsFileIOServiceSoapProxy not available.");
+    }
+
+    /**
+     * Provides the WSDL URL originally used to create the underlying stub code
+     *
+     * @return original WSLD URL
+     */
     public static String getOriginalWSDLURL()
     {
         return (new org.hpccsystems.ws.client.soap.wsfileio.WsFileIOLocator()).getWsFileIOServiceSoapAddress();
@@ -53,7 +76,14 @@ public class HPCCWsFileIOClient
         initWSFileIOSoapProxy(address, user, pass);
     }
 
-    public void initWSFileIOSoapProxy(String baseURL, String user, String pass)
+    /**
+     * Initializes the service's underlying soap proxy. Should only be used by constructors
+     *
+     * @param baseURL   Target service base URL
+     * @param user      User credentials
+     * @param pass      User credentials
+     */
+    private void initWSFileIOSoapProxy(String baseURL, String user, String pass)
     {
         wsFileIOServiceSoapProxy = new WsFileIOServiceSoapProxy(baseURL);
         if (wsFileIOServiceSoapProxy != null)
@@ -66,7 +96,6 @@ public class HPCCWsFileIOClient
                 }
         }
     }
-
 
     /**
      * @param fileName             - The target HPCC file name

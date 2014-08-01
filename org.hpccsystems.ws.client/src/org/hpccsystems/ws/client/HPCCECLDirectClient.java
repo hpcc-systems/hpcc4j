@@ -18,34 +18,77 @@ public class HPCCECLDirectClient
 {
     public static final String ECLDIRECTWSDLURI     = "/EclDirect";
     private EclDirectServiceSoapProxy     wsEclDirectServiceSoapProxy = null;
+    private boolean verbose = false;
 
-    public EclDirectServiceSoapProxy getSoapProxy()
+    /**
+     * @param verbose - sets verbose mode
+     */
+    public void setVerbose(boolean verbose)
     {
-        return wsEclDirectServiceSoapProxy;
+        this.verbose = verbose;
     }
 
+    /**
+     * Provides soapproxy object for WsECLDirectClient which can be used to access
+     * the web service methods directly
+     * @return  soapproxy for WsECLDirectClient
+     * @throws Exception
+     */
+    public EclDirectServiceSoapProxy getSoapProxy() throws Exception
+    {
+        if (wsEclDirectServiceSoapProxy != null)
+            return wsEclDirectServiceSoapProxy;
+        else
+            throw new Exception("wsECLDirectServiceSoapProxy not available");
+    }
+
+    /**
+     * Provides the WSDL URL originally used to create the underlying stub code
+     *
+     * @return original WSLD URL
+     */
     public static String getOriginalWSDLURL()
     {
         return (new org.hpccsystems.ws.client.soap.ecldirect.EclDirectLocator()).getEclDirectServiceSoapAddress();
     }
 
+    /**
+     * @param wsEclDirectServiceSoapProxy
+     */
     public HPCCECLDirectClient(EclDirectServiceSoapProxy wsEclDirectServiceSoapProxy)
     {
         this.wsEclDirectServiceSoapProxy = wsEclDirectServiceSoapProxy;
     }
 
+    /**
+     * @param baseConnection
+     */
     public HPCCECLDirectClient(Connection baseConnection)
     {
        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
     }
 
+    /**
+     * @param protocol
+     * @param targetHost
+     * @param targetPort
+     * @param user
+     * @param pass
+     */
     public HPCCECLDirectClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, ECLDIRECTWSDLURI);
         initWsEclDirectServiceSoapProxy(address, user, pass);
     }
 
-    public void initWsEclDirectServiceSoapProxy(String baseURL, String user, String pass)
+    /**
+     * Initializes the service's underlying soap proxy. Should only be used by constructors
+     *
+     * @param baseURL   Target service base URL
+     * @param user      User credentials
+     * @param pass      User credentials
+     */
+    private void initWsEclDirectServiceSoapProxy(String baseURL, String user, String pass)
     {
         wsEclDirectServiceSoapProxy = new EclDirectServiceSoapProxy(baseURL);
 

@@ -6,12 +6,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import org.apache.axis.client.Stub;
 import org.apache.axis.encoding.Base64;
-
-//import org.apache.commons.codec.binary.Base64;
 
 public class Connection
 {
@@ -124,17 +120,6 @@ public class Connection
     public String getUrl()
     {
         return baseUrl.toString();
-    }
-
-    public String getAuthString()
-    {
-        if (isHttps)
-        {
-            String str = userName + ":" + password;
-            // return Base64.encodeBase64String(str.getBytes());
-            return Base64.encode(str.getBytes());
-        }
-        return "";
     }
 
     public boolean hasCredentials()
@@ -285,100 +270,6 @@ public class Connection
         }
 
         return url.toString();
-    }
-
-    public static boolean connectivityCheck(Connection conn) throws Exception
-    {
-        int responseCode = 0;
-        try
-        {
-            if (conn.allowInvalidCerts)
-            {
-                SSLUtilities.trustAllHttpsCertificates();
-                SSLUtilities.trustAllHostnames();
-            }
-            // pinging the URL
-            HttpURLConnection connection = (HttpURLConnection) new URL(
-                    conn.getUrl()).openConnection();
-            if (conn.getUrl().contains("https://"))
-            {
-                connection = (HttpsURLConnection) connection;
-            }
-            if (conn.userName != null && !conn.userName.equals(""))
-            {
-                connection.setRequestProperty("Authorization", conn.getBasicAuthString());
-            }
-            // conn.setWssqlPort(HpccManager.getWsSqlPort(conn));
-            connection.setConnectTimeout(15000);
-            connection.setReadTimeout(15000);
-            connection.setRequestMethod("HEAD");
-            responseCode = connection.getResponseCode();
-        }
-        catch (Exception e)
-        {
-            // can't connect to internet
-            if (e.getMessage().contains("unreachable"))
-            {
-                throw new Exception("Could not connect to the internet");
-            }
-            // handle possible invalid cert check
-            else if (e.getMessage().toLowerCase()
-                    .contains("sslhandshakeexception"))
-            {
-                if (conn.allowInvalidCerts)
-                {
-                    throw new Exception("Error connecting to " + conn.getUrl()
-                            + ": SSHHandshakeException", e);
-                }
-                else
-                {
-                    SSLUtilities.trustAllHttpsCertificates();
-                    SSLUtilities.trustAllHostnames();
-                    try
-                    {
-                        HttpsURLConnection connection = (HttpsURLConnection) new URL(
-                                conn.getUrl()).openConnection();
-                        connection.setConnectTimeout(15000);
-                        connection.setReadTimeout(15000);
-                        connection.setRequestMethod("HEAD");
-                        responseCode = connection.getResponseCode();
-                    }
-                    catch (Exception e2)
-                    {
-                        throw new Exception("Error connecting to "
-                                + conn.getUrl() + ": SSHHandshakeException", e2);
-                    }
-                    throw new Exception(
-                            conn.getUrl()
-                                    + "'s Certificate is invalid. Check \"Allow Invalid Certs\" in your HPCC Connection Properties to connect.");
-                }
-            }
-            // todo: handle 401 unauthorized authentication errors, 407 proxy
-            // required auth errors
-            else
-            {
-                throw new Exception("Could not connect to " + conn.getUrl());
-            }
-        }
-        // able to connect, but invalid response code
-        if (!(200 <= responseCode && responseCode <= 399))
-        {
-            throw new Exception(conn.getUrl() + " returned HTTP Response Code " + responseCode);
-        }
-        /*
-        // able to connect to server, but could not connect to ESP
-        String status=Utility.processRequest(conn.getWorkunitStatusUrl() + "NOWORKUNIT",null,conn.userName,conn.password,conn.allowInvalidCerts);
-
-        if (!status.contains("20052"))
-         //{
-         //    return true;
-         //}
-         //else
-         //{
-            throw new Exception("Could not contact ESP on " + conn.getUrl());
-        // }
-         */
-         return true;
     }
 
     private static final int        DEFAULT_TIMEOUT             = 180 * 1000;

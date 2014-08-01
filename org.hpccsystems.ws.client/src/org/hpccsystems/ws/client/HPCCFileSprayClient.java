@@ -11,7 +11,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.ecldirect.EclDirectServiceSoapProxy;
 import org.hpccsystems.ws.client.soap.filespray.DropZone;
 import org.hpccsystems.ws.client.soap.filespray.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.soap.filespray.DropZoneFilesResponse;
@@ -50,11 +49,36 @@ public class HPCCFileSprayClient
     DropZone[] localDropZones = null;
     Connection fsconn;
 
-    public FileSprayServiceSoapProxy getSoapProxy()
+    private boolean verbose = false;
+
+    /**
+     * @param verbose - sets verbose mode
+     */
+    public void setVerbose(boolean verbose)
     {
-        return fileSprayServiceSoapProxy;
+        this.verbose = verbose;
     }
 
+    /**
+     * Provides soapproxy object for HPCCFileSprayClient which can be used to access
+     * the web service methods directly
+     * @return  soapproxy for HPCCFileSprayClient
+     * @throws Exception if soapproxy not available
+     */
+    public FileSprayServiceSoapProxy getSoapProxy() throws Exception
+    {
+        if (fileSprayServiceSoapProxy != null)
+            return fileSprayServiceSoapProxy;
+        else
+            throw new Exception("FileSpray Service Soap Proxy not available.");
+
+    }
+
+    /**
+     * Provides the WSDL URL originally used to create the underlying stub code
+     *
+     * @return original WSLD URL
+     */
     public static String getOriginalWSDLURL()
     {
         return (new org.hpccsystems.ws.client.soap.filespray.FileSprayLocator()).getFileSprayServiceSoapAddress();
@@ -72,7 +96,14 @@ public class HPCCFileSprayClient
         initWsFileSpraySoapProxy(address, user, pass);
     }
 
-    public void initWsFileSpraySoapProxy(String baseURL, String user, String pass)
+    /**
+     * Initializes the service's underlying soap proxy. Should only be used by constructors
+     *
+     * @param baseURL   Target service base URL
+     * @param user      User credentials
+     * @param pass      User credentials
+     */
+    private void initWsFileSpraySoapProxy(String baseURL, String user, String pass)
     {
         fileSprayServiceSoapProxy = new FileSprayServiceSoapProxy(baseURL + FILESPRAYWSDLURI);
 
@@ -117,14 +148,6 @@ public class HPCCFileSprayClient
         return new DelimitedDataOptions(recordTerminator, fieldDelimiter, escapeSequence, quote);
     }
 
-    private void setDropZoneInfo(String dropzoneNetAddress) throws Exception
-    {
-        if (dropzoneNetAddress == null || dropzoneNetAddress.length() == 0)
-            dropzoneNetAddress = "localhost";
-
-        localDropZones = fetchDropZones(dropzoneNetAddress);
-    }
-
     /*sample response:
      * <?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://schemas.xmlsoap.org/ws/2002/04/secext">
@@ -155,11 +178,20 @@ public class HPCCFileSprayClient
 </soap:Envelope>
      */
 
+    /**
+     * @return List of all local drop zones on target HPCC system
+     * @throws Exception
+     */
     public DropZone[] fetchLocalDropZones() throws Exception
     {
         return fetchDropZones("localhost");
     }
 
+    /**
+     * @param dropzoneNetAddress
+     * @return list of all dropzones on dropzoneNetAddress
+     * @throws Exception
+     */
     public DropZone[] fetchDropZones(String dropzoneNetAddress) throws Exception
     {
         DropZoneFilesRequest dzfr = new DropZoneFilesRequest();
@@ -436,19 +468,7 @@ public class HPCCFileSprayClient
         }
 
         return getDfuProgress(resp.getWuid());
-        /*
-        //machine=10.0.2.15
-        &sourceIP=10.0.2.15
-        &sourcePathAndFile=%2Fvar%2Flib%2FHPCCSystems%2Fmydropzone%2Feula.1028.txt
-        &sourcePath=%2Fvar%2Flib%2FHPCCSystems%2Fmydropzone%2Feula.1028.txt
-        &sourceRecordSize=343
-        &destGroup=mythor
-        &label=eula
-        &destLogicalName=eula
-        &prefix=
-        &submitBtn=Submit
-        */
-    }
+     }
 
     /**
      * Get progress report for given DFU Work Unit
@@ -552,12 +572,6 @@ public class HPCCFileSprayClient
 
             Utils.startMulti(uploadOutStream, filename, boundary, "");
 
-            // output.write((lineend+boundary+lineend).getBytes());
-            // output.write(("Content-Disposition: form-data; name=\"machine\" 10.0.2.15"+lineend).getBytes());
-            // output.write((boundary+lineend).getBytes());
-            // output.write(("Content-Disposition: form-data; name=\"FilesToUpload\"; filename=\"eula.1028.txt\" Content-Type: application/octet-stream"
-            // + lineend).getBytes());
-
             fileInput = new FileInputStream(file);
 
             byte[] bytesReadFromFile = new byte[BUFFER_LENGTH];
@@ -578,17 +592,19 @@ public class HPCCFileSprayClient
             while ((line = rreader.readLine()) != null)
                 response.append(line);
 
-            System.out.println("File upload has finished, please fetch file list to verify upload");
+            Utils.println(System.out, "File upload has finished, please fetch file list to verify upload", false, verbose);
 
         }
         catch (Exception e)
         {
             if (!fileUploadURL.equals(fileUploadConnection.getURL()))
             {
-                System.err.println("HTTP Error reported on File upload related to a server redirect, please verify on server.");
+                Utils.println(System.err, "HTTP Error reported on File upload related to a server redirect, please verify on server.", false, verbose);
             }
 
-            e.printStackTrace();
+            if (verbose)
+                e.printStackTrace();
+
             return false;
         }
         finally

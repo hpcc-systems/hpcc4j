@@ -25,6 +25,10 @@ import org.xml.sax.SAXException;
 
 public class Utils
 {
+    /**
+     * @param wsdlurl - url to web service definition
+     * @return        - version reported as ver_ parameter in url
+     */
     public static String parseVersionFromWSDLURL(String wsdlurl)
     {
         if (wsdlurl != null && wsdlurl.length() > 0)
@@ -52,91 +56,11 @@ public class Utils
             stream.print(message);
     }
 
-    /*
-    static public List <String> parceECLResultExceptions(String failedresults)
-    {
-        Utils.println(System.out, "Parsing failed ECL results...", false, false);
-        Utils.println(System.out, failedresults, true, false);
-
-        List <String> exceptions = null;
-        try
-        {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
-            Document doc = dBuilder.parse(new ByteArrayInputStream(failedresults.getBytes("UTF-8")));
-            //doc.getDocumentElement().normalize();
-
-            Utils.println(System.out, " Root element: " + doc.getDocumentElement().getNodeName(), false, false);
-
-            NodeList nList = doc.getElementsByTagName("Result");
-
-            for (int temp = 0; temp < nList.getLength(); temp++)
-            {
-                org.w3c.dom.Node nNode = nList.item(temp);
-                System.out.println("  Current Element :" + nNode.getNodeName());
-
-                if (nNode.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE)
-                {
-
-                    Element eElement = (Element) nNode;
-
-                    exceptions = new ArrayList<String>();
-
-                    NodeList datasetchildnodes = nNode.getChildNodes();
-                    for (int exceptionindex = 0; exceptionindex < datasetchildnodes.getLength(); exceptionindex++)
-                    {
-                        org.w3c.dom.Node ithexception = datasetchildnodes.item(exceptionindex);
-
-                        String exception = ithexception.getNodeName();
-                        if (exception.equalsIgnoreCase("ROW"))
-                        {
-                            row = new ArrayList<Object>();
-                            NodeList childNodes = rowelement.getChildNodes();
-                            for (int rowdataindex = 0; rowdataindex < childNodes.getLength(); rowdataindex++)
-                            {
-                                Object cell = null;
-
-                                org.w3c.dom.Node rowdataitem = childNodes.item(rowdataindex);
-
-                                NodeList childSubNodes = rowdataitem.getChildNodes();
-                                int length = childSubNodes.getLength();
-                                if (length > 1)
-                                {
-                                    cell = new ArrayList<Object>();
-                                    for (int subchildindex = 0; subchildindex < length; subchildindex++)
-                                    {
-                                        ((List<Object>)cell).add(parseECLRowResultsToList((Element)childSubNodes.item(subchildindex)));
-                                    }
-                                }
-                                else
-                                {
-                                    cell = new String(rowdataitem.getTextContent());
-                                }
-                                row.add(cell);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return exceptions;
-    }
-    */
-
+    /**
+     * populates results object (List of Object Lists) based on HPCC result set string
+     * @param results
+     * @return
+     */
     static public List<List <Object>> parseECLResults(String results)
     {
         Utils.println(System.out, "Parsing ECL results...", false, false);
@@ -249,19 +173,24 @@ public class Utils
         return row;
     }
 
+    /**
+     * Serializes results object List of Object Lists to string in table format
+     * @param resultlist
+     * @param celldelimiter
+     * @param rowdelimiter
+     * @return
+     */
     @SuppressWarnings("unchecked")
     static public String eclResultsToString(List<List<Object>> resultlist, String celldelimiter, String rowdelimiter)
     {
         StringBuilder resultstr = new StringBuilder();
 
         int rowscount = resultlist.size();
-        //for (Object row : resultlist)
         for (int rowindex = 0; rowindex < rowscount; rowindex++)
         {
             Object row = resultlist.get(rowindex);
             if (row != null)
             {
-                //for (Object cell : (List<Object>)row)
                 int rowlength = ((List<Object>)row).size();
                 for (int cellindex = 0; cellindex < rowlength; cellindex++)
                 {
@@ -368,6 +297,14 @@ public class Utils
         out.flush();
     }
 
+    /**
+     * Writes outputstream to file in local file system
+     * @param out
+     * @param name
+     * @param mimeType
+     * @param file
+     * @throws java.io.IOException
+     */
     public void writeFile(OutputStream out, String name, String mimeType, File file) throws java.io.IOException
     {
         if (file == null)
@@ -389,7 +326,6 @@ public class Utils
     /**
      * Writes a input stream's contents. If the input stream is null, a
      * <code>java.lang.IllegalArgumentException</code> will be thrown.
-
      */
     public void writeFile(OutputStream out, String boundary, String name, String mimeType, String fileName, InputStream is)    throws java.io.IOException
     {

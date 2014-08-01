@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.wsfileio.WsFileIOServiceSoapProxy;
 import org.hpccsystems.ws.client.soap.wstopology.TpCluster;
 import org.hpccsystems.ws.client.soap.wstopology.TpTargetCluster;
 import org.hpccsystems.ws.client.soap.wstopology.TpTargetClusterQueryRequest;
@@ -25,13 +24,35 @@ public class HPCCWsTopologyClient
 {
     public static final String WSTOPOLOGYWSDLURI     = "/WsTopology/TpTargetClusterQuery";
     private WsTopologyServiceSoapProxy wsTopologyServiceSoapProxy    =  null;
-    private boolean verbosemode = false;
+    private boolean verbose = false;
 
-    public WsTopologyServiceSoapProxy getSoapProxy()
+    /**
+     * @param verbose - sets verbose mode
+     */
+    public void setVerbose(boolean verbose)
     {
-        return wsTopologyServiceSoapProxy;
+        this.verbose = verbose;
     }
 
+    /**
+     * Provides soapproxy object for HPCCWsFileIOClient which can be used to access
+     * the web service methods directly
+     * @return  soapproxy for HPCCWsFileIOClient
+     * @throws Exception if wsTopologyServiceSoapProxy not available.
+     */
+    public WsTopologyServiceSoapProxy getSoapProxy() throws Exception
+    {
+        if (wsTopologyServiceSoapProxy != null)
+            return wsTopologyServiceSoapProxy;
+        else
+            throw new Exception("wsTopologyServiceSoapProxy not available.");
+    }
+
+    /**
+     * Provides the WSDL URL originally used to create the underlying stub code
+     *
+     * @return original WSLD URL
+     */
     public static String getOriginalWSDLURL()
     {
         return (new org.hpccsystems.ws.client.soap.wstopology.WsTopologyLocator()).getWsTopologyServiceSoapAddress();
@@ -53,7 +74,14 @@ public class HPCCWsTopologyClient
         initWsTopologySoapProxy(address, user, pass);
     }
 
-    public void initWsTopologySoapProxy(String baseURL, String user, String pass)
+    /**
+     * Initializes the service's underlying soap proxy. Should only be used by constructors
+     *
+     * @param baseURL   Target service base URL
+     * @param user      User credentials
+     * @param pass      User credentials
+     */
+    private void initWsTopologySoapProxy(String baseURL, String user, String pass)
     {
         wsTopologyServiceSoapProxy = new WsTopologyServiceSoapProxy(baseURL);
 

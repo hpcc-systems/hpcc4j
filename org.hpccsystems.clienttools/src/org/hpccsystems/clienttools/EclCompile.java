@@ -130,8 +130,8 @@ public class EclCompile
                 Thread.currentThread().interrupt();
             }
             String errorText = "";
+
             InputStream in = null;
-            InputStreamReader inr = null;
             BufferedReader br = null;
             try
             {
@@ -140,7 +140,6 @@ public class EclCompile
                 String lineErr;
                 while ((lineErr = br.readLine()) != null)
                 {
-                    // System.out.println("#####"+lineErr);
                     errorText += lineErr + "\r\n";
                 }
             }
@@ -190,34 +189,43 @@ public class EclCompile
 
         return results;
     }
-    
+
+    /*
+     * This is provided as an example only.
+     * Hardcoded paths must be
+     */
     public static void main (String[] args) 
     {
         List<String> imports=new ArrayList<String>();
-        imports.add("C:/workspace/github/ecl-ml");
+        imports.add("C:/path/to/include");
         
         List<String> flags=new ArrayList<String>();
         flags.add("-legacy");
         
         try
         {
-            HashMap<String,String> results=compileECL("import ml;output(ML.Docs.PorterStem('management'));)",
-                 "C:/Program Files (x86)/HPCCSystems/4.2.0/clienttools/bin",
-                 "c:/temp",
-                 imports,flags,false);
+            HashMap<String,String> results=
+                    compileECL("import ml;output(ML.Docs.PorterStem('management'));)",
+                                "c:/path/to/HPCCSystems/version/clienttools/bin",
+                                "c:/path/to/temp/dir",
+                                imports,
+                                flags,
+                                false);
         
             if (results.containsKey("Compiled ECL"))
             {
-              System.out.println("Compiled ECL:" + results.get("Compiled ECL"));
-            } else {
-              System.out.println("Error:" + results.get("Error"));
+                System.out.println("Compiled ECL:" + results.get("Compiled ECL"));
+            }
+            else
+            {
+                System.out.println("Error:" + results.get("Error"));
             }
             System.out.println("Log:" + results.get("Log"));
             System.out.println("Command Line:" + results.get("Command Line"));
         }
         catch (Exception e)
         {
-            
+            System.err.println(e.getLocalizedMessage());
         }
     }
 }

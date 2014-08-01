@@ -3,7 +3,6 @@ package org.hpccsystems.ws.client;
 import java.rmi.RemoteException;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.wstopology.WsTopologyServiceSoapProxy;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsworkunits.DebugValue;
 import org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit;
@@ -34,14 +33,36 @@ public class HPCCWsWorkUnitsClient
 {
     public static final String WSWORKUNITSWSDLURI     = "/WsWorkunits";
     private WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy    =  null;
-    private boolean verbosemode = false;
     private static final int defaultWaitTime = 10000;
+    private boolean verbose = false;
 
-    public WsWorkunitsServiceSoapProxy getSoapProxy()
+    /**
+     * @param verbose - sets verbose mode
+     */
+    public void setVerbose(boolean verbose)
     {
-        return wsWorkunitsServiceSoapProxy;
+        this.verbose = verbose;
     }
 
+    /**
+     * Provides soapproxy object for HPCCWsWorkUnitsClient which can be used to access
+     * the web service methods directly
+     * @return  soapproxy for HPCCWsWorkUnitsClient
+     * @throws Exception if soapproxy not available
+     */
+    public WsWorkunitsServiceSoapProxy getSoapProxy() throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy != null)
+            return wsWorkunitsServiceSoapProxy;
+        else
+            throw new Exception("wsTopologyServiceSoapProxy not available.");
+    }
+
+    /**
+     * Provides the WSDL URL originally used to create the underlying stub code
+     *
+     * @return original WSLD URL
+     */
     public static String getOriginalWSDLURL()
     {
         return (new org.hpccsystems.ws.client.soap.wsworkunits.WsWorkunitsLocator()).getWsWorkunitsServiceSoapAddress();
@@ -64,7 +85,14 @@ public class HPCCWsWorkUnitsClient
         initWsWorkUnitsSoapProxy(address, user, pass);
     }
 
-    public void initWsWorkUnitsSoapProxy(String baseURL, String user, String pass)
+    /**
+     * Initializes the service's underlying soap proxy. Should only be used by constructors
+     *
+     * @param baseURL   Target service base URL
+     * @param user      User credentials
+     * @param pass      User credentials
+     */
+    private void initWsWorkUnitsSoapProxy(String baseURL, String user, String pass)
     {
         wsWorkunitsServiceSoapProxy = new WsWorkunitsServiceSoapProxy(baseURL);
         if (wsWorkunitsServiceSoapProxy != null)
@@ -76,6 +104,13 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
+    /**
+     * Reports if the WU in question is in the compiled state.
+     * Makes a call to the target Web Service to extract information about the WU
+     * @param           wuid
+     * @return          true if state is compiled
+     * @throws Exception
+     */
     public boolean isWorkunitCompiled(String wuid) throws Exception
     {
         ECLWorkunit thewui = getWUInfo(wuid);
@@ -85,24 +120,49 @@ public class HPCCWsWorkUnitsClient
         return false;
     }
 
+    /**
+     * Reports if the WU in question is in the compiled state.
+     * Does not make call to the target Web Service, extracts information
+     * from the WU object
+     * @param           wuid
+     * @return          true if state is compiled
+     */
     public boolean isWorkunitCompiled(ECLWorkunit thewui)
     {
         return isWorkunitState(getStateID(thewui), WUState.COMPILED);
     }
 
+    /**
+     * Reports if the WU in question is in the failed state.
+     * Does not make call to the target Web Service, extracts information
+     * from the WU object
+     * @param           wuid
+     * @return          true if state is failed
+     */
     public boolean isWorkunitFailed(ECLWorkunit thewui)
     {
         return isWorkunitState(getStateID(thewui), WUState.FAILED);
     }
 
+    /**
+     * Reports if the string state represents the failed state
+     * @param           state
+     * @return          true if state is failed
+     */
     public boolean isWorkunitFailed(String state)
     {
         return state.equalsIgnoreCase(WUState.FAILED.toString());
     }
 
-    private boolean isWorkunitState(WUState stateID, WUState state)
+    /**
+     * Compares two WuStates
+     * @param           state1
+     * @param           state2
+     * @return          true if state1 == state2
+     */
+    private boolean isWorkunitState(WUState state1, WUState state2)
     {
-        return stateID == state;
+        return state1 == state2;
     }
 
     /**
@@ -122,11 +182,25 @@ public class HPCCWsWorkUnitsClient
         return false;
     }
 
+    /**
+     * Replies true if given wuid is in complete state.
+     * This method does not makea  call to WS, and
+     * it is preferable over the version that calls WS.
+     *
+     * @param       wuid
+     * @return      true if wu is in one of the complete states
+     * @throws Exception
+     */
     static public boolean isWorkunitComplete(ECLWorkunit thewui)
     {
         return isWorkunitComplete(getStateID(thewui));
     }
 
+    /**
+     * reports if WuState is in the completed set
+     * @param state
+     * @return true if state is in completed set
+     */
     static public boolean isWorkunitComplete(WUState state)
     {
         switch (state)
@@ -138,10 +212,25 @@ public class HPCCWsWorkUnitsClient
             case ARCHIVED:
             case COMPILED:
                 return true;
+            case ABORTING:
+            case BLOCKED:
+            case COMPILING:
+            case LAST:
+            case RUNNING:
+            case SCHEDULED:
+            case SUBMITTED:
+            case UNKNOWN:
+            case WAIT:
+            default:
+                return false;
         }
-        return false;
     }
 
+    /**
+     *
+     * @param wu the workunit
+     * @return the state of the workunit
+     */
     public static WUState getStateID(ECLWorkunit wu)
     {
         if (wu != null)
@@ -150,6 +239,11 @@ public class HPCCWsWorkUnitsClient
             return WUState.UNKNOWN;
     }
 
+    /**
+     * Converts integer representation of WU state, to WUState enumeration
+     * @param id
+     * @return WU state enumeration
+     */
     public static WUState getStateID(Integer id)
     {
         switch (id)
@@ -174,11 +268,30 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
+    /**
+     *  Attempts to create, compile and publish a query based on ecl provided.
+     *  Without setting a result limit and sets a default wait time.
+     * @param ecl
+     * @param jobname
+     * @param targetcluster
+     * @return
+     * @throws Exception
+     */
     public WUPublishWorkunitResponse publishWUFromEcl(String ecl, String jobname, String targetcluster) throws Exception
     {
         return publishWUFromEcl(ecl, jobname, targetcluster, defaultWaitTime, -1);
     }
 
+    /**
+     * Attempts to create, compile and publish a query based on ecl provided.
+     * @param ecl
+     * @param jobname
+     * @param targetcluster
+     * @param waitMillis
+     * @param resultLimit
+     * @return
+     * @throws Exception
+     */
     public WUPublishWorkunitResponse publishWUFromEcl(String ecl, String jobname, String targetcluster, int waitMillis, int resultLimit) throws Exception
     {
         WUPublishWorkunitResponse publishWUResp = null;
@@ -217,6 +330,14 @@ public class HPCCWsWorkUnitsClient
         return publishWUResp;
     }
 
+    /**
+     * Attempts to publish a query based on a given Workunit.
+     * @param wu
+     * @param jobname
+     * @param targetcluster
+     * @return
+     * @throws Exception
+     */
     public WUPublishWorkunitResponse publishWU(ECLWorkunit wu, String jobname, String targetcluster) throws Exception
     {
         WUPublishWorkunitResponse publishWUResp = null;
@@ -324,6 +445,23 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
+    /**
+     * Executes a WUQuery, based on parameters provided.
+     * If a custom WUQuery is desired, the caller can make a direct call to WUQuery based on the
+     * soapproxy for this client.
+     * @param wuid
+     * @param jobname
+     * @param cluster
+     * @param type
+     * @param sortby
+     * @param state
+     * @param endDate
+     * @param startDate
+     * @param pageStartFrom
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
     public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby, String state, String endDate, String startDate, Long pageStartFrom, Long pageSize) throws Exception
     {
         WUQueryResponse wuQueryResponse = null;
@@ -387,6 +525,17 @@ public class HPCCWsWorkUnitsClient
         return errsfound;
     }
 
+    /**
+     * Requests target HPCC System to create and compile WU based on ecl provided.
+     *
+     * @param ecl
+     * @param targetCluster
+     * @param resultLimit
+     * @param debugValues
+     * @param jobname
+     * @return
+     * @throws Exception
+     */
     public ECLWorkunit createWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debugValues, String jobname) throws Exception
     {
         ECLWorkunit createdWU = null;
@@ -607,6 +756,12 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
+    /**
+     * Creates and throws exception with exception message response from WS
+     * @param wsWUResponseExceptions
+     * @param message
+     * @throws Exception
+     */
     private void throwWsWUExceptions(ArrayOfEspException wsWUResponseExceptions, String message) throws Exception
     {
         StringBuilder multimessage = new StringBuilder();

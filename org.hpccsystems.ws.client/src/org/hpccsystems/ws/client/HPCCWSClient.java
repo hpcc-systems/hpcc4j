@@ -18,9 +18,10 @@ import org.hpccsystems.ws.client.utils.Utils;
  *
  * The HPCCWSCLient attempts to abstract out as much of the details for some of the most common
  * HPCC ESP actions. More actions, and more flexibility can be added in the future.
- * If the HPCCWSClient does not expose a desired action, it can be executed by intatiating the
- * Appropriate client.soap.<service>.<service>ServiceSoapProxy class and activating the soap request
- * directly.
+ *
+ * If neither the HPCCWSClient nor the Service specific client classes expose a desired action,
+ * it can be executed by obtaining the SoapProxy from the appropriate client, an executing the
+ * web service method request directly.
  *
  */
 public class HPCCWSClient
@@ -37,18 +38,25 @@ public class HPCCWSClient
 
     private String targetDropzoneNetAddres = null;
     private boolean verbosemode = false;
+    private Connection connection = null;
 
+    /**
+     * @return true if the client is set to be verbose
+     */
     public boolean isVerbosemode()
     {
         return verbosemode;
     }
 
+    /**
+     * sets the client verbose mode.
+     * @param verbosemode
+     *
+     */
     public void setVerbosemode(boolean verbosemode)
     {
         this.verbosemode = verbosemode;
     }
-
-    private Connection connection = null;
 
     /**
      *  Instantiates HPCCWSClient, attempts to establish all communications on http://localhost:8010
@@ -122,11 +130,19 @@ public class HPCCWSClient
         connection.setCredentials(username, password);
     }
 
+    /**
+     * Instantiates HPCCWSClient, uses contents of connection object to communicate with target HPCC System.
+     * @param conn
+     */
     public HPCCWSClient(Connection conn)
     {
         connection = conn;
     }
 
+    /**
+     * Test availability of target HPCC ESP service
+     * @param conn
+     */
     public synchronized boolean pingServer() throws Exception
     {
         initWsWorkunitsClient();
@@ -156,11 +172,20 @@ public class HPCCWSClient
         }
     }
 
+    /**
+     * Reports the version of the original WSDL used to create the HPCCFileSprayClient logic.
+     * @return Original WSDL version
+     */
     public String getFileSprayClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCFileSprayClient.getOriginalWSDLURL());
     }
 
+
+    /**
+     * @return provides fileSprayClient for direct method execution
+     * @throws Exception
+     */
     public HPCCFileSprayClient getFileSprayClient() throws Exception
     {
         initFileSprayClient();
@@ -180,11 +205,19 @@ public class HPCCWSClient
         }
     }
 
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsFileIOClient logic.
+     * @return Original WSDL version
+     */
     public String getWsFileIOClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCWsFileIOClient.getOriginalWSDLURL());
     }
 
+    /**
+     * @return provides HPCCWsFileIOClient for direct method execution
+     * @throws Exception
+     */
     public HPCCWsFileIOClient getWsFileIOClient() throws Exception
     {
         initWsFileIOClient();
@@ -204,11 +237,19 @@ public class HPCCWSClient
         }
     }
 
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsTopologyClient logic.
+     * @return Original WSDL version
+     */
     public String getWsTopologyClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCWsTopologyClient.getOriginalWSDLURL());
     }
 
+    /**
+     * @return provides HPCCWsTopologyClient object for direct method execution
+     * @throws Exception
+     */
     public HPCCWsTopologyClient getWsTopologyClient() throws Exception
     {
         initWsTopologyClient();
@@ -230,11 +271,19 @@ public class HPCCWSClient
         return eclDirectClient;
     }
 
+    /**
+     * Reports the version of the original WSDL used to create the HPCCECLDirectClient logic.
+     * @return Original WSDL version
+     */
     public String getEclDirectClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCECLDirectClient.getOriginalWSDLURL());
     }
 
+    /**
+     * @return provides HPCCECLDirectClient for direct method execution
+     * @throws Exception
+     */
     public HPCCECLDirectClient getEclDirectClient() throws Exception
     {
         initEclDirectClient();
@@ -253,11 +302,19 @@ public class HPCCWSClient
         }
     }
 
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsWorkUnitsClient logic.
+     * @return Original WSDL version
+     */
     public String getWsWorkunitsClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCWsWorkUnitsClient.getOriginalWSDLURL());
     }
 
+    /**
+     * @return provides HPCCWsWorkUnitsClient for direct method execution
+     * @throws Exception
+     */
     public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
     {
         initWsWorkunitsClient();
@@ -289,38 +346,22 @@ public class HPCCWSClient
      * Returns all the available target cluster names (mythor, myroxie, etc) given a cluster group type/name (thor, roxie, etc.)
      * @param clusterGroupType         - The cluster group type/name
      * @return                         - Names of all availabe target cluster in the given cluster group
+     * @throws Exception
      */
-    public String[] getAvailableClusterNames(String clusterGroupType)
+    public String[] getAvailableClusterNames(String clusterGroupType) throws Exception
     {
-        try
-        {
-            initWsTopologyClient();
-            return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return null;
+        initWsTopologyClient();
+        return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
     }
 
     /**
      * @return          - List of all available target cluster names (mythor, myroxie, etc) on this HPCC System
+     * @throws Exception
      */
-    public List<String> getAvailableTargetClusterNames()
+    public List<String> getAvailableTargetClusterNames() throws Exception
     {
-        try
-        {
-            initWsTopologyClient();
-            return wsTopologyClient.getValidTargetClusterNames();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return null;
+        initWsTopologyClient();
+        return wsTopologyClient.getValidTargetClusterNames();
     }
 
     /**
@@ -380,6 +421,7 @@ public class HPCCWSClient
         catch (Exception e)
         {
             Utils.println(System.out, "Error: Could not spray file", true, true);
+            success = false;
         }
 
         return success;
@@ -586,7 +628,7 @@ public class HPCCWSClient
         }
         catch (Exception e)
         {
-            System.out.println("Error submiting ECL: " + e.getLocalizedMessage());
+            Utils.println(System.err, "Error submitting ECL: " + e.getLocalizedMessage(), false, verbosemode);
             throw e;
         }
 
@@ -632,7 +674,7 @@ public class HPCCWSClient
         }
         catch (Exception e)
         {
-            System.out.println("Error submiting ECL: " + e.getLocalizedMessage());
+            System.out.println("Error submitting ECL: " + e.getLocalizedMessage());
             e.printStackTrace();
         }
 
