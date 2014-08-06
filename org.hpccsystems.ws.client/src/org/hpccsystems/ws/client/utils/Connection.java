@@ -11,6 +11,87 @@ import org.apache.axis.encoding.Base64;
 
 public class Connection
 {
+    private class Credentials
+    {
+        private String             userName     = null;
+        private String             password     = null;
+        private String             encodedCreds = null;
+        private boolean            isPopulated  = false;
+
+        public boolean isPopulated()
+        {
+            return isPopulated;
+        }
+
+        public String getUserName()
+        {
+            return userName;
+        }
+
+        public void setUserName(String username)
+        {
+            if (username != null & username.length() >0 )
+            {
+                this.userName = username;
+                encodedCreds = null;
+                if (password != null)
+                    isPopulated = true;
+                else
+                    isPopulated = false;
+            }
+        }
+
+        public String getPassword()
+        {
+            return password;
+        }
+
+        public void setPassword(String password)
+        {
+            if (password != null)
+            {
+                this.password = password;
+                encodedCreds = null;
+                if (userName != null && userName.length() > 0)
+                    isPopulated = true;
+                else
+                    isPopulated = false;
+            }
+        }
+
+        public String getEncodedCreds()
+        {
+            if (!isPopulated)
+                return null;
+            else if (encodedCreds != null && encodedCreds.length() > 0)
+                return encodedCreds;
+            else
+                return new String(Base64.encode((userName+":"+password).getBytes()));
+        }
+
+        public void setEncodedCreds(String encodedCreds)
+        {
+            if (encodedCreds != null && encodedCreds.length() > 0)
+            {
+                this.password = null;
+                this.userName = null;
+                this.encodedCreds = encodedCreds;
+                isPopulated = true;
+            }
+        }
+
+        public void setCredentials(String username, String password)
+        {
+            if (username != null && username.length() > 0 && password != null)
+            {
+                encodedCreds = null;
+                this.userName = username;
+                this.password = password;
+                isPopulated = true;
+            }
+        }
+    }
+
     public final static String protDelimiter          = "://";
     public final static char   portDelimiter          = ':';
     public final static char   pathDelimiter          = '/';
@@ -25,8 +106,7 @@ public class Connection
     private String             port;
     private String             path;
     private String[]           options;
-    private String             userName;
-    private String             password;
+    private Credentials        credentials            = null;
     private boolean            isHttps                = false;
     private boolean            allowInvalidCerts      = false;
 
@@ -62,6 +142,8 @@ public class Connection
         options = options_;
 
         constructUrl();
+
+        credentials = new Credentials();
     }
 
     private void setPort(String port_)
@@ -124,13 +206,29 @@ public class Connection
 
     public boolean hasCredentials()
     {
-        return (userName != null && password != null);
+        return credentials.isPopulated();
     }
 
+    public void setEncodedCredentials(String encodedcreds)
+    {
+        synchronized (credentials)
+        {
+            credentials.setEncodedCreds(encodedcreds);
+        }
+    }
+
+    /**
+     * @return String - "Basic " + encoded credentials, null if no credentials set
+     */
     public String getBasicAuthString()
     {
-        String userpass = userName+":"+password;
-        return "Basic " + new String(Base64.encode(userpass.getBytes()));
+        if (!credentials.isPopulated)
+            return null;
+
+        synchronized (credentials)
+        {
+            return "Basic " + credentials.getEncodedCreds();
+        }
     }
 
     public String getHost()
@@ -145,22 +243,34 @@ public class Connection
 
     public String getUserName()
     {
-        return userName;
+        synchronized (credentials)
+        {
+            return credentials.getUserName();
+        }
     }
 
     public void setUserName(String userName)
     {
-        this.userName = userName;
+        synchronized (credentials)
+        {
+            credentials.setUserName(userName);
+        }
     }
 
     public String getPassword()
     {
-        return password;
+        synchronized (credentials)
+        {
+            return credentials.getPassword();
+        }
     }
 
     public void setPassword(String password)
     {
-        this.password = password;
+        synchronized (credentials)
+        {
+            credentials.setPassword(password);
+        }
     }
 
     public String getProtocol()
@@ -185,8 +295,7 @@ public class Connection
 
     public void setCredentials(String username, String password)
     {
-        this.userName = username;
-        this.password = password;
+        credentials.setCredentials (username, password);
     }
 
     /**
