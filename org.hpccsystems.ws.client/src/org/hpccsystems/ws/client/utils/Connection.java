@@ -25,11 +25,25 @@ public class Connection
 
         public String getUserName()
         {
+        	if (this.encodedCreds != null && (this.userName==null || this.userName.equals(""))) {
+                String txt=new String(Base64.decode(encodedCreds));
+            	if (txt==null || txt.equals("") ||!txt.contains(":"))
+            	{
+            		return "";
+            	}
+            	String[] creds=txt.split(":");
+            	if (creds.length != 2)
+            	{
+            		return "";
+            	}        	
+            	return creds[0];
+        	}
             return userName;
         }
 
         public void setUserName(String username)
         {
+
             if (username != null & username.length() >0 )
             {
                 this.userName = username;
@@ -43,6 +57,19 @@ public class Connection
 
         public String getPassword()
         {
+        	if (this.encodedCreds != null && (this.password==null|| this.password.equals(""))) {
+                String txt=new String(Base64.decode(encodedCreds));
+            	if (txt==null || txt.equals("") ||!txt.contains(":"))
+            	{
+            		return "";
+            	}
+            	String[] creds=txt.split(":");
+            	if (creds.length != 2)
+            	{
+            		return "";
+            	}        	
+            	return creds[1];
+        	}
             return password;
         }
 
@@ -383,6 +410,22 @@ public class Connection
 
     private static final int        DEFAULT_TIMEOUT             = 180 * 1000;
     private static final boolean    DEFAULT_MAINTAIN_SESSION    = true;
+    
+    public static void initStub(Stub stub,String encodedCredentials) throws Exception
+    {
+    	String txt=new String(Base64.decode(encodedCredentials));
+    	if (txt==null || txt.equals("") ||!txt.contains(":"))
+    	{
+    		throw new Exception("Invalid auth credentials: should be base-64-encoded <username>:<password>");
+    	}
+    	String[] creds=txt.split(":");
+    	if (creds.length != 2)
+    	{
+    		throw new Exception("Invalid auth credentials: <username>:<password>");
+    	}
+    	
+        initStub(stub, creds[0], creds[1], DEFAULT_TIMEOUT);
+    }
     public static void initStub(Stub stub, String user, String password)
     {
         initStub(stub, user, password, DEFAULT_TIMEOUT);
