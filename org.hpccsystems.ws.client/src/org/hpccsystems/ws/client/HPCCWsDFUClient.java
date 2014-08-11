@@ -1,15 +1,18 @@
 package org.hpccsystems.ws.client;
 
 import java.io.FileNotFoundException;
+import java.io.StringBufferInputStream;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.axis.client.Stub;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.hpccsystems.ws.client.soap.wsdfu.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataRequest;
 import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataResponse;
@@ -22,6 +25,10 @@ import org.hpccsystems.ws.client.soap.wsdfu.WsDfuServiceSoap;
 import org.hpccsystems.ws.client.soap.wsdfu.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Use as soap client for HPCC WsDFU web service.
@@ -102,9 +109,10 @@ public class HPCCWsDFUClient {
 	 * @return an XML Element object holding the <Row> elements containing data.
 	 * @throws Exception
 	 */
-	public Element getFileData(String logicalname, Long beginrow,
+	public NodeList getFileData(String logicalname, Long beginrow,
 			Integer numrows, String clustername) throws Exception {
 		WsDfuServiceSoapProxy proxy = getSoapProxy();
+        Node dataset=null;
 		DFUBrowseDataRequest req = new DFUBrowseDataRequest();
 		req.setLogicalName(logicalname);
 		if (clustername != null) {
@@ -120,27 +128,31 @@ public class HPCCWsDFUClient {
 		req.setCount(numrows);
 
 		try {
+		    
 			DFUBrowseDataResponse resp = proxy.DFUBrowseData(req);
 			if (resp == null) {
 				return null;
 			}
 			String xmlresult = resp.getResult();
-			SAXReader reader = new SAXReader();
 			if (!xmlresult.contains("<" + DATASET_ELEMENT)) {
 				return null;
 			}
 			xmlresult = xmlresult.substring(xmlresult.indexOf("<"
 					+ DATASET_ELEMENT));
-			Element dataset = null;
 			try {
-				Document newNodeDocument = reader.read(new StringReader(
-						xmlresult));
-				dataset = newNodeDocument.getRootElement();
+			    DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+			    DocumentBuilder db=dbf.newDocumentBuilder();
+			    @SuppressWarnings("deprecation")
+                Document dom=db.parse(new StringBufferInputStream(xmlresult));
+			    NodeList ds=dom.getDocumentElement().getElementsByTagName(ROW_ELEMENT);
+			    if (ds != null && ds.getLength()>0) {
+			        return ds;
+			    }
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-			return dataset;
+			return null;
 		} catch (ArrayOfEspException e) {
 			if (e != null) {
 				for (org.hpccsystems.ws.client.soap.wsdfu.EspException espexception : e
@@ -409,9 +421,10 @@ public class HPCCWsDFUClient {
 	 */
 	public String getFirstRow(String datasetname, String clustername)
 			throws Exception {
-		Element rowdata = getFileData(datasetname, (long) 1, 1, clustername);
-		if (rowdata != null && rowdata.element(ROW_ELEMENT) != null) {
-			String firstrow = rowdata.element(ROW_ELEMENT).getStringValue();
+		NodeList rowdata = getFileData(datasetname, (long) 1, 1, clustername);
+		if (rowdata != null && rowdata.getLength()>0)
+		    {
+		    String firstrow = rowdata.item(0).getTextContent();
 			if (firstrow != null) {
 				return firstrow;
 			}
