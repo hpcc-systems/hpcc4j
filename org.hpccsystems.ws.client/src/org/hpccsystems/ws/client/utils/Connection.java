@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 
 import org.apache.axis.client.Stub;
 import org.apache.axis.encoding.Base64;
+import org.apache.axis.utils.StringUtils;
 
 public class Connection
 {
@@ -15,7 +16,6 @@ public class Connection
     {
         private String             userName     = null;
         private String             password     = null;
-        private String             encodedCreds = null;
         private boolean            isPopulated  = false;
 
         public boolean isPopulated()
@@ -33,7 +33,6 @@ public class Connection
             if (username != null & username.length() >0 )
             {
                 this.userName = username;
-                encodedCreds = null;
                 if (password != null)
                     isPopulated = true;
                 else
@@ -51,7 +50,6 @@ public class Connection
             if (password != null)
             {
                 this.password = password;
-                encodedCreds = null;
                 if (userName != null && userName.length() > 0)
                     isPopulated = true;
                 else
@@ -63,19 +61,23 @@ public class Connection
         {
             if (!isPopulated)
                 return null;
-            else if (encodedCreds != null && encodedCreds.length() > 0)
-                return encodedCreds;
             else
                 return new String(Base64.encode((userName+":"+password).getBytes()));
         }
 
-        public void setEncodedCreds(String encodedCreds)
+        public void setEncodedCreds(String encodedCreds) throws Exception
         {
             if (encodedCreds != null && encodedCreds.length() > 0)
             {
                 this.password = null;
                 this.userName = null;
-                this.encodedCreds = encodedCreds;
+                String credstring=new String(Base64.decode(encodedCreds));
+                String[] creds=StringUtils.split(credstring, ':');
+                if (creds.length != 2) {
+                	throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
+                }
+                this.userName=creds[0];
+                this.password=creds[1];                
                 isPopulated = true;
             }
         }
@@ -84,7 +86,6 @@ public class Connection
         {
             if (username != null && username.length() > 0 && password != null)
             {
-                encodedCreds = null;
                 this.userName = username;
                 this.password = password;
                 isPopulated = true;
@@ -209,7 +210,7 @@ public class Connection
         return credentials.isPopulated();
     }
 
-    public void setEncodedCredentials(String encodedcreds)
+    public void setEncodedCredentials(String encodedcreds) throws Exception
     {
         synchronized (credentials)
         {
