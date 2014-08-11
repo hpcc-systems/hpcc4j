@@ -4,14 +4,16 @@ package org.hpccsystems.ws.client;
 public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit implements Comparable<org.hpccsystems.ws.client.ECLWorkunit> {
 	
 	/**
-	 * 
+	 * Serial version UID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Create an ECL workunit from a axis-generated soap class ECL Workunit
 	 * @param base
 	 */
-	public ECLWorkunit(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base) {
+	public ECLWorkunit(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base) 
+	{
 		copy(base);
 	}
 	
@@ -19,7 +21,8 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	public int compareTo(org.hpccsystems.ws.client.ECLWorkunit o) {
+	public int compareTo(org.hpccsystems.ws.client.ECLWorkunit o) 
+	{
 		// TODO Auto-generated method stub
 		if (o==null || o.getWuid()==null) {
 			return 0;
@@ -33,8 +36,8 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	public String toString() {
-		
+	public String toString() 
+	{	
 		StringBuilder sb=new StringBuilder();
 		sb.append("wuid:").append(String.valueOf(getWuid())).append("\n");
 		sb.append("owner:").append(String.valueOf(getOwner())).append("\n");
@@ -79,15 +82,7 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 		sb.append("applicationValuesDesc:").append(String.valueOf(getApplicationValuesDesc())).append("\n");
 		sb.append("workflowsDesc:").append(String.valueOf(getWorkflowsDesc())).append("\n");
 		sb.append("hasArchiveQuery:").append(String.valueOf(this.getHasArchiveQuery())).append("\n");
-		//TODO: include the content of the below objects in tostring
-				//private org.hpccsystems.ws.client.soap.wsworkunits.ECLException[] exceptions:").append(String.valueOf()).append("\n");
-				//private org.hpccsystems.ws.client.soap.wsworkunits.ECLSourceFile[] sourceFiles:").append(String.valueOf()).append("\n");
-				//private org.hpccsystems.ws.client.soap.wsworkunits.ECLResult[] results:").append(String.valueOf()).append("\n");
-				//private org.hpccsystems.ws.client.soap.wsworkunits.ECLResult[] variables:").append(String.valueOf()).append("\n");
-				//private org.hpccsystems.ws.client.soap.wsworkunits.DebugValue[] debugValues:").append(String.valueOf()).append("\n");
-				//private org.hpccsystems.ws.client.soap.wsworkunits.ApplicationValue[] applicationValues:").append(String.valueOf()).append("\n");
-				//private java.lang.String[] allowedClusters:").append(String.valueOf(allowedClusters)).append("\n");
-				
+		//TODO: include the content of unappended objects to the string
 		return sb.toString();
 	}
 
@@ -95,7 +90,8 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	 * Copy a soap ecl workunit object into the wrapper
 	 * @param base
 	 */
-	private void copy(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base) {
+	private void copy(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base) 
+	{
 		this.setWuid(base.getWuid());
 		this.setOwner(base.getOwner());
 		this.setCluster(base.getCluster());
