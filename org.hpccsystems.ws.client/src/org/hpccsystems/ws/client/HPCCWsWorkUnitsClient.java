@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
@@ -568,6 +569,60 @@ public class HPCCWsWorkUnitsClient
 
         return createdWU;
     }
+    
+	/**
+	 * @param jobName the pattern to find in the jobname (wildcard * matches multiple jobnames)
+	 * @param owner - hpcc owner of the job
+	 * @param ecl - text in the ecl
+	 * @return an ArrayList<ECLWorkunit> of matching workunits
+	 * @throws Exception 
+	 */
+	public ArrayList<ECLWorkunit> getWorkunits(String jobName, String owner, String ecl) throws Exception 
+	{
+		ArrayList<ECLWorkunit> wks=new ArrayList<ECLWorkunit>();
+		WsWorkunitsServiceSoapProxy proxy=null;
+		try 
+		{
+			proxy=getSoapProxy();
+		}	catch (Exception e) 
+		{
+			return wks;
+		}
+		WUQuery params=new WUQuery();
+		if (jobName != null) 
+		{
+			params.setJobname(jobName);
+		}
+
+		if (owner != null) 
+		{
+			params.setOwner(owner);
+		}
+
+		if (ecl != null) 
+		{
+			params.setECL(ecl);
+		}
+		try {
+			WUQueryResponse result=proxy.getWsWorkunitsServiceSoap().WUQuery(params);
+			org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit[] ecls=result.getWorkunits();
+			if (ecls==null) 
+			{
+				return wks;
+			}
+			for (int i=0; i < ecls.length; i++) 
+			{
+				wks.add(new ECLWorkunit(ecls[i]));
+			}
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+			throw e;
+		}
+		return wks;
+		
+	}
+	
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
