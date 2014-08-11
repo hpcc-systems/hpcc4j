@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
@@ -30,13 +31,14 @@ import org.hpccsystems.ws.client.utils.WUState;
  */
 public class HPCCWsWorkUnitsClient
 {
-    public static final String WSWORKUNITSWSDLURI     = "/WsWorkunits";
-    private WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy    =  null;
-    private static final int defaultWaitTime = 10000;
-    private boolean verbose = false;
+    public static final String          WSWORKUNITSWSDLURI          = "/WsWorkunits";
+    private WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy = null;
+    private static final int            defaultWaitTime             = 10000;
+    private boolean                     verbose                     = false;
 
     /**
-     * @param verbose - sets verbose mode
+     * @param verbose
+     *            - sets verbose mode
      */
     public void setVerbose(boolean verbose)
     {
@@ -44,10 +46,11 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * Provides soapproxy object for HPCCWsWorkUnitsClient which can be used to access
-     * the web service methods directly
-     * @return  soapproxy for HPCCWsWorkUnitsClient
-     * @throws Exception if soapproxy not available
+     * Provides soapproxy object for HPCCWsWorkUnitsClient which can be used to access the web service methods directly
+     * 
+     * @return soapproxy for HPCCWsWorkUnitsClient
+     * @throws Exception
+     *             if soapproxy not available
      */
     public WsWorkunitsServiceSoapProxy getSoapProxy() throws Exception
     {
@@ -74,7 +77,8 @@ public class HPCCWsWorkUnitsClient
 
     public HPCCWsWorkUnitsClient(Connection baseConnection)
     {
-       this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
+        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection
+                .getUserName(), baseConnection.getPassword());
     }
 
     public HPCCWsWorkUnitsClient(String protocol, String targetHost, String targetPort, String user, String pass)
@@ -87,44 +91,46 @@ public class HPCCWsWorkUnitsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL   Target service base URL
-     * @param user      User credentials
-     * @param pass      User credentials
+     * @param baseURL
+     *            Target service base URL
+     * @param user
+     *            User credentials
+     * @param pass
+     *            User credentials
      */
     private void initWsWorkUnitsSoapProxy(String baseURL, String user, String pass)
     {
         wsWorkunitsServiceSoapProxy = new WsWorkunitsServiceSoapProxy(baseURL);
         if (wsWorkunitsServiceSoapProxy != null)
         {
-                WsWorkunitsServiceSoap wsWorkunitsServiceSoap = wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap();
+            WsWorkunitsServiceSoap wsWorkunitsServiceSoap = wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap();
 
-                if (user != null && pass != null)
-                    Connection.initStub((Stub) wsWorkunitsServiceSoap, user, pass);
+            if (user != null && pass != null) Connection.initStub((Stub) wsWorkunitsServiceSoap, user, pass);
         }
     }
 
     /**
-     * Reports if the WU in question is in the compiled state.
-     * Makes a call to the target Web Service to extract information about the WU
-     * @param           wuid
-     * @return          true if state is compiled
+     * Reports if the WU in question is in the compiled state. Makes a call to the target Web Service to extract
+     * information about the WU
+     * 
+     * @param wuid
+     * @return true if state is compiled
      * @throws Exception
      */
     public boolean isWorkunitCompiled(String wuid) throws Exception
     {
         ECLWorkunit thewui = getWUInfo(wuid);
-        if (thewui != null)
-            return isWorkunitCompiled(thewui);
+        if (thewui != null) return isWorkunitCompiled(thewui);
 
         return false;
     }
 
     /**
-     * Reports if the WU in question is in the compiled state.
-     * Does not make call to the target Web Service, extracts information
-     * from the WU object
-     * @param           wuid
-     * @return          true if state is compiled
+     * Reports if the WU in question is in the compiled state. Does not make call to the target Web Service, extracts
+     * information from the WU object
+     * 
+     * @param wuid
+     * @return true if state is compiled
      */
     public boolean isWorkunitCompiled(ECLWorkunit thewui)
     {
@@ -132,11 +138,11 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * Reports if the WU in question is in the failed state.
-     * Does not make call to the target Web Service, extracts information
-     * from the WU object
-     * @param           wuid
-     * @return          true if state is failed
+     * Reports if the WU in question is in the failed state. Does not make call to the target Web Service, extracts
+     * information from the WU object
+     * 
+     * @param wuid
+     * @return true if state is failed
      */
     public boolean isWorkunitFailed(ECLWorkunit thewui)
     {
@@ -145,8 +151,9 @@ public class HPCCWsWorkUnitsClient
 
     /**
      * Reports if the string state represents the failed state
-     * @param           state
-     * @return          true if state is failed
+     * 
+     * @param state
+     * @return true if state is failed
      */
     public boolean isWorkunitFailed(String state)
     {
@@ -155,9 +162,10 @@ public class HPCCWsWorkUnitsClient
 
     /**
      * Compares two WuStates
-     * @param           state1
-     * @param           state2
-     * @return          true if state1 == state2
+     * 
+     * @param state1
+     * @param state2
+     * @return true if state1 == state2
      */
     private boolean isWorkunitState(WUState state1, WUState state2)
     {
@@ -165,8 +173,8 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * Replies true if given wuid is in complete state.
-     * This method makes call to WS, it is preferable to use WU object version
+     * Replies true if given wuid is in complete state. This method makes call to WS, it is preferable to use WU object
+     * version
      *
      * @param wuid
      * @return
@@ -175,19 +183,17 @@ public class HPCCWsWorkUnitsClient
     public boolean isWorkunitComplete(String wuid) throws Exception
     {
         ECLWorkunit thewui = getWUInfo(wuid);
-        if (thewui != null)
-            return isWorkunitComplete(thewui);
+        if (thewui != null) return isWorkunitComplete(thewui);
 
         return false;
     }
 
     /**
-     * Replies true if given wuid is in complete state.
-     * This method does not makea  call to WS, and
-     * it is preferable over the version that calls WS.
+     * Replies true if given wuid is in complete state. This method does not makea call to WS, and it is preferable over
+     * the version that calls WS.
      *
-     * @param       wuid
-     * @return      true if wu is in one of the complete states
+     * @param wuid
+     * @return true if wu is in one of the complete states
      * @throws Exception
      */
     static public boolean isWorkunitComplete(ECLWorkunit thewui)
@@ -197,6 +203,7 @@ public class HPCCWsWorkUnitsClient
 
     /**
      * reports if WuState is in the completed set
+     * 
      * @param state
      * @return true if state is in completed set
      */
@@ -227,7 +234,8 @@ public class HPCCWsWorkUnitsClient
 
     /**
      *
-     * @param wu the workunit
+     * @param wu
+     *            the workunit
      * @return the state of the workunit
      */
     public static WUState getStateID(ECLWorkunit wu)
@@ -240,6 +248,7 @@ public class HPCCWsWorkUnitsClient
 
     /**
      * Converts integer representation of WU state, to WUState enumeration
+     * 
      * @param id
      * @return WU state enumeration
      */
@@ -247,42 +256,62 @@ public class HPCCWsWorkUnitsClient
     {
         switch (id)
         {
-            case 1:     return WUState.COMPILED;
-            case 2:     return WUState.RUNNING;
-            case 3:     return WUState.COMPLETED;
-            case 4:     return WUState.FAILED;
-            case 5:     return WUState.ARCHIVED;
-            case 6:     return WUState.ABORTING;
-            case 7:     return WUState.ABORTED;
-            case 8:     return WUState.BLOCKED;
-            case 9:     return WUState.SUBMITTED;
-            case 10:    return WUState.SCHEDULED;
-            case 11:    return WUState.COMPILING;
-            case 12:    return WUState.WAIT;
-            case 13:    return WUState.WAIT;
-            case 14:    return WUState.WAIT;
-            case 15:    return WUState.RUNNING;
-            case 999:   return WUState.UNKNOWN_ONSERVER;
-            default:    return WUState.UNKNOWN;
+            case 1:
+                return WUState.COMPILED;
+            case 2:
+                return WUState.RUNNING;
+            case 3:
+                return WUState.COMPLETED;
+            case 4:
+                return WUState.FAILED;
+            case 5:
+                return WUState.ARCHIVED;
+            case 6:
+                return WUState.ABORTING;
+            case 7:
+                return WUState.ABORTED;
+            case 8:
+                return WUState.BLOCKED;
+            case 9:
+                return WUState.SUBMITTED;
+            case 10:
+                return WUState.SCHEDULED;
+            case 11:
+                return WUState.COMPILING;
+            case 12:
+                return WUState.WAIT;
+            case 13:
+                return WUState.WAIT;
+            case 14:
+                return WUState.WAIT;
+            case 15:
+                return WUState.RUNNING;
+            case 999:
+                return WUState.UNKNOWN_ONSERVER;
+            default:
+                return WUState.UNKNOWN;
         }
     }
 
     /**
-     *  Attempts to create, compile and publish a query based on ecl provided.
-     *  Without setting a result limit and sets a default wait time.
+     * Attempts to create, compile and publish a query based on ecl provided. Without setting a result limit and sets a
+     * default wait time.
+     * 
      * @param ecl
      * @param jobname
      * @param targetcluster
      * @return
      * @throws Exception
      */
-    public WUPublishWorkunitResponse publishWUFromEcl(String ecl, String jobname, String targetcluster) throws Exception
+    public WUPublishWorkunitResponse publishWUFromEcl(String ecl, String jobname, String targetcluster)
+            throws Exception
     {
         return publishWUFromEcl(ecl, jobname, targetcluster, defaultWaitTime, -1);
     }
 
     /**
      * Attempts to create, compile and publish a query based on ecl provided.
+     * 
      * @param ecl
      * @param jobname
      * @param targetcluster
@@ -291,7 +320,8 @@ public class HPCCWsWorkUnitsClient
      * @return
      * @throws Exception
      */
-    public WUPublishWorkunitResponse publishWUFromEcl(String ecl, String jobname, String targetcluster, int waitMillis, int resultLimit) throws Exception
+    public WUPublishWorkunitResponse publishWUFromEcl(String ecl, String jobname, String targetcluster, int waitMillis,
+            int resultLimit) throws Exception
     {
         WUPublishWorkunitResponse publishWUResp = null;
 
@@ -307,18 +337,18 @@ public class HPCCWsWorkUnitsClient
             {
                 Thread.sleep(waitMillis);
             }
-            catch(InterruptedException e)
+            catch (InterruptedException e)
             {
                 e.printStackTrace();
             }
 
-            submitWU(eclwu.getWuid(), targetcluster); //if no exception proceed
+            submitWU(eclwu.getWuid(), targetcluster); // if no exception proceed
 
             try
             {
                 Thread.sleep(waitMillis);
             }
-            catch(InterruptedException e)
+            catch (InterruptedException e)
             {
                 e.printStackTrace();
             }
@@ -331,6 +361,7 @@ public class HPCCWsWorkUnitsClient
 
     /**
      * Attempts to publish a query based on a given Workunit.
+     * 
      * @param wu
      * @param jobname
      * @param targetcluster
@@ -351,7 +382,7 @@ public class HPCCWsWorkUnitsClient
             publishWU.setJobName(jobname);
             publishWU.setWuid(wu.getWuid());
             publishWU.setCluster(targetcluster);
-            publishWU.setActivate((int)1);
+            publishWU.setActivate((int) 1);
 
             publishWUResp = wsWorkunitsServiceSoapProxy.WUPublishWorkunit(publishWU);
 
@@ -368,9 +399,11 @@ public class HPCCWsWorkUnitsClient
     /**
      * Get information about a given WorkUnit
      *
-     * @param wuid         - ID of target workunit
-     * @return             - ECLWorkunit object with information pertaining to the WU
-     * @throws Exception   - Caller must handle exceptions
+     * @param wuid
+     *            - ID of target workunit
+     * @return - ECLWorkunit object with information pertaining to the WU
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     public ECLWorkunit getWUInfo(String wuid) throws Exception
     {
@@ -405,12 +438,12 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * This method queries WU information using a bogus WUID. Used as a mechanism for testing
-     * connectivity with HPCC ESP.
-     * Temporarily increases timeout value to 3 seconds;
+     * This method queries WU information using a bogus WUID. Used as a mechanism for testing connectivity with HPCC
+     * ESP. Temporarily increases timeout value to 3 seconds;
      *
-     * @return             - true if able to reply is received within timout value of 3 secs, false otherwise
-     * @throws Exception   - Caller must handle exceptions
+     * @return - true if able to reply is received within timout value of 3 secs, false otherwise
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
 
     public boolean testWUQuery() throws Exception
@@ -426,7 +459,8 @@ public class HPCCWsWorkUnitsClient
             {
                 oldTimeout = ((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getTimeout();
 
-                ((org.apache.axis.client.Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).setTimeout(3 * 1000);
+                ((org.apache.axis.client.Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap())
+                        .setTimeout(3 * 1000);
 
                 wsWorkunitsServiceSoapProxy.WUQuery(request);
                 return true;
@@ -438,16 +472,17 @@ public class HPCCWsWorkUnitsClient
             finally
             {
                 if (oldTimeout != -1)
-                ((org.apache.axis.client.Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).setTimeout(oldTimeout);
+                    ((org.apache.axis.client.Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap())
+                            .setTimeout(oldTimeout);
             }
             return false;
         }
     }
 
     /**
-     * Executes a WUQuery, based on parameters provided.
-     * If a custom WUQuery is desired, the caller can make a direct call to WUQuery based on the
-     * soapproxy for this client.
+     * Executes a WUQuery, based on parameters provided. If a custom WUQuery is desired, the caller can make a direct
+     * call to WUQuery based on the soapproxy for this client.
+     * 
      * @param wuid
      * @param jobname
      * @param cluster
@@ -461,7 +496,8 @@ public class HPCCWsWorkUnitsClient
      * @return
      * @throws Exception
      */
-    public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby, String state, String endDate, String startDate, Long pageStartFrom, Long pageSize) throws Exception
+    public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
+            String state, String endDate, String startDate, Long pageStartFrom, Long pageSize) throws Exception
     {
         WUQueryResponse wuQueryResponse = null;
         if (wsWorkunitsServiceSoapProxy == null)
@@ -469,26 +505,16 @@ public class HPCCWsWorkUnitsClient
         else
         {
             WUQuery request = new WUQuery();
-            if (cluster != null)
-                request.setCluster(cluster);
-            if (type != null)
-                request.setType(type);
-            if (sortby != null)
-                request.setSortby(sortby);
-            if (pageStartFrom != null)
-                request.setPageStartFrom(pageStartFrom);
-            if (pageSize != null)
-                request.setPageSize(pageSize);
-            if (state != null)
-                request.setState(state);
-            if (startDate != null)
-                request.setStartDate(startDate);
-            if (endDate != null)
-                request.setEndDate(endDate);
-            if (wuid != null)
-                request.setWuid(wuid);
-            if (jobname != null)
-                request.setJobname(jobname);
+            if (cluster != null) request.setCluster(cluster);
+            if (type != null) request.setType(type);
+            if (sortby != null) request.setSortby(sortby);
+            if (pageStartFrom != null) request.setPageStartFrom(pageStartFrom);
+            if (pageSize != null) request.setPageSize(pageSize);
+            if (state != null) request.setState(state);
+            if (startDate != null) request.setStartDate(startDate);
+            if (endDate != null) request.setEndDate(endDate);
+            if (wuid != null) request.setWuid(wuid);
+            if (jobname != null) request.setJobname(jobname);
 
             try
             {
@@ -499,27 +525,28 @@ public class HPCCWsWorkUnitsClient
                     throwWsWUExceptions(arrayOfEspException, "Error in WU query");
                 }
             }
-            catch (Exception e){}
+            catch (Exception e)
+            {}
         }
 
         return wuQueryResponse;
     }
 
     /**
-     * This method queries information about a given WU and answers if the WU
-     * has reported errors.
+     * This method queries information about a given WU and answers if the WU has reported errors.
      *
-     * @param wuid         - The ID of the target workunit
-     * @return             - true if errors present
-     * @throws Exception   - Caller must handle exceptions
+     * @param wuid
+     *            - The ID of the target workunit
+     * @return - true if errors present
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     public boolean doesWUContainErrors(String wuid) throws Exception
     {
         boolean errsfound = true;
         ECLWorkunit workunit = getWUInfo(wuid);
 
-        if (workunit != null)
-            errsfound = workunit.getErrorCount().intValue() <= 0;
+        if (workunit != null) errsfound = workunit.getErrorCount().intValue() <= 0;
 
         return errsfound;
     }
@@ -535,7 +562,8 @@ public class HPCCWsWorkUnitsClient
      * @return
      * @throws Exception
      */
-    public ECLWorkunit createWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debugValues, String jobname) throws Exception
+    public ECLWorkunit createWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debugValues,
+            String jobname) throws Exception
     {
         ECLWorkunit createdWU = null;
 
@@ -548,12 +576,10 @@ public class HPCCWsWorkUnitsClient
             wucreateparameters.setQueryText(ecl);
             wucreateparameters.setClusterOrig(targetCluster);
             wucreateparameters.setResultLimit(resultLimit);
-            if (jobname != null)
-                wucreateparameters.setJobname(jobname);
-            if (debugValues != null)
-                wucreateparameters.setDebugValues(debugValues);
+            if (jobname != null) wucreateparameters.setJobname(jobname);
+            if (debugValues != null) wucreateparameters.setDebugValues(debugValues);
 
-            WUUpdateResponse wuUpdateResponse = wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters );
+            WUUpdateResponse wuUpdateResponse = wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters);
 
             ArrayOfEspException exceptions = wuUpdateResponse.getExceptions();
             if (exceptions == null)
@@ -568,13 +594,71 @@ public class HPCCWsWorkUnitsClient
 
         return createdWU;
     }
+
+    /**
+     * @param jobName
+     *            the pattern to find in the jobname (wildcard * matches multiple jobnames)
+     * @param owner
+     *            - hpcc owner of the job
+     * @param ecl
+     *            - text in the ecl
+     * @return an ArrayList<ECLWorkunit> of matching workunits
+     * @throws Exception
+     */
+    public ArrayList<ECLWorkunit> getWorkunits(String jobName, String owner, String ecl) throws Exception
+    {
+        ArrayList<ECLWorkunit> wks = new ArrayList<ECLWorkunit>();
+        WsWorkunitsServiceSoapProxy proxy = null;
+        proxy = getSoapProxy();
+
+        WUQuery params = new WUQuery();
+        if (jobName != null)
+        {
+
+            params.setJobname(jobName);
+        }
+
+        if (owner != null)
+        {
+            params.setOwner(owner);
+        }
+
+        if (ecl != null)
+        {
+            params.setECL(ecl);
+        }
+        try
+        {
+            WUQueryResponse result = proxy.getWsWorkunitsServiceSoap().WUQuery(params);
+            org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit[] ecls = result.getWorkunits();
+            if (ecls == null)
+            {
+                return wks;
+            }
+            for (int i = 0; i < ecls.length; i++)
+            {
+                wks.add(new ECLWorkunit(ecls[i]));
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw e;
+        }
+        return wks;
+
+    }
+
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl                 - The ecl query to compile/run
-     * @param targetCluster       - The cluster where the ecl is to be compiled/run
-     * @return                    - Object with WU information
-     * @throws Exception          - Caller must handle exceptions
+     * @param ecl
+     *            - The ecl query to compile/run
+     * @param targetCluster
+     *            - The cluster where the ecl is to be compiled/run
+     * @return - Object with WU information
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     public ECLWorkunit createWUFromECL(String ecl, String targetCluster, int resultLimit) throws Exception
     {
@@ -584,10 +668,13 @@ public class HPCCWsWorkUnitsClient
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl                 - The ecl query to compile/run
-     * @param targetCluster       - The cluster where the ecl is to be compiled/run
-     * @return                    - Object with WU information
-     * @throws Exception          - Caller must handle exceptions
+     * @param ecl
+     *            - The ecl query to compile/run
+     * @param targetCluster
+     *            - The cluster where the ecl is to be compiled/run
+     * @return - Object with WU information
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     public ECLWorkunit compileWUFromECL(String ecl, String targetCluster, int resultLimit) throws Exception
     {
@@ -595,8 +682,7 @@ public class HPCCWsWorkUnitsClient
         ECLWorkunit createdWU = createWUFromECL(ecl, targetCluster, resultLimit);
 
         if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null)
-            submitWU(createdWU.getWuid(), targetCluster); //if no exception proceed
-
+            submitWU(createdWU.getWuid(), targetCluster); // if no exception proceed
 
         return createdWU;
     }
@@ -604,10 +690,13 @@ public class HPCCWsWorkUnitsClient
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl                 - The ecl query to compile/run
-     * @param targetCluster       - The cluster where the ecl is to be compiled/run
-     * @return                    - Object with WU information
-     * @throws Exception          - Caller must handle exceptions
+     * @param ecl
+     *            - The ecl query to compile/run
+     * @param targetCluster
+     *            - The cluster where the ecl is to be compiled/run
+     * @return - Object with WU information
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     public void submitWU(String wuid, String targetCluster) throws Exception
     {
@@ -632,11 +721,15 @@ public class HPCCWsWorkUnitsClient
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl                 - The ecl query to compile/run
-     * @param targetCluster       - The cluster where the ecl is to be compiled/run
-     * @param resultLimit         - Limit on results
-     * @return                    - Object with WU information
-     * @throws Exception          - Caller must handle exceptions
+     * @param ecl
+     *            - The ecl query to compile/run
+     * @param targetCluster
+     *            - The cluster where the ecl is to be compiled/run
+     * @param resultLimit
+     *            - Limit on results
+     * @return - Object with WU information
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     private WURunResponse createAndRunWUFromECL(String ecl, String targetCluster, int resultLimit) throws Exception
     {
@@ -653,7 +746,7 @@ public class HPCCWsWorkUnitsClient
             {
                 Thread.sleep(10000);
             }
-            catch(InterruptedException e)
+            catch (InterruptedException e)
             {
                 e.printStackTrace();
             }
@@ -665,7 +758,7 @@ public class HPCCWsWorkUnitsClient
                 runparameters.setWuid(compiledWU.getWuid());
                 runparameters.setCluster(targetCluster);
 
-                wuRunResponse = wsWorkunitsServiceSoapProxy.WURun(runparameters );
+                wuRunResponse = wsWorkunitsServiceSoapProxy.WURun(runparameters);
 
                 ArrayOfEspException exceptions = wuRunResponse.getExceptions();
                 if (exceptions != null)
@@ -684,35 +777,43 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * Given an ECL query, this method will create a WU, compile and run it, and
-     * return results in String object - Not recommended for large resultsets.
+     * Given an ECL query, this method will create a WU, compile and run it, and return results in String object - Not
+     * recommended for large resultsets.
      *
-     * @param ecl                 - The ecl query to compile/run
-     * @param targetCluster       - The cluster where the ecl is to be compiled/run
-     * @param resultLimit         - Limit on results
-     * @return                    - Object with WU information
-     * @throws Exception          - Caller must handle exceptions
+     * @param ecl
+     *            - The ecl query to compile/run
+     * @param targetCluster
+     *            - The cluster where the ecl is to be compiled/run
+     * @param resultLimit
+     *            - Limit on results
+     * @return - Object with WU information
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
-    public String createAndRunWUFromECLAndGetResults(String ecl, String targetCluster, int resultLimit) throws Exception
+    public String createAndRunWUFromECLAndGetResults(String ecl, String targetCluster, int resultLimit)
+            throws Exception
     {
         WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit);
 
         ArrayOfEspException exceptions = createAndRunWUFromECL.getExceptions();
-        if (exceptions != null)
-            throwWsWUExceptions(exceptions, "Results contains errors!");
+        if (exceptions != null) throwWsWUExceptions(exceptions, "Results contains errors!");
 
         return createAndRunWUFromECL.getResults();
     }
 
     /**
-     * Given an ECL query, this method will create a WU, compile and run it, and
-     * return wuid. Workuinit state, and results can be queried based on WUID
+     * Given an ECL query, this method will create a WU, compile and run it, and return wuid. Workuinit state, and
+     * results can be queried based on WUID
      *
-     * @param ecl                 - The ecl query to compile/run
-     * @param targetCluster       - The cluster where the ecl is to be compiled/run
-     * @param resultLimit         - Limit on results
-     * @return                    - Workunit ID
-     * @throws Exception          - Caller must handle exceptions
+     * @param ecl
+     *            - The ecl query to compile/run
+     * @param targetCluster
+     *            - The cluster where the ecl is to be compiled/run
+     * @param resultLimit
+     *            - Limit on results
+     * @return - Workunit ID
+     * @throws Exception
+     *             - Caller must handle exceptions
      */
     public String createAndRunWUFromECLAndGetWUID(String ecl, String targetCluster, int resultLimit) throws Exception
     {
@@ -721,18 +822,26 @@ public class HPCCWsWorkUnitsClient
         return createAndRunWUFromECL.getWuid();
     }
 
-    /*zero based index sequence*/
+    /* zero based index sequence */
     /**
      * Fetches results associated with a given WUID
      *
-     * @param wuid                - The target WUID to fetch results from
-     * @param sequence            - Zero based index result sequence (Each result set may contain multiple results)
-     * @param cluster             - The target cluster
-     * @param suppressXMLShema    - Results are accompanied by a schema, do you want to suppress it?
-     * @param resultOffset        - Request results starting at record offset
-     * @param resultCount         - Total result record count re- Results in xml string                 - Resu          - caller must handle exceptionsle exceptionsle exceptionsle exceptionss
+     * @param wuid
+     *            - The target WUID to fetch results from
+     * @param sequence
+     *            - Zero based index result sequence (Each result set may contain multiple results)
+     * @param cluster
+     *            - The target cluster
+     * @param suppressXMLShema
+     *            - Results are accompanied by a schema, do you want to suppress it?
+     * @param resultOffset
+     *            - Request results starting at record offset
+     * @param resultCount
+     *            - Total result record count re- Results in xml string - Resu - caller must handle exceptionsle
+     *            exceptionsle exceptionsle exceptionss
      */
-    public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
+    public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset,
+            int resultCount) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
@@ -748,8 +857,7 @@ public class HPCCWsWorkUnitsClient
 
             WUResultResponse wuResultResponse = wsWorkunitsServiceSoapProxy.WUResult(parameters);
             ArrayOfEspException exceptions = wuResultResponse.getExceptions();
-            if (exceptions != null)
-                throwWsWUExceptions(exceptions, "Could not fetch results");
+            if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
 
             return wuResultResponse.getResult();
         }
@@ -757,6 +865,7 @@ public class HPCCWsWorkUnitsClient
 
     /**
      * Creates and throws exception with exception message response from WS
+     * 
      * @param wsWUResponseExceptions
      * @param message
      * @throws Exception
