@@ -23,10 +23,11 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	 */
 	public int compareTo(org.hpccsystems.ws.client.ECLWorkunit o) 
 	{
-		// TODO Auto-generated method stub
-		if (o==null || o.getWuid()==null) {
+		if (o==null || o.getWuid()==null)
+		{
 			return 0;
-		} else {
+		} else 
+		{
 			//by default, sort by wuid descending, like ECL Watch
 			return o.getWuid().compareTo(this.getWuid());
 		}
