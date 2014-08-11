@@ -12,6 +12,16 @@ import java.util.List;
 
 public class EclCompile
 {
+    /**
+     * @param ecl - the ecl text to compile
+     * @param eclccInstallDir - the installation dir of eclcc/eclcc.exe
+     * @param tempdirname - the directory to use to read/write temporary files during ecl compilation
+     * @param includes - a collection of additional directories to include when compiling ecl
+     * @param flags - flag to use when compiling ecl (-legacy, -syntax, etc)
+     * @param saveTempFiles - whether or not to delete the temp files once you're finished; true by default.
+     * @return a hashmap containing the compiled ecl archive package, log file information, and error information
+     * @throws Exception
+     */
     public static HashMap<String, String> compileECL(String ecl, String eclccInstallDir, String tempdirname, List<String> includes, List<String> flags, Boolean saveTempFiles) throws Exception
     {
         if (saveTempFiles == null)
@@ -188,44 +198,5 @@ public class EclCompile
         }
 
         return results;
-    }
-
-    /*
-     * This is provided as an example only.
-     * Hardcoded paths must be
-     */
-    public static void main (String[] args) 
-    {
-        List<String> imports=new ArrayList<String>();
-        imports.add("C:/path/to/include");
-        
-        List<String> flags=new ArrayList<String>();
-        flags.add("-legacy");
-        
-        try
-        {
-            HashMap<String,String> results=
-                    compileECL("import ml;output(ML.Docs.PorterStem('management'));)",
-                                "c:/path/to/HPCCSystems/version/clienttools/bin",
-                                "c:/path/to/temp/dir",
-                                imports,
-                                flags,
-                                false);
-        
-            if (results.containsKey("Compiled ECL"))
-            {
-                System.out.println("Compiled ECL:" + results.get("Compiled ECL"));
-            }
-            else
-            {
-                System.out.println("Error:" + results.get("Error"));
-            }
-            System.out.println("Log:" + results.get("Log"));
-            System.out.println("Command Line:" + results.get("Command Line"));
-        }
-        catch (Exception e)
-        {
-            System.err.println(e.getLocalizedMessage());
-        }
     }
 }
