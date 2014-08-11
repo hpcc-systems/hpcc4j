@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsworkunits.DebugValue;
-import org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoDetails;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoResponse;
@@ -394,7 +393,7 @@ public class HPCCWsWorkUnitsClient
             org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException exceptions = wuInfoResponse.getExceptions();
             if (exceptions == null)
             {
-                workunit = wuInfoResponse.getWorkunit();
+                workunit = new ECLWorkunit(wuInfoResponse.getWorkunit());
             }
             else
             {
@@ -559,7 +558,7 @@ public class HPCCWsWorkUnitsClient
             ArrayOfEspException exceptions = wuUpdateResponse.getExceptions();
             if (exceptions == null)
             {
-                createdWU = wuUpdateResponse.getWorkunit();
+                createdWU = new ECLWorkunit(wuUpdateResponse.getWorkunit());
             }
             else
             {
