@@ -250,16 +250,14 @@ public class HPCCWsAttributesClient
         if (resp != null)
         {
             handleException(resp.getExceptions());
-            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
-            {
-                return resp.getOutAttributes()[0];
-            }
-
             if (checkoutin)
             {
                 this.checkinAttribute(modulename, attributename, checkindesc);
             }
-            return resp.getOutAttributes()[0];
+            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+            {
+                return resp.getOutAttributes()[0];
+            }
         }
 
         return null;
