@@ -1,18 +1,17 @@
 package org.hpccsystems.ws.client;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.StringBufferInputStream;
-import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.soap.wsdfu.EspException;
 import org.hpccsystems.ws.client.soap.wsdfu.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataRequest;
 import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataResponse;
@@ -26,7 +25,6 @@ import org.hpccsystems.ws.client.soap.wsdfu.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -83,7 +81,8 @@ public class HPCCWsDFUClient {
 			if (resp == null) {
 				throw new FileNotFoundException(logicalname + " does not exist");
 			}
-			return resp;
+            this.handleException(resp.getExceptions());
+            return resp;
 		} catch (ArrayOfEspException e) {
 			if (e != null) {
 				for (org.hpccsystems.ws.client.soap.wsdfu.EspException espexception : e
@@ -133,6 +132,7 @@ public class HPCCWsDFUClient {
 			if (resp == null) {
 				return null;
 			}
+	         this.handleException(resp.getExceptions());
 			String xmlresult = resp.getResult();
 			if (!xmlresult.contains("<" + DATASET_ELEMENT)) {
 				return null;
@@ -141,9 +141,8 @@ public class HPCCWsDFUClient {
 					+ DATASET_ELEMENT));
 			try {
 			    DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
-			    DocumentBuilder db=dbf.newDocumentBuilder();
-			    @SuppressWarnings("deprecation")
-                Document dom=db.parse(new StringBufferInputStream(xmlresult));
+			    DocumentBuilder db=dbf.newDocumentBuilder();			    
+                Document dom=db.parse(new ByteArrayInputStream(xmlresult.getBytes()));
 			    NodeList ds=dom.getDocumentElement().getElementsByTagName(ROW_ELEMENT);
 			    if (ds != null && ds.getLength()>0) {
 			        return ds;
@@ -195,6 +194,8 @@ public class HPCCWsDFUClient {
 			if (resp == null) {
 				return cols;
 			}
+			this.handleException(resp.getExceptions());
+			
 			// one of the few times reflection is more useful then it is confusing
 			for (Method m : resp.getClass().getMethods()) {
 				if (m.getName().startsWith("getDFUDataKeyedColumns")
@@ -217,7 +218,7 @@ public class HPCCWsDFUClient {
 		}
 
 		catch (ArrayOfEspException e) {
-			if (e != null) {
+			if (e != null && verbose) {
 				for (org.hpccsystems.ws.client.soap.wsdfu.EspException espexception : e
 						.getException()) {
 					Utils.println(
@@ -334,6 +335,7 @@ public class HPCCWsDFUClient {
 			if (filetype == null || filetype.equals("")) {
 				// some csvs in OSS HPCC Store filetype in format
 				filetype = resp.getFileDetail().getFormat();
+				
 				// csvs loaded as ascii get a format of "csv", csvs loaded as
 				// utf-8 get a format of "utf8"
 				if (filetype.toLowerCase().startsWith("utf")) {
@@ -480,4 +482,16 @@ public class HPCCWsDFUClient {
 		}
 		return cols;
 	}
+	
+	private void handleException(ArrayOfEspException exp) throws Exception {
+	    if (exp != null && exp.getException() != null
+                && exp.getException().length > 0)
+        {
+            for (int i=0; i < exp.getException().length; i++) {
+                EspException ex=exp.getException()[i];
+                Utils.println(System.out, ex.getMessage(),true,verbose);
+            }
+            throw new Exception(exp);
+        }
+    }
 }
