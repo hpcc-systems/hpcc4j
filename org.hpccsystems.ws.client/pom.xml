@@ -5,7 +5,7 @@
   <artifactId>wsclient</artifactId>
   <packaging>jar</packaging>
   <version>0.1-SNAPSHOT</version>
-  <name>Web Services Client</name>
+  <name>HPCC Web Services Client API</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
