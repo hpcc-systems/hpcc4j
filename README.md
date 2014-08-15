@@ -1,7 +1,7 @@
 HPCC-WS-Java-Client-API
 =======================
 
-# Java based libraries for interaction with HPCC services/tools
+### Java based libraries for interaction with HPCC services/tools
 
 These libraries are provided to standardize and facilitate interaction with HPCC Web based Services and tools.
 The HPCCWSClient provides connection logic and helper methods for common HPCC actions (such as run ecl, fetch hpcc
