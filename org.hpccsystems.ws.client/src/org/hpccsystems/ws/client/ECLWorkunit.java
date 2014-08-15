@@ -1,8 +1,8 @@
 package org.hpccsystems.ws.client;
 
 //This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
-public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit implements Comparable<org.hpccsystems.ws.client.ECLWorkunit> {
-	
+public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit implements Comparable<org.hpccsystems.ws.client.ECLWorkunit>
+{
 	/**
 	 * Serial version UID
 	 */
@@ -12,7 +12,7 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	 * Create an ECL workunit from a axis-generated soap class ECL Workunit
 	 * @param base
 	 */
-	public ECLWorkunit(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base) 
+	public ECLWorkunit(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base)
 	{
 		copy(base);
 	}
@@ -21,15 +21,16 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	public int compareTo(org.hpccsystems.ws.client.ECLWorkunit o) 
+	public int compareTo(org.hpccsystems.ws.client.ECLWorkunit wu)
 	{
-		if (o==null || o.getWuid()==null)
+		if (wu==null || wu.getWuid()==null)
 		{
 			return 0;
-		} else 
+		}
+		else
 		{
 			//by default, sort by wuid descending, like ECL Watch
-			return o.getWuid().compareTo(this.getWuid());
+			return wu.getWuid().compareTo(this.getWuid());
 		}
 	}
 
@@ -37,7 +38,7 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	public String toString() 
+	public String toString()
 	{	
 		StringBuilder sb=new StringBuilder();
 		sb.append("wuid:").append(String.valueOf(getWuid())).append("\n");
@@ -91,7 +92,7 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	 * Copy a soap ecl workunit object into the wrapper
 	 * @param base
 	 */
-	private void copy(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base) 
+	private void copy(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base)
 	{
 		this.setWuid(base.getWuid());
 		this.setOwner(base.getOwner());
@@ -145,4 +146,31 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 		this.setAllowedClusters(base.getAllowedClusters());
 	}
 
+	public boolean update(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit wu)
+	{
+        boolean retVal = false;
+        if (wu != null && this.getWuid().equals(wu.getWuid()) && !this.equals(wu))
+        {
+            if (updateState(wu))
+            {
+                retVal = true;
+            }
+            //RODRIGO other updates missing here...
+        }
+        return retVal;
+    }
+
+    synchronized boolean updateState(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit wu)
+    {
+        boolean retVal = false;
+        if (wu != null && this.getWuid().equals(wu.getWuid()))// && this.compareTo(wu))
+        {
+            this.setStateID(wu.getStateID());
+            this.setStateEx(wu.getStateEx());
+            this.setState(wu.getState());
+            // setChanged();
+            retVal = true;
+        }
+        return retVal;
+    }
 }
