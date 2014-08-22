@@ -73,9 +73,34 @@ public class Utils
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
             Document doc = dBuilder.parse(new ByteArrayInputStream(results.getBytes("UTF-8")));
-            //doc.getDocumentElement().normalize();
 
             Utils.println(System.out, " Root element: " + doc.getDocumentElement().getNodeName(), false, false);
+
+            NodeList exceptionList = doc.getElementsByTagName("Exception");
+            if (exceptionList.getLength() > 0)
+            {
+                for (int temp = 0; temp < exceptionList.getLength(); temp++)
+                {
+                    resultList = new ArrayList<List<Object>>();
+
+                    org.w3c.dom.Node nNode = exceptionList.item(temp);
+
+                    if (nNode.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE)
+                    {
+                        List<Object> row = new ArrayList<Object>();
+                        NodeList datasetchildnodes = nNode.getChildNodes();
+                        for (int rowsindex = 0; rowsindex < datasetchildnodes.getLength(); rowsindex++)
+                        {
+                            org.w3c.dom.Node ithrow = datasetchildnodes.item(rowsindex);
+                            Element ithrowelement = (Element) ithrow;
+
+                            row.add(ithrowelement.getNodeName() + ": " + ithrowelement.getTextContent());
+                        }
+                        resultList.add(row);
+                    }
+                }
+                return resultList;
+            }
 
             NodeList nList = doc.getElementsByTagName("Dataset");
 
