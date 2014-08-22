@@ -3,6 +3,7 @@ package org.hpccsystems.ws.client.legacy;
 import java.io.FileNotFoundException;
 
 import org.apache.axis.client.Stub;
+import org.apache.axis.utils.StringUtils;
 import org.hpccsystems.ws.client.legacy.soap.ArrayOfEspException;
 import org.hpccsystems.ws.client.legacy.soap.CheckinAttributeRequest;
 import org.hpccsystems.ws.client.legacy.soap.CheckinAttributes;
@@ -52,9 +53,9 @@ public class HPCCWsAttributesClient
      * @return true if the attribute exists, false if it does not
      * @throws Exception
      */
-    public boolean attributeExists(String modulename, String attributename) throws Exception
+    public boolean attributeExists(String modulename, String attributename, String type) throws Exception
     {
-        ECLAttribute[] items = findItems(modulename, attributename, null, null, null);
+        ECLAttribute[] items = findItems(modulename, attributename, type, null, null, null);
         if (items != null && items.length > 0)
         {
             return true;
@@ -80,11 +81,12 @@ public class HPCCWsAttributesClient
      * @return an array of ECLAttribute
      * @throws Exception
      */
-    public ECLAttribute[] findItems(String modulename, String attributename, String username, String anytext,
+    public ECLAttribute[] findItems(String modulename, String attributename, String type, String username, String anytext,
             String changedSince) throws Exception
     {
         WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
-        if (modulename == null && attributename == null && username == null && anytext == null && changedSince == null)
+        if (modulename == null && attributename == null && username == null && 
+                type==null && anytext == null && changedSince == null)
         {
             throw new Exception("At least one find criteria is required.");
         }
@@ -100,6 +102,11 @@ public class HPCCWsAttributesClient
         if (username != null)
         {
             params.setUserName(username);
+        }
+        if (type != null)
+        {
+            String[] types=StringUtils.split(type, ',');
+            params.setTypeList(types);
         }
         if (anytext != null)
         {
@@ -126,12 +133,13 @@ public class HPCCWsAttributesClient
      * @return text contained by the attribute
      * @throws Exception
      */
-    public String getAttributeText(String modulename, String attributename) throws Exception
+    public String getAttributeText(String modulename, String attributename,String type) throws Exception
     {
         WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
         GetAttribute params = new GetAttribute();
         params.setAttributeName(attributename);
         params.setModuleName(modulename);
+        params.setType(type);
         params.setGetText(true);
         GetAttributeResponse resp = proxy.getAttribute(params);
         if (resp != null)
@@ -212,7 +220,7 @@ public class HPCCWsAttributesClient
      * @return
      * @throws Exception
      */
-    public ECLAttribute updateAttribute(String modulename, String attributename, String text, Boolean checkoutin,
+    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin,
             String checkindesc) throws Exception
     {
         if (checkoutin == null)
@@ -228,7 +236,7 @@ public class HPCCWsAttributesClient
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
-        if (!this.attributeExists(modulename, attributename))
+        if (!this.attributeExists(modulename, attributename,type))
         {
             throw new FileNotFoundException("Cannot update " + modulename + "." + attributename
                     + ", attribute does not exist");
@@ -358,7 +366,7 @@ public class HPCCWsAttributesClient
      * @return the ECL Attribute of the created object
      * @throws Exception
      */
-    public ECLAttribute createAttribute(String modulename, String attributename, String text, Boolean checkin,
+    public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin,
             String checkindesc) throws Exception
     {
         if (checkin == null)
@@ -373,7 +381,7 @@ public class HPCCWsAttributesClient
         {
             throw new Exception("Checkin comment is required if checking attribute in");
         }
-        if (this.attributeExists(modulename, attributename))
+        if (this.attributeExists(modulename, attributename,type))
         {
             throw new Exception(modulename + "." + attributename + " already exists");
         }
@@ -381,13 +389,14 @@ public class HPCCWsAttributesClient
         CreateAttribute req = new CreateAttribute();
         req.setModuleName(modulename);
         req.setAttributeName(attributename);
+        req.setType(type);
         CreateAttributeResponse resp = proxy.createAttribute(req);
         if (resp == null)
         {
             return null;
         }
         handleException(resp.getExceptions());
-        ECLAttribute attr = updateAttribute(modulename, attributename, text, checkin, checkindesc);
+        ECLAttribute attr = updateAttribute(modulename, attributename, type, text, checkin, checkindesc);
         return attr;
     }
 
