@@ -808,14 +808,6 @@ public class HPCCWsWorkUnitsClient
             ECLWorkunit compiledWU = null;
             compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit);
 
-            /*try
-            {
-                Thread.sleep(10000);
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }*/
             monitorWUToCompletion(compiledWU, 10000);
 
             if (compiledWU != null)
@@ -966,10 +958,12 @@ public class HPCCWsWorkUnitsClient
     private void monitorWUToCompletion(ECLWorkunit wu, int sleepTime) throws Exception
     {
         int timerTickCount = 0;
+        Utils.println(System.out, "Monitoring WU " + wu.getWuid() + " to completion.", false, verbose);
         while (!HPCCWsWorkUnitsClient.isWorkunitComplete(wu))
         {
             try
             {
+            	Utils.println(System.out, "Monitoring WU " + wu.getWuid() + " to completion ( " + timerTickCount + ") ...", true, verbose);
                 Thread.sleep(sleepTime);
             }
             catch (InterruptedException e)
