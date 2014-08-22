@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/javax.xml.soap_1.2.0.v201005080501/lib/saaj.jar"/>
 	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
@@ -9,5 +9,5 @@
 	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/javax.mail_1.4.0.v201005080615.jar"/>
 	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.apache.commons.discovery_0.2.0.v201004190315/lib/commons-discovery-0.2.jar"/>
 	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.apache.axis_1.4.0.v201005080400/lib/axis.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

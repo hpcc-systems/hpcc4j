@@ -29,7 +29,6 @@
       </plugins>
     </pluginManagement>
 
-    <sourceDirectory>src</sourceDirectory>
   </build>
 
   <dependencies>
