@@ -3,7 +3,6 @@ package org.hpccsystems.ws.client.legacy;
 import java.io.FileNotFoundException;
 
 import org.apache.axis.client.Stub;
-import org.apache.axis.utils.StringUtils;
 import org.hpccsystems.ws.client.legacy.soap.ArrayOfEspException;
 import org.hpccsystems.ws.client.legacy.soap.CheckinAttributeRequest;
 import org.hpccsystems.ws.client.legacy.soap.CheckinAttributes;
@@ -105,7 +104,7 @@ public class HPCCWsAttributesClient
         }
         if (type != null)
         {
-            String[] types=StringUtils.split(type, ',');
+            String[] types=type.split(",");
             params.setTypeList(types);
         }
         if (anytext != null)
