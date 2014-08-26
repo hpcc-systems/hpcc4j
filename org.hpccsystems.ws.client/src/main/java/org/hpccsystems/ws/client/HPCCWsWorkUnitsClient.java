@@ -754,7 +754,7 @@ public class HPCCWsWorkUnitsClient
             String jobname, Integer sleeptime) throws Exception
     {
         if (sleeptime==null) {
-            sleeptime=10000;
+            sleeptime=defaultWaitTime;
         }
 
         ECLWorkunit createdWU = createWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
@@ -825,7 +825,6 @@ public class HPCCWsWorkUnitsClient
 
             if (compiledWU != null)
             {
-
                 WURun runparameters = new WURun();
                 runparameters.setWuid(compiledWU.getWuid());
                 runparameters.setCluster(targetCluster);
