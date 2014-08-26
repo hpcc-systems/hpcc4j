@@ -751,15 +751,18 @@ public class HPCCWsWorkUnitsClient
      *             - Caller must handle exceptions
      */
     public ECLWorkunit compileWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debug,
-            String jobname) throws Exception
+            String jobname, Integer sleeptime) throws Exception
     {
+        if (sleeptime==null) {
+            sleeptime=10000;
+        }
 
         ECLWorkunit createdWU = createWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
 
         if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null)
         {
             submitWU(createdWU.getWuid(), targetCluster); // if no exception proceed
-            this.monitorWUToCompletion(createdWU, 10000);
+            this.monitorWUToCompletion(createdWU, sleeptime);
         }
         return createdWU;
     }
@@ -818,7 +821,7 @@ public class HPCCWsWorkUnitsClient
         else
         {
             ECLWorkunit compiledWU = null;
-            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
+            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname,10000);
 
             if (compiledWU != null)
             {
