@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsworkunits.DebugValue;
+import org.hpccsystems.ws.client.soap.wsworkunits.ECLException;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfo;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoDetails;
@@ -21,6 +22,8 @@ import org.hpccsystems.ws.client.soap.wsworkunits.WURun;
 import org.hpccsystems.ws.client.soap.wsworkunits.WURunResponse;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUSubmit;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUSubmitResponse;
+import org.hpccsystems.ws.client.soap.wsworkunits.WUSyntaxCheckECL;
+import org.hpccsystems.ws.client.soap.wsworkunits.WUSyntaxCheckResponse;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUUpdateResponse;
 import org.hpccsystems.ws.client.soap.wsworkunits.WsWorkunitsServiceSoap;
 import org.hpccsystems.ws.client.soap.wsworkunits.WsWorkunitsServiceSoapProxy;
@@ -68,7 +71,8 @@ public class HPCCWsWorkUnitsClient
         fullWURefresh(wu, true, true, true, true);
     }
 
-    void fullWURefresh(ECLWorkunit wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles, boolean includeApplicationValues) throws Exception
+    void fullWURefresh(ECLWorkunit wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles,
+            boolean includeApplicationValues) throws Exception
     {
         getSoapProxy();
 
@@ -84,15 +88,15 @@ public class HPCCWsWorkUnitsClient
         WUInfoResponse response = wsWorkunitsServiceSoapProxy.WUInfo(request);
         if (response.getWorkunit() == null)
         {
-            //  Call succeeded, but no response...
+            // Call succeeded, but no response...
             for (org.hpccsystems.ws.client.soap.wsworkunits.EspException e : response.getExceptions().getException())
             {
                 if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                 {
                     //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
                     wu.setStateID(999);
-                    //setChanged();
-                    //notifyObservers(Notification.WORKUNIT);
+                    // setChanged();
+                    // notifyObservers(Notification.WORKUNIT);
                     break;
                 }
             }
@@ -104,7 +108,8 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * @param verbose - sets verbose mode
+     * @param verbose
+     *            - sets verbose mode
      */
     public void setMaxWaitTime(int max)
     {
@@ -112,7 +117,8 @@ public class HPCCWsWorkUnitsClient
     }
 
     /**
-     * @param verbose - sets verbose mode
+     * @param verbose
+     *            - sets verbose mode
      */
     public void setVerbose(boolean verbose)
     {
@@ -641,6 +647,8 @@ public class HPCCWsWorkUnitsClient
             WUCreateAndUpdate wucreateparameters = new WUCreateAndUpdate();
             wucreateparameters.setAction(1); // 1= compile
             wucreateparameters.setQueryText(ecl);
+            wucreateparameters.setDebugValues(debugValues);
+            wucreateparameters.setJobname(jobname);
             wucreateparameters.setClusterOrig(targetCluster);
             wucreateparameters.setResultLimit(resultLimit);
             if (jobname != null) wucreateparameters.setJobname(jobname);
@@ -742,14 +750,20 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public ECLWorkunit compileWUFromECL(String ecl, String targetCluster, int resultLimit) throws Exception
+    public ECLWorkunit compileWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debug,
+            String jobname, Integer sleeptime) throws Exception
     {
+        if (sleeptime==null) {
+            sleeptime=defaultWaitTime;
+        }
 
-        ECLWorkunit createdWU = createWUFromECL(ecl, targetCluster, resultLimit);
+        ECLWorkunit createdWU = createWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
 
         if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null)
+        {
             submitWU(createdWU.getWuid(), targetCluster); // if no exception proceed
-
+            this.monitorWUToCompletion(createdWU, sleeptime);
+        }
         return createdWU;
     }
 
@@ -797,7 +811,8 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    private WURunResponse createAndRunWUFromECL(String ecl, String targetCluster, int resultLimit) throws Exception
+    private WURunResponse createAndRunWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debug,
+            String jobname) throws Exception
     {
         WURunResponse wuRunResponse = null;
 
@@ -806,13 +821,10 @@ public class HPCCWsWorkUnitsClient
         else
         {
             ECLWorkunit compiledWU = null;
-            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit);
-
-            monitorWUToCompletion(compiledWU, 10000);
+            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname,10000);
 
             if (compiledWU != null)
             {
-
                 WURun runparameters = new WURun();
                 runparameters.setWuid(compiledWU.getWuid());
                 runparameters.setCluster(targetCluster);
@@ -849,10 +861,10 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public String createAndRunWUFromECLAndGetResults(String ecl, String targetCluster, int resultLimit)
-            throws Exception
+    public String createAndRunWUFromECLAndGetResults(String ecl, String targetCluster, int resultLimit,
+            DebugValue[] debug, String jobname) throws Exception
     {
-        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit);
+        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
 
         ArrayOfEspException exceptions = createAndRunWUFromECL.getExceptions();
         if (exceptions != null) throwWsWUExceptions(exceptions, "Results contains errors!");
@@ -874,9 +886,10 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public String createAndRunWUFromECLAndGetWUID(String ecl, String targetCluster, int resultLimit) throws Exception
+    public String createAndRunWUFromECLAndGetWUID(String ecl, String targetCluster, int resultLimit,
+            DebugValue[] debug, String jobname) throws Exception
     {
-        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit);
+        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
 
         return createAndRunWUFromECL.getWuid();
     }
@@ -963,7 +976,8 @@ public class HPCCWsWorkUnitsClient
         {
             try
             {
-            	Utils.println(System.out, "Monitoring WU " + wu.getWuid() + " to completion ( " + timerTickCount + ") ...", true, verbose);
+                Utils.println(System.out, "Monitoring WU " + wu.getWuid() + " to completion ( " + timerTickCount
+                        + ") ...", true, verbose);
                 Thread.sleep(sleepTime);
             }
             catch (InterruptedException e)
@@ -987,8 +1001,7 @@ public class HPCCWsWorkUnitsClient
                     refreshWU(false, wu);
                 else if (timerTickCount < 120 && timerTickCount % 30 == 0)
                     refreshWU(true, wu);
-                else if (timerTickCount % 60 == 0)
-                    refreshWU(true, wu);
+                else if (timerTickCount % 60 == 0) refreshWU(true, wu);
             }
             catch (Exception e)
             {
@@ -996,4 +1009,20 @@ public class HPCCWsWorkUnitsClient
             }
         }
     }
+
+    public ECLException[] syntaxCheckECL(String ecl, String cluster) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+        else
+        {
+            WUSyntaxCheckECL checkParams = new WUSyntaxCheckECL();
+            checkParams.setECL(ecl);
+            checkParams.setCluster(cluster);
+            WUSyntaxCheckResponse resp = wsWorkunitsServiceSoapProxy.WUSyntaxCheckECL(checkParams);
+            return resp.getErrors();
+        }
+
+    }
+
 }

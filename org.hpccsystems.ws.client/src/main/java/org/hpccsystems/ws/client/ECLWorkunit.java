@@ -94,6 +94,9 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
 	 */
 	private void copy(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base)
 	{
+	    if (base==null) {
+	        return;
+	    }
 		this.setWuid(base.getWuid());
 		this.setOwner(base.getOwner());
 		this.setCluster(base.getCluster());
