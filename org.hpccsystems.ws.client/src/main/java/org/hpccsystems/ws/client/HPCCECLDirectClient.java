@@ -19,6 +19,7 @@ public class HPCCECLDirectClient
     public static final String ECLDIRECTWSDLURI     = "/EclDirect";
     private EclDirectServiceSoapProxy     wsEclDirectServiceSoapProxy = null;
     private boolean verbose = false;
+    public static final int noresultlimit = -1;
 
     /**
      * @param verbose - sets verbose mode

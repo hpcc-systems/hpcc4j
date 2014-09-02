@@ -37,7 +37,7 @@ public class HPCCWSClient
     public static final String defaultTWsECLWatchSSLPort        = "18010";
 
     private String targetDropzoneNetAddres = null;
-    private boolean verbosemode = false;
+    protected boolean verbosemode = false;
     private Connection connection = null;
 
     /**
@@ -136,7 +136,17 @@ public class HPCCWSClient
      */
     public HPCCWSClient(Connection conn)
     {
+        setConnection(conn);
+    }
+
+    protected void setConnection(Connection conn)
+    {
         connection = conn;
+        fileSprayClient             = null;
+        wsFileIOClient              = null;
+        wsTopologyClient            = null;
+        eclDirectClient             = null;
+        wsWorkunitsClient           = null;
     }
 
     /**
@@ -441,7 +451,7 @@ public class HPCCWSClient
 
         try
         {
-            //Another way is to create the enumaration from the string representation...
+            //Another way is to create the enumeration from the string representation...
             //FileFormat.convertDFUFileFormatName2Code("csv");
             success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster, new DelimitedDataOptions(), overwritesprayedfile, FileFormat.DFUff_csv); //could be
         }
