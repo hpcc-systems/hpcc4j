@@ -338,16 +338,6 @@ public class RDFHPCCWsClient extends HPCCWSClient
         this.uploadchunksize = uploadchunksize;
     }
 
-    /*public boolean getPerformSpray()
-    {
-        return performSpray;
-    }
-
-    public void setPerformSpray(boolean spray)
-    {
-        this.performSpray = spray;
-    }*/
-
     public List<String> getAdditionalNSs()
     {
         return additionalNSs;
@@ -385,7 +375,6 @@ public class RDFHPCCWsClient extends HPCCWSClient
 
         if (targetDestinationGroup != null)
         {
-            //success = sprayCustomCSVHPCCFile(targetHPCCFilePath, targetHPCCFilePath, targetDestinationGroup, outputEscape, outputDelimiter, outputQuote, outputTerminator, overwrite, FileFormat.DFUff_csv);
             success = sprayDefaultCSVHPCCFile(targetHPCCFilePath, targetHPCCFilePath, targetDestinationGroup, overwrite);
             success &= sprayCustomCSVHPCCFile(targetHPCCFilePath+"::namespaces", targetHPCCFilePath+"::namespaces", targetDestinationGroup, outputEscape, outputDelimiter, outputQuote, outputTerminator, overwrite, FileFormat.DFUff_csv);
         }
@@ -469,7 +458,6 @@ public class RDFHPCCWsClient extends HPCCWSClient
                     {
                         if (nsMappingsCSVFormat != null && nsMappingsCSVFormat.length() > 0)
                         {
-                            //if (!writeHPCCFileData(nsMappingsCSVFormat.toString().getBytes(), baseurl, targetHPCCFilePath+"::namespaces", targetDropzoneNetAddres, uploadchunksize))
                             if (!fioclient.writeHPCCFileData(nsMappingsCSVFormat.toString().getBytes(), targetHPCCFilePath+"::namespaces", targetDropzoneNetAddres, false, 0, uploadchunksize))
                             {
                                 Utils.println(System.out, "Could not write to HPCC namespaces file.", false, verbosemode);
@@ -640,13 +628,6 @@ public class RDFHPCCWsClient extends HPCCWSClient
                                         break;
                                     }
                                 }
-
-                                //if (subjectShorthandNS == null && fixNSIssues)
-                                //{
-                                //  subjectShorthandNS = HPCCNAMESPACE + (hpccnsprefixmap.size()+1);
-                                //  hpccnsprefixmap.put(subjectsNS, subjectShorthandNS);
-                                //  System.err.println("Added NS found in subject: " + subjectsNS +"::"+subjectName);
-                                //}
                             }
                         }
 
@@ -728,16 +709,13 @@ public class RDFHPCCWsClient extends HPCCWSClient
                             }
                             else
                             {
-                                System.err.println("Encountered object URI without knonw namespace, treating as literal: " + object);
+                                System.err.println("Encountered object URI without known namespace, treating as literal: " + object);
                                 serializedmodel.append("true");
                                 Utils.print(System.out, "true", true, verbosemode);
                             }
                         }
                         else
                         {
-                            //int objNSHashCode = objNS.hashCode();
-                            //serializedmodel.append(objNS+outputdelim+objname);
-                            //print(System.out, objNS+outputdelim+objname, true, verbosemode);
                             serializedmodel.append(objectShorthandNS+outputdelim+objectName);
                             Utils.print(System.out, objectShorthandNS+outputdelim+objectName, true, verbosemode);
 
@@ -853,7 +831,6 @@ public class RDFHPCCWsClient extends HPCCWSClient
             {
                 e.printStackTrace();
             }
-
         }
     }
 }
