@@ -8,6 +8,7 @@ import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsworkunits.DebugValue;
 import org.hpccsystems.ws.client.soap.wsworkunits.ECLException;
+import org.hpccsystems.ws.client.soap.wsworkunits.NamedValue;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfo;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoDetails;
@@ -753,8 +754,9 @@ public class HPCCWsWorkUnitsClient
     public ECLWorkunit compileWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debug,
             String jobname, Integer sleeptime) throws Exception
     {
-        if (sleeptime==null) {
-            sleeptime=defaultWaitTime;
+        if (sleeptime == null)
+        {
+            sleeptime = defaultWaitTime;
         }
 
         ECLWorkunit createdWU = createWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
@@ -812,7 +814,7 @@ public class HPCCWsWorkUnitsClient
      *             - Caller must handle exceptions
      */
     private WURunResponse createAndRunWUFromECL(String ecl, String targetCluster, int resultLimit, DebugValue[] debug,
-            String jobname) throws Exception
+            String jobname, NamedValue[] variables) throws Exception
     {
         WURunResponse wuRunResponse = null;
 
@@ -821,12 +823,13 @@ public class HPCCWsWorkUnitsClient
         else
         {
             ECLWorkunit compiledWU = null;
-            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname,10000);
+            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname, 10000);
 
             if (compiledWU != null)
             {
                 WURun runparameters = new WURun();
                 runparameters.setWuid(compiledWU.getWuid());
+                runparameters.setVariables(variables);
                 runparameters.setCluster(targetCluster);
 
                 wuRunResponse = wsWorkunitsServiceSoapProxy.WURun(runparameters);
@@ -862,9 +865,10 @@ public class HPCCWsWorkUnitsClient
      *             - Caller must handle exceptions
      */
     public String createAndRunWUFromECLAndGetResults(String ecl, String targetCluster, int resultLimit,
-            DebugValue[] debug, String jobname) throws Exception
+            DebugValue[] debug, String jobname, NamedValue[] variables) throws Exception
     {
-        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
+        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit, debug, jobname,
+                variables);
 
         ArrayOfEspException exceptions = createAndRunWUFromECL.getExceptions();
         if (exceptions != null) throwWsWUExceptions(exceptions, "Results contains errors!");
@@ -887,9 +891,10 @@ public class HPCCWsWorkUnitsClient
      *             - Caller must handle exceptions
      */
     public String createAndRunWUFromECLAndGetWUID(String ecl, String targetCluster, int resultLimit,
-            DebugValue[] debug, String jobname) throws Exception
+            DebugValue[] debug, String jobname, NamedValue[] variables) throws Exception
     {
-        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit, debug, jobname);
+        WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(ecl, targetCluster, resultLimit, debug, jobname,
+                variables);
 
         return createAndRunWUFromECL.getWuid();
     }

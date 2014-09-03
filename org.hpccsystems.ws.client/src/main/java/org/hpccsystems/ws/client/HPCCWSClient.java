@@ -792,7 +792,7 @@ public class HPCCWSClient
                 System.out.println("");
             }
 
-            String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(outputFlatfileContentsEcl, clusterGroups[1], 10,null,null);
+            String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(outputFlatfileContentsEcl, clusterGroups[1], 10,null,null,null);
             String results2 = connector.getWsWorkunitsClient().fetchResults(wuid, 0, clusterGroups[1], true, -1, -1);
             System.out.println(results2);
         }
