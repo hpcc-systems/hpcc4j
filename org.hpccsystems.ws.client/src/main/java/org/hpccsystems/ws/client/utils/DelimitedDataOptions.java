@@ -10,7 +10,7 @@ public class DelimitedDataOptions
     public final static String csvDefaultSeparate   = "\\,";
     public final static String csvDefaultEscape     = "";
     public final static String csvDefaultQuote      = "'";
-    public final static String csvDefaultTerminator = "\n,\r\n";
+    public final static String csvDefaultTerminator = "\n";
 
     String recordTerminator;
     String fieldDelimiter;

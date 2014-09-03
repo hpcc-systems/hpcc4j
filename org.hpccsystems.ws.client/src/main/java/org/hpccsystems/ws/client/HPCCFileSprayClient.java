@@ -367,8 +367,13 @@ public class HPCCFileSprayClient
         svr.setDestLogicalName(targetFileName);
         svr.setOverwrite(overwrite);
         svr.setSourceCsvEscape(options.getEscapeSequence());
-        svr.setSourceCsvQuote(options.getQuote());
         svr.setSourceCsvSeparate(options.getFieldDelimiter());
+        if (options.getFieldDelimiter().equals(","))
+            svr.setSourceCsvSeparate("\\,");
+        else
+            svr.setSourceCsvSeparate(options.getFieldDelimiter());
+
+        svr.setSourceCsvQuote(options.getQuote());
         svr.setSourceCsvTerminate(options.getRecordTerminator());
         svr.setSourceFormat(format.getValue());
 

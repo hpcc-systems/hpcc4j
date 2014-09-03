@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project rdf2hpccAxis with libraries in sub-folder">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/rdf2hpcc/axisRDF2HPCC.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.hpccsystems.rdf.RDF2HPCC"/>
+                <attribute name="Class-Path" value=". axisRDF2HPCC_lib/axis.jar axisRDF2HPCC_lib/commons-discovery-0.2.jar axisRDF2HPCC_lib/jaxrpc.jar axisRDF2HPCC_lib/saaj.jar axisRDF2HPCC_lib/javax.wsdl_1.6.2.v201012040545.jar axisRDF2HPCC_lib/org.apache.commons.logging_1.0.4.v201101211617.jar axisRDF2HPCC_lib/jena-arq-2.9.4.jar axisRDF2HPCC_lib/jena-core-2.7.4.jar axisRDF2HPCC_lib/slf4j-api-1.6.4.jar axisRDF2HPCC_lib/slf4j-log4j12-1.6.4.jar axisRDF2HPCC_lib/xercesImpl-2.10.0.jar axisRDF2HPCC_lib/xml-apis-1.4.01.jar axisRDF2HPCC_lib/jena-iri-0.9.4.jar axisRDF2HPCC_lib/log4j-1.2.16.jar"/>
+            </manifest>
+            <fileset dir="C:/eclipse/workspaces/indigojava/jena/rdf2hpccAxis/classes"/>
+        </jar>
+        <delete dir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <mkdir dir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/eclipse/indigo/eclipse/plugins/org.apache.axis_1.4.0.v201005080400/lib/axis.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/eclipse/indigo/eclipse/plugins/org.apache.commons.discovery_0.2.0.v201004190315/lib/commons-discovery-0.2.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/eclipse/indigo/eclipse/plugins/javax.xml.rpc_1.1.0.v201005080400/lib/jaxrpc.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/eclipse/indigo/eclipse/plugins/javax.xml.soap_1.2.0.v201005080501/lib/saaj.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/eclipse/indigo/eclipse/plugins/javax.wsdl_1.6.2.v201012040545.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/eclipse/indigo/eclipse/plugins/org.apache.commons.logging_1.0.4.v201101211617.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/jena-arq-2.9.4.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/jena-core-2.7.4.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/slf4j-api-1.6.4.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/slf4j-log4j12-1.6.4.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/xercesImpl-2.10.0.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/xml-apis-1.4.01.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/jena-iri-0.9.4.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+        <copy file="C:/assignments/jena/apache-jena-2.7.4/lib/log4j-1.2.16.jar" todir="C:/rdf2hpcc/axisRDF2HPCC_lib"/>
+    </target>
+</project>
