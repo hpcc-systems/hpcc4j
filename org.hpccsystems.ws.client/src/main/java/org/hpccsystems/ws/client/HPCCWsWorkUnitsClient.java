@@ -823,7 +823,7 @@ public class HPCCWsWorkUnitsClient
         else
         {
             ECLWorkunit compiledWU = null;
-            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname, 10000);
+            compiledWU = compileWUFromECL(ecl, targetCluster, resultLimit, debug, jobname, defaultWaitTime);
 
             if (compiledWU != null)
             {
