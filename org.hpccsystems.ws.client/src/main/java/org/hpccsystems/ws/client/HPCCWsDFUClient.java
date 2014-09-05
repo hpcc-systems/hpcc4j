@@ -11,6 +11,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.soap.wsdfu.DFUFileViewRequest;
+import org.hpccsystems.ws.client.soap.wsdfu.DFUFileViewResponse;
+import org.hpccsystems.ws.client.soap.wsdfu.DFULogicalFile;
 import org.hpccsystems.ws.client.soap.wsdfu.EspException;
 import org.hpccsystems.ws.client.soap.wsdfu.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataRequest;
@@ -192,6 +195,28 @@ public class HPCCWsDFUClient
         }
     }
 
+
+    /**
+     * @param scope - file scope/directory to return files for
+     * @return an array of DFULogicalFile objects
+     * @throws Exception
+     */
+    public DFULogicalFile[] getFiles(String scope) throws Exception {
+        DFULogicalFile[] result=null;
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+        DFUFileViewRequest params=new DFUFileViewRequest();
+        params.setScope(scope);
+        DFUFileViewResponse resp=proxy.DFUFileView(params);   
+        if (resp == null)
+        {
+            return result;
+        }
+        this.handleException(resp.getExceptions());
+        result=resp.getDFULogicalFiles();
+        return result;
+
+    }
+    
     /**
      * @param logicalname
      *            - logical filename to retrieve the dfu data columns for. Currently this method/service call functions
