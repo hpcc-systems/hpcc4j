@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems.hpccjapi</groupId>
-  <artifactId>wsclient-legacy</artifactId>
+  <artifactId>rdf2hpcc</artifactId>
   <packaging>jar</packaging>
   <version>0.2-SNAPSHOT</version>
-  <name>HPCC Legacy WS Client API</name>
+  <name>RDF Data Ingestion into HPCC</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,7 +30,7 @@
         </configuration>
         <executions>
           <execution>
-            <id>wsclient-legacy</id>
+            <id>rdf2hpcc</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
@@ -48,9 +48,9 @@
       <version>0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
-        <groupId>axis</groupId>
-        <artifactId>axis</artifactId>
-        <version>1.4</version>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-core</artifactId>
+      <version>2.7.4</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

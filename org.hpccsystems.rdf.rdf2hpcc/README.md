@@ -3,30 +3,36 @@ HPCC-Java-APIs Project - RDF2HPCC
 
 RDF data ingestion into HPCC
 
-Reads RDF, creates Jena model, converts to CSV, upload  to HPCC, sprays, execute stats logic, and parse ECL results.
+Reads RDF, creates Jena model, converts to CSV, upload to HPCC, sprays, execute stats logic, and parse ECL results.
 
 RDF triples are represented in HPCC as follows:
 
-TriplesLayout :=RECORD
-                string subjectNS;
-                string subject;
-                string predicateNS;
-                string predicate;
-                string objectNS;
-                string object;
-                boolean objectIsLiteral;
+```
+TriplesLayout := RECORD
+  STRING  subjectNS;
+  STRING  subject;
+  STRING  predicateNS;
+  STRING  predicate;
+  STRING  objectNS;
+  STRING  object;
+  BOOLEAN objectIsLiteral;
 END;
+```
 
-Anonymous nodes are represented by a "unique" id (eg: -70df6643:13da378ff19:-7ffe) links to the subject field of its properties...
+Anonymous nodes are represented by a "unique" id (eg: `-70df6643:13da378ff19:-7ffe`) links to the subject field of its properties...
 
-Namespaces are abbreviated and a mapping table is provided  "originalfilename::namespaces" with the following layout:
+Namespaces are abbreviated and a mapping table is provided `"originalfilename::namespaces"` with the following layout:
 
+
+```
 NSLayout := RECORD
-                string namespace;
-                string abbrev;
+  STRING namespace;
+  STRING abbrev;
 END;
+```
  
 Sample usage:
+```
 -rdflocation="http://www-users.cs.york.ac.uk/~jc/teaching/arin/camera.owl.turtle" 
 -hpccfile="axis::camera::owl::turtle::rdf"
 -rdflang=TURTLE
@@ -41,10 +47,12 @@ Sample usage:
 -password=xxxx
 -targetcluster=hthor
 -getstats=true
+```
 
 Sample stats output:
 RDF2HPCC: parsed stats: 
 
+```
 http://www.shop.com/camera# , hpccNS-1 , Customer , false , 2 , [ http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 2 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 2 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 2 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 2 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 2 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 2 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 2 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 2 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 2 , 100 ]
 http://www.shop.com/camera# , hpccNS-1 , Nikon_D300 , false , 2 , [ http://www.shop.com/camera# , hpccNS-1 , bought_by , 2 , 1 , 50 | http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 2 , 100http://www.shop.com/camera# , hpccNS-1 , bought_by , 2 , 1 , 50 | http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 2 , 100 ]
 http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , first , true , 1 , http://www.w3.org/2000/01/rdf-schema#hpccNS-3subClassOf11100
@@ -60,3 +68,4 @@ http://www.w3.org/2002/07/owl# , hpccNS-5 , distinctMembers , true , 1 , [ http:
 http://www.w3.org/2002/07/owl# , hpccNS-5 , hasValue , true , 1 , http://www.w3.org/2000/01/rdf-schema#hpccNS-3subClassOf21100
 http://www.w3.org/2002/07/owl# , hpccNS-5 , members , true , 2 , [ http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , first , 1 , 2 , 100 | http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , rest , 1 , 2 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , first , 1 , 2 , 100 | http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , rest , 1 , 2 , 100 ]
 http://xmlns.com/foaf/0.1/ , hpccNS-4 , Person , false , 1 , [ http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 1 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 1 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 1 , 100 ]
+```
