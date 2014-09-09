@@ -11,6 +11,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.soap.wsdfu.DFUFileViewRequest;
+import org.hpccsystems.ws.client.soap.wsdfu.DFUFileViewResponse;
+import org.hpccsystems.ws.client.soap.wsdfu.DFULogicalFile;
 import org.hpccsystems.ws.client.soap.wsdfu.EspException;
 import org.hpccsystems.ws.client.soap.wsdfu.ArrayOfEspException;
 import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataRequest;
@@ -190,6 +193,29 @@ public class HPCCWsDFUClient
             e.printStackTrace();
             throw e;
         }
+    }
+
+    /**
+     * @param scope
+     *            - file scope/directory to return files for
+     * @return an array of DFULogicalFile objects
+     * @throws Exception
+     */
+    public DFULogicalFile[] getFiles(String scope) throws Exception
+    {
+        DFULogicalFile[] result = null;
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+        DFUFileViewRequest params = new DFUFileViewRequest();
+        params.setScope(scope);
+        DFUFileViewResponse resp = proxy.DFUFileView(params);
+        if (resp == null)
+        {
+            return result;
+        }
+        this.handleException(resp.getExceptions());
+        result = resp.getDFULogicalFiles();
+        return result;
+
     }
 
     /**
@@ -518,10 +544,8 @@ public class HPCCWsDFUClient
             {
                 throw new Exception("Invalid record field definition " + thisline);
             }
-            if (!fieldargs[0]
-                    .toUpperCase()
-                    .matches(
-                            "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL)\\d{0,3}"))
+            if (!fieldargs[0].toUpperCase().matches(
+                    "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL).*"))
             {
                 throw new Exception("Invalid record field type " + fieldargs[0]);
             }
