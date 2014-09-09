@@ -195,28 +195,29 @@ public class HPCCWsDFUClient
         }
     }
 
-
     /**
-     * @param scope - file scope/directory to return files for
+     * @param scope
+     *            - file scope/directory to return files for
      * @return an array of DFULogicalFile objects
      * @throws Exception
      */
-    public DFULogicalFile[] getFiles(String scope) throws Exception {
-        DFULogicalFile[] result=null;
+    public DFULogicalFile[] getFiles(String scope) throws Exception
+    {
+        DFULogicalFile[] result = null;
         WsDfuServiceSoapProxy proxy = getSoapProxy();
-        DFUFileViewRequest params=new DFUFileViewRequest();
+        DFUFileViewRequest params = new DFUFileViewRequest();
         params.setScope(scope);
-        DFUFileViewResponse resp=proxy.DFUFileView(params);   
+        DFUFileViewResponse resp = proxy.DFUFileView(params);
         if (resp == null)
         {
             return result;
         }
         this.handleException(resp.getExceptions());
-        result=resp.getDFULogicalFiles();
+        result = resp.getDFULogicalFiles();
         return result;
 
     }
-    
+
     /**
      * @param logicalname
      *            - logical filename to retrieve the dfu data columns for. Currently this method/service call functions
@@ -543,10 +544,8 @@ public class HPCCWsDFUClient
             {
                 throw new Exception("Invalid record field definition " + thisline);
             }
-            if (!fieldargs[0]
-                    .toUpperCase()
-                    .matches(
-                            "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL)\\d{0,3}"))
+            if (!fieldargs[0].toUpperCase().matches(
+                    "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL).*"))
             {
                 throw new Exception("Invalid record field type " + fieldargs[0]);
             }
