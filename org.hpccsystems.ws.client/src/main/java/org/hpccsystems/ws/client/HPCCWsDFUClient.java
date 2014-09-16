@@ -418,7 +418,6 @@ public class HPCCWsDFUClient
                     }
                 }
             }
-
         }
         catch (Exception e)
         {
@@ -427,7 +426,11 @@ public class HPCCWsDFUClient
         ArrayList<DFUDataColumn> fields = new ArrayList<DFUDataColumn>();
         if (filetype.equalsIgnoreCase("THOR") || filetype.equalsIgnoreCase("FLAT"))
         {
-            fields = getFileDataColumns(datasetname, null);
+            // bug in DFUGetDataColumns: Decimal datatypes being returned as real. Until it's fixed,
+            // need to retrieve fields from ECL.
+            // fields = getFileDataColumns(datasetname, null);
+            String ecl = resp.getFileDetail().getEcl();
+            fields = getRecordFromECL(ecl);
         }
         else if (filetype.equalsIgnoreCase("CSV"))
         {

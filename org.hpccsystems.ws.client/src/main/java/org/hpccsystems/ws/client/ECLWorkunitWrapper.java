@@ -1,27 +1,39 @@
 package org.hpccsystems.ws.client;
 
+import org.hpccsystems.ws.client.soap.wsworkunits.ECLQuery;
+import org.hpccsystems.ws.client.soap.wsworkunits.NamedValue;
+
 //This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
-public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit implements Comparable<org.hpccsystems.ws.client.ECLWorkunit>
+public class ECLWorkunitWrapper extends org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit implements Comparable<org.hpccsystems.ws.client.ECLWorkunitWrapper>
 {
 	/**
 	 * Serial version UID
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
+	private int maxMonitorTime=300000;
+	private NamedValue[] namedValues=null;
+    private int sleepMillis=15000;
+        /**
 	 * Create an ECL workunit from a axis-generated soap class ECL Workunit
 	 * @param base
 	 */
-	public ECLWorkunit(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base)
-	{
+	public ECLWorkunitWrapper(org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit base)
+	{	    
 		copy(base);
 	}
 	
 	
-	/* (non-Javadoc)
+	public ECLWorkunitWrapper()
+        {
+            // TODO Auto-generated constructor stub
+        }
+
+
+    /* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	public int compareTo(org.hpccsystems.ws.client.ECLWorkunit wu)
+	public int compareTo(org.hpccsystems.ws.client.ECLWorkunitWrapper wu)
 	{
 		if (wu==null || wu.getWuid()==null)
 		{
@@ -176,4 +188,67 @@ public class ECLWorkunit extends org.hpccsystems.ws.client.soap.wsworkunits.ECLW
         }
         return retVal;
     }
+
+    public void setMaxMonitorMillis(int time)
+    {
+        maxMonitorTime=time;
+    }
+
+    public int getMaxMonitorMillis()
+    {
+        return maxMonitorTime;
+    }
+
+    public Integer getSleepMillis()
+    {
+        return sleepMillis;
+    }
+
+
+    public void setSleepMillis(Integer sleepTime)
+    {
+        this.sleepMillis = sleepTime;
+    }
+
+    public void setECL(String ecl) {
+        if (this.getQuery() ==null) {
+            this.setQuery(new ECLQuery());
+        }
+        this.getQuery().setText(ecl);
+    }
+    
+    public String getECL()    
+    {
+        if (this.getQuery() ==null) {
+            return "";
+        }
+        return this.getQuery().getText();
+    }
+
+    /**
+     * Gets the resultLimit value for this ECLWorkunit.
+     * 
+     * @return resultLimit
+     */
+    @Override
+    public java.lang.Integer getResultLimit() {
+        if (super.getResultLimit()==null) {
+            return 100;
+        }
+        return super.getResultLimit();
+    }
+
+    public NamedValue[] getNamedValues()
+    {
+        return namedValues;
+    }
+
+
+    public void setNamedValues(NamedValue[] namedValues)
+    {
+        this.namedValues = namedValues;
+    }
+
+
+
 }

@@ -112,7 +112,7 @@ public class HPCCECLDirectClient
      * @return                   - If successfully submited, the resulting WUID.
      * @throws Exception         - Caller must handle exceptions
      */
-    public String submitECL(String ecl, String targetcluster, int resultLimit, int maxwait) throws Exception
+    public String submitECL(ECLWorkunitWrapper wu) throws Exception
     {
         String wuid = null;
 
@@ -122,15 +122,15 @@ public class HPCCECLDirectClient
         {
             RunEclExRequest runeclexreqparams = new RunEclExRequest();
 
-            if (targetcluster.length() > 0)
-                runeclexreqparams.setCluster(targetcluster);
+            if (wu.getCluster() != null && wu.getCluster().length() > 0)
+                runeclexreqparams.setCluster(wu.getCluster());
 
-            runeclexreqparams.setEclText(ecl);
+            runeclexreqparams.setEclText(wu.getECL());
             runeclexreqparams.setIncludeGraphs(false);
             runeclexreqparams.setIncludeResults(true);
             runeclexreqparams.setFormat(RunEclExFormat.None);
-            runeclexreqparams.setWait(maxwait);
-            runeclexreqparams.setResultLimit(resultLimit);
+            runeclexreqparams.setWait(wu.getMaxMonitorMillis());
+            runeclexreqparams.setResultLimit(wu.getResultLimit());
 
             RunEclExResponse runEclExResponse = wsEclDirectServiceSoapProxy.runEclEx(runeclexreqparams);
 
@@ -161,7 +161,7 @@ public class HPCCECLDirectClient
      * @return                   - If successfully submited, the resulting Dataset(s).
      * @throws Exception         - Caller must handle exceptions
      */
-    public String submitECLandGetResults(String ecl, String targetcluster, int resultLimit, int maxwait) throws Exception
+    public String submitECLandGetResults(ECLWorkunitWrapper wu) throws Exception
     {
         String results = null;
 
@@ -170,9 +170,9 @@ public class HPCCECLDirectClient
         else
         {
             RunEclExRequest runeclexreqparams = new RunEclExRequest();
-            if (targetcluster.length() > 0)
-                runeclexreqparams.setCluster(targetcluster);
-            runeclexreqparams.setEclText(ecl);
+            if (wu.getCluster() != null && wu.getCluster().length() > 0)
+                runeclexreqparams.setCluster(wu.getCluster());
+            runeclexreqparams.setEclText(wu.getECL());
             runeclexreqparams.setIncludeGraphs(false);
             runeclexreqparams.setIncludeResults(true);
                                       //RunEclExFormat.None
@@ -180,8 +180,8 @@ public class HPCCECLDirectClient
                                       //RunEclExFormat.Xml
                                       //RunEclExFormat.ExtendedXml
             runeclexreqparams.setFormat(RunEclExFormat.None);
-            runeclexreqparams.setWait(maxwait);
-            runeclexreqparams.setResultLimit(resultLimit);
+            runeclexreqparams.setWait(wu.getMaxMonitorMillis());
+            runeclexreqparams.setResultLimit(wu.getResultLimit());
 
             RunEclExResponse runEclExResponse = wsEclDirectServiceSoapProxy.runEclEx(runeclexreqparams);
 
