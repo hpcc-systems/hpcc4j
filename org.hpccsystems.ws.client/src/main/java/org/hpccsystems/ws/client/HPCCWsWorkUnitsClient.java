@@ -41,6 +41,7 @@ public class HPCCWsWorkUnitsClient
     public static final String          WSWORKUNITSWSDLURI          = "/WsWorkunits";
     private WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy = null;
     private static final int            defaultWaitTime             = 10000;
+    public static final int             defaultResultLimit = 100;
     private static final int            defaultMaxWaitTime          = 1000 * 60 * 5;
     private boolean                     verbose                     = false;
 
@@ -932,12 +933,16 @@ public class HPCCWsWorkUnitsClient
     {
         
         int timerTickCount = 0;
-        Utils.println(System.out, "Monitoring WU " + wu.getWuid() + " to completion.", false, verbose);
+        String id=wu.getWuid();
+        if (wu.getJobname() != null) {
+            id=id + "(" + wu.getJobname() + ")";
+        }
+        Utils.println(System.out, "Monitoring WU " + id+ " to completion.", false, verbose);
         while (!HPCCWsWorkUnitsClient.isWorkunitComplete(wu))
         {
             try
             {
-                Utils.println(System.out, "Monitoring WU " + wu.getWuid() + " to completion ( " + timerTickCount
+                Utils.println(System.out, "Monitoring WU " + id + " to completion ( " + timerTickCount
                         + ") ...", true, verbose);
                 Thread.sleep(wu.getSleepMillis());
             }

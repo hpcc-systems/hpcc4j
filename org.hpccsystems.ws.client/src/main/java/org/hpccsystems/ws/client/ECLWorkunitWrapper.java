@@ -16,6 +16,7 @@ public class ECLWorkunitWrapper extends org.hpccsystems.ws.client.soap.wsworkuni
     private NamedValue[]      namedValues      = null;
     private int               sleepMillis      = 15000;
 
+
     /**
      * Create an ECL workunit from a axis-generated soap class ECL Workunit
      * 
@@ -243,7 +244,7 @@ public class ECLWorkunitWrapper extends org.hpccsystems.ws.client.soap.wsworkuni
     {
         if (super.getResultLimit() == null)
         {
-            return 100;
+            return HPCCWsWorkUnitsClient.defaultResultLimit;
         }
         return super.getResultLimit();
     }
