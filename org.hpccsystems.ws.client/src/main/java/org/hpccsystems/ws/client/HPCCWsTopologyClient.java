@@ -1,17 +1,31 @@
 package org.hpccsystems.ws.client;
 
 import java.io.PrintStream;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.wstopology.TpCluster;
-import org.hpccsystems.ws.client.soap.wstopology.TpTargetCluster;
-import org.hpccsystems.ws.client.soap.wstopology.TpTargetClusterQueryRequest;
-import org.hpccsystems.ws.client.soap.wstopology.TpTargetClusterQueryResponse;
-import org.hpccsystems.ws.client.soap.wstopology.WsTopologyServiceSoap;
-import org.hpccsystems.ws.client.soap.wstopology.WsTopologyServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpClusterInfoRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpClusterInfoResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpLogicalCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpLogicalClusterQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpLogicalClusterQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpServiceQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpServiceQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpServices;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoap;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 
 /**
@@ -20,8 +34,25 @@ import org.hpccsystems.ws.client.utils.Utils;
 * of special interest are the cluster groups, and the target clusters within those groups.
 *
 */
-public class HPCCWsTopologyClient
+public class HPCCWsTopologyClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCWsTopologyClient get(Connection connection)
+    {
+        return (HPCCWsTopologyClient) All.get(new HPCCWsTopologyClient(connection));
+    }
+
+    public static HPCCWsTopologyClient getNoCreate(Connection connection)
+    {
+        return (HPCCWsTopologyClient) All.getNoCreate(new HPCCWsTopologyClient(connection));
+    }
+
+    public static void remove(HPCCWsTopologyClient p)
+    {
+        All.remove(p);
+    }
+
     public static final String WSTOPOLOGYWSDLURI     = "/WsTopology/TpTargetClusterQuery";
     private WsTopologyServiceSoapProxy wsTopologyServiceSoapProxy    =  null;
     private boolean verbose = false;
@@ -55,20 +86,20 @@ public class HPCCWsTopologyClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.soap.wstopology.WsTopologyLocator()).getWsTopologyServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyLocator()).getWsTopologyServiceSoapAddress();
     }
 
-    public HPCCWsTopologyClient(WsTopologyServiceSoapProxy wsTopologyServiceSoapProxy)
+    protected HPCCWsTopologyClient(WsTopologyServiceSoapProxy wsTopologyServiceSoapProxy)
     {
         this.wsTopologyServiceSoapProxy = wsTopologyServiceSoapProxy;
     }
 
-    public HPCCWsTopologyClient(Connection baseConnection)
+    protected HPCCWsTopologyClient(Connection baseConnection)
     {
        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
     }
 
-    public HPCCWsTopologyClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCWsTopologyClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, WSTOPOLOGYWSDLURI);
         initWsTopologySoapProxy(address, user, pass);
@@ -359,5 +390,116 @@ public class HPCCWsTopologyClient
             Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
         }
         return clusternames;
+    }
+
+    public TpServices  getServices() throws Exception
+    {
+        if (wsTopologyServiceSoapProxy == null)
+            throw new Exception("wsTopologyServiceSoapProxy not available");
+
+        TpServices  tpservices= null;
+        if (wsTopologyServiceSoapProxy != null)
+        {
+            TpServiceQueryRequest request = new TpServiceQueryRequest();
+            request.setType("ALLSERVICES"); //$NON-NLS-1$
+
+            TpServiceQueryResponse response = wsTopologyServiceSoapProxy.tpServiceQuery(request);
+            if (response != null & response.getExceptions() == null )
+                tpservices = response.getServiceList();
+        }
+
+        return tpservices;
+    }
+
+    public TpClusterInfoResponse getClusterInfo(String clusterName) throws ArrayOfEspException, RemoteException
+    {
+        TpClusterInfoResponse respsone = null;
+        if (wsTopologyServiceSoapProxy != null)
+        {
+            TpClusterInfoRequest request = new TpClusterInfoRequest();
+            request.setName(clusterName);
+            respsone = wsTopologyServiceSoapProxy.tpClusterInfo(request);
+
+        }
+        else
+        {
+            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+        }
+
+        return respsone;
+    }
+
+    public TpLogicalCluster[] getLogicalClusters() throws Exception
+    {
+        if (wsTopologyServiceSoapProxy == null)
+            throw new Exception("wsTopologyServiceSoapProxy not available");
+
+        TpLogicalCluster[] tplogclusters = null;
+
+        TpLogicalClusterQueryRequest request = new TpLogicalClusterQueryRequest();
+        TpLogicalClusterQueryResponse response = wsTopologyServiceSoapProxy.tpLogicalClusterQuery(request);
+        if (response != null)
+            tplogclusters = response.getTpLogicalClusters();
+
+        return tplogclusters;
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCWsTopologyClient))
+        {
+            return false;
+        }
+
+        HPCCWsTopologyClient that = (HPCCWsTopologyClient) aThat;
+        WsTopologyServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsTopologyServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) wsTopologyServiceSoapProxy.getWsTopologyServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsTopologyServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) wsTopologyServiceSoapProxy.getWsTopologyServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsTopologyServiceSoap()).getPassword());
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsTopologyServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub)  wsTopologyServiceSoapProxy.getWsTopologyServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  wsTopologyServiceSoapProxy.getWsTopologyServiceSoap()).getPassword());
+        return result;
     }
 }
