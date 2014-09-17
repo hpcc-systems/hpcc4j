@@ -3,31 +3,55 @@ package org.hpccsystems.ws.client.legacy;
 import java.io.FileNotFoundException;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.legacy.soap.ArrayOfEspException;
-import org.hpccsystems.ws.client.legacy.soap.CheckinAttributeRequest;
-import org.hpccsystems.ws.client.legacy.soap.CheckinAttributes;
-import org.hpccsystems.ws.client.legacy.soap.CheckoutAttributeRequest;
-import org.hpccsystems.ws.client.legacy.soap.CheckoutAttributes;
-import org.hpccsystems.ws.client.legacy.soap.CreateAttribute;
-import org.hpccsystems.ws.client.legacy.soap.CreateAttributeResponse;
-import org.hpccsystems.ws.client.legacy.soap.ECLAttribute;
-import org.hpccsystems.ws.client.legacy.soap.FindAttributes;
-import org.hpccsystems.ws.client.legacy.soap.FindAttributesResponse;
-import org.hpccsystems.ws.client.legacy.soap.GetAttribute;
-import org.hpccsystems.ws.client.legacy.soap.GetAttributeResponse;
-import org.hpccsystems.ws.client.legacy.soap.RenameAttributeRequest;
-import org.hpccsystems.ws.client.legacy.soap.RenameAttributes;
-import org.hpccsystems.ws.client.legacy.soap.SaveAttributeRequest;
-import org.hpccsystems.ws.client.legacy.soap.SaveAttributes;
-import org.hpccsystems.ws.client.legacy.soap.UpdateAttributesResponse;
-import org.hpccsystems.ws.client.legacy.soap.WsAttributesServiceSoap;
-import org.hpccsystems.ws.client.legacy.soap.WsAttributesServiceSoapProxy;
-import org.hpccsystems.ws.client.legacy.soap.EspException;
+import org.hpccsystems.ws.client.HPCCECLDirectClient;
+import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WsWorkunitsServiceSoapProxy;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.ArrayOfEspException;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.CheckinAttributeRequest;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.CheckinAttributes;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.CheckoutAttributeRequest;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.CheckoutAttributes;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.CreateAttribute;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.CreateAttributeResponse;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.ECLAttribute;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.EspException;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.FindAttributes;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.FindAttributesResponse;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.GetAttribute;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.GetAttributeResponse;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.RenameAttributeRequest;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.RenameAttributes;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.SaveAttributeRequest;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.SaveAttributes;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.UpdateAttributesResponse;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.WsAttributesServiceSoap;
+import org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.WsAttributesServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 
-public class HPCCWsAttributesClient
+public class HPCCWsAttributesClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCWsAttributesClient get(Connection connection)
+    {
+        return (HPCCWsAttributesClient) All.get(new HPCCWsAttributesClient(connection));
+    }
+
+    public static HPCCWsAttributesClient getNoCreate(Connection connection)
+    {
+        return (HPCCWsAttributesClient) All.getNoCreate(new HPCCWsAttributesClient(connection));
+    }
+
+    public static void remove(HPCCWsAttributesClient p)
+    {
+        All.remove(p);
+    }
+
     public static final String           WSATTRIBUTESWSDLURI          = "/WsAttributes";
 
     private WsAttributesServiceSoapProxy wsAttributesServiceSoapProxy = null;
@@ -425,13 +449,13 @@ public class HPCCWsAttributesClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.legacy.soap.WsAttributesLocator().getWsAttributesServiceSoapAddress());
+        return (new org.hpccsystems.ws.client.legacy.gen.wsattributes.v1_21.WsAttributesLocator().getWsAttributesServiceSoapAddress());
     }
 
     /**
      * @param wsAttributesServiceSoapProxy
      */
-    public HPCCWsAttributesClient(WsAttributesServiceSoapProxy wsAttributesServiceSoapProxy)
+    protected HPCCWsAttributesClient(WsAttributesServiceSoapProxy wsAttributesServiceSoapProxy)
     {
         this.wsAttributesServiceSoapProxy = wsAttributesServiceSoapProxy;
     }
@@ -439,7 +463,7 @@ public class HPCCWsAttributesClient
     /**
      * @param baseConnection
      */
-    public HPCCWsAttributesClient(Connection baseConnection)
+    protected HPCCWsAttributesClient(Connection baseConnection)
     {
         this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection
                 .getUserName(), baseConnection.getPassword());
@@ -459,7 +483,7 @@ public class HPCCWsAttributesClient
      * @param pass
      *            password of connecting user
      */
-    public HPCCWsAttributesClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCWsAttributesClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, WSATTRIBUTESWSDLURI);
 
@@ -500,5 +524,63 @@ public class HPCCWsAttributesClient
             }
             throw new Exception(exp);
         }
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCWsAttributesClient))
+        {
+            return false;
+        }
+
+        HPCCWsAttributesClient that = (HPCCWsAttributesClient) aThat;
+        WsAttributesServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsAttributesServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+               EqualsUtil.areEqual(((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsAttributesServiceSoap()).getUsername()) &&
+               EqualsUtil.areEqual(((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsAttributesServiceSoap()).getPassword());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsAttributesServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getPassword());
+        return result;
     }
 }

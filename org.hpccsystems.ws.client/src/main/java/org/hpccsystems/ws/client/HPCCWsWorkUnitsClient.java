@@ -4,45 +4,80 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
-import org.hpccsystems.ws.client.soap.wsworkunits.ECLException;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUCreateAndUpdate;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUInfo;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoDetails;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUPublishWorkunit;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUPublishWorkunitResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUQuery;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUQueryResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUResult;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUResultResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WURun;
-import org.hpccsystems.ws.client.soap.wsworkunits.WURunResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUSubmit;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUSubmitResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUSyntaxCheckECL;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUSyntaxCheckResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUUpdateResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WsWorkunitsServiceSoap;
-import org.hpccsystems.ws.client.soap.wsworkunits.WsWorkunitsServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.EspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.QuerySet;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUAbort;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUCreateAndUpdate;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUDelete;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfo;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfoDetails;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryDetails;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuerySetDetailsResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuerysetDetails;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuerysets;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuerysetsResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUResubmit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUResultResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WURun;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WURunResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUSubmit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUSubmitResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUSyntaxCheckECL;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUSyntaxCheckResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUUpdateResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WsWorkunitsServiceSoap;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WsWorkunitsServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
+import org.hpccsystems.ws.client.platform.WUState;
+import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
-import org.hpccsystems.ws.client.utils.WUState;
 
 /**
  *
  * ESP Client code for common WsWorkUnits operations
  */
-public class HPCCWsWorkUnitsClient
+public class HPCCWsWorkUnitsClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCWsWorkUnitsClient get(Connection connection)
+    {
+        return (HPCCWsWorkUnitsClient) All.get(new HPCCWsWorkUnitsClient(connection));
+    }
+
+    public static HPCCWsWorkUnitsClient getNoCreate(Connection connection)
+    {
+        return (HPCCWsWorkUnitsClient) All.getNoCreate(new HPCCWsWorkUnitsClient(connection));
+    }
+
+    public static void remove(HPCCWsWorkUnitsClient p)
+    {
+        All.remove(p);
+    }
+
     public static final String          WSWORKUNITSWSDLURI          = "/WsWorkunits";
     private WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy = null;
-    private static final int            defaultWaitTime             = 10000;
-    public static final int             defaultResultLimit = 100;
-    private static final int            defaultMaxWaitTime          = 1000 * 60 * 5;
+    public static final int             defaultWaitTime             = 10000;
+    public static final int             defaultResultLimit          = 100;
+    public static final int             defaultMaxWaitTime          = 1000 * 60 * 5;
+
     private boolean                     verbose                     = false;
 
-    protected void fastWURefresh(ECLWorkunitWrapper wu) throws Exception
+    protected void fastWURefresh(WorkunitInfo wu) throws Exception
     {
         getSoapProxy();
 
@@ -64,12 +99,12 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
-    protected void fullWURefresh(ECLWorkunitWrapper wu) throws Exception
+    protected void fullWURefresh(WorkunitInfo wu) throws Exception
     {
         fullWURefresh(wu, true, true, true, true);
     }
 
-    void fullWURefresh(ECLWorkunitWrapper wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles,
+    void fullWURefresh(WorkunitInfo wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles,
             boolean includeApplicationValues) throws Exception
     {
         getSoapProxy();
@@ -87,7 +122,7 @@ public class HPCCWsWorkUnitsClient
         if (response.getWorkunit() == null)
         {
             // Call succeeded, but no response...
-            for (org.hpccsystems.ws.client.soap.wsworkunits.EspException e : response.getExceptions().getException())
+            for (EspException e : response.getExceptions().getException())
             {
                 if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                 {
@@ -136,21 +171,21 @@ public class HPCCWsWorkUnitsClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.soap.wsworkunits.WsWorkunitsLocator()).getWsWorkunitsServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WsWorkunitsLocator()).getWsWorkunitsServiceSoapAddress();
     }
 
-    public HPCCWsWorkUnitsClient(WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy)
+    protected HPCCWsWorkUnitsClient(WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy)
     {
         this.wsWorkunitsServiceSoapProxy = wsWorkunitsServiceSoapProxy;
     }
 
-    public HPCCWsWorkUnitsClient(Connection baseConnection)
+    protected HPCCWsWorkUnitsClient(Connection baseConnection)
     {
         this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection
                 .getUserName(), baseConnection.getPassword());
     }
 
-    public HPCCWsWorkUnitsClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCWsWorkUnitsClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, WSWORKUNITSWSDLURI);
 
@@ -188,7 +223,7 @@ public class HPCCWsWorkUnitsClient
      */
     public boolean isWorkunitCompiled(String wuid) throws Exception
     {
-        ECLWorkunitWrapper thewui = getWUInfo(wuid);
+        WorkunitInfo thewui = getWUInfo(wuid);
         if (thewui != null) return isWorkunitCompiled(thewui);
 
         return false;
@@ -201,7 +236,7 @@ public class HPCCWsWorkUnitsClient
      * @param wuid
      * @return true if state is compiled
      */
-    public boolean isWorkunitCompiled(ECLWorkunitWrapper thewui)
+    public boolean isWorkunitCompiled(WorkunitInfo thewui)
     {
         return isWorkunitState(getStateID(thewui), WUState.COMPILED);
     }
@@ -213,7 +248,7 @@ public class HPCCWsWorkUnitsClient
      * @param wuid
      * @return true if state is failed
      */
-    public boolean isWorkunitFailed(ECLWorkunitWrapper thewui)
+    public boolean isWorkunitFailed(WorkunitInfo thewui)
     {
         return isWorkunitState(getStateID(thewui), WUState.FAILED);
     }
@@ -251,7 +286,7 @@ public class HPCCWsWorkUnitsClient
      */
     public boolean isWorkunitComplete(String wuid) throws Exception
     {
-        ECLWorkunitWrapper thewui = getWUInfo(wuid);
+        WorkunitInfo thewui = getWUInfo(wuid);
         if (thewui != null) return isWorkunitComplete(thewui);
 
         return false;
@@ -265,7 +300,7 @@ public class HPCCWsWorkUnitsClient
      * @return true if wu is in one of the complete states
      * @throws Exception
      */
-    static public boolean isWorkunitComplete(ECLWorkunitWrapper thewui)
+    static public boolean isWorkunitComplete(WorkunitInfo thewui)
     {
         return isWorkunitComplete(getStateID(thewui));
     }
@@ -307,7 +342,7 @@ public class HPCCWsWorkUnitsClient
      *            the workunit
      * @return the state of the workunit
      */
-    public static WUState getStateID(ECLWorkunitWrapper wu)
+    public static WUState getStateID(WorkunitInfo wu)
     {
         if (wu != null)
             return getStateID(wu.getStateID());
@@ -362,7 +397,6 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
-
     /**
      * Attempts to create, compile and publish a query based on ecl provided.
      *
@@ -374,7 +408,7 @@ public class HPCCWsWorkUnitsClient
      * @return
      * @throws Exception
      */
-    public WUPublishWorkunitResponse publishWUFromEcl(ECLWorkunitWrapper wu) throws Exception
+    public WUPublishWorkunitResponse publishWUFromEcl(WorkunitInfo wu) throws Exception
     {
         WUPublishWorkunitResponse publishWUResp = null;
 
@@ -384,7 +418,7 @@ public class HPCCWsWorkUnitsClient
             throw new Exception("Empty ECL submited");
         else
         {
-            ECLWorkunitWrapper eclwu = createWUFromECL(wu);
+            WorkunitInfo eclwu = createWUFromECL(wu);
 
             try
             {
@@ -412,7 +446,7 @@ public class HPCCWsWorkUnitsClient
      * @return
      * @throws Exception
      */
-    public WUPublishWorkunitResponse publishWU(ECLWorkunitWrapper wu) throws Exception
+    public WUPublishWorkunitResponse publishWU(WorkunitInfo wu) throws Exception
     {
         WUPublishWorkunitResponse publishWUResp = null;
 
@@ -430,7 +464,7 @@ public class HPCCWsWorkUnitsClient
 
             publishWUResp = wsWorkunitsServiceSoapProxy.WUPublishWorkunit(publishWU);
 
-            org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException exceptions = publishWUResp.getExceptions();
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException exceptions = publishWUResp.getExceptions();
             if (exceptions != null)
             {
                 throwWsWUExceptions(exceptions, "Could not publish WU");
@@ -438,6 +472,21 @@ public class HPCCWsWorkUnitsClient
         }
 
         return publishWUResp;
+    }
+
+    public void publishWU(String wuid) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+        else if (wuid == null || wuid.isEmpty())
+            throw new Exception("Invalid wuid submited");
+        else
+        {
+            WUPublishWorkunit publishWU = new WUPublishWorkunit();
+            publishWU.setWuid(wuid);
+
+            wsWorkunitsServiceSoapProxy.WUPublishWorkunit(publishWU);
+        }
     }
 
     /**
@@ -449,9 +498,9 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public ECLWorkunitWrapper getWUInfo(String wuid) throws Exception
+    public WorkunitInfo getWUInfo(String wuid) throws Exception
     {
-        ECLWorkunitWrapper workunit = null;
+        WorkunitInfo workunit = null;
 
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
@@ -467,10 +516,10 @@ public class HPCCWsWorkUnitsClient
 
             WUInfoResponse wuInfoResponse = wsWorkunitsServiceSoapProxy.WUInfoDetails(wuinfodetailsparams);
 
-            org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException exceptions = wuInfoResponse.getExceptions();
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException exceptions = wuInfoResponse.getExceptions();
             if (exceptions == null)
             {
-                workunit = new ECLWorkunitWrapper(wuInfoResponse.getWorkunit());
+                workunit = new WorkunitInfo(wuInfoResponse.getWorkunit());
             }
             else
             {
@@ -479,6 +528,30 @@ public class HPCCWsWorkUnitsClient
         }
 
         return workunit;
+    }
+
+    public WUInfoResponse getWUInfo(String wuid, boolean includeResults, boolean includeGraphs, boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues, Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+        else
+        {
+            WUInfo request = new WUInfo();
+            request.setWuid(wuid);
+            request.setIncludeGraphs(includeGraphs);
+            request.setIncludeResults(includeResults);
+            request.setIncludeResultsViewNames(includeResults);
+            request.setSuppressResultSchemas(!includeResults);
+            request.setIncludeSourceFiles(includeSourceFiles);
+            request.setIncludeApplicationValues(includeApplicationValues);
+            request.setIncludeDebugValues(includeDebugValues);
+            request.setIncludeExceptions(includeExceptions);
+            request.setIncludeTimers(includeTimers);
+            request.setIncludeVariables(includeVariables);
+            request.setIncludeXmlSchemas(includeXmlSchemas);
+
+            return wsWorkunitsServiceSoapProxy.WUInfo(request);
+        }
     }
 
     /**
@@ -503,8 +576,7 @@ public class HPCCWsWorkUnitsClient
             {
                 oldTimeout = ((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getTimeout();
 
-                ((org.apache.axis.client.Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap())
-                        .setTimeout(3 * 1000);
+                ((org.apache.axis.client.Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).setTimeout(3 * 1000);
 
                 wsWorkunitsServiceSoapProxy.WUQuery(request);
                 return true;
@@ -541,7 +613,7 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      */
     public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
-            String state, String endDate, String startDate, Long pageStartFrom, Long pageSize) throws Exception
+            String state, String endDate, String startDate, Long pageStartFrom, Long pageSize, Integer count, String owner, String appName, String appKey, String appData) throws Exception
     {
         WUQueryResponse wuQueryResponse = null;
         if (wsWorkunitsServiceSoapProxy == null)
@@ -559,18 +631,18 @@ public class HPCCWsWorkUnitsClient
             if (endDate != null) request.setEndDate(endDate);
             if (wuid != null) request.setWuid(wuid);
             if (jobname != null) request.setJobname(jobname);
+            if (count != null) request.setCount(count);
+            if (owner != null) request.setOwner(owner);
+            if (appKey != null) request.setApplicationKey(appKey);
+            if (appData != null) request.setApplicationData(appData);
+            if (appName != null) request.setApplicationName(appName);
 
-            try
+            wuQueryResponse = wsWorkunitsServiceSoapProxy.WUQuery(request);
+            ArrayOfEspException arrayOfEspException = wuQueryResponse.getExceptions();
+            if (arrayOfEspException != null)
             {
-                wuQueryResponse = wsWorkunitsServiceSoapProxy.WUQuery(request);
-                ArrayOfEspException arrayOfEspException = wuQueryResponse.getExceptions();
-                if (arrayOfEspException != null)
-                {
-                    throwWsWUExceptions(arrayOfEspException, "Error in WU query");
-                }
+                throwWsWUExceptions(arrayOfEspException, "Error in WU query");
             }
-            catch (Exception e)
-            {}
         }
 
         return wuQueryResponse;
@@ -588,7 +660,7 @@ public class HPCCWsWorkUnitsClient
     public boolean doesWUContainErrors(String wuid) throws Exception
     {
         boolean errsfound = true;
-        ECLWorkunitWrapper workunit = getWUInfo(wuid);
+        WorkunitInfo workunit = getWUInfo(wuid);
 
         if (workunit != null) errsfound = workunit.getErrorCount().intValue() <= 0;
 
@@ -606,9 +678,9 @@ public class HPCCWsWorkUnitsClient
      * @return
      * @throws Exception
      */
-    public ECLWorkunitWrapper createWUFromECL(ECLWorkunitWrapper wu) throws Exception
+    public WorkunitInfo createWUFromECL(WorkunitInfo wu) throws Exception
     {
-        ECLWorkunitWrapper createdWU = null;
+        WorkunitInfo createdWU = null;
 
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
@@ -627,7 +699,7 @@ public class HPCCWsWorkUnitsClient
             ArrayOfEspException exceptions = wuUpdateResponse.getExceptions();
             if (exceptions == null)
             {
-                createdWU = new ECLWorkunitWrapper(wuUpdateResponse.getWorkunit());
+                createdWU = new WorkunitInfo(wuUpdateResponse.getWorkunit());
                 createdWU.setMaxMonitorMillis(wu.getMaxMonitorMillis());
                 createdWU.setCluster(wu.getCluster());
                 createdWU.setJobname(wu.getJobname());
@@ -642,6 +714,29 @@ public class HPCCWsWorkUnitsClient
         return createdWU;
     }
 
+    /*
+     * this method is purely for the Platform class
+     */
+    public WUUpdateResponse createWUFromECL(String archiveOrEcl, int resultLimit, ApplicationValue[] appVals, String jobName, boolean compileOnly) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+        else
+        {
+            WUCreateAndUpdate request = new WUCreateAndUpdate();
+            request.setQueryText(archiveOrEcl);
+            request.setJobname(jobName);
+            if (compileOnly)
+                request.setAction(1);
+
+            request.setApplicationValues(appVals);
+            if (resultLimit > 0)
+                request.setResultLimit(resultLimit);
+
+            return wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(request);
+        }
+    }
+
     /**
      * @param jobName
      *            the pattern to find in the jobname (wildcard * matches multiple jobnames)
@@ -652,9 +747,9 @@ public class HPCCWsWorkUnitsClient
      * @return an ArrayList<ECLWorkunit> of matching workunits
      * @throws Exception
      */
-    public ArrayList<ECLWorkunitWrapper> getWorkunits(String jobName, String owner, String ecl) throws Exception
+    public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl) throws Exception
     {
-        ArrayList<ECLWorkunitWrapper> wks = new ArrayList<ECLWorkunitWrapper>();
+        ArrayList<WorkunitInfo> wks = new ArrayList<WorkunitInfo>();
 
         getSoapProxy();
 
@@ -677,14 +772,15 @@ public class HPCCWsWorkUnitsClient
         try
         {
             WUQueryResponse result = wsWorkunitsServiceSoapProxy.WUQuery(params);
-            org.hpccsystems.ws.client.soap.wsworkunits.ECLWorkunit[] ecls = result.getWorkunits();
+            ECLWorkunit[] ecls = result.getWorkunits();
+
             if (ecls == null)
             {
                 return wks;
             }
             for (int i = 0; i < ecls.length; i++)
             {
-                wks.add(new ECLWorkunitWrapper(ecls[i]));
+                wks.add(new WorkunitInfo(ecls[i]));
             }
         }
         catch (Exception e)
@@ -694,8 +790,6 @@ public class HPCCWsWorkUnitsClient
         }
         return wks;
     }
-
-
 
     /**
      * Given an ECL query, this method will create a WU, compile and run it
@@ -708,8 +802,7 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public ECLWorkunitWrapper compileWUFromECL(ECLWorkunitWrapper wu
-          ) throws Exception
+    public WorkunitInfo compileWUFromECL(WorkunitInfo wu ) throws Exception
     {
         Integer sleeptime=wu.getSleepMillis();
 
@@ -718,7 +811,7 @@ public class HPCCWsWorkUnitsClient
             sleeptime = defaultWaitTime;
         }
 
-        ECLWorkunitWrapper createdWU = createWUFromECL(wu);
+        WorkunitInfo createdWU = createWUFromECL(wu);
 
         if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null)
         {
@@ -740,15 +833,20 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public void submitWU(ECLWorkunitWrapper wu) throws Exception
+    public void submitWU(WorkunitInfo wu) throws Exception
+    {
+        submitWU(wu.getWuid(), wu.getCluster());
+    }
+
+    public void submitWU(String wuid, String cluster) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
         else
         {
             WUSubmit wuSubmitParams = new WUSubmit();
-            wuSubmitParams.setWuid(wu.getWuid());
-            wuSubmitParams.setCluster(wu.getCluster());
+            wuSubmitParams.setWuid(wuid);
+            wuSubmitParams.setCluster(cluster);
 
             WUSubmitResponse submitResponse = wsWorkunitsServiceSoapProxy.WUSubmit(wuSubmitParams);
 
@@ -773,7 +871,7 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    private WURunResponse createAndRunWUFromECL(ECLWorkunitWrapper wu) throws Exception
+    private WURunResponse createAndRunWUFromECL(WorkunitInfo wu) throws Exception
     {
         WURunResponse wuRunResponse = null;
 
@@ -781,7 +879,7 @@ public class HPCCWsWorkUnitsClient
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
         else
         {
-            ECLWorkunitWrapper compiledWU = null;
+            WorkunitInfo compiledWU = null;
             compiledWU = compileWUFromECL(wu);
 
             if (compiledWU != null)
@@ -823,7 +921,7 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public String createAndRunWUFromECLAndGetResults(ECLWorkunitWrapper wu) throws Exception
+    public String createAndRunWUFromECLAndGetResults(WorkunitInfo wu) throws Exception
     {
         WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(wu);
         ArrayOfEspException exceptions = createAndRunWUFromECL.getExceptions();
@@ -845,7 +943,7 @@ public class HPCCWsWorkUnitsClient
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    public String createAndRunWUFromECLAndGetWUID(ECLWorkunitWrapper wu) throws Exception
+    public String createAndRunWUFromECLAndGetWUID(WorkunitInfo wu) throws Exception
     {
         WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(wu);
         return createAndRunWUFromECL.getWuid();
@@ -869,8 +967,16 @@ public class HPCCWsWorkUnitsClient
      *            - Total result record count re- Results in xml string - Resu - caller must handle exceptionsle
      *            exceptionsle exceptionsle exceptionss
      */
-    public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset,
-            int resultCount) throws Exception
+    public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
+    {
+            WUResultResponse wuResultResponse = fetchRawResults(wuid, sequence, cluster, suppressXMLShema, resultOffset, resultCount);
+            ArrayOfEspException exceptions = wuResultResponse.getExceptions();
+            if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
+
+            return wuResultResponse.getResult();
+    }
+
+    public WUResultResponse fetchRawResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
@@ -881,14 +987,11 @@ public class HPCCWsWorkUnitsClient
             parameters.setSequence(sequence);
             parameters.setStart(resultOffset);
             parameters.setCount(resultCount);
-            parameters.setCluster(cluster);
+            if (cluster != null)
+                parameters.setCluster(cluster);
             parameters.setSuppressXmlSchema(suppressXMLShema);
 
-            WUResultResponse wuResultResponse = wsWorkunitsServiceSoapProxy.WUResult(parameters);
-            ArrayOfEspException exceptions = wuResultResponse.getExceptions();
-            if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
-
-            return wuResultResponse.getResult();
+            return wsWorkunitsServiceSoapProxy.WUResult(parameters);
         }
     }
 
@@ -904,7 +1007,7 @@ public class HPCCWsWorkUnitsClient
         StringBuilder multimessage = new StringBuilder();
         multimessage.append(message);
         multimessage.append("\n");
-        for (org.hpccsystems.ws.client.soap.wsworkunits.EspException exception : wsWUResponseExceptions.getException())
+        for (org.hpccsystems.ws.client.gen.wsworkunits.v1_46.EspException exception : wsWUResponseExceptions.getException())
         {
             multimessage.append("\t");
             multimessage.append(exception.getMessage());
@@ -913,7 +1016,7 @@ public class HPCCWsWorkUnitsClient
         throw new Exception(multimessage.toString());
     }
 
-    private void refreshWU(boolean full, ECLWorkunitWrapper wu) throws Exception
+    private void refreshWU(boolean full, WorkunitInfo wu) throws Exception
     {
         if (full || HPCCWsWorkUnitsClient.isWorkunitComplete(wu))
         {
@@ -925,7 +1028,7 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
-    private void monitorWUToCompletion(ECLWorkunitWrapper wu) throws Exception
+    private void monitorWUToCompletion(WorkunitInfo wu) throws Exception
     {
         int timerTickCount = 0;
         String id=wu.getWuid();
@@ -937,8 +1040,7 @@ public class HPCCWsWorkUnitsClient
         {
             try
             {
-                Utils.println(System.out, "Monitoring WU " + id + " to completion ( " + timerTickCount
-                        + ") ...", true, verbose);
+                Utils.println(System.out, "Monitoring WU " + id + " to completion ( " + timerTickCount + ") ...", true, verbose);
                 Thread.sleep(wu.getSleepMillis());
             }
             catch (InterruptedException e)
@@ -985,5 +1087,134 @@ public class HPCCWsWorkUnitsClient
         }
 
     }
+
+    public WUQuerySetDetailsResponse getQueriesDetail(String querySetName, String clusterName, String filter) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+
+        WUQuerysetDetails wuQuerysetDetails = new WUQuerysetDetails();
+        wuQuerysetDetails.setQuerySetName(querySetName);
+        wuQuerysetDetails.setClusterName(clusterName);
+        wuQuerysetDetails.setFilter(filter);
+
+        return wsWorkunitsServiceSoapProxy.WUQuerysetDetails(wuQuerysetDetails);
+    }
+
+    public void abortWU(String wuid) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+
+            WUAbort request = new WUAbort();
+            String[] wuids = new String[1];
+            wuids[0] = wuid;
+            request.setWuids(wuids);
+
+            wsWorkunitsServiceSoapProxy.WUAbort(request);
+    }
+
+    public void deleteWU(String wuid) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+
+        WUDelete request = new WUDelete();
+        String[] wuids = new String[1];
+        wuids[0] = wuid;
+        request.setWuids(wuids);
+
+        wsWorkunitsServiceSoapProxy.WUDelete(request);
+    }
+
+    public void resubmitWU(String wuid, boolean restart, boolean clone) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+
+        WUResubmit request = new WUResubmit();
+        request.setResetWorkflow(restart);
+        request.setCloneWorkunit(clone);
+        String[] wuids = new String[1];
+        wuids[0] = wuid;
+        request.setWuids(wuids);
+
+        wsWorkunitsServiceSoapProxy.WUResubmit(request);
+    }
+
+    public QuerySet[] getQuerySets() throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+
+        QuerySet[] queryset = null;
+        WUQuerysets request = new WUQuerysets();
+        WUQuerysetsResponse response = wsWorkunitsServiceSoapProxy.WUQuerysets(request);
+        if (response != null)
+        {
+            queryset = response.getQuerysets();
+        }
+
+        return queryset;
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCWsWorkUnitsClient))
+        {
+            return false;
+        }
+
+        HPCCWsWorkUnitsClient that = (HPCCWsWorkUnitsClient) aThat;
+        WsWorkunitsServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsWorkunitsServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsWorkunitsServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsWorkunitsServiceSoap()).getPassword());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsWorkunitsServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub)  wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getPassword());
+        return result;
+    }
+
 
 }

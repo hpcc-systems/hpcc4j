@@ -10,32 +10,55 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.wsdfu.ArrayOfEspException;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUDataColumn;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUFileViewRequest;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUFileViewResponse;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUInfoRequest;
-import org.hpccsystems.ws.client.soap.wsdfu.DFUInfoResponse;
-import org.hpccsystems.ws.client.soap.wsdfu.DFULogicalFile;
-import org.hpccsystems.ws.client.soap.wsdfu.EspException;
-import org.hpccsystems.ws.client.soap.wsdfu.WsDfuServiceSoap;
-import org.hpccsystems.ws.client.soap.wsdfu.WsDfuServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.WsDfuServiceSoap;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_24.WsDfuServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
  * Use as soap client for HPCC WsDFU web service.
  *
  */
-public class HPCCWsDFUClient
+public class HPCCWsDFUClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCWsDFUClient get(Connection connection)
+    {
+        return (HPCCWsDFUClient) All.get(new HPCCWsDFUClient(connection));
+    }
+
+    public static HPCCWsDFUClient getNoCreate(Connection connection)
+    {
+        return (HPCCWsDFUClient) All.getNoCreate(new HPCCWsDFUClient(connection));
+    }
+
+    public static void remove(HPCCWsDFUClient p)
+    {
+        All.remove(p);
+    }
     public static final String    WSDFUURI              = "/WsDFU";
     public static final String    ROW_ELEMENT           = "Row";
     public static final String    DATASET_ELEMENT       = "Dataset";
@@ -53,7 +76,7 @@ public class HPCCWsDFUClient
 
     /**
      * Provides soapproxy object for HPCCWsDFUClient which can be used to access the web service methods directly
-     * 
+     *
      * @return soapproxy for HPCCWsDFUClient
      * @throws Exception
      */
@@ -100,7 +123,7 @@ public class HPCCWsDFUClient
         {
             if (e != null)
             {
-                for (org.hpccsystems.ws.client.soap.wsdfu.EspException espexception : e.getException())
+                for (org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException espexception : e.getException())
                 {
                     Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
                             + espexception.getMessage(), false, true);
@@ -124,11 +147,9 @@ public class HPCCWsDFUClient
      * @return an XML Element object holding the <Row> elements containing data.
      * @throws Exception
      */
-    public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername)
-            throws Exception
+    public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
-        Node dataset = null;
         DFUBrowseDataRequest req = new DFUBrowseDataRequest();
         req.setLogicalName(logicalname);
         if (clustername != null)
@@ -183,7 +204,7 @@ public class HPCCWsDFUClient
         {
             if (e != null)
             {
-                for (org.hpccsystems.ws.client.soap.wsdfu.EspException espexception : e.getException())
+                for (org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException espexception : e.getException())
                 {
                     Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
                             + espexception.getMessage(), false, true);
@@ -274,7 +295,7 @@ public class HPCCWsDFUClient
         {
             if (e != null && verbose)
             {
-                for (org.hpccsystems.ws.client.soap.wsdfu.EspException espexception : e.getException())
+                for (org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException espexception : e.getException())
                 {
                     Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
                             + espexception.getMessage(), false, true);
@@ -293,13 +314,13 @@ public class HPCCWsDFUClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.soap.wsdfu.WsDfuLocator()).getWsDfuServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.wsdfu.v1_24.WsDfuLocator()).getWsDfuServiceSoapAddress();
     }
 
     /**
      * @param wsDfuServiceSoapProxy
      */
-    public HPCCWsDFUClient(WsDfuServiceSoapProxy wsDfuServiceSoapProxy)
+    protected HPCCWsDFUClient(WsDfuServiceSoapProxy wsDfuServiceSoapProxy)
     {
         this.wsDfuServiceSoapProxy = wsDfuServiceSoapProxy;
     }
@@ -307,7 +328,7 @@ public class HPCCWsDFUClient
     /**
      * @param baseConnection
      */
-    public HPCCWsDFUClient(Connection baseConnection)
+    protected HPCCWsDFUClient(Connection baseConnection)
     {
         this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection
                 .getUserName(), baseConnection.getPassword());
@@ -325,7 +346,7 @@ public class HPCCWsDFUClient
      * @param pass
      *            - Password to use when connecting to the HPCC Cluster
      */
-    public HPCCWsDFUClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCWsDFUClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, WSDFUURI);
 
@@ -361,7 +382,7 @@ public class HPCCWsDFUClient
      * may not - have a record definition associated with it. If it doesn't, the number of fields in the CSV - is
      * calculated by retrieving the first line and splitting it on the separator, and returning - a list of string
      * Field1, Field2, etc. fields (that match the standard CSV field naming conventions.)
-     * 
+     *
      * @param datasetname
      *            - the name of the dataset to get dataset fields for. Can begin with '~' or not.
      * @param clusterName
@@ -488,7 +509,7 @@ public class HPCCWsDFUClient
 
     /**
      * Returns the first row of data for a dataset
-     * 
+     *
      * @param datasetname
      *            - logical filename, with or without '~' at the beginning
      * @param clustername
@@ -570,5 +591,100 @@ public class HPCCWsDFUClient
             }
             throw new Exception(exp);
         }
+    }
+
+    public DFULogicalFile[] getLogicalFiles(String filename, String cluster, int firstN, int pageStartFrom, int pageSize) throws Exception
+    {
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+
+        DFULogicalFile[] logicalfiles = null;
+        DFUQueryRequest request = new DFUQueryRequest();
+        if (filename != null)
+            request.setLogicalName(filename);
+        request.setClusterName(cluster);
+        request.setFirstN(firstN);
+        request.setPageStartFrom(pageStartFrom);
+        request.setPageSize(pageSize);
+
+        DFUQueryResponse response = proxy.DFUQuery(request);
+        if (response != null)
+            logicalfiles = response.getDFULogicalFiles();
+
+        return logicalfiles;
+    }
+
+    public DFUSearchDataResponse getDFUData(String openLogicalName, String cluster, boolean roxieSelections, int chooseFile, int count, boolean schemaOnly, long startIndex) throws Exception
+    {
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+
+        DFUSearchDataRequest dfuSearchDataRequest = new DFUSearchDataRequest();
+        dfuSearchDataRequest.setOpenLogicalName(openLogicalName);
+        dfuSearchDataRequest.setCluster(cluster);
+        dfuSearchDataRequest.setRoxieSelections(roxieSelections);
+        dfuSearchDataRequest.setChooseFile(chooseFile);
+        dfuSearchDataRequest.setCount(count);
+        dfuSearchDataRequest.setSchemaOnly(schemaOnly);
+        dfuSearchDataRequest.setStartIndex(startIndex);
+
+        return proxy.DFUSearchData(dfuSearchDataRequest);
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCWsDFUClient))
+        {
+            return false;
+        }
+
+        HPCCWsDFUClient that = (HPCCWsDFUClient) aThat;
+        WsDfuServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsDfuServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getPassword());
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsDfuServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword());
+        return result;
     }
 }
