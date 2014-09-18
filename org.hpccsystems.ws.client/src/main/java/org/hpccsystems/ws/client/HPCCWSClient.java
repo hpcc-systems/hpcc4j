@@ -626,7 +626,7 @@ public class HPCCWSClient
      * @return                  - If successful, the resulting dataset(s)
      * @throws Exception
      */
-    public String submitECLandGetResults(String ecl, String targetcluster, int resultLimit, int maxwait) throws Exception
+    public String submitECLandGetResults(ECLWorkunitWrapper wu) throws Exception
     {
         String results = null;
 
@@ -634,7 +634,7 @@ public class HPCCWSClient
 
         try
         {
-            results = eclDirectClient.submitECLandGetResults(ecl, targetcluster, resultLimit, maxwait);
+            results = eclDirectClient.submitECLandGetResults(wu);
         }
         catch (Exception e)
         {
@@ -655,13 +655,11 @@ public class HPCCWSClient
      * @throws Exception
      */
 
-    public List<List <Object>> submitECLandGetResultsList(String ecl, String targetcluster, int resultLimit, int maxwait) throws Exception
+    public List<List <Object>> submitECLandGetResultsList(ECLWorkunitWrapper wu) throws Exception
     {
         List<List <Object>> resultsList;
-
-        String results = submitECLandGetResults(ecl, targetcluster, resultLimit, maxwait);
+        String results = submitECLandGetResults(wu);
         resultsList = Utils.parseECLResults(results);
-
         return resultsList;
     }
 
@@ -673,14 +671,14 @@ public class HPCCWSClient
      * @param maxwait           - Maxwait in millis
      * @return                  - If successful, the resulting WUID, which can be used to query info, including results
      */
-    public String submitECLandGetWUID(String ecl, String targetcluster, int resultLimit, int maxwait)
+    public String submitECLandGetWUID(ECLWorkunitWrapper wu)
     {
         String WUID = null;
 
         try
         {
             initEclDirectClient();
-            WUID = eclDirectClient.submitECL(ecl, targetcluster, resultLimit, maxwait);
+            WUID = eclDirectClient.submitECL(wu);
         }
         catch (Exception e)
         {
@@ -776,16 +774,25 @@ public class HPCCWSClient
                     "hpccpersonrecords := DATASET('~mythor::shortpersons', Layout_Persons, FLAT);" +
                     "output(hpccpersonrecords) ;";
 
+
+            ECLWorkunitWrapper wu=new ECLWorkunitWrapper();
+            wu.setECL(outputFlatfileContentsEcl);
+            wu.setJobname("myflatoutput");
+            wu.setCluster(clusterGroups[0]);
+            wu.setResultLimit(100);
+            wu.setMaxMonitorMillis(1000);
             //this is just one way to submitECL, you can also submit via ecldirect and request the resulting WUID
             //you can also, submit via WSWorkunits and have more control over the result window you get back.
-            String results = connector.submitECLandGetResults(outputFlatfileContentsEcl, clusterGroups[0] /*hthor,thor,roxie*/, 100, 1000);
+            String results = connector.submitECLandGetResults(wu);
 
             //List<List <Object>> resultsList = Utils.parseECLResults(results);
+            wu.setCluster(clusterGroups[0]); /*hthor,thor,roxie*/
+            WUPublishWorkunitResponse publishresp = connector.getWsWorkunitsClient().publishWUFromEcl(wu);
 
-            WUPublishWorkunitResponse publishresp = connector.getWsWorkunitsClient().publishWUFromEcl(outputFlatfileContentsEcl, "myflatoutput", clusterGroups[1]);
-
-
-            List<List <Object>> resultsList = connector.submitECLandGetResultsList(outputFlatfileContentsEcl, clusterGroups[0] /*hthor,thor,roxie*/, 100, 1000);
+            wu.setCluster(clusterGroups[1]); /*hthor,thor,roxie*/
+            wu.setResultLimit(100);
+            wu.setMaxMonitorMillis(1000);
+            List<List <Object>> resultsList = connector.submitECLandGetResultsList(wu);
             int resultsets = resultsList.size();
 
             Utils.println(System.out, "Found " + resultsets + " resultsets.", false, true);
@@ -802,7 +809,10 @@ public class HPCCWSClient
                 System.out.println("");
             }
 
-            String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(outputFlatfileContentsEcl, clusterGroups[1], 10,null,null,null);
+            wu.setCluster(clusterGroups[1]); /*hthor,thor,roxie*/
+            wu.setResultLimit(10);
+
+            String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(wu);
             String results2 = connector.getWsWorkunitsClient().fetchResults(wuid, 0, clusterGroups[1], true, -1, -1);
             System.out.println(results2);
         }
