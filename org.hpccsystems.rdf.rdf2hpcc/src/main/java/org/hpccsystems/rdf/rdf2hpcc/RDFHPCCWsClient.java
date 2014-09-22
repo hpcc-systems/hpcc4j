@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hpccsystems.ws.client.ECLWorkunitWrapper;
 import org.hpccsystems.ws.client.HPCCECLDirectClient;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWSClient;
@@ -396,7 +397,14 @@ public class RDFHPCCWsClient extends HPCCWSClient
         try
         {
             HPCCECLDirectClient declient = getEclDirectClient();
-            eclreturn = declient.submitECLandGetResults(STATSECL + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));", targetECLCluster, HPCCECLDirectClient.noresultlimit, eclmaxwaitMS);
+            ECLWorkunitWrapper wu = new ECLWorkunitWrapper();
+            wu.setECL(STATSECL + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));");
+            wu.setCluster(targetECLCluster);
+            wu.setResultLimit(HPCCECLDirectClient.noresultlimit);
+            wu.setMaxMonitorMillis(eclmaxwaitMS);
+
+            //eclreturn = declient.submitECLandGetResults(STATSECL + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));", targetECLCluster, HPCCECLDirectClient.noresultlimit, eclmaxwaitMS);
+            eclreturn = declient.submitECLandGetResults(wu );
         }
         catch (org.hpccsystems.ws.client.soap.ecldirect.ArrayOfEspException e)
         {
