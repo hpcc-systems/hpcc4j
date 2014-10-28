@@ -2,13 +2,10 @@ package org.hpccsystems.ws.client;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.soap.wsworkunits.ArrayOfEspException;
-import org.hpccsystems.ws.client.soap.wsworkunits.DebugValue;
 import org.hpccsystems.ws.client.soap.wsworkunits.ECLException;
-import org.hpccsystems.ws.client.soap.wsworkunits.NamedValue;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfo;
 import org.hpccsystems.ws.client.soap.wsworkunits.WUInfoDetails;
@@ -108,7 +105,6 @@ public class HPCCWsWorkUnitsClient
         }
     }
 
- 
     /**
      * @param verbose
      *            - sets verbose mode
@@ -625,7 +621,7 @@ public class HPCCWsWorkUnitsClient
             wucreateparameters.setJobname(wu.getJobname());
             wucreateparameters.setClusterOrig(wu.getCluster());
             wucreateparameters.setResultLimit(wu.getResultLimit());
-            
+
             WUUpdateResponse wuUpdateResponse = wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters);
 
             ArrayOfEspException exceptions = wuUpdateResponse.getExceptions();
@@ -716,7 +712,7 @@ public class HPCCWsWorkUnitsClient
           ) throws Exception
     {
         Integer sleeptime=wu.getSleepMillis();
-        
+
         if (sleeptime == null)
         {
             sleeptime = defaultWaitTime;
@@ -931,7 +927,6 @@ public class HPCCWsWorkUnitsClient
 
     private void monitorWUToCompletion(ECLWorkunitWrapper wu) throws Exception
     {
-        
         int timerTickCount = 0;
         String id=wu.getWuid();
         if (wu.getJobname() != null) {

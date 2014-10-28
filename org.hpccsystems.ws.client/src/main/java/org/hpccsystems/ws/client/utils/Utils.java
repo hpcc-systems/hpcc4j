@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -16,10 +17,17 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -153,6 +161,117 @@ public class Utils
         }
 
         return resultList;
+    }
+
+    private static String nodeToString(Node node) throws TransformerException
+    {
+        StringWriter buf = new StringWriter();
+        Transformer xform = TransformerFactory.newInstance().newTransformer();
+        xform.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        xform.transform(new DOMSource(node), new StreamResult(buf));
+        return(buf.toString());
+    }
+
+    static public String extactResultSchema(String results)
+    {
+        Utils.println(System.out, "Parsing ECL results...", false, false);
+        Utils.println(System.out, results, true, false);
+
+        try
+        {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+            Document doc = dBuilder.parse(new ByteArrayInputStream(results.getBytes("UTF-8")));
+
+            Utils.println(System.out, " Root element: " + doc.getDocumentElement().getNodeName(), false, false);
+
+            NodeList exceptionList = doc.getElementsByTagName("Exception");
+            if (exceptionList.getLength() > 0)
+            {
+                return null;
+            }
+
+            NodeList nList = doc.getElementsByTagName("XmlSchema");
+
+            if (nList.getLength() > 0)
+            {
+                return nodeToString(nList.item(0));
+            }
+        }
+        catch (ParserConfigurationException e)
+        {
+            e.printStackTrace();
+        }
+        catch (SAXException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (TransformerException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    static public List<List<Object>> parseOutResultSchema(String results)
+    {
+        Utils.println(System.out, "Parsing ECL results...", false, false);
+        Utils.println(System.out, results, true, false);
+
+        List<List<Object>> schemaCols = null;
+        try
+        {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+            Document doc = dBuilder.parse(new ByteArrayInputStream(results.getBytes("UTF-8")));
+
+            Utils.println(System.out, " Root element: " + doc.getDocumentElement().getNodeName(), false, false);
+
+            NodeList exceptionList = doc.getElementsByTagName("Exception");
+            if (exceptionList.getLength() > 0)
+                return null;
+
+            NodeList rowNodeList = doc.getElementsByTagName("Row");
+
+            if (rowNodeList.getLength() > 0)
+            {
+                schemaCols = new ArrayList<List<Object>>();
+                Node rowNode = rowNodeList.item(0);
+
+                NodeList rowChildNodes = rowNode.getChildNodes();
+                for (int rowChildNodeIndex = 0; rowChildNodeIndex < rowChildNodes.getLength(); rowChildNodeIndex++)
+                {
+                    List<Object> schemaCol = new ArrayList<Object>();
+                    Node rowChild = rowChildNodes.item(rowChildNodeIndex);
+
+                    schemaCol.add(0,rowChild.getNodeName());
+                    schemaCol.add(1,rowChild.getNodeType());
+
+                    schemaCols.add(rowChildNodeIndex, schemaCol);
+                }
+            }
+        }
+        catch (ParserConfigurationException e)
+        {
+            e.printStackTrace();
+        }
+        catch (SAXException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return schemaCols;
     }
 
     @SuppressWarnings("unchecked")

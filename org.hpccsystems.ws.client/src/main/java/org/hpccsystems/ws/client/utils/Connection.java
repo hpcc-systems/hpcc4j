@@ -382,23 +382,23 @@ public class Connection
         return url.toString();
     }
 
-    private static final int        DEFAULT_TIMEOUT             = 180 * 1000;
+    private static final int        DEFAULT_READ_TIMEOUT        = 180 * 1000;
     private static final boolean    DEFAULT_MAINTAIN_SESSION    = true;
     public static void initStub(Stub stub, String user, String password)
     {
-        initStub(stub, user, password, DEFAULT_TIMEOUT);
+        initStub(stub, user, password, DEFAULT_READ_TIMEOUT);
     }
 
     public static void initStub(Stub stub, String user, String password, int timeout)
     {
-        initStub(stub, user, password, DEFAULT_TIMEOUT, DEFAULT_MAINTAIN_SESSION);
+        initStub(stub, user, password, DEFAULT_READ_TIMEOUT, DEFAULT_MAINTAIN_SESSION);
     }
 
-    public static void initStub(Stub stub, String user, String password, int timeout, boolean maintainsession)
+    public static void initStub(Stub stub, String user, String password, int readtimeout, boolean maintainsession)
     {
         stub.setUsername(user);
         stub.setPassword(password);
-        stub.setTimeout(timeout);
+        stub.setTimeout(readtimeout);
         stub.setMaintainSession(maintainsession);
     }
 }
