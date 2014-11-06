@@ -29,7 +29,10 @@ Projects contained within:
 
 All contributions must follow the JAVA source format described in the HPCC-JAVA-Formatter.xml file which can be found in /eclipse.
 This formatter can be used by the Eclipse IDE to automatically format JAVA source code.
+
 -From eclipse, choose Window->Preferences->Java->Code Stype->Formatter...
+
 --Import the HPCC-JAVA-Formatter.xml file and set it as the Active profile.
+
 -From the JAVA editor, choose Source->Format
 
