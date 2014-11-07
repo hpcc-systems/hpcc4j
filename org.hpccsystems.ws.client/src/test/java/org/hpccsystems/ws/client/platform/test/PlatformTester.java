@@ -19,7 +19,7 @@ public class PlatformTester
         try
         {
             Platform platform = Platform.get("http", "192.168.56.120", 8010, null, null);
-            Version v = platform.getBuildVersion();
+            Version v = platform.getVersion();
             System.out.println(v.toString());
 
             HPCCWSClient connector = platform.getHPCCWSClient();

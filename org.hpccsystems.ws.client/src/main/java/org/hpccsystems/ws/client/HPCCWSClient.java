@@ -31,6 +31,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 public class HPCCWSClient extends DataSingleton
 {
     public static DataSingletonCollection All = new DataSingletonCollection();
+    public static DataSingletonCollection SubClients = new DataSingletonCollection();
 
     public static HPCCWSClient get(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort, String user, String password)
     {
@@ -47,14 +48,6 @@ public class HPCCWSClient extends DataSingleton
         All.remove(p);
     }
 
-    private HPCCFileSprayClient           fileSprayClient             = null;
-    private HPCCWsFileIOClient            wsFileIOClient              = null;
-    private HPCCWsTopologyClient          wsTopologyClient            = null;
-    private HPCCECLDirectClient           eclDirectClient             = null;
-    private HPCCWsWorkUnitsClient         wsWorkunitsClient           = null;
-    private HPCCWsSMCClient               wsSMCClient                 = null;
-    private HPCCWsDFUClient               wsDFUClient                 = null;
-
     public static final String defaultTargetWsECLWatchHost      = "localhost";
     public static final String defaultTWsECLWatchPort           = "8010";
     public static final String defaultTWsECLWatchSSLPort        = "18010";
@@ -62,6 +55,7 @@ public class HPCCWSClient extends DataSingleton
     private String targetDropzoneNetAddres = null;
     protected boolean verbosemode = false;
     protected Connection connection = null;
+    private   Object connectionLock = new Object();
 
     /**
      * @return true if the client is set to be verbose
@@ -159,20 +153,41 @@ public class HPCCWSClient extends DataSingleton
      */
     private HPCCWSClient(Connection conn)
     {
-        connection = conn;
+        updateConnection(conn);
+    }
+
+    public synchronized void update(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
+    {
+        Connection newConnection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
+        newConnection.setCredentials(username, password);
+
+        updateConnection(newConnection);
+    }
+
+    public synchronized void updateConnection(Connection conn)
+    {
+        synchronized (connectionLock)
+        {
+            connection = conn;
+            SubClients.clear();
+        }
     }
 
     protected Connection getConnection()
     {
-        return connection;
+        synchronized (connectionLock)
+        {
+            return connection;
+        }
     }
+
     /**
      * Test availability of target HPCC ESP service
      * @param conn
      */
     public synchronized boolean pingServer() throws Exception
     {
-        wsWorkunitsClient = getWsWorkunitsClient();
+        HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
 
         try
         {
@@ -202,10 +217,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCFileSprayClient getFileSprayClient()
     {
-        if (fileSprayClient != null)
-            return fileSprayClient;
-        else
-            return (HPCCFileSprayClient) All.get(new HPCCFileSprayClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCFileSprayClient) SubClients.get(new HPCCFileSprayClient(connection));
+        }
     }
 
     /**
@@ -223,10 +238,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCWsFileIOClient getWsFileIOClient()
     {
-        if (wsFileIOClient != null)
-            return wsFileIOClient;
-        else
-            return (HPCCWsFileIOClient) All.get(new HPCCWsFileIOClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCWsFileIOClient) SubClients.get(new HPCCWsFileIOClient(connection));
+        }
     }
 
     /**
@@ -244,10 +259,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCWsTopologyClient getWsTopologyClient()
     {
-        if (wsTopologyClient != null)
-            return wsTopologyClient;
-        else
-            return (HPCCWsTopologyClient) All.get(new HPCCWsTopologyClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCWsTopologyClient) SubClients.get(new HPCCWsTopologyClient(connection));
+        }
     }
 
     /**
@@ -265,10 +280,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCECLDirectClient getEclDirectClient()
     {
-        if (eclDirectClient != null)
-            return eclDirectClient;
-        else
-            return (HPCCECLDirectClient) All.get(new HPCCECLDirectClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCECLDirectClient) SubClients.get(new HPCCECLDirectClient(connection));
+        }
     }
 
     /**
@@ -286,10 +301,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCWsDFUClient getWsDFUClient()
     {
-        if (wsDFUClient != null)
-            return wsDFUClient;
-        else
-            return (HPCCWsDFUClient) All.get(new HPCCWsDFUClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCWsDFUClient) SubClients.get(new HPCCWsDFUClient(connection));
+        }
     }
 
     /**
@@ -307,10 +322,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCWsSMCClient getWsSMCClient()
     {
-        if (wsSMCClient != null)
-            return wsSMCClient;
-        else
-            return (HPCCWsSMCClient) All.get(new HPCCWsSMCClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCWsSMCClient) SubClients.get(new HPCCWsSMCClient(connection));
+        }
     }
 
     /**
@@ -328,10 +343,10 @@ public class HPCCWSClient extends DataSingleton
      */
     public synchronized HPCCWsWorkUnitsClient getWsWorkunitsClient()
     {
-        if (wsWorkunitsClient != null)
-            return wsWorkunitsClient;
-        else
-            return (HPCCWsWorkUnitsClient) All.get(new HPCCWsWorkUnitsClient(connection));
+        synchronized (connectionLock)
+        {
+            return (HPCCWsWorkUnitsClient) SubClients.get(new HPCCWsWorkUnitsClient(connection));
+        }
     }
 
     /**
@@ -341,12 +356,12 @@ public class HPCCWSClient extends DataSingleton
      */
     public String[] getAvailableClusterGroups() throws Exception
     {
-        wsTopologyClient = HPCCWsTopologyClient.get(connection);
+        HPCCWsTopologyClient hpccWsTopologyClient = HPCCWsTopologyClient.get(connection);
 
         try
         {
-            if (wsTopologyClient != null)
-                return wsTopologyClient.getValidTargetGroupNames();
+            if (hpccWsTopologyClient != null)
+                return hpccWsTopologyClient.getValidTargetGroupNames();
             else
                 throw new Exception("Could not initialize HPCC WsTopology Client");
         }
@@ -366,7 +381,7 @@ public class HPCCWSClient extends DataSingleton
      */
     public String[] getAvailableClusterNames(String clusterGroupType) throws Exception
     {
-        wsTopologyClient = getWsTopologyClient();
+        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
 
         if (wsTopologyClient != null)
             return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
@@ -380,7 +395,7 @@ public class HPCCWSClient extends DataSingleton
      */
     public List<String> getAvailableTargetClusterNames() throws Exception
     {
-        wsTopologyClient = getWsTopologyClient();
+        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
 
         if (wsTopologyClient != null)
             return wsTopologyClient.getValidTargetClusterNames();
@@ -403,7 +418,8 @@ public class HPCCWSClient extends DataSingleton
 
         try
         {
-            fileSprayClient = getFileSprayClient();
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+
             if (fileSprayClient != null)
                 success = handleSprayResponse(fileSprayClient.sprayFixedLocalDropZone(fileName, recordSize, targetFileLabel, "", targetCluster, overwritesprayedfile));
             else
@@ -496,8 +512,7 @@ public class HPCCWSClient extends DataSingleton
 
         try
         {
-            //initFileSprayClient();
-            fileSprayClient = getFileSprayClient();
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
             if (fileSprayClient != null)
                 success = handleSprayResponse(fileSprayClient.sprayVariableLocalDropZone(options, fileName, targetFileLabel, "", targetCluster, overwritesprayedfile, format));
             else
@@ -519,7 +534,7 @@ public class HPCCWSClient extends DataSingleton
         return success;
     }
 
-    private boolean handleSprayResponse(ProgressResponse sprayResponse) throws org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException, RemoteException
+    private boolean handleSprayResponse(ProgressResponse sprayResponse) throws Exception
     {
         boolean success = false;
 
@@ -533,6 +548,11 @@ public class HPCCWSClient extends DataSingleton
         }
         else
         {
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+
+            if (fileSprayClient == null)
+                throw new Exception("Could not initialize HPCC FileSpray Client");
+
             ProgressRequest dfuprogressparams = new ProgressRequest();
             dfuprogressparams.setWuid(sprayResponse.getWuid());
             Utils.println(System.out, "Spray file DWUID: " +sprayResponse.getWuid(), true, verbosemode);
@@ -540,7 +560,7 @@ public class HPCCWSClient extends DataSingleton
 
             if (progressResponse.getExceptions() != null)
             {
-
+                Utils.println(System.out, "Spray progress status fetch failed.", false, verbosemode);
             }
             else
             {
@@ -587,7 +607,7 @@ public class HPCCWSClient extends DataSingleton
     {
         try
         {
-            fileSprayClient = getFileSprayClient();
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
             if (fileSprayClient != null)
                 fileSprayClient.uploadFileLocalDropZone(file);
             else
@@ -614,8 +634,8 @@ public class HPCCWSClient extends DataSingleton
     {
         boolean success = false;
 
-        wsFileIOClient = getWsFileIOClient();
-        fileSprayClient = getFileSprayClient();
+        HPCCWsFileIOClient wsFileIOClient = getWsFileIOClient();
+        HPCCFileSprayClient fileSprayClient = getFileSprayClient();
 
         if (fileSprayClient != null)
         {
@@ -664,7 +684,7 @@ public class HPCCWSClient extends DataSingleton
     {
         String results = null;
 
-        eclDirectClient = getEclDirectClient();
+        HPCCECLDirectClient eclDirectClient = getEclDirectClient();
 
         try
         {
@@ -714,7 +734,7 @@ public class HPCCWSClient extends DataSingleton
 
         try
         {
-            eclDirectClient = getEclDirectClient();
+            HPCCECLDirectClient eclDirectClient = getEclDirectClient();
             if (eclDirectClient != null)
                 WUID = eclDirectClient.submitECL(wu);
             else

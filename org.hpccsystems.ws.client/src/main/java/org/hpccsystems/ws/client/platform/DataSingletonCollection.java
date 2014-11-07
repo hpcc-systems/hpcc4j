@@ -87,4 +87,10 @@ public class DataSingletonCollection extends Observable
             notificationDelta = null;
         }
     }
+
+    public synchronized void clear()
+    {
+        items.clear();
+        setChanged();
+    }
 }

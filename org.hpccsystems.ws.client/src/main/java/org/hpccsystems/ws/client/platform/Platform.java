@@ -111,7 +111,7 @@ public class Platform extends DataSingleton
         UNKNOWN, TESTING, FALSE, TRUE
     }
 
-    private HPCCWSClient                    hpccclient = null;
+    protected HPCCWSClient                  hpccclient = null;
     private SERVER_EXISTS                   serverExists = SERVER_EXISTS.UNKNOWN;
     protected boolean                       isDisabled;
     public boolean                          isTempDisabled;
@@ -242,10 +242,11 @@ public class Platform extends DataSingleton
         return success;
     }
 
-    public Version getBuildVersion()
+    //Rodrigo: do we need getbuildversion and get version??
+    /*public Version getBuildVersion()
     {
         return new Version(getBuild());
-    }
+    }*/
 
     public Version getVersion()
     {
@@ -766,7 +767,33 @@ public class Platform extends DataSingleton
         }
     }
 
-    //Rodrigo: what is this for?
+    //Rodrigo these geturls should be in Connection...
+    // SOAP Stub Helpers ---
+    public URL getURL() throws MalformedURLException
+    {
+        return getURL(""); //$NON-NLS-1$
+    }
+
+    public URL getURL(String service) throws MalformedURLException
+    {
+        return new URL(getProtocol(), getIP(), getPort(), "/" + service); //$NON-NLS-1$
+    }
+
+    public URL getURL(String service, String method) throws MalformedURLException
+    {
+        return getURL(service + "/" + method); //$NON-NLS-1$
+    }
+
+    public URL getURL(String service, String method, String params) throws MalformedURLException
+    {
+        return getURL(service + "/" + method + "?" + params); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    public URL getWidgetURL(String widget, String params) throws MalformedURLException
+    {
+        return getURL("esp/files/stub.htm?Widget=" + widget + (params.isEmpty() ? "" : "&" + params)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    }
+
     void latencyTest()
     {
         if (LATENCY_TEST == 0)
