@@ -145,10 +145,8 @@ public class HPCCECLDirectClient
                         throw new Exception(exception.getMessage());
                 }
             }
-            else
-            {
-                wuid = runEclExResponse.getWuid();
-            }
+
+            wuid = runEclExResponse.getWuid();
         }
         return wuid;
     }
@@ -196,10 +194,8 @@ public class HPCCECLDirectClient
                         throw new Exception(exception.getMessage());
                 }
             }
-            else
-            {
-                results = runEclExResponse.getResults();
-            }
+
+            results = runEclExResponse.getResults();
         }
         return results;
     }
