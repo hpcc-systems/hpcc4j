@@ -107,7 +107,6 @@ public class Utils
                         resultList.add(row);
                     }
                 }
-                return resultList;
             }
 
             NodeList nList = doc.getElementsByTagName("Dataset");
@@ -124,7 +123,8 @@ public class Utils
 
                     System.out.println("  Dataset Name: " + eElement.getAttribute("name"));
 
-                    resultList = new ArrayList<List<Object>>();
+                    if (resultList == null)
+                        resultList = new ArrayList<List<Object>>();
 
                     NodeList datasetchildnodes = nNode.getChildNodes();
                     for (int rowsindex = 0; rowsindex < datasetchildnodes.getLength(); rowsindex++)
@@ -134,7 +134,6 @@ public class Utils
                         if (!(ithrow instanceof CharacterData))
                         {
                             Element ithrowelement = (Element) ithrow;
-                            //System.out.println(parseECLRowResults(ithrowelement, '\n'));
                             resultList.add(parseECLRowResultsToList(ithrowelement));
                         }
                         else
