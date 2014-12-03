@@ -11,24 +11,32 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.filespray.DropZone;
-import org.hpccsystems.ws.client.soap.filespray.DropZoneFilesRequest;
-import org.hpccsystems.ws.client.soap.filespray.DropZoneFilesResponse;
-import org.hpccsystems.ws.client.soap.filespray.EspException;
-import org.hpccsystems.ws.client.soap.filespray.FileListRequest;
-import org.hpccsystems.ws.client.soap.filespray.FileListResponse;
-import org.hpccsystems.ws.client.soap.filespray.FileSprayServiceSoap;
-import org.hpccsystems.ws.client.soap.filespray.FileSprayServiceSoapProxy;
-import org.hpccsystems.ws.client.soap.filespray.PhysicalFileStruct;
-import org.hpccsystems.ws.client.soap.filespray.ProgressRequest;
-import org.hpccsystems.ws.client.soap.filespray.ProgressResponse;
-import org.hpccsystems.ws.client.soap.filespray.SprayFixed;
-import org.hpccsystems.ws.client.soap.filespray.SprayFixedResponse;
-import org.hpccsystems.ws.client.soap.filespray.SprayResponse;
-import org.hpccsystems.ws.client.soap.filespray.SprayVariable;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.FileListRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.FileListResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.FileSprayServiceSoap;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.FileSprayServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunit;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunits;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitsResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixed;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixedResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayVariable;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.FileFormat;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 
 /**
@@ -38,8 +46,25 @@ import org.hpccsystems.ws.client.utils.Utils;
  * This class can be enhanced to provide further service calls.
  *
  */
-public class HPCCFileSprayClient
+public class HPCCFileSprayClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCFileSprayClient get(Connection connection)
+    {
+        return (HPCCFileSprayClient) All.get(new HPCCFileSprayClient(connection));
+    }
+
+    public static HPCCFileSprayClient getNoCreate(Connection connection)
+    {
+        return (HPCCFileSprayClient) All.getNoCreate(new HPCCFileSprayClient(connection));
+    }
+
+    public static void remove(HPCCFileSprayClient p)
+    {
+        All.remove(p);
+    }
+
     private static final String FILESPRAYWSDLURI     = "/FileSpray";
     private static final String UPLOADURI           = FILESPRAYWSDLURI + "/UploadFile?upload_";
 
@@ -71,7 +96,6 @@ public class HPCCFileSprayClient
             return fileSprayServiceSoapProxy;
         else
             throw new Exception("FileSpray Service Soap Proxy not available.");
-
     }
 
     /**
@@ -81,16 +105,16 @@ public class HPCCFileSprayClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.soap.filespray.FileSprayLocator()).getFileSprayServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.filespray.v1_06.FileSprayLocator()).getFileSprayServiceSoapAddress();
     }
 
-    public HPCCFileSprayClient(Connection baseConnection)
+    protected HPCCFileSprayClient(Connection baseConnection)
     {
        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
        fsconn = baseConnection;
     }
 
-    public HPCCFileSprayClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCFileSprayClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort);
         initWsFileSpraySoapProxy(address, user, pass);
@@ -199,7 +223,7 @@ public class HPCCFileSprayClient
         dzfr.setDirectoryOnly(true);
 
         DropZoneFilesResponse resp = fileSprayServiceSoapProxy.dropZoneFiles(dzfr);
-        org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -241,7 +265,7 @@ public class HPCCFileSprayClient
      * @return                - Array of file descriptors
      * @throws Exception
      */
-    public PhysicalFileStruct[] listFiles(String netAddress, String path) throws Exception
+    public PhysicalFileStruct[] listFiles(String netAddress, String path, String OS) throws Exception
     {
         if (fileSprayServiceSoapProxy == null)
             throw new Exception("FileSpray Service Soap Proxy not available.");
@@ -249,9 +273,11 @@ public class HPCCFileSprayClient
         FileListRequest flr = new FileListRequest();
         flr.setNetaddr(netAddress);
         flr.setPath(path);
+        if (OS != null)
+            flr.setOS(OS);
 
         FileListResponse resp = fileSprayServiceSoapProxy.fileList(flr);
-        org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -379,7 +405,7 @@ public class HPCCFileSprayClient
 
         SprayResponse resp = fileSprayServiceSoapProxy.sprayVariable(svr);
 
-        org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -463,7 +489,7 @@ public class HPCCFileSprayClient
         sfr.setPrefix(prefix);
 
         SprayFixedResponse resp = fileSprayServiceSoapProxy.sprayFixed(sfr);
-        org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -490,7 +516,7 @@ public class HPCCFileSprayClient
         pr.setWuid(dfuwuid);
 
         ProgressResponse resp = fileSprayServiceSoapProxy.getDFUProgress(pr);
-        org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -634,5 +660,89 @@ public class HPCCFileSprayClient
         }
 
         return true;
+    }
+
+    public GetDFUWorkunitResponse getDFUWorkunit(String workunitid) throws Exception
+    {
+        if (fileSprayServiceSoapProxy == null)
+            throw new Exception("FileSpray Service Soap Proxy not available.");
+
+        GetDFUWorkunitResponse response = null;
+
+        GetDFUWorkunit request = new GetDFUWorkunit();
+        request.setWuid(workunitid);
+        response = fileSprayServiceSoapProxy.getDFUWorkunit(request);
+
+        return response;
+    }
+
+    public GetDFUWorkunitsResponse getDFUWorkunits(String cluster, Long pagesize) throws Exception
+    {
+        if (fileSprayServiceSoapProxy == null)
+            throw new Exception("FileSpray Service Soap Proxy not available.");
+
+        GetDFUWorkunits request = new GetDFUWorkunits();
+        request.setPageSize(pagesize);
+        request.setCluster(cluster);
+
+        return fileSprayServiceSoapProxy.getDFUWorkunits(request);
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCFileSprayClient))
+        {
+            return false;
+        }
+
+        HPCCFileSprayClient that = (HPCCFileSprayClient) aThat;
+        FileSprayServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(fileSprayServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) fileSprayServiceSoapProxy.getFileSprayServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getFileSprayServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) fileSprayServiceSoapProxy.getFileSprayServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getFileSprayServiceSoap()).getPassword());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, fileSprayServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub)  fileSprayServiceSoapProxy.getFileSprayServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  fileSprayServiceSoapProxy.getFileSprayServiceSoap()).getPassword());
+        return result;
     }
 }

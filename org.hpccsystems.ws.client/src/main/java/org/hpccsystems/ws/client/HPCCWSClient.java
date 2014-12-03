@@ -4,14 +4,18 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import org.hpccsystems.ws.client.soap.filespray.DropZone;
-import org.hpccsystems.ws.client.soap.filespray.EspException;
-import org.hpccsystems.ws.client.soap.filespray.ProgressRequest;
-import org.hpccsystems.ws.client.soap.filespray.ProgressResponse;
-import org.hpccsystems.ws.client.soap.wsworkunits.WUPublishWorkunitResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressResponse;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
+import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.FileFormat;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 
 /**
@@ -24,13 +28,25 @@ import org.hpccsystems.ws.client.utils.Utils;
  * web service method request directly.
  *
  */
-public class HPCCWSClient
+public class HPCCWSClient extends DataSingleton
 {
-    private HPCCFileSprayClient           fileSprayClient             = null;
-    private HPCCWsFileIOClient            wsFileIOClient              = null;
-    private HPCCWsTopologyClient          wsTopologyClient            = null;
-    private HPCCECLDirectClient           eclDirectClient             = null;
-    private HPCCWsWorkUnitsClient         wsWorkunitsClient           = null;
+    public static DataSingletonCollection All = new DataSingletonCollection();
+    public static DataSingletonCollection SubClients = new DataSingletonCollection();
+
+    public static HPCCWSClient get(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort, String user, String password)
+    {
+        return (HPCCWSClient) All.get(new HPCCWSClient( protocol, targetWsECLWatchAddress, Integer.toString(targetWsECLWatchPort), user, password));
+    }
+
+    public static HPCCWSClient getNoCreate(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort,String user, String password)
+    {
+        return (HPCCWSClient) All.getNoCreate(new HPCCWSClient(protocol, targetWsECLWatchAddress, Integer.toString(targetWsECLWatchPort), user, password));
+    }
+
+    public static void remove(HPCCWSClient p)
+    {
+        All.remove(p);
+    }
 
     public static final String defaultTargetWsECLWatchHost      = "localhost";
     public static final String defaultTWsECLWatchPort           = "8010";
@@ -38,7 +54,8 @@ public class HPCCWSClient
 
     private String targetDropzoneNetAddres = null;
     protected boolean verbosemode = false;
-    private Connection connection = null;
+    protected Connection connection = null;
+    private   Object connectionLock = new Object();
 
     /**
      * @return true if the client is set to be verbose
@@ -61,7 +78,7 @@ public class HPCCWSClient
     /**
      *  Instantiates HPCCWSClient, attempts to establish all communications on http://localhost:8010
      */
-    public HPCCWSClient()
+    private HPCCWSClient()
     {
         this(defaultTargetWsECLWatchHost,defaultTWsECLWatchPort);
     }
@@ -69,7 +86,7 @@ public class HPCCWSClient
     /**
      *  Instantiates HPCCWSClient, attempts to establish all communications on <protocol>://localhost:<defaultportonprotocol>
      */
-    public HPCCWSClient(String protocol)
+    private HPCCWSClient(String protocol)
     {
         this(protocol, defaultTargetWsECLWatchHost, (protocol.equalsIgnoreCase("https") ? defaultTWsECLWatchSSLPort : defaultTWsECLWatchPort));
     }
@@ -81,7 +98,7 @@ public class HPCCWSClient
      * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
      *                                  usually 8010
      */
-    public HPCCWSClient(String targetWsECLWatchAddress, String targetWsECLWatchPort)
+    private HPCCWSClient(String targetWsECLWatchAddress, String targetWsECLWatchPort)
     {
         this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort);
     }
@@ -94,7 +111,7 @@ public class HPCCWSClient
      * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
      *                                  usually 8010
      */
-    public HPCCWSClient(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort)
+    private HPCCWSClient(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort)
     {
         connection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
     }
@@ -109,7 +126,7 @@ public class HPCCWSClient
      * @param username                - ESP Username
      * @param password                - ESP Password
      */
-    public HPCCWSClient(String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
+    private HPCCWSClient(String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
         this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort,  username, password);
     }
@@ -124,7 +141,7 @@ public class HPCCWSClient
      * @param username                - ESP Username
      * @param password                - ESP Password
      */
-    public HPCCWSClient( String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
+    private HPCCWSClient( String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
         connection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
         connection.setCredentials(username, password);
@@ -134,19 +151,34 @@ public class HPCCWSClient
      * Instantiates HPCCWSClient, uses contents of connection object to communicate with target HPCC System.
      * @param conn
      */
-    public HPCCWSClient(Connection conn)
+    private HPCCWSClient(Connection conn)
     {
-        setConnection(conn);
+        updateConnection(conn);
     }
 
-    protected void setConnection(Connection conn)
+    public synchronized void update(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
-        connection = conn;
-        fileSprayClient             = null;
-        wsFileIOClient              = null;
-        wsTopologyClient            = null;
-        eclDirectClient             = null;
-        wsWorkunitsClient           = null;
+        Connection newConnection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
+        newConnection.setCredentials(username, password);
+
+        updateConnection(newConnection);
+    }
+
+    public synchronized void updateConnection(Connection conn)
+    {
+        synchronized (connectionLock)
+        {
+            connection = conn;
+            SubClients.clear();
+        }
+    }
+
+    protected Connection getConnection()
+    {
+        synchronized (connectionLock)
+        {
+            return connection;
+        }
     }
 
     /**
@@ -155,7 +187,7 @@ public class HPCCWSClient
      */
     public synchronized boolean pingServer() throws Exception
     {
-        initWsWorkunitsClient();
+        HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
 
         try
         {
@@ -167,19 +199,6 @@ public class HPCCWSClient
         }
 
         return false;
-    }
-
-    private void initFileSprayClient() throws Exception
-    {
-        if (fileSprayClient == null)
-        {
-            fileSprayClient = new HPCCFileSprayClient(connection);
-
-            if (fileSprayClient == null)
-                throw new Exception("Could not create HPCC FileSpray Client");
-
-            Utils.println(System.out, "FileSprayClient based on WSDL ver_: " + getFileSprayClientVer(),true, verbosemode);
-        }
     }
 
     /**
@@ -196,22 +215,11 @@ public class HPCCWSClient
      * @return provides fileSprayClient for direct method execution
      * @throws Exception
      */
-    public HPCCFileSprayClient getFileSprayClient() throws Exception
+    public synchronized HPCCFileSprayClient getFileSprayClient()
     {
-        initFileSprayClient();
-        return fileSprayClient;
-    }
-
-    private void initWsFileIOClient() throws Exception
-    {
-        if (wsFileIOClient == null)
+        synchronized (connectionLock)
         {
-            wsFileIOClient = new HPCCWsFileIOClient(connection);
-
-            if (wsFileIOClient == null)
-                throw new Exception("Could not create HPCC FileIO Client");
-
-            Utils.println(System.out, "WsFileIOClient based on WSDL ver_: " + getWsFileIOClientVer(),true, verbosemode);
+            return (HPCCFileSprayClient) SubClients.get(new HPCCFileSprayClient(connection));
         }
     }
 
@@ -228,22 +236,11 @@ public class HPCCWSClient
      * @return provides HPCCWsFileIOClient for direct method execution
      * @throws Exception
      */
-    public HPCCWsFileIOClient getWsFileIOClient() throws Exception
+    public synchronized HPCCWsFileIOClient getWsFileIOClient()
     {
-        initWsFileIOClient();
-        return wsFileIOClient;
-    }
-
-    private void initWsTopologyClient() throws Exception
-    {
-        if (wsTopologyClient == null)
+        synchronized (connectionLock)
         {
-            wsTopologyClient = new HPCCWsTopologyClient(connection);
-
-            if (wsTopologyClient == null)
-                throw new Exception("Could not create HPCC WsTopology Client");
-
-            Utils.println(System.out, "WsTopologyClient based on WSDL ver_: " + getWsTopologyClientVer(),true, verbosemode);
+            return (HPCCWsFileIOClient) SubClients.get(new HPCCWsFileIOClient(connection));
         }
     }
 
@@ -260,25 +257,12 @@ public class HPCCWSClient
      * @return provides HPCCWsTopologyClient object for direct method execution
      * @throws Exception
      */
-    public HPCCWsTopologyClient getWsTopologyClient() throws Exception
+    public synchronized HPCCWsTopologyClient getWsTopologyClient()
     {
-        initWsTopologyClient();
-        return wsTopologyClient;
-    }
-
-    private HPCCECLDirectClient initEclDirectClient() throws Exception
-    {
-        if (eclDirectClient == null)
+        synchronized (connectionLock)
         {
-            eclDirectClient = new HPCCECLDirectClient(connection);
-
-            if (eclDirectClient == null)
-                throw new Exception("Could not create HPCC ECL Direct Client");
-
-            Utils.println(System.out, "EclDirectClient based on WSDL ver_: " + getEclDirectClientVer() ,true, verbosemode);
+            return (HPCCWsTopologyClient) SubClients.get(new HPCCWsTopologyClient(connection));
         }
-
-        return eclDirectClient;
     }
 
     /**
@@ -294,21 +278,53 @@ public class HPCCWSClient
      * @return provides HPCCECLDirectClient for direct method execution
      * @throws Exception
      */
-    public HPCCECLDirectClient getEclDirectClient() throws Exception
+    public synchronized HPCCECLDirectClient getEclDirectClient()
     {
-        initEclDirectClient();
-        return eclDirectClient;
+        synchronized (connectionLock)
+        {
+            return (HPCCECLDirectClient) SubClients.get(new HPCCECLDirectClient(connection));
+        }
     }
 
-    private void initWsWorkunitsClient() throws Exception
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
+     * @return Original WSDL version
+     */
+    public String getwsDFUClientClientVer()
     {
-        if (wsWorkunitsClient == null)
-        {
-            wsWorkunitsClient = new HPCCWsWorkUnitsClient(connection);
-            Utils.println(System.out, "wsWorkunitsClient based on WSDL ver_: " + getWsWorkunitsClientVer(),true, verbosemode);
+        return Utils.parseVersionFromWSDLURL(HPCCWsDFUClient.getOriginalWSDLURL());
+    }
 
-            if (wsWorkunitsClient == null)
-                throw new Exception("Could not create HPCC WsWorkUnits Client");
+    /**
+     * @return provides wsDFUClient for direct method execution
+     * @throws Exception
+     */
+    public synchronized HPCCWsDFUClient getWsDFUClient()
+    {
+        synchronized (connectionLock)
+        {
+            return (HPCCWsDFUClient) SubClients.get(new HPCCWsDFUClient(connection));
+        }
+    }
+
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
+     * @return Original WSDL version
+     */
+    public String getWsSMCClientClientVer()
+    {
+        return Utils.parseVersionFromWSDLURL(HPCCWsSMCClient.getOriginalWSDLURL());
+    }
+
+    /**
+     * @return provides HPCCWsWorkUnitsClient for direct method execution
+     * @throws Exception
+     */
+    public synchronized HPCCWsSMCClient getWsSMCClient()
+    {
+        synchronized (connectionLock)
+        {
+            return (HPCCWsSMCClient) SubClients.get(new HPCCWsSMCClient(connection));
         }
     }
 
@@ -325,24 +341,29 @@ public class HPCCWSClient
      * @return provides HPCCWsWorkUnitsClient for direct method execution
      * @throws Exception
      */
-    public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
+    public synchronized HPCCWsWorkUnitsClient getWsWorkunitsClient()
     {
-        initWsWorkunitsClient();
-        return wsWorkunitsClient;
+        synchronized (connectionLock)
+        {
+            return (HPCCWsWorkUnitsClient) SubClients.get(new HPCCWsWorkUnitsClient(connection));
+        }
     }
 
     /**
      * Returns all the available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
      * @return                      - The available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
+     * @throws Exception
      */
-    public String[] getAvailableClusterGroups()
+    public String[] getAvailableClusterGroups() throws Exception
     {
-        if (wsTopologyClient == null)
-            wsTopologyClient = new HPCCWsTopologyClient(connection);
+        HPCCWsTopologyClient hpccWsTopologyClient = HPCCWsTopologyClient.get(connection);
 
         try
         {
-            return wsTopologyClient.getValidTargetGroupNames();
+            if (hpccWsTopologyClient != null)
+                return hpccWsTopologyClient.getValidTargetGroupNames();
+            else
+                throw new Exception("Could not initialize HPCC WsTopology Client");
         }
         catch (Exception e)
         {
@@ -360,8 +381,12 @@ public class HPCCWSClient
      */
     public String[] getAvailableClusterNames(String clusterGroupType) throws Exception
     {
-        initWsTopologyClient();
-        return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
+        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
+
+        if (wsTopologyClient != null)
+            return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
+        else
+            throw new Exception("Could not initialize HPCC WsTopology Client");
     }
 
     /**
@@ -370,8 +395,12 @@ public class HPCCWSClient
      */
     public List<String> getAvailableTargetClusterNames() throws Exception
     {
-        initWsTopologyClient();
-        return wsTopologyClient.getValidTargetClusterNames();
+        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
+
+        if (wsTopologyClient != null)
+            return wsTopologyClient.getValidTargetClusterNames();
+        else
+            throw new Exception("Could not initialize HPCC WsTopology Client");
     }
 
     /**
@@ -389,10 +418,14 @@ public class HPCCWSClient
 
         try
         {
-            initFileSprayClient();
-            success = handleSprayResponse(fileSprayClient.sprayFixedLocalDropZone(fileName, recordSize, targetFileLabel, "", targetCluster, overwritesprayedfile));
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+
+            if (fileSprayClient != null)
+                success = handleSprayResponse(fileSprayClient.sprayFixedLocalDropZone(fileName, recordSize, targetFileLabel, "", targetCluster, overwritesprayedfile));
+            else
+                throw new Exception("Could not initialize HPCC fileSpray Client");
         }
-        catch (org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException e)
+        catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e)
         {
             Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, verbosemode);
         }
@@ -479,10 +512,13 @@ public class HPCCWSClient
 
         try
         {
-            initFileSprayClient();
-            success = handleSprayResponse(fileSprayClient.sprayVariableLocalDropZone(options, fileName, targetFileLabel, "", targetCluster, overwritesprayedfile, format));
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+            if (fileSprayClient != null)
+                success = handleSprayResponse(fileSprayClient.sprayVariableLocalDropZone(options, fileName, targetFileLabel, "", targetCluster, overwritesprayedfile, format));
+            else
+                throw new Exception("Could not initialize HPCC FileSpray Client");
         }
-        catch (org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException e)
+        catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e)
         {
             Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, true);
         }
@@ -498,11 +534,11 @@ public class HPCCWSClient
         return success;
     }
 
-    private boolean handleSprayResponse(ProgressResponse sprayResponse) throws org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException, RemoteException
+    private boolean handleSprayResponse(ProgressResponse sprayResponse) throws Exception
     {
         boolean success = false;
 
-        org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException exceptions = sprayResponse.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = sprayResponse.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -512,6 +548,11 @@ public class HPCCWSClient
         }
         else
         {
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+
+            if (fileSprayClient == null)
+                throw new Exception("Could not initialize HPCC FileSpray Client");
+
             ProgressRequest dfuprogressparams = new ProgressRequest();
             dfuprogressparams.setWuid(sprayResponse.getWuid());
             Utils.println(System.out, "Spray file DWUID: " +sprayResponse.getWuid(), true, verbosemode);
@@ -519,7 +560,7 @@ public class HPCCWSClient
 
             if (progressResponse.getExceptions() != null)
             {
-
+                Utils.println(System.out, "Spray progress status fetch failed.", false, verbosemode);
             }
             else
             {
@@ -566,8 +607,11 @@ public class HPCCWSClient
     {
         try
         {
-            initFileSprayClient();
-            fileSprayClient.uploadFileLocalDropZone(file);
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+            if (fileSprayClient != null)
+                fileSprayClient.uploadFileLocalDropZone(file);
+            else
+                throw new Exception("Could not initialize HPCC File Spray Client");
         }
         catch (Exception e)
         {
@@ -590,28 +634,38 @@ public class HPCCWSClient
     {
         boolean success = false;
 
-        initWsFileIOClient();
-        initFileSprayClient();
+        HPCCWsFileIOClient wsFileIOClient = getWsFileIOClient();
+        HPCCFileSprayClient fileSprayClient = getFileSprayClient();
 
-        if (targetDropzoneAddress == null || targetDropzoneAddress.length() == 0)
+        if (fileSprayClient != null)
         {
-            DropZone[] localdropzones = fileSprayClient.fetchLocalDropZones();
-            if (localdropzones != null && localdropzones.length > 0)
+            if (targetDropzoneAddress == null || targetDropzoneAddress.length() == 0)
             {
-                targetDropzoneAddress = localdropzones[0].getNetAddress();
+                DropZone[] localdropzones = fileSprayClient.fetchLocalDropZones();
+                if (localdropzones != null && localdropzones.length > 0)
+                {
+                    targetDropzoneAddress = localdropzones[0].getNetAddress();
+                }
             }
         }
+        else
+            throw new Exception("Could not initialize HPCC FileSpray Client");
 
-        if (targetDropzoneAddress != null && targetDropzoneAddress.length() == 0)
+        if (wsFileIOClient != null)
         {
-            if (!wsFileIOClient.createHPCCFile(fileName, targetDropzoneAddress, true))
-                    throw new Exception("Could not create target HPCC namespaces file.");
+            if (targetDropzoneAddress != null && targetDropzoneAddress.length() == 0)
+            {
+                if (!wsFileIOClient.createHPCCFile(fileName, targetDropzoneAddress, true))
+                        throw new Exception("Could not create target HPCC namespaces file.");
 
-                //Remote HPCC file has been created, encode the data so it can be uploaded as binary data.
-                //byte [] encodedBytes = encodeData(triplesCSVFormat.toString());
-                //The data was being encoded, but latest test don't seem to require encoding.
-                success = wsFileIOClient.writeHPCCFileData(data.getBytes(), fileName, targetDropzoneNetAddres, false, 0, 0);
+                    //Remote HPCC file has been created, encode the data so it can be uploaded as binary data.
+                    //byte [] encodedBytes = encodeData(triplesCSVFormat.toString());
+                    //The data was being encoded, but latest test don't seem to require encoding.
+                    success = wsFileIOClient.writeHPCCFileData(data.getBytes(), fileName, targetDropzoneNetAddres, false, 0, 0);
+            }
         }
+        else
+            throw new Exception("Could not initialize HPCC FileIO Client");
 
         Utils.println(System.out, "Success: " + String.valueOf(success), false,verbosemode);
         return success;
@@ -626,15 +680,18 @@ public class HPCCWSClient
      * @return                  - If successful, the resulting dataset(s)
      * @throws Exception
      */
-    public String submitECLandGetResults(ECLWorkunitWrapper wu) throws Exception
+    public String submitECLandGetResults(WorkunitInfo wu) throws Exception
     {
         String results = null;
 
-        initEclDirectClient();
+        HPCCECLDirectClient eclDirectClient = getEclDirectClient();
 
         try
         {
-            results = eclDirectClient.submitECLandGetResults(wu);
+            if (eclDirectClient != null)
+                results = eclDirectClient.submitECLandGetResults(wu);
+            else
+                throw new Exception("Could not initialize HPCC EclDirect Client");
         }
         catch (Exception e)
         {
@@ -655,7 +712,7 @@ public class HPCCWSClient
      * @throws Exception
      */
 
-    public List<List <Object>> submitECLandGetResultsList(ECLWorkunitWrapper wu) throws Exception
+    public List<List <Object>> submitECLandGetResultsList(WorkunitInfo wu) throws Exception
     {
         List<List <Object>> resultsList;
         String results = submitECLandGetResults(wu);
@@ -671,14 +728,17 @@ public class HPCCWSClient
      * @param maxwait           - Maxwait in millis
      * @return                  - If successful, the resulting WUID, which can be used to query info, including results
      */
-    public String submitECLandGetWUID(ECLWorkunitWrapper wu)
+    public String submitECLandGetWUID(WorkunitInfo wu)
     {
         String WUID = null;
 
         try
         {
-            initEclDirectClient();
-            WUID = eclDirectClient.submitECL(wu);
+            HPCCECLDirectClient eclDirectClient = getEclDirectClient();
+            if (eclDirectClient != null)
+                WUID = eclDirectClient.submitECL(wu);
+            else
+                throw new Exception("Could not initialize HPCC EclDirect Client");
         }
         catch (Exception e)
         {
@@ -689,137 +749,67 @@ public class HPCCWSClient
         return WUID;
     }
 
-    /**
-     * This main class in only meant as a guide/example on how to use the HPCCWSClient API.
-     * @param args
-     */
-    public static void main (String[] args)
+    public String getProtocol()
     {
+        return connection.getProtocol();
+    }
 
-        /* this main is only meant to be a example*/
-        HPCCWSClient connector = new HPCCWSClient("http", "192.168.56.120","8010");
+    public String getHost()
+    {
+        return connection.getHost();
+    }
 
-        connector.setVerbosemode(true);
+    public int getPortInt()
+    {
+        return connection.getPortInt();
+    }
 
-        try
+    public String getUserName()
+    {
+        return connection.getUserName();
+    }
+
+    public String getPassword()
+    {
+        return connection.getPassword();
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        return true;
+    }
+
+    @Override
+    protected void fastRefresh() {}
+
+    @Override
+    protected void fullRefresh() {}
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
         {
-            //connector.uploadFileToHPCC(new File("C://assignments//data//shortpersons"));
-            connector.uploadFileToHPCC(new File("C://assignments//data//shortaccounts"));
-
-            //for our curiosity, what cluster groups and clusters are available.
-            List<String> clusters = connector.getAvailableTargetClusterNames();
-            String[] clusterGroups = connector.getAvailableClusterGroups();
-            for (int i = 0; i < clusterGroups.length; i++)
-            {
-                System.out.println(clusterGroups[i]);
-                String[] actualclusternames = connector.getAvailableClusterNames(clusterGroups[i]);
-                if (actualclusternames != null)
-                {
-                    for (int j = 0; j < actualclusternames.length; j++)
-                    {
-                        System.out.println("\t" + actualclusternames[j]);
-                    }
-                }
-            }
-
-            //pick one of the valid clusters
-            connector.sprayFlatHPCCFile("shortpersons", "mythor::shortpersons", 155, clusters.get(0) /*myroxie, mythor, etc*/, true);
-
-            System.out.println(FileFormat.convertDFUFileFormatName2Code("xcsv").getValue());
-            connector.sprayDefaultCSVHPCCFile("shortaccounts","mythor::shortaccounts", clusters.get(0), true);
-
-            String outputCSVfileContentsEcl = "Layout_CSV_Accounts := RECORD" +
-                    "    UNSIGNED INTEGER8 PersonID;" +
-                    "    STRING8 ReportDate;" +
-                    "    STRING2 IndustryCode;" +
-                    "    UNSIGNED4 Member;" +
-                    "    STRING8 OpenDate;" +
-                    "    STRING1 TradeType;" +
-                    "    STRING1 TradeRate;" +
-                    "    UNSIGNED1 Narr1;" +
-                    "    UNSIGNED1 Narr2;" +
-                    "    UNSIGNED4 HighCredit;" +
-                    "    UNSIGNED4 Balance;" +
-                    "    UNSIGNED2 Terms;" +
-                    "    UNSIGNED1 TermTypeR;" +
-                    "    STRING15  AccountNumber;" +
-                    "    STRING8 LastActivityDate;" +
-                    "    UNSIGNED1 Late30Day;" +
-                    "    UNSIGNED1 Late60Day;" +
-                    "    UNSIGNED1 Late90Day;" +
-                    "    STRING1 TermType;" +
-                    "END;" +
-                    "" +
-                    "hpccaccountrecords := DATASET('~mythor::shortaccounts', Layout_CSV_Accounts, CSV);" +
-                    "output(hpccaccountrecords) ;";
-
-            String outputFlatfileContentsEcl = "Layout_Persons := RECORD " +
-                    "UNSIGNED INTEGER8 ID;" +
-                    "STRING15 FirstName;" +
-                    "STRING25 LastName;" +
-                    "STRING15 MiddleName;" +
-                    "STRING2 NameSuffix;" +
-                    "STRING8 FileDate;" +
-                    "UNSIGNED INTEGER2 BureauCode;" +
-                    "STRING1  MaritalStatus;" +
-                    "STRING1 Gender;" +
-                    "UNSIGNED INTEGER1 DependentCount;" +
-                    "STRING8 BirthDate;" +
-                    "STRING42 StreetAddress;" +
-                    "STRING20 City;" +
-                    "STRING2 State;" +
-                    "STRING5 ZipCode;" +
-                    "END;" +
-                    "" +
-                    "hpccpersonrecords := DATASET('~mythor::shortpersons', Layout_Persons, FLAT);" +
-                    "output(hpccpersonrecords) ;";
-
-
-            ECLWorkunitWrapper wu=new ECLWorkunitWrapper();
-            wu.setECL(outputFlatfileContentsEcl);
-            wu.setJobname("myflatoutput");
-            wu.setCluster(clusterGroups[0]);
-            wu.setResultLimit(100);
-            wu.setMaxMonitorMillis(1000);
-            //this is just one way to submitECL, you can also submit via ecldirect and request the resulting WUID
-            //you can also, submit via WSWorkunits and have more control over the result window you get back.
-            String results = connector.submitECLandGetResults(wu);
-
-            //List<List <Object>> resultsList = Utils.parseECLResults(results);
-            wu.setCluster(clusterGroups[0]); /*hthor,thor,roxie*/
-            WUPublishWorkunitResponse publishresp = connector.getWsWorkunitsClient().publishWUFromEcl(wu);
-
-            wu.setCluster(clusterGroups[1]); /*hthor,thor,roxie*/
-            wu.setResultLimit(100);
-            wu.setMaxMonitorMillis(1000);
-            List<List <Object>> resultsList = connector.submitECLandGetResultsList(wu);
-            int resultsets = resultsList.size();
-
-            Utils.println(System.out, "Found " + resultsets + " resultsets.", false, true);
-            int currentrs = 1;
-
-            for (List<Object> list : resultsList)
-            {
-                Utils.print(System.out, "Resultset " + currentrs +":", false, true);
-                for (Object object : list)
-                {
-                    System.out.print("[ " + object.toString() +" ]");
-                }
-                currentrs++;
-                System.out.println("");
-            }
-
-            wu.setCluster(clusterGroups[1]); /*hthor,thor,roxie*/
-            wu.setResultLimit(10);
-
-            String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(wu);
-            String results2 = connector.getWsWorkunitsClient().fetchResults(wuid, 0, clusterGroups[1], true, -1, -1);
-            System.out.println(results2);
+            return true;
         }
-        catch (Exception e)
+
+        if (!(aThat instanceof HPCCWSClient))
         {
-            System.out.println( e.getLocalizedMessage());
+            return false;
         }
+
+        HPCCWSClient that = (HPCCWSClient) aThat;
+
+        return EqualsUtil.areEqual(getConnection(), that.getConnection());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, connection);
+        return result;
     }
 }
 

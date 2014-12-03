@@ -3,14 +3,18 @@ package org.hpccsystems.ws.client;
 import java.rmi.RemoteException;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.wsfileio.ArrayOfEspException;
-import org.hpccsystems.ws.client.soap.wsfileio.CreateFileRequest;
-import org.hpccsystems.ws.client.soap.wsfileio.CreateFileResponse;
-import org.hpccsystems.ws.client.soap.wsfileio.WriteFileDataRequest;
-import org.hpccsystems.ws.client.soap.wsfileio.WriteFileDataResponse;
-import org.hpccsystems.ws.client.soap.wsfileio.WsFileIOServiceSoap;
-import org.hpccsystems.ws.client.soap.wsfileio.WsFileIOServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.CreateFileRequest;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.CreateFileResponse;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataRequest;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataResponse;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoap;
+import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 
 /**
@@ -18,8 +22,24 @@ import org.hpccsystems.ws.client.utils.Utils;
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
  *
  */
-public class HPCCWsFileIOClient
+public class HPCCWsFileIOClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCWsFileIOClient get(Connection connection)
+    {
+        return (HPCCWsFileIOClient) All.get(new HPCCWsFileIOClient(connection));
+    }
+
+    public static HPCCWsFileIOClient getNoCreate(Connection connection)
+    {
+        return (HPCCWsFileIOClient) All.getNoCreate(new HPCCWsFileIOClient(connection));
+    }
+
+    public static void remove(HPCCWsFileIOClient p)
+    {
+        All.remove(p);
+    }
     public static final String FILEIOWSDLURI         = "/WsFileIO";
 
     private WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy    =  null;
@@ -56,20 +76,20 @@ public class HPCCWsFileIOClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.soap.wsfileio.WsFileIOLocator()).getWsFileIOServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOLocator()).getWsFileIOServiceSoapAddress();
     }
 
-    public HPCCWsFileIOClient(WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy)
+    protected HPCCWsFileIOClient(WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy)
     {
         this.wsFileIOServiceSoapProxy = wsFileIOServiceSoapProxy;
     }
 
-    public HPCCWsFileIOClient(Connection baseConnection)
+    protected HPCCWsFileIOClient(Connection baseConnection)
     {
        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
     }
 
-    public HPCCWsFileIOClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCWsFileIOClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, FILEIOWSDLURI);
 
@@ -133,8 +153,8 @@ public class HPCCWsFileIOClient
             }
             else
             {
-                org.hpccsystems.ws.client.soap.wsfileio.EspException[] espexceptions = arrayOfEspExceptions.getException();
-                for (org.hpccsystems.ws.client.soap.wsfileio.EspException espexception : espexceptions)
+                org.hpccsystems.ws.client.gen.wsfileio.v0_0.EspException[] espexceptions = arrayOfEspExceptions.getException();
+                for (org.hpccsystems.ws.client.gen.wsfileio.v0_0.EspException espexception : espexceptions)
                 {
                     Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbosemode);
                 }
@@ -222,6 +242,64 @@ public class HPCCWsFileIOClient
             }
         }
         return success;
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCWsFileIOClient))
+        {
+            return false;
+        }
+
+        HPCCWsFileIOClient that = (HPCCWsFileIOClient) aThat;
+        WsFileIOServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsFileIOServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsFileIOServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsFileIOServiceSoap()).getPassword());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsFileIOServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub)  wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getPassword());
+        return result;
     }
 
 }

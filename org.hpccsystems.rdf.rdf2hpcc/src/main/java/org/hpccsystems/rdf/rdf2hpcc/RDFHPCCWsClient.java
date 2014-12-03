@@ -9,14 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.ECLWorkunitWrapper;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
 import org.hpccsystems.ws.client.HPCCECLDirectClient;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWSClient;
 import org.hpccsystems.ws.client.HPCCWsFileIOClient;
-import org.hpccsystems.ws.client.soap.filespray.DropZoneFilesRequest;
-import org.hpccsystems.ws.client.soap.filespray.DropZoneFilesResponse;
-import org.hpccsystems.ws.client.soap.filespray.PhysicalFileStruct;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
+import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.Utils;
@@ -36,6 +39,30 @@ import com.hp.hpl.jena.util.FileManager;
 
 public class RDFHPCCWsClient extends HPCCWSClient
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static RDFHPCCWsClient get()
+    {
+        return (RDFHPCCWsClient) All.get(new RDFHPCCWsClient());
+    }
+
+    public static HPCCWSClient getNoCreate()
+    {
+        return (RDFHPCCWsClient) All.getNoCreate(new RDFHPCCWsClient());
+    }
+
+    public static void remove(RDFHPCCWsClient p)
+    {
+        All.remove(p);
+    }
+
+    protected RDFHPCCWsClient(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort)
+    {
+        connection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
+    }
+
+    public RDFHPCCWsClient() {}
+
     public static final String HPCCNAMESPACE = "hpccNS-";
 
     private String targetRDFDataPath = null;
@@ -397,20 +424,19 @@ public class RDFHPCCWsClient extends HPCCWSClient
         try
         {
             HPCCECLDirectClient declient = getEclDirectClient();
-            ECLWorkunitWrapper wu = new ECLWorkunitWrapper();
+            WorkunitInfo wu = new WorkunitInfo();
             wu.setECL(STATSECL + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));");
             wu.setCluster(targetECLCluster);
             wu.setResultLimit(HPCCECLDirectClient.noresultlimit);
             wu.setMaxMonitorMillis(eclmaxwaitMS);
 
-            //eclreturn = declient.submitECLandGetResults(STATSECL + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));", targetECLCluster, HPCCECLDirectClient.noresultlimit, eclmaxwaitMS);
             eclreturn = declient.submitECLandGetResults(wu );
         }
-        catch (org.hpccsystems.ws.client.soap.ecldirect.ArrayOfEspException e)
+        catch (ArrayOfEspException e)
         {
             Utils.println(System.out, "Error while submiting ecl: ", false, verbosemode);
-            org.hpccsystems.ws.client.soap.ecldirect.EspException[] espExceptions = e.getException();
-            for (org.hpccsystems.ws.client.soap.ecldirect.EspException espException : espExceptions)
+            EspException[] espExceptions = e.getException();
+            for (EspException espException : espExceptions)
             {
                 Utils.println(System.out, espException.getMessage(), false, verbosemode);
             }
@@ -586,6 +612,7 @@ public class RDFHPCCWsClient extends HPCCWSClient
         return lhpccnsprefixmap;
     }
 
+    @SuppressWarnings("unused")
     public String serializeModelToCSV(Model themodel, String outputdelim, String outputquote, String outputterminator )
     {
         StringBuilder serializedmodel = new StringBuilder();
@@ -795,10 +822,10 @@ public class RDFHPCCWsClient extends HPCCWSClient
                 success = true;
             }
         }
-        catch (org.hpccsystems.ws.client.soap.filespray.ArrayOfEspException e1)
+        catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e1)
         {
             Utils.println(System.out, "ERROR: Attempting to fetch HPCC dropzone Info:", false, verbosemode);
-            for (org.hpccsystems.ws.client.soap.filespray.EspException exception : e1.getException())
+            for (org.hpccsystems.ws.client.gen.filespray.v1_06.EspException exception : e1.getException())
             {
                 Utils.println(System.out, "\t"+exception.getMessage(), false, verbosemode);
             }

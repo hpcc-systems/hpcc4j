@@ -298,7 +298,7 @@ public class RDF2HPCC
     public static void main(String[] args)
     {
         RDF2HPCC rdf2hpcc = new RDF2HPCC();
-        RDFHPCCWsClient connector = new RDFHPCCWsClient();
+        RDFHPCCWsClient connector = RDFHPCCWsClient.get();
 
         if (rdf2hpcc.processRDF2HPCCArgs(args, connector))
         {

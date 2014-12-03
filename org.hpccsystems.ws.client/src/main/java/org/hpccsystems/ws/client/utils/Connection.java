@@ -77,7 +77,7 @@ public class Connection
                 	throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
                 }
                 this.userName=creds[0];
-                this.password=creds[1];                
+                this.password=creds[1];
                 isPopulated = true;
             }
         }
@@ -90,6 +90,18 @@ public class Connection
                 this.password = password;
                 isPopulated = true;
             }
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int result = HashCodeUtil.SEED;
+            result = HashCodeUtil.hash(result, getProtocol());
+            result = HashCodeUtil.hash(result, getHost());
+            result = HashCodeUtil.hash(result, getPortInt());
+            result = HashCodeUtil.hash(result, getUserName());
+            result = HashCodeUtil.hash(result, getPassword());
+            return result;
         }
     }
 
@@ -113,6 +125,21 @@ public class Connection
 
     private StringBuffer       baseUrl;
 
+    public static String getProtocol(boolean ssl)
+    {
+        return ssl ? protHttps : protHttp;
+    }
+
+    public static boolean isSslProtocol(String protocol)
+    {
+        return protHttps.equalsIgnoreCase(protocol);
+    }
+
+    public Connection(boolean ssl, String host, int port)
+    {
+        this(getProtocol(ssl), host, String.valueOf(port), null, null);
+    }
+
     public Connection(String protocol, String host, String port)
     {
         this(protocol, host, port, null, null);
@@ -123,8 +150,7 @@ public class Connection
         this(protocol, host, port, path, null);
     }
 
-    public Connection(String protocol_, String host_, String port_,
-            String path_, String[] options_)
+    public Connection(String protocol_, String host_, String port_, String path_, String[] options_)
     {
         if (protocol_ != null && protocol_.length() > 0)
         {
@@ -153,7 +179,6 @@ public class Connection
             port = port_;
         else
             port = "";
-
     }
 
     private void setURIPath(String path)
@@ -242,6 +267,14 @@ public class Connection
         return this.port;
     }
 
+    public int getPortInt()
+    {
+        if (port!=null && !port.isEmpty())
+            return Integer.valueOf(port);
+        else
+            return -1;
+    }
+
     public String getUserName()
     {
         synchronized (credentials)
@@ -296,7 +329,18 @@ public class Connection
 
     public void setCredentials(String username, String password)
     {
-        credentials.setCredentials (username, password);
+        synchronized (credentials)
+        {
+            credentials.setCredentials (username, password);
+        }
+    }
+
+    public Credentials getCredentials()
+    {
+        synchronized (credentials)
+        {
+            return credentials;
+        }
     }
 
     /**
@@ -400,5 +444,32 @@ public class Connection
         stub.setPassword(password);
         stub.setTimeout(readtimeout);
         stub.setMaintainSession(maintainsession);
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof Connection))
+        {
+            return false;
+        }
+
+        Connection that = (Connection) aThat;
+
+        return EqualsUtil.areEqual( getUrl(), that.getUrl()) && EqualsUtil.areEqual( credentials, that.getCredentials());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, getUrl());
+        result = HashCodeUtil.hash(result, credentials);
+        return result;
     }
 }

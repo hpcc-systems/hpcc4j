@@ -1,21 +1,43 @@
 package org.hpccsystems.ws.client;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.soap.ecldirect.ECLDirectException;
-import org.hpccsystems.ws.client.soap.ecldirect.EclDirectServiceSoap;
-import org.hpccsystems.ws.client.soap.ecldirect.EclDirectServiceSoapProxy;
-import org.hpccsystems.ws.client.soap.ecldirect.RunEclExFormat;
-import org.hpccsystems.ws.client.soap.ecldirect.RunEclExRequest;
-import org.hpccsystems.ws.client.soap.ecldirect.RunEclExResponse;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ECLDirectException;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectServiceSoap;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExFormat;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExRequest;
+import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExResponse;
+import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.DataSingletonCollection;
+import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 
 /**
  * Use as soap client for HPCC ECLDirect web service.
  * This includes submiting an ecl query for compilation/execution.
  *
  */
-public class HPCCECLDirectClient
+public class HPCCECLDirectClient extends DataSingleton
 {
+    public static DataSingletonCollection All = new DataSingletonCollection();
+
+    public static HPCCECLDirectClient get(Connection connection)
+    {
+        return (HPCCECLDirectClient) All.get(new HPCCECLDirectClient(connection));
+    }
+
+    public static HPCCECLDirectClient getNoCreate(Connection connection)
+    {
+        return (HPCCECLDirectClient) All.getNoCreate(new HPCCECLDirectClient(connection));
+    }
+
+    public static void remove(HPCCECLDirectClient p)
+    {
+        All.remove(p);
+    }
+
     public static final String ECLDIRECTWSDLURI     = "/EclDirect";
     private EclDirectServiceSoapProxy     wsEclDirectServiceSoapProxy = null;
     private boolean verbose = false;
@@ -50,13 +72,13 @@ public class HPCCECLDirectClient
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.soap.ecldirect.EclDirectLocator()).getEclDirectServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectLocator()).getEclDirectServiceSoapAddress();
     }
 
     /**
      * @param wsEclDirectServiceSoapProxy
      */
-    public HPCCECLDirectClient(EclDirectServiceSoapProxy wsEclDirectServiceSoapProxy)
+    protected HPCCECLDirectClient(EclDirectServiceSoapProxy wsEclDirectServiceSoapProxy)
     {
         this.wsEclDirectServiceSoapProxy = wsEclDirectServiceSoapProxy;
     }
@@ -64,7 +86,7 @@ public class HPCCECLDirectClient
     /**
      * @param baseConnection
      */
-    public HPCCECLDirectClient(Connection baseConnection)
+    protected HPCCECLDirectClient(Connection baseConnection)
     {
        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
     }
@@ -76,7 +98,7 @@ public class HPCCECLDirectClient
      * @param user
      * @param pass
      */
-    public HPCCECLDirectClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCECLDirectClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, ECLDIRECTWSDLURI);
         initWsEclDirectServiceSoapProxy(address, user, pass);
@@ -113,7 +135,7 @@ public class HPCCECLDirectClient
      * @return                   - If successfully submited, the resulting WUID.
      * @throws Exception         - Caller must handle exceptions
      */
-    public String submitECL(ECLWorkunitWrapper wu) throws Exception
+    public String submitECL(WorkunitInfo wu) throws Exception
     {
         String wuid = null;
 
@@ -160,7 +182,7 @@ public class HPCCECLDirectClient
      * @return                   - If successfully submited, the resulting Dataset(s).
      * @throws Exception         - Caller must handle exceptions
      */
-    public String submitECLandGetResults(ECLWorkunitWrapper wu) throws Exception
+    public String submitECLandGetResults(WorkunitInfo wu) throws Exception
     {
         String results = null;
 
@@ -198,5 +220,63 @@ public class HPCCECLDirectClient
             results = runEclExResponse.getResults();
         }
         return results;
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCECLDirectClient))
+        {
+            return false;
+        }
+
+        HPCCECLDirectClient that = (HPCCECLDirectClient) aThat;
+        EclDirectServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsEclDirectServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) wsEclDirectServiceSoapProxy.getEclDirectServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getEclDirectServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) wsEclDirectServiceSoapProxy.getEclDirectServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getEclDirectServiceSoap()).getPassword());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsEclDirectServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub)  wsEclDirectServiceSoapProxy.getEclDirectServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  wsEclDirectServiceSoapProxy.getEclDirectServiceSoap()).getPassword());
+        return result;
     }
 }

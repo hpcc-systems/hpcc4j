@@ -22,7 +22,7 @@ public enum FileFormat
     private final int id;
     FileFormat(int id) { this.id = id; }
     public int getValue() { return id; }
-    
+
     private final static HashMap<String, FileFormat> mapDFUFileFormatNameCode = new HashMap<String, FileFormat>();
     static
     {
@@ -41,7 +41,7 @@ public enum FileFormat
         mapDFUFileFormatNameCode.put("variablebigendian",  FileFormat.DFUff_variablebigendian);
         mapDFUFileFormatNameCode.put("fixed",              FileFormat.DFUff_fixed);
     }
-    
+
     public static FileFormat convertDFUFileFormatName2Code(String fileformat)
     {
         String lower = fileformat.toLowerCase();
