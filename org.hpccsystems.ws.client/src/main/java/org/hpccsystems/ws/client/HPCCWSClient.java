@@ -78,7 +78,7 @@ public class HPCCWSClient extends DataSingleton
     /**
      *  Instantiates HPCCWSClient, attempts to establish all communications on http://localhost:8010
      */
-    private HPCCWSClient()
+    protected HPCCWSClient()
     {
         this(defaultTargetWsECLWatchHost,defaultTWsECLWatchPort);
     }
@@ -86,7 +86,7 @@ public class HPCCWSClient extends DataSingleton
     /**
      *  Instantiates HPCCWSClient, attempts to establish all communications on <protocol>://localhost:<defaultportonprotocol>
      */
-    private HPCCWSClient(String protocol)
+    protected HPCCWSClient(String protocol)
     {
         this(protocol, defaultTargetWsECLWatchHost, (protocol.equalsIgnoreCase("https") ? defaultTWsECLWatchSSLPort : defaultTWsECLWatchPort));
     }
@@ -98,7 +98,7 @@ public class HPCCWSClient extends DataSingleton
      * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
      *                                  usually 8010
      */
-    private HPCCWSClient(String targetWsECLWatchAddress, String targetWsECLWatchPort)
+    protected HPCCWSClient(String targetWsECLWatchAddress, String targetWsECLWatchPort)
     {
         this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort);
     }

@@ -257,9 +257,9 @@ public class RDFHPCCWsClient extends HPCCWSClient
             "  RETURN SortedTypeStats;\n" +
             "END;\n";
 
-    public void setRDFConnection(Connection conn)
+    public void updateRDFConnection(Connection conn)
     {
-        setConnection(conn);
+        updateConnection(conn);
     }
 
     public void setTargetHPCCDropzonePath(String dropzonepath)
@@ -409,7 +409,11 @@ public class RDFHPCCWsClient extends HPCCWSClient
         else
         {
             Utils.println(System.out, "Could not spray file, no destgroup specified.", false, verbosemode);
-            printValidTargetGroups(System.out);
+            try
+            {
+                printValidTargetGroups(System.out);
+            }
+            catch (Exception e) {}
         }
 
         return success;
@@ -845,7 +849,7 @@ public class RDFHPCCWsClient extends HPCCWSClient
         return success;
     }
 
-    public void printValidTargetGroups(PrintStream stream)
+    public void printValidTargetGroups(PrintStream stream) throws Exception
     {
         String[] clusterGroups = getAvailableClusterGroups();
         for (int i = 0; i < clusterGroups.length; i++)
