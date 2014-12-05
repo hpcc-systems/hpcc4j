@@ -230,7 +230,7 @@ public class RDF2HPCC
             conn.setUserName(user);
             conn.setPassword(pass);
 
-            connector.setRDFConnection(conn);
+            connector.updateRDFConnection(conn);
         }
         else
         {
