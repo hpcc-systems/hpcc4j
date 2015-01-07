@@ -568,7 +568,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 throw new Exception("Invalid record field definition " + thisline);
             }
             if (!fieldargs[0].toUpperCase().matches(
-                    "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL).*"))
+                    "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL|BOOLEAN).*"))
             {
                 throw new Exception("Invalid record field type " + fieldargs[0]);
             }
