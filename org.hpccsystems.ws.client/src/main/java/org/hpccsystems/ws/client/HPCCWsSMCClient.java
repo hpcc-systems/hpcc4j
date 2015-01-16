@@ -7,28 +7,15 @@ import org.hpccsystems.ws.client.gen.wssmc.v1_19.ActivityResponse;
 import org.hpccsystems.ws.client.gen.wssmc.v1_19.WsSMCServiceSoap;
 import org.hpccsystems.ws.client.gen.wssmc.v1_19.WsSMCServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 
 public class HPCCWsSMCClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
-
     public static HPCCWsSMCClient get(Connection connection)
     {
-        return (HPCCWsSMCClient) All.get(new HPCCWsSMCClient(connection));
-    }
-
-    public static HPCCWsSMCClient getNoCreate(Connection connection)
-    {
-        return (HPCCWsSMCClient) All.getNoCreate(new HPCCWsSMCClient(connection));
-    }
-
-    public static void remove(HPCCWsSMCClient p)
-    {
-        All.remove(p);
+        return new HPCCWsSMCClient(connection);
     }
 
     public static final String WSSMCURI     = "/WsSMC";

@@ -11,7 +11,6 @@ import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataResponse;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoap;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -24,22 +23,11 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsFileIOClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
-
     public static HPCCWsFileIOClient get(Connection connection)
     {
-        return (HPCCWsFileIOClient) All.get(new HPCCWsFileIOClient(connection));
+        return new HPCCWsFileIOClient(connection);
     }
 
-    public static HPCCWsFileIOClient getNoCreate(Connection connection)
-    {
-        return (HPCCWsFileIOClient) All.getNoCreate(new HPCCWsFileIOClient(connection));
-    }
-
-    public static void remove(HPCCWsFileIOClient p)
-    {
-        All.remove(p);
-    }
     public static final String FILEIOWSDLURI         = "/WsFileIO";
 
     private WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy    =  null;

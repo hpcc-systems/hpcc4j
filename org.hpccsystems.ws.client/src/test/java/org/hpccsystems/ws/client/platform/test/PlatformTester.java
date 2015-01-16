@@ -1,9 +1,12 @@
 package org.hpccsystems.ws.client.platform.test;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.util.List;
 
-import org.hpccsystems.ws.client.HPCCWSClient;
+import org.hpccsystems.ws.client.HPCCWsClient;
+import org.hpccsystems.ws.client.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
@@ -18,14 +21,23 @@ public class PlatformTester
     {
         try
         {
-            Platform platform = Platform.get("http", "192.168.56.120", 8010, null, null);
+            Platform platform = Platform.get("http", "192.168.56.120", 8010, "", "");
+
             Version v = platform.getVersion();
             System.out.println(v.toString());
 
-            HPCCWSClient connector = platform.getHPCCWSClient();
-
+            HPCCWsClient connector = platform.getHPCCWSClient();
             connector.setVerbosemode(true);
+
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
+            HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
+
+            DFUDataColumn[] newgetFileDataColumns = wsDFUClient.getFileMetaData("kevinsfile::lotto_0215::processed.csv", null);
+            for (int i = 0; i < newgetFileDataColumns.length; i++)
+            {
+                System.out.println("Col name: " + newgetFileDataColumns[i].getColumnLabel() + " ecl: " + newgetFileDataColumns[i].getColumnEclType() + " col type " + newgetFileDataColumns[i].getColumnType());
+            }
+
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
             //connector.uploadFileToHPCC(new File("C://assignments//data//shortpersons"));
@@ -101,7 +113,7 @@ public class PlatformTester
 
 
             WorkunitInfo wu=new WorkunitInfo();
-            wu.setECL(outputFlatfileContentsEcl);
+            wu.setECL(outputCSVfileContentsEcl);
             wu.setJobname("myflatoutput");
             wu.setCluster(clusterGroups[0]);
             wu.setResultLimit(100);

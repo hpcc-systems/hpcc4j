@@ -19,7 +19,6 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfoResponse;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunit;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryDetails;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryResponse;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuerySetDetailsResponse;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQuerysetDetails;
@@ -38,7 +37,6 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUUpdateResponse;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WsWorkunitsServiceSoap;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WsWorkunitsServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -52,21 +50,9 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsWorkUnitsClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
-
     public static HPCCWsWorkUnitsClient get(Connection connection)
     {
-        return (HPCCWsWorkUnitsClient) All.get(new HPCCWsWorkUnitsClient(connection));
-    }
-
-    public static HPCCWsWorkUnitsClient getNoCreate(Connection connection)
-    {
-        return (HPCCWsWorkUnitsClient) All.getNoCreate(new HPCCWsWorkUnitsClient(connection));
-    }
-
-    public static void remove(HPCCWsWorkUnitsClient p)
-    {
-        All.remove(p);
+        return new HPCCWsWorkUnitsClient(connection);
     }
 
     public static final String          WSWORKUNITSWSDLURI          = "/WsWorkunits";

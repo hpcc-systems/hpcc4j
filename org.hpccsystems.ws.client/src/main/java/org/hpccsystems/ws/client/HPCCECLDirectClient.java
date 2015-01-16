@@ -8,7 +8,6 @@ import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExFormat;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExRequest;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExResponse;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -21,21 +20,10 @@ import org.hpccsystems.ws.client.utils.HashCodeUtil;
  */
 public class HPCCECLDirectClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
 
     public static HPCCECLDirectClient get(Connection connection)
     {
-        return (HPCCECLDirectClient) All.get(new HPCCECLDirectClient(connection));
-    }
-
-    public static HPCCECLDirectClient getNoCreate(Connection connection)
-    {
-        return (HPCCECLDirectClient) All.getNoCreate(new HPCCECLDirectClient(connection));
-    }
-
-    public static void remove(HPCCECLDirectClient p)
-    {
-        All.remove(p);
+        return new HPCCECLDirectClient(connection);
     }
 
     public static final String ECLDIRECTWSDLURI     = "/EclDirect";

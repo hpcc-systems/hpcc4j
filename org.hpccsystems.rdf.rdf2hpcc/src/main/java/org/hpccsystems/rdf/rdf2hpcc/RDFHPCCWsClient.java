@@ -16,7 +16,7 @@ import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
 import org.hpccsystems.ws.client.HPCCECLDirectClient;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.HPCCWSClient;
+import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsFileIOClient;
 import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
@@ -37,7 +37,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.shared.SyntaxError;
 import com.hp.hpl.jena.util.FileManager;
 
-public class RDFHPCCWsClient extends HPCCWSClient
+public class RDFHPCCWsClient extends HPCCWsClient
 {
     public static DataSingletonCollection All = new DataSingletonCollection();
 
@@ -46,7 +46,7 @@ public class RDFHPCCWsClient extends HPCCWSClient
         return (RDFHPCCWsClient) All.get(new RDFHPCCWsClient());
     }
 
-    public static HPCCWSClient getNoCreate()
+    public static HPCCWsClient getNoCreate()
     {
         return (RDFHPCCWsClient) All.getNoCreate(new RDFHPCCWsClient());
     }
@@ -61,7 +61,7 @@ public class RDFHPCCWsClient extends HPCCWSClient
         connection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
     }
 
-    public RDFHPCCWsClient() {}
+    protected RDFHPCCWsClient(){}
 
     public static final String HPCCNAMESPACE = "hpccNS-";
 
