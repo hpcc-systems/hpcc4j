@@ -19,14 +19,14 @@ import java.util.HashSet;
 import java.util.TimeZone;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.HPCCWSClient;
+import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DFUWorkunit;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitsResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFULogicalFile;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpDropZone;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpServices;
@@ -111,7 +111,7 @@ public class Platform extends DataSingleton
         UNKNOWN, TESTING, FALSE, TRUE
     }
 
-    protected HPCCWSClient                  hpccclient = null;
+    protected HPCCWsClient                  hpccclient = null;
     private SERVER_EXISTS                   serverExists = SERVER_EXISTS.UNKNOWN;
     protected boolean                       isDisabled;
     public boolean                          isTempDisabled;
@@ -134,7 +134,7 @@ public class Platform extends DataSingleton
 
     protected Platform(String protocol, String ip, int port, String user, String password)
     {
-        hpccclient = HPCCWSClient.get(protocol, ip, port, user, password);
+        hpccclient = HPCCWsClient.get(protocol, ip, port, user, password);
 
         isDisabled = false;
         isTempDisabled = false;
@@ -811,7 +811,7 @@ public class Platform extends DataSingleton
         }
     }
 
-    public HPCCWSClient getHPCCWSClient()
+    public HPCCWsClient getHPCCWSClient()
     {
         latencyTest();
         return hpccclient;

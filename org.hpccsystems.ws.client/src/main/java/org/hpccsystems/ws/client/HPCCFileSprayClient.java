@@ -31,7 +31,6 @@ import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixedResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayVariable;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -48,21 +47,9 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCFileSprayClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
-
     public static HPCCFileSprayClient get(Connection connection)
     {
-        return (HPCCFileSprayClient) All.get(new HPCCFileSprayClient(connection));
-    }
-
-    public static HPCCFileSprayClient getNoCreate(Connection connection)
-    {
-        return (HPCCFileSprayClient) All.getNoCreate(new HPCCFileSprayClient(connection));
-    }
-
-    public static void remove(HPCCFileSprayClient p)
-    {
-        All.remove(p);
+        return new HPCCFileSprayClient(connection);
     }
 
     private static final String FILESPRAYWSDLURI     = "/FileSpray";

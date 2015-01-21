@@ -10,26 +10,28 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUFileViewRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUFileViewResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUInfoRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUQueryRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUSearchDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.DFUSearchDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.WsDfuServiceSoap;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_24.WsDfuServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUGetFileMetaDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUGetFileMetaDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.EspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuLocator;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuServiceSoap;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -43,22 +45,11 @@ import org.w3c.dom.NodeList;
  */
 public class HPCCWsDFUClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
-
     public static HPCCWsDFUClient get(Connection connection)
     {
-        return (HPCCWsDFUClient) All.get(new HPCCWsDFUClient(connection));
+        return new HPCCWsDFUClient(connection);
     }
 
-    public static HPCCWsDFUClient getNoCreate(Connection connection)
-    {
-        return (HPCCWsDFUClient) All.getNoCreate(new HPCCWsDFUClient(connection));
-    }
-
-    public static void remove(HPCCWsDFUClient p)
-    {
-        All.remove(p);
-    }
     public static final String    WSDFUURI              = "/WsDFU";
     public static final String    ROW_ELEMENT           = "Row";
     public static final String    DATASET_ELEMENT       = "Dataset";
@@ -123,7 +114,7 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             if (e != null)
             {
-                for (org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException espexception : e.getException())
+                for (EspException espexception : e.getException())
                 {
                     Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
                             + espexception.getMessage(), false, true);
@@ -204,7 +195,7 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             if (e != null)
             {
-                for (org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException espexception : e.getException())
+                for (EspException espexception : e.getException())
                 {
                     Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
                             + espexception.getMessage(), false, true);
@@ -236,6 +227,52 @@ public class HPCCWsDFUClient extends DataSingleton
         result = resp.getDFULogicalFiles();
         return result;
 
+    }
+
+    /**
+     * Use this function to retrieve file metadata such as column information
+     * @param logicalname    - Logical filename.
+     * @param clustername    - Optional - The cluster the logical filename is associated with.
+     * @return Array of DFUDataColumns
+     * @throws Exception
+     */
+    public DFUDataColumn[] getFileMetaData(String logicalname, String clustername) throws Exception
+    {
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+        DFUGetFileMetaDataRequest req = new DFUGetFileMetaDataRequest();
+        DFUDataColumn[] cols = null;
+
+        req.setLogicalFileName(logicalname);
+
+        if (clustername != null)
+            req.setClusterName(clustername);
+
+        try
+        {
+            DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
+            if (resp == null)
+                return cols;
+
+            this.handleException(resp.getExceptions());
+
+            cols = resp.getDataColumns();
+        }
+
+        catch (ArrayOfEspException e)
+        {
+            if (e != null && verbose)
+            {
+                for (EspException espexception : e.getException())
+                {
+                    Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
+                            + espexception.getMessage(), false, true);
+                }
+            }
+            e.printStackTrace();
+            throw e;
+        }
+
+        return cols;
     }
 
     /**
@@ -295,7 +332,7 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             if (e != null && verbose)
             {
-                for (org.hpccsystems.ws.client.gen.wsdfu.v1_24.EspException espexception : e.getException())
+                for (EspException espexception : e.getException())
                 {
                     Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
                             + espexception.getMessage(), false, true);
@@ -314,7 +351,7 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.wsdfu.v1_24.WsDfuLocator()).getWsDfuServiceSoapAddress();
+        return (new WsDfuLocator()).getWsDfuServiceSoapAddress();
     }
 
     /**
@@ -593,6 +630,16 @@ public class HPCCWsDFUClient extends DataSingleton
         }
     }
 
+    /**
+     * Get array of logical files on target HPCC system based on input parameters
+     * @param filename
+     * @param cluster --- NO LONGER USED ---
+     * @param firstN
+     * @param pageStartFrom
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
     public DFULogicalFile[] getLogicalFiles(String filename, String cluster, int firstN, int pageStartFrom, int pageSize) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
@@ -601,7 +648,6 @@ public class HPCCWsDFUClient extends DataSingleton
         DFUQueryRequest request = new DFUQueryRequest();
         if (filename != null)
             request.setLogicalName(filename);
-        request.setClusterName(cluster);
         request.setFirstN(firstN);
         request.setPageStartFrom(pageStartFrom);
         request.setPageSize(pageSize);
@@ -675,7 +721,6 @@ public class HPCCWsDFUClient extends DataSingleton
         return EqualsUtil.areEqual(wsDfuServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
                 EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getUsername()) &&
                 EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getPassword());
-
     }
 
     @Override

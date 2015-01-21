@@ -22,7 +22,6 @@ import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryRespon
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoap;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -36,21 +35,9 @@ import org.hpccsystems.ws.client.utils.Utils;
 */
 public class HPCCWsTopologyClient extends DataSingleton
 {
-    public static DataSingletonCollection All = new DataSingletonCollection();
-
     public static HPCCWsTopologyClient get(Connection connection)
     {
-        return (HPCCWsTopologyClient) All.get(new HPCCWsTopologyClient(connection));
-    }
-
-    public static HPCCWsTopologyClient getNoCreate(Connection connection)
-    {
-        return (HPCCWsTopologyClient) All.getNoCreate(new HPCCWsTopologyClient(connection));
-    }
-
-    public static void remove(HPCCWsTopologyClient p)
-    {
-        All.remove(p);
+        return new HPCCWsTopologyClient(connection);
     }
 
     public static final String WSTOPOLOGYWSDLURI     = "/WsTopology/TpTargetClusterQuery";
