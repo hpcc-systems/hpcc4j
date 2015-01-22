@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
@@ -805,25 +806,29 @@ public class RDFHPCCWsClient extends HPCCWsClient
             }
             else
             {
-                targetDropzoneNetAddres = dropZoneFilesResponse.getNetAddress();
-                targetHPCCDropzonePath = dropZoneFilesResponse.getPath();
-                Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddres, false, verbosemode);
-                Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
+                DropZone[] dropZones = dropZoneFilesResponse.getDropZones();
+                if (dropZones.length > 0)
+                {
+                    targetDropzoneNetAddres = dropZones[0].getNetAddress();
+                    targetHPCCDropzonePath = dropZones[0].getPath();
+                    Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddres, false, verbosemode);
+                    Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
 
-                try
-                {
-                    PhysicalFileStruct[] files = dropZoneFilesResponse.getFiles();
-                    Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
-                    for (PhysicalFileStruct file : files)
+                    try
                     {
-                        Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
+                        PhysicalFileStruct[] files = dropZoneFilesResponse.getFiles();
+                        Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
+                        for (PhysicalFileStruct file : files)
+                        {
+                            Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
+                        }
                     }
+                    catch (Exception e)
+                    {
+                        Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
+                    }
+                    success = true;
                 }
-                catch (Exception e)
-                {
-                    Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
-                }
-                success = true;
             }
         }
         catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e1)
