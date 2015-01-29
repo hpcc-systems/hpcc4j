@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressRequest;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressResponse;
@@ -55,7 +54,6 @@ public class HPCCWsClient extends DataSingleton
     public static final String defaultTWsECLWatchPort           = "8010";
     public static final String defaultTWsECLWatchSSLPort        = "18010";
 
-    private String targetDropzoneNetAddres = null;
     protected boolean verbosemode = false;
     protected Connection connection = null;
     protected Object connectionLock = new Object();
@@ -680,13 +678,48 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
+     /**
+     * Preferred mechanism for uploading files to HPCC landingzone. Utilizes sftp protocol, requires target machine user account
+     *
+     * @param localFileName        Fully qualified local file name to be uploaded
+     * @param targetFilename       Desired name to apply to uploaded file
+     * @param machineLoginUser     Target machine user account name
+     * @param password             Target machine user account password
+     * @return
+     */
     public boolean uploadFileToHPCC(String localFileName, String targetFilename, String machineLoginUser, String password)
     {
         try
         {
             HPCCFileSprayClient fileSprayClient = getFileSprayClient();
             if (fileSprayClient != null)
+
                 fileSprayClient.sftpPutFileOnTargetLandingZone(localFileName, targetFilename, machineLoginUser, password);
+            else
+                throw new Exception("Could not initialize HPCC File Spray Client");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * NOT the preferred mechanism for uploading files to HPCC landingzone. Utilizes http protocol, targets hpcc ws
+     * ONLY USE THIS METHOD for small files and/or when sftp access is not available
+     *
+     * @param localFileName        Fully qualified local file name to be uploaded
+     */
+    public boolean httpUploadFileToFirstHPCCLandingZone(String localFileName)
+    {
+        try
+        {
+            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+            if (fileSprayClient != null)
+                fileSprayClient.uploadFileLocalDropZone(new File(localFileName));
             else
                 throw new Exception("Could not initialize HPCC File Spray Client");
         }
