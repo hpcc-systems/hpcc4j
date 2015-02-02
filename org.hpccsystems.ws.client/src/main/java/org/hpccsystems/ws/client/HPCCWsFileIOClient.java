@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 
 import org.apache.axis.client.Stub;
@@ -23,6 +25,21 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsFileIOClient extends DataSingleton
 {
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
+
     public static HPCCWsFileIOClient get(Connection connection)
     {
         return new HPCCWsFileIOClient(connection);

@@ -1,5 +1,8 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.axis.AxisFault;
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.wssmc.v1_19.Activity;
@@ -13,6 +16,21 @@ import org.hpccsystems.ws.client.utils.HashCodeUtil;
 
 public class HPCCWsSMCClient extends DataSingleton
 {
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
+
     public static HPCCWsSMCClient get(Connection connection)
     {
         return new HPCCWsSMCClient(connection);
