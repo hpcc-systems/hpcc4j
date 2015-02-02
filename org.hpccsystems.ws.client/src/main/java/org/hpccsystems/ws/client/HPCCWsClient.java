@@ -56,6 +56,7 @@ public class HPCCWsClient extends DataSingleton
     private String targetDropzoneNetAddres = null;
     protected boolean verbosemode = false;
     protected Connection connection = null;
+    protected Connection attrconnection = null;
     protected Object connectionLock = new Object();
 
     /**
@@ -215,11 +216,15 @@ public class HPCCWsClient extends DataSingleton
      * @return provides fileSprayClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsAttributesClient getWsAttributesClient()
+    public synchronized HPCCWsAttributesClient getWsAttributesClient(String attrPort)
     {
+    	if (attrconnection==null) {
+    		attrconnection= new Connection(connection.getProtocol(),connection.getHost(),attrPort);
+            attrconnection.setCredentials(connection.getUserName(),connection.getPassword());
+    	}
         synchronized (connectionLock)
         {
-            return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(connection));
+            return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(attrconnection));
         }
     }
 
