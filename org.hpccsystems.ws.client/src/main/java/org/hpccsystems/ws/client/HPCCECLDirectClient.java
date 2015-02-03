@@ -1,5 +1,8 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ECLDirectException;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectServiceSoap;
@@ -20,6 +23,20 @@ import org.hpccsystems.ws.client.utils.HashCodeUtil;
  */
 public class HPCCECLDirectClient extends DataSingleton
 {
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
 
     public static HPCCECLDirectClient get(Connection connection)
     {

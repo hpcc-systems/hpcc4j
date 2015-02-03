@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.extended;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -31,15 +33,17 @@ import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.QuerySetAliasMap;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.QuerySignature;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.WssqlServiceSoap;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.WssqlServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.EqualsUtil;
+import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
-
 
 /**
  * Use as soap client for HPCC WsSQL web service.
  *
  */
-public class HPCCWsSQLClient
+public class HPCCWsSQLClient  extends DataSingleton
 {
     public static final String     WSSQLURI              = "/WsSQL";
     private WssqlServiceSoapProxy  wsSqlServiceSoapProxy = null;
@@ -47,6 +51,21 @@ public class HPCCWsSQLClient
     private Version                version               = null;
     private static final int       DEFAULT_RESULT_LIMIT  = 100;
     private static final String    PINGSTATEMENT         = "HPCCWsSQLClient Greets you.";
+
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
 
     private class Version
     {
@@ -144,7 +163,7 @@ public class HPCCWsSQLClient
     /**
      * @param wsDfuServiceSoapProxy
      */
-    public HPCCWsSQLClient(WssqlServiceSoapProxy wsSqlServiceSoapProxy)
+    protected HPCCWsSQLClient(WssqlServiceSoapProxy wsSqlServiceSoapProxy)
     {
         this.wsSqlServiceSoapProxy = wsSqlServiceSoapProxy;
     }
@@ -157,6 +176,11 @@ public class HPCCWsSQLClient
         this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
     }
 
+    public static HPCCWsSQLClient get(Connection connection)
+    {
+        return new HPCCWsSQLClient(connection);
+    }
+
     /**
      * @param protocol - http or https
      * @param targetHost - server IP/name of the HPCC Cluster
@@ -164,7 +188,7 @@ public class HPCCWsSQLClient
      * @param user - username to use when connecting to the HPCC Cluster
      * @param pass - Password to use when connecting to the HPCC Cluster
      */
-    public HPCCWsSQLClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    protected HPCCWsSQLClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, WSSQLURI);
 
@@ -684,6 +708,63 @@ public class HPCCWsSQLClient
             }
 
         }
-//        public HPCCWsSQLClient(String protocol, String targetHost, String targetPort, String user, String pass)
+    }
+
+    @Override
+    protected boolean isComplete()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    protected void fastRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    protected void fullRefresh()
+    {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean equals(Object aThat)
+    {
+        if (this == aThat)
+        {
+            return true;
+        }
+
+        if (!(aThat instanceof HPCCWsSQLClient))
+        {
+            return false;
+        }
+
+        HPCCWsSQLClient that = (HPCCWsSQLClient) aThat;
+        WssqlServiceSoapProxy thatSoapProxy;
+        try
+        {
+            thatSoapProxy = that.getSoapProxy();
+        }
+        catch(Exception e)
+        {
+            thatSoapProxy = null;
+        }
+
+        return EqualsUtil.areEqual(wsSqlServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+               EqualsUtil.areEqual(((Stub) wsSqlServiceSoapProxy.getWssqlServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWssqlServiceSoap()).getUsername()) &&
+               EqualsUtil.areEqual(((Stub) wsSqlServiceSoapProxy.getWssqlServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWssqlServiceSoap()).getPassword());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = HashCodeUtil.SEED;
+        result = HashCodeUtil.hash(result, wsSqlServiceSoapProxy.getEndpoint());
+        result = HashCodeUtil.hash(result, ((Stub) wsSqlServiceSoapProxy.getWssqlServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub) wsSqlServiceSoapProxy.getWssqlServiceSoap()).getPassword());
+        return result;
     }
 }

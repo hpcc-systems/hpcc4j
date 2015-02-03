@@ -3,6 +3,8 @@ package org.hpccsystems.ws.client;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -45,6 +47,21 @@ import org.w3c.dom.NodeList;
  */
 public class HPCCWsDFUClient extends DataSingleton
 {
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
+
     public static HPCCWsDFUClient get(Connection connection)
     {
         return new HPCCWsDFUClient(connection);

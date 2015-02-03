@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -62,6 +64,21 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public static final int             defaultMaxWaitTime          = 1000 * 60 * 5;
 
     private boolean                     verbose                     = false;
+
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
 
     protected void fastWURefresh(WorkunitInfo wu) throws Exception
     {

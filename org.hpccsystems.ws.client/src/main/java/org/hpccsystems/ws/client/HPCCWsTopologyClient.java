@@ -1,6 +1,8 @@
 package org.hpccsystems.ws.client;
 
 import java.io.PrintStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,21 @@ import org.hpccsystems.ws.client.utils.Utils;
 */
 public class HPCCWsTopologyClient extends DataSingleton
 {
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
+
     public static HPCCWsTopologyClient get(Connection connection)
     {
         return new HPCCWsTopologyClient(connection);

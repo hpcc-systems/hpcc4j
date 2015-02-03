@@ -1,6 +1,8 @@
 package org.hpccsystems.ws.client.extended;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
@@ -31,6 +33,21 @@ import org.hpccsystems.ws.client.utils.Utils;
 
 public class HPCCWsAttributesClient extends DataSingleton
 {
+    private static URL                  originalURL;
+
+    public static URL getOriginalURL() throws MalformedURLException
+    {
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
+
+        return originalURL;
+    }
+
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        return getOriginalURL().getPort();
+    }
+
     public static HPCCWsAttributesClient get(Connection connection)
     {
         return new HPCCWsAttributesClient(connection);

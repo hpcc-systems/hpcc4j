@@ -1,10 +1,12 @@
 package org.hpccsystems.ws.client;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
+import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressRequest;
@@ -206,6 +208,46 @@ public class HPCCWsClient extends DataSingleton
      * Reports the version of the original WSDL used to create the HPCCWsAttributesClient logic.
      * @return Original WSDL version
      */
+    public String getWsSQLClientVer()
+    {
+        return Utils.parseVersionFromWSDLURL(HPCCWsSQLClient.getOriginalWSDLURL());
+    }
+
+    /**
+     * @return provides fileSprayClient for direct method execution
+     * @throws Exception
+     */
+    public HPCCWsSQLClient getWsSQLClient(String wsSQLPort)
+    {
+        synchronized (connectionLock)
+        {
+            Connection tempConn = new Connection(connection.getProtocol(),connection.getHost(),wsSQLPort);
+            tempConn.setCredentials(connection.getUserName(),connection.getPassword());
+            return (HPCCWsSQLClient) SubClients.get(HPCCWsSQLClient.get(tempConn));
+        }
+    }
+
+    /**
+     * @return provides fileSprayClient for direct method execution
+     * @throws Exception
+     */
+    public HPCCWsSQLClient getWsSQLClient()
+    {
+        try
+        {
+            return getWsSQLClient(String.valueOf(HPCCWsSQLClient.getOriginalPort()));
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsAttributesClient logic.
+     * @return Original WSDL version
+     */
     public String getWsAttributesClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCWsAttributesClient.getOriginalWSDLURL());
@@ -215,11 +257,30 @@ public class HPCCWsClient extends DataSingleton
      * @return provides fileSprayClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsAttributesClient getWsAttributesClient()
+    public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort)
     {
         synchronized (connectionLock)
         {
-            return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(connection));
+            Connection tempConn = new Connection(connection.getProtocol(),connection.getHost(),wsAttributesPort);
+            tempConn.setCredentials(connection.getUserName(),connection.getPassword());
+            return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(tempConn));
+        }
+    }
+
+    /**
+     * @return provides fileSprayClient for direct method execution
+     * @throws Exception
+     */
+    public HPCCWsAttributesClient getWsAttributesClient()
+    {
+        try
+        {
+            return getWsAttributesClient(String.valueOf(HPCCWsAttributesClient.getOriginalPort()));
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -236,7 +297,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides fileSprayClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCFileSprayClient getFileSprayClient()
+    public HPCCFileSprayClient getFileSprayClient()
     {
         synchronized (connectionLock)
         {
@@ -257,7 +318,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides HPCCWsFileIOClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsFileIOClient getWsFileIOClient()
+    public HPCCWsFileIOClient getWsFileIOClient()
     {
         synchronized (connectionLock)
         {
@@ -278,7 +339,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides HPCCWsTopologyClient object for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsTopologyClient getWsTopologyClient()
+    public HPCCWsTopologyClient getWsTopologyClient()
     {
         synchronized (connectionLock)
         {
@@ -299,7 +360,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides HPCCECLDirectClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCECLDirectClient getEclDirectClient()
+    public HPCCECLDirectClient getEclDirectClient()
     {
         synchronized (connectionLock)
         {
@@ -320,7 +381,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides wsDFUClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsDFUClient getWsDFUClient()
+    public HPCCWsDFUClient getWsDFUClient()
     {
         synchronized (connectionLock)
         {
@@ -341,7 +402,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides HPCCWsWorkUnitsClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsSMCClient getWsSMCClient()
+    public HPCCWsSMCClient getWsSMCClient()
     {
         synchronized (connectionLock)
         {
@@ -362,7 +423,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides HPCCWsWorkUnitsClient for direct method execution
      * @throws Exception
      */
-    public synchronized HPCCWsWorkUnitsClient getWsWorkunitsClient()
+    public HPCCWsWorkUnitsClient getWsWorkunitsClient()
     {
         synchronized (connectionLock)
         {
