@@ -680,18 +680,13 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
-    /**
-     * Uploads a file to the first dropzone found on the target HPCC System
-     * @param file   - The file
-     * @return       - Succcess
-     */
-    public boolean uploadFileToHPCC(File file)
+    public boolean uploadFileToHPCC(String localFileName, String targetFilename, String machineLoginUser, String password)
     {
         try
         {
             HPCCFileSprayClient fileSprayClient = getFileSprayClient();
             if (fileSprayClient != null)
-                fileSprayClient.uploadFileLocalDropZone(file);
+                fileSprayClient.sftpPutFileOnTargetLandingZone(localFileName, targetFilename, machineLoginUser, password);
             else
                 throw new Exception("Could not initialize HPCC File Spray Client");
         }
@@ -702,55 +697,6 @@ public class HPCCWsClient extends DataSingleton
         }
 
         return true;
-    }
-
-    /**
-     * Creates a file on HPCC landingzone, and appends data to file.
-     * @param fileName                - The target file name.
-     * @param targetDropzoneAddress   - can be null, if null will attempt to fetch the first dropzone from the local HPCC System
-     * @param data                    - the data
-     * @return
-     * @throws Exception              - caller must handle exceptions
-     */
-    public boolean writeToHPCCFile(String fileName, String targetDropzoneAddress, String data) throws Exception
-    {
-        boolean success = false;
-
-        HPCCWsFileIOClient wsFileIOClient = getWsFileIOClient();
-        HPCCFileSprayClient fileSprayClient = getFileSprayClient();
-
-        if (fileSprayClient != null)
-        {
-            if (targetDropzoneAddress == null || targetDropzoneAddress.length() == 0)
-            {
-                DropZone[] localdropzones = fileSprayClient.fetchLocalDropZones();
-                if (localdropzones != null && localdropzones.length > 0)
-                {
-                    targetDropzoneAddress = localdropzones[0].getNetAddress();
-                }
-            }
-        }
-        else
-            throw new Exception("Could not initialize HPCC FileSpray Client");
-
-        if (wsFileIOClient != null)
-        {
-            if (targetDropzoneAddress != null && targetDropzoneAddress.length() == 0)
-            {
-                if (!wsFileIOClient.createHPCCFile(fileName, targetDropzoneAddress, true))
-                        throw new Exception("Could not create target HPCC namespaces file.");
-
-                    //Remote HPCC file has been created, encode the data so it can be uploaded as binary data.
-                    //byte [] encodedBytes = encodeData(triplesCSVFormat.toString());
-                    //The data was being encoded, but latest test don't seem to require encoding.
-                    success = wsFileIOClient.writeHPCCFileData(data.getBytes(), fileName, targetDropzoneNetAddres, false, 0, 0);
-            }
-        }
-        else
-            throw new Exception("Could not initialize HPCC FileIO Client");
-
-        Utils.println(System.out, "Success: " + String.valueOf(success), false,verbosemode);
-        return success;
     }
 
     /**
