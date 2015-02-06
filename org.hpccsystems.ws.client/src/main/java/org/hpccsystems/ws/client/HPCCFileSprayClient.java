@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Properties;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
@@ -37,6 +38,7 @@ import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.Sftp;
 import org.hpccsystems.ws.client.utils.Utils;
 
 /**
@@ -72,6 +74,7 @@ public class HPCCFileSprayClient extends DataSingleton
     private static final String UPLOADURI           = FILESPRAYWSDLURI + "/UploadFile?upload_";
 
     private int BUFFER_LENGTH = 1024;
+    private static final long MAX_FILE_WSUPLOAD_SIZE = 2000000000;
 
     FileSprayServiceSoapProxy     fileSprayServiceSoapProxy    =  null;
     DropZone[] localDropZones = null;
@@ -532,24 +535,36 @@ public class HPCCFileSprayClient extends DataSingleton
     }
 
     /**
+     * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
+     * ONLY USE THIS FUNCTION FOR SMALL FILES AND IN THE CASE YOU CANNOT PROVIDE
+     * CREDENTIALS TO LOGON TO THE TARGET MACHINE
+     * USE sftpPutFileOnTargetLandingZone(...) if possible
+     *
      * Attempts to upload given file to HPCC System on the first dropzone encountered at the given address
-     * @param file                  - The File to upload
-     * @param targetDropzoneAddress - The target dropzone address
-     * @return                      - Boolean, success
+     * @param file
+     *            - The File to upload
+     * @param targetDropzoneAddress
+     *            - The target dropzone address
+     * @return - Boolean, success
      */
     public boolean uploadFile(File file, String targetDropzoneAddress) throws Exception
     {
         DropZone[] dropZones = fetchDropZones(targetDropzoneAddress);
         if (dropZones == null || dropZones.length <= 0)
             throw new Exception("Could not fetch target dropzone information");
-
         return uploadFile(file, dropZones[0]);
     }
 
     /**
+     * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
+     * ONLY USE THIS FUNCTION FOR SMALL FILES AND IN THE CASE YOU CANNOT PROVIDE
+     * CREDENTIALS TO LOGON TO THE TARGET MACHINE
+     * USE sftpPutFileOnTargetLandingZone(...) if possible
      * Attempts to upload given file to HPCC System on the first local dropzone encountered
-     * @param file        - The File to upload
-     * @return            - Boolean, success
+     *
+     * @param file
+     *            - The File to upload
+     * @return - Boolean, success
      */
     public boolean uploadFileLocalDropZone(File file) throws Exception
     {
@@ -561,24 +576,34 @@ public class HPCCFileSprayClient extends DataSingleton
     }
 
     /**
+     * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
+     * ONLY USE THIS FUNCTION FOR SMALL FILES AND IN THE CASE YOU CANNOT PROVIDE
+     * CREDENTIALS TO LOGON TO THE TARGET MACHINE
+     * USE sftpPutFileOnTargetLandingZone(...) if possible
+     *
      * Attempts to upload given file to HPCC System on the given dropzone
-     * @param file        - The File to upload
-     * @param dropZones   - The target HPCC file dropzone
-     * @return            - Boolean, success
+     *
+     * @param file
+     *            - The File to upload
+     * @param dropZones
+     *            - The target HPCC file dropzone
+     * @return - Boolean, success
+     * @throws Exception
      */
-    private boolean uploadFile(File file, DropZone dropZone)
+    private boolean uploadFile(File file, DropZone dropZone) throws Exception
     {
         if (file == null)
             return false;
-
         String filename = file.getName();
         long length = file.length();
+
+        if (length > MAX_FILE_WSUPLOAD_SIZE)
+            throw new Exception("Uploading files of this magnitude is not supported, use SFTP based functions");
 
         InputStream fileInput = null;
         OutputStream uploadOutStream = null;
         URLConnection fileUploadConnection = null;
         URL fileUploadURL = null;
-
         String boundary = Utils.createBoundary();
         try
         {
@@ -589,45 +614,36 @@ public class HPCCFileSprayClient extends DataSingleton
             uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
             uploadurlbuilder += "&Path=" + dropZone.getPath();
             uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
-
             fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
-
             fileUploadConnection = Connection.createConnection(fileUploadURL);
 
-            if (fsconn.hasCredentials() )
+            if (fsconn.hasCredentials())
             {
-                fileUploadConnection.setRequestProperty ("Authorization", fsconn.getBasicAuthString());
+                fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
             }
 
-            fileUploadConnection.setRequestProperty("Content-Length",    Long.toString(length));
+            fileUploadConnection.setRequestProperty("Content-Length", Long.toString(length));
             fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-
             uploadOutStream = fileUploadConnection.getOutputStream();
-
             Utils.startMulti(uploadOutStream, filename, boundary, "");
 
             fileInput = new FileInputStream(file);
 
             byte[] bytesReadFromFile = new byte[BUFFER_LENGTH];
             int bytesReadCount;
-
             while ((bytesReadCount = fileInput.read(bytesReadFromFile, 0, BUFFER_LENGTH)) != -1)
             {
                 uploadOutStream.write(bytesReadFromFile, 0, bytesReadCount);
             }
-
             Utils.closeMulti(uploadOutStream, boundary);
-
             StringBuffer response = new StringBuffer();
             BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
-
             String line = null;
 
             while ((line = rreader.readLine()) != null)
                 response.append(line);
 
-            Utils.println(System.out, "File upload has finished, please fetch file list to verify upload", false, verbose);
-
+            Utils.println(System.out, "File upload has finished, please fetch file list to verify upload", false,  verbose);
         }
         catch (Exception e)
         {
@@ -661,8 +677,54 @@ public class HPCCFileSprayClient extends DataSingleton
                 catch (IOException e){}
             }
         }
-
         return true;
+    }
+
+    /**
+     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the target HPCCSystem address
+     * @param localFileName                  - The File to upload
+     * @param targetFilename (optional)      - The desired name for the uploaded file
+     * @param machineLoginUserName           - The user account name to log on to the target machine
+     * @param password                       - The user account password to log on to the target machine
+     * @param connconfig (optional)          - Connection config options
+     * @return                               - void no exception = success
+     */
+    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password) throws Exception
+    {
+        sftpPutFileOnTargetLandingZone(localFileName, fsconn.getHost(), targetFilename, machineLoginUserName, password, null);
+    }
+
+    /**
+     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the target HPCCSystem address
+     * @param localFileName                  - The File to upload
+     * @param targetFilename (optional)      - The desired name for the uploaded file
+     * @param machineLoginUserName           - The user account name to log on to the target machine
+     * @param password                       - The user account password to log on to the target machine
+     * @param connconfig (optional)          - Connection config options
+     * @return                               - void no exception = success
+     */
+    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception
+    {
+        sftpPutFileOnTargetLandingZone(localFileName, fsconn.getHost(), targetFilename, machineLoginUserName, password, connconfig);
+    }
+
+    /**
+     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the given address
+     * @param localFileName                  - The File to upload
+     * @param targetDropzoneAddress          - The target landing zone ip address
+     * @param targetFilename (optional)      - The desired name for the uploaded file
+     * @param machineLoginUserName           - The user account name to log on to the target machine
+     * @param password                       - The user account password to log on to the target machine
+     * @param connconfig (optional)          - Connection config options
+     * @return                               - void no exception = success
+     */
+    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetDropzoneAddress, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception
+    {
+        DropZone[] dropZones = fetchDropZones(targetDropzoneAddress);
+        if (dropZones == null || dropZones.length <= 0)
+            throw new Exception("Could not fetch target dropzone information");
+
+        Sftp.lzPut(localFileName, targetDropzoneAddress, dropZones[0].getPath(), targetFilename, machineLoginUserName, password, dropZones[0].getLinux().equals("true"), connconfig);
     }
 
     public GetDFUWorkunitResponse getDFUWorkunit(String workunitid) throws Exception
