@@ -1010,7 +1010,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return wuResultResponse.getResult();
     }
 
-    private WUResultResponse fetchRawResults(String wuidorlogicalname, boolean useWuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
+    public WUResultResponse fetchRawResults(String wuidorlogicalname, boolean useWuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");

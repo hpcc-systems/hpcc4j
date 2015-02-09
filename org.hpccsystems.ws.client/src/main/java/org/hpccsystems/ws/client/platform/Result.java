@@ -93,7 +93,7 @@ public class Result extends DataSingleton
             try
             {
                 wsWorkunitsClient = workunit.getPlatform().getWsWorkunitsClient();
-                WUResultResponse response = wsWorkunitsClient.fetchRawResults(workunit.getWuid(), info.getSequence(), null, true, start, count);
+                WUResultResponse response = wsWorkunitsClient.fetchRawResults(workunit.getWuid(), true, info.getSequence(), null, true, start, count);
 
                 String resultString = response.getResult();
 
