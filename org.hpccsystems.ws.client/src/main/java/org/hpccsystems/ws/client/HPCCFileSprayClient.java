@@ -634,6 +634,7 @@ public class HPCCFileSprayClient extends DataSingleton
             while ((bytesReadCount = fileInput.read(bytesReadFromFile, 0, BUFFER_LENGTH)) != -1)
             {
                 uploadOutStream.write(bytesReadFromFile, 0, bytesReadCount);
+                uploadOutStream.flush();
             }
             Utils.closeMulti(uploadOutStream, boundary);
             StringBuffer response = new StringBuffer();

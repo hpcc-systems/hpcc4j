@@ -570,6 +570,8 @@ public class Utils
      */
     static public void closeMulti(OutputStream out, String boundary) throws java.io.IOException
     {
+
+        out.write(NEWLINE);
         out.write(PREFIX);
         out.write(boundary.getBytes());
         out.write(PREFIX);
