@@ -5,9 +5,11 @@ Java based APIs for interaction with HPCC services/tools
 
 The project houses multiple HPCC centric Java based APIs/tools.
 Each individual sub-project has been set up as an Eclipse project, but you may use other IDEs as well.
-The project is configured to be built using Maven.  To build the projects using Maven, navigate to the base directory of this project and issue the following command:
+The project is configured to be built using Maven. To build the projects using Maven, navigate to the base directory of this project and issue the following command:
 
 `mvn install`
+
+Each sub-project can be built individually, from the top-level directory of the desired sub-project issue the mvn install command.
 
 For more information on how to use Maven see http://maven.apache.org
 
