@@ -33,6 +33,9 @@ import org.xml.sax.SAXException;
 
 public class Utils
 {
+    final static char LINUX_SEP =  '/';
+    final static char WIN_SEP =  '\\';
+
     /**
      * @param wsdlurl - url to web service definition
      * @return        - version reported as ver_ parameter in url
@@ -567,6 +570,8 @@ public class Utils
      */
     static public void closeMulti(OutputStream out, String boundary) throws java.io.IOException
     {
+
+        out.write(NEWLINE);
         out.write(PREFIX);
         out.write(boundary.getBytes());
         out.write(PREFIX);

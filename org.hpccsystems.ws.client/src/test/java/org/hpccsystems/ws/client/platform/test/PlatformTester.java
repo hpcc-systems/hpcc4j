@@ -1,11 +1,10 @@
 package org.hpccsystems.ws.client.platform.test;
 
-import java.io.File;
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.Platform;
@@ -29,6 +28,7 @@ public class PlatformTester
             HPCCWsClient connector = platform.getHPCCWSClient();
             connector.setVerbosemode(true);
 
+            int pport = HPCCWsAttributesClient.getOriginalPort();
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
 
@@ -41,7 +41,9 @@ public class PlatformTester
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
             //connector.uploadFileToHPCC(new File("C://assignments//data//shortpersons"));
-            connector.uploadFileToHPCC(new File("C://assignments//data//shortaccounts"));
+            //connector.uploadFileToHPCC(new File("C://assignments//data//shortaccounts"));
+            //connector.uploadFileToHPCC(new File("C://assignments//data//small.txt"));
+            connector.uploadFileToHPCC("C://assignments//data//shortpersons", "myhpcctargetname", "hadoop", "hadoop");
 
             //for our curiosity, what cluster groups and clusters are available.
             List<String> clusters = connector.getAvailableTargetClusterNames();

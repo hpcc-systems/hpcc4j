@@ -4,7 +4,7 @@
   <groupId>org.hpccsystems.hpccjapi</groupId>
   <artifactId>wsclient</artifactId>
   <packaging>jar</packaging>
-  <version>0.3-SNAPSHOT</version>
+  <version>0.4-SNAPSHOT</version>
   <name>HPCC Web Services Client API</name>
 
   <properties>
@@ -53,6 +53,16 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.1.51</version>
+    </dependency>
+        <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4</version>
     </dependency>
   </dependencies>
 

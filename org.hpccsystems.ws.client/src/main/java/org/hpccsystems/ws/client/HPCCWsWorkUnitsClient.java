@@ -952,9 +952,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return createAndRunWUFromECL.getWuid();
     }
 
-    /* zero based index sequence */
     /**
-     * Fetches results associated with a given WUID
+     * Fetches results associated with a given Logical name
      *
      * @param wuid
      *            - The target WUID to fetch results from
@@ -967,26 +966,63 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @param resultOffset
      *            - Request results starting at record offset
      * @param resultCount
-     *            - Total result record count re- Results in xml string - Resu - caller must handle exceptionsle
-     *            exceptionsle exceptionsle exceptionss
+     *            - Total result record count
+     * @return
+     *            - Results in xml string
+     * @throws Exception
+     */
+    public String fetchResultsFromLogicalName(String logicalName, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
+    {
+        WUResultResponse wuResultResponse = fetchRawResults(logicalName, false, sequence, cluster, suppressXMLShema, resultOffset, resultCount);
+        ArrayOfEspException exceptions = wuResultResponse.getExceptions();
+        if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
+
+        return wuResultResponse.getResult();
+    }
+
+    /**
+     * Fetches results associated with a given WUID
+     * If the given WUID has been archived, results might not be available using this function
+     * Use fetchResultsFromLogicalName instead
+     *
+     * @param wuid
+     *            - The target WUID to fetch results from
+     * @param sequence
+     *            - Zero based index result sequence (Each result set may contain multiple results)
+     * @param cluster
+     *            - The target cluster
+     * @param suppressXMLShema
+     *            - Results are accompanied by a schema, do you want to suppress it?
+     * @param resultOffset
+     *            - Request results starting at record offset
+     * @param resultCount
+     *            - Total result record count re
+     * @return
+     *            - Results in xml string
+     * @throws Exception
      */
     public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
     {
-            WUResultResponse wuResultResponse = fetchRawResults(wuid, sequence, cluster, suppressXMLShema, resultOffset, resultCount);
-            ArrayOfEspException exceptions = wuResultResponse.getExceptions();
-            if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
+        WUResultResponse wuResultResponse = fetchRawResults(wuid, true, sequence, cluster, suppressXMLShema, resultOffset, resultCount);
+        ArrayOfEspException exceptions = wuResultResponse.getExceptions();
+        if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
 
-            return wuResultResponse.getResult();
+        return wuResultResponse.getResult();
     }
 
-    public WUResultResponse fetchRawResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
+    public WUResultResponse fetchRawResults(String wuidorlogicalname, boolean useWuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
+        else if (wuidorlogicalname == null || wuidorlogicalname.length()==0)
+            throw new Exception("Please provide either WUID or LogicalName");
         else
         {
             WUResult parameters = new WUResult();
-            parameters.setWuid(wuid);
+            if (useWuid)
+                parameters.setWuid(wuidorlogicalname);
+            else
+                parameters.setLogicalName(wuidorlogicalname);
             parameters.setSequence(sequence);
             parameters.setStart(resultOffset);
             parameters.setCount(resultCount);
@@ -994,8 +1030,48 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 parameters.setCluster(cluster);
             parameters.setSuppressXmlSchema(suppressXMLShema);
 
-            return wsWorkunitsServiceSoapProxy.WUResult(parameters);
+            return fetchRawResults(parameters);
         }
+    }
+
+    /**
+     * @param wuid   does this string follow the known WU format
+     * @return       true if it wuid appears to be a workunit, false otherwise
+     *
+     * logic borrowed from platform code:
+     * workunit.cpp
+     * bool looksLikeAWuid(const char * wuid)
+     *   {
+     *       if (!wuid)
+     *           return false;
+     *       if (wuid[0] != 'W')
+     *           return false;
+     *       if (!isdigit(wuid[1]) || !isdigit(wuid[2]) || !isdigit(wuid[3]) || !isdigit(wuid[4]))
+     *           return false;
+     *       if (!isdigit(wuid[5]) || !isdigit(wuid[6]) || !isdigit(wuid[7]) || !isdigit(wuid[8]))
+     *           return false;
+     *       return (wuid[9]=='-');
+     *   }
+     */
+    public static boolean looksLikeAWuid(String wuid)
+    {
+        if (wuid == null || wuid.length()==0)
+            return false;
+        if (wuid.charAt(0) != 'W' && wuid.charAt(0) != 'w')
+            return false;
+        if (!Character.isDigit(wuid.charAt(1)) || !Character.isDigit(wuid.charAt(2)) || !Character.isDigit(wuid.charAt(3)) || !Character.isDigit(wuid.charAt(4)))
+            return false;
+        if (!Character.isDigit(wuid.charAt(5)) || !Character.isDigit(wuid.charAt(6)) || !Character.isDigit(wuid.charAt(7)) || !Character.isDigit(wuid.charAt(8)))
+            return false;
+        return (wuid.charAt(9)=='-');
+    }
+
+    public WUResultResponse fetchRawResults(WUResult parameters) throws Exception
+    {
+        if (wsWorkunitsServiceSoapProxy == null)
+            throw new Exception("wsWorkunitsServiceSoapProxy not available");
+        else
+            return wsWorkunitsServiceSoapProxy.WUResult(parameters);
     }
 
     /**
