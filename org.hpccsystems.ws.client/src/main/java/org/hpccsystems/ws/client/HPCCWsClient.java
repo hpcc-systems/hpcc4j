@@ -56,7 +56,6 @@ public class HPCCWsClient extends DataSingleton
 
     protected boolean verbosemode = false;
     protected Connection connection = null;
-    protected Connection attrconnection = null;
     protected Object connectionLock = new Object();
 
     /**
@@ -256,11 +255,14 @@ public class HPCCWsClient extends DataSingleton
      * @return provides fileSprayClient for direct method execution
      * @throws Exception
      */
-    public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort) 
+    public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort)
     {
+    	synchronized (connectionLock) 
+    	{
             Connection tempConn = new Connection(connection.getProtocol(),connection.getHost(),wsAttributesPort);
             tempConn.setCredentials(connection.getUserName(),connection.getPassword());
             return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(tempConn));
+    	}
     }
 
     /**
