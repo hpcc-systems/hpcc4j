@@ -257,12 +257,12 @@ public class HPCCWsClient extends DataSingleton
      */
     public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort)
     {
-        synchronized (connectionLock)
-        {
+    	synchronized (connectionLock) 
+    	{
             Connection tempConn = new Connection(connection.getProtocol(),connection.getHost(),wsAttributesPort);
             tempConn.setCredentials(connection.getUserName(),connection.getPassword());
             return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(tempConn));
-        }
+    	}
     }
 
     /**

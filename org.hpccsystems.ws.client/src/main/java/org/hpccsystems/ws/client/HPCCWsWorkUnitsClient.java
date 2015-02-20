@@ -692,6 +692,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             WUCreateAndUpdate wucreateparameters = new WUCreateAndUpdate();
             wucreateparameters.setAction(1); // 1= compile
             wucreateparameters.setQueryText(wu.getECL());
+            wucreateparameters.setApplicationValues(wu.getApplicationValues());
             wucreateparameters.setDebugValues(wu.getDebugValues());
             wucreateparameters.setJobname(wu.getJobname());
             wucreateparameters.setClusterOrig(wu.getCluster());
