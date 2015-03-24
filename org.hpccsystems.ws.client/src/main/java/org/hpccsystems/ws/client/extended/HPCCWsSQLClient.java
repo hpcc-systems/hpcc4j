@@ -233,7 +233,7 @@ public class HPCCWsSQLClient  extends DataSingleton
         return tablesList;
     }
 
-    public HPCCQuerySet[] getStoredProcedures(String querysetname, String filter) throws Exception
+    public HPCCQuerySet[] getStoredProcedures(String querysetname) throws Exception
     {
         WssqlServiceSoapProxy soapProxy = getSoapProxy();
 
@@ -244,10 +244,8 @@ public class HPCCWsSQLClient  extends DataSingleton
 
             getDBMetaDataRequest.setIncludeStoredProcedures(true);
 
-            if (filter != null)
-                getDBMetaDataRequest.setClusterType(filter);
             if (querysetname != null)
-                getDBMetaDataRequest.setClusterType(querysetname);
+                getDBMetaDataRequest.setQuerySet(querysetname);
 
             getDBMetaDataRequest.setIncludeTables(false);
             getDBMetaDataRequest.setIncludeTargetClusters(false);
@@ -592,7 +590,7 @@ public class HPCCWsSQLClient  extends DataSingleton
 
             try
             {
-                HPCCQuerySet[] storedProcedures = wssqlclient.getStoredProcedures(null, null);
+                HPCCQuerySet[] storedProcedures = wssqlclient.getStoredProcedures(null);
                 for (int i = 0; i < storedProcedures.length; i++)
                 {
                     HPCCQuerySet qs = storedProcedures[i];
