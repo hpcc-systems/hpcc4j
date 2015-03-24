@@ -34,6 +34,7 @@ import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.QuerySignature;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.WssqlServiceSoap;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.WssqlServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -65,63 +66,6 @@ public class HPCCWsSQLClient  extends DataSingleton
     public static int getOriginalPort() throws MalformedURLException
     {
         return getOriginalURL().getPort();
-    }
-
-    private class Version
-    {
-        private final String           systemName;
-        private final String           fullVersion;
-        private final String           major;
-        private final String           minor;
-        private final String           point;
-        private final String           project;
-        private final String           maturity;
-
-        public Version(String sysname, String fullver, String major, String minor, String point, String project, String maturity)
-        {
-            this.systemName = sysname;
-            this.fullVersion = fullver;
-            this.major = major;
-            this.minor = minor;
-            this.point = point;
-            this.project = project;
-            this.maturity = maturity;
-        }
-
-        public String getSystemName()
-        {
-            return systemName;
-        }
-
-        public String getFullVersion()
-        {
-            return fullVersion;
-        }
-
-        public String getMajor()
-        {
-            return major;
-        }
-
-        public String getMinor()
-        {
-            return minor;
-        }
-
-        public String getPoint()
-        {
-            return point;
-        }
-
-        public String getProject()
-        {
-            return project;
-        }
-
-        public String getMaturity()
-        {
-            return maturity;
-        }
     }
 
     /**
@@ -282,14 +226,14 @@ public class HPCCWsSQLClient  extends DataSingleton
         }
         catch (Exception e)
         {
-            System.out.println(e.getLocalizedMessage());
-            e.printStackTrace();
+            Utils.print(System.out, "Could not fetch file(s) " + e.getLocalizedMessage(), false, false);
+            throw e;
         }
 
         return tablesList;
     }
 
-    public HPCCQuerySet[] getStoredProcedures(String filter) throws Exception
+    public HPCCQuerySet[] getStoredProcedures(String querysetname, String filter) throws Exception
     {
         WssqlServiceSoapProxy soapProxy = getSoapProxy();
 
@@ -299,8 +243,11 @@ public class HPCCWsSQLClient  extends DataSingleton
             GetDBMetaDataRequest getDBMetaDataRequest = new GetDBMetaDataRequest();
 
             getDBMetaDataRequest.setIncludeStoredProcedures(true);
+
             if (filter != null)
                 getDBMetaDataRequest.setClusterType(filter);
+            if (querysetname != null)
+                getDBMetaDataRequest.setClusterType(querysetname);
 
             getDBMetaDataRequest.setIncludeTables(false);
             getDBMetaDataRequest.setIncludeTargetClusters(false);
@@ -349,46 +296,44 @@ public class HPCCWsSQLClient  extends DataSingleton
     private boolean populateSystemInfo()
     {
         boolean success = false;
-        synchronized (version)
-        {
-            if (version == null)
-            {
-                WssqlServiceSoapProxy soapProxy = null;
-                try
-                {
-                    soapProxy = getSoapProxy();
-                }
-                catch (Exception e)
-                {
-                    System.out.println("Could not fetch System info, WsSQLServiceProxy not available.");
-                    return false;
-                }
 
-                try
+        if (version == null)
+        {
+            WssqlServiceSoapProxy soapProxy = null;
+            try
+            {
+                soapProxy = getSoapProxy();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Could not fetch System info, WsSQLServiceProxy not available.");
+                return false;
+            }
+
+            try
+            {
+                GetDBSystemInfoResponse dbSystemInfo = soapProxy.getDBSystemInfo(new GetDBSystemInfoRequest(true));
+                if (dbSystemInfo != null)
                 {
-                    GetDBSystemInfoResponse dbSystemInfo = soapProxy.getDBSystemInfo(new GetDBSystemInfoRequest(true));
-                    if (dbSystemInfo != null)
-                    {
-                        version = new Version(dbSystemInfo.getName(), dbSystemInfo.getFullVersion(), dbSystemInfo.getMajor(), dbSystemInfo.getMinor(), dbSystemInfo.getPoint(), dbSystemInfo.getProject(), dbSystemInfo.getMaturity());
-                        if (version != null)
-                            success = true;
-                    }
+                    version = new Version(dbSystemInfo.getFullVersion());
+                    if (version != null)
+                        success = true;
                 }
-                catch (RemoteException e)
-                {
-                    System.out.println("Error fetching HPCC System info.");
-                }
+            }
+            catch (RemoteException e)
+            {
+                System.out.println("Error fetching HPCC System info.");
             }
         }
         return success;
     }
 
-    public String executeSQL(String sqlText, String targetClusterorQuerySet) throws Exception
+    public String executeSQLWUIDResponse(String sqlText, String targetCluster, String targetQuerySet) throws Exception
     {
-        return executeSQL(sqlText, targetClusterorQuerySet, DEFAULT_RESULT_LIMIT, null /*resultWindowCount*/, null /*resultWindowStart*/, null /*suppressResults*/, true /*Boolean suppressXmlSchema*/, null /*String userName*/, null /*Integer wait*/).getWuid();
+        return executeSQLWUResponse(sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /*resultWindowCount*/, null /*resultWindowStart*/, null /*suppressResults*/, true /*Boolean suppressXmlSchema*/, null /*String userName*/, null /*Integer wait*/).getWuid();
     }
 
-    public ECLWorkunit executeSQL(String sqlText, String targetClusterorQuerySet, Integer resultLimit, Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait) throws Exception
+    public ExecuteSQLResponse executeSQLFullResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit, Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait) throws Exception
     {
         WssqlServiceSoapProxy soapProxy = getSoapProxy();
 
@@ -399,20 +344,25 @@ public class HPCCWsSQLClient  extends DataSingleton
         executeSQLRequest.setSqlText(sqlText);
         executeSQLRequest.setSuppressResults(suppressResults);
         executeSQLRequest.setSuppressXmlSchema(suppressXmlSchema);
-        executeSQLRequest.setTargetCluster(targetClusterorQuerySet);
-        executeSQLRequest.setTargetQuerySet(targetClusterorQuerySet);
+        executeSQLRequest.setTargetCluster(targetCluster);
+        executeSQLRequest.setTargetQuerySet(targetQuerySet);
         executeSQLRequest.setUserName(userName);
         executeSQLRequest.setWait(wait);
 
-        ExecuteSQLResponse executeSQL = soapProxy.executeSQL(executeSQLRequest);
-        if (executeSQL != null)
+        ExecuteSQLResponse executeSQLResponse = soapProxy.executeSQL(executeSQLRequest);
+        if (executeSQLResponse != null)
         {
-            handleExceptions(executeSQL.getExceptions());
+            handleExceptions(executeSQLResponse.getExceptions());
 
-            return executeSQL.getWorkunit();
+            return executeSQLResponse;
         }
 
         return null;
+    }
+
+    public ECLWorkunit executeSQLWUResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit, Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait) throws Exception
+    {
+        return executeSQLFullResponse(sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /*resultWindowCount*/, null /*resultWindowStart*/, null /*suppressResults*/, true /*Boolean suppressXmlSchema*/, null /*String userName*/, null /*Integer wait*/).getWorkunit();
     }
 
     public List<List<Object>> getResutls(String wuid, Integer resultWindowStart, Integer resultWindowCount) throws Exception
@@ -451,14 +401,14 @@ public class HPCCWsSQLClient  extends DataSingleton
         return Utils.parseOutResultSchema("<root>"+getResultResponse(wuid, 0, 0, false).getResult()+"</root>");
     }
 
-    public ECLWorkunit prepareSQL(String sqlText, String targetClusterorQuerySet, Integer wait) throws Exception
+    public ECLWorkunit prepareSQL(String sqlText, String targetCluster, String targetQuerySet, Integer wait) throws Exception
     {
         WssqlServiceSoapProxy soapProxy = getSoapProxy();
 
         PrepareSQLRequest prepareSQLRequest = new PrepareSQLRequest();
         prepareSQLRequest.setSqlText(sqlText);
-        prepareSQLRequest.setTargetCluster(targetClusterorQuerySet);
-        prepareSQLRequest.setTargetQuerySet(targetClusterorQuerySet);
+        prepareSQLRequest.setTargetCluster(targetCluster);
+        prepareSQLRequest.setTargetQuerySet(targetQuerySet);
         prepareSQLRequest.setWait(wait);
 
         PrepareSQLResponse prepareSQL = soapProxy.prepareSQL(prepareSQLRequest);
@@ -472,19 +422,19 @@ public class HPCCWsSQLClient  extends DataSingleton
         return null;
     }
 
-    public ECLWorkunit executePreparedSQL(String wuid, String targetClusterorQuerySet, NamedValue[] variables, Integer wait, Integer resultLimit, String userName) throws Exception
+    public ECLWorkunit executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit, String userName) throws Exception
     {
-        return executePreparedSQL(wuid, targetClusterorQuerySet, variables, wait, resultLimit, null, null, userName, true, true).getWorkunit();
+        return executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null, userName, true, true).getWorkunit();
     }
 
-    public List<List<Object>> executePreparedSQL(String wuid, String targetClusterorQuerySet, NamedValue[] variables, Integer wait, Integer resultLimit, String userName, String somesing) throws Exception
+    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit, String userName, String somesing) throws Exception
     {
-        ExecutePreparedSQLResponse executePreparedSQL = executePreparedSQL(wuid, targetClusterorQuerySet, variables, wait, resultLimit, null, null, userName, true, true);
+        ExecutePreparedSQLResponse executePreparedSQL = executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null, userName, true, true);
         String result = executePreparedSQL.getResult();
         return Utils.parseECLResults(result);
     }
 
-    public ExecutePreparedSQLResponse executePreparedSQL(String wuid, String targetClusterorQuerySet, NamedValue[] variables, Integer wait, Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema, Boolean suppressResults) throws Exception
+    public ExecutePreparedSQLResponse executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema, Boolean suppressResults) throws Exception
     {
         WssqlServiceSoapProxy soapProxy = getSoapProxy();
 
@@ -496,8 +446,7 @@ public class HPCCWsSQLClient  extends DataSingleton
         executePreparedSQLRequest.setResultWindowCount(resultWindowCount);
         executePreparedSQLRequest.setSuppressXmlSchema(suppressXmlSchema);
         executePreparedSQLRequest.setSuppressResults(suppressResults);
-        executePreparedSQLRequest.setTargetCluster(targetClusterorQuerySet);
-        executePreparedSQLRequest.setTargetCluster(targetClusterorQuerySet);
+        executePreparedSQLRequest.setTargetCluster(targetCluster);
         executePreparedSQLRequest.setUserName(userName);
         executePreparedSQLRequest.setWait(wait);
 
@@ -513,14 +462,16 @@ public class HPCCWsSQLClient  extends DataSingleton
 
     private void handleExceptions(ArrayOfEspException exp) throws Exception
     {
+        String message = "";
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
             for (int i = 0; i < exp.getException().length; i++)
             {
                 EspException ex = exp.getException()[i];
                 Utils.println(System.out, ex.getMessage(), true, verbose);
+                message = message + "Audience: " + ex.getAudience() + " Source: " + ex.getSource() + " Message: " + ex.getMessage()+"\n";
             }
-            throw new Exception(exp);
+            throw new Exception(message);
         }
     }
 
@@ -537,7 +488,7 @@ public class HPCCWsSQLClient  extends DataSingleton
             String wuid = null;
             try
             {
-                wuid = wssqlclient.executeSQL("select * from regress::thor_local::personindexid", "hthor");
+                wuid = wssqlclient.executeSQLWUIDResponse("select * from regress::thor_local::personindexid", "hthor", null);
                 System.out.println("wuid: " + wuid);
 
             }
@@ -548,7 +499,7 @@ public class HPCCWsSQLClient  extends DataSingleton
 
             try
             {
-                wuid = wssqlclient.executeSQL("select * from regress::hthor_payload::book", "hthor");
+                wuid = wssqlclient.executeSQLWUIDResponse("select * from regress::hthor_payload::book", "hthor", null);
                 System.out.println("wuid: " + wuid);
 
             }
@@ -641,7 +592,7 @@ public class HPCCWsSQLClient  extends DataSingleton
 
             try
             {
-                HPCCQuerySet[] storedProcedures = wssqlclient.getStoredProcedures(null);
+                HPCCQuerySet[] storedProcedures = wssqlclient.getStoredProcedures(null, null);
                 for (int i = 0; i < storedProcedures.length; i++)
                 {
                     HPCCQuerySet qs = storedProcedures[i];
