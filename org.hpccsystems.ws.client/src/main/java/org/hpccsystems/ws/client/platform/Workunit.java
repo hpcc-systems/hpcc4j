@@ -7,6 +7,7 @@
  ******************************************************************************/
 package org.hpccsystems.ws.client.platform;
 
+import java.lang.reflect.Field;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -151,6 +152,53 @@ public class Workunit extends DataSingleton
             }
         }
         return WUState.UNKNOWN;
+    }
+
+    public static boolean isFailedState(String state) throws Exception
+    {
+        WUState statecode = translateWUState(state);
+        switch (statecode)
+        {
+            case UNKNOWN_ONSERVER:
+            case FAILED:
+            case ABORTED:
+            case ABORTING:
+            case BLOCKED:
+            case UNKNOWN:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private static Map<String, WUState> WuStateNameMap = new HashMap<String, WUState>();
+
+    static
+    {
+            WuStateNameMap.put("COMPILED", WUState.COMPILED);
+            WuStateNameMap.put("RUNNING", WUState.RUNNING);
+            WuStateNameMap.put("COMPLETED", WUState.COMPLETED);
+            WuStateNameMap.put("FAILED", WUState.FAILED);
+            WuStateNameMap.put("ARCHIVED", WUState.ARCHIVED);
+            WuStateNameMap.put("ABORTING", WUState.ABORTING);
+            WuStateNameMap.put("ABORTED", WUState.ABORTED);
+            WuStateNameMap.put("BLOCKED", WUState.BLOCKED);
+            WuStateNameMap.put("SUBMITTED", WUState.SUBMITTED);
+            WuStateNameMap.put("SCHEDULED", WUState.SCHEDULED);
+            WuStateNameMap.put("COMPILING", WUState.COMPILED);
+            WuStateNameMap.put("WAIT", WUState.WAIT);
+            WuStateNameMap.put("RUNNING", WUState.RUNNING);
+    }
+
+    public static WUState translateWUState(String state) throws Exception
+    {
+        if (WuStateNameMap.size() <= 0)
+            throw new Exception("WUStates were not loaded, cannot translate");
+
+        if (WuStateNameMap.containsKey((state.toUpperCase())))
+                return WuStateNameMap.get(state.toUpperCase());
+        else
+            return WUState.UNKNOWN;
     }
 
     public String getState()
