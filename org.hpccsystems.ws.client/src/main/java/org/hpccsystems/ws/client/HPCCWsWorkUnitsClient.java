@@ -753,14 +753,9 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl) throws Exception
     {
-        ArrayList<WorkunitInfo> wks = new ArrayList<WorkunitInfo>();
-
-        getSoapProxy();
-
         WUQuery params = new WUQuery();
         if (jobName != null)
         {
-
             params.setJobname(jobName);
         }
 
@@ -773,6 +768,14 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         {
             params.setECL(ecl);
         }
+        return getWorkunits(params);
+    }
+
+    public ArrayList<WorkunitInfo> getWorkunits(WUQuery params) throws Exception
+    {
+        ArrayList<WorkunitInfo> wks = new ArrayList<WorkunitInfo>();
+
+        getSoapProxy();
         try
         {
             WUQueryResponse result = wsWorkunitsServiceSoapProxy.WUQuery(params);
