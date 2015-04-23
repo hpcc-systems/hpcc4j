@@ -479,9 +479,9 @@ public class HPCCWsSQLClient  extends DataSingleton
 
     private void handleESPExceptions(ArrayOfEspException exp) throws Exception
     {
-        String message = "";
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
+            String message = "";
             for (int i = 0; i < exp.getException().length; i++)
             {
                 EspException ex = exp.getException()[i];
@@ -494,14 +494,17 @@ public class HPCCWsSQLClient  extends DataSingleton
 
     private void handleECLExceptions(ECLException[] eclexceptions) throws Exception
     {
-        String message = "";
-        for (int eclexceptionindex = 0; eclexceptionindex < eclexceptions.length; eclexceptionindex++)
+        if (eclexceptions != null)
         {
-            ECLException eclException = eclexceptions[eclexceptionindex];
-            Utils.println(System.out, eclException.getMessage(), true, verbose);
-            message = message + "Severity: " + eclException.getSeverity() + " Source: " + eclException.getSource() + " Message: " + eclException.getMessage()+"\n";
+            String message = "";
+            for (int eclexceptionindex = 0; eclexceptionindex < eclexceptions.length; eclexceptionindex++)
+            {
+                ECLException eclException = eclexceptions[eclexceptionindex];
+                Utils.println(System.out, eclException.getMessage(), true, verbose);
+                message = message + "Severity: " + eclException.getSeverity() + " Source: " + eclException.getSource() + " Message: " + eclException.getMessage()+"\n";
+            }
+            throw new Exception(message);
         }
-        throw new Exception(message);
     }
 
     public static void main (String[] args)
