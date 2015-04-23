@@ -847,6 +847,12 @@ public class Platform extends DataSingleton
         return hpccclient.getWsSMCClient();
     }
 
+    public HPCCWsClient getWsClient() throws Exception
+    {
+        latencyTest();
+        return hpccclient;
+    }
+
     @Override
     public boolean equals(Object aThat)
     {
