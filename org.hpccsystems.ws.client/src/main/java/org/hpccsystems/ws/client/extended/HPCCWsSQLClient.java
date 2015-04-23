@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.ECLException;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.ECLWorkunit;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.EchoRequest;
 import org.hpccsystems.ws.client.gen.extended.wssql.v1_0.EchoResponse;
@@ -350,8 +351,11 @@ public class HPCCWsSQLClient  extends DataSingleton
         ExecuteSQLResponse executeSQLResponse = soapProxy.executeSQL(executeSQLRequest);
         if (executeSQLResponse != null)
         {
-            handleExceptions(executeSQLResponse.getExceptions());
-
+            ArrayOfEspException exceptions = executeSQLResponse.getExceptions();
+            if (exceptions!=null)
+                handleESPExceptions(exceptions);
+            if (executeSQLResponse.getWorkunit() != null)
+                handleECLExceptions(executeSQLResponse.getWorkunit().getExceptions());
             return executeSQLResponse;
         }
 
@@ -381,7 +385,12 @@ public class HPCCWsSQLClient  extends DataSingleton
         GetResultsResponse results = soapProxy.getResults(getResultsRequest);
         if (results != null)
         {
-            handleExceptions(results.getExceptions());
+            ArrayOfEspException exceptions = results.getExceptions();
+            if (exceptions!=null)
+                handleESPExceptions(exceptions);
+            ECLWorkunit workunit = results.getWorkunit();
+            if (workunit != null)
+                handleECLExceptions(workunit.getExceptions());
 
             return results;
         }
@@ -412,9 +421,14 @@ public class HPCCWsSQLClient  extends DataSingleton
         PrepareSQLResponse prepareSQL = soapProxy.prepareSQL(prepareSQLRequest);
         if (prepareSQL != null)
         {
-            handleExceptions(prepareSQL.getExceptions());
+            ArrayOfEspException exceptions = prepareSQL.getExceptions();
+            if (exceptions!=null)
+                handleESPExceptions(exceptions);
+            ECLWorkunit workunit = prepareSQL.getWorkunit();
+            if (workunit != null)
+                handleECLExceptions(workunit.getExceptions());
 
-            return prepareSQL.getWorkunit();
+            return workunit;
         }
 
         return null;
@@ -451,14 +465,19 @@ public class HPCCWsSQLClient  extends DataSingleton
         ExecutePreparedSQLResponse executePreparedSQL = soapProxy.executePreparedSQL(executePreparedSQLRequest);
         if (executePreparedSQL != null)
         {
-            handleExceptions(executePreparedSQL.getExceptions());
+            ArrayOfEspException exceptions = executePreparedSQL.getExceptions();
+            if (exceptions!=null)
+                handleESPExceptions(exceptions);
+            if (executePreparedSQL.getWorkunit() != null)
+                handleECLExceptions(executePreparedSQL.getWorkunit().getExceptions());
+
             return executePreparedSQL;
         }
 
         return null;
     }
 
-    private void handleExceptions(ArrayOfEspException exp) throws Exception
+    private void handleESPExceptions(ArrayOfEspException exp) throws Exception
     {
         String message = "";
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
@@ -471,6 +490,18 @@ public class HPCCWsSQLClient  extends DataSingleton
             }
             throw new Exception(message);
         }
+    }
+
+    private void handleECLExceptions(ECLException[] eclexceptions) throws Exception
+    {
+        String message = "";
+        for (int eclexceptionindex = 0; eclexceptionindex < eclexceptions.length; eclexceptionindex++)
+        {
+            ECLException eclException = eclexceptions[eclexceptionindex];
+            Utils.println(System.out, eclException.getMessage(), true, verbose);
+            message = message + "Severity: " + eclException.getSeverity() + " Source: " + eclException.getSource() + " Message: " + eclException.getMessage()+"\n";
+        }
+        throw new Exception(message);
     }
 
     public static void main (String[] args)
