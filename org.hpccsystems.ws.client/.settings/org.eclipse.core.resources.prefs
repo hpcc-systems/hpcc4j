@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
 encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/AddRemoteRequest.java=UTF-8
 encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/AddRemoteResponse.java=UTF-8
 encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/AddRequest.java=UTF-8
@@ -47,3 +48,5 @@ encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/WsDfu.java=UTF
 encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/WsDfuLocator.java=UTF-8
 encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/WsDfuServiceSoap.java=UTF-8
 encoding//src/main/java/org/hpccsystems/ws/client/gen/wsdfu/v1_29/WsDfuServiceSoapStub.java=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
