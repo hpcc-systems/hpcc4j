@@ -529,6 +529,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             		return getWUInfo(wuid);
             	}
                 workunit = new WorkunitInfo(wuInfoResponse.getWorkunit());
+                workunit.setEspUrl(this.getSoapProxy().getEndpoint().replace("WsWorkunits", ""));
+                
             }
             else
             {
@@ -720,6 +722,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 createdWU.setCluster(wu.getCluster());
                 createdWU.setJobname(wu.getJobname());
                 createdWU.setSleepMillis(wu.getSleepMillis());
+                createdWU.setEspUrl(this.getSoapProxy().getEndpoint().replace("WsWorkunits", ""));
+                
             }
             else
             {
