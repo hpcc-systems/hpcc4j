@@ -13,6 +13,8 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLWorkunit;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.EspException;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.QuerySet;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUAbort;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUAction;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUActionResponse;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUDelete;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfo;
@@ -520,8 +522,12 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             WUInfoResponse wuInfoResponse = wsWorkunitsServiceSoapProxy.WUInfoDetails(wuinfodetailsparams);
 
             org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException exceptions = wuInfoResponse.getExceptions();
-            if (exceptions == null)
+            if (exceptions == null && wuInfoResponse.getWorkunit() != null)
             {
+            	if (wuInfoResponse.getWorkunit().getArchived()) {
+            		restoreWorkunit(wuid);
+            		return getWUInfo(wuid);
+            	}
                 workunit = new WorkunitInfo(wuInfoResponse.getWorkunit());
             }
             else
@@ -553,7 +559,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             request.setIncludeVariables(includeVariables);
             request.setIncludeXmlSchemas(includeXmlSchemas);
 
-            return wsWorkunitsServiceSoapProxy.WUInfo(request);
+            WUInfoResponse resp=wsWorkunitsServiceSoapProxy.WUInfo(request);
+            if (resp.getWorkunit() != null && resp.getWorkunit().getArchived() != null && resp.getWorkunit().getArchived())
+            {
+            	restoreWorkunit(wuid);
+            	return getWUInfo(wuid, includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers);
+            }
+            return resp;
         }
     }
 
@@ -787,7 +799,9 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             }
             for (int i = 0; i < ecls.length; i++)
             {
-                wks.add(new WorkunitInfo(ecls[i]));
+            	WorkunitInfo w=new WorkunitInfo(ecls[i]);
+            	w.setEspUrl(this.getSoapProxy().getEndpoint().replace("WsWorkunits", ""));
+                wks.add(w);
             }
         }
         catch (Exception e)
@@ -1299,5 +1313,31 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return result;
     }
 
+    /**
+     * Return a workunit result
+     *
+     * @param WUResult
+     * @return WUResultResponse
+     * @throws Exception
+     */
+    public WUResultResponse getWorkunitResult(WUResult wur) throws Exception {
+    	//get the object first to make sure it's not archived
+    	WorkunitInfo wu=this.getWUInfo(wur.getWuid());
+    	//get the response    	
+    	WUResultResponse resp=getSoapProxy().getWsWorkunitsServiceSoap().WUResult(wur);
+    	return resp;
+    }
 
+    public boolean restoreWorkunit(String wuid) throws ArrayOfEspException, RemoteException, Exception {
+    	WUAction wa=new WUAction();
+    	wa.setActionType("restore");
+    	wa.setWuids(new String[]{wuid});
+    	WUActionResponse war=this.getSoapProxy().getWsWorkunitsServiceSoap().WUAction(wa);
+        if (war == null || war.getActionResults() == null || war.getActionResults().length==0
+        		|| war.getActionResults()[0].getResult() == null 
+        		|| !war.getActionResults()[0].getResult().equals("Success")) {
+        	throw new Exception("Unable to restore workunit " + wuid);
+		}
+        return true;
+    }
 }
