@@ -529,7 +529,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             		return getWUInfo(wuid);
             	}
                 workunit = new WorkunitInfo(wuInfoResponse.getWorkunit());
-                workunit.setEspUrl(this.getSoapProxy().getEndpoint().replace("WsWorkunits", ""));
+                workunit.setOriginalEclWatchUrl(getEclWatchUrl());
                 
             }
             else
@@ -722,7 +722,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 createdWU.setCluster(wu.getCluster());
                 createdWU.setJobname(wu.getJobname());
                 createdWU.setSleepMillis(wu.getSleepMillis());
-                createdWU.setEspUrl(this.getSoapProxy().getEndpoint().replace("WsWorkunits", ""));
+                createdWU.setOriginalEclWatchUrl(getEclWatchUrl());
                 
             }
             else
@@ -804,7 +804,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             for (int i = 0; i < ecls.length; i++)
             {
             	WorkunitInfo w=new WorkunitInfo(ecls[i]);
-            	w.setEspUrl(this.getSoapProxy().getEndpoint().replace("WsWorkunits", ""));
+            	w.setOriginalEclWatchUrl(getEclWatchUrl());
                 wks.add(w);
             }
         }
@@ -1343,5 +1343,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         	throw new Exception("Unable to restore workunit " + wuid);
 		}
         return true;
+    }
+    
+    private String getEclWatchUrl() throws Exception {
+        String url=this.getSoapProxy().getEndpoint().toLowerCase().replace("wsworkunits", "");
+        return url;
     }
 }
