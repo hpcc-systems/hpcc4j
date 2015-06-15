@@ -11,7 +11,7 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_4
     private int               maxMonitorTime   = HPCCWsWorkUnitsClient.defaultMaxWaitTime;
     private int               sleepMillis      = HPCCWsWorkUnitsClient.defaultWaitTime;
     private NamedValue[]      namedValues      = null;
-    private String espUrl=null;
+    private String originalEclWatchUrl=null;
 
     /**
      * Create an ECL workunit from a axis-generated soap class ECL Workunit
@@ -254,12 +254,12 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_4
         return this.getQuery().getText();
     }
 
-	public String getEspUrl() {
-		return espUrl;
+	public String getOriginalEclWatchUrl() {
+		return originalEclWatchUrl;
 	}
 
-	public void setEspUrl(String serverhost) {
-		this.espUrl=serverhost;
+	public void setOriginalEclWatchUrl(String serverhost) {
+		this.originalEclWatchUrl=serverhost;
 	}
     
 }
