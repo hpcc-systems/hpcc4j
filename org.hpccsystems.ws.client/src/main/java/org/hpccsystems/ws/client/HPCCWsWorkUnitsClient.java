@@ -68,6 +68,34 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     private boolean                     verbose                     = false;
 
     private static URL                  originalURL;
+    
+    enum WuActions
+    {
+        delete,
+        abort,
+        pausenow,
+        pause,
+        resume,
+        protect,
+        unprotect,
+        restore,
+        reschedule,
+        deschedule,
+        settofailed
+        ;
+        
+        /*
+         * try
+    	{
+    		WuActions action = Utils.findEnumValFromString(WuActions.class, "abort");
+            System.out.println(action.toString());
+    	}
+    	catch (Exception e)
+    	{
+    		System.out.println(e.getLocalizedMessage());
+    	}
+         */
+    }
 
     public static URL getOriginalURL() throws MalformedURLException
     {
