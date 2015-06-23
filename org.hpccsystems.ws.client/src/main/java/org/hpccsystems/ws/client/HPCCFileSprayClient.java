@@ -424,6 +424,76 @@ public class HPCCFileSprayClient extends DataSingleton
     }
 
     /**
+     * Spray XML data file from the first local dropzone onto given cluster group.
+     *
+     * @param sourceFileName
+     * @param targetFileName
+     * @param prefix
+     * @param destGroup
+     * @param overwrite
+     * @param format
+     * @param rowtag
+     * @param maxrecsize
+     * @return ProgressResponse
+     * @throws Exception
+     */
+    public ProgressResponse sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite,FileFormat format, String rowtag, Integer maxrecsize) throws Exception
+    {
+        if (localDropZones == null)
+            localDropZones = fetchLocalDropZones();
+
+        return sprayXML(localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, rowtag, overwrite, format, maxrecsize);
+    }
+
+    /**
+     * Spray XML data file from the given dropzone onto given cluster group.
+     *
+     * @param targetDropZone
+     * @param sourceFileName
+     * @param targetFileName
+     * @param prefix
+     * @param destGroup
+     * @param overwrite
+     * @param format
+     * @param maxrecsize
+     * @param rowtag
+     * @return ProgressResponse
+     * @throws Exception
+     */
+    public ProgressResponse sprayXML(DropZone targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, String rowtag , boolean overwrite, FileFormat format, Integer maxrecsize) throws Exception
+    {
+        if (fileSprayServiceSoapProxy == null)
+            throw new Exception("FileSpray Service Soap Proxy not available.");
+
+        if (targetDropZone == null)
+            throw new Exception("TargetDropZone object not available!");
+
+        SprayVariable svr = new SprayVariable();
+
+        svr.setDestGroup(destGroup);
+        svr.setSourceIP(targetDropZone.getNetAddress());
+        svr.setSourcePath(targetDropZone.getPath()+"/"+sourceFileName);
+        svr.setDestLogicalName(targetFileName);
+        svr.setOverwrite(overwrite);
+        svr.setSourceFormat(format.getValue());
+        svr.setSourceMaxRecordSize(maxrecsize);
+        svr.setSourceRowTag(rowtag);
+
+        SprayResponse resp = fileSprayServiceSoapProxy.sprayVariable(svr);
+
+        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        if (exceptions != null)
+        {
+            for (EspException espexception : exceptions.getException())
+            {
+                throw new Exception("Error spraying XML file: " + espexception.getSource() + espexception.getMessage());
+            }
+        }
+
+        return getDfuProgress(resp.getWuid());
+    }
+
+    /**
      * Spray fixed file from first dropzone encountered on the given dropzone net address
      * @param dropzoneNetAddress
      * @param sourceFileName
