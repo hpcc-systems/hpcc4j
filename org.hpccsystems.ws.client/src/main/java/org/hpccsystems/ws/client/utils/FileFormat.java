@@ -6,6 +6,7 @@ public enum FileFormat
 {
     DFUff_fixed(0),
     DFUff_csv(1),
+    DFUff_ascii(1),
     DFUff_utf8(2),
     DFUff_utf8n(3),
     DFUff_utf16(4),
@@ -27,7 +28,7 @@ public enum FileFormat
     static
     {
         mapDFUFileFormatNameCode.put("csv",                FileFormat.DFUff_csv);
-        mapDFUFileFormatNameCode.put("ascii",              FileFormat.DFUff_csv);
+        mapDFUFileFormatNameCode.put("ascii",              FileFormat.DFUff_ascii);
         mapDFUFileFormatNameCode.put("utf8",               FileFormat.DFUff_utf8);
         mapDFUFileFormatNameCode.put("utf16",              FileFormat.DFUff_utf16);
         mapDFUFileFormatNameCode.put("utf16le",            FileFormat.DFUff_utf16le);

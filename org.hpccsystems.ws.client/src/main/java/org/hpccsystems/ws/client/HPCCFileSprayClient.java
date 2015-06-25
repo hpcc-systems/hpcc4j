@@ -422,6 +422,27 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return getDfuProgress(resp.getWuid());
     }
+    
+    /**
+     * Spray XML data file from the first local dropzone onto given cluster group.
+     * defaults to first local dropzone, row tag to "tag", source format to "ASCII"
+     * and max len to 8192
+     *
+     * @param sourceFileName
+     * @param targetFileName
+     * @param prefix
+     * @param destGroup
+     * @param overwrite
+     * @return ProgressResponse
+     * @throws Exception
+     */
+    public ProgressResponse sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception
+    {
+        if (localDropZones == null)
+            localDropZones = fetchLocalDropZones();
+
+        return sprayXML(localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, FileFormat.DFUff_ascii, 8192);
+    }
 
     /**
      * Spray XML data file from the first local dropzone onto given cluster group.
@@ -437,7 +458,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return ProgressResponse
      * @throws Exception
      */
-    public ProgressResponse sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite,FileFormat format, String rowtag, Integer maxrecsize) throws Exception
+    public ProgressResponse sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, FileFormat format, String rowtag, Integer maxrecsize) throws Exception
     {
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
