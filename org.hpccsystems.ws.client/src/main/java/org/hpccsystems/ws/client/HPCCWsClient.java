@@ -744,15 +744,14 @@ public class HPCCWsClient extends DataSingleton
     public String submitECLandGetResults(WorkunitInfo wu) throws Exception
     {
         String results = null;
-
-        HPCCECLDirectClient eclDirectClient = getEclDirectClient();
+        HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
 
         try
         {
-            if (eclDirectClient != null)
-                results = eclDirectClient.submitECLandGetResults(wu);
+            if (wsWorkunitsClient != null)
+                results = wsWorkunitsClient.createAndRunWUFromECLAndGetResults(wu);
             else
-                throw new Exception("Could not initialize HPCC EclDirect Client");
+                throw new Exception("Could not initialize HPCC WsWorkUnits Client");
         }
         catch (Exception e)
         {

@@ -120,6 +120,7 @@ public class PlatformTester
             wu.setCluster(clusterGroups[0]);
             wu.setResultLimit(100);
             wu.setMaxMonitorMillis(50000);
+            wu.setJobname("myjobname");
             //this is just one way to submitECL, you can also submit via ecldirect and request the resulting WUID
             //you can also, submit via WSWorkunits and have more control over the result window you get back.
             String results = connector.submitECLandGetResults(wu);
