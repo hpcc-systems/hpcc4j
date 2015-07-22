@@ -15,14 +15,14 @@ For more information on how to use Maven see http://maven.apache.org
 
 
 Projects contained within:
-- org.hpccsystems.ws.client          API which Standardize and facilitate interaction with HPCC Web based Services.
+- wsclient          API which Standardize and facilitate interaction with HPCC Web based Services.
                                      *The project is based on stub code generated from WSDLs using Eclipse tools based on Apache Axis
                                      *and JSch(Java Secure Channel) for secure ftp transfers
 
-- org.hpccsystems.clienttools        Java based interface to HPCC client tools 
+- clienttools        Java based interface to HPCC client tools 
                                      *Currently only interfaces with eclcc
 
-- org.hpccsystems.rdf.rdf2hpcc       RDF data ingestion tool to HPCC 
+- rdf2hpcc       RDF data ingestion tool to HPCC 
                                      *Based on Apache Jena and dependent on org.hpccsystems.ws.client
 
 ** PLEASE NOTE **
