@@ -33,6 +33,8 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_29.EspException;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuLocator;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuServiceSoap;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
+import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -137,7 +139,6 @@ public class HPCCWsDFUClient extends DataSingleton
                             + espexception.getMessage(), false, true);
                 }
             }
-            e.printStackTrace();
             throw e;
         }
 
@@ -166,7 +167,7 @@ public class HPCCWsDFUClient extends DataSingleton
         }
         if (beginrow == null)
         {
-            beginrow = (long) 1;
+            beginrow = (long) 0;
         }
         if (numrows == null)
         {
@@ -203,7 +204,6 @@ public class HPCCWsDFUClient extends DataSingleton
             }
             catch (Exception e)
             {
-                e.printStackTrace();
                 return null;
             }
             return null;
@@ -218,7 +218,6 @@ public class HPCCWsDFUClient extends DataSingleton
                             + espexception.getMessage(), false, true);
                 }
             }
-            e.printStackTrace();
             throw e;
         }
     }
@@ -285,7 +284,6 @@ public class HPCCWsDFUClient extends DataSingleton
                             + espexception.getMessage(), false, true);
                 }
             }
-            e.printStackTrace();
             throw e;
         }
 
@@ -355,7 +353,6 @@ public class HPCCWsDFUClient extends DataSingleton
                             + espexception.getMessage(), false, true);
                 }
             }
-            e.printStackTrace();
             throw e;
         }
         return cols;
@@ -448,117 +445,15 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
      */
-    public ArrayList<DFUDataColumn> getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
+    public ArrayList<DFUDataColumnInfo> getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
             throws Exception
     {
-        String filetype = "";
-        DFUInfoResponse resp = null;
-        try
+        DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
+        if (fieldSeparator != null)
         {
-            resp = getFileInfo(datasetname, null);
-            // thor files store filetype in content type
-            filetype = resp.getFileDetail().getContentType();
-            if (filetype == null || filetype.equals(""))
-            {
-                // some csvs in OSS HPCC Store filetype in format
-                filetype = resp.getFileDetail().getFormat();
-
-                // csvs loaded as ascii get a format of "csv", csvs loaded as
-                // utf-8 get a format of "utf8"
-                if (filetype.toLowerCase().startsWith("utf"))
-                {
-                    filetype = "CSV";
-                }
-                if (filetype == null || filetype.equals(""))
-                {
-                    // some HPCC-generated xml files use neither, check ecl
-                    // record for xpath
-                    if (resp.getFileDetail().getEcl() != null
-                            && resp.getFileDetail().getEcl().toLowerCase().contains("xpath"))
-                    {
-                        filetype = "XML";
-                        // in some cases THOR files have nothing in format or
-                        // filetype, but if the file doesn't have any
-                        // identifying info but does have a record definition,
-                        // assume it's a THOR file
-                    }
-                    else if (resp.getFileDetail().getEcl() != null)
-                    {
-                        filetype = "THOR";
-                    }
-                    else
-                    {
-                        throw new Exception("Unknown file format for logical file " + datasetname);
-                    }
-                }
-            }
+            info.setCsvSeparate(fieldSeparator);
         }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        ArrayList<DFUDataColumn> fields = new ArrayList<DFUDataColumn>();
-        if (filetype.equalsIgnoreCase("THOR") || filetype.equalsIgnoreCase("FLAT"))
-        {
-            // bug in DFUGetDataColumns: Decimal datatypes being returned as real. Until it's fixed,
-            // need to retrieve fields from ECL.
-            // fields = getFileDataColumns(datasetname, null);
-            String ecl = resp.getFileDetail().getEcl();
-            fields = getRecordFromECL(ecl);
-        }
-        else if (filetype.equalsIgnoreCase("CSV"))
-        {
-            // CSVs created by HPCC have file data; sprayed csvs return only
-            // "line" from this call, and have their fields defined
-            // in the record definition in the ecl attribute of dfu file info
-            try
-            {
-                fields = getFileDataColumns(datasetname, null);
-                if (fields.size() == 2 && fields.get(0).getColumnLabel().equals("line"))
-                {
-                    fields = new ArrayList<DFUDataColumn>();
-                }
-                if (fields != null && fields.size() > 0)
-                {
-                    return fields;
-                }
-            }
-            catch (Exception e)
-            {}
-            if (fieldSeparator == null)
-            {
-                fieldSeparator = resp.getFileDetail().getCsvSeparate();
-            }
-            String ecl = resp.getFileDetail().getEcl();
-            if (ecl == null || ecl.equals(""))
-            {
-                String firstrow = getFirstRow(datasetname, clusterName);
-                if (firstrow != null)
-                {
-                    String[] flds = firstrow.split(fieldSeparator);
-                    for (int i = 0; i < flds.length; i++)
-                    {
-                        DFUDataColumn du = new DFUDataColumn();
-                        du.setColumnLabel("Field" + String.valueOf(i + 1));
-                        du.setColumnType("STRING");
-                        fields.add(du);
-                    }
-                }
-            }
-            else
-            {
-                fields = this.getRecordFromECL(ecl);
-            }
-        }
-        else if (filetype.equalsIgnoreCase("XML"))
-        {
-            String ecl = resp.getFileDetail().getEcl();
-            if (ecl != null && !ecl.equals(""))
-            {
-                fields = this.getRecordFromECL(ecl);
-            }
-        }
-        return fields;
+        return info.deduceFields();
     }
 
     /**
@@ -573,65 +468,18 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public String getFirstRow(String datasetname, String clustername) throws Exception
     {
-        NodeList rowdata = getFileData(datasetname, (long) 1, 1, clustername);
+        NodeList rowdata = getFileData(datasetname, (long) 0, 1, clustername);
         if (rowdata != null && rowdata.getLength() > 0)
         {
-            String firstrow = rowdata.item(0).getTextContent();
-            if (firstrow != null)
-            {
-                return firstrow;
-            }
+        	if (rowdata.item(0).hasChildNodes()) 
+        	{
+        		return rowdata.item(0).getFirstChild().getTextContent();
+        	} 
+        	else {
+        		return rowdata.item(0).getTextContent();
+        	}
         }
         return null;
-    }
-
-    /**
-     * @param eclRecordDefinition
-     *            - a RECORD definition, either in RECORD\nSTRING1\nEND; format, or in {STRING1 field} inline format,.
-     *            currently handles XPATH recordsets but doesn't save XPATH info. A few issues with child dataset
-     *            records
-     * @return An ArrayList of DFUDataColumns
-     * @throws Exception
-     */
-    private ArrayList<DFUDataColumn> getRecordFromECL(String eclRecordDefinition) throws Exception
-    {
-        ArrayList<DFUDataColumn> cols = new ArrayList<DFUDataColumn>();
-        eclRecordDefinition = eclRecordDefinition.replaceAll("(;|,|RECORD|\\{|\\})", "\n");
-        eclRecordDefinition = eclRecordDefinition.replaceAll("RECORD", "RECORD\n");
-        eclRecordDefinition = eclRecordDefinition.replaceAll("\n\n", "\n");
-        String[] lines = eclRecordDefinition.split("\n");
-        for (int i = 0; i < lines.length; i++)
-        {
-            String thisline = lines[i].trim();
-            if (thisline.equals(""))
-            {
-                continue;
-            }
-            if (thisline.matches("(RECORD|END|\\{|\\})"))
-            {
-                continue;
-            }
-            // TODO: handle xml field definitions
-            if (thisline.toLowerCase().contains("xpath"))
-            {
-                continue;
-            }
-            String[] fieldargs = thisline.split(" ");
-            if (fieldargs.length < 2)
-            {
-                throw new Exception("Invalid record field definition " + thisline);
-            }
-            if (!fieldargs[0].toUpperCase().matches(
-                    "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|REAL|BOOLEAN).*"))
-            {
-                throw new Exception("Invalid record field type " + fieldargs[0]);
-            }
-            DFUDataColumn col = new DFUDataColumn();
-            col.setColumnType(fieldargs[0].toUpperCase());
-            col.setColumnLabel(fieldargs[1]);
-            cols.add(col);
-        }
-        return cols;
     }
 
     private void handleException(ArrayOfEspException exp) throws Exception
@@ -643,7 +491,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 EspException ex = exp.getException()[i];
                 Utils.println(System.out, ex.getMessage(), true, verbose);
             }
-            throw new Exception(exp);
+            throw exp;
         }
     }
 
@@ -748,5 +596,57 @@ public class HPCCWsDFUClient extends DataSingleton
         result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername());
         result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword());
         return result;
+    }
+    
+    /**
+     * @param logicalname
+     *            - logical file to get file info for, can start with '~' or not
+     * @param clustername
+     *            - Optional. If specified, the cluster on which to search for the file
+     * @return a DFUInfoResponse object containing the file info
+     * @throws Exception
+     */
+    public DFUFileDetailInfo getFileDetails(String logicalname, String clustername) throws Exception
+    {
+        try
+        {
+            DFUInfoResponse resp = this.getFileInfo(logicalname, clustername);
+            if (resp == null)
+            {
+                throw new FileNotFoundException(logicalname + " does not exist");
+            }
+            this.handleException(resp.getExceptions());
+            DFUFileDetailInfo info = new DFUFileDetailInfo(resp.getFileDetail());
+            info.setFirstline(this.getFirstRow(logicalname, clustername));
+            if (info.getFilename() != null)
+            {
+                try
+                {
+                    info.setColumns(getFileMetaData(logicalname, clustername));
+                }
+                catch (ArrayOfEspException e)
+                {
+                    if (e.getException().length > 0 && e.getException(0).getMessage() != null
+                            && e.getException(0).getMessage().contains("not available in service WsDfu"))
+                    {
+                        // for clusters on version < 5.0.2, this service doesn't exist; do it the old fashioned way
+                        info.setColumns(this.getFileDataColumns(logicalname, clustername));
+                    }
+                }
+            }
+            return info;
+        }
+        catch (ArrayOfEspException e)
+        {
+            if (e != null)
+            {
+                for (EspException espexception : e.getException())
+                {
+                    Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
+                            + espexception.getMessage(), false, true);
+                }
+            }
+            throw e;
+        }
     }
 }
