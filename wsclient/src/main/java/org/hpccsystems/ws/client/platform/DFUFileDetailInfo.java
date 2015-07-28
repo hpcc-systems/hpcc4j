@@ -6,19 +6,28 @@ import java.util.List;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
 
-// This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
-public class DFUFileDetailInfo extends DFUFileDetail 
+// This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
+// classes.
+/**
+ * @author LeedDX
+ *
+ */
+public class DFUFileDetailInfo extends DFUFileDetail
 {
-    public  static enum FileType{FLAT,CSV,XML,INDEX,UNKNOWN};
-    
+    public static enum FileType
+    {
+        FLAT, CSV, XML, INDEX, UNKNOWN
+    };
+
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long            serialVersionUID = 1L;
 
     private ArrayList<DFUDataColumnInfo> columns;
-    private String firstline=null;
-    private boolean hasheader=false;
+    private String                       firstline        = null;
+    private boolean                      hasheader        = false;
+
     public boolean hasHeader()
     {
         return hasheader;
@@ -39,13 +48,27 @@ public class DFUFileDetailInfo extends DFUFileDetail
         copy(base);
     }
 
-    public DFUFileDetailInfo() {}
+    /**
+     * Create an empty Data Column Info object
+     * 
+     * @param base
+     */
+    public DFUFileDetailInfo()
+    {
+    }
 
-       public String getFirstline()
+    /**
+     * @return the first line of data associated with this file
+     */
+    public String getFirstline()
     {
         return firstline;
     }
 
+    /**
+     * @param firstline
+     *            - set the first line of data associated with this file
+     */
     public void setFirstline(String firstline)
     {
         this.firstline = firstline;
@@ -75,11 +98,13 @@ public class DFUFileDetailInfo extends DFUFileDetail
         sb.append("Ecl:").append(this.getEcl()).append("\n");
         sb.append("Filename:").append(this.getFilename()).append("\n");
         sb.append("Filesize:").append(this.getFilesize()).append("\n");
+        sb.append("FirstLine:").append(this.getFirstline()).append("\n");
         sb.append("Format:").append(this.getFormat()).append("\n");
         sb.append("FromRoxieCluster:").append(this.getFromRoxieCluster()).append("\n");
         sb.append("Graphs:").append(this.getGraphs()).append("\n");
-        sb.append("IsCompressed:").append(this.getIsCompressed()).append("\n");
-        sb.append("IsSuperfile:").append(this.getIsSuperfile()).append("\n");
+        sb.append("hasHeader:").append(String.valueOf(this.hasHeader())).append("\n");
+        sb.append("IsCompressed:").append(String.valueOf(this.getIsCompressed())).append("\n");
+        sb.append("IsSuperfile:").append(String.valueOf(this.getIsSuperfile())).append("\n");
         sb.append("JobName:").append(this.getJobName()).append("\n");
         sb.append("MaxRecordSize:").append(this.getMaxRecordSize()).append("\n");
         sb.append("Modified:").append(this.getModified()).append("\n");
@@ -98,12 +123,17 @@ public class DFUFileDetailInfo extends DFUFileDetail
         sb.append("Superfiles:").append(this.getSuperfiles()).append("\n");
         sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
         sb.append("Wuid:").append(this.getWuid()).append("\n");
-        sb.append("ZipFile:").append(this.getZipFile()).append("\n");  
+        sb.append("ZipFile:").append(this.getZipFile()).append("\n");
+        sb.append("Columns:");
+        for (DFUDataColumnInfo col : this.getColumns())
+        {
+            sb.append("    ").append(col.getColumnLabel()).append(":").append(col.toString());
+        }
         return sb.toString();
     }
 
     /**
-     * Copy a soap ecl workunit object into the wrapper
+     * Copy a soap DFUFileDetail object into the wrapper
      * 
      * @param base
      */
@@ -153,55 +183,81 @@ public class DFUFileDetailInfo extends DFUFileDetail
         this.setUserPermission(base.getUserPermission());
         this.setWuid(base.getWuid());
         this.setZipFile(base.getZipFile());
-     }
+    }
 
+    /**
+     * @return the columns for this logical file as defined in dfuGetMetadata or dfuGetDataColumns
+     */
     public ArrayList<DFUDataColumnInfo> getColumns()
     {
-        if (columns==null) {
+        if (columns == null)
+        {
             return new ArrayList<DFUDataColumnInfo>();
         }
         return columns;
     }
 
+    /**
+     * @param childColumns
+     *            - List of DFUDataColumns
+     */
     public void setColumns(List<DFUDataColumn> childColumns)
     {
-        if (childColumns==null) {
-            columns=null;
+        if (childColumns == null)
+        {
+            columns = null;
             return;
         }
-        columns=new ArrayList<DFUDataColumnInfo>();
-        for (int i=0; i < childColumns.size();i++) {
-            if (childColumns.get(i) instanceof DFUDataColumnInfo) {
+        columns = new ArrayList<DFUDataColumnInfo>();
+        for (int i = 0; i < childColumns.size(); i++)
+        {
+            if (childColumns.get(i) instanceof DFUDataColumnInfo)
+            {
                 columns.add((DFUDataColumnInfo) childColumns.get(i));
-            } else {
+            }
+            else
+            {
                 columns.add(new DFUDataColumnInfo(childColumns.get(i)));
             }
         }
 
     }
+
+    /**
+     * @param childColumns
+     *            - Array of DFUDataColumn objects
+     */
     public void setColumns(DFUDataColumn[] childColumns)
     {
-        if (childColumns==null) {
-            columns=null;
+        if (childColumns == null)
+        {
+            columns = null;
             return;
         }
-        columns=new ArrayList<DFUDataColumnInfo>();
-        for (int i=0; i < childColumns.length;i++) {
+        columns = new ArrayList<DFUDataColumnInfo>();
+        for (int i = 0; i < childColumns.length; i++)
+        {
             columns.add(new DFUDataColumnInfo(childColumns[i]));
         }
     }
 
-    public FileType getFileType() {
-    
-        if (this.getName()==null) {
+    /**
+     * @return the true FileType for this file, based on complex logic.
+     */
+    public FileType getFileType()
+    {
+
+        if (this.getName() == null)
+        {
             return FileType.UNKNOWN;
         }
-    
+
         // thor files store filetype in content type
-        boolean hasxpath=hasEcl() && getEcl().toLowerCase().contains("xpath");
-    
-        if ("flat".equalsIgnoreCase(getContentType())) {
-    
+        boolean hasxpath = hasEcl() && getEcl().toLowerCase().contains("xpath");
+
+        if ("flat".equalsIgnoreCase(getContentType()))
+        {
+
             // CSVs created by HPCC have file data; sprayed csvs return only
             // "line" from this call, and have their fields defined
             // in the record definition in the ecl attribute of dfu file info.
@@ -209,28 +265,33 @@ public class DFUFileDetailInfo extends DFUFileDetail
             {
                 return FileType.CSV;
             }
-    
+
             return FileType.FLAT;
         }
-        else if ("key".equalsIgnoreCase(getContentType())) {
+        else if ("key".equalsIgnoreCase(getContentType()))
+        {
             return FileType.INDEX;
         }
         else if (getContentType() == null || getContentType().equals(""))
         {
-            if (getFormat() != null && getFormat().equalsIgnoreCase("csv")) {
+            if (getFormat() != null && getFormat().equalsIgnoreCase("csv"))
+            {
                 return FileType.CSV;
             }
-            else if (getFormat() != null && getFormat().equalsIgnoreCase("xml")) {
+            else if (getFormat() != null && getFormat().equalsIgnoreCase("xml"))
+            {
                 return FileType.XML;
             }
             // csvs loaded as ascii get a format of "csv", csvs loaded as
             // utf-8 get a format of "utf8"
             if (getFormat().toLowerCase().startsWith("utf"))
             {
-                if (hasxpath) {
+                if (hasxpath)
+                {
                     return FileType.XML;
                 }
-                else {
+                else
+                {
                     return FileType.CSV;
                 }
             }
@@ -238,7 +299,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             {
                 // some HPCC-generated xml files use neither, check ecl
                 // record for xpath
-                    return FileType.XML;
+                return FileType.XML;
             }
             else if (hasEcl())
             {
@@ -248,80 +309,105 @@ public class DFUFileDetailInfo extends DFUFileDetail
             {
                 return FileType.UNKNOWN;
             }
-        } else {
+        }
+        else
+        {
             return FileType.UNKNOWN;
         }
     }
 
-    public boolean hasChildDatasets() {
-        if (this.getColumns().size()==0) {
+    /**
+     * @return true if the DFUDataColumns for this file contain items of type Dataset, false otherwise
+     */
+    public boolean hasChildDatasets()
+    {
+        if (this.getColumns().size() == 0)
+        {
             return false;
         }
-        for (DFUDataColumnInfo info:this.getColumns()) {
-            if ("table".equalsIgnoreCase(info.getColumnEclType())) {
+        for (DFUDataColumnInfo info : this.getColumns())
+        {
+            if ("table".equalsIgnoreCase(info.getColumnEclType()))
+            {
                 return true;
             }
         }
         return false;
     }
-    
-    public ArrayList<DFUDataColumnInfo> deduceFields() throws Exception {
 
-            if (FileType.FLAT.equals(getFileType()) || FileType.INDEX.equals(getFileType()))
+    /**
+     * @return the calculated DFUDataColumns based on the columns, deduced file type and ecl
+     * @throws Exception
+     */
+    public ArrayList<DFUDataColumnInfo> deduceFields() throws Exception
+    {
+
+        if (FileType.FLAT.equals(getFileType()) || FileType.INDEX.equals(getFileType()))
+        {
+            // until dfu metadata returns child dataset record structure,
+            // need to parse it from the ecl
+            if (hasChildDatasets())
             {
-                //until dfu metadata returns child dataset record structure, 
-                //need to parse it from the ecl
-                if (hasChildDatasets()) {
-                    return DFUFileDetailInfo.GetRecordFromECL(getEcl());
-                }
-                //return the columns populated from DFUGetMetadata (or DFUGetDataColumns from servers that don't have the Metadata 
-                //service yet
-                return getColumns();                
+                return DFUFileDetailInfo.GetRecordFromECL(getEcl());
             }
-            else if (FileType.XML.equals(getFileType())) {
-                if (hasEcl() && getColumns().size()==0)
+            // return the columns populated from DFUGetMetadata (or DFUGetDataColumns from servers that don't have the
+            // Metadata
+            // service yet
+            return getColumns();
+        }
+        else if (FileType.XML.equals(getFileType()))
+        {
+            if (hasEcl() && getColumns().size() == 0)
+            {
+                return GetRecordFromECL(getEcl());
+            }
+            return getColumns();
+        }
+        else if (FileType.CSV.equals(getFileType()))
+        {
+            // for csvs generated by thor, return columns retrieved from getDFUMetadata if they exist
+            if (getColumns().size() > 0 && !isSprayedCsv())
+            {
+                return getColumns();
+            }
+            // if there is no column information for a thor-generated csv, try to get the record from ecl
+            else if (hasEcl() && !isSprayedCsv())
+            {
+                return DFUFileDetailInfo.GetRecordFromECL(getEcl());
+            }
+            // for sprayed csvs or csvs with no ecl, try and figure this out from the first line of data
+            else if (getFirstline() != null && !getFirstline().isEmpty())
+            {
+                ArrayList<DFUDataColumnInfo> fields = new ArrayList<DFUDataColumnInfo>();
+                String[] flds = getFirstline().split(this.getCsvSeparate());
+                for (int i = 0; i < flds.length; i++)
                 {
-                    return GetRecordFromECL(getEcl());
-                } 
-                return getColumns();                
-            }
-            else if (FileType.CSV.equals(getFileType())) {                
-                //for csvs generated by thor, return columns retrieved from getDFUMetadata if they exist
-                if (getColumns().size()>0 && !isSprayedCsv()) {
-                    return getColumns();   
-                }
-                //if there is no column information for a thor-generated csv, try to get the record from ecl
-                else if (hasEcl() && !isSprayedCsv()) {
-                    return DFUFileDetailInfo.GetRecordFromECL(getEcl());
-                } 
-                //for sprayed csvs or csvs with no ecl, try and figure this out from the first line of data
-                else if (getFirstline() != null && !getFirstline().isEmpty()) {
-                    ArrayList<DFUDataColumnInfo> fields=new ArrayList<DFUDataColumnInfo>();
-                    String[] flds = getFirstline().split(this.getCsvSeparate());
-                    for (int i = 0; i < flds.length; i++)
+                    DFUDataColumn du = new DFUDataColumn();
+                    if (hasHeader() && isFirstRowValidFieldNames())
                     {
-                        DFUDataColumn du = new DFUDataColumn();
-                        if (hasHeader() && isFirstRowValidFieldNames()) {
-                            String fldval=flds[i].trim();
-                            if (this.getCsvQuote() != null && !this.getCsvQuote().isEmpty()
-                                    && fldval.startsWith(this.getCsvQuote())
-                                    && fldval.endsWith(this.getCsvQuote())) {
-                                fldval=fldval.substring(1, fldval.length()-1);
-                            }
-                            du.setColumnLabel(fldval);
-                        } else {
-                            du.setColumnLabel("Field" + String.valueOf(i + 1));
+                        String fldval = flds[i].trim();
+                        if (this.getCsvQuote() != null && !this.getCsvQuote().isEmpty()
+                                && fldval.startsWith(this.getCsvQuote()) && fldval.endsWith(this.getCsvQuote()))
+                        {
+                            fldval = fldval.substring(1, fldval.length() - 1);
                         }
-                        du.setColumnType("STRING");                       
-                        fields.add(new DFUDataColumnInfo(du));
+                        du.setColumnLabel(fldval);
                     }
-                    return fields;
+                    else
+                    {
+                        du.setColumnLabel("Field" + String.valueOf(i + 1));
+                    }
+                    du.setColumnType("STRING");
+                    fields.add(new DFUDataColumnInfo(du));
                 }
-                else {
-                    return getColumns();                        
-                }
+                return fields;
             }
-            return getColumns();                        
+            else
+            {
+                return getColumns();
+            }
+        }
+        return getColumns();
     }
 
     /**
@@ -334,7 +420,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public static ArrayList<DFUDataColumnInfo> GetRecordFromECL(String eclRecordDefinition) throws Exception
     {
-        String tempdef=null;
+        String tempdef = null;
         ArrayList<DFUDataColumnInfo> cols = new ArrayList<DFUDataColumnInfo>();
         eclRecordDefinition = eclRecordDefinition.replaceAll("(;|,|RECORD|\\{|\\})", "\n");
         eclRecordDefinition = eclRecordDefinition.replaceAll("RECORD", "RECORD\n");
@@ -351,8 +437,9 @@ public class DFUFileDetailInfo extends DFUFileDetail
             {
                 continue;
             }
-            else if (thisline.endsWith(":=")) {
-                tempdef=thisline.replace(":=", "");
+            else if (thisline.endsWith(":="))
+            {
+                tempdef = thisline.replace(":=", "");
                 continue;
             }
             // TODO: handle xml field definitions
@@ -365,8 +452,10 @@ public class DFUFileDetailInfo extends DFUFileDetail
             {
                 throw new Exception("Invalid record field definition " + thisline);
             }
-            if (!fieldargs[0].toUpperCase().matches(
-                    "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|UDECIMAL|SET OF|DATASET|TYPEOF|RECORDOF|ENUM|REAL|BOOLEAN).*"))
+            if (!fieldargs[0]
+                    .toUpperCase()
+                    .matches(
+                            "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|UDECIMAL|SET OF|DATASET|TYPEOF|RECORDOF|ENUM|REAL|BOOLEAN).*"))
             {
                 throw new Exception("Invalid record field type " + fieldargs[0]);
             }
@@ -379,46 +468,60 @@ public class DFUFileDetailInfo extends DFUFileDetail
         return cols;
     }
 
-    public boolean isSprayedCsv() {
-       if ("line".equals(getColumns().get(0).getColumnLabel())
-               && getColumns().size() != 2) {
-           int i=0;
-       }
-        return  getColumns() != null
-                && getColumns().size()==2
-                && "line".equals(getColumns().get(0).getColumnLabel());
+    /**
+     * @return true if this file shows the attributes of having been a sprayed csv , false otherwise
+     */
+    public boolean isSprayedCsv()
+    {
+        if ("line".equals(getColumns().get(0).getColumnLabel()) && getColumns().size() != 2)
+        {
+            int i = 0;
+        }
+        return getColumns() != null && getColumns().size() == 2 && "line".equals(getColumns().get(0).getColumnLabel());
     }
-    
-    public boolean hasEcl() {
+
+    /**
+     * @return true if getEcl is populated, false otherwise
+     */
+    public boolean hasEcl()
+    {
         return (getEcl() != null && !getEcl().isEmpty());
     }
-    
-    public boolean isFirstRowValidFieldNames() {
-        if (!FileType.CSV.equals(getFileType())) {
+
+    /**
+     * @return true if the data file is a csv, if the first row of data is populated and if the values in that line,
+     *         when split on the defined field separator, are valid ecl field names. Return false otherwise.
+     */
+    public boolean isFirstRowValidFieldNames()
+    {
+        if (!FileType.CSV.equals(getFileType()))
+        {
             return false;
         }
-        if (this.getFirstline()==null || this.getFirstline().isEmpty())
+        if (this.getFirstline() == null || this.getFirstline().isEmpty())
         {
             return false;
         }
         String[] flds = getFirstline().split(this.getCsvSeparate());
-        if (!this.isSprayedCsv() && flds.length!=getColumns().size()) {
+        if (!this.isSprayedCsv() && flds.length != getColumns().size())
+        {
             return false;
         }
         for (int i = 0; i < flds.length; i++)
         {
-            String fldval=flds[i].trim();
-            if (this.getCsvQuote() != null && !this.getCsvQuote().isEmpty()
-                    && fldval.startsWith(this.getCsvQuote())
-                    && fldval.endsWith(this.getCsvQuote())) {
-                fldval=fldval.substring(1, fldval.length()-1);
+            String fldval = flds[i].trim();
+            if (this.getCsvQuote() != null && !this.getCsvQuote().isEmpty() && fldval.startsWith(this.getCsvQuote())
+                    && fldval.endsWith(this.getCsvQuote()))
+            {
+                fldval = fldval.substring(1, fldval.length() - 1);
             }
-            String fld=fldval.replaceAll("[^A-Za-z0-9_]", "");
-            if (!fld.equals(fldval)) {
+            String fld = fldval.replaceAll("[^A-Za-z0-9_]", "");
+            if (!fld.equals(fldval))
+            {
                 return false;
             }
         }
         return true;
     }
-    
+
 }

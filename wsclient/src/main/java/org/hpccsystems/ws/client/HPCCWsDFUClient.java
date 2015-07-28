@@ -448,12 +448,13 @@ public class HPCCWsDFUClient extends DataSingleton
     public ArrayList<DFUDataColumnInfo> getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
             throws Exception
     {
-    	DFUFileDetailInfo info=getFileDetails(datasetname,clusterName);
-    	if (fieldSeparator != null) {
-    		info.setCsvSeparate(fieldSeparator);
-    	}
-    	return info.deduceFields();
-     }
+        DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
+        if (fieldSeparator != null)
+        {
+            info.setCsvSeparate(fieldSeparator);
+        }
+        return info.deduceFields();
+    }
 
     /**
      * Returns the first row of data for a dataset
@@ -597,7 +598,7 @@ public class HPCCWsDFUClient extends DataSingleton
         return result;
     }
     
-   /**
+    /**
      * @param logicalname
      *            - logical file to get file info for, can start with '~' or not
      * @param clustername
@@ -615,19 +616,24 @@ public class HPCCWsDFUClient extends DataSingleton
                 throw new FileNotFoundException(logicalname + " does not exist");
             }
             this.handleException(resp.getExceptions());
-            DFUFileDetailInfo info=new DFUFileDetailInfo(resp.getFileDetail());
+            DFUFileDetailInfo info = new DFUFileDetailInfo(resp.getFileDetail());
             info.setFirstline(this.getFirstRow(logicalname, clustername));
-            if (info.getFilename() != null) {
-                try {
-                    info.setColumns(getFileMetaData(logicalname,clustername));
-                } catch (ArrayOfEspException e) {
-                    if (e.getException().length>0 && e.getException(0).getMessage() != null
-                            && e.getException(0).getMessage().contains("not available in service WsDfu")) {
-                        //for clusters on version < 5.0.2, this service doesn't exist; do it the old fashioned way
-                        info.setColumns(this.getFileDataColumns(logicalname,clustername));
+            if (info.getFilename() != null)
+            {
+                try
+                {
+                    info.setColumns(getFileMetaData(logicalname, clustername));
+                }
+                catch (ArrayOfEspException e)
+                {
+                    if (e.getException().length > 0 && e.getException(0).getMessage() != null
+                            && e.getException(0).getMessage().contains("not available in service WsDfu"))
+                    {
+                        // for clusters on version < 5.0.2, this service doesn't exist; do it the old fashioned way
+                        info.setColumns(this.getFileDataColumns(logicalname, clustername));
                     }
                 }
-            }  
+            }
             return info;
         }
         catch (ArrayOfEspException e)
@@ -641,6 +647,6 @@ public class HPCCWsDFUClient extends DataSingleton
                 }
             }
             throw e;
-         }
+        }
     }
 }
