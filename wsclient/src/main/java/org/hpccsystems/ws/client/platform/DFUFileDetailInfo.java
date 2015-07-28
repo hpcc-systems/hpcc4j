@@ -265,8 +265,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         {
             return FileFormat.KEYED;
         }
-        //else if (getContentType() == null || getContentType().equals(""))
-        else if (fileFormatFromContent == null)
+        else if (fileFormatFromContent == FileFormat.UNKNOWN && (getContentType() == null || getContentType().equals("")))
         {
             FileFormat fileFormat = FileFormat.getFileFormat(getFormat());
             if (FileFormat.CSV == fileFormat)
@@ -290,7 +289,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
                     return FileFormat.CSV;
                 }
             }
-            else if (fileFormat == null && hasxpath)
+            else if (fileFormat == FileFormat.UNKNOWN && (getFormat() == null || getFormat().equals("")) && hasxpath)
             {
                 // some HPCC-generated xml files use neither, check ecl
                 // record for xpath
