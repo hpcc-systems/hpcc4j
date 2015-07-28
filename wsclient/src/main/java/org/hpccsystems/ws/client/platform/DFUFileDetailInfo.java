@@ -198,26 +198,26 @@ public class DFUFileDetailInfo extends DFUFileDetail
     }
 
     /**
-     * @param childColumns
+     * @param columns
      *            - List of DFUDataColumns
      */
-    public void setColumns(List<DFUDataColumn> childColumns)
+    public void setColumns(List<DFUDataColumn> columns)
     {
-        if (childColumns == null)
+        if (columns == null)
         {
-            columns = null;
+            this.columns = null;
             return;
         }
-        columns = new ArrayList<DFUDataColumnInfo>();
-        for (int i = 0; i < childColumns.size(); i++)
+        this.columns = new ArrayList<DFUDataColumnInfo>();
+        for (int i = 0; i < columns.size(); i++)
         {
-            if (childColumns.get(i) instanceof DFUDataColumnInfo)
+            if (columns.get(i) instanceof DFUDataColumnInfo)
             {
-                columns.add((DFUDataColumnInfo) childColumns.get(i));
+                this.columns.add((DFUDataColumnInfo) columns.get(i));
             }
             else
             {
-                columns.add(new DFUDataColumnInfo(childColumns.get(i)));
+                this.columns.add(new DFUDataColumnInfo(columns.get(i)));
             }
         }
 
@@ -274,11 +274,11 @@ public class DFUFileDetailInfo extends DFUFileDetail
         }
         else if (getContentType() == null || getContentType().equals(""))
         {
-            if (getFormat() != null && getFormat().equalsIgnoreCase("csv"))
+            if (FileType.CSV.toString().equalsIgnoreCase(getFormat()))
             {
                 return FileType.CSV;
             }
-            else if (getFormat() != null && getFormat().equalsIgnoreCase("xml"))
+            else if (FileType.XML.toString().equalsIgnoreCase(getFormat()))
             {
                 return FileType.XML;
             }
