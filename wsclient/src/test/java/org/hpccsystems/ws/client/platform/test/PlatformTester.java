@@ -64,7 +64,7 @@ public class PlatformTester
             //pick one of the valid clusters
             connector.sprayFlatHPCCFile("shortpersons", "mythor::shortpersons", 155, clusters.get(0) /*myroxie, mythor, etc*/, true);
 
-            System.out.println(FileFormat.convertDFUFileFormatName2Code("xcsv").getValue());
+            System.out.println(FileFormat.getFileFormatName(Utils.findEnumValFromString(FileFormat.class, "CSV")));
             connector.sprayDefaultCSVHPCCFile("shortaccounts","mythor::shortaccounts", clusters.get(0), true);
 
             String outputCSVfileContentsEcl = "Layout_CSV_Accounts := RECORD" +

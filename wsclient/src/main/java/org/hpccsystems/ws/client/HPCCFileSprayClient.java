@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.axis.client.Stub;
@@ -50,6 +51,58 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCFileSprayClient extends DataSingleton
 {
+    //from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
+    public enum SprayVariableFormat
+    {
+        DFUff_fixed(0),
+        DFUff_csv(1),
+        DFUff_ascii(1),
+        DFUff_utf8(2),
+        DFUff_utf8n(3),
+        DFUff_utf16(4),
+        DFUff_utf16le(5),
+        DFUff_utf16be(6),
+        DFUff_utf32(7),
+        DFUff_utf32le(8),
+        DFUff_utf32be(9),
+        DFUff_variable(10),
+        DFUff_recfmvb(11),
+        DFUff_recfmv(12),
+        DFUff_variablebigendian(13);
+
+        private final int id;
+        SprayVariableFormat(int id) { this.id = id; }
+        public int getValue() { return id; }
+
+        private final static HashMap<String, SprayVariableFormat> mapVariableSprayFormatNameCode = new HashMap<String, SprayVariableFormat>();
+        static
+        {
+            mapVariableSprayFormatNameCode.put("csv",                SprayVariableFormat.DFUff_csv);
+            mapVariableSprayFormatNameCode.put("ascii",              SprayVariableFormat.DFUff_ascii);
+            mapVariableSprayFormatNameCode.put("utf8",               SprayVariableFormat.DFUff_utf8);
+            mapVariableSprayFormatNameCode.put("utf16",              SprayVariableFormat.DFUff_utf16);
+            mapVariableSprayFormatNameCode.put("utf16le",            SprayVariableFormat.DFUff_utf16le);
+            mapVariableSprayFormatNameCode.put("utf16be",            SprayVariableFormat.DFUff_utf16be);
+            mapVariableSprayFormatNameCode.put("utf32",              SprayVariableFormat.DFUff_utf32);
+            mapVariableSprayFormatNameCode.put("utf32le",            SprayVariableFormat.DFUff_utf32le);
+            mapVariableSprayFormatNameCode.put("utf32be",            SprayVariableFormat.DFUff_utf32be);
+            mapVariableSprayFormatNameCode.put("variable",           SprayVariableFormat.DFUff_variable);
+            mapVariableSprayFormatNameCode.put("recfmvb",            SprayVariableFormat.DFUff_recfmvb);
+            mapVariableSprayFormatNameCode.put("recfmv",             SprayVariableFormat.DFUff_recfmv);
+            mapVariableSprayFormatNameCode.put("variablebigendian",  SprayVariableFormat.DFUff_variablebigendian);
+            mapVariableSprayFormatNameCode.put("fixed",              SprayVariableFormat.DFUff_fixed);
+        }
+
+        public static SprayVariableFormat convertVarSprayFormatName2Code(String varSprayFormatName)
+        {
+            String lower = varSprayFormatName.toLowerCase();
+            if(mapVariableSprayFormatNameCode.containsKey(lower))
+                return mapVariableSprayFormatNameCode.get(lower);
+            else
+                return SprayVariableFormat.DFUff_fixed;
+        }
+    }
+
     private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
@@ -346,7 +399,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return                 - Progress response at time of request
      * @throws Exception
      */
-    public ProgressResponse sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, FileFormat format) throws Exception
+    public ProgressResponse sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format) throws Exception
     {
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
@@ -368,7 +421,7 @@ public class HPCCFileSprayClient extends DataSingleton
      */
     public ProgressResponse sprayVariable(DelimitedDataOptions options, DropZone targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception
     {
-        return sprayVariable(options, targetDropZone, sourceFileName, targetFileName, prefix, destGroup, overwrite, FileFormat.DFUff_csv);
+        return sprayVariable(options, targetDropZone, sourceFileName, targetFileName, prefix, destGroup, overwrite, SprayVariableFormat.DFUff_csv);
     }
 
     /**
@@ -383,7 +436,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return                 - Progress response at time of request
      * @throws Exception
      */
-    public ProgressResponse sprayVariable(DelimitedDataOptions options, DropZone targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, FileFormat format) throws Exception
+    public ProgressResponse sprayVariable(DelimitedDataOptions options, DropZone targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format) throws Exception
     {
         if (fileSprayServiceSoapProxy == null)
             throw new Exception("FileSpray Service Soap Proxy not available.");
@@ -441,7 +494,7 @@ public class HPCCFileSprayClient extends DataSingleton
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
 
-        return sprayXML(localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, FileFormat.DFUff_ascii, 8192);
+        return sprayXML(localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, SprayVariableFormat.DFUff_ascii, 8192);
     }
 
     /**
@@ -458,7 +511,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return ProgressResponse
      * @throws Exception
      */
-    public ProgressResponse sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, FileFormat format, String rowtag, Integer maxrecsize) throws Exception
+    public ProgressResponse sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format, String rowtag, Integer maxrecsize) throws Exception
     {
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
@@ -481,7 +534,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return ProgressResponse
      * @throws Exception
      */
-    public ProgressResponse sprayXML(DropZone targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, String rowtag , boolean overwrite, FileFormat format, Integer maxrecsize) throws Exception
+    public ProgressResponse sprayXML(DropZone targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, String rowtag , boolean overwrite, SprayVariableFormat format, Integer maxrecsize) throws Exception
     {
         if (fileSprayServiceSoapProxy == null)
             throw new Exception("FileSpray Service Soap Proxy not available.");
