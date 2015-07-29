@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
@@ -533,7 +534,7 @@ public class HPCCWsClient extends DataSingleton
      * @param overwritesprayedfile    - Boolean, overwrite possibly sprayed file of same name
      * @return                        - Boolean, success.
      */
-    public boolean sprayCustomCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, String escapedEscapeSequence, String escapedFieldDelim, String escapedQuote, String escapedRecTerminator, boolean overwritesprayedfile, FileFormat format)
+    public boolean sprayCustomCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, String escapedEscapeSequence, String escapedFieldDelim, String escapedQuote, String escapedRecTerminator, boolean overwritesprayedfile, SprayVariableFormat format)
     {
         boolean success = true;
 
@@ -566,7 +567,7 @@ public class HPCCWsClient extends DataSingleton
         {
             //Another way is to create the enumeration from the string representation...
             //FileFormat.convertDFUFileFormatName2Code("csv");
-            success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster, new DelimitedDataOptions(), overwritesprayedfile, FileFormat.DFUff_csv); //could be
+            success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster, new DelimitedDataOptions(), overwritesprayedfile, SprayVariableFormat.DFUff_csv); //could be
         }
         catch (Exception e)
         {
@@ -586,7 +587,7 @@ public class HPCCWsClient extends DataSingleton
      * @param format                  - FileFormat
      * @return                        - Boolean, success.
      */
-    public boolean sprayVariableHPCCFile(String fileName, String targetFileLabel, String targetCluster, DelimitedDataOptions options, boolean overwritesprayedfile, FileFormat format)
+    public boolean sprayVariableHPCCFile(String fileName, String targetFileLabel, String targetCluster, DelimitedDataOptions options, boolean overwritesprayedfile, SprayVariableFormat format)
     {
         boolean success = false;
 

@@ -4,51 +4,52 @@ import java.util.HashMap;
 
 public enum FileFormat
 {
-    DFUff_fixed(0),
-    DFUff_csv(1),
-    DFUff_ascii(1),
-    DFUff_utf8(2),
-    DFUff_utf8n(3),
-    DFUff_utf16(4),
-    DFUff_utf16le(5),
-    DFUff_utf16be(6),
-    DFUff_utf32(7),
-    DFUff_utf32le(8),
-    DFUff_utf32be(9),
-    DFUff_variable(10),
-    DFUff_recfmvb(11),
-    DFUff_recfmv(12),
-    DFUff_variablebigendian(13);
+    UNKNOWN,
+    FLAT,
+    CSV,
+    XML,
+    JSON,
+    KEYED;
 
-    private final int id;
-    FileFormat(int id) { this.id = id; }
-    public int getValue() { return id; }
-
-    private final static HashMap<String, FileFormat> mapDFUFileFormatNameCode = new HashMap<String, FileFormat>();
+    private final static HashMap<FileFormat, String> mapFileFormat2Name = new HashMap<FileFormat, String>();
     static
     {
-        mapDFUFileFormatNameCode.put("csv",                FileFormat.DFUff_csv);
-        mapDFUFileFormatNameCode.put("ascii",              FileFormat.DFUff_ascii);
-        mapDFUFileFormatNameCode.put("utf8",               FileFormat.DFUff_utf8);
-        mapDFUFileFormatNameCode.put("utf16",              FileFormat.DFUff_utf16);
-        mapDFUFileFormatNameCode.put("utf16le",            FileFormat.DFUff_utf16le);
-        mapDFUFileFormatNameCode.put("utf16be",            FileFormat.DFUff_utf16be);
-        mapDFUFileFormatNameCode.put("utf32",              FileFormat.DFUff_utf32);
-        mapDFUFileFormatNameCode.put("utf32le",            FileFormat.DFUff_utf32le);
-        mapDFUFileFormatNameCode.put("utf32be",            FileFormat.DFUff_utf32be);
-        mapDFUFileFormatNameCode.put("variable",           FileFormat.DFUff_variable);
-        mapDFUFileFormatNameCode.put("recfmvb",            FileFormat.DFUff_recfmvb);
-        mapDFUFileFormatNameCode.put("recfmv",             FileFormat.DFUff_recfmv);
-        mapDFUFileFormatNameCode.put("variablebigendian",  FileFormat.DFUff_variablebigendian);
-        mapDFUFileFormatNameCode.put("fixed",              FileFormat.DFUff_fixed);
+        mapFileFormat2Name.put(FLAT,       "FLAT");
+        mapFileFormat2Name.put(CSV,        "CSV");
+        mapFileFormat2Name.put(XML,        "XML");
+        mapFileFormat2Name.put(JSON,       "JSON");
+        mapFileFormat2Name.put(KEYED,      "KEYED");
     }
 
-    public static FileFormat convertDFUFileFormatName2Code(String fileformat)
+    public static String getFileFormatName(FileFormat fileformat)
     {
-        String lower = fileformat.toLowerCase();
-        if(mapDFUFileFormatNameCode.containsKey(lower))
-            return mapDFUFileFormatNameCode.get(lower);
+        if(mapFileFormat2Name.containsKey(fileformat))
+            return mapFileFormat2Name.get(fileformat);
         else
-            return FileFormat.DFUff_fixed;
+            return null;
+    }
+
+    private final static HashMap<String, FileFormat> mapFileFormatName = new HashMap<String, FileFormat>();
+    static
+    {
+       mapFileFormatName.put("FLAT",     FLAT);
+       mapFileFormatName.put("THOR",     FLAT);
+       mapFileFormatName.put("FIXED",    FLAT);
+       mapFileFormatName.put("CSV",      CSV);
+       mapFileFormatName.put("VARIABLE", CSV);
+       mapFileFormatName.put("XML",      XML);
+       mapFileFormatName.put("JSON",     JSON);
+       mapFileFormatName.put("KEYED",    KEYED);
+       mapFileFormatName.put("KEY",      KEYED);
+       mapFileFormatName.put("INDEX",    KEYED);
+    }
+
+    public static FileFormat getFileFormat(String name)
+    {
+        String upperName = name.toUpperCase();
+        if (mapFileFormatName.containsKey(upperName))
+            return mapFileFormatName.get(upperName);
+        else
+            return FileFormat.UNKNOWN;
     }
 }

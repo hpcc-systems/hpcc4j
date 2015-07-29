@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
+import org.hpccsystems.ws.client.utils.FileFormat;
 
 // This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
 // classes.
@@ -14,14 +15,6 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
  */
 public class DFUFileDetailInfo extends DFUFileDetail
 {
-    public static enum FileType
-    {
-        FLAT, CSV, XML, INDEX, UNKNOWN
-    };
-
-    /**
-     * 
-     */
     private static final long            serialVersionUID = 1L;
 
     private ArrayList<DFUDataColumnInfo> columns;
@@ -244,18 +237,18 @@ public class DFUFileDetailInfo extends DFUFileDetail
     /**
      * @return the true FileType for this file, based on complex logic.
      */
-    public FileType getFileType()
+    public FileFormat getFileType()
     {
-
         if (this.getName() == null)
         {
-            return FileType.UNKNOWN;
+            return FileFormat.UNKNOWN;
         }
 
         // thor files store filetype in content type
         boolean hasxpath = hasEcl() && getEcl().toLowerCase().contains("xpath");
 
-        if ("flat".equalsIgnoreCase(getContentType()))
+        FileFormat fileFormatFromContent = FileFormat.getFileFormat(getContentType());
+        if (fileFormatFromContent == FileFormat.FLAT)
         {
 
             // CSVs created by HPCC have file data; sprayed csvs return only
@@ -263,24 +256,25 @@ public class DFUFileDetailInfo extends DFUFileDetail
             // in the record definition in the ecl attribute of dfu file info.
             if (!hasEcl() && this.isSprayedCsv())
             {
-                return FileType.CSV;
+                return FileFormat.CSV;
             }
 
-            return FileType.FLAT;
+            return FileFormat.FLAT;
         }
-        else if ("key".equalsIgnoreCase(getContentType()))
+        else if (fileFormatFromContent == FileFormat.KEYED)
         {
-            return FileType.INDEX;
+            return FileFormat.KEYED;
         }
-        else if (getContentType() == null || getContentType().equals(""))
+        else if (fileFormatFromContent == FileFormat.UNKNOWN && (getContentType() == null || getContentType().equals("")))
         {
-            if (FileType.CSV.toString().equalsIgnoreCase(getFormat()))
+            FileFormat fileFormat = FileFormat.getFileFormat(getFormat());
+            if (FileFormat.CSV == fileFormat)
             {
-                return FileType.CSV;
+                return FileFormat.CSV;
             }
-            else if (FileType.XML.toString().equalsIgnoreCase(getFormat()))
+            else if (FileFormat.XML == fileFormat)
             {
-                return FileType.XML;
+                return FileFormat.XML;
             }
             // csvs loaded as ascii get a format of "csv", csvs loaded as
             // utf-8 get a format of "utf8"
@@ -288,31 +282,31 @@ public class DFUFileDetailInfo extends DFUFileDetail
             {
                 if (hasxpath)
                 {
-                    return FileType.XML;
+                    return FileFormat.XML;
                 }
                 else
                 {
-                    return FileType.CSV;
+                    return FileFormat.CSV;
                 }
             }
-            else if ((getFormat() == null || getFormat().equals("")) && hasxpath)
+            else if (fileFormat == FileFormat.UNKNOWN && (getFormat() == null || getFormat().equals("")) && hasxpath)
             {
                 // some HPCC-generated xml files use neither, check ecl
                 // record for xpath
-                return FileType.XML;
+                return FileFormat.XML;
             }
             else if (hasEcl())
             {
-                return FileType.FLAT;
+                return FileFormat.FLAT;
             }
             else
             {
-                return FileType.UNKNOWN;
+                return FileFormat.UNKNOWN;
             }
         }
         else
         {
-            return FileType.UNKNOWN;
+            return FileFormat.UNKNOWN;
         }
     }
 
@@ -341,8 +335,8 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public ArrayList<DFUDataColumnInfo> deduceFields() throws Exception
     {
-
-        if (FileType.FLAT.equals(getFileType()) || FileType.INDEX.equals(getFileType()))
+        FileFormat fileType = getFileType();
+        if (fileType == FileFormat.FLAT || fileType == FileFormat.KEYED)
         {
             // until dfu metadata returns child dataset record structure,
             // need to parse it from the ecl
@@ -355,7 +349,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             // service yet
             return getColumns();
         }
-        else if (FileType.XML.equals(getFileType()))
+        else if (fileType == FileFormat.XML)
         {
             if (hasEcl() && getColumns().size() == 0)
             {
@@ -363,7 +357,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             }
             return getColumns();
         }
-        else if (FileType.CSV.equals(getFileType()))
+        else if (fileType == FileFormat.CSV)
         {
             // for csvs generated by thor, return columns retrieved from getDFUMetadata if they exist
             if (getColumns().size() > 0 && !isSprayedCsv())
@@ -420,7 +414,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public static ArrayList<DFUDataColumnInfo> GetRecordFromECL(String eclRecordDefinition) throws Exception
     {
-        String tempdef = null;
+        //String tempd..XZFCszdFZFASDFef = null;
         ArrayList<DFUDataColumnInfo> cols = new ArrayList<DFUDataColumnInfo>();
         eclRecordDefinition = eclRecordDefinition.replaceAll("(;|,|RECORD|\\{|\\})", "\n");
         eclRecordDefinition = eclRecordDefinition.replaceAll("RECORD", "RECORD\n");
@@ -439,7 +433,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             }
             else if (thisline.endsWith(":="))
             {
-                tempdef = thisline.replace(":=", "");
+            //    tempdef = thisline.replace(":=", "");
                 continue;
             }
             // TODO: handle xml field definitions
@@ -473,10 +467,10 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public boolean isSprayedCsv()
     {
-        if ("line".equals(getColumns().get(0).getColumnLabel()) && getColumns().size() != 2)
-        {
-            int i = 0;
-        }
+        //if ("line".equals(getColumns().get(0).getColumnLabel()) && getColumns().size() != 2)
+       // {
+       //     int i = 0;
+       // }
         return getColumns() != null && getColumns().size() == 2 && "line".equals(getColumns().get(0).getColumnLabel());
     }
 
@@ -494,7 +488,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public boolean isFirstRowValidFieldNames()
     {
-        if (!FileType.CSV.equals(getFileType()))
+        if (FileFormat.CSV != getFileType())
         {
             return false;
         }
