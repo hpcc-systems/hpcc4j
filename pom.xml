@@ -14,6 +14,26 @@
     <module>rdf2hpcc</module>
   </modules>
 
+  <scm>
+    <connection>scm:git:git@github.com:hpcc-systems/HPCC-JAPIs.git</connection>
+    <developerConnection>scm:git:git@github.com:hpcc-systems/HPCC-JAPIs.git</developerConnection>
+    <url>scm:git@github.com:hpcc-systems/HPCC-JAPIs.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+       <id>deployment</id>
+       <name>Internal Releases</name>
+       <url>http://mvnrisk.lexisnexis.com:8081/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+       <id>deployment</id>
+       <name>Internal Releases</name>
+       <url>http://mvnrisk.lexisnexis.com:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
