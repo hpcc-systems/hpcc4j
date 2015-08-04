@@ -22,12 +22,12 @@
     <repository>
        <id>deployment</id>
        <name>Internal Releases</name>
-       <url>http://mvnrisk.lexisnexis.com:8081/nexus/content/repositories/releases/</url>
+       <url>http://mvnrisk.risk.regn.net/nexus/content/repositories/releases/</url>
     </repository>
     <snapshotRepository>
        <id>deployment</id>
        <name>Internal Releases</name>
-       <url>http://mvnrisk.lexisnexis.com:8081/nexus/content/repositories/snapshots/</url>
+       <url>http://mvnrisk.risk.regn.net/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
