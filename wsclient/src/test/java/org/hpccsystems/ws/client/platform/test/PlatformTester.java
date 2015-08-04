@@ -5,6 +5,8 @@ import java.util.List;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
+import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.Platform;
@@ -27,6 +29,11 @@ public class PlatformTester
 
             HPCCWsClient connector = platform.getHPCCWSClient();
             connector.setVerbosemode(true);
+
+            HPCCWsSQLClient             wsSQLClient = platform.getHPCCWSClient().getWsSQLClient("8510");
+            String s = "CREATE TABLE newtablename (id DATE, mytint INT(9), mydouble DOUBLE (5,3) UNSIGNED) LOAD DATA INFILE 'OriginalPerson' CONNECTION '10.0.2.15' DIRECTORY '/var/lib/HPCCSystems/mydropzone' INTO TABLE newtablename";
+            ExecuteSQLResponse executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
+            System.out.println(executeSQLFullResponse.getResult());
 
             int pport = HPCCWsAttributesClient.getOriginalPort();
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
