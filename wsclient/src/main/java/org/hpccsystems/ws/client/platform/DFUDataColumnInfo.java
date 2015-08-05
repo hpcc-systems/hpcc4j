@@ -13,6 +13,9 @@ public class DFUDataColumnInfo extends DFUDataColumn
      */
     private static final long       serialVersionUID = 1L;
     private List<DFUDataColumnInfo> childColumns     = null;
+    private String originalEcl=null;
+    private String xpath=null;
+    private String xmlDefaultVal=null;
 
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
@@ -36,9 +39,9 @@ public class DFUDataColumnInfo extends DFUDataColumn
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
+        sb.append("\tColumnLabel:").append(this.getColumnLabel()).append("\n");
         sb.append("\tColumnEclType:").append(this.getColumnEclType()).append("\n");
         sb.append("\tColumnID:").append(this.getColumnID()).append("\n");
-        sb.append("\tColumnLabel:").append(this.getColumnLabel()).append("\n");
         sb.append("\tColumnRawSize:").append(this.getColumnRawSize()).append("\n");
         sb.append("\tColumnSize:").append(this.getColumnSize()).append("\n");
         sb.append("\tColumnType:").append(this.getColumnType()).append("\n");
@@ -47,7 +50,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
         sb.append("\tIsNaturalColumn:").append(this.getIsNaturalColumn()).append("\n");
         sb.append("\tMaxSize:").append(this.getMaxSize()).append("\n");
         for (DFUDataColumnInfo col:this.getChildColumns()) {
-            sb.append("\t").append(col.getColumnLabel()).append(":").append(col.toString());
+            sb.append("\n\t").append(col.getColumnLabel()).append(":").append(col.toString());
         }
         return sb.toString();
     }
@@ -57,7 +60,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
      * 
      * @param base
      */
-    private void copy(DFUDataColumn base)
+    protected void copy(DFUDataColumn base)
     {
         if (base == null)
         {
@@ -82,7 +85,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
     public List<DFUDataColumnInfo> getChildColumns()
     {
         if (childColumns==null) {
-            return new ArrayList<DFUDataColumnInfo>();
+            childColumns=new ArrayList<DFUDataColumnInfo>();
         }
         return childColumns;
     }
@@ -112,6 +115,37 @@ public class DFUDataColumnInfo extends DFUDataColumn
         }
     }
 
+    public String getOriginalEcl()
+    {
+        return originalEcl;
+    }
 
+    public void setOriginalEcl(String originalEcl)
+    {
+        this.originalEcl = originalEcl;
+    }
+
+    public String getXpath()
+    {
+        return xpath;
+    }
+
+    public void setXpath(String xpath)
+    {
+        this.xpath = xpath;
+    }
+
+    public String getXmlDefaultVal()
+    {
+        return xmlDefaultVal;
+    }
+
+    public void setXmlDefaultVal(String xmlDefaultVal)
+    {
+        this.xmlDefaultVal = xmlDefaultVal;
+    }
+
+
+    
 
 }
