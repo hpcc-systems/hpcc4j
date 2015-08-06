@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.BufferedTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.hpccsystems.ws.client.antlr.EclLexer;
+import org.hpccsystems.ws.client.antlr.EclParser;
+import org.hpccsystems.ws.client.antlr.EclParser.ProgramContext;
+import org.hpccsystems.ws.client.antlr.EclReader;
+import org.hpccsystems.ws.client.platform.EclInfo;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -690,5 +699,31 @@ public class Utils
               }
           }
           throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
+      }
+      
+      public static EclInfo GetEcl(String content) {
+          if (content==null || content.isEmpty()) {
+              return new EclInfo();
+          }
+          EclReader cr=new EclReader();
+          try {
+              InputStream grammarStream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+              ANTLRInputStream is = new ANTLRInputStream(grammarStream);
+              EclLexer dl = new EclLexer(is);
+              EclParser dp = new EclParser(new BufferedTokenStream(dl));
+              cr.getErrorHandler().attach(dl);
+              cr.getErrorHandler().attach(dp);
+              cr.setParser(dp);
+              ProgramContext pc = dp.program();
+              ParseTreeWalker PW = new ParseTreeWalker();
+              PW.walk(cr, pc);
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          if (cr.getEclInfo() != null) {
+              cr.getEclInfo().setOriginalEcl(content);
+          }
+          return cr.getEclInfo();
+
       }
 }
