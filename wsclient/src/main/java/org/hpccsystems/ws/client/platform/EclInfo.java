@@ -1,22 +1,25 @@
 package org.hpccsystems.ws.client.platform;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class EclInfo
 {
     private String originalEcl;
-    
-    public EclInfo() {}
-    
-    public EclInfo(DFURecordDefInfo recs) {
-        this.setRecordsets(new HashMap<String,DFURecordDefInfo>());
+
+    public EclInfo()
+    {
+    }
+
+    public EclInfo(DFURecordDefInfo recs)
+    {
+        this.setRecordsets(new HashMap<String, DFURecordDefInfo>());
         this.getRecordsets().put(EclInfo.UNNAMED, recs);
     }
-    public HashMap<String,DFURecordDefInfo> recordsets=new HashMap<String,DFURecordDefInfo>();
-    int unnamed=0;
-    public static String UNNAMED="unnamed";
+
+    public HashMap<String, DFURecordDefInfo> recordsets = new HashMap<String, DFURecordDefInfo>();
+    int                                      unnamed    = 0;
+    public static String                     UNNAMED    = "unnamed";
+
     public HashMap<String, DFURecordDefInfo> getRecordsets()
     {
         return recordsets;
@@ -27,13 +30,15 @@ public class EclInfo
         this.recordsets = recordsets;
     }
 
-    public void addRecordset(DFURecordDefInfo rec) {
-        String name=rec.getRecordName();
-        if (name==null) {
-            name=UNNAMED + String.valueOf(unnamed);
+    public void addRecordset(DFURecordDefInfo rec)
+    {
+        String name = rec.getRecordName();
+        if (name == null)
+        {
+            name = UNNAMED + String.valueOf(unnamed);
             unnamed++;
         }
-        this.recordsets.put(name,rec);
+        this.recordsets.put(name, rec);
     }
 
     public String getOriginalEcl()
