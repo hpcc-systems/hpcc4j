@@ -13,7 +13,7 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
     private static final long       serialVersionUID = 1L;
     private boolean inline=false;
     private String recordLayoutName=null;
-
+    private boolean singlerow=false;
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
      * 
@@ -74,6 +74,16 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
     public void setRecordLayoutName(String recordLayoutName)
     {
         this.recordLayoutName = recordLayoutName;
+    }
+
+    public boolean isSingleRow()
+    {
+        return singlerow;
+    }
+
+    public void setSingleRow(boolean singlerow)
+    {
+        this.singlerow = singlerow;
     }
 
 }

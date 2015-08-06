@@ -419,62 +419,13 @@ public class DFUFileDetailInfo extends DFUFileDetail
     /**
      * @param eclRecordDefinition
      *            - a RECORD definition, either in RECORD\nSTRING1\nEND; format, or in {STRING1 field} inline format,.
-     *            currently handles XPATH recordsets but doesn't save XPATH info. A few issues with child dataset
-     *            records
-     * @return An ArrayList of DFUDataColumns
+     *            handles xpath recordsets and child datasets
+     * @return An EclInfo object holding a collection of the recordsets in the ecl 
      * @throws Exception
      */
     public static EclInfo GetRecordFromECL(String eclRecordDefinition) throws Exception
     {
-        //String tempd..XZFCszdFZFASDFef = null;
-        EclInfo info=Utils.GetEcl(eclRecordDefinition); /*
-        ArrayList<DFUDataColumnInfo> cols = new ArrayList<DFUDataColumnInfo>();
-        eclRecordDefinition = eclRecordDefinition.replaceAll("(;|,|RECORD|\\{|\\})", "\n");
-        eclRecordDefinition = eclRecordDefinition.replaceAll("RECORD", "RECORD\n");
-        eclRecordDefinition = eclRecordDefinition.replaceAll("\n\n", "\n");
-        String[] lines = eclRecordDefinition.split("\n");
-        for (int i = 0; i < lines.length; i++)
-        {
-            String thisline = lines[i].trim();
-            if (thisline.equals(""))
-            {
-                continue;
-            }
-            if (thisline.matches("(RECORD|END|\\{|\\})"))
-            {
-                continue;
-            }
-            else if (thisline.endsWith(":="))
-            {
-            //    tempdef = thisline.replace(":=", "");
-                continue;
-            }
-            // TODO: handle xml field definitions
-            if (thisline.toLowerCase().contains("xpath"))
-            {
-                continue;
-            }
-            String[] fieldargs = thisline.split(" ");
-            if (fieldargs.length < 2)
-            {
-                throw new Exception("Invalid record field definition " + thisline);
-            }
-            if (!fieldargs[0]
-                    .toUpperCase()
-                    .matches(
-                            "(STRING|INTEGER|QSTRING|UTF|UNSIGNED|INTEGER|UNICODE|DATA|VARSTRING|VARUNICODE|DECIMAL|UDECIMAL|SET OF|DATASET|TYPEOF|RECORDOF|ENUM|REAL|BOOLEAN).*"))
-            {
-                throw new Exception("Invalid record field type " + fieldargs[0]);
-            }
-            DFUDataColumnInfo col = new DFUDataColumnInfo();
-            col.setColumnType(fieldargs[0].toUpperCase());
-            col.setColumnEclType(fieldargs[0].toUpperCase());
-            col.setColumnLabel(fieldargs[1]);
-            cols.add(col);
-        }
-        
-        return cols;
-*/
+        EclInfo info=Utils.GetEcl(eclRecordDefinition);
         return info;
     }
     /**
