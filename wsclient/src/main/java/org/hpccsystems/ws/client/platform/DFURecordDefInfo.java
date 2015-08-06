@@ -11,8 +11,6 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
      * 
      */
     private static final long       serialVersionUID = 1L;
-    private String maxcount=null;
-    private String maxlength=null;
     private boolean inline=false;
     private String recordLayoutName=null;
 
@@ -48,27 +46,7 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
         sb.append("\tmaxcount:").append(getMaxcount()).append("\n");            
         return sb.toString();
     }
-    public String getMaxcount()
-    {
-        return maxcount;
-    }
-
-    public void setMaxcount(String maxcount)
-    {
-        this.maxcount = maxcount;
-    }
-
-    public String getMaxlength()
-    {
-        return maxlength;
-    }
-
-    public void setMaxlength(String maxlength)
-    {
-        this.maxlength = maxlength;
-    }
-
-    public String getRecordName()
+      public String getRecordName()
     {
         return this.getColumnLabel();
     }

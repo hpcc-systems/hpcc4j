@@ -19,12 +19,14 @@ public class ErrorStrategy extends DefaultErrorStrategy {
 		beginErrorCondition(recognizer);
 
 		Token t = recognizer.getCurrentToken();
+		String loc=t.getLine() + "," + t.getCharPositionInLine();
 		String tokenName = getTokenErrorDisplay(t);
 		IntervalSet expecting = getExpectedTokens(recognizer);
 		String expectingStr = expecting.toString(recognizer.getVocabulary());
 
 		// TODO - Insert appropriate error code here or change to alternate error handling
-		RecognitionException e = new RecognitionException( "MISSING_TOKEN " + tokenName + ", expecting " + expecting.toString(recognizer.getVocabulary()),recognizer,null, recognizer.getContext());
+		RecognitionException e = new RecognitionException( "MISSING_TOKEN " + tokenName + ", expecting " 
+		+ expecting.toString(recognizer.getVocabulary()) + " at " + loc,recognizer,null, recognizer.getContext());
 		recognizer.notifyErrorListeners(t, "missing token", e);
 	}
 

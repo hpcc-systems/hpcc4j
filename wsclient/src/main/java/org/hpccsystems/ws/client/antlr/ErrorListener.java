@@ -54,12 +54,12 @@ public class ErrorListener extends BaseErrorListener {
     	String msg = "GENERAL_PARSE_ERROR";
     	String loc="";
     	if (e.getOffendingToken() != null) {
-    	    loc="(" + e.getOffendingToken().getLine() + "," + e.getOffendingToken().getCharPositionInLine() + ")";
+    	    loc="(" + e.getOffendingToken().getLine() + "," + e.getOffendingToken().getCharPositionInLine() + "-" + e.getOffendingToken().getCharPositionInLine() +( e.getOffendingToken().getStopIndex()- e.getOffendingToken().getStartIndex()) + ")";
     	}
     	if (e instanceof InputMismatchException) {
             InputMismatchException ime = (InputMismatchException) e;
             String expected = ime.getExpectedTokens().toString(recognizer.getVocabulary());
-            msg = "MISMATCHED_TOKEN," + expected;
+            msg = "MISMATCHED_TOKEN " + e.getOffendingToken().getText() + " , expected one of " + expected;
         } else if (e instanceof NoViableAltException) {
         	msg = "NO_PARSE_ALTERNATIVE," + getTokenErrorDisplay(e.getOffendingToken());
         } else if (e instanceof LexerNoViableAltException) {

@@ -111,8 +111,13 @@ public class EclReader extends EclBaseListener {
             else if (!(currentfield instanceof DFURecordDefInfo)) {
                 if (ctx.getChildCount() > 0){
                     if (currentfield.getColumnEclType()==null) {
-                        currentfield.setColumnEclType(ctx.getChild(0).getText());
-                        currentfield.setColumnType(ctx.getChild(0).getText());
+                        if (ctx.getChild(0).getChildCount()==2) {
+                            currentfield.setColumnEclType(ctx.getChild(0).getChild(0).getText() + " " + ctx.getChild(0).getChild(1).getText());
+                            currentfield.setColumnType(currentfield.getColumnEclType());
+                        } else {
+                            currentfield.setColumnEclType(ctx.getChild(0).getText());
+                            currentfield.setColumnType(currentfield.getColumnEclType());
+                        }
                     }
                 }
                 if (ctx.getChildCount() > 1) {
@@ -128,8 +133,8 @@ public class EclReader extends EclBaseListener {
          * <p>The default implementation does nothing.</p>
          */
         @Override public void enterMaxcount(EclParser.MaxcountContext ctx) { 
-            if (currentfield != null && currentfield instanceof DFURecordDefInfo) {
-                ((DFURecordDefInfo)currentfield).setMaxcount(ctx.getChild(3).getText());
+            if (currentfield != null) {
+                currentfield.setMaxcount(ctx.getChild(3).getText());
             } else {
                 currentrec.setMaxcount(ctx.getChild(3).getText());
             }
@@ -187,8 +192,8 @@ public class EclReader extends EclBaseListener {
          * <p>The default implementation does nothing.</p>
          */
         @Override public void enterMaxlength(EclParser.MaxlengthContext ctx) { 
-            if (currentfield != null && currentfield instanceof DFURecordDefInfo) {
-                ((DFURecordDefInfo)currentfield).setMaxlength(ctx.getChild(2).getText());
+            if (currentfield != null) {
+                currentfield.setMaxlength(ctx.getChild(2).getText());
             } else if (currentrec != null) {
                 currentrec.setMaxlength(ctx.getChild(2).getText());
             }
@@ -216,10 +221,13 @@ public class EclReader extends EclBaseListener {
          * <p>The default implementation does nothing.</p>
          */
         @Override public void enterDefaultval(EclParser.DefaultvalContext ctx) {
-            if (currentfield != null && currentfield instanceof DFURecordDefInfo) {
-                ((DFURecordDefInfo)currentfield).setColumnValue(ctx.getChild(2).getText());
+            String val=ctx.getChild(2).getText();
+            val=val.replace("'", "");
+            
+            if (currentfield != null) {
+                currentfield.setColumnValue(val);
             } else if (currentrec != null) {
-                currentrec.setColumnValue(ctx.getChild(2).getText());
+                currentrec.setColumnValue(val);
             }
         }
         /**
@@ -227,11 +235,13 @@ public class EclReader extends EclBaseListener {
          *
          * <p>The default implementation does nothing.</p>
          */
-        @Override public void enterXpath(EclParser.XpathContext ctx) {
-            if (currentfield != null && currentfield instanceof DFURecordDefInfo) {
-                ((DFURecordDefInfo)currentfield).setXpath(ctx.getChild(2).getText());
+        @Override public void enterXpath(EclParser.XpathContext ctx) {            
+            String val=ctx.getChild(2).getText();
+            val=val.replace("'", "");
+            if (currentfield != null ) {
+                currentfield.setXpath(val);
             } else if (currentrec != null) {
-                currentrec.setXpath(ctx.getChild(2).getText());
+                currentrec.setXpath(val);
             }
         }
         /**
@@ -240,10 +250,13 @@ public class EclReader extends EclBaseListener {
          * <p>The default implementation does nothing.</p>
          */
         @Override public void enterXmldefaultval(EclParser.XmldefaultvalContext ctx) {
-            if (currentfield != null && currentfield instanceof DFURecordDefInfo) {
-                ((DFURecordDefInfo)currentfield).setXmlDefaultVal(ctx.getChild(2).getText());
+           
+            String val=ctx.getChild(2).getText();
+            val=val.replace("'", "");
+            if (currentfield != null ) {
+                currentfield.setXmlDefaultVal(val);
             } else if (currentrec != null) {
-                currentrec.setXmlDefaultVal(ctx.getChild(2).getText());
+                currentrec.setXmlDefaultVal(val);
             }
         }
 

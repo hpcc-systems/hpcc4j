@@ -16,7 +16,9 @@ public class DFUDataColumnInfo extends DFUDataColumn
     private String originalEcl=null;
     private String xpath=null;
     private String xmlDefaultVal=null;
-
+    private String maxcount=null;
+    private String maxlength=null;
+    
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
      * 
@@ -146,6 +148,26 @@ public class DFUDataColumnInfo extends DFUDataColumn
     }
 
 
-    
+    public String getMaxcount()
+    {
+        return maxcount;
+    }
+
+    public void setMaxcount(String maxcount)
+    {
+        this.maxcount = maxcount;
+    }
+
+    public String getMaxlength()
+    {
+        return maxlength;
+    }
+
+    public void setMaxlength(String maxlength)
+    {
+        this.maxlength = maxlength;
+    }
+
+
 
 }
