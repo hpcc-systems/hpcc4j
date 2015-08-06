@@ -34,7 +34,7 @@ opts: opt (',' opt)*;
 opt: (maxlength|maxcount|defaultval|xpath|xmldefaultval);
 
 maxlength: ('maxlength'|'MAXLENGTH') '('  INT  ')';
-maxcount:'{' ('maxcount'|'MAXCOUNT') '(' INT ')' '}';
+maxcount:('maxcount'|'MAXCOUNT') '(' INT ')' ;
 defaultval: ('default'|'DEFAULT') '('  STRING  ')';
 xpath: ('xpath'|'XPATH') '('  STRING  ')';
 xmldefaultval: ('xmldefault'|'XMLDEFAULT') '('  STRING  ')';

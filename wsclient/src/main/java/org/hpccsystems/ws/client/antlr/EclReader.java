@@ -191,11 +191,11 @@ public class EclReader extends EclBaseListener
     {
         if (currentfield != null)
         {
-            currentfield.setMaxcount(ctx.getChild(3).getText());
+            currentfield.setMaxcount(ctx.getChild(2).getText());
         }
         else
         {
-            currentrec.setMaxcount(ctx.getChild(3).getText());
+            currentrec.setMaxcount(ctx.getChild(2).getText());
         }
     }
 

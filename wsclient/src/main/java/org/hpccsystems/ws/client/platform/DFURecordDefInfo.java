@@ -33,19 +33,6 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
         this.getChildColumns().addAll(columns);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
-        sb.append("\tmaxlength:").append(getMaxlength()).append("\n");
-        sb.append("\tmaxcount:").append(getMaxcount()).append("\n");            
-        return sb.toString();
-    }
       public String getRecordName()
     {
         return this.getColumnLabel();
