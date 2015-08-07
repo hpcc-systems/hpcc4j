@@ -1,6 +1,9 @@
 // Generated from ecl.g4 by ANTLR 4.5
 package org.hpccsystems.ws.client.antlr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
@@ -14,9 +17,9 @@ public class EclReader extends EclBaseListener
     private ErrorListener             errorHandler = new ErrorListener();
     private EclInfo                   eclInfo      = new EclInfo();
     private DFURecordDefInfo          currentrec   = null;
-    private DFURecordDefInfo          parentrec    = null;
+    private List<DFURecordDefInfo>          parentrecs    = new ArrayList<DFURecordDefInfo>();
     private DFUDataColumnInfo         currentfield = null;
-    private DFUDataColumnInfo         parentfield  = null;
+    private List<DFUDataColumnInfo>         parentfields  = new ArrayList<DFUDataColumnInfo>();
     private EclParser                 parser       = null;
 
     /**
@@ -135,9 +138,18 @@ public class EclReader extends EclBaseListener
                         "Record definition " + recset + " reference in " + ctx.getParent().getText() + " not found ",
                         null);
             }
-            DFURecordDefInfo rec = eclInfo.getRecordsets().get(recset);
-            currentrec.getChildColumns().addAll(rec.getChildColumns());
-            return;
+
+            DFURecordDefInfo recnew=new DFURecordDefInfo();
+            if (eclInfo.getRecordsets().containsKey(recset)) {
+                recnew.getChildColumns().addAll(eclInfo.getRecordsets().get(recset).getChildColumns());
+            }
+            recnew.setColumnLabel(currentfield.getColumnLabel());            
+            recnew.setColumnEclType(currentfield.getColumnEclType());
+            recnew.setColumnType(currentfield.getColumnType());
+            recnew.setRecordLayoutName(recset);
+            recnew.setSingleRow(true);
+            currentrec.getChildColumns().add(recnew);
+         
         }
         else if (!(currentfield instanceof DFURecordDefInfo))
         {
@@ -249,6 +261,7 @@ public class EclReader extends EclBaseListener
         ((DFURecordDefInfo) currentfield).setInline(true);
     }
 
+    
     /**
      * {@inheritDoc}
      *
@@ -261,22 +274,50 @@ public class EclReader extends EclBaseListener
     @Override
     public void enterInline_dataset_record_def(EclParser.Inline_dataset_record_defContext ctx)
     {
-        parentrec = currentrec;
+        parentrecs.add(0,currentrec);
         currentrec = new DFURecordDefInfo();
-        parentfield = currentfield;
+        parentfields.add(0,currentfield);
     }
-
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * When entering a child dataset's inline record def ( {string val, string val2} in a 
+     * field defined like field1:=DATASET({string val,string val2}), set the current record
+     * to the parent record and initialize a new record to hold the child record values
+     * </p>
+     */
+    @Override
+    public void enterExploded_dataset_record_def(EclParser.Exploded_dataset_record_defContext ctx)
+    {
+        parentrecs.add(0,currentrec);
+        currentrec = new DFURecordDefInfo();
+        parentfields.add(0,currentfield);
+    }
     @Override
     public void exitInline_dataset_record_def(EclParser.Inline_dataset_record_defContext ctx)
     {
-        if (parentfield != null)
+        if (parentfields.size()>0)
         {
-            parentfield.getChildColumns().addAll(currentrec.getChildColumns());
+            parentfields.get(0).getChildColumns().addAll(currentrec.getChildColumns());
         }
-        currentrec = parentrec;
-        currentfield = parentfield;
-        parentfield = null;
-        parentrec = null;
+        currentrec = parentrecs.get(0);
+        currentfield = parentfields.get(0);
+        parentfields.remove(0);
+        parentrecs.remove(0);
+    }
+
+    @Override
+    public void exitExploded_dataset_record_def(EclParser.Exploded_dataset_record_defContext ctx)
+    {
+        if (parentfields.size()>0)
+        {
+            parentfields.get(0).getChildColumns().addAll(currentrec.getChildColumns());
+        }
+        currentrec = parentrecs.get(0);
+        currentfield = parentfields.get(0);
+        parentfields.remove(0);
+        parentrecs.remove(0);
     }
 
     /**
@@ -291,11 +332,11 @@ public class EclReader extends EclBaseListener
     {
         if (currentfield != null)
         {
-            currentfield.setMaxlength(ctx.getChild(2).getText());
+            currentfield.setMaxlength(ctx.getChild(2).getText());                           
         }
         else if (currentrec != null)
         {
-            currentrec.setMaxlength(ctx.getChild(2).getText());
+            currentrec.setMaxRecLength(ctx.getChild(2).getText());
         }
     }
 
@@ -354,7 +395,12 @@ public class EclReader extends EclBaseListener
     public void enterXpath(EclParser.XpathContext ctx)
     {
         String val = ctx.getChild(2).getText();
-        val = val.replace("'", "");
+        if (val.startsWith("'")) {
+            val=val.substring(1);
+        }
+        if (val.endsWith("'")) {
+            val=val.substring(0,val.length()-1);
+        }
         if (currentfield != null)
         {
             currentfield.setXpath(val);

@@ -392,8 +392,13 @@ public class DFUFileDetailInfo extends DFUFileDetail
             // for sprayed csvs or csvs with no ecl, try and figure this out from the first line of data
             else if (getFirstline() != null && !getFirstline().isEmpty())
             {
-                ArrayList<DFUDataColumnInfo> fields = new ArrayList<DFUDataColumnInfo>();
-                String[] flds = getFirstline().split(this.getCsvSeparate());
+                ArrayList<DFUDataColumnInfo> fields = new ArrayList<DFUDataColumnInfo>();                
+                String sep=this.getCsvSeparate();
+                if (sep.startsWith("\\")) {
+                    sep=sep.substring(1);
+                }
+                String[] flds = getFirstline().split(sep);
+                
                 for (int i = 0; i < flds.length; i++)
                 {
                     DFUDataColumn du = new DFUDataColumn();
@@ -462,6 +467,8 @@ public class DFUFileDetailInfo extends DFUFileDetail
                     return true;
                 }
             }
+        } else if (this.getColumns() != null && this.getColumns().size()<=2 && this.getColumns().get(0).getColumnLabel().equals("line")) {
+            return true;        
         }
         return false;
     }

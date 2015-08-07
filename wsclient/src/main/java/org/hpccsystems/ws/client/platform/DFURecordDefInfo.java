@@ -15,6 +15,7 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
     private boolean inline=false;
     private String recordLayoutName=null;
     private boolean singlerow=false;
+    private String maxreclength=null;
     private FileFormat fileType = FileFormat.UNKNOWN;
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
@@ -82,6 +83,16 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
     
     public void setFileType(FileFormat f) {
         this.fileType=f;
+    }
+
+    public String getMaxRecLength()
+    {
+        return maxreclength;
+    }
+
+    public void setMaxRecLength(String maxreclength)
+    {
+        this.maxreclength = maxreclength;
     }
 
 }

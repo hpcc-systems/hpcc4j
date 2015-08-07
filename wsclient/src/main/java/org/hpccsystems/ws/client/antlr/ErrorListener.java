@@ -44,7 +44,6 @@ public class ErrorListener extends BaseErrorListener
     {
         if (e != null)
         {
-            e.printStackTrace();
             msg = getErrorMessage(recognizer, e);
         }
 

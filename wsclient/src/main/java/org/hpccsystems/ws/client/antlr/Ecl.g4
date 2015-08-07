@@ -22,13 +22,14 @@ eclfield_name:(UTOKEN|TOKEN);
 eclfield_recref:'(' TOKEN ')';
 
 record_def_inline: '{' eclfield_decl ((',')* eclfield_decl)* '}' ';';
-record_def: 'RECORD' (',' maxlength)? eclfield_decl  ';' (eclfield_decl ';')* 'END;';
+record_def: 'RECORD' (',' maxlength)? eclfield_decl  ';' (eclfield_decl ';')* 'END' ';';
 defined_record_def : TOKEN ':=' record_def;
+exploded_dataset_record_def:'RECORD' (',' maxlength)? eclfield_decl  ';' (eclfield_decl ';')* 'END';
 inline_dataset_record_def: '{' eclfield_decl (','eclfield_decl)* '}';
 record_defs: (record_def_inline|record_def|defined_record_def) ;
 
 nested_dataset_decl: 'DATASET' '(' TOKEN ')' (TOKEN|UTOKEN) ('{' opts '}')?; 
-nested_inline_dataset_decl: 'DATASET' '(' inline_dataset_record_def ')' (TOKEN|UTOKEN) ('{' opts '}')?;
+nested_inline_dataset_decl: 'DATASET' '(' (exploded_dataset_record_def|inline_dataset_record_def) ')' (TOKEN|UTOKEN) ('{' opts '}')?;
 
 opts: opt (',' opt)*;
 opt: (maxlength|maxcount|defaultval|xpath|xmldefaultval);

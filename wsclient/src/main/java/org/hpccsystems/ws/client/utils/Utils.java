@@ -718,7 +718,7 @@ public class Utils
               ParseTreeWalker PW = new ParseTreeWalker();
               PW.walk(cr, pc);
           } catch (Exception e) {
-              e.printStackTrace();
+//              e.printStackTrace();
           }
           if (cr.getEclInfo() != null) {
               cr.getEclInfo().setOriginalEcl(content);
