@@ -2,6 +2,8 @@ package org.hpccsystems.ws.client.platform;
 
 import java.util.HashMap;
 
+import org.hpccsystems.ws.client.utils.FileFormat;
+
 public class EclInfo
 {
     private String originalEcl;
@@ -19,7 +21,7 @@ public class EclInfo
     public HashMap<String, DFURecordDefInfo> recordsets = new HashMap<String, DFURecordDefInfo>();
     int                                      unnamed    = 0;
     public static String                     UNNAMED    = "unnamed";
-
+    private FileFormat                       fileType   = FileFormat.UNKNOWN;
     public HashMap<String, DFURecordDefInfo> getRecordsets()
     {
         return recordsets;
@@ -51,4 +53,13 @@ public class EclInfo
         this.originalEcl = originalEcl;
     }
 
+    public FileFormat getFileType()
+    {
+        return fileType;
+    }
+
+    public void setFileType(FileFormat ft) 
+    {
+        this.fileType=ft;
+    }
 }
