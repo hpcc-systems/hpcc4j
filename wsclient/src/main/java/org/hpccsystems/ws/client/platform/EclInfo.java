@@ -61,5 +61,10 @@ public class EclInfo
     public void setFileType(FileFormat ft) 
     {
         this.fileType=ft;
+        if (this.getRecordsets() != null) {
+            for (DFURecordDefInfo d:this.getRecordsets().values()) {
+                d.setFileType(ft);
+            }
+        }
     }
 }

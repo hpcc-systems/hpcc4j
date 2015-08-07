@@ -3,6 +3,7 @@ package org.hpccsystems.ws.client.platform;
 import java.util.ArrayList;
 
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
+import org.hpccsystems.ws.client.utils.FileFormat;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
 public class DFURecordDefInfo extends DFUDataColumnInfo
@@ -14,6 +15,7 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
     private boolean inline=false;
     private String recordLayoutName=null;
     private boolean singlerow=false;
+    private FileFormat fileType = FileFormat.UNKNOWN;
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
      * 
@@ -71,6 +73,15 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
     public void setSingleRow(boolean singlerow)
     {
         this.singlerow = singlerow;
+    }
+
+    public FileFormat getFileType()
+    {
+        return fileType;
+    }
+    
+    public void setFileType(FileFormat f) {
+        this.fileType=f;
     }
 
 }
