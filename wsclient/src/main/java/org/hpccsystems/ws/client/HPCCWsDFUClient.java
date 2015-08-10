@@ -157,8 +157,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an XML Element object holding the <Row> elements containing data.
      * @throws Exception
      */
-    public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername)
-            throws Exception
+    public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUBrowseDataRequest req = new DFUBrowseDataRequest();
@@ -250,10 +249,8 @@ public class HPCCWsDFUClient extends DataSingleton
     /**
      * Use this function to retrieve file metadata such as column information
      * 
-     * @param logicalname
-     *            - Logical filename.
-     * @param clustername
-     *            - Optional - The cluster the logical filename is associated with.
+     * @param logicalname    - Logical filename.
+     * @param clustername    - Optional - The cluster the logical filename is associated with.
      * @return Array of DFUDataColumns
      * @throws Exception
      */
@@ -265,12 +262,14 @@ public class HPCCWsDFUClient extends DataSingleton
 
         req.setLogicalFileName(logicalname);
 
-        if (clustername != null) req.setClusterName(clustername);
+        if (clustername != null) 
+            req.setClusterName(clustername);
 
         try
         {
             DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
-            if (resp == null) return cols;
+            if (resp == null) 
+                return cols;
 
             this.handleException(resp.getExceptions());
 
@@ -448,7 +447,8 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
      */
-    public EclInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator) throws Exception
+    public EclInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator) 
+            throws Exception
     {
         DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
         if (fieldSeparator != null)
@@ -502,34 +502,33 @@ public class HPCCWsDFUClient extends DataSingleton
      * Get array of logical files on target HPCC system based on input parameters
      * 
      * @param filename
-     * @param cluster
-     *            --- NO LONGER USED ---
+     * @param cluster      --- NO LONGER USED ---
      * @param firstN
      * @param pageStartFrom
      * @param pageSize
      * @return
      * @throws Exception
      */
-    public DFULogicalFile[] getLogicalFiles(String filename, String cluster, int firstN, int pageStartFrom, int pageSize)
-            throws Exception
+    public DFULogicalFile[] getLogicalFiles(String filename, String cluster, int firstN, int pageStartFrom, int pageSize) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
 
         DFULogicalFile[] logicalfiles = null;
         DFUQueryRequest request = new DFUQueryRequest();
-        if (filename != null) request.setLogicalName(filename);
+        if (filename != null) 
+            request.setLogicalName(filename);
         request.setFirstN(firstN);
         request.setPageStartFrom(pageStartFrom);
         request.setPageSize(pageSize);
 
         DFUQueryResponse response = proxy.DFUQuery(request);
-        if (response != null) logicalfiles = response.getDFULogicalFiles();
+        if (response != null) 
+            logicalfiles = response.getDFULogicalFiles();
 
         return logicalfiles;
     }
 
-    public DFUSearchDataResponse getDFUData(String openLogicalName, String cluster, boolean roxieSelections,
-            int chooseFile, int count, boolean schemaOnly, long startIndex) throws Exception
+    public DFUSearchDataResponse getDFUData(String openLogicalName, String cluster, boolean roxieSelections, int chooseFile, int count, boolean schemaOnly, long startIndex) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
 
@@ -589,10 +588,8 @@ public class HPCCWsDFUClient extends DataSingleton
         }
 
         return EqualsUtil.areEqual(wsDfuServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint())
-                && EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername(),
-                        ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getUsername())
-                && EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword(),
-                        ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getPassword());
+                && EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getUsername())
+                && EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getPassword());
     }
 
     @Override
@@ -600,8 +597,8 @@ public class HPCCWsDFUClient extends DataSingleton
     {
         int result = HashCodeUtil.SEED;
         result = HashCodeUtil.hash(result, wsDfuServiceSoapProxy.getEndpoint());
-        result = HashCodeUtil.hash(result, ((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername());
-        result = HashCodeUtil.hash(result, ((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword());
+        result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword());
         return result;
     }
 
@@ -669,9 +666,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out,
-                            "Error retrieving file type for file" + logicalname + ": " + espexception.getSource()
-                                    + espexception.getMessage(), false, true);
+                    Utils.println(System.out, "Error retrieving file type for file" + logicalname + ": " + espexception.getSource()
+                            + espexception.getMessage(), false, true);
                 }
             }
             throw e;
