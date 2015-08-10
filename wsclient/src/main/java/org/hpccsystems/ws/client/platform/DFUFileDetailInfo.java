@@ -246,13 +246,11 @@ public class DFUFileDetailInfo extends DFUFileDetail
         {
             return FileFormat.UNKNOWN;
         }
-        if (this.getIsSuperfile()) {
-            return FileFormat.FLAT;
-        }
         // thor files store filetype in content type
         boolean hasxpath = hasEcl() && getEcl().toLowerCase().contains("xpath");
 
         FileFormat fileFormatFromContent = FileFormat.getFileFormat(getContentType());
+
         if (fileFormatFromContent == FileFormat.FLAT)
         {
 
@@ -272,13 +270,18 @@ public class DFUFileDetailInfo extends DFUFileDetail
         else if (fileFormatFromContent == FileFormat.XML) {
             return FileFormat.XML;
         }
-        else if (fileFormatFromContent == FileFormat.KEYED)
+        else if (fileFormatFromContent == FileFormat.KEYED || isIndex())
         {
             return FileFormat.KEYED;
         }
         else if (fileFormatFromContent == FileFormat.UNKNOWN && (getContentType() == null || getContentType().equals("")))
         {
             FileFormat fileFormat = FileFormat.getFileFormat(getFormat());
+            
+            if (this.getIsSuperfile() && fileFormat != FileFormat.KEYED && !isIndex()) {
+                return FileFormat.FLAT;
+            }
+
             if (FileFormat.CSV == fileFormat)
             {
                 return FileFormat.CSV;
@@ -356,9 +359,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             // need to parse it from the ecl if it's available
             if (getEcl() != null && !getEcl().isEmpty()) {
                 EclInfo info= DFUFileDetailInfo.GetRecordFromECL(getEcl());
-                if (fileType==FileFormat.KEYED) {
-                    info=addKeyInfo(info);
-                }
+                info=addKeyInfo(info);
                 info.setFileType(fileType);
                 return info;
             } else {
@@ -524,7 +525,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         ArrayList<String> keyed=new ArrayList<String>();
         for (DFUDataColumnInfo d:this.getColumns()) {
             if (d.getIsKeyedColumn()) {
-                keyed.add(d.getColumnLabel());
+                keyed.add(d.getColumnLabel());                
             }
         }
         ArrayList<String> natural=new ArrayList<String>();
@@ -547,4 +548,23 @@ public class DFUFileDetailInfo extends DFUFileDetail
         }
         return input;
     }
+    
+    public boolean isIndex() {
+        if (this.getColumns()==null) {
+            return false;
+        }
+        for (DFUDataColumnInfo d:this.getColumns()) {
+            if (d.getIsKeyedColumn()) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public void setColumns(ArrayList<DFUDataColumnInfo> columns2)
+    {
+        this.columns=columns2;
+    }
+
 }

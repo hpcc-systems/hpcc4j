@@ -656,6 +656,9 @@ public class HPCCWsDFUClient extends DataSingleton
                 if (subfile != null)
                 {
                     info.setEcl(subfile.getEcl());
+                    info.setColumns(subfile.getColumns());
+                    info.setContentType(subfile.getContentType());
+                    info.setFormat(subfile.getFormat());
                 }
             }
             return info;

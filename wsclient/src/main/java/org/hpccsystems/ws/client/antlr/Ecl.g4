@@ -23,7 +23,7 @@ eclfield_recref:'(' TOKEN ')';
 
 record_def_inline: '{' eclfield_decl ((',')* eclfield_decl)* '}' ';';
 record_def: 'RECORD' (',' maxlength)? eclfield_decl  ';' (eclfield_decl ';')* 'END' ';';
-defined_record_def : TOKEN ':=' record_def;
+defined_record_def : TOKEN ':=' (record_def|record_def_inline);
 exploded_dataset_record_def:'RECORD' (',' maxlength)? eclfield_decl  ';' (eclfield_decl ';')* 'END';
 inline_dataset_record_def: '{' eclfield_decl (','eclfield_decl)* '}';
 record_defs: (record_def_inline|record_def|defined_record_def) ;
