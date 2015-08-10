@@ -454,13 +454,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public boolean isSprayedCsv()
     {
-        //if ("line".equals(getColumns().get(0).getColumnLabel()) && getColumns().size() != 2)
-       // {
-       //     int i = 0;
-       // }
-//        boolean colsissprayed= getColumns() != null && getColumns().size() == 2 && "line".equals(getColumns().get(0).getColumnLabel());
-//        boolean eclissprayed=false;
-        if (getEcl() != null && !getEcl().isEmpty()) {
+      if (getEcl() != null && !getEcl().isEmpty()) {
             HashMap<String,DFURecordDefInfo> info=Utils.GetEcl(getEcl()).getRecordsets();
             if (info.size()==1) {
                 DFURecordDefInfo dfu= info.values().iterator().next();
