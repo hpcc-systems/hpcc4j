@@ -51,11 +51,12 @@ import org.w3c.dom.NodeList;
  */
 public class HPCCWsDFUClient extends DataSingleton
 {
-    private static URL originalURL;
+    private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
     {
-        if (originalURL == null) originalURL = new URL(getOriginalWSDLURL());
+        if (originalURL == null)
+            originalURL = new URL(getOriginalWSDLURL());
 
         return originalURL;
     }
@@ -248,7 +249,6 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * Use this function to retrieve file metadata such as column information
-     * 
      * @param logicalname    - Logical filename.
      * @param clustername    - Optional - The cluster the logical filename is associated with.
      * @return Array of DFUDataColumns
@@ -262,13 +262,13 @@ public class HPCCWsDFUClient extends DataSingleton
 
         req.setLogicalFileName(logicalname);
 
-        if (clustername != null) 
+        if (clustername != null)
             req.setClusterName(clustername);
 
         try
         {
             DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
-            if (resp == null) 
+            if (resp == null)
                 return cols;
 
             this.handleException(resp.getExceptions());
@@ -447,7 +447,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
      */
-    public EclInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator) 
+    public EclInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
             throws Exception
     {
         DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
@@ -502,7 +502,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * Get array of logical files on target HPCC system based on input parameters
      * 
      * @param filename
-     * @param cluster      --- NO LONGER USED ---
+     * @param cluster --- NO LONGER USED ---
      * @param firstN
      * @param pageStartFrom
      * @param pageSize
@@ -515,14 +515,14 @@ public class HPCCWsDFUClient extends DataSingleton
 
         DFULogicalFile[] logicalfiles = null;
         DFUQueryRequest request = new DFUQueryRequest();
-        if (filename != null) 
+        if (filename != null)
             request.setLogicalName(filename);
         request.setFirstN(firstN);
         request.setPageStartFrom(pageStartFrom);
         request.setPageSize(pageSize);
 
         DFUQueryResponse response = proxy.DFUQuery(request);
-        if (response != null) 
+        if (response != null)
             logicalfiles = response.getDFULogicalFiles();
 
         return logicalfiles;
@@ -582,14 +582,14 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             thatSoapProxy = that.getSoapProxy();
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             thatSoapProxy = null;
         }
 
-        return EqualsUtil.areEqual(wsDfuServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint())
-                && EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getUsername())
-                && EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getPassword());
+        return EqualsUtil.areEqual(wsDfuServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
+                EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getUsername()) &&
+                EqualsUtil.areEqual(((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsDfuServiceSoap()).getPassword());
     }
 
     @Override
