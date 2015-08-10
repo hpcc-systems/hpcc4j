@@ -700,30 +700,36 @@ public class Utils
           }
           throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
       }
-      
-      public static EclInfo GetEcl(String content) {
-          if (content==null || content.isEmpty()) {
-              return new EclInfo();
-          }
-          EclReader cr=new EclReader();
-          try {
-              InputStream grammarStream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
-              ANTLRInputStream is = new ANTLRInputStream(grammarStream);
-              EclLexer dl = new EclLexer(is);
-              EclParser dp = new EclParser(new BufferedTokenStream(dl));
-              cr.getErrorHandler().attach(dl);
-              cr.getErrorHandler().attach(dp);
-              cr.setParser(dp);
-              ProgramContext pc = dp.program();
-              ParseTreeWalker PW = new ParseTreeWalker();
-              PW.walk(cr, pc);
-          } catch (Exception e) {
-//              e.printStackTrace();
-          }
-          if (cr.getEclInfo() != null) {
-              cr.getEclInfo().setOriginalEcl(content);
-          }
-          return cr.getEclInfo();
 
-      }
+    public static EclInfo GetEcl(String content)
+    {
+        if (content == null || content.isEmpty())
+        {
+            return new EclInfo();
+        }
+        EclReader cr = new EclReader();
+        try
+        {
+            InputStream grammarStream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+            ANTLRInputStream is = new ANTLRInputStream(grammarStream);
+            EclLexer dl = new EclLexer(is);
+            EclParser dp = new EclParser(new BufferedTokenStream(dl));
+            cr.getErrorHandler().attach(dl);
+            cr.getErrorHandler().attach(dp);
+            cr.setParser(dp);
+            ProgramContext pc = dp.program();
+            ParseTreeWalker pw = new ParseTreeWalker();
+            pw.walk(cr, pc);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error parsing Record:" + e.getMessage());
+        }
+        if (cr.getEclInfo() != null)
+        {
+            cr.getEclInfo().setOriginalEcl(content);
+        }
+        return cr.getEclInfo();
+
+    }
 }
