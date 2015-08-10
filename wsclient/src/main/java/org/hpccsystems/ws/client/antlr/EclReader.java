@@ -1,4 +1,3 @@
-// Generated from ecl.g4 by ANTLR 4.5
 package org.hpccsystems.ws.client.antlr;
 
 import java.util.ArrayList;
