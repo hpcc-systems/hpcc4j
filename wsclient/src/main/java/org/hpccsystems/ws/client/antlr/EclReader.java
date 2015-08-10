@@ -17,9 +17,9 @@ public class EclReader extends EclBaseListener
     private ErrorListener             errorHandler = new ErrorListener();
     private EclInfo                   eclInfo      = new EclInfo();
     private DFURecordDefInfo          currentrec   = null;
-    private List<DFURecordDefInfo>          parentrecs    = new ArrayList<DFURecordDefInfo>();
+    private List<DFURecordDefInfo>    parentrecs    = new ArrayList<DFURecordDefInfo>();
     private DFUDataColumnInfo         currentfield = null;
-    private List<DFUDataColumnInfo>         parentfields  = new ArrayList<DFUDataColumnInfo>();
+    private List<DFUDataColumnInfo>   parentfields  = new ArrayList<DFUDataColumnInfo>();
     private EclParser                 parser       = null;
 
     /**
