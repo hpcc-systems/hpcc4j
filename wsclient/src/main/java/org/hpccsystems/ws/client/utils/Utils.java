@@ -701,7 +701,7 @@ public class Utils
           throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
       }
 
-    public static EclRecordInfo GetRecordEcl(String content)
+    public static EclRecordInfo getRecordEcl(String content)
     {
         if (content == null || content.isEmpty())
         {

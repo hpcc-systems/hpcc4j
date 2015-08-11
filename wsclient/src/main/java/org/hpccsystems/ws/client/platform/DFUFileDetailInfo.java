@@ -455,7 +455,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public static EclRecordInfo GetRecordFromECL(String eclRecordDefinition) throws Exception
     {
-        EclRecordInfo info = Utils.GetRecordEcl(eclRecordDefinition);
+        EclRecordInfo info = Utils.getRecordEcl(eclRecordDefinition);
         return info;
     }
 
@@ -466,7 +466,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
     {
         if (getEcl() != null && !getEcl().isEmpty())
         {
-            HashMap<String, DFURecordDefInfo> info = Utils.GetRecordEcl(getEcl()).getRecordsets();
+            HashMap<String, DFURecordDefInfo> info = Utils.getRecordEcl(getEcl()).getRecordsets();
             if (info.size() == 1)
             {
                 DFURecordDefInfo dfu = info.values().iterator().next();
