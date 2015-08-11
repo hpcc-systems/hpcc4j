@@ -37,7 +37,7 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DataSingleton;
-import org.hpccsystems.ws.client.platform.EclInfo;
+import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -447,7 +447,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
      */
-    public EclInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
+    public EclRecordInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
             throws Exception
     {
         DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);

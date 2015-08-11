@@ -6,31 +6,31 @@ import java.util.List;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
-import org.hpccsystems.ws.client.platform.EclInfo;
+import org.hpccsystems.ws.client.platform.EclRecordInfo;
 
 /**
  * This class reads ECL and converts it to an EclInfo object. Currently it processes RECORD definitions only.
  */
-public class EclReader extends EclBaseListener
+public class EclRecordReader extends EclRecordBaseListener
 {
     private ErrorListener             errorHandler = new ErrorListener();
-    private EclInfo                   eclInfo      = new EclInfo();
+    private EclRecordInfo                   eclInfo      = new EclRecordInfo();
     private DFURecordDefInfo          currentrec   = null;
     private List<DFURecordDefInfo>    parentrecs    = new ArrayList<DFURecordDefInfo>();
     private DFUDataColumnInfo         currentfield = null;
     private List<DFUDataColumnInfo>   parentfields  = new ArrayList<DFUDataColumnInfo>();
-    private EclParser                 parser       = null;
+    private EclRecordParser                 parser       = null;
 
     /**
      * @param eclInfo - the EclInfo object to set
      */
-    public void setEclInfo(EclInfo eclInfo)
+    public void setEclRecordInfo(EclRecordInfo eclInfo)
     {
         this.eclInfo = eclInfo;
     }
 
     @Override
-    public void enterRecord_def_inline(EclParser.Record_def_inlineContext ctx)
+    public void enterRecord_def_inline(EclRecordParser.Record_def_inlineContext ctx)
     {
         currentrec = new DFURecordDefInfo();
         currentrec.setInline(true);
@@ -45,7 +45,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void exitRecord_def_inline(EclParser.Record_def_inlineContext ctx)
+    public void exitRecord_def_inline(EclRecordParser.Record_def_inlineContext ctx)
     {
         eclInfo.addRecordset(currentrec);
         currentrec = null;
@@ -59,7 +59,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterRecord_def(EclParser.Record_defContext ctx)
+    public void enterRecord_def(EclRecordParser.Record_defContext ctx)
     {
         if (currentrec == null)
         {
@@ -76,7 +76,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void exitRecord_def(EclParser.Record_defContext ctx)
+    public void exitRecord_def(EclRecordParser.Record_defContext ctx)
     {
         currentrec = null;
     }
@@ -90,7 +90,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterDefined_record_def(EclParser.Defined_record_defContext ctx)
+    public void enterDefined_record_def(EclRecordParser.Defined_record_defContext ctx)
     {
         currentrec = new DFURecordDefInfo();
         currentrec.setRecordName(ctx.getChild(0).getText());
@@ -106,7 +106,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterEclfield_decl(EclParser.Eclfield_declContext ctx)
+    public void enterEclfield_decl(EclRecordParser.Eclfield_declContext ctx)
     {
         currentfield = new DFUDataColumnInfo();
     }
@@ -124,7 +124,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void exitEclfield_decl(EclParser.Eclfield_declContext ctx)
+    public void exitEclfield_decl(EclRecordParser.Eclfield_declContext ctx)
     {
 
         if (ctx.getChildCount() == 1 && ctx.getChild(0).getChildCount() == 3)
@@ -198,7 +198,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterMaxcount(EclParser.MaxcountContext ctx)
+    public void enterMaxcount(EclRecordParser.MaxcountContext ctx)
     {
         if (currentfield != null)
         {
@@ -221,7 +221,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterNested_dataset_decl(EclParser.Nested_dataset_declContext ctx)
+    public void enterNested_dataset_decl(EclRecordParser.Nested_dataset_declContext ctx)
     {
         currentfield = new DFURecordDefInfo();
         DFURecordDefInfo rcurrent = (DFURecordDefInfo) currentfield;
@@ -253,7 +253,7 @@ public class EclReader extends EclBaseListener
      * When entering a child dataset definition in a RECORD layout with an inline record def,
      * set the current child dataset record's inline property to true</p>
      */
-    public void enterNested_inline_dataset_decl(EclParser.Nested_inline_dataset_declContext ctx)
+    public void enterNested_inline_dataset_decl(EclRecordParser.Nested_inline_dataset_declContext ctx)
     {
         currentfield = new DFURecordDefInfo();
         currentfield.setColumnLabel(ctx.getChild(4).getText());
@@ -271,7 +271,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterInline_dataset_record_def(EclParser.Inline_dataset_record_defContext ctx)
+    public void enterInline_dataset_record_def(EclRecordParser.Inline_dataset_record_defContext ctx)
     {
         parentrecs.add(0,currentrec);
         currentrec = new DFURecordDefInfo();
@@ -287,14 +287,14 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterExploded_dataset_record_def(EclParser.Exploded_dataset_record_defContext ctx)
+    public void enterExploded_dataset_record_def(EclRecordParser.Exploded_dataset_record_defContext ctx)
     {
         parentrecs.add(0,currentrec);
         currentrec = new DFURecordDefInfo();
         parentfields.add(0,currentfield);
     }
     @Override
-    public void exitInline_dataset_record_def(EclParser.Inline_dataset_record_defContext ctx)
+    public void exitInline_dataset_record_def(EclRecordParser.Inline_dataset_record_defContext ctx)
     {
         if (parentfields.size()>0)
         {
@@ -307,7 +307,7 @@ public class EclReader extends EclBaseListener
     }
 
     @Override
-    public void exitExploded_dataset_record_def(EclParser.Exploded_dataset_record_defContext ctx)
+    public void exitExploded_dataset_record_def(EclRecordParser.Exploded_dataset_record_defContext ctx)
     {
         if (parentfields.size()>0)
         {
@@ -327,7 +327,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterMaxlength(EclParser.MaxlengthContext ctx)
+    public void enterMaxlength(EclRecordParser.MaxlengthContext ctx)
     {
         if (currentfield != null)
         {
@@ -345,17 +345,17 @@ public class EclReader extends EclBaseListener
         return errorHandler;
     }
 
-    public EclInfo getEclInfo()
+    public EclRecordInfo getEclRecordInfo()
     {
         return this.eclInfo;
     }
 
-    public EclParser getParser()
+    public EclRecordParser getParser()
     {
         return parser;
     }
 
-    public void setParser(EclParser parser)
+    public void setParser(EclRecordParser parser)
     {
         this.parser = parser;
     }
@@ -368,7 +368,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterDefaultval(EclParser.DefaultvalContext ctx)
+    public void enterDefaultval(EclRecordParser.DefaultvalContext ctx)
     {
         String val = ctx.getChild(2).getText();
         val = val.replace("'", "");
@@ -391,7 +391,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterXpath(EclParser.XpathContext ctx)
+    public void enterXpath(EclRecordParser.XpathContext ctx)
     {
         String val = ctx.getChild(2).getText();
         if (val.startsWith("'")) {
@@ -418,7 +418,7 @@ public class EclReader extends EclBaseListener
      * </p>
      */
     @Override
-    public void enterXmldefaultval(EclParser.XmldefaultvalContext ctx)
+    public void enterXmldefaultval(EclRecordParser.XmldefaultvalContext ctx)
     {
 
         String val = ctx.getChild(2).getText();

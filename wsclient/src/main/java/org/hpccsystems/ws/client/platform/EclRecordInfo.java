@@ -4,18 +4,18 @@ import java.util.HashMap;
 
 import org.hpccsystems.ws.client.utils.FileFormat;
 
-public class EclInfo
+public class EclRecordInfo
 {
     private String originalEcl;
 
-    public EclInfo()
+    public EclRecordInfo()
     {
     }
 
-    public EclInfo(DFURecordDefInfo recs)
+    public EclRecordInfo(DFURecordDefInfo recs)
     {
         this.setRecordsets(new HashMap<String, DFURecordDefInfo>());
-        this.getRecordsets().put(EclInfo.UNNAMED, recs);
+        this.getRecordsets().put(EclRecordInfo.UNNAMED, recs);
     }
 
     public HashMap<String, DFURecordDefInfo> recordsets = new HashMap<String, DFURecordDefInfo>();

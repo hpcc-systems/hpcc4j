@@ -1,4 +1,4 @@
-grammar Ecl;		
+grammar EclRecord;		
 
 options {
   language = Java;

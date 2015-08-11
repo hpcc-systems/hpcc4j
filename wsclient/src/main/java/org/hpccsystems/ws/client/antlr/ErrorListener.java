@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.Token;
 public class ErrorListener extends BaseErrorListener
 {
 
-    private EclReader     parent;
+    private EclRecordReader     parent;
     private ErrorStrategy errorHandler = new ErrorStrategy();
 
     // *************************************************************
@@ -51,7 +51,7 @@ public class ErrorListener extends BaseErrorListener
 
     }
 
-    public void setParent(EclReader r)
+    public void setParent(EclRecordReader r)
     {
         this.parent = r;
     }

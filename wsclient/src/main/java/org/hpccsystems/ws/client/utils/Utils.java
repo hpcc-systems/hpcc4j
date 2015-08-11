@@ -28,11 +28,11 @@ import javax.xml.transform.stream.StreamResult;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.hpccsystems.ws.client.antlr.EclLexer;
-import org.hpccsystems.ws.client.antlr.EclParser;
-import org.hpccsystems.ws.client.antlr.EclParser.ProgramContext;
-import org.hpccsystems.ws.client.antlr.EclReader;
-import org.hpccsystems.ws.client.platform.EclInfo;
+import org.hpccsystems.ws.client.antlr.EclRecordLexer;
+import org.hpccsystems.ws.client.antlr.EclRecordParser;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
+import org.hpccsystems.ws.client.antlr.EclRecordReader;
+import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -701,19 +701,19 @@ public class Utils
           throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
       }
 
-    public static EclInfo GetEcl(String content)
+    public static EclRecordInfo GetRecordEcl(String content)
     {
         if (content == null || content.isEmpty())
         {
-            return new EclInfo();
+            return new EclRecordInfo();
         }
-        EclReader cr = new EclReader();
+        EclRecordReader cr = new EclRecordReader();
         try
         {
             InputStream grammarStream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
             ANTLRInputStream is = new ANTLRInputStream(grammarStream);
-            EclLexer dl = new EclLexer(is);
-            EclParser dp = new EclParser(new BufferedTokenStream(dl));
+            EclRecordLexer dl = new EclRecordLexer(is);
+            EclRecordParser dp = new EclRecordParser(new BufferedTokenStream(dl));
             cr.getErrorHandler().attach(dl);
             cr.getErrorHandler().attach(dp);
             cr.setParser(dp);
@@ -725,11 +725,11 @@ public class Utils
         {
             System.out.println("Error parsing Record:" + e.getMessage());
         }
-        if (cr.getEclInfo() != null)
+        if (cr.getEclRecordInfo() != null)
         {
-            cr.getEclInfo().setOriginalEcl(content);
+            cr.getEclRecordInfo().setOriginalEcl(content);
         }
-        return cr.getEclInfo();
+        return cr.getEclRecordInfo();
 
     }
 }
