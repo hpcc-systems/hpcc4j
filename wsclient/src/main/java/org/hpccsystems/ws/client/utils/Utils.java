@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.BufferedTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.hpccsystems.ws.client.antlr.EclRecordLexer;
+import org.hpccsystems.ws.client.antlr.EclRecordParser;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
+import org.hpccsystems.ws.client.antlr.EclRecordReader;
+import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -691,4 +700,36 @@ public class Utils
           }
           throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
       }
+
+    public static EclRecordInfo getRecordEcl(String content)
+    {
+        if (content == null || content.isEmpty())
+        {
+            return new EclRecordInfo();
+        }
+        EclRecordReader cr = new EclRecordReader();
+        try
+        {
+            InputStream grammarStream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+            ANTLRInputStream is = new ANTLRInputStream(grammarStream);
+            EclRecordLexer dl = new EclRecordLexer(is);
+            EclRecordParser dp = new EclRecordParser(new BufferedTokenStream(dl));
+            cr.getErrorHandler().attach(dl);
+            cr.getErrorHandler().attach(dp);
+            cr.setParser(dp);
+            ProgramContext pc = dp.program();
+            ParseTreeWalker pw = new ParseTreeWalker();
+            pw.walk(cr, pc);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error parsing Record:" + e.getMessage());
+        }
+        if (cr.getEclRecordInfo() != null)
+        {
+            cr.getEclRecordInfo().setOriginalEcl(content);
+        }
+        return cr.getEclRecordInfo();
+
+    }
 }

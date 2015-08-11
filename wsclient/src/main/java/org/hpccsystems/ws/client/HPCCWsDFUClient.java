@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +37,7 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_29.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DataSingleton;
+import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -445,7 +447,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
      */
-    public ArrayList<DFUDataColumnInfo> getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
+    public EclRecordInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
             throws Exception
     {
         DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
@@ -471,13 +473,14 @@ public class HPCCWsDFUClient extends DataSingleton
         NodeList rowdata = getFileData(datasetname, (long) 0, 1, clustername);
         if (rowdata != null && rowdata.getLength() > 0)
         {
-        	if (rowdata.item(0).hasChildNodes()) 
-        	{
-        		return rowdata.item(0).getFirstChild().getTextContent();
-        	} 
-        	else {
-        		return rowdata.item(0).getTextContent();
-        	}
+            if (rowdata.item(0).hasChildNodes())
+            {
+                return rowdata.item(0).getFirstChild().getTextContent();
+            }
+            else
+            {
+                return rowdata.item(0).getTextContent();
+            }
         }
         return null;
     }
@@ -497,6 +500,7 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * Get array of logical files on target HPCC system based on input parameters
+     * 
      * @param filename
      * @param cluster --- NO LONGER USED ---
      * @param firstN
@@ -597,7 +601,7 @@ public class HPCCWsDFUClient extends DataSingleton
         result = HashCodeUtil.hash(result, ((Stub)  wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword());
         return result;
     }
-    
+
     /**
      * @param logicalname
      *            - logical file to get file info for, can start with '~' or not
@@ -617,7 +621,15 @@ public class HPCCWsDFUClient extends DataSingleton
             }
             this.handleException(resp.getExceptions());
             DFUFileDetailInfo info = new DFUFileDetailInfo(resp.getFileDetail());
-            info.setFirstline(this.getFirstRow(logicalname, clustername));
+            try
+            {
+                info.setFirstline(this.getFirstRow(logicalname, clustername));
+            }
+            catch (Exception e)
+            {
+                // error logged in getFirstRow, no need to log here
+                info.setFirstline("");
+            }
             if (info.getFilename() != null)
             {
                 try
@@ -634,6 +646,18 @@ public class HPCCWsDFUClient extends DataSingleton
                     }
                 }
             }
+            if ((info.getEcl() == null || info.getEcl().isEmpty()) && info.getIsSuperfile()
+                    && info.getSubfiles() != null && info.getSubfiles().length != 0)
+            {
+                DFUFileDetailInfo subfile = this.getFileDetails(info.getSubfiles()[0], info.getCluster());
+                if (subfile != null)
+                {
+                    info.setEcl(subfile.getEcl());
+                    info.setColumns(subfile.getColumns());
+                    info.setContentType(subfile.getContentType());
+                    info.setFormat(subfile.getFormat());
+                }
+            }
             return info;
         }
         catch (ArrayOfEspException e)
@@ -642,7 +666,7 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
+                    Utils.println(System.out, "Error retrieving file type for file" + logicalname + ": " + espexception.getSource()
                             + espexception.getMessage(), false, true);
                 }
             }
