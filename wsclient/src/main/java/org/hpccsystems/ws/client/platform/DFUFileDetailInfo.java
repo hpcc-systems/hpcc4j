@@ -537,7 +537,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         ArrayList<String> keyed = new ArrayList<String>();
         for (DFUDataColumnInfo d : this.getColumns())
         {
-            if (d.getIsKeyedColumn())
+            if (d != null && d.getIsKeyedColumn() != null && d.getIsKeyedColumn())
             {
                 keyed.add(d.getColumnLabel());
             }
@@ -545,7 +545,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         ArrayList<String> natural = new ArrayList<String>();
         for (DFUDataColumnInfo d : this.getColumns())
         {
-            if (d.getIsNaturalColumn())
+            if (d != null && d.getIsNaturalColumn() != null && d.getIsNaturalColumn())
             {
                 natural.add(d.getColumnLabel());
             }
