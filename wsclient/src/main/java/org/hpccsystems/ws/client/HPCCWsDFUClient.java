@@ -666,7 +666,7 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving file type for file" + logicalname + ": " + espexception.getSource()
+                    Utils.println(System.out, "Error retrieving file type for file: " + logicalname + ": " + espexception.getSource()
                             + espexception.getMessage(), false, true);
                 }
             }

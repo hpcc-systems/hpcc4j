@@ -1,6 +1,8 @@
 package org.hpccsystems.ws.client.platform.test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
@@ -9,6 +11,9 @@ import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
+import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
+import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
+import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
@@ -30,7 +35,7 @@ public class PlatformTester
             HPCCWsClient connector = platform.getHPCCWSClient();
             connector.setVerbosemode(true);
 
-            HPCCWsSQLClient             wsSQLClient = platform.getHPCCWSClient().getWsSQLClient("8510");
+            HPCCWsSQLClient wsSQLClient = platform.getHPCCWSClient().getWsSQLClient("8510");
             String s = "CREATE TABLE newtablename (id DATE, mytint INT(9), mydouble DOUBLE (5,3) UNSIGNED) LOAD DATA INFILE 'OriginalPerson' CONNECTION '10.0.2.15' DIRECTORY '/var/lib/HPCCSystems/mydropzone' INTO TABLE newtablename";
             ExecuteSQLResponse executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
             System.out.println(executeSQLFullResponse.getResult());
@@ -38,6 +43,19 @@ public class PlatformTester
             int pport = HPCCWsAttributesClient.getOriginalPort();
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
+
+            EclRecordInfo datasetFields = wsDFUClient.getDatasetFields("lotto::winning::numbers::date::csv", null, "," );
+            HashMap<String,DFURecordDefInfo> recordsets = datasetFields.getRecordsets();
+            Set<String> keySet = recordsets.keySet();
+            for (String field : keySet)
+            {
+                DFURecordDefInfo dfuRecordDefInfo = recordsets.get(field);
+                List<DFUDataColumnInfo> childColumns = dfuRecordDefInfo.getChildColumns();
+                for (DFUDataColumnInfo dfuDataColumnInfo : childColumns)
+                {
+                    System.out.println(dfuDataColumnInfo.getColumnEclType() + " " + dfuDataColumnInfo.getColumnLabel());
+                }
+            }
 
             DFUDataColumn[] newgetFileDataColumns = wsDFUClient.getFileMetaData("kevinsfile::lotto_0215::processed.csv", null);
             for (int i = 0; i < newgetFileDataColumns.length; i++)
