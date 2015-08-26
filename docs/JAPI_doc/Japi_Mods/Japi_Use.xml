@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<sect1 id="JAPI_Use">
+  <title>Use Cases</title>
+
+  <para>This section provides examples that illustrate typical Java client and
+  HPCC Systems<superscript>®</superscript> interaction.</para>
+
+  <sect2>
+    <title>wsclient</title>
+
+    <para>Example: User wants to submit and execute an ECL query from a Java
+    client:</para>
+
+    <para>Use the <emphasis role="bold">wsclient </emphasis>package to connect
+    to the target HPCC system.</para>
+
+    <para><programlisting> //Fetch platform object based on connection settings
+ //Provide the connection type, http|https, the ecl watch ip, and port, 
+ //your ESP username and password (if required)
+ 
+ Platform platform = Platform.get("http", "ip", 8010, "username", "password");
+ HPCCWSClient connector = platform.getHPCCWSClient();
+</programlisting></para>
+
+    <para>Create a <emphasis>WorkunitInfo</emphasis> object with the ECL code
+    and submit that object to the WECL workunit web service.</para>
+
+    <para>The <emphasis>WorkunitInfo</emphasis> object contains all the
+    information needed by HPCC to compile and execute an ECL query
+    correctly.</para>
+
+    <programlisting> WorkunitInfo wu=new WorkunitInfo();
+ wu.setECL("output('Hello World');"); // The ECL to execute.
+ wu.setCluster("mythor");             // This can be hardcoded to a known cluster, 
+                                      // or can be selected from 
+                                      // valid cluster names clusterGroups[0] (above)</programlisting>
+
+    <para>This is just one way to submit ECL, you can also submit ECL, and
+    receive the WUID, which can later be used to fetch results. The results
+    (if successful) are returned as a List of Object Lists.</para>
+
+    <programlisting> List&lt;List&lt;Object&gt;&gt; results = connector.submitECLandGetResultsList(wu);
+
+ //logic to analyze results would need to be implemented.
+ int currentrs = 1;
+
+ for (List&lt;Object&gt; list : results)
+ {
+   Utils.print(System.out, "Resultset " + currentrs +":", false, true);
+   for (Object object : list)
+   {
+     System.out.print("[ " + object.toString() +" ]");
+   }
+   currentrs++;
+   System.out.println("");
+ }
+</programlisting>
+
+    <para>The preceding example shows how simple it is to code for this
+    interface. This template can be expanded to interact with most of the ESP
+    web services and their methods.</para>
+
+    <para>This connector can be used to actuate various HPCC WebService
+    methods. For example, the client can request a list of available Target
+    cluster names.</para>
+
+    <programlisting>List&lt;String&gt; clusters = connector.getAvailableTargetClusterNames(); </programlisting>
+
+    <para>or cluster groups</para>
+
+    <programlisting>String[] clusterGroups = connector.getAvailableClusterGroups(); </programlisting>
+
+    <para>Which can then be used as one of the required parameters for other
+    WS actions, such as spraying a file:</para>
+
+    <programlisting>connector.sprayFlatHPCCFile("persons", "mythor::persons", 155, clusters.get(0), true); </programlisting>
+  </sect2>
+</sect1>
