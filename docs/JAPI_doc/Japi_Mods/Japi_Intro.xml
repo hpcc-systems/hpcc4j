@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<sect1 id="IntroJAPI" role="nobrk">
+  <title>Introduction to the HPCC JAPIs</title>
+
+  <para>The HPCC Java APIs is a collection Java based APIs which help
+  developers interact with HPCC servers and tools in a relatively simple, and
+  standardized fashion.</para>
+
+  <para>The project houses multiple HPCC centric Java based APIs and
+  tools.</para>
+
+  <para>The project is available on Github in the HPCC-JAPIs
+  repository.</para>
+
+  <para><ulink
+  url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
+
+  <sect2>
+    <title>wsclient</title>
+
+    <para>The API which standardizes and facilitates interaction with HPCC Web
+    based Services (ESP Web services).</para>
+
+    <para>The project is based on stub code generated from WSDL using Eclipse
+    tools based on Apache Axis.</para>
+
+    <para>Provides a mechanism for actuating HPCC web service methods.</para>
+  </sect2>
+
+  <sect2>
+    <title>clienttools</title>
+
+    <para>Java based interface to HPCC client tools. Currently only interfaces
+    with the ECLCC Server.</para>
+  </sect2>
+
+  <sect2>
+    <title>rdf2hpcc</title>
+
+    <para>RDF data ingestion tool to HPCC. Based on Apache Jena and is
+    dependent on wsclient.</para>
+  </sect2>
+</sect1>
