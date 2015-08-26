@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<sect1 id="JAPI_Build" role="nobrk">
+  <title>Builds</title>
+
+  <para>To build the projects using Maven, navigate to the base directory of
+  the project and issue the following command:</para>
+
+  <programlisting>mvn install</programlisting>
+
+  <para>For more information on how to use Maven see <ulink
+  url="http://maven.apache.org">http://maven.apache.org</ulink></para>
+
+  <sect2>
+    <title>HPCC JAPIs Source Code</title>
+
+    <para>The source can be found under the HPCC Platform github account in
+    the HPCC-JAPIs repo.</para>
+
+    <para><ulink
+    url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
+
+    <para>To utilize the API(s) you can either import the pertinent JAPI
+    project into your workspace and access the API source directly, or you can
+    build the library and subsequently import into the client project.</para>
+
+    <para>Contributions to source are accepted and encouraged. All
+    contributions must follow the JAVA source format described in the
+    HPCC-JAVA-Formatter.xml file which can be found in HPCC-JAPIs/eclipse.
+    This formatter can be used by the Eclipse IDE to automatically format JAVA
+    source code.</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>From eclipse, choose Window-&gt;Preferences-&gt;Java-&gt;Code
+          Stype-&gt;Formatter.</para>
+
+          <para>Import the HPCC-JAVA-Formatter.xml file and set it as the
+          Active profile.</para>
+        </listitem>
+
+        <listitem>
+          <para>From the JAVA editor, choose Source-&gt;Format</para>
+        </listitem>
+      </itemizedlist></para>
+  </sect2>
+</sect1>
