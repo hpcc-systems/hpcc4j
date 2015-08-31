@@ -5,13 +5,7 @@ options
     language = Java;
 }
 
-program:
-    record_defs
-;
-
-record_defs:
-    record_def_atom (record_def_atom)*
-;
+program: record_defs (record_defs)*;
 
 value : UTOKEN | TOKEN | INT | STRING;
 
@@ -48,7 +42,6 @@ record_def_inline:
 record_def:
     REC_SYM (COMMA maxlength)? eclfield_decl SEMI (eclfield_decl SEMI)* END_SYM SEMI
 ;
-
 defined_record_def :
     TOKEN ASSING_SYM (record_def|record_def_inline)
 ;
@@ -58,18 +51,16 @@ exploded_dataset_record_def:
 ;
 
 inline_dataset_record_def:
-    OCURLY eclfield_decl (COMMAeclfield_decl)* CCURLY
+    OCURLY eclfield_decl (COMMA eclfield_decl)* CCURLY
 ;
-
-record_def_atom:
+record_defs:
+//record_def_atom:
     record_def_inline
     | record_def
     | defined_record_def
 ;
 
-nested_dataset_decl:
-    DATASET_SYM OPAREN TOKEN CPAREN (TOKEN|UTOKEN) (OCURLY opts CCURLY)?
-;
+nested_dataset_decl: 'DATASET' '(' TOKEN ')' (TOKEN|UTOKEN) ('{' opts '}')?; 
 
 nested_inline_dataset_decl:
      DATASET_SYM OPAREN (exploded_dataset_record_def|inline_dataset_record_def) CPAREN (TOKEN|UTOKEN) (OCURLY opts CCURLY)?
@@ -86,33 +77,25 @@ opt:
     | xpath
     | xmldefaultval
 ;
-
 maxlength:
-    'MAXLENGTH' INT_PARAM
+    'MAXLENGTH' OPAREN INT CPAREN
 ;
 maxcount:
-    'MAXCOUNT' INT_PARAM
+    'MAXCOUNT' OPAREN INT CPAREN
 ;
 
 defaultval:
-    'DEFAULT' STRING_PARAM
+    'DEFAULT' OPAREN STRING CPAREN
 ;
 
 xpath:
-    'XPATH' STRING_PARAM
+    'XPATH' OPAREN STRING CPAREN
 ;
 
 xmldefaultval:
-    'XMLDEFAULT' STRING_PARAM
+    'XMLDEFAULT' OPAREN STRING CPAREN
 ;
 
-fragment INT_PARAM:
-    OPAREN INT CPAREN
-;
-
-fragment STRING_PARAM:
-    OPAREN STRING CPAREN
-;
 OPAREN             : '(';
 CPAREN             : ')';
 OCURLY             : '{';
@@ -125,12 +108,13 @@ ASSING_SYM             : ':=';
 REC_SYM                : 'RECORD';
 END_SYM                : 'END';
 DATASET_SYM            : 'DATASET';
-WS                     : [ \t\r\n]+ -> skip ;
-INT                    : [0-9]+ ;
+
+WS : [ \t\r\n]+ -> skip ;
+INT     : [0-9]+ ;
 fragment ESCAPED_QUOTE : '\\\'';
-STRING                 : '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
-TOKEN                  : ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;
-UTOKEN                 : [_][a-zA-Z0-9_-]+[a-zA-Z0-9_];
-COMMENT                : '//' ~('\r'|'\n')* -> skip;
-ML_COMMENT             : '/*' .*? '*/' -> skip ;
-ECL_NUMBERED_TYPE      : TOKEN INT?;
+STRING :   '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
+TOKEN :  ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;
+UTOKEN: [_][a-zA-Z0-9_-]+[a-zA-Z0-9_];
+COMMENT : '//' ~('\r'|'\n')* -> skip;
+ML_COMMENT : '/*' .*? '*/' -> skip ;
+ECL_NUMBERED_TYPE: TOKEN INT?;
