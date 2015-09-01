@@ -3,7 +3,7 @@
   <groupId>org.hpccsystems.hpccjapi</groupId>
   <artifactId>rdf2hpcc</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.1-SNAPSHOT</version>
+  <version>0.2.2-SNAPSHOT</version>
   <name>RDF Data Ingestion into HPCC</name>
 
   <properties>
@@ -14,21 +14,66 @@
     <connection>scm:git:git@github.com:hpcc-systems/HPCC-JAPIs.git</connection>
     <developerConnection>scm:git:git@github.com:hpcc-systems/HPCC-JAPIs.git</developerConnection>
     <url>scm:git@github.com:hpcc-systems/HPCC-JAPIs.git</url>
-    <tag>WSClient-0.6.0-1</tag>
+    <!--tag>WSClient-0.6.0-1</tag-->
   </scm>
 
-  <distributionManagement>
-    <repository>
-       <id>deployment</id>
-       <name>Internal Releases</name>
-       <url>http://mvnrisk.risk.regn.net/nexus/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-       <id>deployment</id>
-       <name>Internal Releases</name>
-       <url>http://mvnrisk.risk.regn.net/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>libs-releases</name>
+            <url>https://mvnrisk.lexisnexis.com/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>libs-snapshots</name>
+            <url>https://mvnrisk.lexisnexis.com/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>mvnrisk</id>
+            <name>libs-releases</name>
+            <url>http://mvnrisk.risk.regn.net/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <name>libs-snapshots</name>
+            <url>http://mvnrisk.risk.regn.net/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>LocalLibs</id>
+            <name>LocalLibs</name>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <url>file://${project.basedir}/hpccjapi/rdf2hpcc/src/lib</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>oss-sonatype</id>
+            <name>oss-sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
   <build>
     <plugins>
@@ -74,7 +119,7 @@
     <dependency>
       <groupId>org.hpccsystems.hpccjapi</groupId>
       <artifactId>wsclient</artifactId>
-      <version>0.4</version>
+      <version>0.6.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.jena</groupId>
