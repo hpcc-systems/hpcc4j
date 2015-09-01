@@ -405,7 +405,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
         if (targetDestinationGroup != null)
         {
             success = sprayDefaultCSVHPCCFile(targetHPCCFilePath, targetHPCCFilePath, targetDestinationGroup, overwrite);
-            success &= sprayCustomCSVHPCCFile(targetHPCCFilePath+"::namespaces", targetHPCCFilePath+"::namespaces", targetDestinationGroup, outputEscape, outputDelimiter, outputQuote, outputTerminator, overwrite, FileFormat.DFUff_csv);
+            success &= sprayCustomCSVHPCCFile(targetHPCCFilePath+"::namespaces", targetHPCCFilePath+"::namespaces", targetDestinationGroup, outputEscape, outputDelimiter, outputQuote, outputTerminator, overwrite, HPCCFileSprayClient.SprayVariableFormat.DFUff_csv);
         }
         else
         {

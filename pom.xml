@@ -20,19 +20,18 @@
     <tag>HEAD</tag>
   </scm>
 
-  <distributionManagement>
-    <repository>
-       <id>deployment</id>
-       <name>Internal Releases</name>
-       <url>http://mvnrisk.risk.regn.net/nexus/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-       <id>deployment</id>
-       <name>Internal Releases</name>
-       <url>http://mvnrisk.risk.regn.net/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
-
+    <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>libs-releases</name>
+            <url>https://mvnrisk.lexisnexis.com/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>libs-snapshots</name>
+            <url>https://mvnrisk.lexisnexis.com/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
