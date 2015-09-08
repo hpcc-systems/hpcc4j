@@ -46,10 +46,13 @@ public enum FileFormat
 
     public static FileFormat getFileFormat(String name)
     {
-        String upperName = name.toUpperCase();
-        if (mapFileFormatName.containsKey(upperName))
-            return mapFileFormatName.get(upperName);
-        else
-            return FileFormat.UNKNOWN;
+        if (name != null)
+        {
+            String upperName = name.toUpperCase();
+            if (mapFileFormatName.containsKey(upperName))
+                return mapFileFormatName.get(upperName);
+        }
+
+        return FileFormat.UNKNOWN;
     }
 }

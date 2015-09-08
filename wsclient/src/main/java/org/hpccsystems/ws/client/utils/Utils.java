@@ -27,7 +27,9 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BufferedTokenStream;
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.hpccsystems.ws.client.antlr.CaseControlStringStream;
 import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
@@ -710,8 +712,8 @@ public class Utils
         EclRecordReader cr = new EclRecordReader();
         try
         {
-            InputStream grammarStream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
-            ANTLRInputStream is = new ANTLRInputStream(grammarStream);
+            ANTLRInputStream is = new CaseControlStringStream(content);
+            ((CaseControlStringStream) is).toUpperCase = true; //ANTLR TOKENS should be upper cased
             EclRecordLexer dl = new EclRecordLexer(is);
             EclRecordParser dp = new EclRecordParser(new BufferedTokenStream(dl));
             cr.getErrorHandler().attach(dl);

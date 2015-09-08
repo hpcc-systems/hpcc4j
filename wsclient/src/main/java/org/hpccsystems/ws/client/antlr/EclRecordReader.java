@@ -14,12 +14,12 @@ import org.hpccsystems.ws.client.platform.EclRecordInfo;
 public class EclRecordReader extends EclRecordBaseListener
 {
     private ErrorListener             errorHandler = new ErrorListener();
-    private EclRecordInfo                   eclInfo      = new EclRecordInfo();
+    private EclRecordInfo             eclInfo      = new EclRecordInfo();
     private DFURecordDefInfo          currentrec   = null;
-    private List<DFURecordDefInfo>    parentrecs    = new ArrayList<DFURecordDefInfo>();
+    private List<DFURecordDefInfo>    parentrecs   = new ArrayList<DFURecordDefInfo>();
     private DFUDataColumnInfo         currentfield = null;
-    private List<DFUDataColumnInfo>   parentfields  = new ArrayList<DFUDataColumnInfo>();
-    private EclRecordParser                 parser       = null;
+    private List<DFUDataColumnInfo>   parentfields = new ArrayList<DFUDataColumnInfo>();
+    private EclRecordParser           parser       = null;
 
     /**
      * @param eclInfo - the EclInfo object to set
@@ -331,7 +331,7 @@ public class EclRecordReader extends EclRecordBaseListener
     {
         if (currentfield != null)
         {
-            currentfield.setMaxlength(ctx.getChild(2).getText());                           
+            currentfield.setMaxlength(ctx.getChild(2).getText());
         }
         else if (currentrec != null)
         {
