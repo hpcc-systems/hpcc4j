@@ -1,2 +1,9 @@
 */target
 bin/
+
+wsclient/src/main/java/org/hpccsystems/ws/client/antlr/EclRecord.tokens
+wsclient/src/main/java/org/hpccsystems/ws/client/antlr/EclRecordBaseListener.java
+wsclient/src/main/java/org/hpccsystems/ws/client/antlr/EclRecordLexer.java
+wsclient/src/main/java/org/hpccsystems/ws/client/antlr/EclRecordLexer.tokens
+wsclient/src/main/java/org/hpccsystems/ws/client/antlr/EclRecordListener.java
+wsclient/src/main/java/org/hpccsystems/ws/client/antlr/EclRecordParser.java

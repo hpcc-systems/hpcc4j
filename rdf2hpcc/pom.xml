@@ -3,8 +3,13 @@
   <groupId>org.hpccsystems.hpccjapi</groupId>
   <artifactId>rdf2hpcc</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.2-SNAPSHOT</version>
   <name>RDF Data Ingestion into HPCC</name>
+
+  <parent>
+    <groupId>org.hpccsystems.hpccjapi</groupId>
+    <artifactId>hpcc-japi</artifactId>
+    <version>0.6.1-SNAPSHOT</version>
+  </parent>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,7 +124,7 @@
     <dependency>
       <groupId>org.hpccsystems.hpccjapi</groupId>
       <artifactId>wsclient</artifactId>
-      <version>0.6.0</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.jena</groupId>

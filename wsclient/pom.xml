@@ -3,11 +3,16 @@
   <groupId>org.hpccsystems.hpccjapi</groupId>
   <artifactId>wsclient</artifactId>
   <packaging>jar</packaging>
-  <version>0.6.1-SNAPSHOT</version>
   <name>HPCC Web Services Client API</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+    <parent>
+        <groupId>org.hpccsystems.hpccjapi</groupId>
+        <artifactId>hpcc-japi</artifactId>
+        <version>0.6.1-SNAPSHOT</version>
+    </parent>
 
     <scm>
         <connection>scm:git:git@github.com:hpcc-systems/HPCC-JAPIs.git</connection>
