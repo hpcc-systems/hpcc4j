@@ -198,7 +198,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
                 Document dom = db.parse(new ByteArrayInputStream(xmlresult.getBytes()));
-                NodeList ds = dom.getDocumentElement().getElementsByTagName(ROW_ELEMENT);
+                NodeList ds = dom.getDocumentElement().getChildNodes();
                 if (ds != null && ds.getLength() > 0)
                 {
                     return ds;
