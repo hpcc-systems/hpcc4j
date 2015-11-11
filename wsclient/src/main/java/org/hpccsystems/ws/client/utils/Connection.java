@@ -30,7 +30,7 @@ public class Connection
 
         public void setUserName(String username)
         {
-            if (username != null & username.length() >0 )
+            if (username != null && username.length() >0 )
             {
                 this.userName = username;
                 if (password != null)

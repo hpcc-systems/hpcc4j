@@ -62,9 +62,11 @@ public class RDF2HPCC
 
         if (args.length >= 1)
         {
-            String protocol, host, port, user, pass;
-            host = port = user = pass = null;
-            protocol = Connection.protHttp;
+            String host = "localhost";
+            String port = "8010";
+            String user = null;
+            String pass = null;
+            String protocol = Connection.protHttp;
 
             for (int i = 0; i < args.length; i++)
             {
