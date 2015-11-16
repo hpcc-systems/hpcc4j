@@ -11,10 +11,8 @@ import java.util.Map;
 
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.DropZone;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.PhysicalFileStruct;
 import org.hpccsystems.ws.client.HPCCECLDirectClient;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
@@ -793,48 +791,34 @@ public class RDFHPCCWsClient extends HPCCWsClient
         boolean success = false;
 
         HPCCFileSprayClient fsclient = getFileSprayClient();
-
-        DropZoneFilesRequest dropzonefilesreq = new DropZoneFilesRequest();
-
         try
         {
-            DropZoneFilesResponse dropZoneFilesResponse = fsclient.getSoapProxy().dropZoneFiles(dropzonefilesreq);
+        	DropZone dz = fsclient.fetchLocalDropZones()[0];
+        	targetDropzoneNetAddres = dz.getNetAddress();
+            Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddres, false, verbosemode);
 
-            if (dropZoneFilesResponse.getExceptions() != null)
+        	targetHPCCDropzonePath = dz.getPath();
+            Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
+            try
             {
-                Utils.println(System.out, "Failed to fetch dropzone IP address.", false, verbosemode);
+            	PhysicalFileStruct[] files = fsclient.listFiles(targetDropzoneNetAddres, targetHPCCDropzonePath, null);
+            	if(verbosemode)
+            	{
+            		Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
+            		for (PhysicalFileStruct file : files)
+            			Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
+               	}
             }
-            else
+            catch (Exception e)
             {
-                DropZone[] dropZones = dropZoneFilesResponse.getDropZones();
-                if (dropZones.length > 0)
-                {
-                    targetDropzoneNetAddres = dropZones[0].getNetAddress();
-                    targetHPCCDropzonePath = dropZones[0].getPath();
-                    Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddres, false, verbosemode);
-                    Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
-
-                    try
-                    {
-                        PhysicalFileStruct[] files = dropZoneFilesResponse.getFiles();
-                        Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
-                        for (PhysicalFileStruct file : files)
-                        {
-                            Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
-                    }
-                    success = true;
-                }
+            	Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
             }
+            success = true;
         }
-        catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e1)
+        catch (org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException e1)
         {
             Utils.println(System.out, "ERROR: Attempting to fetch HPCC dropzone Info:", false, verbosemode);
-            for (org.hpccsystems.ws.client.gen.filespray.v1_06.EspException exception : e1.getException())
+            for (org.hpccsystems.ws.client.gen.filespray.v1_12.EspException exception : e1.getException())
             {
                 Utils.println(System.out, "\t"+exception.getMessage(), false, verbosemode);
             }

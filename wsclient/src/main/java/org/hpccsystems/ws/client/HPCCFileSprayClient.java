@@ -14,25 +14,25 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.FileListRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.FileListResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.FileSprayServiceSoap;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.FileSprayServiceSoapProxy;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunit;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunits;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitsResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.ProgressResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixed;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixedResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayVariable;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.DropZone;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.DropZoneFilesRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.DropZoneFilesResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.FileListRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.FileListResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.FileSprayServiceSoap;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.FileSprayServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.GetDFUWorkunit;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.GetDFUWorkunitResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.GetDFUWorkunits;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.GetDFUWorkunitsResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.ProgressRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.ProgressResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.SprayFixed;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.SprayFixedResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.SprayResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.SprayVariable;
 import org.hpccsystems.ws.client.platform.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
@@ -164,7 +164,7 @@ public class HPCCFileSprayClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.filespray.v1_06.FileSprayLocator()).getFileSprayServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.filespray.v1_12.FileSprayLocator()).getFileSprayServiceSoapAddress();
     }
 
     protected HPCCFileSprayClient(Connection baseConnection)
@@ -282,7 +282,7 @@ public class HPCCFileSprayClient extends DataSingleton
         dzfr.setDirectoryOnly(true);
 
         DropZoneFilesResponse resp = fileSprayServiceSoapProxy.dropZoneFiles(dzfr);
-        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -336,7 +336,7 @@ public class HPCCFileSprayClient extends DataSingleton
             flr.setOS(OS);
 
         FileListResponse resp = fileSprayServiceSoapProxy.fileList(flr);
-        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -464,7 +464,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
         SprayResponse resp = fileSprayServiceSoapProxy.sprayVariable(svr);
 
-        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -555,7 +555,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
         SprayResponse resp = fileSprayServiceSoapProxy.sprayVariable(svr);
 
-        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -639,7 +639,7 @@ public class HPCCFileSprayClient extends DataSingleton
         sfr.setPrefix(prefix);
 
         SprayFixedResponse resp = fileSprayServiceSoapProxy.sprayFixed(sfr);
-        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
@@ -666,7 +666,7 @@ public class HPCCFileSprayClient extends DataSingleton
         pr.setWuid(dfuwuid);
 
         ProgressResponse resp = fileSprayServiceSoapProxy.getDFUProgress(pr);
-        org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException exceptions = resp.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_12.ArrayOfEspException exceptions = resp.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())

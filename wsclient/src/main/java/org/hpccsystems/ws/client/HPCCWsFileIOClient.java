@@ -5,13 +5,13 @@ import java.net.URL;
 import java.rmi.RemoteException;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.CreateFileRequest;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.CreateFileResponse;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataRequest;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataResponse;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoap;
-import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileRequest;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileResponse;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WriteFileDataRequest;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WriteFileDataResponse;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WsFileIOServiceSoap;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WsFileIOServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -81,7 +81,7 @@ public class HPCCWsFileIOClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOLocator()).getWsFileIOServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.wsfileio.v1_0.WsFileIOLocator()).getWsFileIOServiceSoapAddress();
     }
 
     protected HPCCWsFileIOClient(WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy)
@@ -158,8 +158,8 @@ public class HPCCWsFileIOClient extends DataSingleton
             }
             else
             {
-                org.hpccsystems.ws.client.gen.wsfileio.v0_0.EspException[] espexceptions = arrayOfEspExceptions.getException();
-                for (org.hpccsystems.ws.client.gen.wsfileio.v0_0.EspException espexception : espexceptions)
+                org.hpccsystems.ws.client.gen.wsfileio.v1_0.EspException[] espexceptions = arrayOfEspExceptions.getException();
+                for (org.hpccsystems.ws.client.gen.wsfileio.v1_0.EspException espexception : espexceptions)
                 {
                     Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbosemode);
                 }

@@ -24,20 +24,20 @@ import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.DFUWorkunit;
-import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitsResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpDropZone;
-import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpLogicalCluster;
-import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpServices;
-import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetCluster;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.QuerySet;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUUpdateResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.DFUWorkunit;
+import org.hpccsystems.ws.client.gen.filespray.v1_12.GetDFUWorkunitsResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_32.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.wstopology.v1_22.TpDropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_22.TpLogicalCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_22.TpServices;
+import org.hpccsystems.ws.client.gen.wstopology.v1_22.TpTargetCluster;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.QuerySet;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUUpdateResponse;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 
@@ -395,7 +395,9 @@ public class Platform extends DataSingleton
             try
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, jobname, cluster, null, null, null, endDate, startDate, null, null, 100, userOnly ? getUser() : null, "org.hpccsystems.ws.client", appKey, appData);
+                ApplicationValue[] application = new ApplicationValue[1];
+                application[0] = new ApplicationValue(appKey,"org.hpccsystems.ws.client",appData);
+                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, jobname, cluster, null, null, null, endDate, startDate, null, null, 100, userOnly ? getUser() : null, application);
                 updateWorkunits(response.getWorkunits());
             }
             catch (ArrayOfEspException e)
@@ -437,7 +439,7 @@ public class Platform extends DataSingleton
             {
 
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, null, cluster, null, null, null, toESPString(endDate), toESPString(startDate), null, null, 100, owner, null, null, null);
+                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, null, cluster, null, null, null, toESPString(endDate), toESPString(startDate), null, null, 100, owner, null);
 
                 updateWorkunits(response.getWorkunits());
             }

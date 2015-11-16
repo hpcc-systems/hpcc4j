@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_32.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_32.DFUFileDetail;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.Utils;
 
