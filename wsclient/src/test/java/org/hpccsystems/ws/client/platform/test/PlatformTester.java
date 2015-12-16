@@ -10,7 +10,7 @@ import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;

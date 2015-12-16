@@ -33,8 +33,8 @@ import org.hpccsystems.ws.client.antlr.CaseControlStringStream;
 import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
-import org.hpccsystems.ws.client.antlr.EclRecordReader;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.platform.EclRecordReader;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -703,35 +703,5 @@ public class Utils
           throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
       }
 
-    public static EclRecordInfo getRecordEcl(String content)
-    {
-        if (content == null || content.isEmpty())
-        {
-            return new EclRecordInfo();
-        }
-        EclRecordReader cr = new EclRecordReader();
-        try
-        {
-            ANTLRInputStream is = new CaseControlStringStream(content);
-            ((CaseControlStringStream) is).toUpperCase = true; //ANTLR TOKENS should be upper cased
-            EclRecordLexer dl = new EclRecordLexer(is);
-            EclRecordParser dp = new EclRecordParser(new BufferedTokenStream(dl));
-            cr.getErrorHandler().attach(dl);
-            cr.getErrorHandler().attach(dp);
-            cr.setParser(dp);
-            ProgramContext pc = dp.program();
-            ParseTreeWalker pw = new ParseTreeWalker();
-            pw.walk(cr, pc);
-        }
-        catch (Exception e)
-        {
-            System.out.println("Error parsing Record:" + e.getMessage());
-        }
-        if (cr.getEclRecordInfo() != null)
-        {
-            cr.getEclRecordInfo().setOriginalEcl(content);
-        }
-        return cr.getEclRecordInfo();
 
-    }
 }
