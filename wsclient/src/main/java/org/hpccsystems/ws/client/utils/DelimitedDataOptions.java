@@ -5,9 +5,12 @@ package org.hpccsystems.ws.client.utils;
  *
  * Represents variable/delimited field data formats
  */
-public class DelimitedDataOptions
+
+public class DelimitedDataOptions implements java.io.Serializable
 {
-    public final static String csvDefaultSeparate   = "\\,";
+
+	private static final long serialVersionUID = -5945517448265644272L;
+	public final static String csvDefaultSeparate   = "\\,";
     public final static String csvDefaultEscape     = "";
     public final static String csvDefaultQuote      = "'";
     public final static String csvDefaultTerminator = "\n";
