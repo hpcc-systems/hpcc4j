@@ -4,9 +4,10 @@ import java.util.HashMap;
 
 import org.hpccsystems.ws.client.utils.FileFormat;
 
-public class EclRecordInfo
+public class EclRecordInfo implements java.io.Serializable
 {
-    private String originalEcl;
+	private static final long serialVersionUID = 7430756413782258252L;
+	private String originalEcl;
 
     public EclRecordInfo()
     {
