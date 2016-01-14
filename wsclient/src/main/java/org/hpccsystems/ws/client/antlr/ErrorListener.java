@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.Token;
+import org.hpccsystems.ws.client.platform.EclRecordReader;
 
 public class ErrorListener extends BaseErrorListener
 {

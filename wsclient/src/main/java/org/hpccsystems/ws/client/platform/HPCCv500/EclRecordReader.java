@@ -1,12 +1,25 @@
-package org.hpccsystems.ws.client.antlr;
+package org.hpccsystems.ws.client.platform.HPCCv500;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
-import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
-import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.antlr.EclRecordBaseListener;
+import org.hpccsystems.ws.client.antlr.EclRecordParser;
+import org.hpccsystems.ws.client.antlr.ErrorListener;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.DefaultvalContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Defined_record_defContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Eclfield_declContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Exploded_dataset_record_defContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Inline_dataset_record_defContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.MaxcountContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.MaxlengthContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Nested_dataset_declContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Nested_inline_dataset_declContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Record_defContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.Record_def_inlineContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.XmldefaultvalContext;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.XpathContext;
 
 /**
  * This class reads ECL and converts it to an EclInfo object. Currently it processes RECORD definitions only.

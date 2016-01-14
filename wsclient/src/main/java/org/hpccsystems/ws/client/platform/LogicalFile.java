@@ -15,7 +15,7 @@ import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUInfoResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 

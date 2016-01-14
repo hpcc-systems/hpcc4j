@@ -17,16 +17,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.EspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLGraph;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.EspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQueryResponse;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 

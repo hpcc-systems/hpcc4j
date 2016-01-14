@@ -5,10 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.BufferedTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.hpccsystems.ws.client.antlr.CaseControlStringStream;
+import org.hpccsystems.ws.client.antlr.EclRecordLexer;
+import org.hpccsystems.ws.client.antlr.EclRecordParser;
+import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
 import org.hpccsystems.ws.client.utils.FileFormat;
-import org.hpccsystems.ws.client.utils.Utils;
 
 // This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
 // classes.
@@ -455,7 +461,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public static EclRecordInfo getRecordFromECL(String eclRecordDefinition) throws Exception
     {
-        EclRecordInfo info = Utils.getRecordEcl(eclRecordDefinition);
+        EclRecordInfo info = getRecordEcl(eclRecordDefinition);
         return info;
     }
 
@@ -466,7 +472,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
     {
         if (getEcl() != null && !getEcl().isEmpty())
         {
-            HashMap<String, DFURecordDefInfo> info = Utils.getRecordEcl(getEcl()).getRecordsets();
+            HashMap<String, DFURecordDefInfo> info = getRecordEcl(getEcl()).getRecordsets();
             if (info.size() == 1)
             {
                 DFURecordDefInfo dfu = info.values().iterator().next();
@@ -590,6 +596,38 @@ public class DFUFileDetailInfo extends DFUFileDetail
     public void setColumns(ArrayList<DFUDataColumnInfo> columns2)
     {
         this.columns = columns2;
+    }
+    
+    public static EclRecordInfo getRecordEcl(String content)
+    {
+        if (content == null || content.isEmpty())
+        {
+            return new EclRecordInfo();
+        }
+        EclRecordReader cr = new EclRecordReader();
+        try
+        {
+            ANTLRInputStream is = new CaseControlStringStream(content);
+            ((CaseControlStringStream) is).toUpperCase = true; //ANTLR TOKENS should be upper cased
+            EclRecordLexer dl = new EclRecordLexer(is);
+            EclRecordParser dp = new EclRecordParser(new BufferedTokenStream(dl));
+            cr.getErrorHandler().attach(dl);
+            cr.getErrorHandler().attach(dp);
+            cr.setParser(dp);
+            ProgramContext pc = dp.program();
+            ParseTreeWalker pw = new ParseTreeWalker();
+            pw.walk(cr, pc);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error parsing Record:" + e.getMessage());
+        }
+        if (cr.getEclRecordInfo() != null)
+        {
+            cr.getEclRecordInfo().setOriginalEcl(content);
+        }
+        return cr.getEclRecordInfo();
+
     }
 
 }
