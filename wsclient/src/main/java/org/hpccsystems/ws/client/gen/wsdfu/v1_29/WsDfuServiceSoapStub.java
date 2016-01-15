@@ -358,6 +358,15 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">>DFUArrayActionResponse>DFUArrayActionResult");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUArrayMessage[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayMessage");
+            qName2 = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Message");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">>DFUBrowseDataResponse>ColumnsHidden");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn[].class;
@@ -705,6 +714,13 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUActionInfo");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUActionInfo.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayMessage");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUArrayMessage.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
