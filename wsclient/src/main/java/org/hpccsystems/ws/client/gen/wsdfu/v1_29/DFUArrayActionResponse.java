@@ -14,7 +14,7 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
 
     private java.lang.String redirectTo;
 
-    private java.lang.String DFUArrayActionResult;
+    private org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUArrayMessage[] DFUArrayActionResult;
 
     private org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUActionInfo[] actionResults;
 
@@ -25,7 +25,7 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
            org.hpccsystems.ws.client.gen.wsdfu.v1_29.ArrayOfEspException exceptions,
            java.lang.String backToPage,
            java.lang.String redirectTo,
-           java.lang.String DFUArrayActionResult,
+           org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUArrayMessage[] DFUArrayActionResult,
            org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUActionInfo[] actionResults) {
            this.exceptions = exceptions;
            this.backToPage = backToPage;
@@ -100,7 +100,7 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
      * 
      * @return DFUArrayActionResult
      */
-    public java.lang.String getDFUArrayActionResult() {
+    public org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUArrayMessage[] getDFUArrayActionResult() {
         return DFUArrayActionResult;
     }
 
@@ -110,7 +110,7 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
      * 
      * @param DFUArrayActionResult
      */
-    public void setDFUArrayActionResult(java.lang.String DFUArrayActionResult) {
+    public void setDFUArrayActionResult(org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUArrayMessage[] DFUArrayActionResult) {
         this.DFUArrayActionResult = DFUArrayActionResult;
     }
 
@@ -157,7 +157,7 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
               this.redirectTo.equals(other.getRedirectTo()))) &&
             ((this.DFUArrayActionResult==null && other.getDFUArrayActionResult()==null) || 
              (this.DFUArrayActionResult!=null &&
-              this.DFUArrayActionResult.equals(other.getDFUArrayActionResult()))) &&
+              java.util.Arrays.equals(this.DFUArrayActionResult, other.getDFUArrayActionResult()))) &&
             ((this.actionResults==null && other.getActionResults()==null) || 
              (this.actionResults!=null &&
               java.util.Arrays.equals(this.actionResults, other.getActionResults())));
@@ -182,7 +182,15 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
             _hashCode += getRedirectTo().hashCode();
         }
         if (getDFUArrayActionResult() != null) {
-            _hashCode += getDFUArrayActionResult().hashCode();
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getDFUArrayActionResult());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getDFUArrayActionResult(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
         }
         if (getActionResults() != null) {
             for (int i=0;
@@ -229,9 +237,10 @@ public class DFUArrayActionResponse  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("DFUArrayActionResult");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayActionResult"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayMessage"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
+        elemField.setItemQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Message"));
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("actionResults");
