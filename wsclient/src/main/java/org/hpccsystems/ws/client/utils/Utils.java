@@ -25,16 +25,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.BufferedTokenStream;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.hpccsystems.ws.client.antlr.CaseControlStringStream;
-import org.hpccsystems.ws.client.antlr.EclRecordLexer;
-import org.hpccsystems.ws.client.antlr.EclRecordParser;
-import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
-import org.hpccsystems.ws.client.platform.EclRecordInfo;
-import org.hpccsystems.ws.client.platform.EclRecordReader;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

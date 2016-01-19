@@ -1,4 +1,4 @@
-package org.hpccsystems.ws.client.extended;
+package org.hpccsystems.ws.client.HPCCv500.extended;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.HPCCv500.platform.Version;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ECLException;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ECLWorkunit;
@@ -34,9 +36,7 @@ import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.QuerySetAliasMap;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.QuerySignature;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.WssqlServiceSoap;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.WssqlServiceSoapProxy;
-import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;

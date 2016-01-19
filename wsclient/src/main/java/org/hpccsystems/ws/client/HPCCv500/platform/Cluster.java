@@ -5,17 +5,17 @@
  *
  * Contributors: HPCC Systems - initial API and implementation
  ******************************************************************************/
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.HPCCWsTopologyClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsTopologyClient;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpClusterInfoResponse;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetCluster;
-import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 
 public class Cluster extends DataSingleton
 {

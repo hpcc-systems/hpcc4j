@@ -5,7 +5,7 @@
  *
  * Contributors: HPCC Systems - initial API and implementation
  ******************************************************************************/
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,12 +18,12 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.TimeZone;
 
-import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.HPCCWsClient;
-import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.HPCCWsSMCClient;
-import org.hpccsystems.ws.client.HPCCWsTopologyClient;
-import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCFileSprayClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsSMCClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsTopologyClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DFUWorkunit;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitsResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFULogicalFile;
@@ -31,17 +31,17 @@ import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpDropZone;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpServices;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetCluster;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.QuerySet;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUUpdateResponse;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.DataSingletonCollection;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.QuerySet;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUUpdateResponse;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 
 public class Platform extends DataSingleton
 {

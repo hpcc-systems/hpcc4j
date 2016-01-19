@@ -5,20 +5,20 @@
  *
  * Contributors: HPCC Systems - initial API and implementation
  ******************************************************************************/
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUResultResponse;
-import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUResultResponse;
 import org.hpccsystems.ws.client.utils.DatasetParser;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.xml.sax.InputSource;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 
 public class Result extends DataSingleton
 {

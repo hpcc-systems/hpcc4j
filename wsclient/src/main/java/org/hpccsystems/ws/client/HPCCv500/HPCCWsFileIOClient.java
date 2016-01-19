@@ -5,6 +5,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.CreateFileResponse;
@@ -12,7 +13,6 @@ import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataRequest;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WriteFileDataResponse;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoap;
 import org.hpccsystems.ws.client.gen.wsfileio.v0_0.WsFileIOServiceSoapProxy;
-import org.hpccsystems.ws.client.platform.HPCCv500.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;

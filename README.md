@@ -36,3 +36,12 @@ This formatter can be used by the Eclipse IDE to automatically format JAVA sourc
 
 * From the JAVA editor, choose Source->Format
 
+Versioning:
+- wsclient		The latest version can be accessed by just using the standard classes under org.hpccsystems.ws.client.  If a user
+					wishes to use an older version, then use the classes contained within (for example) org.hpccsystems.ws.client.HPCCv500.
+					All generated code will rest under org.hpccsystems.ws.client.gen.<interface>.<version>.
+				For antlr support it is necessary to supply a new org.hpccsystems.ws.client.<version>.antlr for each version release of our
+					package.  The latest can be found under org.hpccsystems.ws.client.antlr.  A modification to the wsclient pom is necessary
+					to build these changes.  Add an execution block to the antlr plugin specifying the new input directory, output directory,
+					and package name. 
+

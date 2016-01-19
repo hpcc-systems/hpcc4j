@@ -4,14 +4,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.HPCCv500.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ECLDirectException;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectServiceSoap;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectServiceSoapProxy;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExFormat;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExRequest;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExResponse;
-import org.hpccsystems.ws.client.platform.HPCCv500.DataSingleton;
-import org.hpccsystems.ws.client.platform.HPCCv500.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;

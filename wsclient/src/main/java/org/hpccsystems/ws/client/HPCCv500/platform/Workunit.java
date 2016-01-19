@@ -5,7 +5,7 @@
  *
  * Contributors: HPCC Systems - initial API and implementation
  ******************************************************************************/
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
 import java.lang.reflect.Field;
 import java.rmi.RemoteException;
@@ -16,21 +16,21 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.EspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQueryResponse;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.DataSingletonCollection;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLGraph;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.EspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUQueryResponse;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 
 public class Workunit extends DataSingleton
 {

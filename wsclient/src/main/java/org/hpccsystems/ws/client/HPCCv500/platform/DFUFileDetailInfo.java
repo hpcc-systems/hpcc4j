@@ -1,4 +1,4 @@
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,14 +8,16 @@ import java.util.Map.Entry;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.hpccsystems.ws.client.antlr.CaseControlStringStream;
-import org.hpccsystems.ws.client.antlr.EclRecordLexer;
-import org.hpccsystems.ws.client.antlr.EclRecordParser;
-import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
-import org.hpccsystems.ws.client.antlr.EclRecordReader;
+import org.hpccsystems.ws.client.HPCCv500.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.HPCCv500.antlr.CaseControlStringStream;
+import org.hpccsystems.ws.client.HPCCv500.antlr.EclRecordLexer;
+import org.hpccsystems.ws.client.HPCCv500.antlr.EclRecordParser;
+import org.hpccsystems.ws.client.HPCCv500.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUFileDetail;
+import org.hpccsystems.ws.client.HPCCv500.antlr.EclRecordReader;
 import org.hpccsystems.ws.client.utils.FileFormat;
+//import org.hpccsystems.ws.client.utils.Utils;
 
 // This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
 // classes.
@@ -630,5 +632,4 @@ public class DFUFileDetailInfo extends DFUFileDetail
         return cr.getEclRecordInfo();
 
     }
-
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpCluster;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpClusterInfoRequest;
@@ -23,7 +24,6 @@ import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryReques
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryResponse;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoap;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoapProxy;
-import org.hpccsystems.ws.client.platform.HPCCv500.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;

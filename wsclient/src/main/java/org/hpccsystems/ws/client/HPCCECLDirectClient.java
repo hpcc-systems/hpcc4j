@@ -10,9 +10,9 @@ import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EclDirectServiceSoapProxy;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExFormat;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExRequest;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.RunEclExResponse;
-import org.hpccsystems.ws.client.platform.DataSingleton;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 
