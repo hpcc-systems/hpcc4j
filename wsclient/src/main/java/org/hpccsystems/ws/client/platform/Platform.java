@@ -20,6 +20,7 @@ import java.util.TimeZone;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
+import org.hpccsystems.ws.client.HPCCWsClientPool;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
@@ -111,7 +112,8 @@ public class Platform extends DataSingleton
         UNKNOWN, TESTING, FALSE, TRUE
     }
 
-    protected HPCCWsClient                  hpccclient = null;
+    protected HPCCWsClient                  platformHPCCClient = null;
+    protected HPCCWsClientPool              hpccClientPool = null;
     private SERVER_EXISTS                   serverExists = SERVER_EXISTS.UNKNOWN;
     protected boolean                       isDisabled;
     public boolean                          isTempDisabled;
@@ -127,14 +129,26 @@ public class Platform extends DataSingleton
 
     static int                              LATENCY_TEST = 0;
 
+
     protected Platform(URL address, String user, String password)
     {
         this(address.getProtocol(), address.getHost(), address.getPort(), user, password);
     }
 
+    protected Platform(URL address, String user, String password, long pooltimeoutmillis)
+    {
+        this(address.getProtocol(), address.getHost(), address.getPort(), user, password, pooltimeoutmillis);
+    }
     protected Platform(String protocol, String ip, int port, String user, String password)
     {
-        hpccclient = HPCCWsClient.get(protocol, ip, port, user, password);
+        this(protocol, ip, port, user, password, HPCCWsClientPool.DEFAULT_EXPIRE_MILLIS);
+    }
+
+    protected Platform(String protocol, String ip, int port, String user, String password, long pooltimeoutmillis)
+    {
+        hpccClientPool = new HPCCWsClientPool(protocol, ip, Integer.toString(port), user, password, pooltimeoutmillis);
+        //hpccclient = HPCCWsClient.get(protocol, ip, port, user, password);
+        platformHPCCClient = hpccClientPool.checkOut();
 
         isDisabled = false;
         isTempDisabled = false;
@@ -188,27 +202,27 @@ public class Platform extends DataSingleton
 
     public String getProtocol()
     {
-        return hpccclient.getProtocol();
+        return platformHPCCClient.getProtocol();
     }
 
     public String getIP()
     {
-        return hpccclient.getHost();
+        return platformHPCCClient.getHost();
     }
 
     public int getPort()
     {
-        return hpccclient.getPortInt();
+        return platformHPCCClient.getPortInt();
     }
 
     public String getUser()
     {
-        return hpccclient.getUserName();
+        return platformHPCCClient.getUserName();
     }
 
     public String getPassword()
     {
-        return hpccclient.getPassword();
+        return platformHPCCClient.getPassword();
     }
 
     protected String getBuild()
@@ -217,7 +231,7 @@ public class Platform extends DataSingleton
         {
             try
             {
-                HPCCWsSMCClient wssmc = hpccclient.getWsSMCClient();
+                HPCCWsSMCClient wssmc = platformHPCCClient.getWsSMCClient();
                 build = wssmc.getHPCCBuild();
             }
             catch (Exception e)
@@ -233,7 +247,7 @@ public class Platform extends DataSingleton
         boolean success = false;
         try
         {
-            success = hpccclient.pingServer();
+            success = platformHPCCClient.pingServer();
         }
         catch (Exception e)
         {
@@ -730,8 +744,11 @@ public class Platform extends DataSingleton
         if (isEnabled())
         {
             // TODO CollectionDelta monitor = new CollectionDelta("getClusters", clusters);
+            HPCCWsClient hpccclient = null;
             try
             {
+                //HPCCWsTopologyClient topclient = platformHPCCClient.getWsTopologyClient();
+                hpccclient = hpccClientPool.checkOut();
                 HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient();
                 TpServices services = topclient.getServices();
                 if (services != null)
@@ -741,6 +758,10 @@ public class Platform extends DataSingleton
             {
                 e.printStackTrace();
                 confirmDisable();
+            }
+            finally
+            {
+                hpccClientPool.checkIn(hpccclient);
             }
          // TODO notifyObservers(monitor.calcChanges(clusters));
         }
@@ -811,48 +832,93 @@ public class Platform extends DataSingleton
         }
     }
 
-    public HPCCWsClient getHPCCWSClient()
-    {
-        latencyTest();
-        return hpccclient;
-    }
-
+    /**
+     * @return HPCCWsWorkUnitsClient  - not thread safe - Use checkOutWsClient(), then getWsWorkunitsClient() for multi-thread use
+     * @throws Exception
+     */
     public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
     {
         latencyTest();
-        return hpccclient.getWsWorkunitsClient();
+        return platformHPCCClient.getWsWorkunitsClient();
     }
 
+    /**
+     * @return HPCCWsDFUClient - not thread safe - Use checkOutWsClient(), then getWsDFUClient() for multi-thread use
+     * @throws Exception
+     */
     public HPCCWsDFUClient getWsDfuClient() throws Exception
     {
         latencyTest();
-        return hpccclient.getWsDFUClient();
+        return platformHPCCClient.getWsDFUClient();
     }
 
+    /**
+     * @return HPCCFileSprayClient - not thread safe - Use checkOutWsClient(), then getFileSprayClient() for multi-thread use
+     * @throws Exception
+     */
     public HPCCFileSprayClient getFileSprayClient() throws Exception
     {
         latencyTest();
-        return hpccclient.getFileSprayClient();
+        return platformHPCCClient.getFileSprayClient();
     }
 
+    /**
+     * @return HPCCWsTopologyClient - not thread safe - Use checkOutWsClient(), then getWsTopologyClient() for multi-thread use
+     * @throws Exception
+     */
     public HPCCWsTopologyClient getWsTopologyClient() throws Exception
     {
         latencyTest();
-        return hpccclient.getWsTopologyClient();
+        return platformHPCCClient.getWsTopologyClient();
     }
 
+    /**
+     * @return HPCCWsSMCClient - not thread safe - Use checkOutWsClient(), then getWsSMCClient() for multi-thread use
+     * @throws Exception
+     */
     public HPCCWsSMCClient getWsSMCClient() throws Exception
     {
         latencyTest();
-        return hpccclient.getWsSMCClient();
+        return platformHPCCClient.getWsSMCClient();
     }
 
+    /**
+     * @return HPCCWsClient instance - not thread safe - Use checkoutWsClient for multi-thread use
+     * @throws Exception
+     */
     public HPCCWsClient getWsClient() throws Exception
     {
         latencyTest();
-        return hpccclient;
+        return platformHPCCClient;
     }
 
+    /**
+     * @return HPCCWsClient from HPCCClient pool, caller responsible for checking client back in
+     * @throws Exception
+     */
+    public HPCCWsClient checkOutHPCCWsClient() throws Exception
+    {
+        return hpccClientPool.checkOut();
+    }
+
+    /**
+     * @param client - returns hpccWsClient to pool for use by other threads
+     * @throws Exception
+     */
+    public void checkInHPCCWsClient(HPCCWsClient client) throws Exception
+    {
+        hpccClientPool.checkIn(client);
+    }
+
+    public boolean validateHPCCWsClient(HPCCWsClient client)
+    {
+        return hpccClientPool.validate(client);
+    }
+
+    public void expireHPCCWsClient(HPCCWsClient client)
+    {
+        hpccClientPool.expire(client);
+    }
     @Override
     public boolean equals(Object aThat)
     {
@@ -868,7 +934,7 @@ public class Platform extends DataSingleton
 
         Platform that = (Platform) aThat;
 
-        return EqualsUtil.areEqual(hpccclient, that.getHPCCWSClient());
+        return EqualsUtil.areEqual(platformHPCCClient, that.platformHPCCClient);
     }
 
     @Override

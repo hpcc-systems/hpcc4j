@@ -32,17 +32,44 @@ public class PlatformTester
             Version v = platform.getVersion();
             System.out.println(v.toString());
 
-            HPCCWsClient connector = platform.getHPCCWSClient();
-            connector.setVerbosemode(true);
+            HPCCWsClient client1 = platform.checkOutHPCCWsClient();
+            HPCCWsClient client2 = platform.checkOutHPCCWsClient();
+            HPCCWsClient client3 = platform.checkOutHPCCWsClient();
+            HPCCWsClient client4 = platform.checkOutHPCCWsClient();
+            if (platform.validateHPCCWsClient(client1))
+            {
+                HPCCWsAttributesClient wsAttributesClient1 = client1.getWsAttributesClient();
+            }
 
-            HPCCWsSQLClient wsSQLClient = platform.getHPCCWSClient().getWsSQLClient("8510");
+            if (platform.validateHPCCWsClient(client2))
+            {
+                HPCCWsAttributesClient wsAttributesClient2 = client2.getWsAttributesClient();
+                platform.expireHPCCWsClient(client2);
+                if (!platform.validateHPCCWsClient(client2))
+                    System.out.println("not validated");
+                else
+                    wsAttributesClient2 = client2.getWsAttributesClient();
+            }
+
+            HPCCWsAttributesClient wsAttributesClient3 = client3.getWsAttributesClient();
+            HPCCWsAttributesClient wsAttributesClient4 = client4.getWsAttributesClient();
+
+            platform.checkInHPCCWsClient(client1);
+            platform.checkInHPCCWsClient(client2);
+            platform.checkInHPCCWsClient(client3);
+            platform.checkInHPCCWsClient(client4);
+
+            HPCCWsSQLClient wsSQLClient = platform.getWsClient().getWsSQLClient("8510");
             String s = "CREATE TABLE newtablename (id DATE, mytint INT(9), mydouble DOUBLE (5,3) UNSIGNED) LOAD DATA INFILE 'OriginalPerson' CONNECTION '10.0.2.15' DIRECTORY '/var/lib/HPCCSystems/mydropzone' INTO TABLE newtablename";
             ExecuteSQLResponse executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
             System.out.println(executeSQLFullResponse.getResult());
 
             int pport = HPCCWsAttributesClient.getOriginalPort();
+            HPCCWsClient connector = platform.checkOutHPCCWsClient();
+            connector.setVerbosemode(true);
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
+            platform.checkInHPCCWsClient(connector);
 
             EclRecordInfo datasetFields = wsDFUClient.getDatasetFields("lotto::winning::numbers::date::csv", null, "," );
             HashMap<String,DFURecordDefInfo> recordsets = datasetFields.getRecordsets();
@@ -62,7 +89,7 @@ public class PlatformTester
             {
                 System.out.println("Col name: " + newgetFileDataColumns[i].getColumnLabel() + " ecl: " + newgetFileDataColumns[i].getColumnEclType() + " col type " + newgetFileDataColumns[i].getColumnType());
             }
-
+            connector = platform.checkOutHPCCWsClient();
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
             //connector.uploadFileToHPCC(new File("C://assignments//data//shortpersons"));
