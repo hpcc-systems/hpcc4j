@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DropZoneFilesResponse;
@@ -33,7 +34,6 @@ import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixed;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayFixedResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.SprayVariable;
-import org.hpccsystems.ws.client.platform.HPCCv500.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

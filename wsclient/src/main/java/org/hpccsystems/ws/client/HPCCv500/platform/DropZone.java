@@ -5,18 +5,18 @@
  *
  * Contributors: HPCC Systems - initial API and implementation
  ******************************************************************************/
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.hpccsystems.ws.client.HPCCFileSprayClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpDropZone;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 
 public class DropZone extends DataSingleton
 {

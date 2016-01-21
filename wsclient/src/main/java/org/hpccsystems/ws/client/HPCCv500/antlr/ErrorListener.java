@@ -1,4 +1,4 @@
-package org.hpccsystems.ws.client.antlr;
+package org.hpccsystems.ws.client.HPCCv500.antlr;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.FailedPredicateException;

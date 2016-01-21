@@ -6,17 +6,17 @@ import java.util.Set;
 
 import org.hpccsystems.ws.client.HPCCv500.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCv500.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.extended.HPCCv500.HPCCWsAttributesClient;
-import org.hpccsystems.ws.client.extended.HPCCv500.HPCCWsSQLClient;
+import org.hpccsystems.ws.client.HPCCv500.extended.HPCCWsAttributesClient;
+import org.hpccsystems.ws.client.HPCCv500.extended.HPCCWsSQLClient;
+import org.hpccsystems.ws.client.HPCCv500.platform.DFUDataColumnInfo;
+import org.hpccsystems.ws.client.HPCCv500.platform.DFURecordDefInfo;
+import org.hpccsystems.ws.client.HPCCv500.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.HPCCv500.platform.Platform;
+import org.hpccsystems.ws.client.HPCCv500.platform.Version;
+import org.hpccsystems.ws.client.HPCCv500.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_03.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_29.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_46.WUPublishWorkunitResponse;
-import org.hpccsystems.ws.client.platform.HPCCv500.DFUDataColumnInfo;
-import org.hpccsystems.ws.client.platform.HPCCv500.DFURecordDefInfo;
-import org.hpccsystems.ws.client.platform.HPCCv500.EclRecordInfo;
-import org.hpccsystems.ws.client.platform.HPCCv500.Platform;
-import org.hpccsystems.ws.client.platform.HPCCv500.Version;
-import org.hpccsystems.ws.client.platform.HPCCv500.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.Utils;
 

@@ -23,8 +23,8 @@ import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryReques
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpTargetClusterQueryResponse;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoap;
 import org.hpccsystems.ws.client.gen.wstopology.v1_19.WsTopologyServiceSoapProxy;
-import org.hpccsystems.ws.client.platform.DataSingleton;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;

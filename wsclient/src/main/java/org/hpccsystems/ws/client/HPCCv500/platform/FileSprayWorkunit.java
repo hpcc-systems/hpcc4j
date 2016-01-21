@@ -5,17 +5,17 @@
  *
  * Contributors: HPCC Systems - initial API and implementation
  ******************************************************************************/
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.HPCCv500.platform;
 
-import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCFileSprayClient;
+import org.hpccsystems.ws.client.HPCCv500.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.DFUWorkunit;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.EspException;
 import org.hpccsystems.ws.client.gen.filespray.v1_06.GetDFUWorkunitResponse;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 
 public class FileSprayWorkunit extends DataSingleton
 {

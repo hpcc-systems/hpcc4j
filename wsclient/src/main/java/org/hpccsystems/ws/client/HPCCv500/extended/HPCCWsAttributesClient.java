@@ -1,10 +1,11 @@
-package org.hpccsystems.ws.client.extended;
+package org.hpccsystems.ws.client.HPCCv500.extended;
 
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributeRequest;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributes;
@@ -26,7 +27,6 @@ import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.UpdateAttribute
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesServiceSoap;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesServiceSoapProxy;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
