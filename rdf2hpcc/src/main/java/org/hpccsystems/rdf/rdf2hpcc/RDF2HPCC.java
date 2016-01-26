@@ -3,6 +3,7 @@ package org.hpccsystems.rdf.rdf2hpcc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.io.File;
 
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.Utils;
@@ -32,6 +33,7 @@ public class RDF2HPCC
     static public final String  TARGETCLUSTERPATTERN = PARAMPREFIX + "targetcluster";
     static public final String  ECLMAXWAITMSPATTERN  = PARAMPREFIX + "eclmaxwaitms";
     static public final String  RUNSTATSPATTERN      = PARAMPREFIX + "getstats";
+    static public final String  ECLSTATSFILE		 = PARAMPREFIX + "eclstatsfile";
 
     private boolean             runstats             = false;
     private boolean             performspray         = true;
@@ -58,7 +60,9 @@ public class RDF2HPCC
 
     private boolean processRDF2HPCCArgs(String[] args, RDFHPCCWsClient connector)
     {
-        boolean success = true;
+        boolean success  = true;
+        boolean rdffile  = false;
+        boolean hpccfile = false;
 
         if (args.length >= 1)
         {
@@ -91,11 +95,13 @@ public class RDF2HPCC
                     {
                         connector.setTargetRDFDataPath(currentParamVal);
                         Utils.println(System.out, "TARGET RDF location: " + currentParamVal, false, false);
+                        rdffile = true;
                     }
                     else if (currentParam.matches(HPCCFILEPATTERN))
                     {
                         connector.setTargetHPCCFilePath(currentParamVal);
                         Utils.println(System.out, "TARGET HPCC FILE: " + currentParamVal, false, false);
+                        hpccfile = true;
                     }
                     else if (currentParam.matches(RDFLANGPATTERN))
                     {
@@ -194,7 +200,19 @@ public class RDF2HPCC
                         setRunstats(getstats);
                         Utils.println(System.out, "Produce stats: " + getstats, false, false);
                     }
-
+                    else if (currentParam.matches(ECLSTATSFILE))
+                    {
+                    	if(new File(currentParamVal).isFile())
+                        {
+                            connector.setECLStatsFile(currentParamVal);
+                    	    Utils.println(System.out, "Ecl Stats File: " + currentParamVal, false, false);
+                        }
+                        else
+                        {
+                            Utils.println(System.out, "ERROR provided eclstatsfile does not exist.", false, false);
+                            return false;
+                        }
+                    }
                     else if (currentParam.matches(ADDNSPATTERN))
                     {
                         if (currentParamVal != null && currentParamVal.length() > 0)
@@ -233,6 +251,19 @@ public class RDF2HPCC
             conn.setPassword(pass);
 
             connector.updateRDFConnection(conn);
+            
+            if (!rdffile || !hpccfile)
+            {
+                if (!rdffile)
+                {
+                	Utils.println(System.out, "ERROR required parameter -rdflocation not provided.", false, false);
+                }
+                if (!hpccfile)
+                {
+                	Utils.println(System.out, "ERROR required parameter -hpccfile not provided.", false, false);
+                }
+                return false;
+            }
         }
         else
         {
@@ -271,6 +302,8 @@ public class RDF2HPCC
    + "*          Default: true                                             *\n"
    + "* -getstats=true|false                                               *\n"
    + "*          Default: false                                            *\n"
+   + "* -eclstatsfile=<ecl stats file path>                                *\n"
+   + "*          Default: null                                             *\n"
    + "* -targetcluster=<hpcc target cluster for ECL stats logic execution.>*\n"
    + "*          Default: false                                            *\n"
    + "* -eclmaxwaitms=<maximum time to wait on ECL stats logic execution.> *\n"

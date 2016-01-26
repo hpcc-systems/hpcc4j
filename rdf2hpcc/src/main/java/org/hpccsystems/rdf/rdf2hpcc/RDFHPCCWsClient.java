@@ -3,6 +3,9 @@ package org.hpccsystems.rdf.rdf2hpcc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +93,8 @@ public class RDFHPCCWsClient extends HPCCWsClient
     private String targetECLCluster = null;
 
     private String targetHPCCFilePath = null;
-
+    private String eclstatsfile = null;
+    
     private boolean overwrite = false;
     private boolean abbreviate = true;
     private boolean fixNSIssues = true;
@@ -277,6 +281,16 @@ public class RDFHPCCWsClient extends HPCCWsClient
     {
         targetHPCCFilePath = hpccfilepath;
     }
+    
+    public void setECLStatsFile(String file)
+    {
+    	eclstatsfile = file;
+    }
+    
+    public String getECLStatsFile()
+    {
+    	return eclstatsfile;
+    }
 
     public String getTargetRDFDataPath()
     {
@@ -423,14 +437,23 @@ public class RDFHPCCWsClient extends HPCCWsClient
     public String getRDFStats()
     {
         String eclreturn = null;
-
+        String eclstats  = null;
+        
         Utils.println(System.out, "Attempting to run ECL stats on " + targetHPCCFilePath, false, false);
 
         try
         {
+        	if(eclstatsfile != null)
+        	{
+        		eclstats = new String(Files.readAllBytes(Paths.get(eclstatsfile)), Charset.defaultCharset());
+        	} else
+        	{
+        		eclstats = STATSECL;
+        	}
+        	
             HPCCECLDirectClient declient = getEclDirectClient();
             WorkunitInfo wu = new WorkunitInfo();
-            wu.setECL(STATSECL + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));");
+            wu.setECL(eclstats + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));");
             wu.setCluster(targetECLCluster);
             wu.setResultLimit(HPCCECLDirectClient.noresultlimit);
             wu.setMaxMonitorMillis(eclmaxwaitMS);
@@ -445,6 +468,10 @@ public class RDFHPCCWsClient extends HPCCWsClient
             {
                 Utils.println(System.out, espException.getMessage(), false, verbosemode);
             }
+        }
+        catch (IOException e)
+        {
+        	Utils.println(System.out, "Error reading from user defined ecl stats file: " + e.getLocalizedMessage(), false, verbosemode);
         }
         catch (Exception e)
         {
