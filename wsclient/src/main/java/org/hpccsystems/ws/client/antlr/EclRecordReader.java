@@ -18,6 +18,9 @@ public class EclRecordReader extends EclRecordBaseListener
     private DFUDataColumnInfo         currentfield = null;
     private List<DFUDataColumnInfo>   parentfields = new ArrayList<DFUDataColumnInfo>();
     private EclRecordParser           parser       = null;
+    private List<String>              annotationParams = new ArrayList<String>();
+    private String                    annotationName = null;
+
 
     /**
      * @param eclInfo - the EclInfo object to set
@@ -431,4 +434,38 @@ public class EclRecordReader extends EclRecordBaseListener
         }
     }
 
+    @Override
+    public void enterComment(final EclRecordParser.CommentContext ctx) {
+        super.enterComment(ctx);
+    }
+
+    @Override
+    public void exitAnnotation(final EclRecordParser.AnnotationContext ctx) {
+        super.exitAnnotation(ctx);
+        currentrec.getAnnotations().add(new DFUDataColumnAnnotation(annotationName, annotationParams));
+    }
+
+    @Override
+    public void exitAnnotation_name(final EclRecordParser.Annotation_nameContext ctx) {
+        annotationName = ctx.getChild(0).getText().substring(1);
+        super.exitAnnotation_name(ctx);
+    }
+
+    @Override
+    public void exitAnnotation_param(final EclRecordParser.Annotation_paramContext ctx) {
+        super.exitAnnotation_param(ctx);
+        annotationParams.add(ctx.getChild(0).getText());
+    }
+
+    @Override
+    public void exitComment(final EclRecordParser.CommentContext ctx) {
+        super.exitComment(ctx);
+    }
+
+    @Override
+    public void enterAnnotation(final EclRecordParser.AnnotationContext ctx) {
+        super.enterAnnotation(ctx);
+        annotationName = null;
+        annotationParams.clear();
+    }
 }

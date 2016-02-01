@@ -18,6 +18,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
     private String                  xmlDefaultVal    = null;
     private String                  maxcount         = null;
     private String                  maxlength        = null;
+    private List<DFUDataColumnAnnotation> annotations = new ArrayList<DFUDataColumnAnnotation>();
 
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
@@ -174,4 +175,11 @@ public class DFUDataColumnInfo extends DFUDataColumn
         this.maxlength = maxlength;
     }
 
+    public List<DFUDataColumnAnnotation> getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(final List<DFUDataColumnAnnotation> annotations) {
+        this.annotations = annotations;
+    }
 }
