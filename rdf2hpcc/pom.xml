@@ -3,7 +3,7 @@
   <groupId>org.hpccsystems.hpccjapi</groupId>
   <artifactId>rdf2hpcc</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.6</version>
+  <version>0.2.6-SNAPSHOT</version>
   <name>RDF Data Ingestion into HPCC</name>
 
   <properties>
