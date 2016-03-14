@@ -28,6 +28,8 @@ public class WURun  implements java.io.Serializable {
 
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.NamedValue[] variables;
 
+    private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue[] applicationValues;
+
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUExceptionSeverity exceptionSeverity;
 
     public WURun() {
@@ -44,6 +46,7 @@ public class WURun  implements java.io.Serializable {
            java.lang.Boolean noRootTag,
            org.hpccsystems.ws.client.gen.wsworkunits.v1_56.NamedValue[] debugValues,
            org.hpccsystems.ws.client.gen.wsworkunits.v1_56.NamedValue[] variables,
+           org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue[] applicationValues,
            org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUExceptionSeverity exceptionSeverity) {
            this.querySet = querySet;
            this.query = query;
@@ -55,6 +58,7 @@ public class WURun  implements java.io.Serializable {
            this.noRootTag = noRootTag;
            this.debugValues = debugValues;
            this.variables = variables;
+           this.applicationValues = applicationValues;
            this.exceptionSeverity = exceptionSeverity;
     }
 
@@ -260,6 +264,26 @@ public class WURun  implements java.io.Serializable {
 
 
     /**
+     * Gets the applicationValues value for this WURun.
+     * 
+     * @return applicationValues
+     */
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue[] getApplicationValues() {
+        return applicationValues;
+    }
+
+
+    /**
+     * Sets the applicationValues value for this WURun.
+     * 
+     * @param applicationValues
+     */
+    public void setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ApplicationValue[] applicationValues) {
+        this.applicationValues = applicationValues;
+    }
+
+
+    /**
      * Gets the exceptionSeverity value for this WURun.
      * 
      * @return exceptionSeverity
@@ -320,6 +344,9 @@ public class WURun  implements java.io.Serializable {
             ((this.variables==null && other.getVariables()==null) || 
              (this.variables!=null &&
               java.util.Arrays.equals(this.variables, other.getVariables()))) &&
+            ((this.applicationValues==null && other.getApplicationValues()==null) || 
+             (this.applicationValues!=null &&
+              java.util.Arrays.equals(this.applicationValues, other.getApplicationValues()))) &&
             ((this.exceptionSeverity==null && other.getExceptionSeverity()==null) || 
              (this.exceptionSeverity!=null &&
               this.exceptionSeverity.equals(other.getExceptionSeverity())));
@@ -374,6 +401,17 @@ public class WURun  implements java.io.Serializable {
                  i<java.lang.reflect.Array.getLength(getVariables());
                  i++) {
                 java.lang.Object obj = java.lang.reflect.Array.get(getVariables(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
+        }
+        if (getApplicationValues() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getApplicationValues());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getApplicationValues(), i);
                 if (obj != null &&
                     !obj.getClass().isArray()) {
                     _hashCode += obj.hashCode();
@@ -464,6 +502,14 @@ public class WURun  implements java.io.Serializable {
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         elemField.setItemQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "NamedValue"));
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("applicationValues");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ApplicationValues"));
+        elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ApplicationValue"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        elemField.setItemQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ApplicationValue"));
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("exceptionSeverity");
