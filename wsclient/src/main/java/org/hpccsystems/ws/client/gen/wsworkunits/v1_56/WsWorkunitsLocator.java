@@ -22,7 +22,7 @@ public class WsWorkunitsLocator extends org.apache.axis.client.Service implement
     }
 
     // Use to get a proxy class for WsWorkunitsServiceSoap
-    private java.lang.String WsWorkunitsServiceSoap_address = "http://10.20.8.15:8010/WsWorkunits?ver_=1.56";
+    private java.lang.String WsWorkunitsServiceSoap_address = "http://10.20.8.17:8010/WsWorkunits?ver_=1.56";
 
     public java.lang.String getWsWorkunitsServiceSoapAddress() {
         return WsWorkunitsServiceSoap_address;
