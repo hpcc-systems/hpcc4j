@@ -895,14 +895,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             this.monitorWUToCompletion(createdWU);
 
             //exceptions, etc. aren't always included in the submit response; do another request to get all workunit info
-            WUInfo parameters=new WUInfo();
-            parameters.setWuid(createdWU.getWuid());
-            parameters.setIncludeExceptions(true);            
-            WUInfoResponse res=wsWorkunitsServiceSoapProxy.WUInfo(parameters);            
+            WUInfoResponse res=this.getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false, false, false);
             if (createdWU.getExceptions() == null 
             		&& res.getWorkunit() != null 
             		&& res.getWorkunit().getExceptions() != null) {
-            	this.throwWsWUExceptions(res.getWorkunit().getExceptions(),"Workunit Compile Failed");
+            	this.throwWUECLExceptions(res.getWorkunit().getExceptions(),"Workunit Compile Failed");
             } 
         }
         return createdWU;
@@ -970,7 +967,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             if (compiledWU != null)
             {
-            	WURun runparameters = new WURun();
+                WURun runparameters = new WURun();
                 runparameters.setWuid(compiledWU.getWuid());
                 runparameters.setVariables(wu.getNamedValues());
                 runparameters.setCluster(wu.getCluster());
@@ -1157,7 +1154,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             return wsWorkunitsServiceSoapProxy.WUResult(parameters);
     }
 
-   
     /**
      * Creates and throws exception with exception message response from WS
      *
@@ -1186,7 +1182,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @param message - the prefix message
      * @throws Exception
      */
-    private void throwWsWUExceptions(ECLException[] eclExceptions, String message) throws Exception
+    private void throwWUECLExceptions(ECLException[] eclExceptions, String message) throws Exception
     {
     	if (eclExceptions==null) 
     	{
