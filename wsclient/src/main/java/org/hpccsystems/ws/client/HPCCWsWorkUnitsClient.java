@@ -888,6 +888,14 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             createdWU.setCluster(wu.getCluster());
             submitWU(createdWU); // if no exception proceed
             this.monitorWUToCompletion(createdWU);
+
+            //exceptions, etc. aren't always included in the submit response; do another request to get all workunit info
+            WUInfoResponse res=this.getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false, false, false);
+            if (createdWU.getExceptions() == null 
+            		&& res.getWorkunit() != null 
+            		&& res.getWorkunit().getExceptions() != null) {
+            	this.throwWUECLExceptions(res.getWorkunit().getExceptions(),"Workunit Compile Failed");
+            } 
         }
         return createdWU;
     }
@@ -1157,6 +1165,30 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         {
             multimessage.append("\t");
             multimessage.append(exception.getMessage());
+        }
+
+        throw new Exception(multimessage.toString());
+    }
+
+    /**
+     * Creates and throws exception with exception message response from WS
+     *
+     * @param eclExceptions - the array of ECLException objects to throw
+     * @param message - the prefix message
+     * @throws Exception
+     */
+    private void throwWUECLExceptions(ECLException[] eclExceptions, String message) throws Exception
+    {
+    	if (eclExceptions==null) 
+    	{
+    		return;
+    	}
+        StringBuilder multimessage = new StringBuilder();
+        multimessage.append(message);
+        multimessage.append("\n");
+        for (int i=0; i < eclExceptions.length;i++) {
+            multimessage.append("\t");
+            multimessage.append(eclExceptions[i].getMessage());
         }
 
         throw new Exception(multimessage.toString());
