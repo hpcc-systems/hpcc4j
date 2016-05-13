@@ -949,7 +949,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @throws Exception
      *             - Caller must handle exceptions
      */
-    private WURunResponse createAndRunWUFromECL(WorkunitInfo wu) throws Exception
+    public WURunResponse createAndRunWUFromECL(WorkunitInfo wu) throws Exception
     {
         WURunResponse wuRunResponse = null;
 
