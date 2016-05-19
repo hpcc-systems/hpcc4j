@@ -894,7 +894,15 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             if (createdWU.getExceptions() == null 
             		&& res.getWorkunit() != null 
             		&& res.getWorkunit().getExceptions() != null) {
-            	this.throwWUECLExceptions(res.getWorkunit().getExceptions(),"Workunit Compile Failed");
+            	int actualerrors=0;
+            	for (int i=0; i < res.getWorkunit().getExceptions().length;i++) {
+            		if ("error".equalsIgnoreCase(res.getWorkunit().getExceptions()[i].getSeverity())) {
+            			actualerrors++;
+            		}
+            	}
+            	if (actualerrors>0) {
+            		this.throwWUECLExceptions(res.getWorkunit().getExceptions(),"Workunit Compile Failed");
+            	}
             } 
         }
         return createdWU;
