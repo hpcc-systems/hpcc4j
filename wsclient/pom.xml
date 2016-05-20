@@ -4,7 +4,7 @@
 	<groupId>org.hpccsystems.hpccjapi</groupId>
 	<artifactId>wsclient</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.4-SNAPSHOT</version>
+	<version>0.6.5-SNAPSHOT</version>
 	<name>HPCC Web Services Client API</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
