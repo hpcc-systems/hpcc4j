@@ -96,6 +96,16 @@ xmldefaultval:
     'XMLDEFAULT' OPAREN STRING CPAREN
 ;
 
+annotation_name : ATOKEN;
+annotation_param : (TOKEN|UTOKEN);
+annotation_arguments : annotation_param (COMMA annotation_param)*;
+annotation : annotation_name OPAREN annotation_arguments CPAREN;
+
+comment:
+	( '//' annotation? .*? ) |
+	( '/*' annotation? .*? (.*?'*/' | '*/'))
+;
+
 OPAREN             : '(';
 CPAREN             : ')';
 OCURLY             : '{';
@@ -109,22 +119,11 @@ REC_SYM                : 'RECORD';
 END_SYM                : 'END';
 DATASET_SYM            : 'DATASET';
 
-AT: '@';
-WS : [ \t\r\n]+ -> skip ;
+WS : [ \t\r\n] -> skip;
 INT     : [0-9]+ ;
 fragment ESCAPED_QUOTE : '\\\'';
 STRING :   '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
 ATOKEN: [@][a-zA-Z0-9_-]+[a-zA-Z0-9_];
 TOKEN :  ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;
 UTOKEN: [_][a-zA-Z0-9_-]+[a-zA-Z0-9_];
-comment : '//' (annotation | .*?);
-ML_COMMENT : '/*' .*? '*/' -> skip ;
 ECL_NUMBERED_TYPE: TOKEN INT?;
-
-// ANNOTATIONS
-//annotation_name : '@' TOKEN;
-annotation_name : ATOKEN;
-
-annotation_param : (TOKEN|UTOKEN);
-annotation_arguments : annotation_param (COMMA annotation_param)*;
-annotation : annotation_name OPAREN annotation_arguments? CPAREN;

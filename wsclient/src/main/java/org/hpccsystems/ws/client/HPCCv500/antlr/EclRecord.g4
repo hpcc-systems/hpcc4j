@@ -115,12 +115,6 @@ fragment ESCAPED_QUOTE : '\\\'';
 STRING :   '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
 TOKEN :  ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;
 UTOKEN: [_][a-zA-Z0-9_-]+[a-zA-Z0-9_];
-ATOKEN: [@][a-zA-Z0-9_-]+[a-zA-Z0-9_];
-comment : '//' annotation* ~('\r'|'\n')*;
+COMMENT : '//' ~('\r'|'\n')* -> skip;
 ML_COMMENT : '/*' .*? '*/' -> skip ;
 ECL_NUMBERED_TYPE: TOKEN INT?;
-
-// ANNOTATIONS
-annotation_param : (TOKEN|UTOKEN);
-annotation_arguments : annotation_param (COMMA annotation_param)*;
-annotation : ATOKEN OPAREN annotation_arguments? CPAREN;
