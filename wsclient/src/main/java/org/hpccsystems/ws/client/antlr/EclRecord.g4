@@ -40,14 +40,14 @@ record_def_inline:
 ;
 
 record_def:
-    REC_SYM (COMMA maxlength)? eclfield_decl SEMI (eclfield_decl SEMI)* END_SYM SEMI
+    REC_SYM (COMMA maxlength)? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM SEMI
 ;
 defined_record_def :
     TOKEN ASSING_SYM (record_def|record_def_inline)
 ;
 
 exploded_dataset_record_def:
-    REC_SYM (COMMA maxlength)? eclfield_decl SEMI (eclfield_decl SEMI)* END_SYM
+    REC_SYM (COMMA maxlength)? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM
 ;
 
 inline_dataset_record_def:
@@ -96,6 +96,16 @@ xmldefaultval:
     'XMLDEFAULT' OPAREN STRING CPAREN
 ;
 
+annotation_name : ATOKEN;
+annotation_param : (TOKEN|UTOKEN);
+annotation_arguments : annotation_param (COMMA annotation_param)*;
+annotation : annotation_name OPAREN annotation_arguments CPAREN;
+
+comment:
+	( '//' annotation? .*? ) |
+	( '/*' annotation? .*? (.*?'*/' | '*/'))
+;
+
 OPAREN             : '(';
 CPAREN             : ')';
 OCURLY             : '{';
@@ -109,12 +119,11 @@ REC_SYM                : 'RECORD';
 END_SYM                : 'END';
 DATASET_SYM            : 'DATASET';
 
-WS : [ \t\r\n]+ -> skip ;
+WS : [ \t\r\n] -> skip;
 INT     : [0-9]+ ;
 fragment ESCAPED_QUOTE : '\\\'';
 STRING :   '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
+ATOKEN: [@][a-zA-Z0-9_-]+[a-zA-Z0-9_];
 TOKEN :  ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;
 UTOKEN: [_][a-zA-Z0-9_-]+[a-zA-Z0-9_];
-COMMENT : '//' ~('\r'|'\n')* -> skip;
-ML_COMMENT : '/*' .*? '*/' -> skip ;
 ECL_NUMBERED_TYPE: TOKEN INT?;
