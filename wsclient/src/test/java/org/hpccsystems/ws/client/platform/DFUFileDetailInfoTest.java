@@ -2,7 +2,8 @@ package org.hpccsystems.ws.client.platform;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class DFUFileDetailInfoTest {
 
@@ -18,14 +19,25 @@ public class DFUFileDetailInfoTest {
     private final String ML_WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; /* THIS(ISNT) an annotation. */\nEND;";
     private final String ML_INLINE = "RECORD\nSTRING SSN; /* @FOO(BAR) */\nEND;";
 
+    public static DFUDataColumnInfo getColumnByName(final DFURecordDefInfo parent, final String name) {
+        for (final DFUDataColumnInfo child: parent.getChildColumns()) {
+            if (child.getColumnLabel().equals(name)) {
+                return child;
+            }
+        }
+        return null;
+    }
+
     // Single line style tests
     @Test
     public void testGetRecordEcl() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1, recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(1, column.getAnnotations().size());
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("METATYPE", annotation.getName());
         assertEquals(1, annotation.getParameters().size());
         assertEquals("SSN", annotation.getParameters().get(0));
@@ -36,8 +48,10 @@ public class DFUFileDetailInfoTest {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_AND_COMMENT);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1,recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(1,column.getAnnotations().size());
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
         assertEquals(1,annotation.getParameters().size());
         assertEquals("BAR",annotation.getParameters().get(0));
@@ -48,8 +62,10 @@ public class DFUFileDetailInfoTest {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_MULTI_PARAMS);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1, recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(1, column.getAnnotations().size());
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
         assertEquals(3, annotation.getParameters().size());
         assertEquals("BAR1", annotation.getParameters().get(0));
@@ -63,6 +79,8 @@ public class DFUFileDetailInfoTest {
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
         assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(0, column.getAnnotations().size());
     }
 
     @Test
@@ -71,6 +89,8 @@ public class DFUFileDetailInfoTest {
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
         assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(0, column.getAnnotations().size());
     }
     
     // ML tests
@@ -79,8 +99,10 @@ public class DFUFileDetailInfoTest {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1, recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "FOO");
+
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
         assertEquals(1, annotation.getParameters().size());
         assertEquals("BAR", annotation.getParameters().get(0));
@@ -91,8 +113,9 @@ public class DFUFileDetailInfoTest {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_AND_COMMENT);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1,recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0,recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
         assertEquals(1,annotation.getParameters().size());
         assertEquals("BAR",annotation.getParameters().get(0));
@@ -103,8 +126,10 @@ public class DFUFileDetailInfoTest {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_MULTI_PARAMS);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1, recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
         assertEquals(3, annotation.getParameters().size());
         assertEquals("BAR1", annotation.getParameters().get(0));
@@ -118,6 +143,8 @@ public class DFUFileDetailInfoTest {
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
         assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(0, column.getAnnotations().size());
     }
 
     @Test
@@ -126,6 +153,8 @@ public class DFUFileDetailInfoTest {
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
         assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(0, column.getAnnotations().size());
     }
     
     @Test
@@ -133,8 +162,10 @@ public class DFUFileDetailInfoTest {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_INLINE);
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(1, recordDefInfo.getAnnotations().size());
-        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO",annotation.getName());
         assertEquals(1,annotation.getParameters().size());
         assertEquals("BAR",annotation.getParameters().get(0));
