@@ -442,7 +442,10 @@ public class EclRecordReader extends EclRecordBaseListener
     @Override
     public void exitAnnotation(final EclRecordParser.AnnotationContext ctx) {
         super.exitAnnotation(ctx);
-        currentrec.getAnnotations().add(new DFUDataColumnAnnotation(annotationName, annotationParams));
+        if (currentrec.getChildColumns().size() > 0) {
+            final DFUDataColumnInfo info = currentrec.getChildColumns().get(currentrec.getChildColumns().size() - 1);
+            info.getAnnotations().add(new DFUDataColumnAnnotation(annotationName, annotationParams));
+        }
     }
 
     @Override
