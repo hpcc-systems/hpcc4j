@@ -128,7 +128,7 @@ public class HPCCWsClient extends DataSingleton
      * @param username                - ESP Username
      * @param password                - ESP Password
      */
-    protected HPCCWsClient(String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
+    public HPCCWsClient(String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
         this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort,  username, password);
     }
