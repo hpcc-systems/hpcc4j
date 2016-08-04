@@ -303,7 +303,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             }
             // csvs loaded as ascii get a format of "csv", csvs loaded as
             // utf-8 get a format of "utf8"
-            if (getFormat().toLowerCase().startsWith("utf"))
+            if (getFormat() != null && getFormat().toLowerCase().startsWith("utf"))
             {
                 if (hasxpath)
                 {
