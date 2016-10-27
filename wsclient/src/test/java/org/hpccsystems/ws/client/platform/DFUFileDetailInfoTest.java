@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotNull;
 public class DFUFileDetailInfoTest {
 
     private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
+    private final String WITH_ANNOTATION_NO_PARAMS = "RECORD\nSTRING SSN; // @FEW\nEND;";
     private final String WITH_ANNOTATION_AND_COMMENT = "RECORD\nSTRING SSN; // @FOO(BAR) foo equals kittens, bar equals cats\nEND;";
     private final String WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; // @FOO(BAR1, BAR2,BAR3)\nEND;";
     private final String WITH_COMMENT = "RECORD\nSTRING SSN; // This is just a regular comment.\nEND;";
@@ -18,6 +19,7 @@ public class DFUFileDetailInfoTest {
     private final String ML_WITH_COMMENT = "RECORD\nSTRING SSN; /* this is just a regular comment. */\nEND;";
     private final String ML_WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; /* THIS(ISNT) an annotation. */\nEND;";
     private final String ML_INLINE = "RECORD\nSTRING SSN; /* @FOO(BAR) */\nEND;";
+    private final String FULL_RECORD = "child := RECORD\n\t\tSTRING name;\nEND;\nRECORD // @LARGE\nSTRING FNAME;\nSTRING LNAME;\nSTRING MNAME;\nSTRING DOB;\nSTRING SSN; // @METATYPE(SSN)\nSTRING ADDR1;\nSTRING ADDR2;\nSTRING CITY;\nSTRING STATE;\nSTRING ZIP; // @METATYPE(ZIP), @FEW, @MULTIPARAMS(PARAM1,PARAM2)\nSTRING DLNUMBER;\nDATASET(child) KIDS;\nEND;";
 
     public static DFUDataColumnInfo getColumnByName(final DFURecordDefInfo parent, final String name) {
         for (final DFUDataColumnInfo child: parent.getChildColumns()) {
@@ -41,6 +43,52 @@ public class DFUFileDetailInfoTest {
         assertEquals("METATYPE", annotation.getName());
         assertEquals(1, annotation.getParameters().size());
         assertEquals("SSN", annotation.getParameters().get(0));
+    }
+
+    // Single line style tests
+    @Test
+    public void testFullRecordEcl() throws Exception {
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(FULL_RECORD);
+        DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
+        assertNotNull(recordDefInfo);
+        assertEquals(1, recordDefInfo.getAnnotations().size());
+        DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
+        assertEquals("LARGE", annotation.getName());
+         DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(1, column.getAnnotations().size());
+        annotation = column.getAnnotations().get(0);
+        assertEquals("METATYPE", annotation.getName());
+        assertEquals(1, annotation.getParameters().size());
+        assertEquals("SSN", annotation.getParameters().get(0));
+        
+        column = getColumnByName(recordDefInfo, "ZIP");
+        assertEquals(3, column.getAnnotations().size());
+        annotation = column.getAnnotations().get(0);
+        assertEquals("METATYPE", annotation.getName());
+        assertEquals(1, annotation.getParameters().size());
+        assertEquals("ZIP", annotation.getParameters().get(0));
+        annotation = column.getAnnotations().get(1);
+        assertEquals("FEW", annotation.getName());
+        assertEquals(0, annotation.getParameters().size());
+        annotation = column.getAnnotations().get(2);
+        assertEquals("MULTIPARAMS", annotation.getName());
+        assertEquals(2, annotation.getParameters().size());
+        assertEquals("PARAM1", annotation.getParameters().get(0));
+        assertEquals("PARAM2", annotation.getParameters().get(1));
+    }
+
+    // Single line style tests
+    @Test
+    public void testGetRecordEclNoParams() throws Exception {
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_NO_PARAMS);
+        DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
+        assertNotNull(recordDefInfo);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "SSN");
+        assertEquals(1, column.getAnnotations().size());
+        DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
+        assertEquals("FEW", annotation.getName());
+        assertEquals(0, annotation.getParameters().size());
     }
     
     @Test

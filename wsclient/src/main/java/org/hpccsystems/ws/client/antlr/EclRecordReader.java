@@ -445,6 +445,8 @@ public class EclRecordReader extends EclRecordBaseListener
         if (currentrec.getChildColumns().size() > 0) {
             final DFUDataColumnInfo info = currentrec.getChildColumns().get(currentrec.getChildColumns().size() - 1);
             info.getAnnotations().add(new DFUDataColumnAnnotation(annotationName, annotationParams));
+        } else {
+        	currentrec.getAnnotations().add(new DFUDataColumnAnnotation(annotationName,annotationParams));
         }
     }
 
@@ -469,6 +471,6 @@ public class EclRecordReader extends EclRecordBaseListener
     public void enterAnnotation(final EclRecordParser.AnnotationContext ctx) {
         super.enterAnnotation(ctx);
         annotationName = null;
-        annotationParams.clear();
+        annotationParams=new ArrayList<String>();
     }
 }

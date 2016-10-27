@@ -56,6 +56,12 @@ public class DFUDataColumnInfo extends DFUDataColumn
         sb.append("\tMaxcount:").append(this.getMaxcount()).append("\n");
         sb.append("\txpath:").append(this.getXpath()).append("\n");
         sb.append("\txmldefault:").append(this.getXmlDefaultVal()).append("\n");
+        if (this.getAnnotations() != null && this.getAnnotations().size()>0) {
+        	sb.append("annotations:");
+        	for (DFUDataColumnAnnotation a:this.getAnnotations()) {
+        		sb.append(a.toString());
+        	}
+        }
         for (DFUDataColumnInfo col : this.getChildColumns())
         {
             sb.append("\n\t").append(col.getColumnLabel()).append(":").append(col.toString());
