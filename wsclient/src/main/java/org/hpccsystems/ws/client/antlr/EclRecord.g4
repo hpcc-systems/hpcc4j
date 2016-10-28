@@ -40,14 +40,14 @@ record_def_inline:
 ;
 
 record_def:
-    REC_SYM (COMMA maxlength)? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM SEMI
+    REC_SYM (COMMA maxlength)? comment? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM SEMI
 ;
 defined_record_def :
     TOKEN ASSING_SYM (record_def|record_def_inline)
 ;
 
 exploded_dataset_record_def:
-    REC_SYM (COMMA maxlength)? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM
+    REC_SYM (COMMA maxlength)? comment? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM
 ;
 
 inline_dataset_record_def:
@@ -59,6 +59,7 @@ record_defs:
     | record_def
     | defined_record_def
 ;
+
 
 nested_dataset_decl: 'DATASET' '(' TOKEN ')' (TOKEN|UTOKEN) ('{' opts '}')?; 
 
@@ -99,11 +100,11 @@ xmldefaultval:
 annotation_name : ATOKEN;
 annotation_param : (TOKEN|UTOKEN);
 annotation_arguments : annotation_param (COMMA annotation_param)*;
-annotation : annotation_name OPAREN annotation_arguments CPAREN;
+annotation : annotation_name ( OPAREN annotation_arguments CPAREN )?;
 
 comment:
-	( '//' annotation? .*? ) |
-	( '/*' annotation? .*? (.*?'*/' | '*/'))
+	( '//' annotation?  (COMMA annotation)* .*? ) |
+	( '/*' annotation?  (COMMA annotation)* .*? (.*?'*/' | '*/'))
 ;
 
 OPAREN             : '(';
