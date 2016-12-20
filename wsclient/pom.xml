@@ -4,7 +4,7 @@
 	<groupId>org.hpccsystems.hpccjapi</groupId>
 	<artifactId>wsclient</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.8-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>HPCC Web Services Client API</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,30 +18,24 @@
 	</scm>
 
 	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<name>libs-releases</name>
-			<url>https://mvnrisk.lexisnexis.com/content/repositories/releases</url>
-		</repository>
 		<snapshotRepository>
-			<id>deployment</id>
-			<name>libs-snapshots</name>
-			<url>https://mvnrisk.lexisnexis.com/content/repositories/snapshots</url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.2</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.scm</groupId>
-						<artifactId>maven-scm-provider-gitexe</artifactId>
-						<version>1.8.1</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
