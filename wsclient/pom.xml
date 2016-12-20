@@ -89,34 +89,6 @@
 							</arguments>
 						</configuration>
 					</execution>
-					<execution>
-						<id>build-HPCCv500</id>
-						<goals>
-							<goal>antlr4</goal>
-						</goals>
-						<configuration>
-							<sourceDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/HPCCv500/antlr</sourceDirectory>
-							<outputDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/HPCCv500/antlr</outputDirectory>
-							<arguments>
-								<argument>-package</argument>
-								<argument>org.hpccsystems.ws.client.HPCCv500.antlr</argument>
-							</arguments>
-						</configuration>
-					</execution>
-										<execution>
-						<id>build-HPCCv560</id>
-						<goals>
-							<goal>antlr4</goal>
-						</goals>
-						<configuration>
-							<sourceDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/HPCCv560/antlr</sourceDirectory>
-							<outputDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/HPCCv560/antlr</outputDirectory>
-							<arguments>
-								<argument>-package</argument>
-								<argument>org.hpccsystems.ws.client.HPCCv560.antlr</argument>
-							</arguments>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
 		</plugins>
