@@ -5,7 +5,7 @@ wsclient Project
 This project allows a user to interact with ESP services in a controlled manner.  The API calls available under org.hpccsystems.ws.client.platform allow for a user to target ESP's across multiple environments running a range of hpccsystems-platform versions.  There is no guarantee that if a user utilizes org.hpccsystems.ws.client.gen generated stub code from wsdl, that the calls will be backwards compatible with older hpccsystems-platform versions.
 
 #### Build
-This project is to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:
+This project is to be built using Maven. To build the projects using Maven, navigate to the base directory of the project and issue the following command:
 
 `mvn install`
 
