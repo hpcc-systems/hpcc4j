@@ -1,6 +1,7 @@
-HPCC-Java-APIs Project - RDF2HPCC
+rdf2hpcc Project
 =======================
 
+#### Description
 RDF data ingestion into HPCC
 
 Reads RDF, creates Jena model, converts to CSV, upload to HPCC, sprays, execute stats logic, and parse ECL results.
@@ -31,7 +32,7 @@ NSLayout := RECORD
 END;
 ```
  
-Sample usage:
+#### Sample usage
 ```
 -rdflocation="http://www-users.cs.york.ac.uk/~jc/teaching/arin/camera.owl.turtle" 
 -hpccfile="axis::camera::owl::turtle::rdf"
@@ -49,7 +50,7 @@ Sample usage:
 -getstats=true
 ```
 
-Sample stats output:
+#### Sample stats output
 RDF2HPCC: parsed stats: 
 
 ```
@@ -69,3 +70,26 @@ http://www.w3.org/2002/07/owl# , hpccNS-5 , hasValue , true , 1 , http://www.w3.
 http://www.w3.org/2002/07/owl# , hpccNS-5 , members , true , 2 , [ http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , first , 1 , 2 , 100 | http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , rest , 1 , 2 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , first , 1 , 2 , 100 | http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , rest , 1 , 2 , 100 ]
 http://xmlns.com/foaf/0.1/ , hpccNS-4 , Person , false , 1 , [ http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 1 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 1 , 100http://www.w3.org/1999/02/22-rdf-syntax-ns# , hpccNS-8 , type , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , family_name , 1 , 1 , 100 | http://xmlns.com/foaf/0.1/ , hpccNS-4 , givenname , 1 , 1 , 100 ]
 ```
+
+#### Build
+This project is to be built using Maven. To build the projects using Maven, navigate to the base directory of the project and issue the following command:
+
+`mvn install`
+
+For more information on how to use Maven see http://maven.apache.org
+
+#### Changelog
+###### 1.0.0
+- Migration from internal maven repository to external maven repository
+- javadoc generation included in project
+
+#### Contributions
+
+All contributions must follow the JAVA source format described in the HPCC-JAVA-Formatter.xml file which can be found in /eclipse.
+This formatter can be used by the Eclipse IDE to automatically format JAVA source code.
+
+- From eclipse, choose Window->Preferences->Java->Code Stype->Formatter...
+
+- Import the HPCC-JAVA-Formatter.xml file and set it as the Active profile.
+
+- From the JAVA editor, choose Source->Format
