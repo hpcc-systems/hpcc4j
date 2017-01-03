@@ -9,6 +9,12 @@ This project is to be built using Maven. To build the projects using Maven, navi
 
 `mvn install`
 
+Developers who want to do a deployment must insure they have their credentials set in settings.xml under their maven configuration folder.  The following command will execute a clean build of the jar, jar-with-dependencies, javadoc, and source packages.  It will also attempt to sign the packages before uploading them to the sonatype repository for staging.
+
+`mvn clean deploy -P release`
+
+Maintainers can then release the artifacts from staging if the artifacts pass muster.
+
 For more information on how to use Maven see http://maven.apache.org
 
 #### Key elements
