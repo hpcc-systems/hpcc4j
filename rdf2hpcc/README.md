@@ -34,8 +34,8 @@ END;
  
 #### Sample usage
 ```
--rdflocation="http://www-users.cs.york.ac.uk/~jc/teaching/arin/camera.owl.turtle" 
--hpccfile="axis::camera::owl::turtle::rdf"
+-rdflocation="https://gist.githubusercontent.com/kal/ee1260ceb462d8e0d5bb/raw/1364c2bb469af53323fdda508a6a579ea60af6e4/log_sample.ttl" 
+-hpccfile="axis::logs::turtle::rdf"
 -rdflang=TURTLE
 -eclwatchip=192.168.56.120
 -eclwatchport=8010
@@ -86,6 +86,8 @@ For more information on how to use Maven see http://maven.apache.org
 
 #### Changelog
 ###### 1.0.0
+- Dependency changes to org.hpccsystems.wsclient:1.0.0
+- Updated Readme to contain new rdf turtle example file
 - Migration from internal maven repository to external maven repository
 - javadoc generation included in project
 
