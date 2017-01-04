@@ -4,6 +4,17 @@ clienttools Project
 #### Description
 This project contains standalone tools for working with the hpccsystems platform.
 
+#### Maven dependency
+To utilize this library as a dependency in your own maven project, simply add the following definition to your pom.xml
+
+```xml
+<dependency>
+	<groupId>org.hpccsystems</groupId>
+	<artifactId>clienttools</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
 #### Build
 This project is to be built using Maven. To build the projects using Maven, navigate to the base directory of the project and issue the following command:
 
