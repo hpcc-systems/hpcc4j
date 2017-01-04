@@ -4,6 +4,17 @@ wsclient Project
 #### Description
 This project allows a user to interact with ESP services in a controlled manner.  The API calls available under org.hpccsystems.ws.client.platform allow for a user to target ESP's across multiple environments running a range of hpccsystems-platform versions.  There is no guarantee that if a user utilizes org.hpccsystems.ws.client.gen generated stub code from wsdl, that the calls will be backwards compatible with older hpccsystems-platform versions.
 
+#### Maven dependency
+To utilize this library as a dependency in your own maven project, simply add the following definition to your pom.xml
+
+```xml
+<dependency>
+	<groupId>org.hpccsystems</groupId>
+	<artifactId>wsclient</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
 #### Build
 This project is to be built using Maven. To build the projects using Maven, navigate to the base directory of the project and issue the following command:
 
