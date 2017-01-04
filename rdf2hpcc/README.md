@@ -32,6 +32,17 @@ NSLayout := RECORD
 END;
 ```
  
+#### Maven dependency
+To utilize this library as a dependency in your own maven project, simply add the following definition to your pom.xml
+
+```xml
+<dependency>
+	<groupId>org.hpccsystems</groupId>
+	<artifactId>rdf2hpcc</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
 #### Sample usage
 ```
 -rdflocation="https://gist.githubusercontent.com/kal/ee1260ceb462d8e0d5bb/raw/1364c2bb469af53323fdda508a6a579ea60af6e4/log_sample.ttl" 
