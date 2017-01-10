@@ -2116,7 +2116,17 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 || war.getActionResults()[0].getResult() == null
                 || !war.getActionResults()[0].getResult().equals("Success"))
         {
-            throw new Exception("Unable to restore workunit " + wuid);
+        	// fallback to 1.56 api
+        	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUAction fwa = new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUAction();
+        	fwa.setActionType(action.getValue());
+        	fwa.setWuids(new String[] { wuid });
+        	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUActionResponse fwar = this.fallBackWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap().WUAction(fwa);
+        	if (fwar == null || fwar.getActionResults() == null || fwar.getActionResults().length == 0
+        			|| fwar.getActionResults()[0].getResult() == null
+        			|| !fwar.getActionResults()[0].getResult().equals("Success"))
+        	{
+        		throw new Exception("Unable to perform " + action.getValue() + " on " + wuid);
+        	}
         }
         return true;
     }
