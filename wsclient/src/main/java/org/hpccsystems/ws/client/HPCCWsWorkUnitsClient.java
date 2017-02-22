@@ -2125,7 +2125,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         			|| fwar.getActionResults()[0].getResult() == null
         			|| !fwar.getActionResults()[0].getResult().equals("Success"))
         	{
-        		throw new Exception("Unable to perform " + action.getValue() + " on " + wuid);
+        		String failreason = "unknown action result";
+        		if (fwar != null && fwar.getActionResults() != null && fwar.getActionResults()[0].getResult() != null)
+        			failreason = fwar.getActionResults()[0].getResult();
+        		throw new Exception("Unable to perform " + action.getValue() + " on " + wuid + " :: " + failreason);
         	}
         }
         return true;
