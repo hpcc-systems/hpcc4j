@@ -39,6 +39,10 @@ wsclient | hpccsystems-platform
 1.0.0 | 6.2.0
 
 #### Changelog
+
+###### 1.0.2
+- JAPI 73 bugfix to allow backwards compatibility to wuActions to 5 series ESP's
+
 ###### 1.0.0
 - Migration from internal maven repository to external maven repository
 - wsdl updates to match platform 6.2.0 gold release
