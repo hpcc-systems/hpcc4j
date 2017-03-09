@@ -21,9 +21,16 @@
     <para><ulink
     url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
 
-    <para>To utilize the API(s) you can either import the pertinent JAPI
-    project into your workspace and access the API source directly, or you can
-    build the library and subsequently import into the client project.</para>
+    <para>To utilize this library as a dependency in your own maven project, add
+    the following definition to your pom.xml.</para>
+
+    <programlisting>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.hpccsystems&lt;/groupId&gt;
+        &lt;artifactId&gt;wsclient&lt;/artifactId&gt;
+        &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    </programlisting>
 
     <para>Contributions to source are accepted and encouraged. All
     contributions must follow the JAVA source format described in the
