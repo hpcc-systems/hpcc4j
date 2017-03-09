@@ -18,9 +18,8 @@
 cmake_minimum_required(VERSION 2.8)
 PROJECT(japi-docs)
 
-set (version "0.6.x")
-set (stagever "SNAPSHOT")
-set (DOC_VERSION ${version}-${stagever}) #Must be manually updated
+set (version "1.0.0")
+set (DOC_VERSION ${version}) #Must be manually updated
 Message("Building doc version: ${DOC_VERSION}")
 define_property(GLOBAL PROPERTY DOC_TARGETS BRIEF_DOCS "docs" FULL_DOCS "docs")
 mark_as_advanced(DOC_TARGETS)
