@@ -5,7 +5,16 @@
   <title>Use Cases</title>
 
   <para>This section provides examples that illustrate typical Java client and
-  HPCC Systems<superscript>®</superscript> interaction.</para>
+  HPCC Systems<superscript>®</superscript> interaction. </para>
+
+  <para>To utilize this library as a dependency in your own maven project, add
+  the following definition to your pom.xml.</para>
+
+  <programlisting>&lt;dependency&gt;
+    &lt;groupId&gt;org.hpccsystems&lt;/groupId&gt;
+    &lt;artifactId&gt;wsclient&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</programlisting>
 
   <sect2>
     <title>wsclient</title>
