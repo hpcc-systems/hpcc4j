@@ -7,9 +7,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -37,7 +42,6 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
-import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Sftp;
 import org.hpccsystems.ws.client.utils.Utils;
@@ -696,7 +700,7 @@ public class HPCCFileSprayClient extends DataSingleton
         DropZone[] dropZones = fetchDropZones(targetDropzoneAddress);
         if (dropZones == null || dropZones.length <= 0)
             throw new Exception("Could not fetch target dropzone information");
-        return uploadFile(file, dropZones[0]);
+        return uploadFile(file, dropZones[0]); 
     }
 
     /**
@@ -718,7 +722,113 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return uploadFile(file, fetchLocalDropZones[0]);
     }
+    
+    /**
+     * UPLOADS A FILE TO THE SPECIFIED LANDING ZONE
+     * USED BY MINIAPPS FOR UP TO 2GB FILE SIZES
+     * @param file
+     *            - The File to upload
+     * @param dropZone
+     *            - The target dropzone 
+     * @return - Boolean, success
+     */
+    public boolean uploadMiniAppFile(File uploadFile, DropZone dropZone)
+    { 
+        if (uploadFile == null || dropZone == null){
+            return false;
+        }
+        String boundary = Utils.createBoundary();
+        Boolean returnValue = true;
+        URLConnection fileUploadConnection = null;
+        URL fileUploadURL = null;
+        String UPLOADURI = FILESPRAYWSDLURI + "/UploadFile?upload_";
+        String uploadurlbuilder = UPLOADURI;
+        uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
+        uploadurlbuilder += "&Path=" + dropZone.getPath();
+        uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
+        WritableByteChannel outchannel = null;
+        FileChannel inChannel = null;
+        OutputStream output = null;
+        InputStream input = null;
+        RandomAccessFile aFile = null;
+        
+        try
+        {
+            fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
+            fileUploadConnection = Connection.createConnection(fileUploadURL);
+            fileUploadConnection = fileUploadURL.openConnection();
+            fileUploadConnection.setDoOutput(true);
+            fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
+            output = fileUploadConnection.getOutputStream();
 
+            Utils.startMulti(output, uploadFile.getName(), boundary, "");
+            input = new FileInputStream(uploadFile.getAbsolutePath());
+
+            ByteBuffer buffer = ByteBuffer.allocate(BUFFER_LENGTH * 16);
+
+            aFile = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
+            inChannel = aFile.getChannel();
+            outchannel = Channels.newChannel(output);
+            try
+            {
+                while (inChannel.read(buffer) > 0)
+                {
+                    buffer.flip();
+                    while (buffer.hasRemaining())
+                    {
+                        outchannel.write(buffer);
+                    }
+                }
+            }
+            catch (IOException e){
+                Utils.println(System.err, "Encountered error while reading file: " + e.getLocalizedMessage() , false, verbose);
+                returnValue = false;
+            }
+            finally {
+                Utils.closeMulti(output, boundary);
+            }
+           
+            StringBuffer response = new StringBuffer();
+            BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
+            String line = null;
+
+            while ((line = rreader.readLine()) != null)
+            {
+                response.append(line);
+            }
+        }
+        catch (MalformedURLException e)
+        {
+            Utils.println(System.err, "There was a malformed URL: " + e.getLocalizedMessage() , false, verbose);
+            returnValue = false;
+        }
+        catch (IOException e)
+        {
+            Utils.println(System.err, "There was an error opening the file: " + e.getLocalizedMessage() , false, verbose);            
+            e.printStackTrace();
+            returnValue = false;
+        }
+        finally
+        {
+
+            try
+            {
+                outchannel.close();
+                inChannel.close();
+                output.close();
+                input.close();
+                aFile.close();
+            }
+            catch (IOException e)
+            {
+                Utils.println(System.err, "Encountered error while closing: " + e.getLocalizedMessage() , false, verbose);
+            }
+           
+        }
+      
+        return returnValue;  
+    }
     /**
      * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
      * ONLY USE THIS FUNCTION FOR SMALL FILES AND IN THE CASE YOU CANNOT PROVIDE
