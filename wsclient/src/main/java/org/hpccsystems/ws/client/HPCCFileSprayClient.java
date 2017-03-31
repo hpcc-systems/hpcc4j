@@ -7,9 +7,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -37,7 +42,6 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
-import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Sftp;
 import org.hpccsystems.ws.client.utils.Utils;
@@ -696,7 +700,7 @@ public class HPCCFileSprayClient extends DataSingleton
         DropZone[] dropZones = fetchDropZones(targetDropzoneAddress);
         if (dropZones == null || dropZones.length <= 0)
             throw new Exception("Could not fetch target dropzone information");
-        return uploadFile(file, dropZones[0]);
+        return uploadFile(file, dropZones[0]); 
     }
 
     /**
@@ -718,7 +722,74 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return uploadFile(file, fetchLocalDropZones[0]);
     }
+    public boolean upLoadLandingZone(File uploadFile,DropZone dropZone) {
+  	
+    	String boundary = Utils.createBoundary();
+    	
+    	URLConnection fileUploadConnection = null;
+        URL fileUploadURL = null;
+        String FILESPRAYWSDLURI     = "/FileSpray";
+        String UPLOADURI           = FILESPRAYWSDLURI + "/UploadFile?upload_";
+        String uploadurlbuilder = UPLOADURI;
+        uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
+        uploadurlbuilder += "&Path=" + dropZone.getPath();
+        uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
+        try {
+			fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
+			  fileUploadConnection = Connection.createConnection(fileUploadURL);
+			  fileUploadConnection = fileUploadURL.openConnection();
+	        	fileUploadConnection.setDoOutput(true);
+	        	fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+	        	fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
+	        	OutputStream output = fileUploadConnection.getOutputStream();
 
+	        	Utils.startMulti(output, uploadFile.getName(), boundary, "");
+			InputStream input = new FileInputStream(uploadFile.getAbsolutePath());
+			
+			//using channels
+			ByteBuffer buffer = ByteBuffer.allocate(1000000);
+			
+			RandomAccessFile aFile     = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
+			    FileChannel      inChannel = aFile.getChannel();
+			 
+			   // MappedByteBuffer buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
+			WritableByteChannel outchannel = Channels.newChannel(output);
+			while(inChannel.read(buffer) > 0){
+			    buffer.flip();
+			    while(buffer.hasRemaining()) {
+			    	outchannel.write(buffer);
+			    }
+			   // buffer.rewind();
+			   // buffer.clear();
+			}
+			
+		   Utils.closeMulti(output, boundary);
+		   outchannel.close();
+		   inChannel.close();
+		   output.close();
+		   input.close();
+		   aFile.close();
+		    //server response
+            StringBuffer response = new StringBuffer();
+            BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
+            String line = null;
+
+            while ((line = rreader.readLine()) != null){
+            	response.append(line);
+            }
+	            return true;
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        
+        
+        
+    	return true;
+    }
     /**
      * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
      * ONLY USE THIS FUNCTION FOR SMALL FILES AND IN THE CASE YOU CANNOT PROVIDE
@@ -734,7 +805,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return - Boolean, success
      * @throws Exception
      */
-    private boolean uploadFile(File file, DropZone dropZone) throws Exception
+    public boolean uploadFile(File file, DropZone dropZone) throws Exception
     {
         if (file == null)
             return false;
