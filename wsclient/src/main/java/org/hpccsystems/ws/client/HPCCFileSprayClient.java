@@ -805,7 +805,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @return - Boolean, success
      * @throws Exception
      */
-    public boolean uploadFile(File file, DropZone dropZone) throws Exception
+    private boolean uploadFile(File file, DropZone dropZone) throws Exception
     {
         if (file == null)
             return false;
