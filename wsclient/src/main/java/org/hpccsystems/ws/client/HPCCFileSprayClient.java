@@ -722,70 +722,79 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return uploadFile(file, fetchLocalDropZones[0]);
     }
-    public boolean upLoadLandingZone(File uploadFile,DropZone dropZone) {
-  	
-    	String boundary = Utils.createBoundary();
-    	
-    	URLConnection fileUploadConnection = null;
+
+    public boolean upLoadLandingZone(File uploadFile, DropZone dropZone)
+    {
+
+        String boundary = Utils.createBoundary();
+
+        URLConnection fileUploadConnection = null;
         URL fileUploadURL = null;
-        String FILESPRAYWSDLURI     = "/FileSpray";
-        String UPLOADURI           = FILESPRAYWSDLURI + "/UploadFile?upload_";
+        String FILESPRAYWSDLURI = "/FileSpray";
+        String UPLOADURI = FILESPRAYWSDLURI + "/UploadFile?upload_";
         String uploadurlbuilder = UPLOADURI;
         uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
         uploadurlbuilder += "&Path=" + dropZone.getPath();
         uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
-        try {
-			fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
-			  fileUploadConnection = Connection.createConnection(fileUploadURL);
-			  fileUploadConnection = fileUploadURL.openConnection();
-	        	fileUploadConnection.setDoOutput(true);
-	        	fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-	        	fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
-	        	OutputStream output = fileUploadConnection.getOutputStream();
+        try
+        {
+            fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
+            fileUploadConnection = Connection.createConnection(fileUploadURL);
+            fileUploadConnection = fileUploadURL.openConnection();
+            fileUploadConnection.setDoOutput(true);
+            fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
+            OutputStream output = fileUploadConnection.getOutputStream();
 
-	        	Utils.startMulti(output, uploadFile.getName(), boundary, "");
-			InputStream input = new FileInputStream(uploadFile.getAbsolutePath());
-			
-			//using channels
-			ByteBuffer buffer = ByteBuffer.allocate(1000000);
-			
-			RandomAccessFile aFile     = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
-			    FileChannel      inChannel = aFile.getChannel();
-			 
-			   // MappedByteBuffer buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
-			WritableByteChannel outchannel = Channels.newChannel(output);
-			while(inChannel.read(buffer) > 0){
-			    buffer.flip();
-			    while(buffer.hasRemaining()) {
-			    	outchannel.write(buffer);
-			    }
-			   // buffer.rewind();
-			   // buffer.clear();
-			}
-			
-		   Utils.closeMulti(output, boundary);
-		   outchannel.close();
-		   inChannel.close();
-		   output.close();
-		   input.close();
-		   aFile.close();
-		    //server response
+            Utils.startMulti(output, uploadFile.getName(), boundary, "");
+            InputStream input = new FileInputStream(uploadFile.getAbsolutePath());
+
+            // using channels
+            ByteBuffer buffer = ByteBuffer.allocate(1000000);
+
+            RandomAccessFile aFile = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
+            FileChannel inChannel = aFile.getChannel();
+
+            // MappedByteBuffer buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
+            WritableByteChannel outchannel = Channels.newChannel(output);
+            while (inChannel.read(buffer) > 0)
+            {
+                buffer.flip();
+                while (buffer.hasRemaining())
+                {
+                    outchannel.write(buffer);
+                }
+                // buffer.rewind();
+                // buffer.clear();
+            }
+
+            Utils.closeMulti(output, boundary);
+            outchannel.close();
+            inChannel.close();
+            output.close();
+            input.close();
+            aFile.close();
+            // server response
             StringBuffer response = new StringBuffer();
             BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
             String line = null;
 
-            while ((line = rreader.readLine()) != null){
-            	response.append(line);
+            while ((line = rreader.readLine()) != null)
+            {
+                response.append(line);
             }
-	            return true;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-        
+            return true;
+        }
+        catch (MalformedURLException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         
     	return true;
