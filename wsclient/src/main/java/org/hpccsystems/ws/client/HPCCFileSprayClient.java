@@ -749,13 +749,10 @@ public class HPCCFileSprayClient extends DataSingleton
             Utils.startMulti(output, uploadFile.getName(), boundary, "");
             InputStream input = new FileInputStream(uploadFile.getAbsolutePath());
 
-            // using channels
             ByteBuffer buffer = ByteBuffer.allocate(1000000);
 
             RandomAccessFile aFile = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
             FileChannel inChannel = aFile.getChannel();
-
-            // MappedByteBuffer buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
             WritableByteChannel outchannel = Channels.newChannel(output);
             while (inChannel.read(buffer) > 0)
             {
@@ -764,8 +761,6 @@ public class HPCCFileSprayClient extends DataSingleton
                 {
                     outchannel.write(buffer);
                 }
-                // buffer.rewind();
-                // buffer.clear();
             }
 
             Utils.closeMulti(output, boundary);
@@ -795,9 +790,8 @@ public class HPCCFileSprayClient extends DataSingleton
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
-    	return true;
+
+        return true;
     }
     /**
      * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
