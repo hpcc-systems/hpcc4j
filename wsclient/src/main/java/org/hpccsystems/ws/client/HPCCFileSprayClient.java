@@ -722,15 +722,25 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return uploadFile(file, fetchLocalDropZones[0]);
     }
-
-    public boolean upLoadLandingZone(File uploadFile, DropZone dropZone)
-    {
-
+    
+    /**
+     * UPLOADS A FILE TO THE SPECIFIED LANDING ZONE
+     * USED BY MINIAPPS FOR UP TO 2GB FILE SIZES
+     * @param file
+     *            - The File to upload
+     * @param dropZone
+     *            - The target dropzone 
+     * @return - Boolean, success
+     */
+    public boolean upLoadMiniAppFile(File uploadFile, DropZone dropZone)
+    { 
+        if (uploadFile == null || dropZone == null){
+            return false;
+        }
         String boundary = Utils.createBoundary();
-
+        Boolean returnValue = true;
         URLConnection fileUploadConnection = null;
         URL fileUploadURL = null;
-        String FILESPRAYWSDLURI = "/FileSpray";
         String UPLOADURI = FILESPRAYWSDLURI + "/UploadFile?upload_";
         String uploadurlbuilder = UPLOADURI;
         uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
@@ -749,27 +759,36 @@ public class HPCCFileSprayClient extends DataSingleton
             Utils.startMulti(output, uploadFile.getName(), boundary, "");
             InputStream input = new FileInputStream(uploadFile.getAbsolutePath());
 
-            ByteBuffer buffer = ByteBuffer.allocate(1000000);
+            ByteBuffer buffer = ByteBuffer.allocate(BUFFER_LENGTH * 16);
 
             RandomAccessFile aFile = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
             FileChannel inChannel = aFile.getChannel();
             WritableByteChannel outchannel = Channels.newChannel(output);
-            while (inChannel.read(buffer) > 0)
+            try
             {
-                buffer.flip();
-                while (buffer.hasRemaining())
+                while (inChannel.read(buffer) > 0)
                 {
-                    outchannel.write(buffer);
+                    buffer.flip();
+                    while (buffer.hasRemaining())
+                    {
+                        outchannel.write(buffer);
+                    }
                 }
             }
-
-            Utils.closeMulti(output, boundary);
-            outchannel.close();
-            inChannel.close();
-            output.close();
-            input.close();
-            aFile.close();
-            // server response
+            catch (IOException e){
+                e.printStackTrace();
+                returnValue = false;
+            }
+            finally {
+                Utils.closeMulti(output, boundary);
+                outchannel.close();
+                inChannel.close();
+                output.close();
+                input.close();
+                aFile.close();
+            }
+           
+           
             StringBuffer response = new StringBuffer();
             BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
             String line = null;
@@ -778,20 +797,21 @@ public class HPCCFileSprayClient extends DataSingleton
             {
                 response.append(line);
             }
-            return true;
         }
         catch (MalformedURLException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            returnValue = false;
         }
         catch (IOException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            returnValue = false;
         }
-
-        return true;
+      
+        return returnValue;  
     }
     /**
      * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
