@@ -732,7 +732,7 @@ public class HPCCFileSprayClient extends DataSingleton
      *            - The target dropzone 
      * @return - Boolean, success
      */
-    public boolean upLoadMiniAppFile(File uploadFile, DropZone dropZone)
+    public boolean uploadMiniAppFile(File uploadFile, DropZone dropZone)
     { 
         if (uploadFile == null || dropZone == null){
             return false;
