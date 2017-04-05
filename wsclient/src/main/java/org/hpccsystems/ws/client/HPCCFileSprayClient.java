@@ -746,6 +746,12 @@ public class HPCCFileSprayClient extends DataSingleton
         uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
         uploadurlbuilder += "&Path=" + dropZone.getPath();
         uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
+        WritableByteChannel outchannel = null;
+        FileChannel inChannel = null;
+        OutputStream output = null;
+        InputStream input = null;
+        RandomAccessFile aFile = null;
+        
         try
         {
             fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
@@ -754,16 +760,16 @@ public class HPCCFileSprayClient extends DataSingleton
             fileUploadConnection.setDoOutput(true);
             fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
             fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
-            OutputStream output = fileUploadConnection.getOutputStream();
+            output = fileUploadConnection.getOutputStream();
 
             Utils.startMulti(output, uploadFile.getName(), boundary, "");
-            InputStream input = new FileInputStream(uploadFile.getAbsolutePath());
+            input = new FileInputStream(uploadFile.getAbsolutePath());
 
             ByteBuffer buffer = ByteBuffer.allocate(BUFFER_LENGTH * 16);
 
-            RandomAccessFile aFile = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
-            FileChannel inChannel = aFile.getChannel();
-            WritableByteChannel outchannel = Channels.newChannel(output);
+            aFile = new RandomAccessFile(uploadFile.getAbsolutePath(), "rw");
+            inChannel = aFile.getChannel();
+            outchannel = Channels.newChannel(output);
             try
             {
                 while (inChannel.read(buffer) > 0)
@@ -781,11 +787,6 @@ public class HPCCFileSprayClient extends DataSingleton
             }
             finally {
                 Utils.closeMulti(output, boundary);
-                outchannel.close();
-                inChannel.close();
-                output.close();
-                input.close();
-                aFile.close();
             }
            
             StringBuffer response = new StringBuffer();
@@ -808,6 +809,23 @@ public class HPCCFileSprayClient extends DataSingleton
             // TODO Auto-generated catch block
             e.printStackTrace();
             returnValue = false;
+        }
+        finally
+        {
+
+            try
+            {
+                outchannel.close();
+                inChannel.close();
+                output.close();
+                input.close();
+                aFile.close();
+            }
+            catch (IOException e)
+            {
+                Utils.println(System.err, "Encountered error while closing: " + e.getLocalizedMessage() , false, verbose);
+            }
+           
         }
       
         return returnValue;  
