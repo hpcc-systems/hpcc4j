@@ -776,7 +776,7 @@ public class HPCCFileSprayClient extends DataSingleton
                 }
             }
             catch (IOException e){
-                e.printStackTrace();
+                Utils.println(System.err, "Encountered error while reading file: " + e.getLocalizedMessage() , false, verbose);
                 returnValue = false;
             }
             finally {
@@ -787,7 +787,6 @@ public class HPCCFileSprayClient extends DataSingleton
                 input.close();
                 aFile.close();
             }
-           
            
             StringBuffer response = new StringBuffer();
             BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
