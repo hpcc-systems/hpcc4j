@@ -1426,6 +1426,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             wucreateparameters.setJobname(wu.getJobname());
             wucreateparameters.setClusterOrig(wu.getCluster());
             wucreateparameters.setResultLimit(wu.getResultLimit());
+            wucreateparameters.setWuid(wu.getWuid());
 
             WUUpdateResponse wuUpdateResponse = wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters);
 
