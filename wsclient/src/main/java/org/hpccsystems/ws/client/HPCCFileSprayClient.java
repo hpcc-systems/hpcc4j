@@ -800,13 +800,12 @@ public class HPCCFileSprayClient extends DataSingleton
         }
         catch (MalformedURLException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Utils.println(System.err, "There was a malformed URL: " + e.getLocalizedMessage() , false, verbose);
             returnValue = false;
         }
         catch (IOException e)
         {
-            // TODO Auto-generated catch block
+            Utils.println(System.err, "There was an error opening the file: " + e.getLocalizedMessage() , false, verbose);            
             e.printStackTrace();
             returnValue = false;
         }
