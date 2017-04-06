@@ -479,7 +479,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return getDfuProgress(resp.getWuid());
     }
-    
+
     /**
      * Spray XML data file from the first local dropzone onto given cluster group.
      * defaults to first local dropzone, row tag to "tag", source format to "ASCII"
@@ -700,7 +700,7 @@ public class HPCCFileSprayClient extends DataSingleton
         DropZone[] dropZones = fetchDropZones(targetDropzoneAddress);
         if (dropZones == null || dropZones.length <= 0)
             throw new Exception("Could not fetch target dropzone information");
-        return uploadFile(file, dropZones[0]); 
+        return uploadFile(file, dropZones[0]);
     }
 
     /**
@@ -722,26 +722,24 @@ public class HPCCFileSprayClient extends DataSingleton
 
         return uploadFile(file, fetchLocalDropZones[0]);
     }
-    
+
     /**
-     * UPLOADS A FILE TO THE SPECIFIED LANDING ZONE
-     * USED BY MINIAPPS FOR UP TO 2GB FILE SIZES
+     * UPLOADS A FILE( UP TO 2GB FILE SIZES) TO THE SPECIFIED LANDING ZONE
      * @param file
      *            - The File to upload
      * @param dropZone
-     *            - The target dropzone 
+     *            - The target dropzone
      * @return - Boolean, success
      */
-    public boolean uploadMiniAppFile(File uploadFile, DropZone dropZone)
-    { 
+    public boolean uploadLargeFile(File uploadFile, DropZone dropZone)
+    {
         if (uploadFile == null || dropZone == null){
             return false;
         }
-        String boundary = Utils.createBoundary();
+
         Boolean returnValue = true;
         URLConnection fileUploadConnection = null;
         URL fileUploadURL = null;
-        String UPLOADURI = FILESPRAYWSDLURI + "/UploadFile?upload_";
         String uploadurlbuilder = UPLOADURI;
         uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
         uploadurlbuilder += "&Path=" + dropZone.getPath();
@@ -751,9 +749,10 @@ public class HPCCFileSprayClient extends DataSingleton
         OutputStream output = null;
         InputStream input = null;
         RandomAccessFile aFile = null;
-        
+
         try
         {
+            String boundary = Utils.createBoundary();
             fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
             fileUploadConnection = Connection.createConnection(fileUploadURL);
             fileUploadConnection = fileUploadURL.openConnection();
@@ -781,14 +780,16 @@ public class HPCCFileSprayClient extends DataSingleton
                     }
                 }
             }
-            catch (IOException e){
+            catch (IOException e)
+            {
                 Utils.println(System.err, "Encountered error while reading file: " + e.getLocalizedMessage() , false, verbose);
                 returnValue = false;
             }
-            finally {
+            finally
+            {
                 Utils.closeMulti(output, boundary);
             }
-           
+
             StringBuffer response = new StringBuffer();
             BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
             String line = null;
@@ -805,13 +806,12 @@ public class HPCCFileSprayClient extends DataSingleton
         }
         catch (IOException e)
         {
-            Utils.println(System.err, "There was an error opening the file: " + e.getLocalizedMessage() , false, verbose);            
+            Utils.println(System.err, "There was an error opening the file: " + e.getLocalizedMessage() , false, verbose);
             e.printStackTrace();
             returnValue = false;
         }
         finally
         {
-
             try
             {
                 outchannel.close();
@@ -824,10 +824,9 @@ public class HPCCFileSprayClient extends DataSingleton
             {
                 Utils.println(System.err, "Encountered error while closing: " + e.getLocalizedMessage() , false, verbose);
             }
-           
         }
-      
-        return returnValue;  
+
+        return returnValue;
     }
     /**
      * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
