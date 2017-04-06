@@ -40,6 +40,11 @@ wsclient | hpccsystems-platform
 
 #### Changelog
 
+###### 1.0.4
+- JAPI-MiniApp Add method with landing zone support and NIO channel streaming
+- JAPI-77 Pass wuid parameter to WUCreateAndUpdate
+- JAPI-78 Formatting fixes to the MiniApp contribution
+
 ###### 1.0.2
 - JAPI 73 bugfix to allow backwards compatibility to wuActions to 5 series ESP's
 
