@@ -15,8 +15,6 @@ import java.util.Map;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EspException;
 import org.hpccsystems.ws.client.gen.filespray.v1_13.DropZone;
-import org.hpccsystems.ws.client.gen.filespray.v1_13.DropZoneFilesRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_13.DropZoneFilesResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_13.PhysicalFileStruct;
 import org.hpccsystems.ws.client.HPCCECLDirectClient;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
@@ -25,7 +23,6 @@ import org.hpccsystems.ws.client.HPCCWsFileIOClient;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.Utils;
 
 import com.hp.hpl.jena.graph.Node;
@@ -89,7 +86,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
 
     private String targetHPCCDropzonePath = null;
     private String targetDestinationGroup = null;
-    private String targetDropzoneNetAddres = null;
+    private String targetDropzoneNetAddress = null;
     private String targetECLCluster = null;
 
     private String targetHPCCFilePath = null;
@@ -500,13 +497,13 @@ public class RDFHPCCWsClient extends HPCCWsClient
             {
                 HPCCWsFileIOClient fioclient = getWsFileIOClient();
 
-                if (success = fioclient.createHPCCFile(targetHPCCFilePath, targetDropzoneNetAddres, overwrite))
+                if (success = fioclient.createHPCCFile(targetHPCCFilePath, targetDropzoneNetAddress, overwrite))
                 {
                     String nsMappingsCSVFormat = null;
 
                     if (hpccnsprefixmap != null)
                     {
-                        if (fioclient.createHPCCFile(targetHPCCFilePath+"::namespaces", targetDropzoneNetAddres, true))
+                        if (fioclient.createHPCCFile(targetHPCCFilePath+"::namespaces", targetDropzoneNetAddress, true))
                         {
                             nsMappingsCSVFormat = hashMapToCSV(hpccnsprefixmap, outputDelimiter, outputTerminator);
                         }
@@ -520,11 +517,11 @@ public class RDFHPCCWsClient extends HPCCWsClient
                     //byte [] encodedBytes = encodeData(triplesCSVFormat.toString());
                     //The data was being encoded, but latest test don't seem to require encoding.
                     //if (success = writeHPCCFileData(triplesCSVFormat.toString().getBytes(), baseurl, targetHPCCFilePath, targetDropzoneNetAddres, uploadchunksize))
-                    if (success = fioclient.writeHPCCFileData(triplesCSVFormat.toString().getBytes(), targetHPCCFilePath, targetDropzoneNetAddres,false,0,uploadchunksize))
+                    if (success = fioclient.writeHPCCFileData(triplesCSVFormat.toString().getBytes(), targetHPCCFilePath, targetDropzoneNetAddress,false,0,uploadchunksize))
                     {
                         if (nsMappingsCSVFormat != null && nsMappingsCSVFormat.length() > 0)
                         {
-                            if (!fioclient.writeHPCCFileData(nsMappingsCSVFormat.toString().getBytes(), targetHPCCFilePath+"::namespaces", targetDropzoneNetAddres, false, 0, uploadchunksize))
+                            if (!fioclient.writeHPCCFileData(nsMappingsCSVFormat.toString().getBytes(), targetHPCCFilePath+"::namespaces", targetDropzoneNetAddress, false, 0, uploadchunksize))
                             {
                                 Utils.println(System.out, "Could not write to HPCC namespaces file.", false, verbosemode);
                             }
@@ -821,41 +818,31 @@ public class RDFHPCCWsClient extends HPCCWsClient
 
         HPCCFileSprayClient fsclient = getFileSprayClient();
 
-        DropZoneFilesRequest dropzonefilesreq = new DropZoneFilesRequest();
-
         try
         {
-            DropZoneFilesResponse dropZoneFilesResponse = fsclient.getSoapProxy().dropZoneFiles(dropzonefilesreq);
+            DropZone[] dropZones = fsclient.fetchLocalDropZones();
 
-            if (dropZoneFilesResponse.getExceptions() != null)
+            if (dropZones.length > 0)
             {
-                Utils.println(System.out, "Failed to fetch dropzone IP address.", false, verbosemode);
-            }
-            else
-            {
-                DropZone[] dropZones = dropZoneFilesResponse.getDropZones();
-                if (dropZones.length > 0)
+                targetDropzoneNetAddress = dropZones[0].getNetAddress();
+                targetHPCCDropzonePath = dropZones[0].getPath();
+                Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddress, false, verbosemode);
+                Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
+
+                try
                 {
-                    targetDropzoneNetAddres = dropZones[0].getNetAddress();
-                    targetHPCCDropzonePath = dropZones[0].getPath();
-                    Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddres, false, verbosemode);
-                    Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
-
-                    try
+                    PhysicalFileStruct[] files = fsclient.listFiles(targetDropzoneNetAddress, targetHPCCDropzonePath, null);
+                    Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
+                    for (PhysicalFileStruct file : files)
                     {
-                        PhysicalFileStruct[] files = dropZoneFilesResponse.getFiles();
-                        Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
-                        for (PhysicalFileStruct file : files)
-                        {
-                            Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
-                        }
+                        Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
                     }
-                    catch (Exception e)
-                    {
-                        Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
-                    }
-                    success = true;
                 }
+                catch (Exception e)
+                {
+                    Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
+                }
+                success = true;
             }
         }
         catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e1)
