@@ -13,7 +13,7 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - Set of APIs which Standardize and facilitate interaction with HPCC Web based Services. [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/README.md)
   - The project is based on stub code generated from WSDLs using Eclipse tools based on Apache Axis and JSch(Java Secure Channel) for secure ftp transfers
   - [Changelog](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/README.md#changelog)
-  - [Future Releases](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/README.md#future)
+  - [Future Releases](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/README.md#future-releases)
   - [Open Issues](https://track.hpccsystems.com/issues/?jql=project%20%3D%20JAPI%20AND%20status%20%3D%20Open)
   - [Sample code](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/src/test/java/org/hpccsystems/ws/client/platform/test/PlatformTester.java)
 
