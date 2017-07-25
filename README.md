@@ -17,6 +17,7 @@ For more information on how to use Maven see http://maven.apache.org
 - wsclient
   - Set of APIs which Standardize and facilitate interaction with HPCC Web based Services.
   - The project is based on stub code generated from WSDLs using Eclipse tools based on Apache Axis and JSch(Java Secure Channel) for secure ftp transfers
+  - Find the changelog here: https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/README.md#changelog
 
 - clienttools
   - Java based interface to HPCC client tools 
