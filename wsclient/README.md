@@ -37,6 +37,7 @@ For more information on how to use Maven see http://maven.apache.org
 wsclient | hpccsystems-platform
 --- | ---
 1.0.0 | 6.2.0
+1.2.0 | 6.4.0
 
 #### Changelog
 
@@ -53,6 +54,13 @@ wsclient | hpccsystems-platform
 - wsdl updates to match platform 6.2.0 gold release
 - removal of old HPCC versioning code
 - javadoc generation included in project
+
+#### Feature Releases
+###### 1.2.0
+- JAPI-82 Update all interfaces to match HPCC + WsSQL 6.4.0
+- JAPI-81 Need PAUSED status added to WUState 
+- JAPI-79 Avoid premature submission of compiling WUs
+- JAPI-80 update WsFS Dropzone related methods
 
 #### Contributions
 
