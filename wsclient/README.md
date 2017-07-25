@@ -55,7 +55,7 @@ wsclient | hpccsystems-platform
 - removal of old HPCC versioning code
 - javadoc generation included in project
 
-#### Feature Releases
+#### Future Releases
 ###### 1.2.0
 - JAPI-82 Update all interfaces to match HPCC + WsSQL 6.4.0
 - JAPI-81 Need PAUSED status added to WUState 
