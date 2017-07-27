@@ -56,6 +56,7 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoap;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoapProxy;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ThorLogInfo;
 import org.hpccsystems.ws.client.platform.WUState;
+import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -379,9 +380,18 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public static WUState getStateID(WorkunitInfo wu)
     {
         if (wu != null)
-            return getStateID(wu.getStateID());
-        else
-            return WUState.UNKNOWN;
+        {
+            if (wu.getStateID() != null)
+            {
+                return getStateID(wu.getStateID());
+            }
+            else if (wu.getState() != null)
+            {
+                return Workunit.translateWUState(wu.getState());
+            }
+        }
+
+        return WUState.UNKNOWN;
     }
 
     /**
