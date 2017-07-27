@@ -192,11 +192,8 @@ public class Workunit extends DataSingleton
             WuStateNameMap.put("RUNNING", WUState.RUNNING);
     }
 
-    public static WUState translateWUState(String state) throws Exception
+    public static WUState translateWUState(String state)
     {
-        if (WuStateNameMap.size() <= 0)
-            throw new Exception("WUStates were not loaded, cannot translate");
-
         if (WuStateNameMap.containsKey((state.toUpperCase())))
                 return WuStateNameMap.get(state.toUpperCase());
         else
