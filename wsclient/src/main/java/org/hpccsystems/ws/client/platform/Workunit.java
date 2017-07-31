@@ -156,7 +156,7 @@ public class Workunit extends DataSingleton
         return WUState.UNKNOWN;
     }
 
-    public static boolean isFailedState(String state) throws Exception
+    public static boolean isFailedState(String state)
     {
         WUState statecode = translateWUState(state);
         switch (statecode)
