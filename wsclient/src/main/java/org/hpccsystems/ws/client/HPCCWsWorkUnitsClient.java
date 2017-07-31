@@ -382,7 +382,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (wu != null) {
             if (wu.getStateID() != null) {
                 return getStateID(wu.getStateID());
-            } else if (wu.getState() != null && wu.getState().trim().length() != 0) {
+            } else if (wu.getState() != null) {
                 return Workunit.translateWUState(wu.getState());
             }
         }
