@@ -15,6 +15,7 @@ public enum WUState
     BLOCKED,
     WAIT,
     COMPILING,
+    PAUSED,
 
     // Completed ---
     COMPLETED,

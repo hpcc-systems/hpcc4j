@@ -348,6 +348,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     static public boolean isWorkunitComplete(WUState state)
     {
+       
         switch (state)
         {
             case UNKNOWN_ONSERVER:
@@ -366,6 +367,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             case SUBMITTED:
             case UNKNOWN:
             case WAIT:
+            case PAUSED:
             default:
                 return false;
         }
@@ -434,6 +436,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 return WUState.WAIT;
             case 15:
                 return WUState.RUNNING;
+            case 16:
+                return WUState.PAUSED;
             case 999:
                 return WUState.UNKNOWN_ONSERVER;
             default:

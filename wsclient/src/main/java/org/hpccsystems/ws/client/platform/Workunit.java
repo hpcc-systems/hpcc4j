@@ -190,6 +190,7 @@ public class Workunit extends DataSingleton
             WuStateNameMap.put("COMPILING", WUState.COMPILED);
             WuStateNameMap.put("WAIT", WUState.WAIT);
             WuStateNameMap.put("RUNNING", WUState.RUNNING);
+            WuStateNameMap.put("PAUSED", WUState.PAUSED);
     }
 
     public static WUState translateWUState(String state)
