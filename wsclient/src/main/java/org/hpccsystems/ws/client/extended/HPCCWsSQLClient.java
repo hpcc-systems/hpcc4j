@@ -6,34 +6,34 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ECLException;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.EchoRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.EchoResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.EspException;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ExecutePreparedSQLRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ExecutePreparedSQLResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ExecuteSQLRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.ExecuteSQLResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.GetDBMetaDataRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.GetDBMetaDataResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.GetDBSystemInfoRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.GetDBSystemInfoResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.GetResultsRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.GetResultsResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.HPCCColumn;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.HPCCQuerySet;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.HPCCTable;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.NamedValue;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.OutputDataset;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.PrepareSQLRequest;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.PrepareSQLResponse;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.PublishedQuery;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.QuerySetAliasMap;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.QuerySignature;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.WssqlServiceSoap;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_04.WssqlServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ECLException;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.EchoRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.EchoResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.EspException;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecutePreparedSQLRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecutePreparedSQLResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.GetDBMetaDataRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.GetDBMetaDataResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.GetDBSystemInfoRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.GetDBSystemInfoResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.GetResultsRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.GetResultsResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.HPCCColumn;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.HPCCQuerySet;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.HPCCTable;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.NamedValue;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.OutputDataset;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.PrepareSQLRequest;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.PrepareSQLResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.PublishedQuery;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.QuerySetAliasMap;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.QuerySignature;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.WssqlServiceSoap;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.WssqlServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
@@ -102,7 +102,7 @@ public class HPCCWsSQLClient  extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.extended.wssql.v3_04.WssqlLocator()).getwssqlServiceSoapAddress();
+        return (new org.hpccsystems.ws.client.gen.extended.wssql.v3_05.WssqlLocator()).getwssqlServiceSoapAddress();
     }
 
     /**
