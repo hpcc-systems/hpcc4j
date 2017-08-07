@@ -176,7 +176,6 @@ public class PlatformTester
         try
         {
             Platform platform = Platform.get(prot, hpccServer, port, user, pass);
-
             Version v = platform.getVersion();
             System.out.println(v.toString());
 
@@ -392,7 +391,6 @@ public class PlatformTester
             String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(wu);
             String results2 = connector.getWsWorkunitsClient().fetchResults(wuid, 0, clusterGroups[1], true, -1, -1);
             System.out.println(results2);
-
 
             try
             {
