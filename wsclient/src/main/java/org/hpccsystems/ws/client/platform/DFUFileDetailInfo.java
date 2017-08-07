@@ -13,8 +13,8 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_34.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_34.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUFileDetail;
 import org.hpccsystems.ws.client.utils.FileFormat;
 
 // This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
