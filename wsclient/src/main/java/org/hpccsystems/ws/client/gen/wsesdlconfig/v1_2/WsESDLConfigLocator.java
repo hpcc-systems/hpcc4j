@@ -22,7 +22,7 @@ public class WsESDLConfigLocator extends org.apache.axis.client.Service implemen
     }
 
     // Use to get a proxy class for WsESDLConfigServiceSoap
-    private java.lang.String WsESDLConfigServiceSoap_address = "http://10.176.152.137:8010/WsESDLConfig?ver_=1.2";
+    private java.lang.String WsESDLConfigServiceSoap_address = "http://10.0.2.15:8010/WsESDLConfig?ver_=1.2";
 
     public java.lang.String getWsESDLConfigServiceSoapAddress() {
         return WsESDLConfigServiceSoap_address;

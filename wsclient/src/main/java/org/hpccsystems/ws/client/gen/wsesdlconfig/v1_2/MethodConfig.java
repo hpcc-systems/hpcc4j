@@ -14,16 +14,20 @@ public class MethodConfig  implements java.io.Serializable {
 
     private java.lang.String elements;
 
+    private java.lang.String XML;
+
     public MethodConfig() {
     }
 
     public MethodConfig(
            java.lang.String name,
            org.hpccsystems.ws.client.gen.wsesdlconfig.v1_2.NamedValue[] attributes,
-           java.lang.String elements) {
+           java.lang.String elements,
+           java.lang.String XML) {
            this.name = name;
            this.attributes = attributes;
            this.elements = elements;
+           this.XML = XML;
     }
 
 
@@ -86,6 +90,26 @@ public class MethodConfig  implements java.io.Serializable {
         this.elements = elements;
     }
 
+
+    /**
+     * Gets the XML value for this MethodConfig.
+     * 
+     * @return XML
+     */
+    public java.lang.String getXML() {
+        return XML;
+    }
+
+
+    /**
+     * Sets the XML value for this MethodConfig.
+     * 
+     * @param XML
+     */
+    public void setXML(java.lang.String XML) {
+        this.XML = XML;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof MethodConfig)) return false;
@@ -106,7 +130,10 @@ public class MethodConfig  implements java.io.Serializable {
               java.util.Arrays.equals(this.attributes, other.getAttributes()))) &&
             ((this.elements==null && other.getElements()==null) || 
              (this.elements!=null &&
-              this.elements.equals(other.getElements())));
+              this.elements.equals(other.getElements()))) &&
+            ((this.XML==null && other.getXML()==null) || 
+             (this.XML!=null &&
+              this.XML.equals(other.getXML())));
         __equalsCalc = null;
         return _equals;
     }
@@ -134,6 +161,9 @@ public class MethodConfig  implements java.io.Serializable {
         }
         if (getElements() != null) {
             _hashCode += getElements().hashCode();
+        }
+        if (getXML() != null) {
+            _hashCode += getXML().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -163,6 +193,13 @@ public class MethodConfig  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("elements");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsesdlconfig", "Elements"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("XML");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsesdlconfig", "XML"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
