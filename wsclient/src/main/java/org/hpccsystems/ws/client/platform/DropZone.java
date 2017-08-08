@@ -13,6 +13,7 @@ import java.util.HashSet;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wstopology.v1_26.TpDropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_26.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -49,6 +50,35 @@ public class DropZone extends DataSingleton
         return info.getName();
     }
 
+    public String[] getConfNetAddresses()
+    {
+    	if (info.getTpMachines() != null && info.getTpMachines().length > 0)
+    	{
+    		String[] cnaList = new String[info.getTpMachines().length];
+    		for(int i = 0; i < info.getTpMachines().length; i++)
+    		{
+    			cnaList[i] = new String(info.getTpMachines()[i].getConfigNetaddress());
+    		}
+    		return cnaList;
+    	}
+    	return null;
+    }
+    
+    public String[] getNetAddresses()
+    {
+    	if (info.getTpMachines() != null && info.getTpMachines().length > 0)
+    	{
+    		String[] naList = new String[info.getTpMachines().length];
+    		for(int i = 0; i < info.getTpMachines().length; i++)
+    		{
+    			naList[i] = new String(info.getTpMachines()[i].getNetaddress());
+    		}
+    		return naList;
+    	}
+    	return null;
+    }
+    
+    // Deprecated
     public String getIP()
     {
         // TODO - Check if more than one folder per drop zone ---
@@ -58,6 +88,7 @@ public class DropZone extends DataSingleton
         }
         return "";
     }
+   
 
     public String getOS()
     {

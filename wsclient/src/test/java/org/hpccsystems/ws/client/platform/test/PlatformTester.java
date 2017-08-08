@@ -19,6 +19,7 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
+import org.hpccsystems.ws.client.platform.DropZone;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
@@ -203,7 +204,31 @@ public class PlatformTester
             platform.checkInHPCCWsClient(client2);
             platform.checkInHPCCWsClient(client3);
             platform.checkInHPCCWsClient(client4);
-
+            
+            DropZone[] dropzones = platform.getDropZones();
+            for(int i = 0; i < dropzones.length; i++)
+            {
+            	System.out.println("Dropzone Name: " + dropzones[i].getName());
+            	String[] cna = dropzones[i].getConfNetAddresses();
+            	String[] na = dropzones[i].getNetAddresses();
+            	if(cna != null && na != null)
+            	{
+            		if(cna.length != na.length)
+            		{
+            			System.out.println("confNetAddress list does not match addressList length");
+            		}
+            		else
+            		{
+            			for(int b = 0; b < cna.length; b++)
+            			{
+            				System.out.println("\tconfNetAddress: " + cna[b]);
+            				System.out.println("\tnetAddress:     " + na[b]);
+            				System.out.println("\t-------------------------------------");
+            			}
+            		}
+            	}
+            }
+            
             String tmpPeopleFile = System.getProperty("java.io.tmpdir") + File.separator + "people";
             writeFile( tmpPeopleFile, Persons.data, false);
 
