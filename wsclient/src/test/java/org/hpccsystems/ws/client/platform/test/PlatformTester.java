@@ -10,15 +10,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
+import org.hpccsystems.ws.client.platform.DropZone;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
@@ -203,7 +206,68 @@ public class PlatformTester
             platform.checkInHPCCWsClient(client2);
             platform.checkInHPCCWsClient(client3);
             platform.checkInHPCCWsClient(client4);
-
+            
+            DropZone[] dropzones = platform.getDropZones();
+            for(int i = 0; i < dropzones.length; i++)
+            {
+            	System.out.println("Dropzone Name: " + dropzones[i].getName());
+            	String[] cna = dropzones[i].getConfiguredNetAddresses();
+            	String[] na = dropzones[i].getNetAddresses();
+            	if(cna != null && na != null)
+            	{
+            		if(cna.length != na.length)
+            		{
+            			System.out.println("confNetAddress list does not match addressList length");
+            		}
+            		else
+            		{
+            			for(int b = 0; b < cna.length; b++)
+            			{
+            				System.out.println("\tconfNetAddress: " + cna[b]);
+            				System.out.println("\tnetAddress:     " + na[b]);
+            				System.out.println("\t-------------------------------------");
+            			}
+            		}
+            	}
+            }
+            
+            HPCCFileSprayClient fsc = platform.getFileSprayClient();
+            org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzLocal = fsc.fetchLocalDropZones();
+            if (dzLocal != null && dzLocal.length > 0)
+            {
+            	System.out.println("fetchLocalDropZones test ...");
+            	for(int i = 0; i < dzLocal.length; i++)
+            	{
+            		System.out.println("DropZone[" + i + "]");
+            		System.out.println("\tDropZone:   " + dzLocal[i].getName());
+            		System.out.println("\tNetAddress: " + dzLocal[i].getNetAddress());
+            	}
+            }
+            
+        	org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
+            if (dzByAddress != null && dzByAddress.length > 0)
+            {
+            	System.out.println("fetchDropZones by address test ...");
+            	for(int i = 0; i < dzByAddress.length; i++)
+            	{
+            		System.out.println("DropZone[" + i + "]");
+            		System.out.println("\tDropZone:   " + dzByAddress[i].getName());
+            		System.out.println("\tNetAddress: " + dzByAddress[i].getNetAddress());
+            	}
+            }
+            
+            if (dzByAddress != null && dzByAddress.length > 0);
+            PhysicalFileStruct[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), dzByAddress[0].getLinux());
+            System.out.println("listFiles test ...");
+            if (pfs != null && pfs.length > 0)
+            {
+            	for(int i = 0; i < pfs.length; i++)
+            	{
+            		System.out.println(pfs[0].toString());
+            	}
+            }
+            
+            
             String tmpPeopleFile = System.getProperty("java.io.tmpdir") + File.separator + "people";
             writeFile( tmpPeopleFile, Persons.data, false);
 

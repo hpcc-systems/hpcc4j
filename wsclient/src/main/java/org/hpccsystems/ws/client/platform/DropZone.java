@@ -13,6 +13,7 @@ import java.util.HashSet;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wstopology.v1_26.TpDropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_26.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -49,6 +50,58 @@ public class DropZone extends DataSingleton
         return info.getName();
     }
 
+    /**
+     * locates and returns a string array of ip's or hostnames that
+     * are defined within the dropzones environment.xml definition.
+     * If these values are hostnames, they will likely be different
+     * than the getNetAddress returns,  which are mapped to IP.
+     * 
+     * @return String [] of IP's or hostnames
+     * @since 1.2.0
+     */
+    public String[] getConfiguredNetAddresses()
+    {
+    	if (info.getTpMachines() != null && info.getTpMachines().length > 0)
+    	{
+    		String[] cnaList = new String[info.getTpMachines().length];
+    		for(int i = 0; i < info.getTpMachines().length; i++)
+    		{
+    			cnaList[i] = new String(info.getTpMachines()[i].getConfigNetaddress());
+    		}
+    		return cnaList;
+    	}
+    	return null;
+    }
+    
+    /**
+     * locates and returns the real net address of a dropzone instance
+     * which is mapped from the configuredNetAddresses, which can be
+     * hostnames and dynamically assigned.
+     * 
+     * @return String [] of IP's
+     * @since 1.2.0
+     */
+    public String[] getNetAddresses()
+    {
+    	if (info.getTpMachines() != null && info.getTpMachines().length > 0)
+    	{
+    		String[] naList = new String[info.getTpMachines().length];
+    		for(int i = 0; i < info.getTpMachines().length; i++)
+    		{
+    			naList[i] = new String(info.getTpMachines()[i].getNetaddress());
+    		}
+    		return naList;
+    	}
+    	return null;
+    }
+    
+    /**
+     * locate and returns the first ip found for a physical dropzone machine
+     * 
+     * @return String that corresponds to first physical dropzone machine found
+     * @deprecated use getConfiguredNetAddress and getNetAddress instead
+     */
+    @Deprecated
     public String getIP()
     {
         // TODO - Check if more than one folder per drop zone ---
@@ -58,6 +111,7 @@ public class DropZone extends DataSingleton
         }
         return "";
     }
+   
 
     public String getOS()
     {
