@@ -336,6 +336,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     static public boolean isWorkunitComplete(WorkunitInfo thewui)
     {
+    	//state id is null for archived workunits
+    	if (thewui.getArchived()) {
+    		return true;
+    	}
         return isWorkunitComplete(getStateID(thewui));
     }
 
@@ -379,7 +383,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     public static WUState getStateID(WorkunitInfo wu)
     {
-        if (wu != null)
+        if (wu != null && wu.getStateID() != null)
             return getStateID(wu.getStateID());
         else
             return WUState.UNKNOWN;
