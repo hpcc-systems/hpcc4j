@@ -337,6 +337,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     static public boolean isWorkunitComplete(WorkunitInfo thewui)
     {
+    	//state id is null for archived workunits
+    	if (thewui.getArchived()) {
+    		return true;
+    	}
         return isWorkunitComplete(getStateID(thewui));
     }
 
