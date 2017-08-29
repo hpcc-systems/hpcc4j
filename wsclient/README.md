@@ -55,12 +55,17 @@ wsclient | hpccsystems-platform
 - removal of old HPCC versioning code
 - javadoc generation included in project
 
-#### Future Releases
 ###### 1.2.0
+- JAPI-85 Enhance platform tester
+- JAPI-86 Update JCRAFT JSCH lib to enhance ssh connections
 - JAPI-82 Update all interfaces to match HPCC + WsSQL 6.4.0
+- JAPI-83 Handle case where WU State is not provided by ESP
 - JAPI-81 Need PAUSED status added to WUState 
-- JAPI-79 Avoid premature submission of compiling WUs
 - JAPI-80 update WsFS Dropzone related methods
+- JAPI-72 Correctly use WsClient WsFS methods regarding DZs
+
+#### Future Releases
+- JAPI-79 Avoid premature submission of compiling WUs
 
 #### Contributions
 

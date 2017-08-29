@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUResultResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResultResponse;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DatasetParser;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

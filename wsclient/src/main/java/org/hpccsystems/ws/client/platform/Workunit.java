@@ -17,16 +17,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.EspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQueryResponse;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -156,7 +156,7 @@ public class Workunit extends DataSingleton
         return WUState.UNKNOWN;
     }
 
-    public static boolean isFailedState(String state) throws Exception
+    public static boolean isFailedState(String state)
     {
         WUState statecode = translateWUState(state);
         switch (statecode)
@@ -193,11 +193,8 @@ public class Workunit extends DataSingleton
             WuStateNameMap.put("PAUSED", WUState.PAUSED);
     }
 
-    public static WUState translateWUState(String state) throws Exception
+    public static WUState translateWUState(String state)
     {
-        if (WuStateNameMap.size() <= 0)
-            throw new Exception("WUStates were not loaded, cannot translate");
-
         if (WuStateNameMap.containsKey((state.toUpperCase())))
                 return WuStateNameMap.get(state.toUpperCase());
         else
