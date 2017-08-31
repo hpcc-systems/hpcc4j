@@ -187,7 +187,7 @@ public class Workunit extends DataSingleton
             WuStateNameMap.put("BLOCKED", WUState.BLOCKED);
             WuStateNameMap.put("SUBMITTED", WUState.SUBMITTED);
             WuStateNameMap.put("SCHEDULED", WUState.SCHEDULED);
-            WuStateNameMap.put("COMPILING", WUState.COMPILED);
+            WuStateNameMap.put("COMPILING", WUState.COMPILING);
             WuStateNameMap.put("WAIT", WUState.WAIT);
             WuStateNameMap.put("RUNNING", WUState.RUNNING);
             WuStateNameMap.put("PAUSED", WUState.PAUSED);
