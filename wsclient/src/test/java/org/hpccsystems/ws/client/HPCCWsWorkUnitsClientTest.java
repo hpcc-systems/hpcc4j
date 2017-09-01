@@ -39,8 +39,21 @@ public class HPCCWsWorkUnitsClientTest {
     public void isWorkunitComplete() throws Exception {
         // JAPI-83, if state ID isn't set, we should still be able to determine
         // isWorkunitComplete without throwing an NPE if we have a NAME.
-        final WorkunitInfo stateOnly = new WorkunitInfo();
-        stateOnly.setState(WUState.ARCHIVED.name());
-        assertTrue(HPCCWsWorkUnitsClient.isWorkunitComplete(stateOnly));
+        final WorkunitInfo archived = new WorkunitInfo();
+        archived.setState(WUState.ARCHIVED.name());
+        assertTrue(HPCCWsWorkUnitsClient.isWorkunitComplete(archived));
+
+        final WorkunitInfo compiling = new WorkunitInfo();
+        compiling.setState(WUState.COMPILING.name());
+        assertFalse(HPCCWsWorkUnitsClient.isWorkunitComplete(compiling));
+
+        final WorkunitInfo compiled = new WorkunitInfo();
+        compiled.setState(WUState.COMPILED.name());
+        assertTrue(HPCCWsWorkUnitsClient.isWorkunitComplete(compiled));
+
+        final WorkunitInfo unknown = new WorkunitInfo();
+        unknown.setState("FOOBAR");
+        assertFalse(HPCCWsWorkUnitsClient.isWorkunitComplete(unknown));
+
     }
 }
