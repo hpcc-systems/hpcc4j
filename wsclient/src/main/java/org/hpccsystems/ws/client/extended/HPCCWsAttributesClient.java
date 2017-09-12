@@ -3,6 +3,8 @@ package org.hpccsystems.ws.client.extended;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
@@ -12,6 +14,10 @@ import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckoutAttribu
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckoutAttributes;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CreateAttribute;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CreateAttributeResponse;
+import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteAttributeRequest;
+import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteAttributes;
+import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteModule;
+import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteModuleResponse;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ECLAttribute;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.EspException;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.FindAttributes;
@@ -25,6 +31,7 @@ import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.SaveAttributes;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.UpdateAttributesResponse;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesServiceSoap;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesServiceSoapProxy;
+import org.hpccsystems.ws.client.platform.ECLAttributeInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -79,8 +86,8 @@ public class HPCCWsAttributesClient extends DataSingleton
      */
     public boolean attributeExists(String modulename, String attributename, String type) throws Exception
     {
-        ECLAttribute[] items = findItems(modulename, attributename, type, null, null, null);
-        if (items != null && items.length > 0)
+        List<ECLAttributeInfo>items = findItems(modulename, attributename, type, null, null, null);
+        if (items.size()>0)
         {
             return true;
         }
@@ -102,10 +109,10 @@ public class HPCCWsAttributesClient extends DataSingleton
      *            pattern
      * @param changedSince
      *            - only return attributes changes since this time
-     * @return an array of ECLAttribute
+     * @return a list of ECLAttributeInfo
      * @throws Exception
      */
-    public ECLAttribute[] findItems(String modulename, String attributename, String type, String username, String anytext,
+    public List<ECLAttributeInfo> findItems(String modulename, String attributename, String type, String username, String anytext,
             String changedSince) throws Exception
     {
         WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
@@ -139,12 +146,18 @@ public class HPCCWsAttributesClient extends DataSingleton
 
         FindAttributesResponse resp = proxy.findAttributes(params);
 
+        List<ECLAttributeInfo> results=new ArrayList<ECLAttributeInfo>();
         if (resp != null)
         {
             handleException(resp.getExceptions());
-            return resp.getOutAttributes();
+            if (resp.getOutAttributes() != null) {
+                for (int i=0; i < resp.getOutAttributes().length;i++) 
+                {
+                    results.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
+                }
+            }
         }
-        return null;
+        return results;
     }
 
     /**
@@ -424,6 +437,45 @@ public class HPCCWsAttributesClient extends DataSingleton
         return attr;
     }
 
+    
+    /**
+     * Delete a module from the remote repository
+     * @param modulename - name of module to delete
+     * @throws Exception
+     */
+    public void deleteModule(String modulename) throws Exception 
+    {
+        DeleteModule parameters=new DeleteModule();
+        parameters.setModuleName(modulename);
+        DeleteModuleResponse resp=getSoapProxy().deleteModule(parameters);
+        this.handleException(resp.getExceptions());
+    }
+
+    /**
+     * delete an attribute from the remote repository
+     * @param modulename - name of module for attribute to delete
+     * @param attributename - name of attribute to delete
+     * @throws Exception
+     */
+    public List<ECLAttributeInfo> deleteAttribute(String modulename,String attributename) throws Exception 
+    {
+        DeleteAttributes parameters=new DeleteAttributes();
+        DeleteAttributeRequest dar=new DeleteAttributeRequest();
+        dar.setAttributeName(attributename);
+        dar.setModuleName(modulename);
+        DeleteAttributeRequest[] arr=new DeleteAttributeRequest[]{dar};
+        parameters.setAttributes(arr);
+        UpdateAttributesResponse resp=getSoapProxy().deleteAttributes(parameters);
+        this.handleException(resp.getExceptions());
+        List<ECLAttributeInfo> results=new ArrayList<ECLAttributeInfo>();
+        if (resp.getOutAttributes() != null) {
+            for (int i=0; i < resp.getOutAttributes().length;i++) {
+                results.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
+            }
+        }
+        return results;
+    }
+
     /**
      * Provides soapproxy object for HPCCWsAttributesClient which can be used to access the web service methods directly
      *
@@ -518,12 +570,14 @@ public class HPCCWsAttributesClient extends DataSingleton
     {
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
+            String errs="";
             for (int i = 0; i < exp.getException().length; i++)
             {
                 EspException ex = exp.getException()[i];
                 Utils.println(System.out, ex.getMessage(), true, verbose);
+                errs=errs + ex.getMessage() + "\n";
             }
-            throw new Exception(exp);
+            throw new Exception(errs, exp);
         }
     }
 
