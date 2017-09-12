@@ -8,12 +8,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUArrayActionRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUArrayActionResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUArrayActions;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUBrowseDataRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUBrowseDataResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
@@ -36,7 +41,9 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_36.WsDfuServiceSoap;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
+import org.hpccsystems.ws.client.platform.DFUResult;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -230,9 +237,9 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an array of DFULogicalFile objects
      * @throws Exception
      */
-    public DFULogicalFile[] getFiles(String scope) throws Exception
+    public List<DFULogicalFileInfo> getFiles(String scope) throws Exception
     {
-        DFULogicalFile[] result = null;
+        List<DFULogicalFileInfo> result=new ArrayList<DFULogicalFileInfo>();
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUFileViewRequest params = new DFUFileViewRequest();
         params.setScope(scope);
@@ -242,7 +249,12 @@ public class HPCCWsDFUClient extends DataSingleton
             return result;
         }
         this.handleException(resp.getExceptions());
-        result = resp.getDFULogicalFiles();
+        if (resp.getDFULogicalFiles()!=null && resp.getDFULogicalFiles().length>0) {
+            result=new ArrayList<DFULogicalFileInfo>();
+            for (int i=0; i < resp.getDFULogicalFiles().length;i++) {
+                result.add(new DFULogicalFileInfo(resp.getDFULogicalFiles()[i]));
+            }
+        }
         return result;
 
     }
@@ -489,12 +501,17 @@ public class HPCCWsDFUClient extends DataSingleton
     {
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
+            String errs="";
             for (int i = 0; i < exp.getException().length; i++)
             {
                 EspException ex = exp.getException()[i];
+                if (ex.getMessage() != null)
+                {
+                    errs=errs + ex.getMessage() + "\n";
+                }
                 Utils.println(System.out, ex.getMessage(), true, verbose);
             }
-            throw exp;
+            throw new Exception(errs,exp);
         }
     }
 
@@ -509,11 +526,11 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return
      * @throws Exception
      */
-    public DFULogicalFile[] getLogicalFiles(String filename, String cluster, int firstN, int pageStartFrom, int pageSize) throws Exception
+    public List<DFULogicalFileInfo> getLogicalFiles(String filename, String cluster, int firstN, int pageStartFrom, int pageSize) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
 
-        DFULogicalFile[] logicalfiles = null;
+        List<DFULogicalFileInfo> logicalfiles=new ArrayList<DFULogicalFileInfo>();
         DFUQueryRequest request = new DFUQueryRequest();
         if (filename != null)
             request.setLogicalName(filename);
@@ -522,9 +539,12 @@ public class HPCCWsDFUClient extends DataSingleton
         request.setPageSize(pageSize);
 
         DFUQueryResponse response = proxy.DFUQuery(request);
-        if (response != null)
-            logicalfiles = response.getDFULogicalFiles();
-
+        if (response != null && response.getDFULogicalFiles() != null) {
+            for (int i=0; i < response.getDFULogicalFiles().length;i++) {
+                logicalfiles.add(new DFULogicalFileInfo(response.getDFULogicalFiles()[i]));
+            }
+        }
+         
         return logicalfiles;
     }
 
@@ -602,6 +622,62 @@ public class HPCCWsDFUClient extends DataSingleton
         return result;
     }
 
+    /**
+     * @param files - list of filenames to delete
+     * @param cluster - name of cluster to delete from (will delete from all clusters if null)
+     * @return list of results of file deletions
+     * @throws Exception
+     */
+    public List<DFUResult> deleteFiles(Set<String> files, String cluster) throws Exception 
+    {
+        DFUArrayActionRequest params = new DFUArrayActionRequest();
+        params.setType(DFUArrayActions.fromString("Delete"));
+        final String[] filesArray = files.toArray(new String[files.size()]);
+        params.setLogicalFiles(filesArray);
+        
+        DFUArrayActionResponse resp = getSoapProxy().DFUArrayAction(params);
+        handleException(resp.getExceptions());
+        List<DFUResult> results=new ArrayList<DFUResult>();
+        if (resp.getActionResults()==null)
+        {
+            return results;
+        }
+        for (int i=0; i < resp.getActionResults().length;i++) 
+        {
+            results.add(new DFUResult(resp.getActionResults()[i]));
+        }
+        return results;
+
+    }
+    /**
+     * searchFiles
+     * @param logicalFilename - the filename to search for
+     * @param cluster - the cluster to search on
+     * @return - true if the file exists on the specified cluster (or on any cluster if the input cluster is null), false otherwise
+     * @throws Exception 
+     */
+    public List<DFULogicalFileInfo> searchFiles(String logicalFilename, String cluster) throws Exception 
+    {
+        if (logicalFilename != null && logicalFilename.startsWith("~")) 
+        {
+            logicalFilename=logicalFilename.substring(1);
+        }
+        DFUQueryRequest req=new DFUQueryRequest();
+        req.setNodeGroup(cluster);
+        req.setLogicalName(logicalFilename);
+
+        DFUQueryResponse resp=getSoapProxy().DFUQuery(req);
+        handleException(resp.getExceptions());
+        List<DFULogicalFileInfo> result=new ArrayList<DFULogicalFileInfo>();
+        if (resp.getDFULogicalFiles() != null && resp.getDFULogicalFiles().length>0) 
+        {
+            for (int i=0; i < resp.getDFULogicalFiles().length;i++) 
+            {
+                result.add(new DFULogicalFileInfo(resp.getDFULogicalFiles()[i]));
+            }
+        }
+        return result;
+    }
     /**
      * @param logicalname
      *            - logical file to get file info for, can start with '~' or not
