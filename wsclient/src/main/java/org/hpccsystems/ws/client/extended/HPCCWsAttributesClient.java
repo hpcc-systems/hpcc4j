@@ -242,6 +242,80 @@ public class HPCCWsAttributesClient extends DataSingleton
     }
 
     /**
+     * Create/Update an attribute in a legacy repository
+     *
+     * @param modulename
+     *            - module name to update
+     * @param attributename
+     *            - attribute name to update
+     * @param text
+     *            - text to update the attribute to
+     * @param checkoutin
+     *            - whether to check the attribute out/in before doing this
+     * @param checkindesc
+     *            - if checkoutin=true, the description to append to the checkin
+     * @return
+     * @throws Exception
+     */
+    public ECLAttribute createOrUpdateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin,
+            String checkindesc) throws Exception
+    {
+        if (checkoutin == null)
+        {
+            checkoutin = false;
+        }
+
+        if (modulename == null || attributename == null || text == null)
+        {
+            throw new Exception("Module name, attribute name and text are required");
+        }
+        if (checkoutin == true && (checkindesc == null || checkindesc.trim().length() == 0))
+        {
+            throw new Exception("Checkin comment is required if checking attribute out / in");
+        }
+        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+        if (!this.attributeExists(modulename, attributename,type))
+        {
+            CreateAttribute req = new CreateAttribute();
+            req.setModuleName(modulename);
+            req.setAttributeName(attributename);
+            req.setType(type);
+            CreateAttributeResponse resp = proxy.createAttribute(req);
+            if (resp != null)
+            {
+                handleException(resp.getExceptions());
+            }
+        }
+
+        if (checkoutin)
+        {
+            this.checkoutAttribute(modulename, attributename);
+        }
+        SaveAttributeRequest req = new SaveAttributeRequest();
+        req.setModuleName(modulename);
+        req.setAttributeName(attributename);
+        req.setText(text);
+        SaveAttributeRequest[] arr = { req };
+        SaveAttributes params = new SaveAttributes();
+        params.setAttributes(arr);
+        UpdateAttributesResponse resp = proxy.saveAttributes(params);
+        if (resp != null)
+        {
+            handleException(resp.getExceptions());
+            if (checkoutin)
+            {
+                this.checkinAttribute(modulename, attributename, checkindesc);
+            }
+            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+            {
+                return resp.getOutAttributes()[0];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Update an attribute in a legacy repository
      *
      * @param modulename
