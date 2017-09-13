@@ -1,18 +1,90 @@
 package org.hpccsystems.ws.client.platform;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
+import org.hpccsystems.ws.client.utils.ApplicationValueInfo;
+import org.hpccsystems.ws.client.utils.ECLExceptionInfo;
+import org.hpccsystems.ws.client.utils.ECLResultInfo;
+import org.hpccsystems.ws.client.utils.NamedValueInfo;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
-public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit implements
+public class WorkunitInfo implements
         Comparable<org.hpccsystems.ws.client.platform.WorkunitInfo>
 {
     private int               maxMonitorTime   = HPCCWsWorkUnitsClient.defaultMaxWaitTime;
     private int               sleepMillis      = HPCCWsWorkUnitsClient.defaultWaitTime;
-    private NamedValue[]      namedValues      = null;
+    private List<NamedValueInfo>      namedValues      = null;
     private String originalEclWatchUrl=null;
-
+    private List<ApplicationValueInfo> applicationValues;
+    private List<ECLResultInfo> eclResults;
+    private Integer accessFlag;
+    private Integer action;
+    private String actionEx;
+    private Boolean active;
+    private Integer alertcount;
+    private String[] allowedClusters;
+    private Integer applicationValueCount;
+    private String applicationValuesDesc;
+    private Boolean archived;
+    private String cluster;
+    private Integer clusterFlag;
+    private Calendar dateTimeScheduled;
+    private Integer debugValueCount;
+    private DebugValue[] debugValues;
+    private String debugValuesDesc;
+    private String description;
+    private Integer errorCount;
+    private Integer eventSchedule;
+    private List<ECLExceptionInfo> exceptions;
+    private Integer graphCount;
+    private ECLGraph[] graphs;
+    private String graphsDesc;
+    private Boolean hasArchiveQuery;
+    private Boolean hasDebugValue;
+    private ECLHelpFile[] helpers;
+    private String helpersDesc;
+    private Integer infoCount;
+    private Boolean isPausing;
+    private String jobname;
+    private String owner;
+    private Integer priorityClass;
+    private Integer priorityLevel;
+    private ECLQuery query;
+    private String queue;
+    private Integer resourceURLCount;
+    private String[] resourceURLs;
+    private Integer resultCount;
+    private Integer resultLimit;
+    private String resultsDesc;
+    private String roxieCluster;
+    private String scope;
+    private String snapshot;
+    private ECLSourceFile[] sourceFiles;
+    private String sourceFilelsDesc;
+    private String state;
+    private String stateEx;
+    private Integer stateID;
+    private Integer sourceFileCount;
+    private String sourceFileDesc;
+    private Integer timerCount;
+    private String timersDesc;
+    private ECLTimingData[] timingData;
+    private String totalClusterTime;
+    private Integer variableCount;
+    private List<ECLResultInfo> variables;
+    private boolean thorLCR;
+    private ThorLogInfo[] thorLogList;
+    private String variablesDesc;
+    private Integer warningCount;
+    private Integer workflowCount;
+    private ECLWorkflow[] workflows;
+    private String workflowsDesc;
+    private String wuid;
+    private String xmlParams;
     /**
      * Create an ECL workunit from a axis-generated soap class ECL Workunit
      * 
@@ -109,7 +181,6 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
         {
             return;
         }
-        
         this.setAccessFlag(base.getAccessFlag());
         this.setAction(base.getAction());
         this.setActionEx(base.getActionEx());
@@ -117,7 +188,13 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
         this.setAlertCount(base.getAlertCount());
         this.setAllowedClusters(base.getAllowedClusters());
         this.setApplicationValueCount(base.getApplicationValueCount());
-        this.setApplicationValues(base.getApplicationValues());
+        if (base.getApplicationValues() != null)
+        {
+            this.applicationValues=new ArrayList<ApplicationValueInfo>();
+            for (int i=0; i < base.getApplicationValues().length;i++) {
+                applicationValues.add(new ApplicationValueInfo(base.getApplicationValues()[i]));
+            }
+        }
         this.setApplicationValuesDesc(base.getApplicationValuesDesc());
         this.setArchived(base.getArchived());
         this.setCluster(base.getCluster());
@@ -129,7 +206,12 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
         this.setDescription(base.getDescription());        
         this.setErrorCount(base.getErrorCount());
         this.setEventSchedule(base.getEventSchedule());
-        this.setExceptions(base.getExceptions());
+        if (base.getExceptions() != null ) {
+            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            for (int i=0; i < base.getExceptions().length;i++) {
+                exceptions.add(new ECLExceptionInfo(base.getExceptions()[i]));
+            }
+        }
         this.setGraphCount(base.getGraphCount());
         this.setGraphs(base.getGraphs());
         this.setGraphsDesc(base.getGraphsDesc());
@@ -149,7 +231,13 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
         this.setResourceURLs(base.getResourceURLs());
         this.setResultCount(base.getResultCount());
         this.setResultLimit(base.getResultLimit());
-        this.setResults(base.getResults());
+        if (base.getResults() != null)
+        {
+            this.eclResults=new ArrayList<ECLResultInfo>();
+            for (int i=0; i < base.getResults().length;i++) {
+                eclResults.add(new ECLResultInfo(base.getResults()[i]));
+            }
+        }
         this.setResultsDesc(base.getResultsDesc());
         this.setRoxieCluster(base.getRoxieCluster());
         this.setScope(base.getScope());
@@ -165,7 +253,13 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
         this.setTimingData(base.getTimingData());
         this.setTotalClusterTime(base.getTotalClusterTime());
         this.setVariableCount(base.getVariableCount());
-        this.setVariables(base.getVariables());
+        if (base.getVariables() != null)
+        {
+            this.variables=new ArrayList<ECLResultInfo>();
+            for (int i=0; i < base.getVariables().length;i++) {
+                variables.add(new ECLResultInfo(base.getVariables()[i]));
+            }
+        }
         this.setThorLCR(base.getThorLCR());
         this.setThorLogList(base.getThorLogList());        
         this.setVariablesDesc(base.getVariablesDesc());
@@ -232,22 +326,21 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
      * 
      * @return resultLimit
      */
-    @Override
-    public java.lang.Integer getResultLimit()
+    public Integer getResultLimit()
     {
-        if (super.getResultLimit() == null)
+        if (resultLimit == null)
         {
             return HPCCWsWorkUnitsClient.defaultResultLimit;
         }
-        return super.getResultLimit();
+        return resultLimit;
     }
 
-    public NamedValue[] getNamedValues()
+    public List<NamedValueInfo> getNamedValues()
     {
         return namedValues;
     }
 
-    public void setNamedValues(NamedValue[] namedValues)
+    public void setNamedValues(List<NamedValueInfo> namedValues)
     {
         this.namedValues = namedValues;
     }
@@ -278,4 +371,590 @@ public class WorkunitInfo extends org.hpccsystems.ws.client.gen.wsworkunits.v1_6
 		this.originalEclWatchUrl=serverhost;
 	}
     
+	public List<ApplicationValueInfo> getApplicationValues() 
+	{
+	    return applicationValues;
+	}
+	
+	public ApplicationValue[] getRawApplicationValues() 
+	{
+	    if (applicationValues==null)
+	    {
+	        return null;
+	    }
+	    ApplicationValue[] raw=new ApplicationValue[applicationValues.size()];
+	    int i=0;
+	    for (ApplicationValueInfo item:applicationValues) {
+	        raw[i]=item.getRaw();
+	        i++;
+	    }
+	    return raw;
+	}
+	
+	public NamedValue[] getRawNamedValues() 
+    {
+        if (namedValues==null)
+        {
+            return null;
+        }
+        NamedValue[] raw=new NamedValue[namedValues.size()];
+        int i=0;
+        for (NamedValueInfo item:namedValues) {
+            raw[i]=item.getRaw();
+            i++;
+        }
+        return raw;
+    }
+    public int getMaxMonitorTime() {
+        return maxMonitorTime;
+    }
+
+    public void setMaxMonitorTime(int maxMonitorTime) {
+        this.maxMonitorTime = maxMonitorTime;
+    }
+
+    public List<ECLResultInfo> getEclResults() {
+        return eclResults;
+    }
+
+    public void setEclResults(List<ECLResultInfo> eclResults) {
+        this.eclResults = eclResults;
+    }
+
+    public Integer getAccessFlag() {
+        return accessFlag;
+    }
+
+    public void setAccessFlag(Integer accessFlag) {
+        this.accessFlag = accessFlag;
+    }
+
+    public Integer getAction() {
+        return action;
+    }
+
+    public void setAction(Integer action) {
+        this.action = action;
+    }
+
+    public String getActionEx() {
+        return actionEx;
+    }
+
+    public void setActionEx(String actionEx) {
+        this.actionEx = actionEx;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Integer getAlertCount() {
+        return alertcount;
+    }
+
+    public void setAlertCount(Integer alertcount) {
+        this.alertcount = alertcount;
+    }
+
+    public String[] getAllowedClusters() {
+        return allowedClusters;
+    }
+
+    public void setAllowedClusters(String[] allowedClusters) {
+        this.allowedClusters = allowedClusters;
+    }
+
+    public Integer getApplicationValueCount() {
+        return applicationValueCount;
+    }
+
+    public void setApplicationValueCount(Integer applicationValueCount) {
+        this.applicationValueCount = applicationValueCount;
+    }
+
+    public String getApplicationValuesDesc() {
+        return applicationValuesDesc;
+    }
+
+    public void setApplicationValuesDesc(String applicationValuesDesc) {
+        this.applicationValuesDesc = applicationValuesDesc;
+    }
+
+    public Boolean getArchived() {
+        return archived;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
+    }
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
+    }
+
+    public Integer getClusterFlag() {
+        return clusterFlag;
+    }
+
+    public void setClusterFlag(Integer clusterFlag) {
+        this.clusterFlag = clusterFlag;
+    }
+
+    public Calendar getDateTimeScheduled() {
+        return dateTimeScheduled;
+    }
+
+    public void setDateTimeScheduled(Calendar dateTimeScheduled) {
+        this.dateTimeScheduled = dateTimeScheduled;
+    }
+
+    public Integer getDebugValueCount() {
+        return debugValueCount;
+    }
+
+    public void setDebugValueCount(Integer debugValueCount) {
+        this.debugValueCount = debugValueCount;
+    }
+
+    public void setSleepMillis(int sleepMillis) {
+        this.sleepMillis = sleepMillis;
+    }
+
+    public void setApplicationValues(List<ApplicationValueInfo> applicationValues) {
+        this.applicationValues = applicationValues;
+    }
+
+    public void setApplicationValues(ApplicationValue[] vals)
+    {
+        if (vals==null)
+        {
+            return;
+        }
+        applicationValues=new ArrayList<ApplicationValueInfo>();
+        for (int i=0; i < vals.length;i++) {
+            applicationValues.add(new ApplicationValueInfo(vals[i]));
+        }
+    }
+    public Integer getAlertcount() {
+        return alertcount;
+    }
+
+    public void setAlertcount(Integer alertcount) {
+        this.alertcount = alertcount;
+    }
+
+    public DebugValue[] getDebugValues() {
+        return debugValues;
+    }
+
+    public void setDebugValues(DebugValue[] debugValues) {
+        this.debugValues = debugValues;
+    }
+
+    public String getDebugValuesDesc() {
+        return debugValuesDesc;
+    }
+
+    public void setDebugValuesDesc(String debugValuesDesc) {
+        this.debugValuesDesc = debugValuesDesc;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getErrorCount() {
+        return errorCount;
+    }
+
+    public void setErrorCount(Integer errorCount) {
+        this.errorCount = errorCount;
+    }
+
+    public Integer getEventSchedule() {
+        return eventSchedule;
+    }
+
+    public void setEventSchedule(Integer eventSchedule) {
+        this.eventSchedule = eventSchedule;
+    }
+
+    public List<ECLExceptionInfo> getExceptions() {
+        return exceptions;
+    }
+
+    public void setExceptions(List<ECLExceptionInfo> exceptions) {
+        this.exceptions = exceptions;
+    }
+
+    public Integer getGraphCount() {
+        return graphCount;
+    }
+
+    public void setGraphCount(Integer graphCount) {
+        this.graphCount = graphCount;
+    }
+
+    public ECLGraph[] getGraphs() {
+        return graphs;
+    }
+
+    public void setGraphs(ECLGraph[] graphs) {
+        this.graphs = graphs;
+    }
+
+    public String getGraphsDesc() {
+        return graphsDesc;
+    }
+
+    public void setGraphsDesc(String graphsDesc) {
+        this.graphsDesc = graphsDesc;
+    }
+
+    public Boolean getHasArchiveQuery() {
+        return hasArchiveQuery;
+    }
+
+    public void setHasArchiveQuery(Boolean hasArchiveQuery) {
+        this.hasArchiveQuery = hasArchiveQuery;
+    }
+
+    public Boolean getHasDebugValue() {
+        return hasDebugValue;
+    }
+
+    public void setHasDebugValue(Boolean hasDebugValue) {
+        this.hasDebugValue = hasDebugValue;
+    }
+
+    public ECLHelpFile[] getHelpers() {
+        return helpers;
+    }
+
+    public void setHelpers(ECLHelpFile[] helpers) {
+        this.helpers = helpers;
+    }
+
+    public String getHelpersDesc() {
+        return helpersDesc;
+    }
+
+    public void setHelpersDesc(String helpersDesc) {
+        this.helpersDesc = helpersDesc;
+    }
+
+    public Integer getInfoCount() {
+        return infoCount;
+    }
+
+    public void setInfoCount(Integer infoCount) {
+        this.infoCount = infoCount;
+    }
+
+    public Boolean getIsPausing() {
+        return isPausing;
+    }
+
+    public void setIsPausing(Boolean isPausing) {
+        this.isPausing = isPausing;
+    }
+
+    public String getJobname() {
+        return jobname;
+    }
+
+    public void setJobname(String jobname) {
+        this.jobname = jobname;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Integer getPriorityClass() {
+        return priorityClass;
+    }
+
+    public void setPriorityClass(Integer priorityClass) {
+        this.priorityClass = priorityClass;
+    }
+
+    public Integer getPriorityLevel() {
+        return priorityLevel;
+    }
+
+    public void setPriorityLevel(Integer priorityLevel) {
+        this.priorityLevel = priorityLevel;
+    }
+
+    public ECLQuery getQuery() {
+        return query;
+    }
+
+    public void setQuery(ECLQuery query) {
+        this.query = query;
+    }
+
+    public String getQueue() {
+        return queue;
+    }
+
+    public void setQueue(String queue) {
+        this.queue = queue;
+    }
+
+    public Integer getResourceURLCount() {
+        return resourceURLCount;
+    }
+
+    public void setResourceURLCount(Integer resourceURLCount) {
+        this.resourceURLCount = resourceURLCount;
+    }
+
+    public String[] getResourceURLs() {
+        return resourceURLs;
+    }
+
+    public void setResourceURLs(String[] resourceURLs) {
+        this.resourceURLs = resourceURLs;
+    }
+
+    public Integer getResultCount() {
+        return resultCount;
+    }
+
+    public void setResultCount(Integer resultCount) {
+        this.resultCount = resultCount;
+    }
+
+    public void setResultLimit(Integer resultLimit) {
+        this.resultLimit = resultLimit;
+    }
+
+    public String getResultsDesc() {
+        return resultsDesc;
+    }
+
+    public void setResultsDesc(String resultsDesc) {
+        this.resultsDesc = resultsDesc;
+    }
+
+    public String getRoxieCluster() {
+        return roxieCluster;
+    }
+
+    public void setRoxieCluster(String roxieCluster) {
+        this.roxieCluster = roxieCluster;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public String getSnapshot() {
+        return snapshot;
+    }
+
+    public void setSnapshot(String snapshot) {
+        this.snapshot = snapshot;
+    }
+
+    public ECLSourceFile[] getSourceFiles() {
+        return sourceFiles;
+    }
+
+    public void setSourceFiles(ECLSourceFile[] sourceFiles) {
+        this.sourceFiles = sourceFiles;
+    }
+
+    public String getSourceFilelsDesc() {
+        return sourceFilelsDesc;
+    }
+
+    public void setSourceFilelsDesc(String sourceFilelsDesc) {
+        this.sourceFilelsDesc = sourceFilelsDesc;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getStateEx() {
+        return stateEx;
+    }
+
+    public void setStateEx(String stateEx) {
+        this.stateEx = stateEx;
+    }
+
+    public Integer getStateID() {
+        return stateID;
+    }
+
+    public void setStateID(Integer stateID) {
+        this.stateID = stateID;
+    }
+
+    public Integer getTimerCount() {
+        return timerCount;
+    }
+
+    public void setTimerCount(Integer timerCount) {
+        this.timerCount = timerCount;
+    }
+
+    public String getTimersDesc() {
+        return timersDesc;
+    }
+
+    public void setTimersDesc(String timersDesc) {
+        this.timersDesc = timersDesc;
+    }
+
+    public ECLTimingData[] getTimingData() {
+        return timingData;
+    }
+
+    public void setTimingData(ECLTimingData[] timingData) {
+        this.timingData = timingData;
+    }
+
+    public String getTotalClusterTime() {
+        return totalClusterTime;
+    }
+
+    public void setTotalClusterTime(String totalClusterTime) {
+        this.totalClusterTime = totalClusterTime;
+    }
+
+    public Integer getVariableCount() {
+        return variableCount;
+    }
+
+    public void setVariableCount(Integer variableCount) {
+        this.variableCount = variableCount;
+    }
+
+    public List<ECLResultInfo> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(List<ECLResultInfo> variables) {
+        this.variables = variables;
+    }
+
+    public boolean isThorLCR() {
+        return thorLCR;
+    }
+
+    public void setThorLCR(boolean thorLCR) {
+        this.thorLCR = thorLCR;
+    }
+
+    public ThorLogInfo[] getThorLogList() {
+        return thorLogList;
+    }
+
+    public void setThorLogList(ThorLogInfo[] thorLogList) {
+        this.thorLogList = thorLogList;
+    }
+
+    public String getVariablesDesc() {
+        return variablesDesc;
+    }
+
+    public void setVariablesDesc(String variablesDesc) {
+        this.variablesDesc = variablesDesc;
+    }
+
+    public Integer getWarningCount() {
+        return warningCount;
+    }
+
+    public void setWarningCount(Integer warningCount) {
+        this.warningCount = warningCount;
+    }
+
+    public Integer getWorkflowCount() {
+        return workflowCount;
+    }
+
+    public void setWorkflowCount(Integer workflowCount) {
+        this.workflowCount = workflowCount;
+    }
+
+    public ECLWorkflow[] getWorkflows() {
+        return workflows;
+    }
+
+    public void setWorkflows(ECLWorkflow[] workflows) {
+        this.workflows = workflows;
+    }
+
+    public String getWorkflowsDesc() {
+        return workflowsDesc;
+    }
+
+    public void setWorkflowsDesc(String workflowsDesc) {
+        this.workflowsDesc = workflowsDesc;
+    }
+
+    public String getWuid() {
+        return wuid;
+    }
+
+    public void setWuid(String wuid) {
+        this.wuid = wuid;
+    }
+
+    public String getXmlParams() {
+        return xmlParams;
+    }
+
+    public void setXmlParams(String xmlParams) {
+        this.xmlParams = xmlParams;
+    }
+
+    public Integer getSourceFileCount() {
+        return sourceFileCount;
+    }
+
+    public void setSourceFileCount(Integer sourceFileCount) {
+        this.sourceFileCount = sourceFileCount;
+    }
+
+    public String getSourceFilesDesc() {
+        return sourceFileDesc;
+    }
+
+    public void setSourceFilesDesc(String sourceFileDesc) {
+        this.sourceFileDesc = sourceFileDesc;
+    }
+
+
 }
