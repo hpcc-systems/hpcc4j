@@ -542,8 +542,10 @@ public class HPCCWsAttributesClient extends DataSingleton
         UpdateAttributesResponse resp=getSoapProxy().deleteAttributes(parameters);
         this.handleException(resp.getExceptions());
         List<ECLAttributeInfo> results=new ArrayList<ECLAttributeInfo>();
-        if (resp.getOutAttributes() != null) {
-            for (int i=0; i < resp.getOutAttributes().length;i++) {
+        if (resp.getOutAttributes() != null) 
+        {
+            for (int i=0; i < resp.getOutAttributes().length;i++) 
+            {
                 results.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
             }
         }
