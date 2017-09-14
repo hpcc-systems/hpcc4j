@@ -413,11 +413,11 @@ public class WorkunitInfo implements
         this.maxMonitorTime = maxMonitorTime;
     }
 
-    public List<ECLResultInfo> getEclResults() {
+    public List<ECLResultInfo> getResults() {
         return eclResults;
     }
 
-    public void setEclResults(List<ECLResultInfo> eclResults) {
+    public void setResults(List<ECLResultInfo> eclResults) {
         this.eclResults = eclResults;
     }
 

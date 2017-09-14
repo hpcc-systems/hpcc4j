@@ -24,9 +24,7 @@ public class ECLResultInfo {
         xmlSchema=raw.getXmlSchema();
     }
 
-    public ECLResultInfo() {
-        // TODO Auto-generated constructor stub
-    }
+    public ECLResultInfo() { }
 
     public String getFilename() {
         return filename;

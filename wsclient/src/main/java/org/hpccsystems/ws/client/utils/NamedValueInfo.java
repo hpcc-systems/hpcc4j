@@ -7,6 +7,8 @@ public class NamedValueInfo {
     private String name;
     private String value;
 
+    public NamedValueInfo() {}
+    
     public NamedValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue raw) 
     {
         name=raw.getName();

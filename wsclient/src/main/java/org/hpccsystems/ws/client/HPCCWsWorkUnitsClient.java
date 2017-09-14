@@ -26,6 +26,7 @@ import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WULogFileInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.utils.ECLExceptionInfo;
 import org.hpccsystems.ws.client.utils.ECLResultInfo;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -1463,7 +1464,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @throws Exception
      */
     public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, String type, String wuid,
-            String cluster) throws Exception
+            String cluster, String state) throws Exception
     {
         WUQuery params = new WUQuery();
         if (jobName != null)
@@ -1491,6 +1492,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (cluster != null)
         {
             params.setCluster(cluster);
+        }
+        if (state != null)
+        {
+            params.setState(state);
         }
         return getWorkunits(params);
     }
@@ -1929,7 +1934,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
     }
 
-    public ECLException[] syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
+    public List<ECLExceptionInfo> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
@@ -1940,7 +1945,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             checkParams.setCluster(cluster);
             checkParams.setTimeToWait(timeout);
             WUSyntaxCheckResponse resp = wsWorkunitsServiceSoapProxy.WUSyntaxCheckECL(checkParams);
-            return resp.getErrors();
+            List<ECLExceptionInfo> result=new ArrayList<ECLExceptionInfo>();
+            if (resp.getErrors() != null) {
+                for (int i=0; i < resp.getErrors().length;i++) {
+                    result.add(new ECLExceptionInfo(resp.getErrors()[i]));
+                }
+            }
+            return result;
         }
 
     }
@@ -2245,7 +2256,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         {
             ECLResultInfo msg=new ECLResultInfo();
             msg.setValue(resp.getResults());
-            wi.setEclResults(Arrays.asList(msg));
+            wi.setResults(Arrays.asList(msg));
         }
         return wi;
     }

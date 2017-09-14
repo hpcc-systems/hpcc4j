@@ -11,6 +11,8 @@ public class ECLExceptionInfo {
     private String severity;
     private String source;
 
+    public ECLExceptionInfo() {}
+    
     public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw) 
     {
         activity=raw.getActivity();
