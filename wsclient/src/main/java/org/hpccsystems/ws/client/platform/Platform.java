@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
@@ -665,14 +666,14 @@ public class Platform extends DataSingleton
         return getLogicalFiles(""); //$NON-NLS-1$
     }
 
-    synchronized void updateLogicalFiles(DFULogicalFile[] rawLogicalFiles)
+    synchronized void updateLogicalFiles(List<DFULogicalFileInfo> rawLogicalFiles)
     {
         logicalFiles.clear();
         if (rawLogicalFiles != null)
         {
-            for (DFULogicalFile lf : rawLogicalFiles)
+            for (DFULogicalFileInfo lf : rawLogicalFiles)
             {
-                logicalFiles.add(getLogicalFile(lf)); // Will mark changed if needed ---
+                logicalFiles.add(getLogicalFile(lf.getFileName())); // Will mark changed if needed ---
             }
         }
     }

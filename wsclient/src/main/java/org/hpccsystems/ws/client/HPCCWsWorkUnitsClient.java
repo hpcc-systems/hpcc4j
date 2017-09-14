@@ -8,66 +8,20 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.axis.client.Stub;
 import org.apache.axis.utils.StringUtils;
+import org.apache.axis.types.NonNegativeInteger;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSchemaItem;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimer;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySet;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUAbort;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUAction;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWUActions;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUActionResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreate;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUDelete;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfoDetails;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WULogFileResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunitResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerySetDetailsResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysetDetails;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysets;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysetsResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResubmit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResultResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WURun;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WURunResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSubmit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSubmitResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSyntaxCheckECL;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSyntaxCheckResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdateResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoap;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.platform.QueryFileInfo;
+import org.hpccsystems.ws.client.platform.QueryResult;
+import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WULogFileInfo;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -1871,7 +1825,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     private void throwWsWUExceptions(ArrayOfEspException wsWUResponseExceptions, String message) throws Exception
     {
-        if (wsWUResponseExceptions==null || wsWUResponseExceptions.getException()==null) 
+        if (wsWUResponseExceptions==null || wsWUResponseExceptions.getException()==null
+                || wsWUResponseExceptions.getException().length==0)
         {
             return;
         }
@@ -1885,7 +1840,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             multimessage.append(exception.getMessage());
         }
 
-        throw new Exception(multimessage.toString());
+        throw new Exception(multimessage.toString(),wsWUResponseExceptions);
     }
 
     /**
@@ -2143,7 +2098,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         // get the object first to make sure it's not archived
         if (unarchive)
         {
-            WorkunitInfo wu = this.getWUInfo(wur.getWuid(), unarchive);
+            this.getWUInfo(wur.getWuid(), unarchive);
         }
         // get the response
         WUResultResponse resp = getSoapProxy().getWsWorkunitsServiceSoap().WUResult(wur);
@@ -2186,6 +2141,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
     
     /**
+<<<<<<< HEAD
      * Create a new workunit. Does not update/run/submit
      * @return new WorkunitInfo containing created wuid
      * @throws Exception
@@ -2292,5 +2248,172 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             wi.setEclResults(Arrays.asList(msg));
         }
         return wi;
+    }
+
+     /*
+     * Call WUQuerySetDetails search
+     * @param filtertype - QuerySetFilterType: filter to search on
+     * @param filtervalue - filter value
+     * @param querySetName - queryset to search
+     * @param clustername - cluster to search
+     * @return - List of QueryResults of matching queries
+     * @throws Exception
+     */
+    public List<QueryResult> searchQueries(QuerySetFilterType filtertype, String filtervalue, String querySetName, 
+            String clustername) throws Exception  
+    {
+        final WUQuerysetDetails params=new WUQuerysetDetails();
+        params.setClusterName(clustername);
+        params.setFilter(filtervalue);
+        params.setFilterType(WUQuerySetFilterType.fromValue(filtertype.toString()));
+        params.setQuerySetName(querySetName);
+        WUQuerySetDetailsResponse resp=getSoapProxy().WUQuerysetDetails(params);
+        throwWsWUExceptions(resp.getExceptions(), "Could not search queries:" );
+        QuerySetQuery[] queries = resp.getQuerysetQueries();
+        List<QueryResult> result=new ArrayList<QueryResult>();
+        if (queries!=null) 
+        {
+            for (QuerySetQuery item:queries) 
+            {
+                result.add(new QueryResult(item));
+            }
+        }
+        return result;
+    }
+    /**
+     * Call WUListQueries service
+     * @param queryid - unique ID of the query
+     * @param queryname - name/alias of the query
+     * @param clustername - name of the cluster the query is on
+     * @param querysetname - name of the queryset the cluster is part of
+     * @param pageSize - number of results to return (if null, 100 results are returned)
+     * @param pageStartFrom - which result to start returning on (if null, results start with 1)
+     * @param activated - whether to return activated queries
+     * @param filename - return queries using this filename
+     * @return List of QueryResults populated from QuerySetQuery list
+     * @throws Exception
+     */
+    public List<QueryResult> listQueries(String queryid, String queryname, String clustername, String querysetname, 
+            Integer pageSize,Integer pageStartFrom,
+            Boolean activated, String filename,Boolean descending) throws Exception 
+    {
+        final WUListQueries params = new WUListQueries();
+        if (pageSize != null) 
+        {
+            params.setPageSize(new NonNegativeInteger(String.valueOf(pageSize)));    
+        }
+        if (pageStartFrom != null) 
+        {
+            params.setPageStartFrom(new NonNegativeInteger(String.valueOf(pageStartFrom)));                
+        }
+        params.setDescending(descending);
+        params.setClusterName(clustername);
+        params.setQuerySetName(querysetname);
+        params.setQueryName(queryname);
+        params.setQueryID(queryid);
+        params.setActivated(activated);
+        params.setFileName(filename);
+        WUListQueriesResponse resp = getSoapProxy().WUListQueries(params);
+        throwWsWUExceptions(resp.getExceptions(), "Could not fetch queries: ");
+        QuerySetQuery[] queries = resp.getQuerysetQueries();
+        List<QueryResult> result=new ArrayList<QueryResult>();
+        if (queries!=null) 
+        {
+            for (QuerySetQuery item:queries) {
+                result.add(new QueryResult(item));
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * @param queryname - query to retrieve files for
+     * @param cluster - the cluster to search for said query
+     * @return - List<QueryFileInfo> of matching queries
+     * @throws Exception
+     */
+    public List<QueryFileInfo> getQueryFiles(String queryname, String cluster) throws Exception 
+    {
+        final WUQueryFiles queryFiles = new WUQueryFiles(cluster, queryname);
+        WUQueryFilesResponse resp = getSoapProxy().WUQueryFiles(queryFiles);
+        this.throwWsWUExceptions(resp.getExceptions(), "Could not get files for query " + queryname + ":");
+        List<QueryFileInfo> result=new ArrayList<QueryFileInfo>();
+        if (resp.getFiles() != null) 
+        {
+            for (int i = 0; i < resp.getFiles().length; i++) 
+            {
+                result.add(new QueryFileInfo(resp.getFiles()[i]));
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * @param queryId - unique id of query to activate
+     * @param cluster - cluster to activate upon
+     * @return 
+     * @throws Exception
+     */
+    public QueryResult activateQuery(String queryId, String cluster) throws Exception 
+    {
+        final WUQuerysetQueryAction queryAction = new WUQuerysetQueryAction();
+        queryAction.setAction(QuerySetQueryActionTypes.Activate);
+        final QuerySetQueryActionItem item = new QuerySetQueryActionItem();
+        item.setQueryId(queryId);
+        final QuerySetQueryActionItem[] items = new QuerySetQueryActionItem[]{item};
+        queryAction.setQuerySetName(cluster);
+        queryAction.setQueries(items);
+        final WUQuerySetQueryActionResponse resp =getSoapProxy().WUQuerysetQueryAction(queryAction);
+        this.throwWsWUExceptions(resp.getExceptions(), "Could not activate query " + queryId);
+        if (resp.getResults() != null && resp.getResults().length>0) 
+        {
+            QueryResult wrapped=new QueryResult(resp.getResults()[0]);
+            if (QuerySetQueryActionTypes.Activate.equals(resp.getAction()))
+            {
+                wrapped.setActivated(true);
+            } 
+            else 
+            {
+                wrapped.setActivated(false);
+            }
+            return wrapped;
+        }
+        return null;
+    }
+    /**
+     * @param querynames - queries to delete
+     * @param cluster - cluster to delete from
+     * @return - List<QueryResult> result of actions
+     * @throws Exception
+     */
+    public List<QueryResult> deleteQueries(Set<String> querynames, String cluster) throws Exception 
+    {
+        WUQuerysetQueryAction params=new WUQuerysetQueryAction();
+        QuerySetQueryActionItem[] queries=new QuerySetQueryActionItem[querynames.size()];
+        int i=0;
+        for (String queryname:querynames) 
+        {
+            QuerySetQueryActionItem item=new QuerySetQueryActionItem();
+            item.setQueryId(queryname);
+            queries[i]=item;
+            i++;
+        }
+        params.setQueries(queries);
+        params.setQuerySetName(cluster);
+        params.setAction(QuerySetQueryActionTypes.Delete);
+        
+        WUQuerySetQueryActionResponse resp = getSoapProxy().WUQuerysetQueryAction(params);
+        this.throwWsWUExceptions(resp.getExceptions(), "Could not delete queries: ");
+        List<QueryResult> results=new ArrayList<QueryResult>();
+        
+        if (resp.getResults() != null) 
+        {
+            for (int j=0; j < resp.getResults().length;j++) 
+            {
+                QuerySetQueryActionResult res=resp.getResults()[j];
+                results.add(new QueryResult(res));
+            }
+        }
+        return results;
     }
 }
