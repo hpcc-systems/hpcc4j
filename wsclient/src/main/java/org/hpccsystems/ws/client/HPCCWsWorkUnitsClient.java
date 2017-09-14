@@ -19,6 +19,7 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.platform.ECLResultInfo;
 import org.hpccsystems.ws.client.platform.QueryFileInfo;
 import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
@@ -27,7 +28,6 @@ import org.hpccsystems.ws.client.platform.WULogFileInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.ECLExceptionInfo;
-import org.hpccsystems.ws.client.utils.ECLResultInfo;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
@@ -2152,7 +2152,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
     
     /**
-<<<<<<< HEAD
      * Create a new workunit. Does not update/run/submit
      * @return new WorkunitInfo containing created wuid
      * @throws Exception

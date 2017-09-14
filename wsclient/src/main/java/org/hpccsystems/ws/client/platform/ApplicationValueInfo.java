@@ -1,4 +1,4 @@
-package org.hpccsystems.ws.client.utils;
+package org.hpccsystems.ws.client.platform;
 
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue;
 
@@ -10,6 +10,12 @@ public class ApplicationValueInfo {
 
     public ApplicationValueInfo()
     {
+    }
+    
+    public ApplicationValueInfo(String app, String name,String value) {
+        this.application=app;
+        this.name=name;
+        this.value=value;
     }
     
     public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue raw) 
