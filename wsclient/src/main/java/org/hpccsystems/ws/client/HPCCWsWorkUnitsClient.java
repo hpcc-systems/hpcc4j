@@ -4,80 +4,30 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.axis.client.Stub;
+import org.apache.axis.utils.StringUtils;
 import org.apache.axis.types.NonNegativeInteger;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSchemaItem;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimer;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.FileUsedByQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySet;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQueryActionItem;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQueryActionResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQueryActionTypes;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUAbort;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUAction;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWUActions;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUActionResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUDelete;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfoDetails;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUListQueries;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUListQueriesResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunitResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQueryFiles;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQueryFilesResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerySetDetailsResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerySetFilterType;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerySetQueryActionResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysetDetails;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysetQueryAction;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysets;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuerysetsResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResubmit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUResultResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WURun;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WURunResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSubmit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSubmitResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSyntaxCheckECL;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUSyntaxCheckResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdateResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoap;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.platform.ECLResultInfo;
 import org.hpccsystems.ws.client.platform.QueryFileInfo;
 import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.Version;
+import org.hpccsystems.ws.client.platform.WULogFileInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
+import org.hpccsystems.ws.client.utils.ECLExceptionInfo;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
@@ -1452,7 +1402,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             WUCreateAndUpdate wucreateparameters = new WUCreateAndUpdate();
             wucreateparameters.setAction(1); // 1= compile
             wucreateparameters.setQueryText(wu.getECL());
-            wucreateparameters.setApplicationValues(wu.getApplicationValues());
+            wucreateparameters.setApplicationValues(wu.getRawApplicationValues());
             wucreateparameters.setDebugValues(wu.getDebugValues());
             wucreateparameters.setJobname(wu.getJobname());
             wucreateparameters.setClusterOrig(wu.getCluster());
@@ -1513,7 +1463,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @return an ArrayList<ECLWorkunit> of matching workunits
      * @throws Exception
      */
-    public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl) throws Exception
+    public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, String type, String wuid,
+            String cluster, String state) throws Exception
     {
         WUQuery params = new WUQuery();
         if (jobName != null)
@@ -1529,6 +1480,22 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (ecl != null)
         {
             params.setECL(ecl);
+        }
+        if (type != null)
+        {
+            params.setType(type);
+        }
+        if (wuid != null)
+        {
+            params.setWuid(wuid);
+        }
+        if (cluster != null)
+        {
+            params.setCluster(cluster);
+        }
+        if (state != null)
+        {
+            params.setState(state);
         }
         return getWorkunits(params);
     }
@@ -1677,7 +1644,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             {
                 WURun runparameters = new WURun();
                 runparameters.setWuid(compiledWU.getWuid());
-                runparameters.setVariables(wu.getNamedValues());
+                runparameters.setVariables(wu.getRawNamedValues());
                 runparameters.setCluster(wu.getCluster());
 
                 wuRunResponse = wsWorkunitsServiceSoapProxy.WURun(runparameters);
@@ -1892,7 +1859,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     private void throwWUECLExceptions(ECLException[] eclExceptions, String message) throws Exception
     {
-        if (eclExceptions == null)
+        if (eclExceptions == null || eclExceptions.length==0)
         {
             return;
         }
@@ -1967,7 +1934,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
     }
 
-    public ECLException[] syntaxCheckECL(String ecl, String cluster) throws Exception
+    public List<ECLExceptionInfo> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
     {
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
@@ -1976,8 +1943,15 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             WUSyntaxCheckECL checkParams = new WUSyntaxCheckECL();
             checkParams.setECL(ecl);
             checkParams.setCluster(cluster);
+            checkParams.setTimeToWait(timeout);
             WUSyntaxCheckResponse resp = wsWorkunitsServiceSoapProxy.WUSyntaxCheckECL(checkParams);
-            return resp.getErrors();
+            List<ECLExceptionInfo> result=new ArrayList<ECLExceptionInfo>();
+            if (resp.getErrors() != null) {
+                for (int i=0; i < resp.getErrors().length;i++) {
+                    result.add(new ECLExceptionInfo(resp.getErrors()[i]));
+                }
+            }
+            return result;
         }
 
     }
@@ -2135,7 +2109,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         // get the object first to make sure it's not archived
         if (unarchive)
         {
-            WorkunitInfo wu = this.getWUInfo(wur.getWuid(), unarchive);
+            this.getWUInfo(wur.getWuid(), unarchive);
         }
         // get the response
         WUResultResponse resp = getSoapProxy().getWsWorkunitsServiceSoap().WUResult(wur);
@@ -2178,6 +2152,115 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
     
     /**
+     * Create a new workunit. Does not update/run/submit
+     * @return new WorkunitInfo containing created wuid
+     * @throws Exception
+     */
+    public WorkunitInfo createWorkunit() throws Exception 
+    {
+        WUCreate wuparams=new WUCreate();
+        WUCreateResponse resp=getSoapProxy().WUCreate(wuparams);
+        this.throwWsWUExceptions(resp.getExceptions(),"Could not create workunit");
+        return new WorkunitInfo(resp.getWorkunit());  
+    }
+    
+    /**
+     * Protect a workunit
+     * @param wuid - wuid to protect
+     * @return WorkunitInfo with updated status
+     * @throws Exception
+     */
+    public WorkunitInfo protectWorkunit(String wuid) throws Exception 
+    {
+        final WUUpdate params = new WUUpdate();
+        params.set_protected(true);
+        params.setWuid(wuid);
+        WUUpdateResponse resp=   getSoapProxy().WUUpdate(params);
+        this.throwWsWUExceptions(resp.getExceptions(),"Could not protect workunit " + wuid);
+        return new WorkunitInfo(resp.getWorkunit());
+    }
+
+    public WULogFileInfo getWorkunitFile(String wuid, String filename, String filetype, String description, 
+            String ipaddr, boolean entirefile) throws Exception 
+    {
+        WUFile file = new WUFile();
+        file.setWuid(wuid);
+        file.setName(filename);
+        file.setType(filetype);
+        file.setDescription(description);
+        file.setIPAddress(ipaddr);
+        if (entirefile) 
+        {
+            file.setOption(1);
+        }
+        WULogFileResponse logFileResponse = getSoapProxy().WUFile(file);
+        this.throwWsWUExceptions(logFileResponse.getExceptions(), "Could not retrieve file " + filename 
+                + " for wuid " + wuid);
+        return new WULogFileInfo(logFileResponse);
+        
+    }
+    /**
+     * @param wuid - wuid to call WURun for
+     * @param namedvalues - override stored variables with this set of stored variables
+     * @param appvalues - override application values with this set of app values
+     * @param timeout - if provided, timeout before returning
+     * @param cloneWorkunit - if true, clone workunit before rerunning
+     * @param appsource - application source for app values
+     * @return WorkunitInfo with wuid of run, run status & result
+     * @throws Exception
+     */
+    public WorkunitInfo runWorkunit(String wuid,HashMap<String,String> namedvalues,HashMap<String,String> appvalues, 
+            Integer timeout,Boolean cloneWorkunit, String appsource) throws Exception 
+    {
+        WURun params=new WURun();
+        params.setWuid(wuid);
+        params.setCloneWorkunit(cloneWorkunit);
+        //default setting is synchronous/waits until workunit completes. Set this to asynchronous
+        params.setWait(timeout);
+        
+        if (appvalues != null) 
+        {
+            ApplicationValue[] vars=new ApplicationValue[appvalues.size()];
+            int i=0;
+            for (Entry<String,String> item:appvalues.entrySet()) {
+                ApplicationValue val=new ApplicationValue();
+                val.setName(item.getKey());
+                val.setValue(item.getValue());
+                val.setApplication(appsource);
+                vars[i]=val;
+                i++;
+            }
+            params.setApplicationValues(vars);
+        }
+        if (namedvalues != null) 
+        {
+            NamedValue[] nvars=new NamedValue[namedvalues.size()];
+            int i=0;
+            for (Entry<String,String> item:namedvalues.entrySet()) 
+            {
+                NamedValue val=new NamedValue();
+                val.setName(item.getKey());
+                val.setValue(item.getValue());
+                nvars[i]=val;
+                i++;
+            }
+            params.setVariables(nvars);
+        }
+        WURunResponse resp=getSoapProxy().WURun(params);
+        this.throwWsWUExceptions(resp.getExceptions(),"Could not run workunit " + wuid);
+        WorkunitInfo wi=new WorkunitInfo();
+        wi.setState(resp.getState());
+        wi.setWuid(resp.getWuid());
+        if (!StringUtils.isEmpty(resp.getResults()) && !StringUtils.isEmpty(resp.getResults())) 
+        {
+            ECLResultInfo msg=new ECLResultInfo();
+            msg.setValue(resp.getResults());
+            wi.setResults(Arrays.asList(msg));
+        }
+        return wi;
+    }
+
+     /*
      * Call WUQuerySetDetails search
      * @param filtertype - QuerySetFilterType: filter to search on
      * @param filtervalue - filter value
@@ -2343,5 +2426,4 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
         return results;
     }
-    
 }
