@@ -64,15 +64,21 @@ wsclient | hpccsystems-platform
 - JAPI-80 update WsFS Dropzone related methods
 - JAPI-72 Correctly use WsClient WsFS methods regarding DZs
 
-#### Future Releases
+###### 1.2.2
 - JAPI-79 Avoid premature submission of compiling WUs
+- JAPI-91 Fix COMPILING state map
+- JAPI-90 Added createOrUpdate function to HPCCWsAttributesClient
+- JAPI-95 Wrap attribute  delete calls
+- JAPI-97 HPCCWsDFUClient soap-agnostic objects and wrappers
+- JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
+- JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
 
 #### Contributions
 
 All contributions must follow the JAVA source format described in the HPCC-JAVA-Formatter.xml file which can be found in /eclipse.
 This formatter can be used by the Eclipse IDE to automatically format JAVA source code.
 
-- From eclipse, choose Window->Preferences->Java->Code Stype->Formatter...
+- From eclipse, choose Window->Preferences->Java->Code Style->Formatter...
 
 - Import the HPCC-JAVA-Formatter.xml file and set it as the Active profile.
 

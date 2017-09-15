@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
-import org.hpccsystems.ws.client.utils.ECLExceptionInfo;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
 public class WorkunitInfo implements

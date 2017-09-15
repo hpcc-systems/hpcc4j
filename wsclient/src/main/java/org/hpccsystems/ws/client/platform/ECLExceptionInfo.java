@@ -1,4 +1,4 @@
-package org.hpccsystems.ws.client.utils;
+package org.hpccsystems.ws.client.platform;
 
 
 public class ECLExceptionInfo {
