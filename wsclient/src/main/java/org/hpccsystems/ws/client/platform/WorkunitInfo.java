@@ -402,6 +402,19 @@ public class WorkunitInfo implements
         }
         return raw;
     }
+	
+	public void setNamedValues(NamedValue[] raw) 
+	{
+	    if (raw==null) 
+	    {
+	        return;
+	    }
+	    namedValues=new ArrayList<NamedValueInfo>();
+	    for (int i=0; i < raw.length;i++) 
+	    {
+	        namedValues.add(new NamedValueInfo(raw[i]));
+	    }
+	}
     public int getMaxMonitorTime() {
         return maxMonitorTime;
     }
