@@ -51,6 +51,7 @@ public class ApplicationValueInfo {
     
     public ApplicationValue getRaw() {
         ApplicationValue val=new ApplicationValue();
+        val.setApplication(this.getApplication());
         val.setName(this.getName());
         val.setValue(this.getValue());
         return val;
