@@ -15,8 +15,8 @@ public class WorkunitInfo implements
     private int               sleepMillis      = HPCCWsWorkUnitsClient.defaultWaitTime;
     private List<NamedValueInfo>      namedValues      = null;
     private String originalEclWatchUrl=null;
-    private List<ApplicationValueInfo> applicationValues;
-    private List<ECLResultInfo> eclResults;
+    private List<ApplicationValueInfo> applicationValues=new ArrayList<ApplicationValueInfo>();
+    private List<ECLResultInfo> eclResults=new ArrayList<ECLResultInfo>();
     private Integer accessFlag;
     private Integer action;
     private String actionEx;
@@ -35,7 +35,7 @@ public class WorkunitInfo implements
     private String description;
     private Integer errorCount;
     private Integer eventSchedule;
-    private List<ECLExceptionInfo> exceptions;
+    private List<ECLExceptionInfo> exceptions=new ArrayList<ECLExceptionInfo>();
     private Integer graphCount;
     private ECLGraph[] graphs;
     private String graphsDesc;
@@ -81,6 +81,8 @@ public class WorkunitInfo implements
     private String workflowsDesc;
     private String wuid;
     private String xmlParams;
+    private ECLWorkunit eclWorkunit;
+    private String[] resultViews;
     /**
      * Create an ECL workunit from a axis-generated soap class ECL Workunit
      * 
@@ -177,6 +179,7 @@ public class WorkunitInfo implements
         {
             return;
         }
+        this.eclWorkunit=base;
         this.setAccessFlag(base.getAccessFlag());
         this.setAction(base.getAction());
         this.setActionEx(base.getActionEx());
@@ -401,6 +404,19 @@ public class WorkunitInfo implements
         }
         return raw;
     }
+	
+	public void setNamedValues(NamedValue[] raw) 
+	{
+	    if (raw==null) 
+	    {
+	        return;
+	    }
+	    namedValues=new ArrayList<NamedValueInfo>();
+	    for (int i=0; i < raw.length;i++) 
+	    {
+	        namedValues.add(new NamedValueInfo(raw[i]));
+	    }
+	}
     public int getMaxMonitorTime() {
         return maxMonitorTime;
     }
@@ -951,6 +967,19 @@ public class WorkunitInfo implements
     public void setSourceFilesDesc(String sourceFileDesc) {
         this.sourceFileDesc = sourceFileDesc;
     }
+
+    public ECLWorkunit getEclWorkunit() {
+        return eclWorkunit;
+    }
+
+    public String[] getResultViews() {
+        return resultViews;
+    }
+
+    public void setResultViews(String[] resultViews) {
+        this.resultViews = resultViews;
+    }
+
 
 
 }

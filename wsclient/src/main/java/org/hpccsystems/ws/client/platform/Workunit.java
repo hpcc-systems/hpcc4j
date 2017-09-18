@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
@@ -477,10 +478,10 @@ public class Workunit extends DataSingleton
         try
         {
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsWorkunitsClient();
-            WUQueryResponse response = wsWorkunitsClient.workUnitUQuery(info.getWuid(), null, null, null, null, null, null, null, null, null, 1, null, null, null, null);
-            if (response.getWorkunits() != null && response.getWorkunits().length == 1)
+            List<WorkunitInfo> response = wsWorkunitsClient.workUnitUQuery(info.getWuid(), null, null, null, null, null, null, null, null, null, 1, null, null, null, null);
+            if (response.size() == 1)
             {
-                update(response.getWorkunits()[0]);
+                update(response.get(0).getEclWorkunit());
             }
         }
         catch (Exception e1)
@@ -506,35 +507,38 @@ public class Workunit extends DataSingleton
         try
         {
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsWorkunitsClient();
-            WUInfoResponse response = wsWorkunitsClient.getWUInfo(info.getWuid(), includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, false, false, false, false, false);
-
-            if (response.getWorkunit() == null)
-            { // Call succeeded, but no response...
-                for (EspException e : response.getExceptions().getException())
+            try {
+                WorkunitInfo wi = wsWorkunitsClient.getWUInfo(info.getWuid(), includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, false, false, false, false, false);
+                if (wi != null)
                 {
-                    if (e.getCode().equals("20082") || e.getCode().equals("20080"))
-                    { //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
-                        info.setStateID(999);
-                        setChanged();
-                        notifyObservers(Notification.WORKUNIT);
-                        break;
+                    update(wi.getEclWorkunit());
+                    if (wi.getResultViews() != null)
+                    {
+                        resultViews = Arrays.asList(wi.getResultViews());
                     }
                 }
-            }
-            else
+            } 
+            catch (Exception ex) 
             {
-                update(response.getWorkunit());
+                //getWUInfo throws the arrayofespexceptions wrapped in an exception;
+                //examine this in a catch
+                if (ex.getCause() != null && ex.getCause() instanceof ArrayOfEspException)
+                {
+                    // Call succeeded, but no response...
+                    for (EspException e : ((ArrayOfEspException)ex.getCause()).getException())
+                    {
+                        if (e.getCode().equals("20082") || e.getCode().equals("20080"))
+                        { //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
+                            info.setStateID(999);
+                            setChanged();
+                            notifyObservers(Notification.WORKUNIT);
+                            break;
+                        }
+                    }       
+                }
             }
+            
 
-            if (response.getResultViews() != null)
-            {
-                resultViews = Arrays.asList(response.getResultViews());
-            }
-        }
-        catch (ArrayOfEspException e)
-        {
-            assert false;
-            e.printStackTrace();
         }
         catch (RemoteException e)
         {

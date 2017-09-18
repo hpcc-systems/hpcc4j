@@ -26,11 +26,13 @@ import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WULogFileInfo;
+import org.hpccsystems.ws.client.platform.WUQueryInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.utils.WUFileType;
 
 /**
  *
@@ -571,7 +573,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return workunit;
     }
 
-    public WUInfoResponse getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
+    public WorkunitInfo getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
             boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues,
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers)
                     throws Exception
@@ -580,7 +582,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers, false);
     }
 
-    public WUInfoResponse getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
+    public WorkunitInfo getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
             boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues,
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers,
             boolean unarchive) throws Exception
@@ -604,6 +606,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             request.setIncludeXmlSchemas(includeXmlSchemas);
 
             WUInfoResponse resp = wsWorkunitsServiceSoapProxy.WUInfo(request);
+            this.throwWsWUExceptions(resp.getExceptions(), "Could not retrieve workunit:");
             ECLWorkunit wk = resp.getWorkunit();
             if (unarchive && wk != null && wk.getArchived() != null && wk.getArchived())
             {
@@ -612,7 +615,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                         includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers,
                         false);
             }
-            return resp;
+            if (wk==null)
+            {
+                return null;
+            }
+            WorkunitInfo wi=new WorkunitInfo(wk);
+            wi.setResultViews(resp.getResultViews());
+            return wi;
         }
     }
 
@@ -1208,7 +1217,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @return WUQueryResponse
      * @throws Exception
      */
-    public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
+    public List<WorkunitInfo> workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
             String state, String endDate, String startDate, Long pageStartFrom, Long pageSize, Integer count,
             String owner, ApplicationValue[] applicationValues) throws Exception
     {
@@ -1318,11 +1327,19 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 if (arrayOfEspException != null) throwWsWUExceptions(arrayOfEspException, "Error in WU query");
             }
         }
-        return wuQueryResponse;
+        List<WorkunitInfo> result=new ArrayList<WorkunitInfo>();
+        if (wuQueryResponse.getWorkunits() != null)
+        {
+            for (int i=0; i < wuQueryResponse.getWorkunits().length;i++) {
+                result.add(new WorkunitInfo(wuQueryResponse.getWorkunits()[i]));
+            }
+        }
+        return result;
     }
 
-    public WUQueryResponse workUnitUQuery(WUQuery params) throws Exception
+    public List<WorkunitInfo> workUnitUQuery(WUQueryInfo inparams) throws Exception
     {
+        WUQuery params=inparams.getRaw();
         return this.workUnitUQuery(params.getWuid(), params.getJobname(), params.getCluster(), params.getType(),
                 params.getSortby(), params.getState(), params.getEndDate(), params.getStartDate(),
                 params.getPageStartFrom(), params.getPageSize(), params.getCount(), params.getOwner(),
@@ -1352,7 +1369,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @throws Exception
      */
     @Deprecated
-    public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
+    public List<WorkunitInfo> workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
             String state, String endDate, String startDate, Long pageStartFrom, Long pageSize, Integer count,
             String owner, String appName, String appKey, String appData) throws Exception
     {
@@ -1463,10 +1480,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @return an ArrayList<ECLWorkunit> of matching workunits
      * @throws Exception
      */
-    public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, String type, String wuid,
-            String cluster, String state) throws Exception
+    public List<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, String type, String wuid,
+            String cluster, WUState state) throws Exception
     {
-        WUQuery params = new WUQuery();
+        WUQueryInfo params = new WUQueryInfo();
         if (jobName != null)
         {
             params.setJobname(jobName);
@@ -1500,32 +1517,9 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return getWorkunits(params);
     }
 
-    public ArrayList<WorkunitInfo> getWorkunits(WUQuery params) throws Exception
+    public List<WorkunitInfo> getWorkunits(WUQueryInfo params) throws Exception
     {
-        ArrayList<WorkunitInfo> wks = new ArrayList<WorkunitInfo>();
-
-        try
-        {
-            WUQueryResponse result = this.workUnitUQuery(params);
-            ECLWorkunit[] ecls = result.getWorkunits();
-
-            if (ecls == null)
-            {
-                return wks;
-            }
-            for (int i = 0; i < ecls.length; i++)
-            {
-                WorkunitInfo w = new WorkunitInfo(ecls[i]);
-                w.setOriginalEclWatchUrl(getEclWatchUrl());
-                wks.add(w);
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw e;
-        }
-        return wks;
+        return this.workUnitUQuery(params);
     }
 
     /**
@@ -1558,26 +1552,37 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             // exceptions, etc. aren't always included in the submit response; do another request to get all workunit
             // info
-            WUInfoResponse res = this.getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false,
+            WorkunitInfo res = this.getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false,
                     false, false);
-            if (createdWU.getExceptions() == null && res.getWorkunit() != null
-                    && res.getWorkunit().getExceptions() != null)
+            
+            int actualerrors = 0;
+            for (ECLExceptionInfo ex:res.getExceptions())
             {
-                int actualerrors = 0;
-                for (int i = 0; i < res.getWorkunit().getExceptions().length; i++)
+                if ("error".equalsIgnoreCase(ex.getSeverity()))
                 {
-                    if ("error".equalsIgnoreCase(res.getWorkunit().getExceptions()[i].getSeverity()))
-                    {
-                        actualerrors++;
-                    }
+                    actualerrors++;
                 }
-                if (actualerrors > 0)
-                {
-                    this.throwWUECLExceptions(res.getWorkunit().getExceptions(), "Workunit Compile Failed");
-                }
+            }
+            if (actualerrors > 0)
+            {
+                this.throwWUECLExceptions(res.getExceptions(), "Workunit Compile Failed");
             }
         }
         return createdWU;
+    }
+
+    private void throwWUECLExceptions(List<ECLExceptionInfo> exceptions, String message) throws Exception {
+        if (exceptions == null) 
+        {
+            return;
+        }
+        ECLException[] exes=new ECLException[exceptions.size()];
+        for (int i=0; i < exceptions.size();i++)
+        {
+            exes[i]=exceptions.get(i).getRaw();
+        }
+        throwWUECLExceptions(exes,message);
+        
     }
 
     /**
@@ -2097,6 +2102,25 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
 
     /**
+     * @param wuid - wuid to return result for
+     * @param resultname - resultname to return result for
+     * @return content of result
+     * @throws Exception
+     */
+    public String getWorkunitResult(String wuid, String resultname) throws Exception 
+    {
+        WUResult params=new WUResult();
+        params.setWuid(wuid);
+        params.setResultName(resultname);
+        WUResultResponse resp=getWorkunitResult(params,true);
+        if (resp != null)
+        {
+            this.throwWsWUExceptions(resp.getExceptions(), "Unable to retrieve result " + resultname + " from wuid " + wuid + ":");
+            return resp.getResult();
+        }
+        return null;        
+    }
+    /**
      * Return a workunit result
      *
      * @param WUResult
@@ -2180,13 +2204,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return new WorkunitInfo(resp.getWorkunit());
     }
 
-    public WULogFileInfo getWorkunitFile(String wuid, String filename, String filetype, String description, 
+    public WULogFileInfo getWorkunitFile(String wuid, String filename, WUFileType filetype, String description, 
             String ipaddr, boolean entirefile) throws Exception 
     {
         WUFile file = new WUFile();
         file.setWuid(wuid);
         file.setName(filename);
-        file.setType(filetype);
+        file.setType(filetype.toString());
         file.setDescription(description);
         file.setIPAddress(ipaddr);
         if (entirefile) 

@@ -412,8 +412,8 @@ public class Platform extends DataSingleton
             try
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, jobname, cluster, null, null, null, endDate, startDate, null, null, 100, userOnly ? getUser() : null, "org.hpccsystems.ws.client", appKey, appData);
-                updateWorkunits(response.getWorkunits());
+                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(null, jobname, cluster, null, null, null, endDate, startDate, null, null, 100, userOnly ? getUser() : null, "org.hpccsystems.ws.client", appKey, appData);
+                updateWorkunits(response);
             }
             catch (ArrayOfEspException e)
             {
@@ -454,9 +454,9 @@ public class Platform extends DataSingleton
             {
 
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, null, cluster, null, null, null, toESPString(endDate), toESPString(startDate), null, null, 100, owner, null, null, null);
+                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(null, null, cluster, null, null, null, toESPString(endDate), toESPString(startDate), null, null, 100, owner, null, null, null);
 
-                updateWorkunits(response.getWorkunits());
+                updateWorkunits(response);
             }
             catch (ArrayOfEspException e)
             {
@@ -486,16 +486,16 @@ public class Platform extends DataSingleton
         return getWorkunits(userOnly, "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
-    synchronized void updateWorkunits(ECLWorkunit[] rawWorkunits)
+    synchronized void updateWorkunits(List<WorkunitInfo> rawWorkunits)
     {
         workunits.clear();
         if (rawWorkunits != null)
         {
-            for (ECLWorkunit wu : rawWorkunits)
+            for (WorkunitInfo wu : rawWorkunits)
             {
                 if (Workunit.isValidWUIDString(wu.getWuid()))
                 {
-                    workunits.add(getWorkunit(wu)); // Will mark changed if needed ---
+                    workunits.add(getWorkunit(wu.getEclWorkunit())); // Will mark changed if needed ---
                 }
             }
         }

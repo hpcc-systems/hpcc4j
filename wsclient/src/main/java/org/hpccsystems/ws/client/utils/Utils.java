@@ -12,8 +12,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,7 +41,8 @@ public class Utils
 {
     final static char LINUX_SEP =  '/';
     final static char WIN_SEP =  '\\';
-
+    final static String ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
+    
     /**
      * @param wsdlurl - url to web service definition
      * @return        - version reported as ver_ parameter in url
@@ -694,4 +700,36 @@ public class Utils
       }
 
 
+     /**
+     * @param date - java date to convert to string
+     * @return UTC String for querying esp services in format yyyy-mm-ddThh:MM:ssZ
+     */
+    public static String dateToUTCString(Date date)
+    {
+        if (date==null) 
+        {
+            return null;
+        }
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat(ISO8601_FORMAT);
+        df.setTimeZone(tz);
+        return df.format(date);
+    }
+    
+    /**
+     * @param utc - String in yyyy-mm-ddThh:MM:ssZ format
+     * @return Date equivalent to string
+     * @throws ParseException
+     */
+    public static Date UTCStringToDate(String utc) throws ParseException
+    {
+        if (utc==null)
+        {
+            return null;
+        }
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat(ISO8601_FORMAT);
+        return df.parse(utc);
+    }
+      
 }
