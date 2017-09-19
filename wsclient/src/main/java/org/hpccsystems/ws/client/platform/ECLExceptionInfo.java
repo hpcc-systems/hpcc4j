@@ -14,7 +14,7 @@ public class ECLExceptionInfo {
 
     public ECLExceptionInfo() {}
     
-    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw) 
+    public ECLExceptionInfo(ECLException raw) 
     {
         activity=raw.getActivity();
         code=raw.getCode();
@@ -89,7 +89,7 @@ public class ECLExceptionInfo {
     public void setSource(String source) {
         this.source = source;
     }
-
+    
     public ECLException getRaw() {
         ECLException ex=new ECLException();
         ex.setActivity(activity);
@@ -102,4 +102,5 @@ public class ECLExceptionInfo {
         ex.setSource(source);
         return ex;
     }
+
 }
