@@ -20,6 +20,9 @@ import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
+import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
+import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
+import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
 import org.hpccsystems.ws.client.platform.DropZone;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
@@ -342,6 +345,20 @@ public class PlatformTester
             for (int i = 0; i < newgetFileDataColumns.length; i++)
             {
                 System.out.println("Col name: " + newgetFileDataColumns[i].getColumnLabel() + " ecl: " + newgetFileDataColumns[i].getColumnEclType() + " col type " + newgetFileDataColumns[i].getColumnType());
+            }
+
+            System.out.println("Test for showing file part informaztion");
+            DFUFileDetailInfo fd = wsDFUClient.getFileDetails("hthor::processed::persons", null);
+            DFUFilePartsOnClusterInfo[] fp = fd.getDFUFilePartsOnClusters();
+            for (int f=0; fp!=null && f<fp.length; f++)
+            {
+                System.out.println("Parts on cluster: " + fp[f].getCluster());
+                DFUFilePartInfo[] parts = fp[f].getDFUFileParts();
+                for (int i=0; i<parts.length; i++)
+                    System.out.println("Part ID=" + parts[i].getId()
+                                    + ": Copy Flag=" + parts[i].getCopy()
+                                    + ": IP=" + parts[i].getIp()
+                                    + ": Size=" + parts[i].getPartsize());
             }
 
             System.out.println(FileFormat.getFileFormatName(Utils.findEnumValFromString(FileFormat.class, "CSV")));
