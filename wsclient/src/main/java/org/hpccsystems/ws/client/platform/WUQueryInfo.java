@@ -1,58 +1,65 @@
 package org.hpccsystems.ws.client.platform;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery;
 import org.hpccsystems.ws.client.utils.Utils;
 
+/**
+ * Wrapper class for inputs to WUQuery. the fields aren't an exact 1-to-1 with the esp service fields. some fields
+ * are deprecated and no longer used, some fields have been replaced by others, some string fields are actually
+ * expecting specific enum values.
+ * @author LeedDX
+ *
+ */
 public class WUQueryInfo {
 
-    private String after;
-    private String before;
     private String cluster;
-    private Integer count;
     private Boolean descending;
     private Boolean archived;
     private String ECL;
     private Date endDate;
     private String jobname;
-    private Integer lastNDays;
     private String logicalFile;
-    private String logicalFileSearchType;
+    //if logicalfilesearchtype is null, only inputs are searched.
+    //setting input to be the default search to avoid user confusion later.
+    private LogicalFileSearchType logicalFileSearchType=LogicalFileSearchType.Input;
     private String owner;
-    private Long pageEndAt;
     private Long pageSize;
     private Long pageStartFrom;
     private SortBy sortby;
     private Date startDate;
     private WUState state;
-    private String type;
     private String wuid;
     
     private static String ARCHIVED_STR="archived workunits";
     private static String NONARCHIVED_STR="non-archived workunits";
+    private static String CREATED_LF_STR="created";
     
     private List<ApplicationValueInfo> applicationValues=new ArrayList<ApplicationValueInfo>();
 
     public WUQueryInfo() { }
     
-    public WUQueryInfo(WUQuery raw) throws Exception 
+    /**
+     * 
+     * @param raw - the soap-version-specific WUQuery to use to initialize this WUQueryInfo object.
+     * @throws Exception if the input start date / end date are not null and are invalid date strings.
+     */
+    public WUQueryInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery raw) throws Exception 
     {
-        after=raw.getAfter();
-        ApplicationValue[] appvalues = raw.getApplicationValues();
-        if (appvalues != null) 
+        //not setting before or after or count. They've been replaced by pageStartFrom and papgeSize.
+        //not setting roxiecluster, it's deprecated and cluster is used. This is as of
+        //not setting lastndays, it's deprecated. using startdate 
+        //all this as per Kevin Wang
+        
+        if (raw.getApplicationValues() != null) 
         {
-            for (int i=0; i < appvalues.length;i++) {
-                applicationValues.add(new ApplicationValueInfo(appvalues[i]));
+            for (int i=0; i < raw.getApplicationValues().length;i++) {
+                applicationValues.add(new ApplicationValueInfo(raw.getApplicationValues()[i]));
             }
         }
-        before=raw.getBefore();
         cluster=raw.getCluster();
-        count=raw.getCount();
         descending=raw.getDescending();
         ECL=raw.getECL();
         try 
@@ -63,14 +70,16 @@ public class WUQueryInfo {
             throw new Exception("Invalid end date value " + raw.getEndDate());
         }
         jobname=raw.getJobname();
-        lastNDays=raw.getLastNDays();
         logicalFile=raw.getLogicalFile();
-        logicalFileSearchType=raw.getLogicalFileSearchType();
+        //the way this works is: if "created" is sent in, only outputs are searched.
+        //otherwise, if it's null OR some other value is passed in, only inputs are searched.
+        if (CREATED_LF_STR.equalsIgnoreCase(raw.getLogicalFileSearchType()))
+        {
+            this.logicalFileSearchType=LogicalFileSearchType.Output;
+        }
         owner=raw.getOwner();
-        pageEndAt=raw.getPageEndAt();
         pageSize=raw.getPageSize();
         pageStartFrom=raw.getPageStartFrom();
-        //not copying getRoxieCluster; it's not in use with the 6.0.0+ versions of the platform. getCluster() is used instead
         sortby=SortBy.valueOf(raw.getSortby());
         try 
         {
@@ -93,169 +102,327 @@ public class WUQueryInfo {
         }
         wuid=raw.getWuid();
     }
-    
-    public String getAfter() {
-        return after;
-    }
 
-    public void setAfter(String after) {
-        this.after = after;
-    }
 
-    public String getBefore() {
-        return before;
-    }
-
-    public void setBefore(String before) {
-        this.before = before;
-    }
-
+    /**
+     * @return the cluster name to filter workunits by.
+     */
     public String getCluster() {
         return cluster;
     }
 
-    public void setCluster(String cluster) {
+    /**
+     * @param cluster - the cluster name to return workunits from.
+     */
+    public WUQueryInfo setCluster(String cluster) {
         this.cluster = cluster;
+        return this;
     }
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
+    /**
+     * @return if a sortby param is specified and getDescending is true, results will be returned descending.
+     * 
+     */
     public Boolean getDescending() {
         return descending;
     }
 
-    public void setDescending(Boolean descending) {
+    /**
+     * @param descending - if a sortby parameter is specified, descending will make that parameter sort descending.
+     */
+    public WUQueryInfo setDescending(Boolean descending) {
         this.descending = descending;
+        return this;
     }
 
+    /**
+     * @return the ecl that will be searched for.
+     */
     public String getECL() {
         return ECL;
     }
 
-    public void setECL(String eCL) {
+    /**
+     * @param ecl - the ecl to search for. Wildcards (*,?) are allowed.
+     */
+    public WUQueryInfo setECL(String eCL) {
         ECL = eCL;
+        return this;
     }
 
-    public Date getEndDate() throws ParseException {
+    /**
+     * @return - the end date to search for.
+     */
+    public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     * @return jobname that will be searched for.
+     */
     public String getJobname() {
         return jobname;
     }
 
-    public void setJobname(String jobname) {
+    /**
+     * @param jobname - find workunits with this jobname. Wildcards (*,?) are allowed.
+     */
+    public WUQueryInfo setJobname(String jobname) {
         this.jobname = jobname;
+        return this;
     }
 
-    public Integer getLastNDays() {
-        return lastNDays;
-    }
-
-    public void setLastNDays(Integer lastNDays) {
-        this.lastNDays = lastNDays;
-    }
-
+    /**
+     * @return the logical file to search for.
+     */
     public String getLogicalFile() {
         return logicalFile;
     }
 
-    public void setLogicalFile(String logicalFile) {
+    /**
+     * @param logicalFile - the name of the logical file to search for. Wildcards allowed (*,?)
+     * Should not start with "~"
+     */
+    public WUQueryInfo setLogicalFile(String logicalFile) {
+        if (logicalFile != null && logicalFile.startsWith("~"))
+        {
+            logicalFile=logicalFile.substring(1);
+        }
         this.logicalFile = logicalFile;
+        return this;
     }
 
-    public String getLogicalFileSearchType() {
-        return logicalFileSearchType;
+    /**
+     * @return the type of logical files that will be searched for, Input or Output (can't be both). If null, input
+     * files are searched.
+     */
+    public LogicalFileSearchType getLogicalFileSearchType() {
+        return this.logicalFileSearchType;
     }
 
-    public void setLogicalFileSearchType(String logicalFileSearchType) {
-        this.logicalFileSearchType = logicalFileSearchType;
+    /**
+     * @param b  If searching for a logical file, if this is true, only logical files output by the workunit
+     * will be considered.
+     */
+    public WUQueryInfo setOutputLogicalFilesOnly(LogicalFileSearchType lf) {
+        this.logicalFileSearchType = lf;
+        return this;
     }
 
+    /**
+     * @return owner that workunits will be filtered by
+     */
     public String getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    /**
+     * @param owner - return only workunits created by this username. Case insensitive
+     */
+    public WUQueryInfo setOwner(String owner) {
         this.owner = owner;
+        return this;
     }
 
-    public Long getPageEndAt() {
-        return pageEndAt;
-    }
-
-    public void setPageEndAt(Long pageEndAt) {
-        this.pageEndAt = pageEndAt;
-    }
-
+    /**
+     * @return number of results to return
+     */
     public Long getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(Long pageSize) {
+    /**
+     * @param pageSize - the number of results to return. Overrides getPageEndAt. EG if 100 results are found,
+     * getPageStartFrom is 10, getPageEndAt is 50, and getPageSize is 10, workunits 10-20 will be returned.
+     */
+    public WUQueryInfo setPageSize(Long pageSize) {
         this.pageSize = pageSize;
+        return this;
     }
 
+    /**
+     * @return  Which result to begin returning results from
+     */
     public Long getPageStartFrom() {
         return pageStartFrom;
     }
 
-    public void setPageStartFrom(Long pageStartFrom) {
+    /**
+     * @param pageStartFrom - Which result to begin returning results from. e.g. if 100 workunits were found and
+     * this value is 4, the first three workunits will not be included in the results. Default value is 1
+     * */
+    public WUQueryInfo setPageStartFrom(Long pageStartFrom) {
         this.pageStartFrom = pageStartFrom;
+        return this;
     }
 
+    /**
+     * @return the SortBy enum indicating the sort order in which results will be returned.
+     */
     public SortBy getSortby() {
         return sortby;
     }
 
-    public void setSortby(SortBy sortby) {
-        this.sortby = sortby;
-    }
-
+    /**
+     * @return the WUState enum for the state that will be searched for.
+     */
     public WUState getState() {
         return state;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    /**
+     * @return the workunit id that will be searched for.
+     */
     public String getWuid() {
         return wuid;
     }
 
-    public void setWuid(String wuid) {
+    /**
+     * @param wuid - the Workunit ID to search for. Case Insensitive.
+     */
+    public WUQueryInfo setWuid(String wuid) {
         this.wuid = wuid;
+        return this;
     }
 
+    /**
+     * @return the application values that will be searched for. If none have been specified,
+     * an empty list is returned.
+     */
     public List<ApplicationValueInfo> getApplicationValues() {
         return applicationValues;
     }
 
-    public void setApplicationValues(List<ApplicationValueInfo> applicationValues) {
+    /**
+     * @param applicationValues - the application values to search for. Any workunits containing these
+     * application values will be returned.
+     */
+    public WUQueryInfo setApplicationValues(List<ApplicationValueInfo> applicationValues) 
+    {
         this.applicationValues = applicationValues;
+        return this;
     }
     
-    public WUQuery getRaw() {
-        WUQuery raw=new WUQuery();
-        raw.setAfter(after);
+
+    /**
+     * @param sort how to sort the returned workunits. If null, results are returned by wuid descending.
+     */
+    public WUQueryInfo setSortBy(SortBy sort)
+    {
+        this.sortby=sort;
+        return this;
+    }
+
+    /**
+     * @param stateenum - return workunits with only the specified state.
+     */
+    public WUQueryInfo setState(WUState stateenum) 
+    {
+       this.state=stateenum;
+       return this;
+    }
+    
+    /**
+     * @param date - the start date for which workunits will be retrieved.
+     */
+    public WUQueryInfo setStartDate(Date date) 
+    {
+        this.startDate=date;
+        return this;
+    }
+
+    /**
+     * @param date - the end date for which workunits will be retrieved.
+     */
+    public WUQueryInfo setEndDate(Date date) 
+    {
+        this.endDate=date;
+        return this;
+    }
+    
+
+    /**
+     * @param b - if true, only archived workunits will be returned. if false or null, only unarchived workunits will be
+     * returned.
+     */
+    public WUQueryInfo setArchived(Boolean b) {
+        this.archived=b;
+        return this;
+    }
+
+    /**
+     * @return the start date for which workunits will be retrieved.
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+
+    public void validate() throws Exception {
+        // sanitize ApplicationValue[]
+        if (applicationValues != null) 
+        {
+            for (ApplicationValueInfo v : applicationValues)
+            {
+                if (v.getApplication() != null && !v.getApplication().isEmpty()
+                    && ((v.getName() == null || v.getName().isEmpty())
+                            && (v.getValue() == null || v.getValue().isEmpty()))) 
+                {
+                    throw new Exception("Application set but no name/value given");
+                }
+            }
+        }
+    }
+ 
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery getRaw156(int appvalue) throws Exception {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery();
+        if (cluster != null) raw.setCluster(cluster);
+        if (archived != null)
+        {
+            if (archived==false)
+            {
+                raw.setType(NONARCHIVED_STR);
+            }
+            else if (archived==true)
+            {
+                raw.setType(ARCHIVED_STR);
+            }
+        }
+        raw.setStartDate(Utils.dateToUTCString(startDate));
+        if (state != null)
+        {
+            raw.setState(state.toString());
+        }
+        raw.setEndDate(Utils.dateToUTCString(endDate));
+        raw.setWuid(wuid);
+        raw.setJobname(jobname);
+        raw.setOwner(owner);
+        raw.setPageSize(pageSize); 
+        if (applicationValues.size()>0) 
+            {
+            if (appvalue >= applicationValues.size()) {
+                throw new Exception("Can't use application value at 0-based index " + appvalue + ", there are only " + applicationValues.size() + " values");
+            }
+            raw.setApplicationName(applicationValues.get(appvalue).getApplication());
+            raw.setApplicationKey(applicationValues.get(appvalue).getName());
+            raw.setApplicationData(applicationValues.get(appvalue).getValue());
+        }
+        return raw;
+    }
+    /**
+     * @return the raw WUQuery object
+     */
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery getRaw() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUQuery();
         if (applicationValues.size()>0)
         {
-            ApplicationValue[] appvalues = new ApplicationValue[applicationValues.size()];
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] appvalues = 
+                    new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[applicationValues.size()];
             for (int i=0; i < applicationValues.size();i++) 
             {
                 ApplicationValueInfo wrapped=applicationValues.get(i);
-                ApplicationValue item=new ApplicationValue();
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue item=
+                        new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue();
                 item.setApplication(wrapped.getApplication());
                 item.setName(wrapped.getName());
                 item.setValue(wrapped.getValue());
@@ -263,23 +430,29 @@ public class WUQueryInfo {
             }
             raw.setApplicationValues(appvalues);
         } 
-        raw.setBefore(before);
         raw.setCluster(cluster);
-        raw.setCount(count);
         raw.setDescending(descending);
         raw.setECL(ECL);
         raw.setEndDate(Utils.dateToUTCString(endDate));
         raw.setJobname(jobname);
-        raw.setLastNDays(lastNDays);
         raw.setLogicalFile(logicalFile);
-        raw.setLogicalFileSearchType(logicalFileSearchType);
+        if (logicalFile != null && logicalFileSearchType != null)
+        {
+            if (LogicalFileSearchType.Output.equals(logicalFileSearchType))
+            raw.setLogicalFileSearchType(CREATED_LF_STR);
+        }
         raw.setOwner(owner);
-        raw.setPageEndAt(pageEndAt);
         raw.setPageSize(pageSize);
         raw.setPageStartFrom(pageStartFrom);
-        raw.setSortby(sortby.toString());
+        if (sortby != null) 
+        {
+            raw.setSortby(sortby.toString());
+        }
         raw.setStartDate(Utils.dateToUTCString(startDate));
-        raw.setState(state.toString());
+        if (state != null)
+        {
+            raw.setState(state.toString());
+        }
         if (archived != null)
         {
             if (archived==false)
@@ -293,26 +466,6 @@ public class WUQueryInfo {
         }
         raw.setWuid(wuid);
         return raw;
-    }
-
-    public void setSortBy(SortBy sort)
-    {
-        this.sortby=sort;
-    }
-
-    public void setState(WUState stateenum) 
-    {
-       this.state=stateenum;
-    }
-    
-    public void setStartDate(Date date) 
-    {
-        this.startDate=date;
-    }
-
-    public void setEndDate(Date date) 
-    {
-        this.endDate=date;
     }
     
     /**
@@ -332,11 +485,14 @@ public class WUQueryInfo {
         State
     }
 
-    public void setArchived(Boolean b) {
-        this.archived=b;
-    }
-
-    public Date getStartDate() {
-        return startDate;
+    /**
+     * either input or output logical files can be searched; but not both, apparently.
+     * @author LeedDX
+     *
+     */
+    public enum LogicalFileSearchType
+    {
+        Input,
+        Output
     }
 }

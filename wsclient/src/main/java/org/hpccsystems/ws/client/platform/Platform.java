@@ -44,6 +44,7 @@ import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.Utils;
 
 public class Platform extends DataSingleton
 {
@@ -412,7 +413,11 @@ public class Platform extends DataSingleton
             try
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(null, jobname, cluster, null, null, null, endDate, startDate, null, null, 100, userOnly ? getUser() : null, "org.hpccsystems.ws.client", appKey, appData);
+                WUQueryInfo info=new WUQueryInfo().setJobname(jobname).setCluster(cluster)
+                        .setStartDate(Utils.UTCStringToDate(startDate)).setEndDate(Utils.UTCStringToDate(endDate))
+                        .setPageSize(new Long(100)).setOwner(userOnly ? getUser() : null);
+                info.getApplicationValues().add(new ApplicationValueInfo("org.hpccsystems.ws.client", appKey, appData));
+                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
                 updateWorkunits(response);
             }
             catch (ArrayOfEspException e)
@@ -454,8 +459,14 @@ public class Platform extends DataSingleton
             {
 
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(null, null, cluster, null, null, null, toESPString(endDate), toESPString(startDate), null, null, 100, owner, null, null, null);
-
+                WUQueryInfo info=new WUQueryInfo();
+                info.setCluster(cluster);
+                info.setStartDate(startDate.getTime());
+                info.setEndDate(endDate.getTime());
+                info.setPageSize(new Long(100));
+                info.setOwner(owner);
+                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
+             
                 updateWorkunits(response);
             }
             catch (ArrayOfEspException e)
