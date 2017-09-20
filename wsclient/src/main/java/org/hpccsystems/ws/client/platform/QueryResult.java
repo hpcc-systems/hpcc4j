@@ -179,4 +179,12 @@ public class QueryResult {
     public void setSuccess(Boolean success) {
         this.success = success;
     }
+    @Override
+    public String toString() {
+        return "QueryResult [activated=" + activated + ", clusters=" + clusters + ", comment=" + comment + ", dll="
+                + dll + ", id=" + id + ", library=" + library + ", memoryLimit=" + memoryLimit + ", name=" + name
+                + ", priority=" + priority + ", publishedBy=" + publishedBy + ", querySetId=" + querySetId
+                + ", snapshot=" + snapshot + ", suspended=" + suspended + ", wuid=" + wuid + ", code=" + code
+                + ", message=" + message + ", success=" + success + "]";
+    }
 }
