@@ -48,5 +48,10 @@ public class ClusterInfo {
     public void setState(String state) {
         this.state = state;
     }
+    @Override
+    public String toString() {
+        return "ClusterInfo [name=" + name + ", errors=" + errors + ", mixedNodeStates=" + mixedNodeStates + ", state="
+                + state + "]";
+    }
     
 }
