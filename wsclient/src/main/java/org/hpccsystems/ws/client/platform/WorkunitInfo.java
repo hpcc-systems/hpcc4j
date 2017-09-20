@@ -375,6 +375,19 @@ public class WorkunitInfo implements
 	    return applicationValues;
 	}
 	
+	public ECLException[] getRawExceptions()
+	{
+	    if (this.exceptions.size()==0) {
+	        return null;
+	    }
+	    ECLException[] raw=new ECLException[this.exceptions.size()];
+	    for (int i=0; i < exceptions.size();i++)
+	    {
+	        raw[i]=exceptions.get(i).getRaw();
+	    }
+	    return raw;
+	}
+	
 	public ApplicationValue[] getRawApplicationValues() 
 	{
 	    if (applicationValues==null)

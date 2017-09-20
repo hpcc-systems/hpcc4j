@@ -132,6 +132,16 @@
         </dependency>
     </dependencies>
     <profiles>
+	    <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <test.groups></test.groups>
+                <test.exclude.groups>org.hpccsystems.ws.client.IntegrationTest</test.exclude.groups>
+            </properties>
+        </profile>
         <profile>
             <id>release</id>
             <build>

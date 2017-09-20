@@ -478,7 +478,8 @@ public class Workunit extends DataSingleton
         try
         {
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsWorkunitsClient();
-            List<WorkunitInfo> response = wsWorkunitsClient.workUnitUQuery(info.getWuid(), null, null, null, null, null, null, null, null, null, 1, null, null, null, null);
+            List<WorkunitInfo> response = wsWorkunitsClient.workUnitUQuery(new WUQueryInfo().setWuid(info.getWuid())
+                    .setPageSize(new Long(1)));
             if (response.size() == 1)
             {
                 update(response.get(0).getEclWorkunit());
