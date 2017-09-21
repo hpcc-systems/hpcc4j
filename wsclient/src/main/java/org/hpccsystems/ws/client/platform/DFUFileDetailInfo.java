@@ -16,6 +16,7 @@ import org.hpccsystems.ws.client.antlr.EclRecordReader;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUFileDetail;
 import org.hpccsystems.ws.client.utils.FileFormat;
+import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
 
 // This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
 // classes.
@@ -598,7 +599,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
     {
         this.columns = columns2;
     }
-    
+
     public static EclRecordInfo getRecordEcl(String content)
     {
         if (content == null || content.isEmpty())
@@ -609,7 +610,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         try
         {
             ANTLRInputStream is = new CaseControlStringStream(content);
-            ((CaseControlStringStream) is).toUpperCase = true; //ANTLR TOKENS should be upper cased
+            ((CaseControlStringStream) is).toUpperCase = true; // ANTLR TOKENS should be upper cased
             EclRecordLexer dl = new EclRecordLexer(is);
             EclRecordParser dp = new EclRecordParser(new BufferedTokenStream(dl));
             cr.getErrorHandler().attach(dl);
@@ -631,4 +632,17 @@ public class DFUFileDetailInfo extends DFUFileDetail
 
     }
 
+    /**
+     * Get the by cluster array of file part containers
+     *
+     * @return an array of file part containers
+     */
+    public DFUFilePartsOnClusterInfo[] getDFUFilePartsOnClusters()
+    {
+        org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUFilePartsOnCluster[] clstrs = super.getDFUFilePartsOnClusters();
+        DFUFilePartsOnClusterInfo[] w_clstrs = new DFUFilePartsOnClusterInfo[clstrs.length];
+        for (int i = 0; i < clstrs.length; i++)
+            w_clstrs[i] = new DFUFilePartsOnClusterInfo(clstrs[i]);
+        return w_clstrs;
+    }
 }
