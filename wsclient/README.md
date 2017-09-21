@@ -72,7 +72,7 @@ wsclient | hpccsystems-platform
 - JAPI-97 HPCCWsDFUClient soap-agnostic objects and wrappers
 - JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
 - JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
-
+- JAPI-101 WUQueryInfo wrapper for workunit searching
 
 #### Contributions
 
