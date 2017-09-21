@@ -39,7 +39,28 @@ wsclient | hpccsystems-platform
 1.0.0 | 6.2.0
 1.2.0 | 6.4.0
 
-#### Changelog
+#### Future Release
+
+###### 1.2.2 Target Release date 9/29/2017
+- JAPI-79 Avoid premature submission of compiling WUs
+- JAPI-91 Fix COMPILING state map
+- JAPI-90 Added createOrUpdate function to HPCCWsAttributesClient
+- JAPI-95 Wrap attribute  delete calls
+- JAPI-97 HPCCWsDFUClient soap-agnostic objects and wrappers
+- JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
+- JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
+- JAPI-96 Expose file part information
+
+#### Release Changelog
+
+###### 1.2.0 Release date 8/9/2017
+- JAPI-85 Enhance platform tester
+- JAPI-86 Update JCRAFT JSCH lib to enhance ssh connections
+- JAPI-82 Update all interfaces to match HPCC + WsSQL 6.4.0
+- JAPI-83 Handle case where WU State is not provided by ESP
+- JAPI-81 Need PAUSED status added to WUState
+- JAPI-80 update WsFS Dropzone related methods
+- JAPI-72 Correctly use WsClient WsFS methods regarding DZs
 
 ###### 1.0.4
 - JAPI-MiniApp Add method with landing zone support and NIO channel streaming
