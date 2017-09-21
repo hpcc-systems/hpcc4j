@@ -40,7 +40,7 @@
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                </configuration>
+                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -49,6 +49,8 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <groups>${test.groups}</groups>
+                    <excludedGroups>${test.exclude.groups}</excludedGroups>
                 </configuration>
             </plugin>
             <plugin>
@@ -100,10 +102,16 @@
             <version>1.4</version>
         </dependency>
         <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>6.11</version>
+    <scope>test</scope>
+</dependency>
+        
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <version>4.12</version>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
@@ -132,14 +140,39 @@
         </dependency>
     </dependencies>
     <profiles>
-	    <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+	<profile>
+		<id>default</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.11</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.surefire</groupId>
+							<artifactId>surefire-junit47</artifactId>
+							<version>2.12</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<includes>
+							<include>**/*.class</include>
+						</includes>
+						<excludedGroups>org.hpccsystems.ws.client.IntegrationTest</excludedGroups>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+	</profile>
+       <profile>
+            <id>integrationtests</id>
             <properties>
-                <test.groups></test.groups>
-                <test.exclude.groups>org.hpccsystems.ws.client.IntegrationTest</test.exclude.groups>
+                <test.groups>org.hpccsystems.ws.client.IntegrationTest</test.groups>
+                <test.exclude.groups></test.exclude.groups>
             </properties>
         </profile>
         <profile>
@@ -188,6 +221,10 @@
                     </plugin>
                 </plugins>
             </build>
+             <properties>
+                <test.groups></test.groups>
+                <test.exclude.groups>org.hpccsystems.ws.client.IntegrationTest</test.exclude.groups>
+            </properties>
         </profile>
     </profiles>
     <developers>

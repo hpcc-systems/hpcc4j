@@ -1410,23 +1410,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /*
      * this method is purely for the Platform class
      */
-    public WUUpdateResponse createWUFromECL(String archiveOrEcl, int resultLimit, ApplicationValue[] appVals,
+    public WorkunitInfo createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueInfo> appVals,
             String jobName, boolean compileOnly) throws Exception
     {
-        if (wsWorkunitsServiceSoapProxy == null)
-            throw new Exception("wsWorkunitsServiceSoapProxy not available");
-        else
-        {
-            WUCreateAndUpdate request = new WUCreateAndUpdate();
-            request.setQueryText(archiveOrEcl);
-            request.setJobname(jobName);
-            if (compileOnly) request.setAction(1);
-
-            request.setApplicationValues(appVals);
-            if (resultLimit > 0) request.setResultLimit(resultLimit);
-
-            return wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(request);
-        }
+        WorkunitInfo wi=new WorkunitInfo().setECL(archiveOrEcl).setJobname(jobName)
+            .setApplicationValues(appVals).setResultLimit(resultLimit==0?null:resultLimit);
+        
+        return createWUFromECL(wi);
     }
 
     /**
@@ -1436,21 +1426,18 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      *            - hpcc owner of the job
      * @param ecl
      *            - text in the ecl
-     * @return an ArrayList<ECLWorkunit> of matching workunits
+     * @param archived - if true, search archived workunits. If false or null, search unarchived workunits.
+     * @param wuid - wuid to search for
+     * @param cluster - cluster to search workunits for
+     * @param state - WUState of workunits to find
+     * @return an List<WorkunitInfo> of matching workunits
      * @throws Exception
      */
     public List<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, Boolean archived, String wuid,
             String cluster, WUState state) throws Exception
     {
-        WUQueryInfo params = new WUQueryInfo();
-        params.setJobname(jobName);
-        params.setOwner(owner);
-        params.setECL(ecl);
-        params.setArchived(archived);
-        params.setWuid(wuid);
-        params.setCluster(cluster);
-        params.setState(state);
-    
+        WUQueryInfo params = new WUQueryInfo().setJobname(jobName).setOwner(owner).setECL(ecl)
+                .setArchived(archived).setWuid(wuid).setCluster(cluster).setState(state);
         return workUnitUQuery(params);
     }
 
@@ -1481,7 +1468,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
         WorkunitInfo createdWU = createWUFromECL(wu);
 
-        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null)
+        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions().size()==0)
         {
             createdWU.setCluster(wu.getCluster());
             submitWU(createdWU); // if no exception proceed
@@ -1606,8 +1593,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public String createAndRunWUFromECLAndGetResults(WorkunitInfo wu) throws Exception
     {
         WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(wu);
-        ArrayOfEspException exceptions = createAndRunWUFromECL.getExceptions();
-        if (exceptions != null) throwWsWUExceptions(exceptions, "Results contains errors!");
         return createAndRunWUFromECL.getResults();
     }
 
@@ -1914,7 +1899,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         wuids[0] = wuid;
         request.setWuids(wuids);
 
-        wsWorkunitsServiceSoapProxy.WUDelete(request);
+        WUDeleteResponse resp= wsWorkunitsServiceSoapProxy.WUDelete(request);
+        this.throwWsWUExceptions(resp.getExceptions(), "Could not delete " + wuid + ":");
     }
 
     public void resubmitWU(String wuid, boolean restart, boolean clone) throws Exception
@@ -2031,6 +2017,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         WUResult params=new WUResult();
         params.setWuid(wuid);
         params.setResultName(resultname);
+        params.setSuppressXmlSchema(true);
         WUResultResponse resp=getWorkunitResult(params,true);
         if (resp != null)
         {
@@ -2218,7 +2205,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         final WUQuerysetDetails params=new WUQuerysetDetails();
         params.setClusterName(clustername);
         params.setFilter(filtervalue);
-        params.setFilterType(WUQuerySetFilterType.fromValue(filtertype.toString()));
+        if (filtertype != null)
+        {
+            params.setFilterType(WUQuerySetFilterType.fromValue(filtertype.toString()));
+        }
         params.setQuerySetName(querySetName);
         WUQuerySetDetailsResponse resp=getSoapProxy().WUQuerysetDetails(params);
         throwWsWUExceptions(resp.getExceptions(), "Could not search queries:" );
