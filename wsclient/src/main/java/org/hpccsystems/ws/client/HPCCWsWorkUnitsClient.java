@@ -2275,7 +2275,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         final WUQuerysetDetails params=new WUQuerysetDetails();
         params.setClusterName(clustername);
         params.setFilter(filtervalue);
-        params.setFilterType(WUQuerySetFilterType.fromValue(filtertype.toString()));
+        if (filtertype != null)
+        {
+            params.setFilterType(WUQuerySetFilterType.fromValue(filtertype.toString()));
+        }
         params.setQuerySetName(querySetName);
         WUQuerySetDetailsResponse resp=getSoapProxy().WUQuerysetDetails(params);
         throwWsWUExceptions(resp.getExceptions(), "Could not search queries:" );
