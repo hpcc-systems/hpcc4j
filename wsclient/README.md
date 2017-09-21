@@ -73,6 +73,7 @@ wsclient | hpccsystems-platform
 - JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
 - JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
 
+
 #### Contributions
 
 All contributions must follow the JAVA source format described in the HPCC-JAVA-Formatter.xml file which can be found in /eclipse.

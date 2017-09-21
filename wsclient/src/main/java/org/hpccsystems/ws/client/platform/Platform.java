@@ -12,6 +12,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
@@ -322,22 +323,18 @@ public class Platform extends DataSingleton
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
 
-                ApplicationValue[] appVals = new ApplicationValue[1];
-                appVals[0] = new ApplicationValue();
-                //appVals[0].setApplication(Activator.PLUGIN_ID);
-                appVals[0].setApplication(API_ID);
-                appVals[0].setName("path"); //$NON-NLS-1$
-                appVals[0].setValue(filePath);
+                List<ApplicationValueInfo> appVals=new ArrayList<ApplicationValueInfo>();
+                appVals.add(new ApplicationValueInfo(API_ID,"path",filePath));
+                
+                WorkunitInfo response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
 
-                WUUpdateResponse response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
+                //response now has cluster set, no need to set it here
 
-                response.getWorkunit().setCluster(cluster); // WUSubmit does not return an updated ECLWorkunit, so set
-                                                            // cluster here...
-                wu = getWorkunit(response.getWorkunit());
-                if (wu != null)
+                wu = getWorkunit(response.getWuid());
+                if (response != null)
                 {
                     workunits.add(wu);
-                    wsWorkUnitsClient.submitWU(response.getWorkunit().getWuid(), cluster);
+                    wsWorkUnitsClient.submitWU(response.getWuid(), cluster);
                 }
 
             }

@@ -300,9 +300,10 @@ public class WorkunitInfo implements
     }
 
 
-    public void setMaxMonitorMillis(int time)
+    public WorkunitInfo setMaxMonitorMillis(int time)
     {
         maxMonitorTime = time;
+        return this;
     }
 
     public int getMaxMonitorMillis()
@@ -315,9 +316,10 @@ public class WorkunitInfo implements
         return sleepMillis;
     }
 
-    public void setSleepMillis(Integer sleepTime)
+    public WorkunitInfo setSleepMillis(Integer sleepTime)
     {
         this.sleepMillis = sleepTime;
+        return this;
     }
 
     /**
@@ -339,18 +341,21 @@ public class WorkunitInfo implements
         return namedValues;
     }
 
-    public void setNamedValues(List<NamedValueInfo> namedValues)
+    public WorkunitInfo setNamedValues(List<NamedValueInfo> namedValues)
     {
         this.namedValues = namedValues;
+        return this;
     }
 
-    public void setECL(String ecl)
+    public WorkunitInfo setECL(String ecl)
     {
         if (this.getQuery() == null)
         {
             this.setQuery(new ECLQuery());
         }
         this.getQuery().setText(ecl);
+
+        return this;
     }
 
     public String getECL()
@@ -366,8 +371,9 @@ public class WorkunitInfo implements
 		return originalEclWatchUrl;
 	}
 
-	public void setOriginalEclWatchUrl(String serverhost) {
+	public WorkunitInfo setOriginalEclWatchUrl(String serverhost) {
 		this.originalEclWatchUrl=serverhost;
+        return this;
 	}
     
 	public List<ApplicationValueInfo> getApplicationValues() 
@@ -418,567 +424,639 @@ public class WorkunitInfo implements
         return raw;
     }
 	
-	public void setNamedValues(NamedValue[] raw) 
+	public WorkunitInfo setNamedValues(NamedValue[] raw) 
 	{
 	    if (raw==null) 
 	    {
-	        return;
+	        return this;
 	    }
 	    namedValues=new ArrayList<NamedValueInfo>();
 	    for (int i=0; i < raw.length;i++) 
 	    {
 	        namedValues.add(new NamedValueInfo(raw[i]));
 	    }
+        return this;
 	}
     public int getMaxMonitorTime() {
         return maxMonitorTime;
     }
 
-    public void setMaxMonitorTime(int maxMonitorTime) {
+    public WorkunitInfo setMaxMonitorTime(int maxMonitorTime) {
         this.maxMonitorTime = maxMonitorTime;
+        return this;
     }
 
     public List<ECLResultInfo> getResults() {
         return eclResults;
     }
 
-    public void setResults(List<ECLResultInfo> eclResults) {
+    public WorkunitInfo setResults(List<ECLResultInfo> eclResults) {
         this.eclResults = eclResults;
+        return this;
     }
 
     public Integer getAccessFlag() {
         return accessFlag;
     }
 
-    public void setAccessFlag(Integer accessFlag) {
+    public WorkunitInfo setAccessFlag(Integer accessFlag) {
         this.accessFlag = accessFlag;
+        return this;
     }
 
     public Integer getAction() {
         return action;
     }
 
-    public void setAction(Integer action) {
+    public WorkunitInfo setAction(Integer action) {
         this.action = action;
+        return this;
     }
 
     public String getActionEx() {
         return actionEx;
     }
 
-    public void setActionEx(String actionEx) {
+    public WorkunitInfo setActionEx(String actionEx) {
         this.actionEx = actionEx;
+        return this;
     }
 
     public Boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public WorkunitInfo setActive(Boolean active) {
         this.active = active;
+        return this;
     }
 
     public Integer getAlertCount() {
         return alertcount;
     }
 
-    public void setAlertCount(Integer alertcount) {
+    public WorkunitInfo setAlertCount(Integer alertcount) {
         this.alertcount = alertcount;
+        return this;
     }
 
     public String[] getAllowedClusters() {
         return allowedClusters;
     }
 
-    public void setAllowedClusters(String[] allowedClusters) {
+    public WorkunitInfo setAllowedClusters(String[] allowedClusters) {
         this.allowedClusters = allowedClusters;
+        return this;
     }
 
     public Integer getApplicationValueCount() {
         return applicationValueCount;
     }
 
-    public void setApplicationValueCount(Integer applicationValueCount) {
+    public WorkunitInfo setApplicationValueCount(Integer applicationValueCount) {
         this.applicationValueCount = applicationValueCount;
+        return this;
     }
 
     public String getApplicationValuesDesc() {
         return applicationValuesDesc;
     }
 
-    public void setApplicationValuesDesc(String applicationValuesDesc) {
+    public WorkunitInfo setApplicationValuesDesc(String applicationValuesDesc) {
         this.applicationValuesDesc = applicationValuesDesc;
+        return this;
     }
 
     public Boolean getArchived() {
         return archived;
     }
 
-    public void setArchived(Boolean archived) {
+    public WorkunitInfo setArchived(Boolean archived) {
         this.archived = archived;
+        return this;
     }
 
     public String getCluster() {
         return cluster;
     }
 
-    public void setCluster(String cluster) {
+    public WorkunitInfo setCluster(String cluster) {
         this.cluster = cluster;
+        return this;
     }
 
     public Integer getClusterFlag() {
         return clusterFlag;
     }
 
-    public void setClusterFlag(Integer clusterFlag) {
+    public WorkunitInfo setClusterFlag(Integer clusterFlag) {
         this.clusterFlag = clusterFlag;
+        return this;
     }
 
     public Calendar getDateTimeScheduled() {
         return dateTimeScheduled;
     }
 
-    public void setDateTimeScheduled(Calendar dateTimeScheduled) {
+    public WorkunitInfo setDateTimeScheduled(Calendar dateTimeScheduled) {
         this.dateTimeScheduled = dateTimeScheduled;
+        return this;
     }
 
     public Integer getDebugValueCount() {
         return debugValueCount;
     }
 
-    public void setDebugValueCount(Integer debugValueCount) {
+    public WorkunitInfo setDebugValueCount(Integer debugValueCount) {
         this.debugValueCount = debugValueCount;
+        return this;
     }
 
-    public void setSleepMillis(int sleepMillis) {
+    public WorkunitInfo setSleepMillis(int sleepMillis) {
         this.sleepMillis = sleepMillis;
+        return this;
     }
 
-    public void setApplicationValues(List<ApplicationValueInfo> applicationValues) {
+    public WorkunitInfo setApplicationValues(List<ApplicationValueInfo> applicationValues) {
         this.applicationValues = applicationValues;
+        return this;
     }
 
-    public void setApplicationValues(ApplicationValue[] vals)
+    public WorkunitInfo setApplicationValues(ApplicationValue[] vals)
     {
         if (vals==null)
         {
-            return;
+            return this;
         }
         applicationValues=new ArrayList<ApplicationValueInfo>();
         for (int i=0; i < vals.length;i++) {
             applicationValues.add(new ApplicationValueInfo(vals[i]));
         }
+
+        return this;
     }
     public Integer getAlertcount() {
         return alertcount;
     }
 
-    public void setAlertcount(Integer alertcount) {
+    public WorkunitInfo setAlertcount(Integer alertcount) {
         this.alertcount = alertcount;
+        return this;
     }
 
     public DebugValue[] getDebugValues() {
         return debugValues;
     }
 
-    public void setDebugValues(DebugValue[] debugValues) {
+    public WorkunitInfo setDebugValues(DebugValue[] debugValues) {
         this.debugValues = debugValues;
+        return this;
     }
 
     public String getDebugValuesDesc() {
         return debugValuesDesc;
     }
 
-    public void setDebugValuesDesc(String debugValuesDesc) {
+    public WorkunitInfo setDebugValuesDesc(String debugValuesDesc) {
         this.debugValuesDesc = debugValuesDesc;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public WorkunitInfo setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Integer getErrorCount() {
         return errorCount;
     }
 
-    public void setErrorCount(Integer errorCount) {
+    public WorkunitInfo setErrorCount(Integer errorCount) {
         this.errorCount = errorCount;
+        return this;
     }
 
     public Integer getEventSchedule() {
         return eventSchedule;
     }
 
-    public void setEventSchedule(Integer eventSchedule) {
+    public WorkunitInfo setEventSchedule(Integer eventSchedule) {
         this.eventSchedule = eventSchedule;
+        return this;
     }
 
     public List<ECLExceptionInfo> getExceptions() {
         return exceptions;
     }
 
-    public void setExceptions(List<ECLExceptionInfo> exceptions) {
+    public WorkunitInfo setExceptions(List<ECLExceptionInfo> exceptions) {
         this.exceptions = exceptions;
+        return this;
     }
 
     public Integer getGraphCount() {
         return graphCount;
     }
 
-    public void setGraphCount(Integer graphCount) {
+    public WorkunitInfo setGraphCount(Integer graphCount) {
         this.graphCount = graphCount;
+        return this;
     }
 
     public ECLGraph[] getGraphs() {
         return graphs;
     }
 
-    public void setGraphs(ECLGraph[] graphs) {
+    public WorkunitInfo setGraphs(ECLGraph[] graphs) {
         this.graphs = graphs;
+        return this;
     }
 
     public String getGraphsDesc() {
         return graphsDesc;
     }
 
-    public void setGraphsDesc(String graphsDesc) {
+    public WorkunitInfo setGraphsDesc(String graphsDesc) {
         this.graphsDesc = graphsDesc;
+        return this;
     }
 
     public Boolean getHasArchiveQuery() {
         return hasArchiveQuery;
     }
 
-    public void setHasArchiveQuery(Boolean hasArchiveQuery) {
+    public WorkunitInfo setHasArchiveQuery(Boolean hasArchiveQuery) {
         this.hasArchiveQuery = hasArchiveQuery;
+        return this;
     }
 
     public Boolean getHasDebugValue() {
         return hasDebugValue;
     }
 
-    public void setHasDebugValue(Boolean hasDebugValue) {
+    public WorkunitInfo setHasDebugValue(Boolean hasDebugValue) {
         this.hasDebugValue = hasDebugValue;
+        return this;
     }
 
     public ECLHelpFile[] getHelpers() {
         return helpers;
     }
 
-    public void setHelpers(ECLHelpFile[] helpers) {
+    public WorkunitInfo setHelpers(ECLHelpFile[] helpers) {
         this.helpers = helpers;
+        return this;
     }
 
     public String getHelpersDesc() {
         return helpersDesc;
     }
 
-    public void setHelpersDesc(String helpersDesc) {
+    public WorkunitInfo setHelpersDesc(String helpersDesc) {
         this.helpersDesc = helpersDesc;
+        return this;
     }
 
     public Integer getInfoCount() {
         return infoCount;
     }
 
-    public void setInfoCount(Integer infoCount) {
+    public WorkunitInfo setInfoCount(Integer infoCount) {
         this.infoCount = infoCount;
+        return this;
     }
 
     public Boolean getIsPausing() {
         return isPausing;
     }
 
-    public void setIsPausing(Boolean isPausing) {
+    public WorkunitInfo setIsPausing(Boolean isPausing) {
         this.isPausing = isPausing;
+        return this;
     }
 
     public String getJobname() {
         return jobname;
     }
 
-    public void setJobname(String jobname) {
+    public WorkunitInfo setJobname(String jobname) {
         this.jobname = jobname;
+        return this;
     }
 
     public String getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public WorkunitInfo setOwner(String owner) {
         this.owner = owner;
+        return this;
     }
 
     public Integer getPriorityClass() {
         return priorityClass;
     }
 
-    public void setPriorityClass(Integer priorityClass) {
+    public WorkunitInfo setPriorityClass(Integer priorityClass) {
         this.priorityClass = priorityClass;
+        return this;
     }
 
     public Integer getPriorityLevel() {
         return priorityLevel;
     }
 
-    public void setPriorityLevel(Integer priorityLevel) {
+    public WorkunitInfo setPriorityLevel(Integer priorityLevel) {
         this.priorityLevel = priorityLevel;
+        return this;
     }
 
     public ECLQuery getQuery() {
         return query;
     }
 
-    public void setQuery(ECLQuery query) {
+    public WorkunitInfo setQuery(ECLQuery query) {
         this.query = query;
+        return this;
     }
 
     public String getQueue() {
         return queue;
     }
 
-    public void setQueue(String queue) {
+    public WorkunitInfo setQueue(String queue) {
         this.queue = queue;
+        return this;
     }
 
     public Integer getResourceURLCount() {
         return resourceURLCount;
     }
 
-    public void setResourceURLCount(Integer resourceURLCount) {
+    public WorkunitInfo setResourceURLCount(Integer resourceURLCount) {
         this.resourceURLCount = resourceURLCount;
+        return this;
     }
 
     public String[] getResourceURLs() {
         return resourceURLs;
     }
 
-    public void setResourceURLs(String[] resourceURLs) {
+    public WorkunitInfo setResourceURLs(String[] resourceURLs) {
         this.resourceURLs = resourceURLs;
+        return this;
     }
 
     public Integer getResultCount() {
         return resultCount;
     }
 
-    public void setResultCount(Integer resultCount) {
+    public WorkunitInfo setResultCount(Integer resultCount) {
         this.resultCount = resultCount;
+        return this;
     }
 
-    public void setResultLimit(Integer resultLimit) {
+    public WorkunitInfo setResultLimit(Integer resultLimit) {
         this.resultLimit = resultLimit;
+        return this;
     }
 
     public String getResultsDesc() {
         return resultsDesc;
     }
 
-    public void setResultsDesc(String resultsDesc) {
+    public WorkunitInfo setResultsDesc(String resultsDesc) {
         this.resultsDesc = resultsDesc;
+        return this;
     }
 
     public String getRoxieCluster() {
         return roxieCluster;
     }
 
-    public void setRoxieCluster(String roxieCluster) {
+    public WorkunitInfo setRoxieCluster(String roxieCluster) {
         this.roxieCluster = roxieCluster;
+        return this;
     }
 
     public String getScope() {
         return scope;
     }
 
-    public void setScope(String scope) {
+    public WorkunitInfo setScope(String scope) {
         this.scope = scope;
+        return this;
     }
 
     public String getSnapshot() {
         return snapshot;
     }
 
-    public void setSnapshot(String snapshot) {
+    public WorkunitInfo setSnapshot(String snapshot) {
         this.snapshot = snapshot;
+        return this;
     }
 
     public ECLSourceFile[] getSourceFiles() {
         return sourceFiles;
     }
 
-    public void setSourceFiles(ECLSourceFile[] sourceFiles) {
+    public WorkunitInfo setSourceFiles(ECLSourceFile[] sourceFiles) {
         this.sourceFiles = sourceFiles;
+        return this;
     }
 
     public String getSourceFilelsDesc() {
         return sourceFilelsDesc;
     }
 
-    public void setSourceFilelsDesc(String sourceFilelsDesc) {
+    public WorkunitInfo setSourceFilelsDesc(String sourceFilelsDesc) {
         this.sourceFilelsDesc = sourceFilelsDesc;
+        return this;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public WorkunitInfo setState(String state) {
         this.state = state;
+        return this;
     }
 
     public String getStateEx() {
         return stateEx;
     }
 
-    public void setStateEx(String stateEx) {
+    public WorkunitInfo setStateEx(String stateEx) {
         this.stateEx = stateEx;
+        return this;
     }
 
     public Integer getStateID() {
         return stateID;
     }
 
-    public void setStateID(Integer stateID) {
+    public WorkunitInfo setStateID(Integer stateID) {
         this.stateID = stateID;
+        return this;
     }
 
     public Integer getTimerCount() {
         return timerCount;
     }
 
-    public void setTimerCount(Integer timerCount) {
+    public WorkunitInfo setTimerCount(Integer timerCount) {
         this.timerCount = timerCount;
+        return this;
     }
 
     public String getTimersDesc() {
         return timersDesc;
     }
 
-    public void setTimersDesc(String timersDesc) {
+    public WorkunitInfo setTimersDesc(String timersDesc) {
         this.timersDesc = timersDesc;
+        return this;
     }
 
     public ECLTimingData[] getTimingData() {
         return timingData;
     }
 
-    public void setTimingData(ECLTimingData[] timingData) {
+    public WorkunitInfo setTimingData(ECLTimingData[] timingData) {
         this.timingData = timingData;
+        return this;
     }
 
     public String getTotalClusterTime() {
         return totalClusterTime;
     }
 
-    public void setTotalClusterTime(String totalClusterTime) {
+    public WorkunitInfo setTotalClusterTime(String totalClusterTime) {
         this.totalClusterTime = totalClusterTime;
+        return this;
     }
 
     public Integer getVariableCount() {
         return variableCount;
     }
 
-    public void setVariableCount(Integer variableCount) {
+    public WorkunitInfo setVariableCount(Integer variableCount) {
         this.variableCount = variableCount;
+        return this;
     }
 
     public List<ECLResultInfo> getVariables() {
         return variables;
     }
 
-    public void setVariables(List<ECLResultInfo> variables) {
+    public WorkunitInfo setVariables(List<ECLResultInfo> variables) {
         this.variables = variables;
+        return this;
     }
 
     public boolean isThorLCR() {
         return thorLCR;
     }
 
-    public void setThorLCR(boolean thorLCR) {
+    public WorkunitInfo setThorLCR(boolean thorLCR) {
         this.thorLCR = thorLCR;
+        return this;
     }
 
     public ThorLogInfo[] getThorLogList() {
         return thorLogList;
     }
 
-    public void setThorLogList(ThorLogInfo[] thorLogList) {
+    public WorkunitInfo setThorLogList(ThorLogInfo[] thorLogList) {
         this.thorLogList = thorLogList;
+        return this;
     }
 
     public String getVariablesDesc() {
         return variablesDesc;
     }
 
-    public void setVariablesDesc(String variablesDesc) {
+    public WorkunitInfo setVariablesDesc(String variablesDesc) {
         this.variablesDesc = variablesDesc;
+        return this;
     }
 
     public Integer getWarningCount() {
         return warningCount;
     }
 
-    public void setWarningCount(Integer warningCount) {
+    public WorkunitInfo setWarningCount(Integer warningCount) {
         this.warningCount = warningCount;
+        return this;
     }
 
     public Integer getWorkflowCount() {
         return workflowCount;
     }
 
-    public void setWorkflowCount(Integer workflowCount) {
+    public WorkunitInfo setWorkflowCount(Integer workflowCount) {
         this.workflowCount = workflowCount;
+        return this;
     }
 
     public ECLWorkflow[] getWorkflows() {
         return workflows;
     }
 
-    public void setWorkflows(ECLWorkflow[] workflows) {
+    public WorkunitInfo setWorkflows(ECLWorkflow[] workflows) {
         this.workflows = workflows;
+        return this;
     }
 
     public String getWorkflowsDesc() {
         return workflowsDesc;
     }
 
-    public void setWorkflowsDesc(String workflowsDesc) {
+    public WorkunitInfo setWorkflowsDesc(String workflowsDesc) {
         this.workflowsDesc = workflowsDesc;
+        return this;
     }
 
     public String getWuid() {
         return wuid;
     }
 
-    public void setWuid(String wuid) {
+    public WorkunitInfo setWuid(String wuid) {
         this.wuid = wuid;
+        return this;
     }
 
     public String getXmlParams() {
         return xmlParams;
     }
 
-    public void setXmlParams(String xmlParams) {
+    public WorkunitInfo setXmlParams(String xmlParams) {
         this.xmlParams = xmlParams;
+        return this;
     }
 
     public Integer getSourceFileCount() {
         return sourceFileCount;
     }
 
-    public void setSourceFileCount(Integer sourceFileCount) {
+    public WorkunitInfo setSourceFileCount(Integer sourceFileCount) {
         this.sourceFileCount = sourceFileCount;
+        return this;
     }
 
     public String getSourceFilesDesc() {
         return sourceFileDesc;
     }
 
-    public void setSourceFilesDesc(String sourceFileDesc) {
+    public WorkunitInfo setSourceFilesDesc(String sourceFileDesc) {
         this.sourceFileDesc = sourceFileDesc;
+        return this;
     }
 
     public ECLWorkunit getEclWorkunit() {
@@ -989,8 +1067,9 @@ public class WorkunitInfo implements
         return resultViews;
     }
 
-    public void setResultViews(String[] resultViews) {
+    public WorkunitInfo setResultViews(String[] resultViews) {
         this.resultViews = resultViews;
+        return this;
     }
 
 
