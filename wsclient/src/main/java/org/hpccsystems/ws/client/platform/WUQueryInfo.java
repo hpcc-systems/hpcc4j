@@ -398,6 +398,11 @@ public class WUQueryInfo {
         raw.setJobname(jobname);
         raw.setOwner(owner);
         raw.setPageSize(pageSize); 
+        if (sortby != null)
+        {
+            raw.setSortby(sortby.toString());
+        }
+        raw.setDescending(descending);
         if (applicationValues.size()>0) 
             {
             if (appvalue >= applicationValues.size()) {

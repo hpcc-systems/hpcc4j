@@ -1886,7 +1886,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         String[] wuids = new String[1];
         wuids[0] = wuid;
         request.setWuids(wuids);
-
+        request.setBlockTillFinishTimer(1);
         wsWorkunitsServiceSoapProxy.WUAbort(request);
     }
 
@@ -1898,7 +1898,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         String[] wuids = new String[1];
         wuids[0] = wuid;
         request.setWuids(wuids);
-
+        request.setBlockTillFinishTimer(1);
         WUDeleteResponse resp= wsWorkunitsServiceSoapProxy.WUDelete(request);
         this.throwWsWUExceptions(resp.getExceptions(), "Could not delete " + wuid + ":");
     }
