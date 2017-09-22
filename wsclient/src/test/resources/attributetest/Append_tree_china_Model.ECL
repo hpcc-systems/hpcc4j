@@ -1,0 +1,1197 @@
+EXPORT Append_tree_china_Model( infile,do_model=true,p_CLMMN_REPORTAMT_COMM,p_CLMMN_REPORTAMT_COMP,p_TXT_CLAIM_NORMAL,p_VEH_FACTORY_DONGFENG,p_VEH_FACTORY_SHANGQI,p_REG_PCT_SATURDAY_REGIST_FNOL,p_TXT_CLAIM_SUBJECT_SCRATCH,p_COV_PREM_030025,p_VEH_BRANDNAME_HAOQING,p_TXT_CLAIM_SUBJECT_BUMPER_1,p_COV_LIM_033005,p_VEH_COLOR_WHITE,p_VEH_BRANDNAME_ISUZU,p_COV_LIM_033009,p_VEH_MIN_DISPLACEMENT,p_INC_AREA_ROAD,p_DIS_TASK_SPECIALHOUR_FNOL,p_INC_LOSSDAY_FRIDAY,p_TXT_CLAIM_SUBJECT_MIRROR_1,p_RE_THIRDLOSS_NO_COMP,p_TXT_CLAIM_SUBJECT_MIRROR_2,p_COV_PREM_030012,p_INS_CREDCODE_INDIVID,p_COV_NUM_030062,p_COV_LIM_033016,p_POL_AREA_FLAG_3,p_COV_LIM_033017,p_COV_COMPFREE,p_COV_PREM_030018,p_COV_PREM_0357,p_REG_MAX_EST_LOSS_AMT_FNOL,p_VEH_BRANDNAME_FOCUS,p_INC_LOSSDAY_MONDAY,p_RE_MULTI_VEHICLE_IND,p_END_PRE_05,p_VEH_MIN_PASSENGER,p_END_PRE_01,p_VEH_FACTORY_BEIQI,p_VEH_BRANDNAME_TEANA,p_TXT_CLAIM_REARCOL_FRONT,p_INC_REGION_CODE,p_END_PRE_02,p_VEH_COLOR_GOLD,p_VEH_PLATETYPE_COMPACTCAR,p_TXT_CLAIM_THREE_FRONT,p_TXT_CLAIM_ORAL_TOOTH,p_TXT_CLAIM_NONBI,p_TXT_CLAIM_THREE_REAR,p_VEH_CNT_BRANDCODE,p_VEH_BRANDNAME_DONGFENG,p_VEH_FACTORY_JIANGHUAI,p_VEH_BRANDNAME_CHERY,p_INS_CNT_INSUREDCODE,p_VEH_COLOR_GREEN,p_INC_LOSSDAY_SATURDAY,p_VEH_BRANDNAME_BORA,p_VEH_FACTORY_GUANGQI,p_INS_NATURE_KEEPER,p_END_PRE_11,p_VEH_COLOR_BROWN,p_VEH_BRANDNAME_MONDEO,p_RE_MISS_INSURED_TEL,p_END_PRE_14,p_VEH_BRANDNAME_SANTANA,p_INC_LOSSDAY_THURSDAY,p_VEH_COLOR_BLUE,p_TXT_CLAIM_SUBJECT_RIGHT,p_VEH_BRANDNAME_YUEJIN,p_END_EDR_MIN_PREMIUM,p_VEH_BRANDNAME_MG,p_VEH_BRANDNAME_FIT,p_VEH_MIN_TONNAGE,p_INC_PROVINCE_MIDDLE,p_INC_AREA_HWY,p_TXT_CLAIM_SUBJECT_COLLIDE,p_COV_PREM_OTHR,p_TXT_CLAIM_SUBJECT_GLASS_1,p_VEH_MAX_LOSSREGIST_DAY,p_TXT_CLAIM_SPINE,p_TXT_CLAIM_SUBJECT_PEDESTRIAN,p_VEH_BRANDNAME_VOLKSWAGEN,p_COV_NUM_033008,p_TXT_CLAIM_LEG,p_VEH_COLOR_RED,p_RE_LATER_REPORT_IND,p_VEH_BRANDNAME_SIDI,p_TXT_CLAIM_DEATH,p_END_EDRREASON_03,p_END_EDRREASON_02,p_RE_REPORT_LATENIGHT,p_RE_SPECIAL_IND,p_REG_PCT_LNGT_REGSHR_FNOL,p_COV_PREM_030061,p_VEH_FACTORY_SANYI,p_CLAIM_TIME_LENGTH_COM,p_COV_PREM_030062,p_COV_NUM_033016,p_VEH_BRANDNAME_FENGSHEN,p_COV_NUM_033015,p_POL_AGENT_NO,p_INC_ACCIDENTCAUSE_NOCOLLIDE,p_INC_ACCIDENTCAUSE_OTHER,p_RE_REPORT_EARLYMORNING,p_TXT_CLAIM_SUBJECT_REAR,p_END_EDRREASON_09,p_VEH_BRANDNAME_WULING,p_TXT_CLAIM_THREE_BUMPER_1,p_ORG_CNT_AREACODE,p_RE_HANDEL_LATENIGHT,p_VEH_BRANDNAME_SHENLONGFUKANG,p_VEH_BRANDNAME_HAIMA,p_SPECDRIVER_MAJORDRIVER,p_END_EDRREASON_11,p_END_EDRREASON_14,p_VEH_BRANDNAME_SIWEI,p_INC_PROVINCE_NORTHWEST,p_REG_PCT_DAWN_REGISHR_FNOL,p_RE_HANDEL_EARLYMORNING,p_CLAIM_TIME_LENGTH_TCP,p_VEH_FACTORY_HUACHEN,p_INC_INCIDENTTYPECODE_99,p_VEHOWN_NATURE_ORGANIZATION,p_VEH_MAX_VEHICLEVALUE,p_VEH_BRANDNAME_XIALI,p_RE_CATLOSS_IND,p_TXT_CLAIM_SUBJECT_LEFT,p_VEH_FACTORY_ISUZU,p_VEH_BRANDNAME_FUTIAN,p_INS_CREDCODE_HKMACAO,p_TXT_CLAIM_SUBJECT_FRONT,p_VEH_FACTORY_SHANQI,p_VEH_BRANDNAME_AUDI,p_VEH_GLASSTYPE_CHINA,p_VEH_MIN_VEHICLEVALUE,p_VEH_BRANDNAME_POLO,p_VEH_BRANDNAME_BAOJUN,p_END_EDR_MAX_PREMIUM,p_VEH_BRANDNAME_LANGYI,p_VEH_PLATETYPE_TRACTOR,p_INC_ACCIDENTCAUSE_COLLISION,p_VEH_IMPORTFLAG_CHINA,p_VEH_COLOR_SILVER,p_INC_LOSS_LATENIGHT,p_TXT_CLAIM_FACE,p_COV_TOTAL_PREM,p_RE_NORMAL_SURVEY_IND,p_VEH_BRANDNAME_TOYOTA,p_VEH_IMPORTFLAG_IMPORT,p_REG_PCT_THURSDAY_REGIST_FNOL,p_INC_PROVINCE_ZIZHIQU,p_POL_MAX_DAYS_LOSS_EXPIRE,p_TXT_CLAIM_MILD_INJURY,p_INS_NATURE_OWNER,p_APP_TYPE_GROUP,p_POL_CLAIM_NUM_COM,p_VEH_PLATETYPE_LARGECAR,p_VEH_BRANDNAME_HAOWO,p_VEH_BRANDNAME_CHENGLONG,p_REG_MIN_EST_LOSS_AMT_FNOL,p_VEH_BRANDNAME_HAFEI,p_VEH_BRANDNAME_SYLPHY,p_TXT_CLAIM_SUBJECT_DAMAGE,p_VEH_PLATETYPE_COACHAR,p_INC_POLICE_INVOLVED,p_TXT_CLAIM_NODETAIL,p_TXT_CLAIM_HOSPITAL,p_VEH_FACTORY_DANDONG,p_VEH_GLASSTYPE_IMPORT,p_TXT_CLAIM_HAND,p_COV_LIM_030012,p_VEH_FACTORY_GERMAN,p_VEH_BRANDNAME_REDFLAG,p_TXT_CLAIM_CAR_COLLISION,p_COV_NUMCOVS,p_COV_PREM_033015,p_COV_PREM_033016,p_COV_LIM_030018,p_COV_PREM_033017,p_TXT_CLAIM_THREE_RIGHT,p_VEH_BRANDNAME_KAIRUI,p_REG_PCT_SUNDAY_REGIST_FNOL,p_REG_PCT_TUESDAY_REGIST_FNOL,p_VEH_BRANDNAME_ROEWE,p_TXT_CLAIM_REARCOL_REAR,p_VEH_COLOR_BLACK,p_VEH_BRANDNAME_JIANGLING,p_COV_PREM_033008,p_COV_PREM_033009,p_VEH_BRANDNAME_KIA,p_VEH_BRANDNAME_ZHONGHUA,p_VEH_FACTORY_QIRUI,p_POL_MAX_DAYS_EFFECTIVE_LOSS,p_COV_LIM_030025,p_VEH_BRANDNAME_FENGFAN,p_COV_PREM_033005,p_VEH_BRANDNAME_ODYSSEY,p_VEH_BRANDNAME_ACCORD,p_VEH_BRANDNAME_PEUGEOT,p_TXT_CLAIM_SUBJECT_THEFT,p_VEH_BRANDNAME_MAZDA,p_VEH_BRANDNAME_MERCEDESBENZ,p_VEH_BRANDNAME_TIANYE,p_VEH_MAX_TONNAGE,p_VEH_BRANDNAME_SAGITAR,p_VEH_MIN_LOSSREGIST_DAY,p_POL_NUM_POLICIES,p_INC_LOSSDAY_WEDNESDAY,p_VEH_BRANDNAME_CIVIC,p_INC_DAYS_REPORT_LOSS,p_VEH_CNT_LICENSE,p_VEH_BRANDNAME_JINLONG,p_VEH_BRANDNAME_MAGOTAN,p_POL_CHANNEL_11,p_POL_MIN_DAYS_EFFECTIVE_LOSS,p_TXT_CLAIM_SUBJECT_COMBUSTION,p_COV_NUM_030006,p_VEH_COLOR_YELLOW,p_VEH_USAGETYPECODE_COMM,p_VEH_MAX_PASSENGER,p_INC_LOSSDAY_TUESDAY,p_RE_BODILYINJURY_IND,p_VEH_FACTORY_BYD,p_INC_CITY_CODE,p_COV_LIM_030006,p_INS_CREDCODE_ORGCERTI,p_POL_CHANNEL_14,p_APP_CNT_APPLICANT,p_RE_PROPERTYLOSS_IND,p_COV_NUM_030018,p_INC_PROVINCE_SOUTHWEST,p_APP_TYPE_INDIVIDUAL,p_VEH_BRANDNAME_CHEETAH,p_VEH_BRANDNAME_PASSAT,p_VEH_BRANDNAME_JIEFANG,p_SPECDRIVER_SHOTGUN,p_VEH_FACTORY_JINLONG,p_REG_PCT_MONDAY_REGIST_FNOL,p_VEH_PLATETYPE_TRAILER,p_DIS_TASK_RUSHHOUR_FNOL,p_VEH_COLOR_ORANGE,p_VEH_BRANDNAME_YINGLUN,p_SPECDRIVER_TYPECODE_A2,p_VEH_BRANDNAME_SOUTHCHUN,p_VEH_BRANDNAME_GOLF,p_SPECDRIVER_TYPECODE_A1,p_SPECDRIVER_UNSPECIFIED,p_VEH_FACTORY_CHANGAN,p_VEH_PLATETYPE_MACHINERY,p_RE_THIRDCARLOSS_IND,p_VEH_BRANDNAME_KAIMA,p_RE_UNLOCAL_IND,p_COV_NUM_030025,p_VEH_BRANDNAME_LIFAN,p_POL_POLICY_TYPE_1,p_VEH_BRANDNAME_JINBEI,p_RE_DIFF_DRIVER_REPORTER,p_VEHOWN_NATURE_INDIVIDUAL,p_COV_LIM_030061,p_TXT_CLAIM_SUBJECT_COLLIDE_OTHER,p_TXT_CLAIM_HEAD_DAMAGE,p_VEH_NATURE_INDIVIDUAL,p_ORG_CNT_POSTCODE,p_SPECDRIVER_TYPECODE_B2,p_TXT_CLAIM_THREE_LEFT,p_SPECDRIVER_TYPECODE_B1,p_VEH_BRANDNAME_NISSAN,p_VEH_BRANDNAME_HONGYAN,p_VEH_BRANDNAME_CHANGAN,p_VEH_USAGETYPECODE_NOCOMM,p_INC_SPOT_TYPE_CODE_0,p_POL_AREA_FLAG_2,p_VEH_BRANDNAME_GEELY,p_INC_PROVINCE_EAST,p_POL_AREA_FLAG_1,p_VEH_BRANDNAME_WEICHI,p_VEH_BRANDNAME_HYUNDAI,p_VEH_BRANDNAME_SONGHUAJING,p_INC_SPOT_TYPE_CODE_1,p_VEH_BRANDNAME_BUICK,p_RE_INSCARLOSS_IND,p_INC_SPOT_TYPE_CODE_3,p_VEH_BRANDNAME_CITROEN,p_INC_LOSS_EARLYMORNING,p_VEH_BRANDNAME_SOUTHEAST,p_VEH_FACTORY_JAPAN,p_VEH_FACTORY_JILI,p_VEH_BRANDNAME_JETTA,p_SPECDRIVER_TYPECODE_C1,p_COV_PREM_030006,p_INC_INCIDENTTYPECODE_07,p_INC_INCIDENTTYPECODE_08,p_POL_CHANNEL_53,p_POL_CHANNEL_54,p_INS_CNT_ZIP,p_VEH_BRANDNAME_LIWEI,p_INC_INCIDENTTYPECODE_04,p_POL_CLAIM_NUM_TCP,p_VEH_BRANDNAME_MITSUBISHI,p_COV_NUM_OTHR,p_VEH_FACTORY_GREATWALL,p_INC_INCIDENTTYPECODE_01,p_INC_INCIDENTTYPECODE_02,p_VEH_PLATETYPE_FARMCAR,p_VEH_BRANDNAME_OCTAVIA,p_TXT_CLAIM_PREGNANCY,p_TXT_CLAIM_SCRATCH,p_INC_PROVINCE_CODE,p_POL_MIN_DAYS_LOSS_EXPIRE,p_REG_AVG_EST_LOSS_AMT_FNOL,p_VEH_BRANDNAME_BMW,p_INC_LOSSDAY_SUNDAY) := FUNCTIONMACRO
+  IMPORT LUCI;
+  RPrep := RECORD
+    infile;
+    zz_huge_luci_deleteme.Append_tree_china_ModelLayouts.Prepare;
+    zz_huge_luci_deleteme.Append_tree_china_ModelLayouts.Working;
+  END;
+  RPrep PrepareMe(infile le) := TRANSFORM
+    SELF.tree_china_sc := 1;
+    SELF := le;
+  END;
+  Prepared := PROJECT(infile(do_model),PrepareMe(LEFT));
+  rres := RECORD
+    infile;
+    zz_huge_luci_deleteme.Append_tree_china_ModelLayouts.Result;
+  END;
+// Scorecard china_tree has scaling formula - encapsulate in a function
+  REAL8 SFchina_tree(REAL8 predlrat) := MAP (
+    predlrat <= 0.0 => 0,
+    predlrat <= 7.0E-8 => 11,
+    predlrat <= 5.0E-7 => 12,
+    predlrat <= 7.0E-7 => 13,
+    predlrat <= 8.9666667E-7 => 18,
+    predlrat <= 1.08E-6 => 19,
+    predlrat <= 1.3966667E-6 => 20,
+    predlrat <= 1.6E-6 => 21,
+    predlrat <= 1.9466667E-6 => 22,
+    predlrat <= 2.21E-6 => 23,
+    predlrat <= 2.4733333E-6 => 24,
+    predlrat <= 3.0033333E-6 => 25,
+    predlrat <= 3.31E-6 => 26,
+    predlrat <= 3.8566667E-6 => 27,
+    predlrat <= 4.4E-6 => 28,
+    predlrat <= 5.1466667E-6 => 29,
+    predlrat <= 6.14E-6 => 30,
+    predlrat <= 6.99E-6 => 31,
+    predlrat <= 7.9766667E-6 => 32,
+    predlrat <= 9.1866667E-6 => 33,
+    predlrat <= 1.02167E-5 => 34,
+    predlrat <= 1.13667E-5 => 35,
+    predlrat <= 1.27867E-5 => 36,
+    predlrat <= 1.42333E-5 => 37,
+    predlrat <= 1.564E-5 => 38,
+    predlrat <= 1.733E-5 => 39,
+    predlrat <= 1.92867E-5 => 40,
+    predlrat <= 2.073E-5 => 41,
+    predlrat <= 2.28967E-5 => 42,
+    predlrat <= 2.54767E-5 => 43,
+    predlrat <= 2.74567E-5 => 44,
+    predlrat <= 3.10333E-5 => 45,
+    predlrat <= 3.414E-5 => 46,
+    predlrat <= 3.60933E-5 => 47,
+    predlrat <= 4.04333E-5 => 48,
+    predlrat <= 4.699E-5 => 49,
+    predlrat <= 5.11E-5 => 50,
+    predlrat <= 5.19367E-5 => 51,
+    predlrat <= 5.47267E-5 => 52,
+    predlrat <= 5.98567E-5 => 53,
+    predlrat <= 6.731E-5 => 54,
+    predlrat <= 7.585E-5 => 55,
+    predlrat <= 8.951E-5 => 56,
+    predlrat <= 1.025E-4 => 57,
+    predlrat <= 1.0255E-4 => 67,
+    predlrat <= 1.029433E-4 => 68,
+    predlrat <= 1.032E-4 => 69,
+    predlrat <= 1.034467E-4 => 73,
+    predlrat <= 1.037467E-4 => 74,
+    predlrat <= 1.040533E-4 => 75,
+    predlrat <= 1.043533E-4 => 76,
+    predlrat <= 1.0474E-4 => 77,
+    predlrat <= 1.050167E-4 => 78,
+    predlrat <= 1.055533E-4 => 79,
+    predlrat <= 1.0595E-4 => 80,
+    predlrat <= 1.0644E-4 => 81,
+    predlrat <= 1.069433E-4 => 82,
+    predlrat <= 1.076567E-4 => 83,
+    predlrat <= 1.085033E-4 => 84,
+    predlrat <= 1.0933E-4 => 85,
+    predlrat <= 1.100233E-4 => 86,
+    predlrat <= 1.1092E-4 => 87,
+    predlrat <= 1.1189E-4 => 88,
+    predlrat <= 1.128967E-4 => 89,
+    predlrat <= 1.139E-4 => 90,
+    predlrat <= 1.150067E-4 => 91,
+    predlrat <= 1.1611E-4 => 92,
+    predlrat <= 1.173E-4 => 93,
+    predlrat <= 1.184967E-4 => 94,
+    predlrat <= 1.198133E-4 => 95,
+    predlrat <= 1.2124E-4 => 96,
+    predlrat <= 1.228533E-4 => 97,
+    predlrat <= 1.239233E-4 => 98,
+    predlrat <= 1.255367E-4 => 99,
+    predlrat <= 1.275467E-4 => 100,
+    predlrat <= 1.288367E-4 => 101,
+    predlrat <= 1.305867E-4 => 102,
+    predlrat <= 1.329733E-4 => 103,
+    predlrat <= 1.359033E-4 => 104,
+    predlrat <= 1.371533E-4 => 105,
+    predlrat <= 1.386867E-4 => 106,
+    predlrat <= 1.409833E-4 => 107,
+    predlrat <= 1.439267E-4 => 108,
+    predlrat <= 1.4737E-4 => 109,
+    predlrat <= 1.515067E-4 => 110,
+    predlrat <= 1.541667E-4 => 111,
+    predlrat <= 1.545067E-4 => 112,
+    predlrat <= 1.556867E-4 => 113,
+    predlrat <= 1.576633E-4 => 114,
+    predlrat <= 1.605067E-4 => 115,
+    predlrat <= 1.637867E-4 => 116,
+    predlrat <= 1.676E-4 => 117,
+    predlrat <= 1.718167E-4 => 118,
+    predlrat <= 1.7574E-4 => 119,
+    predlrat <= 1.809667E-4 => 120,
+    predlrat <= 1.873467E-4 => 121,
+    predlrat <= 1.939467E-4 => 122,
+    predlrat <= 2.031733E-4 => 123,
+    predlrat <= 2.061E-4 => 124,
+    predlrat <= 2.061167E-4 => 131,
+    predlrat <= 2.0657E-4 => 132,
+    predlrat <= 2.068E-4 => 133,
+    predlrat <= 2.069767E-4 => 135,
+    predlrat <= 2.074333E-4 => 136,
+    predlrat <= 2.078E-4 => 137,
+    predlrat <= 2.082767E-4 => 138,
+    predlrat <= 2.086533E-4 => 139,
+    predlrat <= 2.0934E-4 => 140,
+    predlrat <= 2.099133E-4 => 141,
+    predlrat <= 2.106067E-4 => 142,
+    predlrat <= 2.1154E-4 => 143,
+    predlrat <= 2.125133E-4 => 144,
+    predlrat <= 2.1336E-4 => 145,
+    predlrat <= 2.143633E-4 => 146,
+    predlrat <= 2.154367E-4 => 147,
+    predlrat <= 2.165533E-4 => 148,
+    predlrat <= 2.176933E-4 => 149,
+    predlrat <= 2.190067E-4 => 150,
+    predlrat <= 2.201967E-4 => 151,
+    predlrat <= 2.2142E-4 => 152,
+    predlrat <= 2.228767E-4 => 153,
+    predlrat <= 2.2419E-4 => 154,
+    predlrat <= 2.257867E-4 => 155,
+    predlrat <= 2.2707E-4 => 156,
+    predlrat <= 2.285533E-4 => 157,
+    predlrat <= 2.303167E-4 => 158,
+    predlrat <= 2.320633E-4 => 159,
+    predlrat <= 2.332833E-4 => 160,
+    predlrat <= 2.352E-4 => 161,
+    predlrat <= 2.3743E-4 => 162,
+    predlrat <= 2.398933E-4 => 163,
+    predlrat <= 2.410467E-4 => 164,
+    predlrat <= 2.424633E-4 => 165,
+    predlrat <= 2.4443E-4 => 166,
+    predlrat <= 2.469333E-4 => 167,
+    predlrat <= 2.4954E-4 => 168,
+    predlrat <= 2.5262E-4 => 169,
+    predlrat <= 2.558967E-4 => 170,
+    predlrat <= 2.582567E-4 => 171,
+    predlrat <= 2.584533E-4 => 172,
+    predlrat <= 2.5947E-4 => 173,
+    predlrat <= 2.611867E-4 => 174,
+    predlrat <= 2.6332E-4 => 175,
+    predlrat <= 2.658667E-4 => 176,
+    predlrat <= 2.684967E-4 => 177,
+    predlrat <= 2.713433E-4 => 178,
+    predlrat <= 2.744367E-4 => 179,
+    predlrat <= 2.774367E-4 => 180,
+    predlrat <= 2.808633E-4 => 181,
+    predlrat <= 2.846933E-4 => 182,
+    predlrat <= 2.889867E-4 => 183,
+    predlrat <= 2.9359E-4 => 184,
+    predlrat <= 2.980167E-4 => 185,
+    predlrat <= 3.037433E-4 => 186,
+    predlrat <= 3.096967E-4 => 187,
+    predlrat <= 3.107E-4 => 188,
+    predlrat <= 3.108133E-4 => 193,
+    predlrat <= 3.113467E-4 => 194,
+    predlrat <= 3.1144E-4 => 195,
+    predlrat <= 3.1193E-4 => 196,
+    predlrat <= 3.125367E-4 => 197,
+    predlrat <= 3.130967E-4 => 198,
+    predlrat <= 3.138833E-4 => 199,
+    predlrat <= 3.1468E-4 => 200,
+    predlrat <= 3.1558E-4 => 201,
+    predlrat <= 3.167E-4 => 202,
+    predlrat <= 3.177267E-4 => 203,
+    predlrat <= 3.187733E-4 => 204,
+    predlrat <= 3.1996E-4 => 205,
+    predlrat <= 3.212233E-4 => 206,
+    predlrat <= 3.224733E-4 => 207,
+    predlrat <= 3.238067E-4 => 208,
+    predlrat <= 3.251867E-4 => 209,
+    predlrat <= 3.265767E-4 => 210,
+    predlrat <= 3.280767E-4 => 211,
+    predlrat <= 3.296267E-4 => 212,
+    predlrat <= 3.312867E-4 => 213,
+    predlrat <= 3.326867E-4 => 214,
+    predlrat <= 3.343933E-4 => 215,
+    predlrat <= 3.362E-4 => 216,
+    predlrat <= 3.375967E-4 => 217,
+    predlrat <= 3.393433E-4 => 218,
+    predlrat <= 3.413E-4 => 219,
+    predlrat <= 3.4343E-4 => 220,
+    predlrat <= 3.454167E-4 => 221,
+    predlrat <= 3.4655E-4 => 222,
+    predlrat <= 3.482767E-4 => 223,
+    predlrat <= 3.503533E-4 => 224,
+    predlrat <= 3.526267E-4 => 225,
+    predlrat <= 3.550333E-4 => 226,
+    predlrat <= 3.5768E-4 => 227,
+    predlrat <= 3.604767E-4 => 228,
+    predlrat <= 3.628867E-4 => 229,
+    predlrat <= 3.635567E-4 => 230,
+    predlrat <= 3.644967E-4 => 231,
+    predlrat <= 3.661233E-4 => 232,
+    predlrat <= 3.6805E-4 => 233,
+    predlrat <= 3.702333E-4 => 234,
+    predlrat <= 3.725833E-4 => 235,
+    predlrat <= 3.750967E-4 => 236,
+    predlrat <= 3.778733E-4 => 237,
+    predlrat <= 3.8069E-4 => 238,
+    predlrat <= 3.833867E-4 => 239,
+    predlrat <= 3.865267E-4 => 240,
+    predlrat <= 3.897933E-4 => 241,
+    predlrat <= 3.932933E-4 => 242,
+    predlrat <= 3.971867E-4 => 243,
+    predlrat <= 4.007767E-4 => 244,
+    predlrat <= 4.0485E-4 => 245,
+    predlrat <= 4.0947E-4 => 246,
+    predlrat <= 4.142567E-4 => 247,
+    predlrat <= 4.163E-4 => 248,
+    predlrat <= 4.163133E-4 => 251,
+    predlrat <= 4.1665E-4 => 252,
+    predlrat <= 4.171333E-4 => 253,
+    predlrat <= 4.177E-4 => 254,
+    predlrat <= 4.184533E-4 => 255,
+    predlrat <= 4.1929E-4 => 256,
+    predlrat <= 4.203067E-4 => 257,
+    predlrat <= 4.214567E-4 => 258,
+    predlrat <= 4.227267E-4 => 259,
+    predlrat <= 4.238967E-4 => 260,
+    predlrat <= 4.2512E-4 => 261,
+    predlrat <= 4.264733E-4 => 262,
+    predlrat <= 4.279167E-4 => 263,
+    predlrat <= 4.2936E-4 => 264,
+    predlrat <= 4.308667E-4 => 265,
+    predlrat <= 4.324533E-4 => 266,
+    predlrat <= 4.340167E-4 => 267,
+    predlrat <= 4.3566E-4 => 268,
+    predlrat <= 4.373167E-4 => 269,
+    predlrat <= 4.389167E-4 => 270,
+    predlrat <= 4.407367E-4 => 271,
+    predlrat <= 4.4248E-4 => 272,
+    predlrat <= 4.439967E-4 => 273,
+    predlrat <= 4.458E-4 => 274,
+    predlrat <= 4.478867E-4 => 275,
+    predlrat <= 4.500833E-4 => 276,
+    predlrat <= 4.5176E-4 => 277,
+    predlrat <= 4.5321E-4 => 278,
+    predlrat <= 4.551133E-4 => 279,
+    predlrat <= 4.5729E-4 => 280,
+    predlrat <= 4.595833E-4 => 281,
+    predlrat <= 4.619733E-4 => 282,
+    predlrat <= 4.646033E-4 => 283,
+    predlrat <= 4.6742E-4 => 284,
+    predlrat <= 4.6932E-4 => 285,
+    predlrat <= 4.700033E-4 => 286,
+    predlrat <= 4.714133E-4 => 287,
+    predlrat <= 4.731967E-4 => 288,
+    predlrat <= 4.7529E-4 => 289,
+    predlrat <= 4.775667E-4 => 290,
+    predlrat <= 4.7988E-4 => 291,
+    predlrat <= 4.8256E-4 => 292,
+    predlrat <= 4.853333E-4 => 293,
+    predlrat <= 4.879467E-4 => 294,
+    predlrat <= 4.905567E-4 => 295,
+    predlrat <= 4.934133E-4 => 296,
+    predlrat <= 4.9656E-4 => 297,
+    predlrat <= 4.9995E-4 => 298,
+    predlrat <= 5.034633E-4 => 299,
+    predlrat <= 5.066267E-4 => 300,
+    predlrat <= 5.100967E-4 => 301,
+    predlrat <= 5.141367E-4 => 302,
+    predlrat <= 5.187233E-4 => 303,
+    predlrat <= 5.223133E-4 => 304,
+    predlrat <= 5.23E-4 => 305,
+    predlrat <= 5.231567E-4 => 307,
+    predlrat <= 5.237067E-4 => 308,
+    predlrat <= 5.2445E-4 => 309,
+    predlrat <= 5.254133E-4 => 310,
+    predlrat <= 5.265333E-4 => 311,
+    predlrat <= 5.2781E-4 => 312,
+    predlrat <= 5.2917E-4 => 313,
+    predlrat <= 5.305567E-4 => 314,
+    predlrat <= 5.319933E-4 => 315,
+    predlrat <= 5.3345E-4 => 316,
+    predlrat <= 5.349767E-4 => 317,
+    predlrat <= 5.365433E-4 => 318,
+    predlrat <= 5.3822E-4 => 319,
+    predlrat <= 5.399367E-4 => 320,
+    predlrat <= 5.416533E-4 => 321,
+    predlrat <= 5.434433E-4 => 322,
+    predlrat <= 5.4518E-4 => 323,
+    predlrat <= 5.470133E-4 => 324,
+    predlrat <= 5.489033E-4 => 325,
+    predlrat <= 5.506633E-4 => 326,
+    predlrat <= 5.5262E-4 => 327,
+    predlrat <= 5.5484E-4 => 328,
+    predlrat <= 5.570933E-4 => 329,
+    predlrat <= 5.589267E-4 => 330,
+    predlrat <= 5.605533E-4 => 331,
+    predlrat <= 5.6268E-4 => 332,
+    predlrat <= 5.6496E-4 => 333,
+    predlrat <= 5.673433E-4 => 334,
+    predlrat <= 5.699133E-4 => 335,
+    predlrat <= 5.725267E-4 => 336,
+    predlrat <= 5.752033E-4 => 337,
+    predlrat <= 5.7678E-4 => 338,
+    predlrat <= 5.777433E-4 => 339,
+    predlrat <= 5.7946E-4 => 340,
+    predlrat <= 5.815633E-4 => 341,
+    predlrat <= 5.8387E-4 => 342,
+    predlrat <= 5.862233E-4 => 343,
+    predlrat <= 5.8862E-4 => 344,
+    predlrat <= 5.912733E-4 => 345,
+    predlrat <= 5.9392E-4 => 346,
+    predlrat <= 5.963733E-4 => 347,
+    predlrat <= 5.989833E-4 => 348,
+    predlrat <= 6.018733E-4 => 349,
+    predlrat <= 6.049967E-4 => 350,
+    predlrat <= 6.083667E-4 => 351,
+    predlrat <= 6.117133E-4 => 352,
+    predlrat <= 6.1488E-4 => 353,
+    predlrat <= 6.185767E-4 => 354,
+    predlrat <= 6.225233E-4 => 355,
+    predlrat <= 6.2668E-4 => 356,
+    predlrat <= 6.300767E-4 => 357,
+    predlrat <= 6.308E-4 => 358,
+    predlrat <= 6.3084E-4 => 359,
+    predlrat <= 6.313033E-4 => 360,
+    predlrat <= 6.322967E-4 => 361,
+    predlrat <= 6.334933E-4 => 362,
+    predlrat <= 6.348867E-4 => 363,
+    predlrat <= 6.364367E-4 => 364,
+    predlrat <= 6.379867E-4 => 365,
+    predlrat <= 6.395233E-4 => 366,
+    predlrat <= 6.4116E-4 => 367,
+    predlrat <= 6.428633E-4 => 368,
+    predlrat <= 6.4465E-4 => 369,
+    predlrat <= 6.464867E-4 => 370,
+    predlrat <= 6.483267E-4 => 371,
+    predlrat <= 6.5014E-4 => 372,
+    predlrat <= 6.519533E-4 => 373,
+    predlrat <= 6.538067E-4 => 374,
+    predlrat <= 6.558533E-4 => 375,
+    predlrat <= 6.578033E-4 => 376,
+    predlrat <= 6.597567E-4 => 377,
+    predlrat <= 6.619733E-4 => 378,
+    predlrat <= 6.643367E-4 => 379,
+    predlrat <= 6.664767E-4 => 380,
+    predlrat <= 6.682833E-4 => 381,
+    predlrat <= 6.704667E-4 => 382,
+    predlrat <= 6.728867E-4 => 383,
+    predlrat <= 6.7532E-4 => 384,
+    predlrat <= 6.778567E-4 => 385,
+    predlrat <= 6.806433E-4 => 386,
+    predlrat <= 6.8347E-4 => 387,
+    predlrat <= 6.850433E-4 => 388,
+    predlrat <= 6.8634E-4 => 389,
+    predlrat <= 6.882967E-4 => 390,
+    predlrat <= 6.906633E-4 => 391,
+    predlrat <= 6.9316E-4 => 392,
+    predlrat <= 6.956867E-4 => 393,
+    predlrat <= 6.983467E-4 => 394,
+    predlrat <= 7.011833E-4 => 395,
+    predlrat <= 7.038133E-4 => 396,
+    predlrat <= 7.0643E-4 => 397,
+    predlrat <= 7.093533E-4 => 398,
+    predlrat <= 7.124333E-4 => 399,
+    predlrat <= 7.155133E-4 => 400,
+    predlrat <= 7.1877E-4 => 401,
+    predlrat <= 7.2193E-4 => 402,
+    predlrat <= 7.2522E-4 => 403,
+    predlrat <= 7.2884E-4 => 404,
+    predlrat <= 7.3276E-4 => 405,
+    predlrat <= 7.369633E-4 => 406,
+    predlrat <= 7.393367E-4 => 407,
+    predlrat <= 7.396133E-4 => 408,
+    predlrat <= 7.4004E-4 => 409,
+    predlrat <= 7.411667E-4 => 410,
+    predlrat <= 7.4263E-4 => 411,
+    predlrat <= 7.442367E-4 => 412,
+    predlrat <= 7.459733E-4 => 413,
+    predlrat <= 7.476967E-4 => 414,
+    predlrat <= 7.494933E-4 => 415,
+    predlrat <= 7.513067E-4 => 416,
+    predlrat <= 7.531767E-4 => 417,
+    predlrat <= 7.551067E-4 => 418,
+    predlrat <= 7.5714E-4 => 419,
+    predlrat <= 7.591633E-4 => 420,
+    predlrat <= 7.611933E-4 => 421,
+    predlrat <= 7.631867E-4 => 422,
+    predlrat <= 7.6535E-4 => 423,
+    predlrat <= 7.674067E-4 => 424,
+    predlrat <= 7.6962E-4 => 425,
+    predlrat <= 7.719767E-4 => 426,
+    predlrat <= 7.743867E-4 => 427,
+    predlrat <= 7.764333E-4 => 428,
+    predlrat <= 7.785333E-4 => 429,
+    predlrat <= 7.809333E-4 => 430,
+    predlrat <= 7.834E-4 => 431,
+    predlrat <= 7.8588E-4 => 432,
+    predlrat <= 7.885667E-4 => 433,
+    predlrat <= 7.913933E-4 => 434,
+    predlrat <= 7.938867E-4 => 435,
+    predlrat <= 7.9519E-4 => 436,
+    predlrat <= 7.9714E-4 => 437,
+    predlrat <= 7.995233E-4 => 438,
+    predlrat <= 8.0206E-4 => 439,
+    predlrat <= 8.046633E-4 => 440,
+    predlrat <= 8.073333E-4 => 441,
+    predlrat <= 8.100467E-4 => 442,
+    predlrat <= 8.128033E-4 => 443,
+    predlrat <= 8.155567E-4 => 444,
+    predlrat <= 8.185933E-4 => 445,
+    predlrat <= 8.217833E-4 => 446,
+    predlrat <= 8.2495E-4 => 447,
+    predlrat <= 8.2833E-4 => 448,
+    predlrat <= 8.316467E-4 => 449,
+    predlrat <= 8.349667E-4 => 450,
+    predlrat <= 8.3868E-4 => 451,
+    predlrat <= 8.427133E-4 => 452,
+    predlrat <= 8.468933E-4 => 453,
+    predlrat <= 8.493267E-4 => 454,
+    predlrat <= 8.4973E-4 => 455,
+    predlrat <= 8.505467E-4 => 456,
+    predlrat <= 8.5204E-4 => 457,
+    predlrat <= 8.537867E-4 => 458,
+    predlrat <= 8.556933E-4 => 459,
+    predlrat <= 8.5764E-4 => 460,
+    predlrat <= 8.595467E-4 => 461,
+    predlrat <= 8.6162E-4 => 462,
+    predlrat <= 8.636833E-4 => 463,
+    predlrat <= 8.658467E-4 => 464,
+    predlrat <= 8.6806E-4 => 465,
+    predlrat <= 8.702733E-4 => 466,
+    predlrat <= 8.7251E-4 => 467,
+    predlrat <= 8.747967E-4 => 468,
+    predlrat <= 8.771633E-4 => 469,
+    predlrat <= 8.7944E-4 => 470,
+    predlrat <= 8.8195E-4 => 471,
+    predlrat <= 8.845033E-4 => 472,
+    predlrat <= 8.868467E-4 => 473,
+    predlrat <= 8.891867E-4 => 474,
+    predlrat <= 8.918767E-4 => 475,
+    predlrat <= 8.946133E-4 => 476,
+    predlrat <= 8.974067E-4 => 477,
+    predlrat <= 9.004167E-4 => 478,
+    predlrat <= 9.033733E-4 => 479,
+    predlrat <= 9.053E-4 => 480,
+    predlrat <= 9.070833E-4 => 481,
+    predlrat <= 9.0964E-4 => 482,
+    predlrat <= 9.123833E-4 => 483,
+    predlrat <= 9.151333E-4 => 484,
+    predlrat <= 9.178467E-4 => 485,
+    predlrat <= 9.207E-4 => 486,
+    predlrat <= 9.2368E-4 => 487,
+    predlrat <= 9.266467E-4 => 488,
+    predlrat <= 9.298667E-4 => 489,
+    predlrat <= 9.331733E-4 => 490,
+    predlrat <= 9.365767E-4 => 491,
+    predlrat <= 9.402433E-4 => 492,
+    predlrat <= 9.437033E-4 => 493,
+    predlrat <= 9.474733E-4 => 494,
+    predlrat <= 9.516067E-4 => 495,
+    predlrat <= 9.558633E-4 => 496,
+    predlrat <= 9.5954E-4 => 497,
+    predlrat <= 9.607667E-4 => 498,
+    predlrat <= 9.6133E-4 => 499,
+    predlrat <= 9.6287E-4 => 500,
+    predlrat <= 9.6473E-4 => 501,
+    predlrat <= 9.6675E-4 => 502,
+    predlrat <= 9.688667E-4 => 503,
+    predlrat <= 9.7099E-4 => 504,
+    predlrat <= 9.731867E-4 => 505,
+    predlrat <= 9.7551E-4 => 506,
+    predlrat <= 9.778967E-4 => 507,
+    predlrat <= 9.802967E-4 => 508,
+    predlrat <= 9.8275E-4 => 509,
+    predlrat <= 9.852333E-4 => 510,
+    predlrat <= 9.878667E-4 => 511,
+    predlrat <= 9.904133E-4 => 512,
+    predlrat <= 9.930367E-4 => 513,
+    predlrat <= 9.958667E-4 => 514,
+    predlrat <= 9.984667E-4 => 515,
+    predlrat <= 0.0010011033 => 516,
+    predlrat <= 0.00100408 => 517,
+    predlrat <= 0.0010071367 => 518,
+    predlrat <= 0.0010103133 => 519,
+    predlrat <= 0.0010135133 => 520,
+    predlrat <= 0.0010163 => 521,
+    predlrat <= 0.00101803 => 522,
+    predlrat <= 0.0010205067 => 523,
+    predlrat <= 0.0010233033 => 524,
+    predlrat <= 0.00102623 => 525,
+    predlrat <= 0.00102935 => 526,
+    predlrat <= 0.0010325767 => 527,
+    predlrat <= 0.0010356767 => 528,
+    predlrat <= 0.00103885 => 529,
+    predlrat <= 0.0010422533 => 530,
+    predlrat <= 0.0010457333 => 531,
+    predlrat <= 0.00104945 => 532,
+    predlrat <= 0.0010533467 => 533,
+    predlrat <= 0.0010570767 => 534,
+    predlrat <= 0.0010612533 => 535,
+    predlrat <= 0.0010656867 => 536,
+    predlrat <= 0.0010700933 => 537,
+    predlrat <= 0.0010727867 => 538,
+    predlrat <= 0.0010733433 => 539,
+    predlrat <= 0.00107482 => 540,
+    predlrat <= 0.0010769 => 541,
+    predlrat <= 0.00107921 => 542,
+    predlrat <= 0.00108154 => 543,
+    predlrat <= 0.0010839567 => 544,
+    predlrat <= 0.0010864667 => 545,
+    predlrat <= 0.0010890267 => 546,
+    predlrat <= 0.0010916333 => 547,
+    predlrat <= 0.00109419 => 548,
+    predlrat <= 0.00109679 => 549,
+    predlrat <= 0.0010995433 => 550,
+    predlrat <= 0.0011023 => 551,
+    predlrat <= 0.0011052933 => 552,
+    predlrat <= 0.00110849 => 553,
+    predlrat <= 0.0011113567 => 554,
+    predlrat <= 0.0011142933 => 555,
+    predlrat <= 0.00111757 => 556,
+    predlrat <= 0.00112104 => 557,
+    predlrat <= 0.0011246167 => 558,
+    predlrat <= 0.0011280467 => 559,
+    predlrat <= 0.0011304033 => 560,
+    predlrat <= 0.00113297 => 561,
+    predlrat <= 0.0011361833 => 562,
+    predlrat <= 0.00113948 => 563,
+    predlrat <= 0.0011428133 => 564,
+    predlrat <= 0.0011464367 => 565,
+    predlrat <= 0.0011499467 => 566,
+    predlrat <= 0.00115337 => 567,
+    predlrat <= 0.0011570867 => 568,
+    predlrat <= 0.0011608567 => 569,
+    predlrat <= 0.00116492 => 570,
+    predlrat <= 0.0011690167 => 571,
+    predlrat <= 0.0011733 => 572,
+    predlrat <= 0.0011779833 => 573,
+    predlrat <= 0.0011828133 => 574,
+    predlrat <= 0.0011859433 => 575,
+    predlrat <= 0.00118681 => 576,
+    predlrat <= 0.0011885333 => 577,
+    predlrat <= 0.0011908767 => 578,
+    predlrat <= 0.0011933133 => 579,
+    predlrat <= 0.00119593 => 580,
+    predlrat <= 0.0011986133 => 581,
+    predlrat <= 0.00120144 => 582,
+    predlrat <= 0.0012044167 => 583,
+    predlrat <= 0.0012073633 => 584,
+    predlrat <= 0.0012102767 => 585,
+    predlrat <= 0.0012132467 => 586,
+    predlrat <= 0.0012162467 => 587,
+    predlrat <= 0.0012194667 => 588,
+    predlrat <= 0.00122272 => 589,
+    predlrat <= 0.0012257333 => 590,
+    predlrat <= 0.00122897 => 591,
+    predlrat <= 0.0012324167 => 592,
+    predlrat <= 0.00123601 => 593,
+    predlrat <= 0.0012398433 => 594,
+    predlrat <= 0.0012429467 => 595,
+    predlrat <= 0.00124519 => 596,
+    predlrat <= 0.0012484433 => 597,
+    predlrat <= 0.00125201 => 598,
+    predlrat <= 0.0012556533 => 599,
+    predlrat <= 0.0012595533 => 600,
+    predlrat <= 0.0012633467 => 601,
+    predlrat <= 0.00126728 => 602,
+    predlrat <= 0.0012714 => 603,
+    predlrat <= 0.0012756733 => 604,
+    predlrat <= 0.0012801333 => 605,
+    predlrat <= 0.0012846333 => 606,
+    predlrat <= 0.00128951 => 607,
+    predlrat <= 0.0012947067 => 608,
+    predlrat <= 0.0012993233 => 609,
+    predlrat <= 0.0013011267 => 610,
+    predlrat <= 0.0013024233 => 611,
+    predlrat <= 0.0013048967 => 612,
+    predlrat <= 0.00130764 => 613,
+    predlrat <= 0.0013104333 => 614,
+    predlrat <= 0.0013132733 => 615,
+    predlrat <= 0.0013164067 => 616,
+    predlrat <= 0.0013195267 => 617,
+    predlrat <= 0.0013225367 => 618,
+    predlrat <= 0.0013256667 => 619,
+    predlrat <= 0.0013289933 => 620,
+    predlrat <= 0.0013324267 => 621,
+    predlrat <= 0.00133616 => 622,
+    predlrat <= 0.0013395467 => 623,
+    predlrat <= 0.0013429267 => 624,
+    predlrat <= 0.0013468633 => 625,
+    predlrat <= 0.0013509567 => 626,
+    predlrat <= 0.0013552667 => 627,
+    predlrat <= 0.0013586567 => 628,
+    predlrat <= 0.0013615033 => 629,
+    predlrat <= 0.0013652533 => 630,
+    predlrat <= 0.00136903 => 631,
+    predlrat <= 0.0013728967 => 632,
+    predlrat <= 0.0013770467 => 633,
+    predlrat <= 0.0013812867 => 634,
+    predlrat <= 0.00138592 => 635,
+    predlrat <= 0.0013906167 => 636,
+    predlrat <= 0.0013955 => 637,
+    predlrat <= 0.0014000833 => 638,
+    predlrat <= 0.00140521 => 639,
+    predlrat <= 0.0014107167 => 640,
+    predlrat <= 0.00141554 => 641,
+    predlrat <= 0.00141699 => 642,
+    predlrat <= 0.0014189967 => 643,
+    predlrat <= 0.0014218833 => 644,
+    predlrat <= 0.0014249267 => 645,
+    predlrat <= 0.0014281167 => 646,
+    predlrat <= 0.0014315033 => 647,
+    predlrat <= 0.00143487 => 648,
+    predlrat <= 0.0014383633 => 649,
+    predlrat <= 0.0014418233 => 650,
+    predlrat <= 0.00144553 => 651,
+    predlrat <= 0.0014494333 => 652,
+    predlrat <= 0.0014536933 => 653,
+    predlrat <= 0.0014573567 => 654,
+    predlrat <= 0.0014613133 => 655,
+    predlrat <= 0.0014656667 => 656,
+    predlrat <= 0.0014702267 => 657,
+    predlrat <= 0.0014745233 => 658,
+    predlrat <= 0.0014774 => 659,
+    predlrat <= 0.0014812333 => 660,
+    predlrat <= 0.0014854667 => 661,
+    predlrat <= 0.0014897167 => 662,
+    predlrat <= 0.00149416 => 663,
+    predlrat <= 0.0014989367 => 664,
+    predlrat <= 0.00150412 => 665,
+    predlrat <= 0.0015093167 => 666,
+    predlrat <= 0.0015146467 => 667,
+    predlrat <= 0.00151994 => 668,
+    predlrat <= 0.00152562 => 669,
+    predlrat <= 0.0015313467 => 670,
+    predlrat <= 0.0015338667 => 671,
+    predlrat <= 0.0015357433 => 672,
+    predlrat <= 0.00153886 => 673,
+    predlrat <= 0.0015421767 => 674,
+    predlrat <= 0.0015456933 => 675,
+    predlrat <= 0.0015494933 => 676,
+    predlrat <= 0.0015533367 => 677,
+    predlrat <= 0.0015571367 => 678,
+    predlrat <= 0.00156109 => 679,
+    predlrat <= 0.00156517 => 680,
+    predlrat <= 0.0015695533 => 681,
+    predlrat <= 0.0015737933 => 682,
+    predlrat <= 0.0015782667 => 683,
+    predlrat <= 0.0015830733 => 684,
+    predlrat <= 0.0015880467 => 685,
+    predlrat <= 0.00159257 => 686,
+    predlrat <= 0.0015960833 => 687,
+    predlrat <= 0.0016008367 => 688,
+    predlrat <= 0.0016058 => 689,
+    predlrat <= 0.00161102 => 690,
+    predlrat <= 0.00161609 => 691,
+    predlrat <= 0.0016214867 => 692,
+    predlrat <= 0.0016270567 => 693,
+    predlrat <= 0.0016326533 => 694,
+    predlrat <= 0.0016382867 => 695,
+    predlrat <= 0.00164463 => 696,
+    predlrat <= 0.00165083 => 697,
+    predlrat <= 0.00165249 => 698,
+    predlrat <= 0.0016552567 => 699,
+    predlrat <= 0.00165891 => 700,
+    predlrat <= 0.0016628367 => 701,
+    predlrat <= 0.0016669967 => 702,
+    predlrat <= 0.00167136 => 703,
+    predlrat <= 0.0016756133 => 704,
+    predlrat <= 0.0016802 => 705,
+    predlrat <= 0.0016847733 => 706,
+    predlrat <= 0.0016898433 => 707,
+    predlrat <= 0.0016942967 => 708,
+    predlrat <= 0.0016996267 => 709,
+    predlrat <= 0.0017054 => 710,
+    predlrat <= 0.0017109533 => 711,
+    predlrat <= 0.0017147533 => 712,
+    predlrat <= 0.0017197733 => 713,
+    predlrat <= 0.0017248933 => 714,
+    predlrat <= 0.0017306433 => 715,
+    predlrat <= 0.0017361833 => 716,
+    predlrat <= 0.0017420133 => 717,
+    predlrat <= 0.0017484767 => 718,
+    predlrat <= 0.00175488 => 719,
+    predlrat <= 0.0017619233 => 720,
+    predlrat <= 0.0017689833 => 721,
+    predlrat <= 0.0017718233 => 722,
+    predlrat <= 0.0017746433 => 723,
+    predlrat <= 0.0017786 => 724,
+    predlrat <= 0.00178282 => 725,
+    predlrat <= 0.0017876333 => 726,
+    predlrat <= 0.0017924133 => 727,
+    predlrat <= 0.0017971833 => 728,
+    predlrat <= 0.00180238 => 729,
+    predlrat <= 0.0018082467 => 730,
+    predlrat <= 0.0018136633 => 731,
+    predlrat <= 0.0018191833 => 732,
+    predlrat <= 0.0018252667 => 733,
+    predlrat <= 0.00183107 => 734,
+    predlrat <= 0.0018353667 => 735,
+    predlrat <= 0.00184073 => 736,
+    predlrat <= 0.0018464733 => 737,
+    predlrat <= 0.00185259 => 738,
+    predlrat <= 0.0018589167 => 739,
+    predlrat <= 0.0018654533 => 740,
+    predlrat <= 0.00187231 => 741,
+    predlrat <= 0.0018797433 => 742,
+    predlrat <= 0.00188786 => 743,
+    predlrat <= 0.0018923967 => 744,
+    predlrat <= 0.00189507 => 745,
+    predlrat <= 0.0018995467 => 746,
+    predlrat <= 0.0019042233 => 747,
+    predlrat <= 0.0019095367 => 748,
+    predlrat <= 0.00191485 => 749,
+    predlrat <= 0.00192044 => 750,
+    predlrat <= 0.0019260433 => 751,
+    predlrat <= 0.0019321533 => 752,
+    predlrat <= 0.0019380033 => 753,
+    predlrat <= 0.0019447433 => 754,
+    predlrat <= 0.00195126 => 755,
+    predlrat <= 0.00195586 => 756,
+    predlrat <= 0.0019616967 => 757,
+    predlrat <= 0.0019681767 => 758,
+    predlrat <= 0.0019747767 => 759,
+    predlrat <= 0.0019816833 => 760,
+    predlrat <= 0.00198944 => 761,
+    predlrat <= 0.00199736 => 762,
+    predlrat <= 0.00200569 => 763,
+    predlrat <= 0.0020130967 => 764,
+    predlrat <= 0.0020157333 => 765,
+    predlrat <= 0.00201997 => 766,
+    predlrat <= 0.0020248967 => 767,
+    predlrat <= 0.0020303967 => 768,
+    predlrat <= 0.00203637 => 769,
+    predlrat <= 0.00204261 => 770,
+    predlrat <= 0.0020491733 => 771,
+    predlrat <= 0.00205587 => 772,
+    predlrat <= 0.00206309 => 773,
+    predlrat <= 0.0020709633 => 774,
+    predlrat <= 0.0020769733 => 775,
+    predlrat <= 0.00208278 => 776,
+    predlrat <= 0.0020899267 => 777,
+    predlrat <= 0.00209719 => 778,
+    predlrat <= 0.00210494 => 779,
+    predlrat <= 0.00211361 => 780,
+    predlrat <= 0.00212208 => 781,
+    predlrat <= 0.0021315767 => 782,
+    predlrat <= 0.00213764 => 783,
+    predlrat <= 0.0021410333 => 784,
+    predlrat <= 0.0021462233 => 785,
+    predlrat <= 0.0021518967 => 786,
+    predlrat <= 0.00215826 => 787,
+    predlrat <= 0.0021649167 => 788,
+    predlrat <= 0.0021720333 => 789,
+    predlrat <= 0.00217944 => 790,
+    predlrat <= 0.0021872267 => 791,
+    predlrat <= 0.00219589 => 792,
+    predlrat <= 0.0022020933 => 793,
+    predlrat <= 0.0022093933 => 794,
+    predlrat <= 0.0022172733 => 795,
+    predlrat <= 0.0022255267 => 796,
+    predlrat <= 0.00223444 => 797,
+    predlrat <= 0.0022437233 => 798,
+    predlrat <= 0.0022540467 => 799,
+    predlrat <= 0.0022619933 => 800,
+    predlrat <= 0.0022654333 => 801,
+    predlrat <= 0.0022710567 => 802,
+    predlrat <= 0.00227758 => 803,
+    predlrat <= 0.0022849633 => 804,
+    predlrat <= 0.0022930633 => 805,
+    predlrat <= 0.00230122 => 806,
+    predlrat <= 0.00230919 => 807,
+    predlrat <= 0.0023181267 => 808,
+    predlrat <= 0.00232593 => 809,
+    predlrat <= 0.0023326567 => 810,
+    predlrat <= 0.0023415567 => 811,
+    predlrat <= 0.0023508167 => 812,
+    predlrat <= 0.0023608033 => 813,
+    predlrat <= 0.00237176 => 814,
+    predlrat <= 0.0023833033 => 815,
+    predlrat <= 0.00238936 => 816,
+    predlrat <= 0.0023942533 => 817,
+    predlrat <= 0.00240087 => 818,
+    predlrat <= 0.0024085767 => 819,
+    predlrat <= 0.00241697 => 820,
+    predlrat <= 0.00242602 => 821,
+    predlrat <= 0.00243544 => 822,
+    predlrat <= 0.0024459333 => 823,
+    predlrat <= 0.00245443 => 824,
+    predlrat <= 0.0024631867 => 825,
+    predlrat <= 0.0024732467 => 826,
+    predlrat <= 0.0024839067 => 827,
+    predlrat <= 0.00249496 => 828,
+    predlrat <= 0.0025069 => 829,
+    predlrat <= 0.0025159333 => 830,
+    predlrat <= 0.0025200767 => 831,
+    predlrat <= 0.0025274333 => 832,
+    predlrat <= 0.0025357433 => 833,
+    predlrat <= 0.0025447233 => 834,
+    predlrat <= 0.0025544867 => 835,
+    predlrat <= 0.0025646967 => 836,
+    predlrat <= 0.00257619 => 837,
+    predlrat <= 0.00258488 => 838,
+    predlrat <= 0.00259493 => 839,
+    predlrat <= 0.0026067467 => 840,
+    predlrat <= 0.00261999 => 841,
+    predlrat <= 0.0026334067 => 842,
+    predlrat <= 0.0026445433 => 843,
+    predlrat <= 0.0026495333 => 844,
+    predlrat <= 0.0026576533 => 845,
+    predlrat <= 0.00266716 => 846,
+    predlrat <= 0.0026782767 => 847,
+    predlrat <= 0.0026900033 => 848,
+    predlrat <= 0.0027021867 => 849,
+    predlrat <= 0.00271286 => 850,
+    predlrat <= 0.0027240367 => 851,
+    predlrat <= 0.0027362533 => 852,
+    predlrat <= 0.0027501667 => 853,
+    predlrat <= 0.0027646433 => 854,
+    predlrat <= 0.0027753467 => 855,
+    predlrat <= 0.0027816433 => 856,
+    predlrat <= 0.0027911 => 857,
+    predlrat <= 0.0028020567 => 858,
+    predlrat <= 0.0028145267 => 859,
+    predlrat <= 0.0028280967 => 860,
+    predlrat <= 0.00284088 => 861,
+    predlrat <= 0.00285131 => 862,
+    predlrat <= 0.0028647933 => 863,
+    predlrat <= 0.0028798067 => 864,
+    predlrat <= 0.0028966533 => 865,
+    predlrat <= 0.0029075167 => 866,
+    predlrat <= 0.0029149267 => 867,
+    predlrat <= 0.00292597 => 868,
+    predlrat <= 0.00293871 => 869,
+    predlrat <= 0.0029530767 => 870,
+    predlrat <= 0.0029684167 => 871,
+    predlrat <= 0.00298074 => 872,
+    predlrat <= 0.0029952033 => 873,
+    predlrat <= 0.0030117367 => 874,
+    predlrat <= 0.0030295733 => 875,
+    predlrat <= 0.0030411333 => 876,
+    predlrat <= 0.0030505467 => 877,
+    predlrat <= 0.0030633867 => 878,
+    predlrat <= 0.0030784167 => 879,
+    predlrat <= 0.00309427 => 880,
+    predlrat <= 0.0031092933 => 881,
+    predlrat <= 0.0031244333 => 882,
+    predlrat <= 0.0031415767 => 883,
+    predlrat <= 0.0031610467 => 884,
+    predlrat <= 0.0031754633 => 885,
+    predlrat <= 0.00318531 => 886,
+    predlrat <= 0.0031989433 => 887,
+    predlrat <= 0.00321545 => 888,
+    predlrat <= 0.00323366 => 889,
+    predlrat <= 0.0032486367 => 890,
+    predlrat <= 0.00326597 => 891,
+    predlrat <= 0.00328661 => 892,
+    predlrat <= 0.00330837 => 893,
+    predlrat <= 0.0033173867 => 894,
+    predlrat <= 0.00333214 => 895,
+    predlrat <= 0.0033497733 => 896,
+    predlrat <= 0.00336905 => 897,
+    predlrat <= 0.00338595 => 898,
+    predlrat <= 0.0034055067 => 899,
+    predlrat <= 0.00342798 => 900,
+    predlrat <= 0.0034485 => 901,
+    predlrat <= 0.0034603167 => 902,
+    predlrat <= 0.0034790067 => 903,
+    predlrat <= 0.00350094 => 904,
+    predlrat <= 0.0035213667 => 905,
+    predlrat <= 0.0035417533 => 906,
+    predlrat <= 0.00356699 => 907,
+    predlrat <= 0.0035885167 => 908,
+    predlrat <= 0.0036016867 => 909,
+    predlrat <= 0.0036226633 => 910,
+    predlrat <= 0.00364665 => 911,
+    predlrat <= 0.0036668333 => 912,
+    predlrat <= 0.0036903167 => 913,
+    predlrat <= 0.00371964 => 914,
+    predlrat <= 0.00373547 => 915,
+    predlrat <= 0.0037558233 => 916,
+    predlrat <= 0.0037814367 => 917,
+    predlrat <= 0.0038058 => 918,
+    predlrat <= 0.0038333867 => 919,
+    predlrat <= 0.0038664533 => 920,
+    predlrat <= 0.0038817667 => 921,
+    predlrat <= 0.0039042767 => 922,
+    predlrat <= 0.0039338967 => 923,
+    predlrat <= 0.0039599767 => 924,
+    predlrat <= 0.00399332 => 925,
+    predlrat <= 0.0040188767 => 926,
+    predlrat <= 0.0040408067 => 927,
+    predlrat <= 0.00407166 => 928,
+    predlrat <= 0.00410078 => 929,
+    predlrat <= 0.0041358767 => 930,
+    predlrat <= 0.0041644067 => 931,
+    predlrat <= 0.0041895167 => 932,
+    predlrat <= 0.0042274567 => 933,
+    predlrat <= 0.0042602533 => 934,
+    predlrat <= 0.0043018567 => 935,
+    predlrat <= 0.0043220733 => 936,
+    predlrat <= 0.0043567733 => 937,
+    predlrat <= 0.0043939133 => 938,
+    predlrat <= 0.00443816 => 939,
+    predlrat <= 0.0044691533 => 940,
+    predlrat <= 0.0045072633 => 941,
+    predlrat <= 0.0045481867 => 942,
+    predlrat <= 0.0045980533 => 943,
+    predlrat <= 0.0046265667 => 944,
+    predlrat <= 0.0046686767 => 945,
+    predlrat <= 0.0047122633 => 946,
+    predlrat <= 0.00476354 => 947,
+    predlrat <= 0.0048009333 => 948,
+    predlrat <= 0.00485014 => 949,
+    predlrat <= 0.0049075167 => 950,
+    predlrat <= 0.00494503 => 951,
+    predlrat <= 0.0049998167 => 952,
+    predlrat <= 0.00505809 => 953,
+    predlrat <= 0.00509601 => 954,
+    predlrat <= 0.00515546 => 955,
+    predlrat <= 0.0052189767 => 956,
+    predlrat <= 0.0052604367 => 957,
+    predlrat <= 0.0053267967 => 958,
+    predlrat <= 0.0053948167 => 959,
+    predlrat <= 0.00544774 => 960,
+    predlrat <= 0.0055270833 => 961,
+    predlrat <= 0.0055893467 => 962,
+    predlrat <= 0.0056699967 => 963,
+    predlrat <= 0.00573884 => 964,
+    predlrat <= 0.0058233433 => 965,
+    predlrat <= 0.0059003367 => 966,
+    predlrat <= 0.0059841867 => 967,
+    predlrat <= 0.0060704767 => 968,
+    predlrat <= 0.0061644567 => 969,
+    predlrat <= 0.0062512667 => 970,
+    predlrat <= 0.00636687 => 971,
+    predlrat <= 0.0064615367 => 972,
+    predlrat <= 0.0065770733 => 973,
+    predlrat <= 0.0066889367 => 974,
+    predlrat <= 0.0068090667 => 975,
+    predlrat <= 0.0069406767 => 976,
+    predlrat <= 0.0070903833 => 977,
+    predlrat <= 0.0072386433 => 978,
+    predlrat <= 0.00738713 => 979,
+    predlrat <= 0.0075491067 => 980,
+    predlrat <= 0.00772729 => 981,
+    predlrat <= 0.0079148267 => 982,
+    predlrat <= 0.0081181467 => 983,
+    predlrat <= 0.00833816 => 984,
+    predlrat <= 0.0085787567 => 985,
+    predlrat <= 0.0088492233 => 986,
+    predlrat <= 0.00913304 => 987,
+    predlrat <= 0.00947385 => 988,
+    predlrat <= 0.0098564967 => 989,
+    predlrat <= 0.01029864 => 990,
+    predlrat <= 0.0107672267 => 991,
+    predlrat <= 0.01134992 => 992,
+    predlrat <= 0.0119979567 => 993,
+    predlrat <= 0.01287845 => 994,
+    predlrat <= 0.01398653 => 995,
+    predlrat <= 0.0154230533 => 996,
+    predlrat <= 0.01772142 => 997,
+    predlrat <= 0.02234351 => 998,
+    TRUE => 999,999);
+// Transform to generate next state
+    FieldValFunc(Prepared le,UNSIGNED2 FN) := DEFINE CASE(FN,8 => le.org_cnt_areacode,9 => le.org_cnt_postcode,10 => le.pol_policy_type_1,12 => le.pol_num_policies,13 => le.pol_channel_11,14 => le.pol_channel_14,15 => le.pol_channel_53,16 => le.pol_channel_54,20 => le.pol_min_days_effective_loss,21 => le.pol_min_days_loss_expire,22 => le.pol_max_days_effective_loss,23 => le.pol_max_days_loss_expire,24 => le.pol_area_flag_1,25 => le.pol_area_flag_2,26 => le.pol_area_flag_3,27 => le.pol_agent_no,28 => le.cov_numcovs,29 => le.cov_total_prem,30 => le.cov_num_030006,31 => le.cov_lim_030006,32 => le.cov_prem_030006,34 => le.cov_lim_030012,35 => le.cov_prem_030012,36 => le.cov_num_030018,37 => le.cov_lim_030018,38 => le.cov_prem_030018,39 => le.cov_num_030025,40 => le.cov_lim_030025,41 => le.cov_prem_030025,43 => le.cov_lim_030061,44 => le.cov_prem_030061,45 => le.cov_num_030062,46 => le.cov_prem_030062,48 => le.cov_lim_033005,49 => le.cov_prem_033005,50 => le.cov_num_033008,51 => le.cov_prem_033008,53 => le.cov_lim_033009,54 => le.cov_prem_033009,55 => le.cov_num_033015,57 => le.cov_prem_033015,58 => le.cov_num_033016,59 => le.cov_lim_033016,60 => le.cov_prem_033016,62 => le.cov_lim_033017,63 => le.cov_prem_033017,65 => le.cov_prem_0357,66 => le.cov_num_othr,67 => le.cov_prem_othr,68 => le.cov_compfree,69 => le.app_cnt_applicant,70 => le.app_type_individual,71 => le.app_type_group,72 => le.ins_nature_owner,73 => le.ins_nature_keeper,76 => le.ins_credcode_indivID,79 => le.ins_credcode_HKMacao,81 => le.ins_credcode_OrgCerti,84 => le.ins_cnt_insuredcode,86 => le.ins_cnt_zip,88 => le.vehown_nature_individual,89 => le.vehown_nature_organization,91 => le.specdriver_majordriver,92 => le.specdriver_shotgun,93 => le.specdriver_unspecified,94 => le.specdriver_typecode_A1,95 => le.specdriver_typecode_A2,96 => le.specdriver_typecode_B1,97 => le.specdriver_typecode_B2,98 => le.specdriver_typecode_C1,101 => le.end_edrreason_02,102 => le.end_edrreason_03,104 => le.end_edrreason_09,105 => le.end_edrreason_11,107 => le.end_edrreason_14,112 => le.end_edr_min_premium,113 => le.end_edr_max_premium,114 => le.end_pre_01,115 => le.end_pre_02,117 => le.end_pre_05,118 => le.end_pre_11,120 => le.end_pre_14,121 => le.veh_cnt_license,123 => le.veh_color_black,124 => le.veh_color_white,126 => le.veh_color_blue,127 => le.veh_color_red,128 => le.veh_color_silver,129 => le.veh_color_yellow,130 => le.veh_color_green,131 => le.veh_color_gold,132 => le.veh_color_orange,133 => le.veh_color_brown,135 => le.veh_factory_sanyi,136 => le.veh_factory_shangqi,137 => le.veh_factory_dongfeng,139 => le.veh_factory_dandong,140 => le.veh_factory_beiqi,141 => le.veh_factory_huachen,142 => le.veh_factory_jinlong,143 => le.veh_factory_qirui,144 => le.veh_factory_jianghuai,145 => le.veh_factory_guangqi,146 => le.veh_factory_isuzu,147 => le.veh_factory_german,148 => le.veh_factory_japan,149 => le.veh_factory_BYD,150 => le.veh_factory_jili,151 => le.veh_factory_greatwall,152 => le.veh_factory_changan,153 => le.veh_factory_shanqi,155 => le.veh_brandname_RedFlag,156 => le.veh_brandname_Dongfeng,157 => le.veh_brandname_Nissan,158 => le.veh_brandname_Citroen,159 => le.veh_brandname_Toyota,160 => le.veh_brandname_Wuling,161 => le.veh_brandname_Buick,162 => le.veh_brandname_Hyundai,163 => le.veh_brandname_Geely,164 => le.veh_brandname_Xiali,165 => le.veh_brandname_Chery,166 => le.veh_brandname_Audi,167 => le.veh_brandname_Bora,168 => le.veh_brandname_Baojun,169 => le.veh_brandname_Civic,170 => le.veh_brandname_Jetta,171 => le.veh_brandname_Songhuajing,172 => le.veh_brandname_Santana,174 => le.veh_brandname_Jiangling,175 => le.veh_brandname_Focus,176 => le.veh_brandname_Mondeo,177 => le.veh_brandname_Fengfan,179 => le.veh_brandname_Changan,180 => le.veh_brandname_Accord,182 => le.veh_brandname_Mazda,184 => le.veh_brandname_mitsubishi,185 => le.veh_brandname_southeast,186 => le.veh_brandname_peugeot,187 => le.veh_brandname_zhonghua,188 => le.veh_brandname_chenglong,189 => le.veh_brandname_isuzu,190 => le.veh_brandname_kaima,191 => le.veh_brandname_lifan,193 => le.veh_brandname_southchun,194 => le.veh_brandname_MG,195 => le.veh_brandname_hafei,196 => le.veh_brandname_volkswagen,197 => le.veh_brandname_teana,198 => le.veh_brandname_odyssey,199 => le.veh_brandname_weichi,201 => le.veh_brandname_bmw,202 => le.veh_brandname_passat,203 => le.veh_brandname_kairui,204 => le.veh_brandname_siwei,205 => le.veh_brandname_sidi,207 => le.veh_brandname_octavia,208 => le.veh_brandname_langyi,209 => le.veh_brandname_mercedesbenz,211 => le.veh_brandname_polo,212 => le.veh_brandname_haima,213 => le.veh_brandname_cheetah,214 => le.veh_brandname_Tianye,215 => le.veh_brandname_shenlongfukang,217 => le.veh_brandname_futian,218 => le.veh_brandname_hongyan,220 => le.veh_brandname_yinglun,221 => le.veh_brandname_roewe,222 => le.veh_brandname_jiefang,223 => le.veh_brandname_haoqing,224 => le.veh_brandname_haowo,225 => le.veh_brandname_kia,226 => le.veh_brandname_yuejin,227 => le.veh_brandname_sylphy,228 => le.veh_brandname_magotan,229 => le.veh_brandname_sagitar,230 => le.veh_brandname_jinbei,231 => le.veh_brandname_jinlong,233 => le.veh_brandname_fengshen,234 => le.veh_brandname_fit,235 => le.veh_brandname_liwei,236 => le.veh_brandname_golf,239 => le.veh_glasstype_china,240 => le.veh_glasstype_import,241 => le.veh_importflag_china,242 => le.veh_importflag_import,243 => le.veh_usagetypecode_comm,244 => le.veh_usagetypecode_nocomm,245 => le.veh_nature_individual,248 => le.veh_platetype_largecar,249 => le.veh_platetype_compactcar,251 => le.veh_platetype_farmcar,252 => le.veh_platetype_tractor,253 => le.veh_platetype_trailer,254 => le.veh_platetype_coachar,257 => le.veh_platetype_machinery,260 => le.veh_min_displacement,262 => le.veh_min_lossregist_day,263 => le.veh_max_lossregist_day,264 => le.veh_min_vehiclevalue,265 => le.veh_max_vehiclevalue,266 => le.veh_min_passenger,267 => le.veh_max_passenger,268 => le.veh_min_tonnage,269 => le.veh_max_tonnage,271 => le.veh_cnt_brandcode,273 => le.clmmn_reportamt_comp,274 => le.clmmn_reportamt_comm,275 => le.dis_task_specialhour_FNOL,276 => le.dis_task_rushhour_FNOL,279 => le.re_thirdloss_no_comp,280 => le.re_report_earlymorning,281 => le.re_report_latenight,283 => le.re_handel_earlymorning,284 => le.re_handel_latenight,286 => le.re_miss_insured_tel,287 => le.re_diff_driver_reporter,288 => le.re_catloss_ind,289 => le.re_later_report_ind,290 => le.re_normal_survey_ind,291 => le.re_special_ind,292 => le.re_unlocal_ind,293 => le.re_inscarloss_ind,294 => le.re_thirdcarloss_ind,295 => le.re_propertyloss_ind,296 => le.re_bodilyinjury_ind,297 => le.re_multi_vehicle_ind,298 => le.inc_loss_earlymorning,299 => le.inc_loss_latenight,301 => le.inc_lossday_sunday,302 => le.inc_lossday_monday,303 => le.inc_lossday_tuesday,304 => le.inc_lossday_wednesday,305 => le.inc_lossday_thursday,306 => le.inc_lossday_friday,307 => le.inc_lossday_saturday,308 => le.inc_days_report_loss,310 => le.inc_police_involved,311 => le.inc_area_road,314 => le.inc_area_hwy,315 => le.inc_spot_type_code_0,316 => le.inc_spot_type_code_1,318 => le.inc_spot_type_code_3,320 => le.inc_accidentcause_collision,321 => le.inc_accidentcause_other,322 => le.inc_accidentcause_nocollide,323 => le.inc_IncidentTypeCode_01,324 => le.inc_IncidentTypeCode_02,326 => le.inc_IncidentTypeCode_04,329 => le.inc_IncidentTypeCode_07,330 => le.inc_IncidentTypeCode_08,332 => le.inc_IncidentTypeCode_99,333 => le.inc_province_code,334 => le.inc_province_east,336 => le.inc_province_middle,338 => le.inc_province_northwest,339 => le.inc_province_southwest,342 => le.inc_province_zizhiqu,344 => le.inc_city_code,345 => le.inc_region_code,347 => le.txt_claim_head_damage,350 => le.txt_claim_face,352 => le.txt_claim_leg,353 => le.txt_claim_death,355 => le.txt_claim_oral_tooth,359 => le.txt_claim_hand,362 => le.txt_claim_spine,363 => le.txt_claim_mild_injury,365 => le.txt_claim_pregnancy,368 => le.txt_claim_normal,369 => le.txt_claim_nodetail,370 => le.txt_claim_hospital,371 => le.txt_claim_nonBI,373 => le.txt_claim_rearcol_front,374 => le.txt_claim_rearcol_rear,375 => le.txt_claim_subject_left,376 => le.txt_claim_subject_right,377 => le.txt_claim_subject_front,378 => le.txt_claim_subject_rear,379 => le.txt_claim_three_left,380 => le.txt_claim_three_right,381 => le.txt_claim_three_front,382 => le.txt_claim_three_rear,383 => le.txt_claim_subject_mirror_1,384 => le.txt_claim_subject_glass_1,386 => le.txt_claim_subject_bumper_1,387 => le.txt_claim_three_bumper_1,388 => le.txt_claim_subject_mirror_2,389 => le.txt_claim_subject_scratch,390 => le.txt_claim_subject_damage,391 => le.txt_claim_subject_theft,393 => le.txt_claim_subject_combustion,394 => le.txt_claim_car_collision,395 => le.txt_claim_scratch,396 => le.txt_claim_subject_pedestrian,397 => le.txt_claim_subject_collide_other,398 => le.txt_claim_subject_collide,400 => le.reg_pct_dawn_regishr_FNOL,401 => le.reg_pct_lngt_regshr_FNOL,403 => le.reg_pct_sunday_regist_FNOL,404 => le.reg_pct_monday_regist_FNOL,405 => le.reg_pct_tuesday_regist_FNOL,407 => le.reg_pct_thursday_regist_FNOL,409 => le.reg_pct_saturday_regist_FNOL,410 => le.reg_min_est_loss_amt_FNOL,411 => le.reg_max_est_loss_amt_FNOL,412 => le.reg_avg_est_loss_amt_FNOL,413 => le.pol_claim_num_tcp,414 => le.claim_time_length_tcp,415 => le.pol_claim_num_com,416 => le.claim_time_length_com,0);
+    FieldNull(UNSIGNED2 FN) := DEFINE CASE(FN,8 => -99999,9 => -99999,10 => -99999,12 => -99999,13 => -99999,14 => -99999,15 => -99999,16 => -99999,20 => -99999,21 => -99999,22 => -99999,23 => -99999,24 => -99999,25 => -99999,26 => -99999,27 => -99999,28 => -99999,29 => -99999,30 => -99999,31 => -99999,32 => -99999,34 => -99999,35 => -99999,36 => -99999,37 => -99999,38 => -99999,39 => -99999,40 => -99999,41 => -99999,43 => -99999,44 => -99999,45 => -99999,46 => -99999,48 => -99999,49 => -99999,50 => -99999,51 => -99999,53 => -99999,54 => -99999,55 => -99999,57 => -99999,58 => -99999,59 => -99999,60 => -99999,62 => -99999,63 => -99999,65 => -99999,66 => -99999,67 => -99999,68 => -99999,69 => -99999,70 => -99999,71 => -99999,72 => -99999,73 => -99999,76 => -99999,79 => -99999,81 => -99999,84 => -99999,86 => -99999,88 => -99999,89 => -99999,91 => -99999,92 => -99999,93 => -99999,94 => -99999,95 => -99999,96 => -99999,97 => -99999,98 => -99999,101 => -99999,102 => -99999,104 => -99999,105 => -99999,107 => -99999,112 => -99999,113 => -99999,114 => -99999,115 => -99999,117 => -99999,118 => -99999,120 => -99999,121 => -99999,123 => -99999,124 => -99999,126 => -99999,127 => -99999,128 => -99999,129 => -99999,130 => -99999,131 => -99999,132 => -99999,133 => -99999,135 => -99999,136 => -99999,137 => -99999,139 => -99999,140 => -99999,141 => -99999,142 => -99999,143 => -99999,144 => -99999,145 => -99999,146 => -99999,147 => -99999,148 => -99999,149 => -99999,150 => -99999,151 => -99999,152 => -99999,153 => -99999,155 => -99999,156 => -99999,157 => -99999,158 => -99999,159 => -99999,160 => -99999,161 => -99999,162 => -99999,163 => -99999,164 => -99999,165 => -99999,166 => -99999,167 => -99999,168 => -99999,169 => -99999,170 => -99999,171 => -99999,172 => -99999,174 => -99999,175 => -99999,176 => -99999,177 => -99999,179 => -99999,180 => -99999,182 => -99999,184 => -99999,185 => -99999,186 => -99999,187 => -99999,188 => -99999,189 => -99999,190 => -99999,191 => -99999,193 => -99999,194 => -99999,195 => -99999,196 => -99999,197 => -99999,198 => -99999,199 => -99999,201 => -99999,202 => -99999,203 => -99999,204 => -99999,205 => -99999,207 => -99999,208 => -99999,209 => -99999,211 => -99999,212 => -99999,213 => -99999,214 => -99999,215 => -99999,217 => -99999,218 => -99999,220 => -99999,221 => -99999,222 => -99999,223 => -99999,224 => -99999,225 => -99999,226 => -99999,227 => -99999,228 => -99999,229 => -99999,230 => -99999,231 => -99999,233 => -99999,234 => -99999,235 => -99999,236 => -99999,239 => -99999,240 => -99999,241 => -99999,242 => -99999,243 => -99999,244 => -99999,245 => -99999,248 => -99999,249 => -99999,251 => -99999,252 => -99999,253 => -99999,254 => -99999,257 => -99999,260 => -99999,262 => -99999,263 => -99999,264 => -99999,265 => -99999,266 => -99999,267 => -99999,268 => -99999,269 => -99999,271 => -99999,273 => -99999,274 => -99999,275 => -99999,276 => -99999,279 => -99999,280 => -99999,281 => -99999,283 => -99999,284 => -99999,286 => -99999,287 => -99999,288 => -99999,289 => -99999,290 => -99999,291 => -99999,292 => -99999,293 => -99999,294 => -99999,295 => -99999,296 => -99999,297 => -99999,298 => -99999,299 => -99999,301 => -99999,302 => -99999,303 => -99999,304 => -99999,305 => -99999,306 => -99999,307 => -99999,308 => -99999,310 => -99999,311 => -99999,314 => -99999,315 => -99999,316 => -99999,318 => -99999,320 => -99999,321 => -99999,322 => -99999,323 => -99999,324 => -99999,326 => -99999,329 => -99999,330 => -99999,332 => -99999,333 => -99999,334 => -99999,336 => -99999,338 => -99999,339 => -99999,342 => -99999,344 => -99999,345 => -99999,347 => -99999,350 => -99999,352 => -99999,353 => -99999,355 => -99999,359 => -99999,362 => -99999,363 => -99999,365 => -99999,368 => -99999,369 => -99999,370 => -99999,371 => -99999,373 => -99999,374 => -99999,375 => -99999,376 => -99999,377 => -99999,378 => -99999,379 => -99999,380 => -99999,381 => -99999,382 => -99999,383 => -99999,384 => -99999,386 => -99999,387 => -99999,388 => -99999,389 => -99999,390 => -99999,391 => -99999,393 => -99999,394 => -99999,395 => -99999,396 => -99999,397 => -99999,398 => -99999,400 => -99999,401 => -99999,403 => -99999,404 => -99999,405 => -99999,407 => -99999,409 => -99999,410 => -99999,411 => -99999,412 => -99999,413 => -99999,414 => -99999,415 => -99999,416 => -99999,0);
+  rprep tr1_Working(Prepared le) := TRANSFORM
+    FieldVal(UNSIGNED n) := FieldValFunc(le,n);
+    SELF.State_china_tree_Tree1 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree1[le.State_china_tree_Tree1].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree1,le.State_china_tree_Tree1,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree1[le.State_china_tree_Tree1].FieldNumber));
+    SELF.State_china_tree_Tree2 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree2[le.State_china_tree_Tree2].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree2,le.State_china_tree_Tree2,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree2[le.State_china_tree_Tree2].FieldNumber));
+    SELF.State_china_tree_Tree3 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree3[le.State_china_tree_Tree3].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree3,le.State_china_tree_Tree3,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree3[le.State_china_tree_Tree3].FieldNumber));
+    SELF.State_china_tree_Tree4 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree4[le.State_china_tree_Tree4].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree4,le.State_china_tree_Tree4,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree4[le.State_china_tree_Tree4].FieldNumber));
+    SELF.State_china_tree_Tree5 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree5[le.State_china_tree_Tree5].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree5,le.State_china_tree_Tree5,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree5[le.State_china_tree_Tree5].FieldNumber));
+    SELF.State_china_tree_Tree6 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree6[le.State_china_tree_Tree6].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree6,le.State_china_tree_Tree6,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree6[le.State_china_tree_Tree6].FieldNumber));
+    SELF.State_china_tree_Tree7 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree7[le.State_china_tree_Tree7].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree7,le.State_china_tree_Tree7,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree7[le.State_china_tree_Tree7].FieldNumber));
+    SELF.State_china_tree_Tree8 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree8[le.State_china_tree_Tree8].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree8,le.State_china_tree_Tree8,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree8[le.State_china_tree_Tree8].FieldNumber));
+    SELF.State_china_tree_Tree9 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree9[le.State_china_tree_Tree9].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree9,le.State_china_tree_Tree9,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree9[le.State_china_tree_Tree9].FieldNumber));
+    SELF.State_china_tree_Tree10 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree10[le.State_china_tree_Tree10].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree10,le.State_china_tree_Tree10,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree10[le.State_china_tree_Tree10].FieldNumber));
+    SELF.State_china_tree_Tree11 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree11[le.State_china_tree_Tree11].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree11,le.State_china_tree_Tree11,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree11[le.State_china_tree_Tree11].FieldNumber));
+    SELF.State_china_tree_Tree12 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree12[le.State_china_tree_Tree12].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree12,le.State_china_tree_Tree12,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree12[le.State_china_tree_Tree12].FieldNumber));
+    SELF.State_china_tree_Tree13 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree13[le.State_china_tree_Tree13].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree13,le.State_china_tree_Tree13,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree13[le.State_china_tree_Tree13].FieldNumber));
+    SELF.State_china_tree_Tree14 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree14[le.State_china_tree_Tree14].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree14,le.State_china_tree_Tree14,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree14[le.State_china_tree_Tree14].FieldNumber));
+    SELF.State_china_tree_Tree15 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree15[le.State_china_tree_Tree15].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree15,le.State_china_tree_Tree15,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree15[le.State_china_tree_Tree15].FieldNumber));
+    SELF.State_china_tree_Tree16 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree16[le.State_china_tree_Tree16].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree16,le.State_china_tree_Tree16,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree16[le.State_china_tree_Tree16].FieldNumber));
+    SELF.State_china_tree_Tree17 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree17[le.State_china_tree_Tree17].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree17,le.State_china_tree_Tree17,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree17[le.State_china_tree_Tree17].FieldNumber));
+    SELF.State_china_tree_Tree18 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree18[le.State_china_tree_Tree18].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree18,le.State_china_tree_Tree18,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree18[le.State_china_tree_Tree18].FieldNumber));
+    SELF.State_china_tree_Tree19 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree19[le.State_china_tree_Tree19].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree19,le.State_china_tree_Tree19,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree19[le.State_china_tree_Tree19].FieldNumber));
+    SELF.State_china_tree_Tree20 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree20[le.State_china_tree_Tree20].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree20,le.State_china_tree_Tree20,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree20[le.State_china_tree_Tree20].FieldNumber));
+    SELF.State_china_tree_Tree21 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree21[le.State_china_tree_Tree21].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree21,le.State_china_tree_Tree21,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree21[le.State_china_tree_Tree21].FieldNumber));
+    SELF.State_china_tree_Tree22 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree22[le.State_china_tree_Tree22].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree22,le.State_china_tree_Tree22,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree22[le.State_china_tree_Tree22].FieldNumber));
+    SELF.State_china_tree_Tree23 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree23[le.State_china_tree_Tree23].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree23,le.State_china_tree_Tree23,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree23[le.State_china_tree_Tree23].FieldNumber));
+    SELF.State_china_tree_Tree24 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree24[le.State_china_tree_Tree24].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree24,le.State_china_tree_Tree24,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree24[le.State_china_tree_Tree24].FieldNumber));
+    SELF.State_china_tree_Tree25 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree25[le.State_china_tree_Tree25].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree25,le.State_china_tree_Tree25,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree25[le.State_china_tree_Tree25].FieldNumber));
+    SELF.State_china_tree_Tree26 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree26[le.State_china_tree_Tree26].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree26,le.State_china_tree_Tree26,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree26[le.State_china_tree_Tree26].FieldNumber));
+    SELF.State_china_tree_Tree27 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree27[le.State_china_tree_Tree27].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree27,le.State_china_tree_Tree27,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree27[le.State_china_tree_Tree27].FieldNumber));
+    SELF.State_china_tree_Tree28 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree28[le.State_china_tree_Tree28].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree28,le.State_china_tree_Tree28,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree28[le.State_china_tree_Tree28].FieldNumber));
+    SELF.State_china_tree_Tree29 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree29[le.State_china_tree_Tree29].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree29,le.State_china_tree_Tree29,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree29[le.State_china_tree_Tree29].FieldNumber));
+    SELF.State_china_tree_Tree30 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree30[le.State_china_tree_Tree30].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree30,le.State_china_tree_Tree30,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree30[le.State_china_tree_Tree30].FieldNumber));
+    SELF.State_china_tree_Tree31 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree31[le.State_china_tree_Tree31].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree31,le.State_china_tree_Tree31,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree31[le.State_china_tree_Tree31].FieldNumber));
+    SELF.State_china_tree_Tree32 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree32[le.State_china_tree_Tree32].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree32,le.State_china_tree_Tree32,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree32[le.State_china_tree_Tree32].FieldNumber));
+    SELF.State_china_tree_Tree33 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree33[le.State_china_tree_Tree33].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree33,le.State_china_tree_Tree33,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree33[le.State_china_tree_Tree33].FieldNumber));
+    SELF.State_china_tree_Tree34 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree34[le.State_china_tree_Tree34].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree34,le.State_china_tree_Tree34,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree34[le.State_china_tree_Tree34].FieldNumber));
+    SELF.State_china_tree_Tree35 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree35[le.State_china_tree_Tree35].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree35,le.State_china_tree_Tree35,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree35[le.State_china_tree_Tree35].FieldNumber));
+    SELF.State_china_tree_Tree36 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree36[le.State_china_tree_Tree36].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree36,le.State_china_tree_Tree36,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree36[le.State_china_tree_Tree36].FieldNumber));
+    SELF.State_china_tree_Tree37 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree37[le.State_china_tree_Tree37].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree37,le.State_china_tree_Tree37,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree37[le.State_china_tree_Tree37].FieldNumber));
+    SELF.State_china_tree_Tree38 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree38[le.State_china_tree_Tree38].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree38,le.State_china_tree_Tree38,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree38[le.State_china_tree_Tree38].FieldNumber));
+    SELF.State_china_tree_Tree39 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree39[le.State_china_tree_Tree39].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree39,le.State_china_tree_Tree39,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree39[le.State_china_tree_Tree39].FieldNumber));
+    SELF.State_china_tree_Tree40 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree40[le.State_china_tree_Tree40].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree40,le.State_china_tree_Tree40,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree40[le.State_china_tree_Tree40].FieldNumber));
+    SELF.State_china_tree_Tree41 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree41[le.State_china_tree_Tree41].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree41,le.State_china_tree_Tree41,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree41[le.State_china_tree_Tree41].FieldNumber));
+    SELF.State_china_tree_Tree42 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree42[le.State_china_tree_Tree42].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree42,le.State_china_tree_Tree42,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree42[le.State_china_tree_Tree42].FieldNumber));
+    SELF.State_china_tree_Tree43 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree43[le.State_china_tree_Tree43].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree43,le.State_china_tree_Tree43,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree43[le.State_china_tree_Tree43].FieldNumber));
+    SELF.State_china_tree_Tree44 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree44[le.State_china_tree_Tree44].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree44,le.State_china_tree_Tree44,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree44[le.State_china_tree_Tree44].FieldNumber));
+    SELF.State_china_tree_Tree45 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree45[le.State_china_tree_Tree45].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree45,le.State_china_tree_Tree45,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree45[le.State_china_tree_Tree45].FieldNumber));
+    SELF.State_china_tree_Tree46 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree46[le.State_china_tree_Tree46].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree46,le.State_china_tree_Tree46,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree46[le.State_china_tree_Tree46].FieldNumber));
+    SELF.State_china_tree_Tree47 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree47[le.State_china_tree_Tree47].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree47,le.State_china_tree_Tree47,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree47[le.State_china_tree_Tree47].FieldNumber));
+    SELF.State_china_tree_Tree48 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree48[le.State_china_tree_Tree48].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree48,le.State_china_tree_Tree48,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree48[le.State_china_tree_Tree48].FieldNumber));
+    SELF.State_china_tree_Tree49 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree49[le.State_china_tree_Tree49].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree49,le.State_china_tree_Tree49,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree49[le.State_china_tree_Tree49].FieldNumber));
+    SELF.State_china_tree_Tree50 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree50[le.State_china_tree_Tree50].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree50,le.State_china_tree_Tree50,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree50[le.State_china_tree_Tree50].FieldNumber));
+    SELF.State_china_tree_Tree51 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree51[le.State_china_tree_Tree51].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree51,le.State_china_tree_Tree51,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree51[le.State_china_tree_Tree51].FieldNumber));
+    SELF.State_china_tree_Tree52 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree52[le.State_china_tree_Tree52].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree52,le.State_china_tree_Tree52,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree52[le.State_china_tree_Tree52].FieldNumber));
+    SELF.State_china_tree_Tree53 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree53[le.State_china_tree_Tree53].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree53,le.State_china_tree_Tree53,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree53[le.State_china_tree_Tree53].FieldNumber));
+    SELF.State_china_tree_Tree54 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree54[le.State_china_tree_Tree54].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree54,le.State_china_tree_Tree54,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree54[le.State_china_tree_Tree54].FieldNumber));
+    SELF.State_china_tree_Tree55 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree55[le.State_china_tree_Tree55].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree55,le.State_china_tree_Tree55,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree55[le.State_china_tree_Tree55].FieldNumber));
+    SELF.State_china_tree_Tree56 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree56[le.State_china_tree_Tree56].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree56,le.State_china_tree_Tree56,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree56[le.State_china_tree_Tree56].FieldNumber));
+    SELF.State_china_tree_Tree57 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree57[le.State_china_tree_Tree57].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree57,le.State_china_tree_Tree57,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree57[le.State_china_tree_Tree57].FieldNumber));
+    SELF.State_china_tree_Tree58 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree58[le.State_china_tree_Tree58].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree58,le.State_china_tree_Tree58,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree58[le.State_china_tree_Tree58].FieldNumber));
+    SELF.State_china_tree_Tree59 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree59[le.State_china_tree_Tree59].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree59,le.State_china_tree_Tree59,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree59[le.State_china_tree_Tree59].FieldNumber));
+    SELF.State_china_tree_Tree60 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree60[le.State_china_tree_Tree60].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree60,le.State_china_tree_Tree60,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree60[le.State_china_tree_Tree60].FieldNumber));
+    SELF.State_china_tree_Tree61 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree61[le.State_china_tree_Tree61].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree61,le.State_china_tree_Tree61,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree61[le.State_china_tree_Tree61].FieldNumber));
+    SELF.State_china_tree_Tree62 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree62[le.State_china_tree_Tree62].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree62,le.State_china_tree_Tree62,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree62[le.State_china_tree_Tree62].FieldNumber));
+    SELF.State_china_tree_Tree63 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree63[le.State_china_tree_Tree63].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree63,le.State_china_tree_Tree63,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree63[le.State_china_tree_Tree63].FieldNumber));
+    SELF.State_china_tree_Tree64 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree64[le.State_china_tree_Tree64].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree64,le.State_china_tree_Tree64,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree64[le.State_china_tree_Tree64].FieldNumber));
+    SELF.State_china_tree_Tree65 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree65[le.State_china_tree_Tree65].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree65,le.State_china_tree_Tree65,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree65[le.State_china_tree_Tree65].FieldNumber));
+    SELF.State_china_tree_Tree66 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree66[le.State_china_tree_Tree66].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree66,le.State_china_tree_Tree66,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree66[le.State_china_tree_Tree66].FieldNumber));
+    SELF.State_china_tree_Tree67 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree67[le.State_china_tree_Tree67].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree67,le.State_china_tree_Tree67,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree67[le.State_china_tree_Tree67].FieldNumber));
+    SELF.State_china_tree_Tree68 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree68[le.State_china_tree_Tree68].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree68,le.State_china_tree_Tree68,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree68[le.State_china_tree_Tree68].FieldNumber));
+    SELF.State_china_tree_Tree69 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree69[le.State_china_tree_Tree69].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree69,le.State_china_tree_Tree69,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree69[le.State_china_tree_Tree69].FieldNumber));
+    SELF.State_china_tree_Tree70 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree70[le.State_china_tree_Tree70].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree70,le.State_china_tree_Tree70,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree70[le.State_china_tree_Tree70].FieldNumber));
+    SELF.State_china_tree_Tree71 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree71[le.State_china_tree_Tree71].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree71,le.State_china_tree_Tree71,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree71[le.State_china_tree_Tree71].FieldNumber));
+    SELF.State_china_tree_Tree72 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree72[le.State_china_tree_Tree72].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree72,le.State_china_tree_Tree72,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree72[le.State_china_tree_Tree72].FieldNumber));
+    SELF.State_china_tree_Tree73 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree73[le.State_china_tree_Tree73].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree73,le.State_china_tree_Tree73,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree73[le.State_china_tree_Tree73].FieldNumber));
+    SELF.State_china_tree_Tree74 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree74[le.State_china_tree_Tree74].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree74,le.State_china_tree_Tree74,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree74[le.State_china_tree_Tree74].FieldNumber));
+    SELF.State_china_tree_Tree75 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree75[le.State_china_tree_Tree75].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree75,le.State_china_tree_Tree75,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree75[le.State_china_tree_Tree75].FieldNumber));
+    SELF.State_china_tree_Tree76 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree76[le.State_china_tree_Tree76].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree76,le.State_china_tree_Tree76,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree76[le.State_china_tree_Tree76].FieldNumber));
+    SELF.State_china_tree_Tree77 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree77[le.State_china_tree_Tree77].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree77,le.State_china_tree_Tree77,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree77[le.State_china_tree_Tree77].FieldNumber));
+    SELF.State_china_tree_Tree78 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree78[le.State_china_tree_Tree78].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree78,le.State_china_tree_Tree78,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree78[le.State_china_tree_Tree78].FieldNumber));
+    SELF.State_china_tree_Tree79 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree79[le.State_china_tree_Tree79].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree79,le.State_china_tree_Tree79,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree79[le.State_china_tree_Tree79].FieldNumber));
+    SELF.State_china_tree_Tree80 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree80[le.State_china_tree_Tree80].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree80,le.State_china_tree_Tree80,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree80[le.State_china_tree_Tree80].FieldNumber));
+    SELF.State_china_tree_Tree81 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree81[le.State_china_tree_Tree81].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree81,le.State_china_tree_Tree81,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree81[le.State_china_tree_Tree81].FieldNumber));
+    SELF.State_china_tree_Tree82 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree82[le.State_china_tree_Tree82].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree82,le.State_china_tree_Tree82,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree82[le.State_china_tree_Tree82].FieldNumber));
+    SELF.State_china_tree_Tree83 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree83[le.State_china_tree_Tree83].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree83,le.State_china_tree_Tree83,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree83[le.State_china_tree_Tree83].FieldNumber));
+    SELF.State_china_tree_Tree84 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree84[le.State_china_tree_Tree84].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree84,le.State_china_tree_Tree84,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree84[le.State_china_tree_Tree84].FieldNumber));
+    SELF.State_china_tree_Tree85 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree85[le.State_china_tree_Tree85].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree85,le.State_china_tree_Tree85,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree85[le.State_china_tree_Tree85].FieldNumber));
+    SELF.State_china_tree_Tree86 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree86[le.State_china_tree_Tree86].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree86,le.State_china_tree_Tree86,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree86[le.State_china_tree_Tree86].FieldNumber));
+    SELF.State_china_tree_Tree87 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree87[le.State_china_tree_Tree87].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree87,le.State_china_tree_Tree87,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree87[le.State_china_tree_Tree87].FieldNumber));
+    SELF.State_china_tree_Tree88 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree88[le.State_china_tree_Tree88].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree88,le.State_china_tree_Tree88,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree88[le.State_china_tree_Tree88].FieldNumber));
+    SELF.State_china_tree_Tree89 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree89[le.State_china_tree_Tree89].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree89,le.State_china_tree_Tree89,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree89[le.State_china_tree_Tree89].FieldNumber));
+    SELF.State_china_tree_Tree90 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree90[le.State_china_tree_Tree90].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree90,le.State_china_tree_Tree90,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree90[le.State_china_tree_Tree90].FieldNumber));
+    SELF.State_china_tree_Tree91 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree91[le.State_china_tree_Tree91].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree91,le.State_china_tree_Tree91,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree91[le.State_china_tree_Tree91].FieldNumber));
+    SELF.State_china_tree_Tree92 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree92[le.State_china_tree_Tree92].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree92,le.State_china_tree_Tree92,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree92[le.State_china_tree_Tree92].FieldNumber));
+    SELF.State_china_tree_Tree93 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree93[le.State_china_tree_Tree93].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree93,le.State_china_tree_Tree93,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree93[le.State_china_tree_Tree93].FieldNumber));
+    SELF.State_china_tree_Tree94 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree94[le.State_china_tree_Tree94].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree94,le.State_china_tree_Tree94,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree94[le.State_china_tree_Tree94].FieldNumber));
+    SELF.State_china_tree_Tree95 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree95[le.State_china_tree_Tree95].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree95,le.State_china_tree_Tree95,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree95[le.State_china_tree_Tree95].FieldNumber));
+    SELF.State_china_tree_Tree96 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree96[le.State_china_tree_Tree96].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree96,le.State_china_tree_Tree96,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree96[le.State_china_tree_Tree96].FieldNumber));
+    SELF.State_china_tree_Tree97 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree97[le.State_china_tree_Tree97].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree97,le.State_china_tree_Tree97,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree97[le.State_china_tree_Tree97].FieldNumber));
+    SELF.State_china_tree_Tree98 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree98[le.State_china_tree_Tree98].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree98,le.State_china_tree_Tree98,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree98[le.State_china_tree_Tree98].FieldNumber));
+    SELF.State_china_tree_Tree99 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree99[le.State_china_tree_Tree99].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree99,le.State_china_tree_Tree99,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree99[le.State_china_tree_Tree99].FieldNumber));
+    SELF.State_china_tree_Tree100 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree100[le.State_china_tree_Tree100].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree100,le.State_china_tree_Tree100,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree100[le.State_china_tree_Tree100].FieldNumber));
+    SELF.State_china_tree_Tree101 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree101[le.State_china_tree_Tree101].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree101,le.State_china_tree_Tree101,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree101[le.State_china_tree_Tree101].FieldNumber));
+    SELF.State_china_tree_Tree102 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree102[le.State_china_tree_Tree102].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree102,le.State_china_tree_Tree102,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree102[le.State_china_tree_Tree102].FieldNumber));
+    SELF.State_china_tree_Tree103 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree103[le.State_china_tree_Tree103].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree103,le.State_china_tree_Tree103,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree103[le.State_china_tree_Tree103].FieldNumber));
+    SELF.State_china_tree_Tree104 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree104[le.State_china_tree_Tree104].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree104,le.State_china_tree_Tree104,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree104[le.State_china_tree_Tree104].FieldNumber));
+    SELF.State_china_tree_Tree105 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree105[le.State_china_tree_Tree105].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree105,le.State_china_tree_Tree105,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree105[le.State_china_tree_Tree105].FieldNumber));
+    SELF.State_china_tree_Tree106 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree106[le.State_china_tree_Tree106].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree106,le.State_china_tree_Tree106,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree106[le.State_china_tree_Tree106].FieldNumber));
+    SELF.State_china_tree_Tree107 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree107[le.State_china_tree_Tree107].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree107,le.State_china_tree_Tree107,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree107[le.State_china_tree_Tree107].FieldNumber));
+    SELF.State_china_tree_Tree108 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree108[le.State_china_tree_Tree108].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree108,le.State_china_tree_Tree108,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree108[le.State_china_tree_Tree108].FieldNumber));
+    SELF.State_china_tree_Tree109 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree109[le.State_china_tree_Tree109].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree109,le.State_china_tree_Tree109,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree109[le.State_china_tree_Tree109].FieldNumber));
+    SELF.State_china_tree_Tree110 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree110[le.State_china_tree_Tree110].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree110,le.State_china_tree_Tree110,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree110[le.State_china_tree_Tree110].FieldNumber));
+    SELF.State_china_tree_Tree111 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree111[le.State_china_tree_Tree111].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree111,le.State_china_tree_Tree111,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree111[le.State_china_tree_Tree111].FieldNumber));
+    SELF.State_china_tree_Tree112 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree112[le.State_china_tree_Tree112].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree112,le.State_china_tree_Tree112,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree112[le.State_china_tree_Tree112].FieldNumber));
+    SELF.State_china_tree_Tree113 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree113[le.State_china_tree_Tree113].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree113,le.State_china_tree_Tree113,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree113[le.State_china_tree_Tree113].FieldNumber));
+    SELF.State_china_tree_Tree114 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree114[le.State_china_tree_Tree114].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree114,le.State_china_tree_Tree114,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree114[le.State_china_tree_Tree114].FieldNumber));
+    SELF.State_china_tree_Tree115 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree115[le.State_china_tree_Tree115].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree115,le.State_china_tree_Tree115,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree115[le.State_china_tree_Tree115].FieldNumber));
+    SELF.State_china_tree_Tree116 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree116[le.State_china_tree_Tree116].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree116,le.State_china_tree_Tree116,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree116[le.State_china_tree_Tree116].FieldNumber));
+    SELF.State_china_tree_Tree117 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree117[le.State_china_tree_Tree117].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree117,le.State_china_tree_Tree117,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree117[le.State_china_tree_Tree117].FieldNumber));
+    SELF.State_china_tree_Tree118 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree118[le.State_china_tree_Tree118].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree118,le.State_china_tree_Tree118,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree118[le.State_china_tree_Tree118].FieldNumber));
+    SELF.State_china_tree_Tree119 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree119[le.State_china_tree_Tree119].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree119,le.State_china_tree_Tree119,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree119[le.State_china_tree_Tree119].FieldNumber));
+    SELF.State_china_tree_Tree120 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree120[le.State_china_tree_Tree120].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree120,le.State_china_tree_Tree120,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree120[le.State_china_tree_Tree120].FieldNumber));
+    SELF.State_china_tree_Tree121 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree121[le.State_china_tree_Tree121].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree121,le.State_china_tree_Tree121,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree121[le.State_china_tree_Tree121].FieldNumber));
+    SELF.State_china_tree_Tree122 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree122[le.State_china_tree_Tree122].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree122,le.State_china_tree_Tree122,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree122[le.State_china_tree_Tree122].FieldNumber));
+    SELF.State_china_tree_Tree123 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree123[le.State_china_tree_Tree123].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree123,le.State_china_tree_Tree123,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree123[le.State_china_tree_Tree123].FieldNumber));
+    SELF.State_china_tree_Tree124 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree124[le.State_china_tree_Tree124].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree124,le.State_china_tree_Tree124,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree124[le.State_china_tree_Tree124].FieldNumber));
+    SELF.State_china_tree_Tree125 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree125[le.State_china_tree_Tree125].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree125,le.State_china_tree_Tree125,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree125[le.State_china_tree_Tree125].FieldNumber));
+    SELF.State_china_tree_Tree126 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree126[le.State_china_tree_Tree126].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree126,le.State_china_tree_Tree126,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree126[le.State_china_tree_Tree126].FieldNumber));
+    SELF.State_china_tree_Tree127 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree127[le.State_china_tree_Tree127].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree127,le.State_china_tree_Tree127,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree127[le.State_china_tree_Tree127].FieldNumber));
+    SELF.State_china_tree_Tree128 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree128[le.State_china_tree_Tree128].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree128,le.State_china_tree_Tree128,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree128[le.State_china_tree_Tree128].FieldNumber));
+    SELF.State_china_tree_Tree129 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree129[le.State_china_tree_Tree129].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree129,le.State_china_tree_Tree129,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree129[le.State_china_tree_Tree129].FieldNumber));
+    SELF.State_china_tree_Tree130 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree130[le.State_china_tree_Tree130].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree130,le.State_china_tree_Tree130,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree130[le.State_china_tree_Tree130].FieldNumber));
+    SELF.State_china_tree_Tree131 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree131[le.State_china_tree_Tree131].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree131,le.State_china_tree_Tree131,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree131[le.State_china_tree_Tree131].FieldNumber));
+    SELF.State_china_tree_Tree132 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree132[le.State_china_tree_Tree132].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree132,le.State_china_tree_Tree132,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree132[le.State_china_tree_Tree132].FieldNumber));
+    SELF.State_china_tree_Tree133 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree133[le.State_china_tree_Tree133].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree133,le.State_china_tree_Tree133,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree133[le.State_china_tree_Tree133].FieldNumber));
+    SELF.State_china_tree_Tree134 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree134[le.State_china_tree_Tree134].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree134,le.State_china_tree_Tree134,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree134[le.State_china_tree_Tree134].FieldNumber));
+    SELF.State_china_tree_Tree135 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree135[le.State_china_tree_Tree135].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree135,le.State_china_tree_Tree135,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree135[le.State_china_tree_Tree135].FieldNumber));
+    SELF.State_china_tree_Tree136 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree136[le.State_china_tree_Tree136].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree136,le.State_china_tree_Tree136,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree136[le.State_china_tree_Tree136].FieldNumber));
+    SELF.State_china_tree_Tree137 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree137[le.State_china_tree_Tree137].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree137,le.State_china_tree_Tree137,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree137[le.State_china_tree_Tree137].FieldNumber));
+    SELF.State_china_tree_Tree138 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree138[le.State_china_tree_Tree138].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree138,le.State_china_tree_Tree138,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree138[le.State_china_tree_Tree138].FieldNumber));
+    SELF.State_china_tree_Tree139 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree139[le.State_china_tree_Tree139].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree139,le.State_china_tree_Tree139,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree139[le.State_china_tree_Tree139].FieldNumber));
+    SELF.State_china_tree_Tree140 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree140[le.State_china_tree_Tree140].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree140,le.State_china_tree_Tree140,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree140[le.State_china_tree_Tree140].FieldNumber));
+    SELF.State_china_tree_Tree141 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree141[le.State_china_tree_Tree141].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree141,le.State_china_tree_Tree141,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree141[le.State_china_tree_Tree141].FieldNumber));
+    SELF.State_china_tree_Tree142 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree142[le.State_china_tree_Tree142].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree142,le.State_china_tree_Tree142,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree142[le.State_china_tree_Tree142].FieldNumber));
+    SELF.State_china_tree_Tree143 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree143[le.State_china_tree_Tree143].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree143,le.State_china_tree_Tree143,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree143[le.State_china_tree_Tree143].FieldNumber));
+    SELF.State_china_tree_Tree144 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree144[le.State_china_tree_Tree144].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree144,le.State_china_tree_Tree144,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree144[le.State_china_tree_Tree144].FieldNumber));
+    SELF.State_china_tree_Tree145 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree145[le.State_china_tree_Tree145].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree145,le.State_china_tree_Tree145,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree145[le.State_china_tree_Tree145].FieldNumber));
+    SELF.State_china_tree_Tree146 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree146[le.State_china_tree_Tree146].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree146,le.State_china_tree_Tree146,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree146[le.State_china_tree_Tree146].FieldNumber));
+    SELF.State_china_tree_Tree147 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree147[le.State_china_tree_Tree147].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree147,le.State_china_tree_Tree147,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree147[le.State_china_tree_Tree147].FieldNumber));
+    SELF.State_china_tree_Tree148 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree148[le.State_china_tree_Tree148].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree148,le.State_china_tree_Tree148,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree148[le.State_china_tree_Tree148].FieldNumber));
+    SELF.State_china_tree_Tree149 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree149[le.State_china_tree_Tree149].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree149,le.State_china_tree_Tree149,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree149[le.State_china_tree_Tree149].FieldNumber));
+    SELF.State_china_tree_Tree150 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree150[le.State_china_tree_Tree150].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree150,le.State_china_tree_Tree150,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree150[le.State_china_tree_Tree150].FieldNumber));
+    SELF.State_china_tree_Tree151 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree151[le.State_china_tree_Tree151].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree151,le.State_china_tree_Tree151,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree151[le.State_china_tree_Tree151].FieldNumber));
+    SELF.State_china_tree_Tree152 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree152[le.State_china_tree_Tree152].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree152,le.State_china_tree_Tree152,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree152[le.State_china_tree_Tree152].FieldNumber));
+    SELF.State_china_tree_Tree153 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree153[le.State_china_tree_Tree153].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree153,le.State_china_tree_Tree153,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree153[le.State_china_tree_Tree153].FieldNumber));
+    SELF.State_china_tree_Tree154 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree154[le.State_china_tree_Tree154].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree154,le.State_china_tree_Tree154,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree154[le.State_china_tree_Tree154].FieldNumber));
+    SELF.State_china_tree_Tree155 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree155[le.State_china_tree_Tree155].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree155,le.State_china_tree_Tree155,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree155[le.State_china_tree_Tree155].FieldNumber));
+    SELF.State_china_tree_Tree156 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree156[le.State_china_tree_Tree156].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree156,le.State_china_tree_Tree156,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree156[le.State_china_tree_Tree156].FieldNumber));
+    SELF.State_china_tree_Tree157 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree157[le.State_china_tree_Tree157].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree157,le.State_china_tree_Tree157,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree157[le.State_china_tree_Tree157].FieldNumber));
+    SELF.State_china_tree_Tree158 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree158[le.State_china_tree_Tree158].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree158,le.State_china_tree_Tree158,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree158[le.State_china_tree_Tree158].FieldNumber));
+    SELF.State_china_tree_Tree159 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree159[le.State_china_tree_Tree159].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree159,le.State_china_tree_Tree159,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree159[le.State_china_tree_Tree159].FieldNumber));
+    SELF.State_china_tree_Tree160 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree160[le.State_china_tree_Tree160].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree160,le.State_china_tree_Tree160,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree160[le.State_china_tree_Tree160].FieldNumber));
+    SELF.State_china_tree_Tree161 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree161[le.State_china_tree_Tree161].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree161,le.State_china_tree_Tree161,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree161[le.State_china_tree_Tree161].FieldNumber));
+    SELF.State_china_tree_Tree162 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree162[le.State_china_tree_Tree162].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree162,le.State_china_tree_Tree162,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree162[le.State_china_tree_Tree162].FieldNumber));
+    SELF.State_china_tree_Tree163 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree163[le.State_china_tree_Tree163].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree163,le.State_china_tree_Tree163,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree163[le.State_china_tree_Tree163].FieldNumber));
+    SELF.State_china_tree_Tree164 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree164[le.State_china_tree_Tree164].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree164,le.State_china_tree_Tree164,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree164[le.State_china_tree_Tree164].FieldNumber));
+    SELF.State_china_tree_Tree165 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree165[le.State_china_tree_Tree165].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree165,le.State_china_tree_Tree165,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree165[le.State_china_tree_Tree165].FieldNumber));
+    SELF.State_china_tree_Tree166 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree166[le.State_china_tree_Tree166].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree166,le.State_china_tree_Tree166,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree166[le.State_china_tree_Tree166].FieldNumber));
+    SELF.State_china_tree_Tree167 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree167[le.State_china_tree_Tree167].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree167,le.State_china_tree_Tree167,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree167[le.State_china_tree_Tree167].FieldNumber));
+    SELF.State_china_tree_Tree168 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree168[le.State_china_tree_Tree168].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree168,le.State_china_tree_Tree168,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree168[le.State_china_tree_Tree168].FieldNumber));
+    SELF.State_china_tree_Tree169 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree169[le.State_china_tree_Tree169].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree169,le.State_china_tree_Tree169,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree169[le.State_china_tree_Tree169].FieldNumber));
+    SELF.State_china_tree_Tree170 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree170[le.State_china_tree_Tree170].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree170,le.State_china_tree_Tree170,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree170[le.State_china_tree_Tree170].FieldNumber));
+    SELF.State_china_tree_Tree171 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree171[le.State_china_tree_Tree171].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree171,le.State_china_tree_Tree171,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree171[le.State_china_tree_Tree171].FieldNumber));
+    SELF.State_china_tree_Tree172 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree172[le.State_china_tree_Tree172].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree172,le.State_china_tree_Tree172,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree172[le.State_china_tree_Tree172].FieldNumber));
+    SELF.State_china_tree_Tree173 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree173[le.State_china_tree_Tree173].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree173,le.State_china_tree_Tree173,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree173[le.State_china_tree_Tree173].FieldNumber));
+    SELF.State_china_tree_Tree174 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree174[le.State_china_tree_Tree174].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree174,le.State_china_tree_Tree174,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree174[le.State_china_tree_Tree174].FieldNumber));
+    SELF.State_china_tree_Tree175 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree175[le.State_china_tree_Tree175].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree175,le.State_china_tree_Tree175,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree175[le.State_china_tree_Tree175].FieldNumber));
+    SELF.State_china_tree_Tree176 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree176[le.State_china_tree_Tree176].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree176,le.State_china_tree_Tree176,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree176[le.State_china_tree_Tree176].FieldNumber));
+    SELF.State_china_tree_Tree177 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree177[le.State_china_tree_Tree177].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree177,le.State_china_tree_Tree177,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree177[le.State_china_tree_Tree177].FieldNumber));
+    SELF.State_china_tree_Tree178 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree178[le.State_china_tree_Tree178].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree178,le.State_china_tree_Tree178,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree178[le.State_china_tree_Tree178].FieldNumber));
+    SELF.State_china_tree_Tree179 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree179[le.State_china_tree_Tree179].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree179,le.State_china_tree_Tree179,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree179[le.State_china_tree_Tree179].FieldNumber));
+    SELF.State_china_tree_Tree180 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree180[le.State_china_tree_Tree180].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree180,le.State_china_tree_Tree180,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree180[le.State_china_tree_Tree180].FieldNumber));
+    SELF.State_china_tree_Tree181 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree181[le.State_china_tree_Tree181].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree181,le.State_china_tree_Tree181,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree181[le.State_china_tree_Tree181].FieldNumber));
+    SELF.State_china_tree_Tree182 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree182[le.State_china_tree_Tree182].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree182,le.State_china_tree_Tree182,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree182[le.State_china_tree_Tree182].FieldNumber));
+    SELF.State_china_tree_Tree183 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree183[le.State_china_tree_Tree183].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree183,le.State_china_tree_Tree183,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree183[le.State_china_tree_Tree183].FieldNumber));
+    SELF.State_china_tree_Tree184 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree184[le.State_china_tree_Tree184].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree184,le.State_china_tree_Tree184,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree184[le.State_china_tree_Tree184].FieldNumber));
+    SELF.State_china_tree_Tree185 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree185[le.State_china_tree_Tree185].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree185,le.State_china_tree_Tree185,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree185[le.State_china_tree_Tree185].FieldNumber));
+    SELF.State_china_tree_Tree186 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree186[le.State_china_tree_Tree186].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree186,le.State_china_tree_Tree186,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree186[le.State_china_tree_Tree186].FieldNumber));
+    SELF.State_china_tree_Tree187 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree187[le.State_china_tree_Tree187].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree187,le.State_china_tree_Tree187,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree187[le.State_china_tree_Tree187].FieldNumber));
+    SELF.State_china_tree_Tree188 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree188[le.State_china_tree_Tree188].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree188,le.State_china_tree_Tree188,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree188[le.State_china_tree_Tree188].FieldNumber));
+    SELF.State_china_tree_Tree189 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree189[le.State_china_tree_Tree189].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree189,le.State_china_tree_Tree189,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree189[le.State_china_tree_Tree189].FieldNumber));
+    SELF.State_china_tree_Tree190 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree190[le.State_china_tree_Tree190].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree190,le.State_china_tree_Tree190,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree190[le.State_china_tree_Tree190].FieldNumber));
+    SELF.State_china_tree_Tree191 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree191[le.State_china_tree_Tree191].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree191,le.State_china_tree_Tree191,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree191[le.State_china_tree_Tree191].FieldNumber));
+    SELF.State_china_tree_Tree192 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree192[le.State_china_tree_Tree192].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree192,le.State_china_tree_Tree192,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree192[le.State_china_tree_Tree192].FieldNumber));
+    SELF.State_china_tree_Tree193 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree193[le.State_china_tree_Tree193].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree193,le.State_china_tree_Tree193,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree193[le.State_china_tree_Tree193].FieldNumber));
+    SELF.State_china_tree_Tree194 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree194[le.State_china_tree_Tree194].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree194,le.State_china_tree_Tree194,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree194[le.State_china_tree_Tree194].FieldNumber));
+    SELF.State_china_tree_Tree195 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree195[le.State_china_tree_Tree195].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree195,le.State_china_tree_Tree195,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree195[le.State_china_tree_Tree195].FieldNumber));
+    SELF.State_china_tree_Tree196 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree196[le.State_china_tree_Tree196].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree196,le.State_china_tree_Tree196,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree196[le.State_china_tree_Tree196].FieldNumber));
+    SELF.State_china_tree_Tree197 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree197[le.State_china_tree_Tree197].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree197,le.State_china_tree_Tree197,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree197[le.State_china_tree_Tree197].FieldNumber));
+    SELF.State_china_tree_Tree198 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree198[le.State_china_tree_Tree198].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree198,le.State_china_tree_Tree198,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree198[le.State_china_tree_Tree198].FieldNumber));
+    SELF.State_china_tree_Tree199 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree199[le.State_china_tree_Tree199].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree199,le.State_china_tree_Tree199,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree199[le.State_china_tree_Tree199].FieldNumber));
+    SELF.State_china_tree_Tree200 := LUCI.ComputeTERNARYNode( FieldVal(zz_huge_luci_deleteme.tree_china_china_tree_Tree200[le.State_china_tree_Tree200].FieldNumber),zz_huge_luci_deleteme.tree_china_china_tree_Tree200,le.State_china_tree_Tree200,FieldNull(zz_huge_luci_deleteme.tree_china_china_tree_Tree200[le.State_china_tree_Tree200].FieldNumber));
+    SELF := le;
+  END;
+  Computed1 := LOOP ( Prepared(tree_china_sc =1),80,PROJECT(ROWS(LEFT),tr1_Working(LEFT)));
+// Transform to compute result
+  rres tr1(Computed1 le) := TRANSFORM
+    REAL tree_china_china_tree_Score0 := 0.0 + ( 0 + zz_huge_luci_deleteme.tree_china_china_tree_Tree1[le.State_china_tree_Tree1].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree2[le.State_china_tree_Tree2].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree3[le.State_china_tree_Tree3].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree4[le.State_china_tree_Tree4].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree5[le.State_china_tree_Tree5].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree6[le.State_china_tree_Tree6].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree7[le.State_china_tree_Tree7].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree8[le.State_china_tree_Tree8].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree9[le.State_china_tree_Tree9].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree10[le.State_china_tree_Tree10].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree11[le.State_china_tree_Tree11].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree12[le.State_china_tree_Tree12].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree13[le.State_china_tree_Tree13].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree14[le.State_china_tree_Tree14].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree15[le.State_china_tree_Tree15].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree16[le.State_china_tree_Tree16].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree17[le.State_china_tree_Tree17].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree18[le.State_china_tree_Tree18].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree19[le.State_china_tree_Tree19].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree20[le.State_china_tree_Tree20].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree21[le.State_china_tree_Tree21].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree22[le.State_china_tree_Tree22].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree23[le.State_china_tree_Tree23].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree24[le.State_china_tree_Tree24].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree25[le.State_china_tree_Tree25].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree26[le.State_china_tree_Tree26].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree27[le.State_china_tree_Tree27].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree28[le.State_china_tree_Tree28].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree29[le.State_china_tree_Tree29].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree30[le.State_china_tree_Tree30].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree31[le.State_china_tree_Tree31].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree32[le.State_china_tree_Tree32].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree33[le.State_china_tree_Tree33].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree34[le.State_china_tree_Tree34].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree35[le.State_china_tree_Tree35].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree36[le.State_china_tree_Tree36].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree37[le.State_china_tree_Tree37].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree38[le.State_china_tree_Tree38].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree39[le.State_china_tree_Tree39].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree40[le.State_china_tree_Tree40].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree41[le.State_china_tree_Tree41].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree42[le.State_china_tree_Tree42].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree43[le.State_china_tree_Tree43].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree44[le.State_china_tree_Tree44].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree45[le.State_china_tree_Tree45].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree46[le.State_china_tree_Tree46].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree47[le.State_china_tree_Tree47].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree48[le.State_china_tree_Tree48].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree49[le.State_china_tree_Tree49].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree50[le.State_china_tree_Tree50].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree51[le.State_china_tree_Tree51].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree52[le.State_china_tree_Tree52].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree53[le.State_china_tree_Tree53].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree54[le.State_china_tree_Tree54].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree55[le.State_china_tree_Tree55].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree56[le.State_china_tree_Tree56].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree57[le.State_china_tree_Tree57].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree58[le.State_china_tree_Tree58].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree59[le.State_china_tree_Tree59].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree60[le.State_china_tree_Tree60].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree61[le.State_china_tree_Tree61].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree62[le.State_china_tree_Tree62].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree63[le.State_china_tree_Tree63].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree64[le.State_china_tree_Tree64].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree65[le.State_china_tree_Tree65].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree66[le.State_china_tree_Tree66].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree67[le.State_china_tree_Tree67].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree68[le.State_china_tree_Tree68].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree69[le.State_china_tree_Tree69].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree70[le.State_china_tree_Tree70].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree71[le.State_china_tree_Tree71].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree72[le.State_china_tree_Tree72].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree73[le.State_china_tree_Tree73].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree74[le.State_china_tree_Tree74].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree75[le.State_china_tree_Tree75].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree76[le.State_china_tree_Tree76].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree77[le.State_china_tree_Tree77].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree78[le.State_china_tree_Tree78].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree79[le.State_china_tree_Tree79].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree80[le.State_china_tree_Tree80].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree81[le.State_china_tree_Tree81].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree82[le.State_china_tree_Tree82].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree83[le.State_china_tree_Tree83].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree84[le.State_china_tree_Tree84].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree85[le.State_china_tree_Tree85].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree86[le.State_china_tree_Tree86].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree87[le.State_china_tree_Tree87].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree88[le.State_china_tree_Tree88].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree89[le.State_china_tree_Tree89].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree90[le.State_china_tree_Tree90].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree91[le.State_china_tree_Tree91].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree92[le.State_china_tree_Tree92].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree93[le.State_china_tree_Tree93].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree94[le.State_china_tree_Tree94].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree95[le.State_china_tree_Tree95].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree96[le.State_china_tree_Tree96].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree97[le.State_china_tree_Tree97].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree98[le.State_china_tree_Tree98].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree99[le.State_china_tree_Tree99].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree100[le.State_china_tree_Tree100].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree101[le.State_china_tree_Tree101].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree102[le.State_china_tree_Tree102].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree103[le.State_china_tree_Tree103].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree104[le.State_china_tree_Tree104].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree105[le.State_china_tree_Tree105].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree106[le.State_china_tree_Tree106].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree107[le.State_china_tree_Tree107].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree108[le.State_china_tree_Tree108].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree109[le.State_china_tree_Tree109].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree110[le.State_china_tree_Tree110].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree111[le.State_china_tree_Tree111].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree112[le.State_china_tree_Tree112].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree113[le.State_china_tree_Tree113].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree114[le.State_china_tree_Tree114].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree115[le.State_china_tree_Tree115].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree116[le.State_china_tree_Tree116].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree117[le.State_china_tree_Tree117].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree118[le.State_china_tree_Tree118].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree119[le.State_china_tree_Tree119].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree120[le.State_china_tree_Tree120].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree121[le.State_china_tree_Tree121].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree122[le.State_china_tree_Tree122].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree123[le.State_china_tree_Tree123].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree124[le.State_china_tree_Tree124].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree125[le.State_china_tree_Tree125].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree126[le.State_china_tree_Tree126].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree127[le.State_china_tree_Tree127].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree128[le.State_china_tree_Tree128].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree129[le.State_china_tree_Tree129].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree130[le.State_china_tree_Tree130].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree131[le.State_china_tree_Tree131].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree132[le.State_china_tree_Tree132].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree133[le.State_china_tree_Tree133].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree134[le.State_china_tree_Tree134].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree135[le.State_china_tree_Tree135].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree136[le.State_china_tree_Tree136].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree137[le.State_china_tree_Tree137].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree138[le.State_china_tree_Tree138].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree139[le.State_china_tree_Tree139].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree140[le.State_china_tree_Tree140].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree141[le.State_china_tree_Tree141].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree142[le.State_china_tree_Tree142].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree143[le.State_china_tree_Tree143].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree144[le.State_china_tree_Tree144].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree145[le.State_china_tree_Tree145].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree146[le.State_china_tree_Tree146].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree147[le.State_china_tree_Tree147].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree148[le.State_china_tree_Tree148].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree149[le.State_china_tree_Tree149].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree150[le.State_china_tree_Tree150].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree151[le.State_china_tree_Tree151].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree152[le.State_china_tree_Tree152].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree153[le.State_china_tree_Tree153].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree154[le.State_china_tree_Tree154].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree155[le.State_china_tree_Tree155].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree156[le.State_china_tree_Tree156].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree157[le.State_china_tree_Tree157].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree158[le.State_china_tree_Tree158].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree159[le.State_china_tree_Tree159].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree160[le.State_china_tree_Tree160].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree161[le.State_china_tree_Tree161].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree162[le.State_china_tree_Tree162].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree163[le.State_china_tree_Tree163].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree164[le.State_china_tree_Tree164].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree165[le.State_china_tree_Tree165].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree166[le.State_china_tree_Tree166].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree167[le.State_china_tree_Tree167].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree168[le.State_china_tree_Tree168].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree169[le.State_china_tree_Tree169].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree170[le.State_china_tree_Tree170].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree171[le.State_china_tree_Tree171].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree172[le.State_china_tree_Tree172].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree173[le.State_china_tree_Tree173].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree174[le.State_china_tree_Tree174].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree175[le.State_china_tree_Tree175].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree176[le.State_china_tree_Tree176].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree177[le.State_china_tree_Tree177].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree178[le.State_china_tree_Tree178].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree179[le.State_china_tree_Tree179].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree180[le.State_china_tree_Tree180].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree181[le.State_china_tree_Tree181].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree182[le.State_china_tree_Tree182].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree183[le.State_china_tree_Tree183].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree184[le.State_china_tree_Tree184].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree185[le.State_china_tree_Tree185].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree186[le.State_china_tree_Tree186].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree187[le.State_china_tree_Tree187].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree188[le.State_china_tree_Tree188].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree189[le.State_china_tree_Tree189].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree190[le.State_china_tree_Tree190].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree191[le.State_china_tree_Tree191].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree192[le.State_china_tree_Tree192].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree193[le.State_china_tree_Tree193].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree194[le.State_china_tree_Tree194].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree195[le.State_china_tree_Tree195].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree196[le.State_china_tree_Tree196].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree197[le.State_china_tree_Tree197].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree198[le.State_china_tree_Tree198].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree199[le.State_china_tree_Tree199].Number + zz_huge_luci_deleteme.tree_china_china_tree_Tree200[le.State_china_tree_Tree200].Number) / 200;
+    REAL tree_china_china_tree_Score1 := SFchina_tree(tree_china_china_tree_Score0/(tree_china_china_tree_Score0*(1-49)+49));
+    REAL tree_china_china_tree_Score := tree_china_china_tree_Score1;
+    SELF.tree_china_Score := tree_china_china_tree_Score;
+    SELF.tree_china_Reasons := [];
+    SELF := le;
+  END;
+  RETURN PROJECT(infile(~do_model),rres)+PROJECT( Computed1,Tr1(LEFT));
+ENDMACRO;
