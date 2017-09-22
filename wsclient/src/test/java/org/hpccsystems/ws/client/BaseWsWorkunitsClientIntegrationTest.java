@@ -125,14 +125,17 @@ public abstract class BaseWsWorkunitsClientIntegrationTest {
 
             wu=client.compileWUFromECL(wu);
             WorkunitInfo res=client.getWUInfo(wu.getWuid());
-            if (!res.getState().equals(WUState.COMPILED.toString().toLowerCase()))
+            //6.0 has state compiled; 5.x has state completed
+            if (!res.getState().equals(WUState.COMPILED.toString().toLowerCase())
+                    && !res.getState().equals(WUState.COMPLETED.toString().toLowerCase()))
             {
                 System.out.println(res.toString());
                 Assert.fail("Workunit " + i + " didn't compile correctly");
             }
-            wu=client.runWorkunit(wu.getWuid(),null,null,null,false,null);
+            wu=client.runWorkunit(wu.getWuid(),null,null,5000,false,null);
             WorkunitInfo wu2=client.getWUInfo(wu.getWuid());
-            if (!wu2.getState().equals(WUState.COMPLETED.toString().toLowerCase()))
+            if (!wu2.getState().equals(WUState.COMPLETED.toString().toLowerCase())
+                    && !wu2.getState().equals(WUState.RUNNING.toString().toLowerCase()))
             {
                 System.out.println(wu2.toString());
                 Assert.fail("Workunit didn't run correctly");
@@ -237,7 +240,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest {
     @Test
     public void testAbortWU() throws Exception
     {
-        createTestWorkunits("OUTPUT( PIPE('sleep 30000',{STRING hack}));",1);
+        createTestWorkunits("OUTPUT( PIPE('sleep 10',{STRING hack}));",1);
         if (this.testwuids.size()==0)
         {
             Assert.fail("workunit not created");
@@ -245,7 +248,8 @@ public abstract class BaseWsWorkunitsClientIntegrationTest {
         client.abortWU(testwuids.get(0));
         Thread.sleep(5000);
         WorkunitInfo test=client.getWUInfo(testwuids.get(0));
-        if (WUState.ABORTED.toString().toLowerCase().equals(test.getState()))
+        if (!(WUState.ABORTED.toString().toLowerCase().equals(test.getState())
+                || WUState.ABORTING.toString().toLowerCase().equals(test.getState())))
         {
             Assert.fail("Workunit not aborted");
         }
