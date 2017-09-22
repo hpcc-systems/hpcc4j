@@ -50,7 +50,8 @@ wsclient | hpccsystems-platform
 - JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
 - JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
 - JAPI-96 Expose file part information
-
+- JAPI-101 WUQueryInfo wrapper for workunit searching
+- JAPI-103 new bulk createOrUpdateAttributes method
 #### Release Changelog
 
 ###### 1.2.0 Release date 8/9/2017
@@ -75,25 +76,6 @@ wsclient | hpccsystems-platform
 - wsdl updates to match platform 6.2.0 gold release
 - removal of old HPCC versioning code
 - javadoc generation included in project
-
-###### 1.2.0
-- JAPI-85 Enhance platform tester
-- JAPI-86 Update JCRAFT JSCH lib to enhance ssh connections
-- JAPI-82 Update all interfaces to match HPCC + WsSQL 6.4.0
-- JAPI-83 Handle case where WU State is not provided by ESP
-- JAPI-81 Need PAUSED status added to WUState 
-- JAPI-80 update WsFS Dropzone related methods
-- JAPI-72 Correctly use WsClient WsFS methods regarding DZs
-
-###### 1.2.2
-- JAPI-79 Avoid premature submission of compiling WUs
-- JAPI-91 Fix COMPILING state map
-- JAPI-90 Added createOrUpdate function to HPCCWsAttributesClient
-- JAPI-95 Wrap attribute  delete calls
-- JAPI-97 HPCCWsDFUClient soap-agnostic objects and wrappers
-- JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
-- JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
-- JAPI-101 WUQueryInfo wrapper for workunit searching
 
 #### Contributions
 

@@ -4,7 +4,11 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.axis.client.Stub;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
@@ -242,73 +246,178 @@ public class HPCCWsAttributesClient extends DataSingleton
     }
 
     /**
-     * Create/Update an attribute in a legacy repository
-     *
-     * @param modulename
-     *            - module name to update
-     * @param attributename
-     *            - attribute name to update
-     * @param text
-     *            - text to update the attribute to
-     * @param checkoutin
-     *            - whether to check the attribute out/in before doing this
-     * @param checkindesc
-     *            - if checkoutin=true, the description to append to the checkin
-     * @return
+     * @param in - a list of ECLAttributeInfo objects to create or update
+     * @param checkoutin - if true, check out before updating and check in afterwards
+     * @param checkindesc - if checkoutin is true, this is the checkin message
+     * @return - a list of updated eclattributeinfo objects
      * @throws Exception
      */
-    public ECLAttribute createOrUpdateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin,
-            String checkindesc) throws Exception
+    public List<ECLAttributeInfo> createOrUpdateAttributes(List<ECLAttributeInfo> in, boolean checkoutin, String checkindesc) 
+            throws Exception
     {
-        if (checkoutin == null)
+        List<ECLAttributeInfo> result=new ArrayList<ECLAttributeInfo>();
+        if (in==null || in.size()==0)
         {
-            checkoutin = false;
-        }
-
-        if (modulename == null || attributename == null || text == null)
-        {
-            throw new Exception("Module name, attribute name and text are required");
+            return result;
         }
         if (checkoutin == true && (checkindesc == null || checkindesc.trim().length() == 0))
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
-        if (!this.attributeExists(modulename, attributename,type))
+       
+        //validate items to be created
+        String allers="";
+        for (ECLAttributeInfo item:in)
         {
-            CreateAttribute req = new CreateAttribute();
-            req.setModuleName(modulename);
-            req.setAttributeName(attributename);
-            req.setType(type);
+            try 
+            {
+                item.validate();
+            }
+            catch (Exception e) {
+                    allers=allers + e.getMessage() + "\n";
+            }
+        }
+        if (!allers.isEmpty())
+        {
+            throw new Exception(allers);
+        }
+        
+        //get a cached copy of the modules being updated to check whether items must be created
+        //convert objects to needed create/update soap object arrays
+        Map<String,List<String>> founditems=new HashMap<String,List<String>>();
+        List<CreateAttribute> tocreate=new ArrayList<CreateAttribute>();
+        SaveAttributeRequest[] toupdate=new SaveAttributeRequest[in.size()];
+        CheckoutAttributeRequest[] tocheckout=new CheckoutAttributeRequest[in.size()];
+        CheckinAttributeRequest[] tocheckin=new CheckinAttributeRequest[in.size()];
+        for (int i=0; i < in.size();i++)
+        {
+            ECLAttributeInfo item=in.get(i);
+            if (!founditems.containsKey(item.getModuleName().toLowerCase()))
+            {
+                List<ECLAttributeInfo> found=this.findItems(item.getModuleName(),null,null,null,null,null);
+                List<String> cache=new ArrayList<String>();
+                for (ECLAttributeInfo f:found)
+                {
+                    cache.add(f.getUniqueName());
+                }
+                founditems.put(item.getModuleName().toLowerCase(),cache);
+            }
+            
+            if (!founditems.get(item.getModuleName().toLowerCase()).contains(
+                        item.getUniqueName()))
+            {
+                tocreate.add(item.toCreateAttribute());
+            }
+            toupdate[i]=item.toSaveAttributeRequest();
+            tocheckout[i]=item.toCheckoutAttributeRequest();
+            tocheckin[i]=item.toCheckinAttributeRequest(checkindesc);
+        }
+        
+        //create nonexistant attributes
+        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+        for (CreateAttribute req:tocreate)
+        {
             CreateAttributeResponse resp = proxy.createAttribute(req);
+            if (resp != null)
+            {
+                handleException(resp.getExceptions());
+            }
+            Utils.println(System.out, "Created " + req.getType() + " attribute " + req.getModuleName() + "." + req.getAttributeName(), true, verbose);
+        }
+        
+        //check out attributes
+        if (checkoutin)
+        {
+           CheckoutAttributes params = new CheckoutAttributes();
+            params.setAttributes(tocheckout);
+            UpdateAttributesResponse resp = proxy.checkoutAttributes(params);
             if (resp != null)
             {
                 handleException(resp.getExceptions());
             }
         }
 
+        //update attributes
+        SaveAttributes params = new SaveAttributes();
+        params.setAttributes(toupdate);
+        UpdateAttributesResponse resp = proxy.saveAttributes(params);
+        if (resp != null)
+        {
+            handleException(resp.getExceptions());
+            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+            {
+                for (int i=0; i < resp.getOutAttributes().length;i++)
+                {
+                    result.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
+                }
+            }
+        }
+        
+        //check in attributes
         if (checkoutin)
         {
-            this.checkoutAttribute(modulename, attributename);
+           CheckinAttributes inparams = new CheckinAttributes();
+            inparams.setAttributes(tocheckin);
+            UpdateAttributesResponse upresp = proxy.checkinAttributes(inparams);
+            if (upresp != null)
+            {
+                handleException(upresp.getExceptions());
+            }
         }
-        SaveAttributeRequest req = new SaveAttributeRequest();
-        req.setModuleName(modulename);
-        req.setAttributeName(attributename);
-        req.setText(text);
-        SaveAttributeRequest[] arr = { req };
+
+        return result;
+    }
+    /**
+     * Create/Update an attribute in a legacy repository
+     *
+     * @param ECLAttributeItem - with the module/attribute/type/text to create or update
+     * @param checkoutin - whether to check the attribute out/in before doing this
+     * @param checkindesc - if checkoutin=true, the description to append to the checkin
+     * @return updated ECLAttributeItem for created/updated item
+     * @throws Exception
+     */
+    public ECLAttributeInfo createOrUpdateAttribute(ECLAttributeInfo item, boolean checkoutin,
+            String checkindesc) throws Exception
+    {
+        if (item==null)
+        {
+            return null;
+        }
+        item.validate();
+        if (checkoutin == true && (checkindesc == null || checkindesc.trim().length() == 0))
+        {
+            throw new Exception("Checkin comment is required if checking attribute out / in");
+        }
+        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+        if (!this.attributeExists(item.getModuleName(),item.getName(),item.getType()))
+        {
+            CreateAttributeResponse resp = proxy.createAttribute(item.toCreateAttribute());
+            if (resp != null)
+            {
+                handleException(resp.getExceptions());
+            }
+            Utils.println(System.out, "Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName(), true, verbose);            
+        }
+
+        if (checkoutin)
+        {
+            this.checkoutAttribute(item.getModuleName(),item.getName());
+        }
+        SaveAttributeRequest[] arr = { item.toSaveAttributeRequest() };
         SaveAttributes params = new SaveAttributes();
         params.setAttributes(arr);
         UpdateAttributesResponse resp = proxy.saveAttributes(params);
+        Utils.println(System.out, "Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName(), true, verbose);            
         if (resp != null)
         {
             handleException(resp.getExceptions());
             if (checkoutin)
             {
-                this.checkinAttribute(modulename, attributename, checkindesc);
+                this.checkinAttribute(item.getModuleName(), item.getName(), checkindesc);
             }
             if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
             {
-                return resp.getOutAttributes()[0];
+                return new ECLAttributeInfo(resp.getOutAttributes()[0]);
             }
         }
 
