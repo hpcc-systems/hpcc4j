@@ -5,6 +5,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -19,6 +20,7 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
 import org.hpccsystems.ws.client.platform.ECLExceptionInfo;
 import org.hpccsystems.ws.client.platform.ECLResultInfo;
 import org.hpccsystems.ws.client.platform.QueryFileInfo;
@@ -26,11 +28,13 @@ import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WULogFileInfo;
+import org.hpccsystems.ws.client.platform.WUQueryInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.utils.WUFileType;
 
 /**
  *
@@ -571,7 +575,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return workunit;
     }
 
-    public WUInfoResponse getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
+    public WorkunitInfo getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
             boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues,
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers)
                     throws Exception
@@ -580,7 +584,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers, false);
     }
 
-    public WUInfoResponse getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
+    public WorkunitInfo getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
             boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues,
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers,
             boolean unarchive) throws Exception
@@ -604,6 +608,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             request.setIncludeXmlSchemas(includeXmlSchemas);
 
             WUInfoResponse resp = wsWorkunitsServiceSoapProxy.WUInfo(request);
+            this.throwWsWUExceptions(resp.getExceptions(), "Could not retrieve workunit:");
             ECLWorkunit wk = resp.getWorkunit();
             if (unarchive && wk != null && wk.getArchived() != null && wk.getArchived())
             {
@@ -612,7 +617,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                         includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers,
                         false);
             }
-            return resp;
+            if (wk==null)
+            {
+                return null;
+            }
+            WorkunitInfo wi=new WorkunitInfo(wk);
+            wi.setResultViews(resp.getResultViews());
+            return wi;
         }
     }
 
@@ -684,6 +695,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     private ArrayOfEspException convertArrayOfEspException(
             org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException in)
     {
+        if (in==null) 
+        {
+            return null;
+        }
+    
         ArrayOfEspException out = new ArrayOfEspException();
         if (in.getSource() != null) out.setSource(in.getSource());
         if (in.getException() != null)
@@ -1208,84 +1224,91 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @return WUQueryResponse
      * @throws Exception
      */
-    public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
-            String state, String endDate, String startDate, Long pageStartFrom, Long pageSize, Integer count,
-            String owner, ApplicationValue[] applicationValues) throws Exception
+    public List<WorkunitInfo> workUnitUQuery(String wuid, String jobname, String cluster, Boolean archived, WUQueryInfo.SortBy sortby,
+            WUState state, Date endDate, Date startDate, Long pageStartFrom, Long pageSize,
+            String owner, List<ApplicationValueInfo> applicationValues) throws Exception
     {
-        Long _pageSize = pageSize;
-        if (_pageSize == null) _pageSize = (long) 10000; // default to 10,000 if null
-        Long _pageStartFrom = pageStartFrom;
-        if (_pageStartFrom == null) _pageStartFrom = (long) 0;
+        
+        WUQueryInfo info=new WUQueryInfo();
+        info.setWuid(wuid);
+        info.setJobname(jobname);
+        info.setCluster(cluster);
+        info.setArchived(archived);
+        info.setSortBy(sortby);
+        info.setState(state);
+        info.setEndDate(endDate);
+        info.setStartDate(startDate);
+        info.setOwner(owner);
+        info.setApplicationValues(applicationValues);
+        info.setPageSize(pageSize==null?10000:pageSize);
+        info.setPageStartFrom(pageStartFrom==null?0:pageStartFrom);
 
+        return (workUnitUQuery(info));
+    }
+
+    public List<WorkunitInfo> workUnitUQuery(WUQueryInfo info) throws Exception
+    {
+        
         WUQueryResponse wuQueryResponse = new WUQueryResponse();
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
         else
         {
-            // sanitize ApplicationValue[]
-            if (applicationValues != null) for (ApplicationValue v : applicationValues)
-            {
-                if (v.getApplication() != null && !v.getApplication().isEmpty()
-                        && ((v.getName() == null || v.getName().isEmpty())
-                                && (v.getValue() == null || v.getValue().isEmpty())))
-                    throw new Exception("Application set but no name/value given");
-            }
-
-            // Check esp build version
-            ArrayOfEspException arrayOfEspException = null;
+            //currently just checks application values
+            info.validate();
 
             if (!compatibilityCheck(new Version("6.0.0")))
             {
-                // fall back to old interface
-                org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery internal = new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery();
+                Set<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit> workunit_set = 
+                        new HashSet<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit>();
                 org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQueryResponse fallbackresponse = null;
-                // build common elements
-                if (cluster != null) internal.setCluster(cluster);
-                if (type != null) internal.setType(type);
-                if (state != null) internal.setState(state);
-                if (startDate != null) internal.setStartDate(startDate);
-                if (endDate != null) internal.setEndDate(endDate);
-                if (wuid != null) internal.setWuid(wuid);
-                if (jobname != null) internal.setJobname(jobname);
-                if (count != null) internal.setCount(count);
-                if (owner != null) internal.setOwner(owner);
-                internal.setPageSize(_pageSize); // warning, if setting pageSize, the output of the sets won't be
-                                                 // guaranteed to contain all matches before intersection
-                Set<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit> workunit_set = new HashSet<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit>();
-                if (applicationValues != null)
+                if (info.getApplicationValues().size()>1)
                 {
-                    for (ApplicationValue apfilter : applicationValues)
+                    for (int i=0; i < info.getApplicationValues().size();i++)
                     {
-                        internal.setApplicationName(apfilter.getApplication());
-                        internal.setApplicationKey(apfilter.getName());
-                        internal.setApplicationData(apfilter.getValue());
-
+                        org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery internal=info.getRaw156(i);
                         fallbackresponse = fallBackWorkunitsServiceSoapProxy.WUQuery(internal);
-                        if (fallbackresponse.getExceptions() != null)
+                        if (fallbackresponse != null)
+                        {
                             throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
-                                    "Error in WU query");
-                        Set<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit> internal_wu_set = new HashSet<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit>();
-                        if (fallbackresponse.getWorkunits() != null)
+                           "Error in WU query");
+                        }
+                        Set<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit> internal_wu_set 
+                            = new HashSet<org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit>();
+                        if (fallbackresponse.getWorkunits() != null) 
+                        {
                             for (org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit wu : fallbackresponse
                                     .getWorkunits())
-                            internal_wu_set.add(wu);
-                        if (workunit_set.isEmpty())
-                            workunit_set.addAll(internal_wu_set);
-                        else
-                            // intersection of s1 and s2
-                            workunit_set.retainAll(internal_wu_set);
+                            {
+                                internal_wu_set.add(wu);
+                            }
+                            if (workunit_set.isEmpty())
+                            {
+                                workunit_set.addAll(internal_wu_set);
+                            }
+                            else
+                            {
+                                // intersection of s1 and s2
+                                workunit_set.retainAll(internal_wu_set);
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    fallbackresponse = fallBackWorkunitsServiceSoapProxy.WUQuery(internal);
-                    if (fallbackresponse.getExceptions() != null)
+                    fallbackresponse = fallBackWorkunitsServiceSoapProxy.WUQuery(info.getRaw156(0));
+                    if (fallbackresponse != null) {
                         throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
                                 "Error in WU query");
+                    }
                     if (fallbackresponse.getWorkunits() != null)
+                    {
                         for (org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit wu : fallbackresponse
                                 .getWorkunits())
-                        workunit_set.add(wu);
+                        {
+                            workunit_set.add(wu);
+                        }
+                    }
                 }
 
                 // rebuild response as latest
@@ -1297,69 +1320,22 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             }
             else
             {
-
-                WUQuery request = new WUQuery();
-                if (cluster != null) request.setCluster(cluster);
-                if (type != null) request.setType(type);
-                if (sortby != null) request.setSortby(sortby);
-                if (state != null) request.setState(state);
-                if (startDate != null) request.setStartDate(startDate);
-                if (endDate != null) request.setEndDate(endDate);
-                if (wuid != null) request.setWuid(wuid);
-                if (jobname != null) request.setJobname(jobname);
-                if (count != null) request.setCount(count);
-                if (owner != null) request.setOwner(owner);
-                if (applicationValues != null) request.setApplicationValues(applicationValues);
-                request.setPageSize(_pageSize);
-                request.setPageStartFrom(_pageStartFrom);
-
-                wuQueryResponse = wsWorkunitsServiceSoapProxy.WUQuery(request);
-                arrayOfEspException = wuQueryResponse.getExceptions();
-                if (arrayOfEspException != null) throwWsWUExceptions(arrayOfEspException, "Error in WU query");
+                wuQueryResponse = wsWorkunitsServiceSoapProxy.WUQuery(info.getRaw());
+                throwWsWUExceptions(wuQueryResponse.getExceptions(), "Error in WU query");
             }
         }
-        return wuQueryResponse;
+        
+        List<WorkunitInfo> result=new ArrayList<WorkunitInfo>();
+        if (wuQueryResponse.getWorkunits() != null)
+        {
+            for (int i=0; i < wuQueryResponse.getWorkunits().length;i++) {
+                result.add(new WorkunitInfo(wuQueryResponse.getWorkunits()[i]));
+            }
+        }
+        return result;
+
     }
 
-    public WUQueryResponse workUnitUQuery(WUQuery params) throws Exception
-    {
-        return this.workUnitUQuery(params.getWuid(), params.getJobname(), params.getCluster(), params.getType(),
-                params.getSortby(), params.getState(), params.getEndDate(), params.getStartDate(),
-                params.getPageStartFrom(), params.getPageSize(), params.getCount(), params.getOwner(),
-                params.getApplicationValues());
-    }
-
-    /**
-     * @deprecated Executes a WUQuery, based on parameters provided. If a custom WUQuery is desired, the caller can make
-     *             a direct call to WUQuery based on the soapproxy for this client.
-     *
-     * @param wuid
-     * @param jobname
-     * @param cluster
-     * @param type
-     * @param sortby
-     * @param state
-     * @param endDate
-     * @param startDate
-     * @param pageStartFrom
-     * @param pageSize
-     * @param count
-     * @param owner
-     * @param appName
-     * @param appKey
-     * @param appData
-     * @return WUQueryResponse
-     * @throws Exception
-     */
-    @Deprecated
-    public WUQueryResponse workUnitUQuery(String wuid, String jobname, String cluster, String type, String sortby,
-            String state, String endDate, String startDate, Long pageStartFrom, Long pageSize, Integer count,
-            String owner, String appName, String appKey, String appData) throws Exception
-    {
-        ApplicationValue[] applicationValues = { new ApplicationValue(appKey, appName, appData) };
-        return this.workUnitUQuery(wuid, jobname, cluster, type, sortby, state, endDate, startDate, pageStartFrom,
-                pageSize, count, owner, applicationValues);
-    }
 
     /**
      * This method queries information about a given WU and answers if the WU has reported errors.
@@ -1434,23 +1410,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /*
      * this method is purely for the Platform class
      */
-    public WUUpdateResponse createWUFromECL(String archiveOrEcl, int resultLimit, ApplicationValue[] appVals,
+    public WorkunitInfo createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueInfo> appVals,
             String jobName, boolean compileOnly) throws Exception
     {
-        if (wsWorkunitsServiceSoapProxy == null)
-            throw new Exception("wsWorkunitsServiceSoapProxy not available");
-        else
-        {
-            WUCreateAndUpdate request = new WUCreateAndUpdate();
-            request.setQueryText(archiveOrEcl);
-            request.setJobname(jobName);
-            if (compileOnly) request.setAction(1);
-
-            request.setApplicationValues(appVals);
-            if (resultLimit > 0) request.setResultLimit(resultLimit);
-
-            return wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(request);
-        }
+        WorkunitInfo wi=new WorkunitInfo().setECL(archiveOrEcl).setJobname(jobName)
+            .setApplicationValues(appVals).setResultLimit(resultLimit==0?null:resultLimit);
+        
+        return createWUFromECL(wi);
     }
 
     /**
@@ -1460,72 +1426,24 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      *            - hpcc owner of the job
      * @param ecl
      *            - text in the ecl
-     * @return an ArrayList<ECLWorkunit> of matching workunits
+     * @param archived - if true, search archived workunits. If false or null, search unarchived workunits.
+     * @param wuid - wuid to search for
+     * @param cluster - cluster to search workunits for
+     * @param state - WUState of workunits to find
+     * @return an List<WorkunitInfo> of matching workunits
      * @throws Exception
      */
-    public ArrayList<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, String type, String wuid,
-            String cluster, String state) throws Exception
+    public List<WorkunitInfo> getWorkunits(String jobName, String owner, String ecl, Boolean archived, String wuid,
+            String cluster, WUState state) throws Exception
     {
-        WUQuery params = new WUQuery();
-        if (jobName != null)
-        {
-            params.setJobname(jobName);
-        }
-
-        if (owner != null)
-        {
-            params.setOwner(owner);
-        }
-
-        if (ecl != null)
-        {
-            params.setECL(ecl);
-        }
-        if (type != null)
-        {
-            params.setType(type);
-        }
-        if (wuid != null)
-        {
-            params.setWuid(wuid);
-        }
-        if (cluster != null)
-        {
-            params.setCluster(cluster);
-        }
-        if (state != null)
-        {
-            params.setState(state);
-        }
-        return getWorkunits(params);
+        WUQueryInfo params = new WUQueryInfo().setJobname(jobName).setOwner(owner).setECL(ecl)
+                .setArchived(archived).setWuid(wuid).setCluster(cluster).setState(state);
+        return workUnitUQuery(params);
     }
 
-    public ArrayList<WorkunitInfo> getWorkunits(WUQuery params) throws Exception
+    public List<WorkunitInfo> getWorkunits(WUQueryInfo params) throws Exception
     {
-        ArrayList<WorkunitInfo> wks = new ArrayList<WorkunitInfo>();
-
-        try
-        {
-            WUQueryResponse result = this.workUnitUQuery(params);
-            ECLWorkunit[] ecls = result.getWorkunits();
-
-            if (ecls == null)
-            {
-                return wks;
-            }
-            for (int i = 0; i < ecls.length; i++)
-            {
-                WorkunitInfo w = new WorkunitInfo(ecls[i]);
-                w.setOriginalEclWatchUrl(getEclWatchUrl());
-                wks.add(w);
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw e;
-        }
-        return wks;
+        return this.workUnitUQuery(params);
     }
 
     /**
@@ -1550,7 +1468,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
         WorkunitInfo createdWU = createWUFromECL(wu);
 
-        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null)
+        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions().size()==0)
         {
             createdWU.setCluster(wu.getCluster());
             submitWU(createdWU); // if no exception proceed
@@ -1558,22 +1476,15 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             // exceptions, etc. aren't always included in the submit response; do another request to get all workunit
             // info
-            WUInfoResponse res = this.getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false,
+            WorkunitInfo res = this.getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false,
                     false, false);
-            if (createdWU.getExceptions() == null && res.getWorkunit() != null
-                    && res.getWorkunit().getExceptions() != null)
+            
+            int actualerrors = 0;
+            for (ECLExceptionInfo ex:res.getExceptions())
             {
-                int actualerrors = 0;
-                for (int i = 0; i < res.getWorkunit().getExceptions().length; i++)
+                if ("error".equalsIgnoreCase(ex.getSeverity()))
                 {
-                    if ("error".equalsIgnoreCase(res.getWorkunit().getExceptions()[i].getSeverity()))
-                    {
-                        actualerrors++;
-                    }
-                }
-                if (actualerrors > 0)
-                {
-                    this.throwWUECLExceptions(res.getWorkunit().getExceptions(), "Workunit Compile Failed");
+                    this.throwWUECLExceptions(res.getRawExceptions(), "Workunit Compile Failed");
                 }
             }
         }
@@ -1682,8 +1593,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public String createAndRunWUFromECLAndGetResults(WorkunitInfo wu) throws Exception
     {
         WURunResponse createAndRunWUFromECL = createAndRunWUFromECL(wu);
-        ArrayOfEspException exceptions = createAndRunWUFromECL.getExceptions();
-        if (exceptions != null) throwWsWUExceptions(exceptions, "Results contains errors!");
         return createAndRunWUFromECL.getResults();
     }
 
@@ -1977,7 +1886,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         String[] wuids = new String[1];
         wuids[0] = wuid;
         request.setWuids(wuids);
-
+        request.setBlockTillFinishTimer(1);
         wsWorkunitsServiceSoapProxy.WUAbort(request);
     }
 
@@ -1989,8 +1898,9 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         String[] wuids = new String[1];
         wuids[0] = wuid;
         request.setWuids(wuids);
-
-        wsWorkunitsServiceSoapProxy.WUDelete(request);
+        request.setBlockTillFinishTimer(1);
+        WUDeleteResponse resp= wsWorkunitsServiceSoapProxy.WUDelete(request);
+        this.throwWsWUExceptions(resp.getExceptions(), "Could not delete " + wuid + ":");
     }
 
     public void resubmitWU(String wuid, boolean restart, boolean clone) throws Exception
@@ -2097,6 +2007,26 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
 
     /**
+     * @param wuid - wuid to return result for
+     * @param resultname - resultname to return result for
+     * @return content of result
+     * @throws Exception
+     */
+    public String getWorkunitResult(String wuid, String resultname) throws Exception 
+    {
+        WUResult params=new WUResult();
+        params.setWuid(wuid);
+        params.setResultName(resultname);
+        params.setSuppressXmlSchema(true);
+        WUResultResponse resp=getWorkunitResult(params,true);
+        if (resp != null)
+        {
+            this.throwWsWUExceptions(resp.getExceptions(), "Unable to retrieve result " + resultname + " from wuid " + wuid + ":");
+            return resp.getResult();
+        }
+        return null;        
+    }
+    /**
      * Return a workunit result
      *
      * @param WUResult
@@ -2180,13 +2110,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return new WorkunitInfo(resp.getWorkunit());
     }
 
-    public WULogFileInfo getWorkunitFile(String wuid, String filename, String filetype, String description, 
+    public WULogFileInfo getWorkunitFile(String wuid, String filename, WUFileType filetype, String description, 
             String ipaddr, boolean entirefile) throws Exception 
     {
         WUFile file = new WUFile();
         file.setWuid(wuid);
         file.setName(filename);
-        file.setType(filetype);
+        file.setType(filetype.toString());
         file.setDescription(description);
         file.setIPAddress(ipaddr);
         if (entirefile) 

@@ -12,6 +12,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
@@ -44,6 +45,7 @@ import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.Utils;
 
 public class Platform extends DataSingleton
 {
@@ -321,22 +323,18 @@ public class Platform extends DataSingleton
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
 
-                ApplicationValue[] appVals = new ApplicationValue[1];
-                appVals[0] = new ApplicationValue();
-                //appVals[0].setApplication(Activator.PLUGIN_ID);
-                appVals[0].setApplication(API_ID);
-                appVals[0].setName("path"); //$NON-NLS-1$
-                appVals[0].setValue(filePath);
+                List<ApplicationValueInfo> appVals=new ArrayList<ApplicationValueInfo>();
+                appVals.add(new ApplicationValueInfo(API_ID,"path",filePath));
+                
+                WorkunitInfo response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
 
-                WUUpdateResponse response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
+                //response now has cluster set, no need to set it here
 
-                response.getWorkunit().setCluster(cluster); // WUSubmit does not return an updated ECLWorkunit, so set
-                                                            // cluster here...
-                wu = getWorkunit(response.getWorkunit());
-                if (wu != null)
+                wu = getWorkunit(response.getWuid());
+                if (response != null)
                 {
                     workunits.add(wu);
-                    wsWorkUnitsClient.submitWU(response.getWorkunit().getWuid(), cluster);
+                    wsWorkUnitsClient.submitWU(response.getWuid(), cluster);
                 }
 
             }
@@ -412,8 +410,12 @@ public class Platform extends DataSingleton
             try
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, jobname, cluster, null, null, null, endDate, startDate, null, null, 100, userOnly ? getUser() : null, "org.hpccsystems.ws.client", appKey, appData);
-                updateWorkunits(response.getWorkunits());
+                WUQueryInfo info=new WUQueryInfo().setJobname(jobname).setCluster(cluster)
+                        .setStartDate(Utils.UTCStringToDate(startDate)).setEndDate(Utils.UTCStringToDate(endDate))
+                        .setPageSize(new Long(100)).setOwner(userOnly ? getUser() : null);
+                info.getApplicationValues().add(new ApplicationValueInfo("org.hpccsystems.ws.client", appKey, appData));
+                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
+                updateWorkunits(response);
             }
             catch (ArrayOfEspException e)
             {
@@ -454,9 +456,15 @@ public class Platform extends DataSingleton
             {
 
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryResponse response = wsWorkUnitsClient.workUnitUQuery(null, null, cluster, null, null, null, toESPString(endDate), toESPString(startDate), null, null, 100, owner, null, null, null);
-
-                updateWorkunits(response.getWorkunits());
+                WUQueryInfo info=new WUQueryInfo();
+                info.setCluster(cluster);
+                info.setStartDate(startDate.getTime());
+                info.setEndDate(endDate.getTime());
+                info.setPageSize(new Long(100));
+                info.setOwner(owner);
+                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
+             
+                updateWorkunits(response);
             }
             catch (ArrayOfEspException e)
             {
@@ -486,16 +494,16 @@ public class Platform extends DataSingleton
         return getWorkunits(userOnly, "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
-    synchronized void updateWorkunits(ECLWorkunit[] rawWorkunits)
+    synchronized void updateWorkunits(List<WorkunitInfo> rawWorkunits)
     {
         workunits.clear();
         if (rawWorkunits != null)
         {
-            for (ECLWorkunit wu : rawWorkunits)
+            for (WorkunitInfo wu : rawWorkunits)
             {
                 if (Workunit.isValidWUIDString(wu.getWuid()))
                 {
-                    workunits.add(getWorkunit(wu)); // Will mark changed if needed ---
+                    workunits.add(getWorkunit(wu.getEclWorkunit())); // Will mark changed if needed ---
                 }
             }
         }
