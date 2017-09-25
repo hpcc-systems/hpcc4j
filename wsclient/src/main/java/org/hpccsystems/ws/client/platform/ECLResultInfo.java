@@ -97,4 +97,11 @@ public class ECLResultInfo {
     public void setXmlSchema(String xmlSchema) {
         this.xmlSchema = xmlSchema;
     }
+
+    @Override
+    public String toString() {
+        return "ECLResultInfo [ name=" + name + ", sequence=" + sequence + ", value=" + value + 
+                ", showFileContent=" + showFileContent + ", total=" + total
+                + " xmlSchema=" + xmlSchema + "]";
+    }
 }

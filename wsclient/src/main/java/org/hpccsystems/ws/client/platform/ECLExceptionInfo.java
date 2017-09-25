@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.platform;
 
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException;
 
 public class ECLExceptionInfo {
     private Integer activity;
@@ -13,7 +14,7 @@ public class ECLExceptionInfo {
 
     public ECLExceptionInfo() {}
     
-    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw) 
+    public ECLExceptionInfo(ECLException raw) 
     {
         activity=raw.getActivity();
         code=raw.getCode();
@@ -88,4 +89,18 @@ public class ECLExceptionInfo {
     public void setSource(String source) {
         this.source = source;
     }
+    
+    public ECLException getRaw() {
+        ECLException ex=new ECLException();
+        ex.setActivity(activity);
+        ex.setCode(code);
+        ex.setColumn(column);
+        ex.setFileName(fileName);
+        ex.setLineNo(lineNo);
+        ex.setMessage(message);
+        ex.setSeverity(severity);
+        ex.setSource(source);
+        return ex;
+    }
+
 }

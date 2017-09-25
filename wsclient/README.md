@@ -50,6 +50,7 @@ wsclient | hpccsystems-platform
 - JAPI-98 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for roxie services
 - JAPI-99 HPCCWsWorkunitsClient soap-agnostic objects and wrappers for Workunit related calls
 - JAPI-96 Expose file part information
+- JAPI-101 WUQueryInfo wrapper for workunit searching
 
 #### Release Changelog
 
