@@ -52,6 +52,7 @@ wsclient | hpccsystems-platform
 - JAPI-96 Expose file part information
 - JAPI-101 WUQueryInfo wrapper for workunit searching
 - JAPI-103 new bulk createOrUpdateAttributes method
+
 #### Release Changelog
 
 ###### 1.2.0 Release date 8/9/2017
