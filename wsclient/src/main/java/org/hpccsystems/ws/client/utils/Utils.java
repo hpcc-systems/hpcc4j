@@ -710,9 +710,7 @@ public class Utils
         {
             return null;
         }
-        TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat(ISO8601_FORMAT);
-        df.setTimeZone(tz);
         return df.format(date);
     }
     
@@ -727,7 +725,6 @@ public class Utils
         {
             return null;
         }
-        TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat(ISO8601_FORMAT);
         return df.parse(utc);
     }
