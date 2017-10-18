@@ -29,7 +29,7 @@ eclfield_type:
 ;
 
 eclfield_name:
-    UTOKEN | TOKEN
+    UTOKEN | TOKEN | 'MAXLENGTH' | 'maxlength'
 ;
 eclfield_recref:
     OPAREN TOKEN CPAREN
