@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotNull;
 public class DFUFileDetailInfoTest {
 
     private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
+    private final String MAXLENGTH = "RECORD\nSTRING SSN;\nINTEGER8 maxlength;\nEND;";
     private final String WITH_ANNOTATION_NO_PARAMS = "RECORD\nSTRING SSN; // @FEW\nEND;";
     private final String WITH_ANNOTATION_AND_COMMENT = "RECORD\nSTRING SSN; // @FOO(BAR) foo equals kittens, bar equals cats\nEND;";
     private final String WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; // @FOO(BAR1, BAR2,BAR3)\nEND;";
@@ -217,5 +218,16 @@ public class DFUFileDetailInfoTest {
         assertEquals("FOO",annotation.getName());
         assertEquals(1,annotation.getParameters().size());
         assertEquals("BAR",annotation.getParameters().get(0));
+    }
+    
+    
+    @Test
+    public void testGetRecordMaxlength() throws Exception {
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(MAXLENGTH);
+        DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
+        assertNotNull(recordDefInfo);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnInfo column = getColumnByName(recordDefInfo, "maxlength");
+        assertNotNull(column);
     }
 }
