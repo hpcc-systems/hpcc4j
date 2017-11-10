@@ -32,9 +32,12 @@ public class QueryResult {
     public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQuery qr) {
         activated=qr.getActivated();
         this.clusters=new ArrayList<ClusterInfo>();
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ClusterQueryState[] rawclusters=qr.getClusters();
-        for (org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ClusterQueryState rawc:rawclusters) {
-            this.clusters.add(new ClusterInfo(rawc));
+        if (qr.getClusters() != null) 
+        {
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ClusterQueryState[] rawclusters=qr.getClusters();
+            for (org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ClusterQueryState rawc:rawclusters) {
+                this.clusters.add(new ClusterInfo(rawc));
+            }
         }
         comment=qr.getComment();
         dll=qr.getDll();
