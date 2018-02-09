@@ -16,7 +16,7 @@ import org.apache.axis.client.Stub;
 import org.apache.axis.utils.StringUtils;
 import org.apache.axis.types.NonNegativeInteger;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
@@ -165,7 +165,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsLocator())
+        return (new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WsWorkunitsLocator())
                 .getWsWorkunitsServiceSoapAddress();
     }
 
@@ -483,8 +483,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             publishWUResp = wsWorkunitsServiceSoapProxy.WUPublishWorkunit(publishWU);
 
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ArrayOfEspException exceptions = publishWUResp
-                    .getExceptions();
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ArrayOfEspException exceptions = publishWUResp.getExceptions();
             if (exceptions != null)
             {
                 throwWsWUExceptions(exceptions, "Could not publish WU");
@@ -553,7 +552,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             WUInfoResponse wuInfoResponse = wsWorkunitsServiceSoapProxy.WUInfoDetails(wuinfodetailsparams);
 
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ArrayOfEspException exceptions = wuInfoResponse
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ArrayOfEspException exceptions = wuInfoResponse
                     .getExceptions();
             if (exceptions == null && wuInfoResponse.getWorkunit() != null)
             {
@@ -1747,7 +1746,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         StringBuilder multimessage = new StringBuilder();
         multimessage.append(message);
         multimessage.append("\n");
-        for (org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException exception : wsWUResponseExceptions
+        for (org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.EspException exception : wsWUResponseExceptions
                 .getException())
         {
             multimessage.append("\t");

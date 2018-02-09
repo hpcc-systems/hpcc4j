@@ -32,7 +32,7 @@ public class DFULogicalFileInfo {
     private String clusterName;
     private Boolean browseData;
 
-    public DFULogicalFileInfo(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFULogicalFile raw) {
+    public DFULogicalFileInfo(org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFULogicalFile raw) {
         browseData=raw.getBrowseData();
         clusterName=raw.getClusterName();
         compressedFileSize=raw.getCompressedFileSize();

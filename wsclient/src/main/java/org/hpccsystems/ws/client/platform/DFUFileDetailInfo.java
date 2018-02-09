@@ -13,8 +13,8 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUFileDetail;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
 
@@ -639,7 +639,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public DFUFilePartsOnClusterInfo[] getDFUFilePartsOnClusters()
     {
-        org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUFilePartsOnCluster[] clstrs = super.getDFUFilePartsOnClusters();
+        org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUFilePartsOnCluster[] clstrs = super.getDFUFilePartsOnClusters();
         DFUFilePartsOnClusterInfo[] w_clstrs = new DFUFilePartsOnClusterInfo[clstrs.length];
         for (int i = 0; i < clstrs.length; i++)
             w_clstrs[i] = new DFUFilePartsOnClusterInfo(clstrs[i]);

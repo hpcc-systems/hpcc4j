@@ -8,6 +8,7 @@
 package org.hpccsystems.ws.client.gen.wstopology.v1_26;
 
 public interface WsTopologyServiceSoap extends java.rmi.Remote {
+    public org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse ping(org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException;
     public org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogResponse systemLog(org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException;
     public org.hpccsystems.ws.client.gen.wstopology.v1_26.TpClusterInfoResponse tpClusterInfo(org.hpccsystems.ws.client.gen.wstopology.v1_26.TpClusterInfoRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException;
     public org.hpccsystems.ws.client.gen.wstopology.v1_26.TpClusterQueryResponse tpClusterQuery(org.hpccsystems.ws.client.gen.wstopology.v1_26.TpClusterQueryRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException;
