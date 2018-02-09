@@ -1,9 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
 import org.hpccsystems.ws.client.platform.Cluster;
@@ -11,15 +9,14 @@ import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.WUQueryInfo;
+import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
-import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 @Ignore
 public abstract class BaseWsWorkunitsClientIntegrationTest {
