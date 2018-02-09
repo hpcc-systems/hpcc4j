@@ -16,7 +16,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[19];
+        _operations = new org.apache.axis.description.OperationDesc[20];
         _initOperationDesc1();
         _initOperationDesc2();
     }
@@ -24,6 +24,23 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
     private static void _initOperationDesc1(){
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("Ping");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "WsTopologyPingRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">WsTopologyPingRequest"), org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingRequest.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">WsTopologyPingResponse"));
+        oper.setReturnClass(org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "WsTopologyPingResponse"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
+                      "wstopology.ws.hpccsystems.ArrayOfEspException",
+                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
+                      true
+                     ));
+        _operations[0] = oper;
+
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("SystemLog");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "SystemLogRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">SystemLogRequest"), org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogRequest.class, false, false);
@@ -39,7 +56,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[0] = oper;
+        _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpClusterInfo");
@@ -56,7 +73,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[1] = oper;
+        _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpClusterQuery");
@@ -73,7 +90,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[2] = oper;
+        _operations[3] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpDropZoneQuery");
@@ -90,7 +107,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[3] = oper;
+        _operations[4] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpGetComponentFile");
@@ -107,7 +124,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[4] = oper;
+        _operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpGetServicePlugins");
@@ -124,7 +141,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[5] = oper;
+        _operations[6] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpGroupQuery");
@@ -141,7 +158,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[6] = oper;
+        _operations[7] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpListTargetClusters");
@@ -158,27 +175,10 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[7] = oper;
-
-        oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("TpLogFile");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogFileRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogFileRequest"), org.hpccsystems.ws.client.gen.wstopology.v1_26.TpLogFileRequest.class, false, false);
-        oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogFileResponse"));
-        oper.setReturnClass(org.hpccsystems.ws.client.gen.wstopology.v1_26.TpLogFileResponse.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogFileResponse"));
-        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
-        oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        oper.addFault(new org.apache.axis.description.FaultDesc(
-                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
-                      "wstopology.ws.hpccsystems.ArrayOfEspException",
-                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
-                      true
-                     ));
         _operations[8] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("TpLogFileDisplay");
+        oper.setName("TpLogFile");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogFileRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogFileRequest"), org.hpccsystems.ws.client.gen.wstopology.v1_26.TpLogFileRequest.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogFileResponse"));
@@ -200,6 +200,23 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("TpLogFileDisplay");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogFileRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogFileRequest"), org.hpccsystems.ws.client.gen.wstopology.v1_26.TpLogFileRequest.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogFileResponse"));
+        oper.setReturnClass(org.hpccsystems.ws.client.gen.wstopology.v1_26.TpLogFileResponse.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogFileResponse"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
+                      "wstopology.ws.hpccsystems.ArrayOfEspException",
+                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
+                      true
+                     ));
+        _operations[10] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpLogicalClusterQuery");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogicalClusterQueryRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpLogicalClusterQueryRequest"), org.hpccsystems.ws.client.gen.wstopology.v1_26.TpLogicalClusterQueryRequest.class, false, false);
         oper.addParameter(param);
@@ -214,7 +231,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[10] = oper;
+        _operations[11] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpMachineInfo");
@@ -231,7 +248,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[11] = oper;
+        _operations[12] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpMachineQuery");
@@ -248,7 +265,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[12] = oper;
+        _operations[13] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpServiceQuery");
@@ -265,7 +282,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[13] = oper;
+        _operations[14] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpSetMachineStatus");
@@ -282,7 +299,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[14] = oper;
+        _operations[15] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpSwapNode");
@@ -299,7 +316,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[15] = oper;
+        _operations[16] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpTargetClusterQuery");
@@ -316,7 +333,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[16] = oper;
+        _operations[17] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpThorStatus");
@@ -333,7 +350,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[17] = oper;
+        _operations[18] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("TpXMLFile");
@@ -350,7 +367,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[18] = oper;
+        _operations[19] = oper;
 
     }
 
@@ -640,6 +657,20 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">TpXMLFileResponse");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wstopology.v1_26.TpXMLFileResponse.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">WsTopologyPingRequest");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingRequest.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", ">WsTopologyPingResponse");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -1074,12 +1105,54 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
         }
     }
 
-    public org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogResponse systemLog(org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException {
+    public org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse ping(org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[0]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("WsTopology/Ping?ver_=1.26");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "Ping"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse) org.apache.axis.utils.JavaUtils.convert(_resp, org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+    if (axisFaultException.detail != null) {
+        if (axisFaultException.detail instanceof java.rmi.RemoteException) {
+              throw (java.rmi.RemoteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException) {
+              throw (org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException) axisFaultException.detail;
+         }
+   }
+  throw axisFaultException;
+}
+    }
+
+    public org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogResponse systemLog(org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/SystemLog?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1121,7 +1194,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[1]);
+        _call.setOperation(_operations[2]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpClusterInfo?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1163,7 +1236,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
+        _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpClusterQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1205,7 +1278,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[3]);
+        _call.setOperation(_operations[4]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpDropZoneQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1247,7 +1320,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[4]);
+        _call.setOperation(_operations[5]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpGetComponentFile?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1289,7 +1362,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[5]);
+        _call.setOperation(_operations[6]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpGetServicePlugins?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1331,7 +1404,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[6]);
+        _call.setOperation(_operations[7]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpGroupQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1373,7 +1446,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[7]);
+        _call.setOperation(_operations[8]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpListTargetClusters?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1415,7 +1488,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[8]);
+        _call.setOperation(_operations[9]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpLogFile?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1457,7 +1530,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[9]);
+        _call.setOperation(_operations[10]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpLogFileDisplay?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1499,7 +1572,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[10]);
+        _call.setOperation(_operations[11]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpLogicalClusterQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1541,7 +1614,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[11]);
+        _call.setOperation(_operations[12]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpMachineInfo?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1583,7 +1656,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[12]);
+        _call.setOperation(_operations[13]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpMachineQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1625,7 +1698,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[13]);
+        _call.setOperation(_operations[14]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpServiceQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1667,7 +1740,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[14]);
+        _call.setOperation(_operations[15]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpSetMachineStatus?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1709,7 +1782,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[15]);
+        _call.setOperation(_operations[16]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpSwapNode?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1751,7 +1824,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[16]);
+        _call.setOperation(_operations[17]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpTargetClusterQuery?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1793,7 +1866,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[17]);
+        _call.setOperation(_operations[18]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpThorStatus?ver_=1.26");
         _call.setEncodingStyle(null);
@@ -1835,7 +1908,7 @@ public class WsTopologyServiceSoapStub extends org.apache.axis.client.Stub imple
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[18]);
+        _call.setOperation(_operations[19]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsTopology/TpXMLFile?ver_=1.26");
         _call.setEncodingStyle(null);
