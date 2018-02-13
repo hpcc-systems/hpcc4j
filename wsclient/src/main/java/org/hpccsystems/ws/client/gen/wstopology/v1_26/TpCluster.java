@@ -22,8 +22,6 @@ public class TpCluster  implements java.io.Serializable {
 
     private java.lang.String desc;
 
-    private java.lang.String prefix;
-
     private java.lang.String path;
 
     private java.lang.String dataModel;
@@ -45,7 +43,6 @@ public class TpCluster  implements java.io.Serializable {
            java.lang.String directory,
            java.lang.String logDirectory,
            java.lang.String desc,
-           java.lang.String prefix,
            java.lang.String path,
            java.lang.String dataModel,
            java.lang.Integer OS,
@@ -58,7 +55,6 @@ public class TpCluster  implements java.io.Serializable {
            this.directory = directory;
            this.logDirectory = logDirectory;
            this.desc = desc;
-           this.prefix = prefix;
            this.path = path;
            this.dataModel = dataModel;
            this.OS = OS;
@@ -208,26 +204,6 @@ public class TpCluster  implements java.io.Serializable {
 
 
     /**
-     * Gets the prefix value for this TpCluster.
-     * 
-     * @return prefix
-     */
-    public java.lang.String getPrefix() {
-        return prefix;
-    }
-
-
-    /**
-     * Sets the prefix value for this TpCluster.
-     * 
-     * @param prefix
-     */
-    public void setPrefix(java.lang.String prefix) {
-        this.prefix = prefix;
-    }
-
-
-    /**
      * Gets the path value for this TpCluster.
      * 
      * @return path
@@ -359,9 +335,6 @@ public class TpCluster  implements java.io.Serializable {
             ((this.desc==null && other.getDesc()==null) || 
              (this.desc!=null &&
               this.desc.equals(other.getDesc()))) &&
-            ((this.prefix==null && other.getPrefix()==null) || 
-             (this.prefix!=null &&
-              this.prefix.equals(other.getPrefix()))) &&
             ((this.path==null && other.getPath()==null) || 
              (this.path!=null &&
               this.path.equals(other.getPath()))) &&
@@ -408,9 +381,6 @@ public class TpCluster  implements java.io.Serializable {
         }
         if (getDesc() != null) {
             _hashCode += getDesc().hashCode();
-        }
-        if (getPrefix() != null) {
-            _hashCode += getPrefix().hashCode();
         }
         if (getPath() != null) {
             _hashCode += getPath().hashCode();
@@ -490,13 +460,6 @@ public class TpCluster  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("desc");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Desc"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("prefix");
-        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Prefix"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);

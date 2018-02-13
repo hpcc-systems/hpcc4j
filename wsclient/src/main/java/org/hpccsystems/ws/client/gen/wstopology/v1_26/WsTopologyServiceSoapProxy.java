@@ -44,6 +44,12 @@ public class WsTopologyServiceSoapProxy implements org.hpccsystems.ws.client.gen
     return wsTopologyServiceSoap;
   }
   
+  public org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingResponse ping(org.hpccsystems.ws.client.gen.wstopology.v1_26.WsTopologyPingRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException{
+    if (wsTopologyServiceSoap == null)
+      _initWsTopologyServiceSoapProxy();
+    return wsTopologyServiceSoap.ping(parameters);
+  }
+  
   public org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogResponse systemLog(org.hpccsystems.ws.client.gen.wstopology.v1_26.SystemLogRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wstopology.v1_26.ArrayOfEspException{
     if (wsTopologyServiceSoap == null)
       _initWsTopologyServiceSoapProxy();

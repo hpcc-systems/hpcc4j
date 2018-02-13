@@ -10,7 +10,7 @@ public class WULogFileInfo {
     private String fileContent;
     private String wuid;
 
-    public WULogFileInfo( org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WULogFileResponse raw) {
+    public WULogFileInfo( org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WULogFileResponse raw) {
         daliServer=raw.getDaliServer();
         fileName=raw.getFileName();
         queryId=raw.getQueryId();

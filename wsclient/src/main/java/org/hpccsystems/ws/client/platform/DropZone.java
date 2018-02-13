@@ -11,9 +11,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26.TpDropZone;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26.TpMachine;
+import org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpDropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

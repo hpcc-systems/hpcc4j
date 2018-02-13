@@ -8,7 +8,7 @@ public class QueryFileInfo {
     private Long fileSize;
     private UnsignedInt numberOfParts;
 
-    public QueryFileInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.FileUsedByQuery raw) {
+    public QueryFileInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.FileUsedByQuery raw) {
         fileName=raw.getFileName();
         fileSize=raw.getFileSize();
         numberOfParts=raw.getNumberOfParts();
