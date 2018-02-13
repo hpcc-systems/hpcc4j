@@ -12,7 +12,7 @@ public class NamedValueInfo {
         this.name=name;
         this.value=value;
     }
-    public NamedValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue raw) 
+    public NamedValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue raw) 
     {
         name=raw.getName();
         value=raw.getValue();
@@ -34,9 +34,9 @@ public class NamedValueInfo {
         this.name = name;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue getRaw()
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue getRaw()
     {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue nv=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.NamedValue(name,value);
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue nv=new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue(name,value);
         return nv;
     }
 }

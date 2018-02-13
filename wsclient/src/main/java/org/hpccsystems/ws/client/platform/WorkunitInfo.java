@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.*;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.*;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
 public class WorkunitInfo implements
@@ -88,7 +88,7 @@ public class WorkunitInfo implements
      * 
      * @param base
      */
-    public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit base)
+    public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit base)
     {
         copy(base);
     }
@@ -173,7 +173,7 @@ public class WorkunitInfo implements
      * 
      * @param base
      */
-    private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit base)
+    private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit base)
     {
         if (base == null)
         {
@@ -271,7 +271,7 @@ public class WorkunitInfo implements
 
     }
 
-    public boolean update(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit wu)
+    public boolean update(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit wu)
     {
         boolean retVal = false;
         if (wu != null && this.getWuid().equals(wu.getWuid()) && !this.equals(wu))
@@ -285,7 +285,7 @@ public class WorkunitInfo implements
         return retVal;
     }
 
-    synchronized boolean updateState(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit wu)
+    synchronized boolean updateState(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit wu)
     {
         boolean retVal = false;
         if (wu != null && this.getWuid().equals(wu.getWuid()))// && this.compareTo(wu))

@@ -22,20 +22,20 @@ public class QueryResult {
     private String message;
     private Boolean success;
     
-    public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQueryActionResult raw) {
+    public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.QuerySetQueryActionResult raw) {
         code=raw.getCode();
         message=raw.getMessage();
         id=raw.getQueryId();
         success=raw.getSuccess();
         suspended=raw.getSuspended();
     }
-    public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.QuerySetQuery qr) {
+    public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.QuerySetQuery qr) {
         activated=qr.getActivated();
         this.clusters=new ArrayList<ClusterInfo>();
         if (qr.getClusters() != null) 
         {
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ClusterQueryState[] rawclusters=qr.getClusters();
-            for (org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ClusterQueryState rawc:rawclusters) {
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ClusterQueryState[] rawclusters=qr.getClusters();
+            for (org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ClusterQueryState rawc:rawclusters) {
                 this.clusters.add(new ClusterInfo(rawc));
             }
         }

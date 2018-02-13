@@ -15,10 +15,10 @@ import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUPublishWorkunitResponse;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05allverinclusive.ExecuteSQLResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUPublishWorkunitResponse;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
@@ -235,7 +235,7 @@ public class PlatformTester
             }
             
             HPCCFileSprayClient fsc = platform.getFileSprayClient();
-            org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzLocal = fsc.fetchLocalDropZones();
+            org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.DropZone[] dzLocal = fsc.fetchLocalDropZones();
             if (dzLocal != null && dzLocal.length > 0)
             {
             	System.out.println("fetchLocalDropZones test ...");
@@ -247,7 +247,7 @@ public class PlatformTester
             	}
             }
             
-        	org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
+        	org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
             if (dzByAddress != null && dzByAddress.length > 0)
             {
             	System.out.println("fetchDropZones by address test ...");

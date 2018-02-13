@@ -7,7 +7,7 @@ public class DFUResult {
     private String fileName;
     private String nodeGroup;
 
-    public DFUResult( org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUActionInfo raw) {
+    public DFUResult( org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUActionInfo raw) {
         actionResult=raw.getActionResult();
         failed=raw.getFailed();
         fileName=raw.getFileName();
