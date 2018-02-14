@@ -148,6 +148,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
             return;
         }
         this.setActualSize(base.getActualSize());
+        this.setBinInfo(base.getBinInfo());
         this.setBrowseData(base.getBrowseData());
         this.setCluster(base.getCluster());
         this.setCompressedFileSize(base.getCompressedFileSize());
@@ -169,6 +170,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         this.setIsCompressed(base.getIsCompressed());
         this.setIsSuperfile(base.getIsSuperfile());
         this.setJobName(base.getJobName());
+        this.setJsonInfo(base.getJsonInfo());
         this.setMaxRecordSize(base.getMaxRecordSize());
         this.setModified(base.getModified());
         this.setName(base.getName());
@@ -176,10 +178,14 @@ public class DFUFileDetailInfo extends DFUFileDetail
         this.setNumParts(base.getNumParts());
         this.setOwner(base.getOwner());
         this.setPathMask(base.getPathMask());
+        this.setPercentCompressed(base.getPercentCompressed());
         this.setPersistent(base.getPersistent());
         this.setPrefix(base.getPrefix());
+        this.setProtectList(base.getProtectList());
         this.setRecordCount(base.getRecordCount());
+        this.setRecordCountInt64(base.getRecordCountInt64());
         this.setRecordSize(base.getRecordSize());
+        this.setRecordSizeInt64(base.getRecordSizeInt64());
         this.setShowFileContent(base.getShowFileContent());
         this.setStat(base.getStat());
         this.setSubfiles(base.getSubfiles());

@@ -121,9 +121,26 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUInfoResponse getFileInfo(String logicalname, String clustername) throws Exception
     {
+      return this.getFileInfo(logicalname,  clustername, false, false);
+    }
+    /**
+     *
+     * @param logicalname logical file name, can start with ~
+     * @param clustername optional, if specified the cluster name used in the search
+     * @param jsonTypeInfo want record structure information returned as JSON
+     * @param binTypeInfo want record structure information returned in binary format
+     * @return
+     * @throws Exception
+     */
+    public DFUInfoResponse getFileInfo(String logicalname, String clustername,
+                                       boolean jsonTypeInfo, boolean binTypeInfo)
+                           throws Exception
+    {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUInfoRequest req = new DFUInfoRequest();
         req.setName(logicalname);
+        req.setIncludeBinTypeInfo(binTypeInfo);
+        req.setIncludeJsonTypeInfo(jsonTypeInfo);
         if (clustername != null)
         {
             req.setCluster(clustername);
@@ -688,9 +705,26 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUFileDetailInfo getFileDetails(String logicalname, String clustername) throws Exception
     {
+      return this.getFileDetails(logicalname,  clustername, false, false);
+    }
+    /**
+     *
+     * @param logicalname logical file for request, can start with ~
+     * @param clustername optional
+     * @param jsonTypeInfo true if record structure information in JSON format
+     *  is to be returned
+     * @param binTypeInfo true if record structure information in binary format
+     *  is to be returned
+     * @return DFUInfoResponse object containing the information
+     * @throws Exception
+     */
+    public DFUFileDetailInfo getFileDetails(String logicalname,
+        String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
+    {
         try
         {
-            DFUInfoResponse resp = this.getFileInfo(logicalname, clustername);
+            DFUInfoResponse resp = this.getFileInfo(logicalname, clustername,
+                                                    jsonTypeInfo, binTypeInfo);
             if (resp == null)
             {
                 throw new FileNotFoundException(logicalname + " does not exist");
