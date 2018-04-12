@@ -287,7 +287,7 @@ public class PlatformTester
             connector = platform.checkOutHPCCWsClient();
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
-
+            System.out.println("wspackageprocess ver: " + connector.getWsPackageProcessClient());
             connector.uploadFileToHPCC(tmpPeopleFile, "people-small", machineuser, machinepass );
             connector.uploadFileToHPCC(tmpAccountFile, "account-small", machineuser, machinepass);
 
