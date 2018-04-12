@@ -2,14 +2,25 @@ package org.hpccsystems.ws.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 import org.apache.axis.client.Stub;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileRequest;
+import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileResponse;
+import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ActivatePackageRequest;
+import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ActivatePackageResponse;
+import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.BasePackageStatus;
+import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException;
+import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.GetPackageRequest;
+import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.GetPackageResponse;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.WsPackageProcessServiceSoap;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.WsPackageProcessServiceSoapProxy;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.Utils;
 
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
@@ -112,10 +123,110 @@ public class HPCCWsPackageProcessClient extends DataSingleton
                 }
         }
     }
+
+    /**
+     * @param globalScope
+     * @param packageMapName
+     * @param process
+     * @param target
+     * @return BasePackageStatus   - Caller should interrogate status object for success
+     * @throws Exception           - Caller should handle exception in case of errors
+     */
+    public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target) throws Exception
+    {
+        Utils.println(System.out, "Attempting to activate package: " + packageMapName, false, verbose);
+
+        if (wsPackageProcessServiceSoapProxy == null)
+            throw new Exception ("wsPackageProcessServiceSoapProxy not available!");
+
+        ActivatePackageRequest activatepackageparams = new ActivatePackageRequest();
+        activatepackageparams.setGlobalScope(new Boolean(globalScope));
+        activatepackageparams.setPackageMap(packageMapName);
+        activatepackageparams.setProcess(process);
+        activatepackageparams.setTarget(target);
+
+        try
+        {
+            ActivatePackageResponse activatepackageresp = wsPackageProcessServiceSoapProxy.activatePackage(activatepackageparams);
+            org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ArrayOfEspException arrayOfEspExceptions = activatepackageresp.getExceptions();
+            if (arrayOfEspExceptions == null)
+            {
+                return activatepackageresp.getStatus();
+            }
+            else
+            {
+                org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException[] espexceptions = arrayOfEspExceptions.getException();
+                for (org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException espexception : espexceptions)
+                {
+                    Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbose);
+                }
+
+            }
+        }
+        catch (ArrayOfEspException e)
+        {
+            e.printStackTrace();
+        }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param process
+     * @param target
+     * @return BasePackageStatus   - Caller should interrogate status object for success
+     * @throws Exception           - Caller should handle exception in case of errors
+     */
+    public BasePackageStatus getPackage(String process, String target) throws Exception
+    {
+        Utils.println(System.out, "Attempting to fetch package process: " + process + " target: " + target, false, verbose);
+
+        if (wsPackageProcessServiceSoapProxy == null)
+            throw new Exception ("wsPackageProcessServiceSoapProxy not available!");
+
+        GetPackageRequest getpackageparams = new GetPackageRequest();
+        getpackageparams.setProcess(process);
+        getpackageparams.setTarget(target);
+
+        try
+        {
+            GetPackageResponse getpackageresp = wsPackageProcessServiceSoapProxy.getPackage(getpackageparams);
+            org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ArrayOfEspException arrayOfEspExceptions = getpackageresp.getExceptions();
+            if (arrayOfEspExceptions == null)
+            {
+                Utils.println(System.out, "Get Package info: " + getpackageresp.getInfo(), false, verbose);
+                return getpackageresp.getStatus();
+            }
+            else
+            {
+                org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException[] espexceptions = arrayOfEspExceptions.getException();
+                for (org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException espexception : espexceptions)
+                {
+                    Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbose);
+                }
+
+            }
+        }
+        catch (ArrayOfEspException e)
+        {
+            e.printStackTrace();
+        }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
     //TO-DO
     /* Implement helper methods for most commonly used tasks:
-     * 
-     *     ActivatePackage
+     *
+     *
+    ActivatePackage
     AddPackage
     AddPartToPackageMap
     CopyPackageMap
