@@ -193,6 +193,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
         this.setUserPermission(base.getUserPermission());
         this.setWuid(base.getWuid());
         this.setZipFile(base.getZipFile());
+        this.setIsCompressed(base.getIsCompressed());
     }
 
     /**
