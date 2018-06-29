@@ -622,12 +622,13 @@ public class DFUFileDetailInfo extends DFUFileDetail
         }
         catch (Exception e)
         {
-            System.out.println("Error parsing Record:" + e.getMessage());
+            cr.getErrorHandler().getErrors().add("Error parsing Record:" + e.getMessage());
         }
         if (cr.getEclRecordInfo() != null)
         {
             cr.getEclRecordInfo().setOriginalEcl(content);
         }
+        cr.getEclRecordInfo().setParseErrors(cr.getErrorHandler().getErrors());
         return cr.getEclRecordInfo();
 
     }
