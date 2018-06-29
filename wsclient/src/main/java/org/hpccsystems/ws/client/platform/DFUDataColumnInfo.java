@@ -3,19 +3,15 @@ package org.hpccsystems.ws.client.platform;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
+
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
-public class DFUDataColumnInfo
+public class DFUDataColumnInfo extends DFUDataColumn
 {
-    private String                  columnEclType;
-    private Integer                 columnID;
-    private String                  columnLabel;
-    private Integer                 columnRawSize;
-    private Integer                 columnSize;
-    private String                  columnType;
-    private String                  columnValue;
-    private Boolean                 isKeyedColumn;
-    private Boolean                 isNaturalColumn;
-    private Integer                 maxSize;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private List<DFUDataColumnInfo> childColumns     = null;
     private String                  originalEcl      = null;
     private String                  xpath            = null;
@@ -30,7 +26,7 @@ public class DFUDataColumnInfo
      * 
      * @param base
      */
-    public DFUDataColumnInfo(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn base)
+    public DFUDataColumnInfo(DFUDataColumn base)
     {
         copy(base);
     }
@@ -91,7 +87,7 @@ public class DFUDataColumnInfo
      * 
      * @param base
      */
-    protected void copy(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn base)
+    protected void copy(DFUDataColumn base)
     {
         if (base == null)
         {
@@ -250,145 +246,5 @@ public class DFUDataColumnInfo
 
     public void setBlob(boolean blob) {
         this.isblob = blob;
-    }
-
-    /**
-     * @return the columnEclType
-     */
-    public String getColumnEclType() {
-        return columnEclType;
-    }
-
-    /**
-     * @param columnEclType the columnEclType to set
-     */
-    public void setColumnEclType(String columnEclType) {
-        this.columnEclType = columnEclType;
-    }
-
-    /**
-     * @return the columnID
-     */
-    public Integer getColumnID() {
-        return columnID;
-    }
-
-    /**
-     * @param columnID the columnID to set
-     */
-    public void setColumnID(Integer columnID) {
-        this.columnID = columnID;
-    }
-
-    /**
-     * @return the columnLabel
-     */
-    public String getColumnLabel() {
-        return columnLabel;
-    }
-
-    /**
-     * @param columnLabel the columnLabel to set
-     */
-    public void setColumnLabel(String columnLabel) {
-        this.columnLabel = columnLabel;
-    }
-
-    /**
-     * @return the columnRawSize
-     */
-    public Integer getColumnRawSize() {
-        return columnRawSize;
-    }
-
-    /**
-     * @param columnRawSize the columnRawSize to set
-     */
-    public void setColumnRawSize(Integer columnRawSize) {
-        this.columnRawSize = columnRawSize;
-    }
-
-    /**
-     * @return the columnSize
-     */
-    public Integer getColumnSize() {
-        return columnSize;
-    }
-
-    /**
-     * @param columnSize the columnSize to set
-     */
-    public void setColumnSize(Integer columnSize) {
-        this.columnSize = columnSize;
-    }
-
-    /**
-     * @return the columnType
-     */
-    public String getColumnType() {
-        return columnType;
-    }
-
-    /**
-     * @param columnType the columnType to set
-     */
-    public void setColumnType(String columnType) {
-        this.columnType = columnType;
-    }
-
-    /**
-     * @return the columnValue
-     */
-    public String getColumnValue() {
-        return columnValue;
-    }
-
-    /**
-     * @param columnValue the columnValue to set
-     */
-    public void setColumnValue(String columnValue) {
-        this.columnValue = columnValue;
-    }
-
-    /**
-     * @return the isKeyedColumn
-     */
-    public Boolean getIsKeyedColumn() {
-        return isKeyedColumn;
-    }
-
-    /**
-     * @param isKeyedColumn the isKeyedColumn to set
-     */
-    public void setIsKeyedColumn(Boolean isKeyedColumn) {
-        this.isKeyedColumn = isKeyedColumn;
-    }
-
-    /**
-     * @return the isNaturalColumn
-     */
-    public Boolean getIsNaturalColumn() {
-        return isNaturalColumn;
-    }
-
-    /**
-     * @param isNaturalColumn the isNaturalColumn to set
-     */
-    public void setIsNaturalColumn(Boolean isNaturalColumn) {
-        this.isNaturalColumn = isNaturalColumn;
-    }
-
-    /**
-     * @return the maxSize
-     */
-    public Integer getMaxSize() {
-        return maxSize;
-    }
-
-    /**
-     * @param maxSize the maxSize to set
-     */
-    public void setMaxSize(Integer maxSize) {
-        this.maxSize = maxSize;
     }
 }
