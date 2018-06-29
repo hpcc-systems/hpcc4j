@@ -160,7 +160,7 @@
 						<includes>
 							<include>**/*.class</include>
 						</includes>
-						<excludedGroups>org.hpccsystems.ws.client.IntegrationTest</excludedGroups>
+						<excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest</excludedGroups>
 					</configuration>
 				</plugin>
 			</plugins>
