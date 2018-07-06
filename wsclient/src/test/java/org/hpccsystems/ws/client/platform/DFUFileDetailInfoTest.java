@@ -1,11 +1,18 @@
 /*******************************************************************************
- * Copyright (c) 2011 HPCC Systems. All rights reserved. This program and the accompanying materials are made available
- * under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ *     HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
- * Contributors: HPCC Systems - initial API and implementation
- ******************************************************************************/
-
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ *******************************************************************************/
 package org.hpccsystems.ws.client.platform;
 
 import org.junit.Test;
@@ -51,7 +58,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordEcl() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -69,7 +76,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testFullRecordEcl() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(FULL_RECORD);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -104,7 +111,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordEclNoParams() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_NO_PARAMS);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -120,7 +127,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordEclAnnotationAndComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_AND_COMMENT);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -137,7 +144,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordEclMultiParams() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_MULTI_PARAMS);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -156,7 +163,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordEclWithComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_COMMENT);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -170,7 +177,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testInlineWithMaxlength() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(INLINE_WITH_MAXLENGTH);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -183,7 +190,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordEclWithAnnotationLikeComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_LIKE_COMMENT);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -197,7 +204,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMlEcl() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -214,7 +221,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMlEclAnnotationAndComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_AND_COMMENT);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -230,7 +237,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMlEclMultiParams() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_MULTI_PARAMS);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed get multi-annotated recordset:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -249,7 +256,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMlEclWithComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_COMMENT);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed get ml with comment test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -262,7 +269,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMlEclWithAnnotationLikeComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_LIKE_COMMENT);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed get record with annotation comment:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -275,7 +282,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMlEclInlineComment() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_INLINE);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed get ml inline test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -293,7 +300,7 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testGetRecordMaxlength() throws Exception {
         EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(MAXLENGTH);
-        if (info.getParseErrors().size()>0) {
+        if (info.getParseErrors().size()!=0) {
             fail("Failed get maxlength test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         DFURecordDefInfo recordDefInfo = info.getRecordsets().get("unnamed0");
@@ -313,7 +320,7 @@ public class DFUFileDetailInfoTest {
         boolean passed=true;
         for (Entry<String,String> item:layouts.entrySet()) {
             EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(item.getValue());
-            if (rec.getParseErrors().size()>0) {                
+            if (rec.getParseErrors().size()!=0) {                
                 System.out.println(item.getKey() + " FAILED:" + StringUtils.join(rec.getParseErrors(),"\n"));
                 passed=false;
             } else {
