@@ -215,6 +215,21 @@ public class EclRecordReader extends EclRecordBaseListener
      * {@inheritDoc}
      *
      * <p>
+     * if a MAXCOUNT option is encountered, add it to the current field/record being processed
+     * </p>
+     */
+    @Override
+    public void enterBlob(EclRecordParser.BlobContext ctx)
+    {
+        if (currentfield != null)
+        {
+            currentfield.setBlob(true);
+        }
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
      * When entering a child dataset definition in a RECORD layout, (field1:=DATASET(l_rec);) 
      * look for an exiting record layout
      * matching the dataset type of the child dataset and add its fields as child fields of
