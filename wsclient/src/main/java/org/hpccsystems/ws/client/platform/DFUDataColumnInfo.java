@@ -18,6 +18,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
     private String                  xmlDefaultVal    = null;
     private String                  maxcount         = null;
     private String                  maxlength        = null;
+    private boolean                 isblob             = false;
     private List<DFUDataColumnAnnotation> annotations = new ArrayList<DFUDataColumnAnnotation>();
 
     /**
@@ -49,6 +50,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
         sb.append("\tColumnSize:").append(this.getColumnSize()).append("\n");
         sb.append("\tColumnType:").append(this.getColumnType()).append("\n");
         sb.append("\tColumnValue:").append(this.getColumnValue()).append("\n");
+        sb.append("\tIsBlob:").append(this.isBlob()).append("\n");
         sb.append("\tIsKeyedColumn:").append(this.getIsKeyedColumn()).append("\n");
         sb.append("\tIsNaturalColumn:").append(this.getIsNaturalColumn()).append("\n");
         sb.append("\tMaxSize:").append(this.getMaxSize()).append("\n");
@@ -187,5 +189,13 @@ public class DFUDataColumnInfo extends DFUDataColumn
 
     public void setAnnotations(final List<DFUDataColumnAnnotation> annotations) {
         this.annotations = annotations;
+    }
+    
+    public boolean isBlob() {
+        return isblob;
+    }
+
+    public void setBlob(boolean blob) {
+        this.isblob = blob;
     }
 }
