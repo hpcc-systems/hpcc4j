@@ -205,7 +205,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      * @param columns
      *            - List of DFUDataColumns
      */
-    public void setColumns(List<DFUDataColumn> columns)
+    public void setColumns(List<DFUDataColumnInfo> columns)
     {
         if (columns == null)
         {

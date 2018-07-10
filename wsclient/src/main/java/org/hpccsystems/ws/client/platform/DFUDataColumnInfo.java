@@ -3,15 +3,19 @@ package org.hpccsystems.ws.client.platform;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn;
-
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
-public class DFUDataColumnInfo extends DFUDataColumn
+public class DFUDataColumnInfo
 {
-    /**
-     * 
-     */
-    private static final long       serialVersionUID = 1L;
+    private String                  columnEclType;
+    private Integer                 columnID;
+    private String                  columnLabel;
+    private Integer                 columnRawSize;
+    private Integer                 columnSize;
+    private String                  columnType;
+    private String                  columnValue;
+    private Boolean                 isKeyedColumn;
+    private Boolean                 isNaturalColumn;
+    private Integer                 maxSize;
     private List<DFUDataColumnInfo> childColumns     = null;
     private String                  originalEcl      = null;
     private String                  xpath            = null;
@@ -26,11 +30,22 @@ public class DFUDataColumnInfo extends DFUDataColumn
      * 
      * @param base
      */
-    public DFUDataColumnInfo(DFUDataColumn base)
+    public DFUDataColumnInfo(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn base)
     {
         copy(base);
     }
 
+    /**
+     * Create a Data Column Info object from another data columninfo object
+     * 
+     * @param base the DFUDataColumnInfo to copy
+     */
+    public DFUDataColumnInfo(DFUDataColumnInfo base)
+    {
+        copy(base);
+    }
+
+        
     public DFUDataColumnInfo()
     {
     }
@@ -76,7 +91,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
      * 
      * @param base
      */
-    protected void copy(DFUDataColumn base)
+    protected void copy(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn base)
     {
         if (base == null)
         {
@@ -92,8 +107,46 @@ public class DFUDataColumnInfo extends DFUDataColumn
         this.setIsKeyedColumn(base.getIsKeyedColumn());
         this.setIsNaturalColumn(base.getIsNaturalColumn());
         this.setMaxSize(base.getMaxSize());
+        if (base.getDataColumns() != null) {
+            this.childColumns=new ArrayList<DFUDataColumnInfo>();
+            for (int i=0; i < base.getDataColumns().length;i++) {
+                this.getChildColumns().add(new DFUDataColumnInfo(base.getDataColumns()[i]));
+            }
+        }
     }
 
+    /**
+     * Copy a soap DFU Data Column object into the wrapper
+     * 
+     * @param base
+     */
+    protected void copy(DFUDataColumnInfo base)
+    {
+        if (base == null)
+        {
+            return;
+        }
+        this.setColumnEclType(base.getColumnEclType());
+        this.setColumnID(base.getColumnID());
+        this.setColumnLabel(base.getColumnLabel());
+        this.setColumnRawSize(base.getColumnRawSize());
+        this.setColumnSize(base.getColumnSize());
+        this.setColumnType(base.getColumnType());
+        this.setColumnValue(base.getColumnValue());
+        this.setIsKeyedColumn(base.getIsKeyedColumn());
+        this.setIsNaturalColumn(base.getIsNaturalColumn());
+        this.setMaxSize(base.getMaxSize());
+        this.setAnnotations(base.getAnnotations());
+        this.setBlob(base.isBlob());
+        this.setMaxcount(base.getMaxcount());
+        this.setMaxlength(base.getMaxlength());
+        this.setMaxSize(base.getMaxSize());
+        this.setXmlDefaultVal(base.getXmlDefaultVal());
+        this.setXpath(base.getXpath());
+        if (base.getChildColumns() != null) {
+            this.childColumns=new ArrayList<DFUDataColumnInfo>(base.getChildColumns());
+        }
+    }
     /**
      * @return list of child columns if this column is a dataset type column
      */
@@ -119,7 +172,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
      * @param childColumns
      *            - Array of DFUDataColumn objects
      */
-    public void setColumns(DFUDataColumn[] childColumns)
+    public void setColumns(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn[] childColumns)
     {
         if (childColumns == null)
         {
@@ -197,5 +250,145 @@ public class DFUDataColumnInfo extends DFUDataColumn
 
     public void setBlob(boolean blob) {
         this.isblob = blob;
+    }
+
+    /**
+     * @return the columnEclType
+     */
+    public String getColumnEclType() {
+        return columnEclType;
+    }
+
+    /**
+     * @param columnEclType the columnEclType to set
+     */
+    public void setColumnEclType(String columnEclType) {
+        this.columnEclType = columnEclType;
+    }
+
+    /**
+     * @return the columnID
+     */
+    public Integer getColumnID() {
+        return columnID;
+    }
+
+    /**
+     * @param columnID the columnID to set
+     */
+    public void setColumnID(Integer columnID) {
+        this.columnID = columnID;
+    }
+
+    /**
+     * @return the columnLabel
+     */
+    public String getColumnLabel() {
+        return columnLabel;
+    }
+
+    /**
+     * @param columnLabel the columnLabel to set
+     */
+    public void setColumnLabel(String columnLabel) {
+        this.columnLabel = columnLabel;
+    }
+
+    /**
+     * @return the columnRawSize
+     */
+    public Integer getColumnRawSize() {
+        return columnRawSize;
+    }
+
+    /**
+     * @param columnRawSize the columnRawSize to set
+     */
+    public void setColumnRawSize(Integer columnRawSize) {
+        this.columnRawSize = columnRawSize;
+    }
+
+    /**
+     * @return the columnSize
+     */
+    public Integer getColumnSize() {
+        return columnSize;
+    }
+
+    /**
+     * @param columnSize the columnSize to set
+     */
+    public void setColumnSize(Integer columnSize) {
+        this.columnSize = columnSize;
+    }
+
+    /**
+     * @return the columnType
+     */
+    public String getColumnType() {
+        return columnType;
+    }
+
+    /**
+     * @param columnType the columnType to set
+     */
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
+
+    /**
+     * @return the columnValue
+     */
+    public String getColumnValue() {
+        return columnValue;
+    }
+
+    /**
+     * @param columnValue the columnValue to set
+     */
+    public void setColumnValue(String columnValue) {
+        this.columnValue = columnValue;
+    }
+
+    /**
+     * @return the isKeyedColumn
+     */
+    public Boolean getIsKeyedColumn() {
+        return isKeyedColumn;
+    }
+
+    /**
+     * @param isKeyedColumn the isKeyedColumn to set
+     */
+    public void setIsKeyedColumn(Boolean isKeyedColumn) {
+        this.isKeyedColumn = isKeyedColumn;
+    }
+
+    /**
+     * @return the isNaturalColumn
+     */
+    public Boolean getIsNaturalColumn() {
+        return isNaturalColumn;
+    }
+
+    /**
+     * @param isNaturalColumn the isNaturalColumn to set
+     */
+    public void setIsNaturalColumn(Boolean isNaturalColumn) {
+        this.isNaturalColumn = isNaturalColumn;
+    }
+
+    /**
+     * @return the maxSize
+     */
+    public Integer getMaxSize() {
+        return maxSize;
+    }
+
+    /**
+     * @param maxSize the maxSize to set
+     */
+    public void setMaxSize(Integer maxSize) {
+        this.maxSize = maxSize;
     }
 }

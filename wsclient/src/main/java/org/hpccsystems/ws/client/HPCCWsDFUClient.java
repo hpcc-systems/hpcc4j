@@ -14,6 +14,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
+import org.apache.commons.lang3.StringUtils;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.SuperfileListRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUActionInfo;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUArrayActionRequest;
@@ -36,6 +38,7 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUQueryResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUSearchDataRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUSearchDataResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.EspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_36.SuperfileListResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.WsDfuLocator;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.WsDfuServiceSoap;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_36.WsDfuServiceSoapProxy;
@@ -260,34 +263,67 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * Use this function to retrieve file metadata such as column information
+     * Use this function to retrieve file metadata such as column information,
+     * for superfiles the metadata from the first subfile will be returned.
      * @param logicalname    - Logical filename.
      * @param clustername    - Optional - The cluster the logical filename is associated with.
-     * @return Array of DFUDataColumns
+     * @return ArrayList of DFUDataColumnInfo
      * @throws Exception
      */
-    public DFUDataColumn[] getFileMetaData(String logicalname, String clustername) throws Exception
+    public List<DFUDataColumnInfo> getFileMetaData(String logicalname, String clustername) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
-        DFUGetFileMetaDataRequest req = new DFUGetFileMetaDataRequest();
-        DFUDataColumn[] cols = null;
 
-        req.setLogicalFileName(logicalname);
-
-        if (clustername != null)
-            req.setClusterName(clustername);
-
+        List<DFUDataColumnInfo> cols=new ArrayList<DFUDataColumnInfo>();
+        String eclrecord=null;
+        //getFileMetadata fails for superfiles; use first subfile to retrieve record structure if this is the case
+        //also retrieve ecl to extract extra information (xpath, maxlength) not in getFileMetadata
         try
         {
-            DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
-            if (resp == null)
-                return cols;
-
-            this.handleException(resp.getExceptions());
-
-            cols = resp.getDataColumns();
+            DFUInfoResponse details=this.getFileInfo(logicalname, clustername);
+            if (details != null && details.getFileDetail() != null) {
+                eclrecord=details.getFileDetail().getEcl();
+                    if (details.getFileDetail().getIsSuperfile()) {
+                        SuperfileListRequest sar=new SuperfileListRequest();
+                        sar.setSuperfile(logicalname);
+                        SuperfileListResponse sresp=this.getSoapProxy().superfileList(sar);
+                        if (sresp != null && sresp.getSubfiles() != null && sresp.getSubfiles().length>0) {
+                            logicalname=sresp.getSubfiles()[0];
+                        } else {
+                            throw new Exception(logicalname + " is a superfile with no subfiles, cannot determine file structure");
+                        }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            String msg="Error calling DFUInfo for " + logicalname + ":" + e.getMessage();
+            if (verbose)
+            {
+                    Utils.println(System.out, msg, false, true);
+            }
+            throw new Exception (msg,e);
         }
 
+        try {
+            DFUGetFileMetaDataRequest req = new DFUGetFileMetaDataRequest();
+            req.setLogicalFileName(logicalname);
+
+            if (clustername != null) {
+                req.setClusterName(clustername);
+            }
+            
+            DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
+            if (resp != null) {
+                this.handleException(resp.getExceptions());
+            }            
+            if (resp==null || resp.getDataColumns() == null || resp.getDataColumns().length==0) {
+                return cols;
+            }
+            for (int i=0; i < resp.getDataColumns().length;i++) {
+                cols.add(new DFUDataColumnInfo(resp.getDataColumns()[i]));                
+            }
+        }
         catch (ArrayOfEspException e)
         {
             if (e != null && verbose)
@@ -301,6 +337,36 @@ public class HPCCWsDFUClient extends DataSingleton
             throw e;
         }
 
+        //attempt to add additional info in from ecl record
+        try {
+            if (eclrecord != null && !StringUtils.isEmpty(eclrecord)) {
+                EclRecordInfo recinfo=DFUFileDetailInfo.getRecordEcl(eclrecord);
+                if (recinfo.getParseErrors().size()>0) {
+                    throw new Exception(StringUtils.join(recinfo.getParseErrors(),"\n"));
+                }
+                if (recinfo.getRecordsets().size()>0 && recinfo.getRecordsets().containsKey(recinfo.UNNAMED)
+                        && recinfo.getRecordsets().get(recinfo.UNNAMED).getChildColumns().size()==cols.size())
+                {
+                    for (int i=0; i < cols.size();i++) {
+                        DFUDataColumnInfo base=cols.get(i);
+                        DFUDataColumnInfo extra=recinfo.getRecordsets().get(recinfo.UNNAMED).getChildColumns().get(i);
+                        if (base.getColumnLabel().equals(extra.getColumnLabel())) {
+                            base.setAnnotations(extra.getAnnotations());
+                            base.setBlob(extra.isBlob());
+                            base.setMaxlength(extra.getMaxlength());
+                            base.setMaxcount(extra.getMaxcount());
+                            base.setMaxSize(extra.getMaxSize());
+                            base.setXmlDefaultVal(extra.getXmlDefaultVal());
+                            base.setXpath(extra.getXpath());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Utils.println(System.err, "Could not parse ecl for " + logicalname + ", returning base metadata. Ecl:" + eclrecord, false,false);
+        }
+
+
         return cols;
     }
 
@@ -313,11 +379,11 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return ArrayList of DFUDataColumns
      * @throws Exception
      */
-    public ArrayList<DFUDataColumn> getFileDataColumns(String logicalname, String clustername) throws Exception
+    public List<DFUDataColumnInfo> getFileDataColumns(String logicalname, String clustername) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUGetDataColumnsRequest req = new DFUGetDataColumnsRequest();
-        ArrayList<DFUDataColumn> cols = new ArrayList<DFUDataColumn>();
+        List<DFUDataColumnInfo> cols = new ArrayList<DFUDataColumnInfo>();
 
         req.setOpenLogicalName(logicalname);
         if (clustername != null)
@@ -342,7 +408,9 @@ public class HPCCWsDFUClient extends DataSingleton
                     DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
                     if (r != null)
                     {
-                        cols.addAll(Arrays.asList(thesecols));
+                        for (DFUDataColumn col:Arrays.asList(thesecols)) {
+                            cols.add(new DFUDataColumnInfo(col));
+                        }
                     }
                 }
                 if (m.getName().startsWith("getDFUDataNonKeyedColumns") && m.getParameterTypes().length == 0)
@@ -351,7 +419,9 @@ public class HPCCWsDFUClient extends DataSingleton
                     DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
                     if (r != null)
                     {
-                        cols.addAll(Arrays.asList(thesecols));
+                        for (DFUDataColumn col:Arrays.asList(thesecols)) {
+                            cols.add(new DFUDataColumnInfo(col));
+                        }
                     }
                 }
             }
