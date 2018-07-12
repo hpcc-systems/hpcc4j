@@ -270,7 +270,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return ArrayList of DFUDataColumnInfo
      * @throws Exception
      */
-    public List<DFUDataColumnInfo> getFileMetaData(String logicalname, String clustername) throws Exception
+    public List<DFUDataColumnInfo> getFileMetaDataInfo(String logicalname, String clustername) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
 
@@ -281,27 +281,27 @@ public class HPCCWsDFUClient extends DataSingleton
         try
         {
             DFUInfoResponse details=this.getFileInfo(logicalname, clustername);
-            if (details != null && details.getFileDetail() != null) {
+            if (details != null && details.getFileDetail() != null) 
+            {
                 eclrecord=details.getFileDetail().getEcl();
-                    if (details.getFileDetail().getIsSuperfile()) {
-                        SuperfileListRequest sar=new SuperfileListRequest();
-                        sar.setSuperfile(logicalname);
-                        SuperfileListResponse sresp=this.getSoapProxy().superfileList(sar);
-                        if (sresp != null && sresp.getSubfiles() != null && sresp.getSubfiles().length>0) {
-                            logicalname=sresp.getSubfiles()[0];
-                        } else {
-                            throw new Exception(logicalname + " is a superfile with no subfiles, cannot determine file structure");
-                        }
+                if (details.getFileDetail().getIsSuperfile()) 
+                {
+                    SuperfileListRequest sar=new SuperfileListRequest();
+                    sar.setSuperfile(logicalname);
+                    SuperfileListResponse sresp=this.getSoapProxy().superfileList(sar);
+                    if (sresp != null && sresp.getSubfiles() != null && sresp.getSubfiles().length>0) 
+                    {
+                        logicalname=sresp.getSubfiles()[0];
+                    } else {
+                        throw new Exception(logicalname + " is a superfile with no subfiles, cannot determine file structure");
+                    }
                 }
             }
         }
         catch (Exception e)
         {
             String msg="Error calling DFUInfo for " + logicalname + ":" + e.getMessage();
-            if (verbose)
-            {
-                    Utils.println(System.out, msg, false, true);
-            }
+            Utils.println(System.out, msg, true, verbose);
             throw new Exception (msg,e);
         }
 
@@ -314,13 +314,16 @@ public class HPCCWsDFUClient extends DataSingleton
             }
             
             DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
-            if (resp != null) {
+            if (resp != null) 
+            {
                 this.handleException(resp.getExceptions());
             }            
-            if (resp==null || resp.getDataColumns() == null || resp.getDataColumns().length==0) {
+            if (resp==null || resp.getDataColumns() == null || resp.getDataColumns().length==0) 
+            {
                 return cols;
             }
-            for (int i=0; i < resp.getDataColumns().length;i++) {
+            for (int i=0; i < resp.getDataColumns().length;i++) 
+            {
                 cols.add(new DFUDataColumnInfo(resp.getDataColumns()[i]));                
             }
         }
@@ -339,18 +342,22 @@ public class HPCCWsDFUClient extends DataSingleton
 
         //attempt to add additional info in from ecl record
         try {
-            if (eclrecord != null && !StringUtils.isEmpty(eclrecord)) {
+            if (eclrecord != null && !StringUtils.isEmpty(eclrecord)) 
+            {
                 EclRecordInfo recinfo=DFUFileDetailInfo.getRecordEcl(eclrecord);
-                if (recinfo.getParseErrors().size()>0) {
+                if (recinfo.getParseErrors().size()>0) 
+                {
                     throw new Exception(StringUtils.join(recinfo.getParseErrors(),"\n"));
                 }
-                if (recinfo.getRecordsets().size()>0 && recinfo.getRecordsets().containsKey(recinfo.UNNAMED)
-                        && recinfo.getRecordsets().get(recinfo.UNNAMED).getChildColumns().size()==cols.size())
+                if (recinfo.getRecordsets().size()>0 && recinfo.getRecordsets().containsKey(EclRecordInfo.UNNAMED)
+                        && recinfo.getRecordsets().get(EclRecordInfo.UNNAMED).getChildColumns().size()==cols.size())
                 {
-                    for (int i=0; i < cols.size();i++) {
+                    for (int i=0; i < cols.size();i++) 
+                    {
                         DFUDataColumnInfo base=cols.get(i);
-                        DFUDataColumnInfo extra=recinfo.getRecordsets().get(recinfo.UNNAMED).getChildColumns().get(i);
-                        if (base.getColumnLabel().equals(extra.getColumnLabel())) {
+                        DFUDataColumnInfo extra=recinfo.getRecordsets().get(EclRecordInfo.UNNAMED).getChildColumns().get(i);
+                        if (base.getColumnLabel().equals(extra.getColumnLabel())) 
+                        {
                             base.setAnnotations(extra.getAnnotations());
                             base.setBlob(extra.isBlob());
                             base.setMaxlength(extra.getMaxlength());
@@ -362,13 +369,61 @@ public class HPCCWsDFUClient extends DataSingleton
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             Utils.println(System.err, "Could not parse ecl for " + logicalname + ", returning base metadata. Ecl:" + eclrecord, false,false);
         }
 
+        return cols;
+    }
+
+    /**
+     * Deprecated, use getFileMetaDataInfo()
+     * Use this function to retrieve file metadata such as column information
+     * @param logicalname    - Logical filename.
+     * @param clustername    - Optional - The cluster the logical filename is associated with.
+     * @return Array of DFUDataColumns
+     * @throws Exception
+     */
+    @Deprecated
+    public DFUDataColumn[] getFileMetaData(String logicalname, String clustername) throws Exception
+    {
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+        DFUGetFileMetaDataRequest req = new DFUGetFileMetaDataRequest();
+        DFUDataColumn[] cols = null;
+
+        req.setLogicalFileName(logicalname);
+
+        if (clustername != null)
+            req.setClusterName(clustername);
+
+        try
+        {
+            DFUGetFileMetaDataResponse resp = proxy.DFUGetFileMetaData(req);
+            if (resp == null)
+                return cols;
+
+            this.handleException(resp.getExceptions());
+
+            cols = resp.getDataColumns();
+        }
+
+        catch (ArrayOfEspException e)
+        {
+            if (e != null && verbose)
+            {
+                for (EspException espexception : e.getException())
+                {
+                    Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
+                            + espexception.getMessage(), false, true);
+                }
+            }
+            throw e;
+        }
 
         return cols;
     }
+
 
     /**
      * @param logicalname
@@ -780,7 +835,7 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 try
                 {
-                    info.setColumns(getFileMetaData(logicalname, clustername));
+                    info.setColumns(getFileMetaDataInfo(logicalname, clustername));
                 }
                 catch (ArrayOfEspException e)
                 {

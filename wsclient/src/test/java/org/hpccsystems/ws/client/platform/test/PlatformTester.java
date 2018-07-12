@@ -341,7 +341,7 @@ public class PlatformTester
                 }
             }
 
-            List<DFUDataColumnInfo> newgetFileDataColumns = wsDFUClient.getFileMetaData("hthor::processed::persons", null);
+            List<DFUDataColumnInfo> newgetFileDataColumns = wsDFUClient.getFileMetaDataInfo("hthor::processed::persons", null);
             for (int i = 0; i < newgetFileDataColumns.size(); i++)
             {
                 System.out.println("Col name: " + newgetFileDataColumns.get(i).getColumnLabel() + " ecl: " + newgetFileDataColumns.get(i).getColumnEclType() + " col type " + newgetFileDataColumns.get(i).getColumnType());

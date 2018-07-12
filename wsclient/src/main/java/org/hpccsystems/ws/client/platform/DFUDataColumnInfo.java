@@ -11,7 +11,8 @@ public class DFUDataColumnInfo extends DFUDataColumn
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+
+    private static final long       serialVersionUID = 1L;
     private List<DFUDataColumnInfo> childColumns     = null;
     private String                  originalEcl      = null;
     private String                  xpath            = null;
@@ -31,17 +32,6 @@ public class DFUDataColumnInfo extends DFUDataColumn
         copy(base);
     }
 
-    /**
-     * Create a Data Column Info object from another data columninfo object
-     * 
-     * @param base the DFUDataColumnInfo to copy
-     */
-    public DFUDataColumnInfo(DFUDataColumnInfo base)
-    {
-        copy(base);
-    }
-
-        
     public DFUDataColumnInfo()
     {
     }
@@ -112,38 +102,6 @@ public class DFUDataColumnInfo extends DFUDataColumn
     }
 
     /**
-     * Copy a soap DFU Data Column object into the wrapper
-     * 
-     * @param base
-     */
-    protected void copy(DFUDataColumnInfo base)
-    {
-        if (base == null)
-        {
-            return;
-        }
-        this.setColumnEclType(base.getColumnEclType());
-        this.setColumnID(base.getColumnID());
-        this.setColumnLabel(base.getColumnLabel());
-        this.setColumnRawSize(base.getColumnRawSize());
-        this.setColumnSize(base.getColumnSize());
-        this.setColumnType(base.getColumnType());
-        this.setColumnValue(base.getColumnValue());
-        this.setIsKeyedColumn(base.getIsKeyedColumn());
-        this.setIsNaturalColumn(base.getIsNaturalColumn());
-        this.setMaxSize(base.getMaxSize());
-        this.setAnnotations(base.getAnnotations());
-        this.setBlob(base.isBlob());
-        this.setMaxcount(base.getMaxcount());
-        this.setMaxlength(base.getMaxlength());
-        this.setMaxSize(base.getMaxSize());
-        this.setXmlDefaultVal(base.getXmlDefaultVal());
-        this.setXpath(base.getXpath());
-        if (base.getChildColumns() != null) {
-            this.childColumns=new ArrayList<DFUDataColumnInfo>(base.getChildColumns());
-        }
-    }
-    /**
      * @return list of child columns if this column is a dataset type column
      */
     public List<DFUDataColumnInfo> getChildColumns()
@@ -168,7 +126,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
      * @param childColumns
      *            - Array of DFUDataColumn objects
      */
-    public void setColumns(org.hpccsystems.ws.client.gen.wsdfu.v1_36.DFUDataColumn[] childColumns)
+    public void setColumns(DFUDataColumn[] childColumns)
     {
         if (childColumns == null)
         {
