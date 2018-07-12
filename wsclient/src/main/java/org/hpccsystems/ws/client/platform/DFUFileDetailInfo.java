@@ -170,11 +170,12 @@ public class DFUFileDetailInfo extends DFUFileDetail
             sb.append("Wuid:").append(this.getWuid()).append("\n");
         if (this.getZipFile() != null)
             sb.append("ZipFile:").append(this.getZipFile()).append("\n");
-        if (this.getColumns() != null) {
+        if (this.getColumns() != null)
+        {
             sb.append("Columns:");
             for (DFUDataColumnInfo col : this.getColumns())
             {
-                sb.append("    ").append(col.getColumnLabel()).append(":").append(col.toString());
+                sb.append("    ").append(col.toString());
             }
         }
         return sb.toString();
