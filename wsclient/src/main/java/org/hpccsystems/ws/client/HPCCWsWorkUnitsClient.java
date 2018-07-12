@@ -1914,7 +1914,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         wuids[0] = wuid;
         request.setWuids(wuids);
 
-
         wsWorkunitsServiceSoapProxy.WUResubmit(request);
     }
 

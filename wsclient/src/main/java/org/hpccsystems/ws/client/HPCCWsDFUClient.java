@@ -424,7 +424,6 @@ public class HPCCWsDFUClient extends DataSingleton
         return cols;
     }
 
-
     /**
      * @param logicalname
      *            - logical filename to retrieve the dfu data columns for. Currently this method/service call functions
@@ -460,10 +459,11 @@ public class HPCCWsDFUClient extends DataSingleton
                 if (m.getName().startsWith("getDFUDataKeyedColumns") && m.getParameterTypes().length == 0)
                 {
                     final Object r = m.invoke(resp);
-                    DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
                     if (r != null)
                     {
-                        for (DFUDataColumn col:Arrays.asList(thesecols)) {
+                        DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
+                        for (DFUDataColumn col:Arrays.asList(thesecols)) 
+                        {
                             cols.add(new DFUDataColumnInfo(col));
                         }
                     }
@@ -471,10 +471,11 @@ public class HPCCWsDFUClient extends DataSingleton
                 if (m.getName().startsWith("getDFUDataNonKeyedColumns") && m.getParameterTypes().length == 0)
                 {
                     final Object r = m.invoke(resp);
-                    DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
                     if (r != null)
                     {
-                        for (DFUDataColumn col:Arrays.asList(thesecols)) {
+                        DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
+                        for (DFUDataColumn col:Arrays.asList(thesecols)) 
+                        {
                             cols.add(new DFUDataColumnInfo(col));
                         }
                     }
