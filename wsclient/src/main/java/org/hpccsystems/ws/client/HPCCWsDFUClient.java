@@ -263,6 +263,35 @@ public class HPCCWsDFUClient extends DataSingleton
 
     }
 
+    private void checkSuperfileLayouts(String[] subfiles, String cluster) throws Exception
+    {
+        String eclrecord = null;
+        String basefile = null;
+        if (subfiles == null)
+        {
+            return;
+        }
+        for (int i = 0; i < subfiles.length; i++)
+        {
+            DFUInfoResponse details = this.getFileInfo(subfiles[i], cluster);
+            if (details == null || details.getFileDetail() == null)
+            {
+                continue;
+            }
+            String thisecl = details.getFileDetail().getEcl() == null ? "" : details.getFileDetail().getEcl();
+            if (eclrecord == null)
+            {
+                basefile = subfiles[i];
+                eclrecord = thisecl;
+            }
+            if (!thisecl.equals(eclrecord))
+            {
+                throw new Exception(
+                        basefile + " and " + subfiles[i] + " have different ecl layouts in the same superfile");
+            }
+        }
+    }
+
     /**
      * Use this function to retrieve file metadata such as column information, for superfiles the metadata from the
      * first subfile will be returned.
@@ -293,6 +322,10 @@ public class HPCCWsDFUClient extends DataSingleton
                     SuperfileListRequest sar = new SuperfileListRequest();
                     sar.setSuperfile(logicalname);
                     SuperfileListResponse sresp = this.getSoapProxy().superfileList(sar);
+
+                    // this throws an exception if different layouts exist in a superfile;
+                    checkSuperfileLayouts(sresp.getSubfiles(), clustername);
+
                     if (sresp != null && sresp.getSubfiles() != null && sresp.getSubfiles().length > 0)
                     {
                         logicalname = sresp.getSubfiles()[0];
@@ -330,8 +363,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 return cols;
             }
-            DFUDataColumn[] datacolumns=resp.getDataColumns();
-            
+            DFUDataColumn[] datacolumns = resp.getDataColumns();
+
             for (int i = 0; i < datacolumns.length; i++)
             {
                 cols.add(new DFUDataColumnInfo(datacolumns[i]));
