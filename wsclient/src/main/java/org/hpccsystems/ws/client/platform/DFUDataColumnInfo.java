@@ -11,6 +11,7 @@ public class DFUDataColumnInfo extends DFUDataColumn
     /**
      * 
      */
+
     private static final long       serialVersionUID = 1L;
     private List<DFUDataColumnInfo> childColumns     = null;
     private String                  originalEcl      = null;
@@ -92,6 +93,12 @@ public class DFUDataColumnInfo extends DFUDataColumn
         this.setIsKeyedColumn(base.getIsKeyedColumn());
         this.setIsNaturalColumn(base.getIsNaturalColumn());
         this.setMaxSize(base.getMaxSize());
+        if (base.getDataColumns() != null) {
+            this.childColumns=new ArrayList<DFUDataColumnInfo>();
+            for (int i=0; i < base.getDataColumns().length;i++) {
+                this.getChildColumns().add(new DFUDataColumnInfo(base.getDataColumns()[i]));
+            }
+        }
     }
 
     /**

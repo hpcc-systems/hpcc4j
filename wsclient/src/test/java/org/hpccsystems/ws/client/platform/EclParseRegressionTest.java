@@ -39,8 +39,6 @@ public class EclParseRegressionTest  {
 
     Logger logger=Logger.getLogger(this.getClass().getName());
 
-    boolean reset=true;
-
     Platform p=null;
     
 
@@ -76,6 +74,7 @@ public class EclParseRegressionTest  {
     }
     
     public HPCCWsDFUClient getDFUClient() throws Exception {
+        getPlatform().getWsDfuClient().setVerbose(true);
         return getPlatform().getWsDfuClient();
     }
     
@@ -138,8 +137,8 @@ public class EclParseRegressionTest  {
          
         }
     }
-  @Test
-    public void testRegressionRecordStructures() throws Exception {
+
+    protected void testRegressionRecordStructures(boolean reset) throws Exception {
       if (reset) {
           FileUtils.deleteQuietly(testlist);
           FileUtils.deleteQuietly(failedlist);
@@ -183,6 +182,9 @@ public class EclParseRegressionTest  {
             String rececl=null;
             try {
                 DFUFileDetailInfo info=getDFUClient().getFileDetails(fullfilename, null);
+                if (info.getIsSuperfile()) {
+                    System.out.print(fullfilename + " is superfile");
+                }
                 rececl=info.getEcl();
                 if (StringUtils.isEmpty(rececl)) {
                     throw new Exception("No record ecl for " + fullfilename);
@@ -195,6 +197,9 @@ public class EclParseRegressionTest  {
             System.out.println("testing ecl layout for  " + fullfilename );
 
             try {
+                if (StringUtils.countMatches(rececl, "RECORD")>1 || StringUtils.countMatches(rececl,"{")>1) {
+                    System.out.println(fullfilename + " has child datasets");
+                }
                     EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(rececl);
                     alreadytested.add(fullfilename);
                     if (rec.getParseErrors().size()!=0) {
