@@ -55,6 +55,9 @@ wsclient | hpccsystems-platform
 
 #### Release Changelog
 
+###### 1.2.6 Emergency release
+- JAPI-121 Platform object hash value includes "user" value
+
 ###### 1.2.0 Release date 8/9/2017
 - JAPI-85 Enhance platform tester
 - JAPI-86 Update JCRAFT JSCH lib to enhance ssh connections
