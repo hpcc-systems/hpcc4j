@@ -46,6 +46,9 @@ wsclient | hpccsystems-platform
 
 #### Release Changelog
 
+###### 1.2.6 Emergency release
+- JAPI-121 Platform object hash value includes "user" value
+
 ###### 1.2.4 Target Release date Fri Nov 10 2017 14:48:15 GMT-0500 (Eastern Standard Time)
 - JAPI-108 - Check for null when creating queryresult object
 - JAPI-107 - Update antlr grammar to handle ecl fields named maxlength
