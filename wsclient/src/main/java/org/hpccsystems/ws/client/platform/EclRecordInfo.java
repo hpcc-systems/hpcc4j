@@ -1,6 +1,8 @@
 package org.hpccsystems.ws.client.platform;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.hpccsystems.ws.client.utils.FileFormat;
 
@@ -8,7 +10,8 @@ public class EclRecordInfo implements java.io.Serializable
 {
 	private static final long serialVersionUID = 7430756413782258252L;
 	private String originalEcl;
-
+	private List<String> parseErrors=new ArrayList<String>();
+	
     public EclRecordInfo()
     {
     }
@@ -68,4 +71,19 @@ public class EclRecordInfo implements java.io.Serializable
             }
         }
     }
+
+    /**
+     * @return the parseErrors
+     */
+    public List<String> getParseErrors() {
+        return parseErrors;
+    }
+
+    /**
+     * @param parseErrors the parseErrors to set
+     */
+    public void setParseErrors(List<String> parseErrors) {
+        this.parseErrors = parseErrors;
+    }
+
 }

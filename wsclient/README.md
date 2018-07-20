@@ -38,10 +38,22 @@ wsclient | hpccsystems-platform
 --- | ---
 1.0.0 | 6.2.0
 1.2.0 | 6.4.0
+1.4.0 | 6.4.16
 
 #### Future Release
+###### 1.4.0 Target Release date 4/30/2018
+- JAPI-113 Integrate wsPackage into wsclient
 
-###### 1.2.2 Target Release date 9/29/2017
+#### Release Changelog
+
+###### 1.2.6 Emergency release
+- JAPI-121 Platform object hash value includes "user" value
+
+###### 1.2.4 Target Release date Fri Nov 10 2017 14:48:15 GMT-0500 (Eastern Standard Time)
+- JAPI-108 - Check for null when creating queryresult object
+- JAPI-107 - Update antlr grammar to handle ecl fields named maxlength
+
+###### 1.2.2 Target Release date Mon Oct 02 2017 09:30:34 GMT-0400 (Eastern Daylight Time)
 - JAPI-79 Avoid premature submission of compiling WUs
 - JAPI-91 Fix COMPILING state map
 - JAPI-90 Added createOrUpdate function to HPCCWsAttributesClient
@@ -52,8 +64,6 @@ wsclient | hpccsystems-platform
 - JAPI-96 Expose file part information
 - JAPI-101 WUQueryInfo wrapper for workunit searching
 - JAPI-103 new bulk createOrUpdateAttributes method
-
-#### Release Changelog
 
 ###### 1.2.0 Release date 8/9/2017
 - JAPI-85 Enhance platform tester

@@ -955,6 +955,7 @@ public class Platform extends DataSingleton
         result = HashCodeUtil.hash(result, getProtocol());
         result = HashCodeUtil.hash(result, getIP());
         result = HashCodeUtil.hash(result, getPort());
+        result = HashCodeUtil.hash(result, getUser());
         return result;
     }
 }
