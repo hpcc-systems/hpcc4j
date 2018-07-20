@@ -1819,7 +1819,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             }
 
             timerTickCount++;
-            if (timerTickCount * wu.getSleepMillis() > wu.getMaxMonitorMillis())
+            if ((timerTickCount * wu.getSleepMillis()) >= wu.getMaxMonitorMillis())
                 throw new Exception("Timed out waiting for WUID " + wu.getWuid() + " to complete.");
 
             try
