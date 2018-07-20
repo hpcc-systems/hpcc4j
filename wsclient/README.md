@@ -39,8 +39,11 @@ wsclient | hpccsystems-platform
 1.0.0 | 6.2.0
 1.2.0 | 6.4.0
 1.4.0 | 6.4.16
+7.0.0 | 7.0.0
 
 #### Future Release
+
+###### 7.0.0 Target Release date September, 2018
 
 #### Release Changelog
 
