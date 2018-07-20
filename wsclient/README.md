@@ -41,10 +41,15 @@ wsclient | hpccsystems-platform
 1.4.0 | 6.4.16
 
 #### Future Release
-###### 1.4.0 Target Release date 4/30/2018
-- JAPI-113 Integrate wsPackage into wsclient
 
 #### Release Changelog
+
+###### 1.4.0 Target Release date Tue Jul 31 2018 11:32:00 GMT-0400 (Eastern Daylight Time)
+- JAPI-111 Remove java8 dependencies
+- JAPI-113 Integrate wsPackage into wsclient
+- JAPI-114 Fix ecl parsing
+- JAPI-115 Check for null returns in DFUFileDetailInfo toString method
+- JAPI-120 Fixes to get file metadata
 
 ###### 1.2.6 Emergency release
 - JAPI-121 Platform object hash value includes "user" value
