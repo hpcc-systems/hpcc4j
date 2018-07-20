@@ -314,6 +314,15 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Reports the version of the original WSDL used to create the HPCCWsPackageProcessClient logic.
+     * @return Original WSDL version
+     */
+    public String getHPCCWsPackageProcessClientVer()
+    {
+        return Utils.parseVersionFromWSDLURL(HPCCWsPackageProcessClient.getOriginalWSDLURL());
+    }
+
+    /**
      * @return provides HPCCWsFileIOClient for direct method execution
      * @throws Exception
      */
@@ -322,6 +331,18 @@ public class HPCCWsClient extends DataSingleton
         synchronized (connectionLock)
         {
             return (HPCCWsFileIOClient) SubClients.get(HPCCWsFileIOClient.get(connection));
+        }
+    }
+
+    /**
+     * @return provides HPCCWsPackageProcessClient for direct method execution
+     * @throws Exception
+     */
+    public HPCCWsPackageProcessClient getWsPackageProcessClient()
+    {
+        synchronized (connectionLock)
+        {
+            return (HPCCWsPackageProcessClient) SubClients.get(HPCCWsPackageProcessClient.get(connection));
         }
     }
 
