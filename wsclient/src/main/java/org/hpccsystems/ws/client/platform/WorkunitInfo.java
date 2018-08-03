@@ -5,7 +5,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.*;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.*;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkunit;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
 public class WorkunitInfo implements
@@ -88,7 +89,7 @@ public class WorkunitInfo implements
      * 
      * @param base
      */
-    public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit base)
+    public WorkunitInfo(ECLWorkunit base)
     {
         copy(base);
     }
@@ -173,7 +174,7 @@ public class WorkunitInfo implements
      * 
      * @param base
      */
-    private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit base)
+    private void copy(ECLWorkunit base)
     {
         if (base == null)
         {
@@ -271,7 +272,7 @@ public class WorkunitInfo implements
 
     }
 
-    public boolean update(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit wu)
+    public boolean update(ECLWorkunit wu)
     {
         boolean retVal = false;
         if (wu != null && this.getWuid().equals(wu.getWuid()) && !this.equals(wu))
@@ -285,7 +286,7 @@ public class WorkunitInfo implements
         return retVal;
     }
 
-    synchronized boolean updateState(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit wu)
+    synchronized boolean updateState(ECLWorkunit wu)
     {
         boolean retVal = false;
         if (wu != null && this.getWuid().equals(wu.getWuid()))// && this.compareTo(wu))
@@ -402,7 +403,8 @@ public class WorkunitInfo implements
 	    }
 	    ApplicationValue[] raw=new ApplicationValue[applicationValues.size()];
 	    int i=0;
-	    for (ApplicationValueInfo item:applicationValues) {
+	    for (ApplicationValueInfo item:applicationValues)
+	    {
 	        raw[i]=item.getRaw();
 	        i++;
 	    }

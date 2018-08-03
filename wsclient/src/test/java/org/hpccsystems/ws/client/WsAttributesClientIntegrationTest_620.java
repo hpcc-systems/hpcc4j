@@ -1,11 +1,6 @@
 package org.hpccsystems.ws.client;
 
 import org.hpccsystems.ws.client.platform.Platform;
-import org.hpccsystems.ws.client.platform.WUQueryInfo;
-import org.hpccsystems.ws.client.platform.WUState;
-import org.hpccsystems.ws.client.platform.WorkunitInfo;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClientIntegrationTest {
