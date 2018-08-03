@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.platform;
 
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WULogFileResponse;
+
 public class WULogFileInfo {
 
     private String daliServer;
@@ -10,7 +12,7 @@ public class WULogFileInfo {
     private String fileContent;
     private String wuid;
 
-    public WULogFileInfo( org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WULogFileResponse raw) {
+    public WULogFileInfo(WULogFileResponse raw) {
         daliServer=raw.getDaliServer();
         fileName=raw.getFileName();
         queryId=raw.getQueryId();

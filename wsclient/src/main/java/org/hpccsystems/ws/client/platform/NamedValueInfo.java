@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.platform;
 
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.NamedValue;
+
 public class NamedValueInfo {
 
     private String name;
@@ -12,7 +14,7 @@ public class NamedValueInfo {
         this.name=name;
         this.value=value;
     }
-    public NamedValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue raw) 
+    public NamedValueInfo(NamedValue raw) 
     {
         name=raw.getName();
         value=raw.getValue();
@@ -34,9 +36,9 @@ public class NamedValueInfo {
         this.name = name;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue getRaw()
+    public NamedValue getRaw()
     {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue nv=new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.NamedValue(name,value);
+        NamedValue nv=new NamedValue(name,value);
         return nv;
     }
 }

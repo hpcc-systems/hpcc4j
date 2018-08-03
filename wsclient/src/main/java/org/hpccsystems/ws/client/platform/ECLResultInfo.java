@@ -12,7 +12,7 @@ public class ECLResultInfo {
     private String value;
     private String xmlSchema;
 
-    public ECLResultInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLResult raw) {
+    public ECLResultInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult raw) {
         filename=raw.getFileName();
         isSupplied=raw.getIsSupplied();
         link=raw.getLink();
