@@ -3,6 +3,10 @@ package org.hpccsystems.ws.client.platform;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ClusterQueryState;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.QuerySetQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.QuerySetQueryActionResult;
+
 public class QueryResult {
     private Boolean activated;
     List<ClusterInfo> clusters;
@@ -22,20 +26,20 @@ public class QueryResult {
     private String message;
     private Boolean success;
     
-    public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.QuerySetQueryActionResult raw) {
+    public QueryResult(QuerySetQueryActionResult raw) {
         code=raw.getCode();
         message=raw.getMessage();
         id=raw.getQueryId();
         success=raw.getSuccess();
         suspended=raw.getSuspended();
     }
-    public QueryResult(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.QuerySetQuery qr) {
+    public QueryResult(QuerySetQuery qr) {
         activated=qr.getActivated();
         this.clusters=new ArrayList<ClusterInfo>();
         if (qr.getClusters() != null) 
         {
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ClusterQueryState[] rawclusters=qr.getClusters();
-            for (org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ClusterQueryState rawc:rawclusters) {
+            ClusterQueryState[] rawclusters=qr.getClusters();
+            for (ClusterQueryState rawc:rawclusters) {
                 this.clusters.add(new ClusterInfo(rawc));
             }
         }

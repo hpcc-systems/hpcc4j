@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException;
 
 public class ECLExceptionInfo {
     private Integer activity;

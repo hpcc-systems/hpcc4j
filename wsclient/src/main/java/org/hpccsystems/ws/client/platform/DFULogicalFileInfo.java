@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.platform;
 
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFULogicalFile;
+
 
 public class DFULogicalFileInfo {
     
@@ -16,10 +18,12 @@ public class DFULogicalFileInfo {
     private String modified;
     private String longSize;
     private String longRecordCount;
-    private Boolean isZipfile;
+    //removed in HPCC 4.2.0
+    //private Boolean isZipfile;
     private Boolean isSuperfile;
     private Boolean isProtected;
-    private Boolean isKeyFile;
+    //removed in HPCC 5.0.0
+    //private Boolean isKeyFile;
     private Boolean isDirectory;
     private Boolean isCompressed;
     private Long intSize;
@@ -29,12 +33,15 @@ public class DFULogicalFileInfo {
     private String description;
     private String contentType;
     private Long compressedFileSize;
-    private String clusterName;
+
+    //removed in HPCC 5.0.0
+    //private String clusterName;
     private Boolean browseData;
 
-    public DFULogicalFileInfo(org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFULogicalFile raw) {
+    public DFULogicalFileInfo(DFULogicalFile raw) {
         browseData=raw.getBrowseData();
-        clusterName=raw.getClusterName();
+        //removed in HPCC 5.0.0
+        //clusterName=raw.getClusterName();
         compressedFileSize=raw.getCompressedFileSize();
         contentType=raw.getContentType();
         description=raw.getDescription();
@@ -44,10 +51,12 @@ public class DFULogicalFileInfo {
         intSize=raw.getIntSize();
         isCompressed=raw.getIsCompressed();
         isDirectory=raw.getIsDirectory();
-        isKeyFile=raw.getIsKeyFile();
+        //removed in HPCC 5.0.0
+        //isKeyFile=raw.getIsKeyFile();
         isProtected=raw.getIsProtected();
         isSuperfile=raw.getIsSuperfile();
-        isZipfile=raw.getIsZipfile();
+        //removed in HPCC 4.2.0
+        //isZipfile=raw.getIsZipfile();
         longRecordCount=raw.getLongRecordCount();
         longSize=raw.getLongSize();
         modified=raw.getModified();
@@ -174,6 +183,7 @@ public class DFULogicalFileInfo {
         this.longRecordCount = longRecordCount;
     }
 
+    /* removed in HPCC 4.2.0
     public Boolean getIsZipfile() {
         return isZipfile;
     }
@@ -181,6 +191,7 @@ public class DFULogicalFileInfo {
     public void setIsZipfile(Boolean isZipfile) {
         this.isZipfile = isZipfile;
     }
+    */
 
     public Boolean getIsSuperfile() {
         return isSuperfile;
@@ -198,6 +209,7 @@ public class DFULogicalFileInfo {
         this.isProtected = isProtected;
     }
 
+    /* removed in thpcc 5.0.0
     public Boolean getIsKeyFile() {
         return isKeyFile;
     }
@@ -205,6 +217,7 @@ public class DFULogicalFileInfo {
     public void setIsKeyFile(Boolean isKeyFile) {
         this.isKeyFile = isKeyFile;
     }
+    */
 
     public Boolean getIsDirectory() {
         return isDirectory;
@@ -279,6 +292,7 @@ public class DFULogicalFileInfo {
         this.compressedFileSize = compressedFileSize;
     }
 
+    /*removed in HPCC 5.0.0
     public String getClusterName() {
         return clusterName;
     }
@@ -286,7 +300,7 @@ public class DFULogicalFileInfo {
     public void setClusterName(String clusterName) {
         this.clusterName = clusterName;
     }
-
+*/
     public Boolean getBrowseData() {
         return browseData;
     }

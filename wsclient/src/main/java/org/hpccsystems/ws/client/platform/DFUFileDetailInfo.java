@@ -13,8 +13,9 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
 
@@ -86,12 +87,14 @@ public class DFUFileDetailInfo extends DFUFileDetail
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        if (this.getActualSize() != null)
-            sb.append("ActualSize:").append(this.getActualSize()).append("\n");
+        //removed in HPCC 5.0.0
+        //if (this.getActualSize() != null)
+        //    sb.append("ActualSize:").append(this.getActualSize()).append("\n");
         if (this.getBrowseData() != null)
             sb.append("BrowseData:").append(this.getBrowseData()).append("\n");
-        if (this.getCluster() != null)
-            sb.append("Cluster:").append(this.getCluster()).append("\n");
+        //removed in HPCC 5.0.0 ref DFUFilePartsOnCluster
+        //if (this.getCluster() != null)
+        //    sb.append("Cluster:").append(this.getCluster()).append("\n");
         if (this.getCompressedFileSize() != null)
             sb.append("CompressedFileSize:").append(this.getCompressedFileSize()).append("\n");
         if (this.getContentType() != null)
@@ -106,8 +109,9 @@ public class DFUFileDetailInfo extends DFUFileDetail
             sb.append("CsvTerminate:").append(this.getCsvTerminate()).append("\n");
         if (this.getDescription() != null)
             sb.append("Description:").append(this.getDescription()).append("\n");
-        if (this.getDFUFileParts() != null)
-            sb.append("DFUFileParts:").append(this.getDFUFileParts()).append("\n");
+        //removed in HPCC 5.0.0 ref DFUFilePartsOnCluster
+        //if (this.getDFUFileParts() != null)
+        //    sb.append("DFUFileParts:").append(this.getDFUFileParts()).append("\n");
         if (this.getDFUFilePartsOnClusters() != null)
             sb.append("DFUFilePartsOnClusters:").append(this.getDFUFilePartsOnClusters()).append("\n");
         if (this.getDir() != null)
@@ -168,8 +172,9 @@ public class DFUFileDetailInfo extends DFUFileDetail
             sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
         if (this.getWuid() != null)
             sb.append("Wuid:").append(this.getWuid()).append("\n");
-        if (this.getZipFile() != null)
-            sb.append("ZipFile:").append(this.getZipFile()).append("\n");
+        //removed in HPCC 4.2.2 ref  IsCompressed, CompressedFileSize;
+        //if (this.getZipFile() != null)
+        //    sb.append("ZipFile:").append(this.getZipFile()).append("\n");
         if (this.getColumns() != null)
         {
             sb.append("Columns:");
@@ -192,10 +197,8 @@ public class DFUFileDetailInfo extends DFUFileDetail
         {
             return;
         }
-        this.setActualSize(base.getActualSize());
         this.setBinInfo(base.getBinInfo());
         this.setBrowseData(base.getBrowseData());
-        this.setCluster(base.getCluster());
         this.setCompressedFileSize(base.getCompressedFileSize());
         this.setContentType(base.getContentType());
         this.setCsvEscape(base.getCsvEscape());
@@ -203,7 +206,6 @@ public class DFUFileDetailInfo extends DFUFileDetail
         this.setCsvSeparate(base.getCsvSeparate());
         this.setCsvTerminate(base.getCsvTerminate());
         this.setDescription(base.getDescription());
-        this.setDFUFileParts(base.getDFUFileParts());
         this.setDFUFilePartsOnClusters(base.getDFUFilePartsOnClusters());
         this.setDir(base.getDir());
         this.setEcl(base.getEcl());
@@ -237,7 +239,6 @@ public class DFUFileDetailInfo extends DFUFileDetail
         this.setSuperfiles(base.getSuperfiles());
         this.setUserPermission(base.getUserPermission());
         this.setWuid(base.getWuid());
-        this.setZipFile(base.getZipFile());
         this.setIsCompressed(base.getIsCompressed());
     }
 
@@ -692,7 +693,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      */
     public DFUFilePartsOnClusterInfo[] getDFUFilePartsOnClusters()
     {
-        org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUFilePartsOnCluster[] clstrs = super.getDFUFilePartsOnClusters();
+        DFUFilePartsOnCluster[] clstrs = super.getDFUFilePartsOnClusters();
         DFUFilePartsOnClusterInfo[] w_clstrs = new DFUFilePartsOnClusterInfo[clstrs.length];
         for (int i = 0; i < clstrs.length; i++)
             w_clstrs[i] = new DFUFilePartsOnClusterInfo(clstrs[i]);

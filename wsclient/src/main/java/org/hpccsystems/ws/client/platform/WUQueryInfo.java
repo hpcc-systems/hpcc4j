@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUQuery;
 import org.hpccsystems.ws.client.utils.Utils;
 
 /**
@@ -46,7 +48,7 @@ public class WUQueryInfo {
      * @param raw - the soap-version-specific WUQuery to use to initialize this WUQueryInfo object.
      * @throws Exception if the input start date / end date are not null and are invalid date strings.
      */
-    public WUQueryInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUQuery raw) throws Exception 
+    public WUQueryInfo(WUQuery raw) throws Exception 
     {
         //not setting before or after or count. They've been replaced by pageStartFrom and papgeSize.
         //not setting roxiecluster, it's deprecated and cluster is used. This is as of
@@ -417,17 +419,16 @@ public class WUQueryInfo {
     /**
      * @return the raw WUQuery object
      */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUQuery getRaw() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUQuery();
+    public WUQuery getRaw() {
+        WUQuery raw=new WUQuery();
         if (applicationValues.size()>0)
         {
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue[] appvalues = 
-                    new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue[applicationValues.size()];
+            ApplicationValue[] appvalues = new ApplicationValue[applicationValues.size()];
             for (int i=0; i < applicationValues.size();i++) 
             {
                 ApplicationValueInfo wrapped=applicationValues.get(i);
-                org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue item=
-                        new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue();
+                ApplicationValue item=
+                        new ApplicationValue();
                 item.setApplication(wrapped.getApplication());
                 item.setName(wrapped.getName());
                 item.setValue(wrapped.getValue());
