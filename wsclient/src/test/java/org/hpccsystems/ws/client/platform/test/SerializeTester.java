@@ -1,11 +1,15 @@
 package org.hpccsystems.ws.client.platform.test;
 
-import java.io.*;
-import org.hpccsystems.ws.client.platform.Platform;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
-import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.platform.Platform;
+import org.hpccsystems.ws.client.utils.FileFormat;
 
 public class SerializeTester {
 

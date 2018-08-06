@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
 
 public class ApplicationValueInfo {
 
@@ -18,7 +18,7 @@ public class ApplicationValueInfo {
         this.value=value;
     }
     
-    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue raw) 
+    public ApplicationValueInfo(ApplicationValue raw) 
     {
         application=raw.getApplication();
         name=raw.getName();

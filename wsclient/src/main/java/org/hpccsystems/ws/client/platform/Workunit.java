@@ -7,7 +7,6 @@
  ******************************************************************************/
 package org.hpccsystems.ws.client.platform;
 
-import java.lang.reflect.Field;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,16 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.EspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

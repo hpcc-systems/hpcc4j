@@ -14,31 +14,31 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUActionInfo;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUArrayActionRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUArrayActionResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUArrayActions;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUFileViewRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUFileViewResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUGetFileMetaDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUGetFileMetaDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUInfoRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUQueryRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUSearchDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUSearchDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.EspException;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.WsDfuLocator;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.WsDfuServiceSoap;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.WsDfuServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActionRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActionResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActions;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetFileMetaDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetFileMetaDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.EspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuLocator;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoap;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUResult;
@@ -718,13 +718,11 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return DFUInfoResponse object containing the information
      * @throws Exception
      */
-    public DFUFileDetailInfo getFileDetails(String logicalname,
-        String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
+    public DFUFileDetailInfo getFileDetails(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
     {
         try
         {
-            DFUInfoResponse resp = this.getFileInfo(logicalname, clustername,
-                                                    jsonTypeInfo, binTypeInfo);
+            DFUInfoResponse resp = this.getFileInfo(logicalname, clustername, jsonTypeInfo, binTypeInfo);
             if (resp == null)
             {
                 throw new FileNotFoundException(logicalname + " does not exist");
@@ -756,10 +754,9 @@ public class HPCCWsDFUClient extends DataSingleton
                     }
                 }
             }
-            if ((info.getEcl() == null || info.getEcl().isEmpty()) && info.getIsSuperfile()
-                    && info.getSubfiles() != null && info.getSubfiles().length != 0)
+            if ((info.getEcl() == null || info.getEcl().isEmpty()) && info.getIsSuperfile() && info.getSubfiles() != null && info.getSubfiles().length != 0)
             {
-                DFUFileDetailInfo subfile = this.getFileDetails(info.getSubfiles()[0], info.getCluster());
+                DFUFileDetailInfo subfile = this.getFileDetails(info.getSubfiles()[0], info.getNodeGroup());
                 if (subfile != null)
                 {
                     info.setEcl(subfile.getEcl());
