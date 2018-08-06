@@ -95,4 +95,13 @@ public class DFURecordDefInfo extends DFUDataColumnInfo
         this.maxreclength = maxreclength;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "DFURecordDefInfo [inline=" + inline + ", recordLayoutName=" + recordLayoutName + ", singlerow="
+                + singlerow + ", maxreclength=" + maxreclength + ", fileType=" + fileType + "]";
+    }
+
 }

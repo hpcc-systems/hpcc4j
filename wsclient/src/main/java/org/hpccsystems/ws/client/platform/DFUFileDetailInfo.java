@@ -86,52 +86,97 @@ public class DFUFileDetailInfo extends DFUFileDetail
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("ActualSize:").append(this.getActualSize()).append("\n");
-        sb.append("BrowseData:").append(this.getBrowseData()).append("\n");
-        sb.append("Cluster:").append(this.getCluster()).append("\n");
-        sb.append("CompressedFileSize:").append(this.getCompressedFileSize()).append("\n");
-        sb.append("ContentType:").append(this.getContentType()).append("\n");
-        sb.append("CsvEscape:").append(this.getCsvEscape()).append("\n");
-        sb.append("CsvQuote:").append(this.getCsvQuote()).append("\n");
-        sb.append("CsvSeparate:").append(this.getCsvSeparate()).append("\n");
-        sb.append("CsvTerminate:").append(this.getCsvTerminate()).append("\n");
-        sb.append("Description:").append(this.getDescription()).append("\n");
-        sb.append("DFUFileParts:").append(this.getDFUFileParts()).append("\n");
-        sb.append("DFUFilePartsOnClusters:").append(this.getDFUFilePartsOnClusters()).append("\n");
-        sb.append("Dir:").append(this.getDir()).append("\n");
-        sb.append("Ecl:").append(this.getEcl()).append("\n");
-        sb.append("Filename:").append(this.getFilename()).append("\n");
-        sb.append("Filesize:").append(this.getFilesize()).append("\n");
-        sb.append("FirstLine:").append(this.getFirstline()).append("\n");
-        sb.append("Format:").append(this.getFormat()).append("\n");
-        sb.append("FromRoxieCluster:").append(this.getFromRoxieCluster()).append("\n");
-        sb.append("Graphs:").append(this.getGraphs()).append("\n");
-        sb.append("hasHeader:").append(String.valueOf(this.hasHeader())).append("\n");
-        sb.append("IsCompressed:").append(String.valueOf(this.getIsCompressed())).append("\n");
-        sb.append("IsSuperfile:").append(String.valueOf(this.getIsSuperfile())).append("\n");
-        sb.append("JobName:").append(this.getJobName()).append("\n");
-        sb.append("MaxRecordSize:").append(this.getMaxRecordSize()).append("\n");
-        sb.append("Modified:").append(this.getModified()).append("\n");
-        sb.append("Name:").append(this.getName()).append("\n");
-        sb.append("NodeGroup:").append(this.getNodeGroup()).append("\n");
-        sb.append("NumParts:").append(this.getNumParts()).append("\n");
-        sb.append("Owner:").append(this.getOwner()).append("\n");
-        sb.append("PathMask:").append(this.getPathMask()).append("\n");
-        sb.append("Persistent:").append(this.getPersistent()).append("\n");
-        sb.append("Prefix:").append(this.getPrefix()).append("\n");
-        sb.append("RecordCount:").append(this.getRecordCount()).append("\n");
-        sb.append("RecordSize:").append(this.getRecordSize()).append("\n");
-        sb.append("ShowFileContent:").append(this.getShowFileContent()).append("\n");
-        sb.append("Stat:").append(this.getStat()).append("\n");
-        sb.append("Subfiles:").append(this.getSubfiles()).append("\n");
-        sb.append("Superfiles:").append(this.getSuperfiles()).append("\n");
-        sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
-        sb.append("Wuid:").append(this.getWuid()).append("\n");
-        sb.append("ZipFile:").append(this.getZipFile()).append("\n");
-        sb.append("Columns:");
-        for (DFUDataColumnInfo col : this.getColumns())
+        if (this.getActualSize() != null)
+            sb.append("ActualSize:").append(this.getActualSize()).append("\n");
+        if (this.getBrowseData() != null)
+            sb.append("BrowseData:").append(this.getBrowseData()).append("\n");
+        if (this.getCluster() != null)
+            sb.append("Cluster:").append(this.getCluster()).append("\n");
+        if (this.getCompressedFileSize() != null)
+            sb.append("CompressedFileSize:").append(this.getCompressedFileSize()).append("\n");
+        if (this.getContentType() != null)
+            sb.append("ContentType:").append(this.getContentType()).append("\n");
+        if (this.getCsvEscape() != null)
+            sb.append("CsvEscape:").append(this.getCsvEscape()).append("\n");
+        if (this.getCsvQuote() != null)
+            sb.append("CsvQuote:").append(this.getCsvQuote()).append("\n");
+        if (this.getCsvSeparate() != null)
+            sb.append("CsvSeparate:").append(this.getCsvSeparate()).append("\n");
+        if (this.getCsvTerminate() != null)
+            sb.append("CsvTerminate:").append(this.getCsvTerminate()).append("\n");
+        if (this.getDescription() != null)
+            sb.append("Description:").append(this.getDescription()).append("\n");
+        if (this.getDFUFileParts() != null)
+            sb.append("DFUFileParts:").append(this.getDFUFileParts()).append("\n");
+        if (this.getDFUFilePartsOnClusters() != null)
+            sb.append("DFUFilePartsOnClusters:").append(this.getDFUFilePartsOnClusters()).append("\n");
+        if (this.getDir() != null)
+            sb.append("Dir:").append(this.getDir()).append("\n");
+        if (this.getEcl() != null)
+            sb.append("Ecl:").append(this.getEcl()).append("\n");
+        if (this.getFilename() != null)
+            sb.append("Filename:").append(this.getFilename()).append("\n");
+        if (this.getFilesize() != null)
+            sb.append("Filesize:").append(this.getFilesize()).append("\n");
+        if (this.getFirstline() != null)
+            sb.append("FirstLine:").append(this.getFirstline()).append("\n");
+        if (this.getFormat() != null)
+            sb.append("Format:").append(this.getFormat()).append("\n");
+        if (this.getFromRoxieCluster() != null)
+            sb.append("FromRoxieCluster:").append(this.getFromRoxieCluster()).append("\n");
+        if (this.getGraphs() != null)
+            sb.append("Graphs:").append(this.getGraphs()).append("\n");
+        if (String.valueOf(this.hasHeader()) != null)
+            sb.append("hasHeader:").append(String.valueOf(this.hasHeader())).append("\n");
+        if (String.valueOf(this.getIsCompressed()) != null)
+            sb.append("IsCompressed:").append(String.valueOf(this.getIsCompressed())).append("\n");
+        if (String.valueOf(this.getIsSuperfile()) != null)
+            sb.append("IsSuperfile:").append(String.valueOf(this.getIsSuperfile())).append("\n");
+        if (this.getJobName() != null)
+            sb.append("JobName:").append(this.getJobName()).append("\n");
+        if (this.getMaxRecordSize() != null)
+            sb.append("MaxRecordSize:").append(this.getMaxRecordSize()).append("\n");
+        if (this.getModified() != null)
+            sb.append("Modified:").append(this.getModified()).append("\n");
+        if (this.getName() != null)
+            sb.append("Name:").append(this.getName()).append("\n");
+        if (this.getNodeGroup() != null)
+            sb.append("NodeGroup:").append(this.getNodeGroup()).append("\n");
+        if (this.getNumParts() != null)
+            sb.append("NumParts:").append(this.getNumParts()).append("\n");
+        if (this.getOwner() != null)
+            sb.append("Owner:").append(this.getOwner()).append("\n");
+        if (this.getPathMask() != null)
+            sb.append("PathMask:").append(this.getPathMask()).append("\n");
+        if (this.getPersistent() != null)
+            sb.append("Persistent:").append(this.getPersistent()).append("\n");
+        if (this.getPrefix() != null)
+            sb.append("Prefix:").append(this.getPrefix()).append("\n");
+        if (this.getRecordCount() != null)
+            sb.append("RecordCount:").append(this.getRecordCount()).append("\n");
+        if (this.getRecordSize() != null)
+            sb.append("RecordSize:").append(this.getRecordSize()).append("\n");
+        if (this.getShowFileContent() != null)
+            sb.append("ShowFileContent:").append(this.getShowFileContent()).append("\n");
+        if (this.getStat() != null)
+            sb.append("Stat:").append(this.getStat()).append("\n");
+        if (this.getSubfiles() != null)
+            sb.append("Subfiles:").append(this.getSubfiles()).append("\n");
+        if (this.getSuperfiles() != null)
+            sb.append("Superfiles:").append(this.getSuperfiles()).append("\n");
+        if (this.getUserPermission() != null)
+            sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
+        if (this.getWuid() != null)
+            sb.append("Wuid:").append(this.getWuid()).append("\n");
+        if (this.getZipFile() != null)
+            sb.append("ZipFile:").append(this.getZipFile()).append("\n");
+        if (this.getColumns() != null)
         {
-            sb.append("    ").append(col.getColumnLabel()).append(":").append(col.toString());
+            sb.append("Columns:");
+            for (DFUDataColumnInfo col : this.getColumns())
+            {
+                sb.append("    ").append(col.toString());
+            }
         }
         return sb.toString();
     }
@@ -212,7 +257,7 @@ public class DFUFileDetailInfo extends DFUFileDetail
      * @param columns
      *            - List of DFUDataColumns
      */
-    public void setColumns(List<DFUDataColumn> columns)
+    public void setColumns(List<DFUDataColumnInfo> columns)
     {
         if (columns == null)
         {
@@ -629,12 +674,13 @@ public class DFUFileDetailInfo extends DFUFileDetail
         }
         catch (Exception e)
         {
-            System.out.println("Error parsing Record:" + e.getMessage());
+            cr.getErrorHandler().getErrors().add("Error parsing Record:" + e.getMessage());
         }
         if (cr.getEclRecordInfo() != null)
         {
             cr.getEclRecordInfo().setOriginalEcl(content);
         }
+        cr.getEclRecordInfo().setParseErrors(cr.getErrorHandler().getErrors());
         return cr.getEclRecordInfo();
 
     }
