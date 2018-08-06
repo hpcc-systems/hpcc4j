@@ -21,11 +21,12 @@ eclfield_decl:
      (eclfield_type eclfield_name (OCURLY opts CCURLY)?
      | nested_dataset_decl
      | nested_inline_dataset_decl
+     | (inline_dataset_record_def eclfield_name)
      | eclfield_recref)
 ;
 
 eclfield_type:
-    ('SET OF'|'set of')? TOKEN
+    ('SET OF'|'set of')? (UTOKEN|TOKEN)
 ;
 
 eclfield_name:
@@ -36,14 +37,14 @@ eclfield_recref:
 ;
 
 record_def_inline:
-    OCURLY eclfield_decl ((COMMA)* eclfield_decl)* CCURLY SEMI
+    OCURLY (COMMA maxlength)? eclfield_decl ((COMMA)* eclfield_decl)* CCURLY SEMI
 ;
 
 record_def:
     REC_SYM (COMMA maxlength)? comment? eclfield_decl SEMI comment? (eclfield_decl SEMI comment?)* END_SYM SEMI
 ;
 defined_record_def :
-    TOKEN ASSING_SYM (record_def|record_def_inline)
+    (UTOKEN|TOKEN) ASSING_SYM (record_def|record_def_inline)
 ;
 
 exploded_dataset_record_def:
@@ -61,7 +62,7 @@ record_defs:
 ;
 
 
-nested_dataset_decl: 'DATASET' '(' TOKEN ')' (TOKEN|UTOKEN) ('{' opts '}')?; 
+nested_dataset_decl: 'DATASET' '(' (UTOKEN|TOKEN) ')' (TOKEN|UTOKEN) ('{' opts '}')?; 
 
 nested_inline_dataset_decl:
      DATASET_SYM OPAREN (exploded_dataset_record_def|inline_dataset_record_def) CPAREN (TOKEN|UTOKEN) (OCURLY opts CCURLY)?
@@ -77,10 +78,14 @@ opt:
     | defaultval
     | xpath
     | xmldefaultval
+    | blob
 ;
 maxlength:
-    'MAXLENGTH' OPAREN INT CPAREN
+    ('MAXLENGTH' OPAREN INT CPAREN | 'maxlength' OPAREN INT CPAREN | 'maxLength' OPAREN INT CPAREN)
 ;
+
+blob: ('BLOB' | 'blob');
+
 maxcount:
     'MAXCOUNT' OPAREN INT CPAREN
 ;
@@ -126,5 +131,6 @@ fragment ESCAPED_QUOTE : '\\\'';
 STRING :   '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
 ATOKEN: [@][a-zA-Z0-9_-]+[a-zA-Z0-9_];
 TOKEN :  ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;
-UTOKEN: [_][a-zA-Z0-9_-]+[a-zA-Z0-9_];
+UTOKEN: [_]+[a-zA-Z0-9_-]+[a-zA-Z0-9_];
 ECL_NUMBERED_TYPE: TOKEN INT?;
+
