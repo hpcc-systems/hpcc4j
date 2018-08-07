@@ -16,7 +16,7 @@ import org.apache.axis.client.Stub;
 import org.apache.axis.utils.StringUtils;
 import org.apache.axis.types.NonNegativeInteger;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.*;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
@@ -165,8 +165,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WsWorkunitsLocator())
-                .getWsWorkunitsServiceSoapAddress();
+        return (new WsWorkunitsLocator()).getWsWorkunitsServiceSoapAddress();
     }
 
     protected HPCCWsWorkUnitsClient(WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy)
@@ -483,7 +482,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             publishWUResp = wsWorkunitsServiceSoapProxy.WUPublishWorkunit(publishWU);
 
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ArrayOfEspException exceptions = publishWUResp.getExceptions();
+            ArrayOfEspException exceptions = publishWUResp.getExceptions();
             if (exceptions != null)
             {
                 throwWsWUExceptions(exceptions, "Could not publish WU");
@@ -552,8 +551,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
             WUInfoResponse wuInfoResponse = wsWorkunitsServiceSoapProxy.WUInfoDetails(wuinfodetailsparams);
 
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.ArrayOfEspException exceptions = wuInfoResponse
-                    .getExceptions();
+            ArrayOfEspException exceptions = wuInfoResponse.getExceptions();
             if (exceptions == null && wuInfoResponse.getWorkunit() != null)
             {
                 if (unarchive && wuInfoResponse.getWorkunit().getArchived())
@@ -1004,7 +1002,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (in.getIsPausing() != null) out.setIsPausing(in.getIsPausing());
         if (in.getThorLCR() != null) out.setThorLCR(in.getThorLCR());
         if (in.getEventSchedule() != null) out.setEventSchedule(in.getEventSchedule());
-        if (in.getHaveSubGraphTimings() != null) out.setHaveSubGraphTimings(in.getHaveSubGraphTimings());
+        //RODRIGO
+//        if (in.getHaveSubGraphTimings() != null) out.setHaveSubGraphTimings(in.getHaveSubGraphTimings());
         if (in.getTotalClusterTime() != null) out.setTotalClusterTime(in.getTotalClusterTime());
         if (in.getAllowedClusters() != null) out.setAllowedClusters(in.getAllowedClusters());
         if (in.getErrorCount() != null) out.setErrorCount(in.getErrorCount());
@@ -1160,7 +1159,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (in.getFirst() != null) out.setFirst(in.getFirst());
         if (in.getPageStartFrom() != null) out.setPageStartFrom(in.getPageStartFrom());
         if (in.getPageEndAt() != null) out.setPageEndAt(in.getPageEndAt());
-        if (in.getLastNDays() != null) out.setLastNDays(in.getLastNDays());
+        //RODRIGO
+        //if (in.getLastNDays() != null) out.setLastNDays(in.getLastNDays());
         if (in.getSortby() != null) out.setSortby(in.getSortby());
         if (in.getDescending() != null) out.setDescending(in.getDescending());
         if (in.getBasicQuery() != null) out.setBasicQuery(in.getBasicQuery());
@@ -1746,7 +1746,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         StringBuilder multimessage = new StringBuilder();
         multimessage.append(message);
         multimessage.append("\n");
-        for (org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.EspException exception : wsWUResponseExceptions
+        for (EspException exception : wsWUResponseExceptions
                 .getException())
         {
             multimessage.append("\t");

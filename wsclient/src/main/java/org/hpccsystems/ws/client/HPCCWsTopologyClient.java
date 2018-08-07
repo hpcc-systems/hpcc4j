@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpCluster;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpClusterInfoRequest;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpClusterInfoResponse;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpLogicalCluster;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpLogicalClusterQueryRequest;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpLogicalClusterQueryResponse;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpServiceQueryRequest;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpServiceQueryResponse;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpServices;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpTargetCluster;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpTargetClusterQueryRequest;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.TpTargetClusterQueryResponse;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.WsTopologyServiceSoap;
-import org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.WsTopologyServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpClusterInfoRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpClusterInfoResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpLogicalCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpLogicalClusterQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpLogicalClusterQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpServiceQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpServiceQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpServices;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpTargetCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpTargetClusterQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpTargetClusterQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.WsTopologyLocator;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.WsTopologyServiceSoap;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.WsTopologyServiceSoapProxy;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -90,7 +91,7 @@ public class HPCCWsTopologyClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.wstopology.v1_26allverinclusive.WsTopologyLocator()).getWsTopologyServiceSoapAddress();
+        return (new WsTopologyLocator()).getWsTopologyServiceSoapAddress();
     }
 
     protected HPCCWsTopologyClient(WsTopologyServiceSoapProxy wsTopologyServiceSoapProxy)

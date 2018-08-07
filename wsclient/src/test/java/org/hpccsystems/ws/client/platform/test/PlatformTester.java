@@ -4,10 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
@@ -15,24 +11,18 @@ import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_05allverinclusive.ExecuteSQLResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_38allverinclusive.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.WUPublishWorkunitResponse;
-import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
+import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
-import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
-import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
+import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
 import org.hpccsystems.ws.client.platform.DropZone;
-import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.platform.LogicalFile;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
-import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
-import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.utils.Utils;
 
 public class PlatformTester
@@ -209,54 +199,60 @@ public class PlatformTester
             platform.checkInHPCCWsClient(client2);
             platform.checkInHPCCWsClient(client3);
             platform.checkInHPCCWsClient(client4);
-            
+
             DropZone[] dropzones = platform.getDropZones();
             for(int i = 0; i < dropzones.length; i++)
             {
-            	System.out.println("Dropzone Name: " + dropzones[i].getName());
-            	String[] cna = dropzones[i].getConfiguredNetAddresses();
-            	String[] na = dropzones[i].getNetAddresses();
-            	if(cna != null && na != null)
-            	{
-            		if(cna.length != na.length)
-            		{
-            			System.out.println("confNetAddress list does not match addressList length");
-            		}
-            		else
-            		{
-            			for(int b = 0; b < cna.length; b++)
-            			{
-            				System.out.println("\tconfNetAddress: " + cna[b]);
-            				System.out.println("\tnetAddress:     " + na[b]);
-            				System.out.println("\t-------------------------------------");
-            			}
-            		}
-            	}
+                System.out.println("Dropzone Name: " + dropzones[i].getName());
+                String[] cna = dropzones[i].getConfiguredNetAddresses();
+                String[] na = dropzones[i].getNetAddresses();
+                
+                LogicalFile[] mydzfiles = dropzones[i].getFiles();
+                for (LogicalFile logicalFile : mydzfiles)
+                {
+                    System.out.println(logicalFile.getName());
+                }
+                if(cna != null && na != null)
+                {
+                    if(cna.length != na.length)
+                    {
+                        System.out.println("confNetAddress list does not match addressList length");
+                    }
+                    else
+                    {
+                        for(int b = 0; b < cna.length; b++)
+                        {
+                            System.out.println("\tconfNetAddress: " + cna[b]);
+                            System.out.println("\tnetAddress:     " + na[b]);
+                            System.out.println("\t-------------------------------------");
+                        }
+                    }
+                }
             }
             
             HPCCFileSprayClient fsc = platform.getFileSprayClient();
-            org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.DropZone[] dzLocal = fsc.fetchLocalDropZones();
+            org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzLocal = fsc.fetchLocalDropZones();
             if (dzLocal != null && dzLocal.length > 0)
             {
-            	System.out.println("fetchLocalDropZones test ...");
-            	for(int i = 0; i < dzLocal.length; i++)
-            	{
-            		System.out.println("DropZone[" + i + "]");
-            		System.out.println("\tDropZone:   " + dzLocal[i].getName());
-            		System.out.println("\tNetAddress: " + dzLocal[i].getNetAddress());
-            	}
+                System.out.println("fetchLocalDropZones test ...");
+                for(int i = 0; i < dzLocal.length; i++)
+                {
+                    System.out.println("DropZone[" + i + "]");
+                    System.out.println("\tDropZone:   " + dzLocal[i].getName());
+                    System.out.println("\tNetAddress: " + dzLocal[i].getNetAddress());
+                }
             }
             
-        	org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
+            org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
             if (dzByAddress != null && dzByAddress.length > 0)
             {
-            	System.out.println("fetchDropZones by address test ...");
-            	for(int i = 0; i < dzByAddress.length; i++)
-            	{
-            		System.out.println("DropZone[" + i + "]");
-            		System.out.println("\tDropZone:   " + dzByAddress[i].getName());
-            		System.out.println("\tNetAddress: " + dzByAddress[i].getNetAddress());
-            	}
+                System.out.println("fetchDropZones by address test ...");
+                for(int i = 0; i < dzByAddress.length; i++)
+                {
+                    System.out.println("DropZone[" + i + "]");
+                    System.out.println("\tDropZone:   " + dzByAddress[i].getName());
+                    System.out.println("\tNetAddress: " + dzByAddress[i].getNetAddress());
+                }
             }
             
             if (dzByAddress != null && dzByAddress.length > 0);
@@ -264,13 +260,12 @@ public class PlatformTester
             System.out.println("listFiles test ...");
             if (pfs != null && pfs.length > 0)
             {
-            	for(int i = 0; i < pfs.length; i++)
-            	{
-            		System.out.println(pfs[0].toString());
-            	}
+                for(int i = 0; i < pfs.length; i++)
+                {
+                    System.out.println(pfs[0].toString());
+                }
             }
-            
-            
+
             String tmpPeopleFile = System.getProperty("java.io.tmpdir") + File.separator + "people";
             writeFile( tmpPeopleFile, Persons.data, false);
 
@@ -283,68 +278,16 @@ public class PlatformTester
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
             platform.checkInHPCCWsClient(connector);
-
+            
             connector = platform.checkOutHPCCWsClient();
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
             System.out.println("wspackageprocess ver: " + connector.getWsPackageProcessClient());
-            connector.uploadFileToHPCC(tmpPeopleFile, "people-small", machineuser, machinepass );
-            connector.uploadFileToHPCC(tmpAccountFile, "account-small", machineuser, machinepass);
 
-            //for our curiosity, what cluster groups and clusters are available.
-            List<String> clusters = connector.getAvailableTargetClusterNames();
-            String[] clusterGroups = connector.getAvailableClusterGroups();
-            for (int i = 0; i < clusterGroups.length; i++)
+            DFUDataColumn[] newgetFileDataColumns = wsDFUClient.getFileMetaData(".::kw_test_sup", null);
+            for (int i = 0; i < newgetFileDataColumns.length; i++)
             {
-                System.out.println(clusterGroups[i]);
-                String[] actualclusternames = connector.getAvailableClusterNames(clusterGroups[i]);
-                if (actualclusternames != null)
-                {
-                    for (int j = 0; j < actualclusternames.length; j++)
-                    {
-                        System.out.println("\t" + actualclusternames[j]);
-                    }
-                }
-            }
-
-            //pick one of the valid clusters
-            connector.sprayFlatHPCCFile("people-small", "mythor::persons",Persons.recLen, clusters.get(0) /*myroxie, mythor, etc*/, true);
-
-
-            String outputFlatfileContentsEcl = Persons.elcLayout +
-                    "hpccpersonrecords := DATASET('~mythor::persons', Layout_Persons, FLAT);" +
-                   "OUTPUT(hpccpersonrecords,, 'processed::persons',OVERWRITE);";
-
-            WorkunitInfo wu=new WorkunitInfo();
-            wu.setECL(outputFlatfileContentsEcl);
-            wu.setJobname("mypersonsfile");
-            wu.setCluster(clusterGroups[0]);
-            wu.setResultLimit(10);
-            wu.setMaxMonitorMillis(50000);
-            //this is just one way to submitECL, you can also submit via ecldirect and request the resulting WUID
-            //you can also, submit via WSWorkunits and have more control over the result window you get back.
-            String results = connector.submitECLandGetResults(wu);
-
-            System.out.println("Persons file content(10 recs) output: " + results);
-
-            EclRecordInfo datasetFields = wsDFUClient.getDatasetFields("hthor::processed::persons", null, "," );
-
-            HashMap<String,DFURecordDefInfo> recordsets = datasetFields.getRecordsets();
-            Set<String> keySet = recordsets.keySet();
-            for (String field : keySet)
-            {
-                DFURecordDefInfo dfuRecordDefInfo = recordsets.get(field);
-                List<DFUDataColumnInfo> childColumns = dfuRecordDefInfo.getChildColumns();
-                for (DFUDataColumnInfo dfuDataColumnInfo : childColumns)
-                {
-                    System.out.println(dfuDataColumnInfo.getColumnEclType() + " " + dfuDataColumnInfo.getColumnLabel());
-                }
-            }
-
-            List<DFUDataColumnInfo> newgetFileDataColumns = wsDFUClient.getFileMetaDataInfo("hthor::processed::persons", null);
-            for (int i = 0; i < newgetFileDataColumns.size(); i++)
-            {
-                System.out.println("Col name: " + newgetFileDataColumns.get(i).getColumnLabel() + " ecl: " + newgetFileDataColumns.get(i).getColumnEclType() + " col type " + newgetFileDataColumns.get(i).getColumnType());
+                System.out.println("Col name: " + newgetFileDataColumns[i].getColumnLabel() + " ecl: " + newgetFileDataColumns[i].getColumnEclType() + " col type " + newgetFileDataColumns[i].getColumnType());
             }
 
             System.out.println("Test for showing file part informaztion");
@@ -360,56 +303,6 @@ public class PlatformTester
                                     + ": IP=" + parts[i].getIp()
                                     + ": Size=" + parts[i].getPartsize());
             }
-
-            System.out.println(FileFormat.getFileFormatName(Utils.findEnumValFromString(FileFormat.class, "CSV")));
-            connector.sprayDefaultCSVHPCCFile("account-small","mythor::accounts", clusters.get(0), true);
-
-            String outputCSVfileContentsEcl = Accounts.elcLayout +
-                    "hpccaccountrecords := DATASET('~mythor::accounts', Layout_Accounts, CSV);" +
-                   "OUTPUT(hpccaccountrecords,, 'processed::accounts',OVERWRITE);";
-
-            wu=new WorkunitInfo();
-            wu.setECL(outputCSVfileContentsEcl);
-            wu.setJobname("myaccountsfile");
-            wu.setCluster(clusterGroups[0]);
-            wu.setResultLimit(10);
-            wu.setMaxMonitorMillis(50000);
-            //this is just one way to submitECL, you can also submit via ecldirect and request the resulting WUID
-            //you can also, submit via WSWorkunits and have more control over the result window you get back.
-            results = connector.submitECLandGetResults(wu);
-
-            System.out.println("Accounts file content(10 recs) output: " + results);
-
-            wu.setCluster(clusterGroups[0]); /*hthor,thor,roxie*/
-            WUPublishWorkunitResponse publishresp = connector.getWsWorkunitsClient().publishWUFromEcl(wu);
-
-            wu.setCluster(clusterGroups[1]); /*hthor,thor,roxie*/
-            wu.setResultLimit(100);
-            wu.setMaxMonitorMillis(50000);
-            List<List <Object>> resultsList = connector.submitECLandGetResultsList(wu);
-            int resultsets = resultsList.size();
-
-            Utils.println(System.out, "Found " + resultsets + " resultsets.", false, true);
-            int currentrs = 1;
-
-            for (List<Object> list : resultsList)
-            {
-                Utils.print(System.out, "Resultset " + currentrs +":", false, true);
-                for (Object object : list)
-                {
-                    System.out.print("[ " + object.toString() +" ]");
-                }
-                currentrs++;
-                System.out.println("");
-            }
-
-            wu.setCluster(clusterGroups[1]); /*hthor,thor,roxie*/
-            wu.setResultLimit(10);
-
-            String wuid = connector.getWsWorkunitsClient().createAndRunWUFromECLAndGetWUID(wu);
-            String results2 = connector.getWsWorkunitsClient().fetchResults(wuid, 0, clusterGroups[1], true, -1, -1);
-            System.out.println(results2);
-
 
             try
             {
