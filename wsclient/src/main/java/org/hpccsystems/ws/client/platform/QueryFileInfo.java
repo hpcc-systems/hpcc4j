@@ -1,14 +1,14 @@
 package org.hpccsystems.ws.client.platform;
 
 import org.apache.axis.types.UnsignedInt;
-
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.FileUsedByQuery;
 public class QueryFileInfo {
 
     private String fileName;
     private Long fileSize;
     private UnsignedInt numberOfParts;
 
-    public QueryFileInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_71allverinclusive.FileUsedByQuery raw) {
+    public QueryFileInfo(FileUsedByQuery raw) {
         fileName=raw.getFileName();
         fileSize=raw.getFileSize();
         numberOfParts=raw.getNumberOfParts();

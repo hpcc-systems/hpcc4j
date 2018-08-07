@@ -8,9 +8,10 @@ import java.util.List;
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.ProgressRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.ProgressResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_15.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_15.ProgressRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_15.ProgressResponse;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
@@ -527,7 +528,7 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC fileSpray Client");
         }
-        catch (org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.ArrayOfEspException e)
+        catch (ArrayOfEspException e)
         {
             Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, verbosemode);
         }
@@ -620,7 +621,7 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC FileSpray Client");
         }
-        catch (org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.ArrayOfEspException e)
+        catch (org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException e)
         {
             Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, true);
         }
@@ -640,7 +641,7 @@ public class HPCCWsClient extends DataSingleton
     {
         boolean success = false;
 
-        org.hpccsystems.ws.client.gen.filespray.v1_15allverinclusive.ArrayOfEspException exceptions = sprayResponse.getExceptions();
+        org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException exceptions = sprayResponse.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())

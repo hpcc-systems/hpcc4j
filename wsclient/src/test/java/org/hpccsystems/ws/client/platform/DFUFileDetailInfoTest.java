@@ -15,8 +15,6 @@
  *******************************************************************************/
 package org.hpccsystems.ws.client.platform;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -26,6 +24,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+
+import org.junit.Test;
 
 public class DFUFileDetailInfoTest {
 
