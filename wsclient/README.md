@@ -44,6 +44,10 @@ wsclient | hpccsystems-platform
 #### Future Release
 
 ###### 7.0.0 Target Release date September, 2018
+- JAPI-119 Moving the versioning system for wsclient to parallel supported versions of the platform
+- JAPI-109 File structure info
+- JAPI-118 Address missing DFUFileDetail Field
+- JAPI-126 Update HPCC 7.0.0 ESP interfaces and remove Pre 6.0.0 Interfaces
 
 #### Release Changelog
 
