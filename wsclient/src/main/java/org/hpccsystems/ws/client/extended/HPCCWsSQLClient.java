@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
+import org.apache.logging.log4j.*;
+
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ECLException;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ECLWorkunit;
@@ -47,6 +49,7 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsSQLClient  extends DataSingleton
 {
+    private static final Logger    log                   = LogManager.getLogger(HPCCWsSQLClient.class.getName());
     public static final String     WSSQLURI              = "/WsSQL";
     private WssqlServiceSoapProxy  wsSqlServiceSoapProxy = null;
     private boolean                verbose               = false;
@@ -227,7 +230,7 @@ public class HPCCWsSQLClient  extends DataSingleton
         }
         catch (Exception e)
         {
-            Utils.print(System.out, "Could not fetch file(s) " + e.getLocalizedMessage(), false, false);
+            log.error("Could not fetch file(s) " + e.getLocalizedMessage());
             throw e;
         }
 
@@ -305,7 +308,7 @@ public class HPCCWsSQLClient  extends DataSingleton
             }
             catch (Exception e)
             {
-                System.out.println("Could not fetch System info, WsSQLServiceProxy not available.");
+                log.error("Could not fetch System info, WsSQLServiceProxy not available.");
                 return false;
             }
 
@@ -321,7 +324,7 @@ public class HPCCWsSQLClient  extends DataSingleton
             }
             catch (RemoteException e)
             {
-                System.out.println("Error fetching HPCC System info.");
+                log.error("Error fetching HPCC System info.");
             }
         }
         return success;
@@ -484,7 +487,7 @@ public class HPCCWsSQLClient  extends DataSingleton
             for (int i = 0; i < exp.getException().length; i++)
             {
                 EspException ex = exp.getException()[i];
-                Utils.println(System.out, ex.getMessage(), true, verbose);
+                log.error(ex.getMessage());
                 message = message + "Audience: " + ex.getAudience() + " Source: " + ex.getSource() + " Message: " + ex.getMessage()+"\n";
             }
             throw new Exception(message);
@@ -499,7 +502,7 @@ public class HPCCWsSQLClient  extends DataSingleton
             for (int eclexceptionindex = 0; eclexceptionindex < eclexceptions.length; eclexceptionindex++)
             {
                 ECLException eclException = eclexceptions[eclexceptionindex];
-                Utils.println(System.out, eclException.getMessage(), true, verbose);
+                log.error(eclException.getMessage());
                 message = message + "Severity: " + eclException.getSeverity() + " Source: " + eclException.getSource() + " Message: " + eclException.getMessage()+"\n";
             }
             throw new Exception(message);

@@ -1,5 +1,7 @@
 package org.hpccsystems.clienttools;
 
+import org.apache.logging.log4j.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -12,6 +14,8 @@ import java.util.List;
 
 public class EclCompile
 {
+    private static final Logger log = LogManager.getLogger(EclCompile.class.getName());
+
     /**
      * @param ecl - the ecl text to compile
      * @param eclccInstallDir - the installation dir of eclcc/eclcc.exe
@@ -193,7 +197,7 @@ public class EclCompile
         }
         catch (Exception e)
         {
-            System.out.println(e.toString());
+            log.error(e.toString());
             e.printStackTrace();
         }
 

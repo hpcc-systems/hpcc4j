@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.io.File;
 
+import org.apache.logging.log4j.*;
+
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.Utils;
 
 public class RDF2HPCC
 {
     static private final String PARAMPREFIX          = "-(?i)";
+    static private final Logger log = LogManager.getLogger( RDF2HPCC.class.getName() );
 
     static public final String  RDFDATALOCPATTERN    = PARAMPREFIX + "rdflocation";
     static public final String  HPCCFILEPATTERN      = PARAMPREFIX + "hpccfile";
@@ -87,20 +90,20 @@ public class RDF2HPCC
                     }
                     else
                     {
-                        Utils.println(System.out, "ERROR: " + currentParam + "=??", false, false);
+                        log.error( "ERROR: " + currentParam + "=??");
                         return false;
                     }
 
                     if (currentParam.matches(RDFDATALOCPATTERN))
                     {
                         connector.setTargetRDFDataPath(currentParamVal);
-                        Utils.println(System.out, "TARGET RDF location: " + currentParamVal, false, false);
+                        log.trace("TARGET RDF location: " + currentParamVal);
                         rdffile = true;
                     }
                     else if (currentParam.matches(HPCCFILEPATTERN))
                     {
                         connector.setTargetHPCCFilePath(currentParamVal);
-                        Utils.println(System.out, "TARGET HPCC FILE: " + currentParamVal, false, false);
+                        log.trace("TARGET HPCC FILE: " + currentParamVal);
                         hpccfile = true;
                     }
                     else if (currentParam.matches(RDFLANGPATTERN))
@@ -110,106 +113,106 @@ public class RDF2HPCC
                     else if (currentParam.matches(ECLWATCHPROTPATTERN))
                     {
                         protocol = currentParamVal;
-                        Utils.println(System.out, "TARGET HPCC ECL Watch protocol: " + currentParamVal, false, false);
+                        log.trace("TARGET HPCC ECL Watch protocol: " + currentParamVal);
                     }
                     else if (currentParam.matches(ECLWATCHIPPATTERN))
                     {
                         host = currentParamVal;
-                        Utils.println(System.out, "TARGET HPCC ECL Watch IP: " + currentParamVal, false, false);
+                        log.trace("TARGET HPCC ECL Watch IP: " + currentParamVal);
                     }
                     else if (currentParam.matches(ECLWATCHPORTPATTERN))
                     {
                         port = currentParamVal;
-                        Utils.println(System.out, "TARGET HPCC ECL Watch Port: " + currentParamVal, false, false);
+                        log.trace("TARGET HPCC ECL Watch Port: " + currentParamVal);
                     }
                     else if (currentParam.matches(DROPZONEPATTERN))
                     {
                         connector.setTargetHPCCDropzonePath(currentParamVal);
-                        Utils.println(System.out, "TARGET HPCC dropzone path: " + currentParamVal, false, false);
+                        log.trace("TARGET HPCC dropzone path: " + currentParamVal);
                     }
                     else if (currentParam.matches(DESTGROUPPATTERN))
                     {
                         connector.setTargetDestinationGroup(currentParamVal);
-                        Utils.println(System.out, "Dest group: " + currentParamVal, false, false);
+                        log.trace("Dest group: " + currentParamVal);
                     }
                     else if (currentParam.matches(SPRAYPATTERN))
                     {
                         boolean performSpray = Boolean.parseBoolean(currentParamVal);
                         setPerformspray(performSpray);
-                        Utils.println(System.out, "Perform Spray: " + performSpray, false, false);
+                        log.trace("Perform Spray: " + performSpray);
                     }
                     else if (currentParam.matches(VERBOSEPATTERN))
                     {
                         boolean verbosemode = Boolean.parseBoolean(currentParamVal);
                         connector.setVerbosemode(verbosemode);
-                        Utils.println(System.out, "Verbose mode: " + verbosemode, false, false);
+                        log.trace("Verbose mode: " + verbosemode);
                     }
                     else if (currentParam.matches(OVERWRITEPATTERN))
                     {
                         boolean overwrite = Boolean.parseBoolean(currentParamVal);
                         connector.setOverwrite(overwrite);
-                        Utils.println(System.out, "Overwrite HPCC files: " + overwrite, false, false);
+                        log.trace("Overwrite HPCC files: " + overwrite);
                     }
                     else if (currentParam.matches(UPLOADCHUNPATTERN))
                     {
                         int uploadchunksize = Integer.parseInt(currentParamVal);
                         connector.setUploadchunksize(uploadchunksize);
-                        Utils.println(System.out, "ESP file upload limit: " + uploadchunksize, false, false);
+                        log.trace("ESP file upload limit: " + uploadchunksize);
                     }
                     else if (currentParam.matches(USERPATTERN))
                     {
                         user = currentParamVal;
-                        Utils.println(System.out, "ESP username: " + currentParamVal, false, false);
+                        log.trace("ESP username: " + currentParamVal);
                     }
                     else if (currentParam.matches(PASSPATTERN))
                     {
                         pass = currentParamVal;
-                        Utils.println(System.out, "ESP password: *****", false, false);
+                        log.trace("ESP password: *****");
                     }
                     else if (currentParam.matches(ABBREVPATTERN))
                     {
                         boolean abbreviate = Boolean.parseBoolean(currentParamVal);
                         connector.setAbbreviate(abbreviate);
-                        Utils.println(System.out, "Abbreviate Namespaces: " + abbreviate, false, false);
+                        log.trace("Abbreviate Namespaces: " + abbreviate);
                     }
                     else if (currentParam.matches(FIXNSPATTERN))
                     {
                         boolean fixNSIssues = Boolean.parseBoolean(currentParamVal);
                         connector.setFixNSIssues(fixNSIssues);
-                        Utils.println(System.out, "Attempt to fix namespace issues: " + fixNSIssues, false, false);
+                        log.trace("Attempt to fix namespace issues: " + fixNSIssues);
                     }
                     else if (currentParam.matches(BASEURLPATTERN))
                     {
                         connector.setTargetRDFBaseURI(currentParamVal);
-                        Utils.println(System.out, "Base URI: " + currentParamVal, false, false);
+                        log.trace("Base URI: " + currentParamVal);
                     }
                     else if (currentParam.matches(TARGETCLUSTERPATTERN))
                     {
                         connector.setTargetECLCluster(currentParamVal);
-                        Utils.println(System.out, "Target cluster for ECL execution: " + currentParamVal, false, false);
+                        log.trace("Target cluster for ECL execution: " + currentParamVal);
                     }
                     else if (currentParam.matches(ECLMAXWAITMSPATTERN))
                     {
                         int maxwaitms = Integer.parseInt(currentParamVal);
                         connector.setEclmaxwaitMS(maxwaitms);
-                        Utils.println(System.out, "Max wait for ECL execution in MS: " + maxwaitms, false, false);
+                        log.trace("Max wait for ECL execution in MS: " + maxwaitms);
                     }
                     else if (currentParam.matches(RUNSTATSPATTERN))
                     {
                         boolean getstats = Boolean.parseBoolean(currentParamVal);
                         setRunstats(getstats);
-                        Utils.println(System.out, "Produce stats: " + getstats, false, false);
+                        log.trace("Produce stats: " + getstats);
                     }
                     else if (currentParam.matches(ECLSTATSFILE))
                     {
                     	if(new File(currentParamVal).isFile())
                         {
                             connector.setECLStatsFile(currentParamVal);
-                    	    Utils.println(System.out, "Ecl Stats File: " + currentParamVal, false, false);
+                    	    log.trace("Ecl Stats File: " + currentParamVal);
                         }
                         else
                         {
-                            Utils.println(System.out, "ERROR provided eclstatsfile does not exist.", false, false);
+                            log.error("ERROR provided eclstatsfile does not exist.");
                             return false;
                         }
                     }
@@ -226,21 +229,21 @@ public class RDF2HPCC
                                 String nextToken = nstokens.nextToken();
                                 additionalNSs.add(nextToken);
 
-                                Utils.println(System.out, "Additional namespace: " + nextToken, false, false);
+                                log.trace("Additional namespace: " + nextToken);
                             }
 
                             connector.setAdditionalNSs(additionalNSs);
                         }
                         else
                         {
-                            Utils.println(System.out, "ERROR additional namespaces list.", false, false);
+                            log.error("ERROR additional namespaces list.");
                             return false;
                         }
                     }
 
                     else
                     {
-                        Utils.println(System.out, "ERROR Invalid param: " + currentParam, false, false);
+                        log.error("ERROR Invalid param: " + currentParam);
                         return false;
                     }
                 }
@@ -256,18 +259,18 @@ public class RDF2HPCC
             {
                 if (!rdffile)
                 {
-                	Utils.println(System.out, "ERROR required parameter -rdflocation not provided.", false, false);
+                	log.error("ERROR required parameter -rdflocation not provided.");
                 }
                 if (!hpccfile)
                 {
-                	Utils.println(System.out, "ERROR required parameter -hpccfile not provided.", false, false);
+                	log.error("ERROR required parameter -hpccfile not provided.");
                 }
                 return false;
             }
         }
         else
         {
-            Utils.println(System.out, "ERROR no params detected: ", true, false);
+            log.error("ERROR no params detected: ");
             return false;
         }
 
@@ -327,7 +330,7 @@ public class RDF2HPCC
 
     private static void printRDF2HPCCUsage()
     {
-        System.err.println(rdf2hpccusageMessage);
+        log.error(rdf2hpccusageMessage);
     }
 
     public static void main(String[] args)
@@ -355,43 +358,43 @@ public class RDF2HPCC
                                 String stats = connector.getRDFStats();
                                 if (stats != null)
                                 {
-                                    Utils.println(System.out, "RDF2HPCC: Raw stats: \n" + stats, false, false);
+                                    log.trace("RDF2HPCC: Raw stats: \n" + stats);
 
-                                    Utils.println(System.out, "RDF2HPCC: Parsing raw stats: \n", false, false);
+                                    log.trace("RDF2HPCC: Parsing raw stats: \n");
                                     List<List<Object>> parsedECLResults = org.hpccsystems.ws.client.utils.Utils
                                             .parseECLResults(stats);
                                     if (parsedECLResults != null)
                                     {
-                                        Utils.println(System.out, "RDF2HPCC: parsed stats: \n", false, false);
-                                        System.out.println(Utils.eclResultsToString(parsedECLResults, " , ", "\n"));
+                                        log.trace("RDF2HPCC: parsed stats: \n");
+                                        log.trace(Utils.eclResultsToString(parsedECLResults, " , ", "\n"));
                                     }
                                     else
                                     {
-                                        Utils.println(System.out, "RDF2HPCC: Failed to parse stats.", false, false);
+                                        log.error("RDF2HPCC: Failed to parse stats.");
                                     }
                                 }
                                 else
                                 {
-                                    Utils.println(System.out, "RDF2HPCC: Failed to produce stats.", false, false);
+                                    log.error("RDF2HPCC: Failed to produce stats.");
                                 }
                             }
                         }
                         else
                         {
-                            Utils.println(System.out, "RDF2HPCC: Spraying file failed.", false, false);
+                            log.error("RDF2HPCC: Spraying file failed.");
                         }
                     }
                     else if (rdf2hpcc.getRunstats())
                     {
-                        Utils.println(System.out, "RDF2HPCC: Will not run stats while file not sprayed.", false, false);
+                        log.error("RDF2HPCC: Will not run stats while file not sprayed.");
                     }
                 }
                 else
                 {
-                    Utils.println(System.out, "RDF2HPCC: Could not import file.", false, false);
+                    log.error("RDF2HPCC: Could not import file.");
                 }
 
-                Utils.println(System.out, "RDF2HPCC: Finished.", false, false);
+                log.trace("RDF2HPCC: Finished.");
             }
             catch (Exception e)
             {

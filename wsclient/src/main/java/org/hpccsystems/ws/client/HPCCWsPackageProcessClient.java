@@ -4,7 +4,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.*;
 import org.apache.axis.client.Stub;
+
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileResponse;
@@ -29,6 +31,7 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsPackageProcessClient extends DataSingleton
 {
+    private static final Logger         log = LogManager.getLogger(HPCCWsPackageProcessClient.class.getName());
     private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
@@ -134,7 +137,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
      */
     public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target) throws Exception
     {
-        Utils.println(System.out, "Attempting to activate package: " + packageMapName, false, verbose);
+        log.debug("Attempting to activate package: " + packageMapName);
 
         if (wsPackageProcessServiceSoapProxy == null)
             throw new Exception ("wsPackageProcessServiceSoapProxy not available!");
@@ -158,7 +161,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
                 org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException[] espexceptions = arrayOfEspExceptions.getException();
                 for (org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException espexception : espexceptions)
                 {
-                    Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbose);
+                    log.error("\tESPException: " + espexception.getMessage());
                 }
 
             }
@@ -183,7 +186,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
      */
     public BasePackageStatus getPackage(String process, String target) throws Exception
     {
-        Utils.println(System.out, "Attempting to fetch package process: " + process + " target: " + target, false, verbose);
+        log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
         if (wsPackageProcessServiceSoapProxy == null)
             throw new Exception ("wsPackageProcessServiceSoapProxy not available!");
@@ -198,7 +201,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
             org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ArrayOfEspException arrayOfEspExceptions = getpackageresp.getExceptions();
             if (arrayOfEspExceptions == null)
             {
-                Utils.println(System.out, "Get Package info: " + getpackageresp.getInfo(), false, verbose);
+                log.debug("Get Package info: " + getpackageresp.getInfo());
                 return getpackageresp.getStatus();
             }
             else
@@ -206,7 +209,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
                 org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException[] espexceptions = arrayOfEspExceptions.getException();
                 for (org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException espexception : espexceptions)
                 {
-                    Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbose);
+                    log.error("\tESPException: " + espexception.getMessage());
                 }
 
             }

@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import org.apache.logging.log4j.*;
+
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
@@ -34,6 +36,8 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsClient extends DataSingleton
 {
+    private static final Logger log = LogManager.getLogger(HPCCWsClient.class.getName());
+
     public static DataSingletonCollection All = new DataSingletonCollection();
     public static DataSingletonCollection SubClients = new DataSingletonCollection();
 
@@ -530,11 +534,11 @@ public class HPCCWsClient extends DataSingleton
         }
         catch (ArrayOfEspException e)
         {
-            Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, verbosemode);
+            log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
         catch (RemoteException e)
         {
-            Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, verbosemode);
+            log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
         catch (Exception e)
         {
@@ -566,7 +570,7 @@ public class HPCCWsClient extends DataSingleton
         }
         catch (Exception e)
         {
-            Utils.println(System.out, "Error: Could not spray file", true, true);
+            log.error("Error: Could not spray file");
             success = false;
         }
 
@@ -623,11 +627,11 @@ public class HPCCWsClient extends DataSingleton
         }
         catch (org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException e)
         {
-            Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, true);
+            log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
         catch (RemoteException e)
         {
-            Utils.println(System.out, "Error: Could not spray file" + e.getLocalizedMessage(),true, true);
+            log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
         catch (Exception e)
         {
@@ -646,7 +650,7 @@ public class HPCCWsClient extends DataSingleton
         {
             for (EspException espexception : exceptions.getException())
             {
-                Utils.println(System.out, "Error spraying file: " + espexception.getSource() + espexception.getMessage(), false, verbosemode);
+                log.error("Error spraying file: " + espexception.getSource() + espexception.getMessage());
             }
         }
         else
@@ -658,23 +662,23 @@ public class HPCCWsClient extends DataSingleton
 
             ProgressRequest dfuprogressparams = new ProgressRequest();
             dfuprogressparams.setWuid(sprayResponse.getWuid());
-            Utils.println(System.out, "Spray file DWUID: " +sprayResponse.getWuid(), true, verbosemode);
+            log.debug("Spray file DWUID: " +sprayResponse.getWuid());
             ProgressResponse progressResponse = fileSprayClient.fileSprayServiceSoapProxy.getDFUProgress(dfuprogressparams);
 
             if (progressResponse.getExceptions() != null)
             {
-                Utils.println(System.out, "Spray progress status fetch failed.", false, verbosemode);
+                log.error("Spray progress status fetch failed.");
             }
             else
             {
                 String state = progressResponse.getState();
-                Utils.println(System.out, progressResponse.getState(), true, verbosemode);
+                log.debug(progressResponse.getState());
                 if (!state.equalsIgnoreCase("FAILED"))
                 {
                     //this should be in a dedicated thread.
                     for  (int i = 0; i < 10 && progressResponse.getPercentDone() < 100 && !progressResponse.getState().equalsIgnoreCase("FAILED"); i++)
                     {
-                        Utils.println(System.out, progressResponse.getProgressMessage(), true, verbosemode);
+                        log.debug(progressResponse.getProgressMessage());
                         progressResponse = fileSprayClient.fileSprayServiceSoapProxy.getDFUProgress(dfuprogressparams);
 
                         try
@@ -686,16 +690,16 @@ public class HPCCWsClient extends DataSingleton
                             e.printStackTrace();
                         }
                     }
-                    Utils.println(System.out, progressResponse.getProgressMessage(), true, verbosemode);
+                    log.debug(progressResponse.getProgressMessage());
                     success = true;
                 }
                 else
                 {
-                    Utils.println(System.out, "Spray failed.", false, verbosemode);
+                    log.error("Spray failed.");
                 }
-                Utils.println(System.out, "Final summary from server: " + progressResponse.getSummaryMessage(),true, verbosemode);
+                log.debug("Final summary from server: " + progressResponse.getSummaryMessage());
 
-                Utils.println(System.out, "Spray attempt completed, verify DWUID: " +sprayResponse.getWuid(), false, verbosemode);
+                log.info("Spray attempt completed, verify DWUID: " +sprayResponse.getWuid());
             }
         }
         return success;
@@ -778,7 +782,7 @@ public class HPCCWsClient extends DataSingleton
         }
         catch (Exception e)
         {
-            Utils.println(System.err, "Error submitting ECL: " + e.getLocalizedMessage(), false, verbosemode);
+            log.error("Error submitting ECL: " + e.getLocalizedMessage());
             throw e;
         }
 
@@ -825,7 +829,7 @@ public class HPCCWsClient extends DataSingleton
         }
         catch (Exception e)
         {
-            System.out.println("Error submitting ECL: " + e.getLocalizedMessage());
+            log.error("Error submitting ECL: " + e.getLocalizedMessage());
             e.printStackTrace();
         }
 

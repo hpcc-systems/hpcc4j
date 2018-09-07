@@ -18,7 +18,9 @@ import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.Properties;
 
+import org.apache.logging.log4j.*;
 import org.apache.axis.client.Stub;
+
 import org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_15.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.filespray.v1_15.DropZoneFilesResponse;
@@ -111,6 +113,7 @@ public class HPCCFileSprayClient extends DataSingleton
     }
 
     private static URL                  originalURL;
+    private static Logger               log = LogManager.getLogger(HPCCFileSprayClient.class.getName());
 
     public static URL getOriginalURL() throws MalformedURLException
     {
@@ -784,7 +787,7 @@ public class HPCCFileSprayClient extends DataSingleton
             }
             catch (IOException e)
             {
-                Utils.println(System.err, "Encountered error while reading file: " + e.getLocalizedMessage() , false, verbose);
+                log.error("Encountered error while reading file: " + e.getLocalizedMessage());
                 returnValue = false;
             }
             finally
@@ -803,12 +806,12 @@ public class HPCCFileSprayClient extends DataSingleton
         }
         catch (MalformedURLException e)
         {
-            Utils.println(System.err, "There was a malformed URL: " + e.getLocalizedMessage() , false, verbose);
+            log.error("There was a malformed URL: " + e.getLocalizedMessage());
             returnValue = false;
         }
         catch (IOException e)
         {
-            Utils.println(System.err, "There was an error opening the file: " + e.getLocalizedMessage() , false, verbose);
+            log.error("There was an error opening the file: " + e.getLocalizedMessage());
             e.printStackTrace();
             returnValue = false;
         }
@@ -824,7 +827,7 @@ public class HPCCFileSprayClient extends DataSingleton
             }
             catch (IOException e)
             {
-                Utils.println(System.err, "Encountered error while closing: " + e.getLocalizedMessage() , false, verbose);
+                log.error("Encountered error while closing: " + e.getLocalizedMessage());
             }
         }
 
@@ -899,13 +902,13 @@ public class HPCCFileSprayClient extends DataSingleton
             while ((line = rreader.readLine()) != null)
                 response.append(line);
 
-            Utils.println(System.out, "File upload has finished, please fetch file list to verify upload", false,  verbose);
+            log.debug("File upload has finished, please fetch file list to verify upload");
         }
         catch (Exception e)
         {
             if (!fileUploadURL.equals(fileUploadConnection.getURL()))
             {
-                Utils.println(System.err, "HTTP Error reported on File upload related to a server redirect, please verify on server.", false, verbose);
+                log.error("HTTP Error reported on File upload related to a server redirect, please verify on server.");
             }
 
             if (verbose)

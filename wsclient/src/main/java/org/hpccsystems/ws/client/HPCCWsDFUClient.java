@@ -13,7 +13,9 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.logging.log4j.*;
 import org.apache.axis.client.Stub;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SuperfileListRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SuperfileListResponse;
@@ -66,6 +68,7 @@ import org.w3c.dom.NodeList;
 public class HPCCWsDFUClient extends DataSingleton
 {
     private static URL originalURL;
+    private static final Logger log = LogManager.getLogger(HPCCWsDFUClient.class.getName());
 
     public static URL getOriginalURL() throws MalformedURLException
     {
@@ -167,8 +170,7 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
-                            + espexception.getMessage(), false, true);
+                    log.error("Error retrieving file type for file: " + espexception.getSource() + espexception.getMessage());
                 }
             }
             throw e;
@@ -246,8 +248,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving file type for file: " + espexception.getSource()
-                            + espexception.getMessage(), false, true);
+                    log.error("Error retrieving file type for file: " + espexception.getSource()
+                            + espexception.getMessage());
                 }
             }
             throw e;
@@ -362,7 +364,7 @@ public class HPCCWsDFUClient extends DataSingleton
         catch (Exception e)
         {
             String msg = "Error calling DFUInfo for " + logicalname + ":" + e.getMessage();
-            Utils.println(System.out, msg, true, verbose);
+            log.error(msg);
             throw new Exception(msg, e);
         }
         try
@@ -397,8 +399,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
-                            + espexception.getMessage(), false, true);
+                    log.error("Error retrieving field names for file: " + espexception.getSource()
+                            + espexception.getMessage());
                 }
             }
             throw e;
@@ -438,9 +440,7 @@ public class HPCCWsDFUClient extends DataSingleton
         }
         catch (Exception e)
         {
-            Utils.println(System.err,
-                    "Could not parse ecl for " + logicalname + ", returning base metadata. Ecl:" + eclrecord, false,
-                    false);
+            log.error("Could not parse ecl for " + logicalname + ", returning base metadata. Ecl:" + eclrecord); 
         }
 
         return cols;
@@ -483,8 +483,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
-                            + espexception.getMessage(), false, true);
+                    log.error("Error retrieving field names for file: " + espexception.getSource()
+                            + espexception.getMessage());
                 }
             }
             throw e;
@@ -558,8 +558,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving field names for file: " + espexception.getSource()
-                            + espexception.getMessage(), false, true);
+                    log.error("Error retrieving field names for file: " + espexception.getSource()
+                            + espexception.getMessage());
                 }
             }
             throw e;
@@ -704,7 +704,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 {
                     errs = errs + ex.getMessage() + "\n";
                 }
-                Utils.println(System.out, ex.getMessage(), true, verbose);
+                log.error(ex.getMessage());
             }
             throw new Exception(errs, exp);
         }
@@ -1048,8 +1048,8 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 for (EspException espexception : e.getException())
                 {
-                    Utils.println(System.out, "Error retrieving file type for file: " + logicalname + ": "
-                            + espexception.getSource() + espexception.getMessage(), false, true);
+                    log.error("Error retrieving file type for file: " + logicalname + ": "
+                            + espexception.getSource() + espexception.getMessage());
                 }
             }
             throw e;

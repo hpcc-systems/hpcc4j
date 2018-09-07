@@ -30,6 +30,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.logging.log4j.*;
+
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,6 +41,8 @@ import org.xml.sax.SAXException;
 
 public class Utils
 {
+    private final static Logger log = LogManager.getLogger(Utils.class.getName());
+
     final static char LINUX_SEP =  '/';
     final static char WIN_SEP =  '\\';
     final static String ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
@@ -64,14 +68,24 @@ public class Utils
 
     static public void println(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode )
     {
-        if (verbosemode || !onlyifverbose)
-            stream.println(message);
+        // if (verbosemode || !onlyifverbose)
+        //     stream.println(message);
+        if (onlyifverbose) {
+            log.debug(message);
+        } else {
+            log.error(message);
+        }
     }
 
     static public void print(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode)
     {
-        if (verbosemode || !onlyifverbose)
-            stream.print(message);
+        // if (verbosemode || !onlyifverbose)
+        //     stream.print(message);
+        if (onlyifverbose) {
+            log.debug(message);
+        } else {
+            log.error(message);
+        }
     }
 
     /**
