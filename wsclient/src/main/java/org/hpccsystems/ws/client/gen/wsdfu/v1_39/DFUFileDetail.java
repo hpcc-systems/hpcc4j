@@ -96,6 +96,10 @@ public class DFUFileDetail  implements java.io.Serializable {
 
     private java.lang.String packageID;
 
+    private org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartition partition;
+
+    private org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileBloom[] blooms;
+
     public DFUFileDetail() {
     }
 
@@ -143,7 +147,9 @@ public class DFUFileDetail  implements java.io.Serializable {
            java.lang.Boolean browseData,
            java.lang.String jsonInfo,
            byte[] binInfo,
-           java.lang.String packageID) {
+           java.lang.String packageID,
+           org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartition partition,
+           org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileBloom[] blooms) {
            this.name = name;
            this.filename = filename;
            this.prefix = prefix;
@@ -188,6 +194,8 @@ public class DFUFileDetail  implements java.io.Serializable {
            this.jsonInfo = jsonInfo;
            this.binInfo = binInfo;
            this.packageID = packageID;
+           this.partition = partition;
+           this.blooms = blooms;
     }
 
 
@@ -1070,6 +1078,46 @@ public class DFUFileDetail  implements java.io.Serializable {
         this.packageID = packageID;
     }
 
+
+    /**
+     * Gets the partition value for this DFUFileDetail.
+     * 
+     * @return partition
+     */
+    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartition getPartition() {
+        return partition;
+    }
+
+
+    /**
+     * Sets the partition value for this DFUFileDetail.
+     * 
+     * @param partition
+     */
+    public void setPartition(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartition partition) {
+        this.partition = partition;
+    }
+
+
+    /**
+     * Gets the blooms value for this DFUFileDetail.
+     * 
+     * @return blooms
+     */
+    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileBloom[] getBlooms() {
+        return blooms;
+    }
+
+
+    /**
+     * Sets the blooms value for this DFUFileDetail.
+     * 
+     * @param blooms
+     */
+    public void setBlooms(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileBloom[] blooms) {
+        this.blooms = blooms;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof DFUFileDetail)) return false;
@@ -1213,7 +1261,13 @@ public class DFUFileDetail  implements java.io.Serializable {
               java.util.Arrays.equals(this.binInfo, other.getBinInfo()))) &&
             ((this.packageID==null && other.getPackageID()==null) || 
              (this.packageID!=null &&
-              this.packageID.equals(other.getPackageID())));
+              this.packageID.equals(other.getPackageID()))) &&
+            ((this.partition==null && other.getPartition()==null) || 
+             (this.partition!=null &&
+              this.partition.equals(other.getPartition()))) &&
+            ((this.blooms==null && other.getBlooms()==null) || 
+             (this.blooms!=null &&
+              java.util.Arrays.equals(this.blooms, other.getBlooms())));
         __equalsCalc = null;
         return _equals;
     }
@@ -1404,6 +1458,20 @@ public class DFUFileDetail  implements java.io.Serializable {
         }
         if (getPackageID() != null) {
             _hashCode += getPackageID().hashCode();
+        }
+        if (getPartition() != null) {
+            _hashCode += getPartition().hashCode();
+        }
+        if (getBlooms() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getBlooms());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getBlooms(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -1727,6 +1795,21 @@ public class DFUFileDetail  implements java.io.Serializable {
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("partition");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Partition"));
+        elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFilePartition"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("blooms");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Blooms"));
+        elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileBloom"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        elemField.setItemQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileBloom"));
         typeDesc.addFieldDesc(elemField);
     }
 

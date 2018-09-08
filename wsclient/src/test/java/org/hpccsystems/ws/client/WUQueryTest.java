@@ -22,7 +22,7 @@ public class WUQueryTest {
     
     @Before
     public void setup() {
-        platform= Platform.get("http", "10.173.147.1", 8010, "dleed", "");
+        platform= Platform.get("http", "server_ip", 8010, "dleed", "");
         try {
         client1 = platform.checkOutHPCCWsClient();
         } catch (Exception e) {
