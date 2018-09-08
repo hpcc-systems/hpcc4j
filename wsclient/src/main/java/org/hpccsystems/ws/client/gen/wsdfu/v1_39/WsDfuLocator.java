@@ -22,7 +22,7 @@ public class WsDfuLocator extends org.apache.axis.client.Service implements org.
     }
 
     // Use to get a proxy class for WsDfuServiceSoap
-    private java.lang.String WsDfuServiceSoap_address = "http://10.173.160.101:8010/WsDfu?ver_=1.39";
+    private java.lang.String WsDfuServiceSoap_address = "http://10.0.2.15:8010/WsDfu?ver_=1.39";
 
     public java.lang.String getWsDfuServiceSoapAddress() {
         return WsDfuServiceSoap_address;
