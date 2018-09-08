@@ -16,7 +16,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[22];
+        _operations = new org.apache.axis.description.OperationDesc[23];
         _initOperationDesc1();
         _initOperationDesc2();
         _initOperationDesc3();
@@ -128,6 +128,23 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
         _operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("DFUFileAccess");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileAccessRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileAccessRequest"), org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileAccessResponse"));
+        oper.setReturnClass(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileAccessResponse"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+                      "wsdfu.ws.hpccsystems.ArrayOfEspException",
+                      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
+                      true
+                     ));
+        _operations[6] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUFileView");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileViewRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileViewRequest"), org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest.class, false, false);
         oper.addParameter(param);
@@ -142,7 +159,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[6] = oper;
+        _operations[7] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUGetDataColumns");
@@ -159,7 +176,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[7] = oper;
+        _operations[8] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUGetFileMetaData");
@@ -176,8 +193,13 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[8] = oper;
+        _operations[9] = oper;
 
+    }
+
+    private static void _initOperationDesc2(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUInfoRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUInfoRequest"), org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUInfoRequest.class, false, false);
@@ -193,13 +215,8 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[9] = oper;
+        _operations[10] = oper;
 
-    }
-
-    private static void _initOperationDesc2(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUQuery");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUQueryRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUQueryRequest"), org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUQueryRequest.class, false, false);
@@ -215,7 +232,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[10] = oper;
+        _operations[11] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFURecordTypeInfo");
@@ -232,7 +249,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[11] = oper;
+        _operations[12] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUSearch");
@@ -249,7 +266,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[12] = oper;
+        _operations[13] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUSearchData");
@@ -266,7 +283,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[13] = oper;
+        _operations[14] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("DFUSpace");
@@ -283,7 +300,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[14] = oper;
+        _operations[15] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("EclRecordTypeInfo");
@@ -300,7 +317,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[15] = oper;
+        _operations[16] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("EraseHistory");
@@ -317,7 +334,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[16] = oper;
+        _operations[17] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("ListHistory");
@@ -334,7 +351,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[17] = oper;
+        _operations[18] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("Ping");
@@ -351,8 +368,13 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[18] = oper;
+        _operations[19] = oper;
 
+    }
+
+    private static void _initOperationDesc3(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("Savexml");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "SavexmlRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">SavexmlRequest"), org.hpccsystems.ws.client.gen.wsdfu.v1_39.SavexmlRequest.class, false, false);
@@ -368,13 +390,8 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[19] = oper;
+        _operations[20] = oper;
 
-    }
-
-    private static void _initOperationDesc3(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("SuperfileAction");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "SuperfileActionRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">SuperfileActionRequest"), org.hpccsystems.ws.client.gen.wsdfu.v1_39.SuperfileActionRequest.class, false, false);
@@ -390,7 +407,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[20] = oper;
+        _operations[21] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("SuperfileList");
@@ -407,7 +424,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
                       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"), 
                       true
                      ));
-        _operations[21] = oper;
+        _operations[22] = oper;
 
     }
 
@@ -583,6 +600,20 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUDefFileResponse");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDefFileResponse.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileAccessRequest");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileAccessResponse");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -838,6 +869,15 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfDFUFileBloom");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileBloom[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileBloom");
+            qName2 = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileBloom");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfDFUFilePartsOnCluster");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartsOnCluster[].class;
@@ -871,6 +911,24 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPart");
             qName2 = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPart");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfDFUPartCopies");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPartCopies[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartCopies");
+            qName2 = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartCopies");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfDFUPartLocations");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPartLocations[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartLocations");
+            qName2 = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartLocations");
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
@@ -925,9 +983,23 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             cachedSerFactories.add(enumsf);
             cachedDeserFactories.add(enumdf);
 
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileBloom");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileBloom.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileDetail");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileDetail.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFilePartition");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartition.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -967,6 +1039,20 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartCopies");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPartCopies.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartLocations");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPartLocations.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUSpaceItem");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSpaceItem.class;
@@ -990,12 +1076,26 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "FileAccessRole");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(enumsf);
+            cachedDeserFactories.add(enumdf);
+
             qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "History");
             cachedSerQNames.add(qName);
             cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.History.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "SecAccessType");
+            cachedSerQNames.add(qName);
+            cls = org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(enumsf);
+            cachedDeserFactories.add(enumdf);
 
     }
 
@@ -1315,12 +1415,54 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
 }
     }
 
-    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewResponse DFUFileView(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException {
+    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse DFUFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[6]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("WsDfu/DFUFileAccess?ver_=1.39");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "DFUFileAccess"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse) org.apache.axis.utils.JavaUtils.convert(_resp, org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+    if (axisFaultException.detail != null) {
+        if (axisFaultException.detail instanceof java.rmi.RemoteException) {
+              throw (java.rmi.RemoteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException) {
+              throw (org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException) axisFaultException.detail;
+         }
+   }
+  throw axisFaultException;
+}
+    }
+
+    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewResponse DFUFileView(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[7]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUFileView?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1362,7 +1504,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[7]);
+        _call.setOperation(_operations[8]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUGetDataColumns?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1404,7 +1546,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[8]);
+        _call.setOperation(_operations[9]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUGetFileMetaData?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1446,7 +1588,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[9]);
+        _call.setOperation(_operations[10]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUInfo?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1488,7 +1630,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[10]);
+        _call.setOperation(_operations[11]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUQuery?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1530,7 +1672,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[11]);
+        _call.setOperation(_operations[12]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFURecordTypeInfo?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1572,7 +1714,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[12]);
+        _call.setOperation(_operations[13]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUSearch?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1614,7 +1756,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[13]);
+        _call.setOperation(_operations[14]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUSearchData?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1656,7 +1798,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[14]);
+        _call.setOperation(_operations[15]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/DFUSpace?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1698,7 +1840,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[15]);
+        _call.setOperation(_operations[16]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/EclRecordTypeInfo?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1740,7 +1882,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[16]);
+        _call.setOperation(_operations[17]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/EraseHistory?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1782,7 +1924,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[17]);
+        _call.setOperation(_operations[18]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/ListHistory?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1824,7 +1966,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[18]);
+        _call.setOperation(_operations[19]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/Ping?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1866,7 +2008,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[19]);
+        _call.setOperation(_operations[20]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/Savexml?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1908,7 +2050,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[20]);
+        _call.setOperation(_operations[21]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/SuperfileAction?ver_=1.39");
         _call.setEncodingStyle(null);
@@ -1950,7 +2092,7 @@ public class WsDfuServiceSoapStub extends org.apache.axis.client.Stub implements
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[21]);
+        _call.setOperation(_operations[22]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("WsDfu/SuperfileList?ver_=1.39");
         _call.setEncodingStyle(null);
