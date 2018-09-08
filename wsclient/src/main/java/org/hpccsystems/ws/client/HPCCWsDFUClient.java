@@ -25,6 +25,8 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActions;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUBrowseDataRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUBrowseDataResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetDataColumnsRequest;
@@ -39,6 +41,8 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUQueryResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSearchDataRequest;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSearchDataResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.EspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuLocator;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoap;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy;
@@ -312,7 +316,7 @@ public class HPCCWsDFUClient extends DataSingleton
     /**
      * Use this function to retrieve file metadata such as column information, for superfiles the metadata from the
      * first subfile will be returned.
-     * 
+     *
      * @param logicalname
      *            - Logical filename.
      * @param clustername
@@ -444,7 +448,7 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * Deprecated, use getFileMetaDataInfo() Use this function to retrieve file metadata such as column information
-     * 
+     *
      * @param logicalname
      *            - Logical filename.
      * @param clustername
@@ -708,7 +712,7 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * Get array of logical files on target HPCC system based on input parameters
-     * 
+     *
      * @param filename
      * @param cluster
      *            --- NO LONGER USED ---
@@ -851,7 +855,7 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * searchFiles
-     * 
+     *
      * @param logicalFilename
      *            - the filename to search for
      * @param cluster
@@ -881,6 +885,89 @@ public class HPCCWsDFUClient extends DataSingleton
             }
         }
         return result;
+    }
+
+    /**
+     * getFileAccessBlob
+     *
+     * @param accesstype
+     *            - the file access level to request to request
+     * @param filename
+     *            - the name of the target file to be accessed
+     * @param clustername
+     *            - the name of the target file's HPCC cluster (can be empty)
+     * @param expiryseconds
+     *            - the number of seconds file access is granted
+     * @param jobid
+     *            - unique identifier for access token
+     * @return - Access artifact to be propagated as part of DAFILESERV file access requests
+     * @throws Exception
+     */
+    public String getFileAccessBlob(SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    {
+        DFUFileAccessResponse resp = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
+        if (resp == null)
+            throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
+
+        return resp.getMetaInfoBlob();
+    }
+
+    /**
+     * @param accesstype
+     *            - the file access level to request to request
+     * @param filename
+     *            - the name of the target file to be accessed
+     * @param clustername
+     *            - the name of the target file's HPCC cluster (can be empty)
+     * @param expiryseconds
+     *            - the number of seconds file access is granted
+     * @param jobid
+     *            - unique identifier for access token
+     * @param includejsonTypeInfo
+     *            - flag to request file info in JSON format
+     * @param includebinTypeInfo
+     *            - flag to request file info in Binary format
+     * @return - Access artifact to be propagated as part of DAFILESERV file access requests
+     * @throws Exception
+     */
+    public DFUFileAccessResponse getFileAccess(SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception
+    {
+        WsDfuServiceSoapProxy proxy = getSoapProxy();
+        DFUFileAccessRequest req = new DFUFileAccessRequest();
+
+
+        req.setAccessRole(requestfileinfo ? FileAccessRole.External : FileAccessRole.Token);
+        req.setAccessType(accesstype);
+        req.setCluster(clustername);
+        req.setExpirySeconds(expiryseconds);
+        req.setJobId(jobid);
+        req.setName(filename);
+        req.setReturnBinTypeInfo(includebinTypeInfo);
+        req.setReturnJsonTypeInfo(includejsonTypeInfo);
+
+        try
+        {
+            DFUFileAccessResponse resp = proxy.DFUFileAccess(req);
+            if (resp == null)
+            {
+                throw new Exception("Did not receive DFUFileAccess response");
+            }
+
+            this.handleException(resp.getExceptions());
+
+            return resp;
+        }
+        catch (ArrayOfEspException e)
+        {
+            if (e != null)
+            {
+                for (EspException espexception : e.getException())
+                {
+                    Utils.println(System.out, "Error adquiring read access for: '" + clustername + "::" + filename + "' \n" + espexception.getSource() + espexception.getMessage(), false, true);
+                }
+            }
+            throw e;
+        }
     }
 
     /**
