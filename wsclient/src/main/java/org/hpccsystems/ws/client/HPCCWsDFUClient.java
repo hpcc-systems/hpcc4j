@@ -906,9 +906,10 @@ public class HPCCWsDFUClient extends DataSingleton
     public String getFileAccessBlob(SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
         DFUFileAccessResponse resp = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
-        if (resp != null)
-            return resp.getMetaInfoBlob();
-        return "";
+        if (resp == null)
+            throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
+
+        return resp.getMetaInfoBlob();
     }
 
     /**
