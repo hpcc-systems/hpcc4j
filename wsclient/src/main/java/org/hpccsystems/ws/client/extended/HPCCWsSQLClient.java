@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import org.apache.axis.client.Stub;
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ECLException;
@@ -49,7 +49,7 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsSQLClient  extends DataSingleton
 {
-    private static final Logger    log                   = LogManager.getLogger(HPCCWsSQLClient.class.getName());
+    private static final Logger    log                   = Logger.getLogger(HPCCWsSQLClient.class.getName());
     public static final String     WSSQLURI              = "/WsSQL";
     private WssqlServiceSoapProxy  wsSqlServiceSoapProxy = null;
     private boolean                verbose               = false;

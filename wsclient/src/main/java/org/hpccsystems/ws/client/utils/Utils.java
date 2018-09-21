@@ -30,7 +30,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
@@ -41,11 +41,13 @@ import org.xml.sax.SAXException;
 
 public class Utils
 {
-    private final static Logger log = LogManager.getLogger(Utils.class.getName());
+    private final static Logger log = Logger.getLogger(Utils.class.getName());
 
     final static char LINUX_SEP =  '/';
     final static char WIN_SEP =  '\\';
     final static String ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
+
+    public enum LogLevel {DEBUG,ERROR,FATAL,INFO,TRACE,WARN};
     
     /**
      * @param wsdlurl - url to web service definition
@@ -66,25 +68,49 @@ public class Utils
         return "";
     }
 
+    @Deprecated
     static public void println(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode )
     {
-        // if (verbosemode || !onlyifverbose)
-        //     stream.println(message);
-        if (onlyifverbose) {
-            log.debug(message);
-        } else {
-            log.error(message);
-        }
+        if (onlyifverbose && verbosemode)
+            log.warn(message);
+        else
+            log.info(message);
     }
 
+    @Deprecated
     static public void print(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode)
     {
-        // if (verbosemode || !onlyifverbose)
-        //     stream.print(message);
-        if (onlyifverbose) {
-            log.debug(message);
-        } else {
-            log.error(message);
+        if (onlyifverbose && verbosemode) 
+            log.warn(message);
+        else 
+            log.info(message);
+    }
+
+    static public void log(String message, LogLevel logLevel)
+    {
+        switch (logLevel) 
+        {
+            case DEBUG:
+                log.debug(message);
+                break;
+            case ERROR:
+                log.error(message);
+                break;
+            case FATAL:
+                log.fatal(message);
+                break;
+            case INFO:
+                log.info(message);
+                break;
+            case TRACE:
+                log.trace(message);
+                break;
+            case WARN:
+                log.warn(message);
+                break;
+            default:
+                log.trace(message);
+                break;
         }
     }
 

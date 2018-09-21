@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.*;
-
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EspException;
 import org.hpccsystems.ws.client.gen.filespray.v1_13.DropZone;
@@ -43,8 +41,6 @@ import com.hp.hpl.jena.util.FileManager;
 public class RDFHPCCWsClient extends HPCCWsClient
 {
     public static DataSingletonCollection All = new DataSingletonCollection();
-
-    private static final Logger log = LogManager.getLogger(RDFHPCCWsClient.class.getName());
 
     public static RDFHPCCWsClient get()
     {
@@ -337,7 +333,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
         }
         else
         {
-            log.error("Only valid entries are: 'RDF/XML', 'N-TRIPLE', 'TURTLE' (or 'TTL') and 'N3'.");
+            Utils.println(System.out, "Only valid entries are: 'RDF/XML', 'N-TRIPLE', 'TURTLE' (or 'TTL') and 'N3'.", false, verbosemode);
         }
 
     }
@@ -424,7 +420,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
         }
         else
         {
-            log.error("Could not spray file, no destgroup specified.");
+            Utils.println(System.out, "Could not spray file, no destgroup specified.", false, verbosemode);
             try
             {
                 printValidTargetGroups(System.out);
@@ -440,7 +436,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
         String eclreturn = null;
         String eclstats  = null;
         
-        log.error("Attempting to run ECL stats on " + targetHPCCFilePath);
+        Utils.println(System.out, "Attempting to run ECL stats on " + targetHPCCFilePath, false, false);
 
         try
         {
@@ -463,20 +459,20 @@ public class RDFHPCCWsClient extends HPCCWsClient
         }
         catch (ArrayOfEspException e)
         {
-            log.error("Error while submiting ecl: ");
+            Utils.println(System.out, "Error while submiting ecl: ", false, verbosemode);
             EspException[] espExceptions = e.getException();
             for (EspException espException : espExceptions)
             {
-                log.error(espException.getMessage());
+                Utils.println(System.out, espException.getMessage(), false, verbosemode);
             }
         }
         catch (IOException e)
         {
-        	log.error("Error reading from user defined ecl stats file: " + e.getLocalizedMessage());
+        	Utils.println(System.out, "Error reading from user defined ecl stats file: " + e.getLocalizedMessage(), false, verbosemode);
         }
         catch (Exception e)
         {
-            log.error("Error while submiting ecl: " + e.getLocalizedMessage());
+            Utils.println(System.out, "Error while submiting ecl: " + e.getLocalizedMessage(), false, verbosemode);
         }
 
         return eclreturn;
@@ -513,7 +509,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
                         }
                         else
                         {
-                            log.error("Could not create target HPCC namespaces file.");
+                            Utils.println(System.out, "Could not create target HPCC namespaces file.", false, verbosemode);
                         }
                     }
 
@@ -527,23 +523,23 @@ public class RDFHPCCWsClient extends HPCCWsClient
                         {
                             if (!fioclient.writeHPCCFileData(nsMappingsCSVFormat.toString().getBytes(), targetHPCCFilePath+"::namespaces", targetDropzoneNetAddress, false, 0, uploadchunksize))
                             {
-                                log.error("Could not write to HPCC namespaces file.");
+                                Utils.println(System.out, "Could not write to HPCC namespaces file.", false, verbosemode);
                             }
                         }
                     }
                 }
                 else
                 {
-                    log.error("Could not create target HPCC file.");
+                    Utils.println(System.out, "Could not create target HPCC file.", false, verbosemode);
                 }
             }
             else
             {
-                log.error("Could not find target HPCC dropzone info.");
+                Utils.println(System.out, "Could not find target HPCC dropzone info.", false, verbosemode);
             }
         }
 
-        log.error("Success: " + String.valueOf(success));
+        Utils.println(System.out, "Success: " + String.valueOf(success), false,verbosemode);
         return success;
     }
 
@@ -568,14 +564,14 @@ public class RDFHPCCWsClient extends HPCCWsClient
         //Open inputstream from specified RDF file
         InputStream in = FileManager.get().open( targetrdflocation );
 
-        log.error("Attempting to create a Jena model:");
-        log.error(" Original RDF location: " + targetrdflocation);
-        log.error(" RDF Syntax: " + targetrdflanguage);
-        log.error(" Base URI: " + targetrdfbaseuri);
+        Utils.println(System.out, "Attempting to create a Jena model:", false, verbosemode);
+        Utils.println(System.out, " Original RDF location: " + targetrdflocation, false, verbosemode);
+        Utils.println(System.out, " RDF Syntax: " + targetrdflanguage, false, verbosemode);
+        Utils.println(System.out, " Base URI: " + targetrdfbaseuri, false, verbosemode);
 
         if (in == null)
         {
-            log.error("Error: RDF data: " + targetrdflocation + " not found");
+            Utils.println(System.out, "Error: RDF data: " + targetrdflocation + " not found", false, verbosemode);
             return null;
         }
         else
@@ -586,15 +582,15 @@ public class RDFHPCCWsClient extends HPCCWsClient
             }
             catch (SyntaxError e)
             {
-                log.error("Error while loading model: Language Syntax error: " + e.getLocalizedMessage());
+                Utils.println(System.out, "Error while loading model: Language Syntax error: " + e.getLocalizedMessage(), false, verbosemode);
             }
             catch (TurtleParseException e)
             {
-                log.error("Error while loading model: " + e.getLocalizedMessage());
+                Utils.println(System.out, "Error while loading model: " + e.getLocalizedMessage(), false, verbosemode);
             }
             catch (Exception e)
             {
-                log.error("Error while loading model: " + e.getLocalizedMessage());
+                Utils.println(System.out, "Error while loading model: " + e.getLocalizedMessage(), false, verbosemode);
                 e.printStackTrace();
             }
             finally
@@ -607,7 +603,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
                     }
                     catch (IOException e)
                     {
-                        log.error("Error while closing input file stream:\n");
+                        Utils.println(System.out, "Error while closing input file stream:\n", false, verbosemode);
                         e.printStackTrace();
                     }
                 }
@@ -615,7 +611,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
         }
 
         if (model != null)
-            log.error("Model created.");
+            Utils.println(System.out, "Model created.", false, verbosemode);
 
         return model;
     }
@@ -630,7 +626,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
             for (String namespace : nsPrefixMap.values())
             {
                 lhpccnsprefixmap.put(namespace,HPCCNAMESPACE+nsindex++);
-                log.error("Namespace from mapping: " + namespace + "  -- Abbreviated: " +lhpccnsprefixmap.get(namespace));
+                Utils.println(System.out, "Namespace from mapping: " + namespace + "  -- Abbreviated: " +lhpccnsprefixmap.get(namespace), false, verbosemode);
             }
 
             if (additionalNSs != null)
@@ -638,7 +634,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
                 for (String namespace : additionalNSs)
                 {
                     lhpccnsprefixmap.put(namespace,HPCCNAMESPACE+nsindex++);
-                    log.error("Additional namespace added: " + namespace + " -- Abbreviated: " +lhpccnsprefixmap.get(namespace));
+                    Utils.println(System.out, "Additional namespace added: " + namespace + " -- Abbreviated: " +lhpccnsprefixmap.get(namespace), false, verbosemode);
                 }
             }
         }
@@ -674,7 +670,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
                         {
                             if (subject.isURIResource())
                             {
-                                log.debug("Possible issue detected, URI without known NS: " + subject);
+                                Utils.println(System.err, "Possible issue detected, URI without known NS: " + subject, true, verbosemode);
 
                                 for (String namespacekey : hpccnsprefixmap.keySet())
                                 {
@@ -687,10 +683,10 @@ public class RDFHPCCWsClient extends HPCCWsClient
                                             {
                                                 subjectShorthandNS = hpccnsprefixmap.get(namespacekey);
                                                 subjectName = substring + subjectName;
-                                                log.debug("WARNING MAKING FOLLOWING ASSUMPTION: NameSpace: " + namespacekey + " LocalName: " + subjectName);
+                                                Utils.println(System.err, "WARNING MAKING FOLLOWING ASSUMPTION: NameSpace: " + namespacekey + " LocalName: " + subjectName, true, verbosemode);
                                             }
                                             else
-                                                log.debug("Is this an invalid qname: " + namespacekey + " -> " + substring + subjectName);
+                                                Utils.println(System.err, "Is this an invalid qname: " + namespacekey + " -> " + substring + subjectName, true, verbosemode);
                                         }
 
                                         break;
@@ -702,24 +698,24 @@ public class RDFHPCCWsClient extends HPCCWsClient
                         if (subjectShorthandNS == null || subjectsNS == null)
                         {
                             serializedmodel.append(outputdelim).append(subject.toString());
-                            System.out.print(outputdelim+subject.toString());
+                            Utils.print(System.out, outputdelim+subject.toString(), true, verbosemode);
                         }
                         else
                         {
                             serializedmodel.append(subjectShorthandNS+outputdelim+subjectName);
-                            System.out.print(subjectShorthandNS+outputdelim+subjectName);
+                            Utils.print(System.out, subjectShorthandNS+outputdelim+subjectName, true, verbosemode);
                         }
                     }
                     else
                     {
                         serializedmodel.append(outputdelim);
-                        System.out.print(outputdelim);
+                        Utils.print(System.out, outputdelim, true, verbosemode);
                         serializedmodel.append(subject.toString());
-                        System.out.print(subject.toString());
+                        Utils.print(System.out, subject.toString(), true, verbosemode);
                     }
 
                     serializedmodel.append(outputdelim);
-                    System.out.print(outputdelim);
+                    Utils.print(System.out, outputdelim, true, verbosemode);
                 }
 
                 predicateSerializationBlock:
@@ -733,24 +729,24 @@ public class RDFHPCCWsClient extends HPCCWsClient
                     {
                         predicateShorthandNS = HPCCNAMESPACE + (hpccnsprefixmap.size()+1);
                         hpccnsprefixmap.put(predicateNS, predicateShorthandNS);
-                        log.debug("Added NS found in predicate: " + predicateNS +":::::::"+predicateName);
+                        System.err.println("Added NS found in predicate: " + predicateNS +":::::::"+predicateName);
                     }
 
                     if (predicateShorthandNS == null || predicateName == null)
                     {
                         serializedmodel.append(outputdelim);
-                        System.out.print(outputdelim);
+                        Utils.print(System.out, outputdelim, true, verbosemode);
                         serializedmodel.append(predicate);
-                        System.out.print(predicate.toString());
+                        Utils.print(System.out, predicate.toString(), true, verbosemode);
                     }
                     else
                     {
                         serializedmodel.append(predicateShorthandNS+outputdelim+predicateName);
-                        System.out.print(predicateShorthandNS+outputdelim+predicateName);
+                        Utils.print(System.out, predicateShorthandNS+outputdelim+predicateName, true, verbosemode);
                     }
 
                     serializedmodel.append(outputdelim);
-                    System.out.print(outputdelim);
+                    Utils.print(System.out, outputdelim, true, verbosemode);
                 }
 
                 objectSerializationBlock:
@@ -764,52 +760,52 @@ public class RDFHPCCWsClient extends HPCCWsClient
                         if (objectShorthandNS == null || objectName == null)
                         {
                             serializedmodel.append(outputdelim);
-                            System.out.print(outputdelim);
+                            Utils.print(System.out, outputdelim, true, verbosemode);
                             serializedmodel.append(object);
-                            System.out.print(object.toString());
+                            Utils.print(System.out, object.toString(), true, verbosemode);
 
                             serializedmodel.append(outputdelim);
-                            System.out.print(outputdelim);
+                            Utils.print(System.out, outputdelim, true, verbosemode);
                             if ( object.isAnon())
                             {
                                 serializedmodel.append("false");
-                                System.out.print("false");
+                                Utils.print(System.out, "false", true, verbosemode);
                             }
                             else
                             {
-                                log.debug("Encountered object URI without known namespace, treating as literal: " + object);
+                                System.err.println("Encountered object URI without known namespace, treating as literal: " + object);
                                 serializedmodel.append("true");
-                                System.out.print("true");
+                                Utils.print(System.out, "true", true, verbosemode);
                             }
                         }
                         else
                         {
                             serializedmodel.append(objectShorthandNS+outputdelim+objectName);
-                            System.out.print(objectShorthandNS+outputdelim+objectName);
+                            Utils.print(System.out, objectShorthandNS+outputdelim+objectName, true, verbosemode);
 
                             serializedmodel.append(outputdelim).append("false");
-                            System.out.print(outputdelim+"false");
+                            Utils.print(System.out, outputdelim+"false", true, verbosemode);
                         }
 
                     }
                     else
                     {
                         serializedmodel.append(outputdelim);
-                        System.out.print(outputdelim);
+                        Utils.print(System.out, outputdelim, true, verbosemode);
 
                         //object is a literal - single quote it
                         Node asNode = object.asNode();
                         String literalLexicalForm = asNode.getLiteralLexicalForm();
 
                         serializedmodel.append(outputquote).append(literalLexicalForm).append(outputquote);
-                        System.out.print(outputquote+literalLexicalForm+outputquote);
+                        Utils.print(System.out, outputquote+literalLexicalForm+outputquote, true, verbosemode);
 
                         serializedmodel.append(outputdelim).append("true");
-                        System.out.print(outputdelim+"true");
+                        Utils.print(System.out, outputdelim+"true", true, verbosemode);
                     }
 
                     serializedmodel.append(outputterminator);
-                    System.out.print(outputterminator);
+                    Utils.print(System.out, outputterminator, true, verbosemode);
                 }
             }
         }
@@ -830,43 +826,43 @@ public class RDFHPCCWsClient extends HPCCWsClient
             {
                 targetDropzoneNetAddress = dropZones[0].getNetAddress();
                 targetHPCCDropzonePath = dropZones[0].getPath();
-                log.error("Found dropzone net address: " + targetDropzoneNetAddress);
-                log.error("Found dropzone path: " + targetHPCCDropzonePath);
+                Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddress, false, verbosemode);
+                Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
 
                 try
                 {
                     PhysicalFileStruct[] files = fsclient.listFiles(targetDropzoneNetAddress, targetHPCCDropzonePath, null);
-                    log.trace("Existing Dropzone files:");
+                    Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
                     for (PhysicalFileStruct file : files)
                     {
-                        log.trace("\t" + file.getName() +"-"+ file.getFilesize());
+                        Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
                     }
                 }
                 catch (Exception e)
                 {
-                    log.warn("Warning: could not fetch existing landingzone file list.");
+                    Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
                 }
                 success = true;
             }
         }
         catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e1)
         {
-            log.error("ERROR: Attempting to fetch HPCC dropzone Info:");
+            Utils.println(System.out, "ERROR: Attempting to fetch HPCC dropzone Info:", false, verbosemode);
             for (org.hpccsystems.ws.client.gen.filespray.v1_06.EspException exception : e1.getException())
             {
-                log.error("\t"+exception.getMessage());
+                Utils.println(System.out, "\t"+exception.getMessage(), false, verbosemode);
             }
         }
         catch (RemoteException e1)
         {
-            log.error("ERROR:\tAttempting to fetch HPCC dropzone Info:");
-            log.error("\t"+e1.getLocalizedMessage());
+            Utils.println(System.out, "ERROR:\tAttempting to fetch HPCC dropzone Info:", false, verbosemode);
+            Utils.println(System.out, "\t"+e1.getLocalizedMessage(), false, verbosemode);
             if (e1.getCause() != null)
-                log.error("\t"+e1.getCause().getLocalizedMessage());
+                Utils.println(System.out, "\t"+e1.getCause().getLocalizedMessage(), false, verbosemode);
         }
         catch (Exception e)
         {
-            log.error(e.getLocalizedMessage());
+            Utils.println(System.out, e.getLocalizedMessage(), false, verbosemode);
         }
 
         return success;
@@ -877,7 +873,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
         String[] clusterGroups = getAvailableClusterGroups();
         for (int i = 0; i < clusterGroups.length; i++)
         {
-            log.debug(clusterGroups[i]);
+            System.out.println(clusterGroups[i]);
             try
             {
                 String[] actualclusternames = getAvailableClusterNames(clusterGroups[i]);

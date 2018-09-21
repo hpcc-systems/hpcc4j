@@ -18,7 +18,7 @@ import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.Properties;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 
 import org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone;
@@ -113,7 +113,7 @@ public class HPCCFileSprayClient extends DataSingleton
     }
 
     private static URL                  originalURL;
-    private static Logger               log = LogManager.getLogger(HPCCFileSprayClient.class.getName());
+    private static Logger               log = Logger.getLogger(HPCCFileSprayClient.class.getName());
 
     public static URL getOriginalURL() throws MalformedURLException
     {

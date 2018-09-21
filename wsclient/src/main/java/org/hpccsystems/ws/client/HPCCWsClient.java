@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
@@ -36,7 +36,7 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsClient extends DataSingleton
 {
-    private static final Logger log = LogManager.getLogger(HPCCWsClient.class.getName());
+    private static final Logger log = Logger.getLogger(HPCCWsClient.class.getName());
 
     public static DataSingletonCollection All = new DataSingletonCollection();
     public static DataSingletonCollection SubClients = new DataSingletonCollection();

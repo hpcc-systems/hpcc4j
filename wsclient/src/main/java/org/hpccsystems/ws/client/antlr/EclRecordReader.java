@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.antlr;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.hpccsystems.ws.client.platform.*;
 
@@ -12,7 +12,7 @@ import org.hpccsystems.ws.client.platform.*;
  */
 public class EclRecordReader extends EclRecordBaseListener
 {
-    private static final Logger       log          = LogManager.getLogger(EclRecordReader.class.getName());
+    private static final Logger       log          = Logger.getLogger(EclRecordReader.class.getName());
     private ErrorListener             errorHandler = new ErrorListener();
     private EclRecordInfo             eclInfo      = new EclRecordInfo();
     private DFURecordDefInfo          currentrec   = null;

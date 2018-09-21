@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 import org.apache.axis.encoding.Base64;
 import org.apache.axis.utils.StringUtils;
@@ -106,7 +106,7 @@ public class Connection
         }
     }
 
-    private final static Logger log                   = LogManager.getLogger(Connection.class.getName());
+    private final static Logger log                   = Logger.getLogger(Connection.class.getName());
 
     public final static String protDelimiter          = "://";
     public final static char   portDelimiter          = ':';

@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.Vector;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -14,7 +14,7 @@ import com.jcraft.jsch.Session;
 
 public class Sftp
 {
-    private static final Logger log = LogManager.getLogger(Sftp.class.getName());
+    private static final Logger log = Logger.getLogger(Sftp.class.getName());
 
     static public void lzPut(String localFileName, String hostname, String landingZonePath, String targetFileName, String machineLoginUsername, String password, boolean isLZLinux, Properties connconfig) throws Exception
     {

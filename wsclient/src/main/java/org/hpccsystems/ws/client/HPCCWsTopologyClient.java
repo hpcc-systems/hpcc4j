@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.ArrayOfEspException;
@@ -40,7 +40,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 */
 public class HPCCWsTopologyClient extends DataSingleton
 {
-    private static final Logger         log = LogManager.getLogger(HPCCWsTopologyClient.class.getName());
+    private static final Logger         log = Logger.getLogger(HPCCWsTopologyClient.class.getName());
     private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException

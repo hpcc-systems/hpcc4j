@@ -13,7 +13,7 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 
 import org.apache.commons.lang3.StringUtils;
@@ -68,7 +68,7 @@ import org.w3c.dom.NodeList;
 public class HPCCWsDFUClient extends DataSingleton
 {
     private static URL originalURL;
-    private static final Logger log = LogManager.getLogger(HPCCWsDFUClient.class.getName());
+    private static final Logger log = Logger.getLogger(HPCCWsDFUClient.class.getName());
 
     public static URL getOriginalURL() throws MalformedURLException
     {

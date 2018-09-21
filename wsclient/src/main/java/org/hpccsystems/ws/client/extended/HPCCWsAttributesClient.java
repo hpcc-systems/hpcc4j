@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.axis.client.Stub;
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributeRequest;
@@ -47,7 +47,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 public class HPCCWsAttributesClient extends DataSingleton
 {
     private static URL                  originalURL;
-    private static final Logger         log         = LogManager.getLogger(HPCCWsAttributesClient.class.getName());
+    private static final Logger         log         = Logger.getLogger(HPCCWsAttributesClient.class.getName());
 
     public static URL getOriginalURL() throws MalformedURLException
     {

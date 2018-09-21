@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 
-import org.apache.logging.log4j.*;
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
@@ -27,7 +27,7 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsFileIOClient extends DataSingleton
 {
-    private static final Logger         log = LogManager.getLogger(HPCCWsFileIOClient.class.getName());
+    private static final Logger         log = Logger.getLogger(HPCCWsFileIOClient.class.getName());
     private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
