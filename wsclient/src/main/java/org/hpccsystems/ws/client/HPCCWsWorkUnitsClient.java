@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 import org.apache.axis.utils.StringUtils;
 import org.apache.axis.types.NonNegativeInteger;
@@ -47,6 +48,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return new HPCCWsWorkUnitsClient(connection);
     }
 
+    private static final Logger                                                         log                               = Logger.getLogger(HPCCWsWorkUnitsClient.class.getName());
     public static final String                                                          WSWORKUNITSWSDLURI                = "/WsWorkunits";
     private WsWorkunitsServiceSoapProxy                                                 wsWorkunitsServiceSoapProxy       = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy fallBackWorkunitsServiceSoapProxy = null;
@@ -1803,13 +1805,12 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         {
             id = id + "(" + wu.getJobname() + ")";
         }
-        Utils.println(System.out, "Monitoring WU " + id + " to completion.", false, verbose);
+        log.trace("Monitoring WU " + id + " to completion.");
         while (!HPCCWsWorkUnitsClient.isWorkunitComplete(wu))
         {
             try
             {
-                Utils.println(System.out, "Monitoring WU " + id + " to completion ( " + timerTickCount + ") ...", true,
-                        verbose);
+                log.trace("Monitoring WU " + id + " to completion ( " + timerTickCount + ") ...");
                 Thread.sleep(wu.getSleepMillis());
             }
             catch (InterruptedException e)

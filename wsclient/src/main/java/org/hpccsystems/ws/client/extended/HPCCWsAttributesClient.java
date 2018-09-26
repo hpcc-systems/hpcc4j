@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.axis.client.Stub;
+import org.apache.log4j.Logger;
+
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributeRequest;
 import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributes;
@@ -45,6 +47,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 public class HPCCWsAttributesClient extends DataSingleton
 {
     private static URL                  originalURL;
+    private static final Logger         log         = Logger.getLogger(HPCCWsAttributesClient.class.getName());
 
     public static URL getOriginalURL() throws MalformedURLException
     {
@@ -322,7 +325,7 @@ public class HPCCWsAttributesClient extends DataSingleton
             {
                 handleException(resp.getExceptions());
             }
-            Utils.println(System.out, "Created " + req.getType() + " attribute " + req.getModuleName() + "." + req.getAttributeName(), true, verbose);
+            log.trace("Created " + req.getType() + " attribute " + req.getModuleName() + "." + req.getAttributeName());
         }
         
         //check out attributes
@@ -396,7 +399,7 @@ public class HPCCWsAttributesClient extends DataSingleton
             {
                 handleException(resp.getExceptions());
             }
-            Utils.println(System.out, "Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName(), true, verbose);            
+            log.trace("Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());            
         }
 
         if (checkoutin)
@@ -407,7 +410,7 @@ public class HPCCWsAttributesClient extends DataSingleton
         SaveAttributes params = new SaveAttributes();
         params.setAttributes(arr);
         UpdateAttributesResponse resp = proxy.saveAttributes(params);
-        Utils.println(System.out, "Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName(), true, verbose);            
+        log.trace("Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());            
         if (resp != null)
         {
             handleException(resp.getExceptions());
@@ -759,7 +762,7 @@ public class HPCCWsAttributesClient extends DataSingleton
             for (int i = 0; i < exp.getException().length; i++)
             {
                 EspException ex = exp.getException()[i];
-                Utils.println(System.out, ex.getMessage(), true, verbose);
+                log.error(ex.getMessage());
                 errs=errs + ex.getMessage() + "\n";
             }
             throw new Exception(errs, exp);

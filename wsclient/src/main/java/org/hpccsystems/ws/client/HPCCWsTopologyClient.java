@@ -7,7 +7,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
+
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpCluster;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpClusterInfoRequest;
@@ -38,6 +40,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 */
 public class HPCCWsTopologyClient extends DataSingleton
 {
+    private static final Logger         log = Logger.getLogger(HPCCWsTopologyClient.class.getName());
     private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
@@ -155,7 +158,7 @@ public class HPCCWsTopologyClient extends DataSingleton
                 if (targetClusterQueryResponse.getExceptions() != null)
                 {
                     //something went wrong
-                    Utils.println(System.out, "Could Not fetch target groups.", false, true);
+                    log.error("Could Not fetch target groups.");
                 }
                 else
                 {
@@ -176,12 +179,12 @@ public class HPCCWsTopologyClient extends DataSingleton
             }
             catch (Exception e)
             {
-                Utils.println(System.out, e.getLocalizedMessage(), false, true);
+                log.error(e.getLocalizedMessage());
             }
         }
         else
         {
-            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+            log.error("Could Not create WSTopology SOAP from WSDL");
         }
 
         return success;
@@ -212,7 +215,7 @@ public class HPCCWsTopologyClient extends DataSingleton
                 if (targetClusterQueryResponse.getExceptions() != null)
                 {
                     //something went wrong
-                    Utils.println(System.out, "Could Not fetch target groups.", false, true);
+                    log.error("Could Not fetch target groups.");
                 }
                 else
                 {
@@ -221,12 +224,12 @@ public class HPCCWsTopologyClient extends DataSingleton
             }
             catch (Exception e)
             {
-                Utils.println(System.out, e.getLocalizedMessage(), false, true);
+                log.error(e.getLocalizedMessage());
             }
         }
         else
         {
-            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+            log.error("Could Not create WSTopology SOAP from WSDL");
         }
         return tpTargetClusters;
     }
@@ -256,7 +259,7 @@ public class HPCCWsTopologyClient extends DataSingleton
                 if (targetClusterQueryResponse.getExceptions() != null)
                 {
                     //something went wrong
-                    Utils.println(System.out, "Could Not fetch target groups.", false, true);
+                    log.error("Could Not fetch target groups.");
                 }
                 else
                 {
@@ -271,12 +274,12 @@ public class HPCCWsTopologyClient extends DataSingleton
             }
             catch (Exception e)
             {
-                Utils.println(System.out, e.getLocalizedMessage(), false, true);
+                log.error(e.getLocalizedMessage());
             }
         }
         else
         {
-            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+            log.error("Could Not create WSTopology SOAP from WSDL");
         }
         return tpTargetClusterNames;
     }
@@ -307,7 +310,7 @@ public class HPCCWsTopologyClient extends DataSingleton
                 if (targetClusterQueryResponse.getExceptions() != null)
                 {
                     //something went wrong
-                    Utils.println(System.out, "Could Not fetch target groups.", false, true);
+                    log.error("Could Not fetch target groups.");
                 }
                 else
                 {
@@ -333,12 +336,12 @@ public class HPCCWsTopologyClient extends DataSingleton
             }
             catch (Exception e)
             {
-                Utils.println(System.out, e.getLocalizedMessage(), false, true);
+                log.error(e.getLocalizedMessage());
             }
         }
         else
         {
-            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+            log.error("Could Not create WSTopology SOAP from WSDL");
         }
         return tpTargetClusterNames;
     }
@@ -367,7 +370,7 @@ public class HPCCWsTopologyClient extends DataSingleton
                 if (targetClusterQueryResponse.getExceptions() != null)
                 {
                     //something went wrong
-                    Utils.println(System.out, "Could Not fetch target groups.", false, true);
+                    log.error("Could Not fetch target groups.");
                 }
                 else
                 {
@@ -387,12 +390,12 @@ public class HPCCWsTopologyClient extends DataSingleton
             }
             catch (Exception e)
             {
-                Utils.println(System.out, e.getLocalizedMessage(), false, true);
+                log.error(e.getLocalizedMessage());
             }
         }
         else
         {
-            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+            log.error("Could Not create WSTopology SOAP from WSDL");
         }
         return clusternames;
     }
@@ -428,7 +431,7 @@ public class HPCCWsTopologyClient extends DataSingleton
         }
         else
         {
-            Utils.println(System.out, "Could Not create WSTopology SOAP from WSDL", false, true);
+            log.error("Could Not create WSTopology SOAP from WSDL");
         }
 
         return respsone;
