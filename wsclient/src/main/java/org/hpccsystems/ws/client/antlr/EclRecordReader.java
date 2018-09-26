@@ -3,6 +3,7 @@ package org.hpccsystems.ws.client.antlr;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.hpccsystems.ws.client.platform.*;
 
@@ -11,6 +12,7 @@ import org.hpccsystems.ws.client.platform.*;
  */
 public class EclRecordReader extends EclRecordBaseListener
 {
+    private static final Logger       log          = Logger.getLogger(EclRecordReader.class.getName());
     private ErrorListener             errorHandler = new ErrorListener();
     private EclRecordInfo             eclInfo      = new EclRecordInfo();
     private DFURecordDefInfo          currentrec   = null;
@@ -253,12 +255,12 @@ public class EclRecordReader extends EclRecordBaseListener
             }
             else
             {
-                System.err.println("Unknown record layout " + rcurrent.getRecordLayoutName());
+                log.error("Unknown record layout " + rcurrent.getRecordLayoutName());
             }
         }
         else
         {
-            System.err.println("Unknown format " + ctx.getText());
+            log.error("Unknown format " + ctx.getText());
         }
     }
 

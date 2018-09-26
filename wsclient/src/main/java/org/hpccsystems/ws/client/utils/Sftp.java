@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -12,6 +14,8 @@ import com.jcraft.jsch.Session;
 
 public class Sftp
 {
+    private static final Logger log = Logger.getLogger(Sftp.class.getName());
+
     static public void lzPut(String localFileName, String hostname, String landingZonePath, String targetFileName, String machineLoginUsername, String password, boolean isLZLinux, Properties connconfig) throws Exception
     {
         char lzSep;
@@ -61,7 +65,7 @@ public class Sftp
                 if (files == null || files.size() == 0)
                     throw new Exception("Could not excute LS command on target landingzone path: " + landingZonePath);
                 else
-                    System.out.print("Found landing zone " + landingZonePath + " with " + files.size() + " files\n");
+                    log.debug("Found landing zone " + landingZonePath + " with " + files.size() + " files\n");
             }
             catch (Exception e)
             {
@@ -70,9 +74,9 @@ public class Sftp
 
             try
             {
-                System.out.println("Attempting to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName);
+                log.debug("Attempting to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName);
                 sftp.put(new FileInputStream(fileToUpload), landingZonePath + lzSep + targetFileName );
-                System.out.println("Finished Attempt to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName + " please verify");
+                log.debug("Finished Attempt to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName + " please verify");
             }
             catch (Exception e)
             {

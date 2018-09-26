@@ -4,7 +4,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 
+import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
+
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileResponse;
@@ -25,6 +27,7 @@ import org.hpccsystems.ws.client.utils.Utils;
  */
 public class HPCCWsFileIOClient extends DataSingleton
 {
+    private static final Logger         log = Logger.getLogger(HPCCWsFileIOClient.class.getName());
     private static URL                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
@@ -132,7 +135,7 @@ public class HPCCWsFileIOClient extends DataSingleton
     public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception
     {
         boolean success = false;
-        Utils.println(System.out, "Attempting to create HPCC File: " + fileName, false, verbosemode);
+        log.debug("Attempting to create HPCC File: " + fileName);
 
         if (wsFileIOServiceSoapProxy == null)
             throw new Exception ("wsFileIOServiceSoapProxy not available!");
@@ -149,7 +152,7 @@ public class HPCCWsFileIOClient extends DataSingleton
             if (arrayOfEspExceptions == null)
             {
                 String result = createFileResponse.getResult();
-                Utils.println(System.out, result, false, verbosemode);
+                log.info(result);
                 // I wish there was a better way to do this
                 if (!result.startsWith("Fail"))
                 {
@@ -161,7 +164,7 @@ public class HPCCWsFileIOClient extends DataSingleton
                 org.hpccsystems.ws.client.gen.wsfileio.v1_0.EspException[] espexceptions = arrayOfEspExceptions.getException();
                 for (org.hpccsystems.ws.client.gen.wsfileio.v1_0.EspException espexception : espexceptions)
                 {
-                    Utils.println(System.out, "\tESPException: " + espexception.getMessage(), false, verbosemode);
+                    log.error("\tESPException: " + espexception.getMessage());
                 }
 
             }
@@ -191,7 +194,7 @@ public class HPCCWsFileIOClient extends DataSingleton
     public boolean writeHPCCFileData(byte []  data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception
     {
         boolean success = true;
-        Utils.println(System.out, "Attempting to write data to HPCC File: " + fileName, false, verbosemode);
+        log.debug("Attempting to write data to HPCC File: " + fileName);
 
         if (wsFileIOServiceSoapProxy == null)
             throw new Exception ("wsFileIOServiceSoapProxy not available!");
@@ -212,7 +215,7 @@ public class HPCCWsFileIOClient extends DataSingleton
             while (bytesleft > 0)
             {
                 payloadsize = bytesleft >= limit ? limit : bytesleft;
-                Utils.println(System.out, "Writing offset: "+dataindex+"\t size: "+((int)dataindex + (int)payloadsize), true, verbosemode);
+                log.trace("Writing offset: "+dataindex+"\t size: "+((int)dataindex + (int)payloadsize));
 
                 subdata = new byte [(int)payloadsize];
                 for (int i = 0; i < payloadsize ; i++, dataindex++)
@@ -227,7 +230,7 @@ public class HPCCWsFileIOClient extends DataSingleton
                     WriteFileDataResponse writeFileDataResponse = wsFileIOServiceSoapProxy.writeFileData(writefileparams);
                     String result = writeFileDataResponse.getResult();
 
-                    Utils.println(System.out, result, true, verbosemode);
+                    log.debug(result);
                     //Wish there was a better way
                     if (!result.startsWith("Failed"))
                     {
@@ -241,7 +244,7 @@ public class HPCCWsFileIOClient extends DataSingleton
                 }
                 catch (Exception e)
                 {
-                    Utils.println(System.out, e.getLocalizedMessage(), false, verbosemode);
+                    log.error(e.getLocalizedMessage());
                     return false;
                 }
             }
