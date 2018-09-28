@@ -1,5 +1,5 @@
 /**
- * DFUPartCopies.java
+ * DFUFilePart.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,24 +7,24 @@
 
 package org.hpccsystems.ws.client.gen.wsdfu.v1_39;
 
-public class DFUPartCopies  implements java.io.Serializable {
+public class DFUFilePart  implements java.io.Serializable {
     private java.lang.Integer partIndex;
 
-    private java.lang.String[] locationIndexes;
+    private org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy[] copies;
 
-    public DFUPartCopies() {
+    public DFUFilePart() {
     }
 
-    public DFUPartCopies(
+    public DFUFilePart(
            java.lang.Integer partIndex,
-           java.lang.String[] locationIndexes) {
+           org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy[] copies) {
            this.partIndex = partIndex;
-           this.locationIndexes = locationIndexes;
+           this.copies = copies;
     }
 
 
     /**
-     * Gets the partIndex value for this DFUPartCopies.
+     * Gets the partIndex value for this DFUFilePart.
      * 
      * @return partIndex
      */
@@ -34,7 +34,7 @@ public class DFUPartCopies  implements java.io.Serializable {
 
 
     /**
-     * Sets the partIndex value for this DFUPartCopies.
+     * Sets the partIndex value for this DFUFilePart.
      * 
      * @param partIndex
      */
@@ -44,28 +44,28 @@ public class DFUPartCopies  implements java.io.Serializable {
 
 
     /**
-     * Gets the locationIndexes value for this DFUPartCopies.
+     * Gets the copies value for this DFUFilePart.
      * 
-     * @return locationIndexes
+     * @return copies
      */
-    public java.lang.String[] getLocationIndexes() {
-        return locationIndexes;
+    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy[] getCopies() {
+        return copies;
     }
 
 
     /**
-     * Sets the locationIndexes value for this DFUPartCopies.
+     * Sets the copies value for this DFUFilePart.
      * 
-     * @param locationIndexes
+     * @param copies
      */
-    public void setLocationIndexes(java.lang.String[] locationIndexes) {
-        this.locationIndexes = locationIndexes;
+    public void setCopies(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy[] copies) {
+        this.copies = copies;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof DFUPartCopies)) return false;
-        DFUPartCopies other = (DFUPartCopies) obj;
+        if (!(obj instanceof DFUFilePart)) return false;
+        DFUFilePart other = (DFUFilePart) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -77,9 +77,9 @@ public class DFUPartCopies  implements java.io.Serializable {
             ((this.partIndex==null && other.getPartIndex()==null) || 
              (this.partIndex!=null &&
               this.partIndex.equals(other.getPartIndex()))) &&
-            ((this.locationIndexes==null && other.getLocationIndexes()==null) || 
-             (this.locationIndexes!=null &&
-              java.util.Arrays.equals(this.locationIndexes, other.getLocationIndexes())));
+            ((this.copies==null && other.getCopies()==null) || 
+             (this.copies!=null &&
+              java.util.Arrays.equals(this.copies, other.getCopies())));
         __equalsCalc = null;
         return _equals;
     }
@@ -94,11 +94,11 @@ public class DFUPartCopies  implements java.io.Serializable {
         if (getPartIndex() != null) {
             _hashCode += getPartIndex().hashCode();
         }
-        if (getLocationIndexes() != null) {
+        if (getCopies() != null) {
             for (int i=0;
-                 i<java.lang.reflect.Array.getLength(getLocationIndexes());
+                 i<java.lang.reflect.Array.getLength(getCopies());
                  i++) {
-                java.lang.Object obj = java.lang.reflect.Array.get(getLocationIndexes(), i);
+                java.lang.Object obj = java.lang.reflect.Array.get(getCopies(), i);
                 if (obj != null &&
                     !obj.getClass().isArray()) {
                     _hashCode += obj.hashCode();
@@ -111,10 +111,10 @@ public class DFUPartCopies  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(DFUPartCopies.class, true);
+        new org.apache.axis.description.TypeDesc(DFUFilePart.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartCopies"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFilePart"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("partIndex");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "PartIndex"));
@@ -123,12 +123,12 @@ public class DFUPartCopies  implements java.io.Serializable {
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("locationIndexes");
-        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "LocationIndexes"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setFieldName("copies");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Copies"));
+        elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileCopy"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
-        elemField.setItemQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Item"));
+        elemField.setItemQName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileCopy"));
         typeDesc.addFieldDesc(elemField);
     }
 

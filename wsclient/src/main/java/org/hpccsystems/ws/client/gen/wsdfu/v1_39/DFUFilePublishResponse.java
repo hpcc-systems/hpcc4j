@@ -1,5 +1,5 @@
 /**
- * DFUFileAccessResponse.java
+ * DFUFilePublishResponse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,24 +7,20 @@
 
 package org.hpccsystems.ws.client.gen.wsdfu.v1_39;
 
-public class DFUFileAccessResponse  implements java.io.Serializable {
+public class DFUFilePublishResponse  implements java.io.Serializable {
     private org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exceptions;
 
-    private org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo accessInfo;
-
-    public DFUFileAccessResponse() {
+    public DFUFilePublishResponse() {
     }
 
-    public DFUFileAccessResponse(
-           org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exceptions,
-           org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo accessInfo) {
+    public DFUFilePublishResponse(
+           org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exceptions) {
            this.exceptions = exceptions;
-           this.accessInfo = accessInfo;
     }
 
 
     /**
-     * Gets the exceptions value for this DFUFileAccessResponse.
+     * Gets the exceptions value for this DFUFilePublishResponse.
      * 
      * @return exceptions
      */
@@ -34,7 +30,7 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
 
 
     /**
-     * Sets the exceptions value for this DFUFileAccessResponse.
+     * Sets the exceptions value for this DFUFilePublishResponse.
      * 
      * @param exceptions
      */
@@ -42,30 +38,10 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
         this.exceptions = exceptions;
     }
 
-
-    /**
-     * Gets the accessInfo value for this DFUFileAccessResponse.
-     * 
-     * @return accessInfo
-     */
-    public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo getAccessInfo() {
-        return accessInfo;
-    }
-
-
-    /**
-     * Sets the accessInfo value for this DFUFileAccessResponse.
-     * 
-     * @param accessInfo
-     */
-    public void setAccessInfo(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo accessInfo) {
-        this.accessInfo = accessInfo;
-    }
-
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof DFUFileAccessResponse)) return false;
-        DFUFileAccessResponse other = (DFUFileAccessResponse) obj;
+        if (!(obj instanceof DFUFilePublishResponse)) return false;
+        DFUFilePublishResponse other = (DFUFilePublishResponse) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -76,10 +52,7 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
         _equals = true && 
             ((this.exceptions==null && other.getExceptions()==null) || 
              (this.exceptions!=null &&
-              this.exceptions.equals(other.getExceptions()))) &&
-            ((this.accessInfo==null && other.getAccessInfo()==null) || 
-             (this.accessInfo!=null &&
-              this.accessInfo.equals(other.getAccessInfo())));
+              this.exceptions.equals(other.getExceptions())));
         __equalsCalc = null;
         return _equals;
     }
@@ -94,30 +67,20 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
         if (getExceptions() != null) {
             _hashCode += getExceptions().hashCode();
         }
-        if (getAccessInfo() != null) {
-            _hashCode += getAccessInfo().hashCode();
-        }
         __hashCodeCalc = false;
         return _hashCode;
     }
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(DFUFileAccessResponse.class, true);
+        new org.apache.axis.description.TypeDesc(DFUFilePublishResponse.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileAccessResponse"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFilePublishResponse"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("exceptions");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"));
         elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("accessInfo");
-        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "AccessInfo"));
-        elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileAccessInfo"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
