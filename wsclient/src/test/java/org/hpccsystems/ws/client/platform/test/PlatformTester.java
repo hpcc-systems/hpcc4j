@@ -65,15 +65,15 @@ public class PlatformTester
 
     private static void usage()
     {
-        System.out.println("Options: "
-                + "-server=<HPCCServerAddress>          DEFAULT:localhost"
-                + "-port=<ECLWatchPort                  DEFAULT:8010"
-                + "-protocol=<ECLWatchAddressProtocol>  DEFAULT:http"
-                + "-user=<ECLWatch User>                DEFAULT:"
-                + "-pass=<ECLWatch Pass>                DEFAULT:"
-                + "-machineuser=<machine's username>    DEFAULT:"
-                + "-machinepass=<machine's password>    DEFAULT:"
-                + "-wssqlport=<WsSQLPort>               DEFAULT:8510");
+        System.out.println("Options: \n"
+                + "-server=<HPCCServerAddress>          DEFAULT:localhost\n"
+                + "-port=<ECLWatchPort                  DEFAULT:8010\n"
+                + "-protocol=<ECLWatchAddressProtocol>  DEFAULT:http\n"
+                + "-user=<ECLWatch User>                DEFAULT:\n"
+                + "-pass=<ECLWatch Pass>                DEFAULT:\n"
+                + "-machineuser=<machine's username>    DEFAULT:\n"
+                + "-machinepass=<machine's password>    DEFAULT:\n"
+                + "-wssqlport=<WsSQLPort>               DEFAULT:8510\n");
 
         System.exit(-1);
     }
@@ -137,7 +137,7 @@ public class PlatformTester
                     user = currentParamVal;
                     Utils.println(System.out, "TARGET HPCC User: " + currentParamVal, false, false);
                 }
-                else if (currentParam.matches(USERPATTERN))
+                else if (currentParam.matches(PASSPATTERN))
                 {
                     pass = currentParamVal;
                     Utils.println(System.out, "TARGET HPCC password set!", false, false);
