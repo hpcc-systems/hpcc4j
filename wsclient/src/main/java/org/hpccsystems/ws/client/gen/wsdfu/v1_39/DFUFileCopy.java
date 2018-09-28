@@ -1,5 +1,5 @@
 /**
- * DFUPartLocations.java
+ * DFUFileCopy.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,24 +7,48 @@
 
 package org.hpccsystems.ws.client.gen.wsdfu.v1_39;
 
-public class DFUPartLocations  implements java.io.Serializable {
+public class DFUFileCopy  implements java.io.Serializable {
+    private java.lang.Integer copyIndex;
+
     private java.lang.Integer locationIndex;
 
-    private java.lang.String location;
+    private java.lang.String path;
 
-    public DFUPartLocations() {
+    public DFUFileCopy() {
     }
 
-    public DFUPartLocations(
+    public DFUFileCopy(
+           java.lang.Integer copyIndex,
            java.lang.Integer locationIndex,
-           java.lang.String location) {
+           java.lang.String path) {
+           this.copyIndex = copyIndex;
            this.locationIndex = locationIndex;
-           this.location = location;
+           this.path = path;
     }
 
 
     /**
-     * Gets the locationIndex value for this DFUPartLocations.
+     * Gets the copyIndex value for this DFUFileCopy.
+     * 
+     * @return copyIndex
+     */
+    public java.lang.Integer getCopyIndex() {
+        return copyIndex;
+    }
+
+
+    /**
+     * Sets the copyIndex value for this DFUFileCopy.
+     * 
+     * @param copyIndex
+     */
+    public void setCopyIndex(java.lang.Integer copyIndex) {
+        this.copyIndex = copyIndex;
+    }
+
+
+    /**
+     * Gets the locationIndex value for this DFUFileCopy.
      * 
      * @return locationIndex
      */
@@ -34,7 +58,7 @@ public class DFUPartLocations  implements java.io.Serializable {
 
 
     /**
-     * Sets the locationIndex value for this DFUPartLocations.
+     * Sets the locationIndex value for this DFUFileCopy.
      * 
      * @param locationIndex
      */
@@ -44,28 +68,28 @@ public class DFUPartLocations  implements java.io.Serializable {
 
 
     /**
-     * Gets the location value for this DFUPartLocations.
+     * Gets the path value for this DFUFileCopy.
      * 
-     * @return location
+     * @return path
      */
-    public java.lang.String getLocation() {
-        return location;
+    public java.lang.String getPath() {
+        return path;
     }
 
 
     /**
-     * Sets the location value for this DFUPartLocations.
+     * Sets the path value for this DFUFileCopy.
      * 
-     * @param location
+     * @param path
      */
-    public void setLocation(java.lang.String location) {
-        this.location = location;
+    public void setPath(java.lang.String path) {
+        this.path = path;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof DFUPartLocations)) return false;
-        DFUPartLocations other = (DFUPartLocations) obj;
+        if (!(obj instanceof DFUFileCopy)) return false;
+        DFUFileCopy other = (DFUFileCopy) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -74,12 +98,15 @@ public class DFUPartLocations  implements java.io.Serializable {
         __equalsCalc = obj;
         boolean _equals;
         _equals = true && 
+            ((this.copyIndex==null && other.getCopyIndex()==null) || 
+             (this.copyIndex!=null &&
+              this.copyIndex.equals(other.getCopyIndex()))) &&
             ((this.locationIndex==null && other.getLocationIndex()==null) || 
              (this.locationIndex!=null &&
               this.locationIndex.equals(other.getLocationIndex()))) &&
-            ((this.location==null && other.getLocation()==null) || 
-             (this.location!=null &&
-              this.location.equals(other.getLocation())));
+            ((this.path==null && other.getPath()==null) || 
+             (this.path!=null &&
+              this.path.equals(other.getPath())));
         __equalsCalc = null;
         return _equals;
     }
@@ -91,11 +118,14 @@ public class DFUPartLocations  implements java.io.Serializable {
         }
         __hashCodeCalc = true;
         int _hashCode = 1;
+        if (getCopyIndex() != null) {
+            _hashCode += getCopyIndex().hashCode();
+        }
         if (getLocationIndex() != null) {
             _hashCode += getLocationIndex().hashCode();
         }
-        if (getLocation() != null) {
-            _hashCode += getLocation().hashCode();
+        if (getPath() != null) {
+            _hashCode += getPath().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -103,11 +133,18 @@ public class DFUPartLocations  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(DFUPartLocations.class, true);
+        new org.apache.axis.description.TypeDesc(DFUFileCopy.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUPartLocations"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileCopy"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("copyIndex");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "CopyIndex"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("locationIndex");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "LocationIndex"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
@@ -115,8 +152,8 @@ public class DFUPartLocations  implements java.io.Serializable {
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("location");
-        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Location"));
+        elemField.setFieldName("path");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Path"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);

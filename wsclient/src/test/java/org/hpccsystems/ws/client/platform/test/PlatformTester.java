@@ -14,6 +14,8 @@ import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
+
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
@@ -24,6 +26,7 @@ import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 
 public class PlatformTester
 {
@@ -277,6 +280,7 @@ public class PlatformTester
             connector.setVerbosemode(true);
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
+            DFUFileAccessInfoWrapper a =wsDFUClient.getFileAccess(SecAccessType.Read, "benchmark::integer::2mb", "thor_160", 120, "random", true, true, true);
             platform.checkInHPCCWsClient(connector);
             
             connector = platform.checkOutHPCCWsClient();
