@@ -31,11 +31,17 @@ public class DFUFilePartWrapper
     public DFUFilePartWrapper(DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
     {
         partIndex = soapdfufilepart.getPartIndex();
-
         DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
-        for (DFUFileCopy dfuFileCopy : dfufilecopies)
+        wrappedDFUFileCopies = new DFUFileCopyWrapper [dfufilecopies.length];
+        for (int i = 0; i < dfufilecopies.length; i++)
         {
-            wrappedDFUFileCopies[dfuFileCopy.getCopyIndex()] = new DFUFileCopyWrapper(dfuFileCopy, availableLocations.get(dfuFileCopy.getLocationIndex()));
+             Integer copyindex = dfufilecopies[i].getCopyIndex();
+             if (copyindex == null || copyindex  < 1 || copyindex > dfufilecopies.length )
+                 throw new IndexOutOfBoundsException("Encountered invalid Filepart Copy index: '" + copyindex + "'");
+
+             if (wrappedDFUFileCopies[copyindex-1] != null)
+                 throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + copyindex + "'");
+             wrappedDFUFileCopies[copyindex-1] = new DFUFileCopyWrapper(dfufilecopies[i], availableLocations.get(dfufilecopies[i].getLocationIndex()));
         }
     }
 
