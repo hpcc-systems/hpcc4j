@@ -1,5 +1,5 @@
 /**
- * DFUFileAccessResponse.java
+ * DFUFileCreateResponse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,24 +7,32 @@
 
 package org.hpccsystems.ws.client.gen.wsdfu.v1_39;
 
-public class DFUFileAccessResponse  implements java.io.Serializable {
+public class DFUFileCreateResponse  implements java.io.Serializable {
     private org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exceptions;
+
+    private java.lang.String fileId;
+
+    private java.lang.String warning;
 
     private org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo accessInfo;
 
-    public DFUFileAccessResponse() {
+    public DFUFileCreateResponse() {
     }
 
-    public DFUFileAccessResponse(
+    public DFUFileCreateResponse(
            org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exceptions,
+           java.lang.String fileId,
+           java.lang.String warning,
            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo accessInfo) {
            this.exceptions = exceptions;
+           this.fileId = fileId;
+           this.warning = warning;
            this.accessInfo = accessInfo;
     }
 
 
     /**
-     * Gets the exceptions value for this DFUFileAccessResponse.
+     * Gets the exceptions value for this DFUFileCreateResponse.
      * 
      * @return exceptions
      */
@@ -34,7 +42,7 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
 
 
     /**
-     * Sets the exceptions value for this DFUFileAccessResponse.
+     * Sets the exceptions value for this DFUFileCreateResponse.
      * 
      * @param exceptions
      */
@@ -44,7 +52,47 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
 
 
     /**
-     * Gets the accessInfo value for this DFUFileAccessResponse.
+     * Gets the fileId value for this DFUFileCreateResponse.
+     * 
+     * @return fileId
+     */
+    public java.lang.String getFileId() {
+        return fileId;
+    }
+
+
+    /**
+     * Sets the fileId value for this DFUFileCreateResponse.
+     * 
+     * @param fileId
+     */
+    public void setFileId(java.lang.String fileId) {
+        this.fileId = fileId;
+    }
+
+
+    /**
+     * Gets the warning value for this DFUFileCreateResponse.
+     * 
+     * @return warning
+     */
+    public java.lang.String getWarning() {
+        return warning;
+    }
+
+
+    /**
+     * Sets the warning value for this DFUFileCreateResponse.
+     * 
+     * @param warning
+     */
+    public void setWarning(java.lang.String warning) {
+        this.warning = warning;
+    }
+
+
+    /**
+     * Gets the accessInfo value for this DFUFileCreateResponse.
      * 
      * @return accessInfo
      */
@@ -54,7 +102,7 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
 
 
     /**
-     * Sets the accessInfo value for this DFUFileAccessResponse.
+     * Sets the accessInfo value for this DFUFileCreateResponse.
      * 
      * @param accessInfo
      */
@@ -64,8 +112,8 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof DFUFileAccessResponse)) return false;
-        DFUFileAccessResponse other = (DFUFileAccessResponse) obj;
+        if (!(obj instanceof DFUFileCreateResponse)) return false;
+        DFUFileCreateResponse other = (DFUFileCreateResponse) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -77,6 +125,12 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
             ((this.exceptions==null && other.getExceptions()==null) || 
              (this.exceptions!=null &&
               this.exceptions.equals(other.getExceptions()))) &&
+            ((this.fileId==null && other.getFileId()==null) || 
+             (this.fileId!=null &&
+              this.fileId.equals(other.getFileId()))) &&
+            ((this.warning==null && other.getWarning()==null) || 
+             (this.warning!=null &&
+              this.warning.equals(other.getWarning()))) &&
             ((this.accessInfo==null && other.getAccessInfo()==null) || 
              (this.accessInfo!=null &&
               this.accessInfo.equals(other.getAccessInfo())));
@@ -94,6 +148,12 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
         if (getExceptions() != null) {
             _hashCode += getExceptions().hashCode();
         }
+        if (getFileId() != null) {
+            _hashCode += getFileId().hashCode();
+        }
+        if (getWarning() != null) {
+            _hashCode += getWarning().hashCode();
+        }
         if (getAccessInfo() != null) {
             _hashCode += getAccessInfo().hashCode();
         }
@@ -103,14 +163,28 @@ public class DFUFileAccessResponse  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(DFUFileAccessResponse.class, true);
+        new org.apache.axis.description.TypeDesc(DFUFileCreateResponse.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileAccessResponse"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", ">DFUFileCreateResponse"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("exceptions");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"));
         elemField.setXmlType(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ArrayOfEspException"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("fileId");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "FileId"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("warning");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Warning"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

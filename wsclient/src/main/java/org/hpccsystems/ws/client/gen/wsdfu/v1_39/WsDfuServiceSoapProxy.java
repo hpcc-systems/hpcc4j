@@ -86,6 +86,18 @@ public class WsDfuServiceSoapProxy implements org.hpccsystems.ws.client.gen.wsdf
     return wsDfuServiceSoap.DFUFileAccess(parameters);
   }
   
+  public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateResponse DFUFileCreate(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException{
+    if (wsDfuServiceSoap == null)
+      _initWsDfuServiceSoapProxy();
+    return wsDfuServiceSoap.DFUFileCreate(parameters);
+  }
+  
+  public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePublishResponse DFUFilePublish(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePublishRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException{
+    if (wsDfuServiceSoap == null)
+      _initWsDfuServiceSoapProxy();
+    return wsDfuServiceSoap.DFUFilePublish(parameters);
+  }
+  
   public org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewResponse DFUFileView(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest parameters) throws java.rmi.RemoteException, org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException{
     if (wsDfuServiceSoap == null)
       _initWsDfuServiceSoapProxy();
