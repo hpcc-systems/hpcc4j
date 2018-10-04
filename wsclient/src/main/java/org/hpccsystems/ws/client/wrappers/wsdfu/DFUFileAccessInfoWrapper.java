@@ -57,7 +57,14 @@ public class DFUFileAccessInfoWrapper
         DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[fileparts.length];
         for (int i = 0; i < fileparts.length; i++)
         {
-            wrappedDFUFileParts[fileparts[i].getPartIndex()] = new DFUFilePartWrapper(fileparts[i], availableLocations);
+            Integer filepartindex = fileparts[i].getPartIndex();
+            if (filepartindex  < 1 || filepartindex > fileparts.length)
+                throw new IndexOutOfBoundsException("Encountered invalid Filepart index: '" + filepartindex + "'");
+
+            if ( wrappedDFUFileParts[filepartindex-1] != null)
+                throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + filepartindex + "'");
+
+            wrappedDFUFileParts[filepartindex-1] = new DFUFilePartWrapper(fileparts[i], availableLocations);
         }
         return wrappedDFUFileParts;
     }
