@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,6 +16,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.channels.ReadableByteChannel;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -135,6 +137,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
     private static final String FILESPRAYWSDLURI     = "/FileSpray";
     private static final String UPLOADURI           = FILESPRAYWSDLURI + "/UploadFile?upload_";
+    private static final String DOWNLOAD_URI        = FILESPRAYWSDLURI + "/DownloadFile?";
 
     private int BUFFER_LENGTH = 1024;
     private static final long MAX_FILE_WSUPLOAD_SIZE = 2000000000;
@@ -937,6 +940,146 @@ public class HPCCFileSprayClient extends DataSingleton
             }
         }
         return true;
+    }
+    
+    /**
+     * Attempts to download the specified file from a dropzone
+     *
+     * @param outFile
+     *            - The File to write to
+     * @param dropZone
+     *            - The target HPCC file dropzone
+     * @param fileName
+     *            - The file to download
+     * @return - long, bytes transferred, -1 on error
+     */
+    public long downloadFile(File outFile, DropZone dropZone, String fileName)
+    {
+        if (outFile == null)
+        {
+            log.error("File download failed. Valid output File object is required.");
+            return -1;
+        }
+
+        if (fileName == null)
+        {
+            log.error("File download failed. No filename provided.");
+            return -1;
+        }
+
+        long bytesTransferred = -1;
+        try
+        {
+            FileOutputStream outputStream = new FileOutputStream(outFile);
+            bytesTransferred = downloadFile(outputStream.getChannel(), dropZone, fileName);
+            outputStream.close();
+        }
+        catch (Exception e)
+        {
+            log.error("File download failed with error message: " + e.getMessage());
+        }
+
+        return bytesTransferred;
+    }
+
+    /**
+     * Attempts to download the specified file from a dropzone
+     *
+     * @param outputChannel
+     *            - The FileChannel to write to
+     * @param dropZone
+     *            - The target HPCC file dropzone
+     * @param fileName
+     *            - The file to download
+     * @return - long, bytes transferred, -1 on error
+     */
+    public long downloadFile(FileChannel outputChannel, DropZone dropZone, String fileName)
+    {
+        if (outputChannel == null)
+        {
+            log.error("File download failed. Output channel is required.");
+            return -1;
+        }
+
+        if (dropZone == null)
+        {
+            log.error("File download failed. Dropzone is required.");
+            return -1;
+        }
+
+        if (fileName == null)
+        {
+            log.error("File download failed. No filename provided.");
+            return -1;
+        }
+
+        long fileSize = 0;
+        try
+        {
+            PhysicalFileStruct[] filesInDropzone = listFiles(dropZone.getNetAddress(), dropZone.getPath(), null);
+
+            boolean fileWasFound = false;
+            for (int i = 0; i < filesInDropzone.length; i++)
+            {
+                if (filesInDropzone[i].getName().equals(fileName))
+                {
+                    if (filesInDropzone[i].getIsDir())
+                    {
+                        throw new Exception("Specified file name: " + fileName
+                                + ", is a directory. Downloading directories is unsupported.");
+                    }
+
+                    fileWasFound = true;
+                    fileSize = filesInDropzone[i].getFilesize();
+                }
+            }
+
+            if (fileWasFound == false)
+            {
+                throw new Exception("Specified file was not found: " + fileName);
+            }
+        }
+        catch (Exception e)
+        {
+            log.error("File download failed. Drop zone file enumeration failed with error: " + e.getMessage());
+            return -1;
+        }
+
+        URL downloadURL = null;
+        try
+        {
+            downloadURL = new URL(
+                    fsconn.getUrl() + DOWNLOAD_URI + "Name=" + fileName + "&NetAddress=" + dropZone.getNetAddress()
+                            + "&Path=" + dropZone.getPath() + "&OS=" + (Utils.currentOSisLinux() ? "1" : "0"));
+        }
+        catch (java.net.MalformedURLException e)
+        {
+            log.error("File download failed, due to malformed URL. Check dropzone path. Error message: "
+                    + e.getMessage());
+            return -1;
+        }
+
+        long bytesTransferred = -1;
+        try
+        {
+            ReadableByteChannel sourceChannel = Channels.newChannel(downloadURL.openStream());
+            bytesTransferred = outputChannel.transferFrom(sourceChannel, 0, Long.MAX_VALUE);
+
+            sourceChannel.close();
+            outputChannel.close();
+        }
+        catch (IOException e)
+        {
+            log.error("Failed to download file with error: " + e.getMessage());
+        }
+
+        if (bytesTransferred < fileSize)
+        {
+            log.warn("File download fewer bytes transferred than expected. Transferred: " + bytesTransferred
+                    + " Expected: " + fileSize);
+        }
+
+        return bytesTransferred;
     }
 
     /**
