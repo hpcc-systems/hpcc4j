@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.ProgressRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.ProgressResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.ProgressRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.ProgressResponse;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
@@ -218,7 +218,7 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * @return provides fileSprayClient for direct method execution
+     * @return provides wsSQLClient for direct method execution
      * @throws Exception
      */
     public HPCCWsSQLClient getWsSQLClient(String wsSQLPort)
@@ -232,7 +232,7 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * @return provides fileSprayClient for direct method execution
+     * @return provides wsSQLClient for direct method execution
      * @throws Exception
      */
     public HPCCWsSQLClient getWsSQLClient()
@@ -258,7 +258,7 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * @return provides fileSprayClient for direct method execution
+     * @return provides WsAttributesClient for direct method execution
      * @throws Exception
      */
     public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort)
@@ -272,7 +272,7 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * @return provides fileSprayClient for direct method execution
+     * @return provides WsAttributesClient for direct method execution
      * @throws Exception
      */
     public HPCCWsAttributesClient getWsAttributesClient()
@@ -645,7 +645,7 @@ public class HPCCWsClient extends DataSingleton
     {
         boolean success = false;
 
-        org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException exceptions = sprayResponse.getExceptions();
+        ArrayOfEspException exceptions = sprayResponse.getExceptions();
         if (exceptions != null)
         {
             for (EspException espexception : exceptions.getException())
