@@ -207,6 +207,9 @@ public class PlatformTester
             for(int i = 0; i < dropzones.length; i++)
             {
                 System.out.println("Dropzone Name: " + dropzones[i].getName());
+                System.out.println("Dropzone Directory: " + dropzones[i].getDirectory());
+                System.out.println("Dropzone IP: " + dropzones[i].getIP());
+                System.out.println("Dropzone OS: " + dropzones[i].getOS());
                 String[] cna = dropzones[i].getConfiguredNetAddresses();
                 String[] na = dropzones[i].getNetAddresses();
                 
@@ -259,7 +262,11 @@ public class PlatformTester
             }
             
             if (dzByAddress != null && dzByAddress.length > 0);
-            PhysicalFileStruct[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), dzByAddress[0].getLinux());
+            System.out.println("Path: " + dzByAddress[0].getPath());
+            System.out.println("IP: " + dzByAddress[0].getNetAddress());
+            System.out.println("OS: " + dzByAddress[0].getLinux());
+
+            PhysicalFileStruct[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), null);
             System.out.println("listFiles test ...");
             if (pfs != null && pfs.length > 0)
             {
@@ -267,6 +274,42 @@ public class PlatformTester
                 {
                     System.out.println(pfs[0].toString());
                 }
+            }
+
+            // Test file download
+            System.out.println("Download test ...");
+            String fileName = null;
+            for (int i = 0; pfs != null && i < pfs.length; i++) 
+            {
+                if (pfs[i].getIsDir() == false
+                && pfs[i].getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
+                {
+                    fileName = pfs[i].getName();
+                    break;
+                }
+            }
+
+            if (fileName != null) 
+            {
+                System.out.println("Attempting to download: " + fileName + " from DropZone");
+                String outputFile = System.getProperty("java.io.tmpdir") + File.separator + fileName;
+                System.out.println("Output File: " + outputFile);
+
+                File tmpFile = new File(outputFile);
+
+                long bytesTransferred = fsc.downloadFile(tmpFile,dzByAddress[0],fileName);
+                if (bytesTransferred <= 0) 
+                {
+                    System.out.println("Download failed.");
+                } 
+                else 
+                {
+                    System.out.println("File Download Test: Bytes transferred: " + bytesTransferred);
+                }
+            }
+            else
+            {
+                System.out.println("Skipping file download test. No small files found in DropZone.");
             }
 
             String tmpPeopleFile = System.getProperty("java.io.tmpdir") + File.separator + "people";
