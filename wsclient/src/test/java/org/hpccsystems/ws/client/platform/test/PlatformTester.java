@@ -12,14 +12,13 @@ import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_15.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
 
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
-import org.hpccsystems.ws.client.platform.DropZone;
 import org.hpccsystems.ws.client.platform.LogicalFile;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
@@ -203,7 +202,7 @@ public class PlatformTester
             platform.checkInHPCCWsClient(client3);
             platform.checkInHPCCWsClient(client4);
 
-            DropZone[] dropzones = platform.getDropZones();
+            org.hpccsystems.ws.client.platform.DropZone[] dropzones = platform.getDropZones();
             for(int i = 0; i < dropzones.length; i++)
             {
                 System.out.println("Dropzone Name: " + dropzones[i].getName());
@@ -234,7 +233,7 @@ public class PlatformTester
             }
             
             HPCCFileSprayClient fsc = platform.getFileSprayClient();
-            org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzLocal = fsc.fetchLocalDropZones();
+            org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone[] dzLocal = fsc.fetchLocalDropZones();
             if (dzLocal != null && dzLocal.length > 0)
             {
                 System.out.println("fetchLocalDropZones test ...");
@@ -246,7 +245,7 @@ public class PlatformTester
                 }
             }
             
-            org.hpccsystems.ws.client.gen.filespray.v1_15.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
+            org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
             if (dzByAddress != null && dzByAddress.length > 0)
             {
                 System.out.println("fetchDropZones by address test ...");
