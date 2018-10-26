@@ -10,14 +10,13 @@ package org.hpccsystems.ws.client.platform;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_16.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpDropZone;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
 
 public class DropZone extends DataSingleton
 {
@@ -34,122 +33,134 @@ public class DropZone extends DataSingleton
     }
 
     private Platform                platform;
-    private TpDropZone              info;
-    private Collection<LogicalFile> files;
+    private TpDropZone              dzInfo;
+    private Collection<PhysicalMachine> machines;
 
     DropZone(Platform platform, String name)
     {
         this.platform = platform;
-        info = new TpDropZone();
-        info.setName(name);
-        files = new HashSet<LogicalFile>();
+        dzInfo = new TpDropZone();
+        dzInfo.setName(name);
+        machines = new HashSet<PhysicalMachine>();
     }
 
     public String getName()
     {
-        return info.getName();
+        return dzInfo.getName();
     }
 
     /**
-     * locates and returns a string array of ip's or hostnames that
+     * locates and returns a string array of ips or hostnames that
      * are defined within the dropzones environment.xml definition.
      * If these values are hostnames, they will likely be different
      * than the getNetAddress returns,  which are mapped to IP.
-     * 
+     *
      * @return String [] of IP's or hostnames
      * @since 1.2.0
      */
     public String[] getConfiguredNetAddresses()
     {
-    	if (info.getTpMachines() != null && info.getTpMachines().length > 0)
-    	{
-    		String[] cnaList = new String[info.getTpMachines().length];
-    		for(int i = 0; i < info.getTpMachines().length; i++)
-    		{
-    			cnaList[i] = new String(info.getTpMachines()[i].getConfigNetaddress());
-    		}
-    		return cnaList;
-    	}
-    	return null;
+        if (dzInfo.getTpMachines() != null && dzInfo.getTpMachines().length > 0)
+        {
+            String[] cnaList = new String[dzInfo.getTpMachines().length];
+            for(int i = 0; i < dzInfo.getTpMachines().length; i++)
+            {
+                cnaList[i] = new String(dzInfo.getTpMachines()[i].getConfigNetaddress());
+            }
+            return cnaList;
+        }
+        return null;
     }
-    
+
     /**
      * locates and returns the real net address of a dropzone instance
      * which is mapped from the configuredNetAddresses, which can be
      * hostnames and dynamically assigned.
-     * 
+     *
      * @return String [] of IP's
      * @since 1.2.0
      */
     public String[] getNetAddresses()
     {
-    	if (info.getTpMachines() != null && info.getTpMachines().length > 0)
-    	{
-    		String[] naList = new String[info.getTpMachines().length];
-    		for(int i = 0; i < info.getTpMachines().length; i++)
-    		{
-    			naList[i] = new String(info.getTpMachines()[i].getNetaddress());
-    		}
-    		return naList;
-    	}
-    	return null;
-    }
-    
-    /**
-     * locate and returns the first ip found for a physical dropzone machine
-     * 
-     * @return String that corresponds to first physical dropzone machine found
-     * @deprecated use getConfiguredNetAddress and getNetAddress instead
-     */
-    @Deprecated
-    public String getIP()
-    {
-        // TODO - Check if more than one folder per drop zone ---
-        if (info.getTpMachines() != null && info.getTpMachines().length > 0)
+        if (dzInfo.getTpMachines() != null && dzInfo.getTpMachines().length > 0)
         {
-            return info.getTpMachines()[0].getNetaddress();
-        }
-        return "";
-    }
-   
-
-    public String getOS()
-    {
-        // TODO - Check if more than one folder per drop zone ---
-        if (info.getTpMachines() != null && info.getTpMachines().length > 0)
-        {
-            return info.getTpMachines()[0].getOS().toString();
-        }
-        return "";
-    }
-
-    public String getDirectory()
-    {
-        // TODO - Check if more than one folder per drop zone ---
-        if (info.getTpMachines() != null && info.getTpMachines().length > 0)
-        {
-            return info.getTpMachines()[0].getDirectory();
+            String[] naList = new String[dzInfo.getTpMachines().length];
+            for(int i = 0; i < dzInfo.getTpMachines().length; i++)
+            {
+                naList[i] = new String(dzInfo.getTpMachines()[i].getNetaddress());
+            }
+            return naList;
         }
         return null;
     }
 
-    // Files ---
-    synchronized LogicalFile getFile(String name)
+    private TpMachine findDZMachine(String serveraddress) throws Exception
     {
-        return LogicalFile.get(platform, name);
+        if (dzInfo != null)
+        {
+            TpMachine[] dropzonemachines = dzInfo.getTpMachines();
+            if (serveraddress == null || serveraddress.length() == 0)
+            {
+                if (dropzonemachines.length == 1)
+                    return dropzonemachines[0];
+                else
+                    throw new Exception("Cannot determine Dropzone server - must provide server address");
+            }
+
+            for (TpMachine dzmachine : dropzonemachines)
+            {
+                if (dzmachine.getNetaddress().equals(serveraddress) || dzmachine.getConfigNetaddress().equals(serveraddress))
+                    return dzmachine;
+            }
+        }
+        else
+            throw new Exception("Cannot determine Dropzone server OS - Dropzone information not available");
+
+        throw new Exception("Cannot determine Dropzone server based on network address: " + serveraddress);
     }
 
-    LogicalFile getFile(PhysicalFileStruct fileStruct)
+    /**
+     * Get OS type of Dropzone server IF Dropzone is comprised of a single server
+     * @return
+     * @throws Exception
+     */
+    public String getOS() throws Exception
     {
-        LogicalFile file = getFile(fileStruct.getName());
-        file.Update(fileStruct);
-        return file;
+        return getOS(null);
     }
 
-    public LogicalFile[] getFiles()
+    public String getOS(String serveraddress) throws Exception
+    {
+        return (HPCCEnvOSCode.fromCode(findDZMachine(serveraddress).getOS())).getName();
+    }
+
+    /**
+     * Find the Dropzone's directory
+     * @return
+     * @throws Exception
+     */
+    public String getDirectory() throws Exception
+    {
+        return dzInfo.getPath();
+    }
+
+    // Machines ---
+    synchronized PhysicalMachine getMachine(String name)
+    {
+        return PhysicalMachine.get(platform, name);
+    }
+
+    PhysicalMachine getMachine(TpMachine machinestruct)
+    {
+        PhysicalMachine machine = getMachine(machinestruct.getName());
+        machine.update(machinestruct);
+        return machine;
+    }
+
+    public PhysicalMachine [] getMachines()
     {
         fullRefresh();
-        return files.toArray(new LogicalFile[0]);
+        return machines.toArray(new PhysicalMachine[0]);
     }
 
     @Override
@@ -169,9 +180,7 @@ public class DropZone extends DataSingleton
     {
         try
         {
-            HPCCFileSprayClient fileSprayClient = platform.getFileSprayClient();
-            PhysicalFileStruct[] response = fileSprayClient.listFiles(getIP(), getDirectory(), getOS());
-            update(response);
+            update(platform.getWsTopologyClient().queryDropzoneMachines(dzInfo.getName()));
         }
         catch (Exception e)
         {
@@ -179,26 +188,31 @@ public class DropZone extends DataSingleton
         }
     }
 
-    public void update(TpDropZone dz)
+    private void update(TpMachine[] queryDropzoneMachines)
     {
-        if (info.getName().equals(dz.getName()))
-        {
-            info = dz;
-            setChanged();
-        }
+         if (queryDropzoneMachines != null)
+         {
+             machines.clear();
+             for (TpMachine machine : queryDropzoneMachines)
+             {
+                 PhysicalMachine physicalMachine = getMachine(machine.getName());
+                 if (physicalMachine != null)
+                 {
+                     physicalMachine.update(machine);
+                     machines.add(physicalMachine); // Will mark changed if needed ---
+                 }
+             }
+         }
     }
 
-    synchronized boolean update(PhysicalFileStruct[] rawFileStructs)
+    public void update(TpDropZone dz)
     {
-        if (rawFileStructs != null)
+        if (dzInfo.getName().equals(dz.getName()))
         {
-            files.clear();
-            for (PhysicalFileStruct file : rawFileStructs)
-            {
-                files.add(getFile(file)); // Will mark changed if needed ---
-            }
+            dzInfo = dz;
+            update(dz.getTpMachines());
+            setChanged();
         }
-        return false;
     }
 
     @Override
@@ -216,7 +230,9 @@ public class DropZone extends DataSingleton
         DropZone that = (DropZone) aThat;
 
         // now a proper field-by-field evaluation can be made
-        return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(info.getName(), that.info.getName());
+        return EqualsUtil.areEqual(platform, that.platform)
+            && EqualsUtil.areEqual(dzInfo.getName(), that.dzInfo.getName())
+            && EqualsUtil.areEqual(dzInfo.getPath(), that.dzInfo.getPath());
     }
 
     @Override
@@ -224,7 +240,8 @@ public class DropZone extends DataSingleton
     {
         int result = HashCodeUtil.SEED;
         result = HashCodeUtil.hash(result, platform);
-        result = HashCodeUtil.hash(result, info.getName());
+        result = HashCodeUtil.hash(result, dzInfo.getName());
+        result = HashCodeUtil.hash(result, dzInfo.getPath());
         return result;
     }
 }

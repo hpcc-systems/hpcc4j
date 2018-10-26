@@ -9,14 +9,20 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
-
+import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpMachineQueryRequest;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.EspException;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpCluster;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpClusterInfoRequest;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpClusterInfoResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpDropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpDropZoneQueryRequest;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpDropZoneQueryResponse;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpLogicalClusterQueryRequest;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpLogicalClusterQueryResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpMachine;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpServiceQueryRequest;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpServiceQueryResponse;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpServices;
@@ -282,6 +288,47 @@ public class HPCCWsTopologyClient extends DataSingleton
             log.error("Could Not create WSTopology SOAP from WSDL");
         }
         return tpTargetClusterNames;
+    }
+
+    /**
+     * @param specific dropzone name
+     * @return
+     * @throws Exception
+     */
+    public TpDropZone queryDropzone(String name) throws Exception
+    {
+        TpDropZone[] dropZones = queryDropzones(name);
+        if (dropZones.length != 1)
+             throw new Exception ("Could not query Dropzone: '" + name + "'");
+        return dropZones[0];
+    }
+
+    /**
+     * @param Dropzone namefilter - can be blank
+     * @return
+     * @throws Exception
+     */
+    public TpDropZone[] queryDropzones(String namefilter) throws Exception
+    {
+         if (wsTopologyServiceSoapProxy == null)
+             throw new Exception("wsTopologyServiceSoapProxy not available");
+
+         TpDropZoneQueryResponse resp = wsTopologyServiceSoapProxy.tpDropZoneQuery(new TpDropZoneQueryRequest(namefilter, false));
+         ArrayOfEspException exceptions = resp.getExceptions();
+         if (exceptions != null)
+         {
+             for (EspException espexception : exceptions.getException())
+             {
+                 throw new Exception("Error fetching dropzone info: " + espexception.getSource() + espexception.getMessage());
+             }
+         }
+
+         return resp.getTpDropZones();
+    }
+
+    public TpMachine[] queryDropzoneMachines(String name) throws Exception
+    {
+        return queryDropzone(name).getTpMachines();
     }
 
     /**

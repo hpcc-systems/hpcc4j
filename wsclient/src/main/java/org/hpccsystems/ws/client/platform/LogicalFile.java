@@ -39,10 +39,9 @@ public class LogicalFile extends DataSingleton
     }
 
     private Platform           platform;
-    private DFULogicalFile     info;
-    private DFUFileDetail      info2;
-    private ECLSourceFile      info3;
-    private PhysicalFileStruct info4;
+    private DFULogicalFile     dfulogicalfile;
+    private DFUFileDetail      dfufiledetail;
+    private ECLSourceFile      eclsourcefile;
 
     public enum Notification
     {
@@ -52,54 +51,52 @@ public class LogicalFile extends DataSingleton
     private LogicalFile(Platform platform, String name)
     {
         this.platform = platform;
-        info = new DFULogicalFile();
-        info.setName(name);
-        info2 = new DFUFileDetail();
-        info2.setName(name);
-        info3 = new ECLSourceFile();
-        info3.setName(name);
-        info4 = new PhysicalFileStruct();
-        info4.setName(name);
+        dfulogicalfile = new DFULogicalFile();
+        dfulogicalfile.setName(name);
+        dfufiledetail = new DFUFileDetail();
+        dfufiledetail.setName(name);
+        eclsourcefile = new ECLSourceFile();
+        eclsourcefile.setName(name);
     }
 
     public String getName()
     {
-        return info.getName();
+        return dfulogicalfile.getName();
     }
 
     public Workunit getWorkunit()
     {
-        if (info2.getWuid() == null)
+        if (dfufiledetail.getWuid() == null)
         {
             fullRefresh();
         }
-        if (info2.getWuid() == null || !info2.getWuid().startsWith("W"))
+        if (dfufiledetail.getWuid() == null || !dfufiledetail.getWuid().startsWith("W"))
         {
             return null;
         }
-        return platform.getWorkunit(info2.getWuid());
+        return platform.getWorkunit(dfufiledetail.getWuid());
     }
 
     public FileSprayWorkunit getFileSprayWorkunit()
     {
-        if (info2.getWuid() == null)
+        if (dfufiledetail.getWuid() == null)
         {
             fullRefresh();
         }
-        if (info2.getWuid() == null || !info2.getWuid().startsWith("D"))
+        if (dfufiledetail.getWuid() == null || !dfufiledetail.getWuid().startsWith("D"))
         {
             return null;
         }
-        return platform.getFileSprayWorkunit(info2.getWuid());
+        return platform.getFileSprayWorkunit(dfufiledetail.getWuid());
     }
 
     public String getDir()
     {
-        if (info2.getDir() == null)
+        if (dfufiledetail.getDir() == null)
         {
             fullRefresh();
         }
-        return info2.getDir();
+        return dfufiledetail.getDir();
     }
 
     @Override
@@ -120,7 +117,7 @@ public class LogicalFile extends DataSingleton
         try
         {
             HPCCWsDFUClient wsDfuClient = platform.getWsDfuClient();
-            DFUInfoResponse fileInfo = wsDfuClient.getFileInfo(info.getName(), null);
+            DFUInfoResponse fileInfo = wsDfuClient.getFileInfo(dfulogicalfile.getName(), null);
             update(fileInfo.getFileDetail());
         }
         catch (Exception e)
@@ -133,33 +130,25 @@ public class LogicalFile extends DataSingleton
     // Updates ---
     public void update(DFULogicalFile lf)
     {
-        if (info.getName().equals(lf.getName()))
+        if (dfulogicalfile.getName().equals(lf.getName()))
         {
-            info = lf;
+            dfulogicalfile = lf;
         }
     }
 
     void update(DFUFileDetail fd)
     {
-        if (fd != null && info2.getName().equals(fd.getName()))
+        if (fd != null && dfufiledetail.getName().equals(fd.getName()))
         {
-            info2 = fd;
+            dfufiledetail = fd;
         }
     }
 
     public void Update(ECLSourceFile sf)
     {
-        if (info3.getName().equals(sf.getName()))
+        if (eclsourcefile.getName().equals(sf.getName()))
         {
-            info3 = sf;
-        }
-    }
-
-    public void Update(PhysicalFileStruct fileStruct)
-    {
-        if (info4.getName().equals(fileStruct.getName()))
-        {
-            info4 = fileStruct;
+            eclsourcefile = sf;
         }
     }
 
@@ -178,7 +167,7 @@ public class LogicalFile extends DataSingleton
         LogicalFile that = (LogicalFile) aThat;
 
         // now a proper field-by-field evaluation can be made
-        return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(info.getName(), that.info.getName());
+        return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(dfulogicalfile.getName(), that.dfulogicalfile.getName());
     }
 
     @Override
@@ -186,7 +175,7 @@ public class LogicalFile extends DataSingleton
     {
         int result = HashCodeUtil.SEED;
         result = HashCodeUtil.hash(result, platform);
-        result = HashCodeUtil.hash(result, info.getName());
+        result = HashCodeUtil.hash(result, dfulogicalfile.getName());
         return result;
     }
 }
