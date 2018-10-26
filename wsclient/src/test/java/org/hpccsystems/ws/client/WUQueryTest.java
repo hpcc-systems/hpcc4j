@@ -34,6 +34,7 @@ public class WUQueryTest {
     @Test
     public void testGetWorkunitByAppName() throws Exception
     {
+        client.createWorkunit();
         WorkunitInfo wu=new WorkunitInfo();
         wu.setECL("OUTPUT('1');");
         wu.setCluster("thor");

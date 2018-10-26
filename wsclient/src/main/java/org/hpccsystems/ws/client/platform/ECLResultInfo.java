@@ -24,7 +24,47 @@ public class ECLResultInfo {
         xmlSchema=raw.getXmlSchema();
     }
 
+    public ECLResultInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult raw) {
+        filename=raw.getFileName();
+        isSupplied=raw.getIsSupplied();
+        link=raw.getLink();
+        name=raw.getName();
+        sequence=raw.getSequence();
+        showFileContent=raw.getShowFileContent();
+        total=raw.getTotal();
+        value=raw.getValue();
+        xmlSchema=raw.getXmlSchema();
+    }
     public ECLResultInfo() { }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult getRawVersion6() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult();
+        raw.setFileName(this.getFilename());
+        raw.setIsSupplied(this.getIsSupplied());
+        raw.setLink(this.getLink());
+        raw.setName(this.getName());
+        raw.setSequence(raw.getSequence());
+        raw.setShowFileContent(this.getShowFileContent());
+        raw.setTotal(raw.getTotal());
+        raw.setValue(this.getValue());
+        raw.setXmlSchema(this.getXmlSchema());
+        return raw;        
+    }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult getRaw() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult();
+        raw.setFileName(this.getFilename());
+        raw.setIsSupplied(this.getIsSupplied());
+        raw.setLink(this.getLink());
+        raw.setName(this.getName());
+        raw.setSequence(raw.getSequence());
+        raw.setShowFileContent(this.getShowFileContent());
+        raw.setTotal(raw.getTotal());
+        raw.setValue(this.getValue());
+        raw.setXmlSchema(this.getXmlSchema());
+        return raw;
+        
+    }
 
     public String getFilename() {
         return filename;

@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client.platform;
 
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException;
 
 public class ECLExceptionInfo {
     private Integer activity;
@@ -11,6 +12,9 @@ public class ECLExceptionInfo {
     private String message;
     private String severity;
     private String source;
+    
+    private String audience;
+    private String espCode;
 
     public ECLExceptionInfo() {}
     
@@ -25,6 +29,34 @@ public class ECLExceptionInfo {
         severity=raw.getSeverity();
         source=raw.getSource();
     }
+
+    public ECLExceptionInfo(EspException raw) 
+    {
+        audience=raw.getAudience();
+        message=raw.getMessage();
+        espCode=raw.getCode();
+        source=raw.getSource();
+    }    
+
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw) 
+    {
+        activity=raw.getActivity();
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException raw) 
+    {
+        audience=raw.getAudience();
+        message=raw.getMessage();
+        espCode=raw.getCode();
+        source=raw.getSource();
+    }    
 
     public Integer getActivity() {
         return activity;
@@ -101,6 +133,29 @@ public class ECLExceptionInfo {
         ex.setSeverity(severity);
         ex.setSource(source);
         return ex;
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException getRawVersion6() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException();
+        ex.setActivity(activity);
+        ex.setCode(code);
+        ex.setColumn(column);
+        ex.setFileName(fileName);
+        ex.setLineNo(lineNo);
+        ex.setMessage(message);
+        ex.setSeverity(severity);
+        ex.setSource(source);
+        return ex;
+    }
+
+    public String getAudience()
+    {
+        return audience;
+    }
+
+    public String getEspCode()
+    {
+        return espCode;
     }
 
 }

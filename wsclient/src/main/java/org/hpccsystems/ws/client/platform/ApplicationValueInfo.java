@@ -17,7 +17,13 @@ public class ApplicationValueInfo {
         this.name=name;
         this.value=value;
     }
-    
+
+    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue raw) {
+        application=raw.getApplication();
+        name=raw.getName();
+        value=raw.getValue();
+    }
+
     public ApplicationValueInfo(ApplicationValue raw) 
     {
         application=raw.getApplication();
@@ -56,4 +62,13 @@ public class ApplicationValueInfo {
         val.setValue(this.getValue());
         return val;
     }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue getRawVersion6() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue();
+        result.setApplication(application);
+        result.setName(name);
+        result.setValue(value);
+        return result;
+    }
+ 
 }
