@@ -45,6 +45,7 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUUpdateRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUUpdateResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WsWorkunitsClientSoapProxyWrapper;
 
 /**
  *
@@ -60,15 +61,13 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     private static final Logger                                                         log                               = Logger.getLogger(HPCCWsWorkUnitsClient.class.getName());
     public static final String                                                          WSWORKUNITSWSDLURI                = "/WsWorkunits";
     private WsWorkunitsServiceSoapProxy                                                 wsWorkunitsServiceSoapProxy       = null;
-    private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy version5WorkunitsServiceSoapProxy = null;
-    private org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy version6WorkunitsServiceSoapProxy = null;
     public static final int                                                             defaultWaitTime                   = 10000;
     public static final int                                                             defaultResultLimit                = 100;
     public static final int                                                             defaultMaxWaitTime                = 1000
             * 60 * 5;
     private Version                                                                     targetVersion                     = null;
     private boolean                                                                     verbose                           = false;
-
+    private WsWorkunitsClientSoapProxyWrapper                                           soapWrapper=null;
     private static URL                                                                  originalURL;
 
     public static URL getOriginalURL() throws MalformedURLException
@@ -124,14 +123,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         request.setIncludeSourceFiles(includeSourceFiles);
         request.setIncludeApplicationValues(includeApplicationValues);
 
-        WUInfoResponseWrapper response = null;
-        if (targetVersion.major==6) {
-            response=new WUInfoResponseWrapper(this.version6WorkunitsServiceSoapProxy.WUInfo(request.getRawVersion6()));
-        } else if (targetVersion.major==7) {
-            response=new WUInfoResponseWrapper(this.wsWorkunitsServiceSoapProxy.WUInfo(request.getRaw()));
-        } else {
-            throw new NotImplementedException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(targetVersion.major));
-        }
+        WUInfoResponseWrapper response = soapWrapper.WUInfo(request);
 
         if (response.getWorkunit() == null)
         {
@@ -221,30 +213,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     private void initWsWorkUnitsSoapProxy(String baseURL, String user, String pass)
     {
-        wsWorkunitsServiceSoapProxy = new WsWorkunitsServiceSoapProxy(baseURL);
-        if (wsWorkunitsServiceSoapProxy != null)
-        {
-            WsWorkunitsServiceSoap wsWorkunitsServiceSoap = wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap();
-            if (user != null && pass != null) Connection.initStub((Stub) wsWorkunitsServiceSoap, user, pass);
-        }
-
-        version5WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy(
-                baseURL);
-        if (version5WorkunitsServiceSoapProxy != null)
-        {
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoap version5WorkunitsServiceSoap = version5WorkunitsServiceSoapProxy
-                    .getWsWorkunitsServiceSoap();
-            if (user != null && pass != null) Connection.initStub((Stub) version5WorkunitsServiceSoap, user, pass);
-        }
-        
-        version6WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy(
-                baseURL);
-        if (version6WorkunitsServiceSoapProxy != null)
-        {
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoap version6WorkunitsServiceSoap = version6WorkunitsServiceSoapProxy
-                    .getWsWorkunitsServiceSoap();
-            if (user != null && pass != null) Connection.initStub((Stub) version6WorkunitsServiceSoap, user, pass);
-        }
+        soapWrapper=new WsWorkunitsClientSoapProxyWrapper(baseURL, user,pass,targetVersion);
+        wsWorkunitsServiceSoapProxy = soapWrapper.getLatestRaw();
     }
 
     /**
@@ -578,15 +548,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             wuinfodetailsparams.setIncludeResults(true);
             wuinfodetailsparams.setWuid(wuid);
             
-            WUInfoResponseWrapper wuInfoResponse = null;
-            if (targetVersion.major==6) {
-                wuInfoResponse=new WUInfoResponseWrapper(this.version6WorkunitsServiceSoapProxy.WUInfo(wuinfodetailsparams.getRawVersion6()));
-            } else if (targetVersion.major==7) {
-                wuInfoResponse=new WUInfoResponseWrapper(this.wsWorkunitsServiceSoapProxy.WUInfo(wuinfodetailsparams.getRaw()));
-            } else {
-                throw new NotImplementedException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(targetVersion.major));
-            }
-
+            WUInfoResponseWrapper wuInfoResponse = soapWrapper.WUInfo(wuinfodetailsparams);
+            
             ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions();
             if (exceptions == null && wuInfoResponse.getWorkunit() != null)
             {
@@ -640,14 +603,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             request.setIncludeVariables(includeVariables);
             request.setIncludeXmlSchemas(includeXmlSchemas);
 
-            WUInfoResponseWrapper resp = null;
-            if (targetVersion.major==6) {
-                resp=new WUInfoResponseWrapper(this.version6WorkunitsServiceSoapProxy.WUInfo(request.getRawVersion6()));
-            } else if (targetVersion.major==7) {
-                resp=new WUInfoResponseWrapper(this.wsWorkunitsServiceSoapProxy.WUInfo(request.getRaw()));
-            } else {
-                throw new NotImplementedException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(targetVersion.major));
-            }
+            WUInfoResponseWrapper resp = soapWrapper.WUInfo(request);
 
             this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions(), "Could not retrieve workunit:");
             WorkunitInfo wk = resp.getWorkunit();
@@ -1309,7 +1265,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                     for (int i=0; i < info.getApplicationValues().size();i++)
                     {
                         org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery internal=info.getRaw156(i);
-                        fallbackresponse = version5WorkunitsServiceSoapProxy.WUQuery(internal);
+                        fallbackresponse = soapWrapper.getVersion5Raw().WUQuery(internal);
                         if (fallbackresponse != null)
                         {
                             throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
@@ -1338,7 +1294,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 }
                 else
                 {
-                    fallbackresponse = version5WorkunitsServiceSoapProxy.WUQuery(info.getRaw156(0));
+                    fallbackresponse = soapWrapper.getVersion5Raw().WUQuery(info.getRaw156(0));
                     if (fallbackresponse != null) {
                         throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
                                 "Error in WU query");
@@ -1427,15 +1383,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             wucreateparameters.setResultLimit(wu.getResultLimit());
             wucreateparameters.setWuid(wu.getWuid());
 
-            WUUpdateResponseWrapper wuUpdateResponse = null;
-            if (targetVersion.major==6) {
-                wuUpdateResponse=new WUUpdateResponseWrapper(this.version6WorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters.getRawVersion6()));
-            } else if (targetVersion.major==7) {
-                wuUpdateResponse=new WUUpdateResponseWrapper(this.wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters.getRaw()));
-            } else {
-                throw new NotImplementedException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(targetVersion.major));
-            }
-
+            WUUpdateResponseWrapper wuUpdateResponse = soapWrapper.WUCreateAndUpdate(wucreateparameters);
+            
             createdWU = wuUpdateResponse.getWorkunit();
 
             if (wuUpdateResponse.getExceptions().size()==0)
@@ -2107,7 +2056,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUAction fwa = new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUAction();
         	fwa.setActionType(action.getValue());
         	fwa.setWuids(new String[] { wuid });
-        	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUActionResponse fwar = this.version5WorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap().WUAction(fwa);
+        	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUActionResponse fwar = soapWrapper.getVersion5Raw().getWsWorkunitsServiceSoap().WUAction(fwa);
         	if (fwar == null || fwar.getActionResults() == null || fwar.getActionResults().length == 0
         			|| fwar.getActionResults()[0].getResult() == null
         			|| !fwar.getActionResults()[0].getResult().equals("Success"))
@@ -2135,14 +2084,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public WorkunitInfo createWorkunit() throws Exception 
     {
         WUCreateRequestWrapper params=new WUCreateRequestWrapper();
-        WUCreateResponseWrapper resp=null;
-        if (targetVersion.major==6) {
-            resp=new WUCreateResponseWrapper(this.version6WorkunitsServiceSoapProxy.WUCreate(params.getRawVersion6()));
-        } else if (targetVersion.major==7) {
-            resp=new WUCreateResponseWrapper(this.wsWorkunitsServiceSoapProxy.WUCreate(params.getRaw()));
-        } else {
-            throw new NotImplementedException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(targetVersion.major));
-        }
+        WUCreateResponseWrapper resp=soapWrapper.WUCreate(params);
         this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions(),"Could not create workunit");
         return resp.getWorkunit();  
     }
@@ -2158,14 +2100,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         final WUUpdateRequestWrapper params = new WUUpdateRequestWrapper();
         params.set_protected(true);
         params.setWuid(wuid);
-        WUUpdateResponseWrapper resp= null; 
-        if (targetVersion.major==6) {
-            resp=new WUUpdateResponseWrapper(this.version6WorkunitsServiceSoapProxy.WUUpdate(params.getRawVersion6()));
-        } else if (targetVersion.major==7) {
-            resp=new WUUpdateResponseWrapper(this.wsWorkunitsServiceSoapProxy.WUUpdate(params.getRaw()));
-        } else {
-            throw new NotImplementedException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(targetVersion.major));
-        }
+        WUUpdateResponseWrapper resp= soapWrapper.WUUpdate(params); 
 
         this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions(),"Could not protect workunit " + wuid);
         return resp.getWorkunit();

@@ -50,7 +50,8 @@ public class WorkunitInfo implements
     private List<ECLHelpFileWrapper> helpers=new ArrayList<ECLHelpFileWrapper>();
     private String helpersDesc;
     private Integer infoCount;
-    private Boolean isPausing;
+    private Boolean isPausing=false;
+    private Boolean isProtected=false;
     private String jobname;
     private String owner;
     private Integer priorityClass;
@@ -227,6 +228,7 @@ public class WorkunitInfo implements
         this.setOwner(base.getOwner());
         this.setPriorityClass(base.getPriorityClass());
         this.setPriorityLevel(base.getPriorityLevel());
+        this.setProtected(base.get_protected());
         this.setQuery(base.getQuery());
         this.setQueue(base.getQueue());
         this.setResourceURLCount(base.getResourceURLCount());
@@ -274,6 +276,11 @@ public class WorkunitInfo implements
 
     }
 
+    private void setProtected(Boolean get_protected)
+    {
+       this.isProtected=get_protected;        
+    }
+
     /**
      * Copy a soap ecl workunit object into the wrapper
      * 
@@ -318,6 +325,7 @@ public class WorkunitInfo implements
         this.setOwner(base.getOwner());
         this.setPriorityClass(base.getPriorityClass());
         this.setPriorityLevel(base.getPriorityLevel());
+        this.setProtected(base.get_protected());
         this.setQuery(base.getQuery());
         this.setQueue(base.getQueue());
         this.setResourceURLCount(base.getResourceURLCount());
@@ -808,6 +816,11 @@ public class WorkunitInfo implements
         for (int i=0; i < debugValues.length;i++) {
             this.debugValues.add(new DebugValueInfo(debugValues[i]));
         }
+        return this;
+    }
+
+    public WorkunitInfo setDebugValues(List<DebugValueInfo> debugValues) {
+        this.debugValues=debugValues;
         return this;
     }
 
@@ -1440,6 +1453,7 @@ public class WorkunitInfo implements
         eclWorkunit.setOwner(this.getOwner());
         eclWorkunit.setPriorityClass(this.getPriorityClass());
         eclWorkunit.setPriorityLevel(this.getPriorityLevel());
+        eclWorkunit.set_protected(this.isProtected());
         eclWorkunit.setQuery(this.getQuery().getRaw());
         eclWorkunit.setQueue(this.getQueue());
         eclWorkunit.setResourceURLCount(this.getResourceURLCount());
@@ -1505,6 +1519,11 @@ public class WorkunitInfo implements
         eclWorkunit.setXmlParams(this.getXmlParams());
 
         return eclWorkunit;
+    }
+
+    private Boolean isProtected()
+    {
+        return isProtected;
     }
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit getEclWorkunitVersion6() {
@@ -1574,6 +1593,7 @@ public class WorkunitInfo implements
         eclWorkunit.setIsPausing(this.getIsPausing());
         eclWorkunit.setJobname(this.getJobname());
         eclWorkunit.setOwner(this.getOwner());
+        eclWorkunit.set_protected(this.isProtected());
         eclWorkunit.setPriorityClass(this.getPriorityClass());
         eclWorkunit.setPriorityLevel(this.getPriorityLevel());
         eclWorkunit.setQuery(this.getQuery().getRawVersion6());
