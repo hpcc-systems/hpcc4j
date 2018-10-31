@@ -304,7 +304,7 @@ public class HPCCWsTopologyClient extends DataSingleton
     }
 
     /**
-     * @param Dropzone namefilter - can be blank
+     * @param Dropzone namefilter - Empty for all dropzones, or specific dropzeon name
      * @return
      * @throws Exception
      */

@@ -120,9 +120,7 @@ public class PhysicalMachine extends DataSingleton
 
     PhysicalFile getFile(PhysicalFileStruct fileStruct)
     {
-        PhysicalFile file = getFile(fileStruct.getName());
-        file.update(fileStruct);
-        return file;
+        return PhysicalFile.get(platform, fileStruct);
     }
 
     public PhysicalFile [] getFiles()

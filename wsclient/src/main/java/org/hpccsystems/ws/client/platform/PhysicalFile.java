@@ -20,21 +20,13 @@ package org.hpccsystems.ws.client.platform;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.apache.log4j.Logger;
 
 public class PhysicalFile extends DataSingleton
 {
-    private static final Logger       log          = Logger.getLogger(PhysicalFile.class.getName());
     private static Map<Integer, PhysicalFile> PhysicalFiles = new HashMap<Integer, PhysicalFile>();
 
     public static synchronized PhysicalFile get(Platform platform, String name)
@@ -48,6 +40,14 @@ public class PhysicalFile extends DataSingleton
         {
             PhysicalFiles.put(physicalFile.hashCode(), physicalFile);
         }
+        return physicalFile;
+    }
+
+    public static synchronized PhysicalFile get(Platform platform, PhysicalFileStruct fileStruct)
+    {
+        PhysicalFile physicalFile = get(platform, fileStruct.getName());
+        physicalFile.update(fileStruct);
+
         return physicalFile;
     }
 

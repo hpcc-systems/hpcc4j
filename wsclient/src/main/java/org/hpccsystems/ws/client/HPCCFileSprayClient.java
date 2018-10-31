@@ -307,6 +307,14 @@ public class HPCCFileSprayClient extends DataSingleton
         return  resp.getDropZones();
     }
 
+    /**
+     * Perform HPCC Drop Zone file search
+     * @param dzname - Required, the name of the Drop Zone to query
+     * @param netaddr - Required, the netaddress of the Drop Zone node to query
+     * @param namefilter - Required, the wildcard based name-filter to query
+     * @return
+     * @throws Exception
+     */
     public PhysicalFileStruct [] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception
     {
         if (fileSprayServiceSoapProxy == null)
