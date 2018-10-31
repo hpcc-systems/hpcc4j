@@ -48,7 +48,7 @@ public class Utils
     final static String ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
 
     public enum LogLevel {DEBUG,ERROR,FATAL,INFO,TRACE,WARN};
-    
+
     /**
      * @param wsdlurl - url to web service definition
      * @return        - version reported as ver_ parameter in url
@@ -80,15 +80,15 @@ public class Utils
     @Deprecated
     static public void print(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode)
     {
-        if (onlyifverbose && verbosemode) 
+        if (onlyifverbose && verbosemode)
             log.warn(message);
-        else 
+        else
             log.info(message);
     }
 
     static public void log(String message, LogLevel logLevel)
     {
-        switch (logLevel) 
+        switch (logLevel)
         {
             case DEBUG:
                 log.debug(message);
@@ -672,7 +672,83 @@ public class Utils
             Other
       };
 
-      protected static OSType detectedOS;
+    /**
+     * HPCC Environment OS codes as defined in
+     * /HPCC-Platform/common/environment/environment.hpp
+     */
+    public enum HPCCEnvOSCode
+    {
+        MachineOsW2K(0),
+        MachineOsSolaris(1),
+        MachineOsLinux(2),
+        MachineOsUnknown(3);
+
+        private int code;
+        private String name;
+
+        HPCCEnvOSCode(int code)
+        {
+            this.code = code;
+            switch (code)
+            {
+                case 0:
+                    name = "W2K";
+                    break;
+                case 1:
+                    name = "Solaris";
+                    break;
+                case 2:
+                    name = "Linux";
+                    break;
+                case 3:
+                default:
+                    name = "Unknown";
+                    break;
+            }
+        }
+
+        public HPCCEnvOSCode fromName(String name)
+        {
+            if (name == null || name.length() == 0)
+                return MachineOsUnknown;
+            else if (name.equalsIgnoreCase("W2k"))
+                return MachineOsW2K;
+            else if (name.equalsIgnoreCase("Solaris"))
+                return MachineOsSolaris;
+            else if (name.equalsIgnoreCase("Linux"))
+                return MachineOsLinux;
+            else
+                return MachineOsUnknown;
+        }
+
+        static public HPCCEnvOSCode fromCode(int code)
+        {
+            switch (code)
+            {
+                case 0:
+                    return MachineOsW2K;
+                case 1:
+                    return MachineOsSolaris;
+                case 2:
+                    return MachineOsLinux;
+                case 3:
+                default:
+                    return MachineOsUnknown;
+            }
+        }
+
+        public int getCode()
+        {
+            return code;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+    }
+
+    protected static OSType detectedOS;
 
      /**
        * detect the operating system from the os.name System property and cache
@@ -746,14 +822,14 @@ public class Utils
      */
     public static String dateToUTCString(Date date)
     {
-        if (date==null) 
+        if (date==null)
         {
             return null;
         }
         DateFormat df = new SimpleDateFormat(ISO8601_FORMAT);
         return df.format(date);
     }
-    
+
     /**
      * @param utc - String in yyyy-mm-ddThh:MM:ssZ format
      * @return Date equivalent to string
@@ -768,5 +844,5 @@ public class Utils
         DateFormat df = new SimpleDateFormat(ISO8601_FORMAT);
         return df.parse(utc);
     }
-      
+
 }

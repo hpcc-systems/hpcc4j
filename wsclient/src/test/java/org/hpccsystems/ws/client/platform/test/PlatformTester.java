@@ -19,12 +19,14 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
-import org.hpccsystems.ws.client.platform.LogicalFile;
+import org.hpccsystems.ws.client.platform.PhysicalFile;
+import org.hpccsystems.ws.client.platform.PhysicalMachine;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 
 public class PlatformTester
@@ -207,34 +209,26 @@ public class PlatformTester
             {
                 System.out.println("Dropzone Name: " + dropzones[i].getName());
                 System.out.println("Dropzone Directory: " + dropzones[i].getDirectory());
-                System.out.println("Dropzone IP: " + dropzones[i].getIP());
-                System.out.println("Dropzone OS: " + dropzones[i].getOS());
-                String[] cna = dropzones[i].getConfiguredNetAddresses();
-                String[] na = dropzones[i].getNetAddresses();
-                
-                LogicalFile[] mydzfiles = dropzones[i].getFiles();
-                for (LogicalFile logicalFile : mydzfiles)
+                System.out.println("Dropzone Machines: ");
+                PhysicalMachine [] dzmachines = dropzones[i].getMachines();
+                for (PhysicalMachine physicalmachine : dzmachines)
                 {
-                    System.out.println(logicalFile.getName());
-                }
-                if(cna != null && na != null)
-                {
-                    if(cna.length != na.length)
+                    System.out.println("\tName: " + physicalmachine.getName());
+                    System.out.println("\tConfigured Address: " + physicalmachine.getConfigNetaddress());
+                    System.out.println("\tActual Address: " + physicalmachine.getNetaddress());
+                    System.out.println("\tOS: " + physicalmachine.getOSName());
+                    boolean isWin = physicalmachine.getOSCode() == HPCCEnvOSCode.MachineOsW2K;
+                    System.out.println("\tFiles: ");
+
+                    PhysicalFile[] physicalFiles = physicalmachine.getFiles();
+                    for (PhysicalFile physicalFile : physicalFiles)
                     {
-                        System.out.println("confNetAddress list does not match addressList length");
-                    }
-                    else
-                    {
-                        for(int b = 0; b < cna.length; b++)
-                        {
-                            System.out.println("\tconfNetAddress: " + cna[b]);
-                            System.out.println("\tnetAddress:     " + na[b]);
-                            System.out.println("\t-------------------------------------");
-                        }
+                        String name = physicalFile.getName() + (physicalFile.getIsDir() ? (!isWin ? "/" : "\\") : "");
+                        System.out.format( "\t\t%-30s %15s %15s\n", name, physicalFile.getIsDir() ? "" : physicalFile.getFilesize() , physicalFile.getModifiedtime());
                     }
                 }
             }
-            
+
             HPCCFileSprayClient fsc = platform.getFileSprayClient();
             org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone[] dzLocal = fsc.fetchLocalDropZones();
             if (dzLocal != null && dzLocal.length > 0)
@@ -242,43 +236,64 @@ public class PlatformTester
                 System.out.println("fetchLocalDropZones test ...");
                 for(int i = 0; i < dzLocal.length; i++)
                 {
+                    org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone thisDZ =  dzLocal[i];
+                    boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
+
                     System.out.println("DropZone[" + i + "]");
-                    System.out.println("\tDropZone:   " + dzLocal[i].getName());
-                    System.out.println("\tNetAddress: " + dzLocal[i].getNetAddress());
+                    System.out.println("\tName:       " + thisDZ.getName());
+                    System.out.println("\tPath:       " + thisDZ.getPath());
+                    System.out.println("\tNetAddress: " + thisDZ.getNetAddress());
+                    System.out.println("\tComputer:   " + thisDZ.getComputer());
+                    System.out.println("\tIsLinux:    " + thisDZ.getLinux());
+
+                    PhysicalFileStruct[] pfs = fsc.listFiles(dzLocal[i].getNetAddress(), dzLocal[i].getPath(), null);
+                    System.out.println("\tFile Listing:");
+                    if (pfs != null && pfs.length > 0)
+                    {
+                        for(int fileindex = 0; fileindex < pfs.length; fileindex++)
+                        {
+                            String name = pfs[fileindex].getName() + (pfs[fileindex].getIsDir() ? (islinux ? "/" : "\\") : "");
+                            System.out.format( "\t\t%-30s %15s %15s\n", name, pfs[fileindex].getIsDir() ? "" : pfs[fileindex].getFilesize() , pfs[fileindex].getModifiedtime());
+                        }
+                    }
                 }
             }
-            
+
             org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
             if (dzByAddress != null && dzByAddress.length > 0)
             {
                 System.out.println("fetchDropZones by address test ...");
-                for(int i = 0; i < dzByAddress.length; i++)
+                for (int i = 0; i < dzByAddress.length; i++)
                 {
+                    org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone thisDZ = dzByAddress[i];
+                    boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
+
                     System.out.println("DropZone[" + i + "]");
-                    System.out.println("\tDropZone:   " + dzByAddress[i].getName());
-                    System.out.println("\tNetAddress: " + dzByAddress[i].getNetAddress());
+                    System.out.println("\tName:       " + thisDZ.getName());
+                    System.out.println("\tNetAddress: " + thisDZ.getNetAddress());
+                    System.out.println("\tPath:       " + thisDZ.getPath());
+                    System.out.println("\tComputer:   " + thisDZ.getComputer());
+                    System.out.println("\tIsLinux:    " + thisDZ.getLinux());
+
+                    PhysicalFileStruct[] pfs = fsc.listFiles(thisDZ.getNetAddress(), thisDZ.getPath(), null);
+                    System.out.println("\tFile Listing:");
+                    if (pfs != null && pfs.length > 0)
+                    {
+                        for (int fileindex = 0; fileindex < pfs.length; fileindex++) {
+                            PhysicalFileStruct thisfile = pfs[fileindex];
+                            String name = thisfile.getName() + (thisfile.getIsDir() ? (islinux ? "/" : "\\") : "");
+                            System.out.format("\t\t%-30s %15s %15s\n", name, thisfile.getIsDir() ? "" : thisfile.getFilesize(), thisfile.getModifiedtime());
+                        }
+                    }
                 }
             }
-            
-            if (dzByAddress != null && dzByAddress.length > 0);
-            System.out.println("Path: " + dzByAddress[0].getPath());
-            System.out.println("IP: " + dzByAddress[0].getNetAddress());
-            System.out.println("OS: " + dzByAddress[0].getLinux());
 
             PhysicalFileStruct[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), null);
-            System.out.println("listFiles test ...");
-            if (pfs != null && pfs.length > 0)
-            {
-                for(int i = 0; i < pfs.length; i++)
-                {
-                    System.out.println(pfs[0].toString());
-                }
-            }
 
             // Test file download
             System.out.println("Download test ...");
             String fileName = null;
-            for (int i = 0; pfs != null && i < pfs.length; i++) 
+            for (int i = 0; pfs != null && i < pfs.length; i++)
             {
                 if (pfs[i].getIsDir() == false
                 && pfs[i].getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
@@ -288,7 +303,7 @@ public class PlatformTester
                 }
             }
 
-            if (fileName != null) 
+            if (fileName != null)
             {
                 System.out.println("Attempting to download: " + fileName + " from DropZone");
                 String outputFile = System.getProperty("java.io.tmpdir") + File.separator + fileName;
@@ -297,11 +312,11 @@ public class PlatformTester
                 File tmpFile = new File(outputFile);
 
                 long bytesTransferred = fsc.downloadFile(tmpFile,dzByAddress[0],fileName);
-                if (bytesTransferred <= 0) 
+                if (bytesTransferred <= 0)
                 {
                     System.out.println("Download failed.");
-                } 
-                else 
+                }
+                else
                 {
                     System.out.println("File Download Test: Bytes transferred: " + bytesTransferred);
                 }
@@ -324,7 +339,7 @@ public class PlatformTester
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
             DFUFileAccessInfoWrapper a =wsDFUClient.getFileAccess(SecAccessType.Read, "benchmark::integer::2mb", "thor_160", 120, "random", true, true, true);
             platform.checkInHPCCWsClient(connector);
-            
+
             connector = platform.checkOutHPCCWsClient();
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
