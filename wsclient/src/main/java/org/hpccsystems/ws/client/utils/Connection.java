@@ -158,7 +158,9 @@ public class Connection
         setPort(Integer.toString(theurl.getPort()));
         setURIPath(theurl.getPath());
 
-        options = theurl.getQuery().split("&");
+        options = null;
+        if (theurl.getQuery() != null) 
+            options = theurl.getQuery().split("&");
 
         constructUrl();
 
