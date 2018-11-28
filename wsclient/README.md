@@ -11,7 +11,7 @@ To utilize this library as a dependency in your own maven project, simply add th
 <dependency>
 	<groupId>org.hpccsystems</groupId>
 	<artifactId>wsclient</artifactId>
-	<version>1.0.0</version>
+	<version>7.0.0</version>
 </dependency>
 ```
 
@@ -43,13 +43,26 @@ wsclient | hpccsystems-platform
 
 #### Future Release
 
-###### 7.0.0 Target Release date September, 2018
+###### 7.0.2 Target Release date November, 2018
+- JAPI-136 Connection constructor exception without query param
+
+#### Release Changelog
+
+###### 7.0.0 Target Release date Fri Nov 02 2018 13:50:00 GMT-0400 (Eastern Daylight Time)
+- JAPI-124 Update wsclent interface in preparation for rowservice changes
+- JAPI-129 Platform tester fixes
+- JAPI-128 Move log4j.props to resources
+- JAPI-110 Add log4j support
+- JAPI-125 WsDFU FileAccess methods
+- JAPI-117 Restructure dropzone representation
+- JAPI-134 New Utils.connection constructon
+- JAPI-116 Expose filespray options
+- JAPI-127 Add FileSpray/DownloadFile to JAPI
+- JAPI-130 Ensure reported filepart and copy indexes are valid (#207)
 - JAPI-119 Moving the versioning system for wsclient to parallel supported versions of the platform
 - JAPI-109 File structure info
 - JAPI-118 Address missing DFUFileDetail Field
 - JAPI-126 Update HPCC 7.0.0 ESP interfaces and remove Pre 6.0.0 Interfaces
-
-#### Release Changelog
 
 ###### 1.4.0 Target Release date Tue Jul 31 2018 11:32:00 GMT-0400 (Eastern Daylight Time)
 - JAPI-111 Remove java8 dependencies
