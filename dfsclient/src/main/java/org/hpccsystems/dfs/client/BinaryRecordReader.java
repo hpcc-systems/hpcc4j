@@ -67,11 +67,14 @@ public class BinaryRecordReader implements IRecordReader {
    * @param fp the file part to be read
    * @param rd the record def
    */
-  public BinaryRecordReader(PlainConnection pc, IRecordBuilder rb) {
-    this.rootRecordBuilder = rb;
+  public BinaryRecordReader(PlainConnection pc) {
     this.connection = pc;
     this.active = false;
     this.defaultLE = true;
+  }
+
+  public void initialize(IRecordBuilder rb) {
+    this.rootRecordBuilder = rb;
   }
 
   /* (non-Javadoc)
@@ -79,6 +82,11 @@ public class BinaryRecordReader implements IRecordReader {
    */
   public boolean hasNext() throws HpccFileException
   {
+    if (this.rootRecordBuilder == null) 
+    {
+      throw new HpccFileException("RecordReader must be initialized before being used.");
+    }
+
     if (!this.active) 
     {
       this.active = true;
@@ -111,6 +119,11 @@ public class BinaryRecordReader implements IRecordReader {
    */
   public Object getNext() throws HpccFileException
   {
+    if (this.rootRecordBuilder == null) 
+    {
+      throw new HpccFileException("RecordReader must be initialized before being used.");
+    }
+
     if (!this.hasNext())
       throw new NoSuchElementException("No next record!");
 

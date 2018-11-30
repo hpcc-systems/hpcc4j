@@ -41,8 +41,10 @@ public class HpccRemoteFileReader
     this.fp = fp;
 
     this.connection = new PlainConnection(this.fp,this.def);
+    this.brr = new BinaryRecordReader(this.connection);
+    
     HPCCRecordBuilder rowBuilder = new HPCCRecordBuilder(this.def.getRootDef());
-    this.brr = new BinaryRecordReader(this.connection,rowBuilder);
+    this.brr.initialize(rowBuilder);
   }
   /**
    * Is there more data
