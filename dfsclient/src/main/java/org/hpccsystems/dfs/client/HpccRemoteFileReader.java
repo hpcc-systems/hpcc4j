@@ -51,7 +51,7 @@ public class HpccRemoteFileReader
    * @return true if there is a next record
    */
   public boolean hasNext() {
-    boolean rslt;
+    boolean rslt = false;
     try {
       rslt = brr.hasNext();
     } catch (HpccFileException e) {

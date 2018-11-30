@@ -71,6 +71,7 @@ public class BinaryRecordReader implements IRecordReader {
     this.connection = pc;
     this.active = false;
     this.defaultLE = true;
+    this.readContext = new ReadContext();
   }
 
   public void initialize(IRecordBuilder rb) {
