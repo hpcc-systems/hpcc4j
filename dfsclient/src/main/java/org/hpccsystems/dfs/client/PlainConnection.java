@@ -25,6 +25,7 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.log4j.Logger;
+import org.hpccsystems.dfs.client.RecordDef;
 import org.hpccsystems.commons.errors.HpccFileException;
 
 /**

@@ -24,11 +24,14 @@ import java.net.MalformedURLException;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.hpccsystems.commons.ecl.FileFilter;
-import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.commons.errors.UnusableDataDefinitionException;
 import org.hpccsystems.dfs.cluster.ClusterRemapper;
 import org.hpccsystems.dfs.cluster.RemapInfo;
+import org.hpccsystems.dfs.client.ColumnPruner;
+import org.hpccsystems.commons.ecl.FileFilter;
+import org.hpccsystems.commons.ecl.FieldDef;
+import org.hpccsystems.dfs.client.RecordDef;
+import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.commons.errors.UnusableDataDefinitionException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -263,38 +266,7 @@ public class HPCCFile implements Serializable
   public RecordDef getRecordDefinition() throws HpccFileException {
     return recordDefinition;
   }
-  /**
-   * Make a Spark Resilient Distributed Dataset (RDD) that provides access
-   * to THOR based datasets. Uses existing SparkContext, allows this function
-   * to be used from PySpark.
-   * @return An RDD of THOR data.
-   * @throws HpccFileException When there are errors reaching the THOR data
-   */
- // public HpccRDD getRDD() throws HpccFileException {
-//    return getRDD(SparkContext.getOrCreate());
-//  }
-  /**
-   * Make a Spark Resilient Distributed Dataset (RDD) that provides access
-   * to THOR based datasets.
-   * @param sc Spark Context
-   * @return An RDD of THOR data.
-   * @throws HpccFileException When there are errors reaching the THOR data
-   */
-  //public HpccRDD getRDD(SparkContext sc) throws HpccFileException {
-//	  return new HpccRDD(sc, getFileParts(), this.recordDefinition);
- // }
-  /**
-   * Make a Spark Dataframe (Dataset<Row>) of THOR data available.
-   * @param session the Spark Session object
-   * @return a Dataframe of THOR data
-   * @throws HpccFileException when htere are errors reaching the THOR data.
-   */
-//  public Dataset<Row> getDataframe(SparkSession session) throws HpccFileException{
-//    RecordDef rd = this.getRecordDefinition();
-//    DataPartition[] fp = this.getFileParts();
-//    JavaRDD<Row > rdd = (new HpccRDD(session.sparkContext(), fp, rd)).toJavaRDD();
-//    return session.createDataFrame(rdd, rd.asSchema());
-//  }
+  
   /**
    * Is this an index?
    * @return true if yes
@@ -303,7 +275,7 @@ public class HPCCFile implements Serializable
 
   private static  DFUFileAccessInfoWrapper fetchReadFileInfo(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception
   {
-    String uniqueID = "SPARK-HPCC: " + UUID.randomUUID().toString();
+    String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
     return hpccClient.getFileAccess(SecAccessType.Read, fileName, clusterName, expirySeconds, uniqueID, true, false, true);
   }
 
@@ -319,7 +291,7 @@ public class HPCCFile implements Serializable
 
   private static String acquireFileAccess(String fileName, SecAccessType accesstype, HPCCWsDFUClient hpcc, int expirySeconds, String clusterName) throws Exception
   {
-    String uniqueID = "SPARK-HPCC: " + UUID.randomUUID().toString();
+    String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
     return hpcc.getFileAccessBlob(accesstype, fileName, clusterName, expirySeconds, uniqueID);
   }
 }

@@ -15,7 +15,10 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-//import org.apache.spark.sql.Row;
+import org.hpccsystems.dfs.client.HPCCRecord;
+import org.hpccsystems.dfs.client.HPCCRecordBuilder;
+import org.hpccsystems.dfs.client.PlainConnection;
+
 import org.hpccsystems.commons.errors.HpccFileException;
 
 /**
@@ -25,6 +28,7 @@ public class HpccRemoteFileReader
 {
   private RecordDef def;
   protected DataPartition fp;
+  protected PlainConnection connection = null;
   protected BinaryRecordReader brr;
   /**
    * A remote file reader that reads the part identified by the
@@ -35,7 +39,10 @@ public class HpccRemoteFileReader
   public HpccRemoteFileReader(DataPartition fp, RecordDef rd) {
     this.def = rd;
     this.fp = fp;
-    this.brr = new BinaryRecordReader(fp, def);
+
+    this.connection = new PlainConnection(this.fp,this.def);
+    HPCCRecordBuilder rowBuilder = new HPCCRecordBuilder(this.def.getRootDef());
+    this.brr = new BinaryRecordReader(this.connection,rowBuilder);
   }
   /**
    * Is there more data
@@ -57,8 +64,7 @@ public class HpccRemoteFileReader
    * Return next record
    * @return the record
    */
-  //public Row next() {
-  public Object next() {
+  public HPCCRecord next() {
     Object rslt = null;
     try {
       rslt = brr.getNext();
@@ -67,6 +73,6 @@ public class HpccRemoteFileReader
       e.printStackTrace(System.err);
       throw new java.util.NoSuchElementException("Fatal read error");
     }
-    return rslt;
+    return (HPCCRecord) rslt;
   }
 }
