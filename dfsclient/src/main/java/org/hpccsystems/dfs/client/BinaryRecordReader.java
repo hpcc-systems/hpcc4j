@@ -24,28 +24,21 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
-//import org.apache.spark.sql.catalyst.expressions.GenericRow;
-//import org.apache.spark.sql.Row;
-//import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.errors.UnparsableContentException;
 
-//import scala.collection.JavaConverters;
-
-//import scala.collection.JavaConverters;
+import org.hpccsystems.dfs.client.IRecordBuilder;
+import org.hpccsystems.dfs.client.IRecordReader;
 
 /**
  * Reads HPCC Cluster data in binary format.
  */
 public class BinaryRecordReader implements IRecordReader {
-  protected RecordDef recDef;
-  private int part;
-  private PlainConnection pc;
-  protected byte[] buffer;
-  protected int curr_pos;
-  private long pos;
+  protected IRecordBuilder rootRecordBuilder;
+  private PlainConnection connection;
+  private ReadContext readContext;
   private boolean active;
   protected boolean defaultLE;
   //
@@ -62,10 +55,10 @@ public class BinaryRecordReader implements IRecordReader {
 
   private static final int MASK_32_LOWER_HALF = 0xffff;
 
-  public static class ParsedFieldResult
+  public static class ReadContext 
   {
-    public Object fieldValue = null;
-    public int bytesConsumed = 0;
+    byte[] buffer = null;
+    int pos = 0;
   };
 
   //
@@ -74,14 +67,10 @@ public class BinaryRecordReader implements IRecordReader {
    * @param fp the file part to be read
    * @param rd the record def
    */
-  public BinaryRecordReader(DataPartition dp, RecordDef rd) {
-    this.recDef = rd;
-    this.pc = new PlainConnection(dp, rd);
-    this.buffer = null; 
-    this.curr_pos = 0;
+  public BinaryRecordReader(PlainConnection pc, IRecordBuilder rb) {
+    this.rootRecordBuilder = rb;
+    this.connection = pc;
     this.active = false;
-    this.pos = 0;
-    this.part = dp.getThisPart();
     this.defaultLE = true;
   }
 
@@ -90,16 +79,30 @@ public class BinaryRecordReader implements IRecordReader {
    */
   public boolean hasNext() throws HpccFileException
   {
-    if (!this.active) {
-      this.curr_pos = 0;
+    if (!this.active) 
+    {
       this.active = true;
-      this.buffer = pc.readBlock(this.buffer);
+      this.readContext.buffer = this.connection.readBlock(this.readContext.buffer);
+      this.readContext.pos = 0;
     }
-    if (this.curr_pos < this.buffer.length) return true;
-    if (pc.isClosed()) return false;
-    this.buffer = pc.readBlock(this.buffer);
-    if (this.buffer.length == 0) return false;
-    this.curr_pos = 0;
+
+    if (this.readContext.pos < this.readContext.buffer.length)
+    {
+      return true;
+    }
+
+    if (connection.isClosed())
+    {
+      return false;
+    }
+
+    this.readContext.buffer = connection.readBlock(this.readContext.buffer);
+    if (this.readContext.buffer.length == 0) 
+    {
+      return false;
+    }
+
+    this.readContext.pos = 0;
     return true;
   }
 
@@ -108,34 +111,23 @@ public class BinaryRecordReader implements IRecordReader {
    */
   public Object getNext() throws HpccFileException
   {
-      if (!this.hasNext())
-        throw new NoSuchElementException("No next record!");
+    if (!this.hasNext())
+      throw new NoSuchElementException("No next record!");
 
-    ParsedFieldResult parsedfield = null;
+    Object record = null;
     try
     {
-      FieldDef fd = this.recDef.getRootDef();
-
-      parsedfield = parseField(this.buffer, this.curr_pos, fd, this.defaultLE);
-      if (parsedfield.fieldValue == null || parsedfield.bytesConsumed == 0)
+      record = parseRecord(this.readContext, this.rootRecordBuilder, this.defaultLE);
+      if (record == null)
       {
         throw new HpccFileException("RecordContent not found, or invalid record structure. Check logs for more information.");
       }
-
-      //if (parsedfield.fieldValue instanceof Row)
-      //{
-    	//  result = (Row) parsedfield.fieldValue;
-      //} 
-      //else 
-      //{
-      //  throw new HpccFileException("Invalid record structure. The top level field should always be a record. Please report this a bug.");
-      //}
       
-      this.curr_pos += parsedfield.bytesConsumed;
     } catch (UnparsableContentException e) {
       throw new HpccFileException("Failed to parse next record", e);
     }
-    return parsedfield;
+
+    return record;
   }
   /**
    * Parse the byte array starting at position start for a field 
@@ -146,47 +138,41 @@ public class BinaryRecordReader implements IRecordReader {
    * @return ParsedFieldResult
    * @throws UnparsableContentException
    */
-  private static ParsedFieldResult parseField(byte[] src, int start, FieldDef fd, boolean isLittleEndian) 
-    throws UnparsableContentException {
 
+  private static Object parseFlatField(ReadContext readContext, FieldDef fd, boolean isLittleEndian) throws UnparsableContentException
+  {
     Object fieldValue = null;
-    int consumed = 0;
     int dataLen = 0;
-    int dataStart = 0;
-    int dataStop = 0;
 
-    int testLength = (fd.isFixed()) ? fd.getDataLen()   : 4;
-    if (start+consumed+testLength > src.length) {
-      StringBuilder sb = new StringBuilder();
-      sb.append("Data ended prematurely parsing field ");
-      sb.append(fd.getFieldName());
-      throw new UnparsableContentException(sb.toString());
+    int minLength = (fd.isFixed()) ? fd.getDataLen() : 4;
+    if ((readContext.pos+minLength) > readContext.buffer.length) {
+      throw new UnparsableContentException("Data ended prematurely parsing field " + fd.getFieldName());
     }
   
-      // Embedded field lengths are little endian
+    // Embedded field lengths are little endian
     switch (fd.getFieldType()) {
       case INTEGER:
         // fixed number of bytes in type info
         long intValue = 0;
         if (fd.isUnsigned()) {
-          intValue = getUnsigned(src, start+consumed, fd.getDataLen(),
+          intValue = getUnsigned(readContext.buffer, readContext.pos, fd.getDataLen(),
                           fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
           if (intValue < 0) {
             throw new UnparsableContentException("Integer overflow. Max 8 byte integer value: " + Long.MAX_VALUE);
           }
         } else {
-          intValue = getInt(src, start+consumed, fd.getDataLen(),
+          intValue = getInt(readContext.buffer, readContext.pos, fd.getDataLen(),
                           fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
         }
         fieldValue = new Long(intValue);
-        consumed += fd.getDataLen();
+        readContext.pos += fd.getDataLen();
         break;
       case REAL:
         // fixed number of bytes (4 or 8) in type info
-        double u = getReal(src, start+consumed, fd.getDataLen(),
+        double u = getReal(readContext.buffer, readContext.pos, fd.getDataLen(),
                           fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
         fieldValue = new Double(u);
-        consumed += fd.getDataLen();
+        readContext.pos += fd.getDataLen();
         break;
       case DECIMAL:
         BigDecimal decValue = null;
@@ -198,19 +184,18 @@ public class BinaryRecordReader implements IRecordReader {
           dataLen = (numDigits+2) / 2;
         }
 
-        dataStart = start+consumed;
-        if (dataLen+dataStart > src.length) {
+        if ((readContext.pos + dataLen) > readContext.buffer.length) {
          throw new UnparsableContentException("Data ended prematurely");
         }
 
         if (fd.isUnsigned()) {
-          decValue = getUnsignedDecimal(src, dataStart, fd.getDataLen());
+          decValue = getUnsignedDecimal(readContext.buffer, readContext.pos, fd.getDataLen());
         } else {
-          decValue = getSignedDecimal(src, dataStart, fd.getDataLen());
+          decValue = getSignedDecimal(readContext.buffer, readContext.pos, fd.getDataLen());
         }
 
         fieldValue = decValue;
-        consumed += dataLen;
+        readContext.pos += dataLen;
         break;
       case BINARY:
         // full word length followed by data bytes or length in type
@@ -218,23 +203,22 @@ public class BinaryRecordReader implements IRecordReader {
         if (fd.isFixed()) {
           dataLen = fd.getDataLen();
         } else {
-          dataLen = (int)getInt(src, start+consumed, 4, isLittleEndian);
-          consumed += 4;
+          dataLen = (int)getInt(readContext.buffer, readContext.pos, 4, isLittleEndian);
+          readContext.pos += 4;
         }
-        dataStart = start+consumed;
-        if (dataLen+dataStart > src.length) {
+        if ((readContext.pos + dataLen) > readContext.buffer.length) {
           throw new UnparsableContentException("Data ended prematurely");
         }
-        byte[] bytes = Arrays.copyOfRange(src, dataStart, dataStart+dataLen);
+        byte[] bytes = Arrays.copyOfRange(readContext.buffer, readContext.pos, readContext.pos+dataLen);
         fieldValue = bytes;
-        consumed += dataLen;
+        readContext.pos += dataLen;
         break;
       case BOOLEAN:
         // fixed length for each boolean value specified by type def
-        long value = getInt(src,start+consumed,fd.getDataLen(),
+        long value = getInt(readContext.buffer,readContext.pos,fd.getDataLen(),
                             fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
         fieldValue = new Boolean(value != 0);
-        consumed += fd.getDataLen();
+        readContext.pos += fd.getDataLen();
         break;
       case STRING:
         // fixed and variable length strings.  utf8 and utf-16 have
@@ -242,23 +226,23 @@ public class BinaryRecordReader implements IRecordReader {
         // have an illegal end as a high surrogate.  If so, terminal
         // high surrogate is blotted.
         if (fd.isFixed()) {
-          dataLen = getCodeUnits(fd.getSourceType(), src, start+consumed,
+          dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos, 
                                   fd.getDataLen());
         } else {
-          int cp = ((int)getInt(src, start+consumed, 4, isLittleEndian));
-          dataLen = getCodeUnits(fd.getSourceType(), src, start+consumed+4, cp);
-          consumed += 4;
+          int cp = ((int)getInt(readContext.buffer, readContext.pos, 4, isLittleEndian));
+          readContext.pos += 4;
+          dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos, cp);
         }
-        if (start+consumed+dataLen > src.length) {
+        if ((readContext.pos+dataLen) > readContext.buffer.length) {
           throw new UnparsableContentException("String data ended early");
         }
-        fieldValue = getString(fd.getSourceType(), src, start+consumed, dataLen);
-        consumed += dataLen;
+        fieldValue = getString(fd.getSourceType(), readContext.buffer, readContext.pos, dataLen);
+        readContext.pos += dataLen;
         break;
       case VAR_STRING:
         // Var strings are null terminated. In the case of Unicode this a 2-byte null character
         dataLen = -1;
-        int remainingData = src.length - (start+consumed);
+        int remainingData = readContext.buffer.length - readContext.pos;
         HpccSrcType srcType = fd.getSourceType();
         boolean isUnicode = srcType == HpccSrcType.UTF16BE || srcType == HpccSrcType.UTF16LE;
 
@@ -266,14 +250,15 @@ public class BinaryRecordReader implements IRecordReader {
         // time makes null check easier. Do not have to check for alignment etc
         if (isUnicode) {
           for (int i = 0; i < remainingData-1; i+=2) {
-            if (src[i] == '\0' && src[i+1] == '\0') {
+            int idx = readContext.pos+i;
+            if (readContext.buffer[idx] == '\0' && readContext.buffer[idx+1] == '\0') {
               dataLen = i;
               break;
             }
           }
         } else {
           for (int i = 0; i < remainingData; i++) {
-            if (src[i] == '\0') {
+            if (readContext.buffer[readContext.pos+i] == '\0' ) {
               dataLen = i;
               break;
             }
@@ -284,72 +269,134 @@ public class BinaryRecordReader implements IRecordReader {
           throw new UnparsableContentException("Unable to read varstring. Null character not found");
         }
 
-        fieldValue = getString(fd.getSourceType(), src, start+consumed, dataLen);
+        fieldValue = getString(fd.getSourceType(), readContext.buffer, readContext.pos, dataLen);
 
         // Var strings support a fixed length
         if (fd.isFixed()) {
-          dataLen = getCodeUnits(fd.getSourceType(), src, start+consumed,fd.getDataLen());
+          dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos, fd.getDataLen());
         }
        
         // Unicode uses 2-byte nulls
-        consumed += dataLen + 1;
+        readContext.pos += dataLen + 1;
         if (isUnicode) {
-          consumed++;
+          readContext.pos++;
         }
-        break;
-      case RECORD:
-        Object[] childFields = new Object[fd.getNumFields()];
-        for (int fieldIndex = 0; fieldIndex < fd.getNumFields(); fieldIndex++)
-        {
-          FieldDef childFd = fd.getDef(fieldIndex);
-          ParsedFieldResult result = parseField(src, start+consumed, childFd, isLittleEndian);
-          childFields[fieldIndex] = result.fieldValue;
-          consumed += result.bytesConsumed;
-        }
-        //fieldValue = new GenericRowWithSchema(childFields,fd.asSchema());
-        fieldValue = childFields;
-        break;
-      case SET:
-        // Data layout for SETS & DATASETS are similar. Exception is SETS have a preceding unused byte.
-        // After getting past this byte a SET can be read with the same code used for DATASETS
-        consumed++;
-      case DATASET:
-        if(fd.getNumDefs() != 1)
-        {
-          throw new UnparsableContentException("Set should have a single child type." + fd.getNumDefs() + " child types found.");
-        }
-
-        dataLen = (int)getInt(src, start+consumed, 4, isLittleEndian);
-        consumed+=4;
-        if (start+consumed+dataLen>src.length) {
-          throw new UnparsableContentException("Set ended early " + dataLen);
-        }
-        int childCountGuess = 1;
-        if (fd.getDataLen() > 0) {
-          childCountGuess = dataLen / fd.getDataLen();
-        }
-        ArrayList<Object> ws = new ArrayList<Object>(childCountGuess);
-        dataStart = start + consumed;
-        dataStop = dataStart + dataLen;
-        while (start + consumed < dataStop)
-        {
-          ParsedFieldResult result = parseField(src, start+consumed, fd.getDef(0), isLittleEndian);
-          ws.add(result.fieldValue);
-          consumed += result.bytesConsumed;
-        }
-        //fieldValue = JavaConverters.asScalaBufferConverter(ws).asScala().seq();
-        fieldValue  = ws.toArray(new Object[ws.size()]); //look into what the above line actually does
         break;
       default:
-        String msg = "Unhandled type: " + fd.getFieldType().toString();
-        throw new UnparsableContentException(msg);
+        throw new UnparsableContentException("Unexpected type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
+    };
+
+    return fieldValue;
+  }
+
+  private static Object parseRecord(ReadContext readContext, IRecordBuilder recordBuilder, boolean isLittleEndian) 
+    throws UnparsableContentException {
+    
+    try {
+      recordBuilder.startRecord();
+    } catch(Exception e) {
+      throw new UnparsableContentException("Unable to start record with error: " + e.getMessage());
     }
 
-    ParsedFieldResult result = new ParsedFieldResult();
-    result.bytesConsumed = consumed;
-    result.fieldValue = fieldValue;
-    return result;
+    for (int fieldIndex = 0; fieldIndex < recordBuilder.getNumFields(); fieldIndex++) {
+      FieldDef fd = recordBuilder.getFieldDefinition(fieldIndex);
+      Object fieldValue = null;
+      switch(fd.getFieldType()) {
+        case INTEGER:
+        case REAL:
+        case DECIMAL:
+        case BINARY:
+        case BOOLEAN:
+        case STRING:
+        case VAR_STRING:
+          fieldValue = parseFlatField(readContext, fd, isLittleEndian);
+          break; 
+        case RECORD:
+        {
+          IRecordBuilder childRecordBuilder = recordBuilder.getChildRecordBuilder(fieldIndex);
+          if (childRecordBuilder == null)
+          {
+            throw new UnparsableContentException("Recieved null child IRecordBulder for field:" + fd.getFieldName());
+          }
+          fieldValue = parseRecord(readContext,childRecordBuilder,isLittleEndian);
+          break;
+        }
+        case SET:
+          // Data layout for SETS & DATASETS are similar. Exception is SETS have a preceding unused byte.
+          // After getting past this byte a SET can be read with the same code used for DATASETS
+          readContext.pos++;
+        case DATASET:
+        {
+          if(fd.getNumDefs() != 1)
+          {
+            throw new UnparsableContentException("Set should have a single child type." + fd.getNumDefs() + " child types found.");
+          }
+
+          int dataLen = (int)getInt(readContext.buffer,readContext.pos, 4, isLittleEndian);
+          readContext.pos += 4;
+          if ((readContext.pos+dataLen) > readContext.buffer.length) {
+            throw new UnparsableContentException("Set ended early " + dataLen);
+          }
+
+          int childCountGuess = 1;
+          if (fd.getDataLen() > 0) {
+            childCountGuess = dataLen / fd.getDataLen();
+          }
+
+          FieldDef childFd = recordBuilder.getFieldDefinition(fieldIndex);
+          ArrayList<Object> ws = new ArrayList<Object>(childCountGuess);
+          int dataStop = readContext.pos + dataLen;
+          switch(childFd.getFieldType()) {
+            case INTEGER:
+            case REAL:
+            case DECIMAL:
+            case BINARY:
+            case BOOLEAN:
+            case STRING:
+            case VAR_STRING:
+              while (readContext.pos < dataStop)
+              {
+                ws.add(parseFlatField(readContext, childFd, isLittleEndian));
+              }
+            case RECORD:
+              IRecordBuilder childRecordBuilder = recordBuilder.getChildRecordBuilder(fieldIndex);
+              if (childRecordBuilder == null)
+              {
+                throw new UnparsableContentException("Recieved null child IRecordBulder for field:" + fd.getFieldName());
+              }
+
+              while (readContext.pos < dataStop)
+              {
+                ws.add(parseRecord(readContext,childRecordBuilder,isLittleEndian));
+              }
+              break;
+            default:
+              String msg = "Dataset unhandled child type: " + childFd.getFieldType();
+              throw new UnparsableContentException(msg);
+          };
+
+          fieldValue = ws;
+          break;
+        }
+        default:
+          String msg = "Unhandled type: " + fd.getFieldType();
+          throw new UnparsableContentException(msg);
+      };
+
+      try {
+        recordBuilder.setFieldValue(fieldIndex,fieldValue);
+      } catch(Exception e) {
+        throw new UnparsableContentException("Unable to set field value for field: " + fd.getFieldName() + " with error: " + e.getMessage());
+      }
+    }
+    try {
+      return recordBuilder.finalizeRecord();
+    } catch (Exception e) {
+      throw new UnparsableContentException("Unable to finalize record with error: " + e.getMessage());
+    }
   }
+
+
   /**
    * Get an integer from the byte array
    * @param b the byte array from the HPCC THOR node
