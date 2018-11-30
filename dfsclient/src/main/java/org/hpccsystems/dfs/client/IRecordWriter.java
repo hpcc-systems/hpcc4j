@@ -15,31 +15,40 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import org.hpccsystems.dfs.client.IRecordBuilder;
+import org.hpccsystems.dfs.client.IRecordAccessor;
 
 import org.hpccsystems.commons.errors.HpccFileException;
 
 /**
- * Interface for the HPCC Systems remote file readers.
+ * Interface for the HPCC Systems record writer.
  */
-public interface IRecordReader
+public interface IRecordWriter 
 {
 
-  public void initialize(IRecordBuilder recordBuilder);
+    public void initialize(IRecordAccessor accessor);
 
-	/**
-   * Are there more records?  The first time used will trigger a
-   * remote file read.
-   * @return true if there is at least one more record
-   * @throws HpccFileException if there was a failure on the back end.  This
-   * error is not recoverable by a retry.
-   */
-  public boolean hasNext() throws HpccFileException;
+    /**
+    * writeRecord 
+    * Converts the provided Row into an HPCC record and writes it to the output channel
+    * @param Row
+    * @throws Exception
+    */
+    public void writeRecord(Object record) throws Exception;
 
-  /**
-   * Produce the next record.
-   * @return a record
-   * @throws HpccFileException error on the back end, not recoverable
-   */
-  public Object getNext() throws HpccFileException;
+    /**
+    * finalize 
+    * Must be called after all records have been written.
+    * Will flush the internal buffer to the output channel.
+    * @throws Exception
+    */
+    public void finalize() throws Exception;
+    
+    /**
+    * getTotalBytesWritten 
+    * Returns the total bytes written thus far. This will not match the bytes written to the ByteChannel until finialize is called.
+    * @return long
+    * @throws Exception
+    */
+    public long getTotalBytesWritten();
+	
 }
