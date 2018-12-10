@@ -39,12 +39,17 @@ wsclient | hpccsystems-platform
 1.0.0 | 6.2.0
 1.2.0 | 6.4.0
 1.4.0 | 6.4.16
+1.6.0 | 6.4.16
 
 #### Future Release
-###### 1.4.0 Target Release date 4/30/2018
-- JAPI-113 Integrate wsPackage into wsclient
+###### 7.0.0
 
 #### Release Changelog
+###### 1.6.0 Release date Mon Dec 10 2018
+- JAPI-140 Update ANTLR dependency from 4.5 to 4.7
+
+###### 1.4.0 Target Release date 4/30/2018
+- JAPI-113 Integrate wsPackage into wsclient
 
 ###### 1.2.6 Emergency release
 - JAPI-121 Platform object hash value includes "user" value
