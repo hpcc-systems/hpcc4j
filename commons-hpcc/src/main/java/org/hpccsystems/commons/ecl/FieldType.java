@@ -35,11 +35,8 @@ public enum FieldType implements Serializable
     BINARY (true, "Binary data", false),
     RECORD (false, "Record", true),
     SET (false, "Set", false),             // Set & Dataset are separate because set has a preceding unused byte
-    DATASET (
-            false, "Set", false
-    ), UNKNOWN (
-            true, "Unknown", false
-    );
+    DATASET (false, "Set", false),
+    UNKNOWN (true, "Unknown", false);
 
     static final long serialVersionUID = 1L;
     private boolean   scalar;
