@@ -39,15 +39,18 @@ wsclient | hpccsystems-platform
 1.0.0 | 6.2.0
 1.2.0 | 6.4.0
 1.4.0 | 6.4.16
+1.6.0 | 6.4.16
 7.0.0 | 7.0.0
+7.0.2 | 7.0.0
 
 #### Future Release
+###### 7.2.0 Target Release date Early 2019
 
-###### 7.0.2 Target Release date November, 2018
+#### Release Changelog
+7.0.2 Target Release date November, 2018
 - JAPI-136 Connection constructor exception without query param
 
 #### Release Changelog
-
 ###### 7.0.0 Target Release date Fri Nov 02 2018 13:50:00 GMT-0400 (Eastern Daylight Time)
 - JAPI-124 Update wsclent interface in preparation for rowservice changes
 - JAPI-129 Platform tester fixes
@@ -63,6 +66,9 @@ wsclient | hpccsystems-platform
 - JAPI-109 File structure info
 - JAPI-118 Address missing DFUFileDetail Field
 - JAPI-126 Update HPCC 7.0.0 ESP interfaces and remove Pre 6.0.0 Interfaces
+
+###### 1.6.0 Release date Mon Dec 10 2018
+- JAPI-140 Update ANTLR dependency from 4.5 to 4.7
 
 ###### 1.4.0 Target Release date Tue Jul 31 2018 11:32:00 GMT-0400 (Eastern Daylight Time)
 - JAPI-111 Remove java8 dependencies
