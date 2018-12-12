@@ -19,52 +19,64 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DFSReadTest {
+public class DFSReadTest
+{
 
-    private static final String testClusterIp = "192.168.56.101";
-    private static final String testIntegerKVDataset = "~benchmark::integer::20kb";
-    private static final int testDatasetRecordCount = 1250;
+    private static final String testClusterIp          = "192.168.56.101";
+    private static final String testIntegerKVDataset   = "~benchmark::integer::20kb";
+    private static final int    testDatasetRecordCount = 1250;
 
-    private HPCCFile file = null;
+    private HPCCFile            file                   = null;
 
     @Before
-    public void setup() {
-        try {
+    public void setup()
+    {
+        try
+        {
             Connection espConn = new Connection("http://" + testClusterIp + ":8010?test");
             espConn.setUserName("");
             espConn.setPassword("");
-            
-            this.file = new HPCCFile(testIntegerKVDataset,espConn);
-        } catch(Exception e) {
+
+            this.file = new HPCCFile(testIntegerKVDataset, espConn);
+        }
+        catch (Exception e)
+        {
 
         }
     }
-    
+
     @Test
     public void testHpccRecordBuilder() throws Exception
     {
-        if (this.file == null) {
+        if (this.file == null)
+        {
             Assert.fail("HPCCFile construction failed.");
         }
 
         DataPartition[] fileParts = this.file.getFileParts();
-        if (fileParts == null || fileParts.length == 0) {
+        if (fileParts == null || fileParts.length == 0)
+        {
             Assert.fail("No file parts found");
         }
 
         RecordDef recordDefinition = this.file.getRecordDefinition();
-        if (recordDefinition == null 
-        || recordDefinition.getRootDef() == null
-        || recordDefinition.getRootDef().getNumDefs() != 2) {
+        if (recordDefinition == null || recordDefinition.getRootDef() == null
+                || recordDefinition.getRootDef().getNumDefs() != 2)
+        {
             Assert.fail("Invalid or null record definition");
         }
 
         int totalRecords = 0;
-        for (int i = 0; i < fileParts.length; i++) {
-            HpccRemoteFileReader fileReader = new HpccRemoteFileReader(fileParts[i],recordDefinition);
-            while (fileReader.hasNext()) {
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder();
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i],
+                    recordDefinition, recordBuilder);
+            while (fileReader.hasNext())
+            {
                 HPCCRecord record = fileReader.next();
-                if (record == null) {
+                if (record == null)
+                {
                     Assert.fail("Received null record during read");
                 }
 
@@ -72,47 +84,51 @@ public class DFSReadTest {
             }
         }
 
-        if (totalRecords != testDatasetRecordCount) {
+        if (totalRecords != testDatasetRecordCount)
+        {
             Assert.fail("Record count does not match expected record count");
         }
     }
 
-    private class LongKVData 
+    private class LongKVData
     {
         public Long key;
         public Long value;
     };
 
     @Test
-    public void testReflectionRecordBuilder() throws Exception {
-        
-        if (this.file == null) {
+    public void testReflectionRecordBuilder() throws Exception
+    {
+
+        if (this.file == null)
+        {
             Assert.fail("HPCCFile construction failed.");
         }
 
         DataPartition[] fileParts = this.file.getFileParts();
-        if (fileParts == null || fileParts.length == 0) {
+        if (fileParts == null || fileParts.length == 0)
+        {
             Assert.fail("No file parts found");
         }
 
         RecordDef recordDefinition = this.file.getRecordDefinition();
-        if (recordDefinition == null 
-        || recordDefinition.getRootDef() == null
-        || recordDefinition.getRootDef().getNumDefs() != 2) {
+        if (recordDefinition == null || recordDefinition.getRootDef() == null
+                || recordDefinition.getRootDef().getNumDefs() != 2)
+        {
             Assert.fail("Invalid or null record definition");
         }
 
         int totalRecords = 0;
-        for (int i = 0; i < fileParts.length; i++) {
-            PlainConnection connection = new PlainConnection(fileParts[i],recordDefinition);
-            BinaryRecordReader recordReader  = new BinaryRecordReader(connection);
-            ReflectionRecordBuilder rowBuilder = 
-                new ReflectionRecordBuilder<LongKVData>(LongKVData.class,recordDefinition.getRootDef());
-            recordReader.initialize(rowBuilder);
-           
-            while (recordReader.hasNext()) {
-                Object record = recordReader.getNext();
-                if (record == null) {
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            ReflectionRecordBuilder recordBuilder = new ReflectionRecordBuilder<LongKVData>(LongKVData.class);
+            HpccRemoteFileReader<LongKVData> fileReader = new HpccRemoteFileReader<LongKVData>(fileParts[i],
+                    recordDefinition, recordBuilder);
+            while (fileReader.hasNext())
+            {
+                LongKVData record = fileReader.next();
+                if (record == null)
+                {
                     Assert.fail("Received null record during read");
                 }
 
@@ -120,13 +136,15 @@ public class DFSReadTest {
             }
         }
 
-        if (totalRecords != testDatasetRecordCount) {
+        if (totalRecords != testDatasetRecordCount)
+        {
             Assert.fail("Record count does not match expected record count");
         }
     }
-    
+
     @After
-    public void shutdown() {
-        
+    public void shutdown()
+    {
+
     }
 }

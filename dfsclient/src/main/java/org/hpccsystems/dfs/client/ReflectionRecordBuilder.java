@@ -1,19 +1,18 @@
-/*##############################################################################
-
-    HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-############################################################################## */
+/*
+ * ##############################################################################
+ * 
+ * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ * ##############################################################################
+ */
 
 package org.hpccsystems.dfs.client;
 
@@ -28,11 +27,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Field;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Arrays;
-
 public class ReflectionRecordBuilder<T> implements IRecordBuilder
 {
     private Field[]                      fields              = null;
@@ -43,10 +37,14 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
     private T                            record              = null;
     private Class<T>                     recordClass         = null;
 
-    ReflectionRecordBuilder(Class<T> clazz, FieldDef fieldDef)
+    ReflectionRecordBuilder(Class<T> clazz)
     {
         this.recordClass = clazz;
-        this.fieldDef = fieldDef;
+    }
+
+    public void setRecordDefinition(FieldDef recordDef)
+    {
+        this.fieldDef = recordDef;
         this.childRecordBuilders = new ReflectionRecordBuilder[this.fieldDef.getNumDefs()];
         for (int i = 0; i < this.fieldDef.getNumDefs(); i++)
         {
@@ -66,7 +64,7 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
                     Class subClass = field.getType();
                     if (fd.getFieldType() == FieldType.DATASET)
                     {
-                        // This should be a list type so grab its argument class 
+                        // This should be a list type so grab its argument class
                         subClass = null;
                         Type genericFieldType = field.getGenericType();
                         if (genericFieldType instanceof ParameterizedType)
@@ -82,7 +80,8 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
                         subFd = fd.getDef(0);
                     }
 
-                    childRecordBuilders[i] = new ReflectionRecordBuilder(subClass, subFd);
+                    childRecordBuilders[i] = new ReflectionRecordBuilder(subClass);
+                    childRecordBuilders[i].setRecordDefinition(subFd);
                 }
                 catch (Exception e)
                 {
@@ -129,22 +128,12 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
         return this.record;
     }
 
-    public int getNumFields()
-    {
-        return this.fieldDef.getNumDefs();
-    }
-
     public void setFieldValue(int index, Object value) throws IllegalArgumentException, IllegalAccessException
     {
         if (this.fields[index] != null)
         {
             this.fields[index].set(this.record, value);
         }
-    }
-
-    public FieldDef getFieldDefinition(int index)
-    {
-        return this.fieldDef.getDef(index);
     }
 
     public IRecordBuilder getChildRecordBuilder(int index)

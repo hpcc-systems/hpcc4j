@@ -1,91 +1,98 @@
 /*******************************************************************************
- *     HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+ * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
- *     Licensed under the Apache License, Version 2.0 (the "License");
- *     you may not use this file except in compliance with the License.
- *     You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *     Unless required by applicable law or agreed to in writing, software
- *     distributed under the License is distributed on an "AS IS" BASIS,
- *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *     See the License for the specific language governing permissions and
- *     limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HPCCRecordBuilder;
 import org.hpccsystems.dfs.client.PlainConnection;
-
 import org.hpccsystems.commons.errors.HpccFileException;
+
+import org.apache.log4j.Logger;
+
+import java.util.Iterator;
 
 /**
  * Remote file reader used by the HpccRDD.
  */
-public class HpccRemoteFileReader
+public class HpccRemoteFileReader<T> implements Iterator<T>
 {
-    private RecordDef            def;
-    protected DataPartition      fp;
-    protected PlainConnection    connection = null;
-    protected BinaryRecordReader brr;
+    private static final Logger log           = Logger.getLogger(HpccRemoteFileReader.class.getName());
+
+    private RecordDef           recordDef;
+    private DataPartition       dataPartition;
+    private PlainConnection     connection    = null;
+    private BinaryRecordReader  binaryRecordReader;
+    private IRecordBuilder      recordBuilder = null;
 
     /**
-     * A remote file reader that reads the part identified by the
-     * HpccPart object using the record definition provided.
-     * @param def the definition of the data
-     * @param fp the part of the file, name and location
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     * 
+     * @param def
+     *            the definition of the data
+     * @param fp
+     *            the part of the file, name and location
      */
-    public HpccRemoteFileReader(DataPartition fp, RecordDef rd)
+    public HpccRemoteFileReader(DataPartition dp, RecordDef rd, IRecordBuilder recBuilder)
     {
-        this.def = rd;
-        this.fp = fp;
+        this.recordDef = rd;
+        this.dataPartition = dp;
 
-        this.connection = new PlainConnection(this.fp, this.def);
-        this.brr = new BinaryRecordReader(this.connection);
+        this.connection = new PlainConnection(this.dataPartition, this.recordDef);
+        this.binaryRecordReader = new BinaryRecordReader(this.connection, this.recordDef.getRootDef());
 
-        HPCCRecordBuilder rowBuilder = new HPCCRecordBuilder(this.def.getRootDef());
-        this.brr.initialize(rowBuilder);
+        this.recordBuilder = recBuilder;
+        this.recordBuilder.setRecordDefinition(this.recordDef.getRootDef());
+        this.binaryRecordReader.initialize(this.recordBuilder);
     }
 
     /**
      * Is there more data
+     * 
      * @return true if there is a next record
      */
+    @Override
     public boolean hasNext()
     {
         boolean rslt = false;
         try
         {
-            rslt = brr.hasNext();
+            rslt = this.binaryRecordReader.hasNext();
         }
         catch (HpccFileException e)
         {
             rslt = false;
-            System.err.println("Read failure for " + fp.toString());
-            e.printStackTrace(System.err);
+            log.error("Read failure for " + this.dataPartition.toString());
         }
+      
         return rslt;
     }
 
     /**
      * Return next record
+     * 
      * @return the record
      */
-    public HPCCRecord next()
+    @Override
+    public T next()
     {
         Object rslt = null;
         try
         {
-            rslt = brr.getNext();
+            rslt = this.binaryRecordReader.getNext();
         }
         catch (HpccFileException e)
         {
-            System.err.println("Read failure for " + fp.toString());
-            e.printStackTrace(System.err);
+            log.error("Read failure for " + this.dataPartition.toString());
             throw new java.util.NoSuchElementException("Fatal read error");
         }
-        return (HPCCRecord) rslt;
+        return (T) rslt;
     }
 }

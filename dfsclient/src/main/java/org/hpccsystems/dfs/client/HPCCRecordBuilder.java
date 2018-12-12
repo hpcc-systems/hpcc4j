@@ -1,19 +1,18 @@
-/*##############################################################################
-
-    HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-############################################################################## */
+/*
+ * ##############################################################################
+ * 
+ * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ * ##############################################################################
+ */
 
 package org.hpccsystems.dfs.client;
 
@@ -23,11 +22,6 @@ import org.hpccsystems.dfs.client.HPCCRecord;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Arrays;
-
 public class HPCCRecordBuilder implements IRecordBuilder
 {
     private Object[]            fields              = null;
@@ -35,7 +29,11 @@ public class HPCCRecordBuilder implements IRecordBuilder
 
     private HPCCRecordBuilder[] childRecordBuilders = null;
 
-    public HPCCRecordBuilder(FieldDef fieldDef)
+    public HPCCRecordBuilder()
+    {
+    }
+
+    public void setRecordDefinition(FieldDef feildDef)
     {
         this.fieldDef = fieldDef;
         this.childRecordBuilders = new HPCCRecordBuilder[this.fieldDef.getNumDefs()];
@@ -52,7 +50,8 @@ public class HPCCRecordBuilder implements IRecordBuilder
                 {
                     subFd = fd.getDef(0);
                 }
-                childRecordBuilders[i] = new HPCCRecordBuilder(subFd);
+                childRecordBuilders[i] = new HPCCRecordBuilder();
+                childRecordBuilders[i].setRecordDefinition(subFd);
             }
             else
             {
@@ -73,19 +72,9 @@ public class HPCCRecordBuilder implements IRecordBuilder
         return row;
     }
 
-    public int getNumFields()
-    {
-        return this.fieldDef.getNumDefs();
-    }
-
     public void setFieldValue(int index, Object value) throws IllegalArgumentException, IllegalAccessException
     {
         this.fields[index] = value;
-    }
-
-    public FieldDef getFieldDefinition(int index)
-    {
-        return this.fieldDef.getDef(index);
     }
 
     public IRecordBuilder getChildRecordBuilder(int index)

@@ -1,17 +1,14 @@
 /*******************************************************************************
- *     HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+ * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
- *     Licensed under the Apache License, Version 2.0 (the "License");
- *     you may not use this file except in compliance with the License.
- *     You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *     Unless required by applicable law or agreed to in writing, software
- *     distributed under the License is distributed on an "AS IS" BASIS,
- *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *     See the License for the specific language governing permissions and
- *     limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
@@ -41,6 +38,7 @@ public class BinaryRecordReader implements IRecordReader
     private PlainConnection      connection;
     private ReadContext          readContext;
     private boolean              active;
+    private FieldDef             rootRecordDefinition;
     protected boolean            defaultLE;
     //
     private static final Charset sbcSet             = Charset.forName("ISO-8859-1");
@@ -50,8 +48,9 @@ public class BinaryRecordReader implements IRecordReader
     private static final Logger  log                = Logger.getLogger(BinaryRecordReader.class.getName());
 
     // Used when reading decimal values
-    private static final long[]  powTable           = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000L,
-            100000000000L, 1000000000000L, 10000000000000L, 100000000000000L, 1000000000000000L };
+    private static final long[]  powTable           = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000,
+            1000000000, 10000000000L, 100000000000L, 1000000000000L, 10000000000000L, 100000000000000L,
+            1000000000000000L };
     private static final int[]   signMap            = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, +1, -1, +1, -1, +1, +1 };
 
     private static final int     MASK_32_LOWER_HALF = 0xffff;
@@ -65,15 +64,19 @@ public class BinaryRecordReader implements IRecordReader
     //
     /**
      * A Binary record reader.
-     * @param fp the file part to be read
-     * @param rd the record def
+     * 
+     * @param fp
+     *            the file part to be read
+     * @param rd
+     *            the record def
      */
-    public BinaryRecordReader(PlainConnection pc)
+    public BinaryRecordReader(PlainConnection pc, FieldDef recordDefn)
     {
         this.connection = pc;
         this.active = false;
         this.defaultLE = true;
         this.readContext = new ReadContext();
+        this.rootRecordDefinition = recordDefn;
     }
 
     public void initialize(IRecordBuilder rb)
@@ -81,7 +84,9 @@ public class BinaryRecordReader implements IRecordReader
         this.rootRecordBuilder = rb;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.hpccsystems.spark.thor.IRecordReader#hasNext()
      */
     public boolean hasNext() throws HpccFileException
@@ -118,7 +123,9 @@ public class BinaryRecordReader implements IRecordReader
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.hpccsystems.spark.thor.IRecordReader#getNext()
      */
     public Object getNext() throws HpccFileException
@@ -133,10 +140,11 @@ public class BinaryRecordReader implements IRecordReader
         Object record = null;
         try
         {
-            record = parseRecord(this.readContext, this.rootRecordBuilder, this.defaultLE);
+            record = parseRecord(this.readContext, this.rootRecordDefinition, this.rootRecordBuilder, this.defaultLE);
             if (record == null)
             {
-                throw new HpccFileException("RecordContent not found, or invalid record structure. Check logs for more information.");
+                throw new HpccFileException(
+                        "RecordContent not found, or invalid record structure. Check logs for more information.");
             }
 
         }
@@ -149,16 +157,18 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Parse the byte array starting at position start for a field 
-     * with the type and layout specified by the FieldDef.
-     * @param src the source byte array of the data from the HPCC cluster
-     * @param start the start position in the buffer
-     * @param fd the field definition for the Record definition
+     * Parse a non-hierarchical field
+     * 
+     * @param ReadContext
+     *            the source byte array of the data from the HPCC cluster
+     * @param FieldDef
+     *            the field definition for the Record definition
+     * @param isLittleEndian
      * @return ParsedFieldResult
      * @throws UnparsableContentException
      */
-
-    private static Object parseFlatField(ReadContext readContext, FieldDef fd, boolean isLittleEndian) throws UnparsableContentException
+    private static Object parseFlatField(ReadContext readContext, FieldDef fd, boolean isLittleEndian)
+            throws UnparsableContentException
     {
         Object fieldValue = null;
         int dataLen = 0;
@@ -177,22 +187,26 @@ public class BinaryRecordReader implements IRecordReader
                 long intValue = 0;
                 if (fd.isUnsigned())
                 {
-                    intValue = getUnsigned(readContext.buffer, readContext.pos, fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
+                    intValue = getUnsigned(readContext.buffer, readContext.pos, fd.getDataLen(),
+                            fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                     if (intValue < 0)
                     {
-                        throw new UnparsableContentException("Integer overflow. Max 8 byte integer value: " + Long.MAX_VALUE);
+                        throw new UnparsableContentException(
+                                "Integer overflow. Max 8 byte integer value: " + Long.MAX_VALUE);
                     }
                 }
                 else
                 {
-                    intValue = getInt(readContext.buffer, readContext.pos, fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
+                    intValue = getInt(readContext.buffer, readContext.pos, fd.getDataLen(),
+                            fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 }
                 fieldValue = new Long(intValue);
                 readContext.pos += fd.getDataLen();
                 break;
             case REAL:
                 // fixed number of bytes (4 or 8) in type info
-                double u = getReal(readContext.buffer, readContext.pos, fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
+                double u = getReal(readContext.buffer, readContext.pos, fd.getDataLen(),
+                        fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 fieldValue = new Double(u);
                 readContext.pos += fd.getDataLen();
                 break;
@@ -248,14 +262,15 @@ public class BinaryRecordReader implements IRecordReader
                 break;
             case BOOLEAN:
                 // fixed length for each boolean value specified by type def
-                long value = getInt(readContext.buffer, readContext.pos, fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
+                long value = getInt(readContext.buffer, readContext.pos, fd.getDataLen(),
+                        fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 fieldValue = new Boolean(value != 0);
                 readContext.pos += fd.getDataLen();
                 break;
             case STRING:
-                // fixed and variable length strings.  utf8 and utf-16 have
-                // length specified in code points.  Fixed length UTF-16 may
-                // have an illegal end as a high surrogate.  If so, terminal
+                // fixed and variable length strings. utf8 and utf-16 have
+                // length specified in code points. Fixed length UTF-16 may
+                // have an illegal end as a high surrogate. If so, terminal
                 // high surrogate is blotted.
                 if (fd.isFixed())
                 {
@@ -328,13 +343,29 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 break;
             default:
-                throw new UnparsableContentException("Unexpected type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
-        };
+                throw new UnparsableContentException(
+                        "Unexpected type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
+        }
+        ;
 
         return fieldValue;
     }
 
-    private static Object parseRecord(ReadContext readContext, IRecordBuilder recordBuilder, boolean isLittleEndian) throws UnparsableContentException
+    /**
+     * Parse a record
+     * 
+     * @param readContext 
+     *            the source byte array of the data from the HPCC cluster
+     * @param recordDef 
+     *            the field definition for the Record definition
+     * @param recordBuilder
+     *            the record builder to use to construct the record
+     * @param isLittleEndian
+     * @return ParsedFieldResult
+     * @throws UnparsableContentException
+     */
+    private static Object parseRecord(ReadContext readContext, FieldDef recordDef, IRecordBuilder recordBuilder,
+            boolean isLittleEndian) throws UnparsableContentException
     {
 
         try
@@ -346,9 +377,9 @@ public class BinaryRecordReader implements IRecordReader
             throw new UnparsableContentException("Unable to start record with error: " + e.getMessage());
         }
 
-        for (int fieldIndex = 0; fieldIndex < recordBuilder.getNumFields(); fieldIndex++)
+        for (int fieldIndex = 0; fieldIndex < recordDef.getNumDefs(); fieldIndex++)
         {
-            FieldDef fd = recordBuilder.getFieldDefinition(fieldIndex);
+            FieldDef fd = recordDef.getDef(fieldIndex);
             Object fieldValue = null;
             switch (fd.getFieldType())
             {
@@ -366,9 +397,10 @@ public class BinaryRecordReader implements IRecordReader
                     IRecordBuilder childRecordBuilder = recordBuilder.getChildRecordBuilder(fieldIndex);
                     if (childRecordBuilder == null)
                     {
-                        throw new UnparsableContentException("Recieved null child IRecordBulder for field:" + fd.getFieldName());
+                        throw new UnparsableContentException(
+                                "Recieved null child IRecordBulder for field:" + fd.getFieldName());
                     }
-                    fieldValue = parseRecord(readContext, childRecordBuilder, isLittleEndian);
+                    fieldValue = parseRecord(readContext, fd, childRecordBuilder, isLittleEndian);
                     break;
                 }
                 case SET:
@@ -379,7 +411,8 @@ public class BinaryRecordReader implements IRecordReader
                 {
                     if (fd.getNumDefs() != 1)
                     {
-                        throw new UnparsableContentException("Set should have a single child type." + fd.getNumDefs() + " child types found.");
+                        throw new UnparsableContentException(
+                                "Set should have a single child type." + fd.getNumDefs() + " child types found.");
                     }
 
                     int dataLen = (int) getInt(readContext.buffer, readContext.pos, 4, isLittleEndian);
@@ -395,7 +428,7 @@ public class BinaryRecordReader implements IRecordReader
                         childCountGuess = dataLen / fd.getDataLen();
                     }
 
-                    FieldDef childFd = recordBuilder.getFieldDefinition(fieldIndex);
+                    FieldDef childFd = recordDef.getDef(fieldIndex);
                     ArrayList<Object> ws = new ArrayList<Object>(childCountGuess);
                     int dataStop = readContext.pos + dataLen;
                     switch (childFd.getFieldType())
@@ -415,18 +448,20 @@ public class BinaryRecordReader implements IRecordReader
                             IRecordBuilder childRecordBuilder = recordBuilder.getChildRecordBuilder(fieldIndex);
                             if (childRecordBuilder == null)
                             {
-                                throw new UnparsableContentException("Recieved null child IRecordBulder for field:" + fd.getFieldName());
+                                throw new UnparsableContentException(
+                                        "Recieved null child IRecordBulder for field:" + fd.getFieldName());
                             }
 
                             while (readContext.pos < dataStop)
                             {
-                                ws.add(parseRecord(readContext, childRecordBuilder, isLittleEndian));
+                                ws.add(parseRecord(readContext, childFd, childRecordBuilder, isLittleEndian));
                             }
                             break;
                         default:
                             String msg = "Dataset unhandled child type: " + childFd.getFieldType();
                             throw new UnparsableContentException(msg);
-                    };
+                    }
+                    ;
 
                     fieldValue = ws;
                     break;
@@ -434,7 +469,8 @@ public class BinaryRecordReader implements IRecordReader
                 default:
                     String msg = "Unhandled type: " + fd.getFieldType();
                     throw new UnparsableContentException(msg);
-            };
+            }
+            ;
 
             try
             {
@@ -442,7 +478,8 @@ public class BinaryRecordReader implements IRecordReader
             }
             catch (Exception e)
             {
-                throw new UnparsableContentException("Unable to set field value for field: " + fd.getFieldName() + " with error: " + e.getMessage());
+                throw new UnparsableContentException(
+                        "Unable to set field value for field: " + fd.getFieldName() + " with error: " + e.getMessage());
             }
         }
         try
@@ -457,10 +494,15 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Get an integer from the byte array
-     * @param b the byte array from the HPCC THOR node
-     * @param pos the position in the array
-     * @param len the length, 1 to 8 bytes
-     * @param little_endian true if the value is little endian
+     * 
+     * @param b
+     *            the byte array from the HPCC THOR node
+     * @param pos
+     *            the position in the array
+     * @param len
+     *            the length, 1 to 8 bytes
+     * @param little_endian
+     *            true if the value is little endian
      * @return the integer extracted as a long
      */
     private static long getInt(byte[] b, int pos, int len, boolean little_endian)
@@ -482,10 +524,15 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Get an unsigned int from the byte array
-     * @param b the byte array from the HPCC THOR node
-     * @param pos the position in the array
-     * @param len the length, 1 to 8 bytes
-     * @param little_endian true if the value is little endian
+     * 
+     * @param b
+     *            the byte array from the HPCC THOR node
+     * @param pos
+     *            the position in the array
+     * @param len
+     *            the length, 1 to 8 bytes
+     * @param little_endian
+     *            true if the value is little endian
      * @return the integer extracted as a long
      */
     private static long getUnsigned(byte[] b, int pos, int len, boolean little_endian)
@@ -500,10 +547,15 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Get a real from the byte array
-     * @param b the byte array of data from the THOR node
-     * @param pos the position in the array
-     * @param len the length, 4 or 8
-     * @param little_endian true if the value is little endian
+     * 
+     * @param b
+     *            the byte array of data from the THOR node
+     * @param pos
+     *            the position in the array
+     * @param len
+     *            the length, 4 or 8
+     * @param little_endian
+     *            true if the value is little endian
      * @return the extracted real as a double
      */
     private static double getReal(byte[] b, int pos, int len, boolean little_endian)
@@ -532,9 +584,13 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Get a unsigned decimal from the byte array
-     * @param b the byte array of data from the THOR node
-     * @param pos the position in the array
-     * @param len packed field of numDigits in upper half and precision in lower half
+     * 
+     * @param b
+     *            the byte array of data from the THOR node
+     * @param pos
+     *            the position in the array
+     * @param len
+     *            packed field of numDigits in upper half and precision in lower half
      * @return BigDecimal
      */
     private static BigDecimal getUnsignedDecimal(byte[] b, int pos, int len)
@@ -575,9 +631,13 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Get a decimal from the byte array
-     * @param b the byte array of data from the THOR node
-     * @param pos the position in the array
-     * @param len packed field of numDigits in upper half and precision in lower half
+     * 
+     * @param b
+     *            the byte array of data from the THOR node
+     * @param pos
+     *            the position in the array
+     * @param len
+     *            packed field of numDigits in upper half and precision in lower half
      * @return BigDecimal
      */
     private static BigDecimal getSignedDecimal(byte[] b, int pos, int len)
@@ -655,10 +715,15 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Extract a string from the byte array
-     * @param styp the source type in the byte array
-     * @param b the byte array from the THOR node
-     * @param pos the position in the array
-     * @param len the number of bytes
+     * 
+     * @param styp
+     *            the source type in the byte array
+     * @param b
+     *            the byte array from the THOR node
+     * @param pos
+     *            the position in the array
+     * @param len
+     *            the number of bytes
      * @return the extracted string
      */
     private static String getString(HpccSrcType styp, byte[] b, int pos, int len) throws UnparsableContentException
@@ -685,16 +750,20 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Get the number of code units (number of bytes) used to encode cp coded
-     * characters.
-     * @param styp the source data type
-     * @param b the byte array buffer
-     * @param pos the current position in the buffer
-     * @param cp the number of code points.
+     * Get the number of code units (number of bytes) used to encode cp coded characters.
+     * 
+     * @param styp
+     *            the source data type
+     * @param b
+     *            the byte array buffer
+     * @param pos
+     *            the current position in the buffer
+     * @param cp
+     *            the number of code points.
      * @return the number of bytes
-     * @throws UnparsableContentException when the end of the buffer was reach
-     * unexpected or the stream of data was incorrect, such as an illegal byte
-     * sequence for UTF8.
+     * @throws UnparsableContentException
+     *             when the end of the buffer was reach unexpected or the stream of data was incorrect, such as an
+     *             illegal byte sequence for UTF8.
      */
     private static int getCodeUnits(HpccSrcType styp, byte[] b, int pos, int cp) throws UnparsableContentException
     {
@@ -730,7 +799,7 @@ public class BinaryRecordReader implements IRecordReader
                 if (Character.isHighSurrogate((char) work))
                 { // truncated pair to fix?
                     b[pos + ((cp - 1) * 2)] = 0;
-                    b[pos + ((cp - 1) * 2) + 1] = 0x20;   // make this a blank
+                    b[pos + ((cp - 1) * 2) + 1] = 0x20; // make this a blank
                 }
                 bytes = cp * 2;
                 break;
@@ -744,7 +813,7 @@ public class BinaryRecordReader implements IRecordReader
                 if (Character.isHighSurrogate((char) work))
                 { // truncated pair to fix?
                     b[pos + ((cp - 1) * 2)] = 0x20;
-                    b[pos + ((cp - 1) * 2) + 1] = 0;  // make this a blank
+                    b[pos + ((cp - 1) * 2) + 1] = 0; // make this a blank
                 }
                 bytes = cp * 2;
                 break;
