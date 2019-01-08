@@ -1,17 +1,14 @@
 /*******************************************************************************
- *     HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+ * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
- *     Licensed under the Apache License, Version 2.0 (the "License");
- *     you may not use this file except in compliance with the License.
- *     You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *     Unless required by applicable law or agreed to in writing, software
- *     distributed under the License is distributed on an "AS IS" BASIS,
- *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *     See the License for the specific language governing permissions and
- *     limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
@@ -24,12 +21,12 @@ import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.ByteChannel;
 import java.nio.channels.SeekableByteChannel;
 import java.util.List;
+
 import java.util.Arrays;
 
 public class BinaryRecordWriter implements IRecordWriter
@@ -41,6 +38,9 @@ public class BinaryRecordWriter implements IRecordWriter
     private static final byte   NegativeSignValue     = 0x0d;
     private static final byte   PositiveSignValue     = 0x0f;
     private static final int    MASK_32_LOWER_HALF    = 0xffff;
+    private static final int    SCRATCH_BUFFER_SIZE   = 256;
+
+    private byte[]              scratchBuffer         = new byte[SCRATCH_BUFFER_SIZE];
 
     private ByteChannel         outputChannel         = null;
     private SeekableByteChannel seekableOutputChannel = null;
@@ -49,12 +49,14 @@ public class BinaryRecordWriter implements IRecordWriter
     private IRecordAccessor     rootRecordAccessor    = null;
 
     /**
-    * BinaryRecordWriter 
-    * Initializes writing procedure, and converts the provided Schema to a SparkField stucture
-    * @param output ByteChannel to write to. Providing a SeekableOutputChannel provides a performance benefit
-    * @param schema The Spark schema used for all subsequent calls to writeRecord
-    * @throws Exception
-    */
+     * BinaryRecordWriter Initializes writing procedure, and converts the provided Schema to a SparkField stucture
+     * 
+     * @param output
+     *            ByteChannel to write to. Providing a SeekableOutputChannel provides a performance benefit
+     * @param schema
+     *            The Spark schema used for all subsequent calls to writeRecord
+     * @throws Exception
+     */
     public BinaryRecordWriter(ByteChannel output) throws Exception
     {
         this(output, ByteOrder.nativeOrder());
@@ -78,11 +80,11 @@ public class BinaryRecordWriter implements IRecordWriter
     }
 
     /**
-    * writeRecord 
-    * Converts the provided Object into an HPCC record and writes it to the output channel
-    * @param Object
-    * @throws Exception
-    */
+     * writeRecord Converts the provided Object into an HPCC record and writes it to the output channel
+     * 
+     * @param Object
+     * @throws Exception
+     */
     public void writeRecord(Object record) throws Exception
     {
         writeRecord(this.rootRecordAccessor, record);
@@ -109,6 +111,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 case BINARY:
                 case BOOLEAN:
                 case STRING:
+                case CHAR:
                 case VAR_STRING:
                     writeField(fd, fieldValue);
                     break;
@@ -125,7 +128,8 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        throw new Exception("Error writing list. Expected List got: " + fieldValue.getClass().getName());
+                        throw new Exception(
+                                "Error writing list. Expected List got: " + fieldValue.getClass().getName());
                     }
 
                     writeList(fd, recordAccessor.getChildRecordAccessor(i), listValue);
@@ -133,27 +137,29 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 default:
                     throw new Exception("Unsupported type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
-            };
+            }
+            ;
         }
     }
 
     /**
-    * finalize 
-    * Must be called after all records have been written.
-    * Will flush the internal buffer to the output channel.
-    * @throws Exception
-    */
+     * finalize Must be called after all records have been written. Will flush the internal buffer to the output
+     * channel.
+     * 
+     * @throws Exception
+     */
     public void finalize() throws Exception
     {
         this.flushBuffer();
     }
 
     /**
-    * getTotalBytesWritten 
-    * Returns the total bytes written thus far. This will not match the bytes written to the ByteChannel until finialize is called.
-    * @return long
-    * @throws Exception
-    */
+     * getTotalBytesWritten Returns the total bytes written thus far. This will not match the bytes written to the
+     * ByteChannel until finialize is called.
+     * 
+     * @return long
+     * @throws Exception
+     */
     public long getTotalBytesWritten()
     {
         return this.bytesWritten;
@@ -214,7 +220,8 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
+                    throw new Exception(
+                            "Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
                 break;
             }
@@ -238,33 +245,118 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported real length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
+                    throw new Exception(
+                            "Unsupported real length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
                 break;
             }
-
+            case CHAR:
+            {
+                String value = (String) fieldValue;
+                byte c = (byte) value.charAt(0);
+                this.buffer.put(c);
+            }
+            case VAR_STRING:
             case STRING:
             {
                 String value = (String) fieldValue;
                 byte[] data = null;
-                if (fd.getSourceType().isUTF16())
+                if (fd.getSourceType() == HpccSrcType.UTF16LE)
                 {
-                    if (this.buffer.order() == ByteOrder.LITTLE_ENDIAN)
+                    data = value.getBytes("UTF-16LE");
+                }
+                else if (fd.getSourceType() == HpccSrcType.UTF16BE)
+                {
+                    data = value.getBytes("UTF-16BE");
+                }
+                else if (fd.getSourceType() == HpccSrcType.UTF8)
+                {
+                    data = value.getBytes("UTF-8");
+                }
+                else if (fd.getSourceType() == HpccSrcType.SINGLE_BYTE_CHAR)
+                {
+                    data = value.getBytes("ISO-8859-1");
+                }
+                else if (fd.getSourceType() == HpccSrcType.QSTRING)
+                {
+                    throw new Exception("Writing QStrings is currently unsupported.");
+                }
+                else
+                {
+                    throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
+                            + " encountered while writing field: " + fd.getFieldName());
+                }
+
+                int bytesToWrite = data.length;
+                if (fd.isFixed() && bytesToWrite >= fd.getDataLen())
+                {
+                    if (fd.getDataLen() > Integer.MAX_VALUE)
                     {
-                        data = value.getBytes("UTF-16LE");
+                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: "
+                                + Integer.MAX_VALUE);
                     }
-                    else
+
+                    bytesToWrite = (int) fd.getDataLen();
+                }
+
+                if (fd.isFixed())
+                {
+                    // Var Strings end with a null character
+                    // The length should always be long enough but it is better to check anyway
+                    if (fd.getFieldType() == FieldType.VAR_STRING && bytesToWrite > 0)
                     {
-                        data = value.getBytes("UTF-16BE");
+                        data[bytesToWrite - 1] = '\0';
+                        if (fd.getSourceType().isUTF16() && bytesToWrite > 1)
+                        {
+                            data[bytesToWrite - 2] = '\0';
+                        }
+                    }
+
+                    writeByteArray(data, 0, bytesToWrite);
+
+                    if (fd.getDataLen() > Integer.MAX_VALUE)
+                    {
+                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: "
+                                + Integer.MAX_VALUE);
+                    }
+                    int dataLen = (int) fd.getDataLen();
+
+                    int numFillBytes = dataLen - bytesToWrite;
+                    while (numFillBytes > 0)
+                    {
+                        int fillLength = numFillBytes;
+                        if (fillLength > SCRATCH_BUFFER_SIZE)
+                        {
+                            fillLength = SCRATCH_BUFFER_SIZE;
+                        }
+
+                        Arrays.fill(scratchBuffer, 0, fillLength, (byte) '\0');
+                        writeByteArray(scratchBuffer, 0, fillLength);
+                        numFillBytes += fillLength;
                     }
                 }
                 else
                 {
-                    data = value.getBytes("UTF-8");
-                }
+                    if (fd.getFieldType() == FieldType.VAR_STRING)
+                    {
+                        writeByteArray(data, 0, bytesToWrite);
 
-                writeUnsigned(data.length);
-                writeByteArray(data);
+                        if (fd.getFieldType() == FieldType.VAR_STRING)
+                        {
+                            byte nullByte = '\0';
+                            this.buffer.put(nullByte);
+                            if (fd.getSourceType().isUTF16())
+                            {
+                                this.buffer.put(nullByte);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        writeUnsigned(bytesToWrite);
+                        writeByteArray(data);
+                    }
+                }
                 break;
             }
             default:
@@ -325,45 +417,76 @@ public class BinaryRecordWriter implements IRecordWriter
                     throw new Exception("Writing unsigned decimals not supported");
                 }
 
-                int len = fd.getDataLen();
-                int precision = len & MASK_32_LOWER_HALF;
-                int scale = len >> 16;
-                int dataLen = (precision + 2) / 2;
-                return dataLen;
+                return fd.getDataLen();
             }
             case REAL:
             {
                 return fd.getDataLen();
             }
+            case CHAR:
+            {
+                return 1;
+            }
+            case VAR_STRING:
             case STRING:
             {
+                if (fd.isFixed())
+                {
+                    return fd.getDataLen();
+                }
+
                 String value = (String) fieldValue;
                 byte[] data = null;
-                if (fd.getSourceType().isUTF16())
+
+                if (fd.getSourceType() == HpccSrcType.UTF16LE)
                 {
-                    if (this.buffer.order() == ByteOrder.LITTLE_ENDIAN)
-                    {
-                        data = value.getBytes("UTF-16LE");
-                    }
-                    else
-                    {
-                        data = value.getBytes("UTF-16BE");
-                    }
+                    data = value.getBytes("UTF-16LE");
                 }
-                else
+                else if (fd.getSourceType() == HpccSrcType.UTF16BE)
+                {
+                    data = value.getBytes("UTF-16BE");
+                }
+                else if (fd.getSourceType() == HpccSrcType.UTF8)
                 {
                     data = value.getBytes("UTF-8");
                 }
+                else if (fd.getSourceType() == HpccSrcType.SINGLE_BYTE_CHAR)
+                {
+                    data = value.getBytes("ISO-8859-1");
+                }
+                else if (fd.getSourceType() == HpccSrcType.QSTRING)
+                {
+                    throw new Exception("Writing QStrings is currently unsupported.");
+                }
+                else
+                {
+                    throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
+                            + " encountered while writing field: " + fd.getFieldName());
+                }
 
-                return data.length + BinaryRecordWriter.DataLenFieldSize;
+                if (fd.getFieldType() == FieldType.STRING)
+                {
+                    return data.length + BinaryRecordWriter.DataLenFieldSize;
+                }
+                else
+                {
+                    int eosLen = 1;
+                    if (fd.getSourceType().isUTF16())
+                    {
+                        eosLen++;
+                    }
+
+                    return data.length + eosLen;
+                }
+
             }
             case RECORD:
             {
                 long dataLen = 0;
                 for (int i = 0; i < recordAccessor.getNumFields(); i++)
                 {
-                    dataLen += calculateFieldSize(recordAccessor.getFieldDefinition(i), recordAccessor.getChildRecordAccessor(i),
-                            recordAccessor.getFieldValue(i));
+                    dataLen += calculateFieldSize(recordAccessor.getFieldDefinition(i),
+                            recordAccessor.getChildRecordAccessor(i), recordAccessor.getFieldValue(i));
                 }
                 return dataLen;
             }
@@ -446,10 +569,9 @@ public class BinaryRecordWriter implements IRecordWriter
 
     private void writeDecimal(FieldDef fd, BigDecimal decimalValue)
     {
-        int len = fd.getDataLen();
-        int precision = len & MASK_32_LOWER_HALF;
-        int scale = len >> 16;
-        int dataLen = (precision + 2) / 2;
+        int precision = fd.getPrecision();
+        int scale = fd.getScale();
+        int dataLen = (int) fd.getDataLen();
 
         int mostSigDigit = precision - scale;
         boolean isNegative = decimalValue.signum() == -1;
@@ -473,7 +595,7 @@ public class BinaryRecordWriter implements IRecordWriter
         byte[] workingBuffer = new byte[dataLen];
         Arrays.fill(workingBuffer, (byte) 0);
 
-        // Calculate padding at the beginning. 
+        // Calculate padding at the beginning.
         int bitOffset = (mostSigDigit - intDigits) * 4;
         if (bitOffset == 0)
         {
@@ -529,11 +651,14 @@ public class BinaryRecordWriter implements IRecordWriter
 
     private void writeByteArray(byte[] data) throws Exception
     {
-        int dataSize = data.length;
-        int offset = 0;
+        writeByteArray(data, 0, data.length);
+    }
+
+    private void writeByteArray(byte[] data, int offset, int dataEnd) throws Exception
+    {
         do
         {
-            int writeSize = dataSize - offset;
+            int writeSize = dataEnd - offset;
             if (writeSize > this.buffer.remaining())
             {
                 writeSize = this.buffer.remaining();
@@ -548,7 +673,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
 
         }
-        while (offset < dataSize);
+        while (offset < dataEnd);
     }
 
     private void flushBuffer() throws Exception

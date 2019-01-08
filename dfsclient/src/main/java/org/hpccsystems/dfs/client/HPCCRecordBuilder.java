@@ -33,7 +33,7 @@ public class HPCCRecordBuilder implements IRecordBuilder
     {
     }
 
-    public void setRecordDefinition(FieldDef feildDef)
+    public void setRecordDefinition(FieldDef fieldDef)
     {
         this.fieldDef = fieldDef;
         this.childRecordBuilders = new HPCCRecordBuilder[this.fieldDef.getNumDefs()];

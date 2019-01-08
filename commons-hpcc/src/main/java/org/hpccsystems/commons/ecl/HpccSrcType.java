@@ -20,6 +20,7 @@ package org.hpccsystems.commons.ecl;
  */
 public enum HpccSrcType {
   SINGLE_BYTE_CHAR("Single Byte Charset", false),
+  QSTRING("QString", false),
   UTF8("Unicode UTF8", false),
   UTF16BE("Unicode UTF16 big endian", true),
   UTF16LE("Unicode UTF16 little endian", true),

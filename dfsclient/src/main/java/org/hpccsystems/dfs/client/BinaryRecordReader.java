@@ -40,20 +40,25 @@ public class BinaryRecordReader implements IRecordReader
     private boolean              active;
     private FieldDef             rootRecordDefinition;
     protected boolean            defaultLE;
+    private byte[]               scratchBuffer       = new byte[SCRATCH_BUFFER_SIZE];
+
     //
-    private static final Charset sbcSet             = Charset.forName("ISO-8859-1");
-    private static final Charset utf8Set            = Charset.forName("UTF-8");
-    private static final Charset utf16beSet         = Charset.forName("UTF-16BE");
-    private static final Charset utf16leSet         = Charset.forName("UTF-16LE");
-    private static final Logger  log                = Logger.getLogger(BinaryRecordReader.class.getName());
+    private static final Charset sbcSet              = Charset.forName("ISO-8859-1");
+    private static final Charset utf8Set             = Charset.forName("UTF-8");
+    private static final Charset utf16beSet          = Charset.forName("UTF-16BE");
+    private static final Charset utf16leSet          = Charset.forName("UTF-16LE");
+    private static final Logger  log                 = Logger.getLogger(BinaryRecordReader.class.getName());
+
+    // Scratch buffer to avoid temp allocations
+    private static final int     SCRATCH_BUFFER_SIZE = 256;
 
     // Used when reading decimal values
-    private static final long[]  powTable           = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000,
+    private static final long[]  powTable            = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000,
             1000000000, 10000000000L, 100000000000L, 1000000000000L, 10000000000000L, 100000000000000L,
             1000000000000000L };
-    private static final int[]   signMap            = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, +1, -1, +1, -1, +1, +1 };
+    private static final int[]   signMap             = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, +1, -1, +1, -1, +1, +1 };
 
-    private static final int     MASK_32_LOWER_HALF = 0xffff;
+    private static final int     MASK_32_LOWER_HALF  = 0xffff;
 
     public static class ReadContext
     {
@@ -167,13 +172,23 @@ public class BinaryRecordReader implements IRecordReader
      * @return ParsedFieldResult
      * @throws UnparsableContentException
      */
-    private static Object parseFlatField(ReadContext readContext, FieldDef fd, boolean isLittleEndian)
+    private Object parseFlatField(ReadContext readContext, FieldDef fd, boolean isLittleEndian)
             throws UnparsableContentException
     {
         Object fieldValue = null;
         int dataLen = 0;
 
-        int minLength = (fd.isFixed()) ? fd.getDataLen() : 4;
+        int minLength = 4;
+        if (fd.isFixed())
+        {
+            if (fd.getDataLen() > Integer.MAX_VALUE)
+            {
+                throw new UnparsableContentException(
+                        "Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
+            }
+            minLength = (int) fd.getDataLen();
+        }
+
         if ((readContext.pos + minLength) > readContext.buffer.length)
         {
             throw new UnparsableContentException("Data ended prematurely parsing field " + fd.getFieldName());
@@ -187,7 +202,7 @@ public class BinaryRecordReader implements IRecordReader
                 long intValue = 0;
                 if (fd.isUnsigned())
                 {
-                    intValue = getUnsigned(readContext.buffer, readContext.pos, fd.getDataLen(),
+                    intValue = getUnsigned(readContext.buffer, readContext.pos, (int) fd.getDataLen(),
                             fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                     if (intValue < 0)
                     {
@@ -197,7 +212,7 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 else
                 {
-                    intValue = getInt(readContext.buffer, readContext.pos, fd.getDataLen(),
+                    intValue = getInt(readContext.buffer, readContext.pos, (int) fd.getDataLen(),
                             fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 }
                 fieldValue = new Long(intValue);
@@ -205,7 +220,7 @@ public class BinaryRecordReader implements IRecordReader
                 break;
             case REAL:
                 // fixed number of bytes (4 or 8) in type info
-                double u = getReal(readContext.buffer, readContext.pos, fd.getDataLen(),
+                double u = getReal(readContext.buffer, readContext.pos, (int) fd.getDataLen(),
                         fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 fieldValue = new Double(u);
                 readContext.pos += fd.getDataLen();
@@ -213,7 +228,7 @@ public class BinaryRecordReader implements IRecordReader
             case DECIMAL:
                 BigDecimal decValue = null;
 
-                int numDigits = fd.getDataLen() & MASK_32_LOWER_HALF;
+                int numDigits = (int) (fd.getDataLen() & MASK_32_LOWER_HALF);
                 if (fd.isUnsigned())
                 {
                     dataLen = (numDigits + 1) / 2;
@@ -230,11 +245,13 @@ public class BinaryRecordReader implements IRecordReader
 
                 if (fd.isUnsigned())
                 {
-                    decValue = getUnsignedDecimal(readContext.buffer, readContext.pos, fd.getDataLen());
+                    decValue = getUnsignedDecimal(readContext.buffer, readContext.pos, fd.getPrecision(), fd.getScale(),
+                            (int) fd.getDataLen());
                 }
                 else
                 {
-                    decValue = getSignedDecimal(readContext.buffer, readContext.pos, fd.getDataLen());
+                    decValue = getSignedDecimal(readContext.buffer, readContext.pos, fd.getPrecision(), fd.getScale(),
+                            (int) fd.getDataLen());
                 }
 
                 fieldValue = decValue;
@@ -245,13 +262,14 @@ public class BinaryRecordReader implements IRecordReader
                 // definition when fixed (e.g., DATA v DATA20)
                 if (fd.isFixed())
                 {
-                    dataLen = fd.getDataLen();
+                    dataLen = (int) fd.getDataLen();
                 }
                 else
                 {
                     dataLen = (int) getInt(readContext.buffer, readContext.pos, 4, isLittleEndian);
                     readContext.pos += 4;
                 }
+
                 if ((readContext.pos + dataLen) > readContext.buffer.length)
                 {
                     throw new UnparsableContentException("Data ended prematurely");
@@ -262,11 +280,14 @@ public class BinaryRecordReader implements IRecordReader
                 break;
             case BOOLEAN:
                 // fixed length for each boolean value specified by type def
-                long value = getInt(readContext.buffer, readContext.pos, fd.getDataLen(),
+                long value = getInt(readContext.buffer, readContext.pos, (int) fd.getDataLen(),
                         fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 fieldValue = new Boolean(value != 0);
                 readContext.pos += fd.getDataLen();
                 break;
+            case CHAR:
+                fieldValue = getString(fd.getSourceType(), readContext.buffer, readContext.pos, 1);
+                readContext.pos += 1;
             case STRING:
                 // fixed and variable length strings. utf8 and utf-16 have
                 // length specified in code points. Fixed length UTF-16 may
@@ -274,7 +295,14 @@ public class BinaryRecordReader implements IRecordReader
                 // high surrogate is blotted.
                 if (fd.isFixed())
                 {
-                    dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos, fd.getDataLen());
+                    if (fd.getDataLen() > Integer.MAX_VALUE)
+                    {
+                        throw new UnparsableContentException("Data length: " + fd.getDataLen()
+                                + " exceeds max supported length: " + Integer.MAX_VALUE);
+                    }
+
+                    dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos,
+                            (int) fd.getDataLen());
                 }
                 else
                 {
@@ -332,7 +360,14 @@ public class BinaryRecordReader implements IRecordReader
                 // Var strings support a fixed length
                 if (fd.isFixed())
                 {
-                    dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos, fd.getDataLen());
+                    if (fd.getDataLen() > Integer.MAX_VALUE)
+                    {
+                        throw new UnparsableContentException("Data length: " + fd.getDataLen()
+                                + " exceeds max supported length: " + Integer.MAX_VALUE);
+                    }
+
+                    dataLen = getCodeUnits(fd.getSourceType(), readContext.buffer, readContext.pos,
+                            (int) fd.getDataLen());
                 }
 
                 // Unicode uses 2-byte nulls
@@ -354,9 +389,9 @@ public class BinaryRecordReader implements IRecordReader
     /**
      * Parse a record
      * 
-     * @param readContext 
+     * @param readContext
      *            the source byte array of the data from the HPCC cluster
-     * @param recordDef 
+     * @param recordDef
      *            the field definition for the Record definition
      * @param recordBuilder
      *            the record builder to use to construct the record
@@ -364,7 +399,7 @@ public class BinaryRecordReader implements IRecordReader
      * @return ParsedFieldResult
      * @throws UnparsableContentException
      */
-    private static Object parseRecord(ReadContext readContext, FieldDef recordDef, IRecordBuilder recordBuilder,
+    private Object parseRecord(ReadContext readContext, FieldDef recordDef, IRecordBuilder recordBuilder,
             boolean isLittleEndian) throws UnparsableContentException
     {
 
@@ -389,6 +424,7 @@ public class BinaryRecordReader implements IRecordReader
                 case BINARY:
                 case BOOLEAN:
                 case STRING:
+                case CHAR:
                 case VAR_STRING:
                     fieldValue = parseFlatField(readContext, fd, isLittleEndian);
                     break;
@@ -425,7 +461,7 @@ public class BinaryRecordReader implements IRecordReader
                     int childCountGuess = 1;
                     if (fd.getDataLen() > 0)
                     {
-                        childCountGuess = dataLen / fd.getDataLen();
+                        childCountGuess = dataLen / (int) fd.getDataLen();
                     }
 
                     FieldDef childFd = recordDef.getDef(fieldIndex);
@@ -439,6 +475,7 @@ public class BinaryRecordReader implements IRecordReader
                         case BINARY:
                         case BOOLEAN:
                         case STRING:
+                        case CHAR:
                         case VAR_STRING:
                             while (readContext.pos < dataStop)
                             {
@@ -593,12 +630,8 @@ public class BinaryRecordReader implements IRecordReader
      *            packed field of numDigits in upper half and precision in lower half
      * @return BigDecimal
      */
-    private static BigDecimal getUnsignedDecimal(byte[] b, int pos, int len)
+    private static BigDecimal getUnsignedDecimal(byte[] b, int pos, int numDigits, int precision, int dataLen)
     {
-        int numDigits = len & 0xffff;
-        int precision = len >> 16;
-        int dataLen = (numDigits + 1) / 2;
-
         BigDecimal ret = new BigDecimal(0);
 
         int idx = 0;
@@ -640,12 +673,8 @@ public class BinaryRecordReader implements IRecordReader
      *            packed field of numDigits in upper half and precision in lower half
      * @return BigDecimal
      */
-    private static BigDecimal getSignedDecimal(byte[] b, int pos, int len)
+    private static BigDecimal getSignedDecimal(byte[] b, int pos, int numDigits, int precision, int dataLen)
     {
-        int numDigits = len & MASK_32_LOWER_HALF;
-        int precision = len >> 16;
-        int dataLen = (numDigits + 2) / 2;
-
         final int zeroDigit = 32;
         int lsb = zeroDigit - precision;
         int msb = lsb + numDigits;
@@ -726,7 +755,7 @@ public class BinaryRecordReader implements IRecordReader
      *            the number of bytes
      * @return the extracted string
      */
-    private static String getString(HpccSrcType styp, byte[] b, int pos, int len) throws UnparsableContentException
+    private String getString(HpccSrcType styp, byte[] b, int pos, int len) throws UnparsableContentException
     {
         String rslt = "";
         switch (styp)
@@ -743,6 +772,63 @@ public class BinaryRecordReader implements IRecordReader
             case UTF16LE:
                 rslt = new String(b, pos, len, utf16leSet);
                 break;
+            case QSTRING:
+            {
+                int bytesConsumed = 0;
+                while (bytesConsumed < len)
+                {
+                    int expandedLen = (len * 4) / 3;
+                    if (expandedLen > SCRATCH_BUFFER_SIZE)
+                    {
+                        expandedLen = SCRATCH_BUFFER_SIZE;
+                    }
+
+                    int writePos = 0;
+                    for (; writePos < (expandedLen - 3); writePos += 4, pos += 3)
+                    {
+                        byte b0 = b[pos];
+                        byte b1 = b[pos + 1];
+                        byte b2 = b[pos + 2];
+
+                        scratchBuffer[writePos + 0] = (byte) (' ' + (b0 >> 2));
+                        scratchBuffer[writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
+                        scratchBuffer[writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
+                        scratchBuffer[writePos + 3] = (byte) (' ' + (b2 & 0x3f));
+                    }
+
+                    switch (expandedLen % 4)
+                    {
+                        case 3:
+                        {
+                            byte b1 = b[pos + 1];
+                            byte b2 = b[pos + 2];
+                            scratchBuffer[writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
+                            writePos++;
+                            // fallthrough
+                        }
+                        case 2:
+                        {
+                            byte b0 = b[pos];
+                            byte b1 = b[pos + 1];
+                            scratchBuffer[writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
+                            writePos++;
+                            // fallthrough
+                        }
+                        case 1:
+                        {
+                            byte b0 = b[pos];
+                            scratchBuffer[writePos + 0] = (byte) (' ' + (b0 >> 2));
+                            writePos++;
+                            break;
+                        }
+                        case 0:
+                            break;
+                    }
+
+                    bytesConsumed += expandedLen;
+                    rslt += new String(scratchBuffer, 0, expandedLen, sbcSet);
+                }
+            }
             default:
                 throw new UnparsableContentException("Unknown source type");
         }
@@ -786,6 +872,8 @@ public class BinaryRecordReader implements IRecordReader
                         throw new UnparsableContentException("Illegal UTF-8 sequence");
                 }
                 break;
+            case QSTRING:
+                bytes = ((cp + 1) * 3) / 4;
             case SINGLE_BYTE_CHAR:
                 bytes = cp;
                 break;

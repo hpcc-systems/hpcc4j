@@ -17,10 +17,12 @@ package org.hpccsystems.dfs.client;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import org.hpccsystems.commons.ecl.TargetColumn;
+import org.hpccsystems.commons.ecl.FieldType;
+import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.UnusableDataDefinitionException;
-import org.hpccsystems.dfs.filedef.json.*;
 
 /**
  * Prune columns from the output request format.  Columns are pruned
@@ -42,8 +44,15 @@ import org.hpccsystems.dfs.filedef.json.*;
 public class ColumnPruner implements Serializable
 {
     private final static long      serialVersionUID = 1L;
+
+    private class SelectedFieldInfo
+    {
+        String name = null;
+        boolean shouldCullChildren = false;
+    }
+
     private String                 fieldListString;
-    private transient TargetColumn targetContentRoot;
+    private HashMap<String,SelectedFieldInfo> selectedFieldMap = null;
 
     /**
      * @return Project list in string format
@@ -65,59 +74,107 @@ public class ColumnPruner implements Serializable
     public ColumnPruner(String commaSepFieldNamelist)
     {
         this.fieldListString = commaSepFieldNamelist;
+
+        // Create a map of selected fields by their path
+        selectedFieldMap = new HashMap<String,SelectedFieldInfo>();
+        String[] selectedFields = this.fieldListString.split(",");
+        for (int i = 0; i < selectedFields.length; i++) {
+            String fieldPath = selectedFields[i].trim();
+            if (fieldPath.isEmpty()){
+                continue;
+            }
+
+            String curPath = "";
+            String[] pathComponents = fieldPath.split("\\.");
+            for (int j = 0; j < pathComponents.length; j++) {
+                String component = pathComponents[j];
+                curPath += component.trim();
+
+                SelectedFieldInfo fieldInfo = selectedFieldMap.get(curPath);
+                if (fieldInfo == null) {
+                    fieldInfo = new SelectedFieldInfo();
+                    fieldInfo.name = component;
+                    selectedFieldMap.put(curPath,fieldInfo);
+                }
+
+                boolean shouldCullChildren = (j < pathComponents.length-1);
+                fieldInfo.shouldCullChildren = fieldInfo.shouldCullChildren || shouldCullChildren; 
+            }
+        }
     }
+
+    
 
     /**
      * Prune the definition tokens to match the field list if
      * present and to remove unsupported types..
-     * @param toks the complete set of tokens
-     * @return the revised set with the pruned fields and unused
-     * type information removed.
+     * @param recordDef record definition to prune
+     * @return the revised record definition
      * @exception UnusableDataDefinitionException is thrown when none of the
      * fields in the selection list are defined.
      */
-    public DefToken[] pruneDefTokens(DefToken[] toks) throws UnusableDataDefinitionException
+    public FieldDef pruneRecordDefinition(FieldDef originalRD) throws UnusableDataDefinitionException
     {
-        if (targetContentRoot == null) prepPruner();
-        DefToken[] rslt = DefEntry.pruneDefTokens(toks, targetContentRoot);
-        return rslt;
-    }
-
-    /**
-     * Get the TargetColumn for the root structure.
-     * @return root target column container.
-     */
-    public TargetColumn getTargetColumn()
-    {
-        if (this.targetContentRoot == null) prepPruner();
-        return this.targetContentRoot;
-    }
-
-    //
-    private void prepPruner()
-    {
-        String[] compound_names = this.fieldListString.split(",");
-        // if fieldListString was empty, then array has 0 entries
-        for (int i = 0; i < compound_names.length; i++)
-        {
-            compound_names[i] = compound_names[i].trim().toLowerCase();
+        if (selectedFieldMap.size() == 0) {
+            return originalRD;
         }
-        Arrays.sort(compound_names);
-        // now break the compound names down
-        String[][] dot_names = new String[compound_names.length][];
-        for (int i = 0; i < compound_names.length; i++)
-        {
-            dot_names[i] = compound_names[i].split("\\.");  // pick off levels
-        }
-        this.targetContentRoot = new TargetColumn("");
-        for (int i = 0; i < compound_names.length; i++)
-        {
-            TargetColumn cn = this.targetContentRoot.getOrCreateColumnWithName(dot_names[i][0]);
-            for (int j = 1; j < dot_names[i].length; j++)
-            {
-                cn = cn.getOrCreateColumnWithName(dot_names[i][j]);
+
+        ArrayList<FieldDef> selectedFields = new ArrayList<FieldDef>();
+        for (int i = 0; i < originalRD.getNumDefs(); i++) {
+            FieldDef childDef = originalRD.getDef(i);
+            String fieldPath = childDef.getFieldName().trim();
+
+            FieldDef prunedFieldDef = pruneFieldDefinition(childDef,fieldPath);
+            if (prunedFieldDef != null) {
+                selectedFields.add(prunedFieldDef);
             }
         }
-        // root object ready.  May be an "all fields" selection
+
+        FieldDef ret = new FieldDef(originalRD);
+        ret.setDefs(selectedFields.toArray(new FieldDef[0]));
+        if (ret.getNumDefs() == 0) {
+            throw new UnusableDataDefinitionException("Error pruning record defintion. No fields were selected for field list: "
+                + this.fieldListString);
+        }
+
+        return ret;
+    }
+
+    private FieldDef pruneFieldDefinition(FieldDef originalRecordDef, String path)
+    {
+        SelectedFieldInfo fieldInfo = selectedFieldMap.get(path);
+        if (fieldInfo == null) {
+            return null;
+        }
+
+        if (fieldInfo.shouldCullChildren == false) {
+            return originalRecordDef;
+        }
+
+        // Datasets are a special case. They will not have a component
+        // in the field path to represent the dataset FieldDef. So we skip to its record
+        if (originalRecordDef.getFieldType() == FieldType.DATASET) {
+            FieldDef[] datasetRD = new FieldDef[1];
+            datasetRD[0] = pruneFieldDefinition(originalRecordDef.getDef(0),path);
+
+            FieldDef ret = new FieldDef(originalRecordDef);
+            ret.setDefs(datasetRD);
+            return ret;
+        }
+
+        ArrayList<FieldDef> selectedFields = new ArrayList<FieldDef>();
+        for (int i = 0; i < originalRecordDef.getNumDefs(); i++) {
+            FieldDef childDef = originalRecordDef.getDef(i);
+            String fieldPath = path + "." + childDef.getFieldName().trim();
+
+            FieldDef prunedFieldDef = pruneFieldDefinition(childDef,fieldPath);
+            if (prunedFieldDef != null) {
+                selectedFields.add(prunedFieldDef);
+            }
+        }
+
+        FieldDef ret = new FieldDef(originalRecordDef);
+        ret.setDefs(selectedFields.toArray(new FieldDef[0]));
+        return ret;
     }
 }

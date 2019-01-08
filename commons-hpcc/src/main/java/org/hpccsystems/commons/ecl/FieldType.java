@@ -30,11 +30,12 @@ public enum FieldType implements Serializable {
   DECIMAL(true,"Decimal",false),
   VAR_STRING(true,"VarString",false),
   STRING(true, "String", false),
+  CHAR(true, "Char", false),
   BOOLEAN(true, "Boolean", false),
   BINARY(true, "Binary data", false),
   RECORD(false, "Record", true),
-  SET(false, "Set", false),             // Set & Dataset are separate because set has a preceding unused byte 
-  DATASET(false, "Set", false),
+  SET(false, "Set", true),             // Set & Dataset are separate because set has a preceding unused byte 
+  DATASET(false, "Dataset", true),
   UNKNOWN(true, "Unknown", false);
 
   static final long serialVersionUID = 1L;

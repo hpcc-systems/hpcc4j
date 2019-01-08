@@ -1,17 +1,14 @@
 /*******************************************************************************
- *     HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+ * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
- *     Licensed under the Apache License, Version 2.0 (the "License");
- *     you may not use this file except in compliance with the License.
- *     You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *     Unless required by applicable law or agreed to in writing, software
- *     distributed under the License is distributed on an "AS IS" BASIS,
- *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *     See the License for the specific language governing permissions and
- *     limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
@@ -24,8 +21,11 @@ import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.json.JSONObject;
+
 import org.apache.log4j.Logger;
-import org.hpccsystems.dfs.client.RecordDef;
+import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
+import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
 
 /**
@@ -42,7 +42,10 @@ public class PlainConnection
     private final byte[]             emptyBuffer                   = new byte[0];
     private int                      handle;
     private DataPartition            dataPart;
-    private RecordDef                recordDefinition;
+    private FieldDef                 recordDefinition              = null;
+    private String                   jsonRecordDefinition          = null;
+    private FieldDef                 projectedRecordDefinition     = null;
+    private String                   projectedJsonRecordDefinition = null;
     private java.io.DataInputStream  dis;
     private java.io.DataOutputStream dos;
 
@@ -59,12 +62,21 @@ public class PlainConnection
 
     /**
      * A plain socket connect to a THOR node for remote read
-     * @param hpccPart the remote file name and IP
-     * @param rd the JSON definition for the read input and output
+     * 
+     * @param hpccPart
+     *            the remote file name and IP
+     * @param rd
+     *            the JSON definition for the read input and output
      */
-    public PlainConnection(DataPartition dp, RecordDef rd)
+    public PlainConnection(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception
     {
         this.recordDefinition = rd;
+        this.projectedRecordDefinition = pRd;
+
+        this.jsonRecordDefinition = RecordDefinitionTranslator.toJson(this.recordDefinition).toString();
+        this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJson(this.projectedRecordDefinition)
+                .toString();
+
         this.dataPart = dp;
         this.active = false;
         this.closed = false;
@@ -84,6 +96,7 @@ public class PlainConnection
 
     /**
      * The SSL usage on the DAFILESRV side
+     * 
      * @return use ssl flag
      */
     public boolean getUseSSL()
@@ -93,6 +106,7 @@ public class PlainConnection
 
     /**
      * The primary IP for the file part
+     * 
      * @return IP address
      */
     public String getIP()
@@ -102,6 +116,7 @@ public class PlainConnection
 
     /**
      * The port number for the remote read service
+     * 
      * @return port number
      */
     public int getPort()
@@ -111,6 +126,7 @@ public class PlainConnection
 
     /**
      * The read transaction in JSON format
+     * 
      * @return read transaction
      */
     public String getTrans()
@@ -120,6 +136,7 @@ public class PlainConnection
 
     /**
      * The request string used with a handle
+     * 
      * @return JSON string
      */
     public String getHandleTrans()
@@ -129,6 +146,7 @@ public class PlainConnection
 
     /**
      * transaction when a cursor is required for the next read.
+     * 
      * @return a JSON request
      */
     public String getCursorTrans()
@@ -145,8 +163,8 @@ public class PlainConnection
     }
 
     /**
-     * Is the remote file closed?  The file is closed after
-     * all of the partition content has been transferred.
+     * Is the remote file closed? The file is closed after all of the partition content has been transferred.
+     * 
      * @return true if closed.
      */
     public boolean isClosed()
@@ -156,6 +174,7 @@ public class PlainConnection
 
     /**
      * Remote read handle for next read
+     * 
      * @return the handle
      */
     public int getHandle()
@@ -164,12 +183,12 @@ public class PlainConnection
     }
 
     /**
-     * Simulate a handle failure and use the file cursor instead.  The
-     * handle is set to an invalid value so the THOR node will indicate
-     * that the handle is unknown and request a cursor.
-     * @param v true indicates that an invalid handle should be sent
-     * to force the fall back to a cursor.  NOTE: this class reads
-     * ahead, so the use this before the first read.
+     * Simulate a handle failure and use the file cursor instead. The handle is set to an invalid value so the THOR node
+     * will indicate that the handle is unknown and request a cursor.
+     * 
+     * @param v
+     *            true indicates that an invalid handle should be sent to force the fall back to a cursor. NOTE: this
+     *            class reads ahead, so the use this before the first read.
      * @return the prior value
      */
     public boolean setSimulateFail(boolean v)
@@ -181,7 +200,9 @@ public class PlainConnection
 
     /**
      * Force the use of cursors instead of handles for testing.
-     * @param v the setting
+     * 
+     * @param v
+     *            the setting
      * @return the previous setting
      */
     public boolean setForceCursorUse(boolean v)
@@ -193,9 +214,12 @@ public class PlainConnection
 
     /**
      * Read a block of the remote file from a THOR node
-     * @param buffer Will attempt to reuse the provided buffer. Passing null will allocate a new buffer.
+     * 
+     * @param buffer
+     *            Will attempt to reuse the provided buffer. Passing null will allocate a new buffer.
      * @return the block sent by the node
-     * @throws HpccFileException a problem with the read operation
+     * @throws HpccFileException
+     *             a problem with the read operation
      */
     public byte[] readBlock(byte[] buffer) throws HpccFileException
     {
@@ -264,7 +288,6 @@ public class PlainConnection
             int cursorLen = dis.readInt();
             if (cursorLen == 0)
             {
-                log.error("Unable to read cursor location from network stream. Closing connection.");
                 closeConnection();
                 return buffer;
             }
@@ -298,6 +321,7 @@ public class PlainConnection
 
     /**
      * Open client socket to the primary and open the streams
+     * 
      * @throws HpccFileException
      */
     private void makeActive() throws HpccFileException
@@ -310,8 +334,8 @@ public class PlainConnection
         {
             try
             {
-                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (currentFilePartCopyIndex + 1)
-                        + "' on IP: '" + getIP() + "'");
+                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '"
+                        + (currentFilePartCopyIndex + 1) + "' on IP: '" + getIP() + "'");
 
                 try
                 {
@@ -321,15 +345,18 @@ public class PlainConnection
                         sock = (SSLSocket) ssf.createSocket();
 
                         // Optimize for bandwidth over latency and connection time.
-                        // We are opening up a long standing connection and potentially reading a significant amount of data
+                        // We are opening up a long standing connection and potentially reading a significant amount of
+                        // data
                         // So we don't care as much about individual packet latency or connection time overhead
                         sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), DEFAULT_CONNECT_TIMEOUT_MILIS);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()),
+                                DEFAULT_CONNECT_TIMEOUT_MILIS);
 
                         log.debug("Attempting SSL handshake...");
                         ((SSLSocket) sock).startHandshake();
                         log.debug("SSL handshake successful...");
-                        log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
+                        log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = "
+                                + sock.getPort());
                     }
                     else
                     {
@@ -337,12 +364,15 @@ public class PlainConnection
                         sock = sf.createSocket();
 
                         // Optimize for bandwidth over latency and connection time.
-                        // We are opening up a long standing connection and potentially reading a significant amount of data
+                        // We are opening up a long standing connection and potentially reading a significant amount of
+                        // data
                         // So we don't care as much about individual packet latency or connection time overhead
                         sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), DEFAULT_CONNECT_TIMEOUT_MILIS);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()),
+                                DEFAULT_CONNECT_TIMEOUT_MILIS);
                     }
-                    log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
+                    log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = "
+                            + sock.getPort());
                 }
                 catch (java.net.UnknownHostException e)
                 {
@@ -379,24 +409,30 @@ public class PlainConnection
             }
             catch (Exception e)
             {
-                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (currentFilePartCopyIndex + 1) + "' on IP: '"
-                        + getIP());
+                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '"
+                        + (currentFilePartCopyIndex + 1) + "' on IP: '" + getIP());
                 log.error(e.getMessage());
 
-                if (!setNextFilePartCopy()) throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e); // this should be a multi exception
+                if (!setNextFilePartCopy())
+                    throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e); // this
+                                                                                                                  // should
+                                                                                                                  // be
+                                                                                                                  // a
+                                                                                                                  // multi
+                                                                                                                  // exception
             }
         }
     }
 
     /**
-     * Creates a request string using the record definition, filename,
-     * and current state of the file transfer.
+     * Creates a request string using the record definition, filename, and current state of the file transfer.
+     * 
      * @return JSON request string
      */
     private String makeInitialRequest()
     {
-        StringBuilder sb = new StringBuilder(
-                100 + this.recordDefinition.getJsonInputDef().length() + this.recordDefinition.getJsonOutputDef().length());
+
+        StringBuilder sb = new StringBuilder(2048);
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\", \n");
         sb.append("\"replyLimit\" : " + PlainConnection.MaxReadSizeKB + ",\n");
@@ -407,16 +443,17 @@ public class PlainConnection
 
     /**
      * Make the node part of the JSON request string
+     * 
      * @return Json
      */
     private String makeNodeObject()
     {
         StringBuilder sb = new StringBuilder(
-                50 + this.recordDefinition.getJsonInputDef().length() + this.recordDefinition.getJsonOutputDef().length());
+                50 + jsonRecordDefinition.length() + projectedJsonRecordDefinition.length());
         sb.append(" \"node\" : {\n ");
-        //sb.append("{\n \"kind\" : \"");
-        //sb.append((this.dataPart.isIndex())? "indexread"  : "diskread");
-        //sb.append("\",\n \"metaInfo\" : \"");
+        // sb.append("{\n \"kind\" : \"");
+        // sb.append((this.dataPart.isIndex())? "indexread" : "diskread");
+        // sb.append("\",\n \"metaInfo\" : \"");
         sb.append("\"metaInfo\" : \"");
         sb.append(this.dataPart.getFileAccessBlob());
         sb.append("\",\n \"filePart\" : \"");
@@ -430,15 +467,16 @@ public class PlainConnection
         }
 
         sb.append("\n \"input\" : ");
-        sb.append(this.recordDefinition.getJsonInputDef());
+        sb.append(jsonRecordDefinition);
         sb.append(", \n \"output\" : ");
-        sb.append(this.recordDefinition.getJsonOutputDef());
+        sb.append(projectedJsonRecordDefinition);
         sb.append("\n }");
         return sb.toString();
     }
 
     /**
      * Request using a handle to read the next block.
+     * 
      * @return the request as a JSON string
      */
     private String makeHandleRequest()
@@ -455,8 +493,8 @@ public class PlainConnection
 
     private String makeCursorRequest()
     {
-        StringBuilder sb = new StringBuilder(130 + this.recordDefinition.getJsonInputDef().length()
-                + this.recordDefinition.getJsonOutputDef().length() + (int) (this.cursorBin.length * 1.4));
+        StringBuilder sb = new StringBuilder(130 + this.jsonRecordDefinition.length()
+                + this.projectedJsonRecordDefinition.length() + (int) (this.cursorBin.length * 1.4));
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("\"replyLimit\" : " + PlainConnection.MaxReadSizeKB + ",\n");
@@ -470,6 +508,7 @@ public class PlainConnection
 
     /**
      * Close the connection and clear the references
+     * 
      * @throws HpccFileException
      */
     private void closeConnection() throws HpccFileException
@@ -482,7 +521,7 @@ public class PlainConnection
             sock.close();
         }
         catch (IOException e)
-        {}  // ignore this
+        {} // ignore this
         this.dos = null;
         this.dis = null;
         this.sock = null;
@@ -490,13 +529,14 @@ public class PlainConnection
 
     /**
      * Read the reply length and process failures if indicated.
+     * 
      * @return length of the reply less failure indicator
      * @throws HpccFileException
      */
     private int readReplyLen() throws HpccFileException
     {
         int len = 0;
-        boolean hi_flag = false;  // is a response without this set always an error?
+        boolean hi_flag = false; // is a response without this set always an error?
         try
         {
             len = dis.readInt();
@@ -531,10 +571,12 @@ public class PlainConnection
                 switch (status)
                 {
                     case RFCCodes.DAFSERR_cmdstream_invalidexpiry:
-                        sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
+                        sb.append(
+                                "\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
                         break;
                     case RFCCodes.DAFSERR_cmdstream_authexpired:
-                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
+                        sb.append(
+                                "\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
                         break;
                     default:
                         break;
@@ -550,7 +592,8 @@ public class PlainConnection
     }
 
     /**
-     * Retry with a cursor and read the reply.  Process failures as indicated.
+     * Retry with a cursor and read the reply. Process failures as indicated.
+     * 
      * @return the length pf the reply less failure indication
      * @throws HpccFileException
      */

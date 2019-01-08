@@ -75,11 +75,11 @@
         </plugins>
     </build>
     <dependencies>
-    	<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-core</artifactId>
-    		<version>2.6.5</version>
-		</dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
     	<dependency>
     		<groupId>org.hpccsystems</groupId>
     		<artifactId>commons-hpcc</artifactId>
@@ -88,7 +88,7 @@
     	<dependency>
             <groupId>org.hpccsystems</groupId>
             <artifactId>wsclient</artifactId>
-            <version>7.0.0-SNAPSHOT</version>
+            <version>7.0.0</version>
         </dependency>
     	<dependency>
     		<groupId>org.apache.logging.log4j</groupId>

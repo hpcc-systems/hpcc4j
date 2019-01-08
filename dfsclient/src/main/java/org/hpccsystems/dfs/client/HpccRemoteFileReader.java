@@ -12,11 +12,13 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
+import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.dfs.client.PlainConnection;
 import org.hpccsystems.commons.errors.HpccFileException;
 
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 
 /**
@@ -26,8 +28,9 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 {
     private static final Logger log           = Logger.getLogger(HpccRemoteFileReader.class.getName());
 
-    private RecordDef           recordDef;
-    private DataPartition       dataPartition;
+    private FieldDef            originalRecordDef = null;
+    private FieldDef            projectedRecordDef = null;
+    private DataPartition       dataPartition = null;
     private PlainConnection     connection    = null;
     private BinaryRecordReader  binaryRecordReader;
     private IRecordBuilder      recordBuilder = null;
@@ -39,17 +42,45 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the definition of the data
      * @param fp
      *            the part of the file, name and location
+     * @param selectedFields. 
+     *            array of fields to select in dot notation. IE ParentField.ChildField. null to select all
      */
-    public HpccRemoteFileReader(DataPartition dp, RecordDef rd, IRecordBuilder recBuilder)
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder)
+        throws Exception
     {
-        this.recordDef = rd;
+        this(dp,originalRD,recBuilder,(FieldDef) null);
+    }
+
+    /**
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     * 
+     * @param dp
+     *            the part of the file, name and location
+     * @param originalRD
+     *            the record defintion for the dataset
+     * @param recBuilder
+     *            the IRecordBuilder used to construct records
+     * @param projectedRD
+     *            the requested record format
+     */
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, FieldDef projectedRD)
+        throws Exception
+    {
+        this.originalRecordDef = originalRD;
+        this.projectedRecordDef = projectedRD;
+        if (this.projectedRecordDef == null) {
+            this.projectedRecordDef = this.originalRecordDef;
+        }
+
         this.dataPartition = dp;
+        
+        this.connection = new PlainConnection(this.dataPartition, 
+                                            this.originalRecordDef,
+                                            this.projectedRecordDef);
 
-        this.connection = new PlainConnection(this.dataPartition, this.recordDef);
-        this.binaryRecordReader = new BinaryRecordReader(this.connection, this.recordDef.getRootDef());
-
+        this.binaryRecordReader = new BinaryRecordReader(this.connection, this.projectedRecordDef);
         this.recordBuilder = recBuilder;
-        this.recordBuilder.setRecordDefinition(this.recordDef.getRootDef());
+        this.recordBuilder.setRecordDefinition(this.projectedRecordDef);
         this.binaryRecordReader.initialize(this.recordBuilder);
     }
 
