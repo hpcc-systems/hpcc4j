@@ -1,17 +1,14 @@
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  *******************************************************************************/
 package org.hpccsystems.commons.ecl;
 
@@ -19,46 +16,40 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 /**
- * The name and field type for an item from the HPCC environment. The
- * types may be single scalar types or may be arrays or structures.
+ * The name and field type for an item from the HPCC environment. The types may be single scalar types or may be arrays
+ * or structures.
  *
  */
 
 public class FieldDef implements Serializable
 {
-    static final long   serialVersionUID = 1L;
-    private String      fieldName        = "";
-    private FieldType   fieldType        = FieldType.UNKNOWN;
-    private String      typeName         = FieldType.UNKNOWN.description();
-    private FieldDef[]  defs             = new FieldDef[0];
-    private HpccSrcType srcType          = HpccSrcType.UNKNOWN;
-    private int         fields           = 0;
-    private int         len              = 0;
-    private boolean     fixedLength      = false;
-    private boolean     isUnsigned       = false;
+    private static final long serialVersionUID   = 1L;
+    private static final int  MASK_32_LOWER_HALF = 0xffff;
+    private static final int  MASK_32_UPPER_HALF = 0xffff0000;
 
-    //
-    protected FieldDef()
-    {
-    }
+    private String            fieldName          = "";
+    private FieldType         fieldType          = FieldType.UNKNOWN;
+    private String            typeName           = FieldType.UNKNOWN.description();
+    private FieldDef[]        defs               = new FieldDef[0];
+    private HpccSrcType       srcType            = HpccSrcType.UNKNOWN;
+    private long              len                = 0;
+    private boolean           fixedLength        = false;
+    private boolean           isUnsigned         = false;
 
     /**
-     * @param fieldName
-     *            the name for the field or set or structure
-     * @param fieldDef
-     *            the type definition
+     * @param rhs
+     *            FieldDef to be copied
      */
-    public FieldDef(String fieldName, TypeDef typeDef)
+    public FieldDef(FieldDef rhs)
     {
-        this.fieldName = fieldName;
-        this.fieldType = typeDef.getType();
-        this.typeName = typeDef.description();
-        this.defs = typeDef.getStructDef();
-        this.srcType = typeDef.getSourceType();
-        this.fields = this.defs.length;
-        this.len = typeDef.getLength();
-        this.fixedLength = typeDef.isFixedLength();
-        this.isUnsigned = typeDef.isUnsigned();
+        this.fieldName = rhs.fieldName;
+        this.fieldType = rhs.fieldType;
+        this.typeName = rhs.typeName;
+        this.defs = rhs.defs;
+        this.srcType = rhs.srcType;
+        this.len = rhs.len;
+        this.fixedLength = rhs.fixedLength;
+        this.isUnsigned = rhs.isUnsigned;
     }
 
     /**
@@ -75,23 +66,24 @@ public class FieldDef implements Serializable
      * @param defs
      *            the array of fields composing this def
      */
-    public FieldDef(String fieldName, FieldType fieldType, String typeName, long len, boolean isFixedLength, HpccSrcType styp, FieldDef[] defs)
+    public FieldDef(String fieldName, FieldType fieldType, String typeName, long len, boolean isFixedLength,
+            boolean isUnsigned, HpccSrcType styp, FieldDef[] defs)
     {
-        if (len > Integer.MAX_VALUE)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Field length values too large for ");
-            sb.append(fieldName);
-            throw new IllegalArgumentException(sb.toString());
-        }
         this.fieldName = fieldName;
         this.fieldType = fieldType;
         this.typeName = typeName;
         this.defs = defs;
         this.srcType = styp;
-        this.fields = defs.length;
         this.fixedLength = isFixedLength;
-        this.len = (int) len;
+        this.isUnsigned = isUnsigned;
+        this.len = len;
+
+        if (this.fieldType == FieldType.VAR_STRING && (styp.isUTF16() == false && styp != HpccSrcType.SINGLE_BYTE_CHAR))
+        {
+            throw new IllegalArgumentException("Invalid field defintion for: " + fieldName
+                    + "VarStrings must be encoded in either UTF16 or ASCII");
+        }
+
     }
 
     /**
@@ -102,6 +94,15 @@ public class FieldDef implements Serializable
     public String getFieldName()
     {
         return fieldName;
+    }
+
+    /**
+     * @param String
+     *            field name
+     */
+    public void setFieldName(String newFieldName)
+    {
+        this.fieldName = newFieldName;
     }
 
     /**
@@ -129,9 +130,94 @@ public class FieldDef implements Serializable
      *
      * @return length
      */
-    public int getDataLen()
+    public long getDataLen()
     {
-        return this.len;
+        if (this.fieldType != FieldType.DECIMAL)
+        {
+            return this.len;
+        }
+
+        if (this.isUnsigned())
+        {
+            int precision = (int) (this.len & MASK_32_LOWER_HALF);
+            int dataLen = (precision + 1) / 2;
+            return dataLen;
+        }
+        else
+        {
+            int precision = (int) (this.len & MASK_32_LOWER_HALF);
+            int dataLen = (precision + 2) / 2;
+            return dataLen;
+        }
+    }
+
+    /**
+     * Returns precision for decimal fields. Return 0 if this field is not a decimal
+     *
+     * @return precision
+     */
+    public int getPrecision()
+    {
+        if (this.fieldType != FieldType.DECIMAL)
+        {
+            return 0;
+        }
+
+        return (int) (this.len & MASK_32_LOWER_HALF);
+    }
+
+    /**
+     * Sets precision for decimal fields
+     */
+    public void setPrecision(int precision)
+    {
+        if (this.fieldType != FieldType.DECIMAL)
+        {
+            return;
+        }
+
+        if (precision > 64)
+        {
+            precision = 64;
+        }
+
+        this.len &= MASK_32_UPPER_HALF;
+        this.len |= (precision & MASK_32_LOWER_HALF);
+    }
+
+    /**
+     * Returns scale for decimal fields. Return 0 if this field is not a decimal
+     *
+     * @return scale
+     */
+    public int getScale()
+    {
+        if (this.fieldType != FieldType.DECIMAL)
+        {
+            return 0;
+        }
+
+        int scale = (int) (this.len >> 16);
+        return scale;
+    }
+
+    /**
+     * Sets scale for decimal fields
+     */
+    public void setScale(int scale)
+    {
+        if (this.fieldType != FieldType.DECIMAL)
+        {
+            return;
+        }
+
+        if (scale > 32)
+        {
+            scale = 32;
+        }
+
+        this.len &= MASK_32_LOWER_HALF;
+        this.len |= (scale << 16);
     }
 
     /**
@@ -155,72 +241,6 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * A descriptive string showing the name and type. When the
-     * type is a composite, the composite definitions are included.
-     *
-     * @return the string value
-     */
-    public String toString()
-    {
-        StringBuffer sb = new StringBuffer(this.fields * 20 + 10);
-        sb.append("FieldDef [fieldName=");
-        sb.append(this.fieldName);
-        sb.append(", ");
-        sb.append((this.fixedLength) ? "F len=" : "V len=");
-        sb.append(len);
-        sb.append(" ");
-        sb.append(this.srcType.toString());
-        sb.append(", fieldType=");
-        if (this.fieldType.isComposite())
-        {
-            sb.append("{");
-            sb.append(this.fields);
-            sb.append("}{");
-            for (int i = 0; i < this.defs.length; i++)
-            {
-                if (i > 0) sb.append("; ");
-                sb.append(this.defs[i].toString());
-            }
-            sb.append("}");
-        }
-        else
-            sb.append(this.typeName);
-        sb.append("]");
-        return sb.toString();
-    }
-
-    /**
-     * The type name based upon the type enum with decorations for
-     * composites.
-     *
-     * @return the name of the type
-     */
-    public String typeName()
-    {
-        return (this.fieldType.isScalar() || this.fieldType.isVector()) ? this.typeName : "RECORD(" + this.typeName + ")";
-    }
-
-    /**
-     * Record name if this is a composite field
-     *
-     * @return a blank name.
-     */
-    public String recordName()
-    {
-        return (this.fieldType.isComposite()) ? this.typeName : "";
-    }
-
-    /**
-     * The number of fields, 1 or more if a record
-     *
-     * @return number of fields.
-     */
-    public int getNumFields()
-    {
-        return this.fields;
-    }
-
-    /**
      * Number of field definitions. Zero if this is not a record
      *
      * @return number
@@ -231,8 +251,7 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Get the FieldDef at position. Will throw an array out of bounds
-     * exception.
+     * Get the FieldDef at position. Will throw an array out of bounds exception.
      *
      * @param ndx
      *            index position
@@ -244,8 +263,17 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * An iterator to walk though the type definitions that compose
-     * this type.
+     * Set the Child FieldDefs
+     *
+     * @param childDefs
+     */
+    public void setDefs(FieldDef[] childDefs)
+    {
+        this.defs = childDefs;
+    }
+
+    /**
+     * An iterator to walk though the type definitions that compose this type.
      *
      * @return an iterator returning FieldDef objects
      */
