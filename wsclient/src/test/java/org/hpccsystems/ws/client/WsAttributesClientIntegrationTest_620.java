@@ -8,7 +8,7 @@ public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClien
     @Override
     public Platform getBasePlatform() throws Exception
     {
-        return Platform.get("http", "10.241.100.159", 8010, "dleed", "zaq1ZAQ!");
+        return Platform.get("http", "localhost", 8010, "user", "pass");
     }
     
     @Override

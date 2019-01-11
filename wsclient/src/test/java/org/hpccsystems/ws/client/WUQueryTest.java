@@ -22,7 +22,7 @@ public class WUQueryTest {
     
     @Before
     public void setup() {
-        platform= Platform.get("http", "10.173.147.1", 8010, "dleed", "");
+        platform= Platform.get("http", "localhost", 8010, "user", "pass");
         try {
         client1 = platform.checkOutHPCCWsClient();
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class WUQueryTest {
         wu.setECL("OUTPUT('1');");
         wu.setCluster("thor");
         wu.setJobname("testGetWorkunitByAppName");
-        wu.setOwner("dleed");
+        wu.setOwner("user");
         ApplicationValueInfo av=new ApplicationValueInfo("HIPIE","testkey","testvalue");
         wu.getApplicationValues().add(av);
         wu=client.compileWUFromECL(wu);
