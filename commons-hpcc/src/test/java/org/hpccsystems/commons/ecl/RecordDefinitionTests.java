@@ -70,7 +70,7 @@ public class RecordDefinitionTests
             JSONObject jsonRecDef = new JSONObject(jsonRecDefStr);
             FieldDef recDef = RecordDefinitionTranslator.parseJsonRecordDefinition(jsonRecDef);
 
-            JSONObject tJsonRecDef = RecordDefinitionTranslator.toJson(recDef);
+            JSONObject tJsonRecDef = RecordDefinitionTranslator.toJsonRecord(recDef);
 
             if (tJsonRecDef.equals(jsonRecDef))
             {

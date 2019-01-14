@@ -128,8 +128,7 @@ public class RecordDefinitionTranslator
 
     private static boolean isFixedLength(int typeID)
     {
-        int varLengthBit = typeID & FLAG_UNKNOWN_SIZE;
-        return varLengthBit == 0;
+        return (typeID & FLAG_UNKNOWN_SIZE) == 0;
     }
 
     private static boolean isUnsigned(int typeID)
@@ -145,7 +144,7 @@ public class RecordDefinitionTranslator
      * @return ECL Record defintion as a String
      * @throws Exception
      */
-    public static String toECL(FieldDef field) throws Exception
+    public static String toECLRecord(FieldDef field) throws Exception
     {
         if (field.getFieldType() != FieldType.RECORD)
         {
@@ -328,7 +327,7 @@ public class RecordDefinitionTranslator
      * @return Record as a JSONObject
      * @throws Exception
      */
-    public static JSONObject toJson(FieldDef field) throws Exception
+    public static JSONObject toJsonRecord(FieldDef field) throws Exception
     {
         if (field.getFieldType() != FieldType.RECORD)
         {
