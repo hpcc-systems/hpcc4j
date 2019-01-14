@@ -18,7 +18,6 @@ package org.hpccsystems.dfs.client;
 import java.io.Serializable;
 import java.util.Comparator;
 
-//import org.apache.spark.Partition;
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.dfs.cluster.ClusterRemapper;
@@ -29,7 +28,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
  * A partition of data.  One physical file
  * or key accessed by HPCC remote read.
  */
-public class DataPartition implements /*Partition,*/ Serializable
+public class DataPartition implements Serializable
 {
     public static final long serialVersionUID = 1L;
     private String[]         copyLocations;
@@ -53,9 +52,6 @@ public class DataPartition implements /*Partition,*/ Serializable
     private DataPartition(String[] copylocations, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
             String fileAccessBlob)
     {
-        //String f_str = dir + "/" + mask;
-        //this.file_name = f_str.replace("$P$", Integer.toString(this_part))
-        //                      .replace("$N$", Integer.toString(num_parts));
         this.this_part = this_part;
         this.num_parts = num_parts;
         this.rowservicePort = clearport;

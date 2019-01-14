@@ -25,7 +25,7 @@ import org.hpccsystems.commons.errors.HpccFileException;
 public interface IRecordReader
 {
 
-    public void initialize(IRecordBuilder recordBuilder);
+    public void initialize(IRecordBuilder recordBuilder) throws Exception;
 
     /**
     * Are there more records?  The first time used will trigger a
