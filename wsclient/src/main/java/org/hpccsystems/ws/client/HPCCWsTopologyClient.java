@@ -36,7 +36,6 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.hpccsystems.ws.client.utils.Utils;
 
 /**
 * Use as soap client for HPCC WsTopology web service.
@@ -148,50 +147,43 @@ public class HPCCWsTopologyClient extends DataSingleton
     {
         boolean success = false;
 
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        getSoapProxy();
+        
+        TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
+        tptargetclusterparams.setType("ROOT");
+        tptargetclusterparams.setShowDetails(false);
 
-        if (wsTopologyServiceSoapProxy != null)
+        try
         {
-            TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
-            tptargetclusterparams.setType("ROOT");
-            tptargetclusterparams.setShowDetails(false);
+            TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
 
-            try
+            if (targetClusterQueryResponse.getExceptions() != null)
             {
-                TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
-
-                if (targetClusterQueryResponse.getExceptions() != null)
+                //something went wrong
+                log.error("Could Not fetch target groups.");
+            }
+            else
+            {
+                TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
+                for (TpTargetCluster tptargetcluster : tpTargetClusters)
                 {
-                    //something went wrong
-                    log.error("Could Not fetch target groups.");
-                }
-                else
-                {
-                    TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
-                    for (TpTargetCluster tptargetcluster : tpTargetClusters)
+                    TpCluster[] tpClusters = tptargetcluster.getTpClusters();
+                    if (tpClusters != null )
                     {
-                        TpCluster[] tpClusters = tptargetcluster.getTpClusters();
-                        if (tpClusters != null )
+                        for (TpCluster tpcluster : tpClusters)
                         {
-                            for (TpCluster tpcluster : tpClusters)
-                            {
-                                stream.println(" TPCluster Name: " + tpcluster.getName());
-                            }
+                            stream.println(" TPCluster Name: " + tpcluster.getName());
                         }
                     }
                 }
-                success = true;
             }
-            catch (Exception e)
-            {
-                log.error(e.getLocalizedMessage());
-            }
+            success = true;
         }
-        else
+        catch (Exception e)
         {
-            log.error("Could Not create WSTopology SOAP from WSDL");
+            log.error(e.getLocalizedMessage());
         }
+
 
         return success;
     }
@@ -205,38 +197,31 @@ public class HPCCWsTopologyClient extends DataSingleton
     {
         TpTargetCluster[] tpTargetClusters = null;
 
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        getSoapProxy();
 
-        if (wsTopologyServiceSoapProxy != null)
+        TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
+        tptargetclusterparams.setType("ROOT");
+        tptargetclusterparams.setShowDetails(false);
+
+        try
         {
-            TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
-            tptargetclusterparams.setType("ROOT");
-            tptargetclusterparams.setShowDetails(false);
+            TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
 
-            try
+            if (targetClusterQueryResponse.getExceptions() != null)
             {
-                TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
-
-                if (targetClusterQueryResponse.getExceptions() != null)
-                {
-                    //something went wrong
-                    log.error("Could Not fetch target groups.");
-                }
-                else
-                {
-                    tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
-                }
+                //something went wrong
+                log.error("Could Not fetch target groups.");
             }
-            catch (Exception e)
+            else
             {
-                log.error(e.getLocalizedMessage());
+                tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
             }
         }
-        else
+        catch (Exception e)
         {
-            log.error("Could Not create WSTopology SOAP from WSDL");
+            log.error(e.getLocalizedMessage());
         }
+    
         return tpTargetClusters;
     }
 
@@ -249,44 +234,37 @@ public class HPCCWsTopologyClient extends DataSingleton
     {
         String[] tpTargetClusterNames = null;
 
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        getSoapProxy();
 
-        if (wsTopologyServiceSoapProxy != null)
+        TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
+        tptargetclusterparams.setType("ROOT");
+        tptargetclusterparams.setShowDetails(false);
+
+        try
         {
-            TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
-            tptargetclusterparams.setType("ROOT");
-            tptargetclusterparams.setShowDetails(false);
+            TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
 
-            try
+            if (targetClusterQueryResponse.getExceptions() != null)
             {
-                TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
+                //something went wrong
+                log.error("Could Not fetch target groups.");
+            }
+            else
+            {
+                TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
+                tpTargetClusterNames = new String [tpTargetClusters.length];
 
-                if (targetClusterQueryResponse.getExceptions() != null)
+                for (int i = 0; i < tpTargetClusters.length; i++)
                 {
-                    //something went wrong
-                    log.error("Could Not fetch target groups.");
-                }
-                else
-                {
-                    TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
-                    tpTargetClusterNames = new String [tpTargetClusters.length];
-
-                    for (int i = 0; i < tpTargetClusters.length; i++)
-                    {
-                        tpTargetClusterNames[i] = tpTargetClusters[i].getName();
-                    }
+                    tpTargetClusterNames[i] = tpTargetClusters[i].getName();
                 }
             }
-            catch (Exception e)
-            {
-                log.error(e.getLocalizedMessage());
-            }
         }
-        else
+        catch (Exception e)
         {
-            log.error("Could Not create WSTopology SOAP from WSDL");
+            log.error(e.getLocalizedMessage());
         }
+       
         return tpTargetClusterNames;
     }
 
@@ -310,8 +288,7 @@ public class HPCCWsTopologyClient extends DataSingleton
      */
     public TpDropZone[] queryDropzones(String namefilter) throws Exception
     {
-         if (wsTopologyServiceSoapProxy == null)
-             throw new Exception("wsTopologyServiceSoapProxy not available");
+         getSoapProxy();
 
          TpDropZoneQueryResponse resp = wsTopologyServiceSoapProxy.tpDropZoneQuery(new TpDropZoneQueryRequest(namefilter, false));
          ArrayOfEspException exceptions = resp.getExceptions();
@@ -341,55 +318,48 @@ public class HPCCWsTopologyClient extends DataSingleton
     {
         String[] tpTargetClusterNames = null;
 
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        getSoapProxy();
+    
+        TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
+        tptargetclusterparams.setType("ROOT");
+        tptargetclusterparams.setShowDetails(false);
 
-        if (wsTopologyServiceSoapProxy != null)
+        try
         {
-            TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
-            tptargetclusterparams.setType("ROOT");
-            tptargetclusterparams.setShowDetails(false);
+            TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
 
-            try
+            if (targetClusterQueryResponse.getExceptions() != null)
             {
-                TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
+                //something went wrong
+                log.error("Could Not fetch target groups.");
+            }
+            else
+            {
+                TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
 
-                if (targetClusterQueryResponse.getExceptions() != null)
+                for (int i = 0; i < tpTargetClusters.length; i++)
                 {
-                    //something went wrong
-                    log.error("Could Not fetch target groups.");
-                }
-                else
-                {
-                    TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
-
-                    for (int i = 0; i < tpTargetClusters.length; i++)
+                    if (clusterGroupType.equalsIgnoreCase(tpTargetClusters[i].getName()) )
                     {
-                        if (clusterGroupType.equalsIgnoreCase(tpTargetClusters[i].getName()) )
+                        TpCluster[] tpClusters = tpTargetClusters[i].getTpClusters();
+                        if (tpClusters != null )
                         {
-                            TpCluster[] tpClusters = tpTargetClusters[i].getTpClusters();
-                            if (tpClusters != null )
+                            tpTargetClusterNames = new String[tpClusters.length];
+                            for (int k = 0; k < tpClusters.length; k++)
                             {
-                                tpTargetClusterNames = new String[tpClusters.length];
-                                for (int k = 0; k < tpClusters.length; k++)
-                                {
-                                    tpTargetClusterNames[k] = tpClusters[k].getName();
-                                }
+                                tpTargetClusterNames[k] = tpClusters[k].getName();
                             }
-                            break;
                         }
+                        break;
                     }
                 }
             }
-            catch (Exception e)
-            {
-                log.error(e.getLocalizedMessage());
-            }
         }
-        else
+        catch (Exception e)
         {
-            log.error("Could Not create WSTopology SOAP from WSDL");
+            log.error(e.getLocalizedMessage());
         }
+
         return tpTargetClusterNames;
     }
 
@@ -401,56 +371,48 @@ public class HPCCWsTopologyClient extends DataSingleton
     public List<String> getValidTargetClusterNames() throws Exception
     {
         List<String> clusternames = new ArrayList<String>();
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        
+        getSoapProxy();
 
-        if (wsTopologyServiceSoapProxy != null)
+        TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
+        tptargetclusterparams.setType("ROOT");
+        tptargetclusterparams.setShowDetails(false);
+
+        try
         {
-            TpTargetClusterQueryRequest tptargetclusterparams = new TpTargetClusterQueryRequest();
-            tptargetclusterparams.setType("ROOT");
-            tptargetclusterparams.setShowDetails(false);
+            TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
 
-            try
+            if (targetClusterQueryResponse.getExceptions() != null)
             {
-                TpTargetClusterQueryResponse targetClusterQueryResponse = wsTopologyServiceSoapProxy.tpTargetClusterQuery(tptargetclusterparams);
-
-                if (targetClusterQueryResponse.getExceptions() != null)
+                //something went wrong
+                log.error("Could Not fetch target groups.");
+            }
+            else
+            {
+                TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
+                for (TpTargetCluster tptargetcluster : tpTargetClusters)
                 {
-                    //something went wrong
-                    log.error("Could Not fetch target groups.");
-                }
-                else
-                {
-                    TpTargetCluster[] tpTargetClusters = targetClusterQueryResponse.getTpTargetClusters();
-                    for (TpTargetCluster tptargetcluster : tpTargetClusters)
+                    TpCluster[] tpClusters = tptargetcluster.getTpClusters();
+                    if (tpClusters != null )
                     {
-                        TpCluster[] tpClusters = tptargetcluster.getTpClusters();
-                        if (tpClusters != null )
+                        for (TpCluster tpcluster : tpClusters)
                         {
-                            for (TpCluster tpcluster : tpClusters)
-                            {
-                                clusternames.add(tpcluster.getName());
-                            }
+                            clusternames.add(tpcluster.getName());
                         }
                     }
                 }
             }
-            catch (Exception e)
-            {
-                log.error(e.getLocalizedMessage());
-            }
         }
-        else
+        catch (Exception e)
         {
-            log.error("Could Not create WSTopology SOAP from WSDL");
+            log.error(e.getLocalizedMessage());
         }
         return clusternames;
     }
 
     public TpServices  getServices() throws Exception
     {
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        getSoapProxy();
 
         TpServices  tpservices= null;
         if (wsTopologyServiceSoapProxy != null)
@@ -466,28 +428,22 @@ public class HPCCWsTopologyClient extends DataSingleton
         return tpservices;
     }
 
-    public TpClusterInfoResponse getClusterInfo(String clusterName) throws ArrayOfEspException, RemoteException
+    public TpClusterInfoResponse getClusterInfo(String clusterName) throws Exception
     {
         TpClusterInfoResponse respsone = null;
-        if (wsTopologyServiceSoapProxy != null)
-        {
-            TpClusterInfoRequest request = new TpClusterInfoRequest();
-            request.setName(clusterName);
-            respsone = wsTopologyServiceSoapProxy.tpClusterInfo(request);
-
-        }
-        else
-        {
-            log.error("Could Not create WSTopology SOAP from WSDL");
-        }
+        
+        getSoapProxy();
+        
+        TpClusterInfoRequest request = new TpClusterInfoRequest();
+        request.setName(clusterName);
+        respsone = wsTopologyServiceSoapProxy.tpClusterInfo(request);
 
         return respsone;
     }
 
     public TpLogicalCluster[] getLogicalClusters() throws Exception
     {
-        if (wsTopologyServiceSoapProxy == null)
-            throw new Exception("wsTopologyServiceSoapProxy not available");
+        getSoapProxy();
 
         TpLogicalCluster[] tplogclusters = null;
 
