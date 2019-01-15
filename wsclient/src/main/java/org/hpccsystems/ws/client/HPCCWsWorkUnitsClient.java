@@ -28,6 +28,7 @@ import org.hpccsystems.ws.client.platform.QueryFileInfo;
 import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.Version;
+import org.hpccsystems.ws.client.platform.WUActionCode;
 import org.hpccsystems.ws.client.platform.WULogFileInfo;
 import org.hpccsystems.ws.client.platform.WUQueryInfo;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -277,7 +278,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @param state2
      * @return true if state1 == state2
      */
-    private boolean isWorkunitState(WUState state1, WUState state2)
+    static private boolean isWorkunitState(WUState state1, WUState state2)
     {
         return state1 == state2;
     }
@@ -293,13 +294,16 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public boolean isWorkunitComplete(String wuid) throws Exception
     {
         WorkunitInfo thewui = getWUInfo(wuid);
-        if (thewui != null) return isWorkunitComplete(thewui);
+        if (thewui != null)
+        {
+            return isWorkunitComplete(thewui);
+        }
 
         return false;
     }
 
     /**
-     * Replies true if given wuid is in complete state. This method does not makea call to WS, and it is preferable over
+     * Replies true if given wuid is in complete state. This method does not make a call to WS, and it is preferable over
      * the version that calls WS.
      *
      * @param wuid
@@ -308,7 +312,25 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     static public boolean isWorkunitComplete(WorkunitInfo thewui)
     {
-        return isWorkunitComplete(getStateID(thewui));
+        WUActionCode origAction = WUActionCode.fromName(thewui.getActionEx()); // some WUs have ActionEX as a string
+        if (origAction == WUActionCode.WUActionUnknown)
+            origAction = WUActionCode.fromInteger(thewui.getAction()); // some WUs have Action as a code
+
+        return isWorkunitComplete(getStateID(thewui), origAction);
+    }
+
+    /**
+     * reports if a workunit is complete based on wustate, and original action if available
+     *
+     * @param state
+     * @return true if wu is in completed state
+    */
+    static public boolean isWorkunitComplete(WUState state, WUActionCode origAction)
+    {
+        if (origAction == WUActionCode.WUActionRun && isWorkunitState(state, WUState.COMPILED))
+            return false;
+
+        return isWorkunitComplete(state);
     }
 
     /**
@@ -319,7 +341,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     static public boolean isWorkunitComplete(WUState state)
     {
-       
         switch (state)
         {
             case UNKNOWN_ONSERVER:
@@ -1376,7 +1397,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         else
         {
             WUCreateAndUpdate wucreateparameters = new WUCreateAndUpdate();
-            wucreateparameters.setAction(1); // 1= compile
+            wucreateparameters.setAction(WUActionCode.WUActionCompile.ordinal());
             wucreateparameters.setQueryText(wu.getECL());
             wucreateparameters.setApplicationValues(wu.getRawApplicationValues());
             wucreateparameters.setDebugValues(wu.getDebugValues());

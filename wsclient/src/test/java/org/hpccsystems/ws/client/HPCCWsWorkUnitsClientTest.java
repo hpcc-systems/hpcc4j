@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.hpccsystems.ws.client.platform.WUActionCode;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.junit.Test;
@@ -48,9 +49,10 @@ public class HPCCWsWorkUnitsClientTest {
         compiling.setState(WUState.COMPILING.name());
         assertFalse(HPCCWsWorkUnitsClient.isWorkunitComplete(compiling));
 
-        final WorkunitInfo compiled = new WorkunitInfo();
-        compiled.setState(WUState.COMPILED.name());
-        assertTrue(HPCCWsWorkUnitsClient.isWorkunitComplete(compiled));
+        final WorkunitInfo run = new WorkunitInfo();
+        run.setState(WUState.COMPILED.name());
+        run.setAction(WUActionCode.WUActionRun.ordinal());
+        assertFalse(HPCCWsWorkUnitsClient.isWorkunitComplete(run));
 
         final WorkunitInfo unknown = new WorkunitInfo();
         unknown.setState("FOOBAR");
