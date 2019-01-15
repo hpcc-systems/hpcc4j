@@ -9,7 +9,7 @@ public class WsWorkunitsClientIntegrationTest_54 extends BaseWsWorkunitsClientIn
     @Override
     public Platform getPlatform() throws Exception
     {
-        Platform p=Platform.get("http", "10.240.32.21", 8010, "dleed", "zaq1ZAQ!");
+        Platform p=Platform.get("http", "localhost", 8010, "user", "pass");
         if (p.getVersion().toString().startsWith(version))
             throw new Exception(p.getIP() + " is no longer on version " + version + "! It is now on " + p.getVersion().toString());
         return p;
