@@ -115,7 +115,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest {
             wu.setECL(ecl);
             wu.setCluster(thorcluster.getName());
             wu.setJobname("testgetworkunit-" + i + "-" + uniquerun);
-            wu.setOwner("dleed");
+            wu.setOwner("user");
             wu.getApplicationValues().add(new ApplicationValueInfo("HIPIE","testkey","testvalue"));
             wu.getApplicationValues().add(new ApplicationValueInfo("HIPIE","testkey2","testvalue" + i));
             wu.getApplicationValues().add(new ApplicationValueInfo("HIPIE","uniquetestkey" + i,"uniquetestvalue" + i));
