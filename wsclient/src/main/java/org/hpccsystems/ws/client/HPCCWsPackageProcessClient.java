@@ -8,12 +8,9 @@ import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 
 import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileRequest;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileResponse;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ActivatePackageResponse;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.BasePackageStatus;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.GetPackageRequest;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.GetPackageResponse;
 import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.WsPackageProcessServiceSoap;
@@ -22,7 +19,6 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.hpccsystems.ws.client.utils.Utils;
 
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
@@ -139,8 +135,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
     {
         log.debug("Attempting to activate package: " + packageMapName);
 
-        if (wsPackageProcessServiceSoapProxy == null)
-            throw new Exception ("wsPackageProcessServiceSoapProxy not available!");
+        getSoapProxy();
 
         ActivatePackageRequest activatepackageparams = new ActivatePackageRequest();
         activatepackageparams.setGlobalScope(new Boolean(globalScope));
@@ -188,8 +183,7 @@ public class HPCCWsPackageProcessClient extends DataSingleton
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
-        if (wsPackageProcessServiceSoapProxy == null)
-            throw new Exception ("wsPackageProcessServiceSoapProxy not available!");
+        getSoapProxy();
 
         GetPackageRequest getpackageparams = new GetPackageRequest();
         getpackageparams.setProcess(process);
