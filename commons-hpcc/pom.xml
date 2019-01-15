@@ -167,6 +167,42 @@
             </build>
         </profile>
     </profiles>
+    <developers>
+        <developer>
+            <id>rpastrana</id>
+            <name>Rodrigo Pastrana</name>
+            <email>info@hpccsystems.com</email>
+            <organization>LexisNexis Risk</organization>
+            <organizationUrl>https://hpccsystems.com</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>America/New_York</timezone>
+        </developer>
+        <developer>
+            <id>jpmcmu</id>
+            <name>James McMullan</name>
+            <email>info@hpccsystems.com</email>
+            <organization>LexisNexis Risk</organization>
+            <organizationUrl>https://hpccsystems.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>America/New_York</timezone>
+        </developer>
+        <developer>
+            <id>mgardner</id>
+            <name>Michael Gardner</name>
+            <email>info@hpccsystems.com</email>
+            <organization>LexisNexis Risk</organization>
+            <organizationUrl>https://hpccsystems.com</organizationUrl>
+            <roles>
+                <role>maintainer</role>
+            </roles>
+            <timezone>America/New_York</timezone>
+        </developer>
+    </developers>
     <issueManagement>
         <system>Jira</system>
         <url>https://track.hpccsystems.com/browse/JAPI</url>
