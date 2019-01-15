@@ -1405,33 +1405,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
         else
         {
-            WUCreateAndUpdate wucreateparameters = new WUCreateAndUpdate();
-            wucreateparameters.setAction(WUActionCode.WUActionCompile.ordinal());
-            wucreateparameters.setQueryText(wu.getECL());
-            wucreateparameters.setApplicationValues(wu.getRawApplicationValues());
-            wucreateparameters.setDebugValues(wu.getDebugValues());
-            wucreateparameters.setJobname(wu.getJobname());
-            wucreateparameters.setClusterOrig(wu.getCluster());
-            wucreateparameters.setResultLimit(wu.getResultLimit());
-            wucreateparameters.setWuid(wu.getWuid());
-
-            WUUpdateResponse wuUpdateResponse = wsWorkunitsServiceSoapProxy.WUCreateAndUpdate(wucreateparameters);
-
-            ArrayOfEspException exceptions = wuUpdateResponse.getExceptions();
-            if (exceptions == null)
-            {
-                createdWU = new WorkunitInfo(wuUpdateResponse.getWorkunit());
-                createdWU.setMaxMonitorMillis(wu.getMaxMonitorMillis());
-                createdWU.setCluster(wu.getCluster());
-                createdWU.setJobname(wu.getJobname());
-                createdWU.setSleepMillis(wu.getSleepMillis());
-                createdWU.setOriginalEclWatchUrl(getEclWatchUrl());
-
-            }
-            else
-            {
-                throwWsWUExceptions(exceptions, "Error compiling ECL query");
-            }
+            throwWsWUExceptions(exceptions, "Error compiling ECL query");
         }
 
         return createdWU;
