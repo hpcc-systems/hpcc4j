@@ -27,6 +27,9 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - Based on Apache Jena and dependent on org.hpccsystems.ws.client
   - [Changelog](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/rdf2hpcc/README.md#changelog)
 
+- hpcc commons
+  - HPCC Systems Java API common classes [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/commons-hpcc/README.md)
+
 #### Build
 These projects are configured to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:
 
