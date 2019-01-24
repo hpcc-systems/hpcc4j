@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
-import org.hpccsystems.commons.ecl.DummyFieldDefinitions;
+import org.hpccsystems.commons.ecl.TestFieldDefinitions;
 import org.hpccsystems.commons.errors.UnparsableContentException;
 
 import org.junit.After;
@@ -35,7 +35,7 @@ public class RecordDefinitionTests
     @Test
     public void testJsonRecordParsing() throws Exception
     {
-        String jsonRecDefStr = DummyFieldDefinitions.getComplexRecordDefinitionJson();
+        String jsonRecDefStr = TestFieldDefinitions.getComplexRecordDefinitionJson();
         try
         {
             JSONObject jsonRecDef = new JSONObject(jsonRecDefStr);
