@@ -198,24 +198,21 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case INTEGER:
             {
+                Long value = (Long) fieldValue;
                 if (fd.getDataLen() == 1)
                 {
-                    Byte value = (Byte) fieldValue;
-                    this.buffer.put(value);
+                    this.buffer.put(value.byteValue());
                 }
                 else if (fd.getDataLen() == 2)
                 {
-                    Short value = (Short) fieldValue;
-                    this.buffer.putShort(value);
+                    this.buffer.putShort(value.shortValue());
                 }
                 else if (fd.getDataLen() == 4)
                 {
-                    Integer value = (Integer) fieldValue;
-                    this.buffer.putInt(value);
+                    this.buffer.putInt(value.intValue());
                 }
                 else if (fd.getDataLen() == 8)
                 {
-                    Long value = (Long) fieldValue;
                     this.buffer.putLong(value);
                 }
                 else

@@ -186,7 +186,7 @@ public class BinaryRecordReader implements IRecordReader
         Object fieldValue = null;
         int dataLen = 0;
 
-        int minLength = 0;
+        int minLength = 4;
         if (fd.isFixed())
         {
             if (fd.getDataLen() > Integer.MAX_VALUE)
