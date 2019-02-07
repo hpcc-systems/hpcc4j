@@ -295,7 +295,7 @@ public class PlainConnection
             {
                 this.cursorBin = new byte[cursorLen];
             }
-            dis.readFully(this.cursorBin);
+            dis.readFully(this.cursorBin,0,cursorLen);
 
         }
         catch (IOException e)
