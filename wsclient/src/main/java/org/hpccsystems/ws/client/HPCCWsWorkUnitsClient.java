@@ -1370,8 +1370,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
         if (wsWorkunitsServiceSoapProxy == null)
             throw new Exception("wsWorkunitsServiceSoapProxy not available");
-        else 
-        {   
+        else
+        {
             WUCreateAndUpdateWrapper wucreateparameters = new WUCreateAndUpdateWrapper();
             wucreateparameters.setAction(1); // 1= compile
             wucreateparameters.setQueryText(wu.getECL());

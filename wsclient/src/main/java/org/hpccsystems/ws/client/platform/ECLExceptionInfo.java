@@ -4,14 +4,14 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException;
 
 public class ECLExceptionInfo {
-    private Integer activity;
-    private Integer code;
-    private Integer column;
-    private String fileName;
-    private Integer lineNo;
-    private String message;
-    private String severity;
-    private String source;
+    private Integer activity=null;
+    private Integer code=null;
+    private Integer column=null;
+    private String fileName=null;
+    private Integer lineNo=null;
+    private String message=null;
+    private String severity=null;
+    private String source=null;
     
     private String audience;
     private String espCode;
@@ -156,6 +156,15 @@ public class ECLExceptionInfo {
     public String getEspCode()
     {
         return espCode;
+    }
+    
+    public String getErrorCode() {
+        if (espCode != null) {
+            return espCode;
+        } else if (code != null) {
+            return String.valueOf(code);
+        }
+        return null;
     }
 
 }
