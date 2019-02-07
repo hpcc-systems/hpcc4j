@@ -3,11 +3,11 @@ package org.hpccsystems.ws.client;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,15 +15,17 @@ import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
-import java.nio.channels.WritableByteChannel;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
-
+import org.apache.log4j.Logger;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZoneFileSearchRequest;
+import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZoneFileSearchResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZoneFilesResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.EspException;
@@ -43,8 +45,6 @@ import org.hpccsystems.ws.client.gen.filespray.v1_16.SprayFixed;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.SprayFixedResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.SprayResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_16.SprayVariable;
-import org.hpccsystems.ws.client.gen.filespray.v1_16.ArrayOfEspException;
-
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
@@ -292,7 +292,7 @@ public class HPCCFileSprayClient extends DataSingleton
     {
         DropZoneFilesRequest dzfr = new DropZoneFilesRequest();
         dzfr.setNetAddress(dropzoneNetAddress);
-        dzfr.setDirectoryOnly(true);
+        dzfr.setDirectoryOnly(false);
 
         DropZoneFilesResponse resp = fileSprayServiceSoapProxy.dropZoneFiles(dzfr);
         ArrayOfEspException exceptions = resp.getExceptions();
@@ -307,33 +307,41 @@ public class HPCCFileSprayClient extends DataSingleton
         return  resp.getDropZones();
     }
 
-    /*
-    <?xml version="1.0" encoding="utf-8"?>
-    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://schemas.xmlsoap.org/ws/2002/04/secext">
-     <soap:Body>
-      <FileListResponse xmlns="urn:hpccsystems:ws:filespray">
-       <Netaddr>10.0.2.15</Netaddr>
-       <Path>/var/lib/HPCCSystems/mydropzone</Path>
-       <Mask/>
-       <OS>0</OS>
-       <DirectoryOnly>0</DirectoryOnly>
-       <files>
-        <PhysicalFileStruct>
-         <name>eula.1028.txt</name>
-         <isDir>0</isDir>
-         <filesize>17734</filesize>
-         <modifiedtime>2014-04-03 15:17:54</modifiedtime>
-        </PhysicalFileStruct>
-       </files>
-      </FileListResponse>
-     </soap:Body>
-    </soap:Envelope>
-      */
+    /**
+     * Perform HPCC Drop Zone file search
+     * @param dzname - Required, the name of the Drop Zone to query
+     * @param netaddr - Required, the netaddress of the Drop Zone node to query
+     * @param namefilter - Required, the wildcard based name-filter to query
+     * @return
+     * @throws Exception
+     */
+    public PhysicalFileStruct [] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception
+    {
+        if (fileSprayServiceSoapProxy == null)
+            throw new Exception("FileSpray Service Soap Proxy not available.");
+        DropZoneFileSearchRequest req = new DropZoneFileSearchRequest();
+        req.setDropZoneName(dzname);
+        req.setNameFilter(namefilter);
+        req.setServer(netaddr);
+
+        DropZoneFileSearchResponse resp = fileSprayServiceSoapProxy.dropZoneFileSearch(req);
+        
+         ArrayOfEspException exceptions = resp.getExceptions();
+         if (exceptions != null)
+         {
+             for (EspException espexception : exceptions.getException())
+             {
+                 throw new Exception("Error fetching dropzone file info: " + espexception.getSource() + espexception.getMessage());
+             }
+         }
+         return resp.getFiles();
+    }
 
     /**
-     * Fetch list of files on a give landingzone on the target HPCC System
-     * @param netAddress      - Landingzone address
-     * @param path            - The landing zone path on the local filesystem
+     * Fetch list of files on a given dropzone's machine on the target HPCC System
+     * Note: a logical dropzone can contain multiple machines
+     * @param netAddress      - Address of specific dropzone instance
+     * @param path            - The dropzone zone path on the local filesystem
      * @return                - Array of file descriptors
      * @throws Exception
      */
@@ -358,7 +366,7 @@ public class HPCCFileSprayClient extends DataSingleton
             }
         }
 
-        return  resp.getFiles();
+        return resp.getFiles();
     }
 
     /**
@@ -1019,7 +1027,7 @@ public class HPCCFileSprayClient extends DataSingleton
         }
         return true;
     }
-    
+
     /**
      * Attempts to download the specified file from a dropzone
      *

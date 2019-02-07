@@ -63,8 +63,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     private WsWorkunitsServiceSoapProxy                                                 wsWorkunitsServiceSoapProxy       = null;
     public static final int                                                             defaultWaitTime                   = 10000;
     public static final int                                                             defaultResultLimit                = 100;
-    public static final int                                                             defaultMaxWaitTime                = 1000
-            * 60 * 5;
+    public static final int                                                             defaultMaxWaitTime                = 1000 * 60 * 5;
     private Version                                                                     targetVersion                     = null;
     private boolean                                                                     verbose                           = false;
     private WsWorkunitsClientSoapProxyWrapper                                           soapWrapper=null;

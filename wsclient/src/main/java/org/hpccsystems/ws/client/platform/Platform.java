@@ -755,9 +755,8 @@ public class Platform extends DataSingleton
             HPCCWsClient hpccclient = null;
             try
             {
-                //HPCCWsTopologyClient topclient = platformHPCCClient.getWsTopologyClient();
                 hpccclient = hpccClientPool.checkOut();
-                HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient();
+                HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient(); //rodrigo, this call is expensive, just query DZs from wsfs?
                 TpServices services = topclient.getServices();
                 if (services != null)
                     updateServices(services);

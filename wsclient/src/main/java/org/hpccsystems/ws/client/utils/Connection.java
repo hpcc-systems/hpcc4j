@@ -2,14 +2,15 @@ package org.hpccsystems.ws.client.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 import org.apache.axis.encoding.Base64;
 import org.apache.axis.utils.StringUtils;
+import org.apache.log4j.Logger;
 
 public class Connection
 {
@@ -75,7 +76,7 @@ public class Connection
                 String credstring=new String(Base64.decode(encodedCreds));
                 String[] creds=StringUtils.split(credstring, ':');
                 if (creds.length != 2) {
-                	throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
+                    throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
                 }
                 this.userName=creds[0];
                 this.password=creds[1];
@@ -138,6 +139,34 @@ public class Connection
         return protHttps.equalsIgnoreCase(protocol);
     }
 
+    /**
+     *
+     * @param connectionstring as defined by java.net.URL
+     * @throws MalformedURLException
+     * @throws Exception
+     */
+    public Connection(String connectionstring) throws MalformedURLException
+    {
+        URL theurl = new URL(connectionstring);
+
+        setProtocol(theurl.getProtocol());
+
+        host = theurl.getHost();
+        if (theurl.getPort() < 0)
+            throw new MalformedURLException("Invalid port encountered: '" + theurl.getPort() + "'" );
+
+        setPort(Integer.toString(theurl.getPort()));
+        setURIPath(theurl.getPath());
+
+        options = null;
+        if (theurl.getQuery() != null) 
+            options = theurl.getQuery().split("&");
+
+        constructUrl();
+
+        credentials = new Credentials();
+    }
+
     public Connection(boolean ssl, String host, int port)
     {
         this(getProtocol(ssl), host, String.valueOf(port), null, null);
@@ -155,15 +184,7 @@ public class Connection
 
     public Connection(String protocol_, String host_, String port_, String path_, String[] options_)
     {
-        if (protocol_ != null && protocol_.length() > 0)
-        {
-            protocol = protocol_;
-        }
-        else
-        {
-            isHttps = true;
-            protocol = protHttp;
-        }
+        setProtocol(protocol_);
 
         host = host_;
         setPort(port_);
@@ -174,6 +195,19 @@ public class Connection
         constructUrl();
 
         credentials = new Credentials();
+    }
+
+    private void setProtocol(String protocol_)
+    {
+        if (protocol_ != null && protocol_.length() > 0)
+        {
+            protocol = protocol_;
+        }
+        else
+        {
+            isHttps = true;
+            protocol = protHttp;
+        }
     }
 
     private void setPort(String port_)
@@ -220,8 +254,7 @@ public class Connection
                 }
                 catch (UnsupportedEncodingException e)
                 {
-                    log.warn("Warning: could not encode URL option: "
-                            + options[i]);
+                    log.warn("Warning: could not encode URL option: " + options[i]);
                     baseUrl.append(options[i]);
                 }
             }
@@ -427,6 +460,11 @@ public class Connection
         }
 
         return url.toString();
+    }
+
+    public String toString()
+    {
+        return buildUrl(protocol, host, port, path, options);
     }
 
     private static final int        DEFAULT_READ_TIMEOUT        = 180 * 1000;
