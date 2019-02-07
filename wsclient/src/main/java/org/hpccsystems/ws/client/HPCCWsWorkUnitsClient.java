@@ -1004,7 +1004,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (in.getThorLCR() != null) out.setThorLCR(in.getThorLCR());
         if (in.getEventSchedule() != null) out.setEventSchedule(in.getEventSchedule());
         //RODRIGO
-//        if (in.getHaveSubGraphTimings() != null) out.setHaveSubGraphTimings(in.getHaveSubGraphTimings());
+        if (in.getHaveSubGraphTimings() != null) out.setHaveSubGraphTimings(in.getHaveSubGraphTimings());
         if (in.getTotalClusterTime() != null) out.setTotalClusterTime(in.getTotalClusterTime());
         if (in.getAllowedClusters() != null) out.setAllowedClusters(in.getAllowedClusters());
         if (in.getErrorCount() != null) out.setErrorCount(in.getErrorCount());

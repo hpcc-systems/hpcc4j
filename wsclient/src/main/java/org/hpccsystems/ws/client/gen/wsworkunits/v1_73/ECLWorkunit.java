@@ -56,6 +56,8 @@ public class ECLWorkunit  implements java.io.Serializable {
 
     private java.lang.Integer eventSchedule;
 
+    private java.lang.Boolean haveSubGraphTimings;
+
     private java.lang.String totalClusterTime;
 
     private java.lang.String abortBy;
@@ -178,6 +180,7 @@ public class ECLWorkunit  implements java.io.Serializable {
            java.lang.Boolean isPausing,
            java.lang.Boolean thorLCR,
            java.lang.Integer eventSchedule,
+           java.lang.Boolean haveSubGraphTimings,
            java.lang.String totalClusterTime,
            java.lang.String abortBy,
            java.lang.String abortTime,
@@ -249,6 +252,7 @@ public class ECLWorkunit  implements java.io.Serializable {
            this.isPausing = isPausing;
            this.thorLCR = thorLCR;
            this.eventSchedule = eventSchedule;
+           this.haveSubGraphTimings = haveSubGraphTimings;
            this.totalClusterTime = totalClusterTime;
            this.abortBy = abortBy;
            this.abortTime = abortTime;
@@ -778,6 +782,24 @@ public class ECLWorkunit  implements java.io.Serializable {
         this.eventSchedule = eventSchedule;
     }
 
+    /**
+     * Gets the haveSubGraphTimings value for this ECLWorkunit.
+     *
+     * @return haveSubGraphTimings
+     */
+    public java.lang.Boolean getHaveSubGraphTimings() {
+        return haveSubGraphTimings;
+    }
+
+
+    /**
+     * Sets the haveSubGraphTimings value for this ECLWorkunit.
+     *
+     * @param haveSubGraphTimings
+     */
+    public void setHaveSubGraphTimings(java.lang.Boolean haveSubGraphTimings) {
+        this.haveSubGraphTimings = haveSubGraphTimings;
+    }
 
     /**
      * Gets the totalClusterTime value for this ECLWorkunit.
@@ -1802,6 +1824,9 @@ public class ECLWorkunit  implements java.io.Serializable {
             ((this.eventSchedule==null && other.getEventSchedule()==null) || 
              (this.eventSchedule!=null &&
               this.eventSchedule.equals(other.getEventSchedule()))) &&
+            ((this.haveSubGraphTimings==null && other.getHaveSubGraphTimings()==null) ||
+                    (this.haveSubGraphTimings!=null &&
+                            this.haveSubGraphTimings.equals(other.getHaveSubGraphTimings()))) &&
             ((this.totalClusterTime==null && other.getTotalClusterTime()==null) || 
              (this.totalClusterTime!=null &&
               this.totalClusterTime.equals(other.getTotalClusterTime()))) &&
@@ -2025,6 +2050,9 @@ public class ECLWorkunit  implements java.io.Serializable {
         }
         if (getEventSchedule() != null) {
             _hashCode += getEventSchedule().hashCode();
+        }
+        if (getHaveSubGraphTimings() != null) {
+            _hashCode += getHaveSubGraphTimings().hashCode();
         }
         if (getTotalClusterTime() != null) {
             _hashCode += getTotalClusterTime().hashCode();
@@ -2454,6 +2482,13 @@ public class ECLWorkunit  implements java.io.Serializable {
         elemField.setFieldName("eventSchedule");
         elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "EventSchedule"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("haveSubGraphTimings");
+        elemField.setXmlName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "HaveSubGraphTimings"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
