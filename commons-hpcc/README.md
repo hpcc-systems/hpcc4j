@@ -33,7 +33,9 @@ For more information on how to use Maven see http://maven.apache.org
 
 #### Future Release
 
-###### 1.0.0 Target Release date January 2019 
+###### 1.0.2 Target Release date February 2019
+
+###### 1.0.0 Release date January 2019
 
 #### Release Changelog
 
