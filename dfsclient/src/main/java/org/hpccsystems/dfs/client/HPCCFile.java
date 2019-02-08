@@ -33,7 +33,6 @@ import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 
@@ -325,26 +324,24 @@ public class HPCCFile implements Serializable
             int expirySeconds, String clusterName) throws Exception
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
-        return hpccClient.getFileAccess(SecAccessType.Read, fileName, clusterName, expirySeconds, uniqueID, true, false,
-                true);
+        return hpccClient.getFileAccess(fileName, clusterName, expirySeconds, uniqueID);
     }
 
     private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds,
             String clusterName) throws Exception
     {
-        return acquireFileAccess(fileName, SecAccessType.Read, hpccClient, expirySeconds, clusterName);
+        return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
     private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds,
             String clusterName) throws Exception
     {
-        return acquireFileAccess(fileName, SecAccessType.Write, hpccClient, expirySeconds, clusterName);
+        return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
-    private static String acquireFileAccess(String fileName, SecAccessType accesstype, HPCCWsDFUClient hpcc,
-            int expirySeconds, String clusterName) throws Exception
+    private static String acquireFileAccess(String fileName, HPCCWsDFUClient hpcc, int expirySeconds, String clusterName) throws Exception
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
-        return hpcc.getFileAccessBlob(accesstype, fileName, clusterName, expirySeconds, uniqueID);
+        return hpcc.getFileAccessBlob(fileName, clusterName, expirySeconds, uniqueID);
     }
 }

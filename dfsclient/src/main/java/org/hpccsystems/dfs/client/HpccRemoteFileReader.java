@@ -13,12 +13,11 @@
 package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.commons.ecl.FieldDef;
-import org.hpccsystems.dfs.client.PlainConnection;
+import org.hpccsystems.dfs.client.RowServiceInputStream;
 import org.hpccsystems.commons.errors.HpccFileException;
 
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.Field;
 import java.util.Iterator;
 
 /**
@@ -28,11 +27,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 {
     private static final Logger log           = Logger.getLogger(HpccRemoteFileReader.class.getName());
 
-    private FieldDef            originalRecordDef = null;
-    private DataPartition       dataPartition = null;
-    private PlainConnection     connection    = null;
-    private BinaryRecordReader  binaryRecordReader;
-    private IRecordBuilder      recordBuilder = null;
+    private FieldDef                    originalRecordDef = null;
+    private DataPartition               dataPartition = null;
+    private RowServiceInputStream    inputStream= null;
+    private BinaryRecordReader          binaryRecordReader;
+    private IRecordBuilder              recordBuilder = null;
 
     /**
      * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
@@ -59,11 +58,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             throw new Exception("IRecordBuilder does not have a valid record definition.");
         }
 
-        this.connection = new PlainConnection(this.dataPartition, 
-                                            this.originalRecordDef,
-                                            projectedRecordDefinition);
+        this.inputStream = new RowServiceInputStream(this.dataPartition, 
+                                                        this.originalRecordDef,
+                                                        projectedRecordDefinition);
 
-        this.binaryRecordReader = new BinaryRecordReader(this.connection);
+        this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
         this.binaryRecordReader.initialize(this.recordBuilder);
     }
 
@@ -108,5 +107,10 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             throw new java.util.NoSuchElementException("Fatal read error");
         }
         return (T) rslt;
+    }
+
+    public void close() throws Exception
+    {
+        this.inputStream.close();
     }
 }

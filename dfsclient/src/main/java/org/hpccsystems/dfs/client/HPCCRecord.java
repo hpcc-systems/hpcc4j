@@ -50,4 +50,28 @@ public class HPCCRecord
     {
         return fields.length;
     }
+
+    public boolean equals(Object o)
+    {
+        if (o == null || (o instanceof HPCCRecord) == false)
+        {
+            return false;
+        }
+
+        HPCCRecord rhs = (HPCCRecord) o;
+        if (fields.length != rhs.fields.length) 
+        {
+            return false;
+        }
+
+        for (int i = 0; i < fields.length; i++)
+        {
+            if (fields[i].equals(rhs.fields[i]) == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 };
