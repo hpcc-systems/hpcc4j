@@ -116,12 +116,13 @@
 						</dependency>
 					</dependencies>
 					<configuration>
-                        <skipTests>false</skipTests>
-                        <testFailureIgnore>true</testFailureIgnore>
-                        <forkMode>once</forkMode>
+						<skipTests>false</skipTests>
+						<testFailureIgnore>true</testFailureIgnore>
+						<forkMode>once</forkMode>
 						<includes>
 							<include>**/*.class</include>
 						</includes>
+						<excludedGroups>org.hpccsystems.dfs.client.RemoteTests</excludedGroups>
 					</configuration>
 				</plugin>
 			</plugins>
