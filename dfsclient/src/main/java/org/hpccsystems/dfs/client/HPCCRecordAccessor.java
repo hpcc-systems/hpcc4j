@@ -55,9 +55,10 @@ public class HPCCRecordAccessor implements IRecordAccessor
 
     }
 
-    public void setRecord(Object rd)
+    public IRecordAccessor setRecord(Object rd)
     {
         this.record = (HPCCRecord) rd;
+        return this;
     }
 
     public int getNumFields()
