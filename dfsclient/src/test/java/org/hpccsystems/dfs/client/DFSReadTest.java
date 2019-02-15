@@ -15,19 +15,8 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import java.util.List;
-
-import org.hpccsystems.dfs.client.HPCCFile;
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HpccRemoteFileReader;
-import org.hpccsystems.dfs.client.ReflectionRecordBuilder;
-import org.hpccsystems.dfs.client.BinaryRecordReader;
-import org.hpccsystems.dfs.client.DataPartition;
-
 import org.hpccsystems.commons.ecl.FieldDef;
-
 import org.hpccsystems.ws.client.utils.Connection;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,6 +30,7 @@ public class DFSReadTest
     private static final String testClusterIp           = "127.0.0.1";
     private static final String testIntegerKVDataset    = "~benchmark::integer::20kb";
     private static final int    testDatasetRecordCount  = 1250;
+    private static final String testDatasetFilterExpr   = "key=88021";
 
     private static final String testAllTypesDataset     = "~demo::example_dataset";
     private static final int    testAllTypesRecordCount = 2;
@@ -57,11 +47,12 @@ public class DFSReadTest
             espConn.setUserName("");
             espConn.setPassword("");
 
-            this.file = new HPCCFile(testIntegerKVDataset, espConn);
-            this.file.setProjectList("key");
+            this.file = new HPCCFile(testIntegerKVDataset, espConn)
+                    .setProjectList("key")
+                    .setFilter(testDatasetFilterExpr);
 
-            this.file2 = new HPCCFile(testAllTypesDataset, espConn);
-            this.file2.setProjectList("str,qstr,uni10,bool,childdataset.childindex,childdataset.childstr");
+            this.file2 = new HPCCFile(testAllTypesDataset, espConn)
+                    .setProjectList("str,qstr,uni10,bool,childdataset.childindex,childdataset.childstr");
         }
         catch (Exception e)
         {

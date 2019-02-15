@@ -87,8 +87,7 @@ public class HPCCFile implements Serializable
      *            to eclwatch. Format: {http|https}://{HOST}:{PORT}.
      * @throws HpccFileException
      */
-    public HPCCFile(String fileName, String connectionString, String user, String pass)
-            throws MalformedURLException, HpccFileException
+    public HPCCFile(String fileName, String connectionString, String user, String pass) throws MalformedURLException, HpccFileException
     {
         this(fileName, new Connection(connectionString));
         espConnInfo.setUserName(user);
@@ -137,9 +136,10 @@ public class HPCCFile implements Serializable
     /**
      * @param projectList
      */
-    public void setProjectList(String projectList)
+    public HPCCFile setProjectList(String projectList)
     {
         this.columnPruner = new ColumnPruner(projectList);
+        return this;
     }
 
     /**
@@ -154,10 +154,12 @@ public class HPCCFile implements Serializable
      * @param fileAccessExpirySecs
      *            initial access to a file is granted for a period of time. This param can change the duration of that
      *            file access.
+     * @return this HPCCFile
      */
-    public void setFileAccessExpirySecs(int fileAccessExpirySecs)
+    public HPCCFile setFileAccessExpirySecs(int fileAccessExpirySecs)
     {
         this.fileAccessExpirySecs = fileAccessExpirySecs;
+        return this;
     }
 
     /**
@@ -169,11 +171,13 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @param targetfilecluster
+     * @param targetfilecluster sets the target file cluster
+     * @return this HPCCFile
      */
-    public void setTargetfilecluster(String targetfilecluster)
+    public HPCCFile setTargetfilecluster(String targetfilecluster)
     {
         this.targetfilecluster = targetfilecluster;
+        return this;
     }
 
     /**
@@ -186,10 +190,12 @@ public class HPCCFile implements Serializable
 
     /**
      * @param remapinfo
+     * @return this HPCCFile
      */
-    public void setClusterRemapInfo(RemapInfo remapinfo)
+    public HPCCFile setClusterRemapInfo(RemapInfo remapinfo)
     {
         this.clusterRemapInfo = remapinfo;
+        return this;
     }
 
     /**
@@ -202,10 +208,12 @@ public class HPCCFile implements Serializable
 
     /**
      * @param filterexpression
+     * @return this HPCCFile
      */
-    public void setFilter(String filterexpression)
+    public HPCCFile setFilter(String filterexpression)
     {
         this.filter = new FileFilter(filterexpression);
+        return this;
     }
 
     /**
@@ -248,8 +256,7 @@ public class HPCCFile implements Serializable
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
                         /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob());
-                this.recordDefinition = RecordDefinitionTranslator
-                        .parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
+                this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }
             else
