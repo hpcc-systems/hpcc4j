@@ -212,9 +212,10 @@ public class HPCCWsFileIOClient extends DataSingleton
         while (bytesleft > 0)
         {
             payloadsize = bytesleft >= limit ? limit : bytesleft;
-            log.trace("Writing offset: "+dataindex+"\t size: "+(dataindex + payloadsize));
+            log.trace("Writing offset: "+dataindex+"\t size: " + payloadsize);
 
-            subdata = Arrays.copyOfRange(data, 0, payloadsize-1);
+            subdata = Arrays.copyOfRange(data, dataindex, dataindex + payloadsize);
+            dataindex += payloadsize;
 
             writefileparams.setData(subdata);
             writefileparams.setAppend(dataindex > 0);

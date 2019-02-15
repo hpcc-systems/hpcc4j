@@ -1,6 +1,6 @@
 /*##############################################################################
 
-    HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+    HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems®.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,25 +17,22 @@
 
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
-import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
 import org.hpccsystems.ws.client.platform.Platform;
-import org.hpccsystems.ws.client.platform.WUQueryInfo;
-import org.hpccsystems.ws.client.platform.WorkunitInfo;
-import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.ws.client.RemoteTests.class)
 public class WSFileIOClientTest
 {
 
     Platform platform;
     HPCCWsClient wsclient;
     HPCCWsFileIOClient wsfioclient;
+
+    String testfilename = "myfilename.txt";
+    String targetLZ = "localhost";
     
     @Before
     public void setup()
@@ -55,11 +52,14 @@ public class WSFileIOClientTest
     @Test
     public void createHPCCFile() throws Exception
     {
-        
-        String testfilename = "myfilename.txt";
-        String targetLZ = "localhost";
-
         Assert.assertTrue(wsfioclient.createHPCCFile(testfilename, targetLZ, false));
+    }
+
+    @Test
+    public void writeHPCCFile() throws Exception
+    {
+        byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
+        Assert.assertTrue(wsfioclient.writeHPCCFileData(data, testfilename, targetLZ, false, 0, 20));
     }
 
 }
