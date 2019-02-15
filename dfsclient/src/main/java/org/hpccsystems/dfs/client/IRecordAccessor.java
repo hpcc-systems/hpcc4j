@@ -28,7 +28,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
  */
 public interface IRecordAccessor
 {
-    public void setRecord(Object record);
+    public IRecordAccessor setRecord(Object record);
 
     public int getNumFields();
 
