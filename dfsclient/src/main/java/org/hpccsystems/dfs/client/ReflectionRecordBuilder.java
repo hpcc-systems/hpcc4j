@@ -17,7 +17,6 @@
 package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.dfs.client.IRecordBuilder;
-import org.hpccsystems.dfs.client.HPCCRecord;
 
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
