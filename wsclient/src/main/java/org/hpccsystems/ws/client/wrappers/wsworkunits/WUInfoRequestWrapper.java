@@ -48,9 +48,9 @@ public class WUInfoRequestWrapper
 
     
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo getRaw() {
-        return getRawVersion73();
+        return getRawVersion1_73();
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo getRawVersion73() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo getRawVersion1_73() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo result=
                 new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo();
         
@@ -77,7 +77,7 @@ public class WUInfoRequestWrapper
     }
 
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo result=
                 new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo();
         

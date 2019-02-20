@@ -60,13 +60,13 @@ public class ECLSourceFileWrapper
         return raw;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile();
         raw.setCount(this.getCount());
         if (this.getECLSourceFiles().size()>0) {
             raw.setECLSourceFiles(new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile[this.getECLSourceFiles().size()]);
             for (int i=0; i < this.getECLSourceFiles().size();i++) {
-                raw.getECLSourceFiles()[i]=this.getECLSourceFiles().get(i).getRawVersion6();
+                raw.getECLSourceFiles()[i]=this.getECLSourceFiles().get(i).getRawVersion1_69();
             }
         }
         raw.setFileCluster(this.getFileCluster());        

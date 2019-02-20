@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
-
 public class ApplicationValueInfo {
 
     private String application;
@@ -24,7 +22,7 @@ public class ApplicationValueInfo {
         value=raw.getValue();
     }
 
-    public ApplicationValueInfo(ApplicationValue raw) 
+    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue raw) 
     {
         application=raw.getApplication();
         name=raw.getName();
@@ -55,15 +53,15 @@ public class ApplicationValueInfo {
         this.value = value;
     }
     
-    public ApplicationValue getRaw() {
-        ApplicationValue val=new ApplicationValue();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue getRawVersion1_73() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue val=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue();
         val.setApplication(this.getApplication());
         val.setName(this.getName());
         val.setValue(this.getValue());
         return val;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue();
         result.setApplication(application);
         result.setName(name);

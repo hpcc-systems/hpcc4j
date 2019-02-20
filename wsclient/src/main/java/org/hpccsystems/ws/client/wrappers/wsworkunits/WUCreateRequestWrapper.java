@@ -13,16 +13,16 @@ public class WUCreateRequestWrapper
 {
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreate getRaw() {
-        return getRawVersion73();
+        return getRawVersion1_73();
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreate getRawVersion73() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreate getRawVersion1_73() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreate raw=
                 new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreate();
         return raw;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreate getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreate getRawVersion1_69() {
                 org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreate raw=
                 new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreate();
         return raw;

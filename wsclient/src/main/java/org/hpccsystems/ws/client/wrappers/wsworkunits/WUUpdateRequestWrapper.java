@@ -45,7 +45,7 @@ public class WUUpdateRequestWrapper
         if (this.getApplicationValues().size()>0) {
             avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[this.getApplicationValues().size()];
             for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRaw();
+                avs[i]=this.getApplicationValues().get(i).getRawVersion1_73();
             }
         }
 
@@ -53,7 +53,7 @@ public class WUUpdateRequestWrapper
         if (this.getDebugValues().size()>0) {
             dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRaw();
+                dvs[i]=this.getDebugValues().get(i).getRawVersion1_73();
             }
         }
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate raw=
@@ -85,12 +85,12 @@ public class WUUpdateRequestWrapper
         return raw;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] avs=null;
         if (this.getApplicationValues().size()>0) {
             avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[this.getApplicationValues().size()];
             for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRawVersion6();
+                avs[i]=this.getApplicationValues().get(i).getRawVersion1_69();
             }
         }
 
@@ -98,7 +98,7 @@ public class WUUpdateRequestWrapper
         if (this.getDebugValues().size()>0) {
             dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRawVersion6();
+                dvs[i]=this.getDebugValues().get(i).getRawVersion1_69();
             }
         }
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate raw=

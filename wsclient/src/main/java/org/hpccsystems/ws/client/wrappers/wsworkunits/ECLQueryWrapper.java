@@ -55,7 +55,7 @@ public class ECLQueryWrapper
         return raw;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery();
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());

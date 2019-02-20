@@ -44,7 +44,7 @@ public class ThorLogInfoWrapper
         return raw;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo();
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());

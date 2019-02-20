@@ -72,7 +72,7 @@ public class ECLGraphWrapper
         return result;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph();
         result.setComplete(this.getComplete());
         result.setFailed(this.getFailed());

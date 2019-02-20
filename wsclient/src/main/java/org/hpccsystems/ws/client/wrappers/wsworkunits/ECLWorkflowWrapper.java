@@ -49,7 +49,7 @@ public class ECLWorkflowWrapper
         return raw;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow getRawVersion6(){
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow getRawVersion1_69(){
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow();
         raw.setCount(this.getCount());
         raw.setCountRemaining(this.getCountRemaining());

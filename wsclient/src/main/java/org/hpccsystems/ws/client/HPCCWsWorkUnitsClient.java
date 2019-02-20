@@ -15,7 +15,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
 import org.apache.axis.utils.StringUtils;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.axis.types.NonNegativeInteger;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.*;
@@ -35,12 +34,11 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.WUFileType;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateAndUpdateWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateResponseWrapper;
-import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoDetailsRequestWrapper;
+
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUUpdateRequestWrapper;
@@ -546,9 +544,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             wuinfodetailsparams.setIncludeGraphs(false);
             wuinfodetailsparams.setIncludeResults(true);
             wuinfodetailsparams.setWuid(wuid);
-            
             WUInfoResponseWrapper wuInfoResponse = soapWrapper.WUInfo(wuinfodetailsparams);
-            
             ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions();
             if (exceptions == null && wuInfoResponse.getWorkunit() != null)
             {
@@ -1264,7 +1260,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                     for (int i=0; i < info.getApplicationValues().size();i++)
                     {
                         org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUQuery internal=info.getRaw156(i);
-                        fallbackresponse = soapWrapper.getVersion5Raw().WUQuery(internal);
+                        fallbackresponse = soapWrapper.getVersion1_56Raw().WUQuery(internal);
                         if (fallbackresponse != null)
                         {
                             throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
@@ -1293,7 +1289,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 }
                 else
                 {
-                    fallbackresponse = soapWrapper.getVersion5Raw().WUQuery(info.getRaw156(0));
+                    fallbackresponse = soapWrapper.getVersion1_56Raw().WUQuery(info.getRaw156(0));
                     if (fallbackresponse != null) {
                         throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
                                 "Error in WU query");
@@ -2055,7 +2051,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUAction fwa = new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUAction();
         	fwa.setActionType(action.getValue());
         	fwa.setWuids(new String[] { wuid });
-        	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUActionResponse fwar = soapWrapper.getVersion5Raw().getWsWorkunitsServiceSoap().WUAction(fwa);
+        	org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WUActionResponse fwar = soapWrapper.getVersion1_56Raw().getWsWorkunitsServiceSoap().WUAction(fwa);
         	if (fwar == null || fwar.getActionResults() == null || fwar.getActionResults().length == 0
         			|| fwar.getActionResults()[0].getResult() == null
         			|| !fwar.getActionResults()[0].getResult().equals("Success"))

@@ -55,7 +55,7 @@ public class ECLTimingDataWrapper
         return raw;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData getRawVersion6(){
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData getRawVersion1_69(){
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData();
         raw.setGID(this.getGID());
         raw.setGraphNum(this.getGraphNum());

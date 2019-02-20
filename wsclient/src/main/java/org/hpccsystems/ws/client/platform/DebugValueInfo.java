@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue;
-
 public class DebugValueInfo {
 
     private String name;
@@ -21,7 +19,7 @@ public class DebugValueInfo {
         value=raw.getValue();
     }
 
-    public DebugValueInfo(DebugValue raw) 
+    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue raw) 
     {
         name=raw.getName();
         value=raw.getValue();
@@ -43,14 +41,14 @@ public class DebugValueInfo {
         this.value = value;
     }
     
-    public DebugValue getRaw() {
-        DebugValue val=new DebugValue();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue getRawVersion1_73() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue val=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue();
         val.setName(this.getName());
         val.setValue(this.getValue());
         return val;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue();
         result.setName(name);
         result.setValue(value);

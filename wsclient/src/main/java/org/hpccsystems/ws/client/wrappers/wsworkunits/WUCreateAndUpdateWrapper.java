@@ -296,9 +296,9 @@ public class WUCreateAndUpdateWrapper
     }
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate getRaw() {
-        return getRawVersion73();
+        return getRawVersion1_73();
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate();
         
         result.set_protected(_protected);
@@ -347,7 +347,7 @@ public class WUCreateAndUpdateWrapper
         return result;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate getRawVersion73() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate getRawVersion1_73() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate();
         
         result.set_protected(_protected);

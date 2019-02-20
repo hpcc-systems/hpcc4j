@@ -37,7 +37,7 @@ public class ECLResultInfo {
     }
     public ECLResultInfo() { }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult();
         raw.setFileName(this.getFilename());
         raw.setIsSupplied(this.getIsSupplied());
@@ -51,7 +51,7 @@ public class ECLResultInfo {
         return raw;        
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult getRaw() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult getRawVersion1_73() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult();
         raw.setFileName(this.getFilename());
         raw.setIsSupplied(this.getIsSupplied());

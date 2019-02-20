@@ -1,8 +1,5 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException;
-
 public class ECLExceptionInfo {
     private Integer activity=null;
     private Integer code=null;
@@ -18,7 +15,7 @@ public class ECLExceptionInfo {
 
     public ECLExceptionInfo() {}
     
-    public ECLExceptionInfo(ECLException raw) 
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException raw) 
     {
         activity=raw.getActivity();
         code=raw.getCode();
@@ -30,7 +27,7 @@ public class ECLExceptionInfo {
         source=raw.getSource();
     }
 
-    public ECLExceptionInfo(EspException raw) 
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException raw) 
     {
         audience=raw.getAudience();
         message=raw.getMessage();
@@ -122,8 +119,8 @@ public class ECLExceptionInfo {
         this.source = source;
     }
     
-    public ECLException getRaw() {
-        ECLException ex=new ECLException();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException getRawVersion1_73() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException();
         ex.setActivity(activity);
         ex.setCode(code);
         ex.setColumn(column);
@@ -135,7 +132,7 @@ public class ECLExceptionInfo {
         return ex;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException getRawVersion6() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException();
         ex.setActivity(activity);
         ex.setCode(code);
