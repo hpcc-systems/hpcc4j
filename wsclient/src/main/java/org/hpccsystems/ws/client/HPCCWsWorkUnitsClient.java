@@ -447,9 +447,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     {
         WUPublishWorkunitResponse publishWUResp = null;
 
-        if (wsWorkunitsServiceSoapProxy == null)
-            throw new Exception("wsWorkunitsServiceSoapProxy not available");
-        else if (wu.getECL() == null || wu.getECL().length() == 0)
+        getSoapProxy();
+        if (wu.getECL() == null || wu.getECL().length() == 0)
             throw new Exception("Empty ECL submited");
         else
         {
@@ -485,9 +484,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     {
         WUPublishWorkunitResponse publishWUResp = null;
 
-        if (wsWorkunitsServiceSoapProxy == null)
-            throw new Exception("wsWorkunitsServiceSoapProxy not available");
-        else if (wu == null)
+        getSoapProxy();
+        if (wu == null)
             throw new Exception("Invalid wuid submited");
         else
         {
@@ -599,42 +597,40 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers,
             boolean unarchive) throws Exception
     {
-        if (wsWorkunitsServiceSoapProxy == null)
-            throw new Exception("wsWorkunitsServiceSoapProxy not available");
-        else
+        getSoapProxy();
+        
+        WUInfoRequestWrapper request = new WUInfoRequestWrapper();
+        request.setWuid(wuid);
+        request.setIncludeGraphs(includeGraphs);
+        request.setIncludeResults(includeResults);
+        request.setIncludeResultsViewNames(includeResults);
+        request.setSuppressResultSchemas(!includeResults);
+        request.setIncludeSourceFiles(includeSourceFiles);
+        request.setIncludeApplicationValues(includeApplicationValues);
+        request.setIncludeDebugValues(includeDebugValues);
+        request.setIncludeExceptions(includeExceptions);
+        request.setIncludeTimers(includeTimers);
+        request.setIncludeVariables(includeVariables);
+        request.setIncludeXmlSchemas(includeXmlSchemas);
+
+        WUInfoResponseWrapper resp = soapWrapper.WUInfo(request);
+
+        this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions(), "Could not retrieve workunit:");
+        WorkunitInfo wk = resp.getWorkunit();
+        if (unarchive && wk != null && wk.getArchived() != null && wk.getArchived())
         {
-            WUInfoRequestWrapper request = new WUInfoRequestWrapper();
-            request.setWuid(wuid);
-            request.setIncludeGraphs(includeGraphs);
-            request.setIncludeResults(includeResults);
-            request.setIncludeResultsViewNames(includeResults);
-            request.setSuppressResultSchemas(!includeResults);
-            request.setIncludeSourceFiles(includeSourceFiles);
-            request.setIncludeApplicationValues(includeApplicationValues);
-            request.setIncludeDebugValues(includeDebugValues);
-            request.setIncludeExceptions(includeExceptions);
-            request.setIncludeTimers(includeTimers);
-            request.setIncludeVariables(includeVariables);
-            request.setIncludeXmlSchemas(includeXmlSchemas);
-
-            WUInfoResponseWrapper resp = soapWrapper.WUInfo(request);
-
-            this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions(), "Could not retrieve workunit:");
-            WorkunitInfo wk = resp.getWorkunit();
-            if (unarchive && wk != null && wk.getArchived() != null && wk.getArchived())
-            {
-                doWorkunitAction(wuid, ECLWUActions.Restore);
-                return getWUInfo(wuid, includeResults, includeGraphs, includeSourceFiles, includeApplicationValues,
-                        includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers,
-                        false);
-            }
-            if (wk==null)
-            {
-                return null;
-            }
-            wk.setResultViews(resp.getResultViews());
-            return wk;
+            doWorkunitAction(wuid, ECLWUActions.Restore);
+            return getWUInfo(wuid, includeResults, includeGraphs, includeSourceFiles, includeApplicationValues,
+                    includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers,
+                    false);
         }
+        if (wk==null)
+        {
+            return null;
+        }
+        wk.setResultViews(resp.getResultViews());
+        return wk;
+    
     }
 
     /**
