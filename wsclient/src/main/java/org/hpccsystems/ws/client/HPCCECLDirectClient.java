@@ -144,37 +144,35 @@ public class HPCCECLDirectClient extends DataSingleton
     {
         String wuid = null;
 
-        if (wsEclDirectServiceSoapProxy == null)
-            throw new Exception("wsECLDirectServiceSoapProxy not available");
-        else
+        getSoapProxy();
+
+        RunEclExRequest runeclexreqparams = new RunEclExRequest();
+
+        if (wu.getCluster() != null && wu.getCluster().length() > 0)
+            runeclexreqparams.setCluster(wu.getCluster());
+
+        runeclexreqparams.setEclText(wu.getECL());
+        runeclexreqparams.setIncludeGraphs(false);
+        runeclexreqparams.setIncludeResults(true);
+        runeclexreqparams.setFormat(RunEclExFormat.None);
+        runeclexreqparams.setWait(wu.getMaxMonitorMillis());
+        runeclexreqparams.setResultLimit(wu.getResultLimit());
+
+        RunEclExResponse runEclExResponse = wsEclDirectServiceSoapProxy.runEclEx(runeclexreqparams);
+
+        ECLDirectException[] directExceptions = runEclExResponse.getErrors();
+        if (directExceptions != null && directExceptions.length > 0)
         {
-            RunEclExRequest runeclexreqparams = new RunEclExRequest();
-
-            if (wu.getCluster() != null && wu.getCluster().length() > 0)
-                runeclexreqparams.setCluster(wu.getCluster());
-
-            runeclexreqparams.setEclText(wu.getECL());
-            runeclexreqparams.setIncludeGraphs(false);
-            runeclexreqparams.setIncludeResults(true);
-            runeclexreqparams.setFormat(RunEclExFormat.None);
-            runeclexreqparams.setWait(wu.getMaxMonitorMillis());
-            runeclexreqparams.setResultLimit(wu.getResultLimit());
-
-            RunEclExResponse runEclExResponse = wsEclDirectServiceSoapProxy.runEclEx(runeclexreqparams);
-
-            ECLDirectException[] directExceptions = runEclExResponse.getErrors();
-            if (directExceptions != null && directExceptions.length > 0)
+            for (ECLDirectException exception : directExceptions)
             {
-                for (ECLDirectException exception : directExceptions)
-                {
-                    String severity = exception.getSeverity();
-                    if (severity.equalsIgnoreCase("ERROR"))
-                        throw new Exception(exception.getMessage());
-                }
+                String severity = exception.getSeverity();
+                if (severity.equalsIgnoreCase("ERROR"))
+                    throw new Exception(exception.getMessage());
             }
-
-            wuid = runEclExResponse.getWuid();
         }
+
+        wuid = runEclExResponse.getWuid();
+
         return wuid;
     }
 
@@ -191,40 +189,37 @@ public class HPCCECLDirectClient extends DataSingleton
     {
         String results = null;
 
-        if (wsEclDirectServiceSoapProxy == null)
-            throw new Exception("wsECLDirectServiceSoapProxy not available");
-        else
+        getSoapProxy();
+
+        RunEclExRequest runeclexreqparams = new RunEclExRequest();
+        if (wu.getCluster() != null && wu.getCluster().length() > 0)
+            runeclexreqparams.setCluster(wu.getCluster());
+        runeclexreqparams.setEclText(wu.getECL());
+        runeclexreqparams.setIncludeGraphs(false);
+        runeclexreqparams.setIncludeResults(true);
+                                  //RunEclExFormat.None
+                                  //RunEclExFormat.Table
+                                  //RunEclExFormat.Xml
+                                  //RunEclExFormat.ExtendedXml
+        runeclexreqparams.setFormat(RunEclExFormat.None);
+        runeclexreqparams.setWait(wu.getMaxMonitorMillis());
+        runeclexreqparams.setResultLimit(wu.getResultLimit());
+
+        RunEclExResponse runEclExResponse = wsEclDirectServiceSoapProxy.runEclEx(runeclexreqparams);
+
+        ECLDirectException[] directExceptions = runEclExResponse.getErrors();
+        if (directExceptions != null && directExceptions.length > 0)
         {
-            RunEclExRequest runeclexreqparams = new RunEclExRequest();
-            if (wu.getCluster() != null && wu.getCluster().length() > 0)
-                runeclexreqparams.setCluster(wu.getCluster());
-            runeclexreqparams.setEclText(wu.getECL());
-            runeclexreqparams.setIncludeGraphs(false);
-            runeclexreqparams.setIncludeResults(true);
-                                      //RunEclExFormat.None
-                                      //RunEclExFormat.Table
-                                      //RunEclExFormat.Xml
-                                      //RunEclExFormat.ExtendedXml
-            runeclexreqparams.setFormat(RunEclExFormat.None);
-            runeclexreqparams.setWait(wu.getMaxMonitorMillis());
-            runeclexreqparams.setResultLimit(wu.getResultLimit());
-
-            RunEclExResponse runEclExResponse = wsEclDirectServiceSoapProxy.runEclEx(runeclexreqparams);
-
-            ECLDirectException[] directExceptions = runEclExResponse.getErrors();
-            if (directExceptions != null && directExceptions.length > 0)
+            for (ECLDirectException exception : directExceptions)
             {
-                for (ECLDirectException exception : directExceptions)
-                {
-                    String severity = exception.getSeverity();
-                    if (severity.equalsIgnoreCase("ERROR"))
-                        throw new Exception(exception.getMessage());
-                }
+                String severity = exception.getSeverity();
+                if (severity.equalsIgnoreCase("ERROR"))
+                    throw new Exception(exception.getMessage());
             }
-
-            results = runEclExResponse.getResults();
         }
-        return results;
+
+        return runEclExResponse.getResults();
+
     }
 
     @Override

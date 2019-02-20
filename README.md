@@ -17,6 +17,9 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - [Open Issues](https://track.hpccsystems.com/issues/?jql=project%20%3D%20JAPI%20AND%20status%20%3D%20Open)
   - [Sample code](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/wsclient/src/test/java/org/hpccsystems/ws/client/platform/test/PlatformTester.java)
 
+- dfs client
+  - Java based interface into HPCC's dfs backend [README](https://github.com/hpcc-systems/HPCC-JAPIs/tree/master/dfsclient/README.md)
+
 - clienttools
   - Java based interface to HPCC client tools [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/clienttools/README.md)
   - Currently only interfaces with eclcc
@@ -26,6 +29,9 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - RDF data ingestion tool to HPCC [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/rdf2hpcc/README.md)
   - Based on Apache Jena and dependent on org.hpccsystems.ws.client
   - [Changelog](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/rdf2hpcc/README.md#changelog)
+
+- hpcc commons
+  - HPCC Systems Java API common classes [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/commons-hpcc/README.md)
 
 #### Build
 These projects are configured to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:

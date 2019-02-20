@@ -20,17 +20,17 @@ public class RampsDevRegressionTest extends EclParseRegressionTest {
     
     @Override
     public String getUsername() {
-        return "dleed";
+        return "user";
     }
 
     @Override
     public String getPassword() {
-        return System.getenv("hpccpassword");
+        return System.getenv("pass");
     }
     
     @Override
     public String getIP() {
-        return "10.241.100.159";
+        return "localhost";
     }
     
     @Test

@@ -51,7 +51,6 @@ public class HPCCWsFileIOClient extends DataSingleton
     public static final String FILEIOWSDLURI         = "/WsFileIO";
 
     private WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy    =  null;
-    private boolean verbosemode = false;
     private final int defaultUploadChunkSize = 5000000;
     private boolean verbose = false;
 
@@ -137,8 +136,7 @@ public class HPCCWsFileIOClient extends DataSingleton
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
 
-        if (wsFileIOServiceSoapProxy == null)
-            throw new Exception ("wsFileIOServiceSoapProxy not available!");
+        getSoapProxy();
 
         CreateFileRequest createfileparams = new CreateFileRequest();
         createfileparams.setDestDropZone(targetLandingZone);
@@ -196,57 +194,54 @@ public class HPCCWsFileIOClient extends DataSingleton
         boolean success = true;
         log.debug("Attempting to write data to HPCC File: " + fileName);
 
-        if (wsFileIOServiceSoapProxy == null)
-            throw new Exception ("wsFileIOServiceSoapProxy not available!");
-        else
+        getSoapProxy();
+
+        WriteFileDataRequest writefileparams = new WriteFileDataRequest();
+        writefileparams.setAppend(append);
+        writefileparams.setDestDropZone(targetLandingZone);
+        writefileparams.setDestRelativePath(fileName);
+        writefileparams.setOffset(offset);
+
+        int dataindex = 0;
+        int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
+        long payloadsize = 0;
+        long bytesleft = data.length;
+        byte [] subdata = null;
+
+        while (bytesleft > 0)
         {
-            WriteFileDataRequest writefileparams = new WriteFileDataRequest();
-            writefileparams.setAppend(append);
-            writefileparams.setDestDropZone(targetLandingZone);
-            writefileparams.setDestRelativePath(fileName);
-            writefileparams.setOffset(offset);
+            payloadsize = bytesleft >= limit ? limit : bytesleft;
+            log.trace("Writing offset: "+dataindex+"\t size: "+((int)dataindex + (int)payloadsize));
 
-            int dataindex = 0;
-            int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
-            long payloadsize = 0;
-            long bytesleft = data.length;
-            byte [] subdata = null;
+            subdata = new byte [(int)payloadsize];
+            for (int i = 0; i < payloadsize ; i++, dataindex++)
+                subdata[i] = data[dataindex];
 
-            while (bytesleft > 0)
+            writefileparams.setData(subdata);
+            writefileparams.setAppend(dataindex > 0);
+            writefileparams.setOffset((long)dataindex);
+
+            try
             {
-                payloadsize = bytesleft >= limit ? limit : bytesleft;
-                log.trace("Writing offset: "+dataindex+"\t size: "+((int)dataindex + (int)payloadsize));
+                WriteFileDataResponse writeFileDataResponse = wsFileIOServiceSoapProxy.writeFileData(writefileparams);
+                String result = writeFileDataResponse.getResult();
 
-                subdata = new byte [(int)payloadsize];
-                for (int i = 0; i < payloadsize ; i++, dataindex++)
-                    subdata[i] = data[dataindex];
-
-                writefileparams.setData(subdata);
-                writefileparams.setAppend(dataindex > 0);
-                writefileparams.setOffset((long)dataindex);
-
-                try
+                log.debug(result);
+                //Wish there was a better way
+                if (!result.startsWith("Failed"))
                 {
-                    WriteFileDataResponse writeFileDataResponse = wsFileIOServiceSoapProxy.writeFileData(writefileparams);
-                    String result = writeFileDataResponse.getResult();
-
-                    log.debug(result);
-                    //Wish there was a better way
-                    if (!result.startsWith("Failed"))
-                    {
-                        success = true;
-                        bytesleft = bytesleft - subdata.length;
-                    }
-                    else
-                    {
-                        bytesleft = 0;
-                    }
+                    success = true;
+                    bytesleft = bytesleft - subdata.length;
                 }
-                catch (Exception e)
+                else
                 {
-                    log.error(e.getLocalizedMessage());
-                    return false;
+                    bytesleft = 0;
                 }
+            }
+            catch (Exception e)
+            {
+                log.error(e.getLocalizedMessage());
+                return false;
             }
         }
         return success;

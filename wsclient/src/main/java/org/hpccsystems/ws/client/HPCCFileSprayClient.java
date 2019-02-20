@@ -290,6 +290,8 @@ public class HPCCFileSprayClient extends DataSingleton
      */
     public DropZone[] fetchDropZones(String dropzoneNetAddress) throws Exception
     {
+        getSoapProxy();
+
         DropZoneFilesRequest dzfr = new DropZoneFilesRequest();
         dzfr.setNetAddress(dropzoneNetAddress);
         dzfr.setDirectoryOnly(false);
@@ -317,8 +319,8 @@ public class HPCCFileSprayClient extends DataSingleton
      */
     public PhysicalFileStruct [] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
+
         DropZoneFileSearchRequest req = new DropZoneFileSearchRequest();
         req.setDropZoneName(dzname);
         req.setNameFilter(namefilter);
@@ -347,8 +349,7 @@ public class HPCCFileSprayClient extends DataSingleton
      */
     public PhysicalFileStruct[] listFiles(String netAddress, String path, String OS) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         FileListRequest flr = new FileListRequest();
         flr.setNetaddr(netAddress);
@@ -468,8 +469,7 @@ public class HPCCFileSprayClient extends DataSingleton
                                           String destGroup, boolean overwrite, SprayVariableFormat format, Integer sourceMaxRecordSize, Integer maxConnections,
                                           Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Boolean recordStructurePresent, Integer expireDays) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         if (targetDropZone == null)
             throw new Exception("TargetDropZone object not available!");
@@ -588,8 +588,7 @@ public class HPCCFileSprayClient extends DataSingleton
                                      boolean overwrite, SprayVariableFormat format, Integer maxrecsize, Integer maxConnections, Boolean replicate,
                                      Boolean compress, Boolean failIfNoSourceFile, Integer expireDays) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         if (targetDropZone == null)
             throw new Exception("TargetDropZone object not available!");
@@ -700,8 +699,7 @@ public class HPCCFileSprayClient extends DataSingleton
                                        Integer maxConnections, Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Integer expireDays, String decryptKey, String encryptKey,
                                        Boolean nosplit, Boolean recordStructurePresent, Integer transferBufferSize, Boolean wrap) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         if (targetDropZone == null)
             throw new Exception("TargetDropZone object not available!");
@@ -758,8 +756,7 @@ public class HPCCFileSprayClient extends DataSingleton
      */
     public ProgressResponse  getDfuProgress(String dfuwuid) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         ProgressRequest pr = new ProgressRequest();
         pr.setWuid(dfuwuid);
@@ -1217,8 +1214,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
     public GetDFUWorkunitResponse getDFUWorkunit(String workunitid) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         GetDFUWorkunitResponse response = null;
 
@@ -1231,8 +1227,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
     public GetDFUWorkunitsResponse getDFUWorkunits(String cluster, Long pagesize) throws Exception
     {
-        if (fileSprayServiceSoapProxy == null)
-            throw new Exception("FileSpray Service Soap Proxy not available.");
+        getSoapProxy();
 
         GetDFUWorkunits request = new GetDFUWorkunits();
         request.setPageSize(pagesize);
