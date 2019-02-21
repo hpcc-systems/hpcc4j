@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLGraphWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLHelpFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLQueryWrapper;
@@ -21,7 +24,7 @@ public class WorkunitInfo implements
     private int               sleepMillis      = HPCCWsWorkUnitsClient.defaultWaitTime;
     private List<NamedValueInfo>      namedValues      = null;
     private String originalEclWatchUrl=null;
-    private List<ApplicationValueInfo> applicationValues=new ArrayList<ApplicationValueInfo>();
+    private List<ApplicationValueWrapper> applicationValues=new ArrayList<ApplicationValueWrapper>();
     private List<ECLResultInfo> eclResults=new ArrayList<ECLResultInfo>();
     private Integer accessFlag;
     private Integer action;
@@ -36,12 +39,12 @@ public class WorkunitInfo implements
     private Integer clusterFlag;
     private Calendar dateTimeScheduled;
     private Integer debugValueCount;
-    private List<DebugValueInfo> debugValues=new ArrayList<DebugValueInfo>();
+    private List<DebugValueWrapper> debugValues=new ArrayList<DebugValueWrapper>();
     private String debugValuesDesc;
     private String description;
     private Integer errorCount;
     private Integer eventSchedule;
-    private List<ECLExceptionInfo> exceptions=new ArrayList<ECLExceptionInfo>();
+    private List<ECLExceptionWrapper> exceptions=new ArrayList<ECLExceptionWrapper>();
     private Integer graphCount;
     private List<ECLGraphWrapper> graphs=new ArrayList<ECLGraphWrapper>();
     private String graphsDesc;
@@ -746,7 +749,7 @@ public class WorkunitInfo implements
         return this;
 	}
     
-	public List<ApplicationValueInfo> getApplicationValues() 
+	public List<ApplicationValueWrapper> getApplicationValues() 
 	{
 	    return applicationValues;
 	}
@@ -795,7 +798,7 @@ public class WorkunitInfo implements
 	    org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[] raw=
 	            new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[applicationValues.size()];
 	    int i=0;
-	    for (ApplicationValueInfo item:applicationValues)
+	    for (ApplicationValueWrapper item:applicationValues)
 	    {
 	        raw[i]=item.getRawVersion1_73();
 	        i++;
@@ -972,7 +975,7 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public WorkunitInfo setApplicationValues(List<ApplicationValueInfo> applicationValues) {
+    public WorkunitInfo setApplicationValues(List<ApplicationValueWrapper> applicationValues) {
         this.applicationValues = applicationValues;
         return this;
     }
@@ -983,9 +986,9 @@ public class WorkunitInfo implements
         {
             return this;
         }
-        applicationValues=new ArrayList<ApplicationValueInfo>();
+        applicationValues=new ArrayList<ApplicationValueWrapper>();
         for (int i=0; i < vals.length;i++) {
-            applicationValues.add(new ApplicationValueInfo(vals[i]));
+            applicationValues.add(new ApplicationValueWrapper(vals[i]));
         }
 
         return this;
@@ -998,9 +1001,9 @@ public class WorkunitInfo implements
         {
             return this;
         }
-        applicationValues=new ArrayList<ApplicationValueInfo>();
+        applicationValues=new ArrayList<ApplicationValueWrapper>();
         for (int i=0; i < vals.length;i++) {
-            applicationValues.add(new ApplicationValueInfo(vals[i]));
+            applicationValues.add(new ApplicationValueWrapper(vals[i]));
         }
 
         return this;
@@ -1012,9 +1015,9 @@ public class WorkunitInfo implements
         {
             return this;
         }
-        applicationValues=new ArrayList<ApplicationValueInfo>();
+        applicationValues=new ArrayList<ApplicationValueWrapper>();
         for (int i=0; i < vals.length;i++) {
-            applicationValues.add(new ApplicationValueInfo(vals[i]));
+            applicationValues.add(new ApplicationValueWrapper(vals[i]));
         }
 
         return this;
@@ -1026,9 +1029,9 @@ public class WorkunitInfo implements
         {
             return this;
         }
-        applicationValues=new ArrayList<ApplicationValueInfo>();
+        applicationValues=new ArrayList<ApplicationValueWrapper>();
         for (int i=0; i < vals.length;i++) {
-            applicationValues.add(new ApplicationValueInfo(vals[i]));
+            applicationValues.add(new ApplicationValueWrapper(vals[i]));
         }
 
         return this;
@@ -1042,7 +1045,7 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public List<DebugValueInfo> getDebugValues() {
+    public List<DebugValueWrapper> getDebugValues() {
         return debugValues;
     }
 
@@ -1052,7 +1055,7 @@ public class WorkunitInfo implements
             return this;
         }
         for (int i=0; i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
         }
         return this;
     }
@@ -1063,7 +1066,7 @@ public class WorkunitInfo implements
             return this;
         }
         for (int i=0; i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
         }
         return this;
     }
@@ -1073,7 +1076,7 @@ public class WorkunitInfo implements
             return this;
         }
         for (int i=0; i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
         }
         return this;
     }
@@ -1084,12 +1087,12 @@ public class WorkunitInfo implements
             return this;
         }
         for (int i=0; i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
         }
         return this;
     }
 
-    public WorkunitInfo setDebugValues(List<DebugValueInfo> debugValues) {
+    public WorkunitInfo setDebugValues(List<DebugValueWrapper> debugValues) {
         this.debugValues=debugValues;
         return this;
     }
@@ -1130,20 +1133,20 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public List<ECLExceptionInfo> getExceptions() {
+    public List<ECLExceptionWrapper> getExceptions() {
         return exceptions;
     }
 
-    public WorkunitInfo setExceptions(List<ECLExceptionInfo> exceptions) {
+    public WorkunitInfo setExceptions(List<ECLExceptionWrapper> exceptions) {
         this.exceptions = exceptions;
         return this;
     }
     
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            this.exceptions=new ArrayList<ECLExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionInfo(exceptions[i]));
+                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
             }
         }
         return this;
@@ -1151,9 +1154,9 @@ public class WorkunitInfo implements
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            this.exceptions=new ArrayList<ECLExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionInfo(exceptions[i]));
+                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
             }
         }
         return this;
@@ -1161,9 +1164,9 @@ public class WorkunitInfo implements
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            this.exceptions=new ArrayList<ECLExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionInfo(exceptions[i]));
+                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
             }
         }
         return this;
@@ -1171,9 +1174,9 @@ public class WorkunitInfo implements
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            this.exceptions=new ArrayList<ECLExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionInfo(exceptions[i]));
+                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
             }
         }
         return this;

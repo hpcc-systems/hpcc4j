@@ -21,8 +21,6 @@ import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
-import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
-import org.hpccsystems.ws.client.platform.ECLExceptionInfo;
 import org.hpccsystems.ws.client.platform.ECLResultInfo;
 import org.hpccsystems.ws.client.platform.QueryFileInfo;
 import org.hpccsystems.ws.client.platform.QueryResult;
@@ -36,6 +34,8 @@ import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.WUFileType;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateAndUpdateWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateResponseWrapper;
@@ -126,7 +126,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (response.getWorkunit() == null)
         {
             // Call succeeded, but no response...
-            for (ECLExceptionInfo e : response.getExceptions())
+            for (ECLExceptionWrapper e : response.getExceptions())
             {
                 if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                 {
@@ -1230,7 +1230,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      */
     public List<WorkunitInfo> workUnitUQuery(String wuid, String jobname, String cluster, Boolean archived, WUQueryInfo.SortBy sortby,
             WUState state, Date endDate, Date startDate, Long pageStartFrom, Long pageSize,
-            String owner, List<ApplicationValueInfo> applicationValues) throws Exception
+            String owner, List<ApplicationValueWrapper> applicationValues) throws Exception
     {
         
         WUQueryInfo info=new WUQueryInfo();
@@ -1407,7 +1407,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /*
      * this method is purely for the Platform class
      */
-    public WorkunitInfo createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueInfo> appVals,
+    public WorkunitInfo createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueWrapper> appVals,
             String jobName, boolean compileOnly) throws Exception
     {
         WorkunitInfo wi=new WorkunitInfo().setECL(archiveOrEcl).setJobname(jobName)
@@ -1477,7 +1477,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                     false, false);
             
             int actualerrors = 0;
-            for (ECLExceptionInfo ex:res.getExceptions())
+            for (ECLExceptionWrapper ex:res.getExceptions())
             {
                 if ("error".equalsIgnoreCase(ex.getSeverity()))
                 {
@@ -1831,7 +1831,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
     }
 
-    public List<ECLExceptionInfo> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
+    public List<ECLExceptionWrapper> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
     {
         getSoapProxy();
 
@@ -1840,10 +1840,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         checkParams.setCluster(cluster);
         checkParams.setTimeToWait(timeout);
         WUSyntaxCheckResponse resp = wsWorkunitsServiceSoapProxy.WUSyntaxCheckECL(checkParams);
-        List<ECLExceptionInfo> result=new ArrayList<ECLExceptionInfo>();
+        List<ECLExceptionWrapper> result=new ArrayList<ECLExceptionWrapper>();
         if (resp.getErrors() != null) {
             for (int i=0; i < resp.getErrors().length;i++) {
-                result.add(new ECLExceptionInfo(resp.getErrors()[i]));
+                result.add(new ECLExceptionWrapper(resp.getErrors()[i]));
             }
         }
         return result;

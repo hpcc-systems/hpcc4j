@@ -3,13 +3,13 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.platform.ECLExceptionInfo;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 
 public class WUCreateResponseWrapper
 {
     private WorkunitInfo workunit;
-    private List<ECLExceptionInfo> exceptions = new ArrayList<ECLExceptionInfo>();
+    private List<ECLExceptionWrapper> exceptions = new ArrayList<ECLExceptionWrapper>();
     
     public WUCreateResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateResponse resp) {
         if (resp==null) {
@@ -18,7 +18,7 @@ public class WUCreateResponseWrapper
         this.workunit=new WorkunitInfo(resp.getWorkunit());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -30,7 +30,7 @@ public class WUCreateResponseWrapper
         this.workunit=new WorkunitInfo(resp.getWorkunit());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -42,7 +42,7 @@ public class WUCreateResponseWrapper
         this.workunit=new WorkunitInfo(resp.getWorkunit());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -54,7 +54,7 @@ public class WUCreateResponseWrapper
         this.workunit=new WorkunitInfo(resp.getWorkunit());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -75,14 +75,14 @@ public class WUCreateResponseWrapper
     /**
      * @return the exceptions
      */
-    public List<ECLExceptionInfo> getExceptions()
+    public List<ECLExceptionWrapper> getExceptions()
     {
         return exceptions;
     }
     /**
      * @param exceptions the exceptions to set
      */
-    public void setExceptions(List<ECLExceptionInfo> exceptions)
+    public void setExceptions(List<ECLExceptionWrapper> exceptions)
     {
         this.exceptions = exceptions;
     }

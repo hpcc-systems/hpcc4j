@@ -6,8 +6,8 @@ import java.util.List;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate;
-import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
-import org.hpccsystems.ws.client.platform.DebugValueInfo;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
 
 public class WUUpdateRequestWrapper
 {
@@ -33,8 +33,8 @@ public class WUUpdateRequestWrapper
     String xmlParams;
     String thorSlaveIP;
     String queryMainDefinition;
-    List<DebugValueInfo> debugValues=new ArrayList<DebugValueInfo>();
-    List<ApplicationValueInfo> applicationValues=new ArrayList<ApplicationValueInfo>();
+    List<DebugValueWrapper> debugValues=new ArrayList<DebugValueWrapper>();
+    List<ApplicationValueWrapper> applicationValues=new ArrayList<ApplicationValueWrapper>();
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate getRaw() {
         return getRawVersion73();
@@ -530,28 +530,28 @@ public class WUUpdateRequestWrapper
     /**
      * @return the debugValues
      */
-    public List<DebugValueInfo> getDebugValues()
+    public List<DebugValueWrapper> getDebugValues()
     {
         return debugValues;
     }
     /**
      * @param debugValues the debugValues to set
      */
-    public void setDebugValues(List<DebugValueInfo> debugValues)
+    public void setDebugValues(List<DebugValueWrapper> debugValues)
     {
         this.debugValues = debugValues;
     }
     /**
      * @return the applicationValues
      */
-    public List<ApplicationValueInfo> getApplicationValues()
+    public List<ApplicationValueWrapper> getApplicationValues()
     {
         return applicationValues;
     }
     /**
      * @param applicationValues the applicationValues to set
      */
-    public void setApplicationValues(List<ApplicationValueInfo> applicationValues)
+    public void setApplicationValues(List<ApplicationValueWrapper> applicationValues)
     {
         this.applicationValues = applicationValues;
     }

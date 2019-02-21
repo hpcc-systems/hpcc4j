@@ -2,10 +2,10 @@ package org.hpccsystems.ws.client;
 
 import java.util.List;
 
-import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.WUQueryInfo;
 import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.junit.After;
 import org.junit.Assert;
@@ -40,7 +40,7 @@ public class WUQueryTest {
         wu.setCluster("thor");
         wu.setJobname("testGetWorkunitByAppName");
         wu.setOwner("user");
-        ApplicationValueInfo av=new ApplicationValueInfo("HIPIE","testkey","testvalue");
+        ApplicationValueWrapper av=new ApplicationValueWrapper("HIPIE","testkey","testvalue");
         wu.getApplicationValues().add(av);
         wu=client.compileWUFromECL(wu);
         wu=client.runWorkunit(wu.getWuid(),null,null,null,false,null);

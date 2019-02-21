@@ -2,8 +2,8 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
-import org.hpccsystems.ws.client.platform.DebugValueInfo;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
 
 public class WUCreateAndUpdateWrapper
 {
@@ -52,9 +52,9 @@ public class WUCreateAndUpdateWrapper
 
     private String queryMainDefinition;
 
-    private List<ApplicationValueInfo> applicationValues=new ArrayList<ApplicationValueInfo>();
+    private List<ApplicationValueWrapper> applicationValues=new ArrayList<ApplicationValueWrapper>();
 
-    private List<DebugValueInfo> debugValues=new ArrayList<DebugValueInfo>();
+    private List<DebugValueWrapper> debugValues=new ArrayList<DebugValueWrapper>();
     /**
      * @return the wuid
      */
@@ -498,7 +498,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @return the applicationValues
      */
-    public List<ApplicationValueInfo> getApplicationValues()
+    public List<ApplicationValueWrapper> getApplicationValues()
     {
         return applicationValues;
     }
@@ -506,7 +506,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @param applicationValues the applicationValues to set
      */
-    public void setApplicationValues(List<ApplicationValueInfo> applicationValues)
+    public void setApplicationValues(List<ApplicationValueWrapper> applicationValues)
     {
         this.applicationValues = applicationValues;
     }
@@ -521,7 +521,7 @@ public class WUCreateAndUpdateWrapper
             return;
         }
         for (int i=0;i < applicationValues.length;i++) {
-            this.applicationValues.add(new ApplicationValueInfo(applicationValues[i]));
+            this.applicationValues.add(new ApplicationValueWrapper(applicationValues[i]));
         }
     }
 
@@ -532,14 +532,14 @@ public class WUCreateAndUpdateWrapper
             return;
         }
         for (int i=0;i < applicationValues.length;i++) {
-            this.applicationValues.add(new ApplicationValueInfo(applicationValues[i]));
+            this.applicationValues.add(new ApplicationValueWrapper(applicationValues[i]));
         }
     }
 
     /**
      * @return the debugValues
      */
-    public List<DebugValueInfo> getDebugValues()
+    public List<DebugValueWrapper> getDebugValues()
     {
         return debugValues;
     }
@@ -547,7 +547,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @param debugValues the debugValues to set
      */
-    public void setDebugValues(List<DebugValueInfo> debugValues)
+    public void setDebugValues(List<DebugValueWrapper> debugValues)
     {
         this.debugValues = debugValues;
     }
@@ -562,7 +562,7 @@ public class WUCreateAndUpdateWrapper
             return;
         }
         for (int i=0;i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
         }
     }
 
@@ -573,7 +573,7 @@ public class WUCreateAndUpdateWrapper
             return;
         }
         for (int i=0;i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
         }
     }
 

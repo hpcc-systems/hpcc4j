@@ -1,35 +1,35 @@
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.wrappers;
 
-public class DebugValueInfo {
+public class DebugValueWrapper {
 
     private String name;
     private String value;
 
-    public DebugValueInfo()
+    public DebugValueWrapper()
     {
     }
     
-    public DebugValueInfo(String name,String value) {
+    public DebugValueWrapper(String name,String value) {
         this.name=name;
         this.value=value;
     }
 
-    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue raw) {        
+    public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue raw) {        
         name=raw.getName();
         value=raw.getValue();
     }
     
-    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue raw) {        
+    public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue raw) {        
         name=raw.getName();
         value=raw.getValue();
     }
     
-    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue raw) {        
+    public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue raw) {        
         name=raw.getName();
         value=raw.getValue();
     }
 
-    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue raw) 
+    public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue raw) 
     {
         name=raw.getName();
         value=raw.getValue();

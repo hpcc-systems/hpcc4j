@@ -1,40 +1,40 @@
-package org.hpccsystems.ws.client.platform;
+package org.hpccsystems.ws.client.wrappers;
 
-public class ApplicationValueInfo {
+public class ApplicationValueWrapper {
 
     private String application;
     private String name;
     private String value;
 
-    public ApplicationValueInfo()
+    public ApplicationValueWrapper()
     {
     }
     
-    public ApplicationValueInfo(String app, String name,String value) {
+    public ApplicationValueWrapper(String app, String name,String value) {
         this.application=app;
         this.name=name;
         this.value=value;
     }
 
-    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue raw) {
+    public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue raw) {
         application=raw.getApplication();
         name=raw.getName();
         value=raw.getValue();
     }
     
-    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue raw) {
+    public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue raw) {
         application=raw.getApplication();
         name=raw.getName();
         value=raw.getValue();
     }
 
-    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue raw) {
+    public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue raw) {
         application=raw.getApplication();
         name=raw.getName();
         value=raw.getValue();
     }
 
-    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue raw) 
+    public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue raw) 
     {
         application=raw.getApplication();
         name=raw.getName();

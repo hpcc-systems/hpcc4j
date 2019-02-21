@@ -43,6 +43,7 @@ import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 
 public class Platform extends DataSingleton
 {
@@ -320,8 +321,8 @@ public class Platform extends DataSingleton
             {
                 HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
 
-                List<ApplicationValueInfo> appVals=new ArrayList<ApplicationValueInfo>();
-                appVals.add(new ApplicationValueInfo(API_ID,"path",filePath));
+                List<ApplicationValueWrapper> appVals=new ArrayList<ApplicationValueWrapper>();
+                appVals.add(new ApplicationValueWrapper(API_ID,"path",filePath));
                 
                 WorkunitInfo response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
 
@@ -410,7 +411,7 @@ public class Platform extends DataSingleton
                 WUQueryInfo info=new WUQueryInfo().setJobname(jobname).setCluster(cluster)
                         .setStartDate(Utils.UTCStringToDate(startDate)).setEndDate(Utils.UTCStringToDate(endDate))
                         .setPageSize(new Long(100)).setOwner(userOnly ? getUser() : null);
-                info.getApplicationValues().add(new ApplicationValueInfo("org.hpccsystems.ws.client", appKey, appData));
+                info.getApplicationValues().add(new ApplicationValueWrapper("org.hpccsystems.ws.client", appKey, appData));
                 List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
                 updateWorkunits(response);
             }
