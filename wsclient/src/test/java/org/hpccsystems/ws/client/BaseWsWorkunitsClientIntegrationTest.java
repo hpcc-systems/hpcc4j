@@ -3,13 +3,13 @@ package org.hpccsystems.ws.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.platform.ApplicationValueInfo;
 import org.hpccsystems.ws.client.platform.Cluster;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.WUQueryInfo;
 import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.junit.After;
@@ -116,9 +116,9 @@ public abstract class BaseWsWorkunitsClientIntegrationTest {
             wu.setCluster(thorcluster.getName());
             wu.setJobname("testgetworkunit-" + i + "-" + uniquerun);
             wu.setOwner("user");
-            wu.getApplicationValues().add(new ApplicationValueInfo("HIPIE","testkey","testvalue"));
-            wu.getApplicationValues().add(new ApplicationValueInfo("HIPIE","testkey2","testvalue" + i));
-            wu.getApplicationValues().add(new ApplicationValueInfo("HIPIE","uniquetestkey" + i,"uniquetestvalue" + i));
+            wu.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","testkey","testvalue"));
+            wu.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","testkey2","testvalue" + i));
+            wu.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","uniquetestkey" + i,"uniquetestvalue" + i));
 
             wu=client.compileWUFromECL(wu);
             WorkunitInfo res=client.getWUInfo(wu.getWuid());
@@ -146,14 +146,14 @@ public abstract class BaseWsWorkunitsClientIntegrationTest {
     {
         createTestWorkunits("OUTPUT(1);",2);
         WUQueryInfo params=new WUQueryInfo().setJobname("*" + uniquerun + "*");
-        params.getApplicationValues().add(new ApplicationValueInfo("HIPIE","testkey","testvalue"));
+        params.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","testkey","testvalue"));
         List<WorkunitInfo> result=client.getWorkunits(params);
         if (result.size() != 2)
         {
             System.out.println(result);
             Assert.fail("should have been two workunits with app value named testkey with value testvalue");
         }
-        params.getApplicationValues().add(new ApplicationValueInfo("HIPIE","testkey2","testvalue1"));
+        params.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","testkey2","testvalue1"));
         result=client.getWorkunits(params);
         if (result.size() != 1)
         {

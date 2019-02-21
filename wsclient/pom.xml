@@ -3,7 +3,7 @@
     <groupId>org.hpccsystems</groupId>
     <artifactId>wsclient</artifactId>
     <packaging>jar</packaging>
-    <version>7.1.0-SNAPSHOT</version>
+    <version>7.2.0-SNAPSHOT</version>
     <name>HPCC Web Services Client API</name>
     <description>This project allows a user to interact with ESP services in a controlled manner. The API calls available under org.hpccsystems.ws.client.platform allow for a user to target ESP's across multiple environments running a range of hpccsystems-platform versions. There is no guarantee that if a user utilizes org.hpccsystems.ws.client.gen generated stub code from wsdl, that the calls will be backwards compatible with older hpccsystems-platform versions.</description>
     <url>https://hpccsystems.com</url>
@@ -142,6 +142,7 @@
             <version>1.2.17</version>
         </dependency>
     </dependencies>
+    
     <profiles>
 	<profile>
 		<id>default</id>
@@ -153,30 +154,30 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.11</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.maven.surefire</groupId>
-							<artifactId>surefire-junit47</artifactId>
-							<version>2.12</version>
-						</dependency>
-					</dependencies>
+					<version>2.15</version>
 					<configuration>
-						<includes>
-							<include>**/*.class</include>
-						</includes>
-						<excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest</excludedGroups>
-					</configuration>
+						<groups></groups>
+                		<excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest</excludedGroups>
+                	</configuration>
 				</plugin>
 			</plugins>
 		</build>
 	</profile>
        <profile>
             <id>integrationtests</id>
-            <properties>
-                <test.groups>org.hpccsystems.ws.client.IntegrationTest</test.groups>
-                <test.exclude.groups></test.exclude.groups>
-            </properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.15</version>
+						<configuration>
+							<excludedGroups></excludedGroups>
+	                		<groups>org.hpccsystems.ws.client.IntegrationTest</groups>
+	                	</configuration>
+					</plugin>
+				</plugins>
+			</build>
         </profile>
         <profile>
             <id>release</id>
@@ -226,7 +227,7 @@
             </build>
              <properties>
                 <test.groups></test.groups>
-                <test.exclude.groups>org.hpccsystems.ws.client.IntegrationTest</test.exclude.groups>
+                <test.exclude.groups>org.hpccsystems.ws.client.ManualUnitTest,org.hpccsystems.ws.client.IntegrationTest</test.exclude.groups>
             </properties>
         </profile>
     </profiles>
