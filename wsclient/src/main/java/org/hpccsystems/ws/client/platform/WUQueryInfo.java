@@ -7,6 +7,7 @@ import java.util.List;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUQuery;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 
 /**
  * Wrapper class for inputs to WUQuery. the fields aren't an exact 1-to-1 with the esp service fields. some fields
@@ -39,7 +40,7 @@ public class WUQueryInfo {
     private static String NONARCHIVED_STR="non-archived workunits";
     private static String CREATED_LF_STR="created";
     
-    private List<ApplicationValueInfo> applicationValues=new ArrayList<ApplicationValueInfo>();
+    private List<ApplicationValueWrapper> applicationValues=new ArrayList<ApplicationValueWrapper>();
 
     public WUQueryInfo() { }
     
@@ -58,7 +59,7 @@ public class WUQueryInfo {
         if (raw.getApplicationValues() != null) 
         {
             for (int i=0; i < raw.getApplicationValues().length;i++) {
-                applicationValues.add(new ApplicationValueInfo(raw.getApplicationValues()[i]));
+                applicationValues.add(new ApplicationValueWrapper(raw.getApplicationValues()[i]));
             }
         }
         cluster=raw.getCluster();
@@ -291,7 +292,7 @@ public class WUQueryInfo {
      * @return the application values that will be searched for. If none have been specified,
      * an empty list is returned.
      */
-    public List<ApplicationValueInfo> getApplicationValues() {
+    public List<ApplicationValueWrapper> getApplicationValues() {
         return applicationValues;
     }
 
@@ -299,7 +300,7 @@ public class WUQueryInfo {
      * @param applicationValues - the application values to search for. Any workunits containing these
      * application values will be returned.
      */
-    public WUQueryInfo setApplicationValues(List<ApplicationValueInfo> applicationValues) 
+    public WUQueryInfo setApplicationValues(List<ApplicationValueWrapper> applicationValues) 
     {
         this.applicationValues = applicationValues;
         return this;
@@ -364,7 +365,7 @@ public class WUQueryInfo {
         // sanitize ApplicationValue[]
         if (applicationValues != null) 
         {
-            for (ApplicationValueInfo v : applicationValues)
+            for (ApplicationValueWrapper v : applicationValues)
             {
                 if (v.getApplication() != null && !v.getApplication().isEmpty()
                     && ((v.getName() == null || v.getName().isEmpty())
@@ -426,7 +427,7 @@ public class WUQueryInfo {
             ApplicationValue[] appvalues = new ApplicationValue[applicationValues.size()];
             for (int i=0; i < applicationValues.size();i++) 
             {
-                ApplicationValueInfo wrapped=applicationValues.get(i);
+                ApplicationValueWrapper wrapped=applicationValues.get(i);
                 ApplicationValue item=
                         new ApplicationValue();
                 item.setApplication(wrapped.getApplication());

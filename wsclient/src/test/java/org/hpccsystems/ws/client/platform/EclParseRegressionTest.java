@@ -111,7 +111,10 @@ public class EclParseRegressionTest  {
   
     @Test
     public void testFailedRecs() throws Exception {
-        failedrecs=Files.readAllLines(failedlist.toPath());
+        failedrecs=new ArrayList<String>();
+        if (failedlist.exists()) {
+            failedrecs=Files.readAllLines(failedlist.toPath());
+        }
         for (String rec:failedrecs) {
             String rececl="";
             try {
