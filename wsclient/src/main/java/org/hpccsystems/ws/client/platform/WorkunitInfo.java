@@ -7,7 +7,7 @@ import java.util.List;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
-import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLGraphWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLHelpFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLQueryWrapper;
@@ -44,7 +44,7 @@ public class WorkunitInfo implements
     private String description;
     private Integer errorCount;
     private Integer eventSchedule;
-    private List<ECLExceptionWrapper> exceptions=new ArrayList<ECLExceptionWrapper>();
+    private List<WUExceptionWrapper> exceptions=new ArrayList<WUExceptionWrapper>();
     private Integer graphCount;
     private List<ECLGraphWrapper> graphs=new ArrayList<ECLGraphWrapper>();
     private String graphsDesc;
@@ -1133,20 +1133,20 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public List<ECLExceptionWrapper> getExceptions() {
+    public List<WUExceptionWrapper> getExceptions() {
         return exceptions;
     }
 
-    public WorkunitInfo setExceptions(List<ECLExceptionWrapper> exceptions) {
+    public WorkunitInfo setExceptions(List<WUExceptionWrapper> exceptions) {
         this.exceptions = exceptions;
         return this;
     }
     
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionWrapper>();
+            this.exceptions=new ArrayList<WUExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
+                this.exceptions.add(new WUExceptionWrapper(exceptions[i]));
             }
         }
         return this;
@@ -1154,9 +1154,9 @@ public class WorkunitInfo implements
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionWrapper>();
+            this.exceptions=new ArrayList<WUExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
+                this.exceptions.add(new WUExceptionWrapper(exceptions[i]));
             }
         }
         return this;
@@ -1164,9 +1164,9 @@ public class WorkunitInfo implements
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionWrapper>();
+            this.exceptions=new ArrayList<WUExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
+                this.exceptions.add(new WUExceptionWrapper(exceptions[i]));
             }
         }
         return this;
@@ -1174,9 +1174,9 @@ public class WorkunitInfo implements
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException[] exceptions) {
         if (exceptions != null ) {
-            this.exceptions=new ArrayList<ECLExceptionWrapper>();
+            this.exceptions=new ArrayList<WUExceptionWrapper>();
             for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new ECLExceptionWrapper(exceptions[i]));
+                this.exceptions.add(new WUExceptionWrapper(exceptions[i]));
             }
         }
         return this;

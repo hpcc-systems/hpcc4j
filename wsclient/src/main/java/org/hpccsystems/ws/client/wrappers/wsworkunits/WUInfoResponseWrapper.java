@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
-import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 
 public class WUInfoResponseWrapper
 {
     private WorkunitInfo workunit;
-    private List<ECLExceptionWrapper> exceptions = new ArrayList<ECLExceptionWrapper>();
+    private List<WUExceptionWrapper> exceptions = new ArrayList<WUExceptionWrapper>();
     private Integer autoRefresh;
     private Boolean canCompile;
     private String thorSlaveIP;
@@ -28,7 +28,7 @@ public class WUInfoResponseWrapper
         this.workunit=new WorkunitInfo(resp.getWorkunit());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
+                exceptions.add(new WUExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -45,7 +45,7 @@ public class WUInfoResponseWrapper
         this.secMethod=resp.getSecMethod();
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
+                exceptions.add(new WUExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -62,7 +62,7 @@ public class WUInfoResponseWrapper
         this.secMethod=resp.getSecMethod();
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
+                exceptions.add(new WUExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }    
@@ -78,7 +78,7 @@ public class WUInfoResponseWrapper
         this.secMethod=resp.getSecMethod();
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
             for (int i=0; i < resp.getExceptions().getException().length;i++) {
-                exceptions.add(new ECLExceptionWrapper(resp.getExceptions().getException(i)));
+                exceptions.add(new WUExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
     }
@@ -99,14 +99,14 @@ public class WUInfoResponseWrapper
     /**
      * @return the exceptions
      */
-    public List<ECLExceptionWrapper> getExceptions()
+    public List<WUExceptionWrapper> getExceptions()
     {
         return exceptions;
     }
     /**
      * @param exceptions the exceptions to set
      */
-    public void setExceptions(List<ECLExceptionWrapper> exceptions)
+    public void setExceptions(List<WUExceptionWrapper> exceptions)
     {
         this.exceptions = exceptions;
     }

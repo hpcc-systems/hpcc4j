@@ -35,7 +35,7 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.WUFileType;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
-import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateAndUpdateWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUCreateResponseWrapper;
@@ -126,7 +126,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         if (response.getWorkunit() == null)
         {
             // Call succeeded, but no response...
-            for (ECLExceptionWrapper e : response.getExceptions())
+            for (WUExceptionWrapper e : response.getExceptions())
             {
                 if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                 {
@@ -1477,7 +1477,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                     false, false);
             
             int actualerrors = 0;
-            for (ECLExceptionWrapper ex:res.getExceptions())
+            for (WUExceptionWrapper ex:res.getExceptions())
             {
                 if ("error".equalsIgnoreCase(ex.getSeverity()))
                 {
@@ -1831,7 +1831,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
     }
 
-    public List<ECLExceptionWrapper> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
+    public List<WUExceptionWrapper> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
     {
         getSoapProxy();
 
@@ -1840,10 +1840,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         checkParams.setCluster(cluster);
         checkParams.setTimeToWait(timeout);
         WUSyntaxCheckResponse resp = wsWorkunitsServiceSoapProxy.WUSyntaxCheckECL(checkParams);
-        List<ECLExceptionWrapper> result=new ArrayList<ECLExceptionWrapper>();
+        List<WUExceptionWrapper> result=new ArrayList<WUExceptionWrapper>();
         if (resp.getErrors() != null) {
             for (int i=0; i < resp.getErrors().length;i++) {
-                result.add(new ECLExceptionWrapper(resp.getErrors()[i]));
+                result.add(new WUExceptionWrapper(resp.getErrors()[i]));
             }
         }
         return result;
