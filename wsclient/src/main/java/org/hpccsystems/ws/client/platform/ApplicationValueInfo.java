@@ -21,6 +21,18 @@ public class ApplicationValueInfo {
         name=raw.getName();
         value=raw.getValue();
     }
+    
+    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue raw) {
+        application=raw.getApplication();
+        name=raw.getName();
+        value=raw.getValue();
+    }
+
+    public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue raw) {
+        application=raw.getApplication();
+        name=raw.getName();
+        value=raw.getValue();
+    }
 
     public ApplicationValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue raw) 
     {
@@ -68,5 +80,19 @@ public class ApplicationValueInfo {
         result.setValue(value);
         return result;
     }
- 
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue();
+        result.setApplication(application);
+        result.setName(name);
+        result.setValue(value);
+        return result;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue();
+        result.setApplication(application);
+        result.setName(name);
+        result.setValue(value);
+        return result;
+    }
 }

@@ -298,6 +298,105 @@ public class WUCreateAndUpdateWrapper
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate getRaw() {
         return getRawVersion1_73();
     }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreateAndUpdate getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreateAndUpdate();
+        
+        result.set_protected(_protected);
+        result.setAction(action);
+        result.setAddDrilldownFields(addDrilldownFields);
+        result.setClusterOrig(clusterOrig);
+        result.setClusterSelection(clusterSelection);
+        result.setDescription(description);
+        result.setDescriptionOrig(descriptionOrig);
+        result.setJobname(jobname);
+        result.setJobnameOrig(jobnameOrig);
+        result.setPriorityClass(priorityClass);
+        result.setPriorityLevel(priorityLevel);
+        result.setProtectedOrig(protectedOrig);
+        result.setQueryMainDefinition(queryMainDefinition);
+        result.setQueryText(queryText);
+        result.setResultLimit(resultLimit);
+        result.setScope(scope);
+        result.setScopeOrig(scopeOrig);
+        result.setState(state);
+        result.setStateOrig(stateOrig);
+        result.setThorSlaveIP(thorSlaveIP);
+        result.setWuid(wuid);
+        result.setXmlParams(xmlParams);
+        if (this.getApplicationValues().size()>0) {
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[] appvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[this.getApplicationValues().size()];
+            for (int i=0; i < this.getApplicationValues().size();i++) {
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue();
+                av.setApplication(this.getApplicationValues().get(i).getApplication());
+                av.setName(this.getApplicationValues().get(i).getName());
+                av.setValue(this.getApplicationValues().get(i).getValue());
+                appvals[i]=av;
+            }
+            result.setApplicationValues(appvals);
+        }
+        if (this.getDebugValues().size()>0) {
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[] debugvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()];
+            for (int i=0; i < this.getDebugValues().size();i++) {
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue();                
+                av.setName(this.getDebugValues().get(i).getName());
+                av.setValue(this.getDebugValues().get(i).getValue());
+                debugvals[i]=av;
+            }
+            result.setDebugValues(debugvals);
+        }
+        return result;
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreateAndUpdate getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreateAndUpdate();
+        
+        result.set_protected(_protected);
+        result.setAction(action);
+        result.setAddDrilldownFields(addDrilldownFields);
+        result.setClusterOrig(clusterOrig);
+        result.setClusterSelection(clusterSelection);
+        result.setDescription(description);
+        result.setDescriptionOrig(descriptionOrig);
+        result.setJobname(jobname);
+        result.setJobnameOrig(jobnameOrig);
+        result.setPriorityClass(priorityClass);
+        result.setPriorityLevel(priorityLevel);
+        result.setProtectedOrig(protectedOrig);
+        result.setQueryMainDefinition(queryMainDefinition);
+        result.setQueryText(queryText);
+        result.setResultLimit(resultLimit);
+        result.setScope(scope);
+        result.setScopeOrig(scopeOrig);
+        result.setState(state);
+        result.setStateOrig(stateOrig);
+        result.setThorSlaveIP(thorSlaveIP);
+        result.setWuid(wuid);
+        result.setXmlParams(xmlParams);
+        if (this.getApplicationValues().size()>0) {
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[] appvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[this.getApplicationValues().size()];
+            for (int i=0; i < this.getApplicationValues().size();i++) {
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue();
+                av.setApplication(this.getApplicationValues().get(i).getApplication());
+                av.setName(this.getApplicationValues().get(i).getName());
+                av.setValue(this.getApplicationValues().get(i).getValue());
+                appvals[i]=av;
+            }
+            result.setApplicationValues(appvals);
+        }
+        if (this.getDebugValues().size()>0) {
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[] debugvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[this.getDebugValues().size()];
+            for (int i=0; i < this.getDebugValues().size();i++) {
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue();                
+                av.setName(this.getDebugValues().get(i).getName());
+                av.setValue(this.getDebugValues().get(i).getValue());
+                debugvals[i]=av;
+            }
+            result.setDebugValues(debugvals);
+        }
+        return result;
+    }
+    
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate();
         

@@ -44,7 +44,46 @@ public class ECLHelpFileWrapper
         this.type=raw.getType();
     }
 
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile raw) {
+        if (raw==null) {
+            return;
+        }
+        this.description=raw.getDescription();
+        this.IPAddress=raw.getIPAddress();
+        this.fileSize=raw.getFileSize();
+        if (raw.getMaxActivityId() != null) {
+            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
+        }
+        if (raw.getMinActivityId() != null) {
+            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
+        }
+        this.name=raw.getName();
+        if (raw.getPID() != null) {
+            this.PID=Integer.valueOf(raw.getPID().toString());
+        }
+        this.type=raw.getType();
+    }
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile raw) {
+        if (raw==null) {
+            return;
+        }
+        this.description=raw.getDescription();
+        this.IPAddress=raw.getIPAddress();
+        this.fileSize=raw.getFileSize();
+        if (raw.getMaxActivityId() != null) {
+            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
+        }
+        if (raw.getMinActivityId() != null) {
+            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
+        }
+        this.name=raw.getName();
+        if (raw.getPID() != null) {
+            this.PID=Integer.valueOf(raw.getPID().toString());
+        }
+        this.type=raw.getType();
+    }
+
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile raw) {
         if (raw==null) {
             return;
         }
@@ -219,6 +258,44 @@ public class ECLHelpFileWrapper
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile getRawVersion1_69()
     {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile();
+        raw.setDescription(this.getDescription());
+        raw.setFileSize(this.getFileSize());
+        raw.setIPAddress(this.getIPAddress());
+        raw.setName(this.getName());
+        if (this.getPID() != null) {
+            raw.setPID(new UnsignedInt(this.getPID()));
+        }
+        if (this.getMaxActivityId() != null) {
+            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
+        }
+        if (this.getMinActivityId() != null) {
+            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
+        }
+        raw.setType(this.getType());
+        return raw;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile getRawVersion1_62()
+    {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile();
+        raw.setDescription(this.getDescription());
+        raw.setFileSize(this.getFileSize());
+        raw.setIPAddress(this.getIPAddress());
+        raw.setName(this.getName());
+        if (this.getPID() != null) {
+            raw.setPID(new UnsignedInt(this.getPID()));
+        }
+        if (this.getMaxActivityId() != null) {
+            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
+        }
+        if (this.getMinActivityId() != null) {
+            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
+        }
+        raw.setType(this.getType());
+        return raw;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile getRawVersion1_58()
+    {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile();
         raw.setDescription(this.getDescription());
         raw.setFileSize(this.getFileSize());
         raw.setIPAddress(this.getIPAddress());

@@ -28,4 +28,15 @@ public class WUCreateRequestWrapper
         return raw;
     }
 
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreate getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreate raw=
+        new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreate();
+        return raw;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreate getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreate raw=
+        new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreate();
+        return raw;
+    }
+
 }

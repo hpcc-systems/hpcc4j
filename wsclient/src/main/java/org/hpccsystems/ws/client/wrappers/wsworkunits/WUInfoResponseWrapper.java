@@ -49,6 +49,39 @@ public class WUInfoResponseWrapper
             }
         }
     }
+    
+    public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfoResponse resp) {
+        if (resp==null) {
+            return;
+        }
+        this.workunit=new WorkunitInfo(resp.getWorkunit());
+        this.autoRefresh=resp.getAutoRefresh();
+        this.canCompile=resp.getCanCompile();
+        this.thorSlaveIP=resp.getThorSlaveIP();
+        this.resultViews=resp.getResultViews();
+        this.secMethod=resp.getSecMethod();
+        if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
+            for (int i=0; i < resp.getExceptions().getException().length;i++) {
+                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+            }
+        }
+    }    
+    public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfoResponse resp) {
+        if (resp==null) {
+            return;
+        }
+        this.workunit=new WorkunitInfo(resp.getWorkunit());
+        this.autoRefresh=resp.getAutoRefresh();
+        this.canCompile=resp.getCanCompile();
+        this.thorSlaveIP=resp.getThorSlaveIP();
+        this.resultViews=resp.getResultViews();
+        this.secMethod=resp.getSecMethod();
+        if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
+            for (int i=0; i < resp.getExceptions().getException().length;i++) {
+                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+            }
+        }
+    }
     /**
      * @return the workunit
      */

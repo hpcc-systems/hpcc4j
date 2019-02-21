@@ -109,6 +109,25 @@ public class WorkunitInfo implements
         copy(base);
     }
 
+    /**
+     * Create an ECL workunit from a axis-generated soap class ECL Workunit
+     * 
+     * @param base
+     */
+    public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkunit base)
+    {
+        copy(base);
+    }
+    /**
+     * Create an ECL workunit from a axis-generated soap class ECL Workunit
+     * 
+     * @param base
+     */
+    public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkunit base)
+    {
+        copy(base);
+    }
+    
     public WorkunitInfo() {}
 
     /*
@@ -371,6 +390,189 @@ public class WorkunitInfo implements
         this.setWuid(base.getWuid());
         this.setXmlParams(base.getXmlParams());
     }
+    
+    /**
+     * Copy a soap ecl workunit object into the wrapper
+     * 
+     * @param base
+     */
+    private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkunit base)
+    {
+        if (base == null)
+        {
+            return;
+        }
+        this.setAccessFlag(base.getAccessFlag());
+        this.setAction(base.getAction());
+        this.setActionEx(base.getActionEx());
+        this.setActive(base.getActive());
+        this.setAlertCount(base.getAlertCount());
+        this.setAllowedClusters(base.getAllowedClusters());
+        this.setApplicationValueCount(base.getApplicationValueCount());
+        this.setApplicationValues(base.getApplicationValues());
+        this.setApplicationValuesDesc(base.getApplicationValuesDesc());
+        this.setArchived(base.getArchived());
+        this.setCluster(base.getCluster());
+        this.setClusterFlag(base.getClusterFlag());
+        this.setDateTimeScheduled(base.getDateTimeScheduled());
+        this.setDebugValueCount(base.getDebugValueCount());
+        this.setDebugValues(base.getDebugValues());
+        this.setDebugValuesDesc(base.getDebugValuesDesc());
+        this.setDescription(base.getDescription());        
+        this.setErrorCount(base.getErrorCount());
+        this.setEventSchedule(base.getEventSchedule());
+        this.setExceptions(base.getExceptions());
+        this.setGraphCount(base.getGraphCount());
+        this.setGraphsDesc(base.getGraphsDesc());
+        this.setGraphs(base.getGraphs());
+        this.setHasArchiveQuery(base.getHasArchiveQuery());
+        this.setHasDebugValue(base.getHasDebugValue());
+        this.setHelpers(base.getHelpers());
+        this.setHelpersDesc(base.getHelpersDesc());
+        this.setInfoCount(base.getInfoCount());
+        this.setIsPausing(base.getIsPausing());
+        this.setJobname(base.getJobname());
+        this.setOwner(base.getOwner());
+        this.setPriorityClass(base.getPriorityClass());
+        this.setPriorityLevel(base.getPriorityLevel());
+        this.setProtected(base.get_protected());
+        this.setQuery(base.getQuery());
+        this.setQueue(base.getQueue());
+        this.setResourceURLCount(base.getResourceURLCount());
+        this.setResourceURLs(base.getResourceURLs());
+        this.setResultCount(base.getResultCount());
+        this.setResultLimit(base.getResultLimit());
+        if (base.getResults() != null)
+        {
+            this.eclResults=new ArrayList<ECLResultInfo>();
+            for (int i=0; i < base.getResults().length;i++) {
+                eclResults.add(new ECLResultInfo(base.getResults()[i]));
+            }
+        }
+        this.setResultsDesc(base.getResultsDesc());
+        this.setRoxieCluster(base.getRoxieCluster());
+        this.setScope(base.getScope());
+        this.setSnapshot(base.getSnapshot());
+        this.setSourceFileCount(base.getSourceFileCount());
+        this.setSourceFiles(base.getSourceFiles());
+        this.setSourceFilesDesc(base.getSourceFilesDesc());
+        this.setState(base.getState());
+        this.setStateEx(base.getStateEx());
+        this.setStateID(base.getStateID());
+        this.setTimerCount(base.getTimerCount());
+        this.setTimersDesc(base.getTimersDesc());
+        this.setTimingData(base.getTimingData());
+        this.setTotalClusterTime(base.getTotalClusterTime());
+        this.setVariableCount(base.getVariableCount());
+        if (base.getVariables() != null)
+        {
+            this.variables=new ArrayList<ECLResultInfo>();
+            for (int i=0; i < base.getVariables().length;i++) {
+                variables.add(new ECLResultInfo(base.getVariables()[i]));
+            }
+        }
+        this.setThorLCR(base.getThorLCR());
+        this.setThorLogList(base.getThorLogList());        
+        this.setVariablesDesc(base.getVariablesDesc());
+        this.setWarningCount(base.getWarningCount());
+        this.setWorkflowCount(base.getWorkflowCount());
+        this.setWorkflows(base.getWorkflows());
+        this.setWorkflowsDesc(base.getWorkflowsDesc());
+        this.setWuid(base.getWuid());
+        this.setXmlParams(base.getXmlParams());
+    }
+    
+
+    /**
+     * Copy a soap ecl workunit object into the wrapper
+     * 
+     * @param base
+     */
+    private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkunit base)
+    {
+        if (base == null)
+        {
+            return;
+        }
+        this.setAccessFlag(base.getAccessFlag());
+        this.setAction(base.getAction());
+        this.setActionEx(base.getActionEx());
+        this.setActive(base.getActive());
+        this.setAlertCount(base.getAlertCount());
+        this.setAllowedClusters(base.getAllowedClusters());
+        this.setApplicationValueCount(base.getApplicationValueCount());
+        this.setApplicationValues(base.getApplicationValues());
+        this.setApplicationValuesDesc(base.getApplicationValuesDesc());
+        this.setArchived(base.getArchived());
+        this.setCluster(base.getCluster());
+        this.setClusterFlag(base.getClusterFlag());
+        this.setDateTimeScheduled(base.getDateTimeScheduled());
+        this.setDebugValueCount(base.getDebugValueCount());
+        this.setDebugValues(base.getDebugValues());
+        this.setDebugValuesDesc(base.getDebugValuesDesc());
+        this.setDescription(base.getDescription());        
+        this.setErrorCount(base.getErrorCount());
+        this.setEventSchedule(base.getEventSchedule());
+        this.setExceptions(base.getExceptions());
+        this.setGraphCount(base.getGraphCount());
+        this.setGraphsDesc(base.getGraphsDesc());
+        this.setGraphs(base.getGraphs());
+        this.setHasArchiveQuery(base.getHasArchiveQuery());
+        this.setHasDebugValue(base.getHasDebugValue());
+        this.setHelpers(base.getHelpers());
+        this.setHelpersDesc(base.getHelpersDesc());
+        this.setInfoCount(base.getInfoCount());
+        this.setIsPausing(base.getIsPausing());
+        this.setJobname(base.getJobname());
+        this.setOwner(base.getOwner());
+        this.setPriorityClass(base.getPriorityClass());
+        this.setPriorityLevel(base.getPriorityLevel());
+        this.setProtected(base.get_protected());
+        this.setQuery(base.getQuery());
+        this.setQueue(base.getQueue());
+        this.setResourceURLCount(base.getResourceURLCount());
+        this.setResourceURLs(base.getResourceURLs());
+        this.setResultCount(base.getResultCount());
+        this.setResultLimit(base.getResultLimit());
+        if (base.getResults() != null)
+        {
+            this.eclResults=new ArrayList<ECLResultInfo>();
+            for (int i=0; i < base.getResults().length;i++) {
+                eclResults.add(new ECLResultInfo(base.getResults()[i]));
+            }
+        }
+        this.setResultsDesc(base.getResultsDesc());
+        this.setRoxieCluster(base.getRoxieCluster());
+        this.setScope(base.getScope());
+        this.setSnapshot(base.getSnapshot());
+        this.setSourceFileCount(base.getSourceFileCount());
+        this.setSourceFiles(base.getSourceFiles());
+        this.setSourceFilesDesc(base.getSourceFilesDesc());
+        this.setState(base.getState());
+        this.setStateEx(base.getStateEx());
+        this.setStateID(base.getStateID());
+        this.setTimerCount(base.getTimerCount());
+        this.setTimersDesc(base.getTimersDesc());
+        this.setTimingData(base.getTimingData());
+        this.setTotalClusterTime(base.getTotalClusterTime());
+        this.setVariableCount(base.getVariableCount());
+        if (base.getVariables() != null)
+        {
+            this.variables=new ArrayList<ECLResultInfo>();
+            for (int i=0; i < base.getVariables().length;i++) {
+                variables.add(new ECLResultInfo(base.getVariables()[i]));
+            }
+        }
+        this.setThorLCR(base.getThorLCR());
+        this.setThorLogList(base.getThorLogList());        
+        this.setVariablesDesc(base.getVariablesDesc());
+        this.setWarningCount(base.getWarningCount());
+        this.setWorkflowCount(base.getWorkflowCount());
+        this.setWorkflows(base.getWorkflows());
+        this.setWorkflowsDesc(base.getWorkflowsDesc());
+        this.setWuid(base.getWuid());
+        this.setXmlParams(base.getXmlParams());
+    }
 
     public WorkunitInfo setGraphs(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph[] graphs)
     {
@@ -384,7 +586,25 @@ public class WorkunitInfo implements
         return this;
     }
 
+    public WorkunitInfo setGraphs(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLGraph[] graphs)
+    {
+        this.getGraphs().clear();
+        if (graphs==null) {
+            return this;
+        }
+        for(int i=0; i < graphs.length;i++) {
+            this.getGraphs().add(new ECLGraphWrapper(graphs[i]));
+        }
+        return this;
+    }
+
     public WorkunitInfo setQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery query2)
+    {
+        this.query=new ECLQueryWrapper(query2);
+        return this;
+    }
+
+    public WorkunitInfo setQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery query2)
     {
         this.query=new ECLQueryWrapper(query2);
         return this;
@@ -757,7 +977,7 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] vals)
+    public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[] vals)
     {
         if (vals==null)
         {
@@ -771,6 +991,35 @@ public class WorkunitInfo implements
         return this;
     }
     
+   
+    public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] vals)
+    {
+        if (vals==null)
+        {
+            return this;
+        }
+        applicationValues=new ArrayList<ApplicationValueInfo>();
+        for (int i=0; i < vals.length;i++) {
+            applicationValues.add(new ApplicationValueInfo(vals[i]));
+        }
+
+        return this;
+    }
+
+    public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[] vals)
+    {
+        if (vals==null)
+        {
+            return this;
+        }
+        applicationValues=new ArrayList<ApplicationValueInfo>();
+        for (int i=0; i < vals.length;i++) {
+            applicationValues.add(new ApplicationValueInfo(vals[i]));
+        }
+
+        return this;
+    }
+
     public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[] vals)
     {
         if (vals==null)
@@ -809,6 +1058,27 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[] debugValues) {
+        this.debugValues.clear();
+        if (debugValues==null) {
+            return this;
+        }
+        for (int i=0; i < debugValues.length;i++) {
+            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+        }
+        return this;
+    }
+    public WorkunitInfo setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[] debugValues) {
+        this.debugValues.clear();
+        if (debugValues==null) {
+            return this;
+        }
+        for (int i=0; i < debugValues.length;i++) {
+            this.debugValues.add(new DebugValueInfo(debugValues[i]));
+        }
+        return this;
+    }
+
+    public WorkunitInfo setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[] debugValues) {
         this.debugValues.clear();
         if (debugValues==null) {
             return this;
@@ -879,6 +1149,26 @@ public class WorkunitInfo implements
         return this;
     }
 
+    public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException[] exceptions) {
+        if (exceptions != null ) {
+            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            for (int i=0; i < exceptions.length;i++) {
+                this.exceptions.add(new ECLExceptionInfo(exceptions[i]));
+            }
+        }
+        return this;
+    }
+
+    public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException[] exceptions) {
+        if (exceptions != null ) {
+            this.exceptions=new ArrayList<ECLExceptionInfo>();
+            for (int i=0; i < exceptions.length;i++) {
+                this.exceptions.add(new ECLExceptionInfo(exceptions[i]));
+            }
+        }
+        return this;
+    }
+
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException[] exceptions) {
         if (exceptions != null ) {
             this.exceptions=new ArrayList<ECLExceptionInfo>();
@@ -903,6 +1193,17 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setGraphs(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph[] graphs) {
+        this.graphs.clear();
+        if (graphs==null) {
+            return this;
+        }
+        for (int i=0; i < graphs.length;i++) {
+            this.graphs.add(new ECLGraphWrapper(graphs[i]));
+        }
+        return this;
+    }
+    
+    public WorkunitInfo setGraphs(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLGraph[] graphs) {
         this.graphs.clear();
         if (graphs==null) {
             return this;
@@ -955,6 +1256,26 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setHelpers(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile[] helpers) {
+        this.helpers.clear();
+        if (helpers != null) {
+            for (int i=0; i < helpers.length;i++) {
+                this.helpers.add(new ECLHelpFileWrapper(helpers[i]));
+            }
+        }
+        return this;
+    }
+    
+    public WorkunitInfo setHelpers(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile[] helpers) {
+        this.helpers.clear();
+        if (helpers != null) {
+            for (int i=0; i < helpers.length;i++) {
+                this.helpers.add(new ECLHelpFileWrapper(helpers[i]));
+            }
+        }
+        return this;
+    }
+
+    public WorkunitInfo setHelpers(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile[] helpers) {
         this.helpers.clear();
         if (helpers != null) {
             for (int i=0; i < helpers.length;i++) {
@@ -1032,6 +1353,11 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery query) {
+        this.query = new ECLQueryWrapper(query);
+        return this;
+    }
+    
+    public WorkunitInfo setQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery query) {
         this.query = new ECLQueryWrapper(query);
         return this;
     }
@@ -1117,7 +1443,28 @@ public class WorkunitInfo implements
         return sourceFiles;
     }
 
+    public WorkunitInfo setSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile[] sourceFiles) {
+        this.sourceFiles.clear();
+        if (sourceFiles==null) {
+            return this;
+        }
+        for (int i=0; i < sourceFiles.length;i++) {
+            this.sourceFiles.add(new ECLSourceFileWrapper(sourceFiles[i]));
+        }
+        return this;
+    }
+
     public WorkunitInfo setSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile[] sourceFiles) {
+        this.sourceFiles.clear();
+        if (sourceFiles==null) {
+            return this;
+        }
+        for (int i=0; i < sourceFiles.length;i++) {
+            this.sourceFiles.add(new ECLSourceFileWrapper(sourceFiles[i]));
+        }
+        return this;
+    }
+    public WorkunitInfo setSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile[] sourceFiles) {
         this.sourceFiles.clear();
         if (sourceFiles==null) {
             return this;
@@ -1219,6 +1566,29 @@ public class WorkunitInfo implements
         }
         return this;
     }
+    private WorkunitInfo setTimingData(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData[] timingData)
+    {
+        this.timingData.clear();
+        if (timingData==null) {
+            return this;
+        }
+        for (int i=0;i < timingData.length;i++) {
+            this.timingData.add(new ECLTimingDataWrapper(timingData[i]));
+        }
+        return this;
+    }
+    
+    private WorkunitInfo setTimingData(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData[] timingData)
+    {
+        this.timingData.clear();
+        if (timingData==null) {
+            return this;
+        }
+        for (int i=0;i < timingData.length;i++) {
+            this.timingData.add(new ECLTimingDataWrapper(timingData[i]));
+        }
+        return this;
+    }
 
 
     public String getTotalClusterTime() {
@@ -1271,8 +1641,29 @@ public class WorkunitInfo implements
         }
         return this;
     }
+    public WorkunitInfo setThorLogList(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ThorLogInfo[] thorLogList) {
+        this.thorLogList.clear();
+        if (thorLogList==null) {
+            return this;
+        }
+        for (int i=0; i < thorLogList.length;i++) {
+            this.thorLogList.add(new ThorLogInfoWrapper(thorLogList[i]));
+        }
+        return this;
+    }
     
     public WorkunitInfo setThorLogList(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo[] thorLogList) {
+        this.thorLogList.clear();
+        if (thorLogList==null) {
+            return this;
+        }
+        for (int i=0; i < thorLogList.length;i++) {
+            this.thorLogList.add(new ThorLogInfoWrapper(thorLogList[i]));
+        }
+        return this;
+    }
+    
+    public WorkunitInfo setThorLogList(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo[] thorLogList) {
         this.thorLogList.clear();
         if (thorLogList==null) {
             return this;
@@ -1326,6 +1717,27 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setWorkflows(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow[] workflows) {
+        this.workflows.clear();
+        if (workflows==null) {
+            return this;
+        }
+        for (int i=0; i < workflows.length;i++) {
+            this.workflows.add(new ECLWorkflowWrapper(workflows[i]));
+        }
+        return this;
+    }
+    public WorkunitInfo setWorkflows(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow[] workflows) {
+        this.workflows.clear();
+        if (workflows==null) {
+            return this;
+        }
+        for (int i=0; i < workflows.length;i++) {
+            this.workflows.add(new ECLWorkflowWrapper(workflows[i]));
+        }
+        return this;
+    }
+   
+    public WorkunitInfo setWorkflows(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow[] workflows) {
         this.workflows.clear();
         if (workflows==null) {
             return this;
@@ -1654,6 +2066,143 @@ public class WorkunitInfo implements
             eclWorkunit.setWorkflows(new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow[this.getWorkflows().size()]);
             for (int i=0; i < this.getWorkflows().size(); i++) {
                 eclWorkunit.getWorkflows()[i]=this.getWorkflows().get(i).getRawVersion1_69();
+            }
+        }
+        eclWorkunit.setWorkflowsDesc(this.getWorkflowsDesc());
+        eclWorkunit.setWuid(this.getWuid());
+        eclWorkunit.setXmlParams(this.getXmlParams());
+
+        return eclWorkunit;
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkunit getEclWorkunitVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkunit eclWorkunit=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkunit();
+        eclWorkunit.setAccessFlag(this.getAccessFlag());
+        eclWorkunit.setAction(this.getAction());
+        eclWorkunit.setActionEx(this.getActionEx());
+        eclWorkunit.setActive(this.getActive());
+        eclWorkunit.setAlertCount(this.getAlertCount());
+        eclWorkunit.setAllowedClusters(this.getAllowedClusters());
+        eclWorkunit.setApplicationValueCount(this.getApplicationValueCount());
+        if (this.getApplicationValues() != null && this.getApplicationValues().size()>0)
+        {
+            eclWorkunit.setApplicationValues(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[this.getApplicationValues().size()]);
+            for (int i=0; i < this.getApplicationValues().size();i++) {
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue();
+                av.setApplication(this.getApplicationValues().get(i).getApplication());
+                av.setName(this.getApplicationValues().get(i).getName());
+                av.setValue(this.getApplicationValues().get(i).getValue());
+                eclWorkunit.getApplicationValues()[i]=av;
+            }
+        }
+        eclWorkunit.setApplicationValuesDesc(this.getApplicationValuesDesc());
+        eclWorkunit.setArchived(this.getArchived());
+        eclWorkunit.setCluster(this.getCluster());
+        eclWorkunit.setClusterFlag(this.getClusterFlag());
+        eclWorkunit.setDateTimeScheduled(this.getDateTimeScheduled());
+        eclWorkunit.setDebugValueCount(this.getDebugValueCount());
+        if (this.getDebugValues() != null && this.getDebugValues().size()>0)
+        {
+            eclWorkunit.setDebugValues(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()]);
+            for (int i=0; i < this.getDebugValues().size();i++) {
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue();
+                av.setName(this.getDebugValues().get(i).getName());
+                av.setValue(this.getDebugValues().get(i).getValue());
+                eclWorkunit.getDebugValues()[i]=av;
+            }
+        }
+        eclWorkunit.setDebugValuesDesc(this.getDebugValuesDesc());
+        eclWorkunit.setDescription(this.getDescription());        
+        eclWorkunit.setErrorCount(this.getErrorCount());
+        eclWorkunit.setEventSchedule(this.getEventSchedule());
+        if (this.getExceptions() != null && this.getExceptions().size()>0 ) {
+            eclWorkunit.setExceptions(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException[this.getExceptions().size()]);
+            for (int i=0; i < this.getExceptions().size();i++) {
+                eclWorkunit.getExceptions()[i]=this.getExceptions().get(i).getRawVersion1_58();
+            }
+        }
+        eclWorkunit.setGraphCount(this.getGraphCount());
+        if (this.getGraphs().size()>0) {
+            eclWorkunit.setGraphs(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLGraph[this.getGraphs().size()]);
+            for (int i=0; i < this.getGraphs().size();i++) {
+                eclWorkunit.getGraphs()[i]=this.getGraphs().get(i).getRawVersion1_58();
+            }
+        }
+        eclWorkunit.setGraphsDesc(this.getGraphsDesc());
+        eclWorkunit.setHasArchiveQuery(this.getHasArchiveQuery());
+        eclWorkunit.setHasDebugValue(this.getHasDebugValue());
+        if (this.getHelpers() != null && this.getHelpers().size()>0 ) {
+            eclWorkunit.setHelpers(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile[this.getHelpers().size()]);
+            for (int i=0; i < this.getHelpers().size();i++) {
+                eclWorkunit.getHelpers()[i]=this.getHelpers().get(i).getRawVersion1_58();
+            }  
+        }
+        eclWorkunit.setHelpersDesc(this.getHelpersDesc());
+        eclWorkunit.setInfoCount(this.getInfoCount());
+        eclWorkunit.setIsPausing(this.getIsPausing());
+        eclWorkunit.setJobname(this.getJobname());
+        eclWorkunit.setOwner(this.getOwner());
+        eclWorkunit.set_protected(this.isProtected());
+        eclWorkunit.setPriorityClass(this.getPriorityClass());
+        eclWorkunit.setPriorityLevel(this.getPriorityLevel());
+        eclWorkunit.setQuery(this.getQuery().getRawVersion1_58());
+        eclWorkunit.setQueue(this.getQueue());
+        eclWorkunit.setResourceURLCount(this.getResourceURLCount());
+        eclWorkunit.setResourceURLs(this.getResourceURLs());
+        eclWorkunit.setResultCount(this.getResultCount());
+        eclWorkunit.setResultLimit(this.getResultLimit());
+        if (this.getResults() != null && this.getResults().size()>0) {
+            eclWorkunit.setResults(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLResult[this.getResults().size()]);
+            for (int i=0; i < this.getResults().size();i++) {
+                eclWorkunit.getResults()[i]=this.getResults().get(i).getRawVersion1_58();
+            }
+        }
+        eclWorkunit.setResultsDesc(this.getResultsDesc());
+        eclWorkunit.setRoxieCluster(this.getRoxieCluster());
+        eclWorkunit.setScope(this.getScope());
+        eclWorkunit.setSnapshot(this.getSnapshot());
+        eclWorkunit.setSourceFileCount(this.getSourceFileCount());
+        if (this.getSourceFiles() != null && this.getSourceFiles().size()>0) {
+            eclWorkunit.setSourceFiles(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile[this.getSourceFiles().size()]);
+            for (int i=0; i < this.getSourceFiles().size();i++) {
+                eclWorkunit.getSourceFiles()[i]=this.getSourceFiles().get(i).getRawVersion1_58();
+            }
+        }
+        eclWorkunit.setSourceFilesDesc(this.getSourceFilesDesc());
+        eclWorkunit.setState(this.getState());
+        eclWorkunit.setStateEx(this.getStateEx());
+        eclWorkunit.setStateID(this.getStateID());
+        eclWorkunit.setTimerCount(this.getTimerCount());
+        eclWorkunit.setTimersDesc(this.getTimersDesc());
+        if (this.getTimingData() != null && this.getTimingData().size()>0) {
+            eclWorkunit.setTimingData(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData[this.getTimingData().size()]);
+            for (int i=0; i < this.getTimingData().size();i++) {
+                eclWorkunit.getTimingData()[i]=this.getTimingData().get(i).getRawVersion1_58();
+            }
+        }
+        eclWorkunit.setTotalClusterTime(this.getTotalClusterTime());
+        eclWorkunit.setVariableCount(this.getVariableCount());
+        if (this.getVariables() != null && this.getVariables().size()>0) {
+            eclWorkunit.setVariables(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLResult[this.getVariables().size()]);
+            for (int i=0; i < this.getVariables().size();i++) {
+                eclWorkunit.getVariables()[i]=this.getVariables().get(i).getRawVersion1_58();
+            }
+        }
+        eclWorkunit.setThorLCR(this.getThorLCR());        
+        if (this.getThorLogList() != null && this.getThorLogList().size()>0) {
+            eclWorkunit.setThorLogList(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo[this.getThorLogList().size()]);
+            for (int i=0; i < this.getThorLogList().size();i++) {
+                eclWorkunit.getThorLogList()[i]=this.getThorLogList().get(i).getRawVersion1_58();
+                
+            }
+        }
+        eclWorkunit.setVariablesDesc(this.getVariablesDesc());
+        eclWorkunit.setWarningCount(this.getWarningCount());
+        eclWorkunit.setWorkflowCount(this.getWorkflowCount());
+        if (this.getWorkflows() != null && this.getWorkflows().size()>0) {
+            eclWorkunit.setWorkflows(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow[this.getWorkflows().size()]);
+            for (int i=0; i < this.getWorkflows().size(); i++) {
+                eclWorkunit.getWorkflows()[i]=this.getWorkflows().get(i).getRawVersion1_58();
             }
         }
         eclWorkunit.setWorkflowsDesc(this.getWorkflowsDesc());

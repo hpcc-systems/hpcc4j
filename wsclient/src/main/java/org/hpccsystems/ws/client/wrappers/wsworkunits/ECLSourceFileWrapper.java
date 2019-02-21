@@ -40,6 +40,27 @@ public class ECLSourceFileWrapper
         this.setName(raw.getName());
         this.setSubs(raw.getSubs());        
     }
+    public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setCount(raw.getCount());
+        this.setECLSourceFiles(raw.getECLSourceFiles());
+        this.setFileCluster(raw.getFileCluster());        
+        this.setName(raw.getName());
+        this.setSubs(raw.getSubs());        
+    }
+    
+    public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setCount(raw.getCount());
+        this.setECLSourceFiles(raw.getECLSourceFiles());
+        this.setFileCluster(raw.getFileCluster());        
+        this.setName(raw.getName());
+        this.setSubs(raw.getSubs());        
+    }
     
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLSourceFile getRaw() {
         return getRawVersion73();
@@ -67,6 +88,35 @@ public class ECLSourceFileWrapper
             raw.setECLSourceFiles(new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile[this.getECLSourceFiles().size()]);
             for (int i=0; i < this.getECLSourceFiles().size();i++) {
                 raw.getECLSourceFiles()[i]=this.getECLSourceFiles().get(i).getRawVersion1_69();
+            }
+        }
+        raw.setFileCluster(this.getFileCluster());        
+        raw.setName(this.getName());
+        raw.setSubs(this.getSubs());        
+        return raw;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile();
+        raw.setCount(this.getCount());
+        if (this.getECLSourceFiles().size()>0) {
+            raw.setECLSourceFiles(new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile[this.getECLSourceFiles().size()]);
+            for (int i=0; i < this.getECLSourceFiles().size();i++) {
+                raw.getECLSourceFiles()[i]=this.getECLSourceFiles().get(i).getRawVersion1_62();
+            }
+        }
+        raw.setFileCluster(this.getFileCluster());        
+        raw.setName(this.getName());
+        raw.setSubs(this.getSubs());        
+        return raw;
+    }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile();
+        raw.setCount(this.getCount());
+        if (this.getECLSourceFiles().size()>0) {
+            raw.setECLSourceFiles(new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile[this.getECLSourceFiles().size()]);
+            for (int i=0; i < this.getECLSourceFiles().size();i++) {
+                raw.getECLSourceFiles()[i]=this.getECLSourceFiles().get(i).getRawVersion1_58();
             }
         }
         raw.setFileCluster(this.getFileCluster());        
@@ -180,6 +230,27 @@ public class ECLSourceFileWrapper
         }     
     }
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLSourceFile[] eclSourceFiles2)
+    {
+        this.getECLSourceFiles().clear();
+        if (eclSourceFiles2 != null) {
+            for (int i=0; i < eclSourceFiles2.length;i++) {
+                this.ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFiles2[i]));
+            }
+        }     
+    }
+    
+    public void setECLSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLSourceFile[] eclSourceFiles2)
+    {
+        this.getECLSourceFiles().clear();
+        if (eclSourceFiles2 != null) {
+            for (int i=0; i < eclSourceFiles2.length;i++) {
+                this.ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFiles2[i]));
+            }
+        }     
+    }
+    
+    
+    public void setECLSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLSourceFile[] eclSourceFiles2)
     {
         this.getECLSourceFiles().clear();
         if (eclSourceFiles2 != null) {

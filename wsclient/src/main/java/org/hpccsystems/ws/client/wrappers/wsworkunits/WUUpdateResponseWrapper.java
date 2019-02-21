@@ -34,6 +34,30 @@ public class WUUpdateResponseWrapper
             }
         }
     }
+    
+    public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdateResponse resp) {
+        if (resp==null) {
+            return;
+        }
+        this.workunit=new WorkunitInfo(resp.getWorkunit());
+        if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
+            for (int i=0; i < resp.getExceptions().getException().length;i++) {
+                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+            }
+        }
+    }
+    
+    public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdateResponse resp) {
+        if (resp==null) {
+            return;
+        }
+        this.workunit=new WorkunitInfo(resp.getWorkunit());
+        if (resp.getExceptions() != null && resp.getExceptions().getException() != null) {
+            for (int i=0; i < resp.getExceptions().getException().length;i++) {
+                exceptions.add(new ECLExceptionInfo(resp.getExceptions().getException(i)));
+            }
+        }
+    }
     /**
      * @return the workunit
      */

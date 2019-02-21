@@ -55,6 +55,44 @@ public class ECLExceptionInfo {
         source=raw.getSource();
     }    
 
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException raw) 
+    {
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.EspException raw) 
+    {
+        audience=raw.getAudience();
+        message=raw.getMessage();
+        espCode=raw.getCode();
+        source=raw.getSource();
+    }    
+    
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException raw) 
+    {
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    public ECLExceptionInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.EspException raw) 
+    {
+        audience=raw.getAudience();
+        message=raw.getMessage();
+        espCode=raw.getCode();
+        source=raw.getSource();
+    }    
+
     public Integer getActivity() {
         return activity;
     }
@@ -132,9 +170,31 @@ public class ECLExceptionInfo {
         return ex;
     }
 
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException();
+        ex.setCode(code);
+        ex.setColumn(column);
+        ex.setFileName(fileName);
+        ex.setLineNo(lineNo);
+        ex.setMessage(message);
+        ex.setSeverity(severity);
+        ex.setSource(source);
+        return ex;
+    }
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException();
         ex.setActivity(activity);
+        ex.setCode(code);
+        ex.setColumn(column);
+        ex.setFileName(fileName);
+        ex.setLineNo(lineNo);
+        ex.setMessage(message);
+        ex.setSeverity(severity);
+        ex.setSource(source);
+        return ex;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException();        
         ex.setCode(code);
         ex.setColumn(column);
         ex.setFileName(fileName);

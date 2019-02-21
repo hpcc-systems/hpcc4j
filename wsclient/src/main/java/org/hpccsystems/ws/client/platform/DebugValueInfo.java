@@ -18,6 +18,16 @@ public class DebugValueInfo {
         name=raw.getName();
         value=raw.getValue();
     }
+    
+    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue raw) {        
+        name=raw.getName();
+        value=raw.getValue();
+    }
+    
+    public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue raw) {        
+        name=raw.getName();
+        value=raw.getValue();
+    }
 
     public DebugValueInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue raw) 
     {
@@ -50,6 +60,20 @@ public class DebugValueInfo {
     
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue();
+        result.setName(name);
+        result.setValue(value);
+        return result;
+    }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue();
+        result.setName(name);
+        result.setValue(value);
+        return result;
+    }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue();
         result.setName(name);
         result.setValue(value);
         return result;

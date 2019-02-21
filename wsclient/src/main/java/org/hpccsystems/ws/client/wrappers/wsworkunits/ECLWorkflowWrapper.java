@@ -35,6 +35,27 @@ public class ECLWorkflowWrapper
         this.setEventText(raw.getEventText());
         this.setWFID(raw.getWFID());
     }
+    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setCount(raw.getCount());
+        this.setCountRemaining(raw.getCountRemaining());
+        this.setEventName(raw.getEventName());
+        this.setEventText(raw.getEventText());
+        this.setWFID(raw.getWFID());
+    }
+  
+    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setCount(raw.getCount());
+        this.setCountRemaining(raw.getCountRemaining());
+        this.setEventName(raw.getEventName());
+        this.setEventText(raw.getEventText());
+        this.setWFID(raw.getWFID());
+    }
   
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkflow getRaw(){
         return this.getRawVersion73();
@@ -58,7 +79,25 @@ public class ECLWorkflowWrapper
         raw.setWFID(this.getWFID());
         return raw;
     }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow getRawVersion1_62(){
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow();
+        raw.setCount(this.getCount());
+        raw.setCountRemaining(this.getCountRemaining());
+        raw.setEventName(this.getEventName());
+        raw.setEventText(this.getEventText());
+        raw.setWFID(this.getWFID());
+        return raw;
+    }
 
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow getRawVersion1_58(){
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow();
+        raw.setCount(this.getCount());
+        raw.setCountRemaining(this.getCountRemaining());
+        raw.setEventName(this.getEventName());
+        raw.setEventText(this.getEventText());
+        raw.setWFID(this.getWFID());
+        return raw;
+    }
 
     /**
      * @return the wFID

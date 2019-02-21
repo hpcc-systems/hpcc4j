@@ -101,7 +101,50 @@ public class WUInfoDetailsRequestWrapper
         result.setWuid(this.getWuid());
         return result;
     }
-
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfoDetails getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfoDetails result=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfoDetails();
+        
+        result.setIncludeApplicationValues(this.getIncludeApplicationValues());
+        result.setIncludeDebugValues(this.getIncludeDebugValues());
+        result.setIncludeExceptions(this.getIncludeExceptions());
+        result.setIncludeGraphs(this.getIncludeGraphs());
+        result.setIncludeResourceURLs(this.getIncludeResourceURLs());
+        result.setIncludeResults(this.getIncludeResults());
+        result.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
+        result.setIncludeSourceFiles(this.getIncludeSourceFiles());
+        result.setIncludeTimers(this.getIncludeTimers());
+        result.setIncludeVariables(this.getIncludeVariables());
+        result.setIncludeWorkflows(this.getIncludeWorkflows());
+        result.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
+        result.setSuppressResultSchemas(this.getSuppressResultSchemas());
+        result.setTruncateEclTo64K(this.getTruncateEclTo64K());
+        result.setType(this.getType());
+        result.setWuid(this.getWuid());
+        return result;
+    }
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfoDetails getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfoDetails result=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfoDetails();
+        
+        result.setIncludeApplicationValues(this.getIncludeApplicationValues());
+        result.setIncludeDebugValues(this.getIncludeDebugValues());
+        result.setIncludeExceptions(this.getIncludeExceptions());
+        result.setIncludeGraphs(this.getIncludeGraphs());
+        result.setIncludeResourceURLs(this.getIncludeResourceURLs());
+        result.setIncludeResults(this.getIncludeResults());
+        result.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
+        result.setIncludeSourceFiles(this.getIncludeSourceFiles());
+        result.setIncludeTimers(this.getIncludeTimers());
+        result.setIncludeVariables(this.getIncludeVariables());
+        result.setIncludeWorkflows(this.getIncludeWorkflows());
+        result.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
+        result.setSuppressResultSchemas(this.getSuppressResultSchemas());
+        result.setTruncateEclTo64K(this.getTruncateEclTo64K());
+        result.setType(this.getType());
+        result.setWuid(this.getWuid());
+        return result;
+    }
     /**
      * @return the wuid
      */

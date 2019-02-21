@@ -40,6 +40,30 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
     
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setGID(raw.getGID());
+        this.setGraphNum(raw.getGraphNum());
+        this.setMin(raw.getMin());
+        this.setMS(raw.getMS());
+        this.setName(raw.getName());
+        this.setSubGraphNum(raw.getSubGraphNum());
+    }
+    
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setGID(raw.getGID());
+        this.setGraphNum(raw.getGraphNum());
+        this.setMin(raw.getMin());
+        this.setMS(raw.getMS());
+        this.setName(raw.getName());
+        this.setSubGraphNum(raw.getSubGraphNum());
+    }
+    
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData getRaw(){
         return getRawVersion73();
     }
@@ -57,6 +81,28 @@ public class ECLTimingDataWrapper
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData getRawVersion1_69(){
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData();
+        raw.setGID(this.getGID());
+        raw.setGraphNum(this.getGraphNum());
+        raw.setMin(this.getMin());
+        raw.setMS(this.getMS());
+        raw.setName(this.getName());
+        raw.setSubGraphNum(this.getSubGraphNum());
+        return raw;
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData getRawVersion1_62(){
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData();
+        raw.setGID(this.getGID());
+        raw.setGraphNum(this.getGraphNum());
+        raw.setMin(this.getMin());
+        raw.setMS(this.getMS());
+        raw.setName(this.getName());
+        raw.setSubGraphNum(this.getSubGraphNum());
+        return raw;
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData getRawVersion1_58(){
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData();
         raw.setGID(this.getGID());
         raw.setGraphNum(this.getGraphNum());
         raw.setMin(this.getMin());

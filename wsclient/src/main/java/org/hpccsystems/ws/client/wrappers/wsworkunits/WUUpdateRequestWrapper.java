@@ -129,6 +129,96 @@ public class WUUpdateRequestWrapper
         
         return raw;
     }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdate getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[] avs=null;
+        if (this.getApplicationValues().size()>0) {
+            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[this.getApplicationValues().size()];
+            for (int i=0; i < this.getApplicationValues().size();i++) {
+                avs[i]=this.getApplicationValues().get(i).getRawVersion1_62();
+            }
+        }
+
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[] dvs=null;
+        if (this.getDebugValues().size()>0) {
+            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[this.getDebugValues().size()];
+            for (int i=0; i < this.getDebugValues().size();i++) {
+                dvs[i]=this.getDebugValues().get(i).getRawVersion1_62();
+            }
+        }
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdate raw=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdate(
+            wuid,
+            state,
+            stateOrig,
+            jobname,
+            jobnameOrig,
+            queryText,
+            action,
+            description,
+            descriptionOrig,
+            addDrilldownFields,
+            resultLimit,
+            _protected,
+            protectedOrig,
+            priorityClass,
+            priorityLevel,
+            scope,
+            scopeOrig,
+            clusterSelection,
+            clusterOrig,
+            xmlParams,
+            thorSlaveIP,
+            queryMainDefinition,
+            dvs,avs);
+        
+        return raw;
+    }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdate getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[] avs=null;
+        if (this.getApplicationValues().size()>0) {
+            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[this.getApplicationValues().size()];
+            for (int i=0; i < this.getApplicationValues().size();i++) {
+                avs[i]=this.getApplicationValues().get(i).getRawVersion1_58();
+            }
+        }
+
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[] dvs=null;
+        if (this.getDebugValues().size()>0) {
+            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()];
+            for (int i=0; i < this.getDebugValues().size();i++) {
+                dvs[i]=this.getDebugValues().get(i).getRawVersion1_58();
+            }
+        }
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdate raw=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdate(
+            wuid,
+            state,
+            stateOrig,
+            jobname,
+            jobnameOrig,
+            queryText,
+            action,
+            description,
+            descriptionOrig,
+            addDrilldownFields,
+            resultLimit,
+            _protected,
+            protectedOrig,
+            priorityClass,
+            priorityLevel,
+            scope,
+            scopeOrig,
+            clusterSelection,
+            clusterOrig,
+            xmlParams,
+            thorSlaveIP,
+            queryMainDefinition,
+            dvs,avs);
+        
+        return raw;
+    }
     /**
      * @return the wuid
      */

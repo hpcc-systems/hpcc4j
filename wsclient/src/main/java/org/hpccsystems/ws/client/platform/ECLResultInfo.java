@@ -35,7 +35,59 @@ public class ECLResultInfo {
         value=raw.getValue();
         xmlSchema=raw.getXmlSchema();
     }
+    
+    public ECLResultInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLResult raw) {
+        filename=raw.getFileName();
+        isSupplied=raw.getIsSupplied();
+        link=raw.getLink();
+        name=raw.getName();
+        sequence=raw.getSequence();
+        showFileContent=raw.getShowFileContent();
+        total=raw.getTotal();
+        value=raw.getValue();
+        xmlSchema=raw.getXmlSchema();
+    }
+    
+    public ECLResultInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLResult raw) {
+        filename=raw.getFileName();
+        isSupplied=raw.getIsSupplied();
+        link=raw.getLink();
+        name=raw.getName();
+        sequence=raw.getSequence();
+        showFileContent=raw.getShowFileContent();
+        total=raw.getTotal();
+        value=raw.getValue();
+        xmlSchema=raw.getXmlSchema();
+    }
     public ECLResultInfo() { }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLResult getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLResult();
+        raw.setFileName(this.getFilename());
+        raw.setIsSupplied(this.getIsSupplied());
+        raw.setLink(this.getLink());
+        raw.setName(this.getName());
+        raw.setSequence(raw.getSequence());
+        raw.setShowFileContent(this.getShowFileContent());
+        raw.setTotal(raw.getTotal());
+        raw.setValue(this.getValue());
+        raw.setXmlSchema(this.getXmlSchema());
+        return raw;        
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLResult getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLResult();
+        raw.setFileName(this.getFilename());
+        raw.setIsSupplied(this.getIsSupplied());
+        raw.setLink(this.getLink());
+        raw.setName(this.getName());
+        raw.setSequence(raw.getSequence());
+        raw.setShowFileContent(this.getShowFileContent());
+        raw.setTotal(raw.getTotal());
+        raw.setValue(this.getValue());
+        raw.setXmlSchema(this.getXmlSchema());
+        return raw;        
+    }
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLResult();

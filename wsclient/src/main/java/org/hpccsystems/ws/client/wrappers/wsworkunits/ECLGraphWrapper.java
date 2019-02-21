@@ -54,6 +54,36 @@ public class ECLGraphWrapper
         this.setWhenStarted(raw.getWhenStarted());        
     }
 
+    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLGraph raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setComplete(raw.getComplete());
+        this.setFailed(raw.getFailed());
+        this.setLabel(raw.getLabel());
+        this.setName(raw.getName());
+        this.setRunning(raw.getRunning());
+        this.setRunningId(raw.getRunningId());
+        this.setType(raw.getType());
+        this.setWhenFinished(raw.getWhenFinished());
+        this.setWhenStarted(raw.getWhenStarted());        
+    }
+
+
+    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLGraph raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setComplete(raw.getComplete());
+        this.setFailed(raw.getFailed());
+        this.setLabel(raw.getLabel());
+        this.setName(raw.getName());
+        this.setRunning(raw.getRunning());
+        this.setRunningId(raw.getRunningId());
+        this.setType(raw.getType());
+        this.setWhenFinished(raw.getWhenFinished());
+        this.setWhenStarted(raw.getWhenStarted());        
+    }
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph getRaw() {
         return getRawVersion73();
     }
@@ -72,8 +102,35 @@ public class ECLGraphWrapper
         return result;
     }
 
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLGraph getRawVersion1_62() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLGraph result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLGraph();
+        result.setComplete(this.getComplete());
+        result.setFailed(this.getFailed());
+        result.setLabel(this.getLabel());
+        result.setName(this.getName());
+        result.setRunning(this.getRunning());
+        result.setRunningId(this.getRunningId());
+        result.setType(this.getType());
+        result.setWhenFinished(this.getWhenFinished());
+        result.setWhenStarted(this.getWhenStarted()); 
+        return result;
+    }
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLGraph();
+        result.setComplete(this.getComplete());
+        result.setFailed(this.getFailed());
+        result.setLabel(this.getLabel());
+        result.setName(this.getName());
+        result.setRunning(this.getRunning());
+        result.setRunningId(this.getRunningId());
+        result.setType(this.getType());
+        result.setWhenFinished(this.getWhenFinished());
+        result.setWhenStarted(this.getWhenStarted()); 
+        return result;
+    }
+    
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLGraph getRawVersion1_58() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLGraph result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLGraph();
         result.setComplete(this.getComplete());
         result.setFailed(this.getFailed());
         result.setLabel(this.getLabel());
