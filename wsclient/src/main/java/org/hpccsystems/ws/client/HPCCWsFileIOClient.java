@@ -3,6 +3,7 @@ package org.hpccsystems.ws.client;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
@@ -189,7 +190,7 @@ public class HPCCWsFileIOClient extends DataSingleton
      * @return
      * @throws Exception
      */
-    public boolean writeHPCCFileData(byte []  data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception
+    public boolean writeHPCCFileData(byte [] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception
     {
         boolean success = true;
         log.debug("Attempting to write data to HPCC File: " + fileName);
@@ -204,18 +205,17 @@ public class HPCCWsFileIOClient extends DataSingleton
 
         int dataindex = 0;
         int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
-        long payloadsize = 0;
-        long bytesleft = data.length;
+        int payloadsize = 0;
+        int bytesleft = data.length;
         byte [] subdata = null;
 
         while (bytesleft > 0)
         {
             payloadsize = bytesleft >= limit ? limit : bytesleft;
-            log.trace("Writing offset: "+dataindex+"\t size: "+((int)dataindex + (int)payloadsize));
+            log.trace("Writing offset: "+dataindex+"\t size: " + payloadsize);
 
-            subdata = new byte [(int)payloadsize];
-            for (int i = 0; i < payloadsize ; i++, dataindex++)
-                subdata[i] = data[dataindex];
+            subdata = Arrays.copyOfRange(data, dataindex, dataindex + payloadsize);
+            dataindex += payloadsize;
 
             writefileparams.setData(subdata);
             writefileparams.setAppend(dataindex > 0);
@@ -227,7 +227,7 @@ public class HPCCWsFileIOClient extends DataSingleton
                 String result = writeFileDataResponse.getResult();
 
                 log.debug(result);
-                //Wish there was a better way
+                //Wish there was a better way - https://track.hpccsystems.com/browse/HPCC-21293
                 if (!result.startsWith("Failed"))
                 {
                     success = true;
