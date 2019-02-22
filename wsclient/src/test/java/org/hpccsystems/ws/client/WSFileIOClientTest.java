@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(org.hpccsystems.ws.client.RemoteTests.class)
+@Category(org.hpccsystems.ws.client.RemoteTest.class)
 public class WSFileIOClientTest
 {
 
