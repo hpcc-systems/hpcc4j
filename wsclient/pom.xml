@@ -157,8 +157,11 @@
 					<version>2.15</version>
 					<configuration>
 						<groups></groups>
-                		<excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest</excludedGroups>
-                	</configuration>
+						<includes>
+							<include>**/*.class</include>
+						</includes>
+						<excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest,org.hpccsystems.ws.client.RemoteTest</excludedGroups>
+					</configuration>
 				</plugin>
 			</plugins>
 		</build>
