@@ -3,14 +3,11 @@ package org.hpccsystems.ws.client;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.filespray.v1_16.DropZone;
-import org.hpccsystems.ws.client.gen.wstopology.v1_19.TpMachineQueryRequest;
+import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.EspException;
 import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpCluster;

@@ -625,7 +625,7 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC FileSpray Client");
         }
-        catch (org.hpccsystems.ws.client.gen.filespray.v1_15.ArrayOfEspException e)
+        catch (org.hpccsystems.ws.client.gen.filespray.v1_16.ArrayOfEspException e)
         {
             log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
