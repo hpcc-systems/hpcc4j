@@ -40,13 +40,42 @@
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                 </configuration>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
+                    <excludes>
+                        <exclude>org/hpccsystems/ws/client/gen/extended/wssql/v1_0/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/extended/wssql/v3_03/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/extended/wssql/v3_04/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/filespray/v1_06/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/filespray/v1_13/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/filespray/v1_15/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsdfu/v1_24/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsdfu/v1_29/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsdfu/v1_34/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsdfu/v1_36/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsdfu/v1_38/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsesdlconfig/v1_0/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsesdlconfig/v1_2/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsesdlconfig/v1_3/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsfileio/v0_0/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wssmc/v1_19/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wssmc/v1_2/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wstopology/v1_19/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wstopology/v1_23/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wstopology/v1_25/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wstopology/v1_26/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_46/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_56/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_58/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_62/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_69/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_71/**/*</exclude>
+                    </excludes>
                     <source>1.6</source>
                     <target>1.6</target>
                     <groups>${test.groups}</groups>
@@ -142,45 +171,45 @@
             <version>1.2.17</version>
         </dependency>
     </dependencies>
-    
+
     <profiles>
-	<profile>
-		<id>default</id>
-		<activation>
-			<activeByDefault>true</activeByDefault>
-		</activation>
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.15</version>
-					<configuration>
-						<groups></groups>
-						<includes>
-							<include>**/*.class</include>
-						</includes>
-						<excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest,org.hpccsystems.ws.client.RemoteTest</excludedGroups>
-					</configuration>
-				</plugin>
-			</plugins>
-		</build>
-	</profile>
-       <profile>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.15</version>
+                        <configuration>
+                            <groups></groups>
+                            <includes>
+                                <include>**/*.class</include>
+                            </includes>
+                            <excludedGroups>org.hpccsystems.ws.client.IntegrationTest,org.hpccsystems.ws.client.ManualUnitTest,org.hpccsystems.ws.client.RemoteTest</excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>integrationtests</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.15</version>
-						<configuration>
-							<excludedGroups></excludedGroups>
-	                		<groups>org.hpccsystems.ws.client.IntegrationTest</groups>
-	                	</configuration>
-					</plugin>
-				</plugins>
-			</build>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.15</version>
+                        <configuration>
+                            <excludedGroups></excludedGroups>
+                            <groups>org.hpccsystems.ws.client.IntegrationTest</groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>release</id>
@@ -228,7 +257,7 @@
                     </plugin>
                 </plugins>
             </build>
-             <properties>
+            <properties>
                 <test.groups></test.groups>
                 <test.exclude.groups>org.hpccsystems.ws.client.ManualUnitTest,org.hpccsystems.ws.client.IntegrationTest</test.exclude.groups>
             </properties>
