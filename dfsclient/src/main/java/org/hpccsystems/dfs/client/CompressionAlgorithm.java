@@ -19,6 +19,7 @@ package org.hpccsystems.dfs.client;
 public enum CompressionAlgorithm 
 {
     NONE("false"),
+    DEFAULT("true"),
     LZ4("LZ4"),
     FLZ("FLZ"),
     LZW("LZW"),
@@ -35,4 +36,3 @@ public enum CompressionAlgorithm
         return name;
     }
 }
-

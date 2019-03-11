@@ -24,14 +24,14 @@ import java.util.Iterator;
  */
 public class HPCCRemoteFileWriter<T>
 {
-    private static final Logger         log = Logger.getLogger(HPCCRemoteFileWriter.class.getName());
+    private static final Logger    log                = Logger.getLogger(HPCCRemoteFileWriter.class.getName());
 
-    private FieldDef                    recordDef = null;
-    private DataPartition               dataPartition = null;
-    private RowServiceOutputStream      outputStream = null;
-    private BinaryRecordWriter          binaryRecordWriter = null; 
-    private IRecordAccessor             recordAccessor = null;
-    private long                        recordsWritten = 0;
+    private FieldDef               recordDef          = null;
+    private DataPartition          dataPartition      = null;
+    private RowServiceOutputStream outputStream       = null;
+    private BinaryRecordWriter     binaryRecordWriter = null;
+    private IRecordAccessor        recordAccessor     = null;
+    private long                   recordsWritten     = 0;
 
     /**
      * A remote file writer
@@ -46,33 +46,27 @@ public class HPCCRemoteFileWriter<T>
      *            the requested record format
      */
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression)
-        throws Exception
+            throws Exception
     {
         this.recordDef = recordDef;
         this.dataPartition = dp;
         this.recordAccessor = recordAccessor;
 
-        this.outputStream = new RowServiceOutputStream(this.dataPartition.getCopyIP(0), 
-                                                       this.dataPartition.getPort(),
-                                                       this.dataPartition.getFileAccessBlob(), 
-                                                       this.recordDef,
-                                                       this.dataPartition.getThisPart(),
-                                                       this.dataPartition.getCopyPath(0), 
-                                                       fileCompression);
+        this.outputStream = new RowServiceOutputStream(this.dataPartition.getCopyIP(0), this.dataPartition.getPort(),
+                this.dataPartition.getFileAccessBlob(), this.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
+                fileCompression);
 
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);
     }
 
-    public void writeRecord(T record)
-        throws Exception
+    public void writeRecord(T record) throws Exception
     {
         this.binaryRecordWriter.writeRecord(record);
         this.recordsWritten++;
     }
 
-    public void writeRecords(Iterator<T> it)
-        throws Exception
+    public void writeRecords(Iterator<T> it) throws Exception
     {
         while (it.hasNext())
         {

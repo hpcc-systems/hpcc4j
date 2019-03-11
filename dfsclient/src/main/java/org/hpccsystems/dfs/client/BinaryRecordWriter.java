@@ -30,21 +30,21 @@ import java.util.Arrays;
 
 public class BinaryRecordWriter implements IRecordWriter
 {
-    private static final Logger log                   = Logger.getLogger(BinaryRecordWriter.class.getName());
+    private static final Logger log                 = Logger.getLogger(BinaryRecordWriter.class.getName());
 
-    private static final int    DataLenFieldSize      = 4;
-    private static final int    DefaultBufferSizeKB   = 4096;
-    private static final byte   NegativeSignValue     = 0x0d;
-    private static final byte   PositiveSignValue     = 0x0f;
-    private static final int    MASK_32_LOWER_HALF    = 0xffff;
-    private static final int    SCRATCH_BUFFER_SIZE   = 256;
+    private static final int    DataLenFieldSize    = 4;
+    private static final int    DefaultBufferSizeKB = 4096;
+    private static final byte   NegativeSignValue   = 0x0d;
+    private static final byte   PositiveSignValue   = 0x0f;
+    private static final int    MASK_32_LOWER_HALF  = 0xffff;
+    private static final int    SCRATCH_BUFFER_SIZE = 256;
 
-    private byte[]              scratchBuffer         = new byte[SCRATCH_BUFFER_SIZE];
+    private byte[]              scratchBuffer       = new byte[SCRATCH_BUFFER_SIZE];
 
-    private OutputStream        outputStream          = null;
-    private ByteBuffer          buffer                = null;
-    private long                bytesWritten          = 0;
-    private IRecordAccessor     rootRecordAccessor    = null;
+    private OutputStream        outputStream        = null;
+    private ByteBuffer          buffer              = null;
+    private long                bytesWritten        = 0;
+    private IRecordAccessor     rootRecordAccessor  = null;
 
     /**
      * BinaryRecordWriter Initializes writing procedure, and converts the provided Schema to a SparkField stucture
@@ -123,8 +123,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        throw new Exception(
-                                "Error writing list. Expected List got: " + fieldValue.getClass().getName());
+                        throw new Exception("Error writing list. Expected List got: " + fieldValue.getClass().getName());
                     }
 
                     writeList(fd, recordAccessor.getChildRecordAccessor(i), listValue);
@@ -132,8 +131,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 default:
                     throw new Exception("Unsupported type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
-            }
-            ;
+            };
         }
     }
 
@@ -213,14 +211,13 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
+                    throw new Exception("Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
                 break;
             }
             case DECIMAL:
             {
-                if (fd.isUnsigned()) 
+                if (fd.isUnsigned())
                 {
                     throw new Exception("Writing unsigned decimals is not currently supported.");
                 }
@@ -243,8 +240,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unsupported real length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
+                    throw new Exception("Unsupported real length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
                 break;
             }
@@ -281,29 +277,28 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
-                            + " encountered while writing field: " + fd.getFieldName());
+                    throw new Exception(
+                            "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
                 }
 
-                if (fd.isFixed()) 
+                if (fd.isFixed())
                 {
                     if (fd.getDataLen() > Integer.MAX_VALUE)
                     {
-                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: "
-                                + Integer.MAX_VALUE);
+                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
                     }
 
                     int bytesToWrite = (int) fd.getDataLen();
-                    if (fd.getFieldType() == FieldType.VAR_STRING) 
+                    if (fd.getFieldType() == FieldType.VAR_STRING)
                     {
                         bytesToWrite++;
                     }
 
-                    if (fd.getSourceType().isUTF16()) 
+                    if (fd.getSourceType().isUTF16())
                     {
                         bytesToWrite *= 2;
                     }
-                
+
                     // Var Strings end with a null character
                     // The length should always be long enough but it is better to check anyway
                     if (data.length >= bytesToWrite)
@@ -319,8 +314,9 @@ public class BinaryRecordWriter implements IRecordWriter
 
                         writeByteArray(data, 0, bytesToWrite);
                     }
-                    else 
+                    else
                     {
+                        writeByteArray(data, 0, data.length);
                         int numFillBytes = bytesToWrite - data.length;
                         while (numFillBytes > 0)
                         {
@@ -437,14 +433,16 @@ public class BinaryRecordWriter implements IRecordWriter
                     if (fd.getSourceType().isUTF16())
                     {
                         dataLen = fd.getDataLen() * 2;
-                        if (fd.getFieldType() == FieldType.VAR_STRING) {
+                        if (fd.getFieldType() == FieldType.VAR_STRING)
+                        {
                             dataLen += 2;
                         }
                     }
                     else if (fd.getSourceType() == HpccSrcType.SINGLE_BYTE_CHAR)
                     {
                         dataLen = fd.getDataLen();
-                        if (fd.getFieldType() == FieldType.VAR_STRING) {
+                        if (fd.getFieldType() == FieldType.VAR_STRING)
+                        {
                             dataLen += 1;
                         }
                     }
@@ -458,8 +456,8 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
-                                + " encountered while writing field: " + fd.getFieldName());
+                        throw new Exception(
+                                "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
                     }
 
                     return dataLen;
@@ -490,8 +488,8 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
-                            + " encountered while writing field: " + fd.getFieldName());
+                    throw new Exception(
+                            "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
                 }
 
                 if (fd.getFieldType() == FieldType.STRING)
@@ -516,8 +514,8 @@ public class BinaryRecordWriter implements IRecordWriter
                 long dataLen = 0;
                 for (int i = 0; i < recordAccessor.getNumFields(); i++)
                 {
-                    dataLen += calculateFieldSize(recordAccessor.getFieldDefinition(i),
-                            recordAccessor.getChildRecordAccessor(i), recordAccessor.getFieldValue(i));
+                    dataLen += calculateFieldSize(recordAccessor.getFieldDefinition(i), recordAccessor.getChildRecordAccessor(i),
+                            recordAccessor.getFieldValue(i));
                 }
                 return dataLen;
             }
@@ -676,10 +674,10 @@ public class BinaryRecordWriter implements IRecordWriter
 
     private void flushBuffer() throws Exception
     {
-        
+
         byte[] data = this.buffer.array();
         int dataLen = this.buffer.position();
-        this.outputStream.write(data,0,dataLen);
+        this.outputStream.write(data, 0, dataLen);
         this.bytesWritten += dataLen;
 
         this.buffer.clear();

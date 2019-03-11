@@ -25,13 +25,13 @@ import java.util.Iterator;
  */
 public class HpccRemoteFileReader<T> implements Iterator<T>
 {
-    private static final Logger log           = Logger.getLogger(HpccRemoteFileReader.class.getName());
+    private static final Logger   log               = Logger.getLogger(HpccRemoteFileReader.class.getName());
 
-    private FieldDef                    originalRecordDef = null;
-    private DataPartition               dataPartition = null;
-    private RowServiceInputStream    inputStream= null;
-    private BinaryRecordReader          binaryRecordReader;
-    private IRecordBuilder              recordBuilder = null;
+    private FieldDef              originalRecordDef = null;
+    private DataPartition         dataPartition     = null;
+    private RowServiceInputStream inputStream       = null;
+    private BinaryRecordReader    binaryRecordReader;
+    private IRecordBuilder        recordBuilder     = null;
 
     /**
      * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
@@ -45,8 +45,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param projectedRD
      *            the requested record format
      */
-    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder)
-        throws Exception
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder) throws Exception
     {
         this.originalRecordDef = originalRD;
         this.dataPartition = dp;
@@ -58,9 +57,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             throw new Exception("IRecordBuilder does not have a valid record definition.");
         }
 
-        this.inputStream = new RowServiceInputStream(this.dataPartition, 
-                                                        this.originalRecordDef,
-                                                        projectedRecordDefinition);
+        this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition);
 
         this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
         this.binaryRecordReader.initialize(this.recordBuilder);
@@ -84,7 +81,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             rslt = false;
             log.error("Read failure for " + this.dataPartition.toString());
         }
-      
+
         return rslt;
     }
 

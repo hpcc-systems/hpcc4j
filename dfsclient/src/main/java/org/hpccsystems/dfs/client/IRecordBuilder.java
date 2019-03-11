@@ -25,6 +25,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 public interface IRecordBuilder
 {
     public void setRecordDefinition(FieldDef parent) throws IllegalArgumentException;
+
     public FieldDef getRecordDefinition();
 
     public void startRecord() throws java.lang.InstantiationException;

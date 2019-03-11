@@ -40,8 +40,8 @@ public class DataPartition implements Serializable
     private FileFilter       fileFilter;
     private String           fileAccessBlob;
 
-    public DataPartition(String[] copyLocations, String[] copyPaths, int partNum, int numParts, 
-                        int rowServicePort, boolean shouldUseSSL, String fileAccessBlob)
+    public DataPartition(String[] copyLocations, String[] copyPaths, int partNum, int numParts, int rowServicePort, boolean shouldUseSSL,
+            String fileAccessBlob)
     {
         this(copyLocations, copyPaths, partNum, numParts, rowServicePort, shouldUseSSL, null, fileAccessBlob);
     }
@@ -55,8 +55,8 @@ public class DataPartition implements Serializable
      * @param sslport port number of ssl communications
      * @param filter the file filter object
      */
-    private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, 
-                         int clearport, boolean sslport, FileFilter filter, String fileAccessBlob)
+    private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
+            String fileAccessBlob)
     {
         this.this_part = this_part;
         this.num_parts = num_parts;
@@ -215,7 +215,7 @@ public class DataPartition implements Serializable
                     copyPaths[j] = dfuparts[i].getCopies()[j].getCopyPath();
                 }
 
-                DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()),copyPaths, dfuparts[i].getPartIndex(),
+                DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), copyPaths, dfuparts[i].getPartIndex(),
                         dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob);
                 rslt[i] = new_dp;
             }

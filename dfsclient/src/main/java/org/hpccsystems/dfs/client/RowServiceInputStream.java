@@ -304,7 +304,15 @@ public class RowServiceInputStream extends InputStream
             // Compact the array before reading in new data
             int remainingBytesInBuffer = this.readBufferLen - this.readPos;
             this.readBufferLen = remainingBytesInBuffer + dataLen;
-            System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
+
+            // Expand read buffer if necessary
+            if (this.readBufferLen > this.readBuffer.length) {
+                byte[] newBuffer = new byte[this.readBufferLen];
+                System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
+                this.readBuffer = newBuffer;
+            } else {
+                System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
+            }
 
             // Update the markPos 
             if (this.markPos >= 0) {
@@ -371,8 +379,30 @@ public class RowServiceInputStream extends InputStream
         }
     }
 
-    public void	mark(int readlimit)
+    public void	mark(int readLimit)
     {
+        // Check to see if we can handle this readLimit with the current buffer / readPos
+        int availableReadCapacity = this.readBuffer.length - this.readPos;
+        if (availableReadCapacity < readLimit) 
+        {
+            // Check to see if compaction will work
+            if (this.readBuffer.length > readLimit) 
+            {
+                int remainingBytesInBuffer = this.readBufferLen - this.readPos;
+                System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
+                this.readPos = 0;
+            }
+            // Need a larger buffer
+            else
+            {
+                byte[] newBuffer = new byte[readLimit];
+                int remainingBytesInBuffer = this.readBufferLen - this.readPos;
+                System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
+                this.readBuffer = newBuffer;
+                this.readPos = 0;
+            }
+        }
+        
         this.markPos = this.readPos;
     }
 
@@ -437,6 +467,7 @@ public class RowServiceInputStream extends InputStream
         }
 
         this.readPos = this.markPos;
+        this.markPos = -1;
     }
 
     public long	skip(long n) throws IOException

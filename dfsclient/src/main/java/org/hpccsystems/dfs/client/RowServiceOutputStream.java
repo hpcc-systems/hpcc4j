@@ -29,29 +29,27 @@ import org.hpccsystems.commons.ecl.FieldDef;
 
 public class RowServiceOutputStream extends OutputStream
 {
-    private static final Logger      log                           = Logger.getLogger(RowServiceOutputStream.class.getName());
-    private static int DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;       // 1 second connection timeout
-    private static int SCRATCH_BUFFER_LEN = 2048;
+    private static final Logger  log                           = Logger.getLogger(RowServiceOutputStream.class.getName());
+    private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;       // 1 second connection timeout
+    private static int           SCRATCH_BUFFER_LEN            = 2048;
 
-    private String rowServiceIP = null;
-    private int rowServicePort = -1;
-    private FieldDef recordDef = null;
-    private String filePath = null;
-    private int filePartIndex = -1;
-    private String accessToken = null;
-    private CompressionAlgorithm compressionAlgo = CompressionAlgorithm.NONE;
-    
-    private Socket socket = null;
+    private String               rowServiceIP                  = null;
+    private int                  rowServicePort                = -1;
+    private FieldDef             recordDef                     = null;
+    private String               filePath                      = null;
+    private int                  filePartIndex                 = -1;
+    private String               accessToken                   = null;
+    private CompressionAlgorithm compressionAlgo               = CompressionAlgorithm.NONE;
 
-    private long handle = -1;
-    private ByteBuffer scratchBuffer = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
+    private Socket               socket                        = null;
 
-    RowServiceOutputStream(String IP, int port, String accessToken, 
-                              FieldDef recordDef , int filePartIndex, String filePartPath, 
-                              CompressionAlgorithm fileCompression)
-        throws Exception
+    private long                 handle                        = -1;
+    private ByteBuffer           scratchBuffer                 = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
+
+    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression) throws Exception
     {
-        this.rowServiceIP = IP;
+        this.rowServiceIP = ip;
         this.rowServicePort = port;
         this.recordDef = recordDef;
         this.filePartIndex = filePartIndex;
@@ -60,27 +58,26 @@ public class RowServiceOutputStream extends OutputStream
         this.compressionAlgo = fileCompression;
 
         boolean useSSL = false;
-        try 
+        try
         {
-        	if (useSSL)
-        	{
-	            SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
-	            this.socket = (SSLSocket) ssf.createSocket();
-	
-	            // Optimize for bandwidth over latency and connection time.
-	            // We are opening up a long standing connection and writing a significant amount of data
-	            // So we don't care as much about individual packet latency or connection time overhead
-	            socket.setPerformancePreferences(0, 1, 2);
-	            socket.connect(new InetSocketAddress(this.rowServiceIP, this.rowServicePort), DEFAULT_CONNECT_TIMEOUT_MILIS);
-	
-	            log.debug("Attempting SSL handshake...");
-	            ((SSLSocket) this.socket).startHandshake();
-	            log.debug("SSL handshake successful...");
-	            log.debug("   Remote address = " + this.socket.getInetAddress().toString() 
-	                    + " Remote port = " + this.socket.getPort());
-        	}
-        	else
-        	{
+            if (useSSL)
+            {
+                SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+                this.socket = (SSLSocket) ssf.createSocket();
+
+                // Optimize for bandwidth over latency and connection time.
+                // We are opening up a long standing connection and writing a significant amount of data
+                // So we don't care as much about individual packet latency or connection time overhead
+                socket.setPerformancePreferences(0, 1, 2);
+                socket.connect(new InetSocketAddress(this.rowServiceIP, this.rowServicePort), DEFAULT_CONNECT_TIMEOUT_MILIS);
+
+                log.debug("Attempting SSL handshake...");
+                ((SSLSocket) this.socket).startHandshake();
+                log.debug("SSL handshake successful...");
+                log.debug("   Remote address = " + this.socket.getInetAddress().toString() + " Remote port = " + this.socket.getPort());
+            }
+            else
+            {
                 SocketFactory sf = SocketFactory.getDefault();
                 this.socket = sf.createSocket();
 
@@ -89,13 +86,12 @@ public class RowServiceOutputStream extends OutputStream
                 // data
                 // So we don't care as much about individual packet latency or connection time overhead
                 this.socket.setPerformancePreferences(0, 1, 2);
-                this.socket.connect(new InetSocketAddress(rowServiceIP, rowServicePort),
-                        DEFAULT_CONNECT_TIMEOUT_MILIS);
-        	}
+                this.socket.connect(new InetSocketAddress(rowServiceIP, rowServicePort), DEFAULT_CONNECT_TIMEOUT_MILIS);
+            }
         }
         catch (Exception e)
         {
-            String errorMessage ="Exception occured while attempting to connect to row service: " + e.getMessage();
+            String errorMessage = "Exception occured while attempting to connect to row service: " + e.getMessage();
             log.error(errorMessage);
             throw new Exception(errorMessage);
         }
@@ -130,7 +126,7 @@ public class RowServiceOutputStream extends OutputStream
         ByteBuffer requestBuffer = ByteBuffer.allocate(jsonRequestData.length + 256);
         requestBuffer.mark();
         requestBuffer.putInt(0); // Placeholder for packetlen
-        requestBuffer.put((byte)RFCCodes.RFCStreamGeneral);
+        requestBuffer.put((byte) RFCCodes.RFCStreamGeneral);
         requestBuffer.putInt(jsonRequestData.length); // Subtract off RFC Code
         requestBuffer.put(jsonRequestData);
 
@@ -143,7 +139,7 @@ public class RowServiceOutputStream extends OutputStream
         requestBuffer.reset();
         requestBuffer.putInt(packetLen);
 
-        this.socket.getOutputStream().write(requestBuffer.array(),0,headerLen);
+        this.socket.getOutputStream().write(requestBuffer.array(), 0, headerLen);
         this.socket.getOutputStream().flush();
         this.readResponse();
     }
@@ -151,18 +147,18 @@ public class RowServiceOutputStream extends OutputStream
     private void readResponse() throws IOException
     {
         this.scratchBuffer.clear();
-        this.socket.getInputStream().read(scratchBuffer.array(),0,4);
+        this.socket.getInputStream().read(scratchBuffer.array(), 0, 4);
         int len = scratchBuffer.getInt() & 0x7FFFFFFF;
 
         // We should always have a status & handle returned by the row service
-        if (len < 8) 
+        if (len < 8)
         {
             throw new IOException("Received short or truncated response from row service. Aborting.");
         }
-        
-        this.socket.getInputStream().read(scratchBuffer.array(),4,len);
+
+        this.socket.getInputStream().read(scratchBuffer.array(), 4, len);
         int status = this.scratchBuffer.getInt();
-        if (status != RFCCodes.RFCStreamNoError) 
+        if (status != RFCCodes.RFCStreamNoError)
         {
             throw new IOException("Row service returned error code: " + status + ". Aborting");
         }
@@ -170,23 +166,23 @@ public class RowServiceOutputStream extends OutputStream
         this.handle = this.scratchBuffer.getInt();
     }
 
-    public void	close() throws IOException
+    public void close() throws IOException
     {
         this.flush();
         this.socket.close();
     }
 
-    public void	flush() throws IOException
+    public void flush() throws IOException
     {
         this.socket.getOutputStream().flush();
     }
 
-    public void	write(byte[] b) throws IOException
+    public void write(byte[] b) throws IOException
     {
-        this.write(b,0,b.length);
+        this.write(b, 0, b.length);
     }
 
-    public void	write(byte[] b, int off, int len) throws IOException
+    public void write(byte[] b, int off, int len) throws IOException
     {
         String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\" }";
         byte[] jsonRequestData = request.getBytes("ISO-8859-1");
@@ -207,15 +203,15 @@ public class RowServiceOutputStream extends OutputStream
         this.scratchBuffer.reset();
         this.scratchBuffer.putInt(packetLen);
 
-        this.socket.getOutputStream().write(this.scratchBuffer.array(),0,headerLen);
-        this.socket.getOutputStream().write(b,off,len);
+        this.socket.getOutputStream().write(this.scratchBuffer.array(), 0, headerLen);
+        this.socket.getOutputStream().write(b, off, len);
         this.socket.getOutputStream().flush();
         this.readResponse();
     }
 
-    public void	write(int b) throws IOException
+    public void write(int b) throws IOException
     {
         this.scratchBuffer.array()[0] = (byte) b;
-        this.write(scratchBuffer.array(),0,1);
+        this.write(scratchBuffer.array(), 0, 1);
     }
 } 

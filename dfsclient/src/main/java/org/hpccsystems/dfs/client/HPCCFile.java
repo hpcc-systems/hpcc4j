@@ -112,8 +112,8 @@ public class HPCCFile implements Serializable
      *            optional - the hpcc cluster the target file resides in
      * @throws HpccFileException
      */
-    public HPCCFile(String fileName, Connection espconninfo, String targetColumnList, String filter,
-            RemapInfo remap_info, int maxParts, String targetfilecluster) throws HpccFileException
+    public HPCCFile(String fileName, Connection espconninfo, String targetColumnList, String filter, RemapInfo remap_info, int maxParts,
+            String targetfilecluster) throws HpccFileException
     {
         this.fileName = fileName;
         this.recordDefinition = null;
@@ -233,8 +233,7 @@ public class HPCCFile implements Serializable
         DFUFileAccessInfoWrapper fileinfoforread = null;
         try
         {
-            fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs,
-                    targetfilecluster);
+            fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs, targetfilecluster);
             originalRecDefInJSON = fileinfoforread.getRecordTypeInfoJson();
             if (originalRecDefInJSON == null)
             {
@@ -320,21 +319,19 @@ public class HPCCFile implements Serializable
         return this.isIndex;
     }
 
-    private static DFUFileAccessInfoWrapper fetchReadFileInfo(String fileName, HPCCWsDFUClient hpccClient,
-            int expirySeconds, String clusterName) throws Exception
+    private static DFUFileAccessInfoWrapper fetchReadFileInfo(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName)
+            throws Exception
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpccClient.getFileAccess(fileName, clusterName, expirySeconds, uniqueID);
     }
 
-    private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds,
-            String clusterName) throws Exception
+    private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception
     {
         return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
-    private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds,
-            String clusterName) throws Exception
+    private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception
     {
         return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }

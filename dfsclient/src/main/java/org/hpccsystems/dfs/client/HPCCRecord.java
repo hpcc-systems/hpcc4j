@@ -59,7 +59,7 @@ public class HPCCRecord
         }
 
         HPCCRecord rhs = (HPCCRecord) o;
-        if (fields.length != rhs.fields.length) 
+        if (fields.length != rhs.fields.length)
         {
             return false;
         }

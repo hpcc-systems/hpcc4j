@@ -17,6 +17,7 @@ package org.hpccsystems.dfs.client;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.security.SecureRandom;
 
 import org.hpccsystems.dfs.client.HPCCFile;
 import org.hpccsystems.dfs.client.HPCCRecord;
@@ -29,6 +30,8 @@ import org.hpccsystems.dfs.client.DataPartition;
 import org.hpccsystems.dfs.cluster.*;
 
 import org.hpccsystems.commons.ecl.FieldDef;
+import org.hpccsystems.commons.ecl.FieldType;
+import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
@@ -42,9 +45,11 @@ import org.junit.Test;
 public class DFSReadWriteTest
 {
 
-    private static final String clusterIP = "192.168.56.101";
-    private static final String[] datasets = {"~benchmark::integer::20kb","~demo::example_dataset"};
-    private static final int[]    expectedCounts = {1250,6};
+    private static final String   clusterIP      = "192.168.56.101";
+    private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
+    private static final int[]    expectedCounts = { 1250, 6 };
+    // private static final String[] datasets = {"~benchmark::integer::20kb"};
+    // private static final int[]    expectedCounts = {1250};
 
     @Before
     public void setup()
@@ -54,23 +59,9 @@ public class DFSReadWriteTest
     @Test
     public void integrationReadWriteBackTest() throws Exception
     {
-        /*
-        FieldDef[] fieldDefs = new FieldDef[2];
-        fieldDefs[0] = new FieldDef("key",FieldType.INTEGER,"INTEGER8",8,true,false,HpccSrcType.LITTLE_ENDIAN,new FieldDef[0]);
-        fieldDefs[1] = new FieldDef("value",FieldType.INTEGER,"INTEGER8",8,true,false,HpccSrcType.LITTLE_ENDIAN,new FieldDef[0]);
-        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 16, true, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
-        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
-        for (int i = 0; i < 1250; i++) 
+        for (int i = 0; i < datasets.length; i++)
         {
-            Long[] fields = new Long[2];
-            fields[0] = (long) i;
-            fields[1] = (long) 42;
-            HPCCRecord record = new HPCCRecord(fields,recordDef);
-            records.add(record);
-        }
-        */
 
-        for (int i = 0; i < datasets.length; i++) {
             Connection espConn = new Connection("http://" + this.clusterIP + ":8010");
             espConn.setUserName("");
             espConn.setPassword("");
@@ -79,20 +70,74 @@ public class DFSReadWriteTest
             file.setProjectList("");
 
             List<HPCCRecord> records = readFile(file);
-            if (records.size() != expectedCounts[i]) {
-                Assert.fail("Record count mismatch for dataset: " + datasets[i] + " got: " 
-                            + records.size() + " expected: " + expectedCounts[i]);
+            if (records.size() != expectedCounts[i])
+            {
+                Assert.fail("Record count mismatch for dataset: " + datasets[i] + " got: " + records.size() + " expected: " + expectedCounts[i]);
             }
 
             // Write the dataset back
-            String copyFileName = datasets[i] + "-copy5";
+            String copyFileName = datasets[i] + "-copy13";
             writeFile(records, copyFileName, file.getProjectedRecordDefinition());
 
-            file = new HPCCFile(copyFileName,espConn);
+            // Read and compare to original dataset
+            file = new HPCCFile(copyFileName, espConn);
             List<HPCCRecord> copiedRecords = readFile(file);
-            if (copiedRecords.equals(records) == false) {
+            if (copiedRecords.equals(records) == false)
+            {
                 Assert.fail("Written dataset does not match original dataset: " + copyFileName);
             }
+        }
+
+    }
+
+    private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
+    private static final SecureRandom RANDOM   = new SecureRandom();
+
+    /**
+     * Generates random string of given length from Base65 alphabet (numbers, lowercase letters, uppercase letters).
+     *
+     * @param count length
+     * @return random string of given length
+     */
+    public static String generateRandomString(int count)
+    {
+        StringBuilder sb = new StringBuilder(count);
+        for (int i = 0; i < count; ++i)
+        {
+            sb.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void integrationLargeRecordTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[2];
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[2];
+            fields[0] = new Long(i);
+            fields[1] = generateRandomString(8096 * 1024);
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
+
+        Connection espConn = new Connection("http://" + this.clusterIP + ":8010");
+        espConn.setUserName("");
+        espConn.setPassword("");
+
+        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", espConn);
+        records = readFile(file);
+        if (records.size() != 10)
+        {
+            Assert.fail("Failed to read large record dataset");
         }
     }
 
@@ -140,13 +185,14 @@ public class DFSReadWriteTest
             }
             fileReader.close();
         }
-        
+
         return records;
     }
 
     private void writeFile(List<HPCCRecord> records, String fileName, FieldDef recordDef)
     {
-        try {
+        try
+        {
             //------------------------------------------------------------------------------
             //  Request a temp file be created in HPCC to write to
             //------------------------------------------------------------------------------
@@ -159,10 +205,13 @@ public class DFSReadWriteTest
             HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(conn);
 
             String clusterName = "mythor";
-            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName,clusterName,eclRecordDefn,300);
+            System.out.println("Create Start");
+            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, 300);
+            System.out.println("Create Finished");
 
             DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
-            DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts, new NullRemapper(new RemapInfo(),createResult.getFileAccessInfo()), dfuFileParts.length, createResult.getFileAccessInfoBlob());
+            DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts,
+                    new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()), dfuFileParts.length, createResult.getFileAccessInfoBlob());
 
             //------------------------------------------------------------------------------
             //  Write partitions to file parts
@@ -175,21 +224,28 @@ public class DFSReadWriteTest
 
             int currentRecord = 0;
             int bytesWritten = 0;
-            for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++) {
+            for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
+            {
                 int numRecordsInPartition = recordsPerPartition;
-                if (partitionIndex == dfuFileParts.length-1) {
+                if (partitionIndex == dfuFileParts.length - 1)
+                {
                     numRecordsInPartition += residualRecords;
                 }
 
                 HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
-                HPCCRemoteFileWriter<HPCCRecord> fileWriter = new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef, recordAccessor, CompressionAlgorithm.NONE);
-                try {
-                    for (int j = 0; j < numRecordsInPartition; j++, currentRecord++) {
+                HPCCRemoteFileWriter<HPCCRecord> fileWriter = new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
+                        recordAccessor, CompressionAlgorithm.NONE);
+                try
+                {
+                    for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
+                    {
                         fileWriter.writeRecord(records.get(currentRecord));
                     }
                     fileWriter.close();
                     bytesWritten += fileWriter.getBytesWritten();
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Assert.fail(e.getMessage());
                 }
             }
@@ -198,9 +254,13 @@ public class DFSReadWriteTest
             //  Publish and finalize the temp file
             //------------------------------------------------------------------------------
 
-            dfuClient.publishFile(createResult.getFileID(),eclRecordDefn,currentRecord,bytesWritten,true);
-        } catch (Exception e) {
-            Assert.fail("Failed to publish file with error: " + e.getMessage());
+            System.out.println("Publish Start");
+            dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, currentRecord, bytesWritten, true);
+            System.out.println("Publish Finished");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Failed to write file with error: " + e.getMessage());
         }
     }
 
