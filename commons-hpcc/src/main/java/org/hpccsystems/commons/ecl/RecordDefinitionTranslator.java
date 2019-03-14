@@ -161,12 +161,18 @@ public class RecordDefinitionTranslator
         rootDefinition = rootDefinition.replace(rootRecordName, "RD");
 
         // Combine the type definitions into a single ECL defintion
-        String definition = "";
+        StringBuilder sb = new StringBuilder(8192);
         for (HashMap.Entry<String, String> entry : recordDefinitionMap.entrySet())
         {
-            definition += "\n\n" + entry.getKey() + " := " + entry.getValue();
+            sb.append("\n\n");
+            sb.append(entry.getKey());
+            sb.append(" := ");
+            sb.append(entry.getValue());
         }
-        definition += "\n\n" + rootDefinition;
+
+        sb.append("\n\n");
+        sb.append(rootDefinition);
+        String definition = sb.toString();
         
         // Replace the temporary hash key
         int numRecordDefinitions = 1;
