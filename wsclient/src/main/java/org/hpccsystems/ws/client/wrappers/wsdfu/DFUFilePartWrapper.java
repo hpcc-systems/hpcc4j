@@ -1,6 +1,6 @@
 /*##############################################################################
 
-    HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
+    HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems®.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,22 +16,35 @@
 ############################################################################## */
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
-
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePart;
 import java.util.Hashtable;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy;
 
 public class DFUFilePartWrapper
 {
     private Integer partIndex;
-
     private DFUFileCopyWrapper [] wrappedDFUFileCopies;
     
-    public DFUFilePartWrapper(DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
+    public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
     {
         partIndex = soapdfufilepart.getPartIndex();
-        DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
+        org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
+        wrappedDFUFileCopies = new DFUFileCopyWrapper [dfufilecopies.length];
+        for (int i = 0; i < dfufilecopies.length; i++)
+        {
+             Integer copyindex = dfufilecopies[i].getCopyIndex();
+             if (copyindex == null || copyindex  < 1 || copyindex > dfufilecopies.length )
+                 throw new IndexOutOfBoundsException("Encountered invalid Filepart Copy index: '" + copyindex + "'");
+
+             if (wrappedDFUFileCopies[copyindex-1] != null)
+                 throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + copyindex + "'");
+             wrappedDFUFileCopies[copyindex-1] = new DFUFileCopyWrapper(dfufilecopies[i], availableLocations.get(dfufilecopies[i].getLocationIndex()));
+        }
+    }
+
+    public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
+    {
+        partIndex = soapdfufilepart.getPartIndex();
+        org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
         wrappedDFUFileCopies = new DFUFileCopyWrapper [dfufilecopies.length];
         for (int i = 0; i < dfufilecopies.length; i++)
         {

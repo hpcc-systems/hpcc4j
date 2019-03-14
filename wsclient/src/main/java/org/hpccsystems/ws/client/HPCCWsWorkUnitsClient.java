@@ -17,7 +17,7 @@ import org.apache.axis.client.Stub;
 import org.apache.axis.utils.StringUtils;
 import org.apache.axis.types.NonNegativeInteger;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.*;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.*;
 import org.hpccsystems.ws.client.platform.WUState;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
@@ -1302,13 +1302,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             {
                 fallbackresponse = soapWrapper.getVersion1_56Raw().WUQuery(info.getRaw156(0));
                 if (fallbackresponse != null) {
-                    throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()),
-                            "Error in WU query");
+                    throwWsWUExceptions(convertArrayOfEspException(fallbackresponse.getExceptions()), "Error in WU query");
                 }
                 if (fallbackresponse.getWorkunits() != null)
                 {
-                    for (org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit wu : fallbackresponse
-                            .getWorkunits())
+                    for (org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLWorkunit wu : fallbackresponse.getWorkunits())
                     {
                         workunit_set.add(wu);
                     }
@@ -2110,8 +2108,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             file.setOption(1);
         }
         WULogFileResponse logFileResponse = getSoapProxy().WUFile(file);
-        this.throwWsWUExceptions(logFileResponse.getExceptions(), "Could not retrieve file " + filename 
-                + " for wuid " + wuid);
+        this.throwWsWUExceptions(logFileResponse.getExceptions(), "Could not retrieve file " + filename + " for wuid " + wuid);
         return new WULogFileInfo(logFileResponse);
         
     }

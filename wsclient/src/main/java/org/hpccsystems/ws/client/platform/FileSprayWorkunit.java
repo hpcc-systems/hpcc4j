@@ -9,9 +9,9 @@ package org.hpccsystems.ws.client.platform;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_16.DFUWorkunit;
-import org.hpccsystems.ws.client.gen.filespray.v1_16.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_16.GetDFUWorkunitResponse;
+import org.hpccsystems.ws.client.gen.filespray.v1_17.DFUWorkunit;
+import org.hpccsystems.ws.client.gen.filespray.v1_17.EspException;
+import org.hpccsystems.ws.client.gen.filespray.v1_17.GetDFUWorkunitResponse;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

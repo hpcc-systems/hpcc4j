@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
-import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpClusterInfoResponse;
-import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpTargetCluster;
+import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpClusterInfoResponse;
+import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpTargetCluster;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;

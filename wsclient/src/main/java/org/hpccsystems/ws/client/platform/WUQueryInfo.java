@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUQuery;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 
