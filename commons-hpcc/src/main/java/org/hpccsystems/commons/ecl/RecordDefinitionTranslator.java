@@ -156,18 +156,28 @@ public class RecordDefinitionTranslator
         String rootRecordName = getEClTypeDefinition(field, recordDefinitionMap);
 
         // Get root record definition and remove it from the map
-        String definition = recordDefinitionMap.get(rootRecordName);
+        String rootDefinition = recordDefinitionMap.get(rootRecordName); 
         recordDefinitionMap.remove(rootRecordName);
-        definition = definition.replace(rootRecordName, "RD");
+        rootDefinition = rootDefinition.replace(rootRecordName, "RD");
 
         // Combine the type definitions into a single ECL defintion
+        StringBuilder sb = new StringBuilder(8192);
+        for (HashMap.Entry<String, String> entry : recordDefinitionMap.entrySet())
+        {
+            sb.append("\n\n");
+            sb.append(entry.getKey());
+            sb.append(" := ");
+            sb.append(entry.getValue());
+        }
+
+        sb.append("\n\n");
+        sb.append(rootDefinition);
+        String definition = sb.toString();
+        
+        // Replace the temporary hash key
         int numRecordDefinitions = 1;
         for (HashMap.Entry<String, String> entry : recordDefinitionMap.entrySet())
         {
-
-            definition = entry.getKey() + " := " + entry.getValue() + "\n\n" + definition;
-
-            // Replace the temporary hash key with something more readable
             definition = definition.replace(entry.getKey(), "RD" + numRecordDefinitions);
             numRecordDefinitions++;
         }

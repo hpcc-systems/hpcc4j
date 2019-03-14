@@ -42,16 +42,16 @@ import org.hpccsystems.commons.ecl.FieldDef;
  */
 public class ColumnPruner implements Serializable
 {
-    private final static long      serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
 
     private class SelectedFieldInfo
     {
-        String name = null;
+        String  name               = null;
         boolean shouldCullChildren = false;
     }
 
-    private String                 fieldListString;
-    private HashMap<String,SelectedFieldInfo> selectedFieldMap = null;
+    private String                             fieldListString;
+    private HashMap<String, SelectedFieldInfo> selectedFieldMap = null;
 
     /**
      * @return Project list in string format
@@ -75,38 +75,41 @@ public class ColumnPruner implements Serializable
         this.fieldListString = commaSepFieldNamelist;
 
         // Create a map of selected fields by their path
-        selectedFieldMap = new HashMap<String,SelectedFieldInfo>();
+        selectedFieldMap = new HashMap<String, SelectedFieldInfo>();
         String[] selectedFields = this.fieldListString.split(",");
-        for (int i = 0; i < selectedFields.length; i++) {
+        for (int i = 0; i < selectedFields.length; i++)
+        {
             String fieldPath = selectedFields[i].trim();
-            if (fieldPath.isEmpty()){
+            if (fieldPath.isEmpty())
+            {
                 continue;
             }
 
             String curPath = "";
             String[] pathComponents = fieldPath.split("\\.");
-            for (int j = 0; j < pathComponents.length; j++) {
+            for (int j = 0; j < pathComponents.length; j++)
+            {
                 String component = pathComponents[j].toLowerCase();
-                if (j != 0) {
+                if (j != 0)
+                {
                     curPath += ".";
                 }
 
                 curPath += component.trim();
 
                 SelectedFieldInfo fieldInfo = selectedFieldMap.get(curPath);
-                if (fieldInfo == null) {
+                if (fieldInfo == null)
+                {
                     fieldInfo = new SelectedFieldInfo();
                     fieldInfo.name = component;
-                    selectedFieldMap.put(curPath,fieldInfo);
+                    selectedFieldMap.put(curPath, fieldInfo);
                 }
 
-                boolean shouldCullChildren = (j < pathComponents.length-1);
-                fieldInfo.shouldCullChildren = fieldInfo.shouldCullChildren || shouldCullChildren; 
+                boolean shouldCullChildren = (j < pathComponents.length - 1);
+                fieldInfo.shouldCullChildren = fieldInfo.shouldCullChildren || shouldCullChildren;
             }
         }
     }
-
-    
 
     /**
      * Prune the definition tokens to match the field list if
@@ -116,28 +119,31 @@ public class ColumnPruner implements Serializable
      * @exception Exception is thrown when none of the
      * fields in the selection list are defined.
      */
-    public FieldDef pruneRecordDefinition(FieldDef originalRD) throws Exception 
+    public FieldDef pruneRecordDefinition(FieldDef originalRD) throws Exception
     {
-        if (selectedFieldMap.size() == 0) {
+        if (selectedFieldMap.size() == 0)
+        {
             return originalRD;
         }
 
         ArrayList<FieldDef> selectedFields = new ArrayList<FieldDef>();
-        for (int i = 0; i < originalRD.getNumDefs(); i++) {
+        for (int i = 0; i < originalRD.getNumDefs(); i++)
+        {
             FieldDef childDef = originalRD.getDef(i);
             String fieldPath = childDef.getFieldName().trim().toLowerCase();
 
-            FieldDef prunedFieldDef = pruneFieldDefinition(childDef,fieldPath);
-            if (prunedFieldDef != null) {
+            FieldDef prunedFieldDef = pruneFieldDefinition(childDef, fieldPath);
+            if (prunedFieldDef != null)
+            {
                 selectedFields.add(prunedFieldDef);
             }
         }
 
         FieldDef ret = new FieldDef(originalRD);
         ret.setDefs(selectedFields.toArray(new FieldDef[0]));
-        if (ret.getNumDefs() == 0) {
-            throw new Exception("Error pruning record defintion. No fields were selected for field list: "
-                + this.fieldListString);
+        if (ret.getNumDefs() == 0)
+        {
+            throw new Exception("Error pruning record defintion. No fields were selected for field list: " + this.fieldListString);
         }
 
         return ret;
@@ -146,19 +152,22 @@ public class ColumnPruner implements Serializable
     private FieldDef pruneFieldDefinition(FieldDef originalRecordDef, String path)
     {
         SelectedFieldInfo fieldInfo = selectedFieldMap.get(path);
-        if (fieldInfo == null) {
+        if (fieldInfo == null)
+        {
             return null;
         }
 
-        if (fieldInfo.shouldCullChildren == false) {
+        if (fieldInfo.shouldCullChildren == false)
+        {
             return originalRecordDef;
         }
 
         // Datasets are a special case. They will not have a component
         // in the field path to represent the dataset FieldDef. So we skip to its record
-        if (originalRecordDef.getFieldType() == FieldType.DATASET) {
+        if (originalRecordDef.getFieldType() == FieldType.DATASET)
+        {
             FieldDef[] datasetRD = new FieldDef[1];
-            datasetRD[0] = pruneFieldDefinition(originalRecordDef.getDef(0),path);
+            datasetRD[0] = pruneFieldDefinition(originalRecordDef.getDef(0), path);
 
             FieldDef ret = new FieldDef(originalRecordDef);
             ret.setDefs(datasetRD);
@@ -166,12 +175,14 @@ public class ColumnPruner implements Serializable
         }
 
         ArrayList<FieldDef> selectedFields = new ArrayList<FieldDef>();
-        for (int i = 0; i < originalRecordDef.getNumDefs(); i++) {
+        for (int i = 0; i < originalRecordDef.getNumDefs(); i++)
+        {
             FieldDef childDef = originalRecordDef.getDef(i);
             String fieldPath = path + "." + childDef.getFieldName().trim().toLowerCase();
 
-            FieldDef prunedFieldDef = pruneFieldDefinition(childDef,fieldPath);
-            if (prunedFieldDef != null) {
+            FieldDef prunedFieldDef = pruneFieldDefinition(childDef, fieldPath);
+            if (prunedFieldDef != null)
+            {
                 selectedFields.add(prunedFieldDef);
             }
         }

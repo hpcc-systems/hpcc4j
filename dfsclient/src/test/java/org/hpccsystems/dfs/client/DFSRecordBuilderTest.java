@@ -15,20 +15,11 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import java.util.ArrayList;
-import java.math.BigDecimal;
-
-import org.hpccsystems.dfs.client.IRecordBuilder;
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HPCCRecordBuilder;
-import org.hpccsystems.dfs.client.DataPartition;
 import org.hpccsystems.dfs.client.TestRecordReader;
 
-import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.TestFieldDefinitions;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,15 +64,5 @@ public class DFSRecordBuilderTest
         {
             Assert.fail("Test failed with error: " + e.getMessage());
         }
-    }
-
-    @After
-    public void shutdown()
-    {
-
-    }
-
-    public static void main(String[] args) throws Exception
-    {
     }
 }
