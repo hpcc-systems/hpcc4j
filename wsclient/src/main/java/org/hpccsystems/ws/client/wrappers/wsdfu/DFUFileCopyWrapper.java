@@ -17,31 +17,51 @@
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy;
-
 public class DFUFileCopyWrapper
 {
-    private DFUFileCopy soapDFUFileCopy;
+    private Integer copyIndex;
+    private Integer locationIndex;
+    private String path;
     private String resolvedHost;
 
-    public DFUFileCopyWrapper(DFUFileCopy soapdfufilecopy, String resolvedhost)
+    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCopy soapdfufilecopy, String resolvedhost)
     {
         resolvedHost = resolvedhost;
-        soapDFUFileCopy = soapdfufilecopy;
+        copyIndex = soapdfufilecopy.getCopyIndex();
+        locationIndex = soapdfufilecopy.getLocationIndex();
+        path = soapdfufilecopy.getPath();
     }
-    
+
+    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy soapdfufilecopy, String resolvedhost)
+    {
+        resolvedHost = resolvedhost;
+        copyIndex = soapdfufilecopy.getCopyIndex();
+        locationIndex = soapdfufilecopy.getLocationIndex();
+        path = soapdfufilecopy.getPath();
+    }
+
     public String getCopyHost()
     {
         return resolvedHost;
     }
-    
+
     public String getCopyPath()
     {
-        return soapDFUFileCopy.getPath();
+        return path;
     }
-    
+
     public Integer getCopyIndex()
     {
-        return soapDFUFileCopy.getCopyIndex();
+        return copyIndex;
+    }
+    
+    public Integer getLocationIndex()
+    {
+        return locationIndex;
+    }
+
+    public void setLocationIndex(Integer locationIndex)
+    {
+        this.locationIndex = locationIndex;
     }
 }

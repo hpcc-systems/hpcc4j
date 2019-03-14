@@ -32,7 +32,7 @@ public class WUInfoResponseWrapper
             }
         }
     }
-    
+
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfoResponse resp) {
         if (resp==null) {
             return;
@@ -49,7 +49,7 @@ public class WUInfoResponseWrapper
             }
         }
     }
-    
+
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfoResponse resp) {
         if (resp==null) {
             return;
@@ -65,7 +65,7 @@ public class WUInfoResponseWrapper
                 exceptions.add(new WUExceptionWrapper(resp.getExceptions().getException(i)));
             }
         }
-    }    
+    }
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfoResponse resp) {
         if (resp==null) {
             return;
@@ -199,18 +199,18 @@ public class WUInfoResponseWrapper
     {
         this.secMethod = secMethod;
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ArrayOfEspException getRawArrayOfEspExceptions()
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ArrayOfEspException getRawArrayOfEspExceptions()
     {
         if (this.exceptions.size()==0) {
             return null;
         }
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ArrayOfEspException result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ArrayOfEspException();
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException[] raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException[this.exceptions.size()];
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ArrayOfEspException result=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ArrayOfEspException();
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException[] raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException[this.exceptions.size()];
         for (int i=0; i < exceptions.size();i++)
         {
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException esp=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException();
+            org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException esp=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException();
             esp.setAudience(exceptions.get(i).getAudience());
             esp.setMessage(exceptions.get(i).getMessage());
             esp.setSource(exceptions.get(i).getSource());
@@ -220,6 +220,4 @@ public class WUInfoResponseWrapper
         result.setException(raw);
         return result;
     }
-    
-
 }

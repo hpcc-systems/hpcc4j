@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WULogFileResponse;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WULogFileResponse;
 
 public class WULogFileInfo {
 

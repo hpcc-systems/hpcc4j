@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.platform;
 
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ClusterQueryState;
+
 public class ClusterInfo {
 
     String name;
@@ -10,7 +12,7 @@ public class ClusterInfo {
     public ClusterInfo() {
         
     }
-    public ClusterInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ClusterQueryState raw) {
+    public ClusterInfo(ClusterQueryState raw) {
         this.name=raw.getCluster();
         this.state=raw.getState();
         this.errors=raw.getErrors();

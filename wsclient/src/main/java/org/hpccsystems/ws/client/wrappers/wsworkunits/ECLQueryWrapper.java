@@ -15,46 +15,14 @@ public class ECLQueryWrapper
     private String queryMainDefinition;
 
     public ECLQueryWrapper() {}
-    
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery raw) {
-        if (raw==null) {
+
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery raw)
+    {
+        if (raw==null)
+        {
             return;
         }
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
-    }
-   
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw) {
-        if (raw==null) {
-            return;
-        }
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
-    }
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery raw) {
-        if (raw==null) {
-            return;
-        }
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
-    }
-    
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery raw) {
-        if (raw==null) {
-            return;
-        }
+
         this.text=raw.getText();
         this.cpp=raw.getCpp();
         this.dll=raw.getDll();
@@ -63,12 +31,73 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery getRaw() {
-        return getRawVersion73();
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.text=raw.getText();
+        this.cpp=raw.getCpp();
+        this.dll=raw.getDll();
+        this.queryMainDefinition=raw.getQueryMainDefinition();
+        this.thorLog=raw.getThorLog();
+        this.resTxt=raw.getResTxt();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery getRawVersion73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery();
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.text=raw.getText();
+        this.cpp=raw.getCpp();
+        this.dll=raw.getDll();
+        this.queryMainDefinition=raw.getQueryMainDefinition();
+        this.thorLog=raw.getThorLog();
+        this.resTxt=raw.getResTxt();
+    }
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.text=raw.getText();
+        this.cpp=raw.getCpp();
+        this.dll=raw.getDll();
+        this.queryMainDefinition=raw.getQueryMainDefinition();
+        this.thorLog=raw.getThorLog();
+        this.resTxt=raw.getResTxt();
+    }
+
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.text=raw.getText();
+        this.cpp=raw.getCpp();
+        this.dll=raw.getDll();
+        this.queryMainDefinition=raw.getQueryMainDefinition();
+        this.thorLog=raw.getThorLog();
+        this.resTxt=raw.getResTxt();
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery getRaw()
+    {
+        return getRawVersion74();
+    }
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery getRawVersion74()
+    {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery();
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());
         raw.setQueryMainDefinition(this.getQueryMainDefinition());
@@ -77,8 +106,9 @@ public class ECLQueryWrapper
         raw.setThorLog(this.getThorLog());
         return raw;
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery getRawVersion1_69() {
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery getRawVersion1_69()
+    {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery();
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());
@@ -88,7 +118,8 @@ public class ECLQueryWrapper
         raw.setThorLog(this.getThorLog());
         return raw;
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery getRawVersion1_62() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery getRawVersion1_62()
+    {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery();
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());
@@ -98,8 +129,9 @@ public class ECLQueryWrapper
         raw.setThorLog(this.getThorLog());
         return raw;
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery getRawVersion1_58() {
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery getRawVersion1_58()
+    {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery();
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());

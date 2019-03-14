@@ -9,13 +9,13 @@ public class WUExceptionWrapper {
     private String message=null;
     private String severity=null;
     private String source=null;
-    
+
     private String audience;
     private String espCode;
 
     public WUExceptionWrapper() {}
-    
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException raw) 
+
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLException raw)
     {
         activity=raw.getActivity();
         code=raw.getCode();
@@ -27,15 +27,15 @@ public class WUExceptionWrapper {
         source=raw.getSource();
     }
 
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException raw) 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException raw)
     {
         audience=raw.getAudience();
         message=raw.getMessage();
         espCode=raw.getCode();
         source=raw.getSource();
-    }    
+    }
 
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw) 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException raw)
     {
         activity=raw.getActivity();
         code=raw.getCode();
@@ -47,15 +47,35 @@ public class WUExceptionWrapper {
         source=raw.getSource();
     }
 
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException raw) 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException raw)
     {
         audience=raw.getAudience();
         message=raw.getMessage();
         espCode=raw.getCode();
         source=raw.getSource();
-    }    
+    }
 
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException raw) 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw)
+    {
+        activity=raw.getActivity();
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.EspException raw)
+    {
+        audience=raw.getAudience();
+        message=raw.getMessage();
+        espCode=raw.getCode();
+        source=raw.getSource();
+    }
+
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLException raw)
     {
         code=raw.getCode();
         column=raw.getColumn();
@@ -66,15 +86,15 @@ public class WUExceptionWrapper {
         source=raw.getSource();
     }
 
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.EspException raw) 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.EspException raw)
     {
         audience=raw.getAudience();
         message=raw.getMessage();
         espCode=raw.getCode();
         source=raw.getSource();
-    }    
-    
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException raw) 
+    }
+
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException raw)
     {
         code=raw.getCode();
         column=raw.getColumn();
@@ -85,13 +105,13 @@ public class WUExceptionWrapper {
         source=raw.getSource();
     }
 
-    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.EspException raw) 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.EspException raw)
     {
         audience=raw.getAudience();
         message=raw.getMessage();
         espCode=raw.getCode();
         source=raw.getSource();
-    }    
+    }
 
     public Integer getActivity() {
         return activity;
@@ -156,7 +176,20 @@ public class WUExceptionWrapper {
     public void setSource(String source) {
         this.source = source;
     }
-    
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLException getRawVersion1_74() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLException();
+        ex.setActivity(activity);
+        ex.setCode(code);
+        ex.setColumn(column);
+        ex.setFileName(fileName);
+        ex.setLineNo(lineNo);
+        ex.setMessage(message);
+        ex.setSeverity(severity);
+        ex.setSource(source);
+        return ex;
+    }
+
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException getRawVersion1_73() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException();
         ex.setActivity(activity);
@@ -194,7 +227,7 @@ public class WUExceptionWrapper {
         return ex;
     }
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException getRawVersion1_58() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException();        
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException ex=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLException();
         ex.setCode(code);
         ex.setColumn(column);
         ex.setFileName(fileName);
@@ -214,7 +247,7 @@ public class WUExceptionWrapper {
     {
         return espCode;
     }
-    
+
     public String getErrorCode() {
         if (espCode != null) {
             return espCode;
