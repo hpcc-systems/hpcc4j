@@ -23,54 +23,48 @@ import org.hpccsystems.commons.ecl.HpccSrcType;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.ByteChannel;
-import java.nio.channels.SeekableByteChannel;
+import java.io.OutputStream;
 import java.util.List;
 
 import java.util.Arrays;
 
 public class BinaryRecordWriter implements IRecordWriter
 {
-    private static final Logger log                   = Logger.getLogger(BinaryRecordWriter.class.getName());
+    private static final Logger log                 = Logger.getLogger(BinaryRecordWriter.class.getName());
 
-    private static final int    DataLenFieldSize      = 4;
-    private static final int    DefaultBufferSizeKB   = 4096;
-    private static final byte   NegativeSignValue     = 0x0d;
-    private static final byte   PositiveSignValue     = 0x0f;
-    private static final int    MASK_32_LOWER_HALF    = 0xffff;
-    private static final int    SCRATCH_BUFFER_SIZE   = 256;
+    private static final int    DataLenFieldSize    = 4;
+    private static final int    DefaultBufferSizeKB = 4096;
+    private static final byte   NegativeSignValue   = 0x0d;
+    private static final byte   PositiveSignValue   = 0x0f;
+    private static final int    MASK_32_LOWER_HALF  = 0xffff;
+    private static final int    SCRATCH_BUFFER_SIZE = 256;
 
-    private byte[]              scratchBuffer         = new byte[SCRATCH_BUFFER_SIZE];
+    private byte[]              scratchBuffer       = new byte[SCRATCH_BUFFER_SIZE];
 
-    private ByteChannel         outputChannel         = null;
-    private SeekableByteChannel seekableOutputChannel = null;
-    private ByteBuffer          buffer                = null;
-    private long                bytesWritten          = 0;
-    private IRecordAccessor     rootRecordAccessor    = null;
+    private OutputStream        outputStream        = null;
+    private ByteBuffer          buffer              = null;
+    private long                bytesWritten        = 0;
+    private IRecordAccessor     rootRecordAccessor  = null;
 
     /**
      * BinaryRecordWriter Initializes writing procedure, and converts the provided Schema to a SparkField stucture
      * 
      * @param output
-     *            ByteChannel to write to. Providing a SeekableOutputChannel provides a performance benefit
+     *            OutputStream to write to. 
      * @param schema
      *            The Spark schema used for all subsequent calls to writeRecord
      * @throws Exception
      */
-    public BinaryRecordWriter(ByteChannel output) throws Exception
+    public BinaryRecordWriter(OutputStream output) throws Exception
     {
         this(output, ByteOrder.nativeOrder());
     }
 
-    public BinaryRecordWriter(ByteChannel output, ByteOrder byteOrder) throws Exception
+    public BinaryRecordWriter(OutputStream output, ByteOrder byteOrder) throws Exception
     {
-        this.outputChannel = output;
-        if (output instanceof SeekableByteChannel)
-        {
-            seekableOutputChannel = (SeekableByteChannel) output;
-        }
+        this.outputStream = output;
 
-        this.buffer = ByteBuffer.allocateDirect(BinaryRecordWriter.DefaultBufferSizeKB * 1024);
+        this.buffer = ByteBuffer.allocate(BinaryRecordWriter.DefaultBufferSizeKB * 1024);
         this.buffer.order(byteOrder);
     }
 
@@ -99,6 +93,7 @@ public class BinaryRecordWriter implements IRecordWriter
             this.flushBuffer();
         }
 
+        recordAccessor.setRecord(record);
         for (int i = 0; i < recordAccessor.getNumFields(); i++)
         {
             FieldDef fd = recordAccessor.getFieldDefinition(i);
@@ -128,8 +123,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        throw new Exception(
-                                "Error writing list. Expected List got: " + fieldValue.getClass().getName());
+                        throw new Exception("Error writing list. Expected List got: " + fieldValue.getClass().getName());
                     }
 
                     writeList(fd, recordAccessor.getChildRecordAccessor(i), listValue);
@@ -137,8 +131,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 default:
                     throw new Exception("Unsupported type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
-            }
-            ;
+            };
         }
     }
 
@@ -151,6 +144,7 @@ public class BinaryRecordWriter implements IRecordWriter
     public void finalize() throws Exception
     {
         this.flushBuffer();
+        this.outputStream.close();
     }
 
     /**
@@ -217,13 +211,17 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
+                    throw new Exception("Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
                 break;
             }
             case DECIMAL:
             {
+                if (fd.isUnsigned())
+                {
+                    throw new Exception("Writing unsigned decimals is not currently supported.");
+                }
+
                 BigDecimal value = (BigDecimal) fieldValue;
                 writeDecimal(fd, value);
                 break;
@@ -232,8 +230,8 @@ public class BinaryRecordWriter implements IRecordWriter
             {
                 if (fd.getDataLen() == 4)
                 {
-                    Float value = (Float) fieldValue;
-                    this.buffer.putFloat(value);
+                    Double value = (Double) fieldValue;
+                    this.buffer.putFloat(value.floatValue());
                 }
                 else if (fd.getDataLen() == 8)
                 {
@@ -242,8 +240,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unsupported real length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
+                    throw new Exception("Unsupported real length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
                 break;
             }
@@ -280,63 +277,66 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
-                            + " encountered while writing field: " + fd.getFieldName());
-                }
-
-                int bytesToWrite = data.length;
-                if (fd.isFixed() && bytesToWrite >= fd.getDataLen())
-                {
-                    if (fd.getDataLen() > Integer.MAX_VALUE)
-                    {
-                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: "
-                                + Integer.MAX_VALUE);
-                    }
-
-                    bytesToWrite = (int) fd.getDataLen();
+                    throw new Exception(
+                            "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
                 }
 
                 if (fd.isFixed())
                 {
-                    // Var Strings end with a null character
-                    // The length should always be long enough but it is better to check anyway
-                    if (fd.getFieldType() == FieldType.VAR_STRING && bytesToWrite > 0)
-                    {
-                        data[bytesToWrite - 1] = '\0';
-                        if (fd.getSourceType().isUTF16() && bytesToWrite > 1)
-                        {
-                            data[bytesToWrite - 2] = '\0';
-                        }
-                    }
-
-                    writeByteArray(data, 0, bytesToWrite);
-
                     if (fd.getDataLen() > Integer.MAX_VALUE)
                     {
-                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: "
-                                + Integer.MAX_VALUE);
+                        throw new Exception("String length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
                     }
-                    int dataLen = (int) fd.getDataLen();
 
-                    int numFillBytes = dataLen - bytesToWrite;
-                    while (numFillBytes > 0)
+                    int bytesToWrite = (int) fd.getDataLen();
+                    if (fd.getFieldType() == FieldType.VAR_STRING)
                     {
-                        int fillLength = numFillBytes;
-                        if (fillLength > SCRATCH_BUFFER_SIZE)
+                        bytesToWrite++;
+                    }
+
+                    if (fd.getSourceType().isUTF16())
+                    {
+                        bytesToWrite *= 2;
+                    }
+
+                    // Var Strings end with a null character
+                    // The length should always be long enough but it is better to check anyway
+                    if (data.length >= bytesToWrite)
+                    {
+                        if (fd.getFieldType() == FieldType.VAR_STRING && bytesToWrite > 0)
                         {
-                            fillLength = SCRATCH_BUFFER_SIZE;
+                            data[bytesToWrite - 1] = '\0';
+                            if (fd.getSourceType().isUTF16() && bytesToWrite > 1)
+                            {
+                                data[bytesToWrite - 2] = '\0';
+                            }
                         }
 
-                        Arrays.fill(scratchBuffer, 0, fillLength, (byte) '\0');
-                        writeByteArray(scratchBuffer, 0, fillLength);
-                        numFillBytes += fillLength;
+                        writeByteArray(data, 0, bytesToWrite);
+                    }
+                    else
+                    {
+                        writeByteArray(data, 0, data.length);
+                        int numFillBytes = bytesToWrite - data.length;
+                        while (numFillBytes > 0)
+                        {
+                            int fillLength = numFillBytes;
+                            if (fillLength > SCRATCH_BUFFER_SIZE)
+                            {
+                                fillLength = SCRATCH_BUFFER_SIZE;
+                            }
+
+                            Arrays.fill(scratchBuffer, 0, fillLength, (byte) '\0');
+                            writeByteArray(scratchBuffer, 0, fillLength);
+                            numFillBytes -= fillLength;
+                        }
                     }
                 }
                 else
                 {
                     if (fd.getFieldType() == FieldType.VAR_STRING)
                     {
-                        writeByteArray(data, 0, bytesToWrite);
+                        writeByteArray(data, 0, data.length);
 
                         if (fd.getFieldType() == FieldType.VAR_STRING)
                         {
@@ -350,7 +350,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        writeUnsigned(bytesToWrite);
+                        writeUnsigned(value.length());
                         writeByteArray(data);
                     }
                 }
@@ -429,7 +429,38 @@ public class BinaryRecordWriter implements IRecordWriter
             {
                 if (fd.isFixed())
                 {
-                    return fd.getDataLen();
+                    long dataLen = 0;
+                    if (fd.getSourceType().isUTF16())
+                    {
+                        dataLen = fd.getDataLen() * 2;
+                        if (fd.getFieldType() == FieldType.VAR_STRING)
+                        {
+                            dataLen += 2;
+                        }
+                    }
+                    else if (fd.getSourceType() == HpccSrcType.SINGLE_BYTE_CHAR)
+                    {
+                        dataLen = fd.getDataLen();
+                        if (fd.getFieldType() == FieldType.VAR_STRING)
+                        {
+                            dataLen += 1;
+                        }
+                    }
+                    else if (fd.getSourceType() == HpccSrcType.UTF8)
+                    {
+                        throw new Exception("Fixed length utf8 strings are not supported.");
+                    }
+                    else if (fd.getSourceType() == HpccSrcType.QSTRING)
+                    {
+                        throw new Exception("Writing QStrings is currently unsupported.");
+                    }
+                    else
+                    {
+                        throw new Exception(
+                                "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
+                    }
+
+                    return dataLen;
                 }
 
                 String value = (String) fieldValue;
@@ -457,8 +488,8 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported string encoding type: " + fd.getSourceType()
-                            + " encountered while writing field: " + fd.getFieldName());
+                    throw new Exception(
+                            "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
                 }
 
                 if (fd.getFieldType() == FieldType.STRING)
@@ -479,11 +510,12 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case RECORD:
             {
+                recordAccessor.setRecord(fieldValue);
                 long dataLen = 0;
                 for (int i = 0; i < recordAccessor.getNumFields(); i++)
                 {
-                    dataLen += calculateFieldSize(recordAccessor.getFieldDefinition(i),
-                            recordAccessor.getChildRecordAccessor(i), recordAccessor.getFieldValue(i));
+                    dataLen += calculateFieldSize(recordAccessor.getFieldDefinition(i), recordAccessor.getChildRecordAccessor(i),
+                            recordAccessor.getFieldValue(i));
                 }
                 return dataLen;
             }
@@ -503,27 +535,13 @@ public class BinaryRecordWriter implements IRecordWriter
             this.buffer.put((byte) 0);
         }
 
-        // If we have a seekable channel we can go back and update this value after writing
-        // Otherwise we need to calculate the size of the array ahead of writing it
-        long dataSetSize = 0;
-        if (this.seekableOutputChannel == null)
+        // calculated size includes the data size field & and padding byte if present
+        // We want only the data size of the child array
+        long dataSetSize = calculateFieldSize(fd, childRecordAccessor, list);
+        dataSetSize -= BinaryRecordWriter.DataLenFieldSize;
+        if (isSet)
         {
-            dataSetSize = calculateFieldSize(fd, childRecordAccessor, list);
-
-            // calculated size includes the data size field & and padding byte if present
-            // We want only the data size of the child array
-            dataSetSize -= BinaryRecordWriter.DataLenFieldSize;
-            if (isSet)
-            {
-                dataSetSize--;
-            }
-        }
-
-        // Create a marker to use with the seekable channel if we have one
-        long dataSizeMarker = this.buffer.position();
-        if (this.seekableOutputChannel != null)
-        {
-            dataSizeMarker += this.seekableOutputChannel.position();
+            dataSetSize--;
         }
 
         // Write the dataset size to the buffer
@@ -542,25 +560,6 @@ public class BinaryRecordWriter implements IRecordWriter
             {
                 this.writeRecord(childRecordAccessor, value);
             }
-        }
-
-        // If we are using a seekable channel we need to go back and update
-        // the dataset size in the channel
-        if (this.seekableOutputChannel != null)
-        {
-            this.flushBuffer();
-
-            long currentPos = this.seekableOutputChannel.position();
-            dataSetSize = currentPos - dataSizeMarker;
-            dataSetSize -= BinaryRecordWriter.DataLenFieldSize;
-
-            this.seekableOutputChannel.position(dataSizeMarker);
-
-            // Write the updated dataSize to buffer and then flush for simplicity
-            writeUnsigned(dataSetSize);
-            this.flushBuffer();
-
-            this.seekableOutputChannel.position(currentPos);
         }
     }
 
@@ -675,14 +674,11 @@ public class BinaryRecordWriter implements IRecordWriter
 
     private void flushBuffer() throws Exception
     {
-        // Flip the buffer for reading, write the buffer to the channel and then flip back
-        this.buffer.flip();
-        do
-        {
-            this.bytesWritten += this.outputChannel.write(this.buffer);
-        }
-        while (this.buffer.hasRemaining());
-        this.buffer.flip();
+
+        byte[] data = this.buffer.array();
+        int dataLen = this.buffer.position();
+        this.outputStream.write(data, 0, dataLen);
+        this.bytesWritten += dataLen;
 
         this.buffer.clear();
     }

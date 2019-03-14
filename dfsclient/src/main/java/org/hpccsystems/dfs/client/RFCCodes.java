@@ -23,8 +23,11 @@ package org.hpccsystems.dfs.client;
  */
 public final class RFCCodes
 {
-    public static final char RFCStreamReadCmd                     = '\u002B'; //43 in decimal, value associated w/ stream read in dafilesrv
-    public static final int  RFCStreamNoError                     = '\u0000';
+    // public static final char RFCStreamReadCmd                     = '\u002B'; //43 in decimal, value associated w/ stream read in dafilesrv
+    // public static final char RFCStreamGeneral                     = '\u002D'; //45 in decimal, value associated w/ stream read in dafilesrv
+    public static final char RFCStreamReadCmd                     = 43; 
+    public static final char RFCStreamGeneral                     = 45;
+    public static final int  RFCStreamNoError                     = 0;
 
     public static final int  DAFSERR_connection_failed            = -1;
     public static final int  DAFSERR_authenticate_failed          = -2;

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.io.InputStream;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -32,14 +33,13 @@ import org.hpccsystems.commons.errors.HpccFileException;
  * The connection to a specific THOR node for a specific file part.
  *
  */
-public class PlainConnection
+public class RowServiceInputStream extends InputStream 
 {
     private boolean                  active;
     private boolean                  closed;
     private boolean                  simulateFail;
     private boolean                  forceCursorUse;
     private byte[]                   cursorBin;
-    private final byte[]             emptyBuffer                   = new byte[0];
     private int                      handle;
     private DataPartition            dataPart;
     private FieldDef                 recordDefinition              = null;
@@ -49,16 +49,21 @@ public class PlainConnection
     private java.io.DataInputStream  dis;
     private java.io.DataOutputStream dos;
 
+    private byte[]                   readBuffer;
+    private int                      readBufferLen = 0;
+    private int                      readPos = 0;
+    private int                      markPos = -1;
+
     private Socket                   sock;
     private int                      currentFilePartCopyIndex;
-    private int                      DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;
+    private int                      DEFAULT_CONNECT_TIMEOUT_MILIS = 1000; // 1 second connection timeout
 
     public static final Charset      HPCCCharSet                   = Charset.forName("ISO-8859-1");
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
     public static final int          MaxReadSizeKB                 = 4096;
 
-    private static final Logger      log                           = Logger.getLogger(PlainConnection.class.getName());
+    private static final Logger      log                           = Logger.getLogger(RowServiceInputStream.class.getName());
 
     /**
      * A plain socket connect to a THOR node for remote read
@@ -68,7 +73,7 @@ public class PlainConnection
      * @param rd
      *            the JSON definition for the read input and output
      */
-    public PlainConnection(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception
     {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
@@ -84,6 +89,12 @@ public class PlainConnection
         this.cursorBin = new byte[0];
         this.simulateFail = false;
         this.currentFilePartCopyIndex = 0;
+
+        // Read buffer is 2x to allow for partial record reads for records larger than MaxReadSizeKB.
+        // Note: this is currently not partial reads are not currently supported by the row service
+        this.readBuffer = new byte[MaxReadSizeKB*1024*2];
+        
+        this.readBlock();
     }
 
     private boolean setNextFilePartCopy()
@@ -221,11 +232,11 @@ public class PlainConnection
      * @throws HpccFileException
      *             a problem with the read operation
      */
-    public byte[] readBlock(byte[] buffer) throws HpccFileException
+    void readBlock() throws HpccFileException
     {
         if (this.closed)
         {
-            return this.emptyBuffer; // no data left to send
+            return;
         }
 
         if (!this.active) // attempt to the first read
@@ -236,13 +247,22 @@ public class PlainConnection
         int len = readReplyLen();
         if (len == 0)
         {
-            this.closed = true;
-            return this.emptyBuffer;
+            try
+            {
+                close();
+            } 
+            catch (IOException e)
+            {
+                throw new HpccFileException(e.getMessage());
+            }
+            return;
         }
+
         if (len < 4)
         {
             throw new HpccFileException("Early data termination, no handle");
         }
+
         try
         {
             this.handle = dis.readInt();
@@ -251,13 +271,15 @@ public class PlainConnection
                 len = retryWithCursor();
                 if (len == 0)
                 {
-                    this.closed = true;
-                    return this.emptyBuffer;
+                    close();
+                    return;
                 }
+
                 if (len < 4)
                 {
                     throw new HpccFileException("Early data termination on retry, no handle");
                 }
+
                 this.handle = dis.readInt();
                 if (this.handle == 0)
                 {
@@ -275,22 +297,41 @@ public class PlainConnection
             dataLen = dis.readInt();
             if (dataLen == 0)
             {
-                closeConnection();
-                return this.emptyBuffer;
+                close();
+                return;
             }
 
-            if (buffer == null || buffer.length != dataLen)
-            {
-                buffer = new byte[dataLen];
+            // Compact the array before reading in new data
+            int remainingBytesInBuffer = this.readBufferLen - this.readPos;
+            this.readBufferLen = remainingBytesInBuffer + dataLen;
+
+            // Expand read buffer if necessary
+            if (this.readBufferLen > this.readBuffer.length) {
+                byte[] newBuffer = new byte[this.readBufferLen];
+                System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
+                this.readBuffer = newBuffer;
+            } else {
+                System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
             }
-            dis.readFully(buffer, 0, dataLen);
+
+            // Update the markPos 
+            if (this.markPos >= 0) {
+                this.markPos -= this.readPos;
+            }
+
+            if (dataLen > this.readBuffer.length) {
+                throw new HpccFileException("Error during read block, available data len is larger than read buffer. This should not happen");
+            }
+            dis.readFully(this.readBuffer, remainingBytesInBuffer, dataLen);
+            this.readPos = 0;
 
             int cursorLen = dis.readInt();
             if (cursorLen == 0)
             {
-                closeConnection();
-                return buffer;
+                close();
+                return;
             }
+
             if (this.cursorBin == null || cursorLen > this.cursorBin.length)
             {
                 this.cursorBin = new byte[cursorLen];
@@ -316,7 +357,151 @@ public class PlainConnection
             throw new HpccFileException("Failure sending read ahead transaction", e);
         }
 
-        return buffer;
+        return;
+    }
+
+    public int available() throws IOException
+    {
+        return this.readBufferLen - this.readPos;
+    }
+
+    public void	close() throws IOException
+    {
+        if (this.closed == false)
+        {
+            this.closed = true;
+            this.dos.close();
+            this.dis.close();
+            this.sock.close();
+            this.dos = null;
+            this.dis = null;
+            this.sock = null;
+        }
+    }
+
+    public void	mark(int readLimit)
+    {
+        // Check to see if we can handle this readLimit with the current buffer / readPos
+        int availableReadCapacity = this.readBuffer.length - this.readPos;
+        if (availableReadCapacity < readLimit) 
+        {
+            // Check to see if compaction will work
+            if (this.readBuffer.length > readLimit) 
+            {
+                int remainingBytesInBuffer = this.readBufferLen - this.readPos;
+                System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
+                this.readPos = 0;
+            }
+            // Need a larger buffer
+            else
+            {
+                byte[] newBuffer = new byte[readLimit];
+                int remainingBytesInBuffer = this.readBufferLen - this.readPos;
+                System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
+                this.readBuffer = newBuffer;
+                this.readPos = 0;
+            }
+        }
+        
+        this.markPos = this.readPos;
+    }
+
+    public boolean	markSupported()
+    {
+        return true;
+    }
+
+    // Returns next byte [0-255] -1 on EOS
+    public int read() throws IOException
+    {
+        boolean onLastByteOfBuffer = this.readPos == this.readBufferLen;
+        if (onLastByteOfBuffer) {
+            try {
+                this.readBlock();
+            } catch (Exception e) {
+                throw new IOException(e.getMessage());
+            }
+        }
+
+        if (this.available() < 1) {
+            return -1;
+        }
+
+        int ret = this.readBuffer[this.readPos];
+        this.readPos++;
+        return ret;
+    }
+
+    // Returns -1 on EOS
+    public int read(byte[] b) throws IOException
+    {
+        return read(b,0,b.length); 
+    }
+
+    // Returns -1 on EOS
+    public int read(byte[] b, int off, int len) throws IOException
+    {
+        boolean needMoreData = (this.readPos + len) >= this.readBufferLen;
+        if (needMoreData) {
+            try {
+                this.readBlock();
+            } catch (Exception e) {
+                throw new IOException(e.getMessage());
+            }
+        }
+
+        if (this.available() < len) {
+            return -1;
+        }
+
+        System.arraycopy(this.readBuffer,this.readPos,b,off,len);
+        this.readPos += len;
+        return len;
+    }
+
+    public void	reset() throws IOException
+    {
+        if (this.markPos < 0) {
+            throw new IOException("Unable to reset to marked position."
+                    + "Either a mark has not been set or the reset length exceeds internal buffer length.");
+        }
+
+        this.readPos = this.markPos;
+        this.markPos = -1;
+    }
+
+    public long	skip(long n) throws IOException
+    {
+        // Have to read the data if we need to skip
+        long remainingBytesToSkip = n;
+        while (remainingBytesToSkip > 0) {
+            if (this.available() == 0 && this.closed) {
+                break;
+            }
+
+            long bytesToSkip = remainingBytesToSkip;
+            if (bytesToSkip > MaxReadSizeKB * 1024) {
+                bytesToSkip = MaxReadSizeKB * 1024;
+            }
+
+            boolean needMoreData = (this.readPos + bytesToSkip) >= this.readBufferLen;
+            if (needMoreData) {
+                try {
+                    this.readBlock();
+                } catch (Exception e) {
+                    throw new IOException(e.getMessage());
+                }
+            }
+
+            if (bytesToSkip > this.readBufferLen) {
+                bytesToSkip = this.readBufferLen;
+            }
+
+            this.readPos += bytesToSkip;
+            remainingBytesToSkip -= bytesToSkip;
+        }
+
+        return (n - remainingBytesToSkip);
     }
 
     /**
@@ -431,7 +616,7 @@ public class PlainConnection
         StringBuilder sb = new StringBuilder(2048);
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\", \n");
-        sb.append("\"replyLimit\" : " + PlainConnection.MaxReadSizeKB + ",\n");
+        sb.append("\"replyLimit\" : " + RowServiceInputStream.MaxReadSizeKB + ",\n");
         sb.append(makeNodeObject());
         sb.append("\n}\n");
         return sb.toString();
@@ -493,34 +678,13 @@ public class PlainConnection
                 + this.projectedJsonRecordDefinition.length() + (int) (this.cursorBin.length * 1.4));
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
-        sb.append("\"replyLimit\" : " + PlainConnection.MaxReadSizeKB + ",\n");
+        sb.append("\"replyLimit\" : " + RowServiceInputStream.MaxReadSizeKB + ",\n");
         sb.append(makeNodeObject());
         sb.append(",\n");
         sb.append("  \"cursorBin\" : \"");
         sb.append(java.util.Base64.getEncoder().encodeToString(this.cursorBin));
         sb.append("\" \n}\n");
         return sb.toString();
-    }
-
-    /**
-     * Close the connection and clear the references
-     * 
-     * @throws HpccFileException
-     */
-    private void closeConnection() throws HpccFileException
-    {
-        this.closed = true;
-        try
-        {
-            dos.close();
-            dis.close();
-            sock.close();
-        }
-        catch (IOException e)
-        {} // ignore this
-        this.dos = null;
-        this.dis = null;
-        this.sock = null;
     }
 
     /**

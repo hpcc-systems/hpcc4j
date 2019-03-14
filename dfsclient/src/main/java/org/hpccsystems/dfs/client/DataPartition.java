@@ -32,13 +32,19 @@ public class DataPartition implements Serializable
 {
     public static final long serialVersionUID = 1L;
     private String[]         copyLocations;
-    private String           file_name;
+    private String[]         copyPaths;
     private int              this_part;
     private int              num_parts;
     private int              rowservicePort;
     private boolean          useSSL;
     private FileFilter       fileFilter;
     private String           fileAccessBlob;
+
+    public DataPartition(String[] copyLocations, String[] copyPaths, int partNum, int numParts, int rowServicePort, boolean shouldUseSSL,
+            String fileAccessBlob)
+    {
+        this(copyLocations, copyPaths, partNum, numParts, rowServicePort, shouldUseSSL, null, fileAccessBlob);
+    }
 
     /**
      * Construct the data part, used by makeParts
@@ -49,7 +55,7 @@ public class DataPartition implements Serializable
      * @param sslport port number of ssl communications
      * @param filter the file filter object
      */
-    private DataPartition(String[] copylocations, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
+    private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
             String fileAccessBlob)
     {
         this.this_part = this_part;
@@ -59,6 +65,7 @@ public class DataPartition implements Serializable
         this.fileFilter = filter;
         this.fileAccessBlob = fileAccessBlob;
         this.copyLocations = copylocations;
+        this.copyPaths = copyPaths;
     }
 
     /**
@@ -119,12 +126,17 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * File name
+     * Copy Path
      * @return name
      */
-    public String getFilename()
+    public String getCopyPath(int index)
     {
-        return this.file_name;
+        if (index >= copyPaths.length)
+        {
+            return null;
+        }
+
+        return copyPaths[index];
     }
 
     /**
@@ -187,20 +199,6 @@ public class DataPartition implements Serializable
         return createPartitions(dfupartcopies, clusterremapper, max_parts, FileFilter.nullFilter(), fileAccessBlob);
     }
 
-    /**
-     * Comparator function to order file part information.
-     */
-    private static Comparator<DFUFilePartInfo> FilePartInfoComparator = new Comparator<DFUFilePartInfo>() {
-        public int compare(DFUFilePartInfo fpi1, DFUFilePartInfo fpi2)
-        {
-            if (fpi1.getId() < fpi2.getId()) return -1;
-            if (fpi1.getId() > fpi2.getId()) return 1;
-            if (fpi1.getCopy() < fpi2.getCopy()) return -1;
-            if (fpi1.getCopy() > fpi2.getCopy()) return 1;
-            return 0;
-        }
-    };
-
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfuparts, ClusterRemapper clusterremapper, int max_parts, FileFilter filter,
             String fileAccessBlob) throws HpccFileException
     {
@@ -210,7 +208,14 @@ public class DataPartition implements Serializable
         {
             for (int i = 0; i < dfuparts.length; i++)
             {
-                DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), dfuparts[i].getPartIndex(),
+                int numCopies = dfuparts[i].getCopies().length;
+                String[] copyPaths = new String[numCopies];
+                for (int j = 0; j < numCopies; j++)
+                {
+                    copyPaths[j] = dfuparts[i].getCopies()[j].getCopyPath();
+                }
+
+                DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), copyPaths, dfuparts[i].getPartIndex(),
                         dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob);
                 rslt[i] = new_dp;
             }
