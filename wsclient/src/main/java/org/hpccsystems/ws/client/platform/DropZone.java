@@ -10,8 +10,8 @@ package org.hpccsystems.ws.client.platform;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpDropZone;
-import org.hpccsystems.ws.client.gen.wstopology.v1_27.TpMachine;
+import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpDropZone;
+import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

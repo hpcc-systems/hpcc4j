@@ -3,9 +3,9 @@ package org.hpccsystems.ws.client.platform;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ClusterQueryState;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.QuerySetQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.QuerySetQueryActionResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ClusterQueryState;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.QuerySetQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.QuerySetQueryActionResult;
 
 public class QueryResult {
     private Boolean activated;

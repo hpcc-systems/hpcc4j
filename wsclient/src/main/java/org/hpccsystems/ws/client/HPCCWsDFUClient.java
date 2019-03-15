@@ -13,56 +13,52 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Logger;
 import org.apache.axis.client.Stub;
-
 import org.apache.commons.lang3.StringUtils;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SuperfileListRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SuperfileListResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActionRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActionResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUArrayActions;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequestBase;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePublishRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePublishResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileViewResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetFileMetaDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUGetFileMetaDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUInfoRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUQueryRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUQueryResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSearchDataRequest;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUSearchDataResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.EspException;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuLocator;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoap;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy;
+import org.apache.log4j.Logger;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUArrayActionRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUArrayActionResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUArrayActions;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileAccessResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileAccessV2Request;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCreateResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCreateV2Request;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFilePublishRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFilePublishResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUGetFileMetaDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUGetFileMetaDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.EspException;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.SuperfileListRequest;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.SuperfileListResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.WsDfuLocator;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
+import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
 import org.hpccsystems.ws.client.platform.DFUResult;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
-import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
+import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.WsDFUClientSoapProxyWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -92,11 +88,13 @@ public class HPCCWsDFUClient extends DataSingleton
         return new HPCCWsDFUClient(connection);
     }
 
+    private Version               targetVersion         = null;
     public static final String    WSDFUURI              = "/WsDFU";
     public static final String    ROW_ELEMENT           = "Row";
     public static final String    DATASET_ELEMENT       = "Dataset";
     private WsDfuServiceSoapProxy wsDfuServiceSoapProxy = null;
     private boolean               verbose               = false;
+    private WsDFUClientSoapProxyWrapper soapproxywrapper = null;
 
     /**
      * @param verbose
@@ -146,9 +144,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return
      * @throws Exception
      */
-    public DFUInfoResponse getFileInfo(String logicalname, String clustername,
-                                       boolean jsonTypeInfo, boolean binTypeInfo)
-                           throws Exception
+    public DFUInfoResponse getFileInfo(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUInfoRequest req = new DFUInfoRequest();
@@ -615,6 +611,11 @@ public class HPCCWsDFUClient extends DataSingleton
     {
         String address = Connection.buildUrl(protocol, targetHost, targetPort, WSDFUURI);
 
+        HPCCWsSMCClient wssmc = new HPCCWsSMCClient(protocol, targetHost, targetPort, user, pass);
+        targetVersion = new Version(wssmc.getHPCCBuild());
+        //targetVersion.postfix = "";
+        //targetVersion.prefix = "";
+
         initHPCCWsDFUSoapProxy(address, user, pass);
     }
 
@@ -630,15 +631,8 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     private void initHPCCWsDFUSoapProxy(String baseURL, String user, String pass)
     {
-        wsDfuServiceSoapProxy = new WsDfuServiceSoapProxy(baseURL);
-        if (wsDfuServiceSoapProxy != null)
-        {
-            WsDfuServiceSoap wsDfuServiceSoap = wsDfuServiceSoapProxy.getWsDfuServiceSoap();
-            if (wsDfuServiceSoap != null)
-            {
-                if (user != null && pass != null) Connection.initStub((Stub) wsDfuServiceSoap, user, pass);
-            }
-        }
+        soapproxywrapper = new WsDFUClientSoapProxyWrapper(baseURL, user, pass, targetVersion);
+        wsDfuServiceSoapProxy = soapproxywrapper.get1_50ServiceSoapProxy();
     }
 
     /**
@@ -659,8 +653,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
      */
-    public EclRecordInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator)
-            throws Exception
+    public EclRecordInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator) throws Exception
     {
         DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
         if (fieldSeparator != null)
@@ -697,14 +690,32 @@ public class HPCCWsDFUClient extends DataSingleton
         return null;
     }
 
-    private void handleException(ArrayOfEspException exp) throws Exception
+    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_50.ArrayOfEspException exp) throws Exception
     {
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
             String errs = "";
             for (int i = 0; i < exp.getException().length; i++)
             {
-                EspException ex = exp.getException()[i];
+                org.hpccsystems.ws.client.gen.wsdfu.v1_50.EspException ex = exp.getException()[i];
+                if (ex.getMessage() != null)
+                {
+                    errs = errs + ex.getMessage() + "\n";
+                }
+                log.error(ex.getMessage());
+            }
+            throw new Exception(errs, exp);
+        }
+    }
+
+    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exp) throws Exception
+    {
+        if (exp != null && exp.getException() != null && exp.getException().length > 0)
+        {
+            String errs = "";
+            for (int i = 0; i < exp.getException().length; i++)
+            {
+                org.hpccsystems.ws.client.gen.wsdfu.v1_39.EspException ex = exp.getException()[i];
                 if (ex.getMessage() != null)
                 {
                     errs = errs + ex.getMessage() + "\n";
@@ -893,7 +904,7 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * getFileAccessBlob
+     * getFileAccessBlob - HPCC 7.0.x version
      *
      * @param accesstype
      *            - the file access level to request to request
@@ -908,16 +919,58 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return - Access artifact to be propagated as part of DAFILESERV file access requests
      * @throws Exception
      */
-    public String getFileAccessBlob(SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    public String getFileAccessBlob(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
-        DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
-        if (fileaccessinfo == null )
-            throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
+        if (targetVersion.major == 7 && targetVersion.minor == 0)
+        {
+            DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
+            if (fileaccessinfo == null )
+                throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
 
-        return fileaccessinfo.getFileAccessInfoBlob();
+            return fileaccessinfo.getFileAccessInfoBlob();
+        }
+        else if (targetVersion.major == 7 && targetVersion.minor > 0)
+        {
+            return getFileAccessBlob(filename, clustername, expiryseconds, jobid);
+        }
+        else
+            throw new Exception("File access not supported in HPCC version: " + targetVersion.major + "." + targetVersion.minor + ".x");
     }
+
     /**
-     * @param accesstype
+     * getFileAccessBlob
+     *
+     * @param filename
+     *            - the name of the target file to be accessed
+     * @param clustername
+     *            - the name of the target file's HPCC cluster (can be empty)
+     * @param expiryseconds
+     *            - the number of seconds file access is granted
+     * @param jobid
+     *            - unique identifier for access token
+     * @return - Access artifact to be propagated as part of DAFILESERV file access requests
+     * @throws Exception
+     */
+    public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    {
+        if (targetVersion.major == 7 && targetVersion.minor > 0)
+        {
+            DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(filename, clustername, expiryseconds, jobid);
+            if (fileaccessinfo == null )
+                throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
+
+            return fileaccessinfo.getFileAccessInfoBlob();
+        }
+        else if (targetVersion.major == 7 && targetVersion.minor == 0)
+        {
+            return getFileAccessBlob(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid);
+        }
+        else
+            throw new Exception("File access blob not supported in HPCC version: " + targetVersion.major + "." + targetVersion.minor + ".x");
+    }
+
+    /**
+     * @param accesstype HPCC 7.0.x version
      *            - the file access level to request to request
      * @param filename
      *            - the name of the target file to be accessed
@@ -934,47 +987,112 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return - Access artifact to be propagated as part of DAFILESERV file access requests
      * @throws Exception
      */
-    public DFUFileAccessInfoWrapper getFileAccess(SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception
+    public DFUFileAccessInfoWrapper getFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception
     {
-        WsDfuServiceSoapProxy proxy = getSoapProxy();
-        DFUFileAccessRequest req = new DFUFileAccessRequest();
-
-        DFUFileAccessRequestBase requestBase = new DFUFileAccessRequestBase();
-
-        requestBase.setAccessRole(requestfileinfo ? FileAccessRole.External : FileAccessRole.Token);
-        requestBase.setAccessType(accesstype);
-        requestBase.setCluster(clustername);
-        requestBase.setExpirySeconds(expiryseconds);
-        requestBase.setJobId(jobid);
-        requestBase.setName(filename);
-        requestBase.setReturnBinTypeInfo(includebinTypeInfo);
-        requestBase.setReturnJsonTypeInfo(includejsonTypeInfo);
-
-        req.setRequestBase(requestBase);
-
-        try
+        if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
-            DFUFileAccessResponse resp = proxy.DFUFileAccess(req);
-            if (resp == null || resp.getAccessInfo() == null)
-            {
-                throw new Exception("Did not receive DFUFileAccess response");
-            }
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy soapproxy = soapproxywrapper.get1_39ServiceSoapProxy();
 
-            this.handleException(resp.getExceptions());
-            return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
-        }
-        catch (ArrayOfEspException e)
-        {
-            if (e != null)
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest req = new org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequest();
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequestBase requestBase = new org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequestBase();
+
+            requestBase.setAccessRole(requestfileinfo ? org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole.External : org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole.Token);
+            requestBase.setAccessType(accesstype);
+            requestBase.setCluster(clustername);
+            requestBase.setExpirySeconds(expiryseconds);
+            requestBase.setJobId(jobid);
+            requestBase.setName(filename);
+            requestBase.setReturnBinTypeInfo(includebinTypeInfo);
+            requestBase.setReturnJsonTypeInfo(includejsonTypeInfo);
+
+            req.setRequestBase(requestBase);
+
+            try
             {
-                for (EspException espexception : e.getException())
+                org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse resp = soapproxy.DFUFileAccess(req);
+                if (resp == null || resp.getAccessInfo() == null)
                 {
-                    log.error("Error adquiring read access for: '" + clustername + "::" + filename + "' \n" + espexception.getSource() + espexception.getMessage());
+                    throw new Exception("Did not receive DFUFileAccess response");
                 }
+
+                this.handleException(resp.getExceptions());
+                return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
             }
-            throw e;
+            catch (ArrayOfEspException e)
+            {
+                if (e != null)
+                {
+                    for (EspException espexception : e.getException())
+                    {
+                        log.error("Error adquiring read access for: '" + clustername + "::" + filename + "' \n" + espexception.getSource() + espexception.getMessage());
+                    }
+                }
+                throw e;
+            }
         }
+        else if (targetVersion.major == 7 && targetVersion.minor > 0)
+        {
+            return getFileAccess(filename, clustername, expiryseconds, jobid);
+        }
+        else
+            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
     }
+
+    /**
+     * @param filename
+     *            - the name of the target file to be accessed
+     * @param clustername
+     *            - the name of the target file's HPCC cluster (can be empty)
+     * @param expiryseconds
+     *            - the number of seconds file access is granted
+     * @param jobid
+     *            - unique identifier for access token
+     * @return - Access artifact to be propagated as part of DAFILESERV file access requests
+     * @throws Exception
+     */
+    public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    {
+        if (targetVersion.major == 7 && targetVersion.minor > 0)
+        {
+            WsDfuServiceSoapProxy proxy = getSoapProxy();
+            DFUFileAccessV2Request req = new DFUFileAccessV2Request();
+            req.setCluster(clustername);
+            req.setExpirySeconds(expiryseconds);
+            req.setRequestId(jobid);
+            req.setName(filename);
+            req.setReturnTextResponse(true);
+
+            try
+            {
+                DFUFileAccessResponse resp = proxy.DFUFileAccessV2(req);
+                if (resp == null || resp.getAccessInfo() == null)
+                {
+                    throw new Exception("Did not receive DFUFileAccess response");
+                }
+
+                this.handleException(resp.getExceptions());
+                return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
+            }
+            catch (ArrayOfEspException e)
+            {
+                if (e != null)
+                {
+                    for (EspException espexception : e.getException())
+                    {
+                        log.error("Error adquiring read access for: '" + clustername + "::" + filename + "' \n" + espexception.getSource() + espexception.getMessage());
+                    }
+                }
+                throw e;
+            }
+        }
+        else if (targetVersion.major == 7 && targetVersion.minor == 0)
+        {
+            return getFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid, true, false, true);
+        }
+        else
+            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
+    }
+
 
     /**
      * Create a new (unpublished) dfu file. Does not request all file metadata.
@@ -989,7 +1107,8 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds) throws Exception
     {
-        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, partitionHostMap, expirySeconds, false, false, FileAccessRole.External, SecAccessType.Write);
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, partitionHostMap, expirySeconds, false, false,
+                org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole.External, org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType.Write);
     }
 
     /**
@@ -1007,45 +1126,118 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return
      * @throws Exception
      */
-    public DFUCreateFileWrapper  createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds, Boolean returnBinTypeInfo, Boolean returnJsonTypeInfo, FileAccessRole accessRole, SecAccessType accessType) throws Exception
+    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds, Boolean returnBinTypeInfo,
+            Boolean returnJsonTypeInfo, org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole accessRole, org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accessType) throws Exception
     {
-        WsDfuServiceSoapProxy proxy = getSoapProxy();
-        DFUFileCreateRequest filecreatereq = new DFUFileCreateRequest();
-        filecreatereq.setECLRecordDefinition(eclRecordDefinition);
-        filecreatereq.setPartLocations(partitionHostMap);
-        DFUFileAccessRequestBase requestBase = new DFUFileAccessRequestBase();
-        requestBase.setCluster(cluster);
-        requestBase.setExpirySeconds(expirySeconds);
-        requestBase.setName(fileName);
-        requestBase.setReturnBinTypeInfo(returnBinTypeInfo);
-        requestBase.setReturnJsonTypeInfo(returnJsonTypeInfo);
-        requestBase.setAccessRole(accessRole);
-        requestBase.setAccessType(accessType);
-
-        filecreatereq.setRequestBase(requestBase);
-
-        try
+        if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
-            DFUFileCreateResponse resp = proxy.DFUFileCreate(filecreatereq);
-            if (resp == null || resp.getAccessInfo() == null)
-            {
-                throw new Exception("Did not receive DFUFileCreateResponse response");
-            }
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy soapproxy = soapproxywrapper.get1_39ServiceSoapProxy();
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateRequest filecreatereq = new org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateRequest();
+            filecreatereq.setECLRecordDefinition(eclRecordDefinition);
+            filecreatereq.setPartLocations(partitionHostMap);
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequestBase requestBase = new org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessRequestBase();
+            requestBase.setCluster(cluster);
+            requestBase.setExpirySeconds(expirySeconds);
+            requestBase.setName(fileName);
+            requestBase.setReturnBinTypeInfo(returnBinTypeInfo);
+            requestBase.setReturnJsonTypeInfo(returnJsonTypeInfo);
+            requestBase.setAccessRole(accessRole);
+            requestBase.setAccessType(accessType);
 
-            this.handleException(resp.getExceptions());
-            return new DFUCreateFileWrapper (resp);
-        }
-        catch (ArrayOfEspException e)
-        {
-            if (e != null)
+            filecreatereq.setRequestBase(requestBase);
+
+            try
             {
-                for (EspException espexception : e.getException())
+                org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateResponse resp = soapproxy.DFUFileCreate(filecreatereq);
+                if (resp == null || resp.getAccessInfo() == null)
                 {
-                    log.error("Error creating DFU file: '" + cluster + "::" + fileName + "' \n" + espexception.getSource() + espexception.getMessage());
+                    throw new Exception("Did not receive DFUFileCreateResponse response");
                 }
+
+                this.handleException(resp.getExceptions());
+                return new DFUCreateFileWrapper (resp);
             }
-            throw e;
+            catch (ArrayOfEspException e)
+            {
+                if (e != null)
+                {
+                    for (EspException espexception : e.getException())
+                    {
+                        log.error("Error creating DFU file: '" + cluster + "::" + fileName + "' \n" + espexception.getSource() + espexception.getMessage());
+                    }
+                }
+                throw e;
+            }
         }
+        else if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
+        {
+            return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds);
+        }
+        else
+            throw new Exception("WSDFU File Create not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
+    }
+
+    /**
+     * Create a new (unpublished) dfu file. All file metadata can be requested.
+     * DAFILESERV fileaccess token is requested
+     * @param fileName
+     * @param cluster
+     * @param eclRecordDefinition
+     * @param partitionHostMap  Array declaring the Filepart[i]->Node mapping
+     * @param expirySeconds
+     * @param returnBinTypeInfo
+     * @param returnJsonTypeInfo
+     * @param accessRole
+     * @param accessType
+     * @return
+     * @throws Exception
+     */
+    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception
+    {
+        if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
+        {
+            WsDfuServiceSoapProxy proxy = getSoapProxy();
+            DFUFileCreateV2Request filecreatereq = new DFUFileCreateV2Request();
+            filecreatereq.setECLRecordDefinition(eclRecordDefinition);
+            filecreatereq.setCluster(cluster);
+            filecreatereq.setExpirySeconds(expirySeconds);
+            filecreatereq.setName(fileName);
+            filecreatereq.setReturnTextResponse(true);
+
+            try
+            {
+                DFUFileCreateResponse resp = proxy.DFUFileCreateV2(filecreatereq);
+                if (resp == null || resp.getAccessInfo() == null)
+                {
+                    throw new Exception("Did not receive DFUFileCreateResponse response");
+                }
+
+                this.handleException(resp.getExceptions());
+                if (resp.getFileId() == null)
+                {
+                    throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
+                }
+
+                return new DFUCreateFileWrapper (resp);
+            }
+            catch (ArrayOfEspException e)
+            {
+                if (e != null)
+                {
+                    for (EspException espexception : e.getException())
+                    {
+                        log.error("Error creating DFU file: '" + cluster + "::" + fileName + "' \n" + espexception.getSource() + espexception.getMessage());
+                    }
+                }
+                throw e;
+            }
+        }
+        else if (targetVersion.major == 7 && targetVersion.minor == 0)
+        {
+            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetVersion.major + "." + targetVersion.minor);
+        }
+        else
+            throw new Exception("WSDFU File Create not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
 
     }
 
@@ -1059,12 +1251,27 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize) throws Exception
     {
+        publishFile(fileId, eclRecordDefinition, totalRecords, fileSize, null);
+    }
+    /**
+     * Publishes file created by WsDFUCreateFile. Requires fileId returned from createfile method call
+     * @param fileId
+     * @param eclRecordDefinition
+     * @param totalRecords
+     * @param fileSize
+     * @param overwrite
+     * @throws Exception
+     */
+    public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize, Boolean overwrite) throws Exception
+    {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUFilePublishRequest req = new DFUFilePublishRequest();
         req.setECLRecordDefinition(eclRecordDefinition);
         req.setFileId(fileId);
         req.setFileSize(fileSize);
         req.setRecordCount(totalRecords);
+        if (overwrite != null)
+            req.setOverwrite(overwrite);
 
         try
         {

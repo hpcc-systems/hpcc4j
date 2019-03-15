@@ -24,6 +24,26 @@ public class ECLHelpFileWrapper
         
     }
     
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile raw) {
+        if (raw==null) {
+            return;
+        }
+        this.description=raw.getDescription();
+        this.IPAddress=raw.getIPAddress();
+        this.fileSize=raw.getFileSize();
+        if (raw.getMaxActivityId() != null) {
+            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
+        }
+        if (raw.getMinActivityId() != null) {
+            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
+        }
+        this.name=raw.getName();
+        if (raw.getPID() != null) {
+            this.PID=Integer.valueOf(raw.getPID().toString());
+        }
+        this.type=raw.getType();
+    }
+    
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLHelpFile raw) {
         if (raw==null) {
             return;
@@ -231,10 +251,30 @@ public class ECLHelpFileWrapper
         this.maxActivityId = maxActivityId;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLHelpFile getRaw() {
-        return getRawVersion73();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile getRaw() {
+        return getRawVersion74();
     }
-    
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile getRawVersion74()
+    {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile();
+        raw.setDescription(this.getDescription());
+        raw.setFileSize(this.getFileSize());
+        raw.setIPAddress(this.getIPAddress());
+        raw.setName(this.getName());
+        if (this.getPID() != null) {
+            raw.setPID(new UnsignedInt(this.getPID()));
+        }
+        if (this.getMaxActivityId() != null) {
+            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
+        }
+        if (this.getMinActivityId() != null) {
+            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
+        }
+        raw.setType(this.getType());
+        return raw;
+    }
+
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLHelpFile getRawVersion73()
     {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLHelpFile();

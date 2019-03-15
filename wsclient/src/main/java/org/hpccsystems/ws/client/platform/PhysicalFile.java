@@ -20,7 +20,7 @@ package org.hpccsystems.ws.client.platform;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.gen.filespray.v1_16.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.filespray.v1_17.PhysicalFileStruct;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
