@@ -35,6 +35,12 @@ public class DebugValueWrapper {
         value=raw.getValue();
     }
 
+    public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue raw) 
+    {
+        name=raw.getName();
+        value=raw.getValue();
+    }
+
     public String getName() {
         return name;
     }

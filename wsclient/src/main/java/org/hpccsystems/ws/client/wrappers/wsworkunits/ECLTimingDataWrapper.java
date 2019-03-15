@@ -15,8 +15,20 @@ public class ECLTimingDataWrapper
     private Integer MS;
 
     public ECLTimingDataWrapper() {
-        
+
     }
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setGID(raw.getGID());
+        this.setGraphNum(raw.getGraphNum());
+        this.setMin(raw.getMin());
+        this.setMS(raw.getMS());
+        this.setName(raw.getName());
+        this.setSubGraphNum(raw.getSubGraphNum());
+    }
+
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData raw) {
         if (raw==null) {
             return;
@@ -39,7 +51,7 @@ public class ECLTimingDataWrapper
         this.setName(raw.getName());
         this.setSubGraphNum(raw.getSubGraphNum());
     }
-    
+
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData raw) {
         if (raw==null) {
             return;
@@ -51,7 +63,7 @@ public class ECLTimingDataWrapper
         this.setName(raw.getName());
         this.setSubGraphNum(raw.getSubGraphNum());
     }
-    
+
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData raw) {
         if (raw==null) {
             return;
@@ -63,13 +75,13 @@ public class ECLTimingDataWrapper
         this.setName(raw.getName());
         this.setSubGraphNum(raw.getSubGraphNum());
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData getRaw(){
-        return getRawVersion73();
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData getRaw(){
+        return getRawVersion74();
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData getRawVersion73(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData();
+
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData getRawVersion74(){
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData();
         raw.setGID(this.getGID());
         raw.setGraphNum(this.getGraphNum());
         raw.setMin(this.getMin());

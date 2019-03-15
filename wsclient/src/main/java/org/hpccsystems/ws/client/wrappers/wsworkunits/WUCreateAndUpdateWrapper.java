@@ -298,10 +298,10 @@ public class WUCreateAndUpdateWrapper
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate getRaw() {
         return getRawVersion1_73();
     }
-    
+
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreateAndUpdate getRawVersion1_58() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUCreateAndUpdate();
-        
+
         result.set_protected(_protected);
         result.setAction(action);
         result.setAddDrilldownFields(addDrilldownFields);
@@ -338,7 +338,7 @@ public class WUCreateAndUpdateWrapper
         if (this.getDebugValues().size()>0) {
             org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[] debugvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue();                
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue();
                 av.setName(this.getDebugValues().get(i).getName());
                 av.setValue(this.getDebugValues().get(i).getValue());
                 debugvals[i]=av;
@@ -350,7 +350,7 @@ public class WUCreateAndUpdateWrapper
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreateAndUpdate getRawVersion1_62() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUCreateAndUpdate();
-        
+
         result.set_protected(_protected);
         result.setAction(action);
         result.setAddDrilldownFields(addDrilldownFields);
@@ -387,7 +387,7 @@ public class WUCreateAndUpdateWrapper
         if (this.getDebugValues().size()>0) {
             org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[] debugvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue();                
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue();
                 av.setName(this.getDebugValues().get(i).getName());
                 av.setValue(this.getDebugValues().get(i).getValue());
                 debugvals[i]=av;
@@ -396,10 +396,10 @@ public class WUCreateAndUpdateWrapper
         }
         return result;
     }
-    
+
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUCreateAndUpdate();
-        
+
         result.set_protected(_protected);
         result.setAction(action);
         result.setAddDrilldownFields(addDrilldownFields);
@@ -436,7 +436,7 @@ public class WUCreateAndUpdateWrapper
         if (this.getDebugValues().size()>0) {
             org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[] debugvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue();                
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue();
                 av.setName(this.getDebugValues().get(i).getName());
                 av.setValue(this.getDebugValues().get(i).getValue());
                 debugvals[i]=av;
@@ -448,7 +448,7 @@ public class WUCreateAndUpdateWrapper
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate getRawVersion1_73() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUCreateAndUpdate();
-        
+
         result.set_protected(_protected);
         result.setAction(action);
         result.setAddDrilldownFields(addDrilldownFields);
@@ -485,7 +485,7 @@ public class WUCreateAndUpdateWrapper
         if (this.getDebugValues().size()>0) {
             org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[] debugvals=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue();                
+                org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue av=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue();
                 av.setName(this.getDebugValues().get(i).getName());
                 av.setValue(this.getDebugValues().get(i).getValue());
                 debugvals[i]=av;
@@ -514,10 +514,10 @@ public class WUCreateAndUpdateWrapper
     /**
      * @param applicationValues the applicationValues to set
      */
-    public void setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[] applicationValues)    
+    public void setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue[] applicationValues)
     {
         this.applicationValues.clear();
-        if (applicationValues==null) {            
+        if (applicationValues==null) {
             return;
         }
         for (int i=0;i < applicationValues.length;i++) {
@@ -525,10 +525,24 @@ public class WUCreateAndUpdateWrapper
         }
     }
 
-    public void setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] applicationValues)    
+    /**
+     * @param applicationValues the applicationValues to set
+     */
+    public void setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[] applicationValues)
     {
         this.applicationValues.clear();
-        if (applicationValues==null) {            
+        if (applicationValues==null) {
+            return;
+        }
+        for (int i=0;i < applicationValues.length;i++) {
+            this.applicationValues.add(new ApplicationValueWrapper(applicationValues[i]));
+        }
+    }
+
+    public void setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] applicationValues)
+    {
+        this.applicationValues.clear();
+        if (applicationValues==null) {
             return;
         }
         for (int i=0;i < applicationValues.length;i++) {
@@ -551,14 +565,14 @@ public class WUCreateAndUpdateWrapper
     {
         this.debugValues = debugValues;
     }
-    
+
     /**
      * @param debugValues the debugValues to set
      */
-    public void setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[] debugValues)    
+    public void setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[] debugValues)
     {
         this.debugValues.clear();
-        if (debugValues==null) {            
+        if (debugValues==null) {
             return;
         }
         for (int i=0;i < debugValues.length;i++) {
@@ -566,10 +580,10 @@ public class WUCreateAndUpdateWrapper
         }
     }
 
-    public void setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[] debugValues)    
+    public void setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[] debugValues)
     {
         this.debugValues.clear();
-        if (debugValues==null) {            
+        if (debugValues==null) {
             return;
         }
         for (int i=0;i < debugValues.length;i++) {

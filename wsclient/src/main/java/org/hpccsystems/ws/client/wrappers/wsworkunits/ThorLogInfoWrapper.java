@@ -11,7 +11,17 @@ public class ThorLogInfoWrapper
     private Integer numberSlaves;
 
     public ThorLogInfoWrapper() {}
-    
+
+    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo raw) {
+        if (raw==null) {
+            return;
+        }
+        this.setClusterGroup(raw.getClusterGroup());
+        this.setLogDate(raw.getLogDate());
+        this.setNumberSlaves(raw.getNumberSlaves());
+        this.setProcessName(raw.getProcessName());
+    }
+
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo raw) {
         if (raw==null) {
             return;
@@ -40,7 +50,7 @@ public class ThorLogInfoWrapper
         this.setNumberSlaves(raw.getNumberSlaves());
         this.setProcessName(raw.getProcessName());
     }
-    
+
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo raw) {
         if (raw==null) {
             return;
@@ -51,24 +61,24 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo getRaw() {
-        return this.getRawVersion73();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo getRaw() {
+        return this.getRawVersion74();
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo getRawVersion73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo getRawVersion74() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo();
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());
         raw.setNumberSlaves(this.getNumberSlaves());
         raw.setProcessName(this.getProcessName());
         return raw;
     }
-    
+
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo getRawVersion1_69() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo();
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());
         raw.setNumberSlaves(this.getNumberSlaves());
-        raw.setProcessName(this.getProcessName());        
+        raw.setProcessName(this.getProcessName());
         return raw;
     }
 
@@ -77,7 +87,7 @@ public class ThorLogInfoWrapper
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());
         raw.setNumberSlaves(this.getNumberSlaves());
-        raw.setProcessName(this.getProcessName());        
+        raw.setProcessName(this.getProcessName());
         return raw;
     }
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo getRawVersion1_58() {
@@ -85,7 +95,7 @@ public class ThorLogInfoWrapper
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());
         raw.setNumberSlaves(this.getNumberSlaves());
-        raw.setProcessName(this.getProcessName());        
+        raw.setProcessName(this.getProcessName());
         return raw;
     }
 
@@ -162,5 +172,5 @@ public class ThorLogInfoWrapper
         return "ThorLogInfoWrapper [processName=" + processName + ", clusterGroup=" + clusterGroup + ", logDate="
                 + logDate + ", numberSlaves=" + numberSlaves + "]";
     }
-  
+
 }

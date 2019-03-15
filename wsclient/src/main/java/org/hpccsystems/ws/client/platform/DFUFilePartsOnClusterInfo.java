@@ -1,8 +1,8 @@
 package org.hpccsystems.ws.client.platform;
 
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePartsOnCluster;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPart;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUPart;
 
 /**
  * @author John Holt

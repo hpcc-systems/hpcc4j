@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.EspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLResult;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -475,8 +475,7 @@ public class Workunit extends DataSingleton
         try
         {
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsWorkunitsClient();
-            List<WorkunitInfo> response = wsWorkunitsClient.workUnitUQuery(new WUQueryInfo().setWuid(info.getWuid())
-                    .setPageSize(new Long(1)));
+            List<WorkunitInfo> response = wsWorkunitsClient.workUnitUQuery(new WUQueryInfo().setWuid(info.getWuid()).setPageSize(new Long(1)));
             if (response.size() == 1)
             {
                 update(response.get(0).getEclWorkunit());

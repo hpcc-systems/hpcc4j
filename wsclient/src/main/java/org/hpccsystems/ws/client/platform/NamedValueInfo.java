@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.NamedValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.NamedValue;
 
 public class NamedValueInfo {
 

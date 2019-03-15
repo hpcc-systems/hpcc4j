@@ -1,7 +1,7 @@
 package org.hpccsystems.ws.client.platform;
 
 import org.apache.axis.types.UnsignedInt;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.FileUsedByQuery;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.FileUsedByQuery;
 public class QueryFileInfo {
 
     private String fileName;
