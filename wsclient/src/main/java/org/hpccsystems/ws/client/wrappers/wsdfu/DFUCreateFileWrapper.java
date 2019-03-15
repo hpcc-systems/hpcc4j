@@ -117,5 +117,13 @@ public class DFUCreateFileWrapper
     {
         return wrappedDFUFileAccessInfo.getRecordTypeInfoJson();
     }
-    
+
+    /**
+     * Gets the created file Access Information
+     * @return
+     */
+    public DFUFileAccessInfoWrapper getFileAccessInfo()
+    {
+        return wrappedDFUFileAccessInfo;
+    }
 }
