@@ -1178,7 +1178,22 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * Create a new (unpublished) dfu file. All file metadata can be requested.
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * DAFILESERV fileaccess token is requested
+     * @param fileName
+     * @param cluster
+     * @param eclRecordDefinition
+     * @param expirySeconds
+     * @return
+     * @throws Exception
+     */
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception
+    {
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds);
+    }
+
+    /**
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
      * DAFILESERV fileaccess token is requested
      * @param fileName
      * @param cluster
