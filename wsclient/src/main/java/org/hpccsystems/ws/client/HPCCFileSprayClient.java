@@ -869,6 +869,7 @@ public class HPCCFileSprayClient extends DataSingleton
                     {
                         outchannel.write(buffer);
                     }
+                    buffer.clear();
                 }
             }
             catch (IOException e)
