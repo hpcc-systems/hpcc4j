@@ -5,10 +5,11 @@ import java.net.URL;
 
 import org.apache.axis.AxisFault;
 import org.apache.axis.client.Stub;
-import org.hpccsystems.ws.client.gen.wssmc.v1_19.Activity;
-import org.hpccsystems.ws.client.gen.wssmc.v1_19.ActivityResponse;
-import org.hpccsystems.ws.client.gen.wssmc.v1_19.WsSMCServiceSoap;
-import org.hpccsystems.ws.client.gen.wssmc.v1_19.WsSMCServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.wssmc.v1_21.Activity;
+import org.hpccsystems.ws.client.gen.wssmc.v1_21.ActivityResponse;
+import org.hpccsystems.ws.client.gen.wssmc.v1_21.WsSMCLocator;
+import org.hpccsystems.ws.client.gen.wssmc.v1_21.WsSMCServiceSoap;
+import org.hpccsystems.ws.client.gen.wssmc.v1_21.WsSMCServiceSoapProxy;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -70,7 +71,7 @@ public class HPCCWsSMCClient extends DataSingleton
      */
     public static String getOriginalWSDLURL()
     {
-        return (new org.hpccsystems.ws.client.gen.wssmc.v1_19.WsSMCLocator()).getWsSMCServiceSoapAddress();
+        return (new WsSMCLocator()).getWsSMCServiceSoapAddress();
     }
 
     protected HPCCWsSMCClient(WsSMCServiceSoapProxy wsSMCServiceSoapProxy)
