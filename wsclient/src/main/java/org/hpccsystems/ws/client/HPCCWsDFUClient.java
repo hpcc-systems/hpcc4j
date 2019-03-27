@@ -1087,7 +1087,7 @@ public class HPCCWsDFUClient extends DataSingleton
         }
         else if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
-            return getFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid, true, false, true);
+            return getFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid, true, false, true);
         }
         else
             throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
