@@ -78,6 +78,7 @@
                         <!-- exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_62/**/*</exclude-->
                         <!-- exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_69/**/*</exclude-->
                         <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_71/**/*</exclude>
+                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_73/**/*</exclude>
                     </excludes>
                     <source>1.6</source>
                     <target>1.6</target>

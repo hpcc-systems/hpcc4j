@@ -22,16 +22,6 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
-    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo raw) {
-        if (raw==null) {
-            return;
-        }
-        this.setClusterGroup(raw.getClusterGroup());
-        this.setLogDate(raw.getLogDate());
-        this.setNumberSlaves(raw.getNumberSlaves());
-        this.setProcessName(raw.getProcessName());
-    }
-
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo raw) {
         if (raw==null) {
             return;

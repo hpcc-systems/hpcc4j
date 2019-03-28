@@ -31,21 +31,6 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery raw)
-    {
-        if (raw==null)
-        {
-            return;
-        }
-
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
-    }
-
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw)
     {
         if (raw==null)

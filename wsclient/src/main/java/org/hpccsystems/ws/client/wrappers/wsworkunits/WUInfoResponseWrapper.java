@@ -16,7 +16,7 @@ public class WUInfoResponseWrapper
     private String[] resultViews;
     private String secMethod;
 
-    public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfoResponse resp) {
+    public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfoResponse resp) {
         if (resp==null) {
             return;
         }

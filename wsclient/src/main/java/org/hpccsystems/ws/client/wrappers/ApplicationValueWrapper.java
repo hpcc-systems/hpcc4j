@@ -34,13 +34,6 @@ public class ApplicationValueWrapper {
         value=raw.getValue();
     }
 
-    public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue raw) 
-    {
-        application=raw.getApplication();
-        name=raw.getName();
-        value=raw.getValue();
-    }
-
     public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue raw) 
     {
         application=raw.getApplication();
@@ -74,13 +67,6 @@ public class ApplicationValueWrapper {
     
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue getRawVersion1_74() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue val=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue();
-        val.setApplication(this.getApplication());
-        val.setName(this.getName());
-        val.setValue(this.getValue());
-        return val;
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue getRawVersion1_73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue val=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue();
         val.setApplication(this.getApplication());
         val.setName(this.getName());
         val.setValue(this.getValue());
