@@ -3,9 +3,9 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
 
@@ -36,28 +36,28 @@ public class WUUpdateRequestWrapper
     List<DebugValueWrapper> debugValues=new ArrayList<DebugValueWrapper>();
     List<ApplicationValueWrapper> applicationValues=new ArrayList<ApplicationValueWrapper>();
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate getRaw() {
-        return getRawVersion73();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate getRaw() {
+        return getRawVersion74();
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate getRawVersion73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[] avs=null;
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate getRawVersion74() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue[] avs=null;
         if (this.getApplicationValues().size()>0) {
-            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[this.getApplicationValues().size()];
+            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue[this.getApplicationValues().size()];
             for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRawVersion1_73();
+                avs[i]=this.getApplicationValues().get(i).getRawVersion1_74();
             }
         }
 
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[] dvs=null;
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue[] dvs=null;
         if (this.getDebugValues().size()>0) {
-            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[this.getDebugValues().size()];
+            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue[this.getDebugValues().size()];
             for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRawVersion1_73();
+                dvs[i]=this.getDebugValues().get(i).getRawVersion1_74();
             }
         }
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate raw=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdate(
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate raw=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate(
             wuid,
             state,
             stateOrig,
