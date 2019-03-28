@@ -109,16 +109,6 @@ public class WorkunitInfo implements
      *
      * @param base
      */
-    public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkunit base)
-    {
-        copy(base);
-    }
-
-    /**
-     * Create an ECL workunit from a axis-generated soap class ECL Workunit
-     *
-     * @param base
-     */
     public WorkunitInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkunit base)
     {
         copy(base);
@@ -224,98 +214,6 @@ public class WorkunitInfo implements
      * @param base
      */
     private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkunit base)
-    {
-        if (base == null)
-        {
-            return;
-        }
-        this.setAccessFlag(base.getAccessFlag());
-        this.setAction(base.getAction());
-        this.setActionEx(base.getActionEx());
-        this.setActive(base.getActive());
-        this.setAlertCount(base.getAlertCount());
-        this.setAllowedClusters(base.getAllowedClusters());
-        this.setApplicationValueCount(base.getApplicationValueCount());
-        this.setApplicationValues(base.getApplicationValues());
-        this.setApplicationValuesDesc(base.getApplicationValuesDesc());
-        this.setArchived(base.getArchived());
-        this.setCluster(base.getCluster());
-        this.setClusterFlag(base.getClusterFlag());
-        this.setDateTimeScheduled(base.getDateTimeScheduled());
-        this.setDebugValueCount(base.getDebugValueCount());
-        this.setDebugValues(base.getDebugValues());
-        this.setDebugValuesDesc(base.getDebugValuesDesc());
-        this.setDescription(base.getDescription());
-        this.setErrorCount(base.getErrorCount());
-        this.setEventSchedule(base.getEventSchedule());
-        this.setExceptions(base.getExceptions());
-        this.setGraphCount(base.getGraphCount());
-        this.setGraphs(base.getGraphs());
-        this.setGraphsDesc(base.getGraphsDesc());
-        this.setHasArchiveQuery(base.getHasArchiveQuery());
-        this.setHasDebugValue(base.getHasDebugValue());
-        this.setHelpers(base.getHelpers());
-        this.setHelpersDesc(base.getHelpersDesc());
-        this.setInfoCount(base.getInfoCount());
-        this.setIsPausing(base.getIsPausing());
-        this.setJobname(base.getJobname());
-        this.setOwner(base.getOwner());
-        this.setPriorityClass(base.getPriorityClass());
-        this.setPriorityLevel(base.getPriorityLevel());
-        this.setProtected(base.get_protected());
-        this.setQuery(base.getQuery());
-        this.setQueue(base.getQueue());
-        this.setResourceURLCount(base.getResourceURLCount());
-        this.setResourceURLs(base.getResourceURLs());
-        this.setResultCount(base.getResultCount());
-        this.setResultLimit(base.getResultLimit());
-        if (base.getResults() != null)
-        {
-            this.eclResults=new ArrayList<ECLResultInfo>();
-            for (int i=0; i < base.getResults().length;i++) {
-                eclResults.add(new ECLResultInfo(base.getResults()[i]));
-            }
-        }
-        this.setResultsDesc(base.getResultsDesc());
-        this.setRoxieCluster(base.getRoxieCluster());
-        this.setScope(base.getScope());
-        this.setSnapshot(base.getSnapshot());
-        this.setSourceFileCount(base.getSourceFileCount());
-        this.setSourceFiles(base.getSourceFiles());
-        this.setSourceFilesDesc(base.getSourceFilesDesc());
-        this.setState(base.getState());
-        this.setStateEx(base.getStateEx());
-        this.setStateID(base.getStateID());
-        this.setTimerCount(base.getTimerCount());
-        this.setTimersDesc(base.getTimersDesc());
-        this.setTimingData(base.getTimingData());
-        this.setTotalClusterTime(base.getTotalClusterTime());
-        this.setVariableCount(base.getVariableCount());
-        if (base.getVariables() != null)
-        {
-            this.variables=new ArrayList<ECLResultInfo>();
-            for (int i=0; i < base.getVariables().length;i++) {
-                variables.add(new ECLResultInfo(base.getVariables()[i]));
-            }
-        }
-        this.setThorLCR(base.getThorLCR());
-        this.setThorLogList(base.getThorLogList());
-        this.setVariablesDesc(base.getVariablesDesc());
-        this.setWarningCount(base.getWarningCount());
-        this.setWorkflowCount(base.getWorkflowCount());
-        this.setWorkflows(base.getWorkflows());
-        this.setWorkflowsDesc(base.getWorkflowsDesc());
-        this.setWuid(base.getWuid());
-        this.setXmlParams(base.getXmlParams());
-
-    }
-
-    /**
-     * Copy a soap ecl workunit object into the wrapper
-     *
-     * @param base
-     */
-    private void copy(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkunit base)
     {
         if (base == null)
         {
@@ -1125,20 +1023,6 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ApplicationValue[] vals)
-    {
-        if (vals==null)
-        {
-            return this;
-        }
-        applicationValues=new ArrayList<ApplicationValueWrapper>();
-        for (int i=0; i < vals.length;i++) {
-            applicationValues.add(new ApplicationValueWrapper(vals[i]));
-        }
-
-        return this;
-    }
-
     public WorkunitInfo setApplicationValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue[] vals)
     {
         if (vals==null)
@@ -1167,17 +1051,6 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue[] debugValues) {
-        this.debugValues.clear();
-        if (debugValues==null) {
-            return this;
-        }
-        for (int i=0; i < debugValues.length;i++) {
-            this.debugValues.add(new DebugValueWrapper(debugValues[i]));
-        }
-        return this;
-    }
-
-    public WorkunitInfo setDebugValues(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue[] debugValues) {
         this.debugValues.clear();
         if (debugValues==null) {
             return this;
@@ -1300,15 +1173,6 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLException[] exceptions) {
-        if (exceptions != null ) {
-            this.exceptions=new ArrayList<WUExceptionWrapper>();
-            for (int i=0; i < exceptions.length;i++) {
-                this.exceptions.add(new WUExceptionWrapper(exceptions[i]));
-            }
-        }
-        return this;
-    }
 
     public WorkunitInfo setExceptions(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLException[] exceptions) {
         if (exceptions != null ) {
@@ -1334,17 +1198,6 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setGraphs(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph[] graphs) {
-        this.graphs.clear();
-        if (graphs==null) {
-            return this;
-        }
-        for (int i=0; i < graphs.length;i++) {
-            this.graphs.add(new ECLGraphWrapper(graphs[i]));
-        }
-        return this;
-    }
-
-    public WorkunitInfo setGraphs(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph[] graphs) {
         this.graphs.clear();
         if (graphs==null) {
             return this;
@@ -1398,16 +1251,6 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setHelpers(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile[] helpers) {
-        this.helpers.clear();
-        if (helpers != null) {
-            for (int i=0; i < helpers.length;i++) {
-                this.helpers.add(new ECLHelpFileWrapper(helpers[i]));
-            }
-        }
-        return this;
-    }
-
-    public WorkunitInfo setHelpers(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLHelpFile[] helpers) {
         this.helpers.clear();
         if (helpers != null) {
             for (int i=0; i < helpers.length;i++) {
@@ -1515,11 +1358,6 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery query) {
-        this.query = new ECLQueryWrapper(query);
-        return this;
-    }
-
-    public WorkunitInfo setQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLQuery query) {
         this.query = new ECLQueryWrapper(query);
         return this;
     }
@@ -1642,17 +1480,6 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public WorkunitInfo setSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLSourceFile[] sourceFiles) {
-        this.sourceFiles.clear();
-        if (sourceFiles==null) {
-            return this;
-        }
-        for (int i=0; i < sourceFiles.length;i++) {
-            this.sourceFiles.add(new ECLSourceFileWrapper(sourceFiles[i]));
-        }
-        return this;
-    }
-
     public WorkunitInfo setSourceFiles(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLSourceFile[] sourceFiles) {
         this.sourceFiles.clear();
         if (sourceFiles==null) {
@@ -1723,17 +1550,6 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setTimingData(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData[] timingData) {
-        this.timingData.clear();
-        if (timingData==null) {
-            return this;
-        }
-        for (int i=0;i < timingData.length;i++) {
-            this.timingData.add(new ECLTimingDataWrapper(timingData[i]));
-        }
-        return this;
-    }
-
-    public WorkunitInfo setTimingData(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData[] timingData) {
         this.timingData.clear();
         if (timingData==null) {
             return this;
@@ -1841,17 +1657,6 @@ public class WorkunitInfo implements
         return this;
     }
 
-    public WorkunitInfo setThorLogList(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ThorLogInfo[] thorLogList) {
-        this.thorLogList.clear();
-        if (thorLogList==null) {
-            return this;
-        }
-        for (int i=0; i < thorLogList.length;i++) {
-            this.thorLogList.add(new ThorLogInfoWrapper(thorLogList[i]));
-        }
-        return this;
-    }
-
     public WorkunitInfo setThorLogList(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo[] thorLogList) {
         this.thorLogList.clear();
         if (thorLogList==null) {
@@ -1906,16 +1711,6 @@ public class WorkunitInfo implements
     }
 
     public WorkunitInfo setWorkflows(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkflow[] workflows) {
-        this.workflows.clear();
-        if (workflows==null) {
-            return this;
-        }
-        for (int i=0; i < workflows.length;i++) {
-            this.workflows.add(new ECLWorkflowWrapper(workflows[i]));
-        }
-        return this;
-    }
-    public WorkunitInfo setWorkflows(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkflow[] workflows) {
         this.workflows.clear();
         if (workflows==null) {
             return this;

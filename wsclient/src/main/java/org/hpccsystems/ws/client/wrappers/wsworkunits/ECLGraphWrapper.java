@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph;
 
 public class ECLGraphWrapper
 {
@@ -25,21 +25,6 @@ public class ECLGraphWrapper
     public ECLGraphWrapper() {}
 
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph raw) {
-        if (raw==null) {
-            return;
-        }
-        this.setComplete(raw.getComplete());
-        this.setFailed(raw.getFailed());
-        this.setLabel(raw.getLabel());
-        this.setName(raw.getName());
-        this.setRunning(raw.getRunning());
-        this.setRunningId(raw.getRunningId());
-        this.setType(raw.getType());
-        this.setWhenFinished(raw.getWhenFinished());
-        this.setWhenStarted(raw.getWhenStarted());
-    }
-
-    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph raw) {
         if (raw==null) {
             return;
         }
@@ -105,20 +90,6 @@ public class ECLGraphWrapper
 
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph getRawVersion74() {
         org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph();
-        result.setComplete(this.getComplete());
-        result.setFailed(this.getFailed());
-        result.setLabel(this.getLabel());
-        result.setName(this.getName());
-        result.setRunning(this.getRunning());
-        result.setRunningId(this.getRunningId());
-        result.setType(this.getType());
-        result.setWhenFinished(this.getWhenFinished());
-        result.setWhenStarted(this.getWhenStarted());
-        return result;
-    }
-
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph getRawVersion73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph result=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLGraph();
         result.setComplete(this.getComplete());
         result.setFailed(this.getFailed());
         result.setLabel(this.getLabel());

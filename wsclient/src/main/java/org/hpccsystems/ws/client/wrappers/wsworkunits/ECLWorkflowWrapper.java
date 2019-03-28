@@ -27,16 +27,6 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
-    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLWorkflow raw) {
-        if (raw==null) {
-            return;
-        }
-        this.setCount(raw.getCount());
-        this.setCountRemaining(raw.getCountRemaining());
-        this.setEventName(raw.getEventName());
-        this.setEventText(raw.getEventText());
-        this.setWFID(raw.getWFID());
-    }
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow raw) {
         if (raw==null) {
             return;

@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo;
+import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo;
 
 public class WUInfoRequestWrapper
 {
@@ -47,12 +47,12 @@ public class WUInfoRequestWrapper
     private String thorSlaveIP;
 
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo getRaw() {
-        return getRawVersion1_73();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo getRaw() {
+        return getRawVersion1_74();
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo getRawVersion1_73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfo();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo getRawVersion1_74() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo result=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo();
         
         result.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
         result.setIncludeApplicationValues(this.getIncludeApplicationValues());

@@ -29,12 +29,6 @@ public class DebugValueWrapper {
         value=raw.getValue();
     }
 
-    public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue raw) 
-    {
-        name=raw.getName();
-        value=raw.getValue();
-    }
-
     public DebugValueWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue raw) 
     {
         name=raw.getName();
@@ -57,8 +51,8 @@ public class DebugValueWrapper {
         this.value = value;
     }
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue getRawVersion1_73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue val=new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.DebugValue();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue getRawVersion1_74() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue val=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue();
         val.setName(this.getName());
         val.setValue(this.getValue());
         return val;

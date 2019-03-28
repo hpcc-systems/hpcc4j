@@ -11,7 +11,7 @@ public class WUUpdateResponseWrapper
     private WorkunitInfo workunit;
     private List<WUExceptionWrapper> exceptions = new ArrayList<WUExceptionWrapper>();
 
-    public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUUpdateResponse resp) {
+    public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdateResponse resp) {
         if (resp==null) {
             return;
         }

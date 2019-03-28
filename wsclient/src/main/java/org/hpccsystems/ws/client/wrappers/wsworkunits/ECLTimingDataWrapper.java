@@ -29,17 +29,6 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
-    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_73.ECLTimingData raw) {
-        if (raw==null) {
-            return;
-        }
-        this.setGID(raw.getGID());
-        this.setGraphNum(raw.getGraphNum());
-        this.setMin(raw.getMin());
-        this.setMS(raw.getMS());
-        this.setName(raw.getName());
-        this.setSubGraphNum(raw.getSubGraphNum());
-    }
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData raw) {
         if (raw==null) {
             return;
