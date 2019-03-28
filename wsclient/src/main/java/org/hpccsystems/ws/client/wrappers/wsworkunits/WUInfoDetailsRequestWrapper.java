@@ -46,12 +46,12 @@ public class WUInfoDetailsRequestWrapper
     private String thorSlaveIP;
 
     
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfoDetails getRaw() {
-        return getRawVersion1_73();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfoDetails getRaw() {
+        return getRawVersion1_74();
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfoDetails getRawVersion1_73() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfoDetails result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WUInfoDetails();
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfoDetails getRawVersion1_74() {
+        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfoDetails result=
+                new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfoDetails();
         
         result.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
         result.setIncludeApplicationValues(this.getIncludeApplicationValues());

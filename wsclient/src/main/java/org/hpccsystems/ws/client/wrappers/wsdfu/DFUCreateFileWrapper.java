@@ -21,6 +21,11 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCreateResponse;
 
 public class DFUCreateFileWrapper
 {
+	public static final java.lang.String Flat = "Flat";
+	public static final java.lang.String Index = "Index";
+	public static final java.lang.String Xml = "Xml";
+	public static final java.lang.String Csv = "Csv";
+
     private String fileId;
     private DFUFileAccessInfoWrapper wrappedDFUFileAccessInfo;
 
