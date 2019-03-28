@@ -11,7 +11,7 @@ import org.hpccsystems.ws.client.utils.Connection;
  * any soapproxy method (WURun, WUCreate, etc) can be added to provide a platform-version-independent soapproxy call.
  * Currently 6.x and 7.x are supported in the wrapped soap methods.
  * All hpcc 6.x clusters use 1_69 of the workunits soap proxy except for 6.0, and
- * all hpcc 7.x clusters use version 1_73.  Version 1_56 of the soap proxy also exists to support
+ * all hpcc 7.0.x clusters use version 1_73 or 1_74.  Version 1_56 of the soap proxy also exists to support
  * existing HPCCWsWorkUnitsClient methods using 1_56.
  *
  */
@@ -21,13 +21,11 @@ public class WsWorkunitsClientSoapProxyWrapper
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WsWorkunitsServiceSoap version1_58WorkunitsServiceSoap = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoap version1_62WorkunitsServiceSoap = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoap version1_69WorkunitsServiceSoap = null;
-    private org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WsWorkunitsServiceSoap version1_73WorkunitsServiceSoap = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WsWorkunitsServiceSoap version1_74WorkunitsServiceSoap = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy version1_56WorkunitsServiceSoapProxy = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WsWorkunitsServiceSoapProxy version1_58WorkunitsServiceSoapProxy = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoapProxy version1_62WorkunitsServiceSoapProxy = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy version1_69WorkunitsServiceSoapProxy = null;
-    private org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WsWorkunitsServiceSoapProxy version1_73WorkunitsServiceSoapProxy = null;
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WsWorkunitsServiceSoapProxy version1_74WorkunitsServiceSoapProxy = null;
     private String user;
     private String password;
@@ -48,7 +46,7 @@ public class WsWorkunitsClientSoapProxyWrapper
         this.password=pass;
     }
     /**
-     * @return a lazy-loaded 1_73 soap proxy
+     * @return a lazy-loaded 1_74 soap proxy
      */
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WsWorkunitsServiceSoapProxy getVersion1_74WorkunitsServiceSoapProxy() {
         if (version1_74WorkunitsServiceSoapProxy == null)
@@ -60,19 +58,7 @@ public class WsWorkunitsClientSoapProxyWrapper
         return version1_74WorkunitsServiceSoapProxy;
     }
 
-    /**
-     * @return a lazy-loaded 1_73 soap proxy
-     */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WsWorkunitsServiceSoapProxy getVersion1_73WorkunitsServiceSoapProxy() {
-        if (version1_73WorkunitsServiceSoapProxy == null)
-        {
-            version1_73WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WsWorkunitsServiceSoapProxy(baseURL);
-            version1_73WorkunitsServiceSoap = version1_73WorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap();
-            if (user != null && password != null) Connection.initStub((Stub) version1_73WorkunitsServiceSoap, user, password);
-        }
-        return version1_73WorkunitsServiceSoapProxy;
-    }
-    /**
+      /**
      * @return a lazy-loaded 1_56 soap proxy
      */
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy getVersion1_56WorkunitsServiceSoapProxy() {
@@ -141,9 +127,9 @@ public class WsWorkunitsClientSoapProxyWrapper
         } else if (useVersion1_58())
         {
             return new WUCreateResponseWrapper(this.getVersion1_58WorkunitsServiceSoapProxy().WUCreate());
-        } else if (useVersion1_73())
+        } else if (useVersion1_74())
         {
-            return new WUCreateResponseWrapper(this.getVersion1_73WorkunitsServiceSoapProxy().WUCreate(params.getRaw()));
+            return new WUCreateResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUCreate(params.getRaw()));
         } else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
@@ -165,9 +151,9 @@ public class WsWorkunitsClientSoapProxyWrapper
         } else if (useVersion1_69())
         {
             return new WUInfoResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUInfo(params.getRawVersion1_69()));
-        } else if (useVersion1_73())
+        } else if (useVersion1_74())
         {
-            return new WUInfoResponseWrapper(this.getVersion1_73WorkunitsServiceSoapProxy().WUInfo(params.getRaw()));
+            return new WUInfoResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUInfo(params.getRaw()));
         } else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
@@ -189,9 +175,9 @@ public class WsWorkunitsClientSoapProxyWrapper
         } else if (useVersion1_69())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUUpdate(params.getRawVersion1_69()));
-        } else if (useVersion1_73())
+        } else if (useVersion1_74())
         {
-            return new WUUpdateResponseWrapper(this.getVersion1_73WorkunitsServiceSoapProxy().WUUpdate(params.getRaw()));
+            return new WUUpdateResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUUpdate(params.getRaw()));
         } else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
@@ -213,9 +199,9 @@ public class WsWorkunitsClientSoapProxyWrapper
         } else if (useVersion1_69())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRawVersion1_69()));
-        } else if (useVersion1_73())
+        } else if (useVersion1_74())
         {
-            return new WUUpdateResponseWrapper(this.getVersion1_73WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRaw()));
+            return new WUUpdateResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRaw()));
         } else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
@@ -241,13 +227,6 @@ public class WsWorkunitsClientSoapProxyWrapper
     public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoapProxy getVersion1_62Raw()
     {
         return getVersion1_62WorkunitsServiceSoapProxy();
-    }
-    /**
-     * @return version 1_73 soap proxy
-     */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_73.WsWorkunitsServiceSoapProxy getVersion1_73Raw()
-    {
-        return getVersion1_73WorkunitsServiceSoapProxy();
     }
     /**
      * @return version 1_74 soap proxy
@@ -291,7 +270,7 @@ public class WsWorkunitsClientSoapProxyWrapper
     {
         return platformVersion.major==6 && platformVersion.minor==2;
     }
-    private boolean useVersion1_73()
+    private boolean useVersion1_74()
     {
         return platformVersion.major==7
                 && (platformVersion.minor==0
