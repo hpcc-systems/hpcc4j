@@ -58,6 +58,7 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.WsDFUClientSoapProxyWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -1171,14 +1172,15 @@ public class HPCCWsDFUClient extends DataSingleton
         }
         else if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
         {
-            return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds);
+            return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, null, null);
         }
         else
             throw new Exception("WSDFU File Create not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
     }
 
     /**
-     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * Create a new (unpublished), uncompressed dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     *
      * DAFILESERV fileaccess token is requested
      * @param fileName
      * @param cluster
@@ -1189,7 +1191,41 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception
     {
-        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds);
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, false, null, null);
+    }
+
+    /**
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * DAFILESERV fileaccess token is requested
+     * @param fileName
+     * @param cluster
+     * @param eclRecordDefinition
+     * @param expirySeconds
+     * @param compressed
+     * @return
+     * @throws Exception
+     */
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed) throws Exception
+    {
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, null, null);
+    }
+
+    /**
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * DAFILESERV fileaccess token is requested
+     * @param fileName
+     * @param cluster
+     * @param eclRecordDefinition
+     * @param expirySeconds
+     * @param compressed
+     * @param filetype - for example DFUFileTypeWrapper.Csv
+     * @param requestid
+     * @return
+     * @throws Exception
+     */
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper filetype, String requestid) throws Exception
+    {
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, filetype, requestid);
     }
 
     /**
@@ -1200,14 +1236,13 @@ public class HPCCWsDFUClient extends DataSingleton
      * @param eclRecordDefinition
      * @param partitionHostMap  Array declaring the Filepart[i]->Node mapping
      * @param expirySeconds
-     * @param returnBinTypeInfo
-     * @param returnJsonTypeInfo
-     * @param accessRole
-     * @param accessType
+     * @param compressed
+     * @param type - for example DFUFileTypeWrapper.Csv
+     * @param requestId
      * @return
      * @throws Exception
      */
-    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception
+    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception
     {
         if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
         {
@@ -1218,6 +1253,12 @@ public class HPCCWsDFUClient extends DataSingleton
             filecreatereq.setExpirySeconds(expirySeconds);
             filecreatereq.setName(fileName);
             filecreatereq.setReturnTextResponse(true);
+            if (compressed != null)
+                filecreatereq.setCompressed(compressed);
+            if (type != null)
+                filecreatereq.setType(type);
+            if (requestId != null)
+                filecreatereq.setRequestId(requestId);
 
             try
             {
