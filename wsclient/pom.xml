@@ -72,10 +72,11 @@
                         <exclude>org/hpccsystems/ws/client/gen/wstopology/v1_26/**/*</exclude>
                         <exclude>org/hpccsystems/ws/client/gen/wstopology/v1_27/**/*</exclude>
                         <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_46/**/*</exclude>
-                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_56/**/*</exclude>
-                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_58/**/*</exclude>
-                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_62/**/*</exclude>
-                        <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_69/**/*</exclude>
+                        <!-- As of 7.2.0 v156, v158, v162, v169 required for backward compatibility -->
+                        <!-- exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_56/**/*</exclude-->
+                        <!-- exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_58/**/*</exclude-->
+                        <!-- exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_62/**/*</exclude-->
+                        <!-- exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_69/**/*</exclude-->
                         <exclude>org/hpccsystems/ws/client/gen/wsworkunits/v1_71/**/*</exclude>
                     </excludes>
                     <source>1.6</source>
