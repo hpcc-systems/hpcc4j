@@ -109,10 +109,9 @@ public class HPCCWsSMCClient extends DataSingleton
         }
     }
 
-    public String getHPCCBuild()
+    public String getHPCCBuild() throws Exception
     {
         String build = null;
-        // if (isEnabled() && build.isEmpty())
         {
             try
             {
@@ -123,7 +122,15 @@ public class HPCCWsSMCClient extends DataSingleton
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                String message = "Could not determine HPCC build version: ";
+                if (!e.getLocalizedMessage().isEmpty() && e.getLocalizedMessage().indexOf("401") != -1) // no standard http code available
+                {
+                    throw new Exception(message + "Received 401 Unauthorized response from ECLWatch.");
+                }
+                else
+                {
+                    throw new Exception(message + e.getLocalizedMessage());
+                }
             }
         }
         return build;
