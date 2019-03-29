@@ -610,14 +610,17 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     protected HPCCWsDFUClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        String address = Connection.buildUrl(protocol, targetHost, targetPort, WSDFUURI);
-
-        HPCCWsSMCClient wssmc = new HPCCWsSMCClient(protocol, targetHost, targetPort, user, pass);
-        targetVersion = new Version(wssmc.getHPCCBuild());
-        //targetVersion.postfix = "";
-        //targetVersion.prefix = "";
-
-        initHPCCWsDFUSoapProxy(address, user, pass);
+        try
+        {
+            String address = Connection.buildUrl(protocol, targetHost, targetPort, WSDFUURI);
+            HPCCWsSMCClient wssmc = new HPCCWsSMCClient(protocol, targetHost, targetPort, user, pass);
+            targetVersion = new Version(wssmc.getHPCCBuild());
+            initHPCCWsDFUSoapProxy(address, user, pass);
+        }
+        catch (Exception e)
+        {
+            log.error("HPCCWsDFUClient: Could not stablish target HPCC bulid version, review all HPCC connection values");
+        }
     }
 
     /**
@@ -629,11 +632,17 @@ public class HPCCWsDFUClient extends DataSingleton
      *            User credentials
      * @param pass
      *            User credentials
+     * @throws Exception
      */
-    private void initHPCCWsDFUSoapProxy(String baseURL, String user, String pass)
+    private void initHPCCWsDFUSoapProxy(String baseURL, String user, String pass) throws Exception
     {
-        soapproxywrapper = new WsDFUClientSoapProxyWrapper(baseURL, user, pass, targetVersion);
-        wsDfuServiceSoapProxy = soapproxywrapper.get1_50ServiceSoapProxy();
+        if (targetVersion != null)
+        {
+            soapproxywrapper = new WsDFUClientSoapProxyWrapper(baseURL, user, pass, targetVersion);
+            wsDfuServiceSoapProxy = soapproxywrapper.get1_50ServiceSoapProxy();
+        }
+        else
+            throw new Exception("Cannot initialize HPCCWsDFUSoapProxy without valid HPCC version object");
     }
 
     /**
@@ -922,6 +931,9 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public String getFileAccessBlob(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
+        if (targetVersion == null || soapproxywrapper == null)
+            throw new Exception("WSDFU client not available");
+
         if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
             DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
@@ -954,6 +966,9 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
+        if (targetVersion == null || soapproxywrapper == null)
+            throw new Exception("WSDFU client not available");
+
         if (targetVersion.major == 7 && targetVersion.minor > 0)
         {
             DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(filename, clustername, expiryseconds, jobid);
@@ -990,6 +1005,9 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUFileAccessInfoWrapper getFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception
     {
+        if (targetVersion == null || soapproxywrapper == null)
+            throw new Exception("WSDFU client not available");
+
         if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
             org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy soapproxy = soapproxywrapper.get1_39ServiceSoapProxy();
@@ -1053,6 +1071,9 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
+        if (targetVersion == null || soapproxywrapper == null)
+            throw new Exception("WSDFU client not available");
+
         if (targetVersion.major == 7 && targetVersion.minor > 0)
         {
             WsDfuServiceSoapProxy proxy = getSoapProxy();
@@ -1130,6 +1151,9 @@ public class HPCCWsDFUClient extends DataSingleton
     public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds, Boolean returnBinTypeInfo,
             Boolean returnJsonTypeInfo, org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole accessRole, org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accessType) throws Exception
     {
+        if (targetVersion == null || soapproxywrapper == null)
+            throw new Exception("WSDFU client not available");
+
         if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
             org.hpccsystems.ws.client.gen.wsdfu.v1_39.WsDfuServiceSoapProxy soapproxy = soapproxywrapper.get1_39ServiceSoapProxy();
@@ -1244,6 +1268,9 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception
     {
+        if (targetVersion == null || soapproxywrapper == null)
+            throw new Exception("WSDFU client not available");
+
         if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
         {
             WsDfuServiceSoapProxy proxy = getSoapProxy();
