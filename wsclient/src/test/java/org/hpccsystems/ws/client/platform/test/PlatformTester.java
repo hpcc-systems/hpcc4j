@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
@@ -175,6 +176,10 @@ public class PlatformTester
         {
             Platform platform = Platform.get(prot, hpccServer, port, user, pass);
 
+            HPCCWsSMCClient wssmc = platform.getWsSMCClient();
+            
+            Version targetVersion = new Version(wssmc.getHPCCBuild());
+            
             Version v = platform.getVersion();
             System.out.println(v.toString());
 
