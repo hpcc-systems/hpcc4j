@@ -192,7 +192,28 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case INTEGER:
             {
-                Long value = (Long) fieldValue;
+                Long value = null;
+                if (fieldValue instanceof Long)
+                {
+                    value = (Long) fieldValue;
+                }
+                else if (fieldValue instanceof Integer)
+                {
+                    value = ((Integer) fieldValue).longValue();
+                }
+                else if (fieldValue instanceof Short)
+                {
+                    value = ((Short) fieldValue).longValue();
+                }
+                else if (fieldValue instanceof Byte)
+                {
+                    value = ((Byte) fieldValue).longValue();
+                }
+                else
+                {
+                    throw new Exception("Unsupported integer type: " + fieldValue.getClass().getName());
+                }
+
                 if (fd.getDataLen() == 1)
                 {
                     this.buffer.put(value.byteValue());
