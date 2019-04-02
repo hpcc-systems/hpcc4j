@@ -995,11 +995,10 @@ public class HPCCFileSprayClient extends DataSingleton
         {
             if (!fileUploadURL.equals(fileUploadConnection.getURL()))
             {
-                log.error("HTTP Error reported on File upload related to a server redirect, please verify on server.");
+                log.error("HTTP Error reported on File upload related to a server redirect (" + fileUploadURL + " vs " + fileUploadConnection.getURL() + "), please verify on server.", e);
+            } else {
+                log.error("Failed to upload file.", e);
             }
-
-            if (verbose)
-                e.printStackTrace();
 
             return false;
         }
