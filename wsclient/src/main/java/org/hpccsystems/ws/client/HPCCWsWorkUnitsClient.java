@@ -1834,7 +1834,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                throw new Exception("Error attempting to refresh WU " + wu.getWuid());
+                throw new Exception("Error attempting to refresh WU " + wu.getWuid() + "\n" + e.getLocalizedMessage(), e);
             }
         }
     }
