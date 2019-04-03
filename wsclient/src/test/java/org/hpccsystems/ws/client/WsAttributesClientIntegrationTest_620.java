@@ -1,40 +1,33 @@
 package org.hpccsystems.ws.client;
 
-import org.hpccsystems.ws.client.platform.Platform;
 import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
-public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClientIntegrationTest {
-
+public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClientIntegrationTest
+{
     @Override
-    public Platform getBasePlatform() throws Exception
-    {
-        return Platform.get("http", "localhost", 8010, "user", "pass");
-    }
-    
-    @Override
-    public String getVersion()
+    public String getHPCCVersion()
     {
         return "6.2";
     }
-    
+
     @Override
     public String getThorClusterName()
     {
         return "dev_thor";
     }
-    
+
     @Override
     public String getRoxieClusterName()
     {
         return "roxie";
     }
-    
+
     @Override
     public String getHthorClusterName()
     {
         return "hthor";
     }
-    
+
     @Override
     public void testWriteAttributes() throws Exception
     {
