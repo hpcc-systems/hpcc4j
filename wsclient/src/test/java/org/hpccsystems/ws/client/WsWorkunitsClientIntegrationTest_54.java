@@ -1,32 +1,30 @@
 package org.hpccsystems.ws.client;
 
-import org.hpccsystems.ws.client.platform.Platform;
 import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
-public class WsWorkunitsClientIntegrationTest_54 extends BaseWsWorkunitsClientIntegrationTest {
+public class WsWorkunitsClientIntegrationTest_54 extends BaseWsWorkunitsClientIntegrationTest
+{
+    String hpccver="5.4";
 
-    String version="5.4";
     @Override
-    public Platform getPlatform() throws Exception
+    public void confirmPlatform() throws Exception
     {
-        Platform p=Platform.get("http", "localhost", 8010, "user", "pass");
-        if (p.getVersion().toString().startsWith(version))
-            throw new Exception(p.getIP() + " is no longer on version " + version + "! It is now on " + p.getVersion().toString());
-        return p;
+        if (super.platform.getVersion().toString().startsWith(hpccver))
+            throw new Exception("Cannot run 5.4 tests against HPCC cluster on '" + super.platform.getIP() + "' version: '" + super.platform.getVersion().toString() + "'");
     }
-    
+
     @Override
     public String getThorClusterName()
     {
         return "hthor_qa";
     }
-    
+
     @Override
     public String getRoxieClusterName()
     {
         return "roxie_bair_qa_01";
     }
-    
+
     @Override
     public String getHthorClusterName()
     {
