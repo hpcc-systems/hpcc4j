@@ -11,72 +11,57 @@ import org.apache.commons.io.FilenameUtils;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.Cluster;
 import org.hpccsystems.ws.client.platform.ECLAttributeInfo;
-import org.hpccsystems.ws.client.platform.Platform;
+import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-public abstract class BaseWsAttributesClientIntegrationTest {
+public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTest
+{
 
-    
-    Platform platform;
-    HPCCWsClient client1;
-    HPCCWsAttributesClient client;
+    String wsAttributesConnection = System.getProperty("wsattributesurl");
+    HPCCWsAttributesClient wsattclient;
+
     Cluster thorcluster;
     Cluster roxiecluster;
     Cluster hthorcluster;
-    
-    protected abstract String getVersion(); //should be "major.minor"
-    protected abstract Platform getBasePlatform() throws Exception;
+
+    protected abstract String getHPCCVersion(); //should be "major.minor"
     protected abstract String getThorClusterName();
     protected abstract String getRoxieClusterName();
     protected abstract String getHthorClusterName();
-    
-    public Platform getPlatform() throws Exception
+
+    protected String wsattport = System.getProperty("wsattport");
+
+    public void confirmPlatform() throws Exception
     {
-        Platform p =getBasePlatform();
-        if (p.getVersion().toString().startsWith(getVersion()))
-            throw new Exception(p.getIP() + " is no longer on version " + getVersion() + "! It is now on " + p.getVersion().toString()); 
-        return p;
-        
+        if (platform.getVersion().toString().startsWith(getHPCCVersion()))
+            throw new Exception(platform.getIP() + " is no longer on version " + getHPCCVersion() + "! It is now on " + platform.getVersion().toString());
     }
+
     @Before
     public void setup() throws Exception
     {
-        platform= getPlatform();
+        super.setup(); // fetch hpcc connection info and setup platform and wsclient
+
+        if (wsattport == null)
+            wsattport = "8145";
+
+        confirmPlatform();
         thorcluster=platform.getCluster(getThorClusterName());
         roxiecluster =platform.getCluster(getRoxieClusterName());
         hthorcluster=platform.getCluster(getHthorClusterName());
-        
-        try 
-        {
-            client1 = platform.checkOutHPCCWsClient();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-        client=client1.getWsAttributesClient();
-        client.setVerbose(true);
+
+        wsattclient = wsclient.getWsAttributesClient(wsattport);
+        wsattclient.setVerbose(true);
     }
- 
 
     @After
-    public void shutdown() 
+    public void shutdown()
     {
-        if (platform != null && client != null)
-        {
-            try 
-            {
-                platform.checkInHPCCWsClient(client1);
-            } 
-            catch (Exception e) 
-            {
-                e.printStackTrace();
-            }
-        }
-        
+        super.shutdown();
     }
 
     @Test
@@ -91,28 +76,28 @@ public abstract class BaseWsAttributesClientIntegrationTest {
                     new String(Files.readAllBytes(testdir.listFiles()[i].toPath()))));
         }
 
-        List<ECLAttributeInfo> found=client.findItems(testmodname, null,null,null,null,null);
+        List<ECLAttributeInfo> found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()>0)
         {
-            client.deleteModule(testmodname);
+            wsattclient.deleteModule(testmodname);
         }
         long begin=System.currentTimeMillis();
-        List<ECLAttributeInfo> result=client.createOrUpdateAttributes(toadd, true, "testing wsclient add unit test");
-        System.out.println("Time to create " + testdir.listFiles().length + " attributes with checkout/checkin:" 
+        List<ECLAttributeInfo> result=wsattclient.createOrUpdateAttributes(toadd, true, "testing wsclient add unit test");
+        System.out.println("Time to create " + testdir.listFiles().length + " attributes with checkout/checkin:"
         + (System.currentTimeMillis()-begin));
-        
-        found=client.findItems(testmodname, null,null,null,null,null);
+
+        found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()!=toadd.size())
         {
             fail("Tried to add " + toadd.size() + " items, " + found.size() + " items found");
         }
 
         begin=System.currentTimeMillis();
-        result=client.createOrUpdateAttributes(toadd, true, "testing wsclient add unit test");
-        System.out.println("Time to update " + testdir.listFiles().length + " existing attributes with checkout/checkin:" 
+        result=wsattclient.createOrUpdateAttributes(toadd, true, "testing wsclient add unit test");
+        System.out.println("Time to update " + testdir.listFiles().length + " existing attributes with checkout/checkin:"
         + (System.currentTimeMillis()-begin));
-        
-        found=client.findItems(testmodname, null,null,null,null,null);
+
+        found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()!=toadd.size())
         {
             fail("Tried to update" + toadd.size() + " items, " + found.size() + " items found");
@@ -131,20 +116,20 @@ public abstract class BaseWsAttributesClientIntegrationTest {
                     new String(Files.readAllBytes(testdir.listFiles()[i].toPath()))));
         }
 
-        List<ECLAttributeInfo> found=client.findItems(testmodname, null,null,null,null,null);
+        List<ECLAttributeInfo> found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()>0)
         {
-            client.deleteModule(testmodname);
+            wsattclient.deleteModule(testmodname);
         }
         long begin=System.currentTimeMillis();
         for (ECLAttributeInfo item: toadd)
         {
-            client.createOrUpdateAttribute(item, true, "testing wsclient add unit test");
+            wsattclient.createOrUpdateAttribute(item, true, "testing wsclient add unit test");
         }
-        System.out.println("Time to individually create " + testdir.listFiles().length + " attributes with checkout/checkin:" 
+        System.out.println("Time to individually create " + testdir.listFiles().length + " attributes with checkout/checkin:"
         + (System.currentTimeMillis()-begin));
-        
-        found=client.findItems(testmodname, null,null,null,null,null);
+
+        found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()!=toadd.size())
         {
             fail("Tried to add " + toadd.size() + " items, " + found.size() + " items found");
@@ -153,19 +138,19 @@ public abstract class BaseWsAttributesClientIntegrationTest {
         begin=System.currentTimeMillis();
         for (ECLAttributeInfo item:toadd)
         {
-            client.createOrUpdateAttribute(item, true, "testing wsclient add unit test");
+            wsattclient.createOrUpdateAttribute(item, true, "testing wsclient add unit test");
         }
-        System.out.println("Time to individually update " + testdir.listFiles().length + " existing attributes with checkout/checkin:" 
+        System.out.println("Time to individually update " + testdir.listFiles().length + " existing attributes with checkout/checkin:"
         + (System.currentTimeMillis()-begin));
-        
-        found=client.findItems(testmodname, null,null,null,null,null);
+
+        found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()!=toadd.size())
         {
             fail("Tried to update" + toadd.size() + " items, " + found.size() + " items found");
         }
         if (found.size()>0)
         {
-            client.deleteModule(testmodname);
+            wsattclient.deleteModule(testmodname);
         }
     }
 
