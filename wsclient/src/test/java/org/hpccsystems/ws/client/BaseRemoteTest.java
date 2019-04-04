@@ -29,9 +29,14 @@ public abstract class BaseRemoteTest
     Platform platform;
     HPCCWsClient wsclient;
 
-    String hpccConnection = System.getProperty("hpccconnect");
-    String hpccUser = System.getProperty("hpccuser");
-    String hpccPass = System.getProperty("hpccpass");
+    protected String hpccConnection = System.getProperty("hpccconn");
+
+    //String hpccProtocol   = System.getProperty("hpccprotocol");
+    //String hpccAddress    = System.getProperty("hpccaddress");
+    //String hpccPort       = System.getProperty("hpccport");
+
+    protected String hpccUser = System.getProperty("hpccuser");
+    protected String hpccPass = System.getProperty("hpccpass");
 
     @Before
     public void setup() throws Exception
