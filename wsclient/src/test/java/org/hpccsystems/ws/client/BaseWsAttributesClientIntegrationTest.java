@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.Cluster;
 import org.hpccsystems.ws.client.platform.ECLAttributeInfo;
+import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -19,7 +20,10 @@ import org.junit.Test;
 @Ignore
 public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTest
 {
+
+    String wsAttributesConnection = System.getProperty("wsattributesurl");
     HPCCWsAttributesClient wsattclient;
+
     Cluster thorcluster;
     Cluster roxiecluster;
     Cluster hthorcluster;
@@ -28,6 +32,8 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     protected abstract String getThorClusterName();
     protected abstract String getRoxieClusterName();
     protected abstract String getHthorClusterName();
+
+    protected String wsattport = System.getProperty("wsattport");
 
     public void confirmPlatform() throws Exception
     {
@@ -40,15 +46,17 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     {
         super.setup(); // fetch hpcc connection info and setup platform and wsclient
 
+        if (wsattport == null)
+            wsattport = "8145";
+
         confirmPlatform();
         thorcluster=platform.getCluster(getThorClusterName());
         roxiecluster =platform.getCluster(getRoxieClusterName());
         hthorcluster=platform.getCluster(getHthorClusterName());
 
-        wsattclient = wsclient.getWsAttributesClient();
+        wsattclient = wsclient.getWsAttributesClient(wsattport);
         wsattclient.setVerbose(true);
     }
-
 
     @After
     public void shutdown()
