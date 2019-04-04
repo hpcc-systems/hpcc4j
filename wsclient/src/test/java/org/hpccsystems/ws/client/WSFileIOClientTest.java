@@ -17,49 +17,54 @@
 
 package org.hpccsystems.ws.client;
 
-import org.hpccsystems.ws.client.platform.Platform;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runners.MethodSorters;
 
 @Category(org.hpccsystems.ws.client.RemoteTest.class)
-public class WSFileIOClientTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class WSFileIOClientTest extends BaseRemoteTest
 {
-
-    Platform platform;
-    HPCCWsClient wsclient;
     HPCCWsFileIOClient wsfioclient;
 
-    String testfilename = "myfilename.txt";
-    String targetLZ = "localhost";
-    
+    String testfilename = System.getProperty("lztestfile");
+    String targetLZ = System.getProperty("lzname");
+
     @Before
-    public void setup()
+    public void setup() throws Exception
     {
-        platform= Platform.get("http", "localhost", 8010, "", "");
-        try
-        {
-            wsclient = platform.checkOutHPCCWsClient();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        wsfioclient=wsclient.getWsFileIOClient();
+        super.setup();
+        wsfioclient = wsclient.getWsFileIOClient();
+        Assert.assertNotNull(wsfioclient);
+        if (testfilename == null)
+            testfilename = "myfilename.txt";
+        if (targetLZ == null)
+            targetLZ = "localhost";
     }
-    
+
+    //@Test(expected = Exception.class)
+    //@Test
+    //public void createFileNullFilename() throws Exception
+    //{
+    //    Assert.assertFalse(wsfioclient.createHPCCFile(null, targetLZ, false));
+    //}
+
     @Test
     public void createHPCCFile() throws Exception
     {
-        Assert.assertTrue(wsfioclient.createHPCCFile(testfilename, targetLZ, false));
+        System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.hpccConnection +"'");
+        Assert.assertTrue(wsfioclient.createHPCCFile(testfilename, targetLZ, true));
     }
 
     @Test
     public void writeHPCCFile() throws Exception
     {
+        System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.hpccConnection +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
-        Assert.assertTrue(wsfioclient.writeHPCCFileData(data, testfilename, targetLZ, false, 0, 20));
+        Assert.assertTrue(wsfioclient.writeHPCCFileData(data, testfilename, targetLZ, true, 0, 20));
     }
 
 }
