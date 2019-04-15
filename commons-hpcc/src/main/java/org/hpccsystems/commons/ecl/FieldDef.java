@@ -73,6 +73,11 @@ public class FieldDef implements Serializable
         this.fieldType = fieldType;
         this.typeName = typeName;
         this.defs = defs;
+        if (this.defs == null)
+        {
+            this.defs = new FieldDef[0];
+        }
+
         this.srcType = styp;
         this.fixedLength = isFixedLength;
         this.isUnsigned = isUnsigned;
@@ -123,6 +128,15 @@ public class FieldDef implements Serializable
     public HpccSrcType getSourceType()
     {
         return this.srcType;
+    }
+
+    /**
+     * Length of data or minimum length if variable
+     * @param dataLen
+     */
+    public void setDataLen(long dataLen)
+    {
+        this.len = dataLen;
     }
 
     /**
@@ -269,6 +283,11 @@ public class FieldDef implements Serializable
      */
     public void setDefs(FieldDef[] childDefs)
     {
+        if (childDefs == null)
+        {
+            childDefs = new FieldDef[0];
+        }
+
         this.defs = childDefs;
     }
 

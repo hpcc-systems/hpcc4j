@@ -141,6 +141,7 @@ public class ColumnPruner implements Serializable
 
         FieldDef ret = new FieldDef(originalRD);
         ret.setDefs(selectedFields.toArray(new FieldDef[0]));
+        ret.setDataLen(0);
         if (ret.getNumDefs() == 0)
         {
             throw new Exception("Error pruning record defintion. No fields were selected for field list: " + this.fieldListString);
