@@ -1099,8 +1099,8 @@ public class BinaryRecordReader implements IRecordReader
                 throw new IOException("Unknown source type");
         }
 
-        scratchStrBuilder.setLength(0);
         String ret = scratchStrBuilder.toString();
+        scratchStrBuilder.setLength(0);
         return ret;
     }
 
