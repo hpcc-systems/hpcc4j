@@ -700,11 +700,14 @@ public class HPCCWsDFUClient extends DataSingleton
         return null;
     }
 
-    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_50.ArrayOfEspException exp) throws Exception
+    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_50.ArrayOfEspException exp, String message) throws Exception
     {
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
-            String errs = "";
+            String errs = message != null ? message + "\n" : "";
+            if (!errs.isEmpty())
+                log.error(errs);
+
             for (int i = 0; i < exp.getException().length; i++)
             {
                 org.hpccsystems.ws.client.gen.wsdfu.v1_50.EspException ex = exp.getException()[i];
@@ -712,17 +715,25 @@ public class HPCCWsDFUClient extends DataSingleton
                 {
                     errs = errs + ex.getMessage() + "\n";
                 }
-                log.error(ex.getMessage());
+                log.error("Source: " + ex.getSource() + " Message: " + ex.getMessage());
             }
             throw new Exception(errs, exp);
         }
     }
 
-    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exp) throws Exception
+    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_50.ArrayOfEspException exp) throws Exception
+    {
+        handleException(exp, null);
+    }
+
+    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exp, String message) throws Exception
     {
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
-            String errs = "";
+            String errs = message != null ? message + "\n" : "";
+            if (!errs.isEmpty())
+                log.error(errs);
+
             for (int i = 0; i < exp.getException().length; i++)
             {
                 org.hpccsystems.ws.client.gen.wsdfu.v1_39.EspException ex = exp.getException()[i];
@@ -730,12 +741,17 @@ public class HPCCWsDFUClient extends DataSingleton
                 {
                     errs = errs + ex.getMessage() + "\n";
                 }
-                log.error(ex.getMessage());
+                log.error("Source: " + ex.getSource() + " Message: " + ex.getMessage());
             }
+
             throw new Exception(errs, exp);
         }
     }
 
+    private void handleException(org.hpccsystems.ws.client.gen.wsdfu.v1_39.ArrayOfEspException exp) throws Exception
+    {
+        handleException(exp, null);
+    }
     /**
      * Get array of logical files on target HPCC system based on input parameters
      *
@@ -1026,28 +1042,14 @@ public class HPCCWsDFUClient extends DataSingleton
 
             req.setRequestBase(requestBase);
 
-            try
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse resp = soapproxy.DFUFileAccess(req);
+            if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
             {
-                org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessResponse resp = soapproxy.DFUFileAccess(req);
-                if (resp == null || resp.getAccessInfo() == null)
-                {
-                    throw new Exception("Did not receive DFUFileAccess response");
-                }
+                throw new Exception("Did not receive DFUFileAccess response");
+            }
 
-                this.handleException(resp.getExceptions());
-                return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
-            }
-            catch (ArrayOfEspException e)
-            {
-                if (e != null)
-                {
-                    for (EspException espexception : e.getException())
-                    {
-                        log.error("Error adquiring read access for: '" + clustername + "::" + filename + "' \n" + espexception.getSource() + espexception.getMessage());
-                    }
-                }
-                throw e;
-            }
+            this.handleException(resp.getExceptions(), "Error adquiring read access for: '" + clustername + "::" + filename + "'");
+            return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
         }
         else if (targetVersion.major == 7 && targetVersion.minor > 0)
         {
@@ -1084,28 +1086,15 @@ public class HPCCWsDFUClient extends DataSingleton
             req.setName(filename);
             req.setReturnTextResponse(true);
 
-            try
+            DFUFileAccessResponse resp = proxy.DFUFileAccessV2(req);
+            if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
             {
-                DFUFileAccessResponse resp = proxy.DFUFileAccessV2(req);
-                if (resp == null || resp.getAccessInfo() == null)
-                {
-                    throw new Exception("Did not receive DFUFileAccess response");
-                }
+                throw new Exception("Did not receive DFUFileAccess response");
+            }
 
-                this.handleException(resp.getExceptions());
-                return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
-            }
-            catch (ArrayOfEspException e)
-            {
-                if (e != null)
-                {
-                    for (EspException espexception : e.getException())
-                    {
-                        log.error("Error adquiring read access for: '" + clustername + "::" + filename + "' \n" + espexception.getSource() + espexception.getMessage());
-                    }
-                }
-                throw e;
-            }
+            this.handleException(resp.getExceptions(), "Error adquiring read access for: '" + clustername + "::" + filename + "'");
+            return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
+
         }
         else if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
@@ -1171,28 +1160,14 @@ public class HPCCWsDFUClient extends DataSingleton
 
             filecreatereq.setRequestBase(requestBase);
 
-            try
+            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateResponse resp = soapproxy.DFUFileCreate(filecreatereq);
+            if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
             {
-                org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateResponse resp = soapproxy.DFUFileCreate(filecreatereq);
-                if (resp == null || resp.getAccessInfo() == null)
-                {
-                    throw new Exception("Did not receive DFUFileCreateResponse response");
-                }
+                throw new Exception("Did not receive DFUFileCreateResponse response");
+            }
 
-                this.handleException(resp.getExceptions());
-                return new DFUCreateFileWrapper (resp);
-            }
-            catch (ArrayOfEspException e)
-            {
-                if (e != null)
-                {
-                    for (EspException espexception : e.getException())
-                    {
-                        log.error("Error creating DFU file: '" + cluster + "::" + fileName + "' \n" + espexception.getSource() + espexception.getMessage());
-                    }
-                }
-                throw e;
-            }
+            this.handleException(resp.getExceptions(), "Error creating DFU file: '" + cluster + "::" + fileName + "'");
+            return new DFUCreateFileWrapper (resp);
         }
         else if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
         {
@@ -1287,33 +1262,19 @@ public class HPCCWsDFUClient extends DataSingleton
             if (requestId != null)
                 filecreatereq.setRequestId(requestId);
 
-            try
+            DFUFileCreateResponse resp = proxy.DFUFileCreateV2(filecreatereq);
+            if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
             {
-                DFUFileCreateResponse resp = proxy.DFUFileCreateV2(filecreatereq);
-                if (resp == null || resp.getAccessInfo() == null)
-                {
-                    throw new Exception("Did not receive DFUFileCreateResponse response");
-                }
-
-                this.handleException(resp.getExceptions());
-                if (resp.getFileId() == null)
-                {
-                    throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
-                }
-
-                return new DFUCreateFileWrapper (resp);
+                throw new Exception("Did not receive DFUFileCreateResponse");
             }
-            catch (ArrayOfEspException e)
+
+            this.handleException(resp.getExceptions(), "Error creating DFU file: '" + cluster + "::" + fileName + "'");
+            if (resp.getFileId() == null)
             {
-                if (e != null)
-                {
-                    for (EspException espexception : e.getException())
-                    {
-                        log.error("Error creating DFU file: '" + cluster + "::" + fileName + "' \n" + espexception.getSource() + espexception.getMessage());
-                    }
-                }
-                throw e;
+                throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
             }
+
+            return new DFUCreateFileWrapper (resp);
         }
         else if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
