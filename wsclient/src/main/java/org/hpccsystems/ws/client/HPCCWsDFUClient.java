@@ -719,7 +719,9 @@ public class HPCCWsDFUClient extends DataSingleton
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
             String errs = message != null ? message + "\n" : "";
-            log.error(message);
+            if (!errs.isEmpty())
+                log.error(errs);
+
             for (int i = 0; i < exp.getException().length; i++)
             {
                 org.hpccsystems.ws.client.gen.wsdfu.v1_50.EspException ex = exp.getException()[i];
@@ -743,7 +745,9 @@ public class HPCCWsDFUClient extends DataSingleton
         if (exp != null && exp.getException() != null && exp.getException().length > 0)
         {
             String errs = message != null ? message + "\n" : "";
-            log.error(message);
+            if (!errs.isEmpty())
+                log.error(errs);
+
             for (int i = 0; i < exp.getException().length; i++)
             {
                 org.hpccsystems.ws.client.gen.wsdfu.v1_39.EspException ex = exp.getException()[i];
