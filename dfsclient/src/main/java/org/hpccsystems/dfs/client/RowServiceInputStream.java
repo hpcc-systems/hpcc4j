@@ -16,18 +16,19 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.InputStream;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.json.JSONObject;
-
 import org.apache.log4j.Logger;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.commons.network.Network;
 
 /**
  * The connection to a specific THOR node for a specific file part.
@@ -49,13 +50,15 @@ public class RowServiceInputStream extends InputStream
     private java.io.DataInputStream  dis;
     private java.io.DataOutputStream dos;
 
+    private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
+    private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
+
     private byte[]                   readBuffer;
     private int                      readBufferLen = 0;
     private int                      readPos = 0;
     private int                      markPos = -1;
 
     private Socket                   sock;
-    private int                      currentFilePartCopyIndex;
     private int                      DEFAULT_CONNECT_TIMEOUT_MILIS = 1000; // 1 second connection timeout
 
     public static final Charset      HPCCCharSet                   = Charset.forName("ISO-8859-1");
@@ -79,16 +82,25 @@ public class RowServiceInputStream extends InputStream
         this.projectedRecordDefinition = pRd;
 
         this.jsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.recordDefinition).toString();
-        this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.projectedRecordDefinition)
-                .toString();
+        this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.projectedRecordDefinition).toString();
 
         this.dataPart = dp;
+        
+        int copycount = dataPart.getCopyCount();
+        for (int index = 0; index < copycount; index++)
+        {
+            String currentCopyLocation = dataPart.getCopyIP(index);
+            if(Network.isLocalAddress(currentCopyLocation))
+                prioritizedCopyIndexes.add(0,index);
+            else
+                prioritizedCopyIndexes.add(index);
+        }
+
         this.active = false;
         this.closed = false;
         this.handle = 0;
         this.cursorBin = new byte[0];
         this.simulateFail = false;
-        this.currentFilePartCopyIndex = 0;
 
         // Read buffer is 2x to allow for partial record reads for records larger than MaxReadSizeKB.
         // Note: this is currently not partial reads are not currently supported by the row service
@@ -99,9 +111,10 @@ public class RowServiceInputStream extends InputStream
 
     private boolean setNextFilePartCopy()
     {
-        if (currentFilePartCopyIndex + 1 >= dataPart.getCopyCount()) return false;
+        if (filePartCopyIndexPointer + 1 >= prioritizedCopyIndexes.size())
+            return false;
 
-        currentFilePartCopyIndex++;
+        filePartCopyIndexPointer++;
         return true;
     }
 
@@ -122,7 +135,7 @@ public class RowServiceInputStream extends InputStream
      */
     public String getIP()
     {
-        return this.dataPart.getCopyIP(currentFilePartCopyIndex);
+        return this.dataPart.getCopyIP(prioritizedCopyIndexes.get(filePartCopyIndexPointer));
     }
 
     /**
@@ -365,7 +378,7 @@ public class RowServiceInputStream extends InputStream
         return this.readBufferLen - this.readPos;
     }
 
-    public void	close() throws IOException
+    public void close() throws IOException
     {
         if (this.closed == false)
         {
@@ -379,7 +392,7 @@ public class RowServiceInputStream extends InputStream
         }
     }
 
-    public void	mark(int readLimit)
+    public void mark(int readLimit)
     {
         // Check to see if we can handle this readLimit with the current buffer / readPos
         int availableReadCapacity = this.readBuffer.length - this.readPos;
@@ -406,7 +419,7 @@ public class RowServiceInputStream extends InputStream
         this.markPos = this.readPos;
     }
 
-    public boolean	markSupported()
+    public boolean markSupported()
     {
         return true;
     }
@@ -459,7 +472,7 @@ public class RowServiceInputStream extends InputStream
         return len;
     }
 
-    public void	reset() throws IOException
+    public void reset() throws IOException
     {
         if (this.markPos < 0) {
             throw new IOException("Unable to reset to marked position."
@@ -470,7 +483,7 @@ public class RowServiceInputStream extends InputStream
         this.markPos = -1;
     }
 
-    public long	skip(long n) throws IOException
+    public long skip(long n) throws IOException
     {
         // Have to read the data if we need to skip
         long remainingBytesToSkip = n;
@@ -519,8 +532,7 @@ public class RowServiceInputStream extends InputStream
         {
             try
             {
-                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '"
-                        + (currentFilePartCopyIndex + 1) + "' on IP: '" + getIP() + "'");
+                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (filePartCopyIndexPointer + 1) + "' on IP: '" + getIP() + "'");
 
                 try
                 {
@@ -534,8 +546,7 @@ public class RowServiceInputStream extends InputStream
                         // data
                         // So we don't care as much about individual packet latency or connection time overhead
                         sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()),
-                                DEFAULT_CONNECT_TIMEOUT_MILIS);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), DEFAULT_CONNECT_TIMEOUT_MILIS);
 
                         log.debug("Attempting SSL handshake...");
                         ((SSLSocket) sock).startHandshake();
@@ -553,8 +564,7 @@ public class RowServiceInputStream extends InputStream
                         // data
                         // So we don't care as much about individual packet latency or connection time overhead
                         sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()),
-                                DEFAULT_CONNECT_TIMEOUT_MILIS);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), DEFAULT_CONNECT_TIMEOUT_MILIS);
                     }
                     log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = "
                             + sock.getPort());
@@ -594,8 +604,7 @@ public class RowServiceInputStream extends InputStream
             }
             catch (Exception e)
             {
-                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '"
-                        + (currentFilePartCopyIndex + 1) + "' on IP: '" + getIP());
+                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (filePartCopyIndexPointer + 1) + "' on IP: '" + getIP() + "'");
                 log.error(e.getMessage());
 
                 if (!setNextFilePartCopy())
