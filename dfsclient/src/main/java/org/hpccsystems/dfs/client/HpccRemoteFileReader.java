@@ -48,6 +48,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder) throws Exception
     {
         this.originalRecordDef = originalRD;
+        if (this.originalRecordDef == null)
+        {
+            throw new Exception("HpccRemoteFileReader: Original record definition is null.");
+        }
+
         this.dataPartition = dp;
         this.recordBuilder = recBuilder;
 

@@ -15,6 +15,7 @@ package org.hpccsystems.commons.ecl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -152,7 +153,8 @@ public class RecordDefinitionTranslator
         }
 
         // Recurse through the tree structure and generate record defintions
-        HashMap<String, String> recordDefinitionMap = new HashMap<String, String>();
+        // LinkedHashMap to retain insertion order
+        HashMap<String, String> recordDefinitionMap = new LinkedHashMap<String, String>();
         String rootRecordName = getEClTypeDefinition(field, recordDefinitionMap);
 
         // Get root record definition and remove it from the map
