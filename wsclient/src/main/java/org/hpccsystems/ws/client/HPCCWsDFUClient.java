@@ -89,7 +89,7 @@ public class HPCCWsDFUClient extends DataSingleton
         return new HPCCWsDFUClient(connection);
     }
 
-    private String                initErrMessage        = null;
+    private String                initErrMessage        = "";
     private Version               targetVersion         = null;
     public static final String    WSDFUURI              = "/WsDFU";
     public static final String    ROW_ELEMENT           = "Row";
@@ -621,6 +621,7 @@ public class HPCCWsDFUClient extends DataSingleton
     {
         try
         {
+            initErrMessage = "";
             String address = Connection.buildUrl(protocol, targetHost, targetPort, WSDFUURI);
             HPCCWsSMCClient wssmc = new HPCCWsSMCClient(protocol, targetHost, targetPort, user, pass);
             targetVersion = new Version(wssmc.getHPCCBuild());
@@ -962,7 +963,7 @@ public class HPCCWsDFUClient extends DataSingleton
     public String getFileAccessBlob(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
         if (targetVersion == null || soapproxywrapper == null)
-            throw new Exception("WSDFU client not available" + (initErrMessage != null ? " - " +  initErrMessage : ""));
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
 
         if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
@@ -997,7 +998,7 @@ public class HPCCWsDFUClient extends DataSingleton
     public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
         if (targetVersion == null || soapproxywrapper == null)
-            throw new Exception("WSDFU client not available" + (initErrMessage != null ? " - " +  initErrMessage : ""));
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
 
         if (targetVersion.major == 7 && targetVersion.minor > 0)
         {
@@ -1036,7 +1037,7 @@ public class HPCCWsDFUClient extends DataSingleton
     public DFUFileAccessInfoWrapper getFileAccess(org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception
     {
         if (targetVersion == null || soapproxywrapper == null)
-            throw new Exception("WSDFU client not available" + (initErrMessage != null ? " - " +  initErrMessage : ""));
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
 
         if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
@@ -1062,7 +1063,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 throw new Exception("Did not receive DFUFileAccess response");
             }
 
-            this.handleException(resp.getExceptions(), "Error adquiring read access for: '" + clustername + "::" + filename + "'");
+            this.handleException(resp.getExceptions(), "Error acquiring read access for: '" + clustername + "::" + filename + "'");
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
         }
         else if (targetVersion.major == 7 && targetVersion.minor > 0)
@@ -1088,7 +1089,7 @@ public class HPCCWsDFUClient extends DataSingleton
     public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid) throws Exception
     {
         if (targetVersion == null || soapproxywrapper == null)
-            throw new Exception("WSDFU client not available" + (initErrMessage != null ? " - " +  initErrMessage : ""));
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
 
         if (targetVersion.major == 7 && targetVersion.minor > 0)
         {
@@ -1106,7 +1107,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 throw new Exception("Did not receive DFUFileAccess response");
             }
 
-            this.handleException(resp.getExceptions(), "Error adquiring read access for: '" + clustername + "::" + filename + "'");
+            this.handleException(resp.getExceptions(), "Error acquiring read access for: '" + clustername + "::" + filename + "'");
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
 
         }
@@ -1155,7 +1156,7 @@ public class HPCCWsDFUClient extends DataSingleton
             Boolean returnJsonTypeInfo, org.hpccsystems.ws.client.gen.wsdfu.v1_39.FileAccessRole accessRole, org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType accessType) throws Exception
     {
         if (targetVersion == null || soapproxywrapper == null)
-            throw new Exception("WSDFU client not available" + (initErrMessage != null ? " - " +  initErrMessage : ""));
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
 
         if (targetVersion.major == 7 && targetVersion.minor == 0)
         {
@@ -1258,7 +1259,7 @@ public class HPCCWsDFUClient extends DataSingleton
     public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception
     {
         if (targetVersion == null || soapproxywrapper == null)
-            throw new Exception("WSDFU client not available" + (initErrMessage != null ? " - " +  initErrMessage : ""));
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
 
         if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
         {
