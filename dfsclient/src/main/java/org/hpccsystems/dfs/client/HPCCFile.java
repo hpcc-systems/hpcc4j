@@ -139,7 +139,10 @@ public class HPCCFile implements Serializable
     public HPCCFile setProjectList(String projectList) throws Exception
     {
         this.columnPruner = new ColumnPruner(projectList);
-        this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+        if (this.recordDefinition != null) 
+        {
+            this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+        }
         return this;
     }
 

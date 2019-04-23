@@ -47,10 +47,12 @@ import org.junit.Test;
 
 public class DFSReadWriteTest
 {
-
-    private static final String   clusterIP      = "10.173.147.1";
-    private static final String[] datasets       = { "~demo::salesdata" };
-    private static final int[]    expectedCounts = { 3730};
+    private static final String   clusterIP      = "192.168.56.101";
+    private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
+    private static final int[]    expectedCounts = { 1250, 6 };
+    //private static final String   clusterIP      = "10.173.147.1";
+    //private static final String[] datasets       = { "~demo::salesdata" };
+    //private static final int[]    expectedCounts = { 3730};
     // private static final String[] datasets = {"~benchmark::integer::20kb"};
     // private static final int[]    expectedCounts = {1250};
 
