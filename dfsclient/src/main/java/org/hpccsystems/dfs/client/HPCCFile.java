@@ -229,6 +229,13 @@ public class HPCCFile implements Serializable
     private void createDataParts() throws HpccFileException
     {
         HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(espConnInfo);
+        if (dfuClient.hasInitError())
+        {
+            String errmesg = "Could not fetch '" + fileName + "' info from WsDFU ESP due to wsdfuclient init error: " + dfuClient.getInitError();
+            log.error(errmesg);
+            throw new HpccFileException(errmesg);
+        }
+
         String originalRecDefInJSON = "";
         DFUFileAccessInfoWrapper fileinfoforread = null;
         try
