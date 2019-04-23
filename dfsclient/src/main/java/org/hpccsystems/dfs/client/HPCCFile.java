@@ -134,10 +134,15 @@ public class HPCCFile implements Serializable
 
     /**
      * @param projectList
+     * @throws Exception 
      */
-    public HPCCFile setProjectList(String projectList)
+    public HPCCFile setProjectList(String projectList) throws Exception
     {
         this.columnPruner = new ColumnPruner(projectList);
+        if (this.recordDefinition != null) 
+        {
+            this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+        }
         return this;
     }
 
