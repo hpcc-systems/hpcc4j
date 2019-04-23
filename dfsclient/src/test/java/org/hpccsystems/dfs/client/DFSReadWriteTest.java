@@ -17,6 +17,9 @@ package org.hpccsystems.dfs.client;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import static org.junit.Assert.fail;
+
 import java.security.SecureRandom;
 
 import org.hpccsystems.dfs.client.HPCCFile;
@@ -28,7 +31,7 @@ import org.hpccsystems.dfs.client.ReflectionRecordBuilder;
 import org.hpccsystems.dfs.client.DataPartition;
 
 import org.hpccsystems.dfs.cluster.*;
-
+import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
@@ -44,10 +47,12 @@ import org.junit.Test;
 
 public class DFSReadWriteTest
 {
-
     private static final String   clusterIP      = "192.168.56.101";
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
     private static final int[]    expectedCounts = { 1250, 6 };
+    //private static final String   clusterIP      = "10.173.147.1";
+    //private static final String[] datasets       = { "~demo::salesdata" };
+    //private static final int[]    expectedCounts = { 3730};
     // private static final String[] datasets = {"~benchmark::integer::20kb"};
     // private static final int[]    expectedCounts = {1250};
 
@@ -86,8 +91,24 @@ public class DFSReadWriteTest
             {
                 Assert.fail("Written dataset does not match original dataset: " + copyFileName);
             }
+            
+            //read out a projected layout, confirm that this works
+            
+            List<String> projectedfields=new ArrayList<String>();
+            for (int j=0; j < file.getRecordDefinition().getNumDefs()-1;j++) 
+            {
+                projectedfields.add(file.getRecordDefinition().getDef(j).getFieldName());
+            }            
+            
+            file=new HPCCFile(copyFileName,espConn);
+            FieldDef recdef=file.getRecordDefinition();
+            file.setProjectList(StringUtils.join(projectedfields, ","));
+            List<HPCCRecord> recs=readFile(file);
+            if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1) 
+            {
+                fail("recs did not project correctly");
+            }
         }
-
     }
 
     private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
