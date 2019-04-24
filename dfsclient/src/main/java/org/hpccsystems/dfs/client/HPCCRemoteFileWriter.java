@@ -89,4 +89,35 @@ public class HPCCRemoteFileWriter<T>
     {
         return recordsWritten;
     }
+    
+    /**
+    * flush
+    * Flush buffered data from IRecordWriter. This is a blocking operation.
+    * @throws Exception 
+    */
+    public void flush() throws Exception
+    {
+        this.binaryRecordWriter.flush();
+    }
+
+    /**
+    * getBufferCapacity
+    * Returns the IRecordWriter internal buffer capacity
+    * @return 
+    */
+    public int getBufferCapacity()
+    {
+        return this.binaryRecordWriter.getBufferCapacity();
+    }
+
+    /**
+    * getRemainingBufferCapacity
+    * Returns the IRecordWriter remaining buffer capacity
+    * @return
+    */
+    public int getRemainingBufferCapacity()
+    {
+        return this.binaryRecordWriter.getRemainingBufferCapacity();
+    }
+
 }

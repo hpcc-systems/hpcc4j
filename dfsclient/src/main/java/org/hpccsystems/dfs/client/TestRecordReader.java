@@ -19,6 +19,7 @@ import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
@@ -193,4 +194,15 @@ public class TestRecordReader implements IRecordReader
 
         return record;
     }
+
+    /**
+     * getAvailable
+     * Returns the number of bytes available to read immediately.
+     * @return
+     */
+    public int getAvailable() throws IOException
+    {
+        return 1024;
+    }
+
 }

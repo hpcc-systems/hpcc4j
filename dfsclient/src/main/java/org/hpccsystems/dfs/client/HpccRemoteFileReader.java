@@ -18,6 +18,7 @@ import org.hpccsystems.commons.errors.HpccFileException;
 
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -114,5 +115,15 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     public void close() throws Exception
     {
         this.inputStream.close();
+    }
+    
+    /**
+     * getAvailable
+     * Returns the number of bytes available to read immediately.
+     * @return
+     */
+    public int getAvailable() throws IOException
+    {
+        return this.binaryRecordReader.getAvailable();
     }
 }

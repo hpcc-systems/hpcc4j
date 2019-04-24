@@ -247,6 +247,14 @@ public class BinaryRecordReader implements IRecordReader
 
         return record;
     }
+   
+    /**
+     * Returns the number of bytes available to read immediately.
+     */
+    public int getAvailable() throws IOException
+    {
+        return this.inputStream.available();
+    }
 
     /**
      * Parse a non-hierarchical field
