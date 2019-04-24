@@ -90,7 +90,7 @@ public class BinaryRecordWriter implements IRecordWriter
         // Note: variable length fields still need to check remaining capacity
         if (this.buffer.remaining() <= 32)
         {
-            this.flushBuffer();
+            this.flush();
         }
 
         recordAccessor.setRecord(record);
@@ -134,6 +134,41 @@ public class BinaryRecordWriter implements IRecordWriter
             };
         }
     }
+    
+    /**
+     * flush
+     * Flush buffered data to InputStream. This is a blocking operation.
+     * @throws Exception 
+    */
+    public void flush() throws Exception
+    {
+        byte[] data = this.buffer.array();
+        int dataLen = this.buffer.position();
+        this.outputStream.write(data, 0, dataLen);
+        this.bytesWritten += dataLen;
+
+        this.buffer.clear();
+    }
+
+    /**
+     * getBufferCapacity
+     * Returns the internal buffer capacity
+     * @return 
+     */
+    public int getBufferCapacity()
+    {
+        return this.buffer.capacity();
+    }
+
+    /**
+     * getRemainingBufferCapacity
+     * Returns the remaining capacity in the internal buffer
+     * @return
+     */
+    public int getRemainingBufferCapacity()
+    {
+        return this.buffer.remaining();
+    }
 
     /**
      * finalize Must be called after all records have been written. Will flush the internal buffer to the output
@@ -143,7 +178,7 @@ public class BinaryRecordWriter implements IRecordWriter
      */
     public void finalize() throws Exception
     {
-        this.flushBuffer();
+        this.flush();
         this.outputStream.close();
     }
 
@@ -166,7 +201,7 @@ public class BinaryRecordWriter implements IRecordWriter
         // Note: variable length fields still need to check remaining capacity
         if (this.buffer.remaining() <= 32)
         {
-            this.flushBuffer();
+            this.flush();
         }
 
         switch (fd.getFieldType())
@@ -686,21 +721,12 @@ public class BinaryRecordWriter implements IRecordWriter
 
             if (this.buffer.remaining() <= 32)
             {
-                this.flushBuffer();
+                this.flush();
             }
 
         }
         while (offset < dataEnd);
     }
 
-    private void flushBuffer() throws Exception
-    {
-
-        byte[] data = this.buffer.array();
-        int dataLen = this.buffer.position();
-        this.outputStream.write(data, 0, dataLen);
-        this.bytesWritten += dataLen;
-
-        this.buffer.clear();
-    }
+    
 }
