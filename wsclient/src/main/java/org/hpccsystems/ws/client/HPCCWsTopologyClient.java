@@ -266,7 +266,7 @@ public class HPCCWsTopologyClient extends DataSingleton
     }
 
     /**
-     * @param specific dropzone name
+     * @param name - The target dropzone name
      * @return
      * @throws Exception
      */
@@ -279,7 +279,7 @@ public class HPCCWsTopologyClient extends DataSingleton
     }
 
     /**
-     * @param Dropzone namefilter - Empty for all dropzones, or specific dropzeon name
+     * @param namefilter - Empty for all dropzones, or specific dropzeon name
      * @return
      * @throws Exception
      */
