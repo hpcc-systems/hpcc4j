@@ -145,10 +145,6 @@ public class ColumnPruner implements Serializable
         {
             throw new Exception("Error pruning record defintion. No fields were selected for field list: " + this.fieldListString);
         }
-
-        // Correct min record length
-        updateRecordMinLength(ret);
-
         return ret;
     }
 
@@ -193,67 +189,5 @@ public class ColumnPruner implements Serializable
         FieldDef ret = new FieldDef(originalRecordDef);
         ret.setDefs(selectedFields.toArray(new FieldDef[0]));
         return ret;
-    }
-
-    private void updateRecordMinLength(FieldDef recordDef)
-    {
-        for (int i = 0; i < recordDef.getNumDefs(); i++)
-        {
-            FieldDef childDef = recordDef.getDef(i);
-            if (childDef.getFieldType() == FieldType.RECORD)
-            {
-                updateRecordMinLength(childDef);
-            }
-        }
-
-        long minDataLength = getMinLengthInBytes(recordDef);
-        recordDef.setDataLen(minDataLength);
-    }
-
-    private long getMinLengthInBytes(FieldDef def)
-    {
-        switch (def.getFieldType())
-        {
-            case RECORD:
-            {
-                long minDataLength = 0;
-                for (int i = 0; i < def.getNumDefs(); i++)
-                {
-                    FieldDef childDef = def.getDef(i);
-                    minDataLength += getMinLengthInBytes(childDef);
-                }
-                return minDataLength;
-            }
-            case SET:
-            {
-                // Sets include 4 byte integer dataLength and an additional byte
-                return 5;
-            }
-            default:
-            {
-                long dataLength = 0;
-                if (def.isFixed())
-                {
-                    // Var strings can be fixed length
-                    dataLength = def.getDataLen();
-                    if (def.getFieldType() == FieldType.VAR_STRING)
-                    {
-                        dataLength++;
-                    }
-                    
-                    // Unicode datalength is in code points not bytes
-                    if (def.getSourceType().isUTF16())
-                    {
-                        dataLength *= 2;
-                    }
-                }
-                else
-                {
-                    dataLength = 4;
-                }
-                return dataLength;
-            }
-        }
-        
     }
 }
