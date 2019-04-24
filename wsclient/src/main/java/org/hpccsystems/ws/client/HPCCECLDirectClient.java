@@ -133,11 +133,10 @@ public class HPCCECLDirectClient extends DataSingleton
 
     /**
      * Submit given ECL query for compilation/execution on a given target cluster
-     * @param ecl                - The ecl query
-     * @param targetcluster      - The target cluster on which to compile/execute
-     * @param resultLimit        - Query results will be limited to this value
-     * @param maxwait            - Maxwait in millis
-     * @return                   - If successfully submited, the resulting WUID.
+     * @param wu      - The workunitinfo object containing all pertinent ecl query info
+     *                  such as: The ecl query, The target cluster on which to compile/execute,
+     *                  Query results limit, Maxwait in millis
+     * @return                   - If successfully submitted, the resulting WUID.
      * @throws Exception         - Caller must handle exceptions
      */
     public String submitECL(WorkunitInfo wu) throws Exception
@@ -178,11 +177,11 @@ public class HPCCECLDirectClient extends DataSingleton
 
     /**
      * Submit given ECL query for compilation/execution on a given target cluster
-     * @param ecl                - The ecl query
-     * @param targetcluster      - The target cluster on which to compile/execute
-     * @param resultLimit        - Query results will be limited to this value
-     * @param maxwait            - Maxwait in millis
-     * @return                   - If successfully submited, the resulting Dataset(s).
+     *  @param wu      - The workunitinfo object containing all pertinent ecl query info
+     *                  such as: The ecl query, The target cluster on which to compile/execute,
+     *                  Query results limit, Maxwait in millis
+
+     * @return                   - If successfully submitted, the resulting Dataset(s).
      * @throws Exception         - Caller must handle exceptions
      */
     public String submitECLandGetResults(WorkunitInfo wu) throws Exception
