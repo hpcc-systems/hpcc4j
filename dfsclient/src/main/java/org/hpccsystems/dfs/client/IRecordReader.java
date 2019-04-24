@@ -17,6 +17,8 @@ package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.dfs.client.IRecordBuilder;
 
+import java.io.IOException;
+
 import org.hpccsystems.commons.errors.HpccFileException;
 
 /**
@@ -28,6 +30,7 @@ public interface IRecordReader
     public void initialize(IRecordBuilder recordBuilder) throws Exception;
 
     /**
+    * hasNext
     * Are there more records?  The first time used will trigger a
     * remote file read.
     * @return true if there is at least one more record
@@ -37,9 +40,17 @@ public interface IRecordReader
     public boolean hasNext() throws HpccFileException;
 
     /**
+     * getNext
      * Produce the next record.
      * @return a record
      * @throws HpccFileException error on the back end, not recoverable
      */
     public Object getNext() throws HpccFileException;
+
+    /**
+     * getAvailable
+     * Returns the number of bytes available to read immediately.
+     * @return
+     */
+    public int getAvailable() throws IOException;
 }

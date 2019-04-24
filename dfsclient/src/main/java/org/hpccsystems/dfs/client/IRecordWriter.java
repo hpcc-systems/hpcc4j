@@ -51,4 +51,25 @@ public interface IRecordWriter
     */
     public long getTotalBytesWritten();
 
+    /**
+    * flush
+    * Flush buffered data to InputStream. This is a blocking operation.
+    * @throws Exception 
+    */
+    public void flush() throws Exception;
+
+    /**
+    * getBufferCapacity
+    * Returns the internal buffer capacity
+    * @return 
+    */
+    public int getBufferCapacity();
+
+    /**
+    * getRemainingBufferCapacity
+    * Returns the remaining capacity in the internal buffer
+    * @return
+    */
+    public int getRemainingBufferCapacity();
+
 }
