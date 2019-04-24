@@ -64,7 +64,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 /**
- * Use as soap client for HPCC WsDFU web service.
+ * Provides soap client for HPCC WsDFU web service.
  *
  */
 public class HPCCWsDFUClient extends DataSingleton
@@ -98,11 +98,25 @@ public class HPCCWsDFUClient extends DataSingleton
     private boolean               verbose               = false;
     private WsDFUClientSoapProxyWrapper soapproxywrapper = null;
 
+    /**
+     * Should be called after instantiation to confirm
+     * Successful initialization.
+     *
+     * The client init can fail due to many different types of issues
+     * including invalid connectivity options, invalid credentials, etc
+     *
+     * @return
+     */
     public boolean hasInitError()
     {
         return !initErrMessage.isEmpty();
     }
 
+    /**
+     * Returns error message encountered during initialization of wsdfuclient.
+     * Empty string if no error encountered
+     * @return
+     */
     public String getInitError()
     {
         return initErrMessage;
@@ -199,7 +213,7 @@ public class HPCCWsDFUClient extends DataSingleton
      *            - number of rows of data to retrieve
      * @param clustername
      *            - Optional. If specified, the cluster on which to find the logical file.
-     * @return an XML Element object holding the <Row> elements containing data.
+     * @return an XML Element object holding the '<Row>' elements containing data.
      * @throws Exception
      */
     public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername) throws Exception
@@ -803,6 +817,19 @@ public class HPCCWsDFUClient extends DataSingleton
         return logicalfiles;
     }
 
+    /**
+     * Return raw response from WsDFU DFUSearchData method requests
+     *
+     * @param openLogicalName
+     * @param cluster
+     * @param roxieSelections
+     * @param chooseFile
+     * @param count
+     * @param schemaOnly
+     * @param startIndex
+     * @return
+     * @throws Exception
+     */
     public DFUSearchDataResponse getDFUData(String openLogicalName, String cluster, boolean roxieSelections,
             int chooseFile, int count, boolean schemaOnly, long startIndex) throws Exception
     {
@@ -946,6 +973,11 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * getFileAccessBlob - HPCC 7.0.x version
+     * The response is to be used in conjunction with DAFILESRV's rowservice distributed file read stream.
+     * The response grants the holder access to the target file for the duration of 'expiryseconds' seconds
+     * since the Accessblob is generated.
+     *
+     * This version is to be used when targeting a 7.0.x HPCC (ESP and DAFILESRV)
      *
      * @param accesstype
      *            - the file access level to request to request
@@ -983,6 +1015,9 @@ public class HPCCWsDFUClient extends DataSingleton
 
     /**
      * getFileAccessBlob
+     * The response is to be used in conjunction with DAFILESRV's rowservice distributed file read/write stream.
+     * The response grants the holder access to the target file for the duration of 'expiryseconds' seconds
+     * since the Accessblob is generated.
      *
      * @param filename
      *            - the name of the target file to be accessed
@@ -1017,6 +1052,12 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
+     * To be used in conjunction with DAFILESRV's rowservice distributed file read stream.
+     * The response wrapper provides access to the 'accessblob' which grants the holder read access
+     * to the target file for the duration of 'expiryseconds' seconds. Other access details can be
+     * fetched from the wrapper.
+     *
+     * since the Accessblob is generated.
      * @param accesstype HPCC 7.0.x version
      *            - the file access level to request to request
      * @param filename
@@ -1075,6 +1116,11 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
+     * To be used in conjunction with DAFILESRV's rowservice distributed file read/write stream.
+     * The response wrapper provides access to the 'accessblob' which grants the holder read access
+     * to the target file for the duration of 'expiryseconds' seconds. Other access details can be
+     * fetched from the wrapper.
+     *
      * @param filename
      *            - the name of the target file to be accessed
      * @param clustername
@@ -1126,7 +1172,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @param fileName
      * @param cluster
      * @param eclRecordDefinition
-     * @param partitionHostMap Array declaring the Filepart[i]->Node mapping
+     * @param partitionHostMap Array declaring the Filepart[i] to Node mapping
      * @param expirySeconds
      * @return
      * @throws Exception
@@ -1143,7 +1189,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @param fileName
      * @param cluster
      * @param eclRecordDefinition
-     * @param partitionHostMap  Array declaring the Filepart[i]->Node mapping
+     * @param partitionHostMap  Array declaring the Filepart[i] to Node mapping
      * @param expirySeconds
      * @param returnBinTypeInfo
      * @param returnJsonTypeInfo
@@ -1193,7 +1239,7 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * Create a new (unpublished), uncompressed dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * Create a new (unpublished), uncompressed dfu file. JSON based info will be requested -- appropriate for HPCC post 7.2.0
      *
      * DAFILESERV fileaccess token is requested
      * @param fileName
@@ -1209,7 +1255,7 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC post 7.2.0
      * DAFILESERV fileaccess token is requested
      * @param fileName
      * @param cluster
@@ -1225,7 +1271,7 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  post 7.2.0
      * DAFILESERV fileaccess token is requested
      * @param fileName
      * @param cluster
@@ -1243,12 +1289,11 @@ public class HPCCWsDFUClient extends DataSingleton
     }
 
     /**
-     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  > 7.2.0
+     * Create a new (unpublished) dfu file. JSON based info will be requested -- appropriate for HPCC  post 7.2.0
      * DAFILESERV fileaccess token is requested
      * @param fileName
      * @param cluster
      * @param eclRecordDefinition
-     * @param partitionHostMap  Array declaring the Filepart[i]->Node mapping
      * @param expirySeconds
      * @param compressed
      * @param type - for example DFUFileTypeWrapper.Csv
@@ -1374,10 +1419,8 @@ public class HPCCWsDFUClient extends DataSingleton
      *
      * @param logicalname logical file for request, can start with ~
      * @param clustername optional
-     * @param jsonTypeInfo true if record structure information in JSON format
-     *  is to be returned
-     * @param binTypeInfo true if record structure information in binary format
-     *  is to be returned
+     * @param jsonTypeInfo true if record structure information in JSON format is to be returned
+     * @param binTypeInfo true if record structure information in binary format is to be returned
      * @return DFUInfoResponse object containing the information
      * @throws Exception
      */

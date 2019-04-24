@@ -15,6 +15,10 @@ import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 
+/**
+ * Use as soap client for HPCC WsSMC web service, also known as eclwatch
+ *
+ */
 public class HPCCWsSMCClient extends DataSingleton
 {
     private static URL                  originalURL;

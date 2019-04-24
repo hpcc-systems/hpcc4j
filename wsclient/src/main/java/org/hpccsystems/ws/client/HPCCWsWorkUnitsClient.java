@@ -48,7 +48,6 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WUUpdateResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WsWorkunitsClientSoapProxyWrapper;
 
 /**
- *
  * ESP Client code for common WsWorkUnits operations
  */
 public class HPCCWsWorkUnitsClient extends DataSingleton
@@ -69,6 +68,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     private WsWorkunitsClientSoapProxyWrapper                                           soapWrapper=null;
     private static URL                                                                  originalURL;
 
+    /**
+     * Provides the WSDL URL originally used to create the underlying stub code
+     * @return
+     * @throws MalformedURLException
+     */
     public static URL getOriginalURL() throws MalformedURLException
     {
         if (originalURL == null) originalURL = new URL(getOriginalWSDLURL());
@@ -76,11 +80,25 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return originalURL;
     }
 
+    /**
+     * Provides the WSDL port originally used to create the underlying stub code
+     * @return
+     * @throws MalformedURLException
+     */
     public static int getOriginalPort() throws MalformedURLException
     {
         return getOriginalURL().getPort();
     }
 
+    /**
+     * Performs limited refresh of local WU instance based on that WU's state on target
+     * HPCC cluster if state of WU has not changed, Graphs, Results,ResultsView, ResultSchemas,
+     * SourceFiles, ApplicationValues are not updated. However if local WU instance's state
+     * is found to differ from the server's version, a full refresh is performed.
+     *
+     * @param wu
+     * @throws Exception
+     */
     protected void fastWURefresh(WorkunitInfo wu) throws Exception
     {
         getSoapProxy();
@@ -103,13 +121,30 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
     }
 
+    /**
+     * Performs full refresh of local WU instance based on that WU's state on target
+     * HPCC cluster. Full refresh includes Graphs, Results,ResultsView, ResultSchemas,
+     * SourceFiles, ApplicationValues.
+     *
+     * @param wu
+     * @throws Exception
+     */
     protected void fullWURefresh(WorkunitInfo wu) throws Exception
     {
         fullWURefresh(wu, true, true, true, true);
     }
 
-    void fullWURefresh(WorkunitInfo wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles,
-            boolean includeApplicationValues) throws Exception
+    /**
+     * Synchronizes local WU instance with current state of that WU on target HPCC cluster.
+     * Caller can choose which portions of the wu state to update.
+     * @param wu
+     * @param includeGraphs
+     * @param includeResults
+     * @param includeSourceFiles
+     * @param includeApplicationValues
+     * @throws Exception
+     */
+    void fullWURefresh(WorkunitInfo wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles, boolean includeApplicationValues) throws Exception
     {
         getSoapProxy();
 
@@ -179,17 +214,30 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return (new WsWorkunitsLocator()).getWsWorkunitsServiceSoapAddress();
     }
 
+    /**
+     * @param wsWorkunitsServiceSoapProxy
+     */
     protected HPCCWsWorkUnitsClient(WsWorkunitsServiceSoapProxy wsWorkunitsServiceSoapProxy)
     {
         this.wsWorkunitsServiceSoapProxy = wsWorkunitsServiceSoapProxy;
     }
 
+    /**
+     * @param baseConnection
+     */
     protected HPCCWsWorkUnitsClient(Connection baseConnection)
     {
         this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(),
                 baseConnection.getUserName(), baseConnection.getPassword());
     }
 
+    /**
+     * @param protocol
+     * @param targetHost
+     * @param targetPort
+     * @param user
+     * @param pass
+     */
     protected HPCCWsWorkUnitsClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         try
@@ -247,7 +295,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * Reports if the WU in question is in the compiled state. Does not make call to the target Web Service, extracts
      * information from the WU object
      *
-     * @param wuid
+     * @param thewui
      * @return true if state is compiled
      */
     public boolean isWorkunitCompiled(WorkunitInfo thewui)
@@ -259,7 +307,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * Reports if the WU in question is in the failed state. Does not make call to the target Web Service, extracts
      * information from the WU object
      *
-     * @param wuid
+     * @param thewui
      * @return true if state is failed
      */
     public boolean isWorkunitFailed(WorkunitInfo thewui)
@@ -313,9 +361,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * Replies true if given wuid is in complete state. This method does not make a call to WS, and it is preferable over
      * the version that calls WS.
      *
-     * @param wuid
+     * @param thewui
      * @return true if wu is in one of the complete states
-     * @throws Exception
      */
     static public boolean isWorkunitComplete(WorkunitInfo thewui)
     {
@@ -445,13 +492,9 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
 
     /**
-     * Attempts to create, compile and publish a query based on ecl provided.
+     * Attempts to create, compile and publish a query based on ecl provided via a workunitinfo object.
      *
-     * @param ecl
-     * @param jobname
-     * @param targetcluster
-     * @param waitMillis
-     * @param resultLimit
+     * @param wu  - Workunitinfo object containing all pertinent information for WU request
      * @return
      * @throws Exception
      */
@@ -487,8 +530,6 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * Attempts to publish a query based on a given Workunit.
      *
      * @param wu
-     * @param jobname
-     * @param targetcluster
      * @return
      * @throws Exception
      */
@@ -535,13 +576,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
 
     /**
-     * Get information about a given WorkUnit
+     * Get information about a given WorkUnit. Workunit must not be archived.
      *
-     * @param wuid
-     *            - ID of target workunit
-     * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws Exception
-     *             - Caller must handle exceptions
+     * @param wuid       - ID of target workunit
+     * @return           - ECLWorkunit object with information pertaining to the WU
+     * @throws Exception - Caller must handle exceptions
      */
     public WorkunitInfo getWUInfo(String wuid) throws Exception
     {
@@ -549,7 +588,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
 
     /**
-     * Get information about a given WorkUnit
+     * Get information about a given WorkUnit, caller can request to unarchive
+     * the WU if necessary to fetch WU info.
      *
      * @param wuid
      *            - ID of target workunit
@@ -594,6 +634,22 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return workunit;
     }
 
+    /**
+     * Get information about a given WorkUnit, Workunit must not be archived.
+     * Caller can choose which WU information portion to fetch
+     * @param wuid
+     * @param includeResults
+     * @param includeGraphs
+     * @param includeSourceFiles
+     * @param includeApplicationValues
+     * @param includeDebugValues
+     * @param includeExceptions
+     * @param includeVariables
+     * @param includeXmlSchemas
+     * @param includeTimers
+     * @return
+     * @throws Exception
+     */
     public WorkunitInfo getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
             boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues,
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers)
@@ -603,6 +659,24 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
                 includeDebugValues, includeExceptions, includeVariables, includeXmlSchemas, includeTimers, false);
     }
 
+    /**
+     * Get information about a given WorkUnit, caller can request to unarchive
+     * Caller can choose which WU information portion to fetch
+     *
+     * @param wuid
+     * @param includeResults
+     * @param includeGraphs
+     * @param includeSourceFiles
+     * @param includeApplicationValues
+     * @param includeDebugValues
+     * @param includeExceptions
+     * @param includeVariables
+     * @param includeXmlSchemas
+     * @param includeTimers
+     * @param unarchive
+     * @return
+     * @throws Exception
+     */
     public WorkunitInfo getWUInfo(String wuid, boolean includeResults, boolean includeGraphs,
             boolean includeSourceFiles, boolean includeApplicationValues, Boolean includeDebugValues,
             Boolean includeExceptions, Boolean includeVariables, Boolean includeXmlSchemas, Boolean includeTimers,
@@ -647,9 +721,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * This method queries WU information using a bogus WUID. Used as a mechanism for testing connectivity with HPCC
      * ESP. Temporarily increases timeout value to 3 seconds;
      *
-     * @return - true if able to reply is received within timout value of 3 secs, false otherwise
-     * @throws Exception
-     *             - Caller must handle exceptions
+     * @return           - True if able to reply is received within timout value of 3 secs, false otherwise
+     * @throws Exception - Caller must handle exceptions
      */
     public boolean testWUQuery() throws Exception
     {
@@ -683,8 +756,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /**
      * Converts EspException from v1_56 to v1_58
      *
-     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.EspException
-     *            in
+     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.EspException  in
      * @return EspException
      */
     private EspException convertEspException(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.EspException in)
@@ -700,12 +772,10 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /**
      * Converts ArrayOfEspException from v1_56 to v1_58
      *
-     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException
-     *            in
+     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException in
      * @return ArrayOfEspException
      */
-    private ArrayOfEspException convertArrayOfEspException(
-            org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException in)
+    private ArrayOfEspException convertArrayOfEspException(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ArrayOfEspException in)
     {
         if (in==null)
         {
@@ -729,8 +799,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /**
      * Converts ThorLogInfo from v1_56 to v1_58
      *
-     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ThorLogInfo
-     *            in
+     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ThorLogInfo in
      * @return ThorLogInfo
      */
     private ThorLogInfo convertThorLogInfo(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ThorLogInfo in)
@@ -746,8 +815,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /**
      * Converts ECLQuery from v1_56 to v1_58
      *
-     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLQuery
-     *            in
+     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLQuery in
      * @return ECLQuery
      */
     private ECLQuery convertECLQuery(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLQuery in)
@@ -765,8 +833,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /**
      * Converts ECLHelpFile from v1_56 to v1_58
      *
-     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLHelpFile
-     *            in
+     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLHelpFile in
      * @return ECLHelpFile
      */
     private ECLHelpFile convertECLHelpFile(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLHelpFile in)
@@ -785,8 +852,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /**
      * Converts ECLException from v1_56 to v1_58
      *
-     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLException
-     *            in
+     * @param org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLException in
      * @return ECLException
      */
     private ECLException convertECLException(org.hpccsystems.ws.client.gen.wsworkunits.v1_56.ECLException in)
@@ -1219,6 +1285,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
             return true;
     }
 
+
     /**
      * As of Platform version 6.0.0. Now maps to new prototype, excluding the pageSize and startPageFrom parameters.
      * Executes a WUQuery, based on parameters provided. If a custom WUQuery is desired, the caller can make a direct
@@ -1228,17 +1295,16 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
      * @param wuid
      * @param jobname
      * @param cluster
-     * @param type
+     * @param archived
      * @param sortby
      * @param state
      * @param endDate
      * @param startDate
      * @param pageStartFrom
      * @param pageSize
-     * @param count
      * @param owner
      * @param applicationValues
-     * @return WUQueryResponse
+     * @return
      * @throws Exception
      */
     public List<WorkunitInfo> workUnitUQuery(String wuid, String jobname, String cluster, Boolean archived, WUQueryInfo.SortBy sortby,
@@ -1366,14 +1432,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return errsfound;
     }
 
+
     /**
-     * Requests target HPCC System to create and compile WU based on ecl provided.
+     * Requests target HPCC System to create and compile WU based on workunit info provided.
      *
-     * @param ecl
-     * @param targetCluster
-     * @param resultLimit
-     * @param debugValues
-     * @param jobname
+     * @param wu   - The workunit information used to create WU on HPCC cluster
      * @return
      * @throws Exception
      */
@@ -1415,11 +1478,9 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     /*
      * this method is purely for the Platform class
      */
-    public WorkunitInfo createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueWrapper> appVals,
-            String jobName, boolean compileOnly) throws Exception
+    public WorkunitInfo createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueWrapper> appVals, String jobName, boolean compileOnly) throws Exception
     {
-        WorkunitInfo wi=new WorkunitInfo().setECL(archiveOrEcl).setJobname(jobName)
-            .setApplicationValues(appVals).setResultLimit(resultLimit==0?null:resultLimit);
+        WorkunitInfo wi=new WorkunitInfo().setECL(archiveOrEcl).setJobname(jobName).setApplicationValues(appVals).setResultLimit(resultLimit==0?null:resultLimit);
 
         return createWUFromECL(wi);
     }
@@ -1644,7 +1705,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     }
 
     /**
-     * Fetches results associated with a given WUID If the given WUID has been archived, results might not be available
+     * Fetches results associated with a given WUID. If the given WUID has been archived, results might not be available
      * using this function Use fetchResultsFromLogicalName instead
      *
      * @param wuid
@@ -1673,6 +1734,20 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return wuResultResponse.getResult();
     }
 
+    /**
+     * Fetches results associated with a given WUID or logical file name.
+     *  If the given WUID has been archived, results might not be available -use fetchResultsFromLogicalName instead
+     *
+     * @param wuidorlogicalname
+     * @param useWuid
+     * @param sequence
+     * @param cluster
+     * @param suppressXMLShema
+     * @param resultOffset
+     * @param resultCount
+     * @return
+     * @throws Exception
+     */
     public WUResultResponse fetchRawResults(String wuidorlogicalname, boolean useWuid, int sequence, String cluster,
             boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
     {
@@ -1720,6 +1795,14 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return (wuid.charAt(9) == '-');
     }
 
+    /**
+     * Fetches results associated with a given WUID or logical file name.
+     * All parameters and options must be pre-set in the "parameters" input param
+     *
+     * @param parameters
+     * @return
+     * @throws Exception
+     */
     public WUResultResponse fetchRawResults(WUResult parameters) throws Exception
     {
         getSoapProxy();
@@ -1839,6 +1922,15 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         }
     }
 
+    /**
+     * Submit the given ECL code for syntax check upon the given target cluster
+     *
+     * @param ecl          - The ECL to syntax check
+     * @param cluster      - The HPCC target cluster on which to syntax check
+     * @param timeout      - Maximum time for this check
+     * @return
+     * @throws Exception
+     */
     public List<WUExceptionWrapper> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
     {
         getSoapProxy();
@@ -1858,8 +1950,16 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
     }
 
-    public WUQuerySetDetailsResponse getQueriesDetail(String querySetName, String clusterName, String filter)
-            throws Exception
+    /**
+     * Fetch details about the given query
+     *
+     * @param querySetName
+     * @param clusterName
+     * @param filter
+     * @return
+     * @throws Exception
+     */
+    public WUQuerySetDetailsResponse getQueriesDetail(String querySetName, String clusterName, String filter) throws Exception
     {
         getSoapProxy();
 
@@ -1871,6 +1971,12 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return wsWorkunitsServiceSoapProxy.WUQuerysetDetails(wuQuerysetDetails);
     }
 
+    /**
+     * Request that a given workunit is aborted
+     *
+     * @param wuid
+     * @throws Exception
+     */
     public void abortWU(String wuid) throws Exception
     {
         getSoapProxy();
@@ -1883,6 +1989,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         wsWorkunitsServiceSoapProxy.WUAbort(request);
     }
 
+    /**
+     * Request that a given workunit is deleted
+     * @param wuid
+     * @throws Exception
+     */
     public void deleteWU(String wuid) throws Exception
     {
         getSoapProxy();
@@ -1896,6 +2007,15 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         this.throwWsWUExceptions(resp.getExceptions(), "Could not delete " + wuid + ":");
     }
 
+    /**
+     * Request that a given workunit is re-submitted. Caller can choose to clone the wu, and
+     * to restart the WU's workflow.
+     *
+     * @param wuid
+     * @param restart
+     * @param clone
+     * @throws Exception
+     */
     public void resubmitWU(String wuid, boolean restart, boolean clone) throws Exception
     {
         getSoapProxy();
@@ -1910,6 +2030,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         wsWorkunitsServiceSoapProxy.WUResubmit(request);
     }
 
+    /**
+     * Fetch set of available QuerySets
+     * @return
+     * @throws Exception
+     */
     public QuerySet[] getQuerySets() throws Exception
     {
         getSoapProxy();
@@ -2039,8 +2164,17 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return resp;
     }
 
-    public boolean doWorkunitAction(String wuid, ECLWUActions action)
-            throws ArrayOfEspException, RemoteException, Exception
+    /**
+     * Request a given action to be performed upon the given workunit.
+     *
+     * @param wuid       - The target workunit
+     * @param action     - The action to be requested see ECLWUActions
+     * @return
+     * @throws ArrayOfEspException
+     * @throws RemoteException
+     * @throws Exception
+     */
+    public boolean doWorkunitAction(String wuid, ECLWUActions action) throws ArrayOfEspException, RemoteException, Exception
     {
         WUAction wa = new WUAction();
         wa.setWUActionType(action);
@@ -2104,8 +2238,18 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return resp.getWorkunit();
     }
 
-    public WULogFileInfo getWorkunitFile(String wuid, String filename, WUFileType filetype, String description,
-            String ipaddr, boolean entirefile) throws Exception
+    /**
+     * Get Workunit file
+     * @param wuid
+     * @param filename
+     * @param filetype
+     * @param description
+     * @param ipaddr
+     * @param entirefile
+     * @return
+     * @throws Exception
+     */
+    public WULogFileInfo getWorkunitFile(String wuid, String filename, WUFileType filetype, String description, String ipaddr, boolean entirefile) throws Exception
     {
         WUFile file = new WUFile();
         file.setWuid(wuid);
@@ -2123,6 +2267,8 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
 
     }
     /**
+     * Request to run a given workunit. Caller can set various WU options.
+     *
      * @param wuid - wuid to call WURun for
      * @param namedvalues - override stored variables with this set of stored variables
      * @param appvalues - override application values with this set of app values
@@ -2183,13 +2329,14 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return wi;
     }
 
-     /*
-     * Call WUQuerySetDetails search
-     * @param filtertype - QuerySetFilterType: filter to search on
-     * @param filtervalue - filter value
-     * @param querySetName - queryset to search
-     * @param clustername - cluster to search
-     * @return - List of QueryResults of matching queries
+    /**
+     * Fetch list of querysets
+     *
+     * @param filtertype
+     * @param filtervalue
+     * @param querySetName
+     * @param clustername
+     * @return
      * @throws Exception
      */
     public List<QueryResult> searchQueries(QuerySetFilterType filtertype, String filtervalue, String querySetName,

@@ -327,7 +327,7 @@ public class HPCCFileSprayClient extends DataSingleton
         req.setServer(netaddr);
 
         DropZoneFileSearchResponse resp = fileSprayServiceSoapProxy.dropZoneFileSearch(req);
-        
+
          ArrayOfEspException exceptions = resp.getExceptions();
          if (exceptions != null)
          {
@@ -344,6 +344,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * Note: a logical dropzone can contain multiple machines
      * @param netAddress      - Address of specific dropzone instance
      * @param path            - The dropzone zone path on the local filesystem
+     * @param OS              - Optional, OS code
      * @return                - Array of file descriptors
      * @throws Exception
      */
@@ -418,6 +419,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @param prefix
      * @param destGroup
      * @param overwrite
+     * @param format           - SprayVariableFormat object describing the file format
      * @return                 - Progress response at time of request
      * @throws Exception
      */
@@ -455,6 +457,7 @@ public class HPCCFileSprayClient extends DataSingleton
      * @param prefix
      * @param destGroup
      * @param overwrite
+     * @param format           - SprayVariableFormat object describing the file format
      * @param sourceMaxRecordSize
      * @param maxConnections
      * @param compress
@@ -688,7 +691,6 @@ public class HPCCFileSprayClient extends DataSingleton
      * @param decryptKey
      * @param encryptKey
      * @param nosplit
-     * @param quotedTerminator
      * @param recordStructurePresent
      * @param transferBufferSize
      * @param wrap
@@ -816,7 +818,7 @@ public class HPCCFileSprayClient extends DataSingleton
 
     /**
      * UPLOADS A FILE( UP TO 2GB FILE SIZES) TO THE SPECIFIED LANDING ZONE
-     * @param file
+     * @param uploadFile
      *            - The File to upload
      * @param dropZone
      *            - The target dropzone
@@ -1171,8 +1173,6 @@ public class HPCCFileSprayClient extends DataSingleton
      * @param targetFilename (optional)      - The desired name for the uploaded file
      * @param machineLoginUserName           - The user account name to log on to the target machine
      * @param password                       - The user account password to log on to the target machine
-     * @param connconfig (optional)          - Connection config options
-     * @return                               - void no exception = success
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password) throws Exception
     {
@@ -1186,7 +1186,6 @@ public class HPCCFileSprayClient extends DataSingleton
      * @param machineLoginUserName           - The user account name to log on to the target machine
      * @param password                       - The user account password to log on to the target machine
      * @param connconfig (optional)          - Connection config options
-     * @return                               - void no exception = success
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception
     {
@@ -1201,7 +1200,6 @@ public class HPCCFileSprayClient extends DataSingleton
      * @param machineLoginUserName           - The user account name to log on to the target machine
      * @param password                       - The user account password to log on to the target machine
      * @param connconfig (optional)          - Connection config options
-     * @return                               - void no exception = success
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetDropzoneAddress, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception
     {
@@ -1212,6 +1210,13 @@ public class HPCCFileSprayClient extends DataSingleton
         Sftp.lzPut(localFileName, targetDropzoneAddress, dropZones[0].getPath(), targetFilename, machineLoginUserName, password, dropZones[0].getLinux().equals("true"), connconfig);
     }
 
+    /**
+     * Attempts to fetch information regarding a DFU Workunit
+     *
+     * @param workunitid
+     * @return
+     * @throws Exception
+     */
     public GetDFUWorkunitResponse getDFUWorkunit(String workunitid) throws Exception
     {
         getSoapProxy();
@@ -1225,6 +1230,14 @@ public class HPCCFileSprayClient extends DataSingleton
         return response;
     }
 
+    /**
+     * Attempts to fetch list of DFU Workunits
+     *
+     * @param cluster
+     * @param pagesize
+     * @return
+     * @throws Exception
+     */
     public GetDFUWorkunitsResponse getDFUWorkunits(String cluster, Long pagesize) throws Exception
     {
         getSoapProxy();
