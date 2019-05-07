@@ -255,8 +255,8 @@ public class HPCCFile implements Serializable
         }
         catch (Exception e)
         {
-            log.error("Encountered invalid record definition: '" + originalRecDefInJSON + "' error: " + e.getMessage());
-            throw new HpccFileException("Bad definition", e);
+            log.error("Unable to retrieve file or record information: " + e.getMessage());
+            throw new HpccFileException("Unable to retrieve file or record information: " + e.getMessage(), e);
         }
 
         try
