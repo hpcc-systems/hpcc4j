@@ -298,7 +298,7 @@ public class BinaryRecordReader implements IRecordReader
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                     if (intValue < 0)
                     {
-                        throw new UnparsableContentException("Integer overflow. Max 8 byte integer value: " + Long.MAX_VALUE);
+                        log.warn("Detected possible unsigned value overflow in field '" + fd.getFieldName() + "'. Ensure proper value interpretation");
                     }
                 }
                 else
