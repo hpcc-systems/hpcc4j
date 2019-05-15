@@ -106,8 +106,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         }
         catch (HpccFileException e)
         {
-            log.error("Read failure for " + this.dataPartition.toString());
-            throw new java.util.NoSuchElementException("Fatal read error");
+            log.error("Read failure for " + this.dataPartition.toString() + " " + e.getMessage());
+            throw new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
         }
         return (T) rslt;
     }

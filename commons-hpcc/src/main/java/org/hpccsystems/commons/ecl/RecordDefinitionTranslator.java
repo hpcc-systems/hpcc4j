@@ -32,6 +32,7 @@ public class RecordDefinitionTranslator
     private static final String NAME_KEY           = "name";
     private static final String TYPE_KEY           = "type";
     private static final String CHILD_KEY          = "child";
+    private static final String FLAGS_KEY          = "flags";
 
     private static final int    FLAG_UNSIGNED      = 256;
     private static final int    FLAG_UNKNOWN_SIZE  = 1024;
@@ -57,6 +58,9 @@ public class RecordDefinitionTranslator
     // These types need to be revised
     final private static int    type_char          = 11;         // Convert to string
     final private static int    type_qstring       = 30;         // Convert to string
+
+    // Additional retained flags
+    final private static int    FLAG_IS_PAYLOAD_FIELD = 0x00010000;
 
     private static FieldType getFieldType(int typeID)
     {
@@ -135,6 +139,12 @@ public class RecordDefinitionTranslator
     private static boolean isUnsigned(int typeID)
     {
         return (typeID & FLAG_UNSIGNED) != 0;
+    }
+
+    private static int getAdditionalFlags(int flags)
+    {
+        final int additionalFlagsMask = ~0x7FFF;
+        return (flags & additionalFlagsMask);
     }
 
     /**
@@ -375,75 +385,76 @@ public class RecordDefinitionTranslator
 
     private static int getTypeID(FieldDef field) throws Exception
     {
+        int typeID = 0;
         switch (field.getFieldType())
         {
             case SET:
             {
-                int typeID = type_set;
+                typeID = type_set;
                 if (field.isFixed() == false)
                 {
                     typeID |= FLAG_UNKNOWN_SIZE;
                 }
-                return typeID;
+                break;
             }
             case DATASET:
             {
-                int typeID = type_table;
+                typeID = type_table;
                 if (field.isFixed() == false)
                 {
                     typeID |= FLAG_UNKNOWN_SIZE;
                 }
-                return typeID;
+                break;
             }
             case BINARY:
             {
-                int typeID = type_data;
+                typeID = type_data;
                 if (field.isFixed() == false)
                 {
                     typeID |= FLAG_UNKNOWN_SIZE;
                 }
-                return typeID;
+                break;
             }
             case BOOLEAN:
             {
-                int typeID = type_boolean;
-                return typeID;
+                typeID = type_boolean;
+                break;
             }
             case INTEGER:
             {
-                int typeID = type_int;
+                typeID = type_int;
                 if (field.isUnsigned())
                 {
                     typeID |= FLAG_UNSIGNED;
                 }
-                return typeID;
+                break;
             }
             case DECIMAL:
             {
-                int typeID = type_decimal;
+                typeID = type_decimal;
                 if (field.isUnsigned())
                 {
                     typeID |= FLAG_UNSIGNED;
                 }
-                return typeID;
+                break;
             }
             case REAL:
             {
-                int typeID = type_real;
-                return typeID;
+                typeID = type_real;
+                break;
             }
             case CHAR:
             {
-                int typeID = type_char;
+                typeID = type_char;
                 if (field.isUnsigned())
                 {
                     typeID |= FLAG_UNSIGNED;
                 }
-                return typeID;
+                break;
             }
             case STRING:
             {
-                int typeID = -1;
+                typeID = -1;
                 HpccSrcType srcType = field.getSourceType();
                 if (srcType == HpccSrcType.SINGLE_BYTE_CHAR)
                 {
@@ -472,11 +483,11 @@ public class RecordDefinitionTranslator
                     typeID |= FLAG_UNKNOWN_SIZE;
                 }
 
-                return typeID;
+                break;
             }
             case VAR_STRING:
             {
-                int typeID = -1;
+                typeID = -1;
                 HpccSrcType srcType = field.getSourceType();
                 if (srcType == HpccSrcType.SINGLE_BYTE_CHAR)
                 {
@@ -497,16 +508,16 @@ public class RecordDefinitionTranslator
                     typeID |= FLAG_UNKNOWN_SIZE;
                 }
 
-                return typeID;
+                break;
             }
             case RECORD:
             {
-                int typeID = type_record;
+                typeID = type_record;
                 if (field.isFixed() == false)
                 {
                     typeID |= FLAG_UNKNOWN_SIZE;
                 }
-                return typeID;
+                break;
             }
             default:
             {
@@ -514,6 +525,8 @@ public class RecordDefinitionTranslator
                         + " with unknown type: " + field.getFieldType().description());
             }
         }
+
+        return typeID;
     }
 
     private static int getTypeHash(FieldDef field) throws Exception
@@ -608,7 +621,8 @@ public class RecordDefinitionTranslator
                     childJson.put("type", childTypeName);
                     if (childTypeID > 0)
                     {
-                        childJson.put("flags", childTypeID);
+                        int flags = childTypeID | childField.getAdditionalFlags();
+                        childJson.put("flags", flags);
                     }
 
                     if (childField.getFieldType() == FieldType.DATASET)
@@ -676,7 +690,7 @@ public class RecordDefinitionTranslator
         boolean isUnsigned = isUnsigned(typeID);
         HpccSrcType srcType = getSourceType(typeID);
         return new FieldDef("RootRecord", fieldType, fieldType.description(), length, isFixedLength, isUnsigned,
-                srcType, childDefs.toArray(new FieldDef[0]));
+                    srcType, childDefs.toArray(new FieldDef[0]));
     }
 
     private static FieldDef parseFieldDefinition(JSONObject jsonTypeDefinitions,
@@ -684,9 +698,11 @@ public class RecordDefinitionTranslator
     {
         String name = jsonFieldDefinition.getString(NAME_KEY);
         String type = jsonFieldDefinition.getString(TYPE_KEY);
+        int flags = jsonFieldDefinition.getInt(FLAGS_KEY);
 
         FieldDef protoTypeDef = getOrParseJsonTypeDefintion(type, jsonTypeDefinitions, protoTypeDefs);
         FieldDef ret = new FieldDef(protoTypeDef);
+        ret.setAdditionalFlags(getAdditionalFlags(flags));
         ret.setFieldName(name);
         return ret;
     }
