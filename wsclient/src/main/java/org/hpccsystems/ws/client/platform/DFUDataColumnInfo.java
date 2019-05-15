@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.platform;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUDataColumn;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
 public class DFUDataColumnInfo extends DFUDataColumn
