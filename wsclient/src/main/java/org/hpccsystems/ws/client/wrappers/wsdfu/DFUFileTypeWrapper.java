@@ -10,7 +10,7 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
  * Provides layer of indirection between caller and ESP version specific logic
  *
  */
-public class DFUFileTypeWrapper extends org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileType
+public class DFUFileTypeWrapper extends org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileType
 {
     public static final java.lang.String _Flat = "Flat";
     public static final java.lang.String _Index = "Index";

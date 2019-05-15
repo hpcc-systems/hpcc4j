@@ -17,7 +17,7 @@
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCreateResponse;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileCreateResponse;
 
 public class DFUCreateFileWrapper
 {
@@ -35,7 +35,7 @@ public class DFUCreateFileWrapper
 
         if (resp != null && resp.getAccessInfo() != null)
         {
-            wrappedDFUFileAccessInfo = new DFUFileAccessInfoWrapper(resp.getAccessInfo());
+            wrappedDFUFileAccessInfo = new DFUFileAccessInfoWrapper(resp.getAccessInfo(), null);
         }
         else
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
