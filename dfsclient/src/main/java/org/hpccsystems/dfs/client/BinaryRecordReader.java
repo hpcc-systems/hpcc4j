@@ -242,7 +242,7 @@ public class BinaryRecordReader implements IRecordReader
         }
         catch (Exception e)
         {
-            throw new HpccFileException("Failed to parse next record", e);
+            throw new HpccFileException("Failed to parse next record: " + e.getMessage(), e);
         }
 
         return record;
