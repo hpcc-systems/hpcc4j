@@ -24,6 +24,14 @@ public class DFUFileCopyWrapper
     private String path;
     private String resolvedHost;
 
+    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileCopy soapdfufilecopy, String resolvedhost)
+    {
+        resolvedHost = resolvedhost;
+        copyIndex = soapdfufilecopy.getCopyIndex();
+        locationIndex = soapdfufilecopy.getLocationIndex();
+        path = soapdfufilecopy.getPath();
+    }
+
     public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCopy soapdfufilecopy, String resolvedhost)
     {
         resolvedHost = resolvedhost;

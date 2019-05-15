@@ -16,7 +16,7 @@ import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.gen.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_17.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUDataColumn;
 
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;

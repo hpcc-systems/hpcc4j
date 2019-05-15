@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.platform;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUActionInfo;
 
 public class DFUResult {
     
