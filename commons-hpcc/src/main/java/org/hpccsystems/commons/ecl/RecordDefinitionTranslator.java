@@ -698,7 +698,13 @@ public class RecordDefinitionTranslator
     {
         String name = jsonFieldDefinition.getString(NAME_KEY);
         String type = jsonFieldDefinition.getString(TYPE_KEY);
-        int flags = jsonFieldDefinition.getInt(FLAGS_KEY);
+
+        int flags = 0;
+        try
+        {
+            flags = jsonFieldDefinition.getInt(FLAGS_KEY);
+        }
+        catch(Exception e) {}
 
         FieldDef protoTypeDef = getOrParseJsonTypeDefintion(type, jsonTypeDefinitions, protoTypeDefs);
         FieldDef ret = new FieldDef(protoTypeDef);
