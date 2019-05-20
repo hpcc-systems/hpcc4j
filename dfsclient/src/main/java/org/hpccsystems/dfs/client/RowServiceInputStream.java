@@ -59,8 +59,9 @@ public class RowServiceInputStream extends InputStream
     private int                      markPos = -1;
 
     private Socket                   sock;
-    private int                      DEFAULT_CONNECT_TIMEOUT_MILIS = 1000; // 1 second connection timeout
-
+    static int                       DEFAULT_CONNECT_TIMEOUT_MILIS = 1000; // 1 second connection timeout
+    private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
+    
     public static final Charset      HPCCCharSet                   = Charset.forName("ISO-8859-1");
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
@@ -76,7 +77,7 @@ public class RowServiceInputStream extends InputStream
      * @param rd
      *            the JSON definition for the read input and output
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout) throws Exception
     {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
@@ -101,7 +102,7 @@ public class RowServiceInputStream extends InputStream
         this.handle = 0;
         this.cursorBin = new byte[0];
         this.simulateFail = false;
-
+        this.connectTimeout=connectTimeout;
         // Read buffer is 2x to allow for partial record reads for records larger than MaxReadSizeKB.
         // Note: this is currently not partial reads are not currently supported by the row service
         this.readBuffer = new byte[MaxReadSizeKB*1024*2];
@@ -546,7 +547,7 @@ public class RowServiceInputStream extends InputStream
                         // data
                         // So we don't care as much about individual packet latency or connection time overhead
                         sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), DEFAULT_CONNECT_TIMEOUT_MILIS);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
 
                         log.debug("Attempting SSL handshake...");
                         ((SSLSocket) sock).startHandshake();
@@ -564,7 +565,7 @@ public class RowServiceInputStream extends InputStream
                         // data
                         // So we don't care as much about individual packet latency or connection time overhead
                         sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), DEFAULT_CONNECT_TIMEOUT_MILIS);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
                     }
                     log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = "
                             + sock.getPort());
