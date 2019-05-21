@@ -34,6 +34,10 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     private BinaryRecordReader    binaryRecordReader;
     private IRecordBuilder        recordBuilder     = null;
 
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder) throws Exception
+    {
+        this(dp,originalRD,recBuilder,RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS);
+    }
     /**
      * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
      * 
@@ -46,7 +50,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param projectedRD
      *            the requested record format
      */
-    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder) throws Exception
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout) throws Exception
     {
         this.originalRecordDef = originalRD;
         if (this.originalRecordDef == null)
@@ -63,7 +67,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             throw new Exception("IRecordBuilder does not have a valid record definition.");
         }
 
-        this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition);
+        this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition,connectTimeout);
 
         this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
         this.binaryRecordReader.initialize(this.recordBuilder);
