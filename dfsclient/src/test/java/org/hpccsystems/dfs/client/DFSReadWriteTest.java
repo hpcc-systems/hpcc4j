@@ -44,7 +44,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(RemoteTests.class)
 public class DFSReadWriteTest
 {
     private static final String   clusterIP      = "192.168.56.101";

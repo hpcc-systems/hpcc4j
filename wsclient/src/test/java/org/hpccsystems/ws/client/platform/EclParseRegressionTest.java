@@ -28,10 +28,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.ManualUnitTest;
-import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
 import org.hpccsystems.ws.client.platform.Platform;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 @Category(ManualUnitTest.class)
@@ -101,8 +101,8 @@ public class EclParseRegressionTest  {
     public void testSingle() throws Exception {
   //      String fname=".::lrenn:edit-ma-test";
         String fname="anthem::enc_wpt_edw_provider_thor_superfile";
-        DFUFileDetailInfo info=getDFUClient().getFileDetails(fname, null);
-        EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(info.getEcl());
+        DFUFileDetailWrapper info=getDFUClient().getFileDetails(fname, null);
+        EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(info.getEcl());
         if (rec.getParseErrors().size()!=0) {
             fail(rec.getParseErrors().toString());
         }
@@ -118,7 +118,7 @@ public class EclParseRegressionTest  {
         for (String rec:failedrecs) {
             String rececl="";
             try {
-                DFUFileDetailInfo info=getDFUClient().getFileDetails(rec, null);
+                DFUFileDetailWrapper info=getDFUClient().getFileDetails(rec, null);
                 rececl=info.getEcl();
                 if (StringUtils.isEmpty(rececl)) {
                     throw new Exception("No record ecl for " + rec);
@@ -128,7 +128,7 @@ public class EclParseRegressionTest  {
                 continue;
             }
             try {
-                EclRecordInfo rece=DFUFileDetailInfo.getRecordFromECL(rececl);
+                EclRecordInfo rece=DFUFileDetailWrapper.getRecordFromECL(rececl);
                 alreadytested.add(rec);
                 if (rece.getParseErrors().size()!=0) {
                     throw new Exception("Failed to parse " + rec + ":" + StringUtils.join(rece.getParseErrors(),"\n"));
@@ -184,7 +184,7 @@ public class EclParseRegressionTest  {
             }
             String rececl=null;
             try {
-                DFUFileDetailInfo info=getDFUClient().getFileDetails(fullfilename, null);
+                DFUFileDetailWrapper info=getDFUClient().getFileDetails(fullfilename, null);
                 if (info.getIsSuperfile()) {
                     System.out.print(fullfilename + " is superfile");
                 }
@@ -203,7 +203,7 @@ public class EclParseRegressionTest  {
                 if (StringUtils.countMatches(rececl, "RECORD")>1 || StringUtils.countMatches(rececl,"{")>1) {
                     System.out.println(fullfilename + " has child datasets");
                 }
-                    EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(rececl);
+                    EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(rececl);
                     alreadytested.add(fullfilename);
                     if (rec.getParseErrors().size()!=0) {
                         throw new Exception("Failed to parse " + fullfilename + ":" + StringUtils.join(rec.getParseErrors(),"\n"));

@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
-
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.junit.Test;
 
 public class DFUFileDetailInfoTest {
@@ -57,7 +57,7 @@ public class DFUFileDetailInfoTest {
     // Single line style tests
     @Test
     public void testGetRecordEcl() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -75,7 +75,7 @@ public class DFUFileDetailInfoTest {
     // Single line style tests
     @Test
     public void testFullRecordEcl() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(FULL_RECORD);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(FULL_RECORD);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -110,7 +110,7 @@ public class DFUFileDetailInfoTest {
     // Single line style tests
     @Test
     public void testGetRecordEclNoParams() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_NO_PARAMS);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_NO_PARAMS);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -126,7 +126,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordEclAnnotationAndComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_AND_COMMENT);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_AND_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -143,7 +143,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordEclMultiParams() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_MULTI_PARAMS);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_MULTI_PARAMS);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -162,7 +162,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordEclWithComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_COMMENT);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(WITH_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -176,7 +176,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testInlineWithMaxlength() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(INLINE_WITH_MAXLENGTH);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(INLINE_WITH_MAXLENGTH);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -189,7 +189,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordEclWithAnnotationLikeComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_LIKE_COMMENT);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_LIKE_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -203,7 +203,7 @@ public class DFUFileDetailInfoTest {
     // ML tests
     @Test
     public void testGetRecordMlEcl() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -220,7 +220,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordMlEclAnnotationAndComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_AND_COMMENT);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION_AND_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -236,7 +236,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordMlEclMultiParams() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_MULTI_PARAMS);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION_MULTI_PARAMS);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get multi-annotated recordset:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -255,7 +255,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordMlEclWithComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_COMMENT);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get ml with comment test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -268,7 +268,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordMlEclWithAnnotationLikeComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_LIKE_COMMENT);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION_LIKE_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get record with annotation comment:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -281,7 +281,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordMlEclInlineComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_INLINE);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(ML_INLINE);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get ml inline test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -299,7 +299,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordMaxlength() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(MAXLENGTH);
+        EclRecordInfo info = DFUFileDetailWrapper.getRecordEcl(MAXLENGTH);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get maxlength test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -319,7 +319,7 @@ public class DFUFileDetailInfoTest {
         layouts.put("inline record def with maxlength","{,maxLength(84)\r\nstring4 sic4_code, string80 sic4_description };");
         boolean passed=true;
         for (Entry<String,String> item:layouts.entrySet()) {
-            EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(item.getValue());
+            EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(item.getValue());
             if (rec.getParseErrors().size()!=0) {                
                 System.out.println(item.getKey() + " FAILED:" + StringUtils.join(rec.getParseErrors(),"\n"));
                 passed=false;
