@@ -59,7 +59,7 @@ public class RowServiceInputStream extends InputStream
     private int                      markPos = -1;
 
     private Socket                   sock;
-    static int                       DEFAULT_CONNECT_TIMEOUT_MILIS = 1000; // 1 second connection timeout
+    static int                       DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
     
     public static final Charset      HPCCCharSet                   = Charset.forName("ISO-8859-1");
@@ -69,6 +69,10 @@ public class RowServiceInputStream extends InputStream
 
     private static final Logger      log                           = Logger.getLogger(RowServiceInputStream.class.getName());
 
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception 
+    {
+        this(dp,rd,pRd,DEFAULT_CONNECT_TIMEOUT_MILIS);
+    }
     /**
      * A plain socket connect to a THOR node for remote read
      * 
