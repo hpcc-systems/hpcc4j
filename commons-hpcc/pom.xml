@@ -64,8 +64,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <groups>${test.groups}</groups>
                     <excludedGroups>${test.exclude.groups}</excludedGroups>
                 </configuration>
@@ -114,6 +114,10 @@
 		<activation>
 			<activeByDefault>true</activeByDefault>
 		</activation>
+		<properties>
+				<test.groups></test.groups>
+				<test.exclude.groups>org.hpccsystems.commons.IntegrationTest,org.hpccsystems.commons.ManualUnitTest</test.exclude.groups>
+		</properties>
 		<build>
 			<plugins>
 				<plugin>
@@ -128,6 +132,10 @@
 						</dependency>
 					</dependencies>
                     <configuration>
+	                    <includes>
+							<include>**/*.class</include>
+						</includes>
+						<excludedGroups>org.hpccsystems.commons.IntegrationTest,org.hpccsystems.commons.ManualUnitTest</excludedGroups>
                         <skipTests>false</skipTests>
                         <testFailureIgnore>true</testFailureIgnore>
                         <forkMode>once</forkMode>
@@ -136,6 +144,13 @@
 			</plugins>
 		</build>
 	</profile>
+	<profile>
+			<id>integrationtests</id>
+			<properties>
+				<test.groups>org.hpccsystems.commons.IntegrationTest</test.groups>
+				<test.exclude.groups></test.exclude.groups>
+			</properties>
+		</profile>
         <profile>
             <id>release</id>
             <build>
