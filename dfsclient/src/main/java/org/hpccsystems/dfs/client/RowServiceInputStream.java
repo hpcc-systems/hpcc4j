@@ -114,7 +114,7 @@ public class RowServiceInputStream extends InputStream
         this.readBlock();
     }
 
-    private boolean setNextFilePartCopy()
+    private synchronized boolean setNextFilePartCopy()
     {
         if (filePartCopyIndexPointer + 1 >= prioritizedCopyIndexes.size())
             return false;
@@ -134,13 +134,23 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * The primary IP for the file part
+     * The IP location for the file part's file copy
      * 
      * @return IP address
      */
     public String getIP()
     {
-        return this.dataPart.getCopyIP(prioritizedCopyIndexes.get(filePartCopyIndexPointer));
+        return this.dataPart.getCopyIP(prioritizedCopyIndexes.get(getFilePartCopy()));
+    }
+
+    /**
+     * The current file part's target copy index
+     *
+     * @return Current filepart copy index (0-indexed)
+     */
+    private synchronized int getFilePartCopy()
+    {
+        return filePartCopyIndexPointer;
     }
 
     /**
@@ -537,7 +547,7 @@ public class RowServiceInputStream extends InputStream
         {
             try
             {
-                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (filePartCopyIndexPointer + 1) + "' on IP: '" + getIP() + "'");
+                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'");
 
                 try
                 {
@@ -571,8 +581,7 @@ public class RowServiceInputStream extends InputStream
                         sock.setPerformancePreferences(0, 1, 2);
                         sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
                     }
-                    log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = "
-                            + sock.getPort());
+                    log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
                 }
                 catch (java.net.UnknownHostException e)
                 {
@@ -609,7 +618,7 @@ public class RowServiceInputStream extends InputStream
             }
             catch (Exception e)
             {
-                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (filePartCopyIndexPointer + 1) + "' on IP: '" + getIP() + "'");
+                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'");
                 log.error(e.getMessage());
 
                 if (!setNextFilePartCopy())
@@ -653,6 +662,9 @@ public class RowServiceInputStream extends InputStream
         sb.append(this.dataPart.getFileAccessBlob());
         sb.append("\",\n \"filePart\" : \"");
         sb.append(this.dataPart.getThisPart());
+        sb.append("\", \n");
+        sb.append("\"filePartCopy\" : \"");
+        sb.append(getFilePartCopy() + 1);
         sb.append("\", \n");
         if (!this.dataPart.getFilter().isEmpty())
         {
