@@ -114,7 +114,7 @@ public class RowServiceInputStream extends InputStream
         this.readBlock();
     }
 
-    private synchronized boolean setNextFilePartCopy()
+    private boolean setNextFilePartCopy()
     {
         if (filePartCopyIndexPointer + 1 >= prioritizedCopyIndexes.size())
             return false;
@@ -148,7 +148,7 @@ public class RowServiceInputStream extends InputStream
      *
      * @return Current filepart copy index (0-indexed)
      */
-    private synchronized int getFilePartCopy()
+    private int getFilePartCopy()
     {
         return filePartCopyIndexPointer;
     }
