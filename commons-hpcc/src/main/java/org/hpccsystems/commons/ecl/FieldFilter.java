@@ -16,6 +16,7 @@
 package org.hpccsystems.commons.ecl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * A field filter. Consists of a field name and a list of one or
@@ -25,18 +26,17 @@ public class FieldFilter implements Serializable
 {
     public static final long   serialVersionUID = 1L;
     private String             name;
-    private FieldFilterRange[] ranges;
-    private short              prefix;
+    private ArrayList<FieldFilterRange> ranges = new ArrayList<FieldFilterRange>();
 
     /**
      * A field filter.
      *
      * @param fieldName
-     * @param filterRanges
+     * @param filterRange
      */
-    public FieldFilter(String fieldName, FieldFilterRange[] filterRanges)
+    public FieldFilter(String fieldName, FieldFilterRange filterRange)
     {
-        this(fieldName, filterRanges, (short) 0);
+        this(fieldName, new FieldFilterRange[]{filterRange});
     }
 
     /**
@@ -49,15 +49,13 @@ public class FieldFilter implements Serializable
      * @param prefixMatchLength
      *            length for the test, zero means entire field
      */
-    public FieldFilter(String fieldName, FieldFilterRange[] filterRanges, short prefixMatchLength)
+    public FieldFilter(String fieldName, FieldFilterRange[] filterRanges)
     {
         this.name = fieldName;
-        this.ranges = new FieldFilterRange[filterRanges.length];
-        for (int i = 0; i < this.ranges.length; i++)
+        for (int i = 0; i < filterRanges.length; i++)
         {
-            this.ranges[i] = filterRanges[i];
+            ranges.add(filterRanges[i]);
         }
-        this.prefix = prefixMatchLength;
     }
 
     /**
@@ -69,39 +67,21 @@ public class FieldFilter implements Serializable
     public FieldFilter(String fieldName)
     {
         this.name = fieldName;
-        this.ranges = new FieldFilterRange[0];
-        this.prefix = 0;
     }
 
     /**
-     * A string suitable for inclusion into a JSON request
+     * Appends a filter clause to the current filter
+     * Applied to current target field
+     * Each clause if OR'ed
      *
-     * @return the filter expression in string form
+     * @param range
+     *            the fieldfilter range to append (OR)
      */
-    public String filterExpression()
+    public FieldFilter appendFilterRange(FieldFilterRange range)
     {
-        StringBuilder sb = new StringBuilder(20 + this.name.length() + 50 * ranges.length);
-        sb.append(this.name);
-        if (this.ranges.length == 0)
-        {
-            sb.append("*");
-        }
-        else if (this.prefix > 0)
-        {
-            sb.append(":");
-            sb.append(Short.toString(this.prefix));
-        }
-        if (this.ranges.length > 0)
-        {
-            sb.append("=");
-            sb.append(this.ranges[0].filterExpression());
-            for (int i = 1; i < this.ranges.length; i++)
-            {
-                sb.append(",");
-                sb.append(this.ranges[i].filterExpression());
-            }
-        }
-        return sb.toString();
+        if (range != null)
+            ranges.add(range);
+        return this;
     }
 
     /**
@@ -117,7 +97,7 @@ public class FieldFilter implements Serializable
      */
     public int getRangeCount()
     {
-        return this.ranges.length;
+        return this.ranges.size();
     }
 
     /*
@@ -127,6 +107,23 @@ public class FieldFilter implements Serializable
      */
     public String toString()
     {
-        return this.filterExpression();
+        StringBuilder sb = new StringBuilder(20 + this.name.length() + 50 * ranges.size());
+        sb.append(this.name);
+        if (this.ranges.size() == 0)
+        {
+            sb.append("*");
+        }
+
+        if (this.ranges.size() > 0)
+        {
+            sb.append("=");
+            sb.append(ranges.get(0).filterExpression());
+            for (int i = 1; i < ranges.size(); i++)
+            {
+                sb.append(",");
+                sb.append(ranges.get(i).filterExpression());
+            }
+        }
+        return sb.toString();
     }
 }

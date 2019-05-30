@@ -16,44 +16,50 @@
 package org.hpccsystems.commons.ecl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * A filter to select records from a file or key. The filter is conjunction of
  * field filters with each field having a list of one or more value ranges.
  *
+ * filter : setfilter | wildfilter ;
+    setfilter :  field equals set
+    wildfilter : field wildcard
+    set         : setfragment (, setfragment)*
+    setfragment : ( upperinclusive | upperexclusive) setvalue ( lowerinclusive | lowerexclusive) //ignore the single paren notation for now
+    setvalue    : INTEGER_NUM | QUOTEDUTF8STR
+    QUOTEDUTF8STR : squote utf8string squote;
+    upperinclusive    : '[' ;
+    lowerinclusive    : ']' ;
+    upperexclusive    : '(' ;
+    lowerexclusive    : ')' ;
+    wildcard : '*' ;
+    equals   : '=' ;
+    range    : ':' ;
+    squote   : '\'' ;
+    field : ( 'A'..'Z' | 'a'..'z') (( 'A'..'Z' | 'a'..'z') | UNDERSCORE | ETC | INTEGER_NUM  )* INTEGER_NUM)?;
+    INTEGER_NUM : ( '1'..'9')( '0'..'9')*;
+ *
  */
 public class FileFilter implements Serializable
 {
-    public static final long serialVersionUID = 1L;
-    private String           filterExpression;
+    public static final long serialVersionUID = 2L;
 
-    /**
-     * A file filter to select records.
-     */
-    public FileFilter(FieldFilter[] fieldFilters)
-    {
-        this.filterExpression = makeExpression(fieldFilters);
-    }
+    private List<FieldFilter> fieldfilters = new ArrayList<FieldFilter>();
 
     /**
      * A file filter expression to select records, using a string.
+     * An expression can be comprised of multiple comma delimited clauses
      *
-     * Warning: syntax is not checked. Use with care.
-     *
-     * @param expression
-     *            a string version of the expression
-     */
-    public FileFilter(String expression)
-    {
-        this.filterExpression = expression;
-    }
-
-    /**
      * An empty filter, selects all records
      */
     public FileFilter()
     {
-        this.filterExpression = "";
+        //expressions initialized but yet to be populated
     }
 
     /**
@@ -73,40 +79,132 @@ public class FileFilter implements Serializable
      */
     public boolean isEmpty()
     {
-        return this.filterExpression.length() == 0;
+        return fieldfilters.size() == 0;
     }
 
     /**
      * Make the JSON object for the filter expression
+     * keyFilter : "[clause,clause,...,clause]"
      *
      * @return JSON object as a string (name : expression)
      */
-    public String toJsonObject()
+    public String toJson()
     {
-        if (this.isEmpty()) return "";
-        StringBuilder sb = new StringBuilder(this.filterExpression.length() + 30);
-        sb.append("\"keyFilter\"  :  \"");
-        sb.append(this.filterExpression);
-        sb.append("\"");
+        if (this.isEmpty())
+            return "";
+
+        JSONObject keyfilter = new JSONObject();
+        keyfilter.put("keyFilter", this.toString());
+        return keyfilter.toString();
+    }
+
+    /**
+     * @param filefilter
+     * @return
+     * @throws Exception
+     */
+    public FileFilter appendFileFilter(FileFilter filefilter) throws Exception
+    {
+        if (filefilter != null)
+        {
+            for (int fieldfilterindex = 0; fieldfilterindex < filefilter.getFieldFiltersCount(); fieldfilterindex++)
+            {
+                appendFieldFilter(filefilter.getFieldFilter(fieldfilterindex));
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Does targetfieldfilter and this FileFilter target the same field
+     *
+     * @param targetfieldfilter
+     * @return
+     */
+    public boolean targetsSameField(FieldFilter targetfieldfilter)
+    {
+        return (fieldfilters.isEmpty() || targetfieldfilter.getFieldName().equals(fieldfilters.get(0).getFieldName()));
+    }
+
+    /**
+     * Append fieldfilter to this FileFilter (must target the same field)
+     * @param fieldfilter
+     * @return
+     * @throws Exception
+     */
+    public FileFilter appendFieldFilter(FieldFilter fieldfilter) throws Exception
+    {
+        if (fieldfilter != null)
+        {
+            if (targetsSameField(fieldfilter))
+                fieldfilters.add(fieldfilter);
+            else
+                throw new Exception("FileFilter expressions must target the same field! Cannot append filter '" + fieldfilter.toString() + "' to FileFilter targeting field: '" + fieldfilters.get(0).getFieldName() + "'");
+        }
+        return this;
+    }
+
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder((fieldfilters.size() * 40) + 30);
+        for (int index = 0; index < fieldfilters.size(); index++)
+        {
+            if (index != 0)
+                sb.append(',');
+            //else
+            //    sb.append(fieldfilters.get(0).getFieldName());
+
+            sb.append(fieldfilters.get(index).toString());
+        }
+
         return sb.toString();
     }
 
     /**
-     * Create an expression from an array of FieldFilter objects
-     *
-     * @param fieldFilters
-     *            the field filters
-     * @return a string expression
+     * Reports the number of filter clauses in this filefilter
+     * @return
      */
-    static private String makeExpression(FieldFilter[] fieldFilters)
+    public int getFieldFiltersCount()
     {
-        StringBuilder sb = new StringBuilder(200 * fieldFilters.length);
-        sb.append(fieldFilters[0].filterExpression());
-        for (int i = 1; i < fieldFilters.length; i++)
+        return fieldfilters.size();
+    }
+
+    /**
+     * Fetches the ith filter clause in this filefilter
+     * @param i
+     * @return
+     */
+    public FieldFilter getFieldFilter(int i)
+    {
+        if (i < 0 || i >= fieldfilters.size())
+            throw new IndexOutOfBoundsException("getFieldFilter(" + i + ") index out of bounds - fielfilters size: " + fieldfilters.size());
+
+        return fieldfilters.get(i);
+    }
+
+    /**
+     * JSon string representation of an array of filefilters
+     *
+     * @param filefilters
+     * @return
+     * @throws Exception
+     */
+    public static String toJson(FileFilter [] filefilters) throws Exception
+    {
+        JSONObject keyfilter = new JSONObject();
+        JSONArray keyfilters= new JSONArray();
+
+        for (int index = 0; index < filefilters.length; index++)
         {
-            sb.append(",");
-            sb.append(fieldFilters[i].filterExpression());
+            FileFilter currentfilter = filefilters[index];
+            if (currentfilter == null)
+                throw new Exception("Canot serialize to JSON: filefilters[" + index + "] == null");
+
+            String filef = filefilters[index].toString();
+            keyfilters.put(filef);
         }
-        return sb.toString();
+        keyfilter.put("KeyFilter", keyfilters);
+
+        return keyfilter.toString();
     }
 }
