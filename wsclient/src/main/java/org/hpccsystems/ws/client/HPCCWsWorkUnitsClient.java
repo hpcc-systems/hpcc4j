@@ -57,16 +57,41 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         return new HPCCWsWorkUnitsClient(connection);
     }
 
-    private static final Logger                                                         log                               = Logger.getLogger(HPCCWsWorkUnitsClient.class.getName());
-    public static final String                                                          WSWORKUNITSWSDLURI                = "/WsWorkunits";
-    private WsWorkunitsServiceSoapProxy                                                 wsWorkunitsServiceSoapProxy       = null;
-    public static final int                                                             defaultWaitTime                   = 10000;
-    public static final int                                                             defaultResultLimit                = 100;
-    public static final int                                                             defaultMaxWaitTime                = 1000 * 60 * 5;
-    private Version                                                                     targetVersion                     = null;
-    private boolean                                                                     verbose                           = false;
-    private WsWorkunitsClientSoapProxyWrapper                                           soapWrapper=null;
-    private static URL                                                                  originalURL;
+    private static final Logger                           log                            = Logger.getLogger(HPCCWsWorkUnitsClient.class.getName());
+    public static final String                            WSWORKUNITSWSDLURI             = "/WsWorkunits";
+    private WsWorkunitsServiceSoapProxy                   wsWorkunitsServiceSoapProxy    = null;
+    public static final int                               defaultWaitTime                = 10000;
+    public static final int                               defaultResultLimit             = 100;
+    public static final int                               defaultMaxWaitTime             = 1000 * 60 * 5;
+    private Version                                       targetVersion                  = null;
+    private boolean                                       verbose                        = false;
+    private WsWorkunitsClientSoapProxyWrapper             soapWrapper                    =null;
+    private static URL                                    originalURL;
+    private String                                        initErrMessage                 = "";
+
+    /**
+     * Should be called after instantiation to confirm
+     * Successful initialization.
+     *
+     * The client init can fail due to many different types of issues
+     * including invalid connectivity options, invalid credentials, etc
+     *
+     * @return
+     */
+    public boolean hasInitError()
+    {
+        return !initErrMessage.isEmpty();
+    }
+
+    /**
+     * Returns error message encountered during initialization of wsdfuclient.
+     * Empty string if no error encountered
+     * @return
+     */
+    public String getInitError()
+    {
+        return initErrMessage;
+    }
 
     /**
      * Provides the WSDL URL originally used to create the underlying stub code
@@ -242,6 +267,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     {
         try
         {
+            initErrMessage = "";
             String address = Connection.buildUrl(protocol, targetHost, targetPort, WSWORKUNITSWSDLURI);
             HPCCWsSMCClient wssmc = new HPCCWsSMCClient(protocol, targetHost, targetPort, user, pass);
             targetVersion = new Version(wssmc.getHPCCBuild());
@@ -250,6 +276,11 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         catch (Exception e)
         {
             log.error("HPCCWsWorkUnitsClient: Could not stablish target HPCC bulid version, review all HPCC connection values");
+            if (!e.getLocalizedMessage().isEmpty())
+            {
+                initErrMessage = e.getLocalizedMessage();
+                log.error("HPCCWsWorkUnitsClient: " + e.getLocalizedMessage()) ;
+            }
         }
     }
 
@@ -2091,6 +2122,7 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
         catch (Exception e)
         {
             thatSoapProxy = null;
+            return aThat == null;
         }
 
         return EqualsUtil.areEqual(wsWorkunitsServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint())
@@ -2104,11 +2136,12 @@ public class HPCCWsWorkUnitsClient extends DataSingleton
     public int hashCode()
     {
         int result = HashCodeUtil.SEED;
+        if (hasInitError())
+            return result = HashCodeUtil.hash(result, getInitError());
+
         result = HashCodeUtil.hash(result, wsWorkunitsServiceSoapProxy.getEndpoint());
-        result = HashCodeUtil.hash(result,
-                ((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getUsername());
-        result = HashCodeUtil.hash(result,
-                ((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getPassword());
+        result = HashCodeUtil.hash(result, ((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getUsername());
+        result = HashCodeUtil.hash(result, ((Stub) wsWorkunitsServiceSoapProxy.getWsWorkunitsServiceSoap()).getPassword());
         return result;
     }
 

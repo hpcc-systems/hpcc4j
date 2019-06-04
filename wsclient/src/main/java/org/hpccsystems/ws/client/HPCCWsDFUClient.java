@@ -914,6 +914,7 @@ public class HPCCWsDFUClient extends DataSingleton
         catch (Exception e)
         {
             thatSoapProxy = null;
+            return aThat == null;
         }
 
         return EqualsUtil.areEqual(wsDfuServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint())
@@ -927,6 +928,9 @@ public class HPCCWsDFUClient extends DataSingleton
     public int hashCode()
     {
         int result = HashCodeUtil.SEED;
+        if (hasInitError())
+            return result = HashCodeUtil.hash(result, getInitError());
+
         result = HashCodeUtil.hash(result, wsDfuServiceSoapProxy.getEndpoint());
         result = HashCodeUtil.hash(result, ((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getUsername());
         result = HashCodeUtil.hash(result, ((Stub) wsDfuServiceSoapProxy.getWsDfuServiceSoap()).getPassword());
