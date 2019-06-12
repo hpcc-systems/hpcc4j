@@ -247,6 +247,18 @@ public class FieldFilterRange implements Serializable
         return new FieldFilterRange(vs, numeric);
     }
 
+    /**
+     * Create IN filter range
+     * Encapsulate entries as string values based on stringecapsulate
+     *
+     * @param vs
+     *         set of values
+     * @return the filter range
+     */
+    static public FieldFilterRange makeIn(Object [] vs, boolean stringecapsulate)
+    {
+        return new FieldFilterRange(vs, !stringecapsulate);
+    }
 
     /**
      * Create startswith filter range

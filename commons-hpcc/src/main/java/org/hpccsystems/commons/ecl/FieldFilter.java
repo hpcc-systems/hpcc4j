@@ -100,15 +100,12 @@ public class FieldFilter implements Serializable
         return this.ranges.size();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
+    public String toString(boolean outputfieldexpression)
     {
         StringBuilder sb = new StringBuilder(20 + this.name.length() + 50 * ranges.size());
-        sb.append(this.name);
+        if (outputfieldexpression)
+            sb.append(this.name);
+
         if (this.ranges.size() == 0)
         {
             sb.append("*");
@@ -116,7 +113,9 @@ public class FieldFilter implements Serializable
 
         if (this.ranges.size() > 0)
         {
-            sb.append("=");
+            if (outputfieldexpression)
+                sb.append("=");
+
             sb.append(ranges.get(0).filterExpression());
             for (int i = 1; i < ranges.size(); i++)
             {
@@ -125,5 +124,15 @@ public class FieldFilter implements Serializable
             }
         }
         return sb.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return toString(true);
     }
 }

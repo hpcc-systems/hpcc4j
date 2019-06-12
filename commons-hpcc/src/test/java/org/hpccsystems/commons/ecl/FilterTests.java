@@ -133,15 +133,15 @@ public class FilterTests {
 	{
 		System.out.println("\n----------FileFilter Tests----------");
 		
-		FileFilter [] filters = new FileFilter[2];
+		//FileFilter [] filters = new FileFilter[2];
 		FileFilter hpccfilter = new FileFilter();
 
 		try
 		{
-			hpccfilter.appendFieldFilter(new FieldFilter("field1"));
+			hpccfilter.orFilter(new FieldFilter("field1"));
 			System.out.println(hpccfilter.toJson());
 
-			filters[0] = hpccfilter;
+			//filters[0] = hpccfilter;
 			
 			hpccfilter = new FileFilter();
 			
@@ -156,14 +156,13 @@ public class FilterTests {
 		    
 		    ff = new FieldFilter("field2", filterRanges);
 		    
-		    hpccfilter.appendFieldFilter(ff);
-			filters[1] = hpccfilter;
+		    hpccfilter.andFilter(ff);
 
 		    assertEquals("field2=[1.0],(,'8.0']", ff.toString());
 		    
 		    System.out.println(hpccfilter.toJson());
 			
-			System.out.println(FileFilter.toJson(filters));
+			//System.out.println(FileFilter.toJson(filters));
 		}
 		catch (Exception e) {}	
 	}
