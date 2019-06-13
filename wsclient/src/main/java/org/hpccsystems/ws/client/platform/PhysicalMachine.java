@@ -24,12 +24,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpMachine;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 
 public class PhysicalMachine extends DataSingleton
 {
@@ -146,8 +147,8 @@ public class PhysicalMachine extends DataSingleton
     {
         try
         {
-            HPCCFileSprayClient wsfsclient = platform.getFileSprayClient();
-            PhysicalFileStruct[] dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(), physicalmachinestruct.getDirectory(), null);
+            HPCCFileSprayClient wsfsclient = platform.getWsClient().getFileSprayClient();
+            PhysicalFileStructWrapper[] dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(), physicalmachinestruct.getDirectory(), null);
             update(dzfiles);
         }
         catch (Exception e)
@@ -159,12 +160,12 @@ public class PhysicalMachine extends DataSingleton
     }
 
     // Updates ---
-    private void update(PhysicalFileStruct[] filesstruct)
+    private void update(PhysicalFileStructWrapper[] dzfiles)
     {
-         if (filesstruct != null)
+         if (dzfiles != null)
          {
              files.clear();
-             for (PhysicalFileStruct file : filesstruct)
+             for (PhysicalFileStructWrapper file : dzfiles)
              {
                  PhysicalFile physicalFile = getFile(file.getName());
                  physicalFile.update(file);

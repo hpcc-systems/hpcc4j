@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.junit.Test;
 
 public class RampsDevRegressionTest extends EclParseRegressionTest
@@ -12,20 +13,20 @@ public class RampsDevRegressionTest extends EclParseRegressionTest
     public void testFileMetadata() throws Exception
     {
         //superfile
-        List<DFUDataColumnInfo> info=getDFUClient().getFileMetaDataInfo("test::wsclient::superfile",null);
+        List<DFUDataColumnWrapper> info = getDFUClient().getFileMetaData("test::wsclient::superfile",null);
         if (!info.get(0).getColumnLabel().equals("match_confidence"))
         {
             fail("Did not retrieve column data for superfile");
         }
         //file with no ecl definition
-        info=getDFUClient().getFileMetaDataInfo("test::wsclient::noecl",null);
+        info = getDFUClient().getFileMetaData("test::wsclient::noecl",null);
         if (!info.get(0).getColumnLabel().equals("contents"))
         {
              fail("Did not retrieve column data for file with no ecl rec structure");
         }
 
         //file with child datasets
-        info=getDFUClient().getFileMetaDataInfo("test::wsclient::childdatasets",null);
+        info = getDFUClient().getFileMetaData("test::wsclient::childdatasets",null);
         if (!info.get(21).getColumnLabel().equals("links") || !info.get(21).getColumnType().equals("Dataset")
                  || !info.get(21).getChildColumns().get(0).getColumnLabel().equals("associationfromcontextuid"))
         {
@@ -35,7 +36,7 @@ public class RampsDevRegressionTest extends EclParseRegressionTest
         //superfile with no subfiles
         try
         {
-             info=getDFUClient().getFileMetaDataInfo("test::wsclient::emptysuperfile", null);
+             info = getDFUClient().getFileMetaData("test::wsclient::emptysuperfile", null);
              fail("Should have thrown error");
         }
         catch (Exception e)

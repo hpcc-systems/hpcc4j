@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery;
+
 public class ECLQueryWrapper
 {
     private String text;
@@ -16,12 +18,10 @@ public class ECLQueryWrapper
 
     public ECLQueryWrapper() {}
 
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery raw)
+    public ECLQueryWrapper(ECLQuery raw)
     {
         if (raw==null)
-        {
             return;
-        }
 
         this.text=raw.getText();
         this.cpp=raw.getCpp();
@@ -31,26 +31,10 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw)
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLQuery raw)
     {
         if (raw==null)
-        {
             return;
-        }
-
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
-    }
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery raw)
-    {
-        if (raw==null)
-        {
-            return;
-        }
 
         this.text=raw.getText();
         this.cpp=raw.getCpp();
@@ -60,12 +44,10 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
-    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery raw)
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLQuery raw)
     {
         if (raw==null)
-        {
             return;
-        }
 
         this.text=raw.getText();
         this.cpp=raw.getCpp();
@@ -75,49 +57,42 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery getRaw()
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLQuery raw)
     {
-        return getRawVersion74();
+        if (raw==null)
+            return;
+
+        this.text=raw.getText();
+        this.cpp=raw.getCpp();
+        this.dll=raw.getDll();
+        this.queryMainDefinition=raw.getQueryMainDefinition();
+        this.thorLog=raw.getThorLog();
+        this.resTxt=raw.getResTxt();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery getRawVersion74()
+    public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLQuery raw)
     {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery();
-        raw.setCpp(this.getCpp());
-        raw.setDll(this.getDll());
-        raw.setQueryMainDefinition(this.getQueryMainDefinition());
-        raw.setResTxt(this.getResTxt());
-        raw.setText(this.getText());
-        raw.setThorLog(this.getThorLog());
-        return raw;
+        if (raw==null)
+            return;
+
+        this.text=raw.getText();
+        this.cpp=raw.getCpp();
+        this.dll=raw.getDll();
+        this.queryMainDefinition=raw.getQueryMainDefinition();
+        this.thorLog=raw.getThorLog();
+        this.resTxt=raw.getResTxt();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery getRawVersion1_69()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery getRaw()
     {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLQuery();
-        raw.setCpp(this.getCpp());
-        raw.setDll(this.getDll());
-        raw.setQueryMainDefinition(this.getQueryMainDefinition());
-        raw.setResTxt(this.getResTxt());
-        raw.setText(this.getText());
-        raw.setThorLog(this.getThorLog());
-        return raw;
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery getRawVersion1_62()
-    {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLQuery();
-        raw.setCpp(this.getCpp());
-        raw.setDll(this.getDll());
-        raw.setQueryMainDefinition(this.getQueryMainDefinition());
-        raw.setResTxt(this.getResTxt());
-        raw.setText(this.getText());
-        raw.setThorLog(this.getThorLog());
-        return raw;
+        return getRawVersion1_75();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery getRawVersion1_58()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery getRawVersion1_75()
     {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLQuery();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery();
+
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());
         raw.setQueryMainDefinition(this.getQueryMainDefinition());

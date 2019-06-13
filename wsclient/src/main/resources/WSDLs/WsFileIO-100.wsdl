@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wsfileio" targetNamespace="urn:hpccsystems:ws:wsfileio"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsfileio" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="CreateFileRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DestDropZone" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestRelativePath" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="Overwrite" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CreateFileResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="DestDropZone" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestRelativePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="WsFileIOPingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="WsFileIOPingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="ReadFileDataRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DestDropZone" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestRelativePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Offset" type="xsd:long"/>
+<xsd:element minOccurs="0" name="DataSize" type="xsd:long"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ReadFileDataResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Data" type="xsd:base64Binary"/>
+<xsd:element minOccurs="0" name="DestDropZone" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestRelativePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Offset" type="xsd:long"/>
+<xsd:element minOccurs="0" name="DataSize" type="xsd:long"/>
+<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="WriteFileDataRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Data" type="xsd:base64Binary"/>
+<xsd:element minOccurs="0" name="DestDropZone" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestRelativePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Offset" type="xsd:long"/>
+<xsd:element minOccurs="0" default="false" name="Append" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="WriteFileDataResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="DestDropZone" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestRelativePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Offset" type="xsd:long"/>
+<xsd:element minOccurs="0" name="Append" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="CreateFileSoapIn"><part name="parameters" element="tns:CreateFileRequest"/></message><message name="CreateFileSoapOut"><part name="parameters" element="tns:CreateFileResponse"/></message><message name="PingSoapIn"><part name="parameters" element="tns:WsFileIOPingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:WsFileIOPingResponse"/></message><message name="ReadFileDataSoapIn"><part name="parameters" element="tns:ReadFileDataRequest"/></message><message name="ReadFileDataSoapOut"><part name="parameters" element="tns:ReadFileDataResponse"/></message><message name="WriteFileDataSoapIn"><part name="parameters" element="tns:WriteFileDataRequest"/></message><message name="WriteFileDataSoapOut"><part name="parameters" element="tns:WriteFileDataResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="WsFileIOServiceSoap"><operation name="CreateFile"><input message="tns:CreateFileSoapIn"/><output message="tns:CreateFileSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ReadFileData"><input message="tns:ReadFileDataSoapIn"/><output message="tns:ReadFileDataSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="WriteFileData"><input message="tns:WriteFileDataSoapIn"/><output message="tns:WriteFileDataSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="WsFileIOServiceSoap" type="tns:WsFileIOServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="CreateFile"><soap:operation soapAction="WsFileIO/CreateFile?ver_=1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Ping"><soap:operation soapAction="WsFileIO/Ping?ver_=1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ReadFileData"><soap:operation soapAction="WsFileIO/ReadFileData?ver_=1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="WriteFileData"><soap:operation soapAction="WsFileIO/WriteFileData?ver_=1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="WsFileIO"><port name="WsFileIOServiceSoap" binding="tns:WsFileIOServiceSoap"><soap:address location="http://10.0.2.15:8010/WsFileIO?ver_=1"/></port></service></definitions>

@@ -56,4 +56,12 @@ public final class EqualsUtil
     {
         return aThis == null ? aThat == null : aThis.equals(aThat);
     }
+
+    /**
+     * Is the null state of both objects equivalent
+     */
+    static public boolean areSameNullState(Object aThis, Object aThat)
+    {
+        return (aThis == null && aThat == null) || (aThis != null && aThat != null);
+    }
 }

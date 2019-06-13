@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.apache.axis.types.UnsignedInt;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile;
 
 public class ECLHelpFileWrapper
 {
@@ -12,95 +12,94 @@ public class ECLHelpFileWrapper
 
     private String description;
 
-    private Long fileSize;
+    private Long   fileSize;
 
-    private Integer PID;
+    private long   PID;
 
-    private Integer minActivityId;
+    private long   minActivityId;
 
-    private Integer maxActivityId;
+    private long   maxActivityId;
 
-    public ECLHelpFileWrapper() {
-        
+    public ECLHelpFileWrapper() {}
+
+    public ECLHelpFileWrapper(ECLHelpFile raw)
+    {
+        if (raw == null)
+        {
+            return;
+        }
+        this.description = raw.getDescription();
+        this.IPAddress = raw.getIPAddress();
+        this.fileSize = raw.getFileSize();
+        this.maxActivityId = raw.getMaxActivityId().longValue();
+        this.minActivityId = raw.getMinActivityId().longValue();
+        this.name = raw.getName();
+        this.PID = raw.getPID().longValue();
+        this.type = raw.getType();
     }
-    
-    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile raw) {
-        if (raw==null) {
+
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLHelpFile raw)
+    {
+        if (raw==null)
+        {
             return;
         }
         this.description=raw.getDescription();
         this.IPAddress=raw.getIPAddress();
         this.fileSize=raw.getFileSize();
-        if (raw.getMaxActivityId() != null) {
-            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
-        }
-        if (raw.getMinActivityId() != null) {
-            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
-        }
+        this.maxActivityId=raw.getMaxActivityId().longValue();
+        this.minActivityId=raw.getMinActivityId().longValue();
         this.name=raw.getName();
-        if (raw.getPID() != null) {
-            this.PID=Integer.valueOf(raw.getPID().toString());
-        }
+        this.PID=raw.getPID().longValue();
         this.type=raw.getType();
     }
 
-    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile raw) {
-        if (raw==null) {
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLHelpFile raw)
+    {
+        if (raw == null)
+        {
             return;
         }
-        this.description=raw.getDescription();
-        this.IPAddress=raw.getIPAddress();
-        this.fileSize=raw.getFileSize();
-        if (raw.getMaxActivityId() != null) {
-            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
-        }
-        if (raw.getMinActivityId() != null) {
-            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
-        }
-        this.name=raw.getName();
-        if (raw.getPID() != null) {
-            this.PID=Integer.valueOf(raw.getPID().toString());
-        }
-        this.type=raw.getType();
-    }
-    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile raw) {
-        if (raw==null) {
-            return;
-        }
-        this.description=raw.getDescription();
-        this.IPAddress=raw.getIPAddress();
-        this.fileSize=raw.getFileSize();
-        if (raw.getMaxActivityId() != null) {
-            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
-        }
-        if (raw.getMinActivityId() != null) {
-            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
-        }
-        this.name=raw.getName();
-        if (raw.getPID() != null) {
-            this.PID=Integer.valueOf(raw.getPID().toString());
-        }
-        this.type=raw.getType();
+        this.description = raw.getDescription();
+        this.IPAddress = raw.getIPAddress();
+        this.fileSize = raw.getFileSize();
+        this.maxActivityId = raw.getMaxActivityId().longValue();
+        this.minActivityId = raw.getMinActivityId().longValue();
+        this.name = raw.getName();
+        this.PID = raw.getPID().longValue();
+        this.type = raw.getType();
     }
 
-    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile raw) {
-        if (raw==null) {
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLHelpFile raw)
+    {
+        if (raw == null)
+        {
             return;
         }
-        this.description=raw.getDescription();
-        this.IPAddress=raw.getIPAddress();
-        this.fileSize=raw.getFileSize();
-        if (raw.getMaxActivityId() != null) {
-            this.maxActivityId=Integer.valueOf(raw.getMaxActivityId().toString());
+        this.description = raw.getDescription();
+        this.IPAddress = raw.getIPAddress();
+        this.fileSize = raw.getFileSize();
+        this.maxActivityId = raw.getMaxActivityId().longValue();
+        this.minActivityId = raw.getMinActivityId().longValue();
+        this.name = raw.getName();
+        this.PID = raw.getPID().longValue();
+        this.type = raw.getType();
+    }
+
+    public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLHelpFile raw)
+    {
+        if (raw == null)
+        {
+            return;
         }
-        if (raw.getMinActivityId() != null) {
-            this.minActivityId=Integer.valueOf(raw.getMinActivityId().toString());
-        }
-        this.name=raw.getName();
-        if (raw.getPID() != null) {
-            this.PID=Integer.valueOf(raw.getPID().toString());
-        }
-        this.type=raw.getType();
+        this.description = raw.getDescription();
+        this.IPAddress = raw.getIPAddress();
+        this.fileSize = raw.getFileSize();
+        //this.maxActivityId = raw.getMaxActivityId().longValue();
+        //this.minActivityId = raw.getMinActivityId().longValue();
+        this.name = raw.getName();
+        this.PID = raw.getPID().longValue();
+        this.type = raw.getType();
     }
 
     /**
@@ -186,7 +185,7 @@ public class ECLHelpFileWrapper
     /**
      * @return the pID
      */
-    public Integer getPID()
+    public long getPID()
     {
         return PID;
     }
@@ -194,7 +193,7 @@ public class ECLHelpFileWrapper
     /**
      * @param pID the pID to set
      */
-    public void setPID(Integer pID)
+    public void setPID(long pID)
     {
         PID = pID;
     }
@@ -202,7 +201,7 @@ public class ECLHelpFileWrapper
     /**
      * @return the minActivityId
      */
-    public Integer getMinActivityId()
+    public long getMinActivityId()
     {
         return minActivityId;
     }
@@ -218,7 +217,7 @@ public class ECLHelpFileWrapper
     /**
      * @return the maxActivityId
      */
-    public Integer getMaxActivityId()
+    public long getMaxActivityId()
     {
         return maxActivityId;
     }
@@ -231,84 +230,22 @@ public class ECLHelpFileWrapper
         this.maxActivityId = maxActivityId;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile getRaw() {
-        return getRawVersion74();
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile getRaw()
+    {
+        return getRawVersion1_75();
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile getRawVersion74()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile getRawVersion1_75()
     {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLHelpFile();
-        raw.setDescription(this.getDescription());
-        raw.setFileSize(this.getFileSize());
-        raw.setIPAddress(this.getIPAddress());
-        raw.setName(this.getName());
-        if (this.getPID() != null) {
-            raw.setPID(new UnsignedInt(this.getPID()));
-        }
-        if (this.getMaxActivityId() != null) {
-            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
-        }
-        if (this.getMinActivityId() != null) {
-            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
-        }
-        raw.setType(this.getType());
-        return raw;
-    }
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile();
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile getRawVersion1_69()
-    {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLHelpFile();
         raw.setDescription(this.getDescription());
         raw.setFileSize(this.getFileSize());
         raw.setIPAddress(this.getIPAddress());
         raw.setName(this.getName());
-        if (this.getPID() != null) {
-            raw.setPID(new UnsignedInt(this.getPID()));
-        }
-        if (this.getMaxActivityId() != null) {
-            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
-        }
-        if (this.getMinActivityId() != null) {
-            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
-        }
-        raw.setType(this.getType());
-        return raw;
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile getRawVersion1_62()
-    {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLHelpFile();
-        raw.setDescription(this.getDescription());
-        raw.setFileSize(this.getFileSize());
-        raw.setIPAddress(this.getIPAddress());
-        raw.setName(this.getName());
-        if (this.getPID() != null) {
-            raw.setPID(new UnsignedInt(this.getPID()));
-        }
-        if (this.getMaxActivityId() != null) {
-            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
-        }
-        if (this.getMinActivityId() != null) {
-            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
-        }
-        raw.setType(this.getType());
-        return raw;
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile getRawVersion1_58()
-    {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLHelpFile();
-        raw.setDescription(this.getDescription());
-        raw.setFileSize(this.getFileSize());
-        raw.setIPAddress(this.getIPAddress());
-        raw.setName(this.getName());
-        if (this.getPID() != null) {
-            raw.setPID(new UnsignedInt(this.getPID()));
-        }
-        if (this.getMaxActivityId() != null) {
-            raw.setMaxActivityId(new UnsignedInt(this.getMaxActivityId()));
-        }
-        if (this.getMinActivityId() != null) {
-            raw.setMinActivityId(new UnsignedInt(this.getMinActivityId()));
-        }
+        raw.setPID(new org.apache.axis2.databinding.types.UnsignedInt(this.getPID()));
+        raw.setMaxActivityId(new org.apache.axis2.databinding.types.UnsignedInt(this.getMaxActivityId()));
+        raw.setMinActivityId(new org.apache.axis2.databinding.types.UnsignedInt(this.getMinActivityId()));
         raw.setType(this.getType());
         return raw;
     }
@@ -319,9 +256,8 @@ public class ECLHelpFileWrapper
     @Override
     public String toString()
     {
-        return "ECLHelpFileWrapper [name=" + name + ", type=" + type + ", IPAddress=" + IPAddress + ", description="
-                + description + ", fileSize=" + fileSize + ", PID=" + PID + ", minActivityId=" + minActivityId
-                + ", maxActivityId=" + maxActivityId + "]";
+        return "ECLHelpFileWrapper [name=" + name + ", type=" + type + ", IPAddress=" + IPAddress + ", description=" + description + ", fileSize="
+                + fileSize + ", PID=" + PID + ", minActivityId=" + minActivityId + ", maxActivityId=" + maxActivityId + "]";
     }
 
 }

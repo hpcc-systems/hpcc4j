@@ -1,84 +1,105 @@
 package org.hpccsystems.ws.client.extended;
 
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.axis.client.Stub;
+import org.apache.axis2.AxisFault;
 import org.apache.log4j.Logger;
-
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributeRequest;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckinAttributes;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckoutAttributeRequest;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CheckoutAttributes;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CreateAttribute;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.CreateAttributeResponse;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteAttributeRequest;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteAttributes;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteModule;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.DeleteModuleResponse;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.ECLAttribute;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.EspException;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.FindAttributes;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.FindAttributesResponse;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.GetAttribute;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.GetAttributeResponse;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.RenameAttributeRequest;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.RenameAttributes;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.SaveAttributeRequest;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.SaveAttributes;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.UpdateAttributesResponse;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesServiceSoap;
-import org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesServiceSoapProxy;
-import org.hpccsystems.ws.client.platform.ECLAttributeInfo;
+import org.hpccsystems.ws.client.BaseHPCCWsClient;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckinAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckoutAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfDeleteAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfRenameAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfSaveAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckinAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckinAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckoutAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckoutAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CreateAttribute;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CreateAttributeResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.DeleteAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.DeleteAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.DeleteModule;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.DeleteModuleResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.FindAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.FindAttributesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttribute;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributeResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.RenameAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.RenameAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.UpdateAttributesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.WsAttributesStub;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.EqualsUtil;
-import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
+import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
-public class HPCCWsAttributesClient extends DataSingleton
+public class HPCCWsAttributesClient extends BaseHPCCWsClient
 {
-    private static URL                  originalURL;
     private static final Logger         log         = Logger.getLogger(HPCCWsAttributesClient.class.getName());
-
-    public static URL getOriginalURL() throws MalformedURLException
-    {
-        if (originalURL == null)
-            originalURL = new URL(getOriginalWSDLURL());
-
-        return originalURL;
-    }
-
-    public static int getOriginalPort() throws MalformedURLException
-    {
-        return getOriginalURL().getPort();
-    }
+    public static final String           WSATTRIBUTESWSDLURI          = "/WsAttributes";
 
     public static HPCCWsAttributesClient get(Connection connection)
     {
         return new HPCCWsAttributesClient(connection);
     }
 
-    public static final String           WSATTRIBUTESWSDLURI          = "/WsAttributes";
+    public static HPCCWsAttributesClient get(String protocol, String targetHost, String targetPort, String user, String pass)
+    {
+        Connection conn = new Connection(protocol,targetHost,targetPort);
+        conn.setCredentials(user, pass);
+        return new HPCCWsAttributesClient(conn);
+    }
 
-    private WsAttributesServiceSoapProxy wsAttributesServiceSoapProxy = null;
-    private boolean                      verbose                      = false;
+    public static HPCCWsAttributesClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
+    {
+        Connection conn = new Connection(protocol,targetHost,targetPort);
+        conn.setCredentials(user, pass);
+        conn.setConnectTimeoutMilli(timeout);
+        conn.setSocketTimeoutMilli(timeout);
+
+        return new HPCCWsAttributesClient(conn);
+    }
+
+    protected HPCCWsAttributesClient(Connection baseConnection)
+    {
+        initWsAttributesClientStub(baseConnection);
+    }
 
     /**
-     * @param verbose
-     *            - sets verbose mode
+     * Initializes the service's underlying soap proxy. Should only be used by constructors
+     *
      */
-    public void setVerbose(boolean verbose)
+    private void initWsAttributesClientStub(Connection connection)
     {
-        this.verbose = verbose;
+        try
+        {
+            stub = setStubOptions(new WsAttributesStub(connection.getBaseUrl()+WSATTRIBUTESWSDLURI), connection);
+        }
+        catch (AxisFault e)
+        {
+            log.error("Could not initialize WsAttributesStub - Review all HPCC connection values");
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            log.error("Could not initialize WsAttributesStub - Review all HPCC connection values");
+            if (!e.getLocalizedMessage().isEmpty())
+            {
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
+            }
+        }
     }
 
     /**
@@ -93,7 +114,7 @@ public class HPCCWsAttributesClient extends DataSingleton
      */
     public boolean attributeExists(String modulename, String attributename, String type) throws Exception
     {
-        List<ECLAttributeInfo>items = findItems(modulename, attributename, type, null, null, null);
+        List<ECLAttributeWrapper>items = findItems(modulename, attributename, type, null, null, null);
         if (items.size()>0)
         {
             return true;
@@ -119,16 +140,18 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @return a list of ECLAttributeInfo
      * @throws Exception
      */
-    public List<ECLAttributeInfo> findItems(String modulename, String attributename, String type, String username, String anytext,
-            String changedSince) throws Exception
+    public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext, String changedSince) throws Exception
     {
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+        verifyStub(); //Throws if stub not available
+
         if (modulename == null && attributename == null && username == null &&
                 type==null && anytext == null && changedSince == null)
         {
             throw new Exception("At least one find criteria is required.");
         }
+
         FindAttributes params = new FindAttributes();
+
         if (modulename != null)
         {
             params.setModuleName(modulename);
@@ -144,23 +167,42 @@ public class HPCCWsAttributesClient extends DataSingleton
         if (type != null)
         {
             String[] types=type.split(",");
-            params.setTypeList(types);
+            EspStringArray typelist = new EspStringArray();
+            typelist.setItem(types);
+            params.setTypeList(typelist);
         }
         if (anytext != null)
         {
             params.setPattern(anytext);
         }
 
-        FindAttributesResponse resp = proxy.findAttributes(params);
+        FindAttributesResponse resp = null;
 
-        List<ECLAttributeInfo> results=new ArrayList<ECLAttributeInfo>();
+        try
+        {
+            resp = ((WsAttributesStub)stub).findAttributes(params);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCWsAttributesClient findItems encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform findItems");
+        }
+
+        List<ECLAttributeWrapper> results = new ArrayList<ECLAttributeWrapper>();
         if (resp != null)
         {
-            handleException(resp.getExceptions());
-            if (resp.getOutAttributes() != null) {
-                for (int i=0; i < resp.getOutAttributes().length;i++) 
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform findItems");
+
+            if (resp.getOutAttributes() != null)
+            {
+                ECLAttribute[] eclAttribute = resp.getOutAttributes().getECLAttribute();
+                for (int i=0; i < eclAttribute.length;i++) 
                 {
-                    results.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
+                    results.add(new ECLAttributeWrapper(eclAttribute[i]));
                 }
             }
         }
@@ -179,19 +221,38 @@ public class HPCCWsAttributesClient extends DataSingleton
      */
     public String getAttributeText(String modulename, String attributename,String type) throws Exception
     {
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+        verifyStub(); //Throws if stub not available
+
         GetAttribute params = new GetAttribute();
+
         params.setAttributeName(attributename);
         params.setModuleName(modulename);
         params.setType(type);
         params.setGetText(true);
-        GetAttributeResponse resp = proxy.getAttribute(params);
-        if (resp != null)
+
+        GetAttributeResponse response = null;
+
+        try
         {
-            handleException(resp.getExceptions());
-            if (resp.getOutAttribute() != null)
+            response = ((WsAttributesStub)stub).getAttribute(params);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCWsAttributesClient getAttributeTest encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getAttributeText");
+        }
+
+        if (response != null)
+        {
+            if (response.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not perform getAttributeText");
+        
+            if (response.getOutAttribute() != null)
             {
-                return resp.getOutAttribute().getText();
+                return response.getOutAttribute().getText();
             }
         }
         return null;
@@ -211,11 +272,8 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @return ECL attribute of the renamed attribute
      * @throws Exception
      */
-    public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename,
-            String newattributename) throws Exception
+    public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename) throws Exception
     {
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
-
         if ((modulename == null && newmodulename != null) || (newmodulename == null && modulename != null))
         {
             throw new Exception("If modulename or newmodulename is specified, both must be specified");
@@ -226,23 +284,47 @@ public class HPCCWsAttributesClient extends DataSingleton
             throw new Exception("If attributename or newattributename is specified, both must be specified");
         }
 
+        verifyStub(); //Throws if stub not available
+
         RenameAttributeRequest req = new RenameAttributeRequest();
+
         req.setAttributeName(attributename);
         req.setModuleName(modulename);
         req.setNewAttributeName(newattributename);
         req.setNewModuleName(newmodulename);
 
-        RenameAttributeRequest[] arr = { req };
+        RenameAttributes request = new RenameAttributes();
+        ArrayOfRenameAttributeRequest arrayofrenameattributes = new ArrayOfRenameAttributeRequest();
+        RenameAttributeRequest[] param = new RenameAttributeRequest[1];
+        arrayofrenameattributes.setRenameAttributeRequest(param);
+        request.setAttributes(arrayofrenameattributes);
 
-        RenameAttributes params = new RenameAttributes();
-        params.setAttributes(arr);
-        UpdateAttributesResponse resp = proxy.renameAttributes(params);
-        if (resp != null)
+        UpdateAttributesResponse response = null;
+
+        try
         {
-            handleException(resp.getExceptions());
-            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+            response = ((WsAttributesStub)stub).renameAttributes(request);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCWsAttributesClient renameAttribute encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform renameAttribute");
+        }
+
+        if (response != null)
+        {
+            if (response.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not perform renameAttribute");
+        
+            ArrayOfECLAttribute outAttributes = response.getOutAttributes();
+            if (outAttributes != null)
             {
-                return resp.getOutAttributes()[0];
+                ECLAttribute[] eclAttributes = outAttributes.getECLAttribute();
+                if (eclAttributes != null && eclAttributes.length == 1)
+                return eclAttributes[0];
             }
         }
         return null;
@@ -255,14 +337,14 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @return - a list of updated eclattributeinfo objects
      * @throws Exception
      */
-    public List<ECLAttributeInfo> createOrUpdateAttributes(List<ECLAttributeInfo> in, boolean checkoutin, String checkindesc) 
-            throws Exception
+    public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc) throws Exception
     {
-        List<ECLAttributeInfo> result=new ArrayList<ECLAttributeInfo>();
+        List<ECLAttributeWrapper> result=new ArrayList<ECLAttributeWrapper>();
         if (in==null || in.size()==0)
         {
             return result;
         }
+
         if (checkoutin == true && (checkindesc == null || checkindesc.trim().length() == 0))
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
@@ -270,14 +352,15 @@ public class HPCCWsAttributesClient extends DataSingleton
        
         //validate items to be created
         String allers="";
-        for (ECLAttributeInfo item:in)
+        for (ECLAttributeWrapper item: in)
         {
             try 
             {
                 item.validate();
             }
-            catch (Exception e) {
-                    allers=allers + e.getMessage() + "\n";
+            catch (Exception e)
+            {
+                allers=allers + e.getMessage() + "\n";
             }
         }
         if (!allers.isEmpty())
@@ -287,71 +370,90 @@ public class HPCCWsAttributesClient extends DataSingleton
         
         //get a cached copy of the modules being updated to check whether items must be created
         //convert objects to needed create/update soap object arrays
-        Map<String,List<String>> founditems=new HashMap<String,List<String>>();
-        List<CreateAttribute> tocreate=new ArrayList<CreateAttribute>();
-        SaveAttributeRequest[] toupdate=new SaveAttributeRequest[in.size()];
-        CheckoutAttributeRequest[] tocheckout=new CheckoutAttributeRequest[in.size()];
-        CheckinAttributeRequest[] tocheckin=new CheckinAttributeRequest[in.size()];
+        Map<String,List<String>> founditems = new HashMap<String,List<String>>();
+        List<CreateAttribute> tocreate = new ArrayList<CreateAttribute>();
+        SaveAttributeRequest[] toupdate = new SaveAttributeRequest[in.size()];
+        CheckoutAttributeRequest[] tocheckout = new CheckoutAttributeRequest[in.size()];
+        CheckinAttributeRequest[] tocheckin = new CheckinAttributeRequest[in.size()];
         for (int i=0; i < in.size();i++)
         {
-            ECLAttributeInfo item=in.get(i);
+            ECLAttributeWrapper item = in.get(i);
             if (!founditems.containsKey(item.getModuleName().toLowerCase()))
             {
-                List<ECLAttributeInfo> found=this.findItems(item.getModuleName(),null,null,null,null,null);
+                List<ECLAttributeWrapper> found = this.findItems(item.getModuleName(),null,null,null,null,null);
                 List<String> cache=new ArrayList<String>();
-                for (ECLAttributeInfo f:found)
+                for (ECLAttributeWrapper f : found)
                 {
                     cache.add(f.getUniqueName());
                 }
                 founditems.put(item.getModuleName().toLowerCase(),cache);
             }
             
-            if (!founditems.get(item.getModuleName().toLowerCase()).contains(
-                        item.getUniqueName()))
+            if (!founditems.get(item.getModuleName().toLowerCase()).contains(item.getUniqueName()))
             {
                 tocreate.add(item.toCreateAttribute());
             }
-            toupdate[i]=item.toSaveAttributeRequest();
-            tocheckout[i]=item.toCheckoutAttributeRequest();
-            tocheckin[i]=item.toCheckinAttributeRequest(checkindesc);
+            toupdate [i] = item.toSaveAttributeRequest();
+            tocheckout [i] = item.toCheckoutAttributeRequest();
+            tocheckin [i] = item.toCheckinAttributeRequest(checkindesc);
         }
         
         //create nonexistant attributes
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
-        for (CreateAttribute req:tocreate)
+        verifyStub();
+
+        for (CreateAttribute req : tocreate)
         {
-            CreateAttributeResponse resp = proxy.createAttribute(req);
+            CreateAttributeResponse resp = ((WsAttributesStub)stub).createAttribute(req);
             if (resp != null)
             {
-                handleException(resp.getExceptions());
+                if (resp.getExceptions() != null)
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not create attribute(s)");
             }
+
             log.trace("Created " + req.getType() + " attribute " + req.getModuleName() + "." + req.getAttributeName());
         }
         
         //check out attributes
         if (checkoutin)
         {
-           CheckoutAttributes params = new CheckoutAttributes();
-            params.setAttributes(tocheckout);
-            UpdateAttributesResponse resp = proxy.checkoutAttributes(params);
+            CheckoutAttributes params = new CheckoutAttributes();
+            ArrayOfCheckoutAttributeRequest tocheckoutatts = new ArrayOfCheckoutAttributeRequest();
+            
+            tocheckoutatts.setCheckoutAttributeRequest(tocheckout);
+            params.setAttributes(tocheckoutatts);
+            
+            UpdateAttributesResponse resp = ((WsAttributesStub)stub).checkoutAttributes(params);
+
             if (resp != null)
             {
-                handleException(resp.getExceptions());
+                if (resp.getExceptions() != null)
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
             }
         }
 
         //update attributes
         SaveAttributes params = new SaveAttributes();
-        params.setAttributes(toupdate);
-        UpdateAttributesResponse resp = proxy.saveAttributes(params);
+        
+        ArrayOfSaveAttributeRequest toupdateatts = new ArrayOfSaveAttributeRequest();
+        toupdateatts.setSaveAttributeRequest(toupdate);
+        params.setAttributes(toupdateatts);
+
+        UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(params);
         if (resp != null)
         {
-            handleException(resp.getExceptions());
-            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+            if (resp != null)
             {
-                for (int i=0; i < resp.getOutAttributes().length;i++)
+                if (resp.getExceptions() != null)
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+            }
+
+            ArrayOfECLAttribute outAttributes = resp.getOutAttributes();
+            if (outAttributes != null)
+            {
+                ECLAttribute[] eclAttributes = outAttributes.getECLAttribute();
+                for (int i=0; i < eclAttributes.length; i++)
                 {
-                    result.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
+                    result.add(new ECLAttributeWrapper(eclAttributes[i]));
                 }
             }
         }
@@ -359,17 +461,24 @@ public class HPCCWsAttributesClient extends DataSingleton
         //check in attributes
         if (checkoutin)
         {
-           CheckinAttributes inparams = new CheckinAttributes();
-            inparams.setAttributes(tocheckin);
-            UpdateAttributesResponse upresp = proxy.checkinAttributes(inparams);
+            CheckinAttributes inparams = new CheckinAttributes();
+
+            ArrayOfCheckinAttributeRequest tocheckinatts = new ArrayOfCheckinAttributeRequest();
+            tocheckinatts.setCheckinAttributeRequest(tocheckin);
+            inparams.setAttributes(tocheckinatts);
+
+            UpdateAttributesResponse upresp = ((WsAttributesStub)stub).checkinAttributes(inparams);
+
             if (upresp != null)
             {
-                handleException(upresp.getExceptions());
+                if (upresp.getExceptions() != null)
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(upresp.getExceptions()));
             }
         }
 
         return result;
     }
+
     /**
      * Create/Update an attribute in a legacy repository
      *
@@ -379,25 +488,29 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @return updated ECLAttributeItem for created/updated item
      * @throws Exception
      */
-    public ECLAttributeInfo createOrUpdateAttribute(ECLAttributeInfo item, boolean checkoutin,
-            String checkindesc) throws Exception
+    public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc) throws Exception
     {
         if (item==null)
         {
             return null;
         }
+
         item.validate();
+        
         if (checkoutin == true && (checkindesc == null || checkindesc.trim().length() == 0))
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+
+        verifyStub();
+
         if (!this.attributeExists(item.getModuleName(),item.getName(),item.getType()))
         {
-            CreateAttributeResponse resp = proxy.createAttribute(item.toCreateAttribute());
-            if (resp != null)
+            CreateAttributeResponse response = ((WsAttributesStub)stub).createAttribute(item.toCreateAttribute());
+            if (response != null)
             {
-                handleException(resp.getExceptions());
+                if (response.getExceptions() != null)
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
             }
             log.trace("Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());            
         }
@@ -406,21 +519,30 @@ public class HPCCWsAttributesClient extends DataSingleton
         {
             this.checkoutAttribute(item.getModuleName(),item.getName());
         }
+
         SaveAttributeRequest[] arr = { item.toSaveAttributeRequest() };
         SaveAttributes params = new SaveAttributes();
-        params.setAttributes(arr);
-        UpdateAttributesResponse resp = proxy.saveAttributes(params);
+        ArrayOfSaveAttributeRequest arrayofattributes = new ArrayOfSaveAttributeRequest();
+        arrayofattributes.setSaveAttributeRequest(arr);
+        params.setAttributes(arrayofattributes);
+
+        UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(params);
         log.trace("Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());            
         if (resp != null)
         {
-            handleException(resp.getExceptions());
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+
             if (checkoutin)
             {
                 this.checkinAttribute(item.getModuleName(), item.getName(), checkindesc);
             }
-            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+
+            if (resp.getOutAttributes() != null)
             {
-                return new ECLAttributeInfo(resp.getOutAttributes()[0]);
+                ECLAttribute[] eclAttributes = resp.getOutAttributes().getECLAttribute();
+                if (eclAttributes != null && eclAttributes.length > 0)
+                    return new ECLAttributeWrapper(eclAttributes[0]);
             }
         }
 
@@ -443,8 +565,7 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @return
      * @throws Exception
      */
-    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin,
-            String checkindesc) throws Exception
+    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc) throws Exception
     {
         if (checkoutin == null)
         {
@@ -461,33 +582,42 @@ public class HPCCWsAttributesClient extends DataSingleton
         }
         if (!this.attributeExists(modulename, attributename,type))
         {
-            throw new FileNotFoundException("Cannot update " + modulename + "." + attributename
-                    + ", attribute does not exist");
+            throw new FileNotFoundException("Cannot update " + modulename + "." + attributename + ", attribute does not exist");
         }
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+        
+        verifyStub();
 
         if (checkoutin)
         {
             this.checkoutAttribute(modulename, attributename);
         }
+
         SaveAttributeRequest req = new SaveAttributeRequest();
         req.setModuleName(modulename);
         req.setAttributeName(attributename);
         req.setText(text);
+
         SaveAttributeRequest[] arr = { req };
-        SaveAttributes params = new SaveAttributes();
-        params.setAttributes(arr);
-        UpdateAttributesResponse resp = proxy.saveAttributes(params);
+        ArrayOfSaveAttributeRequest arrayofatts = new ArrayOfSaveAttributeRequest();
+        arrayofatts.setSaveAttributeRequest(arr);
+        SaveAttributes saveattributes = new SaveAttributes();
+        saveattributes.setAttributes(arrayofatts);
+
+        UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(saveattributes);
         if (resp != null)
         {
-            handleException(resp.getExceptions());
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+
             if (checkoutin)
             {
                 this.checkinAttribute(modulename, attributename, checkindesc);
             }
-            if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+            if (resp.getOutAttributes() != null)
             {
-                return resp.getOutAttributes()[0];
+                ECLAttribute[] eclAttributes = resp.getOutAttributes().getECLAttribute();
+                if (eclAttributes != null && eclAttributes.length > 0)
+                    return eclAttributes[0];
             }
         }
 
@@ -516,23 +646,35 @@ public class HPCCWsAttributesClient extends DataSingleton
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+
+        verifyStub();
+
         CheckinAttributeRequest req = new CheckinAttributeRequest();
         req.setAttributeName(attributename);
         req.setModuleName(modulename);
         req.setDescription(checkindesc);
         CheckinAttributeRequest[] arr = { req };
+        
         CheckinAttributes params = new CheckinAttributes();
-        params.setAttributes(arr);
-        UpdateAttributesResponse resp = proxy.checkinAttributes(params);
-        if (resp == null)
+        ArrayOfCheckinAttributeRequest arrayofcheckinatts = new ArrayOfCheckinAttributeRequest();
+        arrayofcheckinatts.setCheckinAttributeRequest(arr);
+        params.setAttributes(arrayofcheckinatts);
+
+        UpdateAttributesResponse response = ((WsAttributesStub)stub).checkinAttributes(params);
+
+        if (response == null)
         {
             return null;
         }
-        handleException(resp.getExceptions());
-        if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+
+        if (response.getOutAttributes() != null)
         {
-            return resp.getOutAttributes()[0];
+            ECLAttribute[] eclAttributes = response.getOutAttributes().getECLAttribute();
+            if (eclAttributes != null && eclAttributes.length > 0)
+                return eclAttributes[0];
         }
         return null;
     }
@@ -553,22 +695,33 @@ public class HPCCWsAttributesClient extends DataSingleton
         {
             throw new Exception("Module name and attribute name are required");
         }
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+
+        verifyStub();
+
         CheckoutAttributeRequest req = new CheckoutAttributeRequest();
         req.setAttributeName(attributename);
         req.setModuleName(modulename);
         CheckoutAttributeRequest[] arr = { req };
         CheckoutAttributes params = new CheckoutAttributes();
-        params.setAttributes(arr);
-        UpdateAttributesResponse resp = proxy.checkoutAttributes(params);
-        if (resp == null)
+        
+        ArrayOfCheckoutAttributeRequest arrayofCheckoutAtts = new ArrayOfCheckoutAttributeRequest();
+        arrayofCheckoutAtts.setCheckoutAttributeRequest(arr);
+        params.setAttributes(arrayofCheckoutAtts);
+
+        UpdateAttributesResponse response = ((WsAttributesStub)stub).checkoutAttributes(params);
+        if (response == null)
         {
             return null;
         }
-        handleException(resp.getExceptions());
-        if (resp.getOutAttributes() != null && resp.getOutAttributes().length > 0)
+
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+
+        if (response.getOutAttributes() != null)
         {
-            return resp.getOutAttributes()[0];
+            ECLAttribute[] eclAttributes = response.getOutAttributes().getECLAttribute();
+            if (eclAttributes != null && eclAttributes.length > 0)
+                return eclAttributes[0];
         }
         return null;
     }
@@ -589,8 +742,7 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @return the ECL Attribute of the created object
      * @throws Exception
      */
-    public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin,
-            String checkindesc) throws Exception
+    public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin, String checkindesc) throws Exception
     {
         if (checkin == null)
         {
@@ -608,17 +760,22 @@ public class HPCCWsAttributesClient extends DataSingleton
         {
             throw new Exception(modulename + "." + attributename + " already exists");
         }
-        WsAttributesServiceSoapProxy proxy = this.getSoapProxy();
+
+        verifyStub();
+
         CreateAttribute req = new CreateAttribute();
         req.setModuleName(modulename);
         req.setAttributeName(attributename);
         req.setType(type);
-        CreateAttributeResponse resp = proxy.createAttribute(req);
-        if (resp == null)
+
+        CreateAttributeResponse response = ((WsAttributesStub)stub).createAttribute(req);
+        if (response == null)
         {
             return null;
         }
-        handleException(resp.getExceptions());
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+
         ECLAttribute attr = updateAttribute(modulename, attributename, type, text, checkin, checkindesc);
         return attr;
     }
@@ -631,10 +788,14 @@ public class HPCCWsAttributesClient extends DataSingleton
      */
     public void deleteModule(String modulename) throws Exception 
     {
-        DeleteModule parameters=new DeleteModule();
+        verifyStub();
+
+        DeleteModule parameters = new DeleteModule();
         parameters.setModuleName(modulename);
-        DeleteModuleResponse resp=getSoapProxy().deleteModule(parameters);
-        this.handleException(resp.getExceptions());
+
+        DeleteModuleResponse response = ((WsAttributesStub)stub).deleteModule(parameters);
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
     }
 
     /**
@@ -643,187 +804,35 @@ public class HPCCWsAttributesClient extends DataSingleton
      * @param attributename - name of attribute to delete
      * @throws Exception
      */
-    public List<ECLAttributeInfo> deleteAttribute(String modulename,String attributename) throws Exception 
+    public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception 
     {
-        DeleteAttributes parameters=new DeleteAttributes();
-        DeleteAttributeRequest dar=new DeleteAttributeRequest();
+        verifyStub();
+
+        DeleteAttributeRequest dar = new DeleteAttributeRequest();
+        DeleteAttributes parameters = new DeleteAttributes();
+
         dar.setAttributeName(attributename);
         dar.setModuleName(modulename);
-        DeleteAttributeRequest[] arr=new DeleteAttributeRequest[]{dar};
-        parameters.setAttributes(arr);
-        UpdateAttributesResponse resp=getSoapProxy().deleteAttributes(parameters);
-        this.handleException(resp.getExceptions());
-        List<ECLAttributeInfo> results=new ArrayList<ECLAttributeInfo>();
+        
+        DeleteAttributeRequest[] arr = new DeleteAttributeRequest[]{dar};
+        ArrayOfDeleteAttributeRequest arrayofdeleteatts = new ArrayOfDeleteAttributeRequest();
+        arrayofdeleteatts.setDeleteAttributeRequest(arr);
+        parameters.setAttributes(arrayofdeleteatts);
+
+        UpdateAttributesResponse resp = ((WsAttributesStub)stub).deleteAttributes(parameters);
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+
+        List<ECLAttributeWrapper> results=new ArrayList<ECLAttributeWrapper>();
         if (resp.getOutAttributes() != null) 
         {
-            for (int i=0; i < resp.getOutAttributes().length;i++) 
+            ECLAttribute[] arrayOfECLAttribute = resp.getOutAttributes().getECLAttribute();
+            for (int i=0; i < arrayOfECLAttribute.length; i++) 
             {
-                results.add(new ECLAttributeInfo(resp.getOutAttributes()[i]));
+                results.add(new ECLAttributeWrapper(arrayOfECLAttribute[i]));
             }
         }
         return results;
-    }
-
-    /**
-     * Provides soapproxy object for HPCCWsAttributesClient which can be used to access the web service methods directly
-     *
-     * @return soapproxy for HPCCWsAttributesClient
-     * @throws Exception
-     *             if soapproxy not available.
-     */
-    /**
-     * @return
-     * @throws Exception
-     */
-    public WsAttributesServiceSoapProxy getSoapProxy() throws Exception
-    {
-        if (wsAttributesServiceSoapProxy != null)
-            return wsAttributesServiceSoapProxy;
-        else
-            throw new Exception("wsAttributesServiceSoapProxy not available.");
-    }
-
-    /**
-     * Provides the WSDL URL originally used to create the underlying stub code
-     *
-     * @return original WSLD URL
-     */
-    public static String getOriginalWSDLURL()
-    {
-        return (new org.hpccsystems.ws.client.gen.extended.wsattributes.v1_21.WsAttributesLocator().getWsAttributesServiceSoapAddress());
-    }
-
-    /**
-     * @param wsAttributesServiceSoapProxy
-     */
-    protected HPCCWsAttributesClient(WsAttributesServiceSoapProxy wsAttributesServiceSoapProxy)
-    {
-        this.wsAttributesServiceSoapProxy = wsAttributesServiceSoapProxy;
-    }
-
-    /**
-     * @param baseConnection
-     */
-    protected HPCCWsAttributesClient(Connection baseConnection)
-    {
-        this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection
-                .getUserName(), baseConnection.getPassword());
-    }
-
-    /**
-     * Create an HPCCWsAttributesClient object
-     *
-     * @param protocol
-     *            - http or https
-     * @param targetHost
-     *            - server ip or domain name
-     * @param targetPort
-     *            - wsAttributes port (8145, usually)
-     * @param user
-     *            username of connecting user
-     * @param pass
-     *            password of connecting user
-     */
-    protected HPCCWsAttributesClient(String protocol, String targetHost, String targetPort, String user, String pass)
-    {
-        String address = Connection.buildUrl(protocol, targetHost, targetPort, WSATTRIBUTESWSDLURI);
-
-        initWsAttributesSoapProxy(address, user, pass);
-    }
-
-    /**
-     * Initializes the service's underlying soap proxy. Should only be used by constructors
-     *
-     * @param baseURL
-     *            Target service base URL
-     * @param user
-     *            User credentials
-     * @param pass
-     *            User credentials
-     */
-    private void initWsAttributesSoapProxy(String baseURL, String user, String pass)
-    {
-        wsAttributesServiceSoapProxy = new WsAttributesServiceSoapProxy(baseURL);
-        if (wsAttributesServiceSoapProxy != null)
-        {
-            WsAttributesServiceSoap wsAttributesServiceSoap = wsAttributesServiceSoapProxy.getWsAttributesServiceSoap();
-            if (wsAttributesServiceSoap != null)
-            {
-                if (user != null && pass != null) Connection.initStub((Stub) wsAttributesServiceSoap, user, pass);
-            }
-        }
-    }
-
-    private void handleException(ArrayOfEspException exp) throws Exception
-    {
-        if (exp != null && exp.getException() != null && exp.getException().length > 0)
-        {
-            String errs="";
-            for (int i = 0; i < exp.getException().length; i++)
-            {
-                EspException ex = exp.getException()[i];
-                log.error(ex.getMessage());
-                errs=errs + ex.getMessage() + "\n";
-            }
-            throw new Exception(errs, exp);
-        }
-    }
-
-    @Override
-    protected boolean isComplete()
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    protected void fastRefresh()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    protected void fullRefresh()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public boolean equals(Object aThat)
-    {
-        if (this == aThat)
-        {
-            return true;
-        }
-
-        if (!(aThat instanceof HPCCWsAttributesClient))
-        {
-            return false;
-        }
-
-        HPCCWsAttributesClient that = (HPCCWsAttributesClient) aThat;
-        WsAttributesServiceSoapProxy thatSoapProxy;
-        try
-        {
-            thatSoapProxy = that.getSoapProxy();
-        }
-        catch(Exception e)
-        {
-            thatSoapProxy = null;
-        }
-
-        return EqualsUtil.areEqual(wsAttributesServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
-               EqualsUtil.areEqual(((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsAttributesServiceSoap()).getUsername()) &&
-               EqualsUtil.areEqual(((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsAttributesServiceSoap()).getPassword());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int result = HashCodeUtil.SEED;
-        result = HashCodeUtil.hash(result, wsAttributesServiceSoapProxy.getEndpoint());
-        result = HashCodeUtil.hash(result, ((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getUsername());
-        result = HashCodeUtil.hash(result, ((Stub) wsAttributesServiceSoapProxy.getWsAttributesServiceSoap()).getPassword());
-        return result;
     }
 }

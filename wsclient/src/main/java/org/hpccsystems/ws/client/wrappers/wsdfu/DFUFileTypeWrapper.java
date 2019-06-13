@@ -3,6 +3,12 @@
  */
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
+
 /**
  * DFUFileTypeWrapper
  *
@@ -10,32 +16,59 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
  * Provides layer of indirection between caller and ESP version specific logic
  *
  */
-public class DFUFileTypeWrapper extends org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileType
+public enum DFUFileTypeWrapper
 {
-    public static final java.lang.String _Flat = "Flat";
-    public static final java.lang.String _Index = "Index";
-    public static final java.lang.String _Xml = "Xml";
-    public static final java.lang.String _Csv = "Csv";
-    public static final DFUFileTypeWrapper Flat = new DFUFileTypeWrapper(_Flat);
-    public static final DFUFileTypeWrapper Index = new DFUFileTypeWrapper(_Index);
-    public static final DFUFileTypeWrapper Xml = new DFUFileTypeWrapper(_Xml);
-    public static final DFUFileTypeWrapper Csv = new DFUFileTypeWrapper(_Csv);
+    Flat ("Flat"),
+    Index ("Index"),
+    Xml ("Xml"),
+    Csv ("Csv"),
+    Json ("Json");
 
-	private static final long serialVersionUID = 1L;
+    protected String theDFUFileType;
+    private static final Map<String,DFUFileTypeWrapper> enumtable;
 
-	public DFUFileTypeWrapper(String value)
-	{
-		super(value);
-	}
+    DFUFileTypeWrapper (String name)
+    {
+        theDFUFileType = name;
+    }
 
-	@Override
-	public boolean equals(java.lang.Object obj)
-	{
-	    if (obj instanceof String)
-	        return this.getValue().equals(obj);
-	    else if (obj instanceof DFUFileTypeWrapper)
-	        return this.getValue().equals(((DFUFileTypeWrapper)obj).getValue());
-	    else
-	        return false;
-	}
+    public String toString()
+    {
+        return theDFUFileType;
+    }
+
+    static
+    {
+        Map<String,DFUFileTypeWrapper> map = new ConcurrentHashMap<String, DFUFileTypeWrapper>();
+        for (DFUFileTypeWrapper instance : DFUFileTypeWrapper.values())
+        {
+            map.put(instance.toString(),instance);
+        }
+        enumtable = Collections.unmodifiableMap(map);
+    }
+
+    public static DFUFileTypeWrapper get(String name)
+    {
+        return enumtable.get(name);
+    }
+
+    public static DFUFileTypeWrapper fromString(String value)
+    {
+        if (value != null && !value.isEmpty() && enumtable.containsKey(value))
+        {
+            return enumtable.get(value);
+        }
+
+        throw new IllegalArgumentException("unknown value: " + value);
+    }
+
+    public DFUFileType getFUFileType()
+    {
+        return DFUFileType.Factory.fromValue(theDFUFileType);
+    }
+
+    public static DFUFileTypeWrapper fromDfuFileType(DFUFileType filetype)
+    {
+        return fromString(filetype.getValue());
+    }
 }

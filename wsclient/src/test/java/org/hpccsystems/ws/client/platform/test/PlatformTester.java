@@ -4,21 +4,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
+import org.hpccsystems.ws.client.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
-import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.extended.wssql.v3_05.ExecuteSQLResponse;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.DropZone;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUDataColumn;
-import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
-import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType;
+import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.platform.PhysicalFile;
 import org.hpccsystems.ws.client.platform.PhysicalMachine;
 import org.hpccsystems.ws.client.platform.Platform;
@@ -27,8 +23,13 @@ import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartsOnClusterWrapper;
 
 public class PlatformTester
 {
@@ -175,7 +176,7 @@ public class PlatformTester
         {
             Platform platform = Platform.get(prot, hpccServer, port, user, pass);
 
-            HPCCWsSMCClient wssmc = platform.getWsSMCClient();
+            HPCCWsSMCClient wssmc = platform.getWsClient().getWsSMCClient();
             
             Version targetVersion = new Version(wssmc.getHPCCBuild());
             
@@ -204,7 +205,6 @@ public class PlatformTester
             HPCCWsAttributesClient wsAttributesClient3 = client3.getWsAttributesClient();
             HPCCWsAttributesClient wsAttributesClient4 = client4.getWsAttributesClient();
 
-            platform.checkInHPCCWsClient(client1);
             platform.checkInHPCCWsClient(client2);
             platform.checkInHPCCWsClient(client3);
             platform.checkInHPCCWsClient(client4);
@@ -234,14 +234,14 @@ public class PlatformTester
                 }
             }
 
-            HPCCFileSprayClient fsc = platform.getFileSprayClient();
-            DropZone[] dzLocal = fsc.fetchLocalDropZones();
+            HPCCFileSprayClient fsc = client1.getFileSprayClient();
+            DropZoneWrapper[] dzLocal = fsc.fetchLocalDropZones();
             if (dzLocal != null && dzLocal.length > 0)
             {
                 System.out.println("fetchLocalDropZones test ...");
                 for(int i = 0; i < dzLocal.length; i++)
                 {
-                    DropZone thisDZ =  dzLocal[i];
+                    DropZoneWrapper thisDZ =  dzLocal[i];
                     boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
 
                     System.out.println("DropZone[" + i + "]");
@@ -251,7 +251,7 @@ public class PlatformTester
                     System.out.println("\tComputer:   " + thisDZ.getComputer());
                     System.out.println("\tIsLinux:    " + thisDZ.getLinux());
 
-                    PhysicalFileStruct[] pfs = fsc.listFiles(dzLocal[i].getNetAddress(), dzLocal[i].getPath(), null);
+                    PhysicalFileStructWrapper[] pfs = fsc.listFiles(dzLocal[i].getNetAddress(), dzLocal[i].getPath(), null);
                     System.out.println("\tFile Listing:");
                     if (pfs != null && pfs.length > 0)
                     {
@@ -264,13 +264,13 @@ public class PlatformTester
                 }
             }
 
-            DropZone[] dzByAddress = fsc.fetchDropZones(hpccServer);
+            DropZoneWrapper[] dzByAddress = fsc.fetchDropZones(hpccServer);
             if (dzByAddress != null && dzByAddress.length > 0)
             {
                 System.out.println("fetchDropZones by address test ...");
                 for (int i = 0; i < dzByAddress.length; i++)
                 {
-                    DropZone thisDZ = dzByAddress[i];
+                    DropZoneWrapper thisDZ = dzByAddress[i];
                     boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
 
                     System.out.println("DropZone[" + i + "]");
@@ -280,12 +280,12 @@ public class PlatformTester
                     System.out.println("\tComputer:   " + thisDZ.getComputer());
                     System.out.println("\tIsLinux:    " + thisDZ.getLinux());
 
-                    PhysicalFileStruct[] pfs = fsc.listFiles(thisDZ.getNetAddress(), thisDZ.getPath(), null);
+                    PhysicalFileStructWrapper[] pfs = fsc.listFiles(thisDZ.getNetAddress(), thisDZ.getPath(), null);
                     System.out.println("\tFile Listing:");
                     if (pfs != null && pfs.length > 0)
                     {
                         for (int fileindex = 0; fileindex < pfs.length; fileindex++) {
-                            PhysicalFileStruct thisfile = pfs[fileindex];
+                            PhysicalFileStructWrapper thisfile = pfs[fileindex];
                             String name = thisfile.getName() + (thisfile.getIsDir() ? (islinux ? "/" : "\\") : "");
                             System.out.format("\t\t%-30s %15s %15s\n", name, thisfile.getIsDir() ? "" : thisfile.getFilesize(), thisfile.getModifiedtime());
                         }
@@ -293,7 +293,7 @@ public class PlatformTester
                 }
             }
 
-            PhysicalFileStruct[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), null);
+            PhysicalFileStructWrapper[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), null);
 
             // Test file download
             System.out.println("Download test ...");
@@ -357,26 +357,13 @@ public class PlatformTester
             connector = platform.checkOutHPCCWsClient();
             System.out.println("wsfileio ver: " + connector.getWsFileIOClientVer());
             System.out.println("wssmc ver: " + connector.getWsSMCClientClientVer());
-            System.out.println("wspackageprocess ver: " + connector.getWsPackageProcessClient());
+            System.out.println("wspackageprocess ver: " + connector.getHPCCWsPackageProcessClientVer());
 
-            DFUDataColumn[] newgetFileDataColumns = wsDFUClient.getFileMetaData(".::kw_test_sup", null);
-            for (int i = 0; i < newgetFileDataColumns.length; i++)
-            {
-                System.out.println("Col name: " + newgetFileDataColumns[i].getColumnLabel() + " ecl: " + newgetFileDataColumns[i].getColumnEclType() + " col type " + newgetFileDataColumns[i].getColumnType());
-            }
+            List<DFUDataColumnWrapper> newgetFileDataColumns = wsDFUClient.getFileMetaData(".::kw_test_sup", null);
 
-            System.out.println("Test for showing file part informaztion");
-            DFUFileDetailWrapper fd = wsDFUClient.getFileDetails("hthor::processed::persons", null);
-            DFUFilePartsOnClusterInfo[] fp = fd.getDFUFilePartsOnClusters();
-            for (int f=0; fp!=null && f<fp.length; f++)
+            for (DFUDataColumnWrapper wrapper : newgetFileDataColumns)
             {
-                System.out.println("Parts on cluster: " + fp[f].getCluster());
-                DFUFilePartInfo[] parts = fp[f].getDFUFileParts();
-                for (int i=0; i<parts.length; i++)
-                    System.out.println("Part ID=" + parts[i].getId()
-                                    + ": Copy Flag=" + parts[i].getCopy()
-                                    + ": IP=" + parts[i].getIp()
-                                    + ": Size=" + parts[i].getPartsize());
+                System.out.println("Col name: " + wrapper.getColumnLabel() + " ecl: " + wrapper.getColumnEclType() + " col type " + wrapper.getColumnType());
             }
 
             try
@@ -384,7 +371,7 @@ public class PlatformTester
                 //WSSQL Test
                 HPCCWsSQLClient wsSQLClient = platform.getWsClient().getWsSQLClient(wssqlport);
                 String s = "CREATE TABLE newtablename (FirstName VARCHAR(15), LastName VARCHAR(25), MiddleName VARCHAR(15) ,StreetAddress VARCHAR(42), city VARCHAR(20), state VARCHAR(2), zip VARCHAR(5)) LOAD DATA INFILE 'people-small' CONNECTION '10.0.2.15' DIRECTORY '/var/lib/HPCCSystems/mydropzone' INTO TABLE newtablename";
-                ExecuteSQLResponse executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
+                ExecuteSQLResponseWrapper executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
                 System.out.println(executeSQLFullResponse.getResult());
 
                 s = "SELECT * from newtablename  where state = 'FL' limit 10;";

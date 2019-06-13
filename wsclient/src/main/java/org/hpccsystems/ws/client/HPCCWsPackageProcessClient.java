@@ -1,105 +1,60 @@
 package org.hpccsystems.ws.client;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
 
 import org.apache.log4j.Logger;
-import org.apache.axis.client.Stub;
-
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ActivatePackageRequest;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ActivatePackageResponse;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.BasePackageStatus;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.GetPackageRequest;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.GetPackageResponse;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.WsPackageProcessServiceSoap;
-import org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.WsPackageProcessServiceSoapProxy;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessStub;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.EqualsUtil;
-import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
  *
  */
-public class HPCCWsPackageProcessClient extends DataSingleton
+public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 {
-    private static final Logger         log = Logger.getLogger(HPCCWsPackageProcessClient.class.getName());
-    private static URL                  originalURL;
-
-    public static URL getOriginalURL() throws MalformedURLException
-    {
-        if (originalURL == null)
-            originalURL = new URL(getOriginalWSDLURL());
-
-        return originalURL;
-    }
-
-    public static int getOriginalPort() throws MalformedURLException
-    {
-        return getOriginalURL().getPort();
-    }
+    private static final Logger  log                     = Logger.getLogger(HPCCWsPackageProcessClient.class.getName());
+    public  static final String  PACKAGEPROCESSURI       = "/WsPackageProcess";
 
     public static HPCCWsPackageProcessClient get(Connection connection)
     {
         return new HPCCWsPackageProcessClient(connection);
     }
 
-    public static final String PACKAGEPROCESSURI         = "/WsPackageProcess";
-
-    private WsPackageProcessServiceSoapProxy wsPackageProcessServiceSoapProxy    =  null;
-    private boolean verbose = false;
-
-    /**
-     * @param verbose - sets verbose mode
-     */
-    public void setVerbose(boolean verbose)
-    {
-        this.verbose = verbose;
-    }
-
-    /**
-     * Provides soapproxy object for HPCCWsPackageProcessClient which can be used to access
-     * the web service methods directly
-     * @return  soapproxy for HPCCWsPackageProcessClient
-     * @throws Exception if soapproxy not available.
-     */
-    public WsPackageProcessServiceSoapProxy getSoapProxy() throws Exception
-    {
-        if (wsPackageProcessServiceSoapProxy != null)
-            return wsPackageProcessServiceSoapProxy;
-        else
-            throw new Exception("WsPackageProcessServiceSoapProxy not available.");
-    }
-
-    /**
-     * Provides the WSDL URL originally used to create the underlying stub code
-     *
-     * @return original WSLD URL
-     */
-    public static String getOriginalWSDLURL()
-    {
-        return (new org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.WsPackageProcessLocator()).getWsPackageProcessServiceSoapAddress();
-    }
-
-    protected HPCCWsPackageProcessClient(WsPackageProcessServiceSoapProxy wsPackageProcessServiceSoapProxy)
-    {
-        this.wsPackageProcessServiceSoapProxy = wsPackageProcessServiceSoapProxy;
-    }
-
     protected HPCCWsPackageProcessClient(Connection baseConnection)
     {
-       this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
+        initWSPackageProcessStub(baseConnection);
     }
 
     protected HPCCWsPackageProcessClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        String address = Connection.buildUrl(protocol, targetHost, targetPort, PACKAGEPROCESSURI);
+        Connection conn = new Connection(protocol,targetHost,targetPort);
+        conn.setCredentials(user, pass);
 
-        initWSPackageProcessSoapProxy(address, user, pass);
+        initWSPackageProcessStub(conn);
+    }
+
+    protected HPCCWsPackageProcessClient(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
+    {
+        Connection conn = new Connection(protocol,targetHost,targetPort);
+        conn.setCredentials(user, pass);
+        conn.setConnectTimeoutMilli(timeout);
+        conn.setSocketTimeoutMilli(timeout);
+
+        initWSPackageProcessStub(conn);
     }
 
     /**
@@ -109,19 +64,41 @@ public class HPCCWsPackageProcessClient extends DataSingleton
      * @param user      User credentials
      * @param pass      User credentials
      */
-    private void initWSPackageProcessSoapProxy(String baseURL, String user, String pass)
+    private void initWSPackageProcessStub(Connection conn)
     {
-        wsPackageProcessServiceSoapProxy = new WsPackageProcessServiceSoapProxy(baseURL);
-        if (wsPackageProcessServiceSoapProxy != null)
+        try
         {
-                WsPackageProcessServiceSoap wsPackageProcessServiceSoap = wsPackageProcessServiceSoapProxy.getWsPackageProcessServiceSoap();
-                if (wsPackageProcessServiceSoap != null)
-                {
-                    if (user != null && pass != null)
-                        Connection.initStub((Stub) wsPackageProcessServiceSoap, user, pass);
-                }
+            stub = setStubOptions(new WsPackageProcessStub(conn.getBaseUrl()+PACKAGEPROCESSURI), conn);
+        }
+        catch (Exception e)
+        {
+            log.error("Could not initialize WsPackageProcessStub - Review all HPCC connection values");
+            if (!e.getLocalizedMessage().isEmpty())
+            {
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
+            }
         }
     }
+
+    public boolean ping() throws Exception
+    {
+        verifyStub();
+
+        WsPackageProcessPingRequest request = new WsPackageProcessPingRequest();
+
+        try
+        {
+            ((WsPackageProcessStub)stub).ping(request);
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 
     /**
      * @param globalScope
@@ -135,42 +112,34 @@ public class HPCCWsPackageProcessClient extends DataSingleton
     {
         log.debug("Attempting to activate package: " + packageMapName);
 
-        getSoapProxy();
+        verifyStub(); //Throws exception if stub failed
 
-        ActivatePackageRequest activatepackageparams = new ActivatePackageRequest();
-        activatepackageparams.setGlobalScope(new Boolean(globalScope));
-        activatepackageparams.setPackageMap(packageMapName);
-        activatepackageparams.setProcess(process);
-        activatepackageparams.setTarget(target);
+        ActivatePackageRequest request = new ActivatePackageRequest();
+
+        request.setGlobalScope(new Boolean(globalScope));
+        request.setPackageMap(packageMapName);
+        request.setProcess(process);
+        request.setTarget(target);
+
+        ActivatePackageResponse resp = null;
 
         try
         {
-            ActivatePackageResponse activatepackageresp = wsPackageProcessServiceSoapProxy.activatePackage(activatepackageparams);
-            org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ArrayOfEspException arrayOfEspExceptions = activatepackageresp.getExceptions();
-            if (arrayOfEspExceptions == null)
-            {
-                return activatepackageresp.getStatus();
-            }
-            else
-            {
-                org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException[] espexceptions = arrayOfEspExceptions.getException();
-                for (org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException espexception : espexceptions)
-                {
-                    log.error("\tESPException: " + espexception.getMessage());
-                }
-
-            }
-        }
-        catch (ArrayOfEspException e)
-        {
-            e.printStackTrace();
+            resp = ((WsPackageProcessStub)stub).activatePackage(request);
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
+            throw new Exception ("WsPackageProcessStub.activatePackage(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform activatePackage");
         }
 
-        return null;
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform activatePackage");
+
+        return resp.getStatus();
     }
 
     /**
@@ -183,42 +152,76 @@ public class HPCCWsPackageProcessClient extends DataSingleton
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
-        getSoapProxy();
+        verifyStub(); //Throws exception if stub failed
 
-        GetPackageRequest getpackageparams = new GetPackageRequest();
-        getpackageparams.setProcess(process);
-        getpackageparams.setTarget(target);
+        GetPackageRequest request = new GetPackageRequest();
+
+        request.setProcess(process);
+        request.setTarget(target);
+
+        GetPackageResponse resp = null;
 
         try
         {
-            GetPackageResponse getpackageresp = wsPackageProcessServiceSoapProxy.getPackage(getpackageparams);
-            org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.ArrayOfEspException arrayOfEspExceptions = getpackageresp.getExceptions();
-            if (arrayOfEspExceptions == null)
-            {
-                log.debug("Get Package info: " + getpackageresp.getInfo());
-                return getpackageresp.getStatus();
-            }
-            else
-            {
-                org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException[] espexceptions = arrayOfEspExceptions.getException();
-                for (org.hpccsystems.ws.client.gen.wspackageprocess.v1_03.EspException espexception : espexceptions)
-                {
-                    log.error("\tESPException: " + espexception.getMessage());
-                }
-
-            }
-        }
-        catch (ArrayOfEspException e)
-        {
-            e.printStackTrace();
+            resp = ((WsPackageProcessStub)stub).getPackage(request);
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
+            throw new Exception ("WsPackageProcessStub.getPackage(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getPackage");
         }
 
-        return null;
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not get package");
+
+        log.debug("Get Package info: " + resp.getInfo());
+
+        return resp.getStatus();
     }
+
+    public PackageListMapData[] listPackages(String process, String target, String processFilter) throws Exception
+    {
+        log.debug("Attempting to list packages");
+
+        verifyStub(); //Throws exception if stub failed
+
+        PackageListMapData [] packageListMapDataArray = null;
+        ListPackagesRequest request = new ListPackagesRequest();
+
+        request.setProcess(process);
+        request.setProcessFilter(processFilter);
+        request.setTarget(target);
+
+        ListPackagesResponse response = null;
+
+        try
+        {
+            response = ((WsPackageProcessStub)stub).listPackages(request);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("WsPackageProcessStub.listPackages() encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform list packages");
+        }
+
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not List packages");
+
+        ArrayOfPackageListMapData packageMapList = response.getPackageMapList();
+        if (packageMapList != null)
+        {
+             packageListMapDataArray = packageMapList.getPackageListMapData();
+        }
+
+        return packageListMapDataArray;
+    }
+
     //TO-DO
     /* Implement helper methods for most commonly used tasks:
      *
@@ -229,73 +232,13 @@ public class HPCCWsPackageProcessClient extends DataSingleton
     CopyPackageMap
     DeActivatePackage
     DeletePackage
-    Echo
     GetPackage
     GetPackageMapById
     GetPackageMapSelectOptions
     GetPartFromPackageMap
     GetQueryFileMapping
     ListPackage
-    ListPackages
     RemovePartFromPackageMap
     ValidatePackage
      */
-    @Override
-    protected boolean isComplete()
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    protected void fastRefresh()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    protected void fullRefresh()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public boolean equals(Object aThat)
-    {
-        if (this == aThat)
-        {
-            return true;
-        }
-
-        if (!(aThat instanceof HPCCWsPackageProcessClient))
-        {
-            return false;
-        }
-
-        HPCCWsPackageProcessClient that = (HPCCWsPackageProcessClient) aThat;
-        WsPackageProcessServiceSoapProxy thatSoapProxy;
-        try
-        {
-            thatSoapProxy = that.getSoapProxy();
-        }
-        catch(Exception e)
-        {
-            thatSoapProxy = null;
-        }
-
-        return EqualsUtil.areEqual(wsPackageProcessServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
-                EqualsUtil.areEqual(((Stub) wsPackageProcessServiceSoapProxy.getWsPackageProcessServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsPackageProcessServiceSoap()).getUsername()) &&
-                EqualsUtil.areEqual(((Stub) wsPackageProcessServiceSoapProxy.getWsPackageProcessServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsPackageProcessServiceSoap()).getPassword());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int result = HashCodeUtil.SEED;
-        result = HashCodeUtil.hash(result, wsPackageProcessServiceSoapProxy.getEndpoint());
-        result = HashCodeUtil.hash(result, ((Stub)  wsPackageProcessServiceSoapProxy.getWsPackageProcessServiceSoap()).getUsername());
-        result = HashCodeUtil.hash(result, ((Stub)  wsPackageProcessServiceSoapProxy.getWsPackageProcessServiceSoap()).getPassword());
-        return result;
-    }
-
 }

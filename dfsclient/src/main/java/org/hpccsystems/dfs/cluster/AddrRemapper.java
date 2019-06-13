@@ -22,9 +22,9 @@ import java.util.HashSet;
 import java.util.StringTokenizer;
 
 import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileCopyWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUPartWrapper;
 
 /**
  * Map internal IP addresses to external IP addresses.  Note that the
@@ -110,8 +110,9 @@ public class AddrRemapper extends ClusterRemapper
     /**
      * Comparator to re-order the file parts.
      */
-    private static Comparator<DFUFilePartInfo> FilePartInfoComparator = new Comparator<DFUFilePartInfo>() {
-        public int compare(DFUFilePartInfo fpi1, DFUFilePartInfo fpi2)
+    private static Comparator<DFUPartWrapper> FilePartInfoComparator = new Comparator<DFUPartWrapper>()
+    {
+        public int compare(DFUPartWrapper fpi1, DFUPartWrapper fpi2)
         {
             if (fpi1.getCopy() < fpi2.getCopy()) return -1;
             if (fpi1.getCopy() > fpi2.getCopy()) return 1;
@@ -161,7 +162,7 @@ public class AddrRemapper extends ClusterRemapper
     * @see org.hpccsystems.spark.thor.ClusterRemapper#revisePort(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
     */
     @Override
-    public int revisePort(DFUFilePartInfo fpi)
+    public int revisePort(DFUPartWrapper fpi)
     {
         return rowServicePort;
     }
@@ -170,7 +171,7 @@ public class AddrRemapper extends ClusterRemapper
     * @see org.hpccsystems.spark.thor.ClusterRemapper#getUsesSSLConnection(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
     */
     @Override
-    public boolean getUsesSSLConnection(DFUFilePartInfo fpi)
+    public boolean getUsesSSLConnection(DFUPartWrapper fpi)
     {
         return usesSSL;
     }

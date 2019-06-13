@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wsstore" targetNamespace="urn:hpccsystems:ws:wsstore"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsstore" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="CreateStoreRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CreateStoreResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Success" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="TargetUser" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Success" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteNamespaceRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="TargetUser" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteNamespaceResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Success" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FetchRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FetchResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FetchAllRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FetchAllResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Pairs">
+<xsd:complexType><xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="Pair" type="tns:KVPair"/></xsd:sequence></xsd:complexType></xsd:element></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="KVPair">
+<xsd:all><xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="FetchKeyMDRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FetchKeyMDResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Pairs">
+<xsd:complexType><xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="Pair" type="tns:KVPair"/></xsd:sequence></xsd:complexType></xsd:element></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ListKeysRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ListKeysResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="KeySet"><xsd:complexType><xsd:sequence><xsd:element name="Key" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ListNamespacesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ListNamespacesResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespaces"><xsd:complexType><xsd:sequence><xsd:element name="Namespace" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="wsstorePingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="wsstorePingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="SetRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="StoreName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Namespace" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="UserSpecific" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SetResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Success" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="CreateStoreSoapIn"><part name="parameters" element="tns:CreateStoreRequest"/></message><message name="CreateStoreSoapOut"><part name="parameters" element="tns:CreateStoreResponse"/></message><message name="DeleteSoapIn"><part name="parameters" element="tns:DeleteRequest"/></message><message name="DeleteSoapOut"><part name="parameters" element="tns:DeleteResponse"/></message><message name="DeleteNamespaceSoapIn"><part name="parameters" element="tns:DeleteNamespaceRequest"/></message><message name="DeleteNamespaceSoapOut"><part name="parameters" element="tns:DeleteNamespaceResponse"/></message><message name="FetchSoapIn"><part name="parameters" element="tns:FetchRequest"/></message><message name="FetchSoapOut"><part name="parameters" element="tns:FetchResponse"/></message><message name="FetchAllSoapIn"><part name="parameters" element="tns:FetchAllRequest"/></message><message name="FetchAllSoapOut"><part name="parameters" element="tns:FetchAllResponse"/></message><message name="FetchKeyMetadataSoapIn"><part name="parameters" element="tns:FetchKeyMDRequest"/></message><message name="FetchKeyMetadataSoapOut"><part name="parameters" element="tns:FetchKeyMDResponse"/></message><message name="ListKeysSoapIn"><part name="parameters" element="tns:ListKeysRequest"/></message><message name="ListKeysSoapOut"><part name="parameters" element="tns:ListKeysResponse"/></message><message name="ListNamespacesSoapIn"><part name="parameters" element="tns:ListNamespacesRequest"/></message><message name="ListNamespacesSoapOut"><part name="parameters" element="tns:ListNamespacesResponse"/></message><message name="PingSoapIn"><part name="parameters" element="tns:wsstorePingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:wsstorePingResponse"/></message><message name="SetSoapIn"><part name="parameters" element="tns:SetRequest"/></message><message name="SetSoapOut"><part name="parameters" element="tns:SetResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="wsstoreServiceSoap"><operation name="CreateStore"><input message="tns:CreateStoreSoapIn"/><output message="tns:CreateStoreSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Delete"><input message="tns:DeleteSoapIn"/><output message="tns:DeleteSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DeleteNamespace"><input message="tns:DeleteNamespaceSoapIn"/><output message="tns:DeleteNamespaceSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Fetch"><input message="tns:FetchSoapIn"/><output message="tns:FetchSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="FetchAll"><input message="tns:FetchAllSoapIn"/><output message="tns:FetchAllSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="FetchKeyMetadata"><input message="tns:FetchKeyMetadataSoapIn"/><output message="tns:FetchKeyMetadataSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ListKeys"><input message="tns:ListKeysSoapIn"/><output message="tns:ListKeysSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ListNamespaces"><input message="tns:ListNamespacesSoapIn"/><output message="tns:ListNamespacesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Set"><input message="tns:SetSoapIn"/><output message="tns:SetSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="wsstoreServiceSoap" type="tns:wsstoreServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="CreateStore"><soap:operation soapAction="wsstore/CreateStore?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Delete"><soap:operation soapAction="wsstore/Delete?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DeleteNamespace"><soap:operation soapAction="wsstore/DeleteNamespace?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Fetch"><soap:operation soapAction="wsstore/Fetch?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="FetchAll"><soap:operation soapAction="wsstore/FetchAll?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="FetchKeyMetadata"><soap:operation soapAction="wsstore/FetchKeyMetadata?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ListKeys"><soap:operation soapAction="wsstore/ListKeys?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ListNamespaces"><soap:operation soapAction="wsstore/ListNamespaces?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Ping"><soap:operation soapAction="wsstore/Ping?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Set"><soap:operation soapAction="wsstore/Set?ver_=1.01" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="wsstore"><port name="wsstoreServiceSoap" binding="tns:wsstoreServiceSoap"><soap:address location="http://10.173.160.101:8010/wsstore?ver_=1.01"/></port></service></definitions>

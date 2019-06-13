@@ -9,13 +9,14 @@ package org.hpccsystems.ws.client.platform;
 
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.DFUWorkunit;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.GetDFUWorkunitResponse;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.WUState;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.EspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitResponseWrapper;
 
 public class FileSprayWorkunit extends DataSingleton
 {
@@ -32,7 +33,7 @@ public class FileSprayWorkunit extends DataSingleton
     }
 
     private Platform    platform;
-    private DFUWorkunit info;
+    private DFUWorkunitWrapper info;
 
     public enum Notification
     {
@@ -42,7 +43,7 @@ public class FileSprayWorkunit extends DataSingleton
     FileSprayWorkunit(Platform platform, String id)
     {
         this.platform = platform;
-        info = new DFUWorkunit();
+        info = new DFUWorkunitWrapper();
         info.setID(id);
         setChanged();
     }
@@ -65,29 +66,26 @@ public class FileSprayWorkunit extends DataSingleton
      */
     public WUState getStateID()
     {
-        if (info.getState() != null)
+        switch (info.getState())
         {
-            switch (info.getState())
-            {
-                case 1:
-                    return WUState.SCHEDULED;
-                case 2:
-                    return WUState.WAIT;
-                case 3:
-                    return WUState.RUNNING;
-                case 4:
-                    return WUState.ABORTED;
-                case 5:
-                    return WUState.FAILED;
-                case 6:
-                    return WUState.COMPLETED;
-                case 7:
-                    return WUState.COMPLETED;
-                case 8:
-                    return WUState.ABORTING;
-                case 999:
-                    return WUState.UNKNOWN_ONSERVER;
-            }
+            case 1:
+                return WUState.SCHEDULED;
+            case 2:
+                return WUState.WAIT;
+            case 3:
+                return WUState.RUNNING;
+            case 4:
+                return WUState.ABORTED;
+            case 5:
+                return WUState.FAILED;
+            case 6:
+                return WUState.COMPLETED;
+            case 7:
+                return WUState.COMPLETED;
+            case 8:
+                return WUState.ABORTING;
+            case 999:
+                return WUState.UNKNOWN_ONSERVER;
         }
         return WUState.UNKNOWN;
     }
@@ -175,11 +173,11 @@ public class FileSprayWorkunit extends DataSingleton
     {
         try
         {
-            HPCCFileSprayClient fileSprayClient = platform.getFileSprayClient();
-            GetDFUWorkunitResponse response = fileSprayClient.getDFUWorkunit(info.getID());
+            HPCCFileSprayClient fileSprayClient = platform.getWsClient().getFileSprayClient();
+            GetDFUWorkunitResponseWrapper response = fileSprayClient.getDFUWorkunit(info.getID());
             if (response.getResult() == null)
             { // Call succeeded, but no response...
-                for (EspException e : response.getExceptions().getException())
+                for (EspExceptionWrapper e : response.getExceptions().getException())
                 {
                     if (e.getCode().equals("20082"))
                     { // No longer exists...
@@ -202,17 +200,17 @@ public class FileSprayWorkunit extends DataSingleton
     }
 
     // Updates ---
-    public boolean update(DFUWorkunit wu)
+    public boolean update(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
         boolean retVal = false;
-        if (wu != null && info.getID().equals(wu.getID()) && !info.equals(wu))
+        if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID()) && !info.equals(dfuWorkunitWrapper))
         {
-            if (updateState(wu))
+            if (updateState(dfuWorkunitWrapper))
             {
                 retVal = true;
                 notifyObservers(Notification.LOGICALFILEWORKUNIT);
             }
-            if (updateLogicalFiles(wu))
+            if (updateLogicalFiles(dfuWorkunitWrapper))
             {
                 retVal = true;
                 notifyObservers(Notification.LOGICALFILEWORKUNIT);
@@ -222,25 +220,25 @@ public class FileSprayWorkunit extends DataSingleton
         return retVal;
     }
 
-    synchronized boolean updateState(DFUWorkunit wu)
+    synchronized boolean updateState(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
-        if (wu != null && info.getID().equals(wu.getID()) && EqualsUtil.hasChanged(info.getState(), wu.getState()))
+        if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID()) && EqualsUtil.hasChanged(info.getState(), dfuWorkunitWrapper.getState()))
         {
-            info.setState(wu.getState());
+            info.setState(dfuWorkunitWrapper.getState());
             setChanged();
             return true;
         }
         return false;
     }
 
-    synchronized boolean updateLogicalFiles(DFUWorkunit wu)
+    synchronized boolean updateLogicalFiles(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
-        if (wu != null
-                && info.getID().equals(wu.getID())
-                && (EqualsUtil.hasChanged(info.getSourceLogicalName(), wu.getSourceLogicalName()) || EqualsUtil
-                        .hasChanged(info.getDestLogicalName(), wu.getDestLogicalName())))
+        if (dfuWorkunitWrapper != null
+                && info.getID().equals(dfuWorkunitWrapper.getID())
+                && (EqualsUtil.hasChanged(info.getSourceLogicalName(), dfuWorkunitWrapper.getSourceLogicalName()) || EqualsUtil
+                        .hasChanged(info.getDestLogicalName(), dfuWorkunitWrapper.getDestLogicalName())))
         {
-            info = wu;
+            info = dfuWorkunitWrapper;
             setChanged();
             return true;
         }

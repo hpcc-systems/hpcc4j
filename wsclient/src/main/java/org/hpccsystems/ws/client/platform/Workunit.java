@@ -17,18 +17,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLQuery;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.EspException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.WUState;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
 public class Workunit extends DataSingleton
 {
@@ -46,7 +47,7 @@ public class Workunit extends DataSingleton
 
     private Platform                platform;
 
-    private WorkunitInfo            info;
+    private WorkunitWrapper            info;
     private Collection<String>      resultViews;
     private Collection<Result>      results;
     private Collection<Graph>       graphs;
@@ -61,7 +62,7 @@ public class Workunit extends DataSingleton
     private Workunit(Platform platform, String wuid)
     {
         this.platform = platform;
-        info = new WorkunitInfo();
+        info = new WorkunitWrapper();
         info.setWuid(wuid);
         resultViews = new ArrayList<String>();
         results = new ArrayList<Result>();
@@ -344,16 +345,16 @@ public class Workunit extends DataSingleton
         HPCCWsWorkUnitsClient wsWorkunitsClient;
         try
         {
-            wsWorkunitsClient = platform.getWsWorkunitsClient();
+            wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
             try
             {
                 wsWorkunitsClient.abortWU(info.getWuid());
             }
-            catch (ArrayOfEspException e)
-            {
-                assert false;
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                assert false;
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -370,17 +371,17 @@ public class Workunit extends DataSingleton
         HPCCWsWorkUnitsClient wsWorkunitsClient;
         try
         {
-            wsWorkunitsClient = platform.getWsWorkunitsClient();
+            wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
             try
             {
                 wsWorkunitsClient.deleteWU(info.getWuid());
                 refreshState();
             }
-            catch (ArrayOfEspException e)
-            {
-                assert false;
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                assert false;
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -397,17 +398,17 @@ public class Workunit extends DataSingleton
         HPCCWsWorkUnitsClient wsWorkunitsClient;
         try
         {
-            wsWorkunitsClient = platform.getWsWorkunitsClient();
+            wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
             try
             {
                 wsWorkunitsClient.resubmitWU(info.getWuid(), restart, clone);
                 refreshState();
             }
-            catch (ArrayOfEspException e)
-            {
-                assert false;
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                assert false;
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -439,17 +440,17 @@ public class Workunit extends DataSingleton
         HPCCWsWorkUnitsClient wsWorkunitsClient;
         try
         {
-            wsWorkunitsClient = platform.getWsWorkunitsClient();
+            wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
             try
             {
                 wsWorkunitsClient.publishWU(info.getWuid());
                 refreshState();
             }
-            catch (ArrayOfEspException e)
-            {
-                assert false;
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                assert false;
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -474,8 +475,8 @@ public class Workunit extends DataSingleton
 
         try
         {
-            HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsWorkunitsClient();
-            List<WorkunitInfo> response = wsWorkunitsClient.workUnitUQuery(new WUQueryInfo().setWuid(info.getWuid()).setPageSize(new Long(1)));
+            HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
+            List<WorkunitWrapper> response = wsWorkunitsClient.workUnitUQuery(new WUQueryWrapper().setWuid(info.getWuid()).setPageSize(new Long(1)));
             if (response.size() == 1)
             {
                 update(response.get(0).getEclWorkunit());
@@ -503,9 +504,10 @@ public class Workunit extends DataSingleton
     {
         try
         {
-            HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsWorkunitsClient();
-            try {
-                WorkunitInfo wi = wsWorkunitsClient.getWUInfo(info.getWuid(), includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, false, false, false, false, false);
+            HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
+            try
+            {
+                WorkunitWrapper wi = wsWorkunitsClient.getWUInfo(info.getWuid(), includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, false, false, false, false, false);
                 if (wi != null)
                 {
                     update(wi.getEclWorkunit());
@@ -519,18 +521,21 @@ public class Workunit extends DataSingleton
             {
                 //getWUInfo throws the arrayofespexceptions wrapped in an exception;
                 //examine this in a catch
-                if (ex.getCause() != null && ex.getCause() instanceof ArrayOfEspException)
+                //if (ex.getCause() != null && ex.getCause() instanceof ArrayOfEspException)
+                if (ex.getCause() != null)
                 {
+                    Throwable cause = ex.getCause();
+                    System.out.println(cause.getLocalizedMessage());
                     // Call succeeded, but no response...
-                    for (EspException e : ((ArrayOfEspException)ex.getCause()).getException())
+                   // for (EspException e : ((ArrayOfEspException)ex.getCause()).getException())
                     {
-                        if (e.getCode().equals("20082") || e.getCode().equals("20080"))
-                        { //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
-                            info.setStateID(999);
+                        //if (e.getCode().equals("20082") || e.getCode().equals("20080"))
+                        //{ //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
+                        //    info.setStateID(999);
                             setChanged();
                             notifyObservers(Notification.WORKUNIT);
-                            break;
-                        }
+                        //    break;
+                        //}
                     }       
                 }
             }
@@ -578,22 +583,22 @@ public class Workunit extends DataSingleton
                 retVal = true;
                 notifyObservers(Notification.QUERY);
             }
-            if (updateApplicationValues(wu.getApplicationValues()))
+            if (updateApplicationValues(wu.getApplicationValues().getApplicationValue()))
             {
                 retVal = true;
                 notifyObservers(Notification.APPLICATIONVALUES);
             }
-            if (updateResults(wu.getResults()))
+            if (updateResults(wu.getResults().getECLResult()))
             {
                 retVal = true;
                 notifyObservers(Notification.RESULTS);
             }
-            if (updateGraphs(wu.getGraphs()))
+            if (updateGraphs(wu.getGraphs().getECLGraph()))
             {
                 retVal = true;
                 notifyObservers(Notification.GRAPHS);
             }
-            if (updateSourceFiles(wu.getSourceFiles()))
+            if (updateSourceFiles(wu.getSourceFiles().getECLSourceFile()))
             {
                 retVal = true;
                 notifyObservers(Notification.SOURCEFILES);

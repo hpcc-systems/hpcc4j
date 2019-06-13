@@ -11,9 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -40,7 +39,7 @@ public class LogicalFile extends DataSingleton
 
     private Platform           platform;
     private DFULogicalFile     dfulogicalfile;
-    private DFUFileDetail      dfufiledetail;
+    private DFUFileDetailWrapper      dfufiledetail;
     private ECLSourceFile      eclsourcefile;
 
     public enum Notification
@@ -53,7 +52,7 @@ public class LogicalFile extends DataSingleton
         this.platform = platform;
         dfulogicalfile = new DFULogicalFile();
         dfulogicalfile.setName(name);
-        dfufiledetail = new DFUFileDetail();
+        dfufiledetail = new DFUFileDetailWrapper();
         dfufiledetail.setName(name);
         eclsourcefile = new ECLSourceFile();
         eclsourcefile.setName(name);
@@ -116,7 +115,7 @@ public class LogicalFile extends DataSingleton
     {
         try
         {
-            HPCCWsDFUClient wsDfuClient = platform.getWsDfuClient();
+            HPCCWsDFUClient wsDfuClient = platform.getWsClient().getWsDFUClient();
             DFUInfoWrapper fileInfo = wsDfuClient.getFileInfo(dfulogicalfile.getName(), null);
             update(fileInfo.getFileDetail());
         }

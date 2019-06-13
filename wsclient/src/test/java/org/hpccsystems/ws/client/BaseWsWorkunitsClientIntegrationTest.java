@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hpccsystems.ws.client.platform.Cluster;
-import org.hpccsystems.ws.client.platform.QueryResult;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
-import org.hpccsystems.ws.client.platform.WUQueryInfo;
-import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
-import org.hpccsystems.ws.client.platform.WUState;
-import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.wrappers.WUState;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.QueryResultWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper.SortBy;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -67,7 +67,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
     @Test
     public void testSearchQueries() throws Exception
     {
-        List<QueryResult> resultsArray= wswuclient.searchQueries(null, null, roxiecluster.getName(), roxiecluster.getName());
+        List<QueryResultWrapper> resultsArray= wswuclient.searchQueries(null, null, roxiecluster.getName(), roxiecluster.getName());
         if (resultsArray==null || resultsArray.size()==0)
         {
             Assert.fail("Should have returned queries");
@@ -75,12 +75,12 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
         System.out.println(resultsArray.get(0).toString());
         String queryid=resultsArray.get(0).getId();
         String queryname=resultsArray.get(0).getName();
-        List<QueryResult> resultsArr2=wswuclient.searchQueries(QuerySetFilterType.Name, queryname, roxiecluster.getName(),roxiecluster.getName());
+        List<QueryResultWrapper> resultsArr2=wswuclient.searchQueries(QuerySetFilterType.Name, queryname, roxiecluster.getName(),roxiecluster.getName());
         if (resultsArr2==null || resultsArr2.size() != 1)
         {
             Assert.fail("Should have returned one query for query named " + queryname);
         }
-        List<QueryResult> resultsArr3=wswuclient.searchQueries(QuerySetFilterType.Id, queryid,roxiecluster.getName(),roxiecluster.getName());
+        List<QueryResultWrapper> resultsArr3=wswuclient.searchQueries(QuerySetFilterType.Id, queryid,roxiecluster.getName(),roxiecluster.getName());
         if (resultsArr3==null || resultsArr3.size() != 1)
         {
             Assert.fail("Should have returned one query for query with id " + queryid);
@@ -93,7 +93,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
         this.uniquerun=String.valueOf(System.currentTimeMillis());
         for (int i=1;i <=num;i++)
         {
-            WorkunitInfo wu=new WorkunitInfo();
+            WorkunitWrapper wu = new WorkunitWrapper();
             wu.setECL(ecl);
             wu.setCluster(thorcluster.getName());
             wu.setJobname("testgetworkunit-" + i + "-" + uniquerun);
@@ -103,7 +103,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
             wu.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","uniquetestkey" + i,"uniquetestvalue" + i));
 
             wu=wswuclient.compileWUFromECL(wu);
-            WorkunitInfo res=wswuclient.getWUInfo(wu.getWuid());
+            WorkunitWrapper res = wswuclient.getWUInfo(wu.getWuid());
             //6.0 has state compiled; 5.x has state completed
             if (!res.getState().equals(WUState.COMPILED.toString().toLowerCase())
                     && !res.getState().equals(WUState.COMPLETED.toString().toLowerCase()))
@@ -112,7 +112,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
                 Assert.fail("Workunit " + i + " didn't compile correctly");
             }
             wu=wswuclient.runWorkunit(wu.getWuid(),null,null,5000,false,null);
-            WorkunitInfo wu2=wswuclient.getWUInfo(wu.getWuid());
+            WorkunitWrapper wu2 = wswuclient.getWUInfo(wu.getWuid());
             if (!wu2.getState().equals(WUState.COMPLETED.toString().toLowerCase())
                     && !wu2.getState().equals(WUState.RUNNING.toString().toLowerCase()))
             {
@@ -127,9 +127,9 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
     public void testGetWorkunitByAppValue() throws Exception
     {
         createTestWorkunits("OUTPUT(1);",2);
-        WUQueryInfo params=new WUQueryInfo().setJobname("*" + uniquerun + "*");
+        WUQueryWrapper params = new WUQueryWrapper().setJobname("*" + uniquerun + "*");
         params.getApplicationValues().add(new ApplicationValueWrapper("HIPIE","testkey","testvalue"));
-        List<WorkunitInfo> result=wswuclient.getWorkunits(params);
+        List<WorkunitWrapper> result = wswuclient.getWorkunits(params);
         if (result.size() != 2)
         {
             System.out.println(result);
@@ -149,63 +149,63 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
     public void testGetWorkunitSort() throws Exception {
 
         //wuid descending
-        List<WorkunitInfo> result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.WUID).setDescending(true));
+        List<WorkunitWrapper> result = wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.WUID).setDescending(true));
         if (result.get(0).getWuid().compareTo(result.get(1).getWuid())<0) {
             Assert.fail("descending workunits in wrong order:" + result.get(0).getWuid() + " then " + result.get(1).getWuid());
         }
         //wuid ascending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.WUID).setDescending(false));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.WUID).setDescending(false));
         if (result.get(1).getWuid().compareTo(result.get(0).getWuid())<0) {
             Assert.fail("ascending workunits in wrong order:" + result.get(0).getWuid() + " then " + result.get(1).getWuid());
         }
 
       //cluster descending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.Cluster).setDescending(true));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Cluster).setDescending(true));
         if (result.get(0).getCluster().compareTo(result.get(result.size()-1).getCluster())<0) {
             Assert.fail("descending clusters in wrong order:" + result.get(0).getCluster() + " then "
                     + result.get(result.size()-1).getCluster());
         }
         //cluster ascending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.Cluster).setDescending(false));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Cluster).setDescending(false));
         if (result.get(1).getCluster().compareTo(result.get(0).getCluster())<0) {
             Assert.fail("ascending clusters in wrong order:" + result.get(0).getCluster() + " then "
                     + result.get(result.size()-1).getCluster());
         }
 
         //jobname descending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.Jobname).setDescending(true));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Jobname).setDescending(true));
         if (result.get(0).getJobname().compareTo(result.get(result.size()-1).getJobname())<0) {
             Assert.fail("descending jobname in wrong order:" + result.get(0).getJobname() + " then "
                     + result.get(result.size()-1).getJobname());
         }
         //jobname ascending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.Jobname).setDescending(false));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Jobname).setDescending(false));
         if (result.get(1).getJobname().compareTo(result.get(0).getJobname())<0) {
             Assert.fail("ascending jobname in wrong order:" + result.get(0).getJobname() + " then "
                     + result.get(result.size()-1).getJobname());
         }
 
         //owner descending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.Owner).setDescending(true));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Owner).setDescending(true));
         if (result.get(0).getOwner().compareTo(result.get(result.size()-1).getOwner())<0) {
             Assert.fail("descending owner in wrong order:" + result.get(0).getOwner() + " then "
                     + result.get(result.size()-1).getOwner());
         }
         //owner ascending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.Owner).setDescending(false));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Owner).setDescending(false));
         if (result.get(1).getOwner().compareTo(result.get(0).getOwner())<0) {
             Assert.fail("ascending owner in wrong order:" + result.get(0).getOwner() + " then "
                     + result.get(result.size()-1).getOwner());
         }
 
         //state descending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.State).setDescending(true));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.State).setDescending(true));
         if (result.get(0).getState().compareTo(result.get(result.size()-1).getState())<0) {
             Assert.fail("descending state in wrong order:" + result.get(0).getState() + " then "
                     + result.get(result.size()-1).getState());
         }
         //state ascending
-        result=wswuclient.getWorkunits(new WUQueryInfo().setSortBy(SortBy.State).setDescending(false));
+        result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.State).setDescending(false));
         if (result.get(1).getState().compareTo(result.get(0).getState())<0) {
             Assert.fail("ascending state in wrong order:" + result.get(0).getState() + " then "
                     + result.get(result.size()-1).getState());
@@ -222,7 +222,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
         }
         wswuclient.abortWU(testwuids.get(0));
         Thread.sleep(5000);
-        WorkunitInfo test=wswuclient.getWUInfo(testwuids.get(0));
+        WorkunitWrapper test = wswuclient.getWUInfo(testwuids.get(0));
         if (!(WUState.ABORTED.toString().toLowerCase().equals(test.getState())
                 || WUState.ABORTING.toString().toLowerCase().equals(test.getState())))
         {
@@ -231,4 +231,3 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
     }
 
 }
-

@@ -5,43 +5,51 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 
-import org.apache.log4j.Logger;
-import org.apache.axis.client.Stub;
+import javax.activation.DataHandler;
 
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileRequest;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.CreateFileResponse;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WriteFileDataRequest;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WriteFileDataResponse;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WsFileIOServiceSoap;
-import org.hpccsystems.ws.client.gen.wsfileio.v1_0.WsFileIOServiceSoapProxy;
+import org.apache.axiom.attachments.ByteArrayDataSource;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Options;
+import org.apache.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WriteFileDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WriteFileDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WsFileIOPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WsFileIOStub;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.utils.DataSingleton;
-import org.hpccsystems.ws.client.utils.EqualsUtil;
-import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 /**
  * Use as soap client for HPCC WsFileIo web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
  *
  */
-public class HPCCWsFileIOClient extends DataSingleton
+public class HPCCWsFileIOClient extends BaseHPCCWsClient
 {
     private static final Logger         log = Logger.getLogger(HPCCWsFileIOClient.class.getName());
-    private static URL                  originalURL;
+    public static final String FILEIOWSDLURI         = "/WsFileIO";
 
-    public static URL getOriginalURL() throws MalformedURLException
+    private final int defaultUploadChunkSize = 5000000;
+
+    static
     {
-        if (originalURL == null)
-            originalURL = new URL(getOriginalWSDLURL());
-
-        return originalURL;
-    }
-
-    public static int getOriginalPort() throws MalformedURLException
-    {
-        return getOriginalURL().getPort();
+        try
+        {
+            WsFileIOStub defstub = new WsFileIOStub();
+            Options opt = defstub._getServiceClient().getOptions();
+            ORIGINALURL = new URL(opt.getTo().getAddress());
+        }
+        catch (AxisFault e)
+        {
+            e.printStackTrace();
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static HPCCWsFileIOClient get(Connection connection)
@@ -49,80 +57,69 @@ public class HPCCWsFileIOClient extends DataSingleton
         return new HPCCWsFileIOClient(connection);
     }
 
-    public static final String FILEIOWSDLURI         = "/WsFileIO";
-
-    private WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy    =  null;
-    private final int defaultUploadChunkSize = 5000000;
-    private boolean verbose = false;
-
-    /**
-     * @param verbose - sets verbose mode
-     */
-    public void setVerbose(boolean verbose)
+    public static HPCCWsFileIOClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        this.verbose = verbose;
+        Connection conn = new Connection(protocol,targetHost,targetPort);
+        conn.setCredentials(user, pass);
+        return new HPCCWsFileIOClient(conn);
     }
 
-    /**
-     * Provides soapproxy object for HPCCWsFileIOClient which can be used to access
-     * the web service methods directly
-     * @return  soapproxy for HPCCWsFileIOClient
-     * @throws Exception if soapproxy not available.
-     */
-    public WsFileIOServiceSoapProxy getSoapProxy() throws Exception
+    public static HPCCWsFileIOClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        if (wsFileIOServiceSoapProxy != null)
-            return wsFileIOServiceSoapProxy;
-        else
-            throw new Exception("wsFileIOServiceSoapProxy not available.");
-    }
+        Connection conn = new Connection(protocol,targetHost,targetPort);
+        conn.setCredentials(user, pass);
+        conn.setConnectTimeoutMilli(timeout);
+        conn.setSocketTimeoutMilli(timeout);
 
-    /**
-     * Provides the WSDL URL originally used to create the underlying stub code
-     *
-     * @return original WSLD URL
-     */
-    public static String getOriginalWSDLURL()
-    {
-        return (new org.hpccsystems.ws.client.gen.wsfileio.v1_0.WsFileIOLocator()).getWsFileIOServiceSoapAddress();
-    }
-
-    protected HPCCWsFileIOClient(WsFileIOServiceSoapProxy wsFileIOServiceSoapProxy)
-    {
-        this.wsFileIOServiceSoapProxy = wsFileIOServiceSoapProxy;
+        return new HPCCWsFileIOClient(conn);
     }
 
     protected HPCCWsFileIOClient(Connection baseConnection)
     {
-       this(baseConnection.getProtocol(), baseConnection.getHost(), baseConnection.getPort(), baseConnection.getUserName(), baseConnection.getPassword());
-    }
-
-    protected HPCCWsFileIOClient(String protocol, String targetHost, String targetPort, String user, String pass)
-    {
-        String address = Connection.buildUrl(protocol, targetHost, targetPort, FILEIOWSDLURI);
-
-        initWSFileIOSoapProxy(address, user, pass);
+        initWSFileIOStub(baseConnection);
     }
 
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL   Target service base URL
-     * @param user      User credentials
-     * @param pass      User credentials
      */
-    private void initWSFileIOSoapProxy(String baseURL, String user, String pass)
+    private void initWSFileIOStub(Connection connection)
     {
-        wsFileIOServiceSoapProxy = new WsFileIOServiceSoapProxy(baseURL);
-        if (wsFileIOServiceSoapProxy != null)
+        try
         {
-                WsFileIOServiceSoap wsFileIOServiceSoap = wsFileIOServiceSoapProxy.getWsFileIOServiceSoap();
-                if (wsFileIOServiceSoap != null)
-                {
-                    if (user != null && pass != null)
-                        Connection.initStub((Stub) wsFileIOServiceSoap, user, pass);
-                }
+            stub = setStubOptions(new WsFileIOStub(connection.getBaseUrl()+FILEIOWSDLURI), connection);
         }
+        catch (AxisFault e)
+        {
+            log.error("Could not initialize FileIOStub- Review all HPCC connection values");
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            log.error("Could not initialize FileIOStub- Review all HPCC connection values");
+            if (!e.getLocalizedMessage().isEmpty())
+            {
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
+            }
+        }
+    }
+
+    public boolean ping() throws Exception
+    {
+        verifyStub();
+
+        WsFileIOPingRequest request = new WsFileIOPingRequest();
+        try
+        {
+            ((WsFileIOStub)stub).ping(request);
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -137,45 +134,36 @@ public class HPCCWsFileIOClient extends DataSingleton
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
 
-        getSoapProxy();
+        verifyStub(); //Throws exception if stub failed
 
-        CreateFileRequest createfileparams = new CreateFileRequest();
-        createfileparams.setDestDropZone(targetLandingZone);
-        createfileparams.setDestRelativePath(fileName);
-        createfileparams.setOverwrite(overwritefile);
+        CreateFileRequest request = new CreateFileRequest();
+
+        request.setDestDropZone(targetLandingZone);
+        request.setDestRelativePath(fileName);
+        request.setOverwrite(overwritefile);
+
+        CreateFileResponse resp = null;
         try
         {
-            CreateFileResponse createFileResponse = wsFileIOServiceSoapProxy.createFile(createfileparams);
-
-            ArrayOfEspException arrayOfEspExceptions = createFileResponse.getExceptions();
-            if (arrayOfEspExceptions == null)
-            {
-                String result = createFileResponse.getResult();
-                log.info(result);
-                // I wish there was a better way to do this
-                if (!result.startsWith("Fail"))
-                {
-                    success = true;
-                }
-            }
-            else
-            {
-                org.hpccsystems.ws.client.gen.wsfileio.v1_0.EspException[] espexceptions = arrayOfEspExceptions.getException();
-                for (org.hpccsystems.ws.client.gen.wsfileio.v1_0.EspException espexception : espexceptions)
-                {
-                    log.error("\tESPException: " + espexception.getMessage());
-                }
-
-            }
-        }
-        catch (ArrayOfEspException e)
-        {
-            e.printStackTrace();
+            resp = ((WsFileIOStub)stub).createFile(request);
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
+            throw new Exception ("HPCCWsDFUClient.createHPCCFile(...) encountered RemoteException.", e);
         }
+        catch (EspSoapFault e)
+        {
+            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not createHPCCFile");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not createHPCCFile");
+
+        String result = resp.getResult();
+        log.info(result);
+        // I wish there was a better way to do this
+        if (!result.startsWith("Fail"))
+            success = true;
 
         return success;
     }
@@ -195,13 +183,14 @@ public class HPCCWsFileIOClient extends DataSingleton
         boolean success = true;
         log.debug("Attempting to write data to HPCC File: " + fileName);
 
-        getSoapProxy();
+        verifyStub(); //Throws exception if stub failed
 
-        WriteFileDataRequest writefileparams = new WriteFileDataRequest();
-        writefileparams.setAppend(append);
-        writefileparams.setDestDropZone(targetLandingZone);
-        writefileparams.setDestRelativePath(fileName);
-        writefileparams.setOffset(offset);
+        WriteFileDataRequest request = new WriteFileDataRequest();
+
+        request.setAppend(append);
+        request.setDestDropZone(targetLandingZone);
+        request.setDestRelativePath(fileName);
+        request.setOffset(offset);
 
         int dataindex = 0;
         int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
@@ -217,16 +206,21 @@ public class HPCCWsFileIOClient extends DataSingleton
             subdata = Arrays.copyOfRange(data, dataindex, dataindex + payloadsize);
             dataindex += payloadsize;
 
-            writefileparams.setData(subdata);
-            writefileparams.setAppend(dataindex > 0);
-            writefileparams.setOffset((long)dataindex);
+            ByteArrayDataSource ds = new ByteArrayDataSource(subdata);
+
+            request.setData(new DataHandler(ds));
+            request.setAppend(dataindex > 0);
+            request.setOffset((long)dataindex);
 
             try
             {
-                WriteFileDataResponse writeFileDataResponse = wsFileIOServiceSoapProxy.writeFileData(writefileparams);
-                String result = writeFileDataResponse.getResult();
+                WriteFileDataResponse response = ((WsFileIOStub)stub).writeFileData(request);
+                if (response.getExceptions() != null)
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Failed to Write file");
 
+                String result = response.getResult();
                 log.debug(result);
+
                 //Wish there was a better way - https://track.hpccsystems.com/browse/HPCC-21293
                 if (!result.startsWith("Failed"))
                 {
@@ -246,63 +240,4 @@ public class HPCCWsFileIOClient extends DataSingleton
         }
         return success;
     }
-
-    @Override
-    protected boolean isComplete()
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    protected void fastRefresh()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    protected void fullRefresh()
-    {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public boolean equals(Object aThat)
-    {
-        if (this == aThat)
-        {
-            return true;
-        }
-
-        if (!(aThat instanceof HPCCWsFileIOClient))
-        {
-            return false;
-        }
-
-        HPCCWsFileIOClient that = (HPCCWsFileIOClient) aThat;
-        WsFileIOServiceSoapProxy thatSoapProxy;
-        try
-        {
-            thatSoapProxy = that.getSoapProxy();
-        }
-        catch(Exception e)
-        {
-            thatSoapProxy = null;
-        }
-
-        return EqualsUtil.areEqual(wsFileIOServiceSoapProxy.getEndpoint(), thatSoapProxy.getEndpoint()) &&
-                EqualsUtil.areEqual(((Stub) wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getUsername(), ((Stub) thatSoapProxy.getWsFileIOServiceSoap()).getUsername()) &&
-                EqualsUtil.areEqual(((Stub) wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getPassword(), ((Stub) thatSoapProxy.getWsFileIOServiceSoap()).getPassword());
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int result = HashCodeUtil.SEED;
-        result = HashCodeUtil.hash(result, wsFileIOServiceSoapProxy.getEndpoint());
-        result = HashCodeUtil.hash(result, ((Stub)  wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getUsername());
-        result = HashCodeUtil.hash(result, ((Stub)  wsFileIOServiceSoapProxy.getWsFileIOServiceSoap()).getPassword());
-        return result;
-    }
-
 }

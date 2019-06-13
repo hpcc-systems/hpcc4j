@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow;
+
 public class ECLWorkflowWrapper
 {
     private String WFID;
@@ -16,10 +18,14 @@ public class ECLWorkflowWrapper
 
     }
 
-    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkflow raw) {
-        if (raw==null) {
+
+    public ECLWorkflowWrapper(ECLWorkflow raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setCount(raw.getCount());
         this.setCountRemaining(raw.getCountRemaining());
         this.setEventName(raw.getEventName());
@@ -27,20 +33,13 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
-    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow raw) {
-        if (raw==null) {
+    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLWorkflow raw)
+    {
+        if (raw==null)
+        {
             return;
         }
-        this.setCount(raw.getCount());
-        this.setCountRemaining(raw.getCountRemaining());
-        this.setEventName(raw.getEventName());
-        this.setEventText(raw.getEventText());
-        this.setWFID(raw.getWFID());
-    }
-    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow raw) {
-        if (raw==null) {
-            return;
-        }
+
         this.setCount(raw.getCount());
         this.setCountRemaining(raw.getCountRemaining());
         this.setEventName(raw.getEventName());
@@ -48,10 +47,13 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
-    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow raw) {
-        if (raw==null) {
+    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLWorkflow raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setCount(raw.getCount());
         this.setCountRemaining(raw.getCountRemaining());
         this.setEventName(raw.getEventName());
@@ -59,40 +61,45 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkflow getRaw(){
-        return this.getRawVersion74();
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkflow getRawVersion74(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkflow();
-        raw.setCount(this.getCount());
-        raw.setCountRemaining(this.getCountRemaining());
-        raw.setEventName(this.getEventName());
-        raw.setEventText(this.getEventText());
-        raw.setWFID(this.getWFID());
-        return raw;
+    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLWorkflow raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.setCount(raw.getCount());
+        this.setCountRemaining(raw.getCountRemaining());
+        this.setEventName(raw.getEventName());
+        this.setEventText(raw.getEventText());
+        this.setWFID(raw.getWFID());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow getRawVersion1_69(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLWorkflow();
-        raw.setCount(this.getCount());
-        raw.setCountRemaining(this.getCountRemaining());
-        raw.setEventName(this.getEventName());
-        raw.setEventText(this.getEventText());
-        raw.setWFID(this.getWFID());
-        return raw;
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow getRawVersion1_62(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLWorkflow();
-        raw.setCount(this.getCount());
-        raw.setCountRemaining(this.getCountRemaining());
-        raw.setEventName(this.getEventName());
-        raw.setEventText(this.getEventText());
-        raw.setWFID(this.getWFID());
-        return raw;
+    public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkflow raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.setCount(raw.getCount());
+        this.setCountRemaining(raw.getCountRemaining());
+        this.setEventName(raw.getEventName());
+        this.setEventText(raw.getEventText());
+        this.setWFID(raw.getWFID());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow getRawVersion1_58(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLWorkflow();
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow getRaw()
+    {
+        return this.getRawVersion1_75();
+    }
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow getRawVersion1_75()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow();
+
         raw.setCount(this.getCount());
         raw.setCountRemaining(this.getCountRemaining());
         raw.setEventName(this.getEventName());

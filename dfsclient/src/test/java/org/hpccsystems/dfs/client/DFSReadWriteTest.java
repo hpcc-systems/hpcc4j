@@ -63,7 +63,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     {
         for (int i = 0; i < datasets.length; i++)
         {
-            HPCCFile file = new HPCCFile(datasets[i], hpccConnection , hpccUser, hpccPass);
+            HPCCFile file = new HPCCFile(datasets[i], connString , hpccUser, hpccPass);
             //file.setClusterRemapInfo(new RemapInfo(1, "192.168.56.101"));
             file.setProjectList("");
 
@@ -78,7 +78,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             writeFile(records, copyFileName, file.getProjectedRecordDefinition());
 
             // Read and compare to original dataset
-            file = new HPCCFile(copyFileName, hpccConnection , hpccUser, hpccPass);
+            file = new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
             List<HPCCRecord> copiedRecords = readFile(file);
             if (copiedRecords.equals(records) == false)
@@ -93,7 +93,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 projectedfields.add(file.getRecordDefinition().getDef(j).getFieldName());
             }            
             
-            file=new HPCCFile(copyFileName, hpccConnection , hpccUser, hpccPass);
+            file=new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
             FieldDef recdef=file.getRecordDefinition();
             file.setProjectList(StringUtils.join(projectedfields, ","));
@@ -144,7 +144,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
         writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
 
-        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", hpccConnection , hpccUser, hpccPass);
+        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
         records = readFile(file);
         if (records.size() != 10)
         {
@@ -172,7 +172,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
         writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
 
-        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", hpccConnection , hpccUser, hpccPass);
+        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
         file.setFilter("key = 0 OR key > 10");
 
         records = readFile(file);
