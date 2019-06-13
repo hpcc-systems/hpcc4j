@@ -26,8 +26,8 @@ import org.junit.experimental.categories.Category;
 @Category(org.hpccsystems.ws.client.RemoteTest.class)
 public abstract class BaseRemoteTest
 {
-    Platform platform;
-    HPCCWsClient wsclient;
+    protected Platform platform;
+    protected HPCCWsClient wsclient;
 
     protected String hpccConnection = System.getProperty("hpccconn");
 
