@@ -26,25 +26,10 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.StringUtils;
 
 import org.junit.Test;
+import org.hpccsystems.ws.client.platform.test.data.RecordDefinitions;
 
-public class DFUFileDetailInfoTest {
-
-    private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
-    private final String MAXLENGTH = "RECORD\nSTRING SSN;\nINTEGER8 maxlength;\nEND;";
-    private final String WITH_ANNOTATION_NO_PARAMS = "RECORD\nSTRING SSN; // @FEW\nEND;";
-    private final String WITH_ANNOTATION_AND_COMMENT = "RECORD\nSTRING SSN; // @FOO(BAR) foo equals kittens, bar equals cats\nEND;";
-    private final String WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; // @FOO(BAR1, BAR2,BAR3)\nEND;";
-    private final String WITH_COMMENT = "RECORD\nSTRING SSN; // This is just a regular comment.\nEND;";
-    private final String WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; // THIS(ISNT) an annotations.\nEND;";
-    private final String ML_WITH_ANNOTATION = "RECORD\nSTRING FOO; /* @FOO(BAR) */\nEND;";
-    private final String ML_WITH_ANNOTATION_AND_COMMENT = "RECORD\nSTRING SSN; /* @FOO(BAR) and kittens. */\nEND;";
-    private final String ML_WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; /* @FOO(BAR1, BAR2,BAR3) */\nEND;";
-    private final String ML_WITH_COMMENT = "RECORD\nSTRING SSN; /* this is just a regular comment. */\nEND;";
-    private final String ML_WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; /* THIS(ISNT) an annotation. */\nEND;";
-    private final String ML_INLINE = "RECORD\nSTRING SSN; /* @FOO(BAR) */\nEND;";
-    private final String FULL_RECORD = "child := RECORD\n\t\tSTRING name;\nEND;\nRECORD // @LARGE\nSTRING FNAME;\nSTRING LNAME;\nSTRING MNAME;\nSTRING DOB;\nSTRING SSN; // @METATYPE(SSN)\nSTRING ADDR1;\nSTRING ADDR2;\nSTRING CITY;\nSTRING STATE;\nSTRING ZIP; // @METATYPE(ZIP), @FEW, @MULTIPARAMS(PARAM1,PARAM2)\nSTRING DLNUMBER;\nDATASET(child) KIDS;\nEND;";
-    private final String INLINE_WITH_MAXLENGTH = "{ , MAXLENGTH(84) string4 sic4_code, string80 sic4_description };";
-
+public class DFUFileDetailInfoTest
+{
     public static DFUDataColumnInfo getColumnByName(final DFURecordDefInfo parent, final String name) {
         for (final DFUDataColumnInfo child: parent.getChildColumns()) {
             if (child.getColumnLabel().equals(name)) {
@@ -57,7 +42,7 @@ public class DFUFileDetailInfoTest {
     // Single line style tests
     @Test
     public void testGetRecordEcl() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.WITH_ANNOTATION);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -75,7 +60,7 @@ public class DFUFileDetailInfoTest {
     // Single line style tests
     @Test
     public void testFullRecordEcl() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(FULL_RECORD);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.FULL_RECORD);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -110,7 +95,7 @@ public class DFUFileDetailInfoTest {
     // Single line style tests
     @Test
     public void testGetRecordEclNoParams() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_NO_PARAMS);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.WITH_ANNOTATION_NO_PARAMS);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -126,7 +111,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordEclAnnotationAndComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_AND_COMMENT);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.WITH_ANNOTATION_AND_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -143,7 +128,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordEclMultiParams() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_MULTI_PARAMS);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.WITH_ANNOTATION_MULTI_PARAMS);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -162,7 +147,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordEclWithComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_COMMENT);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.WITH_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -176,7 +161,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testInlineWithMaxlength() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(INLINE_WITH_MAXLENGTH);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.INLINE_WITH_MAXLENGTH);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -189,7 +174,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordEclWithAnnotationLikeComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(WITH_ANNOTATION_LIKE_COMMENT);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.WITH_ANNOTATION_LIKE_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -203,7 +188,7 @@ public class DFUFileDetailInfoTest {
     // ML tests
     @Test
     public void testGetRecordMlEcl() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.ML_WITH_ANNOTATION);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -220,7 +205,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordMlEclAnnotationAndComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_AND_COMMENT);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.ML_WITH_ANNOTATION_AND_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -236,7 +221,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordMlEclMultiParams() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_MULTI_PARAMS);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.ML_WITH_ANNOTATION_MULTI_PARAMS);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get multi-annotated recordset:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -255,7 +240,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordMlEclWithComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_COMMENT);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.ML_WITH_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get ml with comment test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -268,7 +253,7 @@ public class DFUFileDetailInfoTest {
 
     @Test
     public void testGetRecordMlEclWithAnnotationLikeComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_WITH_ANNOTATION_LIKE_COMMENT);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.ML_WITH_ANNOTATION_LIKE_COMMENT);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get record with annotation comment:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -281,7 +266,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordMlEclInlineComment() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(ML_INLINE);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.ML_INLINE);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get ml inline test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -299,7 +284,7 @@ public class DFUFileDetailInfoTest {
     
     @Test
     public void testGetRecordMaxlength() throws Exception {
-        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(MAXLENGTH);
+        EclRecordInfo info = DFUFileDetailInfo.getRecordEcl(RecordDefinitions.MAXLENGTH);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get maxlength test:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
@@ -313,10 +298,10 @@ public class DFUFileDetailInfoTest {
     @Test
     public void testEclParsing() throws Exception {
         Map<String,String> layouts=new LinkedHashMap<String,String>();
-        layouts.put("inline record with dataset child", "l_test:=RECORD\nSTRING1 test;\nEND;\n\nRECORD\nSTRING __field1;\n{DATASET(l_test) a} field2;\nEND;");
-        layouts.put("record layout def starting with __", "__errx__ := RECORD,maxlength(2097152)\n  integer8 transaction_time{xpath('_call_latency_ms')};\n END;\n\n{ string fname1, integer8 did, DATASET(__errx__) ds };");
-        layouts.put("record with {blob} in field definition","RECORD\nSTRING data_content{blob,MAXLENGTH(20000)}; \nEND;");
-        layouts.put("inline record def with maxlength","{,maxLength(84)\r\nstring4 sic4_code, string80 sic4_description };");
+        layouts.put("inline record with dataset child", RecordDefinitions.INLINE_WITH_DATASET_CHILD);
+        layouts.put("record layout def starting with __", RecordDefinitions.LAYOUT_DEF_STARTING_WITH__);
+        layouts.put("record with {blob} in field definition", RecordDefinitions.RECORD_WITH_CURLY_BRACKET_BLOB_IN_FIELD);
+        layouts.put("inline record def with maxlength", RecordDefinitions.INLINE_WITH_MAXLENGTH);
         boolean passed=true;
         for (Entry<String,String> item:layouts.entrySet()) {
             EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(item.getValue());
