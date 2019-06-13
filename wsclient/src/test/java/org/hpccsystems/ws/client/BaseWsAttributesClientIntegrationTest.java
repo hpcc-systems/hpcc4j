@@ -10,8 +10,8 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.Cluster;
-import org.hpccsystems.ws.client.platform.ECLAttributeInfo;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -68,21 +68,21 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     public void testWriteAttributes() throws Exception
     {
         String testmodname="zz_wsclientattributetest";
-        List<ECLAttributeInfo> toadd=new ArrayList<ECLAttributeInfo>();
+        List<ECLAttributeWrapper> toadd=new ArrayList<ECLAttributeWrapper>();
         File testdir=new File("src/test/resources/attributetest");
         for (int i=0; i < testdir.listFiles().length;i++)
         {
-            toadd.add(new ECLAttributeInfo(testmodname,FilenameUtils.getBaseName(testdir.listFiles()[i].getName()),"ecl",
+            toadd.add(new ECLAttributeWrapper(testmodname,FilenameUtils.getBaseName(testdir.listFiles()[i].getName()),"ecl",
                     new String(Files.readAllBytes(testdir.listFiles()[i].toPath()))));
         }
 
-        List<ECLAttributeInfo> found=wsattclient.findItems(testmodname, null,null,null,null,null);
+        List<ECLAttributeWrapper> found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()>0)
         {
             wsattclient.deleteModule(testmodname);
         }
         long begin=System.currentTimeMillis();
-        List<ECLAttributeInfo> result=wsattclient.createOrUpdateAttributes(toadd, true, "testing wsclient add unit test");
+        List<ECLAttributeWrapper> result=wsattclient.createOrUpdateAttributes(toadd, true, "testing wsclient add unit test");
         System.out.println("Time to create " + testdir.listFiles().length + " attributes with checkout/checkin:"
         + (System.currentTimeMillis()-begin));
 
@@ -108,21 +108,21 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     public void testWriteSingleAttribute() throws Exception
     {
         String testmodname="zz_wsclientattributetest";
-        List<ECLAttributeInfo> toadd=new ArrayList<ECLAttributeInfo>();
+        List<ECLAttributeWrapper> toadd=new ArrayList<ECLAttributeWrapper>();
         File testdir=new File("src/test/resources/attributetest");
         for (int i=0; i < testdir.listFiles().length;i++)
         {
-            toadd.add(new ECLAttributeInfo(testmodname,FilenameUtils.getBaseName(testdir.listFiles()[i].getName()),"ecl",
+            toadd.add(new ECLAttributeWrapper(testmodname,FilenameUtils.getBaseName(testdir.listFiles()[i].getName()),"ecl",
                     new String(Files.readAllBytes(testdir.listFiles()[i].toPath()))));
         }
 
-        List<ECLAttributeInfo> found=wsattclient.findItems(testmodname, null,null,null,null,null);
+        List<ECLAttributeWrapper> found=wsattclient.findItems(testmodname, null,null,null,null,null);
         if (found.size()>0)
         {
             wsattclient.deleteModule(testmodname);
         }
         long begin=System.currentTimeMillis();
-        for (ECLAttributeInfo item: toadd)
+        for (ECLAttributeWrapper item: toadd)
         {
             wsattclient.createOrUpdateAttribute(item, true, "testing wsclient add unit test");
         }
@@ -136,7 +136,7 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
         }
 
         begin=System.currentTimeMillis();
-        for (ECLAttributeInfo item:toadd)
+        for (ECLAttributeWrapper item:toadd)
         {
             wsattclient.createOrUpdateAttribute(item, true, "testing wsclient add unit test");
         }
@@ -158,16 +158,19 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     public void testInvalidAttributes() throws Exception
     {
        boolean wasinvalid=false;
-       try {
-           new ECLAttributeInfo("test!modulename", "test attribute name", "badtype",null).validate();
-       } catch (Exception e) {
+       try
+       {
+           new ECLAttributeWrapper("test!modulename", "test attribute name", "badtype",null).validate();
+       }
+       catch (Exception e)
+       {
            wasinvalid=true;
            System.out.println(e.getMessage());
        }
+
        if (!wasinvalid)
        {
            fail("Should have failed to validate");
        }
     }
 }
-

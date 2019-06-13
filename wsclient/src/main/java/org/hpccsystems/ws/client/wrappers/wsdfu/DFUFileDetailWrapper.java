@@ -13,42 +13,41 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileDetail;
 import org.hpccsystems.ws.client.utils.FileFormat;
-import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
-import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
-import org.hpccsystems.ws.client.platform.DFURecordDefInfo;
-import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 
 // This class wraps the generated soap DFUFileDetail, providing additional features not yet available from the base esp
 // classes.
-/**
- * @author LeedDX
- *
- */
 public class DFUFileDetailWrapper extends DFUFileDetail
 {
     private static final long            serialVersionUID = 1L;
 
-    private ArrayList<DFUDataColumnInfo> columns;
+    private ArrayList<DFUDataColumnWrapper> columns;
     private String                       firstline        = null;
     private boolean                      hasheader        = false;
 
+    /**
+     * @return the hasheader
+     */
     public boolean hasHeader()
     {
         return hasheader;
     }
 
-    public void setHasHeader(boolean hasheader)
+    /**
+     * @param hasheader the hasheader to set
+     */
+    public void setHasheader(boolean hasheader)
     {
         this.hasheader = hasheader;
     }
 
+
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
-     * 
+     *
      * @param base
      */
     public DFUFileDetailWrapper(DFUFileDetail base)
@@ -58,7 +57,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
     /**
      * Create an empty Data Column Info object
-     * 
+     *
      * @param base
      */
     public DFUFileDetailWrapper()
@@ -84,7 +83,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     public String toString()
@@ -93,13 +92,11 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         //removed in HPCC 5.0.0
         //if (this.getActualSize() != null)
         //    sb.append("ActualSize:").append(this.getActualSize()).append("\n");
-        if (this.getBrowseData() != null)
-            sb.append("BrowseData:").append(this.getBrowseData()).append("\n");
+        sb.append("BrowseData:").append(this.getBrowseData()).append("\n");
         //removed in HPCC 5.0.0 ref DFUFilePartsOnCluster
         //if (this.getCluster() != null)
         //    sb.append("Cluster:").append(this.getCluster()).append("\n");
-        if (this.getCompressedFileSize() != null)
-            sb.append("CompressedFileSize:").append(this.getCompressedFileSize()).append("\n");
+        sb.append("CompressedFileSize:").append(this.getCompressedFileSize()).append("\n");
         if (this.getContentType() != null)
             sb.append("ContentType:").append(this.getContentType()).append("\n");
         if (this.getCsvEscape() != null)
@@ -115,8 +112,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         //removed in HPCC 5.0.0 ref DFUFilePartsOnCluster
         //if (this.getDFUFileParts() != null)
         //    sb.append("DFUFileParts:").append(this.getDFUFileParts()).append("\n");
-        if (this.getDFUFilePartsOnClusters() != null)
-            sb.append("DFUFilePartsOnClusters:").append(this.getDFUFilePartsOnClusters()).append("\n");
+        sb.append("DFUFilePartsOnClusters:").append(this.getDFUFilePartsOnClusters()).append("\n");
         if (this.getDir() != null)
             sb.append("Dir:").append(this.getDir()).append("\n");
         if (this.getEcl() != null)
@@ -129,7 +125,6 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             sb.append("FirstLine:").append(this.getFirstline()).append("\n");
         if (this.getFormat() != null)
             sb.append("Format:").append(this.getFormat()).append("\n");
-        if (this.getFromRoxieCluster() != null)
             sb.append("FromRoxieCluster:").append(this.getFromRoxieCluster()).append("\n");
         if (this.getGraphs() != null)
             sb.append("Graphs:").append(this.getGraphs()).append("\n");
@@ -149,8 +144,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             sb.append("Name:").append(this.getName()).append("\n");
         if (this.getNodeGroup() != null)
             sb.append("NodeGroup:").append(this.getNodeGroup()).append("\n");
-        if (this.getNumParts() != null)
-            sb.append("NumParts:").append(this.getNumParts()).append("\n");
+        sb.append("NumParts:").append(this.getNumParts()).append("\n");
         if (this.getOwner() != null)
             sb.append("Owner:").append(this.getOwner()).append("\n");
         if (this.getPathMask() != null)
@@ -163,14 +157,11 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             sb.append("RecordCount:").append(this.getRecordCount()).append("\n");
         if (this.getRecordSize() != null)
             sb.append("RecordSize:").append(this.getRecordSize()).append("\n");
-        if (this.getShowFileContent() != null)
-            sb.append("ShowFileContent:").append(this.getShowFileContent()).append("\n");
-        if (this.getStat() != null)
-            sb.append("Stat:").append(this.getStat()).append("\n");
+        sb.append("ShowFileContent:").append(this.getShowFileContent()).append("\n");
+        sb.append("Stat:").append(this.getStat()).append("\n");
         if (this.getSubfiles() != null)
             sb.append("Subfiles:").append(this.getSubfiles()).append("\n");
-        if (this.getSuperfiles() != null)
-            sb.append("Superfiles:").append(this.getSuperfiles()).append("\n");
+        sb.append("Superfiles:").append(this.getSuperfiles()).append("\n");
         if (this.getUserPermission() != null)
             sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
         if (this.getWuid() != null)
@@ -181,7 +172,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         if (this.getColumns() != null)
         {
             sb.append("Columns:");
-            for (DFUDataColumnInfo col : this.getColumns())
+            for (DFUDataColumnWrapper col : this.getColumns())
             {
                 sb.append("    ").append(col.toString());
             }
@@ -191,7 +182,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
     /**
      * Copy a soap DFUFileDetail object into the wrapper
-     * 
+     *
      * @param base
      */
     private void copy(DFUFileDetail base)
@@ -200,6 +191,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         {
             return;
         }
+
         this.setBinInfo(base.getBinInfo());
         this.setBrowseData(base.getBrowseData());
         this.setCompressedFileSize(base.getCompressedFileSize());
@@ -248,11 +240,11 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     /**
      * @return the columns for this logical file as defined in dfuGetMetadata or dfuGetDataColumns
      */
-    public ArrayList<DFUDataColumnInfo> getColumns()
+    public ArrayList<DFUDataColumnWrapper> getColumns()
     {
         if (columns == null)
         {
-            return new ArrayList<DFUDataColumnInfo>();
+            return new ArrayList<DFUDataColumnWrapper>();
         }
         return columns;
     }
@@ -261,26 +253,25 @@ public class DFUFileDetailWrapper extends DFUFileDetail
      * @param columns
      *            - List of DFUDataColumns
      */
-    public void setColumns(List<DFUDataColumnInfo> columns)
+    public void setColumns(List<DFUDataColumnWrapper> columns)
     {
         if (columns == null)
         {
             this.columns = null;
             return;
         }
-        this.columns = new ArrayList<DFUDataColumnInfo>();
+        this.columns = new ArrayList<DFUDataColumnWrapper>();
         for (int i = 0; i < columns.size(); i++)
         {
-            if (columns.get(i) instanceof DFUDataColumnInfo)
+            if (columns.get(i) instanceof DFUDataColumnWrapper)
             {
-                this.columns.add((DFUDataColumnInfo) columns.get(i));
+                this.columns.add((DFUDataColumnWrapper) columns.get(i));
             }
             else
             {
-                this.columns.add(new DFUDataColumnInfo(columns.get(i)));
+                this.columns.add(new DFUDataColumnWrapper(columns.get(i)));
             }
         }
-
     }
 
     /**
@@ -294,10 +285,10 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             columns = null;
             return;
         }
-        columns = new ArrayList<DFUDataColumnInfo>();
+        columns = new ArrayList<DFUDataColumnWrapper>();
         for (int i = 0; i < childColumns.length; i++)
         {
-            columns.add(new DFUDataColumnInfo(childColumns[i]));
+            columns.add(new DFUDataColumnWrapper(childColumns[i]));
         }
     }
 
@@ -405,7 +396,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         {
             return false;
         }
-        for (DFUDataColumnInfo info : this.getColumns())
+        for (DFUDataColumnWrapper info : this.getColumns())
         {
             if ("table".equalsIgnoreCase(info.getColumnEclType()))
             {
@@ -419,7 +410,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
      * @return the calculated DFUDataColumns based on the columns, deduced file type and ecl
      * @throws Exception
      */
-    public EclRecordInfo deduceFields() throws Exception
+    public EclRecordWrapper deduceFields() throws Exception
     {
         FileFormat fileType = getFileType();
         if (fileType == FileFormat.FLAT || fileType == FileFormat.KEYED)
@@ -428,14 +419,14 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             // need to parse it from the ecl if it's available
             if (getEcl() != null && !getEcl().isEmpty())
             {
-                EclRecordInfo info = DFUFileDetailWrapper.getRecordFromECL(getEcl());
+                EclRecordWrapper info = DFUFileDetailWrapper.getRecordFromECL(getEcl());
                 info = addKeyInfo(info);
                 info.setFileType(fileType);
                 return info;
             }
             else
             {
-                EclRecordInfo ei = new EclRecordInfo(new DFURecordDefInfo(getColumns()));
+                EclRecordWrapper ei = new EclRecordWrapper(new DFURecordDefWrapper(getColumns()));
                 ei.setFileType(fileType);
                 return ei;
             }
@@ -444,12 +435,12 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         {
             if (hasEcl())
             {
-                EclRecordInfo ei = getRecordFromECL(getEcl());
+                EclRecordWrapper ei = getRecordFromECL(getEcl());
                 ei.setFileType(fileType);
                 return ei;
 
             }
-            EclRecordInfo ei = new EclRecordInfo(new DFURecordDefInfo(getColumns()));
+            EclRecordWrapper ei = new EclRecordWrapper(new DFURecordDefWrapper(getColumns()));
             ei.setFileType(fileType);
             return ei;
         }
@@ -458,14 +449,14 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             // for csvs generated by thor, return columns retrieved from getDFUMetadata if they exist
             if (!isSprayedCsv())
             {
-                EclRecordInfo ei = DFUFileDetailWrapper.getRecordFromECL(getEcl());
+                EclRecordWrapper ei = DFUFileDetailWrapper.getRecordFromECL(getEcl());
                 ei.setFileType(fileType);
                 return ei;
             }
             // for sprayed csvs or csvs with no ecl, try and figure this out from the first line of data
             else if (getFirstline() != null && !getFirstline().isEmpty())
             {
-                ArrayList<DFUDataColumnInfo> fields = new ArrayList<DFUDataColumnInfo>();
+                ArrayList<DFUDataColumnWrapper> fields = new ArrayList<DFUDataColumnWrapper>();
                 String sep = this.getCsvSeparate();
                 if (sep.startsWith("\\"))
                 {
@@ -475,7 +466,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
                 for (int i = 0; i < flds.length; i++)
                 {
-                    DFUDataColumn du = new DFUDataColumn();
+                    DFUDataColumnWrapper du = new DFUDataColumnWrapper();
                     if (hasHeader() && isFirstRowValidFieldNames())
                     {
                         String fldval = flds[i].trim();
@@ -492,20 +483,20 @@ public class DFUFileDetailWrapper extends DFUFileDetail
                     }
                     du.setColumnType("STRING");
                     du.setColumnEclType("STRING");
-                    fields.add(new DFUDataColumnInfo(du));
+                    fields.add(new DFUDataColumnWrapper(du));
                 }
-                EclRecordInfo ei = new EclRecordInfo(new DFURecordDefInfo(fields));
+                EclRecordWrapper ei = new EclRecordWrapper(new DFURecordDefWrapper(fields));
                 ei.setFileType(fileType);
                 return ei;
             }
             else
             {
-                EclRecordInfo ei = new EclRecordInfo(new DFURecordDefInfo(getColumns()));
+                EclRecordWrapper ei = new EclRecordWrapper(new DFURecordDefWrapper(getColumns()));
                 ei.setFileType(fileType);
                 return ei;
             }
         }
-        EclRecordInfo ei = new EclRecordInfo(new DFURecordDefInfo(getColumns()));
+        EclRecordWrapper ei = new EclRecordWrapper(new DFURecordDefWrapper(getColumns()));
         ei.setFileType(fileType);
         return ei;
     }
@@ -514,12 +505,12 @@ public class DFUFileDetailWrapper extends DFUFileDetail
      * @param eclRecordDefinition
      *            - a RECORD definition, either in RECORD\nSTRING1\nEND; format, or in {STRING1 field} inline format,.
      *            handles xpath recordsets and child datasets
-     * @return An EclRecordInfo object holding a collection of the recordsets in the ecl
+     * @return An EclRecordWrapper object holding a collection of the recordsets in the ecl
      * @throws Exception
      */
-    public static EclRecordInfo getRecordFromECL(String eclRecordDefinition) throws Exception
+    public static EclRecordWrapper getRecordFromECL(String eclRecordDefinition) throws Exception
     {
-        EclRecordInfo info = getRecordEcl(eclRecordDefinition);
+        EclRecordWrapper info = getRecordEcl(eclRecordDefinition);
         return info;
     }
 
@@ -530,10 +521,10 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     {
         if (getEcl() != null && !getEcl().isEmpty())
         {
-            HashMap<String, DFURecordDefInfo> info = getRecordEcl(getEcl()).getRecordsets();
+            HashMap<String, DFURecordDefWrapper> info = getRecordEcl(getEcl()).getRecordsets();
             if (info.size() == 1)
             {
-                DFURecordDefInfo dfu = info.values().iterator().next();
+                DFURecordDefWrapper dfu = info.values().iterator().next();
                 if (dfu.getChildColumns().size() <= 2 && dfu.getChildColumns().get(0).getColumnLabel().equals("line"))
                 {
                     return true;
@@ -592,14 +583,14 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         return true;
     }
 
-    private EclRecordInfo addKeyInfo(EclRecordInfo input)
+    private EclRecordWrapper addKeyInfo(EclRecordWrapper input)
     {
         if (this.getColumns() == null)
         {
             return input;
         }
         ArrayList<String> keyed = new ArrayList<String>();
-        for (DFUDataColumnInfo d : this.getColumns())
+        for (DFUDataColumnWrapper d : this.getColumns())
         {
             if (d != null && d.getIsKeyedColumn() != null && d.getIsKeyedColumn())
             {
@@ -607,18 +598,18 @@ public class DFUFileDetailWrapper extends DFUFileDetail
             }
         }
         ArrayList<String> natural = new ArrayList<String>();
-        for (DFUDataColumnInfo d : this.getColumns())
+        for (DFUDataColumnWrapper d : this.getColumns())
         {
             if (d != null && d.getIsNaturalColumn() != null && d.getIsNaturalColumn())
             {
                 natural.add(d.getColumnLabel());
             }
         }
-        for (Entry<String, DFURecordDefInfo> val : input.getRecordsets().entrySet())
+        for (Entry<String, DFURecordDefWrapper> val : input.getRecordsets().entrySet())
         {
-            if (val.getKey().startsWith(EclRecordInfo.UNNAMED))
+            if (val.getKey().startsWith(EclRecordWrapper.UNNAMED))
             {
-                for (DFUDataColumnInfo d : val.getValue().getChildColumns())
+                for (DFUDataColumnWrapper d : val.getValue().getChildColumns())
                 {
                     if (keyed.contains(d.getColumnLabel()))
                     {
@@ -640,7 +631,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         {
             return false;
         }
-        for (DFUDataColumnInfo d : this.getColumns())
+        for (DFUDataColumnWrapper d : this.getColumns())
         {
             if (d.getIsKeyedColumn())
             {
@@ -651,16 +642,16 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
     }
 
-    public void setColumns(ArrayList<DFUDataColumnInfo> columns2)
+    public void setColumns(ArrayList<DFUDataColumnWrapper> columns2)
     {
         this.columns = columns2;
     }
 
-    public static EclRecordInfo getRecordEcl(String content)
+    public static EclRecordWrapper getRecordEcl(String content)
     {
         if (content == null || content.isEmpty())
         {
-            return new EclRecordInfo();
+            return new EclRecordWrapper();
         }
         EclRecordReader cr = new EclRecordReader();
         try
@@ -680,26 +671,26 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         {
             cr.getErrorHandler().getErrors().add("Error parsing Record:" + e.getMessage());
         }
-        if (cr.getEclRecordInfo() != null)
+        if (cr.getEclRecordWrapper() != null)
         {
-            cr.getEclRecordInfo().setOriginalEcl(content);
+            cr.getEclRecordWrapper().setOriginalEcl(content);
         }
-        cr.getEclRecordInfo().setParseErrors(cr.getErrorHandler().getErrors());
-        return cr.getEclRecordInfo();
-
+        cr.getEclRecordWrapper().setParseErrors(cr.getErrorHandler().getErrors());
+        return cr.getEclRecordWrapper();
     }
 
     /**
      * Get the by cluster array of file part containers
      *
      * @return an array of file part containers
+     *         //removed in HPCC 5.0.0 ref DFUFilePartsOnCluster
      */
-    public DFUFilePartsOnClusterInfo[] getDFUFilePartsOnClusters()
+    /*public DFUFilePartsOnClusterInfo[] getDFUFilePartsOnClusters()
     {
         DFUFilePartsOnCluster[] clstrs = super.getDFUFilePartsOnClusters();
         DFUFilePartsOnClusterInfo[] w_clstrs = new DFUFilePartsOnClusterInfo[clstrs.length];
         for (int i = 0; i < clstrs.length; i++)
             w_clstrs[i] = new DFUFilePartsOnClusterInfo(clstrs[i]);
         return w_clstrs;
-    }
+    }*/
 }

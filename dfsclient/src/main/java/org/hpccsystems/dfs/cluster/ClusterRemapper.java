@@ -16,9 +16,9 @@
 package org.hpccsystems.dfs.cluster;
 
 import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileCopyWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUPartWrapper;
 
 /**
  * Re-map address information for Clusters that can
@@ -61,14 +61,14 @@ public abstract class ClusterRemapper
      * @param fpi the file part information
      * @return the port number
      */
-    public abstract int revisePort(DFUFilePartInfo fpi);
+    public abstract int revisePort(DFUPartWrapper fpi);
 
     /**
      * Indicates if the target rowservice communicates over SSL
      * @param fpi the file part information
      * @return the port number
      */
-    public abstract boolean getUsesSSLConnection(DFUFilePartInfo fpi);
+    public abstract boolean getUsesSSLConnection(DFUPartWrapper fpi);
 
     /**
      * Factory for making a cluster re-map.

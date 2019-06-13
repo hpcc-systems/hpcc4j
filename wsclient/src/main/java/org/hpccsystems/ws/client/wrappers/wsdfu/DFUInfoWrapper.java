@@ -19,7 +19,7 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException;
 import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 
 public class DFUInfoWrapper
@@ -27,14 +27,15 @@ public class DFUInfoWrapper
     private DFUFileDetailWrapper     detailInfo;
     private List<WUExceptionWrapper> exceptions = new ArrayList<WUExceptionWrapper>();
 
-    public DFUInfoWrapper(DFUInfoResponse resp) throws Exception
+    public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUInfoResponse resp)
     {
         this.detailInfo = new DFUFileDetailWrapper(resp.getFileDetail());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null)
         {
-            for (int i = 0; i < resp.getExceptions().getException().length; i++)
+            EspException[] espExceptions = resp.getExceptions().getException();
+            for (int i = 0; i < espExceptions.length; i++)
             {
-                this.exceptions.add(new WUExceptionWrapper(resp.getExceptions().getException()[i]));
+                this.exceptions.add(new WUExceptionWrapper(espExceptions[i]));
             }
         }
     }

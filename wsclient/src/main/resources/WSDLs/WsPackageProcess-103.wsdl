@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wspackageprocess" targetNamespace="urn:hpccsystems:ws:wspackageprocess"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wspackageprocess" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="ActivatePackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ActivatePackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="BasePackageStatus">
+<xsd:all><xsd:element minOccurs="0" name="Code" type="xsd:int"/>
+<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="AddPackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Info" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Activate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="OverWrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DaliIp" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="SourceProcess" type="xsd:string"/>
+<xsd:element minOccurs="0" default="true" name="AllowForeignFiles" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="PreloadAllPackages" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="ReplacePackageMap" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="UpdateSuperFiles" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="UpdateCloneFrom" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="AppendCluster" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="AddPackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="FilesNotFound"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="AddPartToPackageMapRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="PartName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Content" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DeletePrevious" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DaliIp" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceProcess" type="xsd:string"/>
+<xsd:element minOccurs="0" default="true" name="AllowForeignFiles" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="PreloadAllPackages" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="UpdateSuperFiles" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="UpdateCloneFrom" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="AppendCluster" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="AddPartToPackageMapResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="FilesNotFound"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CopyPackageMapRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="SourcePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="RemoteUserName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="RemotePassword" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PMID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Activate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DaliIp" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="SourceProcess" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="PreloadAllPackages" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="ReplacePackageMap" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="UpdateSuperFiles" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="UpdateCloneFrom" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="AppendCluster" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CopyPackageMapResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="FilesNotFound"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeActivatePackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeActivatePackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeletePackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="PackageMaps">
+<xsd:complexType><xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="PackageMap" type="tns:PackageMapEntry"/></xsd:sequence></xsd:complexType></xsd:element></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="PackageMapEntry">
+<xsd:all><xsd:element minOccurs="0" name="Id" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="DeletePackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="EchoRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Request" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="EchoResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Response" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="Info" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPackageMapByIdRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="PackageMapId" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPackageMapByIdResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="Info" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPackageMapSelectOptionsRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" default="true" name="IncludeTargets" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="IncludeProcesses" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="IncludeProcessFilters" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPackageMapSelectOptionsResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="Targets" type="tns:ArrayOfTargetData"/>
+<xsd:element minOccurs="0" name="ProcessFilters" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="TargetData">
+<xsd:all><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Processes" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="EspStringArray"><xsd:sequence><xsd:element name="Item" type="xsd:string"  minOccurs="0" maxOccurs="unbounded" /></xsd:sequence></xsd:complexType>
+<xsd:complexType name="ArrayOfTargetData">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="TargetData" type="tns:TargetData"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="GetPartFromPackageMapRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="PartName" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetPartFromPackageMapResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="Content" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetQueryFileMappingRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PMID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="QueryName" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetQueryFileMappingResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="UnmappedFiles"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+<xsd:element minOccurs="0" name="SuperFiles" type="tns:ArrayOfSuperFile"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="SuperFile">
+<xsd:all><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SubFiles"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfSuperFile">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="SuperFile" type="tns:SuperFile"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="ListPackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ListPackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="PkgListMapData" type="tns:ArrayOfPackageListMapData"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="PackageListMapData">
+<xsd:all><xsd:element minOccurs="0" name="Id" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PkgListData" type="tns:ArrayOfPackageListData"/>
+<xsd:element minOccurs="0" name="Active" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="PackageListData">
+<xsd:all><xsd:element minOccurs="0" name="Id" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Queries" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfPackageListData">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="PackageListData" type="tns:PackageListData"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfPackageListMapData">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="PackageListMapData" type="tns:PackageListMapData"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="ListPackagesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" name="ProcessFilter" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ListPackagesResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="PackageMapList" type="tns:ArrayOfPackageListMapData"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="WsPackageProcessPingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="WsPackageProcessPingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="RemovePartFromPackageMapRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PackageMap" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="PartName" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="RemovePartFromPackageMapResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ValidatePackageRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Info" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Target" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Active" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="PMID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="QueryIdToVerify" type="xsd:string"/>
+<xsd:element minOccurs="0" name="QueriesToVerify" type="tns:EspStringArray"/>
+<xsd:element minOccurs="0" name="CheckDFS" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="GlobalScope" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ValidatePackageResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="PMID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="status" type="tns:BasePackageStatus"/>
+<xsd:element minOccurs="0" name="Warnings" type="tns:EspStringArray"/>
+<xsd:element minOccurs="0" name="Errors" type="tns:EspStringArray"/>
+<xsd:element minOccurs="0" name="packages" type="tns:ValidatePackageInfo"/>
+<xsd:element minOccurs="0" name="queries" type="tns:ValidatePackageQueries"/>
+<xsd:element minOccurs="0" name="files" type="tns:ValidatePackageFiles"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="ValidatePackageInfo">
+<xsd:all><xsd:element minOccurs="0" name="Unmatched" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ValidatePackageQueries">
+<xsd:all><xsd:element minOccurs="0" name="Unmatched" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ValidatePackageFiles">
+<xsd:all><xsd:element minOccurs="0" name="Unmatched" type="tns:EspStringArray"/>
+<xsd:element minOccurs="0" name="NotInDFS"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="ActivatePackageSoapIn"><part name="parameters" element="tns:ActivatePackageRequest"/></message><message name="ActivatePackageSoapOut"><part name="parameters" element="tns:ActivatePackageResponse"/></message><message name="AddPackageSoapIn"><part name="parameters" element="tns:AddPackageRequest"/></message><message name="AddPackageSoapOut"><part name="parameters" element="tns:AddPackageResponse"/></message><message name="AddPartToPackageMapSoapIn"><part name="parameters" element="tns:AddPartToPackageMapRequest"/></message><message name="AddPartToPackageMapSoapOut"><part name="parameters" element="tns:AddPartToPackageMapResponse"/></message><message name="CopyPackageMapSoapIn"><part name="parameters" element="tns:CopyPackageMapRequest"/></message><message name="CopyPackageMapSoapOut"><part name="parameters" element="tns:CopyPackageMapResponse"/></message><message name="DeActivatePackageSoapIn"><part name="parameters" element="tns:DeActivatePackageRequest"/></message><message name="DeActivatePackageSoapOut"><part name="parameters" element="tns:DeActivatePackageResponse"/></message><message name="DeletePackageSoapIn"><part name="parameters" element="tns:DeletePackageRequest"/></message><message name="DeletePackageSoapOut"><part name="parameters" element="tns:DeletePackageResponse"/></message><message name="EchoSoapIn"><part name="parameters" element="tns:EchoRequest"/></message><message name="EchoSoapOut"><part name="parameters" element="tns:EchoResponse"/></message><message name="GetPackageSoapIn"><part name="parameters" element="tns:GetPackageRequest"/></message><message name="GetPackageSoapOut"><part name="parameters" element="tns:GetPackageResponse"/></message><message name="GetPackageMapByIdSoapIn"><part name="parameters" element="tns:GetPackageMapByIdRequest"/></message><message name="GetPackageMapByIdSoapOut"><part name="parameters" element="tns:GetPackageMapByIdResponse"/></message><message name="GetPackageMapSelectOptionsSoapIn"><part name="parameters" element="tns:GetPackageMapSelectOptionsRequest"/></message><message name="GetPackageMapSelectOptionsSoapOut"><part name="parameters" element="tns:GetPackageMapSelectOptionsResponse"/></message><message name="GetPartFromPackageMapSoapIn"><part name="parameters" element="tns:GetPartFromPackageMapRequest"/></message><message name="GetPartFromPackageMapSoapOut"><part name="parameters" element="tns:GetPartFromPackageMapResponse"/></message><message name="GetQueryFileMappingSoapIn"><part name="parameters" element="tns:GetQueryFileMappingRequest"/></message><message name="GetQueryFileMappingSoapOut"><part name="parameters" element="tns:GetQueryFileMappingResponse"/></message><message name="ListPackageSoapIn"><part name="parameters" element="tns:ListPackageRequest"/></message><message name="ListPackageSoapOut"><part name="parameters" element="tns:ListPackageResponse"/></message><message name="ListPackagesSoapIn"><part name="parameters" element="tns:ListPackagesRequest"/></message><message name="ListPackagesSoapOut"><part name="parameters" element="tns:ListPackagesResponse"/></message><message name="PingSoapIn"><part name="parameters" element="tns:WsPackageProcessPingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:WsPackageProcessPingResponse"/></message><message name="RemovePartFromPackageMapSoapIn"><part name="parameters" element="tns:RemovePartFromPackageMapRequest"/></message><message name="RemovePartFromPackageMapSoapOut"><part name="parameters" element="tns:RemovePartFromPackageMapResponse"/></message><message name="ValidatePackageSoapIn"><part name="parameters" element="tns:ValidatePackageRequest"/></message><message name="ValidatePackageSoapOut"><part name="parameters" element="tns:ValidatePackageResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="WsPackageProcessServiceSoap"><operation name="ActivatePackage"><input message="tns:ActivatePackageSoapIn"/><output message="tns:ActivatePackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="AddPackage"><input message="tns:AddPackageSoapIn"/><output message="tns:AddPackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="AddPartToPackageMap"><input message="tns:AddPartToPackageMapSoapIn"/><output message="tns:AddPartToPackageMapSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="CopyPackageMap"><input message="tns:CopyPackageMapSoapIn"/><output message="tns:CopyPackageMapSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DeActivatePackage"><input message="tns:DeActivatePackageSoapIn"/><output message="tns:DeActivatePackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DeletePackage"><input message="tns:DeletePackageSoapIn"/><output message="tns:DeletePackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Echo"><input message="tns:EchoSoapIn"/><output message="tns:EchoSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetPackage"><input message="tns:GetPackageSoapIn"/><output message="tns:GetPackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetPackageMapById"><input message="tns:GetPackageMapByIdSoapIn"/><output message="tns:GetPackageMapByIdSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetPackageMapSelectOptions"><input message="tns:GetPackageMapSelectOptionsSoapIn"/><output message="tns:GetPackageMapSelectOptionsSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetPartFromPackageMap"><input message="tns:GetPartFromPackageMapSoapIn"/><output message="tns:GetPartFromPackageMapSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetQueryFileMapping"><input message="tns:GetQueryFileMappingSoapIn"/><output message="tns:GetQueryFileMappingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ListPackage"><input message="tns:ListPackageSoapIn"/><output message="tns:ListPackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ListPackages"><input message="tns:ListPackagesSoapIn"/><output message="tns:ListPackagesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="RemovePartFromPackageMap"><input message="tns:RemovePartFromPackageMapSoapIn"/><output message="tns:RemovePartFromPackageMapSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ValidatePackage"><input message="tns:ValidatePackageSoapIn"/><output message="tns:ValidatePackageSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="WsPackageProcessServiceSoap" type="tns:WsPackageProcessServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="ActivatePackage"><soap:operation soapAction="WsPackageProcess/ActivatePackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="AddPackage"><soap:operation soapAction="WsPackageProcess/AddPackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="AddPartToPackageMap"><soap:operation soapAction="WsPackageProcess/AddPartToPackageMap?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="CopyPackageMap"><soap:operation soapAction="WsPackageProcess/CopyPackageMap?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DeActivatePackage"><soap:operation soapAction="WsPackageProcess/DeActivatePackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DeletePackage"><soap:operation soapAction="WsPackageProcess/DeletePackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Echo"><soap:operation soapAction="WsPackageProcess/Echo?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetPackage"><soap:operation soapAction="WsPackageProcess/GetPackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetPackageMapById"><soap:operation soapAction="WsPackageProcess/GetPackageMapById?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetPackageMapSelectOptions"><soap:operation soapAction="WsPackageProcess/GetPackageMapSelectOptions?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetPartFromPackageMap"><soap:operation soapAction="WsPackageProcess/GetPartFromPackageMap?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetQueryFileMapping"><soap:operation soapAction="WsPackageProcess/GetQueryFileMapping?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ListPackage"><soap:operation soapAction="WsPackageProcess/ListPackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ListPackages"><soap:operation soapAction="WsPackageProcess/ListPackages?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Ping"><soap:operation soapAction="WsPackageProcess/Ping?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="RemovePartFromPackageMap"><soap:operation soapAction="WsPackageProcess/RemovePartFromPackageMap?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ValidatePackage"><soap:operation soapAction="WsPackageProcess/ValidatePackage?ver_=1.03" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="WsPackageProcess"><port name="WsPackageProcessServiceSoap" binding="tns:WsPackageProcessServiceSoap"><soap:address location="http://10.0.2.15:8010/WsPackageProcess?ver_=1.03"/></port></service></definitions>

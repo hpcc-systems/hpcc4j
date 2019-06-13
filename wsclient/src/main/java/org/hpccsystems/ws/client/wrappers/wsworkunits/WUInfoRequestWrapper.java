@@ -1,153 +1,220 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo;
-
 public class WUInfoRequestWrapper
 {
     private String wuid;
-
     private Boolean truncateEclTo64K;
-
     private String type;
-
     private Boolean includeExceptions;
-
     private Boolean includeGraphs;
-
     private Boolean includeSourceFiles;
-
     private Boolean includeResults;
-
     private Boolean includeResultsViewNames;
-
     private Boolean includeVariables;
-
     private Boolean includeTimers;
-
     private Boolean includeDebugValues;
-
     private Boolean includeApplicationValues;
-
     private Boolean includeWorkflows;
-
     private Boolean includeXmlSchemas;
-
     private Boolean includeResourceURLs;
-
     private Boolean includeECL;
-
     private Boolean includeHelpers;
-
     private Boolean includeAllowedClusters;
-
     private Boolean includeTotalClusterTime;
-
     private Boolean suppressResultSchemas;
-
     private String thorSlaveIP;
 
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo getRaw() {
-        return getRawVersion1_74();
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo getRawVersion1_74() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUInfo();
-        
-        result.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
-        result.setIncludeApplicationValues(this.getIncludeApplicationValues());
-        result.setIncludeDebugValues(this.getIncludeDebugValues());
-        result.setIncludeECL(this.getIncludeECL());
-        result.setIncludeExceptions(this.getIncludeExceptions());
-        result.setIncludeGraphs(this.getIncludeGraphs());
-        result.setIncludeHelpers(this.getIncludeGraphs());
-        result.setIncludeResourceURLs(this.getIncludeResourceURLs());
-        result.setIncludeResults(this.getIncludeResults());
-        result.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
-        result.setIncludeSourceFiles(this.getIncludeSourceFiles());
-        result.setIncludeTimers(this.getIncludeTimers());
-        result.setIncludeVariables(this.getIncludeVariables());
-        result.setIncludeWorkflows(this.getIncludeWorkflows());
-        result.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
-        result.setSuppressResultSchemas(this.getSuppressResultSchemas());
-        result.setTruncateEclTo64K(this.getTruncateEclTo64K());
-        result.setType(this.getType());
-        result.setWuid(this.getWuid());
-        return result;
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo getRaw()
+    {
+        return getRawVersion1_75();
     }
 
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo getRawVersion1_69() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUInfo();
-        
-        result.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
-        result.setIncludeApplicationValues(this.getIncludeApplicationValues());
-        result.setIncludeDebugValues(this.getIncludeDebugValues());
-        result.setIncludeECL(this.getIncludeECL());
-        result.setIncludeExceptions(this.getIncludeExceptions());
-        result.setIncludeGraphs(this.getIncludeGraphs());
-        result.setIncludeHelpers(this.getIncludeGraphs());
-        result.setIncludeResourceURLs(this.getIncludeResourceURLs());
-        result.setIncludeResults(this.getIncludeResults());
-        result.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
-        result.setIncludeSourceFiles(this.getIncludeSourceFiles());
-        result.setIncludeTimers(this.getIncludeTimers());
-        result.setIncludeVariables(this.getIncludeVariables());
-        result.setIncludeWorkflows(this.getIncludeWorkflows());
-        result.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
-        result.setSuppressResultSchemas(this.getSuppressResultSchemas());
-        result.setTruncateEclTo64K(this.getTruncateEclTo64K());
-        result.setType(this.getType());
-        result.setWuid(this.getWuid());
-        return result;
-    }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfo getRawVersion1_62() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfo result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUInfo();
-        
-        result.setIncludeApplicationValues(this.getIncludeApplicationValues());
-        result.setIncludeDebugValues(this.getIncludeDebugValues());
-        result.setIncludeExceptions(this.getIncludeExceptions());
-        result.setIncludeGraphs(this.getIncludeGraphs());
-        result.setIncludeResourceURLs(this.getIncludeResourceURLs());
-        result.setIncludeResults(this.getIncludeResults());
-        result.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
-        result.setIncludeSourceFiles(this.getIncludeSourceFiles());
-        result.setIncludeTimers(this.getIncludeTimers());
-        result.setIncludeVariables(this.getIncludeVariables());
-        result.setIncludeWorkflows(this.getIncludeWorkflows());
-        result.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
-        result.setSuppressResultSchemas(this.getSuppressResultSchemas());
-        result.setTruncateEclTo64K(this.getTruncateEclTo64K());
-        result.setType(this.getType());
-        result.setWuid(this.getWuid());
-        return result;
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo getRawVersion1_75()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo request = 
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo();
+
+        if (getIncludeAllowedClusters() != null)
+            request.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
+        if (getIncludeApplicationValues() != null)
+            request.setIncludeApplicationValues(this.getIncludeApplicationValues());
+        if (getIncludeDebugValues() != null)
+            request.setIncludeDebugValues(this.getIncludeDebugValues());
+        if (getIncludeECL() != null)
+            request.setIncludeECL(this.getIncludeECL());
+        if (getIncludeExceptions() != null)
+            request.setIncludeExceptions(this.getIncludeExceptions());
+        if (getIncludeGraphs() != null)
+            request.setIncludeGraphs(this.getIncludeGraphs());
+        if (getIncludeGraphs() != null)
+            request.setIncludeHelpers(this.getIncludeGraphs());
+        if (getIncludeResourceURLs() != null)
+            request.setIncludeResourceURLs(this.getIncludeResourceURLs());
+        if (getIncludeResults() != null)
+            request.setIncludeResults(this.getIncludeResults());
+        if (getIncludeResultsViewNames() != null)
+            request.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
+        if (getIncludeSourceFiles() != null)
+            request.setIncludeSourceFiles(this.getIncludeSourceFiles());
+        if (getIncludeTimers() != null)
+            request.setIncludeTimers(this.getIncludeTimers());
+        if (getIncludeVariables() != null)
+            request.setIncludeVariables(this.getIncludeVariables());
+        if (getIncludeWorkflows() != null)
+            request.setIncludeWorkflows(this.getIncludeWorkflows());
+        if (getIncludeXmlSchemas() != null)
+            request.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
+        if (getSuppressResultSchemas() != null)
+            request.setSuppressResultSchemas(this.getSuppressResultSchemas());
+        if (getTruncateEclTo64K() != null)
+            request.setTruncateEclTo64K(this.getTruncateEclTo64K());
+        if (getType() != null)
+            request.setType(this.getType());
+        if (getWuid() != null)
+            request.setWuid(this.getWuid());
+
+        //org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoDocument requestDoc =
+        //        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoDocument.Factory.newInstance();
+
+        //requestDoc.setWUInfo(request);
+
+        return request;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfo getRawVersion1_58() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfo result=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUInfo();
-        
-        result.setIncludeApplicationValues(this.getIncludeApplicationValues());
-        result.setIncludeDebugValues(this.getIncludeDebugValues());
-        result.setIncludeExceptions(this.getIncludeExceptions());
-        result.setIncludeGraphs(this.getIncludeGraphs());
-        result.setIncludeResourceURLs(this.getIncludeResourceURLs());
-        result.setIncludeResults(this.getIncludeResults());
-        result.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
-        result.setIncludeSourceFiles(this.getIncludeSourceFiles());
-        result.setIncludeTimers(this.getIncludeTimers());
-        result.setIncludeVariables(this.getIncludeVariables());
-        result.setIncludeWorkflows(this.getIncludeWorkflows());
-        result.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
-        result.setSuppressResultSchemas(this.getSuppressResultSchemas());
-        result.setTruncateEclTo64K(this.getTruncateEclTo64K());
-        result.setType(this.getType());
-        result.setWuid(this.getWuid());
-        return result;
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfo getRawVersion1_69()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfo request =
+            new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfo();
+
+        if (getIncludeAllowedClusters() != null)
+            request.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
+        if (getIncludeApplicationValues() != null)
+            request.setIncludeApplicationValues(this.getIncludeApplicationValues());
+        if(getIncludeDebugValues() != null)
+            request.setIncludeDebugValues(this.getIncludeDebugValues());
+        if(getIncludeECL() != null)
+            request.setIncludeECL(this.getIncludeECL());
+        if(getIncludeExceptions() != null)
+            request.setIncludeExceptions(this.getIncludeExceptions());
+        if(getIncludeGraphs() != null)
+            request.setIncludeGraphs(this.getIncludeGraphs());
+        if(getIncludeHelpers() != null)
+            request.setIncludeHelpers(this.getIncludeHelpers());
+        if(getIncludeResourceURLs() != null)
+            request.setIncludeResourceURLs(this.getIncludeResourceURLs());
+        if (getIncludeResults() != null)
+            request.setIncludeResults(this.getIncludeResults());
+        if (getIncludeResultsViewNames() != null)
+            request.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
+        if (getIncludeSourceFiles() != null)
+            request.setIncludeSourceFiles(this.getIncludeSourceFiles());
+        if (getIncludeTimers() != null)
+            request.setIncludeTimers(this.getIncludeTimers());
+        if (getIncludeVariables() != null)
+            request.setIncludeVariables(this.getIncludeVariables());
+        if (getIncludeWorkflows() != null)
+            request.setIncludeWorkflows(this.getIncludeWorkflows());
+        if (getIncludeXmlSchemas() != null)
+            request.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
+        if (getSuppressResultSchemas() != null)
+            request.setSuppressResultSchemas(this.getSuppressResultSchemas());
+        if (getTruncateEclTo64K() != null)
+            request.setTruncateEclTo64K(this.getTruncateEclTo64K());
+        if (getType() != null)
+            request.setType(this.getType());
+        if (getWuid() != null)
+            request.setWuid(this.getWuid());
+
+        //org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfoDocument requestDoc =
+        //        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfoDocument.Factory.newInstance();
+
+        //requestDoc.setWUInfo(request);
+
+        return request;
     }
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfo getRawVersion1_62()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfo request =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfo();
+
+        if (getIncludeApplicationValues() != null)
+            request.setIncludeApplicationValues(this.getIncludeApplicationValues());
+        if(getIncludeDebugValues() != null)
+            request.setIncludeDebugValues(this.getIncludeDebugValues());
+        if(getIncludeExceptions() != null)
+            request.setIncludeExceptions(this.getIncludeExceptions());
+        if(getIncludeGraphs() != null)
+            request.setIncludeGraphs(this.getIncludeGraphs());
+        if(getIncludeResourceURLs() != null)
+            request.setIncludeResourceURLs(this.getIncludeResourceURLs());
+        if (getIncludeResults() != null)
+            request.setIncludeResults(this.getIncludeResults());
+        if (getIncludeResultsViewNames() != null)
+            request.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
+        if (getIncludeSourceFiles() != null)
+            request.setIncludeSourceFiles(this.getIncludeSourceFiles());
+        if (getIncludeTimers() != null)
+            request.setIncludeTimers(this.getIncludeTimers());
+        if (getIncludeVariables() != null)
+            request.setIncludeVariables(this.getIncludeVariables());
+        if (getIncludeWorkflows() != null)
+            request.setIncludeWorkflows(this.getIncludeWorkflows());
+        if (getIncludeXmlSchemas() != null)
+            request.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
+        if (getSuppressResultSchemas() != null)
+            request.setSuppressResultSchemas(this.getSuppressResultSchemas());
+        if (getTruncateEclTo64K() != null)
+            request.setTruncateEclTo64K(this.getTruncateEclTo64K());
+        if (getType() != null)
+            request.setType(this.getType());
+        if (getWuid() != null)
+            request.setWuid(this.getWuid());
+
+        return request;
+    }
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfo getRawVersion1_58()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfo request =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfo();
+
+        if (getIncludeApplicationValues() != null)
+            request.setIncludeApplicationValues(this.getIncludeApplicationValues());
+        if(getIncludeDebugValues() != null)
+            request.setIncludeDebugValues(this.getIncludeDebugValues());
+        if(getIncludeExceptions() != null)
+            request.setIncludeExceptions(this.getIncludeExceptions());
+        if(getIncludeGraphs() != null)
+            request.setIncludeGraphs(this.getIncludeGraphs());
+        if(getIncludeResourceURLs() != null)
+            request.setIncludeResourceURLs(this.getIncludeResourceURLs());
+        if (getIncludeResults() != null)
+            request.setIncludeResults(this.getIncludeResults());
+        if (getIncludeResultsViewNames() != null)
+            request.setIncludeResultsViewNames(this.getIncludeResultsViewNames());
+        if (getIncludeSourceFiles() != null)
+            request.setIncludeSourceFiles(this.getIncludeSourceFiles());
+        if (getIncludeTimers() != null)
+            request.setIncludeTimers(this.getIncludeTimers());
+        if (getIncludeVariables() != null)
+            request.setIncludeVariables(this.getIncludeVariables());
+        if (getIncludeWorkflows() != null)
+            request.setIncludeWorkflows(this.getIncludeWorkflows());
+        if (getIncludeXmlSchemas() != null)
+            request.setIncludeXmlSchemas(this.getIncludeXmlSchemas());
+        if (getSuppressResultSchemas() != null)
+            request.setSuppressResultSchemas(this.getSuppressResultSchemas());
+        if (getTruncateEclTo64K() != null)
+            request.setTruncateEclTo64K(this.getTruncateEclTo64K());
+        if (getType() != null)
+            request.setType(this.getType());
+        if (getWuid() != null)
+            request.setWuid(this.getWuid());
+
+        return request;
+    }
+
     /**
      * @return the wuid
      */

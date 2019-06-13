@@ -19,35 +19,37 @@ package org.hpccsystems.ws.client.platform.test;
 
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.platform.Platform;
+import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.experimental.categories.Category;
 
+@Category(RemoteTest.class)
 public abstract class BaseRemoteTest
 {
     protected Platform platform;
     protected HPCCWsClient wsclient;
 
-    protected String hpccConnection = System.getProperty("hpccconn");
-
-    //String hpccProtocol   = System.getProperty("hpccprotocol");
-    //String hpccAddress    = System.getProperty("hpccaddress");
-    //String hpccPort       = System.getProperty("hpccport");
+    protected String connString = System.getProperty("hpccconn");
+    protected Connection connection = null;
 
     protected String hpccUser = System.getProperty("hpccuser");
     protected String hpccPass = System.getProperty("hpccpass");
+    protected String connTO = System.getProperty("connecttimeoutmillis");
+    protected String sockTO = System.getProperty("sockettimeoutmillis");
 
     @Before
     public void setup() throws Exception
     {
         if (platform == null)
         {
-            if (hpccConnection == null)
+            if (connString == null)
             {
                 System.out.println("RemoteTest: No 'hpccconnnect' provided, defaulting to http://localhost:8010");
-                hpccConnection = "http://localhost:8010";
+                connString = "http://localhost:8010";
             }
+
             if (hpccUser == null)
             {
                 System.out.println("RemoteTest: No 'hpccuser' provided.");
@@ -60,7 +62,17 @@ public abstract class BaseRemoteTest
                 hpccPass = "";
             }
 
-            platform = Platform.get(hpccConnection , hpccUser, hpccPass);
+            connection = new Connection(connString);
+            Assert.assertNotNull("Could not adquire connection object", connection);
+            connection.setCredentials(hpccUser, hpccPass);
+            
+            if (connTO != null)
+            	connection.setConnectTimeoutMilli(Integer.valueOf(connTO));
+            
+            if (sockTO != null)
+            	connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
+
+            platform = Platform.get(connection);
 
             Assert.assertNotNull("Could not adquire platform object", platform);
         }

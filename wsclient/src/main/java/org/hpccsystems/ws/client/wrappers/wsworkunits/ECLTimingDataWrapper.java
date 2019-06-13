@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData;
+
 public class ECLTimingDataWrapper
 {
     private String name;
@@ -14,13 +16,15 @@ public class ECLTimingDataWrapper
 
     private Integer MS;
 
-    public ECLTimingDataWrapper() {
+    public ECLTimingDataWrapper() {}
 
-    }
-    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData raw) {
-        if (raw==null) {
+    public ECLTimingDataWrapper(ECLTimingData raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setGID(raw.getGID());
         this.setGraphNum(raw.getGraphNum());
         this.setMin(raw.getMin());
@@ -29,10 +33,13 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
-    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData raw) {
-        if (raw==null) {
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLTimingData raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setGID(raw.getGID());
         this.setGraphNum(raw.getGraphNum());
         this.setMin(raw.getMin());
@@ -41,10 +48,13 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
-    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData raw) {
-        if (raw==null) {
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLTimingData raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setGID(raw.getGID());
         this.setGraphNum(raw.getGraphNum());
         this.setMin(raw.getMin());
@@ -53,10 +63,13 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
-    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData raw) {
-        if (raw==null) {
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLTimingData raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setGID(raw.getGID());
         this.setGraphNum(raw.getGraphNum());
         this.setMin(raw.getMin());
@@ -65,12 +78,31 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData getRaw(){
-        return getRawVersion74();
+    public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLTimingData raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.setGID(raw.getGID());
+        this.setGraphNum(raw.getGraphNum());
+        this.setMin(raw.getMin());
+        this.setMS(raw.getMS());
+        this.setName(raw.getName());
+        this.setSubGraphNum(raw.getSubGraphNum());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData getRawVersion74(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLTimingData();
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData getRaw()
+    {
+        return getRawVersion1_75();
+    }
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData getRawVersion1_75()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData raw = 
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData();
+
         raw.setGID(this.getGID());
         raw.setGraphNum(this.getGraphNum());
         raw.setMin(this.getMin());
@@ -80,38 +112,6 @@ public class ECLTimingDataWrapper
         return raw;
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData getRawVersion1_69(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLTimingData();
-        raw.setGID(this.getGID());
-        raw.setGraphNum(this.getGraphNum());
-        raw.setMin(this.getMin());
-        raw.setMS(this.getMS());
-        raw.setName(this.getName());
-        raw.setSubGraphNum(this.getSubGraphNum());
-        return raw;
-    }
-
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData getRawVersion1_62(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ECLTimingData();
-        raw.setGID(this.getGID());
-        raw.setGraphNum(this.getGraphNum());
-        raw.setMin(this.getMin());
-        raw.setMS(this.getMS());
-        raw.setName(this.getName());
-        raw.setSubGraphNum(this.getSubGraphNum());
-        return raw;
-    }
-
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData getRawVersion1_58(){
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ECLTimingData();
-        raw.setGID(this.getGID());
-        raw.setGraphNum(this.getGraphNum());
-        raw.setMin(this.getMin());
-        raw.setMS(this.getMS());
-        raw.setName(this.getName());
-        raw.setSubGraphNum(this.getSubGraphNum());
-        return raw;
-    }
     /**
      * @return the name
      */

@@ -9,7 +9,7 @@
   <parent>
     <groupId>org.hpccsystems</groupId>
     <artifactId>HPCC-JAPIs</artifactId>
-    <version>7.4.12-SNAPSHOT</version>
+    <version>7.6.1-SNAPSHOT</version>
   </parent>
 
   <build>
@@ -42,12 +42,12 @@
     <dependency>
       <groupId>org.hpccsystems</groupId>
       <artifactId>commons-hpcc</artifactId>
-      <version>7.4.12-SNAPSHOT</version>
+      <version>7.6.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.hpccsystems</groupId>
       <artifactId>wsclient</artifactId>
-      <version>7.4.12-SNAPSHOT</version>
+      <version>7.6.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

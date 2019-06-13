@@ -6,10 +6,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
-import org.apache.axis.client.Stub;
-import org.apache.axis.encoding.Base64;
-import org.apache.axis.utils.StringUtils;
 import org.apache.log4j.Logger;
 
 public class Connection
@@ -64,7 +64,10 @@ public class Connection
             if (!isPopulated)
                 return null;
             else
-                return new String(Base64.encode((userName+":"+password).getBytes()));
+            {
+                Encoder encoder = Base64.getEncoder();
+                return new String(encoder.encode((userName+":"+password).getBytes()));
+            }
         }
 
         public void setEncodedCreds(String encodedCreds) throws Exception
@@ -73,11 +76,13 @@ public class Connection
             {
                 this.password = null;
                 this.userName = null;
-                String credstring=new String(Base64.decode(encodedCreds));
-                String[] creds=StringUtils.split(credstring, ':');
-                if (creds.length != 2) {
+                Decoder decoder = Base64.getDecoder();
+                String credstring=new String(decoder.decode(encodedCreds));
+                String[] creds = credstring.split(":");
+
+                if (creds.length != 2)
                     throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
-                }
+
                 this.userName=creds[0];
                 this.password=creds[1];
                 isPopulated = true;
@@ -128,6 +133,24 @@ public class Connection
     private boolean            allowInvalidCerts      = false;
 
     private StringBuffer       baseUrl;
+    private StringBuffer       uriAndParams;
+
+    final static public String  CONNECT_TIMEOUT_PARAM  = "connecttimeoutmillis";
+    final static public String  READ_TIMEOUT_PARAM  = "readtimeoutmillis";
+    final static public String  WRITE_TIMEOUT_PARAM  = "writetimeoutmillis";
+    final static public String  SOCKET_TIMEOUT_PARAM  = "sockettimeoutmillis";
+
+    final static public int  DEFAULT_CONNECT_TIMEOUT_MILLI  = 150000;
+    final static public int  DEFAULT_SO_TIMEOUT_MILLI       = 150000;
+    final static public int  DEFAULT_WRITE_TIMEOUT_MILLI    = 150000;
+    final static public int  DEFAULT_READ_TIMEOUT_MILLI     = 180 * 1000;
+    final static boolean     DEFAULT_MAINTAIN_SESSION       = true;
+
+    protected int               connectTimeoutMilli         = DEFAULT_CONNECT_TIMEOUT_MILLI;
+    protected int               readTimeoutMilli            = DEFAULT_READ_TIMEOUT_MILLI;
+    protected int               writeTimeoutMilli           = DEFAULT_WRITE_TIMEOUT_MILLI;
+    protected int               socketTimeoutMilli          = DEFAULT_SO_TIMEOUT_MILLI;
+
 
     public static String getProtocol(boolean ssl)
     {
@@ -159,8 +182,11 @@ public class Connection
         setURIPath(theurl.getPath());
 
         options = null;
-        if (theurl.getQuery() != null) 
+        if (theurl.getQuery() != null)
+        {
             options = theurl.getQuery().split("&");
+            processOptions();
+        }
 
         constructUrl();
 
@@ -182,6 +208,7 @@ public class Connection
         this(protocol, host, port, path, null);
     }
 
+
     public Connection(String protocol_, String host_, String port_, String path_, String[] options_)
     {
         setProtocol(protocol_);
@@ -192,9 +219,33 @@ public class Connection
 
         options = options_;
 
+        processOptions();
+
         constructUrl();
 
         credentials = new Credentials();
+    }
+
+    private void processOptions()
+    {
+        if (options != null && options.length != 0) //look for some known options, mainly timeouts
+        {
+            for (int i = 0; i < options.length; i++)
+            {
+                String [] kvoptions = options[i].split("=");
+                if (kvoptions.length == 2)
+                {
+                    if (kvoptions[0].equalsIgnoreCase(CONNECT_TIMEOUT_PARAM))
+                        connectTimeoutMilli = Integer.valueOf(kvoptions[1]);
+                    else if (kvoptions[0].equalsIgnoreCase(READ_TIMEOUT_PARAM))
+                        readTimeoutMilli = Integer.valueOf(kvoptions[1]);
+                    else if (kvoptions[0].equalsIgnoreCase(WRITE_TIMEOUT_PARAM))
+                        writeTimeoutMilli = Integer.valueOf(kvoptions[1]);
+                    else if (kvoptions[0].equalsIgnoreCase(SOCKET_TIMEOUT_PARAM))
+                        socketTimeoutMilli = Integer.valueOf(kvoptions[1]);
+                }
+            }
+        }
     }
 
     private void setProtocol(String protocol_)
@@ -237,31 +288,38 @@ public class Connection
         baseUrl.append(protocol).append(protDelimiter);
         baseUrl.append(host);
         baseUrl.append(port.length() > 0 ? portDelimiter + port : "");
-        baseUrl.append(path);
+
+        uriAndParams = new StringBuffer();
+        uriAndParams.append(path);
 
         if (options != null)
         {
             for (int i = 0; i < options.length; i++)
             {
                 if (i == 0)
-                    baseUrl.append(firstOptDelimiter);
+                    uriAndParams.append(firstOptDelimiter);
                 else
-                    baseUrl.append(subsequentOptDelimiter);
+                    uriAndParams.append(subsequentOptDelimiter);
 
                 try
                 {
-                    baseUrl.append(URLEncoder.encode(options[i], "UTF-8"));
+                    uriAndParams.append(URLEncoder.encode(options[i], "UTF-8"));
                 }
                 catch (UnsupportedEncodingException e)
                 {
                     log.warn("Warning: could not encode URL option: " + options[i]);
-                    baseUrl.append(options[i]);
+                    uriAndParams.append(options[i]);
                 }
             }
         }
     }
 
     public String getUrl()
+    {
+        return baseUrl.toString()+uriAndParams.toString();
+    }
+
+    public String getBaseUrl()
     {
         return baseUrl.toString();
     }
@@ -462,29 +520,73 @@ public class Connection
         return url.toString();
     }
 
+    /**
+     * @return the connectTimeoutMilli
+     */
+    public int getConnectTimeoutMilli()
+    {
+        return connectTimeoutMilli;
+    }
+
+    /**
+     * @param connectTimeoutMilli the connectTimeoutMilli to set
+     */
+    public void setConnectTimeoutMilli(int connectTimeoutMilli)
+    {
+        this.connectTimeoutMilli = connectTimeoutMilli;
+    }
+
+    /**
+     * @return the readTimeoutMilli
+     */
+    public int getReadTimeoutMilli()
+    {
+        return readTimeoutMilli;
+    }
+
+    /**
+     * @param readTimeoutMilli the readTimeoutMilli to set
+     */
+    public void setReadTimeoutMilli(int readTimeoutMilli)
+    {
+        this.readTimeoutMilli = readTimeoutMilli;
+    }
+
+    /**
+     * @return the writeTimeoutMilli
+     */
+    public int getWriteTimeoutMilli()
+    {
+        return writeTimeoutMilli;
+    }
+
+    /**
+     * @param writeTimeoutMilli the writeTimeoutMilli to set
+     */
+    public void setWriteTimeoutMilli(int writeTimeoutMilli)
+    {
+        this.writeTimeoutMilli = writeTimeoutMilli;
+    }
+
+    /**
+     * @return the socketTimeoutMilli
+     */
+    public int getSocketTimeoutMilli()
+    {
+        return socketTimeoutMilli;
+    }
+
+    /**
+     * @param socketTimeoutMilli the socketTimeoutMilli to set
+     */
+    public void setSocketTimeoutMilli(int socketTimeoutMilli)
+    {
+        this.socketTimeoutMilli = socketTimeoutMilli;
+    }
+
     public String toString()
     {
         return buildUrl(protocol, host, port, path, options);
-    }
-
-    private static final int        DEFAULT_READ_TIMEOUT        = 180 * 1000;
-    private static final boolean    DEFAULT_MAINTAIN_SESSION    = true;
-    public static void initStub(Stub stub, String user, String password)
-    {
-        initStub(stub, user, password, DEFAULT_READ_TIMEOUT);
-    }
-
-    public static void initStub(Stub stub, String user, String password, int timeout)
-    {
-        initStub(stub, user, password, DEFAULT_READ_TIMEOUT, DEFAULT_MAINTAIN_SESSION);
-    }
-
-    public static void initStub(Stub stub, String user, String password, int readtimeout, boolean maintainsession)
-    {
-        stub.setUsername(user);
-        stub.setPassword(password);
-        stub.setTimeout(readtimeout);
-        stub.setMaintainSession(maintainsession);
     }
 
     @Override

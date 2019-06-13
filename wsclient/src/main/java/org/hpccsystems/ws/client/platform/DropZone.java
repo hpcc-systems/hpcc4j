@@ -10,8 +10,8 @@ package org.hpccsystems.ws.client.platform;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpDropZone;
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpMachine;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -60,12 +60,13 @@ public class DropZone extends DataSingleton
      */
     public String[] getConfiguredNetAddresses()
     {
-        if (dzInfo.getTpMachines() != null && dzInfo.getTpMachines().length > 0)
+        if (dzInfo.getTpMachines() != null && dzInfo.getTpMachines().getTpMachine().length > 0)
         {
-            String[] cnaList = new String[dzInfo.getTpMachines().length];
-            for(int i = 0; i < dzInfo.getTpMachines().length; i++)
+            String[] cnaList = new String[dzInfo.getTpMachines().getTpMachine().length];
+            TpMachine[] tpMachines = dzInfo.getTpMachines().getTpMachine();
+            for(int i = 0; i < tpMachines.length; i++)
             {
-                cnaList[i] = new String(dzInfo.getTpMachines()[i].getConfigNetaddress());
+                cnaList[i] = new String(tpMachines[i].getConfigNetaddress());
             }
             return cnaList;
         }
@@ -82,14 +83,18 @@ public class DropZone extends DataSingleton
      */
     public String[] getNetAddresses()
     {
-        if (dzInfo.getTpMachines() != null && dzInfo.getTpMachines().length > 0)
+        if (dzInfo.getTpMachines() != null && dzInfo.getTpMachines().getTpMachine().length > 0)
         {
-            String[] naList = new String[dzInfo.getTpMachines().length];
-            for(int i = 0; i < dzInfo.getTpMachines().length; i++)
+            TpMachine[] tpMachines = dzInfo.getTpMachines().getTpMachine();
+            if (tpMachines != null)
             {
-                naList[i] = new String(dzInfo.getTpMachines()[i].getNetaddress());
+                String[] naList = new String[tpMachines.length];
+                for(int i = 0; i < tpMachines.length; i++)
+                {
+                    naList[i] = new String(tpMachines[i].getNetaddress());
+                }
+                return naList;
             }
-            return naList;
         }
         return null;
     }
@@ -98,7 +103,7 @@ public class DropZone extends DataSingleton
     {
         if (dzInfo != null)
         {
-            TpMachine[] dropzonemachines = dzInfo.getTpMachines();
+            TpMachine[] dropzonemachines = dzInfo.getTpMachines().getTpMachine();
             if (serveraddress == null || serveraddress.length() == 0)
             {
                 if (dropzonemachines.length == 1)
@@ -180,7 +185,7 @@ public class DropZone extends DataSingleton
     {
         try
         {
-            update(platform.getWsTopologyClient().queryDropzoneMachines(dzInfo.getName()));
+            update(platform.getWsClient().getWsTopologyClient().queryDropzoneMachines(dzInfo.getName()));
         }
         catch (Exception e)
         {
@@ -210,7 +215,7 @@ public class DropZone extends DataSingleton
         if (dzInfo.getName().equals(dz.getName()))
         {
             dzInfo = dz;
-            update(dz.getTpMachines());
+            update(dz.getTpMachines().getTpMachine());
             setChanged();
         }
     }

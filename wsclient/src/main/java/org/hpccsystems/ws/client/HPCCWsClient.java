@@ -6,15 +6,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
-import org.hpccsystems.ws.client.extended.HPCCWsSQLClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.ProgressRequest;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.ProgressResponse;
-import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
@@ -22,6 +15,10 @@ import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.EspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
 /**
  *
@@ -333,15 +330,6 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Reports the version of the original WSDL used to create the HPCCFileSprayClient logic.
-     * @return Original WSDL version
-     */
-    public String getFileSprayClientVer()
-    {
-        return Utils.parseVersionFromWSDLURL(HPCCFileSprayClient.getOriginalWSDLURL());
-    }
-
-    /**
      * @return provides fileSprayClient for direct method execution
      */
     public HPCCFileSprayClient getFileSprayClient()
@@ -353,6 +341,15 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Reports the version of the original WSDL used to create the HPCCWsPackageProcessClient logic.
+     * @return Original WSDL version
+     */
+    public String getHPCCWsPackageProcessClientVer()
+    {
+        return Utils.parseVersionFromWSDLURL(HPCCWsPackageProcessClient.getOriginalWSDLURL());
+    }
+    
+    /**
      * Reports the version of the original WSDL used to create the HPCCWsFileIOClient logic.
      * @return Original WSDL version
      */
@@ -361,18 +358,6 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsFileIOClient.getOriginalWSDLURL());
     }
 
-    /**
-     * Reports the version of the original WSDL used to create the HPCCWsPackageProcessClient logic.
-     * @return Original WSDL version
-     */
-    public String getHPCCWsPackageProcessClientVer()
-    {
-        return Utils.parseVersionFromWSDLURL(HPCCWsPackageProcessClient.getOriginalWSDLURL());
-    }
-
-    /**
-     * @return provides HPCCWsFileIOClient for direct method execution
-     */
     public HPCCWsFileIOClient getWsFileIOClient()
     {
         synchronized (connectionLock)
@@ -401,34 +386,11 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsTopologyClient.getOriginalWSDLURL());
     }
 
-    /**
-     * @return provides HPCCWsTopologyClient object for direct method execution
-     */
     public HPCCWsTopologyClient getWsTopologyClient()
     {
         synchronized (connectionLock)
         {
             return (HPCCWsTopologyClient) SubClients.get(HPCCWsTopologyClient.get(connection));
-        }
-    }
-
-    /**
-     * Reports the version of the original WSDL used to create the HPCCECLDirectClient logic.
-     * @return Original WSDL version
-     */
-    public String getEclDirectClientVer()
-    {
-        return Utils.parseVersionFromWSDLURL(HPCCECLDirectClient.getOriginalWSDLURL());
-    }
-
-    /**
-     * @return provides HPCCECLDirectClient for direct method execution
-     */
-    public HPCCECLDirectClient getEclDirectClient()
-    {
-        synchronized (connectionLock)
-        {
-            return (HPCCECLDirectClient) SubClients.get(HPCCECLDirectClient.get(connection));
         }
     }
 
@@ -441,9 +403,6 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsDFUClient.getOriginalWSDLURL());
     }
 
-    /**
-     * @return provides wsDFUClient for direct method execution
-     */
     public HPCCWsDFUClient getWsDFUClient()
     {
         synchronized (connectionLock)
@@ -462,7 +421,7 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * @return provides HPCCWsWorkUnitsClient for direct method execution
+     * @return provides HPCCWsSMCClient for direct method execution
      */
     public HPCCWsSMCClient getWsSMCClient()
     {
@@ -524,7 +483,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String[] getAvailableClusterNames(String clusterGroupType) throws Exception
     {
-        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
+        HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
 
         if (wsTopologyClient != null)
             return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
@@ -538,7 +497,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public List<String> getAvailableTargetClusterNames() throws Exception
     {
-        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
+        HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
 
         if (wsTopologyClient != null)
             return wsTopologyClient.getValidTargetClusterNames();
@@ -567,10 +526,6 @@ public class HPCCWsClient extends DataSingleton
                 success = handleSprayResponse(fileSprayClient.sprayFixedLocalDropZone(fileName, recordSize, targetFileLabel, "", targetCluster, overwritesprayedfile));
             else
                 throw new Exception("Could not initialize HPCC fileSpray Client");
-        }
-        catch (ArrayOfEspException e)
-        {
-            log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
         catch (RemoteException e)
         {
@@ -664,10 +619,6 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC FileSpray Client");
         }
-        catch (ArrayOfEspException e)
-        {
-            log.error("Error: Could not spray file" + e.getLocalizedMessage());
-        }
         catch (RemoteException e)
         {
             log.error("Error: Could not spray file" + e.getLocalizedMessage());
@@ -680,14 +631,14 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
-    private boolean handleSprayResponse(ProgressResponse sprayResponse) throws Exception
+    private boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper) throws Exception
     {
         boolean success = false;
 
-        ArrayOfEspException exceptions = sprayResponse.getExceptions();
+        ArrayOfEspExceptionWrapper exceptions = progressResponseWrapper.getExceptions();
         if (exceptions != null)
         {
-            for (EspException espexception : exceptions.getException())
+            for (EspExceptionWrapper espexception : exceptions.getException())
             {
                 log.error("Error spraying file: " + espexception.getSource() + espexception.getMessage());
             }
@@ -699,10 +650,9 @@ public class HPCCWsClient extends DataSingleton
             if (fileSprayClient == null)
                 throw new Exception("Could not initialize HPCC FileSpray Client");
 
-            ProgressRequest dfuprogressparams = new ProgressRequest();
-            dfuprogressparams.setWuid(sprayResponse.getWuid());
-            log.debug("Spray file DWUID: " +sprayResponse.getWuid());
-            ProgressResponse progressResponse = fileSprayClient.fileSprayServiceSoapProxy.getDFUProgress(dfuprogressparams);
+            log.debug("Spray file DWUID: " + progressResponseWrapper.getWuid());
+            ProgressResponseWrapper progressResponse = fileSprayClient.getDfuProgress(progressResponseWrapper.getWuid());
+            
 
             if (progressResponse.getExceptions() != null)
             {
@@ -718,7 +668,7 @@ public class HPCCWsClient extends DataSingleton
                     for  (int i = 0; i < 10 && progressResponse.getPercentDone() < 100 && !progressResponse.getState().equalsIgnoreCase("FAILED"); i++)
                     {
                         log.debug(progressResponse.getProgressMessage());
-                        progressResponse = fileSprayClient.fileSprayServiceSoapProxy.getDFUProgress(dfuprogressparams);
+                        progressResponse = fileSprayClient.getDfuProgress(progressResponseWrapper.getWuid());
 
                         try
                         {
@@ -738,7 +688,7 @@ public class HPCCWsClient extends DataSingleton
                 }
                 log.debug("Final summary from server: " + progressResponse.getSummaryMessage());
 
-                log.info("Spray attempt completed, verify DWUID: " +sprayResponse.getWuid());
+                log.info("Spray attempt completed, verify DWUID: " +progressResponseWrapper.getWuid());
             }
         }
         return success;
@@ -804,7 +754,7 @@ public class HPCCWsClient extends DataSingleton
      * @return             - If successful, the resulting dataset(s)
      * @throws Exception
      */
-    public String submitECLandGetResults(WorkunitInfo wu) throws Exception
+    public String submitECLandGetResults(WorkunitWrapper wu) throws Exception
     {
         String results = null;
         HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
@@ -832,7 +782,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws Exception
      */
 
-    public List<List <Object>> submitECLandGetResultsList(WorkunitInfo wu) throws Exception
+    public List<List <Object>> submitECLandGetResultsList(WorkunitWrapper wu) throws Exception
     {
         List<List <Object>> resultsList;
         String results = submitECLandGetResults(wu);
@@ -845,22 +795,21 @@ public class HPCCWsClient extends DataSingleton
      * @param wu - The workunit info to be submitted
      * @return   - If successful, the resulting WUID, which can be used to query info, including results
      */
-    public String submitECLandGetWUID(WorkunitInfo wu)
+    public String submitECLandGetWUID(WorkunitWrapper wu)
     {
         String WUID = null;
+        HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
 
         try
         {
-            HPCCECLDirectClient eclDirectClient = getEclDirectClient();
-            if (eclDirectClient != null)
-                WUID = eclDirectClient.submitECL(wu);
+            if (wsWorkunitsClient != null)
+                WUID = wsWorkunitsClient.createAndRunWUFromECLAndGetWUID(wu);
             else
-                throw new Exception("Could not initialize HPCC EclDirect Client");
+                throw new Exception("Could not initialize HPCC WsWorkUnits Client");
         }
         catch (Exception e)
         {
             log.error("Error submitting ECL: " + e.getLocalizedMessage());
-            e.printStackTrace();
         }
 
         return WUID;
@@ -949,4 +898,3 @@ public class HPCCWsClient extends DataSingleton
         return result;
     }
 }
-

@@ -28,12 +28,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.ManualUnitTest;
-import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
-import org.hpccsystems.ws.client.platform.EclRecordInfo;
-
-import org.hpccsystems.ws.client.platform.Platform;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -107,7 +105,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
   //      String fname=".::lrenn:edit-ma-test";
         String fname="anthem::enc_wpt_edw_provider_thor_superfile";
         DFUFileDetailWrapper info=getDFUClient().getFileDetails(fname, null);
-        EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(info.getEcl());
+        EclRecordWrapper rec=DFUFileDetailWrapper.getRecordFromECL(info.getEcl());
         if (rec.getParseErrors().size()!=0) {
             fail(rec.getParseErrors().toString());
         }
@@ -137,7 +135,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 continue;
             }
             try {
-                EclRecordInfo rece=DFUFileDetailWrapper.getRecordFromECL(rececl);
+                EclRecordWrapper rece=DFUFileDetailWrapper.getRecordFromECL(rececl);
                 alreadytested.add(rec);
                 if (rece.getParseErrors().size()!=0)
                 {
@@ -178,8 +176,8 @@ public class EclParseRegressionTest extends BaseRemoteTest
 
     private void testScope(String scope) throws Exception
     {
-        List<DFULogicalFileInfo> files=getDFUClient().getFiles(scope);
-        for (DFULogicalFileInfo file:files)
+        List<DFULogicalFileWrapper> files = getDFUClient().getFiles(scope);
+        for (DFULogicalFileWrapper file:files)
         {
             String fullfilename= file.getIsDirectory()==true?file.getDirectory():file.getFileName();
             if (!StringUtils.isEmpty(scope) && !fullfilename.startsWith(scope))
@@ -235,7 +233,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 {
                     System.out.println(fullfilename + " has child datasets");
                 }
-                    EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(rececl);
+                    EclRecordWrapper rec=DFUFileDetailWrapper.getRecordFromECL(rececl);
                     alreadytested.add(fullfilename);
                     if (rec.getParseErrors().size()!=0) {
                         throw new Exception("Failed to parse " + fullfilename + ":" + StringUtils.join(rec.getParseErrors(),"\n"));

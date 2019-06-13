@@ -11,10 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLGraph;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.WUState;
 
 public class Graph extends DataSingleton
 {
@@ -66,15 +67,15 @@ public class Graph extends DataSingleton
 
     public WUState getStateID()
     {
-        if (info.getRunning() != null && info.getRunning())
+        if (/*info.getRunning() != null && */info.getRunning())
         {
             return WUState.RUNNING;
         }
-        else if (info.getComplete() != null && info.getComplete())
+        else if (/*info.getComplete() != null &&*/ info.getComplete())
         {
             return WUState.COMPLETED;
         }
-        else if (info.getFailed() != null && info.getFailed())
+        else if (/*info.getFailed() != null &&*/ info.getFailed())
         {
             return WUState.FAILED;
         }
