@@ -40,6 +40,33 @@ public class FieldFilterRange implements Serializable
     private boolean          number;
     private boolean          set;
     private Bound            bound;
+    private short            prefix;
+
+    /**
+     * Use for single value ranges.
+     *
+     * @param v
+     *            the value
+     * @param leftOpen
+     *            true when the left is an open interval value
+     * @param rightOpen
+     *            true when the right is an open interval value
+     * @param numeric_target
+     *            the field under compare is numeric
+     * @param  prefixMatchLength
+     *            non-negative string-wise compare length
+     */
+    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean numeric_target, short prefixMatchLength)
+    {
+        this.values = new String[1];
+        this.values[0] = v;
+        this.bound = rangeBound;
+        this.leftOpen = leftRangeOpen;
+        this.rightOpen = rightRangeOpen;
+        this.number = numeric_target;
+        this.set = false;
+        prefix = prefixMatchLength;
+    }
 
     /**
      * Use for single value ranges.
@@ -55,13 +82,7 @@ public class FieldFilterRange implements Serializable
      */
     public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean numeric_target)
     {
-        this.values = new String[1];
-        this.values[0] = v;
-        this.bound = rangeBound;
-        this.leftOpen = leftRangeOpen;
-        this.rightOpen = rightRangeOpen;
-        this.number = numeric_target;
-        this.set = false;
+        this(v, rangeBound, leftRangeOpen, rightRangeOpen, numeric_target, (short)0);
     }
 
     /**
@@ -83,6 +104,7 @@ public class FieldFilterRange implements Serializable
         this.rightOpen = rightRangeOpen;
         this.set = false;
         this.number = numeric_target;
+        prefix = (short) 0;
     }
 
     /**
@@ -91,7 +113,7 @@ public class FieldFilterRange implements Serializable
      * @param valueList
      * @param numeric_target
      */
-    public FieldFilterRange(String[] valueList, boolean numeric_target)
+    public FieldFilterRange(Object[] valueList, boolean numeric_target)
     {
         this.leftOpen = false;
         this.rightOpen = false;
@@ -99,157 +121,139 @@ public class FieldFilterRange implements Serializable
         this.values = new String[valueList.length];
         for (int i = 0; i < this.values.length; i++)
         {
-            this.values[i] = valueList[i];
+            this.values[i] = valueList[i].toString();
         }
         this.bound = Bound.BOTH;
         this.set = true;
         this.number = numeric_target;
+        prefix = (short) 0;
     }
 
     /**
-     * Numeric equality.
+     * Create equality filter range.
      *
      * @param v
      *            the test value
      * @return the test range
      */
-    static public FieldFilterRange makeEq(double v)
+    static public FieldFilterRange makeEq(Object v)
     {
-        return new FieldFilterRange(Double.toString(v), Bound.BOTH, false, false, true);
+        return new FieldFilterRange(v.toString(), Bound.BOTH, false, false, (v instanceof Number));
     }
 
     /**
-     * String value equality
+     * Create inequality filter range.
      *
      * @param v
      *            the test value
      * @return the test range
      */
-    static public FieldFilterRange makeEq(String v)
+    static public FieldFilterRange makeNE(Object v)
     {
-        return new FieldFilterRange(v, Bound.BOTH, false, false, false);
+        return new FieldFilterRange(v.toString(), Bound.NONE, true, true, (v instanceof Number));
     }
 
     /**
-     * Numeric value inequality.
-     *
-     * @param v
-     *            the test value
-     * @return the test ranges
-     */
-    static public FieldFilterRange makeNE(double v)
-    {
-        return new FieldFilterRange(Double.toString(v), Bound.NONE, true, true, true);
-    }
-
-    /**
-     * String value inequality
-     *
-     * @param v
-     *            the test value
-     * @return the test ranges
-     */
-    static public FieldFilterRange makeNE(String v)
-    {
-        return new FieldFilterRange(v, Bound.NONE, true, true, false);
-    }
-
-    /**
-     * Numeric value less than
+     * Create less than filter range
      *
      * @param v
      *            the test value
      * @return the test range
      */
-    static public FieldFilterRange makeLT(double v)
+    static public FieldFilterRange makeLT(Object v)
     {
-        return new FieldFilterRange(Double.toString(v), Bound.UPPER, true, true, true);
+        return new FieldFilterRange(v.toString(), Bound.UPPER, true, true, (v instanceof Number));
     }
 
     /**
-     * String value less than
+     * Create less or equal filter range
      *
      * @param v
      *            the test value
      * @return the test range
      */
-    static public FieldFilterRange makeLT(String v)
+    static public FieldFilterRange makeLE(Object v)
     {
-        return new FieldFilterRange(v, Bound.UPPER, true, true, false);
+        return new FieldFilterRange(v.toString(), Bound.UPPER, true, false, (v instanceof Number));
     }
 
     /**
-     * Numeric value less or equal
+     * Create greater than filter range
      *
      * @param v
      *            the test value
      * @return the test range
      */
-    static public FieldFilterRange makeLE(double v)
+    static public FieldFilterRange makeGT(Object v)
     {
-        return new FieldFilterRange(Double.toString(v), Bound.UPPER, true, false, true);
+        return new FieldFilterRange(v.toString(), Bound.LOWER, true, true, (v instanceof Number));
     }
 
     /**
-     * String value less or equal
+     * Create greater or equal filter range
      *
      * @param v
      *            the test value
      * @return the test range
      */
-    static public FieldFilterRange makeLE(String v)
+    static public FieldFilterRange makeGE(Object v)
     {
-        return new FieldFilterRange(v, Bound.UPPER, true, false, false);
+        return new FieldFilterRange(v.toString(), Bound.LOWER, false, true, (v instanceof Number));
+    }
+
+
+    /**
+     * Create IN filter range
+     * If all entries are numeric, numeric based compare created.
+     * Otherwise, string-wise compare
+     * @param vs
+     *         set of values
+     * @return the filter range
+     */
+    static public FieldFilterRange makeIn(Object [] vs)
+    {
+        boolean numeric = true;
+        for (Object obj : vs)
+        {
+            if (!(obj instanceof Number))
+            {
+                numeric = false;
+                break;
+            }
+        }
+
+        return new FieldFilterRange(vs, numeric);
     }
 
     /**
-     * Numeric value greater than
+     * Create IN filter range
+     * Encapsulate entries as string values based on stringecapsulate
      *
-     * @param v
-     *            the test value
-     * @return the test range
+     * @param vs
+     *         set of values
+     * @return the filter range
      */
-    static public FieldFilterRange makeGT(double v)
+    static public FieldFilterRange makeIn(Object [] vs, boolean stringecapsulate)
     {
-        String sv = Double.toString(v);
-        return new FieldFilterRange(sv, Bound.LOWER, true, true, true);
+        return new FieldFilterRange(vs, !stringecapsulate);
     }
 
     /**
-     * String value greater than
-     *
+     * Create startswith filter range
      * @param v
-     *            the test value
-     * @return the test range
+     *        the subset
+     * @param len
+     *        the length to compare
+     * @return
+     *        the filter range
+     * @throws Exception
      */
-    static public FieldFilterRange makeGT(String v)
+    static public FieldFilterRange makeStartsWith(Object v, short len) throws Exception
     {
-        return new FieldFilterRange(v, Bound.LOWER, true, true, false);
-    }
+        if (len <= 0)
+            throw new Exception("StartsWith Filter must contain positive len value");
 
-    /**
-     * Numeric value greater or equal
-     *
-     * @param v
-     *            the test value
-     * @return the test range
-     */
-    static public FieldFilterRange makeGE(double v)
-    {
-        String sv = Double.toString(v);
-        return new FieldFilterRange(sv, Bound.LOWER, false, true, true);
-    }
-
-    /**
-     * String value greater or equal
-     *
-     * @param v
-     *            the test value
-     * @return the test range
-     */
-    static public FieldFilterRange makeGE(String v)
-    {
-        return new FieldFilterRange(v, Bound.LOWER, false, true, false);
+        return new FieldFilterRange(v.toString(), Bound.BOTH, false, false, (v instanceof Number), len);
     }
 
     /**
@@ -280,16 +284,31 @@ public class FieldFilterRange implements Serializable
                 case BOTH:
                     sb.append((this.number) ? "" : "'");
                     sb.append(this.values[0]);
+                    if (this.prefix > 0)
+                    {
+                        sb.append(":");
+                        sb.append(Short.toString(this.prefix));
+                    }
                     sb.append((this.number) ? "" : "'");
                     break;
                 case LOWER:
                     sb.append((this.number) ? "" : "'");
                     sb.append(this.values[0]);
+                    if (this.prefix > 0)
+                    {
+                        sb.append(":");
+                        sb.append(Short.toString(this.prefix));
+                    }
                     sb.append((this.number) ? "," : "',");
                     break;
                 case UPPER:
                     sb.append((this.number) ? "," : ",'");
                     sb.append(this.values[0]);
+                    if (this.prefix > 0)
+                    {
+                        sb.append(":");
+                        sb.append(Short.toString(this.prefix));
+                    }
                     sb.append((this.number) ? "" : "'");
                     break;
                 default:
@@ -313,4 +332,4 @@ public class FieldFilterRange implements Serializable
     {
         return this.filterExpression();
     }
-}
+  }

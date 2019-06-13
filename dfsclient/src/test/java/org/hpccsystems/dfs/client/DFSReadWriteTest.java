@@ -162,6 +162,40 @@ public class DFSReadWriteTest
         }
     }
 
+    @Test
+    public void filteredTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[2];
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[2];
+            fields[0] = new Long(i);
+            fields[1] = generateRandomString(8096 * 1024);
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
+
+        Connection espConn = new Connection("http://" + this.clusterIP + ":8010");
+        espConn.setUserName("");
+        espConn.setPassword("");
+
+        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", espConn);
+        file.setFilter("key == 0 OR key > 10");
+
+        records = readFile(file);
+        if (records.size() != 1)
+        {
+            Assert.fail("Failed to read filtered record dataset");
+        }
+    }
+
     public List<HPCCRecord> readFile(HPCCFile file) throws Exception
     {
         if (file == null)
