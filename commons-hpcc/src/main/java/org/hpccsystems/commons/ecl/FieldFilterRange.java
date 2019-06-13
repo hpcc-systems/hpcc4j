@@ -113,28 +113,6 @@ public class FieldFilterRange implements Serializable
      * @param valueList
      * @param numeric_target
      */
-    public FieldFilterRange(String[] valueList, boolean numeric_target) //RODRIGO, do we need this and the Object[] version?
-    {
-        this.leftOpen = false;
-        this.rightOpen = false;
-        this.number = numeric_target;
-        this.values = new String[valueList.length];
-        for (int i = 0; i < this.values.length; i++)
-        {
-            this.values[i] = valueList[i];
-        }
-        this.bound = Bound.BOTH;
-        this.set = true;
-        this.number = numeric_target;
-        prefix = (short) 0;
-    }
-
-    /**
-     * Use for a set of discrete values
-     *
-     * @param valueList
-     * @param numeric_target
-     */
     public FieldFilterRange(Object[] valueList, boolean numeric_target)
     {
         this.leftOpen = false;
@@ -354,48 +332,4 @@ public class FieldFilterRange implements Serializable
     {
         return this.filterExpression();
     }
-
-    public static void main(String [] args)
-    {
-        String n = "4.5";
-        Double a = 2.333;
-        float b = 2;
-        int c = -982;
-
-        FieldFilterRange fr = makeEq(n);
-        System.out.println(fr.filterExpression());
-        fr = makeLE(4.5);
-        System.out.println(fr.filterExpression());
-        fr = makeGE(c);
-        System.out.println(fr.filterExpression());
-
-        fr = makeLE("1.0");
-        System.out.println(fr.filterExpression());
-        String [] vals = new String[2];
-        vals[0] = "one";
-        vals[1] = "two";
-        fr = new FieldFilterRange(vals, true);
-        System.out.println(fr.filterExpression());
-
-        String [] in = {"1.0", "1.1", "1.3", "2.3", "3.4"};
-        fr = makeIn(in);
-        System.out.println(fr.filterExpression());
-
-        Double [] ind = {1.0, 1.1, 1.3, 2.3, 3.4};
-        fr = makeIn(ind);
-        System.out.println(fr.filterExpression());
-
-        try
-        {
-            fr = makeStartsWith("a", (short)1);
-            System.out.println(fr.filterExpression());
-
-            fr = makeStartsWith("xy", (short)2);
-            System.out.println(fr.filterExpression());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-}
+  }

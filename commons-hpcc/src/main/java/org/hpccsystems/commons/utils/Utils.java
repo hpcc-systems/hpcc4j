@@ -29,11 +29,10 @@ public class Utils
     public static String newLine = System.getProperty("line.separator");
     public static String fileSep = System.getProperty("file.separator");;
 
-    public final static String traceFileName = "HPCCJDBC.log";
     public final static String workingDir = System.getProperty("user.dir") + fileSep;
 
-    public static NumberFormat format       = NumberFormat.getInstance(Locale.US);
-    static final char          pad          = '=';
+    public static NumberFormat USNumberFormat       = NumberFormat.getInstance(Locale.US);
+    static final char          BASE64_enc_pad       = '=';
     static final char          BASE64_enc[] =
                                             { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
             'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -107,7 +106,7 @@ public class Utils
                     out.append((char) BASE64_enc[one >> 2]);
                     out.append((char) BASE64_enc[((one << 4) & 0x30 | (two >> 4))]);
                     out.append((char) BASE64_enc[((two << 2) & 0x3c)]);
-                    out.append(pad);
+                    out.append(BASE64_enc_pad);
                     break;
 
                 case 1:
@@ -115,11 +114,10 @@ public class Utils
 
                     out.append((char) BASE64_enc[one >> 2]);
                     out.append((char) BASE64_enc[((one << 4) & 0x30)]);
-                    out.append(pad);
-                    out.append(pad);
+                    out.append(BASE64_enc_pad);
+                    out.append(BASE64_enc_pad);
                     break;
             }
-
         }
         return out.toString();
     }
@@ -145,7 +143,7 @@ public class Utils
     {
         try
         {
-            format.parse(str);
+            USNumberFormat.parse(str);
         }
         catch (Exception e)
         {
@@ -196,7 +194,7 @@ public class Utils
     {
         try
         {
-            Number num = format.parse(str);
+            Number num = USNumberFormat.parse(str);
             return num.longValue();
         }
         catch (Exception e)
@@ -209,7 +207,7 @@ public class Utils
     {
         try
         {
-            Number num = format.parse(str);
+            Number num = USNumberFormat.parse(str);
             return num.intValue();
         }
         catch (Exception e)
@@ -270,32 +268,6 @@ public class Utils
         return  (value.contains("${") || value.equals("?"));
     }
 
-    private static Map<Integer, String> SQLFieldMapping = new HashMap<Integer, String>();;
-
-    static
-    {
-        Field[] fields = java.sql.Types.class.getFields();
-
-        for (int i = 0; i < fields.length; i++)
-        {
-            try
-            {
-                String name = fields[i].getName();
-                Integer value = (Integer) fields[i].get(null);
-                SQLFieldMapping.put(value, name);
-            }
-            catch (IllegalAccessException e) {}
-        }
-    }
-
-    public static String getSQLTypeName(Integer sqltypecode) throws Exception
-    {
-        if (SQLFieldMapping.size() <= 0)
-            throw new Exception("java.sql.Types.class.getFields were not feched, cannot get SQL Type name");
-
-        return SQLFieldMapping.get(sqltypecode);
-    }
-
     public final static String EscapedSingleQuote = "\'\'";
 
     public static boolean hasPossibleEscapedQuoteLiteral(String quotedString) throws Exception
@@ -315,60 +287,6 @@ public class Utils
         String replaced = '\''+handleQuotedString(quotedString).replaceAll("\'\'", eclescaped)+'\'';
 
         return replaced;
-    }
-
-    private static HashMap<String, Integer> mapECLTypeNameToSQLType = new HashMap<String, Integer>();
-    static
-    {
-        mapECLTypeNameToSQLType.put("BOOLEAN", java.sql.Types.BOOLEAN);
-        mapECLTypeNameToSQLType.put("STRING", java.sql.Types.VARCHAR);
-        mapECLTypeNameToSQLType.put("QSTRING", java.sql.Types.VARCHAR);
-        mapECLTypeNameToSQLType.put("FLOAT", java.sql.Types.FLOAT);
-        mapECLTypeNameToSQLType.put("DOUBLE", java.sql.Types.DOUBLE);
-        mapECLTypeNameToSQLType.put("DECIMAL", java.sql.Types.DECIMAL);
-        mapECLTypeNameToSQLType.put("INTEGER", java.sql.Types.INTEGER);
-        mapECLTypeNameToSQLType.put("LONG", java.sql.Types.NUMERIC);
-        mapECLTypeNameToSQLType.put("INT", java.sql.Types.INTEGER);
-        mapECLTypeNameToSQLType.put("SHORT", java.sql.Types.SMALLINT);
-        mapECLTypeNameToSQLType.put("UNSIGNED", java.sql.Types.NUMERIC);
-        mapECLTypeNameToSQLType.put("DATETIME", java.sql.Types.TIMESTAMP);
-        mapECLTypeNameToSQLType.put("TIME", java.sql.Types.TIME);
-        mapECLTypeNameToSQLType.put("DATE", java.sql.Types.DATE);
-        mapECLTypeNameToSQLType.put("GDAY", java.sql.Types.DATE);
-        mapECLTypeNameToSQLType.put("GMONTH", java.sql.Types.DATE);
-        mapECLTypeNameToSQLType.put("GYEAR", java.sql.Types.DATE);
-        mapECLTypeNameToSQLType.put("GYEARMONTH", java.sql.Types.DATE);
-        mapECLTypeNameToSQLType.put("GMONTHDAY", java.sql.Types.DATE);
-        mapECLTypeNameToSQLType.put("DURATION", java.sql.Types.VARCHAR);
-        mapECLTypeNameToSQLType.put("STRING1", java.sql.Types.CHAR);
-    }
-
-    private static Pattern TRAILINGNUMERICPATTERN = Pattern.compile(
-            "(.*\\s+?)*([A-Z]+)([0-9]+)*",Pattern.DOTALL);
-
-    public static int mapECLtype2SQLtype(String ecltype)
-    {
-        if (mapECLTypeNameToSQLType.containsKey(ecltype))
-        {
-            return mapECLTypeNameToSQLType.get(ecltype); //let's try to find the type as is
-        }
-        else
-        {
-            String postfixUpper = ecltype.substring(ecltype.lastIndexOf(':') + 1).toUpperCase();
-            if (mapECLTypeNameToSQLType.containsKey(postfixUpper))
-                return mapECLTypeNameToSQLType.get(postfixUpper);
-            else
-            {
-                //TRAILINGNUMERICPATTERN attemps to match optional leading spaces
-                //followed by a string of alphas, followed by optional string of numerics
-                //then we look up the string of alphas in the known ECL type map (group(2))
-                Matcher m = TRAILINGNUMERICPATTERN.matcher(postfixUpper);
-                if (m.matches() && mapECLTypeNameToSQLType.containsKey(m.group(2)))
-                    return mapECLTypeNameToSQLType.get(m.group(2));
-                else
-                    return java.sql.Types.OTHER;
-            }
-        }
     }
 
     public enum EclTypes

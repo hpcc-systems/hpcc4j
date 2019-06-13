@@ -140,7 +140,7 @@ public class FileFilter implements Serializable
      */
     public boolean isEmpty()
     {
-        return fieldfilters.isEmpty(); //&& andFileFilters.isEmpty();
+        return fieldfilters.isEmpty();
     }
 
     /**
@@ -280,7 +280,7 @@ public class FileFilter implements Serializable
      * @return
      * @throws Exception
      */
-    public String toJson() throws Exception
+    public String toJson()
     {
         JSONObject keyfilter = new JSONObject();
         JSONArray keyfilters= new JSONArray();
@@ -290,9 +290,6 @@ public class FileFilter implements Serializable
         for (int index = 0; index < andFileFilters.size(); index++)
         {
             FileFilter currentfilter = andFileFilters.get(index);
-            if (currentfilter == null)
-                throw new Exception("Canot serialize to JSON: filefilters[" + index + "] == null");
-
             String filef = currentfilter.outputOrFilter();
             keyfilters.put(filef);
         }
