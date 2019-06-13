@@ -27,6 +27,7 @@ import javax.net.ssl.SSLSocketFactory;
 import org.apache.log4j.Logger;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.ecl.FieldDef;
+import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.network.Network;
 
@@ -34,7 +35,7 @@ import org.hpccsystems.commons.network.Network;
  * The connection to a specific THOR node for a specific file part.
  *
  */
-public class RowServiceInputStream extends InputStream 
+public class RowServiceInputStream extends InputStream
 {
     private boolean                  active;
     private boolean                  closed;
@@ -62,7 +63,7 @@ public class RowServiceInputStream extends InputStream
     private Socket                   sock;
     static int                       DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
-    
+
     public static final Charset      HPCCCharSet                   = Charset.forName("ISO-8859-1");
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
@@ -70,19 +71,30 @@ public class RowServiceInputStream extends InputStream
 
     private static final Logger      log                           = Logger.getLogger(RowServiceInputStream.class.getName());
 
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception 
+    /**
+     * @param dp
+     *          The data partition to read
+     * @param rd
+     *          The data record definition
+     * @param pRd
+     *          Field definition
+     * @throws Exception
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception
     {
         this(dp,rd,pRd,DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
+    
     /**
-     * A plain socket connect to a THOR node for remote read
-     * 
-     * @param dp 
-     *            the data partition to read  
-     * @param hpccPart
-     *            the remote file name and IP
+     * @param dp
+     *         The data partition to read
      * @param rd
-     *            the JSON definition for the read input and output
+     *         The data record definition
+     * @param pRd
+     *         Field definition
+     * @param connectTimeout
+     *         Connection timeout
+     * @throws Exception
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout) throws Exception
     {
@@ -110,7 +122,7 @@ public class RowServiceInputStream extends InputStream
         this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.projectedRecordDefinition).toString();
 
         this.dataPart = dp;
-        
+
         int copycount = dataPart.getCopyCount();
         for (int index = 0; index < copycount; index++)
         {
@@ -129,7 +141,7 @@ public class RowServiceInputStream extends InputStream
         this.connectTimeout=connectTimeout;
         this.recordLimit = limit;
         this.readBuffer = new byte[MaxReadSizeKB*1024*2];
-        
+
         this.readBlock();
     }
 
@@ -144,7 +156,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * The SSL usage on the DAFILESRV side
-     * 
+     *
      * @return use ssl flag
      */
     public boolean getUseSSL()
@@ -154,7 +166,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * The IP location for the file part's file copy
-     * 
+     *
      * @return IP address
      */
     public String getIP()
@@ -174,7 +186,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * The port number for the remote read service
-     * 
+     *
      * @return port number
      */
     public int getPort()
@@ -184,7 +196,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * The read transaction in JSON format
-     * 
+     *
      * @return read transaction
      */
     public String getTrans()
@@ -194,7 +206,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * The request string used with a handle
-     * 
+     *
      * @return JSON string
      */
     public String getHandleTrans()
@@ -204,7 +216,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * transaction when a cursor is required for the next read.
-     * 
+     *
      * @return a JSON request
      */
     public String getCursorTrans()
@@ -222,7 +234,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Is the remote file closed? The file is closed after all of the partition content has been transferred.
-     * 
+     *
      * @return true if closed.
      */
     public boolean isClosed()
@@ -232,7 +244,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Remote read handle for next read
-     * 
+     *
      * @return the handle
      */
     public int getHandle()
@@ -243,7 +255,7 @@ public class RowServiceInputStream extends InputStream
     /**
      * Simulate a handle failure and use the file cursor instead. The handle is set to an invalid value so the THOR node
      * will indicate that the handle is unknown and request a cursor.
-     * 
+     *
      * @param v
      *            true indicates that an invalid handle should be sent to force the fall back to a cursor. NOTE: this
      *            class reads ahead, so the use this before the first read.
@@ -258,7 +270,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Force the use of cursors instead of handles for testing.
-     * 
+     *
      * @param v
      *            the setting
      * @return the previous setting
@@ -272,7 +284,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Read a block of the remote file from a THOR node
-     * 
+     *
      * @param buffer
      *            Will attempt to reuse the provided buffer. Passing null will allocate a new buffer.
      * @return the block sent by the node
@@ -297,7 +309,7 @@ public class RowServiceInputStream extends InputStream
             try
             {
                 close();
-            } 
+            }
             catch (IOException e)
             {
                 throw new HpccFileException(e.getMessage());
@@ -361,7 +373,7 @@ public class RowServiceInputStream extends InputStream
                 System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
             }
 
-            // Update the markPos 
+            // Update the markPos
             if (this.markPos >= 0) {
                 this.markPos -= this.readPos;
             }
@@ -430,10 +442,10 @@ public class RowServiceInputStream extends InputStream
     {
         // Check to see if we can handle this readLimit with the current buffer / readPos
         int availableReadCapacity = this.readBuffer.length - this.readPos;
-        if (availableReadCapacity < readLimit) 
+        if (availableReadCapacity < readLimit)
         {
             // Check to see if compaction will work
-            if (this.readBuffer.length > readLimit) 
+            if (this.readBuffer.length > readLimit)
             {
                 int remainingBytesInBuffer = this.readBufferLen - this.readPos;
                 System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
@@ -449,7 +461,7 @@ public class RowServiceInputStream extends InputStream
                 this.readPos = 0;
             }
         }
-        
+
         this.markPos = this.readPos;
     }
 
@@ -482,7 +494,7 @@ public class RowServiceInputStream extends InputStream
     // Returns -1 on EOS
     public int read(byte[] b) throws IOException
     {
-        return read(b,0,b.length); 
+        return read(b,0,b.length);
     }
 
     // Returns -1 on EOS
@@ -553,7 +565,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Open client socket to the primary and open the streams
-     * 
+     *
      * @throws HpccFileException
      */
     private void makeActive() throws HpccFileException
@@ -649,7 +661,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Creates a request string using the record definition, filename, and current state of the file transfer.
-     * 
+     *
      * @return JSON request string
      */
     private String makeInitialRequest()
@@ -667,7 +679,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Make the node part of the JSON request string
-     * 
+     *
      * @return Json
      */
     private String makeNodeObject()
@@ -689,7 +701,7 @@ public class RowServiceInputStream extends InputStream
         if (!this.dataPart.getFilter().isEmpty())
         {
             sb.append(" ");
-            sb.append(this.dataPart.getFilter().toJsonObject());
+            sb.append(this.dataPart.getFilter().toJson());
             sb.append(",\n");
         }
 
@@ -708,7 +720,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Request using a handle to read the next block.
-     * 
+     *
      * @return the request as a JSON string
      */
     private String makeHandleRequest()
@@ -740,7 +752,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Read the reply length and process failures if indicated.
-     * 
+     *
      * @return length of the reply less failure indicator
      * @throws HpccFileException
      */
@@ -804,7 +816,7 @@ public class RowServiceInputStream extends InputStream
 
     /**
      * Retry with a cursor and read the reply. Process failures as indicated.
-     * 
+     *
      * @return the length pf the reply less failure indication
      * @throws HpccFileException
      */
