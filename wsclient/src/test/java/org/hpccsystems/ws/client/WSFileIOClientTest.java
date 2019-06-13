@@ -17,6 +17,7 @@
 
 package org.hpccsystems.ws.client;
 
+import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;

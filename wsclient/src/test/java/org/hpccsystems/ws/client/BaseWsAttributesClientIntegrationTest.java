@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.Cluster;
 import org.hpccsystems.ws.client.platform.ECLAttributeInfo;
+import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
