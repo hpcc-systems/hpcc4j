@@ -15,15 +15,15 @@
     limitations under the License.
 ############################################################################## */
 
-package org.hpccsystems.ws.client;
+package org.hpccsystems.ws.client.platform.test;
 
+import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.experimental.categories.Category;
 
-@Category(org.hpccsystems.ws.client.RemoteTest.class)
 public abstract class BaseRemoteTest
 {
     protected Platform platform;

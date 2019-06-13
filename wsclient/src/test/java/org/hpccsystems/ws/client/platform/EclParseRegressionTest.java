@@ -25,13 +25,13 @@ import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.ManualUnitTest;
 import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
+import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
