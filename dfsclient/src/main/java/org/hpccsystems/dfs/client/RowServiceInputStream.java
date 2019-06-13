@@ -57,6 +57,7 @@ public class RowServiceInputStream extends InputStream
     private int                      readBufferLen = 0;
     private int                      readPos = 0;
     private int                      markPos = -1;
+    private int                      recordLimit = -1;
 
     private Socket                   sock;
     static int                       DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
@@ -76,12 +77,31 @@ public class RowServiceInputStream extends InputStream
     /**
      * A plain socket connect to a THOR node for remote read
      * 
+     * @param dp 
+     *            the data partition to read  
      * @param hpccPart
      *            the remote file name and IP
      * @param rd
      *            the JSON definition for the read input and output
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout) throws Exception
+    {
+        this(dp, rd, pRd, connectTimeout, -1);
+    }
+
+    /**
+     * A plain socket connect to a THOR node for remote read
+     * 
+     * @param dp 
+     *            the data partition to read  
+     * @param hpccPart
+     *            the remote file name and IP
+     * @param rd
+     *            the JSON definition for the read input and output
+     * @param limit
+     *            the record limit to use for reading the dataset. -1 implies no limit
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit) throws Exception
     {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
@@ -107,8 +127,7 @@ public class RowServiceInputStream extends InputStream
         this.cursorBin = new byte[0];
         this.simulateFail = false;
         this.connectTimeout=connectTimeout;
-        // Read buffer is 2x to allow for partial record reads for records larger than MaxReadSizeKB.
-        // Note: this is currently not partial reads are not currently supported by the row service
+        this.recordLimit = limit;
         this.readBuffer = new byte[MaxReadSizeKB*1024*2];
         
         this.readBlock();
@@ -642,6 +661,7 @@ public class RowServiceInputStream extends InputStream
         sb.append("\"replyLimit\" : " + RowServiceInputStream.MaxReadSizeKB + ",\n");
         sb.append(makeNodeObject());
         sb.append("\n}\n");
+
         return sb.toString();
     }
 
@@ -671,6 +691,11 @@ public class RowServiceInputStream extends InputStream
             sb.append(" ");
             sb.append(this.dataPart.getFilter().toJsonObject());
             sb.append(",\n");
+        }
+
+        if (this.recordLimit > -1)
+        {
+            sb.append("\"chooseN\" : \"" + this.recordLimit + "\",\n");
         }
 
         sb.append("\n \"input\" : ");
