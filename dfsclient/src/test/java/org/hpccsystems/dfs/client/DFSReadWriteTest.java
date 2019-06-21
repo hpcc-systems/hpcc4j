@@ -171,7 +171,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
 
         HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", hpccConnection , hpccUser, hpccPass);
-        file.setFilter("key == 0 OR key > 10");
+        file.setFilter("key = 0 OR key > 10");
 
         records = readFile(file);
         if (records.size() != 1)
