@@ -1261,7 +1261,7 @@ public class HPCCWsDFUClient extends DataSingleton
         }
         else if (targetVersion.major > 7 || targetVersion.major == 7 && targetVersion.minor > 0)
         {
-            return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, null, null);
+            return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, DFUFileTypeWrapper.Flat, null);
         }
         else
             throw new Exception("WSDFU File Create not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
@@ -1280,7 +1280,7 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception
     {
-        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, false, null, null);
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, false, DFUFileTypeWrapper.Flat, null);
     }
 
     /**
@@ -1296,7 +1296,7 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed) throws Exception
     {
-        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, null, null);
+        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, DFUFileTypeWrapper.Flat, null);
     }
 
     /**
@@ -1339,6 +1339,7 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             WsDfuServiceSoapProxy proxy = getSoapProxy();
             DFUFileCreateV2Request filecreatereq = new DFUFileCreateV2Request();
+            filecreatereq.setType(DFUFileTypeWrapper.Flat);
             filecreatereq.setECLRecordDefinition(eclRecordDefinition);
             filecreatereq.setCluster(cluster);
             filecreatereq.setExpirySeconds(expirySeconds);
