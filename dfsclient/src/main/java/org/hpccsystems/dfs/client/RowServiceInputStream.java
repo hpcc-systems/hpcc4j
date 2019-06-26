@@ -698,7 +698,8 @@ public class RowServiceInputStream extends InputStream
         sb.append("\"filePartCopy\" : \"");
         sb.append(getFilePartCopy() + 1);
         sb.append("\", \n");
-        if (!this.dataPart.getFilter().isEmpty())
+        FileFilter fileFilter = this.dataPart.getFilter();
+        if (fileFilter != null && fileFilter.isEmpty() == false)
         {
             sb.append(" ");
             sb.append(this.dataPart.getFilter().toJson());
