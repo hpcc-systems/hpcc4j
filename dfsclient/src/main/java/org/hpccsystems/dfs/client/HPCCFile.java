@@ -268,15 +268,7 @@ public class HPCCFile implements Serializable
         try
         {
             fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs, targetfilecluster);
-            if (fileinfoforread.getFileType() != DFUFileType.Flat)
-            {
-                String filetype="unknown";
-                if (fileinfoforread.getFileType() != null)
-                {
-                      filetype=fileinfoforread.getFileType().toString();
-                }
-                throw new Exception("Cannot stream file '" + fileName + "' - File type: '" +  filetype + "' not supported!");
-            }
+
             originalRecDefInJSON = fileinfoforread.getRecordTypeInfoJson();
             if (originalRecDefInJSON == null)
             {
