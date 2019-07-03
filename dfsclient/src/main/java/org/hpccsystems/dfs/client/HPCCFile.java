@@ -268,7 +268,6 @@ public class HPCCFile implements Serializable
         try
         {
             fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs, targetfilecluster);
-
             originalRecDefInJSON = fileinfoforread.getRecordTypeInfoJson();
             if (originalRecDefInJSON == null)
             {
@@ -282,13 +281,15 @@ public class HPCCFile implements Serializable
             throw new HpccFileException("Unable to retrieve file or record information: " + e.getMessage(), e);
         }
 
+        String fileTypeStr = fileinfoforread.getFileType().toString().toUpperCase();
+        DataPartition.FileType fileType = DataPartition.FileType.valueOf(fileTypeStr);
         try
         {
             if (fileinfoforread.getNumParts() > 0)
             {
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
-                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob());
+                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(),fileType);
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }

@@ -687,9 +687,15 @@ public class RowServiceInputStream extends InputStream
         StringBuilder sb = new StringBuilder(
                 50 + jsonRecordDefinition.length() + projectedJsonRecordDefinition.length());
         sb.append(" \"node\" : {\n ");
-        // sb.append("{\n \"kind\" : \"");
-        // sb.append((this.dataPart.isIndex())? "indexread" : "diskread");
-        // sb.append("\",\n \"metaInfo\" : \"");
+
+        DataPartition.FileType fileType = this.dataPart.getFileType();
+        boolean needToSpecifyFileType = fileType.typeCanBeDeduced() == false;
+        if (needToSpecifyFileType)
+        {
+            sb.append("\"kind\" : \"");
+            sb.append(fileType.toString() + "read\",\n");
+        }
+
         sb.append("\"metaInfo\" : \"");
         sb.append(this.dataPart.getFileAccessBlob());
         sb.append("\",\n \"filePart\" : \"");

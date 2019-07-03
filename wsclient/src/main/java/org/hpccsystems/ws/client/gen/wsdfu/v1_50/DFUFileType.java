@@ -30,7 +30,11 @@ public class DFUFileType implements java.io.Serializable {
           throws java.lang.IllegalArgumentException {
         DFUFileType enumeration = (DFUFileType)
             _table_.get(value);
-        if (enumeration==null) throw new java.lang.IllegalArgumentException();
+        if (enumeration==null)
+        {
+            enumeration = Flat;
+        }
+
         return enumeration;
     }
     public static DFUFileType fromString(java.lang.String value)
