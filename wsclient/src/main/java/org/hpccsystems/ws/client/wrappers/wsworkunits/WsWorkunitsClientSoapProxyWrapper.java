@@ -5,7 +5,6 @@ import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 
 /**
- * @author LeedDX
  * This wrapper class allows an HPCCWsWorkUnitsClient instance to connect to HPCC Clusters using different
  * versions of the platform.
  * any soapproxy method (WURun, WUCreate, etc) can be added to provide a platform-version-independent soapproxy call.
@@ -15,6 +14,7 @@ import org.hpccsystems.ws.client.utils.Connection;
  * existing HPCCWsWorkUnitsClient methods using 1_56.
  *
  */
+
 public class WsWorkunitsClientSoapProxyWrapper
 {
     private org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoap version1_56WorkunitsServiceSoap = null;
@@ -45,10 +45,12 @@ public class WsWorkunitsClientSoapProxyWrapper
         this.user=user;
         this.password=pass;
     }
+
     /**
      * @return a lazy-loaded 1_74 soap proxy
      */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WsWorkunitsServiceSoapProxy getVersion1_74WorkunitsServiceSoapProxy() {
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WsWorkunitsServiceSoapProxy getVersion1_74WorkunitsServiceSoapProxy()
+    {
         if (version1_74WorkunitsServiceSoapProxy == null)
         {
             version1_74WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WsWorkunitsServiceSoapProxy(baseURL);
@@ -58,11 +60,11 @@ public class WsWorkunitsClientSoapProxyWrapper
         return version1_74WorkunitsServiceSoapProxy;
     }
 
-      /**
+    /**
      * @return a lazy-loaded 1_56 soap proxy
      */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy getVersion1_56WorkunitsServiceSoapProxy() {
-
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy getVersion1_56WorkunitsServiceSoapProxy()
+    {
         if (version1_56WorkunitsServiceSoapProxy == null)
         {
             version1_56WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_56.WsWorkunitsServiceSoapProxy(baseURL);
@@ -71,11 +73,12 @@ public class WsWorkunitsClientSoapProxyWrapper
         }
         return version1_56WorkunitsServiceSoapProxy;
     }
+
     /**
      * @return a lazy-loaded 1_58 soap proxy
      */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WsWorkunitsServiceSoapProxy getVersion1_58WorkunitsServiceSoapProxy() {
-
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WsWorkunitsServiceSoapProxy getVersion1_58WorkunitsServiceSoapProxy()
+    {
         if (version1_58WorkunitsServiceSoapProxy == null)
         {
             version1_58WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WsWorkunitsServiceSoapProxy(baseURL);
@@ -84,11 +87,12 @@ public class WsWorkunitsClientSoapProxyWrapper
         }
         return version1_58WorkunitsServiceSoapProxy;
     }
+
     /**
      * @return a lazy-loaded 1_62 soap proxy
      */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoapProxy getVersion1_62WorkunitsServiceSoapProxy() {
-
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoapProxy getVersion1_62WorkunitsServiceSoapProxy()
+    {
         if (version1_62WorkunitsServiceSoapProxy == null)
         {
             version1_62WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WsWorkunitsServiceSoapProxy(baseURL);
@@ -101,8 +105,8 @@ public class WsWorkunitsClientSoapProxyWrapper
     /**
      * @return a lazy-loaded 1_69 soap proxy
      */
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy getVersion1_69WorkunitsServiceSoapProxy() {
-
+    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy getVersion1_69WorkunitsServiceSoapProxy()
+    {
         if (version1_69WorkunitsServiceSoapProxy == null)
         {
             version1_69WorkunitsServiceSoapProxy = new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WsWorkunitsServiceSoapProxy(baseURL);
@@ -111,6 +115,7 @@ public class WsWorkunitsClientSoapProxyWrapper
         }
         return version1_69WorkunitsServiceSoapProxy;
     }
+
     /**
      * @param params WUCreateRequestWrapper containing request info
      * @return a WUCreateResponseWrapper containing the response
@@ -121,16 +126,20 @@ public class WsWorkunitsClientSoapProxyWrapper
         if (useVersion1_62())
         {
             return new WUCreateResponseWrapper(this.getVersion1_62WorkunitsServiceSoapProxy().WUCreate());
-        } else if (useVersion1_69())
+        }
+        else if (useVersion1_69())
         {
             return new WUCreateResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUCreate(params.getRawVersion1_69()));
-        } else if (useVersion1_58())
+        }
+        else if (useVersion1_58())
         {
             return new WUCreateResponseWrapper(this.getVersion1_58WorkunitsServiceSoapProxy().WUCreate());
-        } else if (useVersion1_74())
+        }
+        else if (useVersion1_74())
         {
             return new WUCreateResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUCreate(params.getRaw()));
-        } else
+        }
+        else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
         }
@@ -145,16 +154,20 @@ public class WsWorkunitsClientSoapProxyWrapper
         if (useVersion1_58())
         {
             return new WUInfoResponseWrapper(this.getVersion1_58WorkunitsServiceSoapProxy().WUInfo(params.getRawVersion1_58()));
-        } else if (useVersion1_62())
+        }
+        else if (useVersion1_62())
         {
             return new WUInfoResponseWrapper(this.getVersion1_62WorkunitsServiceSoapProxy().WUInfo(params.getRawVersion1_62()));
-        } else if (useVersion1_69())
+        }
+        else if (useVersion1_69())
         {
             return new WUInfoResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUInfo(params.getRawVersion1_69()));
-        } else if (useVersion1_74())
+        }
+        else if (useVersion1_74())
         {
             return new WUInfoResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUInfo(params.getRaw()));
-        } else
+        }
+        else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
         }
@@ -169,16 +182,20 @@ public class WsWorkunitsClientSoapProxyWrapper
         if (useVersion1_58())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_58WorkunitsServiceSoapProxy().WUUpdate(params.getRawVersion1_58()));
-        } else if (useVersion1_62())
+        }
+        else if (useVersion1_62())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_62WorkunitsServiceSoapProxy().WUUpdate(params.getRawVersion1_62()));
-        } else if (useVersion1_69())
+        }
+        else if (useVersion1_69())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUUpdate(params.getRawVersion1_69()));
-        } else if (useVersion1_74())
+        }
+        else if (useVersion1_74())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUUpdate(params.getRaw()));
-        } else
+        }
+        else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
         }
@@ -193,20 +210,25 @@ public class WsWorkunitsClientSoapProxyWrapper
         if (useVersion1_58())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_58WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRawVersion1_58()));
-        } else if (useVersion1_62())
+        }
+        else if (useVersion1_62())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_62WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRawVersion1_62()));
-        } else if (useVersion1_69())
+        }
+        else if (useVersion1_69())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_69WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRawVersion1_69()));
-        } else if (useVersion1_74())
+        }
+        else if (useVersion1_74())
         {
             return new WUUpdateResponseWrapper(this.getVersion1_74WorkunitsServiceSoapProxy().WUCreateAndUpdate(params.getRaw()));
-        } else
+        }
+        else
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
         }
     }
+
     /**
      * @return the latest available soap proxy
      */
@@ -214,6 +236,7 @@ public class WsWorkunitsClientSoapProxyWrapper
     {
         return getVersion1_74Raw();
     }
+
     /**
      * @return version 1_69 soap proxy
      */
@@ -221,6 +244,7 @@ public class WsWorkunitsClientSoapProxyWrapper
     {
         return getVersion1_69WorkunitsServiceSoapProxy();
     }
+
     /**
      * @return version 1_62 soap proxy
      */
@@ -228,6 +252,7 @@ public class WsWorkunitsClientSoapProxyWrapper
     {
         return getVersion1_62WorkunitsServiceSoapProxy();
     }
+
     /**
      * @return version 1_74 soap proxy
      */
@@ -235,6 +260,7 @@ public class WsWorkunitsClientSoapProxyWrapper
     {
         return getVersion1_74WorkunitsServiceSoapProxy();
     }
+
     /**
      * @return version 1_56 soap proxy
      */
@@ -250,10 +276,7 @@ public class WsWorkunitsClientSoapProxyWrapper
     {
         return getVersion1_58WorkunitsServiceSoapProxy();
     }
-    private boolean useVersion1_69()
-    {
-        return platformVersion.major==6 && platformVersion.minor>=4;
-    }
+
     private boolean useVersion1_56()
     {
         return platformVersion.major==5
@@ -262,18 +285,24 @@ public class WsWorkunitsClientSoapProxyWrapper
                 || platformVersion.minor==4
                 || platformVersion.minor==6);
     }
+
     private boolean useVersion1_58()
     {
         return platformVersion.major==6 && platformVersion.minor==0;
     }
+
     private boolean useVersion1_62()
     {
         return platformVersion.major==6 && platformVersion.minor==2;
     }
+
+    private boolean useVersion1_69()
+    {
+        return platformVersion.major==6 && platformVersion.minor>=4;
+    }
+
     private boolean useVersion1_74()
     {
-        return platformVersion.major==7
-                && (platformVersion.minor==0
-                || platformVersion.minor==2);
+        return platformVersion.major==7 && platformVersion.minor>=0;
     }
 }
