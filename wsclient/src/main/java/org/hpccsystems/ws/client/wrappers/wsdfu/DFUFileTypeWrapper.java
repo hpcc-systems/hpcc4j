@@ -23,8 +23,19 @@ public class DFUFileTypeWrapper extends org.hpccsystems.ws.client.gen.wsdfu.v1_5
 
 	private static final long serialVersionUID = 1L;
 
-	protected DFUFileTypeWrapper(String value)
+	public DFUFileTypeWrapper(String value)
 	{
 		super(value);
+	}
+
+	@Override
+	public boolean equals(java.lang.Object obj)
+	{
+	    if (obj instanceof String)
+	        return this.getValue().equals(obj);
+	    else if (obj instanceof DFUFileTypeWrapper)
+	        return this.getValue().equals(((DFUFileTypeWrapper)obj).getValue());
+	    else
+	        return false;
 	}
 }
