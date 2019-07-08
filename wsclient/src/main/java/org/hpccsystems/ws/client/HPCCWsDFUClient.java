@@ -1339,7 +1339,6 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             WsDfuServiceSoapProxy proxy = getSoapProxy();
             DFUFileCreateV2Request filecreatereq = new DFUFileCreateV2Request();
-            filecreatereq.setType(DFUFileTypeWrapper.Flat);
             filecreatereq.setECLRecordDefinition(eclRecordDefinition);
             filecreatereq.setCluster(cluster);
             filecreatereq.setExpirySeconds(expirySeconds);
@@ -1347,6 +1346,7 @@ public class HPCCWsDFUClient extends DataSingleton
             filecreatereq.setReturnTextResponse(true);
             if (compressed != null)
                 filecreatereq.setCompressed(compressed);
+            filecreatereq.setType(DFUFileTypeWrapper.Flat);
             if (type != null)
                 filecreatereq.setType(type);
             if (requestId != null)

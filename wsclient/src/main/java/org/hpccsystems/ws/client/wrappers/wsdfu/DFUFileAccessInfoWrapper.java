@@ -33,9 +33,18 @@ public class DFUFileAccessInfoWrapper
 
     private DFUFilePartWrapper [] wrappedDFUFileParts;
     private String [] allFilePartCopyHosts;
-    private DFUFileType fileType = null; //from 1_51 on
+    private DFUFileTypeWrapper fileType = null; //from 1_51 on
 
+    /*
+     * @Deprecated, use DFUFileTypeWrapper version instead
+     */
+    @Deprecated
     public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileAccessInfo soapdfufileaccessinfo, DFUFileType filetype) throws Exception
+    {
+        this(soapdfufileaccessinfo, new DFUFileTypeWrapper(filetype.getValue()));
+    }
+
+    public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileAccessInfo soapdfufileaccessinfo, DFUFileTypeWrapper filetype) throws Exception
     {
         if (soapdfufileaccessinfo != null)
         {
@@ -196,7 +205,7 @@ public class DFUFileAccessInfoWrapper
         return wrappedDFUFileParts;
     }
 
-    public DFUFileType getFileType()
+    public DFUFileTypeWrapper getFileType()
     {
         return fileType;
     }
