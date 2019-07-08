@@ -37,7 +37,7 @@ public class WsDFUClientTest
         filetype = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString(DFUFileTypeWrapper._Xml);
         Assert.assertTrue(filetype.equals(filetype2));
 
-        filetype = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("XmL"); // not valid, needs to be Xml
+        filetype = new DFUFileTypeWrapper("XmL"); // not valid, needs to be Xml
         Assert.assertFalse(filetype.equals(filetype2));
 
         filetype = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString(DFUFileTypeWrapper._Csv);
@@ -52,5 +52,4 @@ public class WsDFUClientTest
         filetype2 = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Index");
         Assert.assertTrue(filetype.equals(filetype2));
     }
-
 }
