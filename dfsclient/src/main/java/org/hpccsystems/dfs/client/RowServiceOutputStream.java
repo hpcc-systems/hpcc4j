@@ -46,8 +46,39 @@ public class RowServiceOutputStream extends OutputStream
     private long                 handle                        = -1;
     private ByteBuffer           scratchBuffer                 = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
 
-    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
-            CompressionAlgorithm fileCompression) throws Exception
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
+     * Assumes SSL connection required/available
+     * @deprecated -- use  8 param version instead which contains optional useSSL param
+     * @param ip
+     * @param port
+     * @param accessToken
+     * @param recordDef
+     * @param filePartIndex
+     * @param filePartPath
+     * @param fileCompression
+     * @throws Exception
+     */
+    @Deprecated
+    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
+    {
+        this(ip,port,true,accessToken,recordDef,filePartIndex, filePartPath, fileCompression);
+    }
+
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
+     *
+     * @param ip
+     * @param port
+     * @param useSSL
+     * @param accessToken
+     * @param recordDef
+     * @param filePartIndex
+     * @param filePartPath
+     * @param fileCompression
+     * @throws Exception
+     */
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
     {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
@@ -57,7 +88,6 @@ public class RowServiceOutputStream extends OutputStream
         this.accessToken = accessToken;
         this.compressionAlgo = fileCompression;
 
-        boolean useSSL = false;
         try
         {
             if (useSSL)
