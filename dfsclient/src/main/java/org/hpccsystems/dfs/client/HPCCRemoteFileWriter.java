@@ -35,7 +35,7 @@ public class HPCCRemoteFileWriter<T>
 
     /**
      * A remote file writer
-     * 
+     *
      * @param dp
      *            the part of the file, name and location
      * @param originalRD
@@ -50,10 +50,11 @@ public class HPCCRemoteFileWriter<T>
     {
         this.recordDef = recordDef;
         this.dataPartition = dp;
+
         this.recordAccessor = recordAccessor;
 
-        this.outputStream = new RowServiceOutputStream(this.dataPartition.getCopyIP(0), this.dataPartition.getPort(),
-                this.dataPartition.getFileAccessBlob(), this.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
+        this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
+                dataPartition.getFileAccessBlob(), this.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
                 fileCompression);
 
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
@@ -89,11 +90,11 @@ public class HPCCRemoteFileWriter<T>
     {
         return recordsWritten;
     }
-    
+
     /**
     * flush
     * Flush buffered data from IRecordWriter. This is a blocking operation.
-    * @throws Exception 
+    * @throws Exception
     */
     public void flush() throws Exception
     {
@@ -103,7 +104,7 @@ public class HPCCRemoteFileWriter<T>
     /**
     * getBufferCapacity
     * Returns the IRecordWriter internal buffer capacity
-    * @return 
+    * @return
     */
     public int getBufferCapacity()
     {
