@@ -40,6 +40,8 @@ public final class RFCCodes
     public static final int  DAFSERR_cmdstream_openfailure        = -9;
     public static final int  DAFSERR_cmdstream_protocol_failure   = -10;
     public static final int  DAFSERR_cmdstream_unauthorized       = -11;
+    public static final int  DAFSERR_cmdstream_unknownwritehandle = -12;
+    public static final int  DAFSERR_cmdstream_generalwritefailure = -13;
 
     public static final int  RFSERR_InvalidCommand                = 8000;
     public static final int  RFSERR_NullFileIOHandle              = 8001;

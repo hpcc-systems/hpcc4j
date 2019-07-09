@@ -25,6 +25,7 @@ import javax.net.ssl.SSLSocketFactory;
 import org.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
+import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.ecl.FieldDef;
 
 public class RowServiceOutputStream extends OutputStream
@@ -187,10 +188,26 @@ public class RowServiceOutputStream extends OutputStream
         }
 
         this.socket.getInputStream().read(scratchBuffer.array(), 4, len);
+
         int status = this.scratchBuffer.getInt();
         if (status != RFCCodes.RFCStreamNoError)
         {
-            throw new IOException("Row service returned error code: " + status + ". Aborting");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Row service returned error code: '");
+            sb.append(status);
+            sb.append("'");
+
+            if (len - 4 > 0)
+            {
+                final byte[] bytes = new byte[scratchBuffer.remaining()];
+                scratchBuffer.get(bytes);
+                sb.append(" Message: '");
+                sb.append(new String(bytes));
+                sb.append("'");
+            }
+            sb.append(" - Aborting.");
+
+            throw new IOException(sb.toString());
         }
 
         this.handle = this.scratchBuffer.getInt();
