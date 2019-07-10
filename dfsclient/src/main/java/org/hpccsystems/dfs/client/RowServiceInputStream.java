@@ -801,16 +801,15 @@ public class RowServiceInputStream extends InputStream
                 switch (status)
                 {
                     case RFCCodes.DAFSERR_cmdstream_invalidexpiry:
-                        sb.append(
-                                "\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
+                        sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
                         break;
                     case RFCCodes.DAFSERR_cmdstream_authexpired:
-                        sb.append(
-                                "\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
+                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
                         break;
                     default:
                         break;
                 }
+
                 throw new HpccFileException(sb.toString());
             }
         }
