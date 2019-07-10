@@ -15,20 +15,12 @@ package org.hpccsystems.commons.ecl;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FilterTests {
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {
-
-    }
-
+public class FilterTests
+{
     @Test
     public void testFieldFilterRange()
     {
@@ -136,6 +128,7 @@ public class FilterTests {
 
         try
         {
+            System.out.println("\n-------------Creating FileFilterRange and FieldFilter objects directly----------");
             hpccfilter.orFilter(new FieldFilter("field1"));
             System.out.println(hpccfilter.toJson());
 
@@ -157,7 +150,46 @@ public class FilterTests {
             assertEquals("field2=[1.0],(,'8.0']", ff.toString());
 
             System.out.println(hpccfilter.toJson());
+
+            System.out.println("\n-------------Creating FileFilters via SQL logic expressions----------");
+
+            FileFilter filter = new FileFilter(" Field1 = 1234 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=['1234']\"]}", filter.toJson());
+            System.out.println("Field1 = 1234 -> " + filter.toJson());
+
+            filter = new FileFilter("Field1 > 1234 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=('1234',)\"]}", filter.toJson());
+            System.out.println("Field1 > 1234 -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 >= 1234 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=['1234',)\"]}", filter.toJson());
+            System.out.println("Field1 >= 1234 -> " + filter.toJson());
+
+            //filter = new FileFilter(" Fild1 =< 1234 "); //this is erroneously parsed as f1 = "< 1234"
+            filter = new FileFilter(" Field1 IN 1234, 212,12 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=[1234],[212],[12]\"]}", filter.toJson());
+            System.out.println("Field1 IN 1234, 212,12  -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 NOT IN 1234, 212,12 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1 NOT=[1234],[212],[12]\"]}", filter.toJson());
+            System.out.println("Field1 NOT IN 1234, 212,12  -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 > 12 OR Field1 = 5 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=('12',),['5']\"]}", filter.toJson());
+            System.out.println("Field1 NOT IN 1234, 212,12  -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 > 12 OR Field1 = 5 AND Field2 > 100 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=('12',),['5']\",\"Field2=('100',)\"]}", filter.toJson());
+            System.out.println("Field1 > 12 OR Field1 = 5 AND Field2 > 100  -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 > 12 OR Field1 = 5 AND Field2 > 100 OR Field2 IN 1, 2, 3 ");
+            Assert.assertEquals("{\"KeyFilter\":[\"Field1=('12',),['5']\",\"Field2=('100',),[1],[2],[3]\"]}", filter.toJson());
+            System.out.println("Field1 > 12 OR Field1 = 5 AND Field2 > 100 OR Field2 IN 1, 2, 3  -> " + filter.toJson());
         }
-        catch (Exception e) {}
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            Assert.fail();
+        }
     }
 }
