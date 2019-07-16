@@ -778,11 +778,11 @@ public class HPCCWsDFUClient extends DataSingleton
         }
     }
 
-    private void handleException(List<WUExceptionWrapper> exp) throws Exception
+    private void handleException(List<WUExceptionWrapper> exp,String message) throws Exception
     {
         if (exp != null && exp.size()>0)
         {
-            String errs="";
+            String errs=message==null?"":message;
             for (WUExceptionWrapper ex:exp)
             {
                 if (ex.getMessage() != null)
@@ -1477,7 +1477,7 @@ public class HPCCWsDFUClient extends DataSingleton
             {
                 throw new FileNotFoundException(logicalname + " does not exist");
             }
-            this.handleException(resp.getExceptions());
+            this.handleException(resp.getExceptions(),"Retrieving file details");
             DFUFileDetailWrapper info = resp.getFileDetail();
             try
             {
