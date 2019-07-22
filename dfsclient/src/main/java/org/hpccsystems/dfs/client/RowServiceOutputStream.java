@@ -25,6 +25,7 @@ import javax.net.ssl.SSLSocketFactory;
 import org.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
+import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.ecl.FieldDef;
 
 public class RowServiceOutputStream extends OutputStream
@@ -46,8 +47,39 @@ public class RowServiceOutputStream extends OutputStream
     private long                 handle                        = -1;
     private ByteBuffer           scratchBuffer                 = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
 
-    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
-            CompressionAlgorithm fileCompression) throws Exception
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
+     * Assumes SSL connection required/available
+     * @deprecated -- use  8 param version instead which contains optional useSSL param
+     * @param ip
+     * @param port
+     * @param accessToken
+     * @param recordDef
+     * @param filePartIndex
+     * @param filePartPath
+     * @param fileCompression
+     * @throws Exception
+     */
+    @Deprecated
+    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
+    {
+        this(ip,port,true,accessToken,recordDef,filePartIndex, filePartPath, fileCompression);
+    }
+
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
+     *
+     * @param ip
+     * @param port
+     * @param useSSL
+     * @param accessToken
+     * @param recordDef
+     * @param filePartIndex
+     * @param filePartPath
+     * @param fileCompression
+     * @throws Exception
+     */
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
     {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
@@ -57,7 +89,6 @@ public class RowServiceOutputStream extends OutputStream
         this.accessToken = accessToken;
         this.compressionAlgo = fileCompression;
 
-        boolean useSSL = false;
         try
         {
             if (useSSL)
@@ -157,10 +188,26 @@ public class RowServiceOutputStream extends OutputStream
         }
 
         this.socket.getInputStream().read(scratchBuffer.array(), 4, len);
+
         int status = this.scratchBuffer.getInt();
         if (status != RFCCodes.RFCStreamNoError)
         {
-            throw new IOException("Row service returned error code: " + status + ". Aborting");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Row service returned error code: '");
+            sb.append(status);
+            sb.append("'");
+
+            if (len - 4 > 0)
+            {
+                final byte[] bytes = new byte[scratchBuffer.remaining()];
+                scratchBuffer.get(bytes);
+                sb.append(" Message: '");
+                sb.append(new String(bytes));
+                sb.append("'");
+            }
+            sb.append(" - Aborting.");
+
+            throw new IOException(sb.toString());
         }
 
         this.handle = this.scratchBuffer.getInt();

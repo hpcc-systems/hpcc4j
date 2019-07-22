@@ -27,7 +27,6 @@ import org.hpccsystems.dfs.client.HPCCRecord;
 import org.hpccsystems.dfs.client.HPCCRecordBuilder;
 import org.hpccsystems.dfs.client.HPCCRecordAccessor;
 import org.hpccsystems.dfs.client.HpccRemoteFileReader;
-import org.hpccsystems.dfs.client.ReflectionRecordBuilder;
 import org.hpccsystems.dfs.client.DataPartition;
 
 import org.hpccsystems.dfs.cluster.*;
@@ -36,8 +35,9 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
-import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.junit.After;
@@ -46,21 +46,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+<<<<<<< HEAD
 @Category(RemoteTests.class)
 public class DFSReadWriteTest
+=======
+public class DFSReadWriteTest extends BaseRemoteTest
+>>>>>>> branch 'master' of https://github.com/hpcc-systems/HPCC-JAPIs.git
 {
-    private static final String   clusterIP      = "192.168.56.101";
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
     private static final int[]    expectedCounts = { 1250, 6 };
-    //private static final String   clusterIP      = "10.173.147.1";
-    //private static final String[] datasets       = { "~demo::salesdata" };
-    //private static final int[]    expectedCounts = { 3730};
-    // private static final String[] datasets = {"~benchmark::integer::20kb"};
-    // private static final int[]    expectedCounts = {1250};
 
     @Before
-    public void setup()
+    public void setup() throws Exception
     {
+        super.setup();
     }
 
     @Test
@@ -68,12 +67,8 @@ public class DFSReadWriteTest
     {
         for (int i = 0; i < datasets.length; i++)
         {
-
-            Connection espConn = new Connection("http://" + this.clusterIP + ":8010");
-            espConn.setUserName("");
-            espConn.setPassword("");
-
-            HPCCFile file = new HPCCFile(datasets[i], espConn);
+            HPCCFile file = new HPCCFile(datasets[i], hpccConnection , hpccUser, hpccPass);
+            //file.setClusterRemapInfo(new RemapInfo(1, "192.168.56.101"));
             file.setProjectList("");
 
             List<HPCCRecord> records = readFile(file);
@@ -87,7 +82,8 @@ public class DFSReadWriteTest
             writeFile(records, copyFileName, file.getProjectedRecordDefinition());
 
             // Read and compare to original dataset
-            file = new HPCCFile(copyFileName, espConn);
+            file = new HPCCFile(copyFileName, hpccConnection , hpccUser, hpccPass);
+
             List<HPCCRecord> copiedRecords = readFile(file);
             if (copiedRecords.equals(records) == false)
             {
@@ -95,14 +91,14 @@ public class DFSReadWriteTest
             }
             
             //read out a projected layout, confirm that this works
-            
             List<String> projectedfields=new ArrayList<String>();
             for (int j=0; j < file.getRecordDefinition().getNumDefs()-1;j++) 
             {
                 projectedfields.add(file.getRecordDefinition().getDef(j).getFieldName());
             }            
             
-            file=new HPCCFile(copyFileName,espConn);
+            file=new HPCCFile(copyFileName, hpccConnection , hpccUser, hpccPass);
+
             FieldDef recdef=file.getRecordDefinition();
             file.setProjectList(StringUtils.join(projectedfields, ","));
             List<HPCCRecord> recs=readFile(file);
@@ -152,15 +148,41 @@ public class DFSReadWriteTest
         }
         writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
 
-        Connection espConn = new Connection("http://" + this.clusterIP + ":8010");
-        espConn.setUserName("");
-        espConn.setPassword("");
-
-        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", espConn);
+        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", hpccConnection , hpccUser, hpccPass);
         records = readFile(file);
         if (records.size() != 10)
         {
             Assert.fail("Failed to read large record dataset");
+        }
+    }
+
+    @Test
+    public void filteredTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[2];
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[2];
+            fields[0] = new Long(i);
+            fields[1] = generateRandomString(8096 * 1024);
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
+
+        HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", hpccConnection , hpccUser, hpccPass);
+        file.setFilter("key = 0 OR key > 10");
+
+        records = readFile(file);
+        if (records.size() != 1)
+        {
+            Assert.fail("Failed to read filtered record dataset");
         }
     }
 
@@ -194,6 +216,13 @@ public class DFSReadWriteTest
             }
             catch (Exception e)
             {
+                Throwable cause = e.getCause();
+                if (cause instanceof  HpccFileException)
+                {
+                    if (cause.getCause() instanceof java.net.SocketTimeoutException)
+                        System.out.println("File Read failed due to connect timeout, if filepart location is on an unreachable ip consider setting up a cluster remapper");
+                }
+
                 Assert.fail("Error constructing reader: " + e.getMessage());
             }
             while (fileReader.hasNext())
@@ -222,10 +251,7 @@ public class DFSReadWriteTest
 
             String eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDef);
 
-            Connection conn = new Connection("http://" + clusterIP + ":8010");
-            conn.setUserName("");
-            conn.setPassword("");
-            HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(conn);
+            HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 
             String clusterName = "mythor";
             System.out.println("Create Start");

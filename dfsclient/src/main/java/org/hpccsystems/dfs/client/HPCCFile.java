@@ -18,6 +18,8 @@ package org.hpccsystems.dfs.client;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.json.JSONObject;
@@ -32,6 +34,9 @@ import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.commons.filter.SQLExpression;
+import org.hpccsystems.commons.filter.SQLOperator;
+import org.hpccsystems.commons.filter.SQLFilter;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileType;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -104,7 +109,7 @@ public class HPCCFile implements Serializable
      * @param targetColumnList
      *            a comma separated list of column names in dotted notation for columns within compound columns.
      * @param filter
-     *            a file filter to select records of interest
+     *            a file filter to select records of interest (SQL where syntax)
      * @param remap_info
      *            address and port re-mapping info for THOR cluster
      * @param maxParts
@@ -121,7 +126,16 @@ public class HPCCFile implements Serializable
         this.projectedRecordDefinition = null;
         this.columnPruner = new ColumnPruner(targetColumnList);
         this.espConnInfo = espconninfo;
-        this.filter = new FileFilter(filter);
+        try
+        {
+            if (filter != null && !filter.isEmpty())
+                this.filter = new FileFilter(filter);
+        }
+        catch (Exception e)
+        {
+            throw new HpccFileException("Could not create HPCCFile due to invalid FileFilter", e);
+        }
+
         clusterRemapInfo = remap_info;
     }
 
@@ -212,12 +226,19 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @param filterexpression
+     * @param filterexpression - uses SQL 'where' syntax
      * @return this HPCCFile
      */
     public HPCCFile setFilter(String filterexpression)
     {
-        this.filter = new FileFilter(filterexpression);
+        try
+        {
+            this.filter = new FileFilter(filterexpression);
+        }
+        catch (Exception e)
+        {
+            log.error("Could not set HPCCFile filter!");
+        }
         return this;
     }
 
@@ -247,15 +268,6 @@ public class HPCCFile implements Serializable
         try
         {
             fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs, targetfilecluster);
-            if (fileinfoforread.getFileType() != DFUFileType.Flat)
-            {
-                String filetype="unknown";
-                if (fileinfoforread.getFileType() != null)
-                {
-                      filetype=fileinfoforread.getFileType().toString();
-                }
-                throw new Exception("Cannot stream file '" + fileName + "' - File type: '" +  filetype + "' not supported!");
-            }
             originalRecDefInJSON = fileinfoforread.getRecordTypeInfoJson();
             if (originalRecDefInJSON == null)
             {
@@ -269,13 +281,15 @@ public class HPCCFile implements Serializable
             throw new HpccFileException("Unable to retrieve file or record information: " + e.getMessage(), e);
         }
 
+        String fileTypeStr = fileinfoforread.getFileType().toString().toUpperCase();
+        DataPartition.FileType fileType = DataPartition.FileType.valueOf(fileTypeStr);
         try
         {
             if (fileinfoforread.getNumParts() > 0)
             {
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
-                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob());
+                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(),fileType);
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }

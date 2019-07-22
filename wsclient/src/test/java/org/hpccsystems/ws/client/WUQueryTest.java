@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hpccsystems.ws.client.platform.WUQueryInfo;
 import org.hpccsystems.ws.client.platform.WUQueryInfo.SortBy;
+import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.junit.After;
