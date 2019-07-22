@@ -46,12 +46,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-<<<<<<< HEAD
 @Category(RemoteTests.class)
-public class DFSReadWriteTest
-=======
 public class DFSReadWriteTest extends BaseRemoteTest
->>>>>>> branch 'master' of https://github.com/hpcc-systems/HPCC-JAPIs.git
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
     private static final int[]    expectedCounts = { 1250, 6 };
