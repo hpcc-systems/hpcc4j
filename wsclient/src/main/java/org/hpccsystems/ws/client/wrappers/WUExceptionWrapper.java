@@ -35,6 +35,13 @@ public class WUExceptionWrapper {
         source=raw.getSource();
     }
 
+    public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.EspException raw)
+    {
+        audience=raw.getAudience();
+        message=raw.getMessage();
+        espCode=raw.getCode();
+        source=raw.getSource();
+    }
     public WUExceptionWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ECLException raw)
     {
         activity=raw.getActivity();

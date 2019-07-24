@@ -17,8 +17,6 @@ import org.hpccsystems.ws.client.gen.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.gen.filespray.v1_17.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_39.SecAccessType;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUDataColumn;
-
-import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.platform.DFUFilePartsOnClusterInfo;
 import org.hpccsystems.ws.client.platform.PhysicalFile;
@@ -30,6 +28,7 @@ import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 
 public class PlatformTester
 {
@@ -367,7 +366,7 @@ public class PlatformTester
             }
 
             System.out.println("Test for showing file part informaztion");
-            DFUFileDetailInfo fd = wsDFUClient.getFileDetails("hthor::processed::persons", null);
+            DFUFileDetailWrapper fd = wsDFUClient.getFileDetails("hthor::processed::persons", null);
             DFUFilePartsOnClusterInfo[] fp = fd.getDFUFilePartsOnClusters();
             for (int f=0; fp!=null && f<fp.length; f++)
             {
