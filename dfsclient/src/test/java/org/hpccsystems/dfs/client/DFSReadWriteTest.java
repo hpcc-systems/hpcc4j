@@ -44,7 +44,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(RemoteTests.class)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
