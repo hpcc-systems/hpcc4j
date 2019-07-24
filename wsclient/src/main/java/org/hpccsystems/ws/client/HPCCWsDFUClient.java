@@ -47,7 +47,6 @@ import org.hpccsystems.ws.client.gen.wsdfu.v1_51.SuperfileListResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_51.WsDfuLocator;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_51.WsDfuServiceSoapProxy;
 import org.hpccsystems.ws.client.platform.DFUDataColumnInfo;
-import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
 import org.hpccsystems.ws.client.platform.DFUResult;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
@@ -56,9 +55,12 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.WsDFUClientSoapProxyWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -153,10 +155,10 @@ public class HPCCWsDFUClient extends DataSingleton
      *            - logical file to get file info for, can start with '~' or not
      * @param clustername
      *            - Optional. If specified, the cluster on which to search for the file
-     * @return a DFUInfoResponse object containing the file info
+     * @return a DFUInfoWrapper object containing the file info
      * @throws Exception
      */
-    public DFUInfoResponse getFileInfo(String logicalname, String clustername) throws Exception
+    public DFUInfoWrapper getFileInfo(String logicalname, String clustername) throws Exception
     {
       return this.getFileInfo(logicalname,  clustername, false, false);
     }
@@ -169,7 +171,7 @@ public class HPCCWsDFUClient extends DataSingleton
      * @return
      * @throws Exception
      */
-    public DFUInfoResponse getFileInfo(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
+    public DFUInfoWrapper getFileInfo(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
     {
         WsDfuServiceSoapProxy proxy = getSoapProxy();
         DFUInfoRequest req = new DFUInfoRequest();
@@ -188,7 +190,7 @@ public class HPCCWsDFUClient extends DataSingleton
                 throw new FileNotFoundException(logicalname + " does not exist");
             }
             this.handleException(resp.getExceptions());
-            return resp;
+            return new DFUInfoWrapper(resp);
         }
         catch (ArrayOfEspException e)
         {
@@ -321,7 +323,7 @@ public class HPCCWsDFUClient extends DataSingleton
         }
         for (int i = 0; i < subfiles.length; i++)
         {
-            DFUInfoResponse details = this.getFileInfo(subfiles[i], cluster);
+            DFUInfoWrapper details = this.getFileInfo(subfiles[i], cluster);
             if (details == null || details.getFileDetail() == null)
             {
                 continue;
@@ -361,7 +363,7 @@ public class HPCCWsDFUClient extends DataSingleton
         // also retrieve ecl to extract extra information (xpath, maxlength) not in getFileMetadata
         try
         {
-            DFUInfoResponse details = this.getFileInfo(logicalname, clustername);
+            DFUInfoWrapper details = this.getFileInfo(logicalname, clustername);
             if (details != null && details.getFileDetail() != null)
             {
                 eclrecord = details.getFileDetail().getEcl();
@@ -436,7 +438,7 @@ public class HPCCWsDFUClient extends DataSingleton
         {
             if (eclrecord != null && !StringUtils.isEmpty(eclrecord))
             {
-                EclRecordInfo recinfo = DFUFileDetailInfo.getRecordEcl(eclrecord);
+                EclRecordInfo recinfo = DFUFileDetailWrapper.getRecordEcl(eclrecord);
                 if (recinfo.getParseErrors().size() > 0)
                 {
                     throw new Exception(StringUtils.join(recinfo.getParseErrors(), "\n"));
@@ -694,7 +696,7 @@ public class HPCCWsDFUClient extends DataSingleton
      */
     public EclRecordInfo getDatasetFields(String datasetname, String clusterName, String fieldSeparator) throws Exception
     {
-        DFUFileDetailInfo info = getFileDetails(datasetname, clusterName);
+        DFUFileDetailWrapper info = getFileDetails(datasetname, clusterName);
         if (fieldSeparator != null)
         {
             info.setCsvSeparate(fieldSeparator);
@@ -773,6 +775,23 @@ public class HPCCWsDFUClient extends DataSingleton
                 log.error("Source: " + ex.getSource() + " Message: " + ex.getMessage());
             }
             throw new Exception(errs, exp);
+        }
+    }
+
+    private void handleException(List<WUExceptionWrapper> exp,String message) throws Exception
+    {
+        if (exp != null && exp.size()>0)
+        {
+            String errs=message==null?"":message;
+            for (WUExceptionWrapper ex:exp)
+            {
+                if (ex.getMessage() != null)
+                {
+                    errs = errs + ex.getMessage() + "\n";
+                }
+                log.error("Source: " + ex.getSource() + " Message: " + ex.getMessage());
+            }
+            throw new Exception(errs);
         }
     }
 
@@ -1438,10 +1457,10 @@ public class HPCCWsDFUClient extends DataSingleton
      *            - logical file to get file info for, can start with '~' or not
      * @param clustername
      *            - Optional. If specified, the cluster on which to search for the file
-     * @return a DFUInfoResponse object containing the file info
+     * @return a DFUFileDetailWrapper object containing the file info
      * @throws Exception
      */
-    public DFUFileDetailInfo getFileDetails(String logicalname, String clustername) throws Exception
+    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername) throws Exception
     {
       return this.getFileDetails(logicalname,  clustername, false, false);
     }
@@ -1451,20 +1470,20 @@ public class HPCCWsDFUClient extends DataSingleton
      * @param clustername optional
      * @param jsonTypeInfo true if record structure information in JSON format is to be returned
      * @param binTypeInfo true if record structure information in binary format is to be returned
-     * @return DFUInfoResponse object containing the information
+     * @return DFUFileDetailWrapaper object containing the information
      * @throws Exception
      */
-    public DFUFileDetailInfo getFileDetails(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
+    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
     {
         try
         {
-            DFUInfoResponse resp = this.getFileInfo(logicalname, clustername, jsonTypeInfo, binTypeInfo);
+            DFUInfoWrapper resp = this.getFileInfo(logicalname, clustername, jsonTypeInfo, binTypeInfo);
             if (resp == null)
             {
                 throw new FileNotFoundException(logicalname + " does not exist");
             }
-            this.handleException(resp.getExceptions());
-            DFUFileDetailInfo info = new DFUFileDetailInfo(resp.getFileDetail());
+            this.handleException(resp.getExceptions(),"Retrieving file details");
+            DFUFileDetailWrapper info = resp.getFileDetail();
             try
             {
                 info.setFirstline(this.getFirstRow(logicalname, clustername));
@@ -1492,7 +1511,7 @@ public class HPCCWsDFUClient extends DataSingleton
             }
             if ((info.getEcl() == null || info.getEcl().isEmpty()) && info.getIsSuperfile() && info.getSubfiles() != null && info.getSubfiles().length != 0)
             {
-                DFUFileDetailInfo subfile = this.getFileDetails(info.getSubfiles()[0], info.getNodeGroup());
+                DFUFileDetailWrapper subfile = this.getFileDetails(info.getSubfiles()[0], info.getNodeGroup());
                 if (subfile != null)
                 {
                     info.setEcl(subfile.getEcl());

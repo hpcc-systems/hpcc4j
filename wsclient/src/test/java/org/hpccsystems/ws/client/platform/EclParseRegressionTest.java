@@ -28,9 +28,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.ManualUnitTest;
-import org.hpccsystems.ws.client.platform.DFUFileDetailInfo;
 import org.hpccsystems.ws.client.platform.DFULogicalFileInfo;
 import org.hpccsystems.ws.client.platform.EclRecordInfo;
+
+import org.hpccsystems.ws.client.platform.Platform;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,10 +106,9 @@ public class EclParseRegressionTest extends BaseRemoteTest
     {
   //      String fname=".::lrenn:edit-ma-test";
         String fname="anthem::enc_wpt_edw_provider_thor_superfile";
-        DFUFileDetailInfo info=getDFUClient().getFileDetails(fname, null);
-        EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(info.getEcl());
-        if (rec.getParseErrors().size()!=0)
-        {
+        DFUFileDetailWrapper info=getDFUClient().getFileDetails(fname, null);
+        EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(info.getEcl());
+        if (rec.getParseErrors().size()!=0) {
             fail(rec.getParseErrors().toString());
         }
     }
@@ -123,7 +124,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
         {
             String rececl="";
             try {
-                DFUFileDetailInfo info=getDFUClient().getFileDetails(rec, null);
+                DFUFileDetailWrapper info=getDFUClient().getFileDetails(rec, null);
                 rececl=info.getEcl();
                 if (StringUtils.isEmpty(rececl))
                 {
@@ -135,9 +136,8 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 System.out.println( "Can't retrieve " + rec + ":" + e.getMessage());
                 continue;
             }
-            try
-            {
-                EclRecordInfo rece=DFUFileDetailInfo.getRecordFromECL(rececl);
+            try {
+                EclRecordInfo rece=DFUFileDetailWrapper.getRecordFromECL(rececl);
                 alreadytested.add(rec);
                 if (rece.getParseErrors().size()!=0)
                 {
@@ -209,10 +209,9 @@ public class EclParseRegressionTest extends BaseRemoteTest
             }
 
             String rececl=null;
-            try
-            {
-                DFUFileDetailInfo info=getDFUClient().getFileDetails(fullfilename, null);
-                if (info.getIsSuperfile())
+            try {
+                DFUFileDetailWrapper info=getDFUClient().getFileDetails(fullfilename, null);
+                if (info.getIsSuperfile()) 
                 {
                     System.out.print(fullfilename + " is superfile");
                 }
@@ -236,18 +235,16 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 {
                     System.out.println(fullfilename + " has child datasets");
                 }
-                EclRecordInfo rec=DFUFileDetailInfo.getRecordFromECL(rececl);
-                alreadytested.add(fullfilename);
-                if (rec.getParseErrors().size()!=0)
-                {
-                    throw new Exception("Failed to parse " + fullfilename + ":" + StringUtils.join(rec.getParseErrors(),"\n"));
+                    EclRecordInfo rec=DFUFileDetailWrapper.getRecordFromECL(rececl);
+                    alreadytested.add(fullfilename);
+                    if (rec.getParseErrors().size()!=0) {
+                        throw new Exception("Failed to parse " + fullfilename + ":" + StringUtils.join(rec.getParseErrors(),"\n"));
+                    }
+                } catch (Exception e) {
+                    failedrecs.add(fullfilename);
+                    System.out.println(rececl + "\n" + e.getMessage());
                 }
             }
-            catch (Exception e)
-            {
-                failedrecs.add(fullfilename);
-                System.out.println(rececl + "\n" + e.getMessage());
-            }
-        }
+          
     }
 }
