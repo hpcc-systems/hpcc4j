@@ -12,12 +12,13 @@ import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUInfoResponse;
 import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFULogicalFile;
 import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 
 public class LogicalFile extends DataSingleton
 {
@@ -116,7 +117,7 @@ public class LogicalFile extends DataSingleton
         try
         {
             HPCCWsDFUClient wsDfuClient = platform.getWsDfuClient();
-            DFUInfoResponse fileInfo = wsDfuClient.getFileInfo(dfulogicalfile.getName(), null);
+            DFUInfoWrapper fileInfo = wsDfuClient.getFileInfo(dfulogicalfile.getName(), null);
             update(fileInfo.getFileDetail());
         }
         catch (Exception e)
@@ -135,7 +136,7 @@ public class LogicalFile extends DataSingleton
         }
     }
 
-    void update(DFUFileDetail fd)
+    void update(DFUFileDetailWrapper fd)
     {
         if (fd != null && dfufiledetail.getName().equals(fd.getName()))
         {
