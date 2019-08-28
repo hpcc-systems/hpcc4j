@@ -16,6 +16,15 @@
   </properties>
 
   <build>
+      <resources>
+          <resource>
+              <directory>src/main/resources</directory>
+          </resource>
+         <!-- resource>
+           <directory>target/generated-sources/axis2/wsdl2code/resources</directory>
+         </resource-->
+       </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -122,14 +131,6 @@
        <maven.test.skip>true</maven.test.skip>
      </properties>
      <build>
-       <resources>
-         <resource>
-           <directory>src/main/resources</directory>
-         </resource>
-         <resource>
-           <directory>target/generated-sources/axis2/wsdl2code/resources</directory>
-         </resource>
-       </resources>
        <plugins>
          <plugin>
            <groupId>org.apache.axis2</groupId>
@@ -164,6 +165,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21</packageName>
@@ -185,6 +188,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_16</packageName>
@@ -206,6 +211,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_17</packageName>
@@ -227,6 +234,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51</packageName>
@@ -248,6 +257,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_50</packageName>
@@ -269,6 +280,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39</packageName>
@@ -290,6 +303,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00</packageName>
@@ -311,6 +326,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28</packageName>
@@ -332,6 +349,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21</packageName>
@@ -353,6 +372,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03</packageName>
@@ -374,6 +395,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75</packageName>
@@ -395,6 +418,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_74</packageName>
@@ -416,6 +441,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69</packageName>
@@ -437,6 +464,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62</packageName>
@@ -458,6 +487,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58</packageName>
@@ -479,6 +510,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56</packageName>
@@ -500,6 +533,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v1_05</packageName>
@@ -521,6 +556,8 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01</packageName>
