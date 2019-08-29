@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DropZoneWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.869Z
+ * TimeStamp: 2019-08-29T20:02:35.036Z
  */
 public class DropZoneWrapper
 {

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfDFUActionResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.793Z
+ * TimeStamp: 2019-08-29T20:02:34.986Z
  */
 public class ArrayOfDFUActionResultWrapper
 {
@@ -72,8 +72,9 @@ protected List<DFUActionResultWrapper> local_dFUActionResult = new ArrayList<DFU
 			for ( int i = 0; i < this.local_dFUActionResult.size(); i++)
 			{
 				arr[i] = this.local_dFUActionResult.get(i) .getRaw();
-			}		raw.setDFUActionResult(arr);
-}
+			}
+			raw.setDFUActionResult(arr);
+		}
 		return raw;
 	}
 

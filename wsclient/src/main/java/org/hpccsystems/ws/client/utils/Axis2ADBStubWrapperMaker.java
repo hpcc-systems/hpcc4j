@@ -58,6 +58,7 @@ public class Axis2ADBStubWrapperMaker
         String name;
         boolean isContainer = false;
         boolean isWrapped = false;
+        boolean isESPStringArray = false;
 
         public SimpleField (String name)
         {
@@ -71,6 +72,22 @@ public class Axis2ADBStubWrapperMaker
             this.packagename = packagename;
             this.type = type;
             this.name = name;
+        }
+
+        /**
+         * @return the isESPStringArray
+         */
+        public boolean isESPStringArray()
+        {
+            return isESPStringArray;
+        }
+
+        /**
+         * @param isESPStringArray the isESPStringArray to set
+         */
+        public void setESPStringArray(boolean isESPStringArray)
+        {
+            this.isESPStringArray = isESPStringArray;
         }
 
         /**
@@ -276,7 +293,6 @@ public class Axis2ADBStubWrapperMaker
         }
     }
 
-
     private String generateImports()
     {
         String importslist = "";
@@ -325,22 +341,37 @@ public class Axis2ADBStubWrapperMaker
                 {
                     copymethobody += "\t\tif (raw.get" + capitalized + "() != null)\n\t\t{\n";
                     copymethobody += "\t\t\tthis." + simpleField.getSafeName() + " = new Array" + simpleField.getActualType() + "();\n";
-                    copymethobody += "\t\t\tfor ( int i = 0; i < raw.get" + capitalized + "().length; i++)\n";
+
+                    if (simpleField.isESPStringArray())
+                        copymethobody += "\t\t\tfor ( int i = 0; i < raw.get" + capitalized + "().getItem().length; i++)\n"; //converted espstringarray to list<String>
+                    else
+                        copymethobody += "\t\t\tfor ( int i = 0; i < raw.get" + capitalized + "().length; i++)\n";
                     copymethobody += "\t\t\t{\n\t\t\t\tthis." + simpleField.getSafeName() + ".add(new " + simpleField.getBaseType();
                     if (simpleField.isWrapped())
                         copymethobody += "Wrapper";
-                    copymethobody += "(raw.get" + capitalized + "()[i]));\n\t\t\t}\n\t\t}";
+                    
+                    if (simpleField.isESPStringArray())
+                        copymethobody += "(raw.get" + capitalized + "().getItem()[i]));\n\t\t\t}\n\t\t}";  //converted espstringarray to list<String>
+                    else
+                        copymethobody += "(raw.get" + capitalized + "()[i]));\n\t\t\t}\n\t\t}";
 
                     rawmethobody += "\t\tif (this." + simpleField.getSafeName() + "!= null)\n\t\t{\n";
                     if (simpleField.isWrapped())
                         rawmethobody += "\t\t\t" + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[] arr = new " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                    else if (simpleField.isESPStringArray())
+                        rawmethobody += "\t\t\t" + "EspStringArray arr = new EspStringArray();\n";
                     else
                         rawmethobody += "\t\t\t" + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[] arr = new " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
 
                     rawmethobody += "\t\t\tfor ( int i = 0; i < this." + simpleField.getSafeName() + ".size(); i++)\n";
 
-                    rawmethobody += "\t\t\t{\n\t\t\t\tarr[i] = this." + simpleField.getSafeName() + ".get(i) " + (simpleField.isWrapped() ? ".getRaw()" : "") + ";\n\t\t\t}";
-                    rawmethobody += "\t\traw.set" + capitalized + "(arr);\n}\n";
+                    //esparray.addItem(this.local_wuids.get(i));
+                    //if (simpleField.getActualType().equals("List<String>")) //is it safe to assume List<String> : EspStringArray
+                    if (simpleField.isESPStringArray())
+                        rawmethobody += "\t\t\t{\n\t\t\t\tarr.addItem(this." + simpleField.getSafeName() + ".get(i));\n\t\t\t}";
+                    else
+                        rawmethobody += "\t\t\t{\n\t\t\t\tarr[i] = this." + simpleField.getSafeName() + ".get(i) " + (simpleField.isWrapped() ? ".getRaw()" : "") + ";\n\t\t\t}";
+                    rawmethobody += "\n\t\t\traw.set" + capitalized + "(arr);\n\t\t}\n";
                 }
                 else if (simpleField.isWrapped)
                     copymethobody += "\t\tthis." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
@@ -437,10 +468,15 @@ public class Axis2ADBStubWrapperMaker
                 if (package1 != null)
                 {
                     String fieldpackagename = type.getPackage().getName();
-                    if (generatedPackageToWrap.equals(fieldpackagename))
+                    if (type.getSimpleName().equals("EspStringArray"))  //converted to List<String>
                     {
-                        fieldpackagename = targetPackage;
+                        sfield.setESPStringArray(true);
+                        sfield.setWrapped(false);
+                    }
+                    else if (generatedPackageToWrap.equals(fieldpackagename))
+                    {
                         sfield.setWrapped(true);
+                        fieldpackagename = targetPackage;
                     }
                     else if (!fieldpackagename.startsWith("java.lang"))
                     {
@@ -480,7 +516,12 @@ public class Axis2ADBStubWrapperMaker
             if (package1 != null)
             {
                 fieldpackagename = type.getPackage().getName();
-                if (generatedPackageToWrap.equals(fieldpackagename))
+                if (type.getSimpleName().equals("EspStringArray"))
+                {
+                    sfield.setESPStringArray(true);
+                    sfield.setWrapped(false);
+                }
+                else if (generatedPackageToWrap.equals(fieldpackagename))
                 {
                     fieldpackagename = targetPackage;
                     sfield.setWrapped(true);
@@ -495,7 +536,7 @@ public class Axis2ADBStubWrapperMaker
 
         sfield.setPackagename(fieldpackagename);
         boolean isarr = type.isArray();
-        if (isarr)
+        if (isarr || type.getSimpleName().equals("EspStringArray"))
         {
             sfield.setContainer(true);
             if (!imports.contains("java.util.List"))
@@ -503,7 +544,15 @@ public class Axis2ADBStubWrapperMaker
             if (!imports.contains("java.util.ArrayList"))
                 imports.add("java.util.ArrayList");
 
-            typeDeclaration(type.getComponentType(), sfield);
+            if (type.getSimpleName().equals("EspStringArray"))
+            {
+                typeDeclaration(String.class, sfield);
+
+                if (!imports.contains(fieldpackagename + "." + type.getSimpleName()))
+                    imports.add(fieldpackagename + "." + type.getSimpleName());
+            }
+            else
+                typeDeclaration(type.getComponentType(), sfield);
         }
         else
         {
@@ -668,6 +717,10 @@ public class Axis2ADBStubWrapperMaker
                 continue;
             }
             if (cls.getSimpleName().equalsIgnoreCase("ExtensionMapper"))
+            {
+                continue;
+            }
+            if (cls.getSimpleName().equalsIgnoreCase("EspStringArray"))
             {
                 continue;
             }

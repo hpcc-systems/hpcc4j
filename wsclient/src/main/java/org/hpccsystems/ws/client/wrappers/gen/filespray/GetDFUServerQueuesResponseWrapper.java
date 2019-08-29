@@ -17,18 +17,21 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import java.util.List;
+import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUServerQueuesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.899Z
+ * TimeStamp: 2019-08-29T20:02:35.053Z
  */
 public class GetDFUServerQueuesResponseWrapper
 {
 protected ArrayOfEspExceptionWrapper local_exceptions;
-protected EspStringArrayWrapper local_names;
+protected List<String> local_names = new ArrayList<String>();
 
 	public GetDFUServerQueuesResponseWrapper() {}
 
@@ -36,7 +39,7 @@ protected EspStringArrayWrapper local_names;
 	{
 		copy( getdfuserverqueuesresponse );
 	}
-	public GetDFUServerQueuesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, EspStringArrayWrapper _names )
+	public GetDFUServerQueuesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, List<String> _names )
 	{
 		this.local_exceptions = _exceptions;
 		this.local_names = _names;
@@ -49,8 +52,14 @@ protected EspStringArrayWrapper local_names;
 			return;
 
 		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_names = new EspStringArrayWrapper( raw.getNames());
-
+		if (raw.getNames() != null)
+		{
+			this.local_names = new ArrayList<String>();
+			for ( int i = 0; i < raw.getNames().getItem().length; i++)
+			{
+				this.local_names.add(new String(raw.getNames().getItem()[i]));
+			}
+		}
 	}
 
 	@Override
@@ -61,6 +70,15 @@ protected EspStringArrayWrapper local_names;
 	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse getRaw()
 	{
 		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse();
+		if (this.local_names!= null)
+		{
+			EspStringArray arr = new EspStringArray();
+			for ( int i = 0; i < this.local_names.size(); i++)
+			{
+				arr.addItem(this.local_names.get(i));
+			}
+			raw.setNames(arr);
+		}
 		return raw;
 	}
 
@@ -73,11 +91,11 @@ protected EspStringArrayWrapper local_names;
 	{
 		return this.local_exceptions;
 	}
-	public void setNames( EspStringArrayWrapper _names )
+	public void setNames( List<String> _names )
 	{
 		this.local_names = _names;
 	}
-	public EspStringArrayWrapper getNames( )
+	public List<String> getNames( )
 	{
 		return this.local_names;
 	}

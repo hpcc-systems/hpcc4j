@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: GroupNodes_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.912Z
+ * TimeStamp: 2019-08-29T20:02:35.061Z
  */
 public class GroupNodes_type0Wrapper
 {
@@ -72,8 +72,9 @@ protected List<GroupNodeWrapper> local_groupNode = new ArrayList<GroupNodeWrappe
 			for ( int i = 0; i < this.local_groupNode.size(); i++)
 			{
 				arr[i] = this.local_groupNode.get(i) .getRaw();
-			}		raw.setGroupNode(arr);
-}
+			}
+			raw.setGroupNode(arr);
+		}
 		return raw;
 	}
 
