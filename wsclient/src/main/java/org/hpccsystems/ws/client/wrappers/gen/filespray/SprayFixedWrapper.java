@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: SprayFixedWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.932Z
+ * TimeStamp: 2019-08-29T20:02:35.076Z
  */
 public class SprayFixedWrapper
 {

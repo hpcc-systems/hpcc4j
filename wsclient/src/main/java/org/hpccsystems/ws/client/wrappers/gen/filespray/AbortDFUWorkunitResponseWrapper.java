@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: AbortDFUWorkunitResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.790Z
+ * TimeStamp: 2019-08-29T20:02:34.985Z
  */
 public class AbortDFUWorkunitResponseWrapper
 {

@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: SprayVariableWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.939Z
+ * TimeStamp: 2019-08-29T20:02:35.082Z
  */
 public class SprayVariableWrapper
 {

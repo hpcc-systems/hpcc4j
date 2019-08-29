@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ClusterNames_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ClusterNames_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.815Z
+ * TimeStamp: 2019-08-29T20:02:34.993Z
  */
 public class ClusterNames_type0Wrapper
 {
@@ -72,8 +72,9 @@ protected List<String> local_clusterName = new ArrayList<String>();
 			for ( int i = 0; i < this.local_clusterName.size(); i++)
 			{
 				arr[i] = this.local_clusterName.get(i) ;
-			}		raw.setClusterName(arr);
-}
+			}
+			raw.setClusterName(arr);
+		}
 		return raw;
 	}
 

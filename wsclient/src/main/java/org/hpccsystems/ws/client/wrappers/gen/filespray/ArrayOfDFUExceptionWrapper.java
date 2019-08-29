@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfDFUExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.798Z
+ * TimeStamp: 2019-08-29T20:02:34.987Z
  */
 public class ArrayOfDFUExceptionWrapper
 {
@@ -72,8 +72,9 @@ protected List<DFUExceptionWrapper> local_dFUException = new ArrayList<DFUExcept
 			for ( int i = 0; i < this.local_dFUException.size(); i++)
 			{
 				arr[i] = this.local_dFUException.get(i) .getRaw();
-			}		raw.setDFUException(arr);
-}
+			}
+			raw.setDFUException(arr);
+		}
 		return raw;
 	}
 

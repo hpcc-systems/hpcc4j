@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfEspExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.810Z
+ * TimeStamp: 2019-08-29T20:02:34.991Z
  */
 public class ArrayOfEspExceptionWrapper
 {
@@ -76,8 +76,9 @@ protected List<EspExceptionWrapper> local_exception = new ArrayList<EspException
 			for ( int i = 0; i < this.local_exception.size(); i++)
 			{
 				arr[i] = this.local_exception.get(i) .getRaw();
-			}		raw.setException(arr);
-}
+			}
+			raw.setException(arr);
+		}
 		return raw;
 	}
 

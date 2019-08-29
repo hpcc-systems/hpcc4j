@@ -17,17 +17,20 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import java.util.List;
+import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeleteDFUWorkunitsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.831Z
+ * TimeStamp: 2019-08-29T20:02:35.004Z
  */
 public class DeleteDFUWorkunitsWrapper
 {
-protected EspStringArrayWrapper local_wuids;
+protected List<String> local_wuids = new ArrayList<String>();
 
 	public DeleteDFUWorkunitsWrapper() {}
 
@@ -35,7 +38,7 @@ protected EspStringArrayWrapper local_wuids;
 	{
 		copy( deletedfuworkunits );
 	}
-	public DeleteDFUWorkunitsWrapper( EspStringArrayWrapper _wuids )
+	public DeleteDFUWorkunitsWrapper( List<String> _wuids )
 	{
 		this.local_wuids = _wuids;
 
@@ -46,8 +49,14 @@ protected EspStringArrayWrapper local_wuids;
 		if (raw == null)
 			return;
 
-		this.local_wuids = new EspStringArrayWrapper( raw.getWuids());
-
+		if (raw.getWuids() != null)
+		{
+			this.local_wuids = new ArrayList<String>();
+			for ( int i = 0; i < raw.getWuids().getItem().length; i++)
+			{
+				this.local_wuids.add(new String(raw.getWuids().getItem()[i]));
+			}
+		}
 	}
 
 	@Override
@@ -58,15 +67,24 @@ protected EspStringArrayWrapper local_wuids;
 	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits getRaw()
 	{
 		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits();
+		if (this.local_wuids!= null)
+		{
+			EspStringArray arr = new EspStringArray();
+			for ( int i = 0; i < this.local_wuids.size(); i++)
+			{
+				arr.addItem(this.local_wuids.get(i));
+			}
+			raw.setWuids(arr);
+		}
 		return raw;
 	}
 
 
-	public void setWuids( EspStringArrayWrapper _wuids )
+	public void setWuids( List<String> _wuids )
 	{
 		this.local_wuids = _wuids;
 	}
-	public EspStringArrayWrapper getWuids( )
+	public List<String> getWuids( )
 	{
 		return this.local_wuids;
 	}

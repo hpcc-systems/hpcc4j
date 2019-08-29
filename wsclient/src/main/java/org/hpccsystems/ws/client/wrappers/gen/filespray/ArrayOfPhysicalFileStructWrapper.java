@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfPhysicalFileStructWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.813Z
+ * TimeStamp: 2019-08-29T20:02:34.992Z
  */
 public class ArrayOfPhysicalFileStructWrapper
 {
@@ -72,8 +72,9 @@ protected List<PhysicalFileStructWrapper> local_physicalFileStruct = new ArrayLi
 			for ( int i = 0; i < this.local_physicalFileStruct.size(); i++)
 			{
 				arr[i] = this.local_physicalFileStruct.get(i) .getRaw();
-			}		raw.setPhysicalFileStruct(arr);
-}
+			}
+			raw.setPhysicalFileStruct(arr);
+		}
 		return raw;
 	}
 

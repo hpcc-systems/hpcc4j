@@ -17,17 +17,20 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import java.util.List;
+import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWorkunitsActionRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-13T16:30:50.859Z
+ * TimeStamp: 2019-08-29T20:02:35.027Z
  */
 public class DFUWorkunitsActionRequestWrapper
 {
-protected EspStringArrayWrapper local_wuids;
+protected List<String> local_wuids = new ArrayList<String>();
 protected DFUWUActionsWrapper local_type;
 
 	public DFUWorkunitsActionRequestWrapper() {}
@@ -36,7 +39,7 @@ protected DFUWUActionsWrapper local_type;
 	{
 		copy( dfuworkunitsactionrequest );
 	}
-	public DFUWorkunitsActionRequestWrapper( EspStringArrayWrapper _wuids, DFUWUActionsWrapper _type )
+	public DFUWorkunitsActionRequestWrapper( List<String> _wuids, DFUWUActionsWrapper _type )
 	{
 		this.local_wuids = _wuids;
 		this.local_type = _type;
@@ -48,8 +51,14 @@ protected DFUWUActionsWrapper local_type;
 		if (raw == null)
 			return;
 
-		this.local_wuids = new EspStringArrayWrapper( raw.getWuids());
-		this.local_type = new DFUWUActionsWrapper( raw.getType());
+		if (raw.getWuids() != null)
+		{
+			this.local_wuids = new ArrayList<String>();
+			for ( int i = 0; i < raw.getWuids().getItem().length; i++)
+			{
+				this.local_wuids.add(new String(raw.getWuids().getItem()[i]));
+			}
+		}		this.local_type = new DFUWUActionsWrapper( raw.getType());
 
 	}
 
@@ -61,15 +70,24 @@ protected DFUWUActionsWrapper local_type;
 	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest getRaw()
 	{
 		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest();
+		if (this.local_wuids!= null)
+		{
+			EspStringArray arr = new EspStringArray();
+			for ( int i = 0; i < this.local_wuids.size(); i++)
+			{
+				arr.addItem(this.local_wuids.get(i));
+			}
+			raw.setWuids(arr);
+		}
 		return raw;
 	}
 
 
-	public void setWuids( EspStringArrayWrapper _wuids )
+	public void setWuids( List<String> _wuids )
 	{
 		this.local_wuids = _wuids;
 	}
-	public EspStringArrayWrapper getWuids( )
+	public List<String> getWuids( )
 	{
 		return this.local_wuids;
 	}
