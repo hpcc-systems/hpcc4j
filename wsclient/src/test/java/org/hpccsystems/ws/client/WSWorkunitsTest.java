@@ -20,6 +20,7 @@ package org.hpccsystems.ws.client;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -84,6 +85,11 @@ public class WSWorkunitsTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -106,6 +112,11 @@ public class WSWorkunitsTest extends BaseRemoteTest
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
         }
     }
@@ -131,6 +142,11 @@ public class WSWorkunitsTest extends BaseRemoteTest
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
         }
     }

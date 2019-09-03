@@ -16,6 +16,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 
@@ -119,7 +120,7 @@ public class LogicalFile extends DataSingleton
             DFUInfoWrapper fileInfo = wsDfuClient.getFileInfo(dfulogicalfile.getName(), null);
             update(fileInfo.getFileDetail());
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
         }

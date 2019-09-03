@@ -7,6 +7,7 @@ import org.hpccsystems.ws.client.platform.Cluster;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.WUState;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.QueryResultWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
@@ -88,7 +89,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
 
     }
 
-    protected void createTestWorkunits(String ecl,int num) throws Exception
+    protected void createTestWorkunits(String ecl,int num) throws Exception, ArrayOfEspExceptionWrapper
     {
         this.uniquerun=String.valueOf(System.currentTimeMillis());
         for (int i=1;i <=num;i++)
@@ -124,7 +125,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
 
     }
     @Test
-    public void testGetWorkunitByAppValue() throws Exception
+    public void testGetWorkunitByAppValue() throws Exception, ArrayOfEspExceptionWrapper
     {
         createTestWorkunits("OUTPUT(1);",2);
         WUQueryWrapper params = new WUQueryWrapper().setJobname("*" + uniquerun + "*");
@@ -213,7 +214,7 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
     }
 
     @Test
-    public void testAbortWU() throws Exception
+    public void testAbortWU() throws Exception, ArrayOfEspExceptionWrapper
     {
         createTestWorkunits("OUTPUT( PIPE('sleep 10',{STRING hack}));",1);
         if (this.testwuids.size()==0)

@@ -23,6 +23,7 @@ import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
@@ -388,7 +389,7 @@ public class PlatformTester
             }
 
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             System.out.println( e.getLocalizedMessage());
         }

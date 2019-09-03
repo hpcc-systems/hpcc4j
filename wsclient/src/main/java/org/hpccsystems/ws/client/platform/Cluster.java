@@ -16,6 +16,7 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 public class Cluster extends DataSingleton
 {
@@ -74,7 +75,7 @@ public class Cluster extends DataSingleton
                 TpClusterInfoResponse respsone = wsTopologyClient.getClusterInfo(info.getName());
                 Update(respsone);
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
         }

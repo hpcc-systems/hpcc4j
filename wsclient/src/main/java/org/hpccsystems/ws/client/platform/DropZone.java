@@ -17,6 +17,7 @@ import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 public class DropZone extends DataSingleton
 {
@@ -187,7 +188,7 @@ public class DropZone extends DataSingleton
         {
             update(platform.getWsClient().getWsTopologyClient().queryDropzoneMachines(dzInfo.getName()));
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
         }

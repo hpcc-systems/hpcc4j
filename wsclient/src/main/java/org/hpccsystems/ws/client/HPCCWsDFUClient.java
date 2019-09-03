@@ -170,8 +170,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - Optional. If specified, the cluster on which to search for the file
      * @return a DFUInfoResponse object containing the file info
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUInfoWrapper getFileInfo(String logicalname, String clustername) throws Exception
+    public DFUInfoWrapper getFileInfo(String logicalname, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
       return getFileInfo(logicalname,  clustername, false, false);
     }
@@ -184,9 +185,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param binTypeInfo want record structure information returned in binary format
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
 
-    public DFUInfoWrapper getFileInfo(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
+    public DFUInfoWrapper getFileInfo(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception, ArrayOfEspExceptionWrapper
     {
 
         verifyStub(); //Throws exception if stub failed
@@ -214,7 +216,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getFileInfo");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getFileInfo");
         }
 
         if (response.getExceptions() != null)
@@ -235,8 +237,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - Optional. If specified, the cluster on which to find the logical file.
      * @return an XML Element object holding the '<Row>' elements containing data.
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername) throws Exception
+    public NodeList getFileData(String logicalname, Long beginrow, Integer numrows, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -271,7 +274,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getFileData");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getFileData");
         }
 
         if (response.getExceptions() != null)
@@ -305,8 +308,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - file scope/directory to return files for
      * @return an array of DFULogicalFile objects
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<DFULogicalFileWrapper> getFiles(String scope) throws Exception
+    public List<DFULogicalFileWrapper> getFiles(String scope) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -327,7 +331,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getFiles");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getFiles");
         }
 
         if (resp.getExceptions() != null)
@@ -347,7 +351,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         return result;
     }
 
-    private void checkSuperfileLayouts(String[] subfiles, String cluster) throws Exception
+    private void checkSuperfileLayouts(String[] subfiles, String cluster) throws Exception, ArrayOfEspExceptionWrapper
     {
         String eclrecord = null;
         String basefile = null;
@@ -376,7 +380,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
     }
 
-    public String[] getSuperFileSubfiles(String filename) throws Exception
+    public String[] getSuperFileSubfiles(String filename) throws Exception, ArrayOfEspExceptionWrapper
     {
         SuperfileListRequest request = new SuperfileListRequest();
         request.setSuperfile(filename);
@@ -393,7 +397,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not get getSuperFileList");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not get getSuperFileList");
         }
 
         if (resp.getExceptions() != null)
@@ -419,8 +423,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - Optional - The cluster the logical filename is associated with.
      * @return ArrayList of DFUDataColumnInfo
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<DFUDataColumnWrapper> getFileMetaData(String logicalname, String clustername) throws Exception
+    public List<DFUDataColumnWrapper> getFileMetaData(String logicalname, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -488,7 +493,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getFileMetaDataInfo");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getFileMetaDataInfo");
         }
 
         if (resp.getExceptions() != null)
@@ -566,8 +571,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - optional. The cluster the logical filename is associated with.
      * @return ArrayList of DFUDataColumns
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<DFUDataColumnWrapper> getFileDataColumns(String logicalname, String clustername) throws Exception
+    public List<DFUDataColumnWrapper> getFileDataColumns(String logicalname, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -589,7 +595,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getFileDataColumns");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getFileDataColumns");
         }
 
         if (resp.getExceptions() != null)
@@ -647,8 +653,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            splitting up the first line of the file to define the number of fields
      * @return an ArrayList of DFUDataColumns containing the name and field type.
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public EclRecordWrapper getDatasetFields(String datasetname, String clusterName, String fieldSeparator) throws Exception
+    public EclRecordWrapper getDatasetFields(String datasetname, String clusterName, String fieldSeparator) throws Exception, ArrayOfEspExceptionWrapper
     {
         DFUFileDetailWrapper info = getFileDetails(datasetname, clusterName);
         if (fieldSeparator != null)
@@ -667,8 +674,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - optional. name of the cluster the file's associated with
      * @return a String of data representing the first row in the file.
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String getFirstRow(String datasetname, String clustername) throws Exception
+    public String getFirstRow(String datasetname, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
         NodeList rowdata = getFileData(datasetname, (long) 0, 1, clustername);
         if (rowdata != null && rowdata.getLength() > 0)
@@ -696,9 +704,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param pageSize
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
     public List<DFULogicalFileWrapper> getLogicalFiles(String filename, String cluster, int firstN,
-            int pageStartFrom,int pageSize) throws Exception
+            int pageStartFrom,int pageSize) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -723,7 +732,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getLogicalFiles");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getLogicalFiles");
         }
 
         List<DFULogicalFileWrapper> logicalfiles = new ArrayList<DFULogicalFileWrapper>();
@@ -757,9 +766,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param startIndex
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
     public DFUSearchDataResponse getDFUData(String openLogicalName, String cluster, boolean roxieSelections,
-            int chooseFile, int count, boolean schemaOnly, long startIndex) throws Exception
+            int chooseFile, int count, boolean schemaOnly, long startIndex) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -785,7 +795,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getDFUData");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getDFUData");
         }
 
         if (resp.getExceptions() != null)
@@ -802,8 +812,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - name of cluster to delete from (will delete from all clusters if null)
      * @return list of results of file deletions
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<DFUResultWrapper> deleteFiles(Set<String> files, String cluster) throws Exception
+    public List<DFUResultWrapper> deleteFiles(Set<String> files, String cluster) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -826,7 +837,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not deleteFiles");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not deleteFiles");
         }
 
         if (resp.getExceptions() != null)
@@ -857,8 +868,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @return - true if the file exists on the specified cluster (or on any cluster if the input cluster is null),
      *         false otherwise
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster) throws Exception
+    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -882,7 +894,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not SearchFiles");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not SearchFiles");
         }
 
         if (resp.getExceptions() != null)
@@ -922,8 +934,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - unique identifier for access token
      * @return - Access artifact to be propagated as part of DAFILESERV file access requests
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    public String getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
@@ -960,8 +973,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - unique identifier for access token
      * @return - Access artifact to be propagated as part of DAFILESERV file access requests
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
@@ -1005,8 +1019,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - flag to request file info in Binary format
      * @return - Access artifact to be propagated as part of DAFILESERV file access requests
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUFileAccessInfoWrapper getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception
+    public DFUFileAccessInfoWrapper getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
@@ -1074,8 +1089,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - unique identifier for access token
      * @return - Access artifact to be propagated as part of DAFILESERV file access requests
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid) throws Exception
+    public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
@@ -1104,7 +1120,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             catch (EspSoapFault e)
             {
-                handleEspExceptions(new EspSoapFaultWrapper(e), "Error acquiring read access for: '" + clustername + "::" + filename + "'");
+                handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error acquiring read access for: '" + clustername + "::" + filename + "'");
             }
 
             if (resp.getExceptions() != null)
@@ -1137,8 +1153,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param expirySeconds
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds) throws Exception
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds) throws Exception, ArrayOfEspExceptionWrapper
     {
         return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, partitionHostMap, expirySeconds, false, false,
                 org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole.External, org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Write);
@@ -1160,9 +1177,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param accesstype
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
     public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds, Boolean returnBinTypeInfo,
-            Boolean returnJsonTypeInfo, org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole accessrole, org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype ) throws Exception
+            Boolean returnJsonTypeInfo, org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole accessrole, org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype ) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " +  initErrMessage : ""));
@@ -1232,8 +1250,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param expirySeconds
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds) throws Exception, ArrayOfEspExceptionWrapper
     {
         return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, false, null, null);
     }
@@ -1248,8 +1267,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param compressed
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed) throws Exception
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed) throws Exception, ArrayOfEspExceptionWrapper
     {
         return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, null, null);
     }
@@ -1266,8 +1286,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param requestid
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper filetype, String requestid) throws Exception
+    public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper filetype, String requestid) throws Exception, ArrayOfEspExceptionWrapper
     {
         return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, filetype, requestid);
     }
@@ -1284,8 +1305,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param requestId
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception
+    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds, Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError()  ? " - " +  initErrMessage : ""));
@@ -1320,7 +1342,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             catch (EspSoapFault e)
             {
-                handleEspExceptions(new EspSoapFaultWrapper(e), "Error creating DFU file: '" + cluster + "::" + fileName + "'");
+                handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error creating DFU file: '" + cluster + "::" + fileName + "'");
             }
 
             if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
@@ -1353,8 +1375,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param totalRecords
      * @param fileSize
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize) throws Exception
+    public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize) throws Exception, ArrayOfEspExceptionWrapper
     {
         publishFile(fileId, eclRecordDefinition, totalRecords, fileSize, null);
     }
@@ -1366,8 +1389,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param fileSize
      * @param overwrite
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize, Boolean overwrite) throws Exception
+    public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize, Boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -1392,7 +1416,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Error publishing DFU file: '" + fileId + "' \n" + e.getMessage());
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error publishing DFU file: '" + fileId + "' \n" + e.getMessage());
         }
 
         if (resp.getExceptions() != null)
@@ -1406,8 +1430,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - Optional. If specified, the cluster on which to search for the file
      * @return a DFUInfoResponse object containing the file info
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername) throws Exception
+    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
       return this.getFileDetails(logicalname,  clustername, false, false);
     }
@@ -1419,10 +1444,11 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param binTypeInfo true if record structure information in binary format is to be returned
      * @return DFUInfoResponse object containing the information
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception
+    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo) throws Exception, ArrayOfEspExceptionWrapper
     {
-        //try
+        //try drea?
         //{
             DFUInfoWrapper resp = this.getFileInfo(logicalname, clustername, jsonTypeInfo, binTypeInfo);
             if (resp == null)
@@ -1431,7 +1457,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
 
             if (resp.getExceptions() != null)
-                handleEspExceptions(resp.getExceptions(), "Retrieving file details");
+                handleWUExceptions(resp.getExceptions(), "Retrieving file details");
 
             DFUFileDetailWrapper info = resp.getFileDetail();
             try
@@ -1458,7 +1484,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                         // for clusters on version < 5.0.2, this service doesn't exist; do it the old fashioned way
                         info.setColumns(this.getFileDataColumns(logicalname, clustername));
                     }
-                    rodrigo
+                    drea?
                     */
                 }
             }

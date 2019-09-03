@@ -19,6 +19,7 @@ package org.hpccsystems.ws.client;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -46,14 +47,14 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void createHPCCFile() throws Exception
+    public void createHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true));
     }
 
     @Test
-    public void writeHPCCFile() throws Exception
+    public void writeHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();

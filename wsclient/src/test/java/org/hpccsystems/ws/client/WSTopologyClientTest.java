@@ -25,6 +25,7 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -45,20 +46,20 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void printValidTargetClustersTest() throws Exception
+    public void printValidTargetClustersTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         PrintStream ps = System.out;
         Assert.assertTrue(client.printValidTargetClusters(ps));
     }
 
     @Test
-    public void getValidTargetGroupsTest() throws Exception
+    public void getValidTargetGroupsTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assert.assertNotNull(client.getValidTargetGroups());
     }
 
     @Test
-    public void getValidTargetGroupNamesTest() throws Exception
+    public void getValidTargetGroupNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Group Names Test ------------------");
         String[] groupnames = client.getValidTargetGroupNames();
@@ -70,7 +71,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void queryDropzoneTest() throws Exception
+    public void queryDropzoneTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Dropzones Test ------------------");
 
@@ -92,7 +93,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void getValidThorTargetClusterNamesTest() throws Exception
+    public void getValidThorTargetClusterNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Thor clusters Name Test ------------------");
         String[] validTargetClusterNames = client.getValidTargetClusterNames("thor");
@@ -104,7 +105,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void getValidRoxieTargetClusterNamesTest() throws Exception
+    public void getValidRoxieTargetClusterNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Roxie clusters Name Test ------------------");
         String[] validTargetClusterNames = client.getValidTargetClusterNames("roxie");
@@ -116,7 +117,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void getValidTargetClusterNamesTest() throws Exception
+    public void getValidTargetClusterNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------all cluster types Name Test ------------------");
         String[] validTargetClusterNames = client.getValidTargetClusterNamesArray();
@@ -128,7 +129,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void getClusterInfoTest() throws Exception
+    public void getClusterInfoTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------get cluster info Test ------------------");
         String[] validTargetClusterNames = client.getValidTargetClusterNamesArray();
@@ -141,7 +142,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void getLogicalClustersTest() throws Exception
+    public void getLogicalClustersTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------get logical clusterTest ------------------");
         TpLogicalCluster[] logicalClusters = client.getLogicalClusters();

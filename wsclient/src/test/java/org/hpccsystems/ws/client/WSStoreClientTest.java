@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -72,17 +73,17 @@ public class WSStoreClientTest extends BaseRemoteTest
         System.out.println(tabstr);
     }
 
-    public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception
+    public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.FetchKeyMetaData(storename, namespace, key, global);
     }
 
-    public String fetchvalue(String storename, String namespace, String key, boolean global) throws Exception
+    public String fetchvalue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.FetchValue(storename, namespace, key, global);
     }
 
-    public void listNamespaceKeys(String store, String namespace, boolean global) throws Exception
+    public void listNamespaceKeys(String store, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Listing Namespace Keys for default." + namespace + "...");
         String [] keys = client.listNSKeys(store, namespace, global);
@@ -123,6 +124,11 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail(e.getLocalizedMessage());
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -139,10 +145,15 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail(e.getLocalizedMessage());
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
-    public void a2setTest() throws Exception
+    public void a2setTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
         {
@@ -162,7 +173,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void a4deleteTest() throws Exception
+    public void a4deleteTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
         {
@@ -178,7 +189,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void a1createStoreTest() throws Exception
+    public void a1createStoreTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
         {
@@ -194,7 +205,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void z91deleteNSTest() throws Exception
+    public void z91deleteNSTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
         {

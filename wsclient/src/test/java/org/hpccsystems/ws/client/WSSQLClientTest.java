@@ -36,6 +36,8 @@ import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ECLWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCColumnWrapper;
@@ -127,6 +129,11 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -154,6 +161,11 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -172,6 +184,11 @@ public class WSSQLClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
         }
     }
@@ -239,6 +256,11 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -270,6 +292,11 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -299,7 +326,11 @@ public class WSSQLClientTest extends BaseRemoteTest
             {
                 System.out.println("Exception while executing SQL: " + e.getLocalizedMessage());
             }
-
+            catch (ArrayOfEspExceptionWrapper e)
+            {
+                e.toString();
+                Assert.fail();
+            }
 
             Assert.assertNotNull(wuid);
             {
@@ -356,6 +387,11 @@ public class WSSQLClientTest extends BaseRemoteTest
                 {
                     System.out.println("Exception while fetching results related to WUID: " + wuid + ": " + e.getLocalizedMessage());
                 }
+                catch (ArrayOfEspExceptionWrapper e)
+                {
+                    e.toString();
+                    Assert.fail();
+                }
 
                 Assert.assertNotNull(filtercolumnname);
                 String filter1 = sql + " where mytable." + filtercolumnname + " != ?";// filtercolumntype == 1 ? "";
@@ -378,6 +414,11 @@ public class WSSQLClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
         }
     }

@@ -107,8 +107,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param target
      * @return BasePackageStatus   - Caller should interrogate status object for success
      * @throws Exception           - Caller should handle exception in case of errors
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target) throws Exception
+    public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to activate package: " + packageMapName);
 
@@ -133,7 +134,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform activatePackage");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform activatePackage");
         }
 
         if (resp.getExceptions() != null)
@@ -147,8 +148,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param target
      * @return BasePackageStatus   - Caller should interrogate status object for success
      * @throws Exception           - Caller should handle exception in case of errors
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public BasePackageStatus getPackage(String process, String target) throws Exception
+    public BasePackageStatus getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
@@ -171,7 +173,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getPackage");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getPackage");
         }
 
         if (resp.getExceptions() != null)
@@ -182,7 +184,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         return resp.getStatus();
     }
 
-    public PackageListMapData[] listPackages(String process, String target, String processFilter) throws Exception
+    public PackageListMapData[] listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to list packages");
 
@@ -207,7 +209,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform list packages");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform list packages");
         }
 
         if (response.getExceptions() != null)
