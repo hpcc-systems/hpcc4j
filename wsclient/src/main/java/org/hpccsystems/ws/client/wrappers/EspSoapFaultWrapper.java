@@ -1,9 +1,11 @@
 package org.hpccsystems.ws.client.wrappers;
 
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
+
 public class EspSoapFaultWrapper extends java.lang.Exception
 {
     private static final long serialVersionUID = 1L;
-    private ExceptionsWrapper faultMessage;
+    private String wsClientMessage;
 
     public EspSoapFaultWrapper()
     {
@@ -25,14 +27,22 @@ public class EspSoapFaultWrapper extends java.lang.Exception
         super(cause);
     }
 
-    public void setFaultMessage(ExceptionsWrapper msg)
+    public EspSoapFaultWrapper setWsClientMessage(String msg)
     {
-        faultMessage = msg;
+        wsClientMessage = msg;
+        return this;
     }
 
-    public ExceptionsWrapper getFaultMessage()
+    public String getWsClientMessage()
     {
-        return faultMessage;
+        return wsClientMessage;
+    }
+    
+    @Override
+    public String toString()
+    {
+        String s = super.toString();
+        return (wsClientMessage != null) ? (s + ": " + wsClientMessage) : s;
     }
 }
 

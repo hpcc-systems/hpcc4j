@@ -10,6 +10,7 @@ import org.apache.axis2.client.Stub;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl;
 import org.apache.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
@@ -261,44 +262,56 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return opt;
     }
 
-    protected void handleEspExceptions(EspSoapFaultWrapper e, String message) throws Exception
+    /**
+     * Logs and throws EspSoapFaultWrapper
+     * @param e
+     * @param message
+     * @throws EspSoapFaultWrapper
+     */
+    protected void handleEspSoapFaults(EspSoapFaultWrapper e) throws EspSoapFaultWrapper
     {
-        String errs = message != null ? message + "\n" : "";
-        if (!errs.isEmpty())
-            log.error(errs);
-        throw new Exception(errs, e);
+        if (e != null)
+            handleEspSoapFaults(e,null);
     }
 
-    protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp, String message) throws Exception
+    /**
+     * Logs and throws EspSoapFaultWrapper, if local message provided, added as wsclientmessage
+     * @param e
+     * @param message
+     * @throws EspSoapFaultWrapper
+     */
+    protected void handleEspSoapFaults(EspSoapFaultWrapper e, String message) throws EspSoapFaultWrapper
     {
-        if (exp != null)
+        if (e != null)
         {
-            List<EspExceptionWrapper> espexceptions = exp.getExceptions();
-            String errs = message != null ? message + "\n" : "";
-            if (!errs.isEmpty())
-                log.error(errs);
+            if (message != null && !message.isEmpty())
+                e.setWsClientMessage(message);
 
-            for (int i = 0; i < espexceptions.size(); i++)
-            {
-                EspExceptionWrapper ex = espexceptions.get(i);
-                if (ex.getMessage() != null)
-                {
-                    errs = errs + ex.getMessage() + "\n";
-                }
-                log.error("Source: " + ex.getSource() + " Message: " + ex.getMessage());
-            }
-            throw new Exception(errs);
+            log.error(e.toString());
+            throw e;
         }
     }
 
-    protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp) throws Exception
+    protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp, String message) throws ArrayOfEspExceptionWrapper
+    {
+        if (exp == null || exp.getExceptions() == null || exp.getExceptions().size() <= 0)
+            return;
+
+        if (message != null && !message.isEmpty())
+            exp.setWsClientMessage(message);
+
+        log.error(exp.toString());
+        throw exp;
+    }
+
+    protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp) throws ArrayOfEspExceptionWrapper
     {
         handleEspExceptions(exp, null);
     }
 
-    protected void handleEspExceptions(List<WUExceptionWrapper> exceptions, String message) throws Exception
+    protected void handleWUExceptions(List<WUExceptionWrapper> exceptions, String message) throws Exception
     {
-        if (exceptions != null && exceptions.size()>0)
+        if (exceptions != null && exceptions.size() > 0)
         {
             String errs = message == null ? "" : message;
             for (WUExceptionWrapper exception : exceptions)
@@ -313,34 +326,40 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         }
     }
 
-    protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclexceptions) throws Exception
+    /**
+     * Logs and throws arrayofeclexceptionwrapper without localized message response from WS client
+     *
+     * @param eclExceptions
+     *            - the array of ECLException objects to throw
+     * @param message
+     *            - the prefix message
+     * @throws Exception
+     * @throws ArrayOfECLExceptionWrapper
+     */
+    protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclexceptions) throws Exception, ArrayOfECLExceptionWrapper
     {
-        if (eclexceptions != null)
-        {
-            String message = "";
-            List<ECLExceptionWrapper> arrayofeclexcepwrapper = eclexceptions.getECLException();
-            for (int eclexceptionindex = 0; eclexceptionindex < arrayofeclexcepwrapper.size(); eclexceptionindex++)
-            {
-                ECLExceptionWrapper eclException = arrayofeclexcepwrapper.get(eclexceptionindex);
-                log.error(eclException.getMessage());
-                message = message + "Severity: " + eclException.getSeverity() + " Source: " + eclException.getSource() + " Message: " + eclException.getMessage()+"\n";
-            }
-            throw new Exception(message);
-        }
+        handleECLExceptions(eclexceptions, null);
     }
 
-    protected void handleECLExceptions(ECLExceptionWrapper[] eclexceptions) throws Exception
+    /**
+     * Logs and throws arrayofeclexceptionwrapper with localized message response from WS client
+     *
+     * @param eclExceptions
+     *            - the array of ECLException objects to throw
+     * @param message
+     *            - the prefix message
+     * @throws Exception
+     * @throws ArrayOfECLExceptionWrapper
+     */
+    protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclExceptions, String message) throws Exception, ArrayOfECLExceptionWrapper
     {
-        if (eclexceptions != null)
-        {
-            String message = "";
-            for (int eclexceptionindex = 0; eclexceptionindex < eclexceptions.length; eclexceptionindex++)
-            {
-                ECLExceptionWrapper eclException = eclexceptions[eclexceptionindex];
-                log.error(eclException.getMessage());
-                message = message + "Severity: " + eclException.getSeverity() + " Source: " + eclException.getSource() + " Message: " + eclException.getMessage()+"\n";
-            }
-            throw new Exception(message);
-        }
+        if (eclExceptions == null || eclExceptions.getECLException() == null || eclExceptions.getECLException().size() <= 0)
+            return;
+
+        if (message != null && !message.isEmpty())
+            eclExceptions.setWsClientMessage(message);
+
+        log.error(eclExceptions.toString());
+        throw eclExceptions;
     }
 }

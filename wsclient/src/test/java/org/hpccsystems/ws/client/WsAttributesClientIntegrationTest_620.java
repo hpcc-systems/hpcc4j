@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client;
 
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClientIntegrationTest
@@ -29,13 +30,13 @@ public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClien
     }
 
     @Override
-    public void testWriteAttributes() throws Exception
+    public void testWriteAttributes() throws Exception, ArrayOfEspExceptionWrapper
     {
         super.testWriteAttributes();
     }
 
     @Override
-    public void testWriteSingleAttribute() throws Exception
+    public void testWriteSingleAttribute() throws Exception, ArrayOfEspExceptionWrapper
     {
         super.testWriteSingleAttribute();
     }

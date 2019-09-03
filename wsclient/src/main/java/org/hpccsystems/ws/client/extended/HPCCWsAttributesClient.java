@@ -111,8 +111,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - Attribute to check
      * @return true if the attribute exists, false if it does not
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public boolean attributeExists(String modulename, String attributename, String type) throws Exception
+    public boolean attributeExists(String modulename, String attributename, String type) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<ECLAttributeWrapper>items = findItems(modulename, attributename, type, null, null, null);
         if (items.size()>0)
@@ -139,8 +140,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - only return attributes changes since this time
      * @return a list of ECLAttributeInfo
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext, String changedSince) throws Exception
+    public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext, String changedSince) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws if stub not available
 
@@ -188,7 +190,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform findItems");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform findItems");
         }
 
         List<ECLAttributeWrapper> results = new ArrayList<ECLAttributeWrapper>();
@@ -218,8 +220,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - attribute name of the attribute
      * @return text contained by the attribute
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String getAttributeText(String modulename, String attributename,String type) throws Exception
+    public String getAttributeText(String modulename, String attributename,String type) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws if stub not available
 
@@ -242,7 +245,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform getAttributeText");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getAttributeText");
         }
 
         if (response != null)
@@ -271,8 +274,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - new attribute name to rename attribute to
      * @return ECL attribute of the renamed attribute
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename) throws Exception
+    public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename) throws Exception, ArrayOfEspExceptionWrapper
     {
         if ((modulename == null && newmodulename != null) || (newmodulename == null && modulename != null))
         {
@@ -311,7 +315,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not perform renameAttribute");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform renameAttribute");
         }
 
         if (response != null)
@@ -336,8 +340,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc - if checkoutin is true, this is the checkin message
      * @return - a list of updated eclattributeinfo objects
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc) throws Exception
+    public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<ECLAttributeWrapper> result=new ArrayList<ECLAttributeWrapper>();
         if (in==null || in.size()==0)
@@ -487,8 +492,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc - if checkoutin=true, the description to append to the checkin
      * @return updated ECLAttributeItem for created/updated item
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc) throws Exception
+    public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (item==null)
         {
@@ -564,8 +570,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - if checkoutin=true, the description to append to the checkin
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc) throws Exception
+    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (checkoutin == null)
         {
@@ -635,8 +642,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - check in comment
      * @return ECLAttribute of checked in attribute
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public ECLAttribute checkinAttribute(String modulename, String attributename, String checkindesc) throws Exception
+    public ECLAttribute checkinAttribute(String modulename, String attributename, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (modulename == null || attributename == null)
         {
@@ -688,8 +696,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - attribute to check out
      * @return ECLAttribute of checked out attribute
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public ECLAttribute checkoutAttribute(String modulename, String attributename) throws Exception
+    public ECLAttribute checkoutAttribute(String modulename, String attributename) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (modulename == null || attributename == null)
         {
@@ -741,8 +750,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - checkin comment. Required if checkin=true
      * @return the ECL Attribute of the created object
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin, String checkindesc) throws Exception
+    public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (checkin == null)
         {
@@ -785,8 +795,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * Delete a module from the remote repository
      * @param modulename - name of module to delete
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public void deleteModule(String modulename) throws Exception 
+    public void deleteModule(String modulename) throws Exception, ArrayOfEspExceptionWrapper 
     {
         verifyStub();
 
@@ -803,8 +814,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param modulename - name of module for attribute to delete
      * @param attributename - name of attribute to delete
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception 
+    public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception, ArrayOfEspExceptionWrapper 
     {
         verifyStub();
 

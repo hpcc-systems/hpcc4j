@@ -105,8 +105,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param stream       - Stream to print onto (System.out | System.err)
      * @return               - Boolean, success
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public boolean printValidTargetClusters(PrintStream stream) throws Exception
+    public boolean printValidTargetClusters(PrintStream stream) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
 
@@ -156,8 +157,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get full descriptions of all valid cluster groups on the target HPCC System
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public TpTargetCluster[] getValidTargetGroups() throws Exception
+    public TpTargetCluster[] getValidTargetGroups() throws Exception, ArrayOfEspExceptionWrapper
     {
         TpTargetCluster [] tpTargetClusters = null;
 
@@ -194,8 +196,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get names of all available target clusters on the given HPCC System
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String[] getValidTargetGroupNames() throws Exception
+    public String[] getValidTargetGroupNames() throws Exception, ArrayOfEspExceptionWrapper
     {
         String[] tpTargetClusterNames = null;
 
@@ -236,8 +239,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param name - The target dropzone name
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public TpDropZone queryDropzone(String name) throws Exception
+    public TpDropZone queryDropzone(String name) throws Exception, ArrayOfEspExceptionWrapper
     {
         TpDropZone[] dropZones = queryDropzones(name);
         if (dropZones.length != 1)
@@ -249,8 +253,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param namefilter - Empty for all dropzones, or specific dropzeon name
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public TpDropZone[] queryDropzones(String namefilter) throws Exception
+    public TpDropZone[] queryDropzones(String namefilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -277,7 +282,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
          return arrayoftpdz.getTpDropZone();
     }
 
-    public TpMachine[] queryDropzoneMachines(String name) throws Exception
+    public TpMachine[] queryDropzoneMachines(String name) throws Exception, ArrayOfEspExceptionWrapper
     {
         return queryDropzone(name).getTpMachines().getTpMachine();
     }
@@ -287,8 +292,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param clusterGroupType -- RoxieCluster, HoleCluster
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String[] getValidTargetClusterNames(String clusterGroupType) throws Exception
+    public String[] getValidTargetClusterNames(String clusterGroupType) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<String> tpTargetClusterNames = new ArrayList<String>();
 
@@ -351,8 +357,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public String [] getValidTargetClusterNamesArray() throws Exception
+    public String [] getValidTargetClusterNamesArray() throws Exception, ArrayOfEspExceptionWrapper
     {
         return getValidTargetClusterNames("");
     }
@@ -361,8 +368,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public List<String> getValidTargetClusterNames() throws Exception
+    public List<String> getValidTargetClusterNames() throws Exception, ArrayOfEspExceptionWrapper
     {
         List<String> names = new ArrayList<String>();
         String[] validTargetClusterNames = getValidTargetClusterNamesArray();
@@ -373,7 +381,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return names;
     }
 
-    public TpServices getServices() throws Exception
+    public TpServices getServices() throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -400,7 +408,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return serviceList;
     }
 
-    public TpClusterInfoResponse getClusterInfo(String clusterName) throws Exception
+    public TpClusterInfoResponse getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -425,7 +433,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return response;
     }
 
-    public TpLogicalCluster[] getLogicalClusters() throws Exception
+    public TpLogicalCluster[] getLogicalClusters() throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 

@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.FileFormat;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 
 public class SerializeTester {
@@ -61,7 +62,7 @@ public class SerializeTester {
 			System.out.println("Class not found");
 			c.printStackTrace();
 		}
-		catch(Exception e)
+		catch(Exception | ArrayOfEspExceptionWrapper e)
 		{
 			e.getMessage();
 			e.printStackTrace();

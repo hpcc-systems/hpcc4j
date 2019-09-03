@@ -15,10 +15,12 @@ import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
+import org.junit.Assert;
 
 /**
  *
@@ -471,6 +473,10 @@ public class HPCCWsClient extends DataSingleton
         {
             e.printStackTrace();
         }
+        catch (org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+        }
 
         return null;
     }
@@ -480,8 +486,9 @@ public class HPCCWsClient extends DataSingleton
      * @param clusterGroupType         - The cluster group type/name
      * @return                         - Names of all availabe target cluster in the given cluster group
      * @throws Exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper 
      */
-    public String[] getAvailableClusterNames(String clusterGroupType) throws Exception
+    public String[] getAvailableClusterNames(String clusterGroupType) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
 
@@ -494,8 +501,9 @@ public class HPCCWsClient extends DataSingleton
     /**
      * @return          - List of all available target cluster names (mythor, myroxie, etc) on this HPCC System
      * @throws Exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper 
      */
-    public List<String> getAvailableTargetClusterNames() throws Exception
+    public List<String> getAvailableTargetClusterNames() throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
 
@@ -531,11 +539,10 @@ public class HPCCWsClient extends DataSingleton
         {
             log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
-        catch (Exception e)
+        catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
         }
-
         return success;
     }
 
@@ -623,7 +630,7 @@ public class HPCCWsClient extends DataSingleton
         {
             log.error("Error: Could not spray file" + e.getLocalizedMessage());
         }
-        catch (Exception e)
+        catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
         }
@@ -631,7 +638,7 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
-    private boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper) throws Exception
+    private boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         boolean success = false;
 
@@ -714,7 +721,7 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC File Spray Client");
         }
-        catch (Exception e)
+        catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
             return false;
@@ -739,12 +746,11 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC File Spray Client");
         }
-        catch (Exception e)
+        catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
 
@@ -770,6 +776,10 @@ public class HPCCWsClient extends DataSingleton
         {
             log.error("Error submitting ECL: " + e.getLocalizedMessage());
             throw e;
+        }
+        catch (ArrayOfECLExceptionWrapper | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
+        {
+            log.error("Error submitting ECL: " + e.toString());
         }
 
         return results;
@@ -810,6 +820,10 @@ public class HPCCWsClient extends DataSingleton
         catch (Exception e)
         {
             log.error("Error submitting ECL: " + e.getLocalizedMessage());
+        }
+        catch (ArrayOfECLExceptionWrapper | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
+        {
+            log.error("Error submitting ECL: " + e.toString());
         }
 
         return WUID;

@@ -128,8 +128,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param overwritefile        - If the file exists, should it be overwritten?
      * @return
      * @throws Exception           - Caller should handle exception in case of errors
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception
+    public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
@@ -153,7 +154,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspExceptions(new EspSoapFaultWrapper(e), "Could Not createHPCCFile");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not createHPCCFile");
         }
 
         if (resp.getExceptions() != null)
@@ -177,8 +178,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param uploadchunksize     - Chunksize to upload the data
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper 
      */
-    public boolean writeHPCCFileData(byte [] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception
+    public boolean writeHPCCFileData(byte [] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = true;
         log.debug("Attempting to write data to HPCC File: " + fileName);

@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers;
 
-
+import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
 
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
@@ -58,6 +58,25 @@ public class ECLExceptionWrapper
         this.local_activity = _activity;
         this.local_scope = _scope;
         this.local_priority = _priority;
+    }
+
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException eclException)
+    {
+        copy(eclException);
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException raw)
+    {
+        this.local_source = raw.getSource();
+        this.local_severity = raw.getSeverity();
+        this.local_code = raw.getCode();
+        this.local_message = raw.getMessage();
+        this.local_fileName = raw.getFileName();
+        this.local_lineNo = raw.getLineNo();
+        this.local_column = raw.getColumn();
+        this.local_activity = raw.getActivity();
+        this.local_scope = raw.getScope();
+        this.local_priority = raw.getPriority();
     }
 
     private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw )

@@ -112,7 +112,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return true;
     }
 
-    public String [] listNamespaces(String storename, boolean global) throws Exception
+    public String [] listNamespaces(String storename, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String namespaces [] = null;
         ListNamespacesRequest request = new ListNamespacesRequest();
@@ -140,7 +140,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return namespaces;
     }
 
-    public String [] listNSKeys(String storename, String namespace, boolean global) throws Exception
+    public String [] listNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String keyset [] = null;
         ListKeysRequest request = new ListKeysRequest();
@@ -169,7 +169,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return keyset;
     }
 
-    public String FetchValue(String storename, String namespace, String key, boolean global) throws Exception
+    public String FetchValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String value = null;
 
@@ -199,7 +199,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return value;
     }
 
-    public Properties FetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception
+    public Properties FetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         Properties props = new Properties();
 
@@ -237,7 +237,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return props;
     }
 
-    public Properties fetchAllNSKeys(String storename, String namespace, boolean global) throws Exception
+    public Properties fetchAllNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         Properties props = new Properties();
 
@@ -274,7 +274,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return props;
     }
 
-    public boolean setValue(String storename, String namespace, String key, String value, boolean global) throws Exception
+    public boolean setValue(String storename, String namespace, String key, String value, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         SetRequest request = new SetRequest();
         request.setStoreName(storename);
@@ -303,7 +303,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return false;
     }
 
-    public boolean deleteValue(String storename, String namespace, String key, boolean global) throws Exception
+    public boolean deleteValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         DeleteRequest request = new DeleteRequest();
         request.setStoreName(storename);
@@ -331,7 +331,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return false;
     }
 
-    public boolean deleteNamespace(String storename, String namespace, boolean global, String targetuser) throws Exception
+    public boolean deleteNamespace(String storename, String namespace, boolean global, String targetuser) throws Exception, ArrayOfEspExceptionWrapper
     {
         DeleteNamespaceRequest request = new DeleteNamespaceRequest();
         request.setStoreName(storename);
@@ -359,7 +359,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return false;
     }
 
-    public boolean createStore(String storename, String description, String type) throws Exception
+    public boolean createStore(String storename, String description, String type) throws Exception, ArrayOfEspExceptionWrapper
     {
         CreateStoreRequest request = new CreateStoreRequest();
         request.setName(storename);

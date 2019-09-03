@@ -4,13 +4,14 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.junit.Test;
 
 public class RampsDevRegressionTest extends EclParseRegressionTest
 {
     @Test
-    public void testFileMetadata() throws Exception
+    public void testFileMetadata() throws Exception, ArrayOfEspExceptionWrapper
     {
         //superfile
         List<DFUDataColumnWrapper> info = getDFUClient().getFileMetaData("test::wsclient::superfile",null);
@@ -49,7 +50,7 @@ public class RampsDevRegressionTest extends EclParseRegressionTest
     }
 
     @Test
-    public void testRegressionRecordStructures() throws Exception
+    public void testRegressionRecordStructures() throws Exception, ArrayOfEspExceptionWrapper
     {
         super.testRegressionRecordStructures(false);
     }

@@ -26,8 +26,11 @@ import java.util.List;
  * TimeStamp: 2019-08-03T01:15:45.768Z
  */
 
-public class ArrayOfEspExceptionWrapper
+public class ArrayOfEspExceptionWrapper extends Throwable
 {
+    private static final long serialVersionUID = 1L;
+
+    protected String wsClientMessage;
     protected String source;
     protected List<EspExceptionWrapper> exceptions = new ArrayList<EspExceptionWrapper>();
 
@@ -58,10 +61,27 @@ public class ArrayOfEspExceptionWrapper
     {
         copy(arrayofespexception);
     }
-    
+
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ArrayOfEspException arrayofespexception)
     {
         copy(arrayofespexception);
+    }
+
+    /**
+     * @return the localMessage
+     */
+    public String getWsClientMessage()
+    {
+        return wsClientMessage;
+    }
+
+    /**
+     * @param localMessage the localMessage to set
+     */
+    public ArrayOfEspExceptionWrapper setWsClientMessage(String localMessage)
+    {
+        this.wsClientMessage = localMessage;
+        return this;
     }
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfEspException arrayofespexception)
@@ -265,11 +285,21 @@ public class ArrayOfEspExceptionWrapper
 		}
 	}
 
-	@Override
-	public String toString()
-	{
-	    return "ArrayOfEspExceptionWrapper [" + "source = " + source + ", " + "exception = " + exceptions + "]";
-	}
+    @Override
+    public String toString()
+    {
+        StringBuilder multimessage = new StringBuilder();
+        multimessage.append("ArrayOfEspExceptionWrapper: ");
+        multimessage.append(wsClientMessage);
+        multimessage.append("\n");
+        for (EspExceptionWrapper espExceptionWrapper : exceptions)
+        {
+            multimessage.append("\n\t");
+            multimessage.append("EspException: Audience: " + espExceptionWrapper.getAudience() + "Source: " + espExceptionWrapper.getSource() + "Message: " + espExceptionWrapper.getMessage());
+        }
+
+        return multimessage.toString();
+    }
 
 	public void setSource( String _source )
 	{

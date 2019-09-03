@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.Cluster;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
 import org.junit.After;
 import org.junit.Before;
@@ -65,7 +66,7 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     }
 
     @Test
-    public void testWriteAttributes() throws Exception
+    public void testWriteAttributes() throws Exception, ArrayOfEspExceptionWrapper
     {
         String testmodname="zz_wsclientattributetest";
         List<ECLAttributeWrapper> toadd=new ArrayList<ECLAttributeWrapper>();
@@ -105,7 +106,7 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     }
 
     @Test
-    public void testWriteSingleAttribute() throws Exception
+    public void testWriteSingleAttribute() throws Exception, ArrayOfEspExceptionWrapper
     {
         String testmodname="zz_wsclientattributetest";
         List<ECLAttributeWrapper> toadd=new ArrayList<ECLAttributeWrapper>();

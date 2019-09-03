@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
@@ -133,6 +134,11 @@ public class WsDFUClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     public void getFirstFileAvailable(String directory)
@@ -162,6 +168,11 @@ public class WsDFUClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
         }
     }
@@ -198,6 +209,11 @@ public class WsDFUClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -215,6 +231,11 @@ public class WsDFUClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
         }
     }

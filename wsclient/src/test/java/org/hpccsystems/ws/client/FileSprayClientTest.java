@@ -6,6 +6,7 @@ import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -118,7 +119,7 @@ public class FileSprayClientTest extends BaseRemoteTest
                 Assert.assertEquals(thisdz.getPath(), localdzs[i].getPath());
             }
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             e.printStackTrace();
             Assert.fail();
@@ -133,9 +134,25 @@ public class FileSprayClientTest extends BaseRemoteTest
             DropZoneWrapper[] dzs = filesprayclient.fetchDropZones("invalidserver:8010");
             Assert.assertNull(dzs);
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             System.out.println("Test fetch DropZones Bad URL failed as expected: " + e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void testESPExceptionArrayLocalMessage()
+    {
+        final String message = "Just testing";
+        try
+        {
+            throw new ArrayOfEspExceptionWrapper().setWsClientMessage(message);
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            String wsClientMessage = e.getWsClientMessage();
+            Assert.assertNotNull(wsClientMessage);
+            Assert.assertTrue(wsClientMessage.equals(message));
         }
     }
 }

@@ -29,6 +29,7 @@ import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.ManualUnitTest;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
@@ -100,7 +101,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
     }
 
     @Test
-    public void testSingle() throws Exception
+    public void testSingle() throws Exception, ArrayOfEspExceptionWrapper
     {
   //      String fname=".::lrenn:edit-ma-test";
         String fname="anthem::enc_wpt_edw_provider_thor_superfile";
@@ -112,7 +113,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
     }
 
     @Test
-    public void testFailedRecs() throws Exception
+    public void testFailedRecs() throws Exception, ArrayOfEspExceptionWrapper
     {
         failedrecs=new ArrayList<String>();
         if (failedlist.exists()) {
@@ -151,7 +152,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
         }
     }
 
-    protected void testRegressionRecordStructures(boolean reset) throws Exception
+    protected void testRegressionRecordStructures(boolean reset) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (reset)
         {
@@ -174,7 +175,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
         }
     }
 
-    private void testScope(String scope) throws Exception
+    private void testScope(String scope) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DFULogicalFileWrapper> files = getDFUClient().getFiles(scope);
         for (DFULogicalFileWrapper file:files)

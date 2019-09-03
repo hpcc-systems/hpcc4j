@@ -41,6 +41,7 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfDFUWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitsResponseWrapper;
@@ -337,15 +338,15 @@ public class Platform extends DataSingleton
                 }
 
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
             catch (RemoteException e)
             {
                 confirmDisable();
             }
             catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            catch (ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -541,15 +542,11 @@ public class Platform extends DataSingleton
                         updateFileSprayWorkunits(results.getDFUWorkunit());
                 }
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
             catch (RemoteException e)
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
             }
-            catch (Exception e)
+            catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -659,10 +656,10 @@ public class Platform extends DataSingleton
                 HPCCWsDFUClient wsDfuClient = platformHPCCClient.getWsDFUClient();
                 updateLogicalFiles(wsDfuClient.getLogicalFiles(null, cluster, 100, 0, 100));
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
+            catch (ArrayOfEspExceptionWrapper e)
+            {
+                e.printStackTrace();
+            }
             catch (RemoteException e)
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
@@ -716,10 +713,10 @@ public class Platform extends DataSingleton
                 HPCCWsTopologyClient wsTopologyClient = platformHPCCClient.getWsTopologyClient();
                 updateClusters(wsTopologyClient.getLogicalClusters());
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
+            catch (ArrayOfEspExceptionWrapper e)
+            {
+                e.printStackTrace();
+            }
             catch (RemoteException e)
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
@@ -771,7 +768,7 @@ public class Platform extends DataSingleton
                 if (services != null)
                     updateServices(services);
             }
-            catch (Exception e)
+            catch (Exception | ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
                 confirmDisable();
