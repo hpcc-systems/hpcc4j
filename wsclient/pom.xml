@@ -118,6 +118,14 @@
             <exclude>**/*IntegrationTest_54.java</exclude>
             <exclude>**/WSFileIOClientTest.java</exclude>
             <exclude>**/WUQueryTest.java</exclude>
+            <exclude>**/FileSprayClientTest.java</exclude>
+            <exclude>**/WsDFUClientTest.java</exclude>
+            <exclude>**/WSPackageProcessTest.java</exclude>
+            <exclude>**/WsSMCClientTest.java</exclude>
+            <exclude>**/WSSQLClientTest.java</exclude>
+            <exclude>**/WSStoreClientTest.java</exclude>
+            <exclude>**/WSTopologyClientTest.java</exclude>
+            <exclude>**/WSWorkunitsTest.java</exclude>
           </excludes>
         </configuration>
       </plugin>
