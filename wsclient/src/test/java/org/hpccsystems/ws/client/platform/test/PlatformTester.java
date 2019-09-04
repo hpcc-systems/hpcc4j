@@ -23,6 +23,7 @@ import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
+import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
@@ -386,6 +387,11 @@ public class PlatformTester
             catch (Exception e)
             {
                 System.out.println("Encountered issue while testing WsSQL on port: " + wssqlport + "\n>>" + e.getLocalizedMessage());
+            }
+            catch (ArrayOfECLExceptionWrapper e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
 
         }

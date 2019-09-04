@@ -351,11 +351,6 @@ public class Workunit extends DataSingleton
             {
                 wsWorkunitsClient.abortWU(info.getWuid());
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                assert false;
-//                e.printStackTrace();
-//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -378,11 +373,6 @@ public class Workunit extends DataSingleton
                 wsWorkunitsClient.deleteWU(info.getWuid());
                 refreshState();
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                assert false;
-//                e.printStackTrace();
-//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -405,11 +395,6 @@ public class Workunit extends DataSingleton
                 wsWorkunitsClient.resubmitWU(info.getWuid(), restart, clone);
                 refreshState();
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                assert false;
-//                e.printStackTrace();
-//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -447,11 +432,6 @@ public class Workunit extends DataSingleton
                 wsWorkunitsClient.publishWU(info.getWuid());
                 refreshState();
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                assert false;
-//                e.printStackTrace();
-//            }
             catch (RemoteException e)
             {
                 e.printStackTrace();
@@ -518,7 +498,7 @@ public class Workunit extends DataSingleton
                     }
                 }
             } 
-            catch (Exception ex) 
+            catch (Exception | ArrayOfEspExceptionWrapper ex) 
             {
                 //getWUInfo throws the arrayofespexceptions wrapped in an exception;
                 //examine this in a catch
@@ -540,12 +520,6 @@ public class Workunit extends DataSingleton
                     }       
                 }
             }
-            catch (ArrayOfEspExceptionWrapper e)
-            {
-                System.out.println(e.toString());
-            }
-            
-
         }
         catch (RemoteException e)
         {

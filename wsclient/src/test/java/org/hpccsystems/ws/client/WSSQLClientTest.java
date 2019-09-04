@@ -21,23 +21,12 @@ import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfNamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliases_type0;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetQueries_type0;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ECLWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCColumnWrapper;
@@ -131,8 +120,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -163,8 +151,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -188,8 +175,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -258,8 +244,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -292,10 +277,9 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
-        catch (ArrayOfEspExceptionWrapper e)
+        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -416,10 +400,9 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
-        catch (ArrayOfEspExceptionWrapper e)
+        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 }
