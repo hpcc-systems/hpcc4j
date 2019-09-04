@@ -16,12 +16,10 @@
 package org.hpccsystems.dfs.client;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.dfs.cluster.ClusterRemapper;
-import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 
 /**

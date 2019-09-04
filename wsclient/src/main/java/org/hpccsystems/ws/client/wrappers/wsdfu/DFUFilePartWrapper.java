@@ -18,16 +18,19 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 import java.util.Hashtable;
 
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCopy;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
+
 
 public class DFUFilePartWrapper
 {
     private Integer partIndex;
     private DFUFileCopyWrapper [] wrappedDFUFileCopies;
 
-    public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
+    public DFUFilePartWrapper(DFUFilePart dfuFilePart, Hashtable<Integer, String> availableLocations)
     {
-        partIndex = soapdfufilepart.getPartIndex();
-        org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
+    	partIndex = dfuFilePart.getPartIndex();
+        DFUFileCopy[] dfufilecopies = dfuFilePart.getCopies().getDFUFileCopy();
         wrappedDFUFileCopies = new DFUFileCopyWrapper [dfufilecopies.length];
         for (int i = 0; i < dfufilecopies.length; i++)
         {
@@ -38,13 +41,13 @@ public class DFUFilePartWrapper
              if (wrappedDFUFileCopies[copyindex-1] != null)
                  throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + copyindex + "'");
              wrappedDFUFileCopies[copyindex-1] = new DFUFileCopyWrapper(dfufilecopies[i], availableLocations.get(dfufilecopies[i].getLocationIndex()));
-        }
-    }
+        } 
+	}
 
-    public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
-    {
-        partIndex = soapdfufilepart.getPartIndex();
-        org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
+	public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFilePart dfuFilePart, Hashtable<Integer, String> availableLocations)
+	{
+		partIndex = dfuFilePart.getPartIndex();
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCopy[] dfufilecopies = dfuFilePart.getCopies().getDFUFileCopy();
         wrappedDFUFileCopies = new DFUFileCopyWrapper [dfufilecopies.length];
         for (int i = 0; i < dfufilecopies.length; i++)
         {
@@ -55,27 +58,10 @@ public class DFUFilePartWrapper
              if (wrappedDFUFileCopies[copyindex-1] != null)
                  throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + copyindex + "'");
              wrappedDFUFileCopies[copyindex-1] = new DFUFileCopyWrapper(dfufilecopies[i], availableLocations.get(dfufilecopies[i].getLocationIndex()));
-        }
-    }
+        } 
+	}
 
-    public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFilePart soapdfufilepart, Hashtable<Integer,String> availableLocations)
-    {
-        partIndex = soapdfufilepart.getPartIndex();
-        org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy[] dfufilecopies = soapdfufilepart.getCopies();
-        wrappedDFUFileCopies = new DFUFileCopyWrapper [dfufilecopies.length];
-        for (int i = 0; i < dfufilecopies.length; i++)
-        {
-             Integer copyindex = dfufilecopies[i].getCopyIndex();
-             if (copyindex == null || copyindex  < 1 || copyindex > dfufilecopies.length )
-                 throw new IndexOutOfBoundsException("Encountered invalid Filepart Copy index: '" + copyindex + "'");
-
-             if (wrappedDFUFileCopies[copyindex-1] != null)
-                 throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + copyindex + "'");
-             wrappedDFUFileCopies[copyindex-1] = new DFUFileCopyWrapper(dfufilecopies[i], availableLocations.get(dfufilecopies[i].getLocationIndex()));
-        }
-    }
-
-    public Integer getPartIndex() throws Exception
+	public Integer getPartIndex() throws Exception
     {
 
         return partIndex;

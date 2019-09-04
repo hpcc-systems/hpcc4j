@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo;
+
 public class ThorLogInfoWrapper
 {
     private String processName;
@@ -12,76 +14,81 @@ public class ThorLogInfoWrapper
 
     public ThorLogInfoWrapper() {}
 
-    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo raw) {
-        if (raw==null) {
+    public ThorLogInfoWrapper(ThorLogInfo raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setClusterGroup(raw.getClusterGroup());
         this.setLogDate(raw.getLogDate());
         this.setNumberSlaves(raw.getNumberSlaves());
         this.setProcessName(raw.getProcessName());
     }
 
-    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo raw) {
-        if (raw==null) {
+    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ThorLogInfo raw)
+    {
+        if (raw==null)
+        {
             return;
         }
-        this.setClusterGroup(raw.getClusterGroup());
-        this.setLogDate(raw.getLogDate());
-        this.setNumberSlaves(raw.getNumberSlaves());
-        this.setProcessName(raw.getProcessName());
-    }
-    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ThorLogInfo raw) {
-        if (raw==null) {
-            return;
-        }
+
         this.setClusterGroup(raw.getClusterGroup());
         this.setLogDate(raw.getLogDate());
         this.setNumberSlaves(raw.getNumberSlaves());
         this.setProcessName(raw.getProcessName());
     }
 
-    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo raw) {
-        if (raw==null) {
+    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ThorLogInfo raw)
+    {
+        if (raw==null)
+        {
             return;
         }
+
         this.setClusterGroup(raw.getClusterGroup());
         this.setLogDate(raw.getLogDate());
         this.setNumberSlaves(raw.getNumberSlaves());
         this.setProcessName(raw.getProcessName());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo getRaw() {
-        return this.getRawVersion74();
-    }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo getRawVersion74() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ThorLogInfo();
-        raw.setClusterGroup(this.getClusterGroup());
-        raw.setLogDate(this.getLogDate());
-        raw.setNumberSlaves(this.getNumberSlaves());
-        raw.setProcessName(this.getProcessName());
-        return raw;
+    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ThorLogInfo raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.setClusterGroup(raw.getClusterGroup());
+        this.setLogDate(raw.getLogDate());
+        this.setNumberSlaves(raw.getNumberSlaves());
+        this.setProcessName(raw.getProcessName());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo getRawVersion1_69() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ThorLogInfo();
-        raw.setClusterGroup(this.getClusterGroup());
-        raw.setLogDate(this.getLogDate());
-        raw.setNumberSlaves(this.getNumberSlaves());
-        raw.setProcessName(this.getProcessName());
-        return raw;
+    public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ThorLogInfo raw)
+    {
+        if (raw==null)
+        {
+            return;
+        }
+
+        this.setClusterGroup(raw.getClusterGroup());
+        this.setLogDate(raw.getLogDate());
+        this.setNumberSlaves(raw.getNumberSlaves());
+        this.setProcessName(raw.getProcessName());
     }
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ThorLogInfo getRawVersion1_62() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ThorLogInfo();
-        raw.setClusterGroup(this.getClusterGroup());
-        raw.setLogDate(this.getLogDate());
-        raw.setNumberSlaves(this.getNumberSlaves());
-        raw.setProcessName(this.getProcessName());
-        return raw;
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo getRaw()
+    {
+        return this.getRawVersion1_75();
     }
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo getRawVersion1_58() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo raw=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ThorLogInfo();
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo getRawVersion1_75()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo();
+
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());
         raw.setNumberSlaves(this.getNumberSlaves());

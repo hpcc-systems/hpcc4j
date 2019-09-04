@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems</groupId>
   <artifactId>HPCC-JAPIs</artifactId>
-  <version>7.4.12-SNAPSHOT</version>
+  <version>7.6.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>HPCC Systems Java Projects</name>
   <url>https://hpccsystems.com</url>
@@ -54,6 +54,7 @@
     <junit.version>4.12</junit.version>
     <json.version>20180813</json.version>
     <log4j.version>1.2.17</log4j.version>
+    <axis2.version>1.7.9</axis2.version>
   </properties>
 
   <scm>
@@ -140,6 +141,37 @@
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
       <version>${javax.mail.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2</artifactId>
+      <version>${axis2.version}</version>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-kernel</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-http</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-local</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb</artifactId>
+			<version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-jaxws</artifactId>
+			<version>${axis2.version}</version>
     </dependency>
   </dependencies>
 

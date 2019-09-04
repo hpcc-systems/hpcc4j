@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.antlr;
 
-import java.text.ParseException;
-
 import org.antlr.v4.runtime.DefaultErrorStrategy;
 import org.antlr.v4.runtime.NoViableAltException;
 import org.antlr.v4.runtime.Parser;

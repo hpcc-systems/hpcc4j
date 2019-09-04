@@ -17,8 +17,6 @@
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileCreateResponse;
-
 public class DFUCreateFileWrapper
 {
 	public static final java.lang.String Flat = "Flat";
@@ -29,9 +27,22 @@ public class DFUCreateFileWrapper
     private String fileId;
     private DFUFileAccessInfoWrapper wrappedDFUFileAccessInfo;
 
-    public DFUCreateFileWrapper (DFUFileCreateResponse resp) throws Exception
+
+    public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCreateResponse resp) throws Exception 
     {
-        fileId = resp.getFileId();
+    	 fileId = resp.getFileId();
+
+         if (resp != null && resp.getAccessInfo() != null)
+         {
+             wrappedDFUFileAccessInfo = new DFUFileAccessInfoWrapper(resp.getAccessInfo(), null);
+         }
+         else
+             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
+	}
+
+	public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCreateResponse resp) throws Exception 
+	{
+		fileId = resp.getFileId();
 
         if (resp != null && resp.getAccessInfo() != null)
         {
@@ -39,21 +50,9 @@ public class DFUCreateFileWrapper
         }
         else
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-    }
+	}
 
-    public DFUCreateFileWrapper (org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCreateResponse resp) throws Exception
-    {
-        fileId = resp.getFileId();
-        
-        if (resp != null && resp.getAccessInfo() != null)
-        {
-            wrappedDFUFileAccessInfo = new DFUFileAccessInfoWrapper(resp.getAccessInfo());
-        }
-        else
-            throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-    }
-
-    /**
+	/**
      * Gets the ExpiryTime value for this DFUFileAccessInfo.
      *
      * @return ExpiryTime

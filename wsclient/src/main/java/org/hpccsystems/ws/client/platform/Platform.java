@@ -20,30 +20,34 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsClientPool;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.DFUWorkunit;
-import org.hpccsystems.ws.client.gen.filespray.v1_17.GetDFUWorkunitsResponse;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpDropZone;
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpLogicalCluster;
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpServices;
-import org.hpccsystems.ws.client.gen.wstopology.v1_28.TpTargetCluster;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.QuerySet;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySet;
+import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfDFUWorkunitWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitsResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
 public class Platform extends DataSingleton
 {
@@ -51,14 +55,25 @@ public class Platform extends DataSingleton
 
     public static DataSingletonCollection All = new DataSingletonCollection();
 
+    public static Platform get(Connection conn)
+    {
+        if (conn == null)
+            return null;
+
+        return (Platform) All.get(new Platform(conn));
+    }
+
     public static Platform get(String protocol, String ip, int port, String user, String pass)
     {
-        if (ip == null || ip.isEmpty())
+        if (ip == null || ip.isEmpty() || port <= 0)
         {
             return null;
         }
 
-        return (Platform) All.get(new Platform(protocol, ip, port, user, pass));
+        Connection conn = new Connection(protocol, ip, String.valueOf(port));
+        conn.setCredentials(user, pass);
+
+        return (Platform) All.get(new Platform(conn));
     }
 
     public static Platform get(String address, String user, String pass)
@@ -67,27 +82,25 @@ public class Platform extends DataSingleton
         {
             return null;
         }
-        URL hpccUrl;
+
+        Connection conn;
         try
         {
-            hpccUrl = new URL(address);
+            conn = new Connection(address);
+            conn.setCredentials(user, pass);
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
            return null;
         }
 
-        return (Platform) All.get(new Platform(hpccUrl, user, pass));
+        return (Platform) All.get(new Platform(conn));
     }
 
+    @Deprecated
     public static Platform getNoCreate(String protocol, String ip, int port, String user, String pass)
     {
-        if (ip == null || ip.isEmpty())
-        {
-            return null;
-        }
-
-        return (Platform) All.getNoCreate(new Platform(protocol, ip, port, user, pass));
+        return null;
     }
 
     public static void remove(Platform p)
@@ -133,24 +146,14 @@ public class Platform extends DataSingleton
     static int                              LATENCY_TEST = 0;
 
 
-    protected Platform(URL address, String user, String password)
+    protected Platform(Connection hpccconn)
     {
-        this(address.getProtocol(), address.getHost(), address.getPort(), user, password);
+        this(hpccconn, HPCCWsClientPool.DEFAULT_EXPIRE_MILLIS);
     }
 
-    protected Platform(URL address, String user, String password, long pooltimeoutmillis)
+    protected Platform(Connection hpccconn, long pooltimeoutmillis)
     {
-        this(address.getProtocol(), address.getHost(), address.getPort(), user, password, pooltimeoutmillis);
-    }
-    protected Platform(String protocol, String ip, int port, String user, String password)
-    {
-        this(protocol, ip, port, user, password, HPCCWsClientPool.DEFAULT_EXPIRE_MILLIS);
-    }
-
-    protected Platform(String protocol, String ip, int port, String user, String password, long pooltimeoutmillis)
-    {
-        hpccClientPool = new HPCCWsClientPool(protocol, ip, Integer.toString(port), user, password, pooltimeoutmillis);
-        //hpccclient = HPCCWsClient.get(protocol, ip, port, user, password);
+        hpccClientPool = new HPCCWsClientPool(hpccconn, pooltimeoutmillis);
         platformHPCCClient = hpccClientPool.checkOut();
 
         isDisabled = false;
@@ -259,11 +262,10 @@ public class Platform extends DataSingleton
         return success;
     }
 
-    //Rodrigo: do we need getbuildversion and get version??
-    /*public Version getBuildVersion()
+    public Version getBuildVersion()
     {
         return new Version(getBuild());
-    }*/
+    }
 
     public Version getVersion()
     {
@@ -286,7 +288,7 @@ public class Platform extends DataSingleton
      *   WUActionResume = 7
      *   WUActionSize = 8
      */
-    protected static String hackUnicodeInXMLForAxisOneAndESP(String src)//Rodrigo: what???
+    protected static String hackUnicodeInXMLForAxisOneAndESP(String src)
     {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < src.length(); ++i)
@@ -319,12 +321,12 @@ public class Platform extends DataSingleton
 
             try
             {
-                HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
+                org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
 
                 List<ApplicationValueWrapper> appVals=new ArrayList<ApplicationValueWrapper>();
                 appVals.add(new ApplicationValueWrapper(API_ID,"path",filePath));
-                
-                WorkunitInfo response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
+
+                WorkunitWrapper response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
 
                 //response now has cluster set, no need to set it here
 
@@ -336,15 +338,15 @@ public class Platform extends DataSingleton
                 }
 
             }
-            catch (ArrayOfEspException e)
-            {
-                e.printStackTrace();
-            }
             catch (RemoteException e)
             {
                 confirmDisable();
             }
             catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            catch (ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -407,18 +409,19 @@ public class Platform extends DataSingleton
             Workunit.All.pushTransaction("platform.getWorkunits"); //$NON-NLS-1$
             try
             {
-                HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryInfo info=new WUQueryInfo().setJobname(jobname).setCluster(cluster)
+                org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
+                WUQueryWrapper info = new WUQueryWrapper().setJobname(jobname).setCluster(cluster)
                         .setStartDate(Utils.UTCStringToDate(startDate)).setEndDate(Utils.UTCStringToDate(endDate))
                         .setPageSize(new Long(100)).setOwner(userOnly ? getUser() : null);
                 info.getApplicationValues().add(new ApplicationValueWrapper("org.hpccsystems.ws.client", appKey, appData));
-                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
+
+                List<WorkunitWrapper> response = wsWorkUnitsClient.workUnitUQuery(info);
                 updateWorkunits(response);
             }
-            catch (ArrayOfEspException e)
-            {
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 confirmDisable();
@@ -452,22 +455,21 @@ public class Platform extends DataSingleton
             Workunit.All.pushTransaction("platform.getWorkunits"); //$NON-NLS-1$
             try
             {
-
-                HPCCWsWorkUnitsClient wsWorkUnitsClient = getWsWorkunitsClient();
-                WUQueryInfo info=new WUQueryInfo();
+                org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
+                WUQueryWrapper info = new WUQueryWrapper();
                 info.setCluster(cluster);
                 info.setStartDate(startDate.getTime());
                 info.setEndDate(endDate.getTime());
                 info.setPageSize(new Long(100));
                 info.setOwner(owner);
-                List<WorkunitInfo> response = wsWorkUnitsClient.workUnitUQuery(info);
-             
+                List<WorkunitWrapper> response = wsWorkUnitsClient.workUnitUQuery(info);
+
                 updateWorkunits(response);
             }
-            catch (ArrayOfEspException e)
-            {
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 confirmDisable(); //rodrigo: we might need to confirmdisable on all exceptions, or tighten up the exception handling
@@ -492,12 +494,12 @@ public class Platform extends DataSingleton
         return getWorkunits(userOnly, "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
-    synchronized void updateWorkunits(List<WorkunitInfo> rawWorkunits)
+    synchronized void updateWorkunits(List<WorkunitWrapper> response)
     {
         workunits.clear();
-        if (rawWorkunits != null)
+        if (response != null)
         {
-            for (WorkunitInfo wu : rawWorkunits)
+            for (WorkunitWrapper wu : response)
             {
                 if (Workunit.isValidWUIDString(wu.getWuid()))
                 {
@@ -513,10 +515,14 @@ public class Platform extends DataSingleton
         return FileSprayWorkunit.get(this, id);
     }
 
-    public FileSprayWorkunit getFileSprayWorkunit(DFUWorkunit wu)
+    public FileSprayWorkunit getFileSprayWorkunit(DFUWorkunitWrapper wu)
     {
-        FileSprayWorkunit workunit = getFileSprayWorkunit(wu.getID());
-        workunit.update(wu);
+        FileSprayWorkunit workunit = null;
+        if (wu != null)
+        {
+            workunit = getFileSprayWorkunit(wu.getID());
+            workunit.update(wu);
+        }
         return workunit;
     }
 
@@ -527,20 +533,20 @@ public class Platform extends DataSingleton
             // TODO CollectionDelta monitor = new CollectionDelta("getFileSprayWorkunits", fileSprayWorkunits);
             try
             {
-                HPCCFileSprayClient fileSprayClient = getFileSprayClient();
-                GetDFUWorkunitsResponse response = fileSprayClient.getDFUWorkunits(cluster, new Long(100));
-
-                updateFileSprayWorkunits(response.getResults());
-            }
-            catch (ArrayOfEspException e)
-            {
-                e.printStackTrace();
+                org.hpccsystems.ws.client.HPCCFileSprayClient fileSprayClient = platformHPCCClient.getFileSprayClient();
+                GetDFUWorkunitsResponseWrapper response = fileSprayClient.getDFUWorkunits(cluster, new Long(100));
+                if (response != null)
+                {
+                    ArrayOfDFUWorkunitWrapper results = response.getResults();
+                    if (results.getDFUWorkunit() != null)
+                        updateFileSprayWorkunits(results.getDFUWorkunit());
+                }
             }
             catch (RemoteException e)
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
             }
-            catch (Exception e)
+            catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -554,12 +560,12 @@ public class Platform extends DataSingleton
         return getFileSprayWorkunits(""); //$NON-NLS-1$
     }
 
-    synchronized void updateFileSprayWorkunits(DFUWorkunit[] rawWorkunits)
+    synchronized void updateFileSprayWorkunits(List<DFUWorkunitWrapper> list)
     {
         fileSprayWorkunits.clear();
-        if (rawWorkunits != null)
+        if (list != null)
         {
-            for (DFUWorkunit wu : rawWorkunits)
+            for (DFUWorkunitWrapper wu : list)
             {
                 fileSprayWorkunits.add(getFileSprayWorkunit(wu)); // Will mark changed if needed ---
             }
@@ -586,15 +592,15 @@ public class Platform extends DataSingleton
             // TODO CollectionDelta monitor = new CollectionDelta("getDataQuerySets", dataQuerySets);
             try
             {
-                HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
-                QuerySet[] queryset = wsWorkunitsClient.getQuerySets();
+                HPCCWsWorkUnitsClient wsWorkunitsClient = platformHPCCClient.getWsWorkunitsClient();
+                QuerySet [] queryset = wsWorkunitsClient.getQuerySets();
 
                 updateDataQuerySets(queryset);
             }
-            catch (ArrayOfEspException e)
-            {
-                e.printStackTrace();
-            }
+//            catch (ArrayOfEspException e)
+//            {
+//                e.printStackTrace();
+//            }
             catch (RemoteException e)
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
@@ -647,10 +653,10 @@ public class Platform extends DataSingleton
             // TODO CollectionDelta monitor = new CollectionDelta("getLogicalFiles", logicalFiles);
             try
             {
-                HPCCWsDFUClient wsDfuClient = getWsDfuClient();
+                HPCCWsDFUClient wsDfuClient = platformHPCCClient.getWsDFUClient();
                 updateLogicalFiles(wsDfuClient.getLogicalFiles(null, cluster, 100, 0, 100));
             }
-            catch (ArrayOfEspException e)
+            catch (ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -672,12 +678,12 @@ public class Platform extends DataSingleton
         return getLogicalFiles(""); //$NON-NLS-1$
     }
 
-    synchronized void updateLogicalFiles(List<DFULogicalFileInfo> rawLogicalFiles)
+    synchronized void updateLogicalFiles(List<DFULogicalFileWrapper> rawLogicalFiles)
     {
         logicalFiles.clear();
         if (rawLogicalFiles != null)
         {
-            for (DFULogicalFileInfo lf : rawLogicalFiles)
+            for (DFULogicalFileWrapper lf : rawLogicalFiles)
             {
                 logicalFiles.add(getLogicalFile(lf.getFileName())); // Will mark changed if needed ---
             }
@@ -704,10 +710,10 @@ public class Platform extends DataSingleton
             // TODO CollectionDelta monitor = new CollectionDelta("getClusters", clusters);
             try
             {
-                HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
+                HPCCWsTopologyClient wsTopologyClient = platformHPCCClient.getWsTopologyClient();
                 updateClusters(wsTopologyClient.getLogicalClusters());
             }
-            catch (ArrayOfEspException e)
+            catch (ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -757,12 +763,12 @@ public class Platform extends DataSingleton
             try
             {
                 hpccclient = hpccClientPool.checkOut();
-                HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient(); //rodrigo, this call is expensive, just query DZs from wsfs?
+                HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient();
                 TpServices services = topclient.getServices();
                 if (services != null)
                     updateServices(services);
             }
-            catch (Exception e)
+            catch (Exception | ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
                 confirmDisable();
@@ -780,7 +786,7 @@ public class Platform extends DataSingleton
     {
         if (serviceList != null)
         {
-            updateDropZones(serviceList.getTpDropZones());
+            updateDropZones(serviceList.getTpDropZones().getTpDropZone());
         }
 
     }
@@ -840,55 +846,55 @@ public class Platform extends DataSingleton
         }
     }
 
-    /**
-     * @return HPCCWsWorkUnitsClient  - not thread safe - Use checkOutWsClient(), then getWsWorkunitsClient() for multi-thread use
-     * @throws Exception
-     */
-    public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
-    {
-        latencyTest();
-        return platformHPCCClient.getWsWorkunitsClient();
-    }
-
-    /**
-     * @return HPCCWsDFUClient - not thread safe - Use checkOutWsClient(), then getWsDFUClient() for multi-thread use
-     * @throws Exception
-     */
-    public HPCCWsDFUClient getWsDfuClient() throws Exception
-    {
-        latencyTest();
-        return platformHPCCClient.getWsDFUClient();
-    }
-
-    /**
-     * @return HPCCFileSprayClient - not thread safe - Use checkOutWsClient(), then getFileSprayClient() for multi-thread use
-     * @throws Exception
-     */
-    public HPCCFileSprayClient getFileSprayClient() throws Exception
-    {
-        latencyTest();
-        return platformHPCCClient.getFileSprayClient();
-    }
-
-    /**
-     * @return HPCCWsTopologyClient - not thread safe - Use checkOutWsClient(), then getWsTopologyClient() for multi-thread use
-     * @throws Exception
-     */
-    public HPCCWsTopologyClient getWsTopologyClient() throws Exception
-    {
-        latencyTest();
-        return platformHPCCClient.getWsTopologyClient();
-    }
-
-    /**
-     * @return HPCCWsSMCClient - not thread safe - Use checkOutWsClient(), then getWsSMCClient() for multi-thread use
-     * @throws Exception
-     */
-    public HPCCWsSMCClient getWsSMCClient() throws Exception
-    {
-        latencyTest();
-        return platformHPCCClient.getWsSMCClient();
-    }
+//    /**
+//     * @return HPCCWsWorkUnitsClient  - not thread safe - Use checkOutWsClient(), then getWsWorkunitsClient() for multi-thread use
+//     * @throws Exception
+//     */
+//    public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
+//    {
+//        latencyTest();
+//        return platformHPCCClient.getWsWorkunitsClient();
+//    }
+//
+//    /**
+//     * @return HPCCWsDFUClient - not thread safe - Use checkOutWsClient(), then getWsDFUClient() for multi-thread use
+//     * @throws Exception
+//     */
+//    public HPCCWsDFUClient getWsDfuClient() throws Exception
+//    {
+//        latencyTest();
+//        return platformHPCCClient.getWsDFUClient();
+//    }
+//
+//    /**
+//     * @return HPCCFileSprayClient - not thread safe - Use checkOutWsClient(), then getFileSprayClient() for multi-thread use
+//     * @throws Exception
+//     */
+//    public HPCCFileSprayClient getFileSprayClient() throws Exception
+//    {
+//        latencyTest();
+//        return platformHPCCClient.getFileSprayClient();
+//    }
+//
+//    /**
+//     * @return HPCCWsTopologyClient - not thread safe - Use checkOutWsClient(), then getWsTopologyClient() for multi-thread use
+//     * @throws Exception
+//     */
+//    public HPCCWsTopologyClient getWsTopologyClient() throws Exception
+//    {
+//        latencyTest();
+//        return platformHPCCClient.getWsTopologyClient();
+//    }
+//
+//    /**
+//     * @return HPCCWsSMCClient - not thread safe - Use checkOutWsClient(), then getWsSMCClient() for multi-thread use
+//     * @throws Exception
+//     */
+//    public HPCCWsSMCClient getWsSMCClient() throws Exception
+//    {
+//        latencyTest();
+//        return platformHPCCClient.getWsSMCClient();
+//    }
 
     /**
      * @return HPCCWsClient instance - not thread safe - Use checkoutWsClient for multi-thread use

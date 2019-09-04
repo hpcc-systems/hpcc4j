@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:filespray" targetNamespace="urn:hpccsystems:ws:filespray"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:filespray" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="AbortDFUWorkunit"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="AbortDFUWorkunitResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="Copy"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="sourceLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destGroup" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destGroupRoxie" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourceDali" type="xsd:string"/>
+<xsd:element minOccurs="0" name="srcusername" type="xsd:string"/>
+<xsd:element minOccurs="0" name="srcpassword" type="xsd:string"/>
+<xsd:element minOccurs="0" name="overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="replicate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="1" name="ReplicateOffset" type="xsd:int"/>
+<xsd:element minOccurs="0" name="maxConnections" type="xsd:int"/>
+<xsd:element minOccurs="0" name="throttle" type="xsd:int"/>
+<xsd:element minOccurs="0" name="transferBufferSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="nosplit" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="norecover" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="compress" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="Wrap" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="Multicopy" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="SourceDiffKeyName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestDiffKeyName" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="superCopy" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="push" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="pull" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="ifnewer" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="encrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" name="decrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" default="true" name="preserveCompression" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CopyResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CreateDFUWorkunit"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="CreateDFUWorkunitResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="result" type="tns:DFUWorkunit"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="DFUWorkunit">
+<xsd:all><xsd:element minOccurs="0" name="ID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DFUServerName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="ClusterName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="JobName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Queue" type="xsd:string"/>
+<xsd:element minOccurs="0" name="User" type="xsd:string"/>
+<xsd:element minOccurs="0" name="isProtected" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Command" type="xsd:int"/>
+<xsd:element minOccurs="0" name="CommandMessage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PercentDone" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SecsLeft" type="xsd:int"/>
+<xsd:element minOccurs="0" name="ProgressMessage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SummaryMessage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="State" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SourceLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceIP" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceFilePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceDali" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceRecordSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SourceFormat" type="xsd:int"/>
+<xsd:element minOccurs="0" name="RowTag" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceNumParts" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SourceDirectory" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestGroupName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestDirectory" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestIP" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestFilePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestFormat" type="xsd:int"/>
+<xsd:element minOccurs="0" name="DestNumParts" type="xsd:int"/>
+<xsd:element minOccurs="0" name="DestRecordSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="Replicate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Compress" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="SourceCsvSeparate" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceCsvQuote" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceCsvTerminate" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SourceCsvEscape" type="xsd:string"/>
+<xsd:element minOccurs="0" name="TimeStarted" type="xsd:string"/>
+<xsd:element minOccurs="0" name="TimeStopped" type="xsd:string"/>
+<xsd:element minOccurs="0" name="StateMessage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="MonitorEventName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="MonitorSub" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="MonitorShotLimit" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SourceDiffKeyName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DestDiffKeyName" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="Archived" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="encrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" name="decrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="failIfNoSourceFile" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="recordStructurePresent" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="quotedTerminator" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="preserveCompression" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="expireDays" type="xsd:int"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="DFUWUFileRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Wuid" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PlainText" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUWUFileResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="file" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUWUSearchRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="DFUWUSearchResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="ClusterNames"><xsd:complexType><xsd:sequence><xsd:element name="ClusterName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUWorkunitsActionRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuids" type="tns:EspStringArray"/>
+<xsd:element minOccurs="0" name="Type" type="tns:DFUWUActions"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:simpleType name="DFUWUActions"><xsd:restriction base="xsd:string"><xsd:enumeration value="Delete"/><xsd:enumeration value="Protect"/><xsd:enumeration value="Unprotect"/><xsd:enumeration value="Restore"/><xsd:enumeration value="SetToFailed"/></xsd:restriction></xsd:simpleType><xsd:complexType name="EspStringArray"><xsd:sequence><xsd:element name="Item" type="xsd:string"  minOccurs="0" maxOccurs="unbounded" /></xsd:sequence></xsd:complexType>
+<xsd:element name="DFUWorkunitsActionResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" default="WUID" name="FirstColumn" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DFUActionResults" type="tns:ArrayOfDFUActionResult"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="DFUActionResult">
+<xsd:all><xsd:element minOccurs="0" name="ID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Action" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfDFUActionResult">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="DFUActionResult" type="tns:DFUActionResult"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="DeleteDFUWorkunit"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteDFUWorkunitResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="result" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteDFUWorkunits"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuids" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteDFUWorkunitsResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DeleteDropZoneFilesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DropZoneName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="OS" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Names" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="Despray"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="sourceLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destIP" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destPath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="dstxml" type="xsd:base64Binary"/>
+<xsd:element minOccurs="0" name="overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="maxConnections" type="xsd:int"/>
+<xsd:element minOccurs="0" name="throttle" type="xsd:int"/>
+<xsd:element minOccurs="0" name="transferBufferSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="splitprefix" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="norecover" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="wrap" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="multiCopy" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="SingleConnection" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="compress" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="encrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" name="decrypt" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DesprayResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DfuMonitorRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="EventName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="LogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Ip" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Filename" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Sub" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="ShotLimit" type="xsd:int"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DfuMonitorResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DropZoneFileSearchRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DropZoneName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Server" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="ECLWatchVisibleOnly" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="NameFilter" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DropZoneFileSearchResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Files" type="tns:ArrayOfPhysicalFileStruct"/>
+<xsd:element minOccurs="0" name="Warning" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="PhysicalFileStruct">
+<xsd:all><xsd:element minOccurs="0" name="name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="isDir" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="filesize" type="xsd:long"/>
+<xsd:element minOccurs="0" name="modifiedtime" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Files" type="tns:ArrayOfPhysicalFileStruct"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfPhysicalFileStruct">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="PhysicalFileStruct" type="tns:PhysicalFileStruct"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="DropZoneFilesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DropZoneName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="OS" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Subfolder" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="ECLWatchVisibleOnly" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="DirectoryOnly" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DropZoneFilesResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="DropZoneName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="OS" type="xsd:int"/>
+<xsd:element minOccurs="0" name="ECLWatchVisibleOnly" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DropZones" type="tns:ArrayOfDropZone"/>
+<xsd:element minOccurs="0" name="Files" type="tns:ArrayOfPhysicalFileStruct"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="DropZone">
+<xsd:all><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Computer" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Linux" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfDropZone">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="DropZone" type="tns:DropZone"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="EchoDateTime"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="dt" type="xsd:dateTime"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="EchoDateTimeResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="result" type="xsd:dateTime"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FileListRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Netaddr" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Mask" type="xsd:string"/>
+<xsd:element minOccurs="0" name="OS" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="DirectoryOnly" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FileListResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Netaddr" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Mask" type="xsd:string"/>
+<xsd:element minOccurs="0" name="OS" type="xsd:int"/>
+<xsd:element minOccurs="0" default="false" name="DirectoryOnly" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="AcceptLanguage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="files" type="tns:ArrayOfPhysicalFileStruct"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUExceptions"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUExceptionsResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="result" type="tns:ArrayOfDFUException"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="DFUException">
+<xsd:all><xsd:element minOccurs="0" name="Code" type="xsd:int"/>
+<xsd:element minOccurs="0" name="Message" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfDFUException">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="DFUException" type="tns:DFUException"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="ProgressRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ProgressResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PercentDone" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SecsLeft" type="xsd:int"/>
+<xsd:element minOccurs="0" name="KbPerSecAve" type="xsd:int"/>
+<xsd:element minOccurs="0" name="KbPerSec" type="xsd:int"/>
+<xsd:element minOccurs="0" name="SlavesDone" type="xsd:int"/>
+<xsd:element minOccurs="0" name="TimeTaken" type="xsd:string"/>
+<xsd:element minOccurs="0" name="ProgressMessage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SummaryMessage" type="xsd:string"/>
+<xsd:element minOccurs="0" name="State" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUServerQueuesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUServerName" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUServerQueuesResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Names" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUWorkunit"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUWorkunitResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="result" type="tns:DFUWorkunit"/>
+<xsd:element minOccurs="0" name="AutoRefresh" type="xsd:int"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUWorkunits"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Wuid" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+<xsd:element minOccurs="0" name="StateReq" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Jobname" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PageSize" type="xsd:long"/>
+<xsd:element minOccurs="0" name="CurrentPage" type="xsd:int"/>
+<xsd:element minOccurs="0" default="-1" name="PageStartFrom" type="xsd:long"/>
+<xsd:element minOccurs="0" name="Sortby" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="Descending" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="-1" name="CacheHint" type="xsd:long"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="GetDFUWorkunitsResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="results" type="tns:ArrayOfDFUWorkunit"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+<xsd:element minOccurs="0" name="StateReq" type="xsd:string"/>
+<xsd:element minOccurs="0" name="PageSize" type="xsd:long"/>
+<xsd:element minOccurs="0" name="PrevPage" type="xsd:long"/>
+<xsd:element minOccurs="0" name="NextPage" type="xsd:long"/>
+<xsd:element minOccurs="0" default="-1" name="LastPage" type="xsd:long"/>
+<xsd:element minOccurs="0" name="NumWUs" type="xsd:long"/>
+<xsd:element minOccurs="0" default="-1" name="PageStartFrom" type="xsd:long"/>
+<xsd:element minOccurs="0" name="PageEndAt" type="xsd:long"/>
+<xsd:element minOccurs="0" default="true" name="First" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="Sortby" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="Descending" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="BasicQuery" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Filters" type="xsd:string"/>
+<xsd:element minOccurs="0" name="CacheHint" type="xsd:long"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="ArrayOfDFUWorkunit">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="DFUWorkunit" type="tns:DFUWorkunit"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="GetSprayTargetsRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="GetSprayTargetsResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="GroupNodes">
+<xsd:complexType><xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="GroupNode" type="tns:GroupNode"/></xsd:sequence></xsd:complexType></xsd:element></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="GroupNode">
+<xsd:all><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="ClusterType" type="xsd:string"/>
+<xsd:element minOccurs="0" name="ReplicateOutputs" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="OpenSaveRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Location" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DateTime" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="BinaryFile" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="OpenSaveResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Location" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="DateTime" type="xsd:string"/>
+<xsd:element minOccurs="0" default="true" name="Viewable" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="FileSprayPingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="FileSprayPingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="Rename"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="srcname" type="xsd:string"/>
+<xsd:element minOccurs="0" name="dstname" type="xsd:string"/>
+<xsd:element minOccurs="0" name="overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="RenameResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="Replicate"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="sourceLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" default="1" name="replicateOffset" type="xsd:int"/>
+<xsd:element minOccurs="0" name="cluster" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="repeatLast" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="onlyRepeated" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ReplicateResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ShowResultRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ShowResultResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SprayFixed"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="sourceIP" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourcePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="srcxml" type="xsd:base64Binary"/>
+<xsd:element minOccurs="0" name="sourceFormat" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourceRecordSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="destGroup" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="replicate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="1" name="ReplicateOffset" type="xsd:int"/>
+<xsd:element minOccurs="0" name="maxConnections" type="xsd:int"/>
+<xsd:element minOccurs="0" name="throttle" type="xsd:int"/>
+<xsd:element minOccurs="0" name="transferBufferSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="prefix" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="nosplit" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="norecover" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="compress" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="push" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="pull" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="encrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" name="decrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="wrap" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="failIfNoSourceFile" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="recordStructurePresent" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="quotedTerminator" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="expireDays" type="xsd:int"/>
+<xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SprayFixedResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SprayVariable"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="sourceIP" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourcePath" type="xsd:string"/>
+<xsd:element minOccurs="0" name="srcxml" type="xsd:base64Binary"/>
+<xsd:element minOccurs="0" name="sourceMaxRecordSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="sourceFormat" type="xsd:int"/>
+<xsd:element minOccurs="0" default="false" name="NoSourceCsvSeparator" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="sourceCsvSeparate" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourceCsvTerminate" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourceCsvQuote" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourceCsvEscape" type="xsd:string"/>
+<xsd:element minOccurs="0" name="sourceRowTag" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destGroup" type="xsd:string"/>
+<xsd:element minOccurs="0" name="destLogicalName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="overwrite" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="replicate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="1" name="ReplicateOffset" type="xsd:int"/>
+<xsd:element minOccurs="0" name="maxConnections" type="xsd:int"/>
+<xsd:element minOccurs="0" name="throttle" type="xsd:int"/>
+<xsd:element minOccurs="0" name="transferBufferSize" type="xsd:int"/>
+<xsd:element minOccurs="0" name="prefix" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="nosplit" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="norecover" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="compress" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="push" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="pull" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="encrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" name="decrypt" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="failIfNoSourceFile" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="recordStructurePresent" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="true" name="quotedTerminator" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="sourceRowPath" type="xsd:string"/>
+<xsd:element minOccurs="0" default="false" name="isJSON" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="expireDays" type="xsd:int"/>
+<xsd:element minOccurs="0" name="DFUServerQueue" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SprayResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SubmitDFUWorkunit"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wuid" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="SubmitDFUWorkunitResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="UpdateDFUWorkunit"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="wu" type="tns:DFUWorkunit"/>
+<xsd:element minOccurs="0" name="ClusterOrig" type="xsd:string"/>
+<xsd:element minOccurs="0" name="JobNameOrig" type="xsd:string"/>
+<xsd:element minOccurs="0" name="isProtectedOrig" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="StateOrig" type="xsd:int"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="UpdateDFUWorkunitResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="AbortDFUWorkunitSoapIn"><part name="parameters" element="tns:AbortDFUWorkunit"/></message><message name="AbortDFUWorkunitSoapOut"><part name="parameters" element="tns:AbortDFUWorkunitResponse"/></message><message name="CopySoapIn"><part name="parameters" element="tns:Copy"/></message><message name="CopySoapOut"><part name="parameters" element="tns:CopyResponse"/></message><message name="CreateDFUWorkunitSoapIn"><part name="parameters" element="tns:CreateDFUWorkunit"/></message><message name="CreateDFUWorkunitSoapOut"><part name="parameters" element="tns:CreateDFUWorkunitResponse"/></message><message name="DFUWUFileSoapIn"><part name="parameters" element="tns:DFUWUFileRequest"/></message><message name="DFUWUFileSoapOut"><part name="parameters" element="tns:DFUWUFileResponse"/></message><message name="DFUWUSearchSoapIn"><part name="parameters" element="tns:DFUWUSearchRequest"/></message><message name="DFUWUSearchSoapOut"><part name="parameters" element="tns:DFUWUSearchResponse"/></message><message name="DFUWorkunitsActionSoapIn"><part name="parameters" element="tns:DFUWorkunitsActionRequest"/></message><message name="DFUWorkunitsActionSoapOut"><part name="parameters" element="tns:DFUWorkunitsActionResponse"/></message><message name="DeleteDFUWorkunitSoapIn"><part name="parameters" element="tns:DeleteDFUWorkunit"/></message><message name="DeleteDFUWorkunitSoapOut"><part name="parameters" element="tns:DeleteDFUWorkunitResponse"/></message><message name="DeleteDFUWorkunitsSoapIn"><part name="parameters" element="tns:DeleteDFUWorkunits"/></message><message name="DeleteDFUWorkunitsSoapOut"><part name="parameters" element="tns:DeleteDFUWorkunitsResponse"/></message><message name="DeleteDropZoneFilesSoapIn"><part name="parameters" element="tns:DeleteDropZoneFilesRequest"/></message><message name="DeleteDropZoneFilesSoapOut"><part name="parameters" element="tns:DFUWorkunitsActionResponse"/></message><message name="DespraySoapIn"><part name="parameters" element="tns:Despray"/></message><message name="DespraySoapOut"><part name="parameters" element="tns:DesprayResponse"/></message><message name="DfuMonitorSoapIn"><part name="parameters" element="tns:DfuMonitorRequest"/></message><message name="DfuMonitorSoapOut"><part name="parameters" element="tns:DfuMonitorResponse"/></message><message name="DropZoneFileSearchSoapIn"><part name="parameters" element="tns:DropZoneFileSearchRequest"/></message><message name="DropZoneFileSearchSoapOut"><part name="parameters" element="tns:DropZoneFileSearchResponse"/></message><message name="DropZoneFilesSoapIn"><part name="parameters" element="tns:DropZoneFilesRequest"/></message><message name="DropZoneFilesSoapOut"><part name="parameters" element="tns:DropZoneFilesResponse"/></message><message name="EchoDateTimeSoapIn"><part name="parameters" element="tns:EchoDateTime"/></message><message name="EchoDateTimeSoapOut"><part name="parameters" element="tns:EchoDateTimeResponse"/></message><message name="FileListSoapIn"><part name="parameters" element="tns:FileListRequest"/></message><message name="FileListSoapOut"><part name="parameters" element="tns:FileListResponse"/></message><message name="GetDFUExceptionsSoapIn"><part name="parameters" element="tns:GetDFUExceptions"/></message><message name="GetDFUExceptionsSoapOut"><part name="parameters" element="tns:GetDFUExceptionsResponse"/></message><message name="GetDFUProgressSoapIn"><part name="parameters" element="tns:ProgressRequest"/></message><message name="GetDFUProgressSoapOut"><part name="parameters" element="tns:ProgressResponse"/></message><message name="GetDFUServerQueuesSoapIn"><part name="parameters" element="tns:GetDFUServerQueuesRequest"/></message><message name="GetDFUServerQueuesSoapOut"><part name="parameters" element="tns:GetDFUServerQueuesResponse"/></message><message name="GetDFUWorkunitSoapIn"><part name="parameters" element="tns:GetDFUWorkunit"/></message><message name="GetDFUWorkunitSoapOut"><part name="parameters" element="tns:GetDFUWorkunitResponse"/></message><message name="GetDFUWorkunitsSoapIn"><part name="parameters" element="tns:GetDFUWorkunits"/></message><message name="GetDFUWorkunitsSoapOut"><part name="parameters" element="tns:GetDFUWorkunitsResponse"/></message><message name="GetSprayTargetsSoapIn"><part name="parameters" element="tns:GetSprayTargetsRequest"/></message><message name="GetSprayTargetsSoapOut"><part name="parameters" element="tns:GetSprayTargetsResponse"/></message><message name="OpenSaveSoapIn"><part name="parameters" element="tns:OpenSaveRequest"/></message><message name="OpenSaveSoapOut"><part name="parameters" element="tns:OpenSaveResponse"/></message><message name="PingSoapIn"><part name="parameters" element="tns:FileSprayPingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:FileSprayPingResponse"/></message><message name="RenameSoapIn"><part name="parameters" element="tns:Rename"/></message><message name="RenameSoapOut"><part name="parameters" element="tns:RenameResponse"/></message><message name="ReplicateSoapIn"><part name="parameters" element="tns:Replicate"/></message><message name="ReplicateSoapOut"><part name="parameters" element="tns:ReplicateResponse"/></message><message name="ShowResultSoapIn"><part name="parameters" element="tns:ShowResultRequest"/></message><message name="ShowResultSoapOut"><part name="parameters" element="tns:ShowResultResponse"/></message><message name="SprayFixedSoapIn"><part name="parameters" element="tns:SprayFixed"/></message><message name="SprayFixedSoapOut"><part name="parameters" element="tns:SprayFixedResponse"/></message><message name="SprayVariableSoapIn"><part name="parameters" element="tns:SprayVariable"/></message><message name="SprayVariableSoapOut"><part name="parameters" element="tns:SprayResponse"/></message><message name="SubmitDFUWorkunitSoapIn"><part name="parameters" element="tns:SubmitDFUWorkunit"/></message><message name="SubmitDFUWorkunitSoapOut"><part name="parameters" element="tns:SubmitDFUWorkunitResponse"/></message><message name="UpdateDFUWorkunitSoapIn"><part name="parameters" element="tns:UpdateDFUWorkunit"/></message><message name="UpdateDFUWorkunitSoapOut"><part name="parameters" element="tns:UpdateDFUWorkunitResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="FileSprayServiceSoap"><operation name="AbortDFUWorkunit"><input message="tns:AbortDFUWorkunitSoapIn"/><output message="tns:AbortDFUWorkunitSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Copy"><input message="tns:CopySoapIn"/><output message="tns:CopySoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="CreateDFUWorkunit"><input message="tns:CreateDFUWorkunitSoapIn"/><output message="tns:CreateDFUWorkunitSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUWUFile"><input message="tns:DFUWUFileSoapIn"/><output message="tns:DFUWUFileSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUWUSearch"><input message="tns:DFUWUSearchSoapIn"/><output message="tns:DFUWUSearchSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUWorkunitsAction"><input message="tns:DFUWorkunitsActionSoapIn"/><output message="tns:DFUWorkunitsActionSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DeleteDFUWorkunit"><input message="tns:DeleteDFUWorkunitSoapIn"/><output message="tns:DeleteDFUWorkunitSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DeleteDFUWorkunits"><input message="tns:DeleteDFUWorkunitsSoapIn"/><output message="tns:DeleteDFUWorkunitsSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DeleteDropZoneFiles"><input message="tns:DeleteDropZoneFilesSoapIn"/><output message="tns:DeleteDropZoneFilesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Despray"><input message="tns:DespraySoapIn"/><output message="tns:DespraySoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DfuMonitor"><input message="tns:DfuMonitorSoapIn"/><output message="tns:DfuMonitorSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DropZoneFileSearch"><input message="tns:DropZoneFileSearchSoapIn"/><output message="tns:DropZoneFileSearchSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DropZoneFiles"><input message="tns:DropZoneFilesSoapIn"/><output message="tns:DropZoneFilesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="EchoDateTime"><input message="tns:EchoDateTimeSoapIn"/><output message="tns:EchoDateTimeSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="FileList"><input message="tns:FileListSoapIn"/><output message="tns:FileListSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetDFUExceptions"><input message="tns:GetDFUExceptionsSoapIn"/><output message="tns:GetDFUExceptionsSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetDFUProgress"><input message="tns:GetDFUProgressSoapIn"/><output message="tns:GetDFUProgressSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetDFUServerQueues"><input message="tns:GetDFUServerQueuesSoapIn"/><output message="tns:GetDFUServerQueuesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetDFUWorkunit"><input message="tns:GetDFUWorkunitSoapIn"/><output message="tns:GetDFUWorkunitSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetDFUWorkunits"><input message="tns:GetDFUWorkunitsSoapIn"/><output message="tns:GetDFUWorkunitsSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="GetSprayTargets"><input message="tns:GetSprayTargetsSoapIn"/><output message="tns:GetSprayTargetsSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="OpenSave"><input message="tns:OpenSaveSoapIn"/><output message="tns:OpenSaveSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Rename"><input message="tns:RenameSoapIn"/><output message="tns:RenameSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Replicate"><input message="tns:ReplicateSoapIn"/><output message="tns:ReplicateSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ShowResult"><input message="tns:ShowResultSoapIn"/><output message="tns:ShowResultSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="SprayFixed"><input message="tns:SprayFixedSoapIn"/><output message="tns:SprayFixedSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="SprayVariable"><input message="tns:SprayVariableSoapIn"/><output message="tns:SprayVariableSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="SubmitDFUWorkunit"><input message="tns:SubmitDFUWorkunitSoapIn"/><output message="tns:SubmitDFUWorkunitSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="UpdateDFUWorkunit"><input message="tns:UpdateDFUWorkunitSoapIn"/><output message="tns:UpdateDFUWorkunitSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="FileSprayServiceSoap" type="tns:FileSprayServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="AbortDFUWorkunit"><soap:operation soapAction="FileSpray/AbortDFUWorkunit?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Copy"><soap:operation soapAction="FileSpray/Copy?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="CreateDFUWorkunit"><soap:operation soapAction="FileSpray/CreateDFUWorkunit?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUWUFile"><soap:operation soapAction="FileSpray/DFUWUFile?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUWUSearch"><soap:operation soapAction="FileSpray/DFUWUSearch?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUWorkunitsAction"><soap:operation soapAction="FileSpray/DFUWorkunitsAction?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DeleteDFUWorkunit"><soap:operation soapAction="FileSpray/DeleteDFUWorkunit?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DeleteDFUWorkunits"><soap:operation soapAction="FileSpray/DeleteDFUWorkunits?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DeleteDropZoneFiles"><soap:operation soapAction="FileSpray/DeleteDropZoneFiles?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Despray"><soap:operation soapAction="FileSpray/Despray?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DfuMonitor"><soap:operation soapAction="FileSpray/DfuMonitor?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DropZoneFileSearch"><soap:operation soapAction="FileSpray/DropZoneFileSearch?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DropZoneFiles"><soap:operation soapAction="FileSpray/DropZoneFiles?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="EchoDateTime"><soap:operation soapAction="FileSpray/EchoDateTime?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="FileList"><soap:operation soapAction="FileSpray/FileList?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetDFUExceptions"><soap:operation soapAction="FileSpray/GetDFUExceptions?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetDFUProgress"><soap:operation soapAction="FileSpray/GetDFUProgress?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetDFUServerQueues"><soap:operation soapAction="FileSpray/GetDFUServerQueues?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetDFUWorkunit"><soap:operation soapAction="FileSpray/GetDFUWorkunit?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetDFUWorkunits"><soap:operation soapAction="FileSpray/GetDFUWorkunits?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="GetSprayTargets"><soap:operation soapAction="FileSpray/GetSprayTargets?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="OpenSave"><soap:operation soapAction="FileSpray/OpenSave?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Ping"><soap:operation soapAction="FileSpray/Ping?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Rename"><soap:operation soapAction="FileSpray/Rename?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Replicate"><soap:operation soapAction="FileSpray/Replicate?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ShowResult"><soap:operation soapAction="FileSpray/ShowResult?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="SprayFixed"><soap:operation soapAction="FileSpray/SprayFixed?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="SprayVariable"><soap:operation soapAction="FileSpray/SprayVariable?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="SubmitDFUWorkunit"><soap:operation soapAction="FileSpray/SubmitDFUWorkunit?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="UpdateDFUWorkunit"><soap:operation soapAction="FileSpray/UpdateDFUWorkunit?ver_=1.16" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="FileSpray"><port name="FileSprayServiceSoap" binding="tns:FileSprayServiceSoap"><soap:address location="http://10.0.2.15:8010/FileSpray?ver_=1.16"/></port></service></definitions>

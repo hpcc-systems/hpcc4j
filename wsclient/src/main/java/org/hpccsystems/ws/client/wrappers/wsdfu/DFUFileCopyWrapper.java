@@ -17,6 +17,8 @@
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCopy;
+
 public class DFUFileCopyWrapper
 {
     private Integer copyIndex;
@@ -24,28 +26,20 @@ public class DFUFileCopyWrapper
     private String path;
     private String resolvedHost;
 
-    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileCopy soapdfufilecopy, String resolvedhost)
+    public DFUFileCopyWrapper(DFUFileCopy dfuFileCopy, String resolvedhost)
     {
         resolvedHost = resolvedhost;
-        copyIndex = soapdfufilecopy.getCopyIndex();
-        locationIndex = soapdfufilecopy.getLocationIndex();
-        path = soapdfufilecopy.getPath();
+        copyIndex = dfuFileCopy.getCopyIndex();
+        locationIndex = dfuFileCopy.getLocationIndex();
+        path = dfuFileCopy.getPath();
     }
 
-    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileCopy soapdfufilecopy, String resolvedhost)
+    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCopy dfuFileCopy, String resolvedhost)
     {
         resolvedHost = resolvedhost;
-        copyIndex = soapdfufilecopy.getCopyIndex();
-        locationIndex = soapdfufilecopy.getLocationIndex();
-        path = soapdfufilecopy.getPath();
-    }
-
-    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileCopy soapdfufilecopy, String resolvedhost)
-    {
-        resolvedHost = resolvedhost;
-        copyIndex = soapdfufilecopy.getCopyIndex();
-        locationIndex = soapdfufilecopy.getLocationIndex();
-        path = soapdfufilecopy.getPath();
+        copyIndex = dfuFileCopy.getCopyIndex();
+        locationIndex = dfuFileCopy.getLocationIndex();
+        path = dfuFileCopy.getPath();
     }
 
     public String getCopyHost()
@@ -62,7 +56,7 @@ public class DFUFileCopyWrapper
     {
         return copyIndex;
     }
-    
+
     public Integer getLocationIndex()
     {
         return locationIndex;

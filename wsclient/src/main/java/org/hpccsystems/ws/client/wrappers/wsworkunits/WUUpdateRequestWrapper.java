@@ -3,222 +3,289 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
 
 public class WUUpdateRequestWrapper
 {
-    String wuid;
-    Integer state;
-    Integer stateOrig;
-    String jobname;
-    String jobnameOrig;
-    String queryText;
-    Integer action;
-    String description;
-    String descriptionOrig;
-    Boolean addDrilldownFields;
-    Integer resultLimit;
-    Boolean _protected;
-    Boolean protectedOrig;
-    Integer priorityClass;
-    Integer priorityLevel;
-    String scope;
-    String scopeOrig;
-    String clusterSelection;
-    String clusterOrig;
-    String xmlParams;
-    String thorSlaveIP;
-    String queryMainDefinition;
-    List<DebugValueWrapper> debugValues=new ArrayList<DebugValueWrapper>();
-    List<ApplicationValueWrapper> applicationValues=new ArrayList<ApplicationValueWrapper>();
+    String                        wuid;
+    Integer                       state;
+    Integer                       stateOrig;
+    String                        jobname;
+    String                        jobnameOrig;
+    String                        queryText;
+    Integer                       action;
+    String                        description;
+    String                        descriptionOrig;
+    Boolean                       addDrilldownFields;
+    Integer                       resultLimit;
+    Boolean                       _protected;
+    Boolean                       protectedOrig;
+    Integer                       priorityClass;
+    Integer                       priorityLevel;
+    String                        scope;
+    String                        scopeOrig;
+    String                        clusterSelection;
+    String                        clusterOrig;
+    String                        xmlParams;
+    String                        thorSlaveIP;
+    String                        queryMainDefinition;
+    List<DebugValueWrapper>       debugValues       = new ArrayList<DebugValueWrapper>();
+    List<ApplicationValueWrapper> applicationValues = new ArrayList<ApplicationValueWrapper>();
 
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate getRaw() {
-        return getRawVersion74();
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate getRaw()
+    {
+        return getRawVersion75();
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate getRawVersion74() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue[] avs=null;
-        if (this.getApplicationValues().size()>0) {
-            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ApplicationValue[this.getApplicationValues().size()];
-            for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRawVersion1_74();
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate getRawVersion75()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue[] avs = null;
+        if (this.getApplicationValues().size() > 0)
+        {
+            avs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue[this.getApplicationValues().size()];
+            for (int i = 0; i < this.getApplicationValues().size(); i++)
+            {
+                avs[i] = this.getApplicationValues().get(i).getRawVersion1_75();
             }
         }
 
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue[] dvs=null;
-        if (this.getDebugValues().size()>0) {
-            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.DebugValue[this.getDebugValues().size()];
-            for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRawVersion1_74();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.DebugValue[] dvs = null;
+        if (this.getDebugValues().size() > 0)
+        {
+            dvs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.DebugValue[this.getDebugValues().size()];
+            for (int i = 0; i < this.getDebugValues().size(); i++)
+            {
+                dvs[i] = this.getDebugValues().get(i).getRawVersion1_75();
             }
         }
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate raw=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUUpdate(
-            wuid,
-            state,
-            stateOrig,
-            jobname,
-            jobnameOrig,
-            queryText,
-            action,
-            description,
-            descriptionOrig,
-            addDrilldownFields,
-            resultLimit,
-            _protected,
-            protectedOrig,
-            priorityClass,
-            priorityLevel,
-            scope,
-            scopeOrig,
-            clusterSelection,
-            clusterOrig,
-            xmlParams,
-            thorSlaveIP,
-            queryMainDefinition,
-            dvs,avs);
-        
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate();
+        raw.setWuid(wuid);
+        raw.setState(state);
+        raw.setStateOrig(stateOrig);
+        raw.setJobname(jobname);
+        raw.setJobnameOrig(jobnameOrig);
+        raw.setQueryText(queryText);
+        raw.setAction(action);
+        raw.setDescription(description);
+        raw.setDescriptionOrig(descriptionOrig);
+        raw.setAddDrilldownFields(addDrilldownFields);
+        raw.setResultLimit(resultLimit);
+        raw.setProtected(_protected);
+        raw.setProtectedOrig(protectedOrig);
+        raw.setPriorityClass(priorityClass);
+        raw.setPriorityLevel(priorityLevel);
+        raw.setScope(scope);
+        raw.setScopeOrig(scopeOrig);
+        raw.setClusterSelection(clusterSelection);
+        raw.setClusterOrig(clusterOrig);
+        raw.setXmlParams(xmlParams);
+        raw.setThorSlaveIP(thorSlaveIP);
+        raw.setQueryMainDefinition(queryMainDefinition);
+
+        if (dvs != null && dvs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfDebugValue dvarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfDebugValue();
+            dvarray.setDebugValue(dvs);
+            raw.setDebugValues(dvarray);
+        }
+
+        if (avs != null && avs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue avarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue();
+            avarray.setApplicationValue(avs);
+            raw.setApplicationValues(avarray);
+        }
         return raw;
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate getRawVersion1_69() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[] avs=null;
-        if (this.getApplicationValues().size()>0) {
-            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.ApplicationValue[this.getApplicationValues().size()];
-            for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRawVersion1_69();
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUUpdate getRawVersion1_69()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[] avs = null;
+        if (this.getApplicationValues().size() > 0)
+        {
+            avs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[this.getApplicationValues().size()];
+            for (int i = 0; i < this.getApplicationValues().size(); i++)
+            {
+                avs[i] = this.getApplicationValues().get(i).getRawVersion1_69();
             }
         }
 
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[] dvs=null;
-        if (this.getDebugValues().size()>0) {
-            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.DebugValue[this.getDebugValues().size()];
-            for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRawVersion1_69();
-            }
-        }
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate raw=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_69.WUUpdate(
-            wuid,
-            state,
-            stateOrig,
-            jobname,
-            jobnameOrig,
-            queryText,
-            action,
-            description,
-            descriptionOrig,
-            addDrilldownFields,
-            resultLimit,
-            _protected,
-            protectedOrig,
-            priorityClass,
-            priorityLevel,
-            scope,
-            scopeOrig,
-            clusterSelection,
-            clusterOrig,
-            xmlParams,
-            thorSlaveIP,
-            queryMainDefinition,
-            dvs,avs);
-        
-        return raw;
-    }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdate getRawVersion1_62() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[] avs=null;
-        if (this.getApplicationValues().size()>0) {
-            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.ApplicationValue[this.getApplicationValues().size()];
-            for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRawVersion1_62();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[] dvs = null;
+        if (this.getDebugValues().size() > 0)
+        {
+            dvs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[this.getDebugValues().size()];
+            for (int i = 0; i < this.getDebugValues().size(); i++)
+            {
+                dvs[i] = this.getDebugValues().get(i).getRawVersion1_69();
             }
         }
 
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[] dvs=null;
-        if (this.getDebugValues().size()>0) {
-            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.DebugValue[this.getDebugValues().size()];
-            for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRawVersion1_62();
-            }
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUUpdate raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUUpdate();
+        raw.setWuid(wuid);
+        raw.setState(state);
+        raw.setStateOrig(stateOrig);
+        raw.setJobname(jobname);
+        raw.setJobnameOrig(jobnameOrig);
+        raw.setQueryText(queryText);
+        raw.setAction(action);
+        raw.setDescription(description);
+        raw.setDescriptionOrig(descriptionOrig);
+        raw.setAddDrilldownFields(addDrilldownFields);
+        raw.setResultLimit(resultLimit);
+        raw.setProtected(_protected);
+        raw.setProtectedOrig(protectedOrig);
+        raw.setPriorityClass(priorityClass);
+        raw.setPriorityLevel(priorityLevel);
+        raw.setScope(scope);
+        raw.setScopeOrig(scopeOrig);
+        raw.setClusterSelection(clusterSelection);
+        raw.setClusterOrig(clusterOrig);
+        raw.setXmlParams(xmlParams);
+        raw.setThorSlaveIP(thorSlaveIP);
+        raw.setQueryMainDefinition(queryMainDefinition);
+
+        if (dvs != null && dvs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfDebugValue dvarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfDebugValue();
+            dvarray.setDebugValue(dvs);
+            raw.setDebugValues(dvarray);
         }
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdate raw=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_62.WUUpdate(
-            wuid,
-            state,
-            stateOrig,
-            jobname,
-            jobnameOrig,
-            queryText,
-            action,
-            description,
-            descriptionOrig,
-            addDrilldownFields,
-            resultLimit,
-            _protected,
-            protectedOrig,
-            priorityClass,
-            priorityLevel,
-            scope,
-            scopeOrig,
-            clusterSelection,
-            clusterOrig,
-            xmlParams,
-            thorSlaveIP,
-            queryMainDefinition,
-            dvs,avs);
-        
+
+        if (avs != null && avs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfApplicationValue avarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfApplicationValue();
+            avarray.setApplicationValue(avs);
+            raw.setApplicationValues(avarray);
+        }
+
         return raw;
     }
-    
-    public org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdate getRawVersion1_58() {
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[] avs=null;
-        if (this.getApplicationValues().size()>0) {
-            avs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.ApplicationValue[this.getApplicationValues().size()];
-            for (int i=0; i < this.getApplicationValues().size();i++) {
-                avs[i]=this.getApplicationValues().get(i).getRawVersion1_58();
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUUpdate getRawVersion1_62()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[] avs = null;
+        if (this.getApplicationValues().size() > 0)
+        {
+            avs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[this.getApplicationValues().size()];
+            for (int i = 0; i < this.getApplicationValues().size(); i++)
+            {
+                avs[i] = this.getApplicationValues().get(i).getRawVersion1_62();
             }
         }
 
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[] dvs=null;
-        if (this.getDebugValues().size()>0) {
-            dvs=new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()];
-            for (int i=0; i < this.getDebugValues().size();i++) {
-                dvs[i]=this.getDebugValues().get(i).getRawVersion1_58();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[] dvs = null;
+        if (this.getDebugValues().size() > 0)
+        {
+            dvs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[this.getDebugValues().size()];
+            for (int i = 0; i < this.getDebugValues().size(); i++)
+            {
+                dvs[i] = this.getDebugValues().get(i).getRawVersion1_62();
             }
         }
-        org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdate raw=
-                new org.hpccsystems.ws.client.gen.wsworkunits.v1_58.WUUpdate(
-            wuid,
-            state,
-            stateOrig,
-            jobname,
-            jobnameOrig,
-            queryText,
-            action,
-            description,
-            descriptionOrig,
-            addDrilldownFields,
-            resultLimit,
-            _protected,
-            protectedOrig,
-            priorityClass,
-            priorityLevel,
-            scope,
-            scopeOrig,
-            clusterSelection,
-            clusterOrig,
-            xmlParams,
-            thorSlaveIP,
-            queryMainDefinition,
-            dvs,avs);
-        
+
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUUpdate raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUUpdate();
+        raw.setWuid(wuid);
+        raw.setState(state);
+        raw.setStateOrig(stateOrig);
+        raw.setJobname(jobname);
+        raw.setJobnameOrig(jobnameOrig);
+        raw.setQueryText(queryText);
+        raw.setAction(action);
+        raw.setDescription(description);
+        raw.setDescriptionOrig(descriptionOrig);
+        raw.setAddDrilldownFields(addDrilldownFields);
+        raw.setResultLimit(resultLimit);
+        raw.setProtected(_protected);
+        raw.setProtectedOrig(protectedOrig);
+        raw.setPriorityClass(priorityClass);
+        raw.setPriorityLevel(priorityLevel);
+        raw.setScope(scope);
+        raw.setScopeOrig(scopeOrig);
+        raw.setClusterSelection(clusterSelection);
+        raw.setClusterOrig(clusterOrig);
+        raw.setXmlParams(xmlParams);
+        raw.setThorSlaveIP(thorSlaveIP);
+        raw.setQueryMainDefinition(queryMainDefinition);
+
+        if (dvs != null && dvs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfDebugValue dvarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfDebugValue();
+            dvarray.setDebugValue(dvs);
+            raw.setDebugValues(dvarray);
+        }
+
+        if (avs != null && avs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfApplicationValue avarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfApplicationValue();
+            avarray.setApplicationValue(avs);
+            raw.setApplicationValues(avarray);
+        }
+
         return raw;
     }
+
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUUpdate getRawVersion1_58()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[] avs = null;
+        if (this.getApplicationValues().size() > 0)
+        {
+            avs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[this.getApplicationValues().size()];
+            for (int i = 0; i < this.getApplicationValues().size(); i++)
+            {
+                avs[i] = this.getApplicationValues().get(i).getRawVersion1_58();
+            }
+        }
+
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[] dvs = null;
+        if (this.getDebugValues().size() > 0)
+        {
+            dvs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()];
+            for (int i = 0; i < this.getDebugValues().size(); i++)
+            {
+                dvs[i] = this.getDebugValues().get(i).getRawVersion1_58();
+            }
+        }
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUUpdate raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUUpdate();
+        raw.setWuid(wuid);
+        raw.setState(state);
+        raw.setStateOrig(stateOrig);
+        raw.setJobname(jobname);
+        raw.setJobnameOrig(jobnameOrig);
+        raw.setQueryText(queryText);
+        raw.setAction(action);
+        raw.setDescription(description);
+        raw.setDescriptionOrig(descriptionOrig);
+        raw.setAddDrilldownFields(addDrilldownFields);
+        raw.setResultLimit(resultLimit);
+        raw.setProtected(_protected);
+        raw.setProtectedOrig(protectedOrig);
+        raw.setPriorityClass(priorityClass);
+        raw.setPriorityLevel(priorityLevel);
+        raw.setScope(scope);
+        raw.setScopeOrig(scopeOrig);
+        raw.setClusterSelection(clusterSelection);
+        raw.setClusterOrig(clusterOrig);
+        raw.setXmlParams(xmlParams);
+        raw.setThorSlaveIP(thorSlaveIP);
+        raw.setQueryMainDefinition(queryMainDefinition);
+        if (dvs != null && dvs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfDebugValue dvarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfDebugValue();
+            dvarray.setDebugValue(dvs);
+            raw.setDebugValues(dvarray);
+        }
+        if (avs != null && avs.length > 0)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfApplicationValue avarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfApplicationValue();
+            avarray.setApplicationValue(avs);
+            raw.setApplicationValues(avarray);
+        }
+
+        return raw;
+    }
+
     /**
      * @return the wuid
      */
@@ -226,6 +293,7 @@ public class WUUpdateRequestWrapper
     {
         return wuid;
     }
+
     /**
      * @param wuid the wuid to set
      */
@@ -233,6 +301,7 @@ public class WUUpdateRequestWrapper
     {
         this.wuid = wuid;
     }
+
     /**
      * @return the state
      */
@@ -240,6 +309,7 @@ public class WUUpdateRequestWrapper
     {
         return state;
     }
+
     /**
      * @param state the state to set
      */
@@ -247,6 +317,7 @@ public class WUUpdateRequestWrapper
     {
         this.state = state;
     }
+
     /**
      * @return the stateOrig
      */
@@ -254,6 +325,7 @@ public class WUUpdateRequestWrapper
     {
         return stateOrig;
     }
+
     /**
      * @param stateOrig the stateOrig to set
      */
@@ -261,6 +333,7 @@ public class WUUpdateRequestWrapper
     {
         this.stateOrig = stateOrig;
     }
+
     /**
      * @return the jobname
      */
@@ -268,6 +341,7 @@ public class WUUpdateRequestWrapper
     {
         return jobname;
     }
+
     /**
      * @param jobname the jobname to set
      */
@@ -275,6 +349,7 @@ public class WUUpdateRequestWrapper
     {
         this.jobname = jobname;
     }
+
     /**
      * @return the jobnameOrig
      */
@@ -282,6 +357,7 @@ public class WUUpdateRequestWrapper
     {
         return jobnameOrig;
     }
+
     /**
      * @param jobnameOrig the jobnameOrig to set
      */
@@ -289,6 +365,7 @@ public class WUUpdateRequestWrapper
     {
         this.jobnameOrig = jobnameOrig;
     }
+
     /**
      * @return the queryText
      */
@@ -296,6 +373,7 @@ public class WUUpdateRequestWrapper
     {
         return queryText;
     }
+
     /**
      * @param queryText the queryText to set
      */
@@ -303,6 +381,7 @@ public class WUUpdateRequestWrapper
     {
         this.queryText = queryText;
     }
+
     /**
      * @return the action
      */
@@ -310,6 +389,7 @@ public class WUUpdateRequestWrapper
     {
         return action;
     }
+
     /**
      * @param action the action to set
      */
@@ -317,6 +397,7 @@ public class WUUpdateRequestWrapper
     {
         this.action = action;
     }
+
     /**
      * @return the description
      */
@@ -324,6 +405,7 @@ public class WUUpdateRequestWrapper
     {
         return description;
     }
+
     /**
      * @param description the description to set
      */
@@ -331,6 +413,7 @@ public class WUUpdateRequestWrapper
     {
         this.description = description;
     }
+
     /**
      * @return the descriptionOrig
      */
@@ -338,6 +421,7 @@ public class WUUpdateRequestWrapper
     {
         return descriptionOrig;
     }
+
     /**
      * @param descriptionOrig the descriptionOrig to set
      */
@@ -345,6 +429,7 @@ public class WUUpdateRequestWrapper
     {
         this.descriptionOrig = descriptionOrig;
     }
+
     /**
      * @return the addDrilldownFields
      */
@@ -352,6 +437,7 @@ public class WUUpdateRequestWrapper
     {
         return addDrilldownFields;
     }
+
     /**
      * @param addDrilldownFields the addDrilldownFields to set
      */
@@ -359,6 +445,7 @@ public class WUUpdateRequestWrapper
     {
         this.addDrilldownFields = addDrilldownFields;
     }
+
     /**
      * @return the resultLimit
      */
@@ -366,6 +453,7 @@ public class WUUpdateRequestWrapper
     {
         return resultLimit;
     }
+
     /**
      * @param resultLimit the resultLimit to set
      */
@@ -373,6 +461,7 @@ public class WUUpdateRequestWrapper
     {
         this.resultLimit = resultLimit;
     }
+
     /**
      * @return the _protected
      */
@@ -380,6 +469,7 @@ public class WUUpdateRequestWrapper
     {
         return _protected;
     }
+
     /**
      * @param _protected the _protected to set
      */
@@ -387,6 +477,7 @@ public class WUUpdateRequestWrapper
     {
         this._protected = _protected;
     }
+
     /**
      * @return the protectedOrig
      */
@@ -394,6 +485,7 @@ public class WUUpdateRequestWrapper
     {
         return protectedOrig;
     }
+
     /**
      * @param protectedOrig the protectedOrig to set
      */
@@ -401,6 +493,7 @@ public class WUUpdateRequestWrapper
     {
         this.protectedOrig = protectedOrig;
     }
+
     /**
      * @return the priorityClass
      */
@@ -408,6 +501,7 @@ public class WUUpdateRequestWrapper
     {
         return priorityClass;
     }
+
     /**
      * @param priorityClass the priorityClass to set
      */
@@ -415,6 +509,7 @@ public class WUUpdateRequestWrapper
     {
         this.priorityClass = priorityClass;
     }
+
     /**
      * @return the priorityLevel
      */
@@ -422,6 +517,7 @@ public class WUUpdateRequestWrapper
     {
         return priorityLevel;
     }
+
     /**
      * @param priorityLevel the priorityLevel to set
      */
@@ -429,6 +525,7 @@ public class WUUpdateRequestWrapper
     {
         this.priorityLevel = priorityLevel;
     }
+
     /**
      * @return the scope
      */
@@ -436,6 +533,7 @@ public class WUUpdateRequestWrapper
     {
         return scope;
     }
+
     /**
      * @param scope the scope to set
      */
@@ -443,6 +541,7 @@ public class WUUpdateRequestWrapper
     {
         this.scope = scope;
     }
+
     /**
      * @return the scopeOrig
      */
@@ -450,6 +549,7 @@ public class WUUpdateRequestWrapper
     {
         return scopeOrig;
     }
+
     /**
      * @param scopeOrig the scopeOrig to set
      */
@@ -457,6 +557,7 @@ public class WUUpdateRequestWrapper
     {
         this.scopeOrig = scopeOrig;
     }
+
     /**
      * @return the clusterSelection
      */
@@ -464,6 +565,7 @@ public class WUUpdateRequestWrapper
     {
         return clusterSelection;
     }
+
     /**
      * @param clusterSelection the clusterSelection to set
      */
@@ -471,6 +573,7 @@ public class WUUpdateRequestWrapper
     {
         this.clusterSelection = clusterSelection;
     }
+
     /**
      * @return the clusterOrig
      */
@@ -478,6 +581,7 @@ public class WUUpdateRequestWrapper
     {
         return clusterOrig;
     }
+
     /**
      * @param clusterOrig the clusterOrig to set
      */
@@ -485,6 +589,7 @@ public class WUUpdateRequestWrapper
     {
         this.clusterOrig = clusterOrig;
     }
+
     /**
      * @return the xmlParams
      */
@@ -492,6 +597,7 @@ public class WUUpdateRequestWrapper
     {
         return xmlParams;
     }
+
     /**
      * @param xmlParams the xmlParams to set
      */
@@ -499,6 +605,7 @@ public class WUUpdateRequestWrapper
     {
         this.xmlParams = xmlParams;
     }
+
     /**
      * @return the thorSlaveIP
      */
@@ -506,6 +613,7 @@ public class WUUpdateRequestWrapper
     {
         return thorSlaveIP;
     }
+
     /**
      * @param thorSlaveIP the thorSlaveIP to set
      */
@@ -513,6 +621,7 @@ public class WUUpdateRequestWrapper
     {
         this.thorSlaveIP = thorSlaveIP;
     }
+
     /**
      * @return the queryMainDefinition
      */
@@ -520,6 +629,7 @@ public class WUUpdateRequestWrapper
     {
         return queryMainDefinition;
     }
+
     /**
      * @param queryMainDefinition the queryMainDefinition to set
      */
@@ -527,6 +637,7 @@ public class WUUpdateRequestWrapper
     {
         this.queryMainDefinition = queryMainDefinition;
     }
+
     /**
      * @return the debugValues
      */
@@ -534,6 +645,7 @@ public class WUUpdateRequestWrapper
     {
         return debugValues;
     }
+
     /**
      * @param debugValues the debugValues to set
      */
@@ -541,6 +653,7 @@ public class WUUpdateRequestWrapper
     {
         this.debugValues = debugValues;
     }
+
     /**
      * @return the applicationValues
      */
@@ -548,6 +661,7 @@ public class WUUpdateRequestWrapper
     {
         return applicationValues;
     }
+
     /**
      * @param applicationValues the applicationValues to set
      */

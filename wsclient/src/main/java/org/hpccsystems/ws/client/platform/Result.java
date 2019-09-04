@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.ECLResult;
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.WUResultResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUResultResponse;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DatasetParser;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.wrappers.WUState;
 import org.xml.sax.InputSource;
 
 public class Result extends DataSingleton
@@ -93,7 +94,7 @@ public class Result extends DataSingleton
             HPCCWsWorkUnitsClient wsWorkunitsClient;
             try
             {
-                wsWorkunitsClient = workunit.getPlatform().getWsWorkunitsClient();
+                wsWorkunitsClient = workunit.getPlatform().getWsClient().getWsWorkunitsClient();
                 WUResultResponse response = wsWorkunitsClient.fetchRawResults(workunit.getWuid(), true, info.getSequence(), null, true, start, count);
 
                 String resultString = response.getResult();
@@ -159,7 +160,7 @@ public class Result extends DataSingleton
 
     public WUState getStateID()
     {
-        if (info.getTotal() != null && info.getTotal() != -1)
+        if (/*info.getTotal() != null &&*/ info.getTotal() != -1)
         {
             return WUState.COMPLETED;
         }
@@ -188,7 +189,7 @@ public class Result extends DataSingleton
         {
             return 0;
         }
-        return info.getECLSchemas().length;
+        return info.getECLSchemas().getECLSchemaItem().length;
     }
 
     public String getColumnName(int i)
@@ -197,7 +198,7 @@ public class Result extends DataSingleton
         {
             return "";
         }
-        return info.getECLSchemas()[i].getColumnName();
+        return info.getECLSchemas().getECLSchemaItem()[i].getColumnName();
     }
 
     public String getCell(int row, int col)
@@ -222,7 +223,7 @@ public class Result extends DataSingleton
     boolean update(ECLResult result)
     {
         boolean retVal = false;
-        if (result != null && info.getSequence().equals(result.getSequence()) && !info.equals(result))
+        if (result != null && info.getSequence() == result.getSequence() && !info.equals(result))
         {
             if (UpdateState(result))
             {
@@ -236,7 +237,7 @@ public class Result extends DataSingleton
 
     synchronized boolean UpdateState(ECLResult result)
     {
-        if (result != null && info.getSequence().equals(result.getSequence()) && EqualsUtil.hasChanged(info, result))
+        if (result != null && info.getSequence() == result.getSequence() && EqualsUtil.hasChanged(info, result))
         {
 
             assert (result.getECLSchemas() != null);
