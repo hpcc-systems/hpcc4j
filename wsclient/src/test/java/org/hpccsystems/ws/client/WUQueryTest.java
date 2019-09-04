@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper.SortBy;
@@ -27,7 +28,7 @@ public class WUQueryTest extends BaseRemoteTest
     }
 
     @Test
-    public void testGetWorkunitByAppName() throws Exception, ArrayOfEspExceptionWrapper
+    public void testGetWorkunitByAppName() throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         wswuclient.createWorkunit();
         WorkunitWrapper wu=new WorkunitWrapper();

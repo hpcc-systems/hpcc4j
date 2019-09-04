@@ -475,7 +475,7 @@ public class HPCCWsClient extends DataSingleton
         }
         catch (org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
+            log.error(e.toString());
         }
 
         return null;

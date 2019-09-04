@@ -20,6 +20,7 @@ package org.hpccsystems.ws.client;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
@@ -56,8 +57,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -87,8 +87,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -116,8 +115,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -137,17 +135,16 @@ public class WSWorkunitsTest extends BaseRemoteTest
         catch (AxisFault e)
         {
             e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getLocalizedMessage());
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getLocalizedMessage());
         }
-        catch (ArrayOfEspExceptionWrapper e)
+        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 }

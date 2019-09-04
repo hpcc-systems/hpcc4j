@@ -126,8 +126,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
@@ -147,8 +146,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            e.toString();
-            Assert.fail();
+            Assert.fail(e.toString());
         }
     }
 
