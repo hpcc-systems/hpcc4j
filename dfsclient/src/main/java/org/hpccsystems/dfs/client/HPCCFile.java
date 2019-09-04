@@ -18,29 +18,19 @@ package org.hpccsystems.dfs.client;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
-import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.UUID;
 
-import org.json.JSONObject;
-
 import org.apache.log4j.Logger;
-import org.hpccsystems.dfs.cluster.ClusterRemapper;
-import org.hpccsystems.dfs.cluster.RemapInfo;
-import org.hpccsystems.dfs.client.ColumnPruner;
-import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.FieldDef;
-import org.hpccsystems.commons.ecl.FieldType;
-import org.hpccsystems.commons.ecl.HpccSrcType;
+import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.commons.filter.SQLExpression;
-import org.hpccsystems.commons.filter.SQLOperator;
-import org.hpccsystems.commons.filter.SQLFilter;
+import org.hpccsystems.dfs.cluster.ClusterRemapper;
+import org.hpccsystems.dfs.cluster.RemapInfo;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileType;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
+import org.json.JSONObject;
 
 public class HPCCFile implements Serializable
 {

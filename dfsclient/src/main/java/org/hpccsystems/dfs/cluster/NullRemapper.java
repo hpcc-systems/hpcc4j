@@ -16,9 +16,9 @@
 package org.hpccsystems.dfs.cluster;
 
 import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.ws.client.platform.DFUFilePartInfo;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileCopyWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUPartWrapper;
 
 /**
  * A no action re-map of the address.  Does provide the port information.
@@ -71,7 +71,7 @@ public class NullRemapper extends ClusterRemapper
     * @see org.hpccsystems.spark.thor.ClusterRemapper#revisePort(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
     */
     @Override
-    public int revisePort(DFUFilePartInfo fpi)
+    public int revisePort(DFUPartWrapper fpi)
     {
         return rowServicePort;
     }
@@ -80,7 +80,7 @@ public class NullRemapper extends ClusterRemapper
      * @see org.hpccsystems.spark.thor.ClusterRemapper#getUsesSSLConnection(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
     */
     @Override
-    public boolean getUsesSSLConnection(DFUFilePartInfo fpi)
+    public boolean getUsesSSLConnection(DFUPartWrapper fpi)
     {
         return usesSSL;
     }

@@ -10,7 +10,7 @@ package org.hpccsystems.ws.client.platform;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.gen.wsworkunits.v1_74.QuerySet;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySet;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
