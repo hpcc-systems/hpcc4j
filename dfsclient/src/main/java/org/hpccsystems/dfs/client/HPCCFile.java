@@ -29,6 +29,7 @@ import org.hpccsystems.dfs.cluster.ClusterRemapper;
 import org.hpccsystems.dfs.cluster.RemapInfo;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.json.JSONObject;
 
@@ -265,7 +266,7 @@ public class HPCCFile implements Serializable
             }
 
         }
-        catch (Exception e)
+        catch (Exception | ArrayOfEspExceptionWrapper e)
         {
             log.error("Unable to retrieve file or record information: " + e.getMessage());
             throw new HpccFileException("Unable to retrieve file or record information: " + e.getMessage(), e);
@@ -346,23 +347,23 @@ public class HPCCFile implements Serializable
     }
 
     private static DFUFileAccessInfoWrapper fetchReadFileInfo(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName)
-            throws Exception
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpccClient.getFileAccess(fileName, clusterName, expirySeconds, uniqueID);
     }
 
-    private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception
+    private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
         return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
-    private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception
+    private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
         return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
-    private static String acquireFileAccess(String fileName, HPCCWsDFUClient hpcc, int expirySeconds, String clusterName) throws Exception
+    private static String acquireFileAccess(String fileName, HPCCWsDFUClient hpcc, int expirySeconds, String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpcc.getFileAccessBlob(fileName, clusterName, expirySeconds, uniqueID);
