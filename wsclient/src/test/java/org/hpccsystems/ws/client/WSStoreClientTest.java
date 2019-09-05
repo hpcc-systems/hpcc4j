@@ -120,13 +120,13 @@ public class WSStoreClientTest extends BaseRemoteTest
                 client.fetchAllNSKeys(storename, ns,false);
             }
         }
-        catch (Exception e)
-        {
-            Assert.fail(e.getLocalizedMessage());
-        }
         catch (ArrayOfEspExceptionWrapper e)
         {
             Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
         }
     }
 
@@ -140,13 +140,13 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertNotNull(fetchAllNSKeys);
             System.out.println("All Keys: " + fetchAllNSKeys.toString());
         }
-        catch (Exception e)
-        {
-            Assert.fail(e.getLocalizedMessage());
-        }
         catch (ArrayOfEspExceptionWrapper e)
         {
             Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
         }
     }
 

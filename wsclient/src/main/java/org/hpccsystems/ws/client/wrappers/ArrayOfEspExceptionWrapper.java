@@ -26,7 +26,7 @@ import java.util.List;
  * TimeStamp: 2019-08-03T01:15:45.768Z
  */
 
-public class ArrayOfEspExceptionWrapper extends Throwable
+public class ArrayOfEspExceptionWrapper extends java.lang.Exception
 {
     private static final long serialVersionUID = 1L;
 
@@ -34,36 +34,42 @@ public class ArrayOfEspExceptionWrapper extends Throwable
     protected String source;
     protected List<EspExceptionWrapper> exceptions = new ArrayList<EspExceptionWrapper>();
 
-	public ArrayOfEspExceptionWrapper() {}
+	public ArrayOfEspExceptionWrapper() { super();}
 
 	public ArrayOfEspExceptionWrapper(ArrayOfEspExceptionWrapper arrayofespexception)
 	{
+	    super();
 		copy( arrayofespexception );
 	}
 
 	public ArrayOfEspExceptionWrapper( String _source, List<EspExceptionWrapper> _exception )
 	{
+	    super();
 		this.source = _source;
 		this.exceptions = _exception;
 	}
 
 	public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException arrayofespexception)
     {
+	    super();
         copy(arrayofespexception);
     }
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException arrayofespexception)
     {
+        super();
         copy(arrayofespexception);
     }
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ArrayOfEspException arrayofespexception)
     {
+        super();
         copy(arrayofespexception);
     }
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ArrayOfEspException arrayofespexception)
     {
+        super();
         copy(arrayofespexception);
     }
 
@@ -86,6 +92,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -103,6 +110,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -120,6 +128,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -137,6 +146,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -154,6 +164,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -171,6 +182,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -188,6 +200,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ArrayOfEspException arrayofespexception)
     {
+        super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
@@ -295,7 +308,7 @@ public class ArrayOfEspExceptionWrapper extends Throwable
         for (EspExceptionWrapper espExceptionWrapper : exceptions)
         {
             multimessage.append("\n\t");
-            multimessage.append("EspException: Audience: " + espExceptionWrapper.getAudience() + "Source: " + espExceptionWrapper.getSource() + "Message: " + espExceptionWrapper.getMessage());
+            multimessage.append("EspException: Audience: " + espExceptionWrapper.getAudience() + " Source: " + espExceptionWrapper.getSource() + " Message: " + espExceptionWrapper.getMessage());
         }
 
         return multimessage.toString();
@@ -320,4 +333,22 @@ public class ArrayOfEspExceptionWrapper extends Throwable
 	{
 		return this.exceptions;
 	}
+
+	@Override
+	public String getLocalizedMessage()
+	{
+        String message = super.getLocalizedMessage();
+        if (message == null || message.isEmpty())
+            message = wsClientMessage;
+        return message;
+    }
+
+	@Override
+    public String getMessage()
+    {
+        String message = super.getMessage();
+        if (message == null || message.isEmpty())
+            message = wsClientMessage;
+        return message;
+    }
 }

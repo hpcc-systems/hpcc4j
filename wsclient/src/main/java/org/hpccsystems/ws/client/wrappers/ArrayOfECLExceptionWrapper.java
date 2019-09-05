@@ -9,22 +9,25 @@ public class ArrayOfECLExceptionWrapper extends Throwable
 {
     private static final long serialVersionUID = 1L;
     protected List<ECLExceptionWrapper> eclExceptions = new ArrayList<ECLExceptionWrapper>();
-    protected String WsClientMessage;
+    protected String wsClientMessage;
 
-    public ArrayOfECLExceptionWrapper() {}
+    public ArrayOfECLExceptionWrapper() { super();}
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException arrayofeclexception)
     {
+        super();
         copy( arrayofeclexception );
     }
 
     public ArrayOfECLExceptionWrapper(List<ECLExceptionWrapper> _eCLException)
     {
+        super();
         this.eclExceptions = _eCLException;
     }
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException[] eclExceptions)
     {
+        super();
         copy(eclExceptions);
     }
 
@@ -58,7 +61,7 @@ public class ArrayOfECLExceptionWrapper extends Throwable
      */
     public String getWsClientMessage()
     {
-        return WsClientMessage;
+        return wsClientMessage;
     }
 
     /**
@@ -66,7 +69,7 @@ public class ArrayOfECLExceptionWrapper extends Throwable
      */
     public ArrayOfECLExceptionWrapper setWsClientMessage(String wsClientMessage)
     {
-        WsClientMessage = wsClientMessage;
+        this.wsClientMessage = wsClientMessage;
         return this;
     }
 
@@ -75,12 +78,19 @@ public class ArrayOfECLExceptionWrapper extends Throwable
     {
         StringBuilder multimessage = new StringBuilder();
         multimessage.append("ArrayOfECLExceptionWrapper: ");
-        multimessage.append(WsClientMessage);
+        multimessage.append(wsClientMessage);
         multimessage.append("\n");
         for (ECLExceptionWrapper eclExceptionWrapper : eclExceptions)
         {
             multimessage.append("\n\t");
-            multimessage.append(eclExceptionWrapper.getMessage());
+            multimessage.append("code: " + eclExceptionWrapper.getCode() + "\t");
+            multimessage.append("scope: " + eclExceptionWrapper.getScope() + "\t");
+            multimessage.append("severity: " + eclExceptionWrapper.getSeverity() + "\t");
+            multimessage.append("activity: " + eclExceptionWrapper.getActivity() + "\n\t");
+            multimessage.append("file: " + eclExceptionWrapper.getFileName() + "\t");
+            multimessage.append("line: " + eclExceptionWrapper.getLineNo() + "\t");
+            multimessage.append("col: " + eclExceptionWrapper.getColumn() + "\t");
+            multimessage.append("Message: " + eclExceptionWrapper.getMessage());
         }
 
         return multimessage.toString();
@@ -94,5 +104,14 @@ public class ArrayOfECLExceptionWrapper extends Throwable
     public List<ECLExceptionWrapper> getECLException( )
     {
         return this.eclExceptions;
+    }
+
+    @Override
+    public String getLocalizedMessage()
+    {
+        String message = super.getMessage();
+        if (message == null || message.isEmpty())
+            message = wsClientMessage;
+        return message;
     }
 }

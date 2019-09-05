@@ -31,6 +31,7 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 
 public class PhysicalMachine extends DataSingleton
 {
@@ -151,7 +152,7 @@ public class PhysicalMachine extends DataSingleton
             PhysicalFileStructWrapper[] dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(), physicalmachinestruct.getDirectory(), null);
             update(dzfiles);
         }
-        catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             log.error("Could not refresh files list for PhysicalMachine: '" + physicalmachinestruct.getName() + "'");
             e.printStackTrace();
@@ -180,6 +181,11 @@ public class PhysicalMachine extends DataSingleton
         {
             physicalmachinestruct = tpmachinestruct;
         }
+    }
+
+    public void update(TpMachineWrapper tpmachinestruct)
+    {
+        update(tpmachinestruct.getRaw());
     }
 
     @Override
