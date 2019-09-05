@@ -47,18 +47,28 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void createHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
+    public void AcreateHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true));
     }
 
     @Test
-    public void writeHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
+    public void BwriteHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
         Assert.assertTrue(client.writeHPCCFileData(data, testfilename, targetLZ, true, 0, 20));
+    }
+
+    @Test
+    public void CreadHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
+        byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
+        String response = client.readFileData(targetLZ, testfilename, data.length, 0);
+        Assert.assertNotNull(response);
+        Assert.assertArrayEquals(data, response.getBytes());
     }
 
     @Test

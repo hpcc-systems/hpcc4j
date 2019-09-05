@@ -120,7 +120,7 @@ public class LogicalFile extends DataSingleton
             DFUInfoWrapper fileInfo = wsDfuClient.getFileInfo(dfulogicalfile.getName(), null);
             update(fileInfo.getFileDetail());
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }

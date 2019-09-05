@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client;
 
+import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -14,6 +15,8 @@ import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ReadFileDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ReadFileDataResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WriteFileDataRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WriteFileDataResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.WsFileIOPingRequest;
@@ -241,5 +244,48 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
             }
         }
         return success;
+    }
+
+    public String readFileData(String dropzone, String fileName, long datasize, long offset) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        ReadFileDataRequest readFileDataRequest = new ReadFileDataRequest();
+        readFileDataRequest.setDestDropZone(dropzone);
+        readFileDataRequest.setDestRelativePath(fileName);
+        readFileDataRequest.setDataSize(datasize);
+        readFileDataRequest.setOffset(offset);
+
+        ReadFileDataResponse resp = null;
+        try
+        {
+            resp = ((WsFileIOStub)stub).readFileData(readFileDataRequest);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCWsDFUClient.readFileData(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not ReadFiledata");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not ReadFiledata");
+
+        String result = resp.getResult();
+        if (result != null && !result.isEmpty() && !result.equals("ReadFileData done.")) //Account for ESP inline success/error
+        {
+            throw new EspSoapFault("HPCCWsFileIOClient.readfiledata error received: " + result);
+        }
+
+        String data = null;
+        DataHandler handler = resp.getData();
+        if (handler != null)
+        {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            handler.writeTo(output);
+            data = output.toString();
+        }
+
+        return data;
     }
 }

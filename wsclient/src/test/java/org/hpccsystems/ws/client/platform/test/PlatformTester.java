@@ -395,7 +395,7 @@ public class PlatformTester
             }
 
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             System.out.println( e.getLocalizedMessage());
         }

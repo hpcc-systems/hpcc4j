@@ -33,6 +33,8 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.FindAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.FindAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttribute;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributeResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributes;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.RenameAttributeRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.RenameAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeRequest;
@@ -43,6 +45,8 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.hpccsystems.ws.client.wrappers.GetAttributesResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.GetAttributesWrapper;
 
 public class HPCCWsAttributesClient extends BaseHPCCWsClient
 {
@@ -846,5 +850,36 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             }
         }
         return results;
+    }
+
+    public GetAttributesResponseWrapper getAttributes(String label, String modulename, EspStringArray typelist) throws Exception
+    {
+        GetAttributes request = new GetAttributes();
+
+        request.setLabel(label);
+        request.setModuleName(modulename);
+        request.setTypeList(typelist);
+
+        return getAttributes(new GetAttributesWrapper(request));
+    }
+
+    public GetAttributesResponseWrapper getAttributes(GetAttributesWrapper request) throws Exception
+    {
+        verifyStub();
+
+        GetAttributesResponse response = null;
+        try
+        {
+            response = ((WsAttributesStub)stub).getAttributes(request.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCWsAttributes.getAttributes() encountered RemoteException.", e);
+        }
+
+        if (response != null && response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get attributes");
+
+        return new GetAttributesResponseWrapper(response);
     }
 }

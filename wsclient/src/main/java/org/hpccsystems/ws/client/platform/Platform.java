@@ -45,6 +45,9 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfDFUWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitsResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpDropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpLogicalClusterWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpServicesWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
@@ -336,17 +339,12 @@ public class Platform extends DataSingleton
                     workunits.add(wu);
                     wsWorkUnitsClient.submitWU(response.getWuid(), cluster);
                 }
-
             }
             catch (RemoteException e)
             {
                 confirmDisable();
             }
             catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            catch (ArrayOfEspExceptionWrapper e)
             {
                 e.printStackTrace();
             }
@@ -546,7 +544,7 @@ public class Platform extends DataSingleton
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
             }
-            catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -730,13 +728,13 @@ public class Platform extends DataSingleton
         return clusters.toArray(new Cluster[0]);
     }
 
-    synchronized void updateClusters(TpLogicalCluster[] tpLogicalClusters)
+    synchronized void updateClusters(List<TpLogicalClusterWrapper> tpLogicalClusters)
     {
         if (tpLogicalClusters != null)
         {
-            for (TpLogicalCluster c : tpLogicalClusters)
+            for (TpLogicalClusterWrapper clusterwrapper : tpLogicalClusters)
             {
-                clusters.add(getCluster(c.getName())); // Will mark changed if needed ---
+                clusters.add(getCluster(clusterwrapper.getName())); // Will mark changed if needed ---
             }
         }
     }
@@ -754,6 +752,13 @@ public class Platform extends DataSingleton
         return dropZone;
     }
 
+    public DropZone getDropZone(TpDropZoneWrapper dz)
+    {
+        DropZone dropZone = getDropZone(dz.getName());
+        dropZone.update(dz.getRaw());
+        return dropZone;
+    }
+
     public DropZone[] getDropZones()
     {
         if (isEnabled())
@@ -764,11 +769,11 @@ public class Platform extends DataSingleton
             {
                 hpccclient = hpccClientPool.checkOut();
                 HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient();
-                TpServices services = topclient.getServices();
+                TpServicesWrapper services = topclient.getServices();
                 if (services != null)
                     updateServices(services);
             }
-            catch (Exception | ArrayOfEspExceptionWrapper e)
+            catch (Exception e)
             {
                 e.printStackTrace();
                 confirmDisable();
@@ -782,7 +787,7 @@ public class Platform extends DataSingleton
         return dropZones.toArray(new DropZone[0]);
     }
 
-    private void updateServices(TpServices serviceList)
+    private void updateServices(TpServicesWrapper serviceList)
     {
         if (serviceList != null)
         {
@@ -791,11 +796,11 @@ public class Platform extends DataSingleton
 
     }
 
-    private void updateDropZones(TpDropZone[] rawDropZones)
+    private void updateDropZones(List<TpDropZoneWrapper> rawDropZones)
     {
         if (rawDropZones != null)
         {
-            for (TpDropZone dz : rawDropZones)
+            for (TpDropZoneWrapper dz : rawDropZones)
             {
                 dropZones.add(getDropZone(dz));
             }
