@@ -7,7 +7,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 
 public class ArrayOfECLExceptionWrapper extends ArrayOfExceptionWrapper
 {
-  
+
     public ArrayOfECLExceptionWrapper() { super();}
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException arrayofeclexception)

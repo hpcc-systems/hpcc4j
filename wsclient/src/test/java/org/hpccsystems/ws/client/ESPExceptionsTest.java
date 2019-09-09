@@ -54,6 +54,7 @@ public class ESPExceptionsTest
 
             Assert.assertNotNull(e.getExceptions());
             EspExceptionWrapper espExceptionWrapper = e.getEspExceptions().get(0);
+
             Assert.assertNotNull(espExceptionWrapper);
             Assert.assertEquals(audience, espExceptionWrapper.getAudience());
             Assert.assertEquals(code, espExceptionWrapper.getCode());

@@ -309,7 +309,4 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfExceptionWrapper
         this.wsClientMessage = localMessage;
         return this;
     }
-
-
-
 }
