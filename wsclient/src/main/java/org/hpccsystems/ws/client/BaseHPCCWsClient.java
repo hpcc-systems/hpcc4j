@@ -353,7 +353,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclExceptions, String message) throws Exception, ArrayOfECLExceptionWrapper
     {
-        if (eclExceptions == null || eclExceptions.getECLException() == null || eclExceptions.getECLException().size() <= 0)
+        if (eclExceptions == null || eclExceptions.getExceptions() == null || eclExceptions.getExceptions().size() <= 0)
             return;
 
         if (message != null && !message.isEmpty())

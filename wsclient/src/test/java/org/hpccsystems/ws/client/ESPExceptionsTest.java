@@ -47,13 +47,13 @@ public class ESPExceptionsTest
             Assert.assertNotNull(e.toString());
             System.out.println(e.toString());
             Assert.assertEquals(wsclientmessage, e.getWsClientMessage());
-            Assert.assertEquals(wsclientmessage, e.getLocalizedMessage());
-            Assert.assertEquals(wsclientmessage, e.getMessage());
+            Assert.assertEquals(wsclientmessage + ":" + mess, e.getLocalizedMessage());
+            Assert.assertEquals(wsclientmessage + ":" + mess, e.getMessage());
             Assert.assertEquals(arraysource, e.getSource());
             Assert.assertNotNull(e.getStackTrace());
 
             Assert.assertNotNull(e.getExceptions());
-            EspExceptionWrapper espExceptionWrapper = e.getExceptions().get(0);
+            EspExceptionWrapper espExceptionWrapper = e.getEspExceptions().get(0);
             Assert.assertNotNull(espExceptionWrapper);
             Assert.assertEquals(audience, espExceptionWrapper.getAudience());
             Assert.assertEquals(code, espExceptionWrapper.getCode());

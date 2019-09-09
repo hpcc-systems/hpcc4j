@@ -780,14 +780,14 @@ public class HPCCWsClient extends DataSingleton
             else
                 throw new Exception("Could not initialize HPCC WsWorkUnits Client");
         }
+        catch (ArrayOfECLExceptionWrapper e)
+        {
+            log.error("Error submitting ECL: " + e.toString());
+        }
         catch (Exception e)
         {
             log.error("Error submitting ECL: " + e.getLocalizedMessage());
             throw e;
-        }
-        catch (ArrayOfECLExceptionWrapper e)
-        {
-            log.error("Error submitting ECL: " + e.toString());
         }
 
         return results;

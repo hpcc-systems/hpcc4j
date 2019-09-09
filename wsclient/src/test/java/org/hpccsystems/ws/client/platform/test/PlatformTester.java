@@ -25,6 +25,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
@@ -384,14 +385,13 @@ public class PlatformTester
             {
                 System.out.println("Could not connect to WsSQL on port: " + wssqlport + "\n>>" + e.getLocalizedMessage());
             }
+            catch (ArrayOfExceptionWrapper e)
+            {
+                e.printStackTrace();
+            }
             catch (Exception e)
             {
                 System.out.println("Encountered issue while testing WsSQL on port: " + wssqlport + "\n>>" + e.getLocalizedMessage());
-            }
-            catch (ArrayOfECLExceptionWrapper e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
 
         }
