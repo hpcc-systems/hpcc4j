@@ -25,14 +25,12 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspException;
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
  * TimeStamp: 2019-08-03T01:15:45.832Z
  */
-public class EspExceptionWrapper
+public class EspExceptionWrapper extends ExceptionWrapper
 {
-    protected String local_code;
     protected String local_audience;
-    protected String local_source;
-    protected String local_message;
+    protected String local_code;
 
-	public EspExceptionWrapper() {}
+    public EspExceptionWrapper() {}
 
 	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException espexception)
 	{
@@ -145,7 +143,8 @@ public class EspExceptionWrapper
 
 	@Override
 	public String toString()
-	{		return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
+	{		
+	    return     "EspException: Audience: " + getAudience() + " Source: " + getSource() + " Message: " + getMessage();
 	}
 	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException getRaw()
 	{
@@ -155,39 +154,24 @@ public class EspExceptionWrapper
 		raw.setSource( local_source);
 		raw.setMessage( local_message);
 		return raw;
-	}
+	}	
+	
+    public void setAudience( String _audience )
+    {
+        this.local_audience = _audience;
+    }
+    public String getAudience( )
+    {
+        return this.local_audience;
+    }
+    
+    public void setCode( String _code )
+    {
+        this.local_code = _code;
+    }
+    public String getCode( )
+    {
+        return this.local_code;
+    }
 
-
-	public void setCode( String _code )
-	{
-		this.local_code = _code;
-	}
-	public String getCode( )
-	{
-		return this.local_code;
-	}
-	public void setAudience( String _audience )
-	{
-		this.local_audience = _audience;
-	}
-	public String getAudience( )
-	{
-		return this.local_audience;
-	}
-	public void setSource( String _source )
-	{
-		this.local_source = _source;
-	}
-	public String getSource( )
-	{
-		return this.local_source;
-	}
-	public void setMessage( String _message )
-	{
-		this.local_message = _message;
-	}
-	public String getMessage( )
-	{
-		return this.local_message;
-	}
 }

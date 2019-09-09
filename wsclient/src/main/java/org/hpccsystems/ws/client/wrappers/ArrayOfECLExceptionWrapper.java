@@ -5,11 +5,8 @@ import java.util.List;
 
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 
-public class ArrayOfECLExceptionWrapper extends Throwable
+public class ArrayOfECLExceptionWrapper extends ArrayOfExceptionWrapper
 {
-    private static final long serialVersionUID = 1L;
-    protected List<ECLExceptionWrapper> eclExceptions = new ArrayList<ECLExceptionWrapper>();
-    protected String wsClientMessage;
 
     public ArrayOfECLExceptionWrapper() { super();}
 
@@ -19,10 +16,10 @@ public class ArrayOfECLExceptionWrapper extends Throwable
         copy( arrayofeclexception );
     }
 
-    public ArrayOfECLExceptionWrapper(List<ECLExceptionWrapper> _eCLException)
+    public ArrayOfECLExceptionWrapper(List<ExceptionWrapper> _eCLException)
     {
         super();
-        this.eclExceptions = _eCLException;
+        this.exceptions = _eCLException;
     }
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException[] eclExceptions)
@@ -35,10 +32,10 @@ public class ArrayOfECLExceptionWrapper extends Throwable
     {
         if (raw!= null && raw.length > 0)
         {
-            this.eclExceptions = new ArrayList<ECLExceptionWrapper>();
+            this.exceptions = new ArrayList<ExceptionWrapper>();
             for ( int i = 0; i < raw.length; i++)
             {
-                this.eclExceptions.add(new ECLExceptionWrapper(raw[i]));
+                this.exceptions.add(new ECLExceptionWrapper(raw[i]));
             }
         }
     }
@@ -47,30 +44,12 @@ public class ArrayOfECLExceptionWrapper extends Throwable
     {
         if (raw.getECLException() != null)
         {
-            this.eclExceptions = new ArrayList<ECLExceptionWrapper>();
+            this.exceptions = new ArrayList<ExceptionWrapper>();
             for ( int i = 0; i < raw.getECLException().length; i++)
             {
-                this.eclExceptions.add(new ECLExceptionWrapper(raw.getECLException()[i]));
+                this.exceptions.add(new ECLExceptionWrapper(raw.getECLException()[i]));
             }
         }
-    }
-
-
-    /**
-     * @return the wsClientMessage
-     */
-    public String getWsClientMessage()
-    {
-        return wsClientMessage;
-    }
-
-    /**
-     * @param wsClientMessage the wsClientMessage to set
-     */
-    public ArrayOfECLExceptionWrapper setWsClientMessage(String wsClientMessage)
-    {
-        this.wsClientMessage = wsClientMessage;
-        return this;
     }
 
     @Override
@@ -80,38 +59,29 @@ public class ArrayOfECLExceptionWrapper extends Throwable
         multimessage.append("ArrayOfECLExceptionWrapper: ");
         multimessage.append(wsClientMessage);
         multimessage.append("\n");
-        for (ECLExceptionWrapper eclExceptionWrapper : eclExceptions)
+        for (ExceptionWrapper eclExceptionWrapper : exceptions)
         {
-            multimessage.append("\n\t");
-            multimessage.append("code: " + eclExceptionWrapper.getCode() + "\t");
-            multimessage.append("scope: " + eclExceptionWrapper.getScope() + "\t");
-            multimessage.append("severity: " + eclExceptionWrapper.getSeverity() + "\t");
-            multimessage.append("activity: " + eclExceptionWrapper.getActivity() + "\n\t");
-            multimessage.append("file: " + eclExceptionWrapper.getFileName() + "\t");
-            multimessage.append("line: " + eclExceptionWrapper.getLineNo() + "\t");
-            multimessage.append("col: " + eclExceptionWrapper.getColumn() + "\t");
-            multimessage.append("Message: " + eclExceptionWrapper.getMessage());
+            multimessage.append("\n\t").append(eclExceptionWrapper.toString());
         }
 
         return multimessage.toString();
     }
-
-    public void setECLException( List<ECLExceptionWrapper> _eCLException )
+    
+    public List<ECLExceptionWrapper> getECLException() {
+        List<ECLExceptionWrapper> ecls=new ArrayList<ECLExceptionWrapper>();
+        for (ExceptionWrapper ew:exceptions) {
+            ecls.add((ECLExceptionWrapper) ew);
+        }
+        return ecls;
+    }
+  
+    /**
+     * @param localMessage the localMessage to set
+     */
+    public ArrayOfECLExceptionWrapper setWsClientMessage(String localMessage)
     {
-        this.eclExceptions = _eCLException;
+        this.wsClientMessage = localMessage;
+        return this;
     }
 
-    public List<ECLExceptionWrapper> getECLException( )
-    {
-        return this.eclExceptions;
-    }
-
-    @Override
-    public String getLocalizedMessage()
-    {
-        String message = super.getMessage();
-        if (message == null || message.isEmpty())
-            message = wsClientMessage;
-        return message;
-    }
 }
