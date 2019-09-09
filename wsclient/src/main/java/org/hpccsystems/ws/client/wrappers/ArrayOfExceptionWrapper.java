@@ -1,7 +1,6 @@
 package org.hpccsystems.ws.client.wrappers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,8 +35,7 @@ public class ArrayOfExceptionWrapper extends Exception
     {
         String message = super.getLocalizedMessage();
         if (message == null || message.isEmpty())
-            message = wsClientMessage + ":" + this.exceptions.stream().map(p -> p.getMessage())
-                    .collect(Collectors.joining(", "));
+            message = wsClientMessage + ":" + exceptions.stream().map(p -> p.getMessage()).collect(Collectors.joining(", "));
         return message;
     }
 
@@ -46,11 +44,10 @@ public class ArrayOfExceptionWrapper extends Exception
     {
         String message = super.getMessage();
         if (message == null || message.isEmpty())
-            message = wsClientMessage + ":" + this.exceptions.stream().map(p -> p.getMessage())
-                    .collect(Collectors.joining(", "));
+            message = wsClientMessage + ":" + exceptions.stream().map(p -> p.getMessage()).collect(Collectors.joining(", "));
         return message;
     }
-    
+
     public void setExceptions( List<ExceptionWrapper> _exception )
     {
         this.exceptions = _exception;

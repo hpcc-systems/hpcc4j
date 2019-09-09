@@ -293,9 +293,11 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfExceptionWrapper
         return multimessage.toString();
     }
 
-    public List<EspExceptionWrapper> getEspExceptions() {
+    public List<EspExceptionWrapper> getEspExceptions()
+    {
         List<EspExceptionWrapper> ecls=new ArrayList<EspExceptionWrapper>();
-        for (ExceptionWrapper ew:exceptions) {
+        for (ExceptionWrapper ew:exceptions)
+        {
             ecls.add((EspExceptionWrapper) ew);
         }
         return ecls;

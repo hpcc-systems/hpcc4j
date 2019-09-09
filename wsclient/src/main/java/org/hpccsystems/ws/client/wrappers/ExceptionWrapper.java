@@ -21,5 +21,4 @@ public class ExceptionWrapper
     {
         return this.local_message;
     }
-
 }

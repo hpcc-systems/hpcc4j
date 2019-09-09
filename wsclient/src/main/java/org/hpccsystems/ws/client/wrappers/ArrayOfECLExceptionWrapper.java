@@ -7,8 +7,9 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 
 public class ArrayOfECLExceptionWrapper extends ArrayOfExceptionWrapper
 {
+    private static final long serialVersionUID = 1L;
 
-    public ArrayOfECLExceptionWrapper() { super();}
+    public ArrayOfECLExceptionWrapper() {super();}
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException arrayofeclexception)
     {
@@ -67,9 +68,11 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfExceptionWrapper
         return multimessage.toString();
     }
     
-    public List<ECLExceptionWrapper> getECLException() {
+    public List<ECLExceptionWrapper> getECLException()
+    {
         List<ECLExceptionWrapper> ecls=new ArrayList<ECLExceptionWrapper>();
-        for (ExceptionWrapper ew:exceptions) {
+        for (ExceptionWrapper ew:exceptions)
+        {
             ecls.add((ECLExceptionWrapper) ew);
         }
         return ecls;
