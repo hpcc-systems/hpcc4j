@@ -3,10 +3,11 @@ package org.hpccsystems.ws.client;
 import java.net.MalformedURLException;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,12 +45,14 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testWSDLAddress()
     {
         System.out.println("WSDL ADDRESS: " + filesprayclient.getOriginalWSDLURL());
     }
 
+    @SuppressWarnings("static-access")
     @Test
     public void testServiceURI()
     {
@@ -119,7 +122,7 @@ public class FileSprayClientTest extends BaseRemoteTest
                 Assert.assertEquals(thisdz.getPath(), localdzs[i].getPath());
             }
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
@@ -134,7 +137,7 @@ public class FileSprayClientTest extends BaseRemoteTest
             DropZoneWrapper[] dzs = filesprayclient.fetchDropZones("invalidserver:8010");
             Assert.assertNull(dzs);
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             System.out.println("Test fetch DropZones Bad URL failed as expected: " + e.getLocalizedMessage());
         }
@@ -148,11 +151,42 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             throw new ArrayOfEspExceptionWrapper().setWsClientMessage(message);
         }
-        catch (ArrayOfEspExceptionWrapper e)
+        catch (ArrayOfExceptionWrapper e)
         {
             String wsClientMessage = e.getWsClientMessage();
             Assert.assertNotNull(wsClientMessage);
             Assert.assertTrue(wsClientMessage.equals(message));
+        }
+    }
+
+    @Test
+    public void testallparamsdzsearchwithfirstlocaldzfound()
+    {
+        try
+        {
+            DropZoneWrapper[] localdzs = filesprayclient.fetchLocalDropZones();
+            Assert.assertNotNull(localdzs);
+
+            if (localdzs.length > 0)
+            {
+                DropZoneWrapper thisdz = localdzs[0];
+                try
+                {
+                    DropZoneFilesResponseWrapper fetchDropZones = filesprayclient.fetchDropZones(thisdz.getName(), thisdz.getNetAddress(), thisdz.getLinux(), thisdz.getPath(), "", false, false);
+                    Assert.assertNotNull(fetchDropZones);
+                }
+                catch (Exception e)
+                {
+                    Assert.fail(e.getLocalizedMessage());
+                }
+            }
+            else
+                Assert.fail("No dropzones found!");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
         }
     }
 }

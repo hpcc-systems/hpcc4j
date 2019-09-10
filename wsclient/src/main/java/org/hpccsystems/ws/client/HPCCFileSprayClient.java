@@ -54,6 +54,8 @@ import org.hpccsystems.ws.client.utils.Sftp;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitsResponseWrapper;
@@ -337,6 +339,48 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return dropZonesWrapper;
     }
 
+    public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly, boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        verifyStub();
+        DropZoneFilesRequest request = new DropZoneFilesRequest();
+
+        request.setDirectoryOnly(dironly);
+        request.setDropZoneName(dzname);
+        request.setECLWatchVisibleOnly(watchvisibleonely);
+        request.setNetAddress(netaddress);
+        request.setOS(os);
+        request.setPath(path);
+        request.setSubfolder(subfolder);
+
+        return fetchDropZones(new DropZoneFilesRequestWrapper(request));
+    }
+
+    public DropZoneFilesResponseWrapper fetchDropZones(DropZoneFilesRequestWrapper szrequest) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        if (szrequest == null)
+            throw new Exception("DropZoneFilesRequestWrapper null detected");
+
+        verifyStub();
+
+        DropZoneFilesResponse resp = null;
+        try
+        {
+            resp = ((FileSprayStub)stub).dropZoneFiles(szrequest.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCFileSprayClient.fetchDropzones(DropZoneFilesRequestWrapper) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not FetchDropzones");
+        }
+
+        if (resp != null && resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not FetchDropzones");
+
+        return new DropZoneFilesResponseWrapper(resp);
+    }
     /**
      * Perform HPCC Drop Zone file search
      * @param dzname - Required, the name of the Drop Zone to query
@@ -1233,11 +1277,6 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             }
         }
         catch (Exception e)
-        {
-            log.error("File download failed. Drop zone file enumeration failed with error: " + e.getMessage());
-            return -1;
-        }
-        catch (ArrayOfEspExceptionWrapper e)
         {
             log.error("File download failed. Drop zone file enumeration failed with error: " + e.getMessage());
             return -1;

@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers;
 
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
-
 public class EspSoapFaultWrapper extends java.lang.Exception
 {
     private static final long serialVersionUID = 1L;
@@ -43,6 +41,15 @@ public class EspSoapFaultWrapper extends java.lang.Exception
     {
         String s = super.toString();
         return (wsClientMessage != null) ? (s + ": " + wsClientMessage) : s;
+    }
+
+    @Override
+    public String getLocalizedMessage()
+    {
+        String message = super.getMessage();
+        if (message == null || message.isEmpty())
+            message = wsClientMessage;
+        return message;
     }
 }
 

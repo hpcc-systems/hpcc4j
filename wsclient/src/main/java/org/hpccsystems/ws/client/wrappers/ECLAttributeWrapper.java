@@ -323,4 +323,29 @@ public class ECLAttributeWrapper
                 +  ", text=" + text + "]";
     }
 
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute();
+        raw.setModuleName( moduleName);
+        raw.setName( name);
+        raw.setType( type);
+        raw.setVersion( version);
+        raw.setLatestVersion( latestVersion);
+        raw.setSandboxVersion( sandboxVersion);
+        raw.setFlags( flags);
+        raw.setAccess( access);
+        raw.setIsLocked( isLocked);
+        raw.setIsCheckedOut( isCheckedOut);
+        raw.setIsSandbox( isSandbox);
+        raw.setIsOrphaned( isOrphaned);
+        raw.setResultType( resultType);
+        raw.setLockedBy( lockedBy);
+        raw.setModifiedBy( modifiedBy);
+        raw.setModifiedDate( modifiedDate);
+        raw.setDescription( description);
+        raw.setChecksum( checksum);
+        raw.setText( text);
+        return raw;
+    }
+
 }
