@@ -18,6 +18,7 @@
 package org.hpccsystems.ws.client;
 
 import java.io.PrintStream;
+import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse;
@@ -26,6 +27,10 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpDropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpLogicalClusterWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -75,7 +80,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     {
         System.out.println("----------------------Dropzones Test ------------------");
 
-        TpDropZone queryDropzone = client.queryDropzone("");
+        TpDropZoneWrapper queryDropzone = client.queryDropzone("");
         Assert.assertNotNull(queryDropzone);
         String name = queryDropzone.getName();
         if (name == null || name.isEmpty())
@@ -83,12 +88,12 @@ public class WSTopologyClientTest extends BaseRemoteTest
         System.out.println(name);
         System.out.println(queryDropzone.getPath());
 
-        TpMachine[] tpMachineArray = queryDropzone.getTpMachines().getTpMachine();
-        for (int i = 0; i < tpMachineArray.length; i++)
+        List<TpMachineWrapper> tpMachineArray = queryDropzone.getTpMachines().getTpMachine();
+        for (TpMachineWrapper tpMachineWrapper : tpMachineArray)
         {
-            System.out.println("Actual address: " + tpMachineArray[i].getNetaddress());
-            System.out.println("Configed address: " + tpMachineArray[i].getConfigNetaddress());
-            System.out.println("type: " + tpMachineArray[i].getType());
+            System.out.println("Actual address: " + tpMachineWrapper.getNetaddress());
+            System.out.println("Configed address: " + tpMachineWrapper.getConfigNetaddress());
+            System.out.println("type: " + tpMachineWrapper.getType());
         }
     }
 
@@ -136,7 +141,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
         Assert.assertNotNull(validTargetClusterNames);
         for (int i = 0; i < validTargetClusterNames.length; i++)
         {
-            TpClusterInfoResponse clusterInfo = client.getClusterInfo(validTargetClusterNames[i]);
+            TpClusterInfoResponseWrapper clusterInfo = client.getClusterInfo(validTargetClusterNames[i]);
             System.out.println(clusterInfo.toString());
           }
     }
@@ -145,12 +150,12 @@ public class WSTopologyClientTest extends BaseRemoteTest
     public void getLogicalClustersTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------get logical clusterTest ------------------");
-        TpLogicalCluster[] logicalClusters = client.getLogicalClusters();
+        List<TpLogicalClusterWrapper> logicalClusters = client.getLogicalClusters();
         Assert.assertNotNull(logicalClusters);
-        for (int i = 0; i < logicalClusters.length; i++)
+        for (TpLogicalClusterWrapper tpLogicalClusterWrapper : logicalClusters)
         {
-            System.out.println("name: " + logicalClusters[i].getName() + " type: " + logicalClusters[i].getType() + " queue: " +logicalClusters[i].getQueue());
-          }
+            System.out.println("name: " + tpLogicalClusterWrapper.getName() + " type: " + tpLogicalClusterWrapper.getType() + " queue: " + tpLogicalClusterWrapper.getQueue());
+        }
     }
 
     @Test

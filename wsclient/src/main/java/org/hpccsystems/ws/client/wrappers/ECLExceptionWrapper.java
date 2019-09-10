@@ -26,12 +26,10 @@ import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
  * TimeStamp: 2019-08-03T01:14:54.545Z
  */
 
-public class ECLExceptionWrapper
+public class ECLExceptionWrapper extends ExceptionWrapper
 {
-    protected String local_source;
     protected String local_severity;
     protected int local_code;
-    protected String local_message;
     protected String local_fileName;
     protected int local_lineNo;
     protected int local_column;
@@ -96,7 +94,16 @@ public class ECLExceptionWrapper
     @Override
     public String toString()
     {
-        return "ECLExceptionWrapper [" + "source = " + local_source + ", " + "severity = " + local_severity + ", " + "code = " + local_code + ", " + "message = " + local_message + ", " + "fileName = " + local_fileName + ", " + "lineNo = " + local_lineNo + ", " + "column = " + local_column + ", " + "activity = " + local_activity + ", " + "scope = " + local_scope + ", " + "priority = " + local_priority + "]";
+        StringBuffer sb=new StringBuffer();
+        sb.append("code: " + getCode() + "\t");
+        sb.append("scope: " + getScope() + "\t");
+        sb.append("severity: " + getSeverity() + "\t");
+        sb.append("activity: " + getActivity() + "\n\t");
+        sb.append("file: " + getFileName() + "\t");
+        sb.append("line: " + getLineNo() + "\t");
+        sb.append("col: " + getColumn() + "\t");
+        sb.append("Message: " + getMessage());
+        return sb.toString();
     }
 
     public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException getRaw()
@@ -138,14 +145,6 @@ public class ECLExceptionWrapper
     public int getCode( )
     {
         return this.local_code;
-    }
-    public void setMessage( String _message )
-    {
-        this.local_message = _message;
-    }
-    public String getMessage( )
-    {
-        return this.local_message;
     }
     public void setFileName( String _fileName )
     {

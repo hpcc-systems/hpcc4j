@@ -540,8 +540,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
-    public WUPublishWorkunitResponse publishWU(WorkunitWrapper wu) throws Exception
+    public WUPublishWorkunitResponse publishWU(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
     {
         WUPublishWorkunitResponse publishWUResp = null;
 
@@ -562,7 +563,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             ArrayOfEspException exceptions = publishWUResp.getExceptions();
             if (exceptions != null)
             {
-                throwWsWUExceptions(exceptions, "Could not publish WU");
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not publish WU");
             }
         }
 
@@ -650,7 +651,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         }
         else
         {
-            throwWsWUExceptions(exceptions, "Could not fetch WU Info");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not fetch WU Info");
         }
 
         return workunit;
@@ -724,7 +725,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUInfoResponseWrapper resp = stubWrapper.WUInfo(request);
 
-        this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions1_75(), "Could not retrieve workunit");
+        handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getRawArrayOfEspExceptions1_75()), "Could not retrieve workunit");
 
         WorkunitWrapper wk = resp.getWorkunit();
         if (unarchive && wk != null && wk.getArchived() != null && wk.getArchived())
@@ -828,10 +829,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param applicationValues
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
      public List<WorkunitWrapper> workUnitUQuery(String wuid, String jobname, String cluster, Boolean archived, WUQueryWrapper.SortBy sortby,
             WUState state, Date endDate, Date startDate, Long pageStartFrom, Long pageSize,
-            String owner, List<ApplicationValueWrapper> applicationValues) throws Exception
+            String owner, List<ApplicationValueWrapper> applicationValues) throws Exception, ArrayOfEspExceptionWrapper
     {
         WUQueryWrapper info=new WUQueryWrapper();
         info.setWuid(wuid);
@@ -850,7 +852,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         return (workUnitUQuery(info));
     }
 
-    public List<WorkunitWrapper> workUnitUQuery(WUQueryWrapper info) throws Exception
+    public List<WorkunitWrapper> workUnitUQuery(WUQueryWrapper info) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -872,7 +874,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
                     fallbackresponse = stubWrapper.getVersion1_56Raw().wUQuery(internal);
                     if (fallbackresponse != null)
                     {
-                        throwWsWUExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
+                        handleEspExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
                     }
                     Set<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit> internal_wu_set
                         = new HashSet<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit>();
@@ -897,8 +899,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             else
             {
                 fallbackresponse = stubWrapper.getVersion1_56Raw().wUQuery(info.getRaw156(0));
-                if (fallbackresponse != null) {
-                    throwWsWUExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
+                if (fallbackresponse != null)
+                {
+                    handleEspExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
                 }
                 if (fallbackresponse.getWorkunits() != null)
                 {
@@ -917,10 +920,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         }
         else
         {
-            //Drea, previous logic called wuquery then threw WUexception "Error in WU query"
             WUQueryResponse wUQuery = ((WsWorkunits)stub).wUQuery(info.getRaw());
             if (wUQuery.getExceptions() != null && wUQuery.getExceptions().getException().length > 0)
-                throwWsWUExceptions(wUQuery.getExceptions(), "Error in WU query");
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(wUQuery.getExceptions()), "Error in WU query");
             else
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLWorkunit workunits = wUQuery.getWorkunits();
@@ -965,8 +967,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu   - The workunit information used to create WU on HPCC cluster
      * @return
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
-    public WorkunitWrapper createWUFromECL(WorkunitWrapper wu) throws Exception
+    public WorkunitWrapper createWUFromECL(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
     {
         WorkunitWrapper createdWU = null;
 
@@ -994,7 +997,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         }
         else
         {
-            throwWsWUExceptions(wuUpdateResponse.getRawArrayOfEspExceptions(), "Error compiling ECL query");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(wuUpdateResponse.getRawArrayOfEspExceptions()), "Error compiling ECL query");
         }
         return createdWU;
     }
@@ -1002,7 +1005,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /*
      * this method is purely for the Platform class
      */
-    public WorkunitWrapper createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueWrapper> appVals, String jobName, boolean compileOnly) throws Exception
+    public WorkunitWrapper createWUFromECL(String archiveOrEcl, int resultLimit, List<ApplicationValueWrapper> appVals, String jobName, boolean compileOnly) throws Exception, ArrayOfEspExceptionWrapper
     {
         WorkunitWrapper wi = new WorkunitWrapper().setECL(archiveOrEcl).setJobname(jobName).setApplicationValues(appVals).setResultLimit(resultLimit==0?null:resultLimit);
         return createWUFromECL(wi);
@@ -1021,14 +1024,15 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param state - WUState of workunits to find
      * @return an List<WorkunitInfo> of matching workunits
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
-    public List<WorkunitWrapper> getWorkunits(String jobName, String owner, String ecl, Boolean archived, String wuid, String cluster, WUState state) throws Exception
+    public List<WorkunitWrapper> getWorkunits(String jobName, String owner, String ecl, Boolean archived, String wuid, String cluster, WUState state) throws Exception, ArrayOfEspExceptionWrapper
     {
         WUQueryWrapper params = new WUQueryWrapper().setJobname(jobName).setOwner(owner).setECL(ecl).setArchived(archived).setWuid(wuid).setCluster(cluster).setState(state);
         return workUnitUQuery(params);
     }
 
-    public List<WorkunitWrapper> getWorkunits(WUQueryWrapper params) throws Exception
+    public List<WorkunitWrapper> getWorkunits(WUQueryWrapper params) throws Exception, ArrayOfEspExceptionWrapper
     {
         return this.workUnitUQuery(params);
     }
@@ -1240,14 +1244,16 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *            - Total result record count
      * @return - Results in xml string
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
     public String fetchResultsFromLogicalName(String logicalName, int sequence, String cluster,
-            boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception
+            boolean suppressXMLShema, long resultOffset, int resultCount) throws Exception, ArrayOfEspExceptionWrapper
     {
         WUResultResponse wuResultResponse = fetchRawResults(logicalName, false, sequence, cluster, suppressXMLShema,
                 resultOffset, resultCount);
         ArrayOfEspException exceptions = wuResultResponse.getExceptions();
-        if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
+        if (exceptions != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not fetch results");
 
         return wuResultResponse.getResult();
     }
@@ -1270,14 +1276,16 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *            - Total result record count re
      * @return - Results in xml string
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
     public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset,
-            int resultCount) throws Exception
+            int resultCount) throws Exception, ArrayOfEspExceptionWrapper
     {
         WUResultResponse wuResultResponse = fetchRawResults(wuid, true, sequence, cluster, suppressXMLShema,
                 resultOffset, resultCount);
         ArrayOfEspException exceptions = wuResultResponse.getExceptions();
-        if (exceptions != null) throwWsWUExceptions(exceptions, "Could not fetch results");
+        if (exceptions != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not fetch results");
 
         return wuResultResponse.getResult();
     }
@@ -1356,53 +1364,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         verifyStub(); //Throws exception if stub failed
 
         return ((WsWorkunits)stub).wUResult(parameters);
-    }
-
-    /**
-     * Creates and throws exception with exception message response from WS
-     *
-     * @param wsWUResponseExceptions
-     * @param message
-     * @throws Exception
-     */
-    private void throwWsWUExceptions(ArrayOfEspExceptionWrapper wsWUResponseExceptions, String message) throws Exception
-    {
-        if (wsWUResponseExceptions == null || wsWUResponseExceptions.getExceptions() == null || wsWUResponseExceptions.getExceptions().size() == 0)
-            return;
-
-        StringBuilder multimessage = new StringBuilder();
-        multimessage.append(message);
-        multimessage.append("\n");
-
-        List<EspExceptionWrapper> exceptions = wsWUResponseExceptions.getExceptions();
-
-        for (EspExceptionWrapper exception : exceptions)
-        {
-            multimessage.append("\t");
-            multimessage.append(exception.getMessage());
-        }
-
-        throw new Exception(multimessage.toString());
-    }
-
-    private void throwWsWUExceptions(ArrayOfEspException wsWUResponseExceptions, String message) throws Exception
-    {
-        if (wsWUResponseExceptions == null || wsWUResponseExceptions.getException() == null || wsWUResponseExceptions.getException().length == 0)
-            return;
-
-        StringBuilder multimessage = new StringBuilder();
-        multimessage.append(message);
-        multimessage.append("\n");
-
-        EspException[] exceptionArray = wsWUResponseExceptions.getException();
-
-        for (EspException exception : exceptionArray)
-        {
-            multimessage.append("\t");
-            multimessage.append(exception.getMessage());
-        }
-
-        throw new Exception(multimessage.toString());
     }
 
     private void refreshWU(boolean full, WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
@@ -1538,8 +1499,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Request that a given workunit is deleted
      * @param wuid
      * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
      */
-    public void deleteWU(String wuid) throws Exception
+    public void deleteWU(String wuid) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -1550,7 +1512,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         request.setWuids(wuids);
         request.setBlockTillFinishTimer(1);
         WUDeleteResponse resp= ((WsWorkunits)stub).wUDelete(request);
-        this.throwWsWUExceptions(resp.getExceptions(), "Could not delete " + wuid + ":");
+        handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not delete " + wuid + ":");
     }
 
     /**
@@ -1626,7 +1588,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         WUResultResponse resp = getWorkunitResult(params,true);
         if (resp != null)
         {
-            this.throwWsWUExceptions(resp.getExceptions(), "Unable to retrieve result " + resultname + " from wuid " + wuid + ":");
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Unable to retrieve result " + resultname + " from wuid " + wuid + ":");
+
             return resp.getResult();
         }
         return null;
@@ -1738,9 +1702,14 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     {
         WUCreateRequestWrapper params = new WUCreateRequestWrapper();
         WUCreateResponseWrapper resp = stubWrapper.WUCreate(params);
-        throwWsWUExceptions(resp.getRawArrayOfEspExceptions(),"Could not create workunit");
+
+        if (resp.getExceptions() != null && resp.getExceptions().size() > 0)
+            handleWUExceptions(resp.getExceptions(),"Could not create workunit");
+
         return resp.getWorkunitWrapper();
     }
+
+
 
     /**
      * Protect a workunit
@@ -1755,7 +1724,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setWuid(wuid);
         WUUpdateResponseWrapper resp = stubWrapper.WUUpdate(params);
 
-        this.throwWsWUExceptions(resp.getRawArrayOfEspExceptions(),"Could not protect workunit " + wuid);
+        if (resp.getRawArrayOfEspExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getRawArrayOfEspExceptions()), "Could not protect workunit " + wuid);
+
         return resp.getWorkunitWrapper();
     }
 
@@ -1779,14 +1750,14 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         file.setDescription(description);
         file.setIPAddress(ipaddr);
         if (entirefile)
-        {
             file.setOption(1);
-        }
 
         WULogFileResponse logFileResponse = ((WsWorkunitsStub)stub).wUFile(file);
-        this.throwWsWUExceptions(logFileResponse.getExceptions(), "Could not retrieve file " + filename + " for wuid " + wuid);
+        if (logFileResponse.getExceptions() != null)
+        {
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(logFileResponse.getExceptions()), "Could not retrieve file " + filename + " for wuid " + wuid);
+        }
         return new WULogFileWrapper(logFileResponse);
-
     }
 
     /**
@@ -1840,7 +1811,10 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WURunResponse resp = ((WsWorkunitsStub)stub).wURun(params);
 
-        throwWsWUExceptions(resp.getExceptions(),"Could not run workunit " + wuid);
+        if (resp.getExceptions() != null)
+        {
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),"Could not run workunit " + wuid);
+        }
 
         WorkunitWrapper wi = new WorkunitWrapper();
         wi.setState(resp.getState());
@@ -1876,7 +1850,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         }
         params.setQuerySetName(querySetName);
         WUQuerySetDetailsResponse resp = ((WsWorkunitsStub)stub).wUQuerysetDetails(params);
-        throwWsWUExceptions(resp.getExceptions(), "Could not search queries:" );
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not search queries:" );
 
         QuerySetQuery[] queries = resp.getQuerysetQueries().getQuerySetQuery();
 
@@ -1928,7 +1904,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setFileName(filename);
 
         WUListQueriesResponse response = ((WsWorkunitsStub)stub).wUListQueries(params);
-        throwWsWUExceptions(response.getExceptions(), "Could not fetch queries: ");
+
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not fetch queries: ");
 
         QuerySetQuery[] queries = response.getQuerysetQueries().getQuerySetQuery();
         List<QueryResultWrapper> result = new ArrayList<QueryResultWrapper>();
@@ -1956,7 +1934,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUQueryFilesResponse response = ((WsWorkunitsStub)stub).wUQueryFiles(request);
 
-        throwWsWUExceptions(response.getExceptions(), "Could not get files for query " + queryname + ":");
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get files for query " + queryname + ":");
 
         List<QueryFileWrapper> result = new ArrayList<QueryFileWrapper>();
         if (response.getFiles() != null)
@@ -1991,7 +1970,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         queries.setQuery(items);
         queryAction.setQueries(queries);
         final WUQuerySetQueryActionResponse resp = ((WsWorkunitsStub)stub).wUQuerysetQueryAction(queryAction);
-        this.throwWsWUExceptions(resp.getExceptions(), "Could not activate query " + queryId);
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not activate query " + queryId);
 
         if (resp.getResults() != null && resp.getResults().getResult().length > 0)
         {
@@ -2035,7 +2016,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setAction(QuerySetQueryActionTypes.Delete);
 
         WUQuerySetQueryActionResponse response = ((WsWorkunitsStub)stub).wUQuerysetQueryAction(params);
-        throwWsWUExceptions(response.getExceptions(), "Could not delete queries: ");
+
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not delete queries: ");
 
         List<QueryResultWrapper> results = new ArrayList<QueryResultWrapper>();
 

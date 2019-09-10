@@ -20,9 +20,6 @@
           <resource>
               <directory>src/main/resources</directory>
           </resource>
-         <!-- resource>
-           <directory>target/generated-sources/axis2/wsdl2code/resources</directory>
-         </resource-->
        </resources>
 
     <plugins>
@@ -74,12 +71,10 @@
             <exclude>org/hpccsystems/ws/client/gen/axis2/wsworkunits/v1_71/**/*</exclude>
             <exclude>org/hpccsystems/ws/client/gen/axis2/wsworkunits/v1_73/**/*</exclude>
             <exclude>org/hpccsystems/ws/client/gen/axis2/wsworkunits/v1_74/**/*</exclude>
-            <exclude>org/hpccsystems/ws/client/wrappers/gen/wsdfu/**/*</exclude>
+            <!-- exclude>org/hpccsystems/ws/client/wrappers/gen/wsdfu/**/*</exclude>
             <exclude>org/hpccsystems/ws/client/wrappers/gen/wsfileio/**/*</exclude>
             <exclude>org/hpccsystems/ws/client/wrappers/gen/wsstore/**/*</exclude>
-            <exclude>org/hpccsystems/ws/client/wrappers/gen/wstopology/**/*</exclude>
-            <exclude>org/hpccsystems/ws/client/wrappers/gen/wstopology/**/*</exclude>
-            <exclude>org/hpccsystems/ws/client/wrappers/gen/wsworkunits/**/*</exclude>
+            <exclude>org/hpccsystems/ws/client/wrappers/gen/wsworkunits/**/*</exclude-->
           </excludes>
         </configuration>
       </plugin>

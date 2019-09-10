@@ -193,7 +193,7 @@ public class FileSprayWorkunit extends DataSingleton
                 update(response.getResult());
             }
         }
-        catch (Exception | org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
