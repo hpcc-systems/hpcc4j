@@ -28,12 +28,12 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ResourceURLs_type0;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
-import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.
 public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper>
@@ -62,7 +62,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     private String                        description;
     private Integer                       errorCount;
     private Integer                       eventSchedule;
-    private List<WUExceptionWrapper>      exceptions          = new ArrayList<WUExceptionWrapper>();
+    private ArrayOfECLExceptionWrapper    exceptions = null;
     private Integer                       graphCount;
     private List<ECLGraphWrapper>         graphs              = new ArrayList<ECLGraphWrapper>();
     private String                        graphsDesc;
@@ -348,11 +348,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     {
         if (eclExceptions != null)
         {
-            this.exceptions = new ArrayList<WUExceptionWrapper>();
-            for (int i = 0; i < eclExceptions.length; i++)
-            {
-                this.exceptions.add(new WUExceptionWrapper(eclExceptions[i]));
-            }
+            exceptions = new ArrayOfECLExceptionWrapper(eclExceptions);
         }
         return this;
     }
@@ -1116,15 +1112,10 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
 
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLException getRawExceptions()
     {
-        if (this.exceptions.size() == 0) return null;
+        if (exceptions == null)
+            return null;
 
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLException raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLException();
-
-        for (int i = 0; i < exceptions.size(); i++)
-        {
-            raw.addECLException(exceptions.get(i).getRawVersion1_75());
-        }
-        return raw;
+        return exceptions.getRaw();
     }
 
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfNamedValue getRawNamedValues()
@@ -1504,20 +1495,16 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
-    public List<WUExceptionWrapper> getExceptions()
+    public ArrayOfECLExceptionWrapper getExceptions()
     {
         return exceptions;
     }
 
     public WorkunitWrapper setExceptions(ECLException[] eclExceptions)
     {
-        if (eclExceptions != null)
+        if (eclExceptions != null && eclExceptions.length > 0)
         {
-            this.exceptions = new ArrayList<WUExceptionWrapper>();
-            for (int i = 0; i < eclExceptions.length; i++)
-            {
-                this.exceptions.add(new WUExceptionWrapper(eclExceptions[i]));
-            }
+            exceptions = new ArrayOfECLExceptionWrapper(eclExceptions);
         }
         return this;
     }
@@ -1526,11 +1513,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     {
         if (eclExceptions != null)
         {
-            this.exceptions = new ArrayList<WUExceptionWrapper>();
-            for (int i = 0; i < eclExceptions.length; i++)
-            {
-                this.exceptions.add(new WUExceptionWrapper(eclExceptions[i]));
-            }
+            exceptions = new ArrayOfECLExceptionWrapper(eclExceptions);
         }
         return this;
     }
@@ -1539,11 +1522,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     {
         if (eclExceptions != null)
         {
-            this.exceptions = new ArrayList<WUExceptionWrapper>();
-            for (int i = 0; i < eclExceptions.length; i++)
-            {
-                this.exceptions.add(new WUExceptionWrapper(eclExceptions[i]));
-            }
+            exceptions = new ArrayOfECLExceptionWrapper(eclExceptions);
         }
         return this;
     }
@@ -1552,11 +1531,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     {
         if (eclExceptions != null)
         {
-            this.exceptions = new ArrayList<WUExceptionWrapper>();
-            for (int i = 0; i < eclExceptions.length; i++)
-            {
-                this.exceptions.add(new WUExceptionWrapper(eclExceptions[i]));
-            }
+            exceptions = new ArrayOfECLExceptionWrapper(eclExceptions);
         }
         return this;
     }
@@ -2344,12 +2319,14 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         eclWorkunit.setDescription(this.getDescription());
         eclWorkunit.setErrorCount(this.getErrorCount());
         eclWorkunit.setEventSchedule(this.getEventSchedule());
-        if (this.getExceptions() != null && this.getExceptions().size() > 0)
+        if (this.getExceptions() != null && this.getExceptions().getECLException() != null)
         {
             ArrayOfECLException arrayofeclexceptions = new ArrayOfECLException();
-            for (int i = 0; i < this.getExceptions().size(); i++)
+            
+            List<ECLExceptionWrapper> eclException = getExceptions().getECLException();
+            for (ECLExceptionWrapper eclExceptionWrapper : eclException)
             {
-                arrayofeclexceptions.addECLException(this.getExceptions().get(i).getRawVersion1_75());
+                arrayofeclexceptions.addECLException(eclExceptionWrapper.getRawVersion1_75());
             }
             eclWorkunit.setExceptions(arrayofeclexceptions);
         }
@@ -2497,23 +2474,5 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     {
         this.resultViews = resultViews;
         return this;
-    }
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException getRawArrayOfEspExceptions()
-    {
-        if (exceptions.size() == 0) return null;
-
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException();
-        for (int i = 0; i < exceptions.size(); i++)
-        {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException esp = new EspException();
-            esp.setAudience(exceptions.get(i).getAudience());
-            esp.setMessage(exceptions.get(i).getMessage());
-            esp.setSource(exceptions.get(i).getSource());
-            esp.setCode(exceptions.get(i).getEspCode());
-            result.addException(esp);
-        }
-
-        return result;
     }
 }

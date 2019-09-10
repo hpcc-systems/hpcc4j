@@ -1,24 +1,24 @@
 package org.hpccsystems.ws.client.wrappers;
 
-public class ExceptionWrapper
+public class BaseExceptionWrapper
 {
-    protected String local_source;
-    protected String local_message;
+    protected String source;
+    protected String message;
 
     public void setSource( String _source )
     {
-        this.local_source = _source;
+        source = _source;
     }
     public String getSource( )
     {
-        return this.local_source;
+        return source;
     }
     public void setMessage( String _message )
     {
-        this.local_message = _message;
+        message = _message;
     }
     public String getMessage( )
     {
-        return this.local_message;
+        return message;
     }
 }
