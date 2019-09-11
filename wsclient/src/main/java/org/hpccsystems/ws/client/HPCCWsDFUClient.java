@@ -1457,7 +1457,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
 
             if (resp.getExceptions() != null)
-                handleWUExceptions(resp.getExceptions(), "Retrieving file details");
+                handleEspExceptions(resp.getExceptions(), "Retrieving file details");
 
             DFUFileDetailWrapper info = resp.getFileDetail();
             try

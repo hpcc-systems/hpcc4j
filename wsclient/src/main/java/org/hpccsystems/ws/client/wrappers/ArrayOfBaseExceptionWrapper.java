@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ArrayOfExceptionWrapper extends Exception
+public class ArrayOfBaseExceptionWrapper extends Exception
 {
     private static final long serialVersionUID = 1L;
     protected String wsClientMessage;
     protected String source;
-    protected List<ExceptionWrapper> exceptions = new ArrayList<ExceptionWrapper>();
+    protected List<BaseExceptionWrapper> exceptions = new ArrayList<BaseExceptionWrapper>();
 
     /**
      * @return the localMessage
@@ -29,7 +29,6 @@ public class ArrayOfExceptionWrapper extends Exception
         return this.source;
     }
 
-
     @Override
     public String getLocalizedMessage()
     {
@@ -48,12 +47,12 @@ public class ArrayOfExceptionWrapper extends Exception
         return message;
     }
 
-    public void setExceptions( List<ExceptionWrapper> _exception )
+    public void setExceptions( List<BaseExceptionWrapper> _exception )
     {
         this.exceptions = _exception;
     }
 
-    public List<ExceptionWrapper> getExceptions( )
+    public List<BaseExceptionWrapper> getExceptions( )
     {
         return this.exceptions;
     }

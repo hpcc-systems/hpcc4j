@@ -71,9 +71,9 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
-import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.WUFileType;
 import org.hpccsystems.ws.client.wrappers.WUState;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.ECLResultWrapper;
@@ -260,7 +260,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         if (response.getWorkunit() == null)
         {
             // Call succeeded, but no response...
-            for (WUExceptionWrapper e : response.getExceptions())
+            for (EspExceptionWrapper e : response.getExceptions().getEspExceptions())
             {
                 if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                 {
@@ -985,7 +985,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUUpdateResponseWrapper wuUpdateResponse = stubWrapper.WUCreateAndUpdate(wucreateparameters);
 
-        if (wuUpdateResponse.getExceptions().size()==0)
+        if (wuUpdateResponse.getExceptions().getEspExceptions() == null || wuUpdateResponse.getExceptions().getEspExceptions().size()==0)
         {
             createdWU = wuUpdateResponse.getWorkunitWrapper();
 
@@ -1061,7 +1061,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WorkunitWrapper createdWU = createWUFromECL(wu);
 
-        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions().size()==0)
+        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null || createdWU.getExceptions().getECLException().size()==0)
         {
             createdWU.setCluster(wu.getCluster());
             submitWU(createdWU); // if no exception proceed
@@ -1070,7 +1070,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             // exceptions, etc. aren't always included in the submit response; do another request to get all workunit info
             WorkunitWrapper res = getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false, false, false);
 
-            for (WUExceptionWrapper ex:res.getExceptions())
+            for (ECLExceptionWrapper ex : res.getExceptions().getECLException())
             {
                 if ("error".equalsIgnoreCase(ex.getSeverity()))
                 {
@@ -1435,7 +1435,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @return
      * @throws Exception
      */
-    public List<WUExceptionWrapper> syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
+    public ArrayOfECLExceptionWrapper syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -1444,14 +1444,10 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         checkParams.setCluster(cluster);
         checkParams.setTimeToWait(timeout);
         WUSyntaxCheckResponse resp = ((WsWorkunits)stub).wUSyntaxCheckECL(checkParams);
-        List<WUExceptionWrapper> result = new ArrayList<WUExceptionWrapper>();
+        ArrayOfECLExceptionWrapper result = null;
         if (resp.getErrors() != null)
         {
-            ECLException[] eclExceptions = resp.getErrors().getECLException();
-            for (int i=0; i < eclExceptions.length;i++)
-            {
-                result.add(new WUExceptionWrapper(eclExceptions[i]));
-            }
+            result = new ArrayOfECLExceptionWrapper(resp.getErrors().getECLException());
         }
         return result;
     }
@@ -1703,8 +1699,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         WUCreateRequestWrapper params = new WUCreateRequestWrapper();
         WUCreateResponseWrapper resp = stubWrapper.WUCreate(params);
 
-        if (resp.getExceptions() != null && resp.getExceptions().size() > 0)
-            handleWUExceptions(resp.getExceptions(),"Could not create workunit");
+        if (resp.getExceptions().getEspExceptions() != null && resp.getExceptions().getEspExceptions().size() > 0)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not create workunit");
 
         return resp.getWorkunitWrapper();
     }
