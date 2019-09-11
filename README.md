@@ -20,6 +20,9 @@ Everybody is encouraged to report issues and contribute to the project. When ope
 - dfs client
   - Java based interface into HPCC's dfs backend [README](https://github.com/hpcc-systems/HPCC-JAPIs/tree/master/dfsclient/README.md)
 
+- hpcc commons
+  - HPCC Systems Java API common classes [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/commons-hpcc/README.md)
+
 - clienttools
   - Java based interface to HPCC client tools [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/clienttools/README.md)
   - Currently only interfaces with eclcc
@@ -30,15 +33,13 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - Based on Apache Jena and dependent on org.hpccsystems.ws.client
   - [Changelog](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/rdf2hpcc/README.md#changelog)
 
-- hpcc commons
-  - HPCC Systems Java API common classes [README](https://github.com/hpcc-systems/HPCC-JAPIs/blob/master/commons-hpcc/README.md)
-
 #### Build
 These projects are configured to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:
 
 `mvn install`
 
-Each sub-project must be built individually.
+NOTE: hpcccommons, wsclient, and dfsclient are controled via the top-level maven pom file and can be built via a single command.
+All sub-projects can be built individually using the pom file in each sub-project directory
 
 For more information on how to use Maven see http://maven.apache.org
 
