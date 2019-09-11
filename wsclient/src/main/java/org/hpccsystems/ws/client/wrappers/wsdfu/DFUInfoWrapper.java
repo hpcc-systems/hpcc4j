@@ -20,23 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException;
-import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 public class DFUInfoWrapper
 {
     private DFUFileDetailWrapper     detailInfo;
-    private List<WUExceptionWrapper> exceptions = new ArrayList<WUExceptionWrapper>();
+    private ArrayOfEspExceptionWrapper exceptions = null;
 
     public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUInfoResponse resp)
     {
         this.detailInfo = new DFUFileDetailWrapper(resp.getFileDetail());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null)
         {
-            EspException[] espExceptions = resp.getExceptions().getException();
-            for (int i = 0; i < espExceptions.length; i++)
-            {
-                this.exceptions.add(new WUExceptionWrapper(espExceptions[i]));
-            }
+            exceptions = new ArrayOfEspExceptionWrapper(resp.getExceptions());
         }
     }
 
@@ -60,7 +56,7 @@ public class DFUInfoWrapper
     /**
      * @return the exceptions
      */
-    public List<WUExceptionWrapper> getExceptions()
+    public ArrayOfEspExceptionWrapper getExceptions()
     {
         return exceptions;
     }
@@ -69,7 +65,7 @@ public class DFUInfoWrapper
      * @param exceptions
      *            the exceptions to set
      */
-    public void setExceptions(List<WUExceptionWrapper> exceptions)
+    public void setExceptions(ArrayOfEspExceptionWrapper exceptions)
     {
         this.exceptions = exceptions;
     }

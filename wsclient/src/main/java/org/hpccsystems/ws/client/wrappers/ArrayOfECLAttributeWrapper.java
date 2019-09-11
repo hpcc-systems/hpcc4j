@@ -73,7 +73,7 @@ protected List<ECLAttributeWrapper> local_eCLAttribute = new ArrayList<ECLAttrib
 			org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[] arr = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[this.local_eCLAttribute.size()];
 			for ( int i = 0; i < this.local_eCLAttribute.size(); i++)
 			{
-				arr[i] = this.local_eCLAttribute.get(i) .getRaw();
+				arr[i] = this.local_eCLAttribute.get(i).getRaw();
 			}
 			raw.setECLAttribute(arr);
 		}

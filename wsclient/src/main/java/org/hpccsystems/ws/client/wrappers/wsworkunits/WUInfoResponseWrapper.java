@@ -1,16 +1,16 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoResponse;
-import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 
 public class WUInfoResponseWrapper
 {
     private WorkunitWrapper             workunit;
-    private List<WUExceptionWrapper> exceptions = new ArrayList<WUExceptionWrapper>();
+    private ArrayOfEspExceptionWrapper exceptions = null;
     private Integer                  autoRefresh;
     private Boolean                  canCompile;
     private String                   thorSlaveIP;
@@ -31,12 +31,7 @@ public class WUInfoResponseWrapper
 
         if (resp.getExceptions() != null)
         {
-            EspException[] exceptionsarray = resp.getExceptions().getException();
-            for (int i = 0; i < exceptionsarray.length; i++)
-            {
-                if (resp.getExceptions() != null)
-                    exceptions.add(new WUExceptionWrapper(exceptionsarray[i]));
-            }
+            exceptions = new ArrayOfEspExceptionWrapper(resp.getExceptions());
         }
     }
 
@@ -54,14 +49,7 @@ public class WUInfoResponseWrapper
 
         if (resp.getExceptions() != null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.EspException[] exceptionarray = resp.getExceptions().getException();
-            if (exceptionarray != null)
-            {
-                for (int i = 0; i < exceptionarray.length; i++)
-                {
-                    exceptions.add(new WUExceptionWrapper(exceptionarray[i]));
-                }
-            }
+            exceptions = new ArrayOfEspExceptionWrapper(resp.getExceptions());
         }
     }
 
@@ -79,14 +67,7 @@ public class WUInfoResponseWrapper
 
         if (resp.getExceptions() != null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.EspException[] exceptionarray = resp.getExceptions().getException();
-            if (exceptionarray != null)
-            {
-                for (int i = 0; i < exceptionarray.length; i++)
-                {
-                    exceptions.add(new WUExceptionWrapper(exceptionarray[i]));
-                }
-            }
+            exceptions = new ArrayOfEspExceptionWrapper(resp.getExceptions());
         }
     }
 
@@ -104,14 +85,7 @@ public class WUInfoResponseWrapper
 
         if (resp.getExceptions() != null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.EspException[] exceptionarray = resp.getExceptions().getException();
-            if (exceptionarray != null )
-            {
-                for (int i = 0; i < exceptionarray.length; i++)
-                {
-                    exceptions.add(new WUExceptionWrapper(exceptionarray[i]));
-                }
-            }
+            exceptions = new ArrayOfEspExceptionWrapper(resp.getExceptions());
         }
     }
 
@@ -134,7 +108,7 @@ public class WUInfoResponseWrapper
     /**
      * @return the exceptions
      */
-    public List<WUExceptionWrapper> getExceptions()
+    public ArrayOfEspExceptionWrapper getExceptions()
     {
         return exceptions;
     }
@@ -142,7 +116,7 @@ public class WUInfoResponseWrapper
     /**
      * @param exceptions the exceptions to set
      */
-    public void setExceptions(List<WUExceptionWrapper> exceptions)
+    public void setExceptions(ArrayOfEspExceptionWrapper exceptions)
     {
         this.exceptions = exceptions;
     }
@@ -238,20 +212,21 @@ public class WUInfoResponseWrapper
     
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException getRawArrayOfEspExceptions1_75()
     {
-        if (this.exceptions.size() == 0)
+        if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0)
             return null;
 
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException result = 
                 new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException();
 
-        for (int i = 0; i < exceptions.size(); i++)
+        List<EspExceptionWrapper> espExceptions = exceptions.getEspExceptions();
+        for (EspExceptionWrapper espExceptionWrapper : espExceptions)
         {
             EspException espexception = new EspException();
 
-            espexception.setAudience(exceptions.get(i).getAudience());
-            espexception.setMessage(exceptions.get(i).getMessage());
-            espexception.setSource(exceptions.get(i).getSource());
-            espexception.setCode(exceptions.get(i).getEspCode());
+            espexception.setAudience(espExceptionWrapper.getAudience());
+            espexception.setMessage(espExceptionWrapper.getMessage());
+            espexception.setSource(espExceptionWrapper.getSource());
+            espexception.setCode(espExceptionWrapper.getCode());
             
             result.addException(espexception);
         }

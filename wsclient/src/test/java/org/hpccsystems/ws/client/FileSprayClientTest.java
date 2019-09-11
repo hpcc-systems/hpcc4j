@@ -6,7 +6,7 @@ import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.ArrayOfExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
@@ -151,7 +151,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             throw new ArrayOfEspExceptionWrapper().setWsClientMessage(message);
         }
-        catch (ArrayOfExceptionWrapper e)
+        catch (ArrayOfBaseExceptionWrapper e)
         {
             String wsClientMessage = e.getWsClientMessage();
             Assert.assertNotNull(wsClientMessage);
