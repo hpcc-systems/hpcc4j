@@ -11,7 +11,7 @@ To utilize this library as a dependency in your own maven project, simply add th
 <dependency>
 	<groupId>org.hpccsystems</groupId>
 	<artifactId>dfsclient</artifactId>
-	<version>1.0.0</version>
+	<version>7.6.0</version>
 </dependency>
 ```
 
@@ -20,22 +20,14 @@ This project is to be built using Maven. To build the projects using Maven, navi
 
 `mvn install`
 
+NOTE: This project, wsclient and commons-hpcc can be built together via the maven pom file at the JAPI repo root directory
+
 Developers who want to do a deployment must insure they have their credentials set in settings.xml under their maven configuration folder.  The following command will execute a clean build of the jar, jar-with-dependencies, javadoc, and source packages.  It will also attempt to sign the packages before uploading them to the sonatype repository for staging.
 
 `mvn clean deploy -P release`
 
 
 For more information on how to use Maven see http://maven.apache.org
-
-#### Key elements
-
-#### API feature compatibility
-
-#### Future Release
-
-###### 1.0.0 Target Release date January 2019 
-
-#### Release Changelog
 
 #### Contributions
 
