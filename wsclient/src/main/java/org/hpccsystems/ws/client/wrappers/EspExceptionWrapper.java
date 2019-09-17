@@ -25,169 +25,178 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspException;
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
  * TimeStamp: 2019-08-03T01:15:45.832Z
  */
-public class EspExceptionWrapper
+public class EspExceptionWrapper extends BaseExceptionWrapper
 {
-    protected String local_code;
-    protected String local_audience;
-    protected String local_source;
-    protected String local_message;
+    protected String audience;
+    protected String code;
 
-	public EspExceptionWrapper() {}
+    public EspExceptionWrapper() {}
 
 	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException espexception)
 	{
 		copy( espexception );
 	}
+
 	public EspExceptionWrapper( String _code, String _audience, String _source, String _message )
 	{
-		this.local_code = _code;
-		this.local_audience = _audience;
-		this.local_source = _source;
-		this.local_message = _message;
+		this.code = _code;
+		this.audience = _audience;
+		this.source = _source;
+		this.message = _message;
 
 	}
 
 	public EspExceptionWrapper(EspExceptionWrapper espExceptionWrapper)
     {
-	    this.local_code = espExceptionWrapper.getCode();
-        this.local_audience = espExceptionWrapper.getAudience();
-        this.local_source = espExceptionWrapper.getSource();
-        this.local_message = espExceptionWrapper.getMessage();
+	    this.code = espExceptionWrapper.getCode();
+        this.audience = espExceptionWrapper.getAudience();
+        this.source = espExceptionWrapper.getSource();
+        this.message = espExceptionWrapper.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(EspException raw)
     {
-        this.local_code = raw.getCode();
-        this.local_audience = raw.getAudience();
-        this.local_source = raw.getSource();
-        this.local_message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException raw )
 	{
-		this.local_code = raw.getCode();
-		this.local_audience = raw.getAudience();
-		this.local_source = raw.getSource();
-		this.local_message = raw.getMessage();
+		this.code = raw.getCode();
+		this.audience = raw.getAudience();
+		this.source = raw.getSource();
+		this.message = raw.getMessage();
 	}
 
 	@Override
 	public String toString()
-	{		return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
+	{		
+	    return     "EspException: Audience: " + getAudience() + " Source: " + getSource() + " Message: " + getMessage();
 	}
 	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException getRaw()
 	{
 		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException();
-		raw.setCode( local_code);
-		raw.setAudience( local_audience);
-		raw.setSource( local_source);
-		raw.setMessage( local_message);
+		raw.setCode( code);
+		raw.setAudience( audience);
+		raw.setSource( source);
+		raw.setMessage( message);
 		return raw;
-	}
+	}	
+	
+    public void setAudience( String _audience )
+    {
+        this.audience = _audience;
+    }
+    public String getAudience( )
+    {
+        return this.audience;
+    }
+    
+    public void setCode( String _code )
+    {
+        this.code = _code;
+    }
+    public String getCode( )
+    {
+        return this.code;
+    }
 
-
-	public void setCode( String _code )
-	{
-		this.local_code = _code;
-	}
-	public String getCode( )
-	{
-		return this.local_code;
-	}
-	public void setAudience( String _audience )
-	{
-		this.local_audience = _audience;
-	}
-	public String getAudience( )
-	{
-		return this.local_audience;
-	}
-	public void setSource( String _source )
-	{
-		this.local_source = _source;
-	}
-	public String getSource( )
-	{
-		return this.local_source;
-	}
-	public void setMessage( String _message )
-	{
-		this.local_message = _message;
-	}
-	public String getMessage( )
-	{
-		return this.local_message;
-	}
 }

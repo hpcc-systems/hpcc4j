@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers;
 
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException;
 
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
@@ -26,18 +26,16 @@ import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
  * TimeStamp: 2019-08-03T01:14:54.545Z
  */
 
-public class ECLExceptionWrapper
+public class ECLExceptionWrapper extends BaseExceptionWrapper
 {
-    protected String local_source;
-    protected String local_severity;
-    protected int local_code;
-    protected String local_message;
-    protected String local_fileName;
-    protected int local_lineNo;
-    protected int local_column;
-    protected int local_activity;
-    protected String local_scope;
-    protected int local_priority;
+    protected String severity;
+    protected int code;
+    protected String fileName;
+    protected int lineNo;
+    protected int column;
+    protected int activity;
+    protected String scope;
+    protected int priority;
 
     public ECLExceptionWrapper() {}
 
@@ -48,16 +46,16 @@ public class ECLExceptionWrapper
 
     public ECLExceptionWrapper( String _source, String _severity, int _code, String _message, String _fileName, int _lineNo, int _column, int _activity, String _scope, int _priority )
     {
-        this.local_source = _source;
-        this.local_severity = _severity;
-        this.local_code = _code;
-        this.local_message = _message;
-        this.local_fileName = _fileName;
-        this.local_lineNo = _lineNo;
-        this.local_column = _column;
-        this.local_activity = _activity;
-        this.local_scope = _scope;
-        this.local_priority = _priority;
+        this.source = _source;
+        this.severity = _severity;
+        this.code = _code;
+        this.message = _message;
+        this.fileName = _fileName;
+        this.lineNo = _lineNo;
+        this.column = _column;
+        this.activity = _activity;
+        this.scope = _scope;
+        this.priority = _priority;
     }
 
     public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException eclException)
@@ -65,134 +63,208 @@ public class ECLExceptionWrapper
         copy(eclException);
     }
 
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException eclException)
+    {
+        copy(eclException);
+    }
+
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException eclException)
+    {
+        copy(eclException);
+    }
+
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException eclException)
+    {
+        copy(eclException);
+    }
+
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLException raw)
+    {
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException raw)
+    {
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException raw)
+    {
+        code=raw.getCode();
+        column=raw.getColumn();
+        fileName=raw.getFileName();
+        lineNo=raw.getLineNo();
+        message=raw.getMessage();
+        severity=raw.getSeverity();
+        source=raw.getSource();
+    }
+
+    private void copy(ECLException raw)
+    {
+        this.source = raw.getSource();
+        this.severity = raw.getSeverity();
+        this.code = raw.getCode();
+        this.message = raw.getMessage();
+        this.fileName = raw.getFileName();
+        this.lineNo = raw.getLineNo();
+        this.column = raw.getColumn();
+    }
+
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException raw)
     {
-        this.local_source = raw.getSource();
-        this.local_severity = raw.getSeverity();
-        this.local_code = raw.getCode();
-        this.local_message = raw.getMessage();
-        this.local_fileName = raw.getFileName();
-        this.local_lineNo = raw.getLineNo();
-        this.local_column = raw.getColumn();
-        this.local_activity = raw.getActivity();
-        this.local_scope = raw.getScope();
-        this.local_priority = raw.getPriority();
+        this.source = raw.getSource();
+        this.severity = raw.getSeverity();
+        this.code = raw.getCode();
+        this.message = raw.getMessage();
+        this.fileName = raw.getFileName();
+        this.lineNo = raw.getLineNo();
+        this.column = raw.getColumn();
+        this.activity = raw.getActivity();
+        this.scope = raw.getScope();
+        this.priority = raw.getPriority();
     }
 
     private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw )
     {
-        this.local_source = raw.getSource();
-        this.local_severity = raw.getSeverity();
-        this.local_code = raw.getCode();
-        this.local_message = raw.getMessage();
-        this.local_fileName = raw.getFileName();
-        this.local_lineNo = raw.getLineNo();
-        this.local_column = raw.getColumn();
-        this.local_activity = raw.getActivity();
-        this.local_scope = raw.getScope();
-        this.local_priority = raw.getPriority();
+        this.source = raw.getSource();
+        this.severity = raw.getSeverity();
+        this.code = raw.getCode();
+        this.message = raw.getMessage();
+        this.fileName = raw.getFileName();
+        this.lineNo = raw.getLineNo();
+        this.column = raw.getColumn();
+        this.activity = raw.getActivity();
+        this.scope = raw.getScope();
+        this.priority = raw.getPriority();
     }
 
     @Override
     public String toString()
     {
-        return "ECLExceptionWrapper [" + "source = " + local_source + ", " + "severity = " + local_severity + ", " + "code = " + local_code + ", " + "message = " + local_message + ", " + "fileName = " + local_fileName + ", " + "lineNo = " + local_lineNo + ", " + "column = " + local_column + ", " + "activity = " + local_activity + ", " + "scope = " + local_scope + ", " + "priority = " + local_priority + "]";
+        StringBuffer sb=new StringBuffer();
+        sb.append("code: " + getCode() + "\t");
+        sb.append("scope: " + getScope() + "\t");
+        sb.append("severity: " + getSeverity() + "\t");
+        sb.append("activity: " + getActivity() + "\n\t");
+        sb.append("file: " + getFileName() + "\t");
+        sb.append("line: " + getLineNo() + "\t");
+        sb.append("col: " + getColumn() + "\t");
+        sb.append("Message: " + getMessage());
+        return sb.toString();
     }
 
     public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException();
-        raw.setSource( local_source);
-        raw.setSeverity( local_severity);
-        raw.setCode( local_code);
-        raw.setMessage( local_message);
-        raw.setFileName( local_fileName);
-        raw.setLineNo( local_lineNo);
-        raw.setColumn( local_column);
-        raw.setActivity( local_activity);
-        raw.setScope( local_scope);
-        raw.setPriority( local_priority);
+        raw.setSource( source);
+        raw.setSeverity( severity);
+        raw.setCode( code);
+        raw.setMessage( message);
+        raw.setFileName( fileName);
+        raw.setLineNo( lineNo);
+        raw.setColumn( column);
+        raw.setActivity( activity);
+        raw.setScope( scope);
+        raw.setPriority( priority);
         return raw;
     }
 
     public void setSource( String _source )
     {
-        this.local_source = _source;
+        this.source = _source;
     }
     public String getSource( )
     {
-        return this.local_source;
+        return this.source;
     }
     public void setSeverity( String _severity )
     {
-        this.local_severity = _severity;
+        this.severity = _severity;
     }
     public String getSeverity( )
     {
-        return this.local_severity;
+        return this.severity;
     }
     public void setCode( int _code )
     {
-        this.local_code = _code;
+        this.code = _code;
     }
     public int getCode( )
     {
-        return this.local_code;
-    }
-    public void setMessage( String _message )
-    {
-        this.local_message = _message;
-    }
-    public String getMessage( )
-    {
-        return this.local_message;
+        return this.code;
     }
     public void setFileName( String _fileName )
     {
-        this.local_fileName = _fileName;
+        this.fileName = _fileName;
     }
     public String getFileName( )
     {
-        return this.local_fileName;
+        return this.fileName;
     }
     public void setLineNo( int _lineNo )
     {
-        this.local_lineNo = _lineNo;
+        this.lineNo = _lineNo;
     }
     public int getLineNo( )
     {
-        return this.local_lineNo;
+        return this.lineNo;
     }
     public void setColumn( int _column )
     {
-        this.local_column = _column;
+        this.column = _column;
     }
     public int getColumn( )
     {
-        return this.local_column;
+        return this.column;
     }
     public void setActivity( int _activity )
     {
-        this.local_activity = _activity;
+        this.activity = _activity;
     }
     public int getActivity( )
     {
-        return this.local_activity;
+        return this.activity;
     }
     public void setScope( String _scope )
     {
-        this.local_scope = _scope;
+        this.scope = _scope;
     }
     public String getScope( )
     {
-        return this.local_scope;
+        return this.scope;
     }
     public void setPriority( int _priority )
     {
-        this.local_priority = _priority;
+        this.priority = _priority;
     }
     public int getPriority( )
     {
-        return this.local_priority;
+        return this.priority;
+    }
+
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException getRawVersion1_75()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException ex=new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException();
+        ex.setActivity(activity);
+        ex.setCode(code);
+        ex.setColumn(column);
+        ex.setFileName(fileName);
+        ex.setLineNo(lineNo);
+        ex.setMessage(message);
+        ex.setSeverity(severity);
+        ex.setSource(source);
+        return ex;
     }
 }

@@ -113,14 +113,14 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
         }
     }
 
@@ -144,14 +144,14 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
         }
     }
 
@@ -168,14 +168,14 @@ public class WSSQLClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
         }
     }
 
@@ -237,14 +237,14 @@ public class WSSQLClientTest extends BaseRemoteTest
                 }
             }
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
         }
     }
 
@@ -272,14 +272,14 @@ public class WSSQLClientTest extends BaseRemoteTest
             String result = resp.getResult();
             System.out.println(result);
         }
+        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
-        }
-        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
         }
     }
 
@@ -306,14 +306,14 @@ public class WSSQLClientTest extends BaseRemoteTest
             {
                 wuid = client.executeSQLWUIDResponse(sql, randomclustername, "");
             }
-            catch (Exception e)
-            {
-                System.out.println("Exception while executing SQL: " + e.getLocalizedMessage());
-            }
             catch (ArrayOfEspExceptionWrapper e)
             {
                 e.toString();
                 Assert.fail();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception while executing SQL: " + e.getLocalizedMessage());
             }
 
             Assert.assertNotNull(wuid);
@@ -367,14 +367,14 @@ public class WSSQLClientTest extends BaseRemoteTest
                         System.out.println(" |");
                     }
                 }
-                catch (Exception e)
-                {
-                    System.out.println("Exception while fetching results related to WUID: " + wuid + ": " + e.getLocalizedMessage());
-                }
                 catch (ArrayOfEspExceptionWrapper e)
                 {
                     e.toString();
                     Assert.fail();
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Exception while fetching results related to WUID: " + wuid + ": " + e.getLocalizedMessage());
                 }
 
                 Assert.assertNotNull(filtercolumnname);
@@ -395,14 +395,14 @@ public class WSSQLClientTest extends BaseRemoteTest
                 client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables.getNamedValue(), -1, 10, 0, 10, "WsClient", true, false);
             }
         }
+        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail();
-        }
-        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
         }
     }
 }

@@ -18,10 +18,7 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
-import org.hpccsystems.ws.client.wrappers.WUExceptionWrapper;
 
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
@@ -307,23 +304,6 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp) throws ArrayOfEspExceptionWrapper
     {
         handleEspExceptions(exp, null);
-    }
-
-    protected void handleWUExceptions(List<WUExceptionWrapper> exceptions, String message) throws Exception
-    {
-        if (exceptions != null && exceptions.size() > 0)
-        {
-            String errs = message == null ? "" : message;
-            for (WUExceptionWrapper exception : exceptions)
-            {
-                if (exception.getMessage() != null)
-                {
-                    errs = errs + exception.getMessage() + "\n";
-                }
-                log.error("Source: " + exception.getSource() + " Message: " + exception.getMessage());
-            }
-            throw new Exception(errs);
-        }
     }
 
     /**

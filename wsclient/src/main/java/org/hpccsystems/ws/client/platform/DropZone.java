@@ -9,6 +9,7 @@ package org.hpccsystems.ws.client.platform;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
@@ -18,6 +19,7 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 
 public class DropZone extends DataSingleton
 {
@@ -188,18 +190,18 @@ public class DropZone extends DataSingleton
         {
             update(platform.getWsClient().getWsTopologyClient().queryDropzoneMachines(dzInfo.getName()));
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
     }
 
-    private void update(TpMachine[] queryDropzoneMachines)
+    private void update(List<TpMachineWrapper> queryDropzoneMachines)
     {
          if (queryDropzoneMachines != null)
          {
              machines.clear();
-             for (TpMachine machine : queryDropzoneMachines)
+             for (TpMachineWrapper machine : queryDropzoneMachines)
              {
                  PhysicalMachine physicalMachine = getMachine(machine.getName());
                  if (physicalMachine != null)
@@ -209,6 +211,24 @@ public class DropZone extends DataSingleton
                  }
              }
          }
+    }
+
+    private void update(TpMachine[] queryDropzoneMachines)
+    {
+        if (queryDropzoneMachines != null && queryDropzoneMachines.length > 0)
+        {
+            machines.clear();
+            //for (TpMachineWrapper machine : queryDropzoneMachines)
+            for (TpMachine machine : queryDropzoneMachines)
+            {
+                PhysicalMachine physicalMachine = getMachine(machine.getName());
+                if (physicalMachine != null)
+                {
+                    physicalMachine.update(machine);
+                    machines.add(physicalMachine); // Will mark changed if needed ---
+                }
+            }
+        }
     }
 
     public void update(TpDropZone dz)

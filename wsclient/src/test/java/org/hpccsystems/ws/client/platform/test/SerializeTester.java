@@ -62,7 +62,7 @@ public class SerializeTester {
 			System.out.println("Class not found");
 			c.printStackTrace();
 		}
-		catch(Exception | ArrayOfEspExceptionWrapper e)
+		catch(Exception e)
 		{
 			e.getMessage();
 			e.printStackTrace();

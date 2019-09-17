@@ -129,14 +129,13 @@ public class WsDFUClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail( e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            e.toString();
             Assert.fail();
         }
     }
@@ -165,14 +164,13 @@ public class WsDFUClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail( e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            e.toString();
             Assert.fail();
         }
     }
@@ -204,14 +202,13 @@ public class WsDFUClientTest extends BaseRemoteTest
 
             Assert.assertNotNull(content);
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail( e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            e.toString();
             Assert.fail();
         }
     }
@@ -228,14 +225,13 @@ public class WsDFUClientTest extends BaseRemoteTest
             DFUInfoWrapper file = wsdfuclient.getFileInfo(randomfilename.getFileName(), randomfilename.getNodeGroup());
             Assert.assertNotNull(file);
         }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail( e.toString());
+        }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            e.toString();
             Assert.fail();
         }
     }

@@ -498,7 +498,7 @@ public class Workunit extends DataSingleton
                     }
                 }
             } 
-            catch (Exception | ArrayOfEspExceptionWrapper ex) 
+            catch (Exception ex)
             {
                 //getWUInfo throws the arrayofespexceptions wrapped in an exception;
                 //examine this in a catch
