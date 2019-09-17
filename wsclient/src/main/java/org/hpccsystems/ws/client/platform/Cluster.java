@@ -17,6 +17,7 @@ import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
 
 public class Cluster extends DataSingleton
 {
@@ -72,12 +73,21 @@ public class Cluster extends DataSingleton
         try
         {
                 HPCCWsTopologyClient wsTopologyClient = platform.getWsClient().getWsTopologyClient();
-                TpClusterInfoResponse respsone = wsTopologyClient.getClusterInfo(info.getName());
+                TpClusterInfoResponseWrapper respsone = wsTopologyClient.getClusterInfo(info.getName());
                 Update(respsone);
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private void Update(TpClusterInfoResponseWrapper ci)
+    {
+        if (info2.getName().equals(ci.getName()))
+        {
+            info2 = ci.getRaw();
+            setChanged();
         }
     }
 

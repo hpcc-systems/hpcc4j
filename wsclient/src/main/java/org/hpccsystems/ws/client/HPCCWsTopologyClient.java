@@ -8,22 +8,16 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpTargetCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse;
@@ -31,6 +25,15 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.WsTopologyPingReques
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.WsTopologyStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpDropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpLogicalClusterWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpTargetClusterWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpDropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpLogicalClusterWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpServicesWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
 
 /**
 * Use as soap client for HPCC WsTopology web service.
@@ -159,9 +162,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper 
      */
-    public TpTargetCluster[] getValidTargetGroups() throws Exception, ArrayOfEspExceptionWrapper
+    public List<TpTargetClusterWrapper> getValidTargetGroups() throws Exception, ArrayOfEspExceptionWrapper
     {
-        TpTargetCluster [] tpTargetClusters = null;
+        List<TpTargetClusterWrapper> tpTargetClusters = null;
 
         verifyStub(); //Throws exception if stub failed
 
@@ -184,7 +187,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not fetch target groups.");
 
-        ArrayOfTpTargetCluster arrayOfTpTargetCluster = response.getTpTargetClusters();
+        ArrayOfTpTargetClusterWrapper arrayOfTpTargetCluster = new ArrayOfTpTargetClusterWrapper(response.getTpTargetClusters());
 
         if (arrayOfTpTargetCluster != null)
             tpTargetClusters = arrayOfTpTargetCluster.getTpTargetCluster();
@@ -241,12 +244,13 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper 
      */
-    public TpDropZone queryDropzone(String name) throws Exception, ArrayOfEspExceptionWrapper
+    public TpDropZoneWrapper queryDropzone(String name) throws Exception, ArrayOfEspExceptionWrapper
     {
-        TpDropZone[] dropZones = queryDropzones(name);
-        if (dropZones.length != 1)
+        List<TpDropZoneWrapper> dropZones = queryDropzones(name);
+        if (dropZones.size() != 1)
              throw new Exception ("Could not query Dropzone: '" + name + "'");
-        return dropZones[0];
+
+        return dropZones.get(0);
     }
 
     /**
@@ -255,7 +259,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper 
      */
-    public TpDropZone[] queryDropzones(String namefilter) throws Exception, ArrayOfEspExceptionWrapper
+    public List<TpDropZoneWrapper> queryDropzones(String namefilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -277,12 +281,12 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Error fetching dropzone info");
 
-        ArrayOfTpDropZone arrayoftpdz = response.getTpDropZones();
+        ArrayOfTpDropZoneWrapper arrayoftpdz = new ArrayOfTpDropZoneWrapper(response.getTpDropZones());
 
          return arrayoftpdz.getTpDropZone();
     }
 
-    public TpMachine[] queryDropzoneMachines(String name) throws Exception, ArrayOfEspExceptionWrapper
+    public List<TpMachineWrapper> queryDropzoneMachines(String name) throws Exception, ArrayOfEspExceptionWrapper
     {
         return queryDropzone(name).getTpMachines().getTpMachine();
     }
@@ -352,7 +356,6 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return tpTargetClusterNames.toArray(new String [0]);
     }
 
-
     /**
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
      * @return
@@ -381,7 +384,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return names;
     }
 
-    public TpServices getServices() throws Exception, ArrayOfEspExceptionWrapper
+    public TpServicesWrapper getServices() throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -403,12 +406,10 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not fetch target services.");
 
-        TpServices serviceList = response.getServiceList();
-
-        return serviceList;
+        return new TpServicesWrapper(response.getServiceList());
     }
 
-    public TpClusterInfoResponse getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
+    public TpClusterInfoResponseWrapper getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
@@ -430,14 +431,14 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get getClusterInfo for cluster: '"+clusterName+"'");
 
-        return response;
+        return new TpClusterInfoResponseWrapper(response);
     }
 
-    public TpLogicalCluster[] getLogicalClusters() throws Exception, ArrayOfEspExceptionWrapper
+    public List<TpLogicalClusterWrapper> getLogicalClusters() throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); //Throws exception if stub failed
 
-        TpLogicalCluster[] tplogclusters = null;
+        List<TpLogicalClusterWrapper> tplogclusters = null;
         TpLogicalClusterQueryRequest request = new TpLogicalClusterQueryRequest();
 
         TpLogicalClusterQueryResponse response = null;
@@ -454,7 +455,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get getLogicalClusters");
 
-        ArrayOfTpLogicalCluster tpLogicalClusters = response.getTpLogicalClusters();
+        ArrayOfTpLogicalClusterWrapper tpLogicalClusters = new ArrayOfTpLogicalClusterWrapper(response.getTpLogicalClusters());
         if (tpLogicalClusters != null)
             tplogclusters = tpLogicalClusters.getTpLogicalCluster();
 

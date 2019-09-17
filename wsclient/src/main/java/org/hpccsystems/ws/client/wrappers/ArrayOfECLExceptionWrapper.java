@@ -3,39 +3,113 @@ package org.hpccsystems.ws.client.wrappers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 
-public class ArrayOfECLExceptionWrapper extends Throwable
+public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
 {
     private static final long serialVersionUID = 1L;
-    protected List<ECLExceptionWrapper> eclExceptions = new ArrayList<ECLExceptionWrapper>();
-    protected String WsClientMessage;
 
-    public ArrayOfECLExceptionWrapper() {}
+    public ArrayOfECLExceptionWrapper() {super();}
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException arrayofeclexception)
     {
+        super();
         copy( arrayofeclexception );
     }
 
-    public ArrayOfECLExceptionWrapper(List<ECLExceptionWrapper> _eCLException)
+    public ArrayOfECLExceptionWrapper(List<BaseExceptionWrapper> _eCLException)
     {
-        this.eclExceptions = _eCLException;
+        super();
+        this.exceptions = _eCLException;
     }
 
     public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException[] eclExceptions)
     {
+        super();
         copy(eclExceptions);
+    }
+
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLException[] eclExceptions)
+    {
+        super();
+        copy(eclExceptions);
+    }
+
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException[] eclExceptions)
+    {
+        super();
+        copy(eclExceptions);
+    }
+
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException[] eclExceptions)
+    {
+        super();
+        copy(eclExceptions);
+    }
+
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException[] eclExceptions)
+    {
+        super();
+        copy(eclExceptions);
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException[] raw)
+    {
+        if (raw!= null && raw.length > 0)
+        {
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
+            for ( int i = 0; i < raw.length; i++)
+            {
+                this.exceptions.add(new ECLExceptionWrapper(raw[i]));
+            }
+        }
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException[] raw)
+    {
+        if (raw!= null && raw.length > 0)
+        {
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
+            for ( int i = 0; i < raw.length; i++)
+            {
+                this.exceptions.add(new ECLExceptionWrapper(raw[i]));
+            }
+        }
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException[] raw)
+    {
+        if (raw!= null && raw.length > 0)
+        {
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
+            for ( int i = 0; i < raw.length; i++)
+            {
+                this.exceptions.add(new ECLExceptionWrapper(raw[i]));
+            }
+        }
+    }
+
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLException[] raw)
+    {
+        if (raw!= null && raw.length > 0)
+        {
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
+            for ( int i = 0; i < raw.length; i++)
+            {
+                this.exceptions.add(new ECLExceptionWrapper(raw[i]));
+            }
+        }
     }
 
     private void copy(ECLException[] raw)
     {
         if (raw!= null && raw.length > 0)
         {
-            this.eclExceptions = new ArrayList<ECLExceptionWrapper>();
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
             for ( int i = 0; i < raw.length; i++)
             {
-                this.eclExceptions.add(new ECLExceptionWrapper(raw[i]));
+                this.exceptions.add(new ECLExceptionWrapper(raw[i]));
             }
         }
     }
@@ -44,30 +118,12 @@ public class ArrayOfECLExceptionWrapper extends Throwable
     {
         if (raw.getECLException() != null)
         {
-            this.eclExceptions = new ArrayList<ECLExceptionWrapper>();
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
             for ( int i = 0; i < raw.getECLException().length; i++)
             {
-                this.eclExceptions.add(new ECLExceptionWrapper(raw.getECLException()[i]));
+                this.exceptions.add(new ECLExceptionWrapper(raw.getECLException()[i]));
             }
         }
-    }
-
-
-    /**
-     * @return the wsClientMessage
-     */
-    public String getWsClientMessage()
-    {
-        return WsClientMessage;
-    }
-
-    /**
-     * @param wsClientMessage the wsClientMessage to set
-     */
-    public ArrayOfECLExceptionWrapper setWsClientMessage(String wsClientMessage)
-    {
-        WsClientMessage = wsClientMessage;
-        return this;
     }
 
     @Override
@@ -75,24 +131,47 @@ public class ArrayOfECLExceptionWrapper extends Throwable
     {
         StringBuilder multimessage = new StringBuilder();
         multimessage.append("ArrayOfECLExceptionWrapper: ");
-        multimessage.append(WsClientMessage);
+        multimessage.append(wsClientMessage);
         multimessage.append("\n");
-        for (ECLExceptionWrapper eclExceptionWrapper : eclExceptions)
+        for (BaseExceptionWrapper eclExceptionWrapper : exceptions)
         {
-            multimessage.append("\n\t");
-            multimessage.append(eclExceptionWrapper.getMessage());
+            multimessage.append("\n\t").append(eclExceptionWrapper.toString());
         }
 
         return multimessage.toString();
     }
-
-    public void setECLException( List<ECLExceptionWrapper> _eCLException )
+    
+    public List<ECLExceptionWrapper> getECLException()
     {
-        this.eclExceptions = _eCLException;
+        List<ECLExceptionWrapper> ecls=new ArrayList<ECLExceptionWrapper>();
+        for (BaseExceptionWrapper ew:exceptions)
+        {
+            ecls.add((ECLExceptionWrapper) ew);
+        }
+        return ecls;
+    }
+  
+    /**
+     * @param localMessage the localMessage to set
+     */
+    public ArrayOfECLExceptionWrapper setWsClientMessage(String localMessage)
+    {
+        this.wsClientMessage = localMessage;
+        return this;
     }
 
-    public List<ECLExceptionWrapper> getECLException( )
+    public ArrayOfECLException getRaw()
     {
-        return this.eclExceptions;
+        if ( exceptions == null || exceptions.size() == 0 )
+            return null;
+
+        ArrayOfECLException eclexceptions = new ArrayOfECLException();
+        for (BaseExceptionWrapper ew : exceptions)
+        {
+            eclexceptions.addECLException(((ECLExceptionWrapper) ew).getRawVersion1_75());
+        }
+
+        return eclexceptions;
     }
+
 }
