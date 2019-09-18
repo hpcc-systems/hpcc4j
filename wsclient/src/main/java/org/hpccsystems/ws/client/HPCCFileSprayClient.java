@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
