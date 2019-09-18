@@ -2,7 +2,6 @@ package org.hpccsystems.ws.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
@@ -10,7 +9,6 @@ import org.apache.axis2.client.Stub;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl;
 import org.apache.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;

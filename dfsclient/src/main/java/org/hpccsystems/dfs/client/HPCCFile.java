@@ -266,7 +266,7 @@ public class HPCCFile implements Serializable
             }
 
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             log.error("Unable to retrieve file or record information: " + e.getMessage());
             throw new HpccFileException("Unable to retrieve file or record information: " + e.getMessage(), e);
