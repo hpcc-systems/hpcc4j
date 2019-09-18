@@ -197,7 +197,7 @@ public class ECLResultWrapper
     @Override
     public String toString()
     {
-        return "ECLResultInfo [ name=" + name + ", sequence=" + sequence + ", value=" + value +
+        return "ECLResultWrapper [ name=" + name + ", sequence=" + sequence + ", value=" + value +
                 ", showFileContent=" + showFileContent + ", total=" + total
                 + " xmlSchema=" + xmlSchema + "]";
     }

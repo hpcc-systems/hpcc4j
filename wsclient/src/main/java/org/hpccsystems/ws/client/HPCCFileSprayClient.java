@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.fail;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,13 +20,17 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CopyResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse;
@@ -77,7 +83,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     private static final long   MAX_FILE_WSUPLOAD_SIZE = 2000000000;
     private int                 BUFFER_LENGTH          = 1024;
 
-    DropZoneWrapper[]                   localDropZones  = null;
+    List<DropZoneWrapper>                   localDropZones  = null;
     private static Logger               log = Logger.getLogger(HPCCFileSprayClient.class.getName());
 
     static
@@ -288,7 +294,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
-    public DropZoneWrapper[] fetchLocalDropZones() throws Exception, ArrayOfEspExceptionWrapper
+    public List<DropZoneWrapper> fetchLocalDropZones() throws Exception, ArrayOfEspExceptionWrapper
     {
         return fetchDropZones("localhost");
     }
@@ -299,7 +305,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
-    public DropZoneWrapper[] fetchDropZones(String dropzoneNetAddress) throws Exception, ArrayOfEspExceptionWrapper
+    public List<DropZoneWrapper> fetchDropZones(String dropzoneNetAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -325,20 +331,46 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not FetchDropzones");
 
-        DropZoneWrapper[] dropZonesWrapper = null;
+        List<DropZoneWrapper> dropZonesWrapper = null;
         if (resp.getDropZones() != null)
         {
+            dropZonesWrapper =new ArrayList<DropZoneWrapper>();
             DropZone[] dropZone = resp.getDropZones().getDropZone();
-            dropZonesWrapper = new DropZoneWrapper[dropZone.length];
             for (int i = 0; i < dropZone.length; i++)
             {
-                dropZonesWrapper[i] = new DropZoneWrapper(dropZone[i]);
+                dropZonesWrapper.add(new DropZoneWrapper(dropZone[i]));
             }
         }
 
         return dropZonesWrapper;
     }
 
+    public String copyFile(String from,String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper {
+        verifyStub();
+        Copy cp=new Copy();
+        cp.setSourceLogicalName(from);
+        cp.setDestLogicalName(to);
+        cp.setOverwrite(overwrite);
+        CopyResponse resp=null;
+        try
+        {
+            resp = ((FileSprayStub)stub).copy(cp);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("HPCCFileSprayClient.copy(from,to,overwrite) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not copy file");
+        }
+
+        if (resp != null && resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not Copy File");
+
+        return resp.getResult();
+    }
+    
     public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly, boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
@@ -431,7 +463,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
-    public PhysicalFileStructWrapper[] listFiles(String netAddress, String path, String OS) throws Exception, ArrayOfEspExceptionWrapper
+    public List<PhysicalFileStructWrapper> listFiles(String netAddress, String path, String OS) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -460,19 +492,18 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not ListFiles");
 
-        PhysicalFileStructWrapper [] physicalFileStructWrapper = null;
+        List<PhysicalFileStructWrapper> physicalFileStructWrappers = new ArrayList<PhysicalFileStructWrapper>();
 
         PhysicalFileStruct[] physicalFileStruct = resp.getFiles().getPhysicalFileStruct();
         if (physicalFileStruct != null && physicalFileStruct.length > 0)
         {
-            physicalFileStructWrapper = new PhysicalFileStructWrapper[physicalFileStruct.length];
             for (int i = 0; i < physicalFileStruct.length; i++)
             {
-                physicalFileStructWrapper[i] = new PhysicalFileStructWrapper(physicalFileStruct[i]);
+                physicalFileStructWrappers.add(new PhysicalFileStructWrapper(physicalFileStruct[i]));
             }
         }
 
-        return physicalFileStructWrapper;
+        return physicalFileStructWrappers;
     }
 
     /**
@@ -509,12 +540,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress,  DelimitedDataOptions options, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
-        DropZoneWrapper[] targetDropZones = fetchDropZones(dropzoneNetAddress);
+        List<DropZoneWrapper> targetDropZones = fetchDropZones(dropzoneNetAddress);
 
         if (targetDropZones == null)
             throw new Exception("Could not fetch target Dropzone");
 
-        return sprayVariable(options, targetDropZones[0], sourceFileName, targetFileName, prefix, destGroup, overwrite);
+        return sprayVariable(options, targetDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite);
     }
 
     /**
@@ -535,7 +566,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
 
-        return sprayVariable(options, localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null, null, null, null, null);
+        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null, null, null, null, null);
     }
 
     /**
@@ -659,7 +690,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
 
-        return sprayXML(localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, SprayVariableFormat.DFUff_ascii, null, null, null, null, null, null);
+        return sprayXML(localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, SprayVariableFormat.DFUff_ascii, null, null, null, null, null, null);
     }
 
     /**
@@ -682,7 +713,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
 
-        return sprayXML(localDropZones[0], sourceFileName, targetFileName, prefix, destGroup, rowtag, overwrite, format, maxrecsize, null, null, null, null, null);
+        return sprayXML(localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, rowtag, overwrite, format, maxrecsize, null, null, null, null, null);
     }
 
     /**
@@ -773,12 +804,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public ProgressResponseWrapper sprayFixed(String dropzoneNetAddress, String sourceFileName, int recordSize, String targetFileLabel, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
-        DropZoneWrapper[] targetDropZones = fetchDropZones(dropzoneNetAddress);
+        List<DropZoneWrapper> targetDropZones = fetchDropZones(dropzoneNetAddress);
 
         if (targetDropZones == null)
             throw new Exception("Could not fetch target Dropzone");
 
-        return sprayFixed(targetDropZones[0], sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false, -1, null, null, null, null, null, null );
+        return sprayFixed(targetDropZones.get(0), sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false, -1, null, null, null, null, null, null );
     }
 
     /**
@@ -798,7 +829,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (localDropZones == null)
             localDropZones = fetchLocalDropZones();
 
-        return sprayFixed(localDropZones[0], sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false, -1, null, null, null, null, null, null );
+        return sprayFixed(localDropZones.get(0), sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false, -1, null, null, null, null, null, null );
     }
 
     /**
@@ -940,10 +971,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public boolean uploadFile(File file, String targetDropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
-        DropZoneWrapper[] dropZones = fetchDropZones(targetDropzoneAddress);
-        if (dropZones == null || dropZones.length <= 0)
+        List<DropZoneWrapper> dropZones = fetchDropZones(targetDropzoneAddress);
+        if (dropZones == null || dropZones.size() <= 0)
             throw new Exception("Could not fetch target dropzone information");
-        return uploadFile(file, dropZones[0]);
+        return uploadFile(file, dropZones.get(0));
     }
 
     /**
@@ -960,10 +991,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public boolean uploadFileLocalDropZone(File file) throws Exception, ArrayOfEspExceptionWrapper
     {
-        DropZoneWrapper[] fetchLocalDropZones = fetchLocalDropZones();
-        if (fetchLocalDropZones == null || fetchLocalDropZones.length <= 0)
+        List<DropZoneWrapper> fetchLocalDropZones = fetchLocalDropZones();
+        if (fetchLocalDropZones == null || fetchLocalDropZones.size() <= 0)
             throw new Exception("Could not fetch local dropzone information");
-        return uploadFile(file, fetchLocalDropZones[0]);
+        return uploadFile(file, fetchLocalDropZones.get(0));
     }
 
     /**
@@ -1253,21 +1284,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         long fileSize = 0;
         try
         {
-            PhysicalFileStructWrapper[] filesInDropzone = listFiles(dropZone.getNetAddress(), dropZone.getPath(), null);
+            List<PhysicalFileStructWrapper> filesInDropzone = listFiles(dropZone.getNetAddress(), dropZone.getPath(), null);
 
             boolean fileWasFound = false;
-            for (int i = 0; i < filesInDropzone.length; i++)
+            for (int i = 0; i < filesInDropzone.size(); i++)
             {
-                if (filesInDropzone[i].getName().equals(fileName))
+                if (filesInDropzone.get(i).getName().equals(fileName))
                 {
-                    if (filesInDropzone[i].getIsDir())
+                    if (filesInDropzone.get(i).getIsDir())
                     {
                         throw new Exception("Specified file name: " + fileName
                                 + ", is a directory. Downloading directories is unsupported.");
                     }
 
                     fileWasFound = true;
-                    fileSize = filesInDropzone[i].getFilesize();
+                    fileSize = filesInDropzone.get(i).getFilesize();
                 }
             }
 
@@ -1357,11 +1388,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetDropzoneAddress, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception, ArrayOfEspExceptionWrapper
     {
-        DropZoneWrapper[] dropZones = fetchDropZones(targetDropzoneAddress);
-        if (dropZones == null || dropZones.length <= 0)
+        List<DropZoneWrapper> dropZones = fetchDropZones(targetDropzoneAddress);
+        if (dropZones == null || dropZones.size() <= 0)
             throw new Exception("Could not fetch target dropzone information");
 
-        Sftp.lzPut(localFileName, targetDropzoneAddress, dropZones[0].getPath(), targetFilename, machineLoginUserName, password, dropZones[0].getLinux().equals("true"), connconfig);
+        Sftp.lzPut(localFileName, targetDropzoneAddress, dropZones.get(0).getPath(), targetFilename, machineLoginUserName, password, dropZones.get(0).getLinux().equals("true"), connconfig);
     }
 
     /**

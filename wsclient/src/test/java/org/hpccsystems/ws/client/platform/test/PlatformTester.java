@@ -238,13 +238,13 @@ public class PlatformTester
             }
 
             HPCCFileSprayClient fsc = client1.getFileSprayClient();
-            DropZoneWrapper[] dzLocal = fsc.fetchLocalDropZones();
-            if (dzLocal != null && dzLocal.length > 0)
+            List<DropZoneWrapper> dzLocal = fsc.fetchLocalDropZones();
+            if (dzLocal != null && dzLocal.size() > 0)
             {
                 System.out.println("fetchLocalDropZones test ...");
-                for(int i = 0; i < dzLocal.length; i++)
+                for(int i = 0; i < dzLocal.size(); i++)
                 {
-                    DropZoneWrapper thisDZ =  dzLocal[i];
+                    DropZoneWrapper thisDZ =  dzLocal.get(i);
                     boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
 
                     System.out.println("DropZone[" + i + "]");
@@ -254,26 +254,26 @@ public class PlatformTester
                     System.out.println("\tComputer:   " + thisDZ.getComputer());
                     System.out.println("\tIsLinux:    " + thisDZ.getLinux());
 
-                    PhysicalFileStructWrapper[] pfs = fsc.listFiles(dzLocal[i].getNetAddress(), dzLocal[i].getPath(), null);
+                    List<PhysicalFileStructWrapper> pfs = fsc.listFiles(dzLocal.get(i).getNetAddress(), dzLocal.get(i).getPath(), null);
                     System.out.println("\tFile Listing:");
-                    if (pfs != null && pfs.length > 0)
+                    if (pfs != null && pfs.size()> 0)
                     {
-                        for(int fileindex = 0; fileindex < pfs.length; fileindex++)
+                        for(int fileindex = 0; fileindex < pfs.size(); fileindex++)
                         {
-                            String name = pfs[fileindex].getName() + (pfs[fileindex].getIsDir() ? (islinux ? "/" : "\\") : "");
-                            System.out.format( "\t\t%-30s %15s %15s\n", name, pfs[fileindex].getIsDir() ? "" : pfs[fileindex].getFilesize() , pfs[fileindex].getModifiedtime());
+                            String name = pfs.get(fileindex).getName() + (pfs.get(fileindex).getIsDir() ? (islinux ? "/" : "\\") : "");
+                            System.out.format( "\t\t%-30s %15s %15s\n", name, pfs.get(fileindex).getIsDir() ? "" : pfs.get(fileindex).getFilesize() , pfs.get(fileindex).getModifiedtime());
                         }
                     }
                 }
             }
 
-            DropZoneWrapper[] dzByAddress = fsc.fetchDropZones(hpccServer);
-            if (dzByAddress != null && dzByAddress.length > 0)
+            List<DropZoneWrapper> dzByAddress = fsc.fetchDropZones(hpccServer);
+            if (dzByAddress != null && dzByAddress.size() > 0)
             {
                 System.out.println("fetchDropZones by address test ...");
-                for (int i = 0; i < dzByAddress.length; i++)
+                for (int i = 0; i < dzByAddress.size(); i++)
                 {
-                    DropZoneWrapper thisDZ = dzByAddress[i];
+                    DropZoneWrapper thisDZ = dzByAddress.get(i);
                     boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
 
                     System.out.println("DropZone[" + i + "]");
@@ -283,12 +283,12 @@ public class PlatformTester
                     System.out.println("\tComputer:   " + thisDZ.getComputer());
                     System.out.println("\tIsLinux:    " + thisDZ.getLinux());
 
-                    PhysicalFileStructWrapper[] pfs = fsc.listFiles(thisDZ.getNetAddress(), thisDZ.getPath(), null);
+                    List<PhysicalFileStructWrapper> pfs = fsc.listFiles(thisDZ.getNetAddress(), thisDZ.getPath(), null);
                     System.out.println("\tFile Listing:");
-                    if (pfs != null && pfs.length > 0)
+                    if (pfs != null && pfs.size() > 0)
                     {
-                        for (int fileindex = 0; fileindex < pfs.length; fileindex++) {
-                            PhysicalFileStructWrapper thisfile = pfs[fileindex];
+                        for (int fileindex = 0; fileindex < pfs.size(); fileindex++) {
+                            PhysicalFileStructWrapper thisfile = pfs.get(fileindex);
                             String name = thisfile.getName() + (thisfile.getIsDir() ? (islinux ? "/" : "\\") : "");
                             System.out.format("\t\t%-30s %15s %15s\n", name, thisfile.getIsDir() ? "" : thisfile.getFilesize(), thisfile.getModifiedtime());
                         }
@@ -296,17 +296,17 @@ public class PlatformTester
                 }
             }
 
-            PhysicalFileStructWrapper[] pfs = fsc.listFiles(dzByAddress[0].getNetAddress(), dzByAddress[0].getPath(), null);
+            List<PhysicalFileStructWrapper> pfs = fsc.listFiles(dzByAddress.get(0).getNetAddress(), dzByAddress.get(0).getPath(), null);
 
             // Test file download
             System.out.println("Download test ...");
             String fileName = null;
-            for (int i = 0; pfs != null && i < pfs.length; i++)
+            for (int i = 0; pfs != null && i < pfs.size(); i++)
             {
-                if (pfs[i].getIsDir() == false
-                && pfs[i].getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
+                if (pfs.get(i).getIsDir() == false
+                && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
                 {
-                    fileName = pfs[i].getName();
+                    fileName = pfs.get(i).getName();
                     break;
                 }
             }
@@ -319,7 +319,7 @@ public class PlatformTester
 
                 File tmpFile = new File(outputFile);
 
-                long bytesTransferred = fsc.downloadFile(tmpFile,dzByAddress[0],fileName);
+                long bytesTransferred = fsc.downloadFile(tmpFile,dzByAddress.get(0),fileName);
                 if (bytesTransferred <= 0)
                 {
                     System.out.println("Download failed.");
