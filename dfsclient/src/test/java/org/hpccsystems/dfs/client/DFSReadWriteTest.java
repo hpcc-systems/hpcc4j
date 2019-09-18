@@ -304,7 +304,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, currentRecord, bytesWritten, true);
             System.out.println("Publish Finished");
         }
-        catch (Exception | ArrayOfEspExceptionWrapper e)
+        catch (Exception e)
         {
             Assert.fail("Failed to write file with error: " + e.getMessage());
         }
