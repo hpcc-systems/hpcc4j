@@ -17,14 +17,25 @@
 
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.fail;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.w3c.dom.NodeList;
+
+import com.jcraft.jsch.jce.ECDH256;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSFileIOClientTest extends BaseRemoteTest
@@ -46,6 +57,81 @@ public class WSFileIOClientTest extends BaseRemoteTest
             targetLZ = "localhost";
     }
 
+    @Test
+    public void copyFile() throws Exception 
+    {
+        String lzfile=System.currentTimeMillis() + "_csvtest.csv";
+        String hpccfilename="temp::" + lzfile;
+        client.createHPCCFile(lzfile, targetLZ, true);
+        byte[] data = "Product,SKU,Color\r\nBike,1234,Blue\r\nCar,2345,Red\r\n".getBytes();
+        client.writeHPCCFileData(data, lzfile, targetLZ, true, 0, 20);
+        try 
+        {
+            ProgressResponseWrapper dfuspray=wsclient.getFileSprayClient().sprayVariable(
+                    new DelimitedDataOptions(),
+                    wsclient.getFileSprayClient().fetchLocalDropZones().get(0),
+                    lzfile,"~" + hpccfilename,"",thorcluster,true,
+                    HPCCFileSprayClient.SprayVariableFormat.DFUff_csv,
+                    null, null, null, null, null, null, null); 
+            Thread.sleep(1000);
+            int wait=60;
+            if (dfuspray.getExceptions() != null 
+                    && dfuspray.getExceptions().getException() != null
+                    && dfuspray.getExceptions().getException().size()>0) 
+            {
+                fail(dfuspray.getExceptions().getException().get(0).getMessage());
+            }
+            if (dfuspray.getSecsLeft()>0) 
+            {
+                System.out.println("Still spraying, waiting 1 sec...");
+                for (int i=wait;i>0;i--) 
+                {
+                    if (dfuspray.getSecsLeft()==0) 
+                    {
+                        i=0;
+                    } 
+                    else 
+                    {
+                        Thread.sleep(1000);
+                    }
+                }
+            }
+            
+            System.out.println("Test file successfully sprayed to " + "~" + hpccfilename + ", attempting copy to " + hpccfilename + "_2");
+            wsclient.getFileSprayClient().copyFile(hpccfilename,hpccfilename + "_2",true);
+            Thread.sleep(1000);
+            DFUInfoWrapper copiedContent=wsclient.getWsDFUClient().getFileInfo(hpccfilename + "_2", thorcluster);
+            if (copiedContent ==null || copiedContent.getExceptions() != null) 
+            {
+                if (copiedContent != null ) 
+                {
+                    System.out.println(copiedContent.getExceptions().getMessage());
+                }
+                throw new Exception("File copy failed");
+            }            
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            fail("Could not copy file: " + e.getMessage());
+        } 
+        finally 
+        {
+            try 
+            {
+                Set<String> fnames=new HashSet<String>();
+                fnames.add(hpccfilename);
+                fnames.add(hpccfilename + "_2");
+                wsclient.getWsDFUClient().deleteFiles(fnames, thorcluster);
+            } 
+            catch (Exception e2) 
+            {
+                System.out.println("Could not delete test file " + hpccfilename + " from " + thorcluster + ":" + e2.getMessage());
+            }
+        }
+    }
+    
     @Test
     public void AcreateHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {

@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
@@ -107,19 +108,19 @@ public class FileSprayClientTest extends BaseRemoteTest
     {
         try
         {
-            DropZoneWrapper[] dzs = filesprayclient.fetchDropZones("");
+            List<DropZoneWrapper> dzs = filesprayclient.fetchDropZones("");
             Assert.assertNotNull(dzs);
-            if(dzs.length == 0)
+            if(dzs.size() == 0)
                 Assert.fail();
 
-            DropZoneWrapper[] localdzs = filesprayclient.fetchLocalDropZones();
-            Assert.assertEquals(dzs.length, localdzs.length);
+            List<DropZoneWrapper> localdzs = filesprayclient.fetchLocalDropZones();
+            Assert.assertEquals(dzs.size(), localdzs.size());
 
-            for (int i = 0; i < dzs.length; i++)
+            for (int i = 0; i < dzs.size(); i++)
             {
-                DropZoneWrapper thisdz = dzs[i];
-                Assert.assertEquals(thisdz.getNetAddress(), localdzs[i].getNetAddress());
-                Assert.assertEquals(thisdz.getPath(), localdzs[i].getPath());
+                DropZoneWrapper thisdz = dzs.get(i);
+                Assert.assertEquals(thisdz.getNetAddress(), localdzs.get(i).getNetAddress());
+                Assert.assertEquals(thisdz.getPath(), localdzs.get(i).getPath());
             }
         }
         catch (Exception e)
@@ -134,7 +135,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     {
         try
         {
-            DropZoneWrapper[] dzs = filesprayclient.fetchDropZones("invalidserver:8010");
+            List<DropZoneWrapper> dzs = filesprayclient.fetchDropZones("invalidserver:8010");
             Assert.assertNull(dzs);
         }
         catch (Exception e)
@@ -164,12 +165,12 @@ public class FileSprayClientTest extends BaseRemoteTest
     {
         try
         {
-            DropZoneWrapper[] localdzs = filesprayclient.fetchLocalDropZones();
+            List<DropZoneWrapper> localdzs = filesprayclient.fetchLocalDropZones();
             Assert.assertNotNull(localdzs);
 
-            if (localdzs.length > 0)
+            if (localdzs.size() > 0)
             {
-                DropZoneWrapper thisdz = localdzs[0];
+                DropZoneWrapper thisdz = localdzs.get(0);
                 try
                 {
                     DropZoneFilesResponseWrapper fetchDropZones = filesprayclient.fetchDropZones(thisdz.getName(), thisdz.getNetAddress(), thisdz.getLinux(), thisdz.getPath(), "", false, false);

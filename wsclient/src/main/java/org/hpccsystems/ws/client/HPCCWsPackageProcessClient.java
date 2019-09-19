@@ -8,6 +8,8 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackag
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest;
@@ -99,6 +101,42 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         return true;
     }
 
+
+
+    /**
+     * @param packageMapName
+     * @return String   - packagemap content
+     * @throws Exception           - Caller should handle exception in case of errors
+     * @throws ArrayOfEspExceptionWrapper 
+     */
+    public String getPackageMapById(String packageMapName) throws Exception, ArrayOfEspExceptionWrapper
+    {
+
+        verifyStub(); //Throws exception if stub failed
+
+        GetPackageMapByIdRequest req=new GetPackageMapByIdRequest();
+        req.setPackageMapId(packageMapName);
+
+        GetPackageMapByIdResponse resp = null;
+
+        try
+        {
+            resp = ((WsPackageProcessStub)stub).getPackageMapById(req);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception ("WsPackageProcessStub.getPackageMapById(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getPackageMapById");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not get packagemap " + packageMapName );
+
+        return resp.getInfo();
+    }
 
     /**
      * @param globalScope
