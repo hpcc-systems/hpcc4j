@@ -343,7 +343,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return dropZonesWrapper;
     }
 
-    public String copyFile(String from,String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper {
+    public String copyFile(String from,String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper 
+    {
         verifyStub();
         Copy cp=new Copy();
         cp.setSourceLogicalName(from);

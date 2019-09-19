@@ -71,7 +71,6 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.WsDFUClientStubWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-
 /**
  * Provides soap client for HPCC WsDFU web service.
  *
