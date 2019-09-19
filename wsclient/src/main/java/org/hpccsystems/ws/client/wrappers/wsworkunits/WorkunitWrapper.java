@@ -1509,6 +1509,11 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    public WorkunitWrapper setExceptions(ArrayOfECLExceptionWrapper eclExceptions)
+    {
+        exceptions = eclExceptions;
+        return this;
+    }
     public WorkunitWrapper setExceptions(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException[] eclExceptions)
     {
         if (eclExceptions != null)

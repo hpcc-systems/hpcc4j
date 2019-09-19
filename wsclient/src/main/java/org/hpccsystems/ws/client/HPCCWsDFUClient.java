@@ -48,6 +48,8 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUSearchDataRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUSearchDataResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspSoapFault;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileActionResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileListRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileListResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuPingRequest;
@@ -805,7 +807,41 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     }
 
 
-    /**
+   public void deleteSuperFileSubfiles(String superfile, List<String> subfiles) throws Exception,ArrayOfEspExceptionWrapper
+   {
+       verifyStub(); //Throws exception if stub failed
+
+       SuperfileActionRequest request=new SuperfileActionRequest();
+
+       request.setAction("remove");
+       request.setSuperfile(superfile);
+       EspStringArray espsubfiles=new EspStringArray();
+       for (String subfile:subfiles) 
+       {
+           espsubfiles.addItem(subfile);
+       }
+       request.setSubfiles(espsubfiles);
+       SuperfileActionResponse resp=null;
+       try 
+       {
+           resp=((WsDfuStub)stub).superfileAction(request);
+       }
+       catch (RemoteException e)
+       {
+           throw new Exception ("HPCCWsDFUClient.deleteSuperFileSubfiles(...) encountered RemoteException.", e);
+       }
+       catch (EspSoapFault e)
+       {
+           handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform deleteSuperFileSubfiles");
+       }
+
+       if (resp != null && resp.getExceptions() != null)
+           handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not deleteSuperFileSubfiles");
+
+       return;
+
+   }
+   /**
      * @param files
      *            - list of filenames to delete
      * @param cluster

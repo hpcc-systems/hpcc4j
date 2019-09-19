@@ -20,6 +20,7 @@ package org.hpccsystems.ws.client.platform;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -149,7 +150,7 @@ public class PhysicalMachine extends DataSingleton
         try
         {
             HPCCFileSprayClient wsfsclient = platform.getWsClient().getFileSprayClient();
-            PhysicalFileStructWrapper[] dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(), physicalmachinestruct.getDirectory(), null);
+            List<PhysicalFileStructWrapper> dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(), physicalmachinestruct.getDirectory(), null);
             update(dzfiles);
         }
         catch (Exception e)
@@ -161,7 +162,7 @@ public class PhysicalMachine extends DataSingleton
     }
 
     // Updates ---
-    private void update(PhysicalFileStructWrapper[] dzfiles)
+    private void update(List<PhysicalFileStructWrapper> dzfiles)
     {
          if (dzfiles != null)
          {

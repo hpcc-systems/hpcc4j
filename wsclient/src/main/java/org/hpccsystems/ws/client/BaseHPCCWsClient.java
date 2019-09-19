@@ -175,8 +175,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         result = HashCodeUtil.hash(result, ops.getTo());
         HttpTransportPropertiesImpl.Authenticator thisauth = (HttpTransportPropertiesImpl.Authenticator)ops.getProperty(HTTPConstants.AUTHENTICATE);
-        result = HashCodeUtil.hash(result, thisauth.getUsername());
-        result = HashCodeUtil.hash(result, thisauth.getPassword());
+        result = HashCodeUtil.hash(result, thisauth==null?"":thisauth.getUsername());
+        result = HashCodeUtil.hash(result, thisauth==null?"":thisauth.getPassword());
         result = HashCodeUtil.hash(result, ops.getProperty(HTTPConstants.SO_TIMEOUT));
         result = HashCodeUtil.hash(result, ops.getProperty(HTTPConstants.CONNECTION_TIMEOUT));
 
