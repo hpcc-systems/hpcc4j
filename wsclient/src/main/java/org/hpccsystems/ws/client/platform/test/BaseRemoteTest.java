@@ -32,6 +32,7 @@ public abstract class BaseRemoteTest
     protected HPCCWsClient wsclient;
 
     protected String connString = System.getProperty("hpccconn");
+    protected String thorcluster = System.getProperty("thorcluster");
     protected Connection connection = null;
 
     protected String hpccUser = System.getProperty("hpccuser");
@@ -62,6 +63,11 @@ public abstract class BaseRemoteTest
                 hpccPass = "";
             }
 
+            if (thorcluster == null)
+            {
+                System.out.println("RemoteTest: No 'thorcluster' provided, using 'mythor'");
+                thorcluster = "mythor";
+            }
             connection = new Connection(connString);
             Assert.assertNotNull("Could not adquire connection object", connection);
             connection.setCredentials(hpccUser, hpccPass);
