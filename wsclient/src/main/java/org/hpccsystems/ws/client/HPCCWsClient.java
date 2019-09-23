@@ -646,68 +646,15 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
-    private boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+    public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
-        boolean success = false;
+        HPCCFileSprayClient fileSprayClient = getFileSprayClient();
 
-        ArrayOfEspExceptionWrapper exceptions = progressResponseWrapper.getExceptions();
-        if (exceptions != null)
-        {
-            for (EspExceptionWrapper espexception : exceptions.getException())
-            {
-                log.error("Error spraying file: " + espexception.getSource() + espexception.getMessage());
-            }
-        }
-        else
-        {
-            HPCCFileSprayClient fileSprayClient = getFileSprayClient();
+        if (fileSprayClient == null)
+            throw new Exception("Could not initialize HPCC FileSpray Client");
 
-            if (fileSprayClient == null)
-                throw new Exception("Could not initialize HPCC FileSpray Client");
-
-            log.debug("Spray file DWUID: " + progressResponseWrapper.getWuid());
-            ProgressResponseWrapper progressResponse = fileSprayClient.getDfuProgress(progressResponseWrapper.getWuid());
-            
-
-            if (progressResponse.getExceptions() != null)
-            {
-                log.error("Spray progress status fetch failed.");
-            }
-            else
-            {
-                String state = progressResponse.getState();
-                log.debug(progressResponse.getState());
-                if (!state.equalsIgnoreCase("FAILED"))
-                {
-                    //this should be in a dedicated thread.
-                    for  (int i = 0; i < 10 && progressResponse.getPercentDone() < 100 && !progressResponse.getState().equalsIgnoreCase("FAILED"); i++)
-                    {
-                        log.debug(progressResponse.getProgressMessage());
-                        progressResponse = fileSprayClient.getDfuProgress(progressResponseWrapper.getWuid());
-
-                        try
-                        {
-                            Thread.sleep(100);
-                        }
-                        catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                    log.debug(progressResponse.getProgressMessage());
-                    success = true;
-                }
-                else
-                {
-                    log.error("Spray failed.");
-                }
-                log.debug("Final summary from server: " + progressResponse.getSummaryMessage());
-
-                log.info("Spray attempt completed, verify DWUID: " +progressResponseWrapper.getWuid());
-            }
-        }
-        return success;
-    }
+        return fileSprayClient.handleSprayResponse(progressResponseWrapper, 10, 100);
+     }
 
      /**
      * Preferred mechanism for uploading files to HPCC landingzone. Utilizes sftp protocol, requires target machine user account
