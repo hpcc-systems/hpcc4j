@@ -61,6 +61,7 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitsResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
@@ -242,6 +243,76 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public void setFileUploadReadBufferLength(int length)
     {
         BUFFER_LENGTH = length;
+    }
+
+    /**
+     * @param progressResponseWrapper
+     * @param maxRetries
+     * @param milliesBetweenRetry
+     * @return
+     * @throws Exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     */
+    public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper, int maxRetries, int milliesBetweenRetry) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+    {
+        boolean success = false;
+        ProgressResponseWrapper progressResponse = null;
+        org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfEspExceptionWrapper exceptions = progressResponseWrapper.getExceptions();
+        if (exceptions != null)
+        {
+            for (EspExceptionWrapper espexception : exceptions.getException())
+            {
+                log.error("Error spraying file: " + espexception.getSource() + espexception.getMessage());
+            }
+        }
+        else
+        {
+            verifyStub();
+
+            log.debug("Spray file DWUID: " + progressResponseWrapper.getWuid());
+            progressResponse = getDfuProgress(progressResponseWrapper.getWuid());
+
+            if (progressResponse.getExceptions() != null)
+            {
+                log.error("Spray progress status fetch failed.");
+            }
+            else
+            {
+                String state = progressResponse.getState();
+                log.debug(progressResponse.getState());
+                if (!state.equalsIgnoreCase("FAILED"))
+                {
+                    //this should be in a dedicated thread.
+                    for  (int i = 0; i < maxRetries && progressResponse.getPercentDone() < 100 && !progressResponse.getState().equalsIgnoreCase("FAILED"); i++)
+                    {
+                        log.debug(progressResponse.getProgressMessage());
+                        progressResponse = getDfuProgress(progressResponseWrapper.getWuid());
+
+                        try
+                        {
+                            if (milliesBetweenRetry <= 0)
+                                milliesBetweenRetry = 100;
+
+                            Thread.sleep(milliesBetweenRetry);
+                        }
+                        catch (InterruptedException e)
+                        {
+                            throw new RuntimeException("Unexpected interrupt", e);
+                        }
+                    }
+                    log.debug(progressResponse.getProgressMessage());
+                    success = true;
+                }
+                else
+                {
+                    log.error("Spray failed.");
+                }
+                log.debug("Final summary from server: " + progressResponse.getSummaryMessage());
+
+                log.info("Spray attempt completed, verify DWUID: " +progressResponseWrapper.getWuid());
+            }
+        }
+        return success;
     }
 
     /**
