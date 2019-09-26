@@ -53,7 +53,15 @@ public class DFUFileAccessInfoWrapper
             recordTypeInfoJson = accessInfo.getRecordTypeInfoJson();
             fileAccessPort = accessInfo.getFileAccessPort();
             fileAccessSSL = accessInfo.getFileAccessSSL();
-            fileType = DFUFileTypeWrapper.fromDfuFileType(filetype);
+
+            if (fileType != null)
+            {
+                fileType = DFUFileTypeWrapper.fromDfuFileType(filetype);
+            }
+            else
+            {
+                fileType = DFUFileTypeWrapper.Flat;
+            }
 
             ArrayOfDFUPartLocation fileLocations = accessInfo.getFileLocations();
             if (fileLocations != null)
