@@ -3,7 +3,7 @@
     <groupId>org.hpccsystems</groupId>
     <artifactId>commons-hpcc</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.26-SNAPSHOT</version>
+    <version>1.4.26</version>
     <name>HPCC Systems Commons Project</name>
     <description>Common library for HPCC functionality</description>
     <url>https://hpccsystems.com</url>
