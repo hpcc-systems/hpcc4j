@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems</groupId>
   <artifactId>HPCC-JAPIs</artifactId>
-  <version>7.6.2-SNAPSHOT</version>
+  <version>7.6.2</version>
   <packaging>pom</packaging>
   <name>HPCC Systems Java Projects</name>
   <url>https://hpccsystems.com</url>
@@ -193,6 +193,7 @@
             <serverId>ossrh</serverId>
             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
             <autoReleaseAfterClose>false</autoReleaseAfterClose>
+            <stagingProgressTimeoutMinutes>30</stagingProgressTimeoutMinutes>
           </configuration>
         </plugin>
         <plugin>
