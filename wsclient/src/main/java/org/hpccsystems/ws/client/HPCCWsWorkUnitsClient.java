@@ -985,7 +985,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUUpdateResponseWrapper wuUpdateResponse = stubWrapper.WUCreateAndUpdate(wucreateparameters);
 
-        if (wuUpdateResponse.getExceptions().getEspExceptions() == null || wuUpdateResponse.getExceptions().getEspExceptions().size()==0)
+        if (wuUpdateResponse.getExceptions() == null || 
+                wuUpdateResponse.getExceptions().getEspExceptions() == null || 
+                wuUpdateResponse.getExceptions().getEspExceptions().size()==0)
         {
             createdWU = wuUpdateResponse.getWorkunitWrapper();
 
@@ -1061,7 +1063,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WorkunitWrapper createdWU = createWUFromECL(wu);
 
-        if (createdWU != null && createdWU.getErrorCount() == 0 && createdWU.getExceptions() == null || createdWU.getExceptions().getECLException().size()==0)
+        if (createdWU != null && createdWU.getErrorCount() == 0 && 
+                (createdWU.getExceptions() == null || createdWU.getExceptions().getECLException().size()==0))
         {
             createdWU.setCluster(wu.getCluster());
             submitWU(createdWU); // if no exception proceed
@@ -1070,11 +1073,13 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             // exceptions, etc. aren't always included in the submit response; do another request to get all workunit info
             WorkunitWrapper res = getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false, false, false);
 
-            for (ECLExceptionWrapper ex : res.getExceptions().getECLException())
-            {
-                if ("error".equalsIgnoreCase(ex.getSeverity()))
+            if (res.getExceptions() != null) {
+                for (ECLExceptionWrapper ex : res.getExceptions().getECLException())
                 {
-                    handleECLExceptions(new ArrayOfECLExceptionWrapper(res.getRawExceptions().getECLException()), "Workunit Compile Failed");
+                    if ("error".equalsIgnoreCase(ex.getSeverity()))
+                    {
+                        handleECLExceptions(new ArrayOfECLExceptionWrapper(res.getRawExceptions().getECLException()), "Workunit Compile Failed");
+                    }
                 }
             }
         }
