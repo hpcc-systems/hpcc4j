@@ -18,7 +18,7 @@ import org.hpccsystems.ws.client.wrappers.WUState;
 public class WUQueryWrapper
 {
     private String                        cluster;
-    private Boolean                       descending;
+    private boolean                       descending=false;
     private Boolean                       archived;
     private String                        ECL;
     private Date                          endDate;
@@ -133,7 +133,7 @@ public class WUQueryWrapper
      * @return if a sortby param is specified and getDescending is true, results will be returned descending.
      * 
      */
-    public Boolean getDescending()
+    public boolean getDescending()
     {
         return descending;
     }
@@ -141,7 +141,7 @@ public class WUQueryWrapper
     /**
      * @param descending - if a sortby parameter is specified, descending will make that parameter sort descending.
      */
-    public WUQueryWrapper setDescending(Boolean descending)
+    public WUQueryWrapper setDescending(boolean descending)
     {
         this.descending = descending;
         return this;
