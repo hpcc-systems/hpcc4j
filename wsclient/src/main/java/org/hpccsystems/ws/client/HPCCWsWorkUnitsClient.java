@@ -1073,7 +1073,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             // exceptions, etc. aren't always included in the submit response; do another request to get all workunit info
             WorkunitWrapper res = getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false, false, false);
 
-            if (res.getExceptions() != null) {
+            if (res.getExceptions() != null) 
+            {
                 for (ECLExceptionWrapper ex : res.getExceptions().getECLException())
                 {
                     if ("error".equalsIgnoreCase(ex.getSeverity()))
