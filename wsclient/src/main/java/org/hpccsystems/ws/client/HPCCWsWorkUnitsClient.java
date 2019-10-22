@@ -1705,7 +1705,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         WUCreateRequestWrapper params = new WUCreateRequestWrapper();
         WUCreateResponseWrapper resp = stubWrapper.WUCreate(params);
 
-        if (resp.getExceptions().getEspExceptions() != null && resp.getExceptions().getEspExceptions().size() > 0)
+        if (resp.getExceptions() != null
+                && resp.getExceptions().getEspExceptions() != null 
+                && resp.getExceptions().getEspExceptions().size() > 0)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not create workunit");
 
         return resp.getWorkunitWrapper();
