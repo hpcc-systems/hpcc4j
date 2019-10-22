@@ -8,7 +8,7 @@
 
   <parent>
     <groupId>org.hpccsystems</groupId>
-    <artifactId>HPCC-JAPIs</artifactId>
+    <artifactId>japi</artifactId>
     <version>7.6.4-SNAPSHOT</version>
   </parent>
 
