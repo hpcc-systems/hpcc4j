@@ -8,8 +8,8 @@
 
   <parent>
     <groupId>org.hpccsystems</groupId>
-    <artifactId>HPCC-JAPIs</artifactId>
-    <version>7.6.5-SNAPSHOT</version>
+    <artifactId>japi</artifactId>
+    <version>7.6.6-SNAPSHOT</version>
   </parent>
 
   <build>
