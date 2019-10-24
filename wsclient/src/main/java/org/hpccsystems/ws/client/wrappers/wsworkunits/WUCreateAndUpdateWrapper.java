@@ -32,13 +32,13 @@ public class WUCreateAndUpdateWrapper
 
     private String                        descriptionOrig;
 
-    private Boolean                       addDrilldownFields;
+    private boolean                       addDrilldownFields=false;
 
     private Integer                       resultLimit;
 
-    private Boolean                       _protected;
+    private boolean                       _protected=false;
 
-    private Boolean                       protectedOrig;
+    private boolean                       protectedOrig=false;
 
     private Integer                       priorityClass;
 
@@ -177,7 +177,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @return the protectedOrig
      */
-    public Boolean getProtectedOrig()
+    public boolean getProtectedOrig()
     {
         return protectedOrig;
     }
@@ -185,7 +185,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @param protectedOrig the protectedOrig to set
      */
-    public void setProtectedOrig(Boolean protectedOrig)
+    public void setProtectedOrig(boolean protectedOrig)
     {
         this.protectedOrig = protectedOrig;
     }
@@ -312,7 +312,10 @@ public class WUCreateAndUpdateWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUCreateAndUpdate result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUCreateAndUpdate();
 
         result.setProtected(_protected);
-        result.setAction(action);
+        if (action != null)
+        {
+            result.setAction(action);
+        }
         result.setAddDrilldownFields(addDrilldownFields);
         result.setClusterOrig(clusterOrig);
         result.setClusterSelection(clusterSelection);
@@ -320,15 +323,27 @@ public class WUCreateAndUpdateWrapper
         result.setDescriptionOrig(descriptionOrig);
         result.setJobname(jobname);
         result.setJobnameOrig(jobnameOrig);
-        result.setPriorityClass(priorityClass);
-        result.setPriorityLevel(priorityLevel);
+        if (priorityClass != null) 
+        {
+            result.setPriorityClass(priorityClass);
+        }
+        if (priorityLevel != null)
+        {
+            result.setPriorityLevel(priorityLevel);
+        }
         result.setProtectedOrig(protectedOrig);
         result.setQueryMainDefinition(queryMainDefinition);
         result.setQueryText(queryText);
-        result.setResultLimit(resultLimit);
+        if (resultLimit != null)
+        {
+            result.setResultLimit(resultLimit);
+        }
         result.setScope(scope);
         result.setScopeOrig(scopeOrig);
-        result.setState(state);
+        if (state != null)
+        {
+            result.setState(state);
+        }
         result.setStateOrig(stateOrig);
         result.setThorSlaveIP(thorSlaveIP);
         result.setWuid(wuid);
@@ -440,16 +455,28 @@ public class WUCreateAndUpdateWrapper
         result.setDescriptionOrig(descriptionOrig);
         result.setJobname(jobname);
         result.setJobnameOrig(jobnameOrig);
-        result.setPriorityClass(priorityClass);
-        result.setPriorityLevel(priorityLevel);
+        if (priorityClass != null) 
+        {
+            result.setPriorityClass(priorityClass);
+        }
+        if (priorityLevel != null) 
+        {
+            result.setPriorityLevel(priorityLevel);
+        }
         result.setProtectedOrig(protectedOrig);
         result.setQueryMainDefinition(queryMainDefinition);
         result.setQueryText(queryText);
         result.setResultLimit(resultLimit);
         result.setScope(scope);
         result.setScopeOrig(scopeOrig);
-        result.setState(state);
-        result.setStateOrig(stateOrig);
+        if (state != null)
+        {
+            result.setState(state);
+        }
+        if (stateOrig != null) 
+        {
+            result.setStateOrig(stateOrig);
+        }
         result.setThorSlaveIP(thorSlaveIP);
         result.setWuid(wuid);
         result.setXmlParams(xmlParams);
@@ -491,9 +518,9 @@ public class WUCreateAndUpdateWrapper
     {
         WUCreateAndUpdate request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUCreateAndUpdate();
 
-        if (_protected != null) request.setProtected(_protected);
+        if (_protected) request.setProtected(_protected);
         if (action != null) request.setAction(action);
-        if (addDrilldownFields != null) request.setAddDrilldownFields(addDrilldownFields);
+        if (addDrilldownFields) request.setAddDrilldownFields(addDrilldownFields);
         if (clusterOrig != null) request.setClusterOrig(clusterOrig);
         if (clusterSelection != null) request.setClusterSelection(clusterSelection);
         if (description != null) request.setDescription(description);
@@ -502,7 +529,7 @@ public class WUCreateAndUpdateWrapper
         if (jobnameOrig != null) request.setJobnameOrig(jobnameOrig);
         if (priorityClass != null) request.setPriorityClass(priorityClass);
         if (priorityLevel != null) request.setPriorityLevel(priorityLevel);
-        if (protectedOrig != null) request.setProtectedOrig(protectedOrig);
+        if (protectedOrig) request.setProtectedOrig(protectedOrig);
         if (queryMainDefinition != null) request.setQueryMainDefinition(queryMainDefinition);
         if (queryText != null) request.setQueryText(queryText);
         if (resultLimit != null) request.setResultLimit(resultLimit);
@@ -648,7 +675,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @return the addDrilldownFields
      */
-    public Boolean getAddDrilldownFields()
+    public boolean getAddDrilldownFields()
     {
         return addDrilldownFields;
     }
@@ -656,7 +683,7 @@ public class WUCreateAndUpdateWrapper
     /**
      * @param addDrilldownFields the addDrilldownFields to set
      */
-    public void setAddDrilldownFields(Boolean addDrilldownFields)
+    public void setAddDrilldownFields(boolean addDrilldownFields)
     {
         this.addDrilldownFields = addDrilldownFields;
     }

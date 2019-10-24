@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client.extended;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -881,5 +882,13 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get attributes");
 
         return new GetAttributesResponseWrapper(response);
+    }
+    
+    public static int getOriginalPort() throws MalformedURLException
+    {
+        int originalport = 8145;
+        if (ORIGINALURL != null)
+            originalport = ORIGINALURL.getPort();
+        return originalport;
     }
 }

@@ -225,37 +225,49 @@ public class ECLSourceFileWrapper
 
     public void setECLSourceFiles(ArrayOfECLSourceFile eclSourceFiles)
     {
-        ECLSourceFile[] eclSourceFileArray = eclSourceFiles.getECLSourceFile();
-        for (int i = 0; i < eclSourceFileArray.length; i++)
+        if (eclSourceFiles != null) 
         {
-            ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            ECLSourceFile[] eclSourceFileArray = eclSourceFiles.getECLSourceFile();
+            for (int i = 0; i < eclSourceFileArray.length; i++)
+            {
+                ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            }
         }
     }
 
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfECLSourceFile eclSourceFiles2)
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLSourceFile[] eclSourceFileArray = eclSourceFiles2.getECLSourceFile();
-        for (int i = 0; i < eclSourceFileArray.length; i++)
+        if (eclSourceFiles2 != null) 
         {
-            ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLSourceFile[] eclSourceFileArray = eclSourceFiles2.getECLSourceFile();
+            for (int i = 0; i < eclSourceFileArray.length; i++)
+            {
+                ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            }
         }
     }
 
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfECLSourceFile eclSourceFiles)
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLSourceFile[] eclSourceFileArray = eclSourceFiles.getECLSourceFile();
-        for (int i = 0; i < eclSourceFileArray.length; i++)
+        if (eclSourceFiles != null) 
         {
-            ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLSourceFile[] eclSourceFileArray = eclSourceFiles.getECLSourceFile();
+            for (int i = 0; i < eclSourceFileArray.length; i++)
+            {
+                ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            }
         }
     }
 
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfECLSourceFile eclSourceFiles)
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLSourceFile[] eclSourceFileArray = eclSourceFiles.getECLSourceFile();
-        for (int i = 0; i < eclSourceFileArray.length; i++)
+        if (eclSourceFiles != null) 
         {
-            ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLSourceFile[] eclSourceFileArray = eclSourceFiles.getECLSourceFile();
+            for (int i = 0; i < eclSourceFileArray.length; i++)
+            {
+                ECLSourceFiles.add(new ECLSourceFileWrapper(eclSourceFileArray[i]));
+            }
         }
     }
 
