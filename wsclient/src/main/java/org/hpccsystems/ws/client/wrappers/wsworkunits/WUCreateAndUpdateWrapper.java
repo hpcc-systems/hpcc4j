@@ -312,7 +312,10 @@ public class WUCreateAndUpdateWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUCreateAndUpdate result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUCreateAndUpdate();
 
         result.setProtected(_protected);
-        result.setAction(action);
+        if (action != null)
+        {
+            result.setAction(action);
+        }
         result.setAddDrilldownFields(addDrilldownFields);
         result.setClusterOrig(clusterOrig);
         result.setClusterSelection(clusterSelection);
@@ -320,15 +323,27 @@ public class WUCreateAndUpdateWrapper
         result.setDescriptionOrig(descriptionOrig);
         result.setJobname(jobname);
         result.setJobnameOrig(jobnameOrig);
-        result.setPriorityClass(priorityClass);
-        result.setPriorityLevel(priorityLevel);
+        if (priorityClass != null) 
+        {
+            result.setPriorityClass(priorityClass);
+        }
+        if (priorityLevel != null)
+        {
+            result.setPriorityLevel(priorityLevel);
+        }
         result.setProtectedOrig(protectedOrig);
         result.setQueryMainDefinition(queryMainDefinition);
         result.setQueryText(queryText);
-        result.setResultLimit(resultLimit);
+        if (resultLimit != null)
+        {
+            result.setResultLimit(resultLimit);
+        }
         result.setScope(scope);
         result.setScopeOrig(scopeOrig);
-        result.setState(state);
+        if (state != null)
+        {
+            result.setState(state);
+        }
         result.setStateOrig(stateOrig);
         result.setThorSlaveIP(thorSlaveIP);
         result.setWuid(wuid);
