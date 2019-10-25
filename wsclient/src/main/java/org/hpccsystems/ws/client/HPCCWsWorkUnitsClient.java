@@ -1899,12 +1899,18 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             params.setPageStartFrom(new NonNegativeInteger(String.valueOf(pageStartFrom)));
         }
 
-        params.setDescending(descending);
+        if (descending != null)
+        {
+            params.setDescending(descending);
+        }
         params.setClusterName(clustername);
         params.setQuerySetName(querysetname);
         params.setQueryName(queryname);
         params.setQueryID(queryid);
-        params.setActivated(activated);
+        if (activated != null) 
+        {
+            params.setActivated(activated);
+        }
         params.setFileName(filename);
 
         WUListQueriesResponse response = ((WsWorkunitsStub)stub).wUListQueries(params);
