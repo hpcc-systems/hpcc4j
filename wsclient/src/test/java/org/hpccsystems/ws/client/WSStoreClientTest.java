@@ -17,10 +17,15 @@
 
 package org.hpccsystems.ws.client;
 
+import java.nio.charset.Charset;
 import java.util.Properties;
+import java.util.Random;
+
+import javax.crypto.Cipher;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.utils.CryptoHelper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -75,14 +80,19 @@ public class WSStoreClientTest extends BaseRemoteTest
 
     public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return client.FetchKeyMetaData(storename, namespace, key, global);
+        return client.fetchKeyMetaData(storename, namespace, key, global);
     }
 
     public String fetchvalue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return client.FetchValue(storename, namespace, key, global);
+        return client.fetchValue(storename, namespace, key, global);
     }
 
+    public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return client.fetchValueEncrypted(storename, namespace, key, global, secretKey);
+    }
+    
     public void listNamespaceKeys(String store, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Listing Namespace Keys for default." + namespace + "...");
@@ -157,6 +167,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             System.out.println("Setting " + storename + "." + namespace + "." + "WsClient.global.test=\"success\"...");
             Assert.assertTrue(client.setValue(storename, namespace, "global.test", "success", true));
+            
+            Assert.assertTrue(client.setValue(storename, namespace, "global.test", "success", true));
             System.out.println("Setting " + storename + "." + namespace + "." + "WsClient.user.test=\"success\"...");
             Assert.assertTrue(client.setValue(storename, namespace, "user.test", "success", false));
 
@@ -170,6 +182,52 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void a3setEncryptedTest() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        try
+        {
+            //Generating random data as key content, client must keep track of this key in order to decrypt
+            byte[] array = new byte[12];
+            new Random().nextBytes(array);
+            String mysecretkeycontent = new String(array, Charset.forName("UTF-8"));
+
+            Cipher aesEncryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, true); //Encrypt cipher
+            Cipher aesDecryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, false); //decrypt cipher
+            Assert.assertNotNull(aesEncryptCipher);
+            
+            System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\"mysensitivedata\"...");
+            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.test", "mysensitivedata", true, aesEncryptCipher));
+
+            String encryptedvalue = client.fetchValue(storename, namespace, "global.encrypted.test", true);
+            Assert.assertNotNull(encryptedvalue);
+            System.out.println("Fetching (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\"" + encryptedvalue + "\"");
+            
+            String decryptedvalue = CryptoHelper.decrypt(encryptedvalue, aesDecryptCipher);
+            Assert.assertNotNull(decryptedvalue);
+
+            System.out.println("Decrypted localy: global.encrypted.test=\"" + decryptedvalue + "\"");
+            
+            String decryptedvalue2 = client.fetchValueEncrypted(storename, namespace, "global.encrypted.test", true, aesDecryptCipher);
+            Assert.assertNotNull(decryptedvalue2);
+            
+            Assert.assertTrue("Decrypted locally not equals decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
+
+            System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
+            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
+
+            System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "global.encrypted.secretkey.test=\"privateinfo\"...");
+            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.secretkey.test", "privateinfo", true, mysecretkeycontent));
+            
+            System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
+            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
+    
     @Test
     public void a4deleteTest() throws Exception, ArrayOfEspExceptionWrapper
     {

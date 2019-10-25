@@ -3,7 +3,10 @@ package org.hpccsystems.ws.client;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
+import javax.crypto.Cipher;
+
 import org.apache.axis2.AxisFault;
+import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.CreateStoreRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.CreateStoreResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.DeleteNamespaceRequest;
@@ -31,6 +34,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.SetResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.WsstorePingRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.WsstoreStub;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.CryptoHelper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 /**
@@ -40,6 +44,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
  */
 public class HPCCWsStoreClient extends BaseHPCCWsClient
 {
+    //private static final Logger log                   = Logger.getLogger(HPCCWsStoreClient.class.getName());
     public static final String WSStoreWSDLURI         = "/wsstore";
 
     public static HPCCWsStoreClient get(Connection connection)
@@ -130,11 +135,13 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
+            log.error("Could not list namespaces");
+            log.error(e);
         }
         catch (EspSoapFault e)
         {
-            e.printStackTrace();
+            log.error("Could not list namespaces");
+            log.error(e);
         }
 
         return namespaces;
@@ -159,17 +166,19 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
+            log.error("Could not list namespace keys");
+            log.error(e);
         }
         catch (EspSoapFault e)
         {
-            e.printStackTrace();
+            log.error("Could not list namespace keys");
+            log.error(e);
         }
 
         return keyset;
     }
 
-    public String FetchValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String value = null;
 
@@ -189,17 +198,50 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
+            log.error("Could not fetch value");
+            log.error(e);
         }
         catch (EspSoapFault e)
         {
-            e.printStackTrace();
+            log.error("Could not fetch value");
+            log.error(e);
         }
 
         return value;
     }
 
-    public Properties FetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, Cipher cipher) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        String value = fetchValue(storename, namespace, key, global);
+
+        if (value != null && !value.isEmpty())
+        {
+            value = CryptoHelper.decrypt(value, cipher);
+        }
+        else
+        {
+            throw new Exception("Could not fetch value");
+        }
+
+        return value;
+    }
+
+    /**
+     * @param storename
+     * @param namespace
+     * @param key
+     * @param global
+     * @param secretKey - Must match the secret key used to encrypt this value 
+     * @return
+     * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
+     */
+    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return fetchValueEncrypted(storename, namespace, secretKey, global, CryptoHelper.createDefaultCipher(secretKey, false));
+    }
+
+    public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         Properties props = new Properties();
 
@@ -301,6 +343,16 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
 
         return false;
+    }
+
+    public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, Cipher cipher) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return setValue(storename, namespace, key, CryptoHelper.encrypt(value, cipher), global);
+    }
+
+    public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AESPKCS5Pad(value, secretKey), global);
     }
 
     public boolean deleteValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
