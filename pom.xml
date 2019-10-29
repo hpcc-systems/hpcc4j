@@ -109,11 +109,6 @@
       <version>${json.version}</version>
     </dependency>
     <dependency>
-      <groupId>axis</groupId>
-      <artifactId>axis</artifactId>
-      <version>${axis.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4</artifactId>
       <version>${antlr.version}</version>
