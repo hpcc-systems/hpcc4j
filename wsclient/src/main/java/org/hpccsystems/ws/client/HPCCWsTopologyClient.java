@@ -343,8 +343,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
                             {
                                 if (clusterGroupType == null || clusterGroupType.isEmpty() || tpClusters[k].getType().equalsIgnoreCase(clusterGroupType+"cluster" ))
                                 {
-                                    if (!tpTargetClusterNames.contains(tpClusters[k].getName()))
-                                        tpTargetClusterNames.add(tpClusters[k].getName());
+                                    //We're looking for the name of the tptargetcluster, not the the child cluster name
+                                    if (!tpTargetClusterNames.contains(tpTargetClusters[i].getName()))
+                                        tpTargetClusterNames.add(tpTargetClusters[i].getName());
                                 }
                             }
                         }
