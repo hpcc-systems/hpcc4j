@@ -1,9 +1,5 @@
 package org.hpccsystems.ws.client;
 
-
-import java.util.List;
-
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfEspException;
@@ -12,7 +8,6 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.filespray.EspSoapFaultWrapper;
 import org.junit.Assert;
 import org.junit.Test;
 

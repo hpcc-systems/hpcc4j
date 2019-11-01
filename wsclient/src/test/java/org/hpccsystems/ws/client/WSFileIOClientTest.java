@@ -33,9 +33,6 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.w3c.dom.NodeList;
-
-import com.jcraft.jsch.jce.ECDH256;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSFileIOClientTest extends BaseRemoteTest
@@ -44,6 +41,15 @@ public class WSFileIOClientTest extends BaseRemoteTest
 
     String testfilename = System.getProperty("lztestfile");
     String targetLZ = System.getProperty("lzname");
+
+    static
+    {
+        if (System.getProperty("lztestfile") == null)
+            System.out.println("lztestfile not provided - defaulting to myfilename.txt");
+
+        if (System.getProperty("lzname") == null)
+            System.out.println("lzname not provided - defaulting to localhost");
+    }
 
     @Before
     public void setup() throws Exception
