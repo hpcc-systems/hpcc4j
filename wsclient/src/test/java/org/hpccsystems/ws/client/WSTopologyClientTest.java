@@ -21,10 +21,6 @@ import java.io.PrintStream;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
@@ -143,7 +139,40 @@ public class WSTopologyClientTest extends BaseRemoteTest
         {
             TpClusterInfoResponseWrapper clusterInfo = client.getClusterInfo(validTargetClusterNames[i]);
             System.out.println(clusterInfo.toString());
-          }
+        }
+    }
+
+    @Test
+    public void getInvalidClusterInfoTest()
+    {
+        System.out.println("----------------------get invalid cluster info Test ------------------");
+        String invalid = "invalidclustername";
+        try
+        {
+            client.getClusterInfo(invalid);
+            Assert.fail("Invalid target cluster test should result in exception");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Invalid target cluster test resulted in exception as expected");
+            //  EspException: Audience: user Source: CSoapResponseBinding Message: 2019-11-01 15:19:42 GMT: Invalid Target Cluster name provided: 'mythor'
+        }
+    }
+
+    @Test
+    public void getBlankClusterInfoTest()
+    {
+        System.out.println("----------------------get invalid blank target cluster name Test ------------------");
+        try
+        {
+            client.getClusterInfo("");
+            Assert.fail("Blank target cluster test should result in exception");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Blank target cluster test resulted in exception as expected");
+            //  EspException: Audience: user Source: CSoapResponseBinding Message: 2019-11-01 15:19:42 GMT: Invalid Target Cluster name provided: 'mythor'
+        }
     }
 
     @Test
