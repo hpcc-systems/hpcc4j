@@ -10,7 +10,8 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Test;
 
 
-public class HPCCWsWorkUnitsClientTest {
+public class HPCCWsWorkUnitsClientTest
+{
     @Test
     public void getStateID() throws Exception
     {

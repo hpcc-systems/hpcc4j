@@ -93,12 +93,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             Options opt = defstub._getServiceClient().getOptions();
             ORIGINALURL = new URL(opt.getTo().getAddress());
         }
-           catch (AxisFault e)
-           {
+        catch (AxisFault e)
+        {
             e.printStackTrace();
         }
-           catch (MalformedURLException e)
-           {
+        catch (MalformedURLException e)
+        {
             e.printStackTrace();
         }
     }
