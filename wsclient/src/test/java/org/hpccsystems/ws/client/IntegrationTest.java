@@ -1,4 +1,5 @@
 package org.hpccsystems.ws.client;
 
-public interface IntegrationTest {
+public interface IntegrationTest
+{
 }
