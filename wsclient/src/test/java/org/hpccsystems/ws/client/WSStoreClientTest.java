@@ -43,22 +43,30 @@ public class WSStoreClientTest extends BaseRemoteTest
     public final static String defaultStoreName = "WsClientTestStore";
     public final static String defaultNS = "Junittests";
 
+    static
+    {
+        if (System.getProperty("storename") == null)
+            System.out.println("'storename' not provided, defaulting to: '" + defaultStoreName + "'");
+
+        if (System.getProperty("storenamespace") == null)
+            System.out.println("'storenamespace' not provided, defaulting to: '" + defaultNS + "'");
+    }
+
     @Before
     public void setup() throws Exception
     {
-        super.setup();
-        client = HPCCWsStoreClient.get(connection);
+        if (platform == null)
+            super.setup();
+
+        if (client == null)
+            client = HPCCWsStoreClient.get(connection);
 
         if (storename == null)
-        {
-            System.out.println("'storename' not provided, defaulting to: '" + defaultStoreName + "'");
             storename = defaultStoreName;
-        }
+
         if (namespace == null)
-        {
-            System.out.println("'storenamespace' not provided, defaulting to: '" + defaultNS + "'");
             namespace = defaultNS;
-        }
+
         Assert.assertNotNull(client);
     }
 
@@ -87,6 +95,11 @@ public class WSStoreClientTest extends BaseRemoteTest
     public String fetchvalue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.fetchValue(storename, namespace, key, global);
+    }
+
+    public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return client.fetchValueEncrypted(storename, namespace, key, global, secretKey);
     }
 
     public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
@@ -195,6 +208,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Cipher aesEncryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, true); //Encrypt cipher, caller can create their own, and is responsible for safe keeping
             Cipher aesDecryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, false); //decrypt cipher, caller can create their own, should match the encryp counterpart and is responsible for safe keeping
+
             Assert.assertNotNull(aesEncryptCipher);
 
             System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\"mysensitivedata\"...");
@@ -222,8 +236,6 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
             Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
-
-
         }
         catch (Exception e)
         {
@@ -307,6 +319,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
         Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(ldecryptedvalue2));
     }
+
     @Test
     public void a4deleteTest() throws Exception, ArrayOfEspExceptionWrapper
     {

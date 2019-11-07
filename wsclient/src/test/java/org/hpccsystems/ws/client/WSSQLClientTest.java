@@ -47,7 +47,6 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSSQLClientTest extends BaseRemoteTest
 {
-
     HPCCWsSQLClient client;
     String testwuid = System.getProperty("targetwuid");
     String wssqlport = System.getProperty("wssqlport");
@@ -55,22 +54,32 @@ public class WSSQLClientTest extends BaseRemoteTest
     String randomtablename = null;
     String randomclustername = null;
 
+    static
+    {
+        if (System.getProperty("targetwuid") == null)
+            System.out.println("No targetwuid provided");
+
+        if (System.getProperty("wssqlport") == null)
+            System.out.println("No wssqlport specified - defaulting to 8510");
+    }
+
     @Before
     public void setup() throws Exception
     {
-        super.setup();
+        if (platform == null)
+            super.setup();
 
-        if (wssqlport == null || wssqlport.isEmpty())
+        if (client == null)
         {
-            System.out.println("No wssqlport specified - defaulting to 8510");
-            wssqlport = "8510";
+            if (wssqlport == null || wssqlport.isEmpty())
+                wssqlport = "8510";
+
+            Connection wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
+            Assert.assertNotNull(wssqlconn);
+            wssqlconn.setCredentials(connection.getUserName(), connection.getPassword());
+
+            client = HPCCWsSQLClient.get(wssqlconn);
         }
-
-        Connection wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
-        Assert.assertNotNull(wssqlconn);
-        wssqlconn.setCredentials(connection.getUserName(), connection.getPassword());
-
-        client = HPCCWsSQLClient.get(wssqlconn);
         Assert.assertNotNull(client);
     }
 
@@ -84,7 +93,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         catch (AxisFault e)
         {
             e.printStackTrace();
-            Assert.fail();
+            Assert.fail("Could not ping wssql");
         }
         catch (Exception e)
         {
