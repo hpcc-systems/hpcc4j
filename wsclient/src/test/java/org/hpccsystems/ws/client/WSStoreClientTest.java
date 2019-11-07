@@ -17,9 +17,15 @@
 
 package org.hpccsystems.ws.client;
 
+import java.nio.charset.Charset;
 import java.util.Properties;
+import java.util.Random;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.axis2.AxisFault;
+import org.hpccsystems.commons.utils.CryptoHelper;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
@@ -83,12 +89,12 @@ public class WSStoreClientTest extends BaseRemoteTest
 
     public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return client.FetchKeyMetaData(storename, namespace, key, global);
+        return client.fetchKeyMetaData(storename, namespace, key, global);
     }
 
     public String fetchvalue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return client.FetchValue(storename, namespace, key, global);
+        return client.fetchValue(storename, namespace, key, global);
     }
 
     public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
@@ -195,8 +201,9 @@ public class WSStoreClientTest extends BaseRemoteTest
             new Random().nextBytes(array);
             String mysecretkeycontent = new String(array, Charset.forName("UTF-8"));
 
-            Cipher aesEncryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, true); //Encrypt cipher
-            Cipher aesDecryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, false); //decrypt cipher
+            Cipher aesEncryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, true); //Encrypt cipher, caller can create their own, and is responsible for safe keeping
+            Cipher aesDecryptCipher = CryptoHelper.createDefaultCipher(mysecretkeycontent, false); //decrypt cipher, caller can create their own, should match the encryp counterpart and is responsible for safe keeping
+
             Assert.assertNotNull(aesEncryptCipher);
 
             System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\"mysensitivedata\"...");
@@ -214,7 +221,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             String decryptedvalue2 = client.fetchValueEncrypted(storename, namespace, "global.encrypted.test", true, aesDecryptCipher);
             Assert.assertNotNull(decryptedvalue2);
 
-            Assert.assertTrue("Decrypted locally not equals decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
+            Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
 
             System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
             Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
@@ -229,6 +236,83 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail(e.getLocalizedMessage());
         }
+    }
+
+    @Test
+    public void a3setEncryptedCustomTest()
+    {
+        //Generating random data as key content, client must keep track of this key in order to decrypt
+        byte[] array = new byte[12];
+        new Random().nextBytes(array);
+        String mysecretkeycontent = new String(array, Charset.forName("UTF-8"));
+
+
+        final String digestAlgo = "SHA-1";
+        final String secretKeyAlgo = "AES";
+        final String cipherAlgo = "AES";
+
+        SecretKeySpec secretKeySpec = CryptoHelper.createSecretKey(mysecretkeycontent, digestAlgo, secretKeyAlgo); //Caller can create their own secret key spec
+        Assert.assertNotNull("Could not create custom secretKeySpec '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", secretKeySpec);
+
+        Cipher someencryptcipher = null;
+        try
+        {
+            someencryptcipher = CryptoHelper.createCipher(secretKeySpec, cipherAlgo, true);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Could create encrypt cipher: " + e.getLocalizedMessage());
+        }
+        Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", someencryptcipher);
+
+        Cipher somedecryptcipher = null;
+        try
+        {
+            somedecryptcipher = CryptoHelper.createCipher(secretKeySpec, cipherAlgo, false);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Could create decrypt cipher: " + e.getLocalizedMessage());
+        }
+        Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", somedecryptcipher);
+
+        System.out.println("Setting (encrypted based on provided custom '"+ digestAlgo +"' '" + secretKeyAlgo + "' cipher) " + storename + "." + namespace + "." + "global.encrypted.custom.test=\"myhiddensecret\"...");
+        try
+        {
+            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.custom.test", "myhiddensecret", true, someencryptcipher));
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Could not set and encrypted value: " + e.getLocalizedMessage());
+        }
+
+        String encryptedvalue = null;
+        try
+        {
+            encryptedvalue = client.fetchValue(storename, namespace, "global.encrypted.custom.test", true);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Could not fetch encrypted value value: " + e.getLocalizedMessage());
+        }
+        Assert.assertNotNull("failed to fetch valid encrypted value", encryptedvalue);
+
+        System.out.println("Fetching (encrypted based on provided custom '"+ digestAlgo +"' '" + secretKeyAlgo + "' cipher) " + storename + "." + namespace + "." + "global.encrypted.custom.test=\"" + encryptedvalue + "\"");
+        String decryptedvalue = null;
+        try
+        {
+            decryptedvalue = client.fetchValueEncrypted(storename, namespace, "global.encrypted.custom.test", true, somedecryptcipher);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Could not fetch and decrypt value: " + e.getLocalizedMessage());
+        }
+        Assert.assertNotNull(decryptedvalue);
+
+        String ldecryptedvalue2 = CryptoHelper.decrypt(encryptedvalue, somedecryptcipher);
+        Assert.assertNotNull(ldecryptedvalue2);
+
+        Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(ldecryptedvalue2));
     }
 
     @Test

@@ -127,6 +127,14 @@
    </plugins>
  </build>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.hpccsystems</groupId>
+      <artifactId>commons-hpcc</artifactId>
+      <version>7.6.7-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
  <profiles>
    <profile>
      <id>generate-wsclient-stub</id>
