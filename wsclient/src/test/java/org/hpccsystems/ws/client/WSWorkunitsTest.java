@@ -38,8 +38,12 @@ public class WSWorkunitsTest extends BaseRemoteTest
     @Before
     public void setup() throws Exception
     {
-        super.setup();
-        client = wsclient.getWsWorkunitsClient();
+        if (platform == null)
+            super.setup();
+        
+        if (client == null)
+            client = wsclient.getWsWorkunitsClient();
+
         Assert.assertNotNull(client);
     }
 

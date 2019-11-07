@@ -17,6 +17,9 @@
 
 package org.hpccsystems.ws.client.platform.test;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -40,41 +43,58 @@ public abstract class BaseRemoteTest
     protected String connTO = System.getProperty("connecttimeoutmillis");
     protected String sockTO = System.getProperty("sockettimeoutmillis");
 
+    static
+    {
+        InetAddress ip;
+        String hostname;
+        try
+        {
+            ip = InetAddress.getLocalHost();
+            hostname = ip.getHostName();
+            System.out.println("Remote test executing on: " + hostname + "(" + ip + ")");
+        }
+        catch (UnknownHostException e)
+        {
+            e.printStackTrace();
+        }
+
+        if (System.getProperty("hpccconn") == null)
+            System.out.println("RemoteTest: No 'hpccconnnect' provided, defaulting to http://localhost:8010");
+
+        if (System.getProperty("hpccuser") == null)
+            System.out.println("RemoteTest: No 'hpccuser' provided.");
+
+        if (System.getProperty("hpccpass") == null)
+            System.out.println("RemoteTest: No 'hpccpass' provided.");
+
+        if (System.getProperty("thorcluster") == null)
+            System.out.println("RemoteTest: No 'thorcluster' provided, using 'mythor'");
+    }
+
     @Before
     public void setup() throws Exception
     {
         if (platform == null)
         {
             if (connString == null)
-            {
-                System.out.println("RemoteTest: No 'hpccconnnect' provided, defaulting to http://localhost:8010");
                 connString = "http://localhost:8010";
-            }
 
             if (hpccUser == null)
-            {
-                System.out.println("RemoteTest: No 'hpccuser' provided.");
                 hpccUser = "";
-            }
 
             if (hpccPass == null)
-            {
-                System.out.println("RemoteTest: No 'hpccpass' provided.");
                 hpccPass = "";
-            }
 
             if (thorcluster == null)
-            {
-                System.out.println("RemoteTest: No 'thorcluster' provided, using 'mythor'");
                 thorcluster = "mythor";
-            }
+
             connection = new Connection(connString);
             Assert.assertNotNull("Could not adquire connection object", connection);
             connection.setCredentials(hpccUser, hpccPass);
-            
+
             if (connTO != null)
             	connection.setConnectTimeoutMilli(Integer.valueOf(connTO));
-            
+
             if (sockTO != null)
             	connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
 

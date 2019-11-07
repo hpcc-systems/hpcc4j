@@ -41,8 +41,12 @@ public class WSTopologyClientTest extends BaseRemoteTest
     @Before
     public void setup() throws Exception
     {
-        super.setup();
-        client = wsclient.getWsTopologyClient();
+        if (platform == null)
+            super.setup();
+
+        if (client == null)
+            client = wsclient.getWsTopologyClient();
+
         Assert.assertNotNull(client);
     }
 
