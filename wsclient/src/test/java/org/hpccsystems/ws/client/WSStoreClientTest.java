@@ -102,11 +102,6 @@ public class WSStoreClientTest extends BaseRemoteTest
         return client.fetchValueEncrypted(storename, namespace, key, global, secretKey);
     }
 
-    public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
-    {
-        return client.fetchValueEncrypted(storename, namespace, key, global, secretKey);
-    }
-
     public void listNamespaceKeys(String store, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Listing Namespace Keys for default." + namespace + "...");

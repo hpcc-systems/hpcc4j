@@ -1,12 +1,28 @@
+/*##############################################################################
+
+    HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems®.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+############################################################################## */
+
 package org.hpccsystems.commons.utils;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Random;
+
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -17,7 +33,7 @@ public class CryptoHelper
 {
     private final static Logger log = Logger.getLogger(CryptoHelper.class.getName());
 
-    public final static String DEFAULT_DIGEST_ALGORITHM = "SHA-512";
+    public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM = DigestAlgorithmType.SHA512;
     public final static String DEFAULT_SECRETKEY_ALGORITHM = "AES";
     public final static int DEFAULT_AES_SECRETKEY_LEN = 16;
     public final static String DEFAULT_CIPHER_MODE = "AES/ECB/PKCS5PADDING";
@@ -30,37 +46,39 @@ public class CryptoHelper
     /**
      *
      * @param utf8DigestInput
-     * @param digestAlgorithm MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
+     * @param digestAlgorithm  DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
      * @param secretKeyAlgorithm
      * @return
      */
-    public static SecretKeySpec createSecretKey(String utf8DigestInput, String digestAlgorithm, String secretKeyAlgorithm)
+    public static SecretKeySpec createSecretKey(String utf8DigestInput, DigestAlgorithmType digestAlgorithm, String secretKeyAlgorithm)
     {
         SecretKeySpec secretkey = null;
         try
         {
             byte[] key = utf8DigestInput.getBytes("UTF-8");
-            MessageDigest sha = MessageDigest.getInstance(digestAlgorithm);
+            MessageDigest sha = MessageDigest.getInstance(digestAlgorithm.getName());
 
             key = sha.digest(key);
             int aesKeySize = DEFAULT_AES_SECRETKEY_LEN;
             if (secretKeyAlgorithm.equalsIgnoreCase("AES"))
             {
                 //AES only supports key sizes of 16, 24 or 32 bytes.
-                if (digestAlgorithm.equalsIgnoreCase("SHA-512"))
+                switch (digestAlgorithm)
                 {
-                    aesKeySize = 32;
-                    log.info("AES SHA-512 Digest key cut to 32 bytes");
-                }
-                else if (digestAlgorithm.equalsIgnoreCase("SHA-384"))
-                {
-                    aesKeySize = 32;
-                    log.info("AES SHA-384 Digest key cut to 32 bytes");
-                }
-                else if (digestAlgorithm.equalsIgnoreCase("SHA-1"))
-                {
-                    aesKeySize = 16;
-                    log.info("AES SHA-1 Digest key cut to 32 bytes");
+                    case SHA512:
+                        aesKeySize = 32;
+                        log.info("AES SHA-512 Digest key cut to 32 bytes");
+                        break;
+                    case SHA384:
+                        aesKeySize = 32;
+                        log.info("AES SHA-384 Digest key cut to 32 bytes");
+                        break;
+                    case SHA1:
+                        aesKeySize = 16;
+                        log.info("AES SHA-1 Digest key cut to 32 bytes");
+                        break;
+                    default:
+                        break;
                 }
 
                 key = Arrays.copyOf(sha.digest(key), aesKeySize);
@@ -233,46 +251,5 @@ public class CryptoHelper
     public static String decrypt(String value, String secretKey)
     {
         return decrypt(value, createSHA512AESSecretKey(secretKey));
-    }
-
-    public static void main(String[] args)
-    {
-        final String digestInput = "12323423*&^";
-        String secret = "ForMyEyesOnLY!";
-
-        try
-        {
-            byte[] array = new byte[12];
-            new Random().nextBytes(array);
-            String generatedString = new String(array, Charset.forName("UTF-8"));
-
-            System.out.println(generatedString);
-
-            SecretKeySpec sha512aesSecretKey = createSHA512AESSecretKey(digestInput);
-            /*Create your own cipher*/
-            Cipher encryptCipher = CryptoHelper.createCipher(sha512aesSecretKey, "AES", true);
-            String encryptedString = CryptoHelper.encrypt(secret, encryptCipher);
-
-            Cipher decryptCipher = CryptoHelper.createCipher(sha512aesSecretKey, "AES", false);
-            String decryptedString = CryptoHelper.decrypt(encryptedString, decryptCipher) ;
-
-            /*Create default cipher*/
-            encryptCipher = CryptoHelper.createDefaultCipher(sha512aesSecretKey, true);
-            String encryptedDefaultCipherString = CryptoHelper.encrypt(secret, encryptCipher);
-
-            decryptCipher = CryptoHelper.createDefaultCipher(sha512aesSecretKey, false);
-            String decryptedDefaultCipherString = CryptoHelper.decrypt(encryptedDefaultCipherString, decryptCipher) ;
-
-            System.out.println("Original string: " + secret);
-            System.out.println("Encrypted using custom cipher: " + encryptedString);
-            System.out.println("Decrypted string custom cipher: " + decryptedString);
-            System.out.println("Encrypted using default cipher: " + encryptedDefaultCipherString);
-            System.out.println("Decrypted using default cipher: " + decryptedDefaultCipherString);
-        }
-        catch (Exception e)
-        {
-            log.error("Could not create cipher");
-            e.printStackTrace();
-        }
     }
 }
