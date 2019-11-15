@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.hpccsystems.commons.filter.SQLExpression;
 import org.hpccsystems.commons.filter.SQLFilter;
@@ -29,6 +30,24 @@ import org.hpccsystems.commons.filter.SQLFragment.FragmentType;
 import org.hpccsystems.commons.filter.SQLOperator.OperatorType;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import net.sf.jsqlparser.expression.BinaryExpression;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.ExpressionVisitor;
+import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
+import net.sf.jsqlparser.expression.LongValue;
+import net.sf.jsqlparser.expression.Parenthesis;
+import net.sf.jsqlparser.expression.operators.arithmetic.Addition;
+import net.sf.jsqlparser.expression.operators.arithmetic.Concat;
+import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
+import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
+import net.sf.jsqlparser.expression.operators.relational.ComparisonOperator;
+import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
+import net.sf.jsqlparser.expression.operators.relational.InExpression;
+import net.sf.jsqlparser.expression.operators.relational.NotEqualsTo;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.util.deparser.ExpressionDeParser;
 
 /**
  * A filter to select records from a file or key. The filter is conjunction of
@@ -61,7 +80,7 @@ public class FileFilter implements Serializable
 
     private List<FieldFilter> fieldfilters = new ArrayList<FieldFilter>();
     private List<FileFilter> andFileFilters = new ArrayList<FileFilter>();
-
+    private Expression filter = null;
     /**
      * A file filter expression to select records, using a string.
      * An expression can be comprised of multiple comma delimited clauses
@@ -82,7 +101,77 @@ public class FileFilter implements Serializable
     public FileFilter(String sqlfilter) throws Exception
     {
         if (sqlfilter != null && !sqlfilter.isEmpty())
-              ConvertToHPCCFileFilter(sqlfilter);
+        {
+            ConvertToHPCCFileFilter(sqlfilter);
+            filter = CCJSqlParserUtil.parseCondExpression(sqlfilter);
+            System.out.println(filter.getClass().getCanonicalName());
+            System.out.println(filter.toString());
+            ExpressionVisitor expressionVisitor = new ExpressionVisitorAdapter();
+
+            StringBuilder b = new StringBuilder();
+            filter.accept(new ExpressionDeParser(null, b)
+            {
+                int depth = 0;
+
+                @Override
+                public void visit(Parenthesis parenthesis)
+                {
+                    //if (parenthesis.isNot())
+                    //{
+                    //    getBuffer().append("NOT");
+                    //}
+
+                    depth++;
+                    parenthesis.getExpression().accept(this);
+                    depth--;
+                }
+
+                @Override
+                public void visit(OrExpression orExpression)
+                {
+                    visitBinaryExpr(orExpression, "OR");
+                }
+
+                @Override
+                public void visit(AndExpression andExpression)
+                {
+                    visitBinaryExpr(andExpression, "AND");
+                }
+
+                private void visitBinaryExpr(BinaryExpression expr, String operator)
+                {
+                    //if (expr.isNot())
+                    //{
+                    //    getBuffer().append("NOT");
+                    //}
+
+                    if (!(expr.getLeftExpression() instanceof OrExpression) 
+                            && !(expr.getLeftExpression() instanceof AndExpression) 
+                            && !(expr.getLeftExpression() instanceof Parenthesis)) {
+                        getBuffer().append(StringUtils.repeat("-", depth)).append(">");
+                    }
+                    expr.getLeftExpression().accept(this);
+                    getBuffer().append("\n").append(StringUtils.repeat("-", depth)).append(">");
+                    getBuffer().append(operator).append("\n");
+                    if (!(expr.getRightExpression() instanceof OrExpression) 
+                            && !(expr.getRightExpression() instanceof AndExpression) 
+                            && !(expr.getRightExpression() instanceof Parenthesis)) {
+                        getBuffer().append(StringUtils.repeat("-", depth)).append(">");
+                    }
+                    expr.getRightExpression().accept(this);
+                }
+            });
+
+            System.out.println(b);
+
+            if ((filter instanceof Column))
+            {
+                Column a = (Column) filter;
+                expressionVisitor.visit(a);
+                
+                System.out.println("Invalid expression encountered!");
+            }
+        }
         else
             throw new Exception("Could not create FileFilter, empty sqlfilter encountered");
     }
@@ -93,13 +182,13 @@ public class FileFilter implements Serializable
      * @param sqlfilter
      * @throws Exception
      */
-    public FileFilter(SQLFilter sqlfilter) throws Exception
+    /*public FileFilter(SQLFilter sqlfilter) throws Exception
     {
         if (sqlfilter != null)
              ConvertToHPCCFileFilter(sqlfilter);
         else
             throw new Exception("Could not create FileFilter, empty sqlfilter encountered");
-    }
+    }*/
 
     /**
      * Creates a FileFilter based on the provided fieldfilter
@@ -273,6 +362,94 @@ public class FileFilter implements Serializable
         return fieldfilters.get(i);
     }
 
+    
+    public void handleExpression(Expression expr, String output)
+    {
+        if(expr instanceof OrExpression)
+        {
+            handleOR((OrExpression) expr, output);
+        }
+        else if(expr instanceof AndExpression)
+        {
+            handleAndExpression((AndExpression) expr, output);
+        }
+        else if (expr instanceof Parenthesis)
+        {
+            handleExpression(((Parenthesis) expr).getExpression(), output);
+        }
+        else if (expr instanceof ComparisonOperator)
+        {
+            handleComparison(expr, output);   
+        }
+        else if (expr instanceof NotEqualsTo)
+        {
+            output += (FieldFilterRange.makeNE(expr.toString()).toString());
+        }
+        else if (expr instanceof EqualsTo)
+        {
+            EqualsTo et = (EqualsTo)expr;
+            
+            output += (FieldFilterRange.makeEq(expr.toString()).toString());
+        }
+        //else if (expr instanceof InExpression)
+        //{
+        //    String list = sqlfilter.getPostfixValue().replaceAll("^\\[|\\]$", ""); //List string representation is encapsulated in square brackets
+        //    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeIn(list.split("\\s*,\\s*"), false)));  // each entry is comma+space delimited
+        //}
+    }
+
+    private void handleComparison(Expression expr, String output)
+    {
+        ComparisonOperator c = (ComparisonOperator)expr;
+        String operator = c.getStringExpression();
+        Expression l = c.getLeftExpression();
+        Expression r = c.getRightExpression();
+        
+    }
+
+    private void handleOR(OrExpression expr, String output)
+    {
+        handleBinaryExpr(expr, " || ");
+    }
+
+    private void handleAndExpression(AndExpression expr, String output)
+    {
+        handleBinaryExpr(expr, " + ");
+    }
+
+    private void handleLongValue(LongValue expr, String output)
+    {
+        System.out.println(expr.toString());
+    }
+
+    public void handleConcatExpr(Concat expr, String output)
+    {
+        handleBinaryExpr(expr, "");
+
+    }
+    
+    public void handleBinaryExpr(BinaryExpression expr, String output)
+    {
+        if (!(expr.getLeftExpression() instanceof OrExpression) 
+                && !(expr.getLeftExpression() instanceof AndExpression) 
+                && !(expr.getLeftExpression() instanceof Parenthesis))
+        {
+            //getBuffer().append(StringUtils.repeat("-", depth)).append(">");
+            System.out.println("left expression: " + expr.getLeftExpression());
+        }
+
+        handleExpression(expr.getLeftExpression(), output);
+
+        //getBuffer().append("\n").append(StringUtils.repeat("-", depth)).append(">");
+        //getBuffer().append(operator).append("\n");
+        if (!(expr.getRightExpression() instanceof OrExpression) 
+                && !(expr.getRightExpression() instanceof AndExpression) 
+                && !(expr.getRightExpression() instanceof Parenthesis))
+        {
+            System.out.println("right expression: " + expr.getRightExpression());
+        }
+        handleExpression(expr.getRightExpression(), output);
+    }
     /**
      * JSon string representation of an array of filefilters
      *
@@ -284,6 +461,10 @@ public class FileFilter implements Serializable
     {
         JSONObject keyfilter = new JSONObject();
         JSONArray keyfilters= new JSONArray();
+
+        String output = ""; 
+        handleExpression(filter,output);
+        System.out.println(output);
 
         keyfilters.put(outputOrFilter());
 
@@ -306,9 +487,11 @@ public class FileFilter implements Serializable
         try
         {
             SQLFilter sqlfilter = new SQLFilter();
+            filter = CCJSqlParserUtil.parseExpression(sqlfilterstr);
             sqlfilter.parseWhereClause(sqlfilterstr);
 
             ConvertToHPCCFileFilter(sqlfilter);
+            //ConvertToHPCCFileFilter(expr);
         }
         catch (SQLException e)
         {
@@ -334,7 +517,7 @@ public class FileFilter implements Serializable
             else
                 throw new Exception("Invalid filter expression unifier operator detected: '" + prevunifier.getValue() + "' in filter: '" + sqlExpression.toString() + "'");
         }
-       }
+    }
 
     private static boolean isValidFilter(SQLExpression sqlfilter) throws Exception
     {
@@ -438,7 +621,9 @@ public class FileFilter implements Serializable
     {
         try
         {
-            FileFilter filter = new FileFilter("(table.field2 <= 'a' AND table.field2 != 4) OR table.field2 != 5 AND field3 In ('Germany', 'France', 'UK')");
+            //FileFilter filter = new FileFilter("(table.field2 <= 'a' AND table.field2 != 4) OR table.field2 != 5 AND field3 In ('Germany', 'France', 'UK')");
+            FileFilter filter = new FileFilter("table.field2 != 5 AND table.field2 != 4 OR (table.field2 != 5 AND field3 In ('Germany', 'France', 'UK'))");
+            //expression expr = ccjsqlparserutil.parsecondexpression("(a=1 and (b=2 or (c=3 and d=4))) or e=2");
             System.out.println(filter.toJson());
         }
         catch (Exception e)

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.hpccsystems.commons.filter.SQLFragment.FragmentType;
 import org.hpccsystems.commons.utils.Utils;
@@ -28,6 +29,8 @@ import org.hpccsystems.commons.utils.Utils;
 public class SQLFilter
 {
     private List<SQLExpression> expressions;
+    private TreeSet<SQLExpression> texpressions;
+
     private List<String>        expressionUniqueColumnNames;
     private boolean             orOperatorUsed;
 
@@ -64,6 +67,8 @@ public class SQLFilter
     public SQLFilter()
     {
         expressions = new ArrayList<SQLExpression>();
+        texpressions = new TreeSet<SQLExpression>();
+
         expressionUniqueColumnNames = new ArrayList<String>();
         orOperatorUsed = false;
     }

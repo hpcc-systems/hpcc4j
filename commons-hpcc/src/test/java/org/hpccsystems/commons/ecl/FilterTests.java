@@ -15,6 +15,24 @@ package org.hpccsystems.commons.ecl;
 
 import static org.junit.Assert.*;
 
+import java.io.StringReader;
+
+import net.sf.jsqlparser.JSQLParserException;
+
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.ExpressionVisitor;
+import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
+import net.sf.jsqlparser.expression.LongValue;
+import net.sf.jsqlparser.expression.operators.arithmetic.Addition;
+import net.sf.jsqlparser.expression.operators.arithmetic.BitwiseAnd;
+import net.sf.jsqlparser.expression.operators.arithmetic.Concat;
+import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.parser.SimpleNode;
+import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.statement.select.SelectBody;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -117,6 +135,63 @@ public class FilterTests
         {
             e.printStackTrace();
         }
+    }
+
+    public void handleExpression(Expression expr)
+    {
+        if(expr instanceof Concat)
+        {
+            handleConcatExpr((Concat) expr);
+        }
+        else if(expr instanceof LongValue)
+        {
+            handleLongValue((LongValue) expr);
+        }
+        else if (expr instanceof Addition)
+        {
+            handleAddition((Addition) expr);
+        }
+    }
+
+    private void handleAddition(Addition expr)
+    {
+        handleExpression(expr.getLeftExpression());
+        handleExpression(expr.getRightExpression());
+    }
+
+    private void handleLongValue(LongValue expr)
+    {
+        System.out.println(expr.toString());
+    }
+
+    public void handleConcatExpr(Concat expr)
+    {
+        // instanceof BitwiseAnd);
+        handleExpression(expr.getLeftExpression());
+        handleExpression(expr.getRightExpression());
+        // instanceof LongValue);
+        
+    }
+    @Test
+    public void testGetSign() throws JSQLParserException
+    {
+        Expression expr = CCJSqlParserUtil.parseExpression("1 + 2");
+        SimpleNode astNode = expr.getASTNode();
+        handleExpression(expr);
+        
+
+        String statement = "SELECT * FROM mytable WHERE mytable.col = 9 LIMIT 3, ?";
+        final CCJSqlParserManager parserManager = new CCJSqlParserManager();
+        Select select = (Select) parserManager.parse(new StringReader(statement));
+
+        Expression offset = ((PlainSelect) select.getSelectBody()).getLimit().getOffset();
+        Expression rowCount = ((PlainSelect) select.getSelectBody()).getLimit().getRowCount();
+        Expression where = ((PlainSelect) select.getSelectBody()).getWhere();
+        //where.
+        ExpressionVisitor expressionVisitor = new ExpressionVisitorAdapter();
+        where.accept(expressionVisitor);
+        
+        
     }
 
     @Test
