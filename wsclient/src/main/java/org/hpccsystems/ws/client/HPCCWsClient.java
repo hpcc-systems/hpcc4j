@@ -484,7 +484,7 @@ public class HPCCWsClient extends DataSingleton
     /**
      * Returns all the available target cluster names (mythor, myroxie, etc) given a cluster group type/name (thor, roxie, etc.)
      * @param clusterGroupType         - The cluster group type/name
-     * @return                         - Names of all availabe target cluster in the given cluster group
+     * @return                         - Names of all available target cluster in the given cluster group
      * @throws Exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper 
      */
@@ -493,7 +493,7 @@ public class HPCCWsClient extends DataSingleton
         HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
 
         if (wsTopologyClient != null)
-            return wsTopologyClient.getValidTargetClusterNames(clusterGroupType);
+            return wsTopologyClient.getValidClusterNames(clusterGroupType);
         else
             throw new Exception("Could not initialize HPCC WsTopology Client");
     }
