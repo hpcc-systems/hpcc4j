@@ -26,7 +26,7 @@ public class WUInfoResponseWrapper
         this.autoRefresh = resp.getAutoRefresh();
         this.canCompile = resp.getCanCompile();
         this.thorSlaveIP = resp.getThorSlaveIP();
-        this.resultViews = resp.getResultViews().getView();
+        this.resultViews = resp.getResultViews() == null ? new String[0] : resp.getResultViews().getView();
         this.secMethod = resp.getSecMethod();
 
         if (resp.getExceptions() != null)
@@ -44,7 +44,7 @@ public class WUInfoResponseWrapper
         this.autoRefresh = resp.getAutoRefresh();
         this.canCompile = resp.getCanCompile();
         this.thorSlaveIP = resp.getThorSlaveIP();
-        this.resultViews = resp.getResultViews().getView();
+        this.resultViews = resp.getResultViews() == null ? new String[0] : resp.getResultViews().getView();
         this.secMethod = resp.getSecMethod();
 
         if (resp.getExceptions() != null)
@@ -62,7 +62,7 @@ public class WUInfoResponseWrapper
         this.autoRefresh = resp.getAutoRefresh();
         this.canCompile = resp.getCanCompile();
         this.thorSlaveIP = resp.getThorSlaveIP();
-        this.resultViews = resp.getResultViews().getView();
+        this.resultViews = resp.getResultViews() == null ? new String[0] : resp.getResultViews().getView();
         this.secMethod = resp.getSecMethod();
 
         if (resp.getExceptions() != null)
@@ -80,7 +80,7 @@ public class WUInfoResponseWrapper
         this.autoRefresh = resp.getAutoRefresh();
         this.canCompile = resp.getCanCompile();
         this.thorSlaveIP = resp.getThorSlaveIP();
-        this.resultViews = resp.getResultViews().getView();
+        this.resultViews = resp.getResultViews() == null ? new String[0] : resp.getResultViews().getView();
         this.secMethod = resp.getSecMethod();
 
         if (resp.getExceptions() != null)
