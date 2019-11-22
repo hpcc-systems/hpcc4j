@@ -22,6 +22,7 @@ import java.rmi.RemoteException;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.BaseHPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 
@@ -30,87 +31,29 @@ import org.hpccsystems.ws.client.utils.Connection;
  * versions of the platform.
  *
  */
-public class WsWorkunitsClientStubWrapper
+public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapper
 {
-    private org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub stub1_75                     = null;
-    //private org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_74.WsWorkunitsStub stub1_74                     = null;
-    private org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WsWorkunitsStub stub1_69                     = null;
-    private org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WsWorkunitsStub stub1_62                     = null;
-    private org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub stub1_58                     = null;
-    private org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub stub1_56                     = null;
 
     private Version platformVersion;
     private Connection connection;
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub getLatest() throws AxisFault
-    {
-        return get1_75Stub();
-    }
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub get1_75Stub() throws AxisFault
-    {
-        if (stub1_75 == null)
-        {
-            stub1_75 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
-            stub1_75 = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub1_75, connection));
-        }
-        return stub1_75;
-    }
-
-//    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_74.WsWorkunitsStub get1_74Stub() throws AxisFault
-//    {
-//        if (stub1_74 == null)
-//        {
-//            stub1_74 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_74.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
-//            stub1_74 = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_74.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub1_74, connection));
-//        }
-//        return stub1_74;
-//    }
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WsWorkunitsStub get1_69Stub() throws AxisFault
-    {
-        if (stub1_69 == null)
-        {
-            stub1_69 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
-            stub1_69 = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub1_69, connection));
-        }
-        return stub1_69;
-    }
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WsWorkunitsStub get1_62Stub() throws AxisFault
-    {
-        if (stub1_62 == null)
-        {
-            stub1_62 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
-            stub1_62 = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub1_62, connection));
-        }
-        return stub1_62;
-    }
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub get1_58Stub() throws AxisFault
-    {
-        if (stub1_58 == null)
-        {
-            stub1_58 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
-            stub1_58 = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub1_58, connection));
-        }
-        return stub1_58;
-    }
-
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub getVersion1_56Raw() throws AxisFault
-    {
-        if (stub1_56 == null)
-        {
-            stub1_56 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
-            stub1_56 = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub1_56, connection));
-        }
-        return stub1_56;
-    }
+    private IWsWorkunitsClientStubWrapper versioned;
 
     public WsWorkunitsClientStubWrapper(Connection conn, Version targetVersion)
     {
         this.connection = conn;
         this.platformVersion = targetVersion;
+
+        if (useVersion1_58()) {
+            versioned = new WsWorkunitsClientStub1_58(connection);
+        } else if (useVersion1_62()) {
+            versioned = new WsWorkunitsClientStub1_62(connection);
+        } else if (useVersion1_69()) {
+            versioned = new WsWorkunitsClientStub1_69(connection);
+        } else if (useVersion1_75()) {
+            versioned = new WsWorkunitsClientStub1_75(connection);
+        } else {
+            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
+        }
     }
 
     private boolean useVersion1_69()
@@ -143,126 +86,38 @@ public class WsWorkunitsClientStubWrapper
     {
         try
         {
-            if (useVersion1_58())
-            {
-                get1_58Stub();
-                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfoResponse response = stub1_58.wUInfo(params.getRawVersion1_58());
-
-                return new WUInfoResponseWrapper(response);
-            }
-            else if (useVersion1_62())
-            {
-                get1_62Stub();
-                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfoResponse response = stub1_62.wUInfo(params.getRawVersion1_62());
-                return new WUInfoResponseWrapper(response);
-            }
-            else if (useVersion1_69())
-            {
-                get1_69Stub();
-                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfoResponse response = stub1_69.wUInfo(params.getRawVersion1_69());
-                return new WUInfoResponseWrapper(response);
-            }
-            else if (useVersion1_75())
-            {
-                get1_75Stub();
-                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoResponse response = stub1_75.wUInfo(params.getRaw());
-                return new WUInfoResponseWrapper(response);
-            }
+            return versioned.WUInfo(params);
         }
         catch (RemoteException e)
         {
             throw new Exception ("WUInfoResponseWrapper.WUInfo encountered RemoteException.", e);
         }
-
-        throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
     }
 
     public WUUpdateResponseWrapper WUCreateAndUpdate(WUCreateAndUpdateWrapper params) throws Exception
     {
-        if (useVersion1_58())
-        {
-            get1_58Stub();
-            return new WUUpdateResponseWrapper(stub1_58.wUCreateAndUpdate(params.getRawVersion1_58()));
-        }
-        else if (useVersion1_62())
-        {
-            get1_62Stub();
-            return new WUUpdateResponseWrapper(stub1_62.wUCreateAndUpdate(params.getRawVersion1_62()));
-        }
-        else if (useVersion1_69())
-        {
-            get1_69Stub();
-            return new WUUpdateResponseWrapper(stub1_69.wUCreateAndUpdate(params.getRawVersion1_69()));
-        }
-        else if (useVersion1_75())
-        {
-            get1_75Stub();
-            return new WUUpdateResponseWrapper(stub1_75.wUCreateAndUpdate(params.getRaw()));
-        }
-        else
-        {
-            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
-        }
+        return versioned.WUCreateAndUpdate(params);
     }
 
     public WUCreateResponseWrapper WUCreate(WUCreateRequestWrapper params) throws Exception
     {
-        if (useVersion1_58())
-        {
-            get1_58Stub();
-            return new WUCreateResponseWrapper(stub1_58.wUCreate(params.getRawVersion1_58()));
-        }
-        else if (useVersion1_62())
-        {
-            get1_62Stub();
-            return new WUCreateResponseWrapper(stub1_62.wUCreate(params.getRawVersion1_62()));
-        }
-        else if (useVersion1_69())
-        {
-            get1_69Stub();
-            return new WUCreateResponseWrapper(stub1_69.wUCreate(params.getRawVersion1_69()));
-        }
-        else if (useVersion1_75())
-        {
-            get1_75Stub();
-            return new WUCreateResponseWrapper(stub1_75.wUCreate(params.getRaw()));
-        }
-        else
-        {
-            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
-        }
+        return versioned.WUCreate(params);
     }
 
     public WUUpdateResponseWrapper WUUpdate(WUUpdateRequestWrapper params) throws Exception
     {
-        if (useVersion1_58())
-        {
-            get1_58Stub();
-            return new WUUpdateResponseWrapper(stub1_58.wUUpdate(params.getRawVersion1_58()));
-        }
-        else if (useVersion1_62())
-        {
-            get1_62Stub();
-            return new WUUpdateResponseWrapper(stub1_62.wUUpdate(params.getRawVersion1_62()));
-        }
-        else if (useVersion1_69())
-        {
-            get1_69Stub();
-            return new WUUpdateResponseWrapper(stub1_69.wUUpdate(params.getRawVersion1_69()));
-        }
-        else if (useVersion1_75())
-        {
-            get1_75Stub();
-            return new WUUpdateResponseWrapper(stub1_75.wUUpdate(params.getRaw()));
-        }
-        else
-        {
-            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
-        }
+        return versioned.WUUpdate(params);
     }
 
-    
+    public IWsWorkunitsClientStubWrapper getLatest() {
+        return new WsWorkunitsClientStub1_75(connection);
+    }
 
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub getFallbackRaw() throws Exception {
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub(connection.getBaseUrl()+HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
+        stub = ((org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub)BaseHPCCWsClient.setStubOptions(stub, connection));
+        return stub;
+    }
 ///**
 // * Converts EspException from v1_56 to v1_58
 // *
