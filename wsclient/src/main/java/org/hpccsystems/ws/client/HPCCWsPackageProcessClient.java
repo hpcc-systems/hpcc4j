@@ -1,7 +1,11 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse;
@@ -30,6 +34,47 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 {
     private static final Logger  log                     = Logger.getLogger(HPCCWsPackageProcessClient.class.getName());
     public  static final String  PACKAGEPROCESSURI       = "/WsPackageProcess";
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WsPackageProcessStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return PACKAGEPROCESSURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsPackageProcessClient get(Connection connection)
     {
@@ -107,7 +152,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param packageMapName
      * @return String   - packagemap content
      * @throws Exception           - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public String getPackageMapById(String packageMapName) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -145,7 +190,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param target
      * @return BasePackageStatus   - Caller should interrogate status object for success
      * @throws Exception           - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -186,7 +231,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param target
      * @return BasePackageStatus   - Caller should interrogate status object for success
      * @throws Exception           - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public BasePackageStatus getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -281,4 +326,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     RemovePartFromPackageMap
     ValidatePackage
      */
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WsPackageProcessStub();
+    }
 }

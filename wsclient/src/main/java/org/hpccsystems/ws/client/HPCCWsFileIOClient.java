@@ -10,7 +10,7 @@ import javax.activation.DataHandler;
 
 import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.axis2.AxisFault;
-import org.apache.axis2.client.Options;
+import org.apache.axis2.client.Stub;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileResponse;
@@ -37,22 +37,51 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
 
     private final int defaultUploadChunkSize = 5000000;
 
-    static
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
     {
         try
         {
-            WsFileIOStub defstub = new WsFileIOStub();
-            Options opt = defstub._getServiceClient().getOptions();
-            ORIGINALURL = new URL(opt.getTo().getAddress());
+            WSDLURL = getServiceWSDLURL(new WsFileIOStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
         }
-        catch (AxisFault e)
+        catch (AxisFault | MalformedURLException e)
         {
-            e.printStackTrace();
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
         }
-        catch (MalformedURLException e)
+    }
+
+    public static String getServiceURI()
+    {
+        return FILEIOWSDLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
         {
-            e.printStackTrace();
+            loadWSDLURL();
         }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WsFileIOStub();
     }
 
     public static HPCCWsFileIOClient get(Connection connection)
@@ -131,7 +160,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param overwritefile        - If the file exists, should it be overwritten?
      * @return
      * @throws Exception           - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -181,7 +210,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param uploadchunksize     - Chunksize to upload the data
      * @return
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public boolean writeHPCCFileData(byte [] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception, ArrayOfEspExceptionWrapper
     {

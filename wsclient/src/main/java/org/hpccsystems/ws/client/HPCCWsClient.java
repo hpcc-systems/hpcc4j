@@ -1,7 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.io.File;
-import java.net.MalformedURLException;
+
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -16,11 +16,8 @@ import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.filespray.ArrayOfEspExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.filespray.EspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
-import org.junit.Assert;
 
 /**
  *
@@ -255,7 +252,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getWsSQLClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsSQLClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsSQLClient.getServiceWSDLURL());
     }
 
 
@@ -280,15 +277,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public HPCCWsSQLClient getWsSQLClient()
     {
-        try
-        {
-            return getWsSQLClient(String.valueOf(HPCCWsSQLClient.getOriginalPort()));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        return getWsSQLClient(String.valueOf(HPCCWsSQLClient.getServiceWSDLPort()));
     }
 
     /**
@@ -297,7 +286,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getWsAttributesClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsAttributesClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsAttributesClient.getServiceWSDLURL());
     }
 
     /**
@@ -320,15 +309,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public HPCCWsAttributesClient getWsAttributesClient()
     {
-        try
-        {
-            return getWsAttributesClient(String.valueOf(HPCCWsAttributesClient.getOriginalPort()));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        return getWsAttributesClient(String.valueOf(HPCCWsAttributesClient.getServiceWSDLPort()));
     }
 
     /**
@@ -348,16 +329,16 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getHPCCWsPackageProcessClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsPackageProcessClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsPackageProcessClient.getServiceWSDLURL());
     }
-    
+
     /**
      * Reports the version of the original WSDL used to create the HPCCWsFileIOClient logic.
      * @return Original WSDL version
      */
     public String getWsFileIOClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsFileIOClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsFileIOClient.getServiceWSDLURL());
     }
 
     public HPCCWsFileIOClient getWsFileIOClient()
@@ -385,7 +366,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getWsTopologyClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsTopologyClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsTopologyClient.getServiceWSDLURL());
     }
 
     public HPCCWsTopologyClient getWsTopologyClient()
@@ -402,7 +383,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getwsDFUClientClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsDFUClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsDFUClient.getServiceWSDLURL());
     }
 
     public HPCCWsDFUClient getWsDFUClient()
@@ -419,7 +400,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getWsSMCClientClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsSMCClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsSMCClient.getServiceWSDLURL());
     }
 
     /**
@@ -439,7 +420,7 @@ public class HPCCWsClient extends DataSingleton
      */
     public String getWsWorkunitsClientVer()
     {
-        return Utils.parseVersionFromWSDLURL(HPCCWsWorkUnitsClient.getOriginalWSDLURL());
+        return Utils.parseVersionFromWSDLURL(HPCCWsWorkUnitsClient.getServiceWSDLURL());
     }
 
     /**
@@ -486,7 +467,7 @@ public class HPCCWsClient extends DataSingleton
      * @param clusterGroupType         - The cluster group type/name
      * @return                         - Names of all available target cluster in the given cluster group
      * @throws Exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper 
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      */
     public String[] getAvailableClusterNames(String clusterGroupType) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
@@ -501,7 +482,7 @@ public class HPCCWsClient extends DataSingleton
     /**
      * @return          - List of all available target cluster names (mythor, myroxie, etc) on this HPCC System
      * @throws Exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper 
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      */
     public List<String> getAvailableTargetClusterNames() throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {

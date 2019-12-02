@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
@@ -50,7 +50,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     @Test
     public void testWSDLAddress()
     {
-        System.out.println("WSDL ADDRESS: " + filesprayclient.getOriginalWSDLURL());
+        System.out.println("WSDL ADDRESS: " + filesprayclient.getServiceWSDLURL());
     }
 
     @SuppressWarnings("static-access")

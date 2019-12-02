@@ -45,7 +45,7 @@ public class WsSMCClientTest extends BaseRemoteTest
     @Test
     public void testWSDLAddress()
     {
-        System.out.println("WSDL ADDRESS: " + client.getOriginalWSDLURL());
+        System.out.println("WSDL ADDRESS: " + HPCCWsSMCClient.getServiceWSDLURL());
     }
 
     @Test
