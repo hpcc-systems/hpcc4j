@@ -41,16 +41,18 @@ import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+
 @Category(RemoteTests.class)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
-    private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset" };
+    private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset"};
     private static final int[]    expectedCounts = { 1250, 6 };
 
     @Before
@@ -65,7 +67,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
         for (int i = 0; i < datasets.length; i++)
         {
             HPCCFile file = new HPCCFile(datasets[i], connString , hpccUser, hpccPass);
-            //file.setClusterRemapInfo(new RemapInfo(1, "192.168.56.101"));
             file.setProjectList("");
 
             List<HPCCRecord> records = readFile(file);
@@ -250,9 +251,9 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 
-            String clusterName = "mythor";
+            String clusterName = this.thorcluster;
             System.out.println("Create Start");
-            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, 300);
+            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, 300, false, DFUFileTypeWrapper.Flat, "");
             System.out.println("Create Finished");
 
             DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();

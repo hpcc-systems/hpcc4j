@@ -31,6 +31,7 @@
           <argLine>${argLine}</argLine>
           <excludes>
             <exclude>**/DFSReadWriteTest.java</exclude>
+            <exclude>**/DFSBenchmarkTest.java</exclude>
             <exclude>**/RemoteTests.java</exclude>
           </excludes>
         </configuration>
@@ -65,6 +66,7 @@
               <includes>
                 <include>**/RemoteTests.java</include>
                 <include>**/DFSReadWriteTest.java</include>
+                <include>**/DFSBenchmarkTest.java</include>
               </includes>
               <excludes>
                 <exclude>**/DFSRecordBuilderTest.java</exclude>
