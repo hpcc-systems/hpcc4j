@@ -2,6 +2,7 @@ package org.hpccsystems.ws.client.extended;
 
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.BaseHPCCWsClient;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckinAttributeRequest;
@@ -42,6 +44,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeReque
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.UpdateAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.WsAttributesStub;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
@@ -51,8 +54,49 @@ import org.hpccsystems.ws.client.wrappers.GetAttributesWrapper;
 
 public class HPCCWsAttributesClient extends BaseHPCCWsClient
 {
-    private static final Logger         log         = Logger.getLogger(HPCCWsAttributesClient.class.getName());
-    public static final String           WSATTRIBUTESWSDLURI          = "/WsAttributes";
+    private static final Logger                  log    = Logger.getLogger(HPCCWsAttributesClient.class.getName());
+    public static final String   WSATTRIBUTESWSDLURI    = "/WsAttributes";
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WsAttributesStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return WSATTRIBUTESWSDLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsAttributesClient get(Connection connection)
     {
@@ -116,7 +160,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - Attribute to check
      * @return true if the attribute exists, false if it does not
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public boolean attributeExists(String modulename, String attributename, String type) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -145,7 +189,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - only return attributes changes since this time
      * @return a list of ECLAttributeInfo
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext, String changedSince) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -207,7 +251,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             if (resp.getOutAttributes() != null)
             {
                 ECLAttribute[] eclAttribute = resp.getOutAttributes().getECLAttribute();
-                for (int i=0; i < eclAttribute.length;i++) 
+                for (int i=0; i < eclAttribute.length;i++)
                 {
                     results.add(new ECLAttributeWrapper(eclAttribute[i]));
                 }
@@ -225,7 +269,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - attribute name of the attribute
      * @return text contained by the attribute
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public String getAttributeText(String modulename, String attributename,String type) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -257,7 +301,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             if (response.getExceptions() != null)
                 handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not perform getAttributeText");
-        
+
             if (response.getOutAttribute() != null)
             {
                 return response.getOutAttribute().getText();
@@ -279,7 +323,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - new attribute name to rename attribute to
      * @return ECL attribute of the renamed attribute
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -327,7 +371,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             if (response.getExceptions() != null)
                 handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not perform renameAttribute");
-        
+
             ArrayOfECLAttribute outAttributes = response.getOutAttributes();
             if (outAttributes != null)
             {
@@ -345,7 +389,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc - if checkoutin is true, this is the checkin message
      * @return - a list of updated eclattributeinfo objects
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -359,12 +403,12 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
-       
+
         //validate items to be created
         String allers="";
         for (ECLAttributeWrapper item: in)
         {
-            try 
+            try
             {
                 item.validate();
             }
@@ -377,7 +421,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             throw new Exception(allers);
         }
-        
+
         //get a cached copy of the modules being updated to check whether items must be created
         //convert objects to needed create/update soap object arrays
         Map<String,List<String>> founditems = new HashMap<String,List<String>>();
@@ -398,7 +442,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
                 }
                 founditems.put(item.getModuleName().toLowerCase(),cache);
             }
-            
+
             if (!founditems.get(item.getModuleName().toLowerCase()).contains(item.getUniqueName()))
             {
                 tocreate.add(item.toCreateAttribute());
@@ -407,7 +451,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             tocheckout [i] = item.toCheckoutAttributeRequest();
             tocheckin [i] = item.toCheckinAttributeRequest(checkindesc);
         }
-        
+
         //create nonexistant attributes
         verifyStub();
 
@@ -422,16 +466,16 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
             log.trace("Created " + req.getType() + " attribute " + req.getModuleName() + "." + req.getAttributeName());
         }
-        
+
         //check out attributes
         if (checkoutin)
         {
             CheckoutAttributes params = new CheckoutAttributes();
             ArrayOfCheckoutAttributeRequest tocheckoutatts = new ArrayOfCheckoutAttributeRequest();
-            
+
             tocheckoutatts.setCheckoutAttributeRequest(tocheckout);
             params.setAttributes(tocheckoutatts);
-            
+
             UpdateAttributesResponse resp = ((WsAttributesStub)stub).checkoutAttributes(params);
 
             if (resp != null)
@@ -443,7 +487,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         //update attributes
         SaveAttributes params = new SaveAttributes();
-        
+
         ArrayOfSaveAttributeRequest toupdateatts = new ArrayOfSaveAttributeRequest();
         toupdateatts.setSaveAttributeRequest(toupdate);
         params.setAttributes(toupdateatts);
@@ -467,7 +511,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
                 }
             }
         }
-        
+
         //check in attributes
         if (checkoutin)
         {
@@ -497,7 +541,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc - if checkoutin=true, the description to append to the checkin
      * @return updated ECLAttributeItem for created/updated item
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -507,7 +551,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         }
 
         item.validate();
-        
+
         if (checkoutin == true && (checkindesc == null || checkindesc.trim().length() == 0))
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
@@ -523,7 +567,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
                 if (response.getExceptions() != null)
                     handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
             }
-            log.trace("Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());            
+            log.trace("Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());
         }
 
         if (checkoutin)
@@ -538,7 +582,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         params.setAttributes(arrayofattributes);
 
         UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(params);
-        log.trace("Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());            
+        log.trace("Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());
         if (resp != null)
         {
             if (resp.getExceptions() != null)
@@ -575,7 +619,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - if checkoutin=true, the description to append to the checkin
      * @return
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -596,7 +640,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             throw new FileNotFoundException("Cannot update " + modulename + "." + attributename + ", attribute does not exist");
         }
-        
+
         verifyStub();
 
         if (checkoutin)
@@ -647,7 +691,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - check in comment
      * @return ECLAttribute of checked in attribute
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public ECLAttribute checkinAttribute(String modulename, String attributename, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -667,7 +711,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         req.setModuleName(modulename);
         req.setDescription(checkindesc);
         CheckinAttributeRequest[] arr = { req };
-        
+
         CheckinAttributes params = new CheckinAttributes();
         ArrayOfCheckinAttributeRequest arrayofcheckinatts = new ArrayOfCheckinAttributeRequest();
         arrayofcheckinatts.setCheckinAttributeRequest(arr);
@@ -701,7 +745,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - attribute to check out
      * @return ECLAttribute of checked out attribute
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public ECLAttribute checkoutAttribute(String modulename, String attributename) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -717,7 +761,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         req.setModuleName(modulename);
         CheckoutAttributeRequest[] arr = { req };
         CheckoutAttributes params = new CheckoutAttributes();
-        
+
         ArrayOfCheckoutAttributeRequest arrayofCheckoutAtts = new ArrayOfCheckoutAttributeRequest();
         arrayofCheckoutAtts.setCheckoutAttributeRequest(arr);
         params.setAttributes(arrayofCheckoutAtts);
@@ -755,7 +799,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - checkin comment. Required if checkin=true
      * @return the ECL Attribute of the created object
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
     public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -795,14 +839,14 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         return attr;
     }
 
-    
+
     /**
      * Delete a module from the remote repository
      * @param modulename - name of module to delete
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
-    public void deleteModule(String modulename) throws Exception, ArrayOfEspExceptionWrapper 
+    public void deleteModule(String modulename) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -819,9 +863,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param modulename - name of module for attribute to delete
      * @param attributename - name of attribute to delete
      * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper 
+     * @throws ArrayOfEspExceptionWrapper
      */
-    public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception, ArrayOfEspExceptionWrapper 
+    public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -830,7 +874,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         dar.setAttributeName(attributename);
         dar.setModuleName(modulename);
-        
+
         DeleteAttributeRequest[] arr = new DeleteAttributeRequest[]{dar};
         ArrayOfDeleteAttributeRequest arrayofdeleteatts = new ArrayOfDeleteAttributeRequest();
         arrayofdeleteatts.setDeleteAttributeRequest(arr);
@@ -842,10 +886,10 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
 
         List<ECLAttributeWrapper> results=new ArrayList<ECLAttributeWrapper>();
-        if (resp.getOutAttributes() != null) 
+        if (resp.getOutAttributes() != null)
         {
             ECLAttribute[] arrayOfECLAttribute = resp.getOutAttributes().getECLAttribute();
-            for (int i=0; i < arrayOfECLAttribute.length; i++) 
+            for (int i=0; i < arrayOfECLAttribute.length; i++)
             {
                 results.add(new ECLAttributeWrapper(arrayOfECLAttribute[i]));
             }
@@ -883,12 +927,10 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         return new GetAttributesResponseWrapper(response);
     }
-    
-    public static int getOriginalPort() throws MalformedURLException
+
+    @Override
+    public Stub getDefaultStub() throws AxisFault
     {
-        int originalport = 8145;
-        if (ORIGINALURL != null)
-            originalport = ORIGINALURL.getPort();
-        return originalport;
+        return new WsAttributesStub();
     }
 }

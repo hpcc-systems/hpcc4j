@@ -82,25 +82,53 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     private static final long   MAX_FILE_WSUPLOAD_SIZE = 2000000000;
     private int                 BUFFER_LENGTH          = 1024;
 
-    List<DropZoneWrapper>                   localDropZones  = null;
+    List<DropZoneWrapper>               localDropZones  = null;
     private static Logger               log = Logger.getLogger(HPCCFileSprayClient.class.getName());
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
 
-    static
+    private static void loadWSDLURL()
     {
         try
         {
-            FileSprayStub defstub = new FileSprayStub();
-            Options opt = defstub._getServiceClient().getOptions();
-            ORIGINALURL = new URL(opt.getTo().getAddress());
+            WSDLURL = getServiceWSDLURL(new FileSprayStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
         }
-        catch (AxisFault e)
+        catch (AxisFault | MalformedURLException e)
         {
-            e.printStackTrace();
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
         }
-        catch (MalformedURLException e)
+    }
+
+    public static String getServiceURI()
+    {
+        return FILESPRAYWSDLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
         {
-            e.printStackTrace();
+            loadWSDLURL();
         }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new FileSprayStub();
     }
 
     //from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
@@ -414,7 +442,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return dropZonesWrapper;
     }
 
-    public String copyFile(String from,String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper 
+    public String copyFile(String from,String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
         Copy cp=new Copy();
@@ -440,7 +468,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         return resp.getResult();
     }
-    
+
     public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly, boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();

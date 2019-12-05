@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.axis2.AxisFault;
+import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.axis2.transport.http.HTTPConstants;
@@ -14,6 +15,7 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
@@ -21,49 +23,94 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
     protected static final Logger         log = Logger.getLogger(BaseHPCCWsClient.class.getName());
+    public static final String     DEAFULTECLWATCHPORT = "8010";
+    public static final String  DEFAULTECLWATCHTLSPORT = "18010";
+    public static String            DEFAULTSERVICEPORT = DEAFULTECLWATCHPORT;
 
-    protected Connection                  fsconn         = null;
-    protected boolean                     verbose        = false;
-    protected static URL              ORIGINALURL        = null;
-    protected String                initErrMessage       = "";
-    protected Version               targetVersion        = null;
+    protected Connection                    fsconn     = null;
+    protected boolean                      verbose     = false;
+    protected String                initErrMessage     = "";
+    protected Version                targetVersion     = null;
 
     protected Stub stub;
+    abstract public Stub getDefaultStub() throws AxisFault;
 
-     /**
-     * Provides the WSDL URL originally used to create the underlying stub code
-     *
-     * @return original WSLD URL
-     */
-    public static URL getOriginalURL() throws MalformedURLException
+    public static String getServiceVersion(BaseHPCCWsClient client)
     {
-        return ORIGINALURL;
+        String ver = null;
+        if (client != null)
+        {
+            Stub stub;
+            try
+            {
+                stub = client.getDefaultStub();
+                ver = getServiceVersion(stub);
+            }
+            catch (AxisFault e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return ver;
     }
 
-    public static String getOriginalWSDLURL()
+    public static String getServiceVersion(Stub stub)
     {
-        String wsdlurl = "";
-        if (ORIGINALURL != null)
-            wsdlurl = ORIGINALURL.getAuthority();
+        String ver = null;
+        if (stub != null)
+        {
+            String address = getServiceWSDLURL(stub);
+            if (address != null && !address.isEmpty())
+            {
+                ver = Utils.parseVersionFromWSDLURL(address);
+            }
+        }
 
-        return wsdlurl;
+        return ver;
     }
 
-    public static String getServiceURI()
+    public static String getServiceWSDLURL(Stub stub)
     {
-        String wsdluri = "";
-        if (ORIGINALURL != null)
-            wsdluri = ORIGINALURL.getPath();
+        String address = null;
+        if (stub != null)
+        {
+            Options options = stub._getServiceClient().getOptions();
+            if (options != null)
+            {
+                address = options.getTo().getAddress();
+            }
+        }
 
-        return wsdluri;
+        return address;
     }
 
-    public static int getOriginalPort() throws MalformedURLException
+    public static int getServiceWSDLPort(Stub stub) throws MalformedURLException
     {
-        int originalport = 8010;
-        if (ORIGINALURL != null)
-            originalport = ORIGINALURL.getPort();
-        return originalport;
+        int port = -1;
+        if (stub != null)
+        {
+            String address = getServiceWSDLURL(stub);
+            if (address != null && !address.isEmpty())
+            {
+                port = (new URL(address)).getPort();
+            }
+        }
+
+        return port;
+    }
+
+    public URL getConnectionURL() throws Exception
+    {
+        URL address = null;
+
+        verifyStub();
+        Options opt = stub._getServiceClient().getOptions();
+
+        EndpointReference toAddress = opt.getTo();
+        if (toAddress != null)
+            address = new URL(toAddress.getAddress());
+
+        return address;
     }
 
     /**

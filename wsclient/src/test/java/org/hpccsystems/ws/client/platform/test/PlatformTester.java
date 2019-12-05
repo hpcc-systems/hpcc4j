@@ -340,7 +340,7 @@ public class PlatformTester
             String tmpAccountFile = System.getProperty("java.io.tmpdir") + File.separator + "account";
             writeFile( tmpAccountFile, Accounts.data, false);
 
-            int pport = HPCCWsAttributesClient.getOriginalPort();
+            int pport = HPCCWsAttributesClient.getServiceWSDLPort();
             HPCCWsClient connector = platform.checkOutHPCCWsClient();
             connector.setVerbosemode(true);
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());

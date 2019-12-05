@@ -1,5 +1,10 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.Activity;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.ActivityResponse;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.EspException;
@@ -13,7 +18,48 @@ import org.hpccsystems.ws.client.utils.Connection;
  */
 public class HPCCWsSMCClient extends BaseHPCCWsClient
 {
-    public static final String WSSMCURI     = "/WsSMC";
+    public static final String             WSSMCURI     = "/WsSMC";
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WsSMCStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return WSSMCURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsSMCClient get(Connection connection)
     {
@@ -120,5 +166,10 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         }
 
         return true;
+    }
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WsSMCStub();
     }
 }

@@ -1,8 +1,12 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfNamedValue;
@@ -49,6 +53,48 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
     private static final int       DEFAULT_RESULT_LIMIT  = 100;
     private static final String    PINGSTATEMENT         = "HPCCWsSQLClient Greets you.";
     private Version version = null;
+
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WssqlStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return WSSQLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsSQLClient get(Connection connection)
     {
@@ -553,5 +599,10 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
             }
         }
         return null;
+    }
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WssqlStub();
     }
 }

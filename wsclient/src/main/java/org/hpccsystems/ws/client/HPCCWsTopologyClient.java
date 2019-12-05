@@ -1,11 +1,14 @@
 package org.hpccsystems.ws.client;
 
 import java.io.PrintStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpTargetCluster;
@@ -46,6 +49,48 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     private static final Logger log                   = Logger.getLogger(HPCCWsTopologyClient.class.getName());
     //public  static final String WSTOPOLOGYWSDLURI     = "/WsTopology/TpTargetClusterQuery";
     public  static final String WSTOPOLOGYWSDLURI     = "/WsTopology";
+
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WsTopologyStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return WSTOPOLOGYWSDLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsTopologyClient get(Connection connection)
     {
@@ -494,5 +539,10 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         }
 
         return true;
+    }
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WsTopologyStub();
     }
 }

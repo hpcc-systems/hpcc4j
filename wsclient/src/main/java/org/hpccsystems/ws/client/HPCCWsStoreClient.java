@@ -1,12 +1,14 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
 import javax.crypto.Cipher;
 
 import org.apache.axis2.AxisFault;
-import org.apache.log4j.Logger;
+import org.apache.axis2.client.Stub;
 import org.hpccsystems.commons.utils.CryptoHelper;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.CreateStoreRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.CreateStoreResponse;
@@ -45,7 +47,48 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 public class HPCCWsStoreClient extends BaseHPCCWsClient
 {
     //private static final Logger log                   = Logger.getLogger(HPCCWsStoreClient.class.getName());
-    public static final String WSStoreWSDLURI         = "/wsstore";
+    public static final String        WSStoreWSDLURI    = "/wsstore";
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WsstoreStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return WSStoreWSDLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsStoreClient get(Connection connection)
     {
@@ -436,5 +479,10 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
 
         return false;
+    }
+
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WsstoreStub();
     }
 }
