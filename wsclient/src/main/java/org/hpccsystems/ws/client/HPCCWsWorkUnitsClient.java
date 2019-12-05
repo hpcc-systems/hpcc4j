@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,16 +12,16 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfNamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWUActions;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspSoapFault;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspStringArray;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.FileUsedByQuery;
@@ -103,6 +105,48 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     public static final int                               defaultResultLimit             = 100;
     public static final int                               defaultMaxWaitTime             = 1000 * 60 * 5;
     private WsWorkunitsClientStubWrapper                  stubWrapper                    = null;
+
+    private static int            DEFAULTSERVICEPORT    = -1;
+    private static String                    WSDLURL    = null;
+
+    private static void loadWSDLURL()
+    {
+        try
+        {
+            WSDLURL = getServiceWSDLURL(new WsWorkunitsStub());
+            DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
+        }
+        catch (AxisFault | MalformedURLException e)
+        {
+            log.error("Unable to establish original WSDL URL");
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    public static String getServiceURI()
+    {
+        return WSWORKUNITSWSDLURI;
+    }
+
+    public static String getServiceWSDLURL()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return WSDLURL;
+    }
+
+    public static int getServiceWSDLPort()
+    {
+        if (WSDLURL == null)
+        {
+            loadWSDLURL();
+        }
+
+        return DEFAULTSERVICEPORT;
+    }
 
     public static HPCCWsWorkUnitsClient get(Connection connection)
     {
@@ -985,8 +1029,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUUpdateResponseWrapper wuUpdateResponse = stubWrapper.WUCreateAndUpdate(wucreateparameters);
 
-        if (wuUpdateResponse.getExceptions() == null || 
-                wuUpdateResponse.getExceptions().getEspExceptions() == null || 
+        if (wuUpdateResponse.getExceptions() == null ||
+                wuUpdateResponse.getExceptions().getEspExceptions() == null ||
                 wuUpdateResponse.getExceptions().getEspExceptions().size()==0)
         {
             createdWU = wuUpdateResponse.getWorkunitWrapper();
@@ -1063,7 +1107,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WorkunitWrapper createdWU = createWUFromECL(wu);
 
-        if (createdWU != null && createdWU.getErrorCount() == 0 && 
+        if (createdWU != null && createdWU.getErrorCount() == 0 &&
                 (createdWU.getExceptions() == null || createdWU.getExceptions().getECLException().size()==0))
         {
             createdWU.setCluster(wu.getCluster());
@@ -1073,7 +1117,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             // exceptions, etc. aren't always included in the submit response; do another request to get all workunit info
             WorkunitWrapper res = getWUInfo(createdWU.getWuid(), false, false, false, false, false, true, false, false, false);
 
-            if (res.getExceptions() != null) 
+            if (res.getExceptions() != null)
             {
                 for (ECLExceptionWrapper ex : res.getExceptions().getECLException())
                 {
@@ -1706,7 +1750,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         WUCreateResponseWrapper resp = stubWrapper.WUCreate(params);
 
         if (resp.getExceptions() != null
-                && resp.getExceptions().getEspExceptions() != null 
+                && resp.getExceptions().getEspExceptions() != null
                 && resp.getExceptions().getEspExceptions().size() > 0)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not create workunit");
 
@@ -1907,7 +1951,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setQuerySetName(querysetname);
         params.setQueryName(queryname);
         params.setQueryID(queryid);
-        if (activated != null) 
+        if (activated != null)
         {
             params.setActivated(activated);
         }
@@ -2063,5 +2107,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         }
 
         return true;
+    }
+
+    @Override
+    public Stub getDefaultStub() throws AxisFault
+    {
+        return new WsWorkunitsStub();
     }
 }

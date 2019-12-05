@@ -17,11 +17,14 @@
 
 package org.hpccsystems.ws.client;
 
+import java.net.URL;
+
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 public class WsAttributesClientTest extends BaseRemoteTest
 {
@@ -47,5 +50,40 @@ public class WsAttributesClientTest extends BaseRemoteTest
 
         client = HPCCWsAttributesClient.get(conn);
         Assert.assertNotNull(client);
+    }
+
+    @Test
+    public void serviceURLTest() throws Exception
+    {
+        HPCCWsAttributesClient wsAttributesClient = wsclient.getWsAttributesClient();
+        Assert.assertNotNull(wsAttributesClient);
+
+        String wsAttributesClientVer = wsclient.getWsAttributesClientVer();
+        Assert.assertNotNull(wsAttributesClientVer);
+        if (wsAttributesClientVer.isEmpty())
+            Assert.fail("Could not fetch service version");
+
+        HPCCFileSprayClient fsclient = HPCCFileSprayClient.get("http","1.1.2.2","8010","myuser","mypass");
+        Assert.assertNotNull(fsclient);
+
+        Assert.assertNotNull(HPCCWsAttributesClient.getServiceWSDLPort());
+        Assert.assertNotEquals(HPCCFileSprayClient.getServiceWSDLPort(), HPCCWsAttributesClient.getServiceWSDLPort());
+
+        System.out.println("WsAttributes WSDL URL: " + HPCCWsAttributesClient.getServiceWSDLPort());
+        System.out.println("WsAttributes Actual Connection URL: " + client.getConnectionURL());
+
+        System.out.println(HPCCWsAttributesClient.getServiceWSDLURL());
+        HPCCWsAttributesClient attsclient = HPCCWsAttributesClient.get("http","1.1.1.1","1234","myuser","mypass");
+        Assert.assertNotNull(attsclient);
+
+        URL connectionURL = attsclient.getConnectionURL();
+
+        Assert.assertNotNull(connectionURL);
+        Assert.assertEquals(connectionURL.getHost(), "1.1.1.1");
+        Assert.assertEquals(connectionURL.getPort(), 1234);
+        Assert.assertEquals(connectionURL.getPath(), HPCCWsAttributesClient.getServiceURI());
+
+        Assert.assertNotEquals(connectionURL.getHost(), HPCCWsAttributesClient.getServiceWSDLPort());
+        Assert.assertNotEquals(connectionURL.getPort(), HPCCWsAttributesClient.getServiceWSDLPort());
     }
 }

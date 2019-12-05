@@ -9,6 +9,9 @@ package org.hpccsystems.ws.client.utils;
 
 import java.util.Observable;
 
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Stub;
+
 public abstract class DataSingleton extends Observable
 {
     static final int MONITOR_SLEEP = 1000;
