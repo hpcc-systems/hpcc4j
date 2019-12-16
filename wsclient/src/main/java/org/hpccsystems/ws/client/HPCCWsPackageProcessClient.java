@@ -19,6 +19,8 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResp
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessStub;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -267,6 +269,52 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         return resp.getStatus();
     }
 
+    /**
+     * Remove a part from a package map.
+     *
+     * @param globalScope Global or non global scoped.
+     * @param partName The part name to remove.
+     * @param target The target.
+     * @param packageMap The package map id.
+     * @return BasePackageStatus   - Caller should interrogate status object for success
+     * @throws Exception           - Caller should handle exception in case of errors
+     */
+    public BasePackageStatus removePartFromPackageMap(final boolean globalScope, final String partName, final String target, final String packageMap)
+            throws Exception
+    {
+        log.debug("Attempting to remove package part.");
+
+        verifyStub(); //Throws exception if stub failed
+
+        RemovePartFromPackageMapRequest request = new RemovePartFromPackageMapRequest();
+        request.setGlobalScope(globalScope);
+        request.setPartName(partName);
+        request.setPackageMap(packageMap);
+        request.setTarget(target);
+
+        RemovePartFromPackageMapResponse response = null;
+
+        try
+        {
+            response = ((WsPackageProcessStub) stub).removePartFromPackageMap(request);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("WsPackageProcessStub.removePartFromPackageMap() encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could not remove package part.");
+        }
+
+        if (response.getExceptions() != null)
+        {
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not Remove package part");
+        }
+
+        return response.getStatus();
+    }
+
     public PackageListMapData[] listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to list packages");
@@ -323,7 +371,6 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     GetPartFromPackageMap
     GetQueryFileMapping
     ListPackage
-    RemovePartFromPackageMap
     ValidatePackage
      */
 
