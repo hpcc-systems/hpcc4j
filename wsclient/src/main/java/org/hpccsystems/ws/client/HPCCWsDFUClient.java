@@ -873,9 +873,11 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
    }
    /**
      * @param files
-     *            - list of filenames to delete
+     *            - list of filenames to delete - can use filename@cluster notation
      * @param cluster
      *            - name of cluster to delete from (will delete from all clusters if null)
+     *              If provided, it is post-pended to files
+     *
      * @return list of results of file deletions
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
@@ -888,7 +890,26 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
         request.setType(DFUArrayActions.Factory.fromValue("Delete"));
         EspStringArray logicalfilesarray = new EspStringArray();
-        logicalfilesarray.setItem(files.toArray(new String[files.size()]));
+        String[] filesarray = files.toArray(new String[files.size()]);
+
+        if (cluster != null && !cluster.isEmpty())
+        {
+            for(int i = 0; i < filesarray.length; i++)
+            {
+                String fullfile = filesarray[i];
+                String[] split = fullfile.split("::");
+                String file = split[split.length-1];
+
+                int atIndex = file.indexOf('@');
+                if (atIndex >= 0 && atIndex < file.length())
+                    throw new Exception("Do not provide filename@cluster and cluster parameter: " + file + ", " + cluster);
+                else
+                    filesarray[i] = fullfile + "@" + cluster;
+            }
+        }
+
+        logicalfilesarray.setItem(filesarray);
+
         request.setLogicalFiles(logicalfilesarray);
 
         DFUArrayActionResponse resp = null;
