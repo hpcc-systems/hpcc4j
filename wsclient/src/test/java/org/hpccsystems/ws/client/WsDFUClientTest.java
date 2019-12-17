@@ -1,6 +1,8 @@
 package org.hpccsystems.ws.client;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
@@ -9,6 +11,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUResultWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -233,6 +236,114 @@ public class WsDFUClientTest extends BaseRemoteTest
         {
             e.printStackTrace();
             Assert.fail();
+        }
+    }
+
+    @Test
+    public void testRedundantClusterDeleteFile()
+    {
+        try
+        {
+            Set<String> files = new HashSet<>();
+            files.add("somefile@somecluster");
+
+            Assert.assertNotNull(files);
+
+            wsdfuclient.deleteFiles(files, "anothercluster");
+            Assert.fail("WsDFU should not accept cluster, and file@cluster");
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail( e.toString());
+        }
+        catch (Exception e)
+        {
+            String errmessage = e.getMessage();
+            Assert.assertTrue(errmessage.startsWith("Do not provide filename@cluster and cluster parameter:"));
+        }
+    }
+
+    @Test
+    public void testDeleteFileWithAttedScope()
+    {
+       /* ESP is currently treating mysc@pe::file as scope="" filename=mysc cluster=pe::file
+        * https://track.hpccsystems.com/browse/HPCC-23227
+        * try
+        {
+            Set<String> files = new HashSet<>();
+            files.add("s@mesc@pe::somefile");
+
+            Assert.assertNotNull(files);
+
+            List<DFUResultWrapper> deleteFiles = wsdfuclient.deleteFiles(files, "anothercluster");
+            Assert.assertNotNull(deleteFiles);
+            Assert.assertTrue(!deleteFiles.isEmpty());
+            DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
+            Assert.assertNotNull(dfuResultWrapper);
+            Assert.assertTrue(dfuResultWrapper.getActionResult().equals("File not found somefile on somecluster"));
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.toString());
+        }
+        */
+    }
+
+    @Test
+    public void testDeleteFileWithCluster()
+    {
+        try
+        {
+            Set<String> files = new HashSet<>();
+            files.add("somefile");
+
+            Assert.assertNotNull(files);
+
+            List<DFUResultWrapper> deleteFiles = wsdfuclient.deleteFiles(files, "somecluster");
+            Assert.assertNotNull(deleteFiles);
+            Assert.assertTrue(!deleteFiles.isEmpty());
+            DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
+            Assert.assertNotNull(dfuResultWrapper);
+            Assert.assertTrue(dfuResultWrapper.getActionResult().equals("File not found somefile on somecluster"));
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.toString());
+        }
+    }
+
+    @Test
+    public void testDeleteFileWithprefixAtsignCluster()
+    {
+        try
+        {
+            Set<String> files = new HashSet<>();
+            files.add("@somefile");
+
+            Assert.assertNotNull(files);
+
+            List<DFUResultWrapper> deleteFiles = wsdfuclient.deleteFiles(files, "somecluster");
+            Assert.assertNotNull(deleteFiles);
+            Assert.assertTrue(!deleteFiles.isEmpty());
+            DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
+            Assert.assertNotNull(dfuResultWrapper);
+            Assert.assertTrue(dfuResultWrapper.getActionResult().equals("File not found @somefile on somecluster"));
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.toString());
         }
     }
 }
