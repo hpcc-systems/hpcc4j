@@ -23,6 +23,7 @@ import java.util.Hashtable;
 
 import javax.activation.DataHandler;
 
+import org.apache.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPartLocation;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileAccessInfo;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
@@ -43,6 +44,8 @@ public class DFUFileAccessInfoWrapper
     private String [] allFilePartCopyHosts;
     private DFUFileTypeWrapper fileType = null; //from 1_51 on
 
+    private static final Logger log = Logger.getLogger(DFUFileAccessInfoWrapper.class.getName());
+
     public DFUFileAccessInfoWrapper(DFUFileAccessInfo accessInfo, DFUFileType filetype) throws Exception
     {
         if (accessInfo != null)
@@ -54,7 +57,7 @@ public class DFUFileAccessInfoWrapper
             fileAccessPort = accessInfo.getFileAccessPort();
             fileAccessSSL = accessInfo.getFileAccessSSL();
 
-            if (fileType != null)
+            if (filetype != null)
             {
                 fileType = DFUFileTypeWrapper.fromDfuFileType(filetype);
             }
@@ -68,7 +71,7 @@ public class DFUFileAccessInfoWrapper
             {
                 DFUPartLocation[] dfufileLocations = fileLocations.getDFUPartLocation();
                 wrappedDFUFileParts = wrapAndResolveFileParts(dfufileLocations, accessInfo.getFileParts().getDFUFilePart());
-    
+
                 allFilePartCopyHosts = new String [dfufileLocations.length];
                 for (int i = 0; i < dfufileLocations.length; i++)
                 {
@@ -140,11 +143,18 @@ public class DFUFileAccessInfoWrapper
             availableLocations.put(fileLocations[locationindex].getLocationIndex(), fileLocations[locationindex].getHost());
         }
 
-        DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[fileParts.length];
-        for (int i = 0; i < fileParts.length; i++)
+        int dataFilePartsCount = fileParts.length;
+        if (fileType == DFUFileTypeWrapper.Index && dataFilePartsCount % availableLocations.size() != 0) // apparently not all keyed files report TLK as file part
+        {
+            dataFilePartsCount--; // indexed files contain a non-data file part (index = n+1 where n = data file parts count)
+            log.warn("Ignoring " + fileParts.length +"th filepart (determined to be indexed file top-level-key)");
+        }
+
+        DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
+        for (int i = 0; i < dataFilePartsCount; i++)
         {
             Integer filepartindex = fileParts[i].getPartIndex();
-            if (filepartindex  < 1 || filepartindex > fileParts.length)
+            if (filepartindex  < 1 || filepartindex > dataFilePartsCount)
                 throw new IndexOutOfBoundsException("Encountered invalid Filepart index: '" + filepartindex + "'");
 
             if ( wrappedDFUFileParts[filepartindex-1] != null)
@@ -293,7 +303,6 @@ public class DFUFileAccessInfoWrapper
 
 	}
 
-
 	private DFUFilePartWrapper[] wrapAndResolveFileParts(
 			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUPartLocation[] fileLocations,
 			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFilePart[] fileParts) throws Exception
@@ -311,14 +320,20 @@ public class DFUFileAccessInfoWrapper
             availableLocations.put(fileLocations[locationindex].getLocationIndex(), fileLocations[locationindex].getHost());
         }
 
-        DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[fileParts.length];
-        for (int i = 0; i < fileParts.length; i++)
+        int dataFilePartsCount = fileParts.length;
+        if (fileType == DFUFileTypeWrapper.Index && dataFilePartsCount % availableLocations.size() != 0)
+        {
+            dataFilePartsCount--; // indexed files contain a non-data file part (index = n+1 where n = data file parts count)
+        }
+
+        DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
+        for (int i = 0; i < dataFilePartsCount; i++)
         {
             Integer filepartindex = fileParts[i].getPartIndex();
-            if (filepartindex  < 1 || filepartindex > fileParts.length)
-                throw new IndexOutOfBoundsException("Encountered invalid Filepart index: '" + filepartindex + "'");
+            if (filepartindex  < 1 || filepartindex > dataFilePartsCount)
+                throw new IndexOutOfBoundsException("Encountered invalid data filepart index: '" + filepartindex + "'");
 
-            if ( wrappedDFUFileParts[filepartindex-1] != null)
+            if (wrappedDFUFileParts[filepartindex-1] != null)
                 throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + filepartindex + "'");
 
             wrappedDFUFileParts[filepartindex-1] = new DFUFilePartWrapper(fileParts[i], availableLocations);
