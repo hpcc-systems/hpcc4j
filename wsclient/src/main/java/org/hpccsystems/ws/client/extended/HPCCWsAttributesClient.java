@@ -536,9 +536,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
     /**
      * Create/Update an attribute in a legacy repository
      *
-     * @param ECLAttributeItem - with the module/attribute/type/text to create or update
-     * @param checkoutin - whether to check the attribute out/in before doing this
-     * @param checkindesc - if checkoutin=true, the description to append to the checkin
+     * @param item with the module/attribute/type/text to create or update
+     * @param checkoutin whether to check the attribute out/in before doing this
+     * @param checkindesc if checkoutin=true, the description to append to the checkin
      * @return updated ECLAttributeItem for created/updated item
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
@@ -617,7 +617,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - whether to check the attribute out/in before doing this
      * @param checkindesc
      *            - if checkoutin=true, the description to append to the checkin
-     * @return
+     * @return ecl attribute information
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -791,7 +791,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - module name to create
      * @param attributename
      *            - attribute name to create
-     * @param ecltext
+     * @param type
+     *            - type for the attribute
+     * @param text
      *            - ecl text to create in attribute
      * @param checkin
      *            - if true, check this attribute in after creating it

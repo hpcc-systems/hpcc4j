@@ -156,7 +156,7 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param ecl - the ecl to search for. Wildcards (*,?) are allowed.
+     * @param eCL - the ecl to search for. Wildcards (*,?) are allowed.
      */
     public WUQueryWrapper setECL(String eCL)
     {
@@ -221,7 +221,7 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param b  If searching for a logical file, if this is true, only logical files output by the workunit
+     * @param lf  If searching for a logical file, if this is true, only logical files output by the workunit
      * will be considered.
      */
     public WUQueryWrapper setOutputLogicalFilesOnly(LogicalFileSearchType lf)

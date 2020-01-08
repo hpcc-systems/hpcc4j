@@ -30,7 +30,7 @@ public class Network
      *
      * @param interfacename - The NIC name to draw the local address from, or '*'
      * @param ipv6          - True if ipv6 desired, False if ipv4 desired
-     * @return
+     * @return non-loopback address bound to given NIC named
      * @throws Exception
      */
     public static String getLocalAddress(String interfacename, boolean ipv6) throws Exception

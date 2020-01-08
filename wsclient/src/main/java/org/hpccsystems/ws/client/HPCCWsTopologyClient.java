@@ -203,7 +203,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * Get full descriptions of all valid cluster groups on the target HPCC System
-     * @return
+     * @return description of all valid cluster groups
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -242,7 +242,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * Get names of all available target clusters on the given HPCC System
-     * @return
+     * @return name of all available target clusters
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -285,7 +285,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * @param name - The target dropzone name
-     * @return
+     * @return target drop zones
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -300,7 +300,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * @param namefilter - Empty for all dropzones, or specific dropzeon name
-     * @return
+     * @return dropzone list
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -408,7 +408,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     /**
      * Get the names of all available target clusters from a given cluster group (hthor, thor, roxie, Hole,  etc)
      * @param clusterGroupType -- RoxieCluster, HoleCluster
-     * @return
+     * @return name of all available target clusters for a given cluster group
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -419,7 +419,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
-     * @return
+     * @return array of names for all available clusters for a given cluster group
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -430,7 +430,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
-     * @return
+     * @return names of all target clusters from all cluster groups
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */

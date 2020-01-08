@@ -47,9 +47,11 @@ public class FieldFilterRange implements Serializable
      *
      * @param v
      *            the value
-     * @param leftOpen
+     * @param rangeBound
+     *            range
+     * @param leftRangeOpen
      *            true when the left is an open interval value
-     * @param rightOpen
+     * @param rightRangeOpen
      *            true when the right is an open interval value
      * @param numeric_target
      *            the field under compare is numeric
@@ -73,9 +75,11 @@ public class FieldFilterRange implements Serializable
      *
      * @param v
      *            the value
-     * @param leftOpen
+     * @param rangeBound
+     *            bound
+     * @param leftRangeOpen
      *            true when the left is an open interval value
-     * @param rightOpen
+     * @param rightRangeOpen
      *            true when the right is an open interval value
      * @param numeric_target
      *            the field under compare is numeric

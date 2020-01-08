@@ -67,7 +67,7 @@ public class FieldDef implements Serializable
      *            len may be non-zero and variable
      * @param isUnsigned
      *            Only applies to integers and decimal fields. Ignored otherwise
-     * @param HpccSrcType
+     * @param sourceType
      *            Field encoding type. Primairly applies to strings. Non-strings should use LITTLE_ENDIAN.
      * @param childDefs
      *            Child field defs. Only used for Records, Sets & Datasets. Sets & Dataset should have a single child. Null otherwise.
@@ -93,7 +93,7 @@ public class FieldDef implements Serializable
      *            Only applies to integers and decimal fields. Ignored otherwise
      * @param additionalFlags 
      *            Additional flags. Primarily used to retain layout information in HPCC records during conversion. 
-     * @param HpccSrcType
+     * @param sourceType
      *            Field encoding type. Primairly applies to strings. Non-strings should use LITTLE_ENDIAN.
      * @param childDefs
      *            Child field defs. Only used for Records, Sets & Datasets. Sets & Dataset should have a single child. Null otherwise.
@@ -135,8 +135,7 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * @param String
-     *            field name
+     * @param newFieldName field name
      */
     public void setFieldName(String newFieldName)
     {
@@ -290,7 +289,7 @@ public class FieldDef implements Serializable
     /**
      * Get the additional flags for this fields.
      * 
-     * @return
+     * @return additional flags
      */
     public int getAdditionalFlags()
     {
@@ -299,8 +298,6 @@ public class FieldDef implements Serializable
 
     /**
      * Set the additional flags for this fields.
-     * 
-     * @return
      */
     public void setAdditionalFlags(int flags)
     {

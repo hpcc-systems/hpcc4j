@@ -119,7 +119,7 @@ public class RemapInfo implements Serializable
 
     /**
      * Is this a null re-mapper
-     * @return
+     * @return boolean
      */
     public boolean isNullMapper()
     {

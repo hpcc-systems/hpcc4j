@@ -38,12 +38,12 @@ public class HPCCRemoteFileWriter<T>
      *
      * @param dp
      *            the part of the file, name and location
-     * @param originalRD
+     * @param recordDef
      *            the record defintion for the dataset
-     * @param recBuilder
-     *            the IRecordBuilder used to construct records
-     * @param projectedRD
-     *            the requested record format
+     * @param recordAccessor
+     *            the IRecordAccessor used to access records
+     * @param fileCompression
+     *            how the file is compressed
      */
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression)
             throws Exception
@@ -103,8 +103,7 @@ public class HPCCRemoteFileWriter<T>
 
     /**
     * getBufferCapacity
-    * Returns the IRecordWriter internal buffer capacity
-    * @return
+    * @return the IRecordWriter internal buffer capacity
     */
     public int getBufferCapacity()
     {
@@ -113,8 +112,7 @@ public class HPCCRemoteFileWriter<T>
 
     /**
     * getRemainingBufferCapacity
-    * Returns the IRecordWriter remaining buffer capacity
-    * @return
+    * @return the IRecordWriter remaining buffer capacity
     */
     public int getRemainingBufferCapacity()
     {

@@ -178,12 +178,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL
-     *            Target service base URL
-     * @param user
-     *            User credentials
-     * @param pass
-     *            User credentials
+     * @param conn connection
      * @throws Exception
      */
     public void initWsWorkUnitsClientStub(Connection conn)
@@ -392,7 +387,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * version
      *
      * @param wuid
-     * @return
+     * @return true if given wuid is in complete state
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -545,7 +540,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Attempts to create, compile and publish a query based on ecl provided via a workunitinfo object.
      *
      * @param wu  - Workunitinfo object containing all pertinent information for WU request
-     * @return
+     * @return published workunit response
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -582,7 +577,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Attempts to publish a query based on a given Workunit.
      *
      * @param wu
-     * @return
+     * @return published workunit response
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -714,7 +709,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param includeVariables
      * @param includeXmlSchemas
      * @param includeTimers
-     * @return
+     * @return workunit wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -742,7 +737,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param includeXmlSchemas
      * @param includeTimers
      * @param unarchive
-     * @return
+     * @return workunit wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -871,7 +866,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param pageSize
      * @param owner
      * @param applicationValues
-     * @return
+     * @return workunit wrapper list
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1009,7 +1004,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Requests target HPCC System to create and compile WU based on workunit info provided.
      *
      * @param wu   - The workunit information used to create WU on HPCC cluster
-     * @return
+     * @return workunit wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1086,10 +1081,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl
-     *            - The ecl query to compile/run
-     * @param targetCluster
-     *            - The cluster where the ecl is to be compiled/run
+     * @param wu workunit wrapper
      * @return - Object with WU information
      * @throws Exception
      *             - Caller must handle exceptions
@@ -1134,11 +1126,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl
-     *            - The ecl query to compile/run
-     * @param targetCluster
-     *            - The cluster where the ecl is to be compiled/run
-     * @return - Object with WU information
+     * @param wu workunit wrapper
      * @throws Exception
      *             - Caller must handle exceptions
      * @throws ArrayOfEspExceptionWrapper
@@ -1179,12 +1167,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Given an ECL query, this method will create a WU, compile and run it
      *
-     * @param ecl
-     *            - The ecl query to compile/run
-     * @param targetCluster
-     *            - The cluster where the ecl is to be compiled/run
-     * @param resultLimit
-     *            - Limit on results
+     * @param wu work unit
      * @return - Object with WU information
      * @throws Exception
      *             - Caller must handle exceptions
@@ -1237,12 +1220,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Given an ECL query, this method will create a WU, compile and run it, and return results in String object - Not
      * recommended for large resultsets.
      *
-     * @param ecl
-     *            - The ecl query to compile/run
-     * @param targetCluster
-     *            - The cluster where the ecl is to be compiled/run
-     * @param resultLimit
-     *            - Limit on results
+     * @param wu workunit
      * @return - Object with WU information
      * @throws Exception
      *             - Caller must handle exceptions
@@ -1259,12 +1237,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Given an ECL query, this method will create a WU, compile and run it, and return wuid. Workuinit state, and
      * results can be queried based on WUID
      *
-     * @param ecl
-     *            - The ecl query to compile/run
-     * @param targetCluster
-     *            - The cluster where the ecl is to be compiled/run
-     * @param resultLimit
-     *            - Limit on results
+     * @param wu workunit
      * @return - Workunit ID
      * @throws Exception
      *             - Caller must handle exceptions
@@ -1280,8 +1253,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Fetches results associated with a given Logical name
      *
-     * @param wuid
-     *            - The target WUID to fetch results from
+     * @param logicalName
+     *            - logical name
      * @param sequence
      *            - Zero based index result sequence (Each result set may contain multiple results)
      * @param cluster
@@ -1351,7 +1324,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param suppressXMLShema
      * @param resultOffset
      * @param resultCount
-     * @return
+     * @return workunit results
      * @throws Exception
      */
     public WUResultResponse fetchRawResults(String wuidorlogicalname, boolean useWuid, int sequence, String cluster,
@@ -1406,7 +1379,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * All parameters and options must be pre-set in the "parameters" input param
      *
      * @param parameters
-     * @return
+     * @return workunit result response
      * @throws Exception
      */
     public WUResultResponse fetchRawResults(WUResult parameters) throws Exception
@@ -1482,7 +1455,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param ecl          - The ECL to syntax check
      * @param cluster      - The HPCC target cluster on which to syntax check
      * @param timeout      - Maximum time for this check
-     * @return
+     * @return array of ecl exceptions
      * @throws Exception
      */
     public ArrayOfECLExceptionWrapper syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
@@ -1508,7 +1481,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param querySetName
      * @param clusterName
      * @param filter
-     * @return
+     * @return details about given query
      * @throws Exception
      */
     public WUQuerySetDetailsResponse getQueriesDetail(String querySetName, String clusterName, String filter) throws Exception
@@ -1586,7 +1559,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
     /**
      * Fetch set of available QuerySets
-     * @return
+     * @return set of avaialble QuerySets
      * @throws Exception
      */
     public QuerySet[] getQuerySets() throws Exception
@@ -1607,7 +1580,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Return a workunit result
      *
-     * @param WUResult
+     * @param wur workresult
      * @return WUResultResponse
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
@@ -1644,7 +1617,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Return a workunit result
      *
-     * @param WUResult
+     * @param wur
      * @param unarchive
      * @return WUResultResponse
      * @throws Exception
@@ -1668,7 +1641,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wuid       - The target workunit
      * @param action     - The action to be requested see ECLWUActions
-     * @return
+     * @return true if successful
      * @throws ArrayOfEspException
      * @throws RemoteException
      * @throws Exception
@@ -1786,7 +1759,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param description
      * @param ipaddr
      * @param entirefile
-     * @return
+     * @return workunit file log
      * @throws Exception
      */
     public WULogFileWrapper getWorkunitFile(String wuid, String filename, WUFileType filetype, String description, String ipaddr, boolean entirefile) throws Exception
@@ -1884,7 +1857,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param filtervalue
      * @param querySetName
      * @param clustername
-     * @return
+     * @return list of querysets
      * @throws Exception
      */
     public List<QueryResultWrapper> searchQueries(QuerySetFilterType filtertype, String filtervalue, String querySetName, String clustername) throws Exception
@@ -2009,7 +1982,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * @param queryId - unique id of query to activate
      * @param cluster - cluster to activate upon
-     * @return
+     * @return query results
      * @throws Exception
      */
     public QueryResultWrapper activateQuery(String queryId, String cluster) throws Exception

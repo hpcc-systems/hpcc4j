@@ -51,8 +51,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the IRecordBuilder used to construct records
      * @param connectTimeout 
      *            the connectiont timeout in seconds
-     * @param projectedRD
-     *            the requested record format
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout) throws Exception
     {
@@ -68,8 +66,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the record defintion for the dataset
      * @param recBuilder
      *            the IRecordBuilder used to construct records
-     * @param projectedRD
-     *            the requested record format
      * @param connectTimeout 
      *            the connectiont timeout in seconds
      * @param limit 
@@ -147,8 +143,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     
     /**
      * getAvailable
-     * Returns the number of bytes available to read immediately.
-     * @return
+     * @return the number of bytes available to read immediately
      */
     public int getAvailable() throws IOException
     {

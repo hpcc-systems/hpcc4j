@@ -275,7 +275,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param key
      * @param global
      * @param secretKey - Must match the secret key used to encrypt this value
-     * @return
+     * @return decrypted value
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */

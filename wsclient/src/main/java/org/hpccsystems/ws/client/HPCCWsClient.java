@@ -45,7 +45,7 @@ public class HPCCWsClient extends DataSingleton
      * @param targetWsECLWatchPort
      * @param user
      * @param password
-     * @return
+     * @return wsclient
      */
     public static HPCCWsClient get(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort, String user, String password)
     {
@@ -61,7 +61,7 @@ public class HPCCWsClient extends DataSingleton
      * @param targetWsECLWatchPort
      * @param user
      * @param password
-     * @return
+     * @return wsclient
      */
     public static HPCCWsClient getNoCreate(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort,String user, String password)
     {
@@ -133,7 +133,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Instantiates HPCCWsClient, communicates with HPCC over the given protocol
-     * @param targetProtocol          - http | https
+     * @param protocol                - http | https
      * @param targetWsECLWatchAddress - The address of the WsECLWatch ESP on the Target HPCC System
      *                                  e.g. 192.168.1.100
      * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
@@ -214,7 +214,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * get this HPCCWsClient's connection object
-     * @return
+     * @return connection
      */
     protected Connection getConnection()
     {
@@ -260,7 +260,7 @@ public class HPCCWsClient extends DataSingleton
      * @return provides wsSQLClient on a port other than ECLWatch port.
      *
      * @param wsSQLPort
-     * @return
+     * @return wssql client
      */
     public HPCCWsSQLClient getWsSQLClient(String wsSQLPort)
     {
@@ -292,7 +292,7 @@ public class HPCCWsClient extends DataSingleton
     /**
      * provides WsAttributesClient for direct method execution
      * @param wsAttributesPort - If wsattributes is not running on eclwatch port
-     * @return
+     * @return attributes client
      */
     public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort)
     {
@@ -644,7 +644,7 @@ public class HPCCWsClient extends DataSingleton
      * @param targetFilename       Desired name to apply to uploaded file
      * @param machineLoginUser     Target machine user account name
      * @param password             Target machine user account password
-     * @return
+     * @return true if successful
      */
     public boolean uploadFileToHPCC(String localFileName, String targetFilename, String machineLoginUser, String password)
     {
@@ -767,7 +767,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Get this HPCCWsClient's connection protocol (http|https)
-     * @return
+     * @return protocol for connection
      */
     public String getProtocol()
     {
@@ -776,7 +776,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Get this HPCCWsClient's connection host address
-     * @return
+     * @return host of connection
      */
     public String getHost()
     {
@@ -785,7 +785,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Get this HPCCWsClient's connection port
-     * @return
+     * @return port for connection
      */
     public int getPortInt()
     {
@@ -794,7 +794,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Get the user name used to by HPCCWsClient to authenticate against target ECLWatch
-     * @return
+     * @return user name for authentication
      */
     public String getUserName()
     {
@@ -803,7 +803,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Get the password used to by HPCCWsClient to authenticate against target ECLWatch
-     * @return
+     * @return password for authentication
      */
     public String getPassword()
     {

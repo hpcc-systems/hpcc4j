@@ -43,7 +43,7 @@ public enum HpccSrcType {
   public String getDescription() { return description; }
   /**
    * The data is UTF16
-   * @return
+   * @return true if UTF16
    */
   public boolean isUTF16() { return utf16; }
 }

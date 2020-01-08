@@ -90,7 +90,7 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     /**
      * Copy a soap DFU Data Column object into the wrapper
      * 
-     * @param base
+     * @param dfuDataColumnWrapper
      */
     protected void copy(DFUDataColumnWrapper dfuDataColumnWrapper)
     {

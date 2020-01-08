@@ -245,10 +245,11 @@ public class DataPartition implements Serializable
 
     /**
      * Make an array of data partitions for the supplied HPCC File.
-     * @param fdis the file detail information, multiple if multiple sub-files
-     * @param remap_info remap the IP or ports
+     * @param dfupartcopies dfu part copies
+     * @param clusterremapper  
      * @param max_parts the maximum number of partitions or zero for no limit
-     * @return an array of partitions
+     * @param fileAccessBlob 
+     * @return an array of type DataPartition
      * @throws HpccFileException
      */
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfupartcopies, ClusterRemapper clusterremapper, int max_parts,

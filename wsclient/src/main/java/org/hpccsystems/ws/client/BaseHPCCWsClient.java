@@ -122,7 +122,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     }
 
     /**
-     * @param verbose - sets verbose mode
+     * @return true if verbose is on
      */
     public boolean getVerbose()
     {
@@ -136,7 +136,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * The client init can fail due to many different types of issues
      * including invalid connectivity options, invalid credentials, etc
      *
-     * @return
+     * @return true if init error message exists
      */
     public boolean hasInitError()
     {
@@ -146,7 +146,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     /**
      * Returns error message encountered during initialization of wsdfuclient.
      * Empty string if no error encountered
-     * @return
+     * @return init error message
      */
     public String getInitError()
     {
@@ -157,7 +157,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * Provides Stub object if available, otherwise throws
      * Object can be used to access the web service methods directly
      *
-     * @return
+     * @return stub
      * @throws Exception
      */
     protected Stub verifyStub() throws Exception
@@ -307,7 +307,6 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     /**
      * Logs and throws EspSoapFaultWrapper
      * @param e
-     * @param message
      * @throws EspSoapFaultWrapper
      */
     protected void handleEspSoapFaults(EspSoapFaultWrapper e) throws EspSoapFaultWrapper
@@ -354,10 +353,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     /**
      * Logs and throws arrayofeclexceptionwrapper without localized message response from WS client
      *
-     * @param eclExceptions
+     * @param eclexceptions
      *            - the array of ECLException objects to throw
-     * @param message
-     *            - the prefix message
      * @throws Exception
      * @throws ArrayOfECLExceptionWrapper
      */

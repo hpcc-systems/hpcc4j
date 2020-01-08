@@ -147,7 +147,7 @@ public class FileFilter implements Serializable
      * The filefilter expression is ANDed to this filefilter expression
      *
      * @param filefilter
-     * @return
+     * @return file filter
      * @throws Exception
      */
     public FileFilter andFilter(FileFilter filefilter) throws Exception
@@ -171,7 +171,7 @@ public class FileFilter implements Serializable
      * The fieldfilter(s) expression is ANDed to this filefilter expression
      *
      * @param fieldfilter
-     * @return
+     * @return file filter
      * @throws Exception
      */
     public FileFilter andFilter(FieldFilter fieldfilter) throws Exception
@@ -190,7 +190,7 @@ public class FileFilter implements Serializable
      * The filefilter expression is ORed to this filefilter expression
      *
      * @param filefilter
-     * @return
+     * @return file filter
      * @throws Exception
      */
     public FileFilter orFilter(FileFilter filefilter) throws Exception
@@ -211,7 +211,7 @@ public class FileFilter implements Serializable
      * (must target the same field)
      *
      * @param fieldfilter
-     * @return
+     * @return file filter
      * @throws Exception
      */
     public FileFilter orFilter(FieldFilter fieldfilter) throws Exception
@@ -253,7 +253,7 @@ public class FileFilter implements Serializable
 
     /**
      * Reports the number of filter clauses in this filefilter
-     * @return
+     * @return size of field filters
      */
     public int getFieldFiltersCount()
     {
@@ -263,7 +263,7 @@ public class FileFilter implements Serializable
     /**
      * Fetches the ith filter clause in this filefilter
      * @param i
-     * @return
+     * @return field filter
      */
     public FieldFilter getFieldFilter(int i)
     {
@@ -276,8 +276,7 @@ public class FileFilter implements Serializable
     /**
      * JSon string representation of an array of filefilters
      *
-     * @param filefilters
-     * @return
+     * @return string representation of json
      * @throws Exception
      */
     public String toJson()

@@ -106,10 +106,12 @@ public class RowServiceInputStream extends InputStream
      * 
      * @param dp 
      *            the data partition to read  
-     * @param hpccPart
-     *            the remote file name and IP
      * @param rd
      *            the JSON definition for the read input and output
+     * @param pRd
+     *            the JSON definition for the projects read input and output
+     * @param connectTimeout
+     *            the timeout for connection
      * @param limit
      *            the record limit to use for reading the dataset. -1 implies no limit
      */

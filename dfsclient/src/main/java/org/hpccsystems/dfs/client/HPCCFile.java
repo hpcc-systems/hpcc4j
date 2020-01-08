@@ -131,7 +131,7 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * @return string of project list
      */
     public String getProjectList()
     {
@@ -173,7 +173,7 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * @return target file cluster
      */
     public String getTargetfilecluster()
     {
@@ -191,7 +191,7 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * @return cluster remap info
      */
     public RemapInfo getClusterRemapInfo()
     {
@@ -209,7 +209,7 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * @return filter
      */
     public FileFilter getFilter()
     {
@@ -234,7 +234,7 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * @return filename
      */
     public String getFileName()
     {
@@ -300,7 +300,7 @@ public class HPCCFile implements Serializable
     /**
      * The partitions for the file residing on an HPCC cluster
      * 
-     * @return
+     * @return data parts
      * @throws HpccFileException
      */
     public DataPartition[] getFileParts() throws HpccFileException
@@ -313,7 +313,7 @@ public class HPCCFile implements Serializable
     /**
      * The record definition for a file on an HPCC cluster.
      * 
-     * @return
+     * @return record definition
      * @throws HpccFileException
      */
     public final FieldDef getRecordDefinition() throws HpccFileException
@@ -326,7 +326,7 @@ public class HPCCFile implements Serializable
     /**
      * The record definition for a file on an HPCC cluster.
      * 
-     * @return
+     * @return project record definition
      * @throws HpccFileException
      */
     public final FieldDef getProjectedRecordDefinition() throws HpccFileException

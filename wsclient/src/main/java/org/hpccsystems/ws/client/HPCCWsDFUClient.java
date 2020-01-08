@@ -215,7 +215,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param clustername optional, if specified the cluster name used in the search
      * @param jsonTypeInfo want record structure information returned as JSON
      * @param binTypeInfo want record structure information returned in binary format
-     * @return
+     * @return dfu information
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -734,7 +734,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param firstN
      * @param pageStartFrom
      * @param pageSize
-     * @return
+     * @return list of DFU logical file wrappers
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -796,7 +796,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param count
      * @param schemaOnly
      * @param startIndex
-     * @return
+     * @return response from search
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1217,7 +1217,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param eclRecordDefinition
      * @param partitionHostMap Array declaring the Filepart[i] to Node mapping
      * @param expirySeconds
-     * @return
+     * @return dfu file wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1237,11 +1237,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param expirySeconds
      * @param returnBinTypeInfo
      * @param returnJsonTypeInfo
-     * @param accessRole
-     * @param accessType
      * @param accessrole
      * @param accesstype
-     * @return
+     * @return dfu file wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1314,7 +1312,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param cluster
      * @param eclRecordDefinition
      * @param expirySeconds
-     * @return
+     * @return dfu file wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1331,7 +1329,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param eclRecordDefinition
      * @param expirySeconds
      * @param compressed
-     * @return
+     * @return dfu file wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1350,7 +1348,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param compressed
      * @param filetype - for example DFUFileTypeWrapper.Csv
      * @param requestid
-     * @return
+     * @return dfu file wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1369,7 +1367,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param compressed
      * @param type - for example DFUFileTypeWrapper.Csv
      * @param requestId
-     * @return
+     * @return dfu file wrapper
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */

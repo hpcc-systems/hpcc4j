@@ -277,7 +277,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param progressResponseWrapper
      * @param maxRetries
      * @param milliesBetweenRetry
-     * @return
+     * @return true if successful
      * @throws Exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      */
@@ -349,7 +349,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param fieldDelimiter
      * @param escapeSequence
      * @param quote
-     * @return
+     * @return list of data options
      */
     static public DelimitedDataOptions createDelimitedDataOptionsObject(String recordTerminator, String fieldDelimiter, String escapeSequence, String quote)
     {
@@ -516,7 +516,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param dzname - Required, the name of the Drop Zone to query
      * @param netaddr - Required, the netaddress of the Drop Zone node to query
      * @param namefilter - Required, the wildcard based name-filter to query
-     * @return
+     * @return file structure as represented on disk
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1497,7 +1497,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * Attempts to fetch information regarding a DFU Workunit
      *
      * @param workunitid
-     * @return
+     * @return dfu workunit response
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -1534,7 +1534,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *
      * @param cluster
      * @param pagesize
-     * @return
+     * @return dfu workunit response
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */

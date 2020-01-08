@@ -150,11 +150,7 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * A Binary record reader.
-     * 
-     * @param fp
-     *            the file part to be read
-     * @param rd
-     *            the record def
+     * @param is the input stream
      */
     public BinaryRecordReader(InputStream is) throws Exception
     {

@@ -158,7 +158,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param fileName             - The target HPCC file name
      * @param targetLandingZone    - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
      * @param overwritefile        - If the file exists, should it be overwritten?
-     * @return
+     * @return true if successful
      * @throws Exception           - Caller should handle exception in case of errors
      * @throws ArrayOfEspExceptionWrapper
      */
@@ -208,7 +208,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param append              - Should this data be appended?
      * @param offset              - At what offset should this be written - Specify 0 if necessary
      * @param uploadchunksize     - Chunksize to upload the data
-     * @return
+     * @return true if write is successful
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */

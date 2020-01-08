@@ -114,10 +114,9 @@ public class ColumnPruner implements Serializable
     /**
      * Prune the definition tokens to match the field list if
      * present and to remove unsupported types..
-     * @param recordDef record definition to prune
+     * @param originalRD FieldDef type object of original record definition
      * @return the revised record definition
-     * @exception Exception is thrown when none of the
-     * fields in the selection list are defined.
+     * @exception Exception is thrown when none of the fields in the selection list are defined
      */
     public FieldDef pruneRecordDefinition(FieldDef originalRD) throws Exception
     {

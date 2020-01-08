@@ -51,8 +51,6 @@ public class BinaryRecordWriter implements IRecordWriter
      * 
      * @param output
      *            OutputStream to write to. 
-     * @param schema
-     *            The Spark schema used for all subsequent calls to writeRecord
      * @throws Exception
      */
     public BinaryRecordWriter(OutputStream output) throws Exception
@@ -76,7 +74,7 @@ public class BinaryRecordWriter implements IRecordWriter
     /**
      * writeRecord Converts the provided Object into an HPCC record and writes it to the output channel
      * 
-     * @param Object
+     * @param record Object type record
      * @throws Exception
      */
     public void writeRecord(Object record) throws Exception
@@ -152,8 +150,7 @@ public class BinaryRecordWriter implements IRecordWriter
 
     /**
      * getBufferCapacity
-     * Returns the internal buffer capacity
-     * @return 
+     * @return the internal buffer capacity
      */
     public int getBufferCapacity()
     {
@@ -162,8 +159,7 @@ public class BinaryRecordWriter implements IRecordWriter
 
     /**
      * getRemainingBufferCapacity
-     * Returns the remaining capacity in the internal buffer
-     * @return
+     * @return the remaining capacity in the internal buffer
      */
     public int getRemainingBufferCapacity()
     {

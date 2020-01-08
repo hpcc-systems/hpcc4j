@@ -58,7 +58,6 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     /**
      * Create an empty Data Column Info object
      *
-     * @param base
      */
     public DFUFileDetailWrapper()
     {

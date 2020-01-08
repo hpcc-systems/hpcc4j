@@ -114,7 +114,7 @@ public class Utils
     /**
      * populates results object (List of Object Lists) based on HPCC result set string
      * @param results
-     * @return
+     * @return hpcc result set string list
      */
     static public List<List <Object>> parseECLResults(String results)
     {
@@ -368,7 +368,7 @@ public class Utils
      * @param resultlist
      * @param celldelimiter
      * @param rowdelimiter
-     * @return
+     * @return table format of results
      */
     @SuppressWarnings("unchecked")
     static public String eclResultsToString(List<List<Object>> resultlist, String celldelimiter, String rowdelimiter)
@@ -751,7 +751,7 @@ public class Utils
        * detect the operating system from the os.name System property and cache
        * the result
        *
-       * @returns - the operating system detected
+       * @return the operating system detected
        */
     public static OSType getOperatingSystemType()
     {

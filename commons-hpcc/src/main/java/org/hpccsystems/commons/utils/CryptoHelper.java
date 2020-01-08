@@ -48,7 +48,7 @@ public class CryptoHelper
      * @param utf8DigestInput
      * @param digestAlgorithm  DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
      * @param secretKeyAlgorithm
-     * @return
+     * @return secret key
      */
     public static SecretKeySpec createSecretKey(String utf8DigestInput, DigestAlgorithmType digestAlgorithm, String secretKeyAlgorithm)
     {
@@ -144,7 +144,7 @@ public class CryptoHelper
      * @param secretKey       The key to use for encrypting/decrypting
      * @param cipherAlgorithm AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
      * @param encryptMode     true=encrypt, false=decrypt
-     * @return
+     * @return cipher
      * @throws Exception
      */
     public static Cipher createCipher(SecretKeySpec secretKey, String cipherAlgorithm, boolean encryptMode) throws Exception

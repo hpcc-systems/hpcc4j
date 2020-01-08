@@ -46,8 +46,6 @@ public class FieldFilter implements Serializable
      *            the name of a field, can be a compound name.
      * @param filterRanges
      *            the list of alternative values
-     * @param prefixMatchLength
-     *            length for the test, zero means entire field
      */
     public FieldFilter(String fieldName, FieldFilterRange[] filterRanges)
     {

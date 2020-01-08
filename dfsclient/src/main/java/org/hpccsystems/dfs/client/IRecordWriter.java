@@ -30,7 +30,7 @@ public interface IRecordWriter
     /**
     * writeRecord 
     * Converts the provided Row into an HPCC record and writes it to the output channel
-    * @param Row
+    * @param record
     * @throws Exception
     */
     public void writeRecord(Object record) throws Exception;
@@ -60,15 +60,13 @@ public interface IRecordWriter
 
     /**
     * getBufferCapacity
-    * Returns the internal buffer capacity
-    * @return 
+    * @return the internal buffer capacity
     */
     public int getBufferCapacity();
 
     /**
     * getRemainingBufferCapacity
-    * Returns the remaining capacity in the internal buffer
-    * @return
+    * @return the remaining capacity in the internal buffer
     */
     public int getRemainingBufferCapacity();
 

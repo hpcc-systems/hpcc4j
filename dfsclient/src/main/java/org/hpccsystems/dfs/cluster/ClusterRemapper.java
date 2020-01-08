@@ -51,7 +51,7 @@ public abstract class ClusterRemapper
 
     /**
      * The optionally revised array of file part copy IPs.
-     * @param fpi file part information
+     * @param dfuFileCopies file part information
      * @return an IP address as a string
      */
     public abstract String[] reviseIPs(DFUFileCopyWrapper[] dfuFileCopies) throws HpccFileException;

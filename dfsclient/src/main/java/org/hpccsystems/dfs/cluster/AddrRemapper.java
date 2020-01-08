@@ -43,7 +43,7 @@ public class AddrRemapper extends ClusterRemapper
      * the number of parts equals the number of nodes for files and is one
      * higher for keys.
      * @param ri re-mapping information for an address re-mapper
-     * @param strings all locations available on cluster
+     * @param dfufileinfo all locations available on cluster
      * that need to be mapped
      * @throws HpccFileException when something is wrong with the info
      */

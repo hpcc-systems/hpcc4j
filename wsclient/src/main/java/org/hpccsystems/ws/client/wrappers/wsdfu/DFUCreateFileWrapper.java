@@ -121,7 +121,7 @@ public class DFUCreateFileWrapper
 
     /**
      * Gets the created file Access Information
-     * @return
+     * @return file access info
      */
     public DFUFileAccessInfoWrapper getFileAccessInfo()
     {

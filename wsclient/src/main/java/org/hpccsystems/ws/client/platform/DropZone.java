@@ -129,7 +129,7 @@ public class DropZone extends DataSingleton
 
     /**
      * Get OS type of Dropzone server IF Dropzone is comprised of a single server
-     * @return
+     * @return os of dropzone server
      * @throws Exception
      */
     public String getOS() throws Exception
@@ -144,7 +144,7 @@ public class DropZone extends DataSingleton
 
     /**
      * Find the Dropzone's directory
-     * @return
+     * @return dropzone directory
      * @throws Exception
      */
     public String getDirectory() throws Exception

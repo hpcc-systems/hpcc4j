@@ -49,8 +49,8 @@ public interface IRecordReader
 
     /**
      * getAvailable
-     * Returns the number of bytes available to read immediately.
-     * @return
+     * @return the number of bytes available to read immediately.
+     * @throws IOException
      */
     public int getAvailable() throws IOException;
 }
