@@ -282,7 +282,6 @@ public class FileFilter implements Serializable
      */
     public String toJson()
     {
-        JSONObject keyfilter = new JSONObject();
         JSONArray keyfilters= new JSONArray();
 
         keyfilters.put(outputOrFilter());
@@ -293,9 +292,8 @@ public class FileFilter implements Serializable
             String filef = currentfilter.outputOrFilter();
             keyfilters.put(filef);
         }
-        keyfilter.put("KeyFilter", keyfilters);
 
-        return keyfilter.toString();
+        return "\"keyFilter\": " + keyfilters.toString();
     }
 
     private void ConvertToHPCCFileFilter(String sqlfilterstr) throws Exception
@@ -314,7 +312,7 @@ public class FileFilter implements Serializable
         {
             e.printStackTrace();
         }
-       }
+    }
 
     private void ConvertToHPCCFileFilter(SQLFilter sqlfilter) throws Exception
     {
@@ -341,7 +339,7 @@ public class FileFilter implements Serializable
         SQLOperator op = sqlfilter.getOperator();
         if (op.getType() == OperatorType.PRE_UNARY)
         {
-            return false; //no supported
+            throw new Exception("Pre Unary operator not supported: " + op.getValue());
         }
         else if (op.getType() == OperatorType.POST_UNARY)
         {
@@ -350,7 +348,7 @@ public class FileFilter implements Serializable
             else if (op.equals(SQLOperator.isNotNull))
                 return true;
             else
-                return false;
+                throw new Exception("Post Unary operator not supported: " + op.getValue());
         }
         else if (op.getType() == OperatorType.BINARY)
         {

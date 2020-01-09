@@ -220,16 +220,9 @@ public class HPCCFile implements Serializable
      * @param filterexpression - uses SQL 'where' syntax
      * @return this HPCCFile
      */
-    public HPCCFile setFilter(String filterexpression)
+    public HPCCFile setFilter(String filterexpression) throws Exception
     {
-        try
-        {
-            this.filter = new FileFilter(filterexpression);
-        }
-        catch (Exception e)
-        {
-            log.error("Could not set HPCCFile filter!");
-        }
+        this.filter = new FileFilter(filterexpression);
         return this;
     }
 
