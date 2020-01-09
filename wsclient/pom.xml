@@ -3,7 +3,7 @@
     <groupId>org.hpccsystems</groupId>
     <artifactId>wsclient</artifactId>
     <packaging>jar</packaging>
-    <version>7.4.42-SNAPSHOT</version>
+    <version>7.4.43-SNAPSHOT</version>
     <name>HPCC Web Services Client API</name>
     <description>This project allows a user to interact with ESP services in a controlled manner. The API calls available under org.hpccsystems.ws.client.platform allow for a user to target ESP's across multiple environments running a range of hpccsystems-platform versions. There is no guarantee that if a user utilizes org.hpccsystems.ws.client.gen generated stub code from wsdl, that the calls will be backwards compatible with older hpccsystems-platform versions.</description>
     <url>https://hpccsystems.com</url>
