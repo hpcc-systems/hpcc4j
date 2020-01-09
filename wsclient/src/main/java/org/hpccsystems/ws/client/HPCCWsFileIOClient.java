@@ -11,7 +11,8 @@ import javax.activation.DataHandler;
 import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspSoapFault;
@@ -32,7 +33,7 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
  */
 public class HPCCWsFileIOClient extends BaseHPCCWsClient
 {
-    private static final Logger         log = Logger.getLogger(HPCCWsFileIOClient.class.getName());
+    private static final Logger         log = LogManager.getLogger(HPCCWsFileIOClient.class);
     public static final String FILEIOWSDLURI         = "/WsFileIO";
 
     private final int defaultUploadChunkSize = 5000000;

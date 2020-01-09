@@ -15,7 +15,8 @@ import java.util.Set;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException;
@@ -99,7 +100,7 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WsWorkunitsClientStubWrapp
  */
 public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 {
-    private static final Logger                           log                            = Logger.getLogger(HPCCWsWorkUnitsClient.class.getName());
+    private static final Logger                           log                            = LogManager.getLogger(HPCCWsWorkUnitsClient.class);
     public static final String                            WSWORKUNITSWSDLURI             = "/WsWorkunits";
     public static final int                               defaultWaitTime                = 10000;
     public static final int                               defaultResultLimit             = 100;

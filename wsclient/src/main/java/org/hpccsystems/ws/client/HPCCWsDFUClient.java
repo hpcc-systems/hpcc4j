@@ -18,7 +18,8 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUActionInfo;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFULogicalFile;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUActionInfo;
@@ -78,7 +79,7 @@ import org.w3c.dom.NodeList;
  */
 public class HPCCWsDFUClient extends BaseHPCCWsClient
 {
-    private static final Logger log = Logger.getLogger(HPCCWsDFUClient.class.getName());
+    private static final Logger log = LogManager.getLogger(HPCCWsDFUClient.class);
 
     public static final String    WSDFUURI              = "/WsDFU/";
     public static final String    ROW_ELEMENT           = "Row";

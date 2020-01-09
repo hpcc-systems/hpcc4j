@@ -9,7 +9,8 @@ import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpTargetCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster;
@@ -46,7 +47,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
 */
 public class HPCCWsTopologyClient extends BaseHPCCWsClient
 {
-    private static final Logger log                   = Logger.getLogger(HPCCWsTopologyClient.class.getName());
+    private static final Logger log                   = LogManager.getLogger(HPCCWsTopologyClient.class);
     //public  static final String WSTOPOLOGYWSDLURI     = "/WsTopology/TpTargetClusterQuery";
     public  static final String WSTOPOLOGYWSDLURI     = "/WsTopology";
 

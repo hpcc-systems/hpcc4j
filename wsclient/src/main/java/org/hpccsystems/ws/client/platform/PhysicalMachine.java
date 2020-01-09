@@ -23,7 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
@@ -36,7 +37,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 
 public class PhysicalMachine extends DataSingleton
 {
-    private static final Logger       log          = Logger.getLogger(PhysicalMachine.class.getName());
+    private static final Logger       log          = LogManager.getLogger(PhysicalMachine.class);
     private static Map<Integer, PhysicalMachine> physicalMachines = new HashMap<Integer, PhysicalMachine>();
 
     public static synchronized PhysicalMachine get(Platform platform, String name)

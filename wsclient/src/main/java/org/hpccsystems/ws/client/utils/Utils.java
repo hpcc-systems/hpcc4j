@@ -28,7 +28,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,7 +39,7 @@ import org.xml.sax.SAXException;
 
 public class Utils
 {
-    private final static Logger log = Logger.getLogger(Utils.class.getName());
+    private final static Logger log = LogManager.getLogger(Utils.class);
 
     final static char LINUX_SEP =  '/';
     final static char WIN_SEP =  '\\';

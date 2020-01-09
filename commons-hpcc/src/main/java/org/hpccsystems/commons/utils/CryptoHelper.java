@@ -27,11 +27,12 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class CryptoHelper
 {
-    private final static Logger log = Logger.getLogger(CryptoHelper.class.getName());
+    private final static Logger log = LogManager.getLogger(CryptoHelper.class);
 
     public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM = DigestAlgorithmType.SHA512;
     public final static String DEFAULT_SECRETKEY_ALGORITHM = "AES";
