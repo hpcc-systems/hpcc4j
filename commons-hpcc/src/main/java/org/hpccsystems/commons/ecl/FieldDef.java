@@ -435,4 +435,19 @@ public class FieldDef implements Serializable
             }
         }
     }
+
+    @Override
+    public String toString()
+    {
+        String output = "";
+        for (int fieldIndex = 0; fieldIndex < defs.length; fieldIndex++)
+        {
+            FieldDef currentFieldDef = defs[fieldIndex];
+            long dataLen = currentFieldDef.getDataLen();
+            output += currentFieldDef.getFieldName() + "(" + currentFieldDef.getFieldType() + (dataLen > 0 ? " - " + currentFieldDef.getDataLen() : "") + ")";
+            if (fieldIndex < defs.length - 1)
+                output += " | ";
+        }
+        return output;
+    }
 }

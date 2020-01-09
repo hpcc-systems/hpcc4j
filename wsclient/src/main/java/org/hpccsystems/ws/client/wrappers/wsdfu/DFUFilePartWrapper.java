@@ -21,11 +21,34 @@ import java.util.Hashtable;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCopy;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
 
+enum FilePartKind
+{
+    TLK,
+    DATA
+}
 
 public class DFUFilePartWrapper
 {
     private Integer partIndex;
     private DFUFileCopyWrapper [] wrappedDFUFileCopies;
+    private FilePartKind kind = FilePartKind.DATA;
+
+    /**
+     * @return the kind
+     */
+    public FilePartKind getKind()
+    {
+        return kind;
+    }
+
+    /**
+     * @param kind the kind to set
+     */
+    public DFUFilePartWrapper setKind(FilePartKind kind)
+    {
+        this.kind = kind;
+        return this;
+    }
 
     public DFUFilePartWrapper(DFUFilePart dfuFilePart, Hashtable<Integer, String> availableLocations)
     {
