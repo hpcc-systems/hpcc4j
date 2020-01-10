@@ -10,15 +10,19 @@ import java.util.HashMap;
 
 import org.apache.log4j.*;
 
+/**
+ * <p>Network class.</p>
+ */
 public class Network
 {
     private static final Logger log = Logger.getLogger(Network.class.getName());
 
     /**
      * Provides non-loopback address bound to given NIC name
+     *
      * @param interfacename  - The NIC name to draw the local address from, or '*'
      * @return               - Local ipv4 address
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public static String getLocalAddress(String interfacename) throws Exception
     {
@@ -31,7 +35,7 @@ public class Network
      * @param interfacename - The NIC name to draw the local address from, or '*'
      * @param ipv6          - True if ipv6 desired, False if ipv4 desired
      * @return non-loopback address bound to given NIC named
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public static String getLocalAddress(String interfacename, boolean ipv6) throws Exception
     {
@@ -84,9 +88,7 @@ public class Network
      * Determines if address provided is considered a local address
      * Uses cached list of all non-loopback addresses bound to all local NICs
      *
-     *
      * @param address ipv4/6 to be compared to all known local addresses
-     *
      * @return True if address is part of known local addresses False otherwise
      */
     public static boolean isLocalAddress(String address)

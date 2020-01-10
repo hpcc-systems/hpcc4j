@@ -14,6 +14,9 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.Token;
 
+/**
+ * <p>ErrorListener class.</p>
+ */
 public class ErrorListener extends BaseErrorListener
 {
 
@@ -25,6 +28,11 @@ public class ErrorListener extends BaseErrorListener
     // * Attaching to a parser or lexer
     // *************************************************************
 
+    /**
+     * <p>attach.</p>
+     *
+     * @param parser a {@link org.antlr.v4.runtime.Parser} object.
+     */
     public void attach(Parser parser)
     {
         errors.clear();
@@ -33,6 +41,11 @@ public class ErrorListener extends BaseErrorListener
         parser.setErrorHandler(errorHandler);
     }
 
+    /**
+     * <p>attach.</p>
+     *
+     * @param lexer a {@link org.antlr.v4.runtime.Lexer} object.
+     */
     public void attach(Lexer lexer)
     {
         lexer.removeErrorListeners();
@@ -43,6 +56,7 @@ public class ErrorListener extends BaseErrorListener
     // * Errors section
     // *************************************************************
 
+    /** {@inheritDoc} */
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
             String msg, RecognitionException e)
@@ -55,9 +69,19 @@ public class ErrorListener extends BaseErrorListener
         errors.add(msg);
     }
 
+    /**
+     * <p>Getter for the field <code>errors</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<String> getErrors() {
         return errors;
     }
+    /**
+     * <p>Setter for the field <code>parent</code>.</p>
+     *
+     * @param r a {@link org.hpccsystems.ws.client.antlr.EclRecordReader} object.
+     */
     public void setParent(EclRecordReader r)
     {
         this.parent = r;

@@ -1,6 +1,7 @@
 package org.hpccsystems.commons.filter;
 
-/*******************************************************************************
+/**
+ *****************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +15,8 @@ package org.hpccsystems.commons.filter;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ ******************************************************************************
+ */
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,19 +26,21 @@ import java.util.List;
 
 import org.hpccsystems.commons.filter.SQLFragment.FragmentType;
 import org.hpccsystems.commons.utils.Utils;
-
 public class SQLFilter
 {
     private List<SQLExpression> expressions;
     private List<String>        expressionUniqueColumnNames;
     private boolean             orOperatorUsed;
 
+    /** Constant <code>andOperator</code> */
     public final static SQLOperator andOperator = new SQLOperator(SQLOperator.and);
+    /** Constant <code>orOperator</code> */
     public final static SQLOperator orOperator = new SQLOperator(SQLOperator.or);
 
     private final static String otherThanQuote = " [^\'] ";
     private final static String quotedString = String.format(" \' %s* \' ", otherThanQuote);
 
+    /** Constant <code>andregex="(?x) +                    // enable com"{trunked}</code> */
     public final static String andregex =
             "(?x) "+                    // enable comments, ignore white spaces
             "\\s+(?i)and\\s+"+          // match an isolated, case insensitive AND
@@ -49,6 +53,7 @@ public class SQLFilter
             "$"+                        // match the end of the string
             ")";                        // stop positive look ahead
 
+    /** Constant <code>orregex="(?x) +                    // enable com"{trunked}</code> */
     public final static String orregex =
             "(?x) "+                    // enable comments, ignore white spaces
             "\\s+(?i)or\\s+"+           // match an isolated, case insensitive OR
@@ -61,6 +66,9 @@ public class SQLFilter
             "$"+                        // match the end of the string
             ")";                        // stop positive look ahead
 
+    /**
+     * <p>Constructor for SQLFilter.</p>
+     */
     public SQLFilter()
     {
         expressions = new ArrayList<SQLExpression>();
@@ -68,6 +76,11 @@ public class SQLFilter
         orOperatorUsed = false;
     }
 
+    /**
+     * <p>addExpression.</p>
+     *
+     * @param expression a {@link org.hpccsystems.commons.filter.SQLExpression} object.
+     */
     public void addExpression(SQLExpression expression)
     {
         expressions.add(expression);
@@ -85,16 +98,27 @@ public class SQLFilter
         }
     }
 
+    /**
+     * <p>Getter for the field <code>expressions</code>.</p>
+     *
+     * @return a {@link java.util.Iterator} object.
+     */
     public Iterator<SQLExpression> getExpressions()
     {
         return expressions.iterator();
     }
 
+    /**
+     * <p>getExpressionsCount.</p>
+     *
+     * @return a int.
+     */
     public int getExpressionsCount()
     {
         return expressions.size();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -106,6 +130,11 @@ public class SQLFilter
         return clause;
     }
 
+    /**
+     * <p>fullToString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String fullToString()
     {
         String clause = new String("");
@@ -116,6 +145,13 @@ public class SQLFilter
         return clause;
     }
 
+    /**
+     * <p>toStringTranslateSource.</p>
+     *
+     * @param map a {@link java.util.HashMap} object.
+     * @param ignoreMisTranslations a boolean.
+     * @return a {@link java.lang.String} object.
+     */
     public String toStringTranslateSource(HashMap<String, String> map, boolean ignoreMisTranslations)
     {
         String clause = new String("");
@@ -135,6 +171,11 @@ public class SQLFilter
         return clause;
     }
 
+    /**
+     * <p>getExpressionColumnNames.</p>
+     *
+     * @return an array of {@link java.lang.String} objects.
+     */
     public String[] getExpressionColumnNames()
     {
         String[] colnames = new String[getExpressionsCount()];
@@ -151,6 +192,12 @@ public class SQLFilter
         return colnames;
     }
 
+    /**
+     * <p>getExpressionFromColumnName.</p>
+     *
+     * @param colname a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public String getExpressionFromColumnName(String colname)
     {
         String expstr = "";
@@ -168,6 +215,12 @@ public class SQLFilter
         return expstr;
     }
 
+    /**
+     * <p>containsKey.</p>
+     *
+     * @param colname a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public boolean containsKey(String colname)
     {
         if (expressionUniqueColumnNames.contains(colname))
@@ -182,11 +235,21 @@ public class SQLFilter
         return false;
     }
 
+    /**
+     * <p>getUniqueExpressionColumnNames.</p>
+     *
+     * @return an array of {@link java.lang.Object} objects.
+     */
     public Object[] getUniqueExpressionColumnNames()
     {
         return expressionUniqueColumnNames.toArray();
     }
 
+    /**
+     * <p>isOrOperatorUsed.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isOrOperatorUsed()
     {
         return orOperatorUsed;
@@ -211,6 +274,12 @@ public class SQLFilter
         return unencapsulated;
     }
 
+    /**
+     * <p>parseWhereClause.</p>
+     *
+     * @param whereclause a {@link java.lang.String} object.
+     * @throws java.sql.SQLException if any.
+     */
     public void parseWhereClause(String whereclause) throws SQLException
     {
        whereclause = handleGroupParens(whereclause);
@@ -247,6 +316,14 @@ public class SQLFilter
         }
     }
 
+    /**
+     * <p>containsEqualityCondition.</p>
+     *
+     * @param map a {@link java.util.HashMap} object.
+     * @param first a {@link java.lang.String} object.
+     * @param second a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public boolean containsEqualityCondition(HashMap<String, String> map, String first, String second)
     {
         boolean andsmatch = false;

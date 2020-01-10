@@ -29,25 +29,39 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 
+/**
+ * <p>CryptoHelper class.</p>
+ */
 public class CryptoHelper
 {
     private final static Logger log = Logger.getLogger(CryptoHelper.class.getName());
 
+    /** Constant <code>DEFAULT_DIGEST_ALGORITHM</code> */
     public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM = DigestAlgorithmType.SHA512;
+    /** Constant <code>DEFAULT_SECRETKEY_ALGORITHM="AES"</code> */
     public final static String DEFAULT_SECRETKEY_ALGORITHM = "AES";
+    /** Constant <code>DEFAULT_AES_SECRETKEY_LEN=16</code> */
     public final static int DEFAULT_AES_SECRETKEY_LEN = 16;
+    /** Constant <code>DEFAULT_CIPHER_MODE="AES/ECB/PKCS5PADDING"</code> */
     public final static String DEFAULT_CIPHER_MODE = "AES/ECB/PKCS5PADDING";
 
+    /**
+     * <p>createSHA512AESSecretKey.</p>
+     *
+     * @param digestInput a {@link java.lang.String} object.
+     * @return a {@link javax.crypto.spec.SecretKeySpec} object.
+     */
     public static SecretKeySpec createSHA512AESSecretKey(String digestInput)
     {
         return createSecretKey(digestInput, DEFAULT_DIGEST_ALGORITHM, DEFAULT_SECRETKEY_ALGORITHM);
     }
 
     /**
+     * <p>createSecretKey.</p>
      *
-     * @param utf8DigestInput
+     * @param utf8DigestInput a {@link java.lang.String} object.
      * @param digestAlgorithm  DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
-     * @param secretKeyAlgorithm
+     * @param secretKeyAlgorithm a {@link java.lang.String} object.
      * @return secret key
      */
     public static SecretKeySpec createSecretKey(String utf8DigestInput, DigestAlgorithmType digestAlgorithm, String secretKeyAlgorithm)
@@ -96,6 +110,13 @@ public class CryptoHelper
         return secretkey;
     }
 
+    /**
+     * <p>encrypt.</p>
+     *
+     * @param utf8StrToEncrypt a {@link java.lang.String} object.
+     * @param cipher a {@link javax.crypto.Cipher} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String encrypt(String utf8StrToEncrypt, Cipher cipher)
     {
         try
@@ -116,6 +137,14 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * <p>createDefaultCipher.</p>
+     *
+     * @param secretKey a {@link java.lang.String} object.
+     * @param encryptMode a boolean.
+     * @return a {@link javax.crypto.Cipher} object.
+     * @throws java.lang.Exception if any.
+     */
     public static Cipher createDefaultCipher(String secretKey, boolean encryptMode) throws Exception
     {
         return createDefaultCipher(createSHA512AESSecretKey(secretKey), encryptMode);
@@ -141,11 +170,13 @@ public class CryptoHelper
      */
 
     /**
+     * <p>createCipher.</p>
+     *
      * @param secretKey       The key to use for encrypting/decrypting
      * @param cipherAlgorithm AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
      * @param encryptMode     true=encrypt, false=decrypt
      * @return cipher
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public static Cipher createCipher(SecretKeySpec secretKey, String cipherAlgorithm, boolean encryptMode) throws Exception
     {
@@ -160,16 +191,38 @@ public class CryptoHelper
         return cipher;
     }
 
+    /**
+     * <p>createDefaultCipher.</p>
+     *
+     * @param secretKey a {@link javax.crypto.spec.SecretKeySpec} object.
+     * @param encryptMode a boolean.
+     * @return a {@link javax.crypto.Cipher} object.
+     * @throws java.lang.Exception if any.
+     */
     public static Cipher createDefaultCipher(SecretKeySpec secretKey, boolean encryptMode) throws Exception
     {
         return createCipher(secretKey, DEFAULT_CIPHER_MODE, encryptMode);
     }
 
+    /**
+     * <p>encryptSHA512AESPKCS5Pad.</p>
+     *
+     * @param utf8StrToEncrypt a {@link java.lang.String} object.
+     * @param digestInput a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, String digestInput)
     {
         return encryptSHA512AESPKCS5Pad(utf8StrToEncrypt, createSHA512AESSecretKey(digestInput));
     }
 
+    /**
+     * <p>encryptSHA512AESPKCS5Pad.</p>
+     *
+     * @param utf8StrToEncrypt a {@link java.lang.String} object.
+     * @param secretKey a {@link javax.crypto.spec.SecretKeySpec} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, SecretKeySpec secretKey)
     {
         try
@@ -199,6 +252,13 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * <p>decrypt.</p>
+     *
+     * @param strToDecrypt a {@link java.lang.String} object.
+     * @param cipher a {@link javax.crypto.Cipher} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String decrypt(String strToDecrypt, Cipher cipher)
     {
         try
@@ -219,6 +279,13 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * <p>decrypt.</p>
+     *
+     * @param utf8StrToDecrypt a {@link java.lang.String} object.
+     * @param secretspec a {@link javax.crypto.spec.SecretKeySpec} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String decrypt(String utf8StrToDecrypt, SecretKeySpec secretspec)
     {
         try
@@ -248,6 +315,13 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * <p>decrypt.</p>
+     *
+     * @param value a {@link java.lang.String} object.
+     * @param secretKey a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String decrypt(String value, String secretKey)
     {
         return decrypt(value, createSHA512AESSecretKey(secretKey));

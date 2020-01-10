@@ -20,7 +20,6 @@ import java.util.Iterator;
  * or structures.
  *
  */
-
 public class FieldDef implements Serializable
 {
     private static final long serialVersionUID   = 1L;
@@ -38,6 +37,8 @@ public class FieldDef implements Serializable
     private int               additionalFlags    = 0;
 
     /**
+     * <p>Constructor for FieldDef.</p>
+     *
      * @param rhs
      *            FieldDef to be copied
      */
@@ -55,6 +56,8 @@ public class FieldDef implements Serializable
     }
 
     /**
+     * <p>Constructor for FieldDef.</p>
+     *
      * @param fieldName
      *            the name of the field
      * @param fieldType
@@ -79,6 +82,8 @@ public class FieldDef implements Serializable
     }
 
     /**
+     * <p>Constructor for FieldDef.</p>
+     *
      * @param fieldName
      *            the name of the field
      * @param fieldType
@@ -91,8 +96,6 @@ public class FieldDef implements Serializable
      *            len may be non-zero and variable
      * @param isUnsigned
      *            Only applies to integers and decimal fields. Ignored otherwise
-     * @param additionalFlags 
-     *            Additional flags. Primarily used to retain layout information in HPCC records during conversion. 
      * @param sourceType
      *            Field encoding type. Primairly applies to strings. Non-strings should use LITTLE_ENDIAN.
      * @param childDefs
@@ -135,6 +138,8 @@ public class FieldDef implements Serializable
     }
 
     /**
+     * <p>Setter for the field <code>fieldName</code>.</p>
+     *
      * @param newFieldName field name
      */
     public void setFieldName(String newFieldName)
@@ -164,7 +169,8 @@ public class FieldDef implements Serializable
 
     /**
      * Length of data or minimum length if variable
-     * @param dataLen
+     *
+     * @param dataLen a long.
      */
     public void setDataLen(long dataLen)
     {
@@ -214,6 +220,8 @@ public class FieldDef implements Serializable
 
     /**
      * Sets precision for decimal fields
+     *
+     * @param precision a int.
      */
     public void setPrecision(int precision)
     {
@@ -249,6 +257,8 @@ public class FieldDef implements Serializable
 
     /**
      * Sets scale for decimal fields
+     *
+     * @param scale a int.
      */
     public void setScale(int scale)
     {
@@ -288,7 +298,7 @@ public class FieldDef implements Serializable
 
     /**
      * Get the additional flags for this fields.
-     * 
+     *
      * @return additional flags
      */
     public int getAdditionalFlags()
@@ -298,6 +308,8 @@ public class FieldDef implements Serializable
 
     /**
      * Set the additional flags for this fields.
+     *
+     * @param flags a int.
      */
     public void setAdditionalFlags(int flags)
     {
@@ -329,7 +341,7 @@ public class FieldDef implements Serializable
     /**
      * Set the Child FieldDefs
      *
-     * @param childDefs
+     * @param childDefs an array of {@link org.hpccsystems.commons.ecl.FieldDef} objects.
      */
     public void setDefs(FieldDef[] childDefs)
     {
@@ -367,11 +379,17 @@ public class FieldDef implements Serializable
         return rslt;
     }
 
+    /**
+     * @param recordDef
+     */
     private static void updateRecordMeta(FieldDef recordDef)
     {
         updateRecordMinLength(recordDef);
     }
 
+    /**
+     * @param recordDef
+     */
     private static void updateRecordMinLength(FieldDef recordDef)
     {
         for (int i = 0; i < recordDef.getNumDefs(); i++)
@@ -387,6 +405,10 @@ public class FieldDef implements Serializable
         recordDef.setDataLen(minDataLength);
     }
 
+    /**
+     * @param def
+     * @return
+     */
     private static long getMinLengthInBytes(FieldDef def)
     {
         switch (def.getFieldType())

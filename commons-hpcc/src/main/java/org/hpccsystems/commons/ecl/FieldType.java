@@ -38,6 +38,22 @@ public enum FieldType implements Serializable {
   DATASET(false, "Dataset", true),
   UNKNOWN(true, "Unknown", false);
 
+  /** Constant <code>serialVersionUID=1L</code> */
+  static final long serialVersionUID = 1L;
+public enum FieldType implements Serializable {
+  INTEGER(true, "Integer", false),
+  REAL(true, "Real", false),
+  DECIMAL(true,"Decimal",false),
+  VAR_STRING(true,"VarString",false),
+  STRING(true, "String", false),
+  CHAR(true, "Char", false),
+  BOOLEAN(true, "Boolean", false),
+  BINARY(true, "Binary data", false),
+  RECORD(false, "Record", true),
+  SET(false, "Set", true),             // Set & Dataset are separate because set has a preceding unused byte
+  DATASET(false, "Dataset", true),
+  UNKNOWN(true, "Unknown", false);
+
   static final long serialVersionUID = 1L;
   private boolean scalar;
   private String name;
@@ -72,18 +88,25 @@ public enum FieldType implements Serializable {
   }
   /**
    * Is this a primitive scalar type
+   *
+   * @return a boolean.
    */
   public boolean isScalar() { return this.scalar; }
   /**
    * Is this a set of scalars?
+   *
+   * @return a boolean.
    */
   public boolean isVector() { return !this.scalar && !this.composite; }
   /**
    * Is this a record or a set of records
+   *
+   * @return a boolean.
    */
   public boolean isComposite() { return this.composite; }
   /**
    * Description of the type.
+   *
    * @return a descriptive string
    */
   public String description() {

@@ -17,9 +17,11 @@ package org.hpccsystems.commons.errors;
 
 /**
  * Non-specific exception accessing the HPCC cluster.
+ *
  */
 public class HpccAccessException extends Exception
 {
+    /** Constant <code>serialVersionUID=1L</code> */
     static public final long serialVersionUID = 1L;
 
     /**
@@ -30,7 +32,9 @@ public class HpccAccessException extends Exception
     }
 
     /**
-     * @param message
+     * <p>Constructor for HpccAccessException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
      */
     public HpccAccessException(String message)
     {
@@ -38,7 +42,9 @@ public class HpccAccessException extends Exception
     }
 
     /**
-     * @param cause
+     * <p>Constructor for HpccAccessException.</p>
+     *
+     * @param cause a {@link java.lang.Throwable} object.
      */
     public HpccAccessException(Throwable cause)
     {
@@ -46,8 +52,10 @@ public class HpccAccessException extends Exception
     }
 
     /**
-     * @param message
-     * @param cause
+     * <p>Constructor for HpccAccessException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
      */
     public HpccAccessException(String message, Throwable cause)
     {
@@ -55,10 +63,12 @@ public class HpccAccessException extends Exception
     }
 
     /**
-     * @param message
-     * @param cause
-     * @param enableSuppression
-     * @param writableStackTrace
+     * <p>Constructor for HpccAccessException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
+     * @param enableSuppression a boolean.
+     * @param writableStackTrace a boolean.
      */
     public HpccAccessException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {

@@ -7,14 +7,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Store a set of HpccErrorr.
- *
  */
-
 public class HpccErrorBlock
 {
 
     private final CopyOnWriteArraySet<HpccError> he = new CopyOnWriteArraySet<>();
 
+    /**
+     * <p>Constructor for HpccErrorBlock.</p>
+     */
     public HpccErrorBlock()
     {
 
@@ -25,6 +26,7 @@ public class HpccErrorBlock
      * 
      * @see java.lang.Object#toString()
      */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -36,12 +38,19 @@ public class HpccErrorBlock
         return s.toString();
     }
 
+    /**
+     * <p>addAll.</p>
+     *
+     * @param items a {@link org.hpccsystems.commons.errors.HpccErrorBlock} object.
+     */
     public void addAll(HpccErrorBlock items)
     {
         he.addAll(items.he);
     }
 
     /**
+     * <p>getErrors.</p>
+     *
      * @param st
      *            ErrorCode of errors to retrieve
      * @return HError objects with ErrorLevel=ERROR or ErrorLevel=FATAL containing the specified error code
@@ -54,6 +63,8 @@ public class HpccErrorBlock
     }
 
     /**
+     * <p>getErrors.</p>
+     *
      * @return HError objects with ErrorLevel=ERROR or ErrorLevel=FATAL
      */
     public List<HpccError> getErrors()
@@ -64,6 +75,8 @@ public class HpccErrorBlock
     }
 
     /**
+     * <p>getWarnings.</p>
+     *
      * @return All HError objects of ErrorLevel WARNING
      */
     public List<HpccError> getWarnings()
@@ -72,6 +85,8 @@ public class HpccErrorBlock
     }
 
     /**
+     * <p>getInfos.</p>
+     *
      * @return All HError objects with ErrorLevel INFO
      */
     public List<HpccError> getInfos()
@@ -80,6 +95,8 @@ public class HpccErrorBlock
     }
 
     /**
+     * <p>getItems.</p>
+     *
      * @param errLevel
      *            - Level of HErrors to return
      * @param code
@@ -101,6 +118,8 @@ public class HpccErrorBlock
     }
 
     /**
+     * <p>add.</p>
+     *
      * @param err
      *            error to add
      */
@@ -117,9 +136,10 @@ public class HpccErrorBlock
     }
 
     /**
+     * <p>toEclIdeString.</p>
+     *
      * @return A collection of HErrors with ErrorLevel=ERROR/FATAL in ecl error format.
      *         filename(linenum,colnum):ErrorLevel ErrorCode.getNumVal():Error String
-     * 
      */
     public String toEclIdeString()
     {
@@ -131,21 +151,39 @@ public class HpccErrorBlock
         return sb.toString();
     }
 
+    /**
+     * <p>clear.</p>
+     */
     public void clear()
     {
         he.clear();
     }
 
+    /**
+     * <p>size.</p>
+     *
+     * @return a int.
+     */
     public int size()
     {
         return he.size();
     }
 
+    /**
+     * <p>asSet.</p>
+     *
+     * @return a {@link java.util.Set} object.
+     */
     public Set<HpccError> asSet()
     {
         return he;
     }
 
+    /**
+     * <p>isEmpty.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isEmpty()
     {
         return he.isEmpty();

@@ -1,8 +1,6 @@
 package org.hpccsystems.ws.client.utils;
 
 /**
- * @author pastrarx
- *
  * Represents variable/delimited field data formats
  */
 

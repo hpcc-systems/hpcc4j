@@ -17,6 +17,7 @@ package org.hpccsystems.commons.ecl;
 
 /**
  * The type of the binary source data.
+ *
  */
 public enum HpccSrcType {
   SINGLE_BYTE_CHAR("Single Byte Charset", false),
@@ -38,11 +39,13 @@ public enum HpccSrcType {
   }
   /**
    * Description of the enumeration value;
+   *
    * @return a description
    */
   public String getDescription() { return description; }
   /**
    * The data is UTF16
+   *
    * @return true if UTF16
    */
   public boolean isUTF16() { return utf16; }

@@ -31,7 +31,9 @@ public class UnparsableContentException extends Exception
     }
 
     /**
-     * @param message
+     * <p>Constructor for UnparsableContentException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
      */
     public UnparsableContentException(String message)
     {
@@ -39,7 +41,9 @@ public class UnparsableContentException extends Exception
     }
 
     /**
-     * @param cause
+     * <p>Constructor for UnparsableContentException.</p>
+     *
+     * @param cause a {@link java.lang.Throwable} object.
      */
     public UnparsableContentException(Throwable cause)
     {
@@ -47,8 +51,10 @@ public class UnparsableContentException extends Exception
     }
 
     /**
-     * @param message
-     * @param cause
+     * <p>Constructor for UnparsableContentException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
      */
     public UnparsableContentException(String message, Throwable cause)
     {
@@ -56,10 +62,12 @@ public class UnparsableContentException extends Exception
     }
 
     /**
-     * @param message
-     * @param cause
-     * @param enableSuppression
-     * @param writableStackTrace
+     * <p>Constructor for UnparsableContentException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
+     * @param enableSuppression a boolean.
+     * @param writableStackTrace a boolean.
      */
     public UnparsableContentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {

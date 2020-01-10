@@ -21,9 +21,11 @@ import java.util.ArrayList;
 /**
  * A field filter. Consists of a field name and a list of one or
  * more alternative value ranges.
+ *
  */
 public class FieldFilter implements Serializable
 {
+    /** Constant <code>serialVersionUID=1L</code> */
     public static final long   serialVersionUID = 1L;
     private String             name;
     private ArrayList<FieldFilterRange> ranges = new ArrayList<FieldFilterRange>();
@@ -31,8 +33,8 @@ public class FieldFilter implements Serializable
     /**
      * A field filter.
      *
-     * @param fieldName
-     * @param filterRange
+     * @param fieldName a {@link java.lang.String} object.
+     * @param filterRange a {@link org.hpccsystems.commons.ecl.FieldFilterRange} object.
      */
     public FieldFilter(String fieldName, FieldFilterRange filterRange)
     {
@@ -74,6 +76,7 @@ public class FieldFilter implements Serializable
      *
      * @param range
      *            the fieldfilter range to append (OR)
+     * @return a {@link org.hpccsystems.commons.ecl.FieldFilter} object.
      */
     public FieldFilter appendFilterRange(FieldFilterRange range)
     {
@@ -84,6 +87,8 @@ public class FieldFilter implements Serializable
 
     /**
      * the field name
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getFieldName()
     {
@@ -92,12 +97,20 @@ public class FieldFilter implements Serializable
 
     /**
      * The sumber of ranges used in this filter.
+     *
+     * @return a int.
      */
     public int getRangeCount()
     {
         return this.ranges.size();
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @param outputfieldexpression a boolean.
+     * @return a {@link java.lang.String} object.
+     */
     public String toString(boolean outputfieldexpression)
     {
         StringBuilder sb = new StringBuilder(20 + this.name.length() + 50 * ranges.size());
@@ -128,6 +141,11 @@ public class FieldFilter implements Serializable
      * (non-Javadoc)
      *
      * @see java.lang.Object#toString()
+     */
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String toString()
     {

@@ -20,11 +20,18 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
+/**
+ * <p>Abstract BaseHPCCWsClient class.</p>
+ */
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
+    /** Constant <code>log</code> */
     protected static final Logger         log = Logger.getLogger(BaseHPCCWsClient.class.getName());
+    /** Constant <code>DEAFULTECLWATCHPORT="8010"</code> */
     public static final String     DEAFULTECLWATCHPORT = "8010";
+    /** Constant <code>DEFAULTECLWATCHTLSPORT="18010"</code> */
     public static final String  DEFAULTECLWATCHTLSPORT = "18010";
+    /** Constant <code>DEFAULTSERVICEPORT="DEAFULTECLWATCHPORT"</code> */
     public static String            DEFAULTSERVICEPORT = DEAFULTECLWATCHPORT;
 
     protected Connection                    fsconn     = null;
@@ -33,8 +40,20 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected Version                targetVersion     = null;
 
     protected Stub stub;
+    /**
+     * <p>getDefaultStub.</p>
+     *
+     * @return a {@link org.apache.axis2.client.Stub} object.
+     * @throws org.apache.axis2.AxisFault if any.
+     */
     abstract public Stub getDefaultStub() throws AxisFault;
 
+    /**
+     * <p>getServiceVersion.</p>
+     *
+     * @param client a {@link org.hpccsystems.ws.client.BaseHPCCWsClient} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String getServiceVersion(BaseHPCCWsClient client)
     {
         String ver = null;
@@ -54,6 +73,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return ver;
     }
 
+    /**
+     * <p>getServiceVersion.</p>
+     *
+     * @param stub a {@link org.apache.axis2.client.Stub} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String getServiceVersion(Stub stub)
     {
         String ver = null;
@@ -69,6 +94,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return ver;
     }
 
+    /**
+     * <p>getServiceWSDLURL.</p>
+     *
+     * @param stub a {@link org.apache.axis2.client.Stub} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String getServiceWSDLURL(Stub stub)
     {
         String address = null;
@@ -84,6 +115,13 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return address;
     }
 
+    /**
+     * <p>getServiceWSDLPort.</p>
+     *
+     * @param stub a {@link org.apache.axis2.client.Stub} object.
+     * @return a int.
+     * @throws java.net.MalformedURLException if any.
+     */
     public static int getServiceWSDLPort(Stub stub) throws MalformedURLException
     {
         int port = -1;
@@ -99,6 +137,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return port;
     }
 
+    /**
+     * <p>getConnectionURL.</p>
+     *
+     * @return a {@link java.net.URL} object.
+     * @throws java.lang.Exception if any.
+     */
     public URL getConnectionURL() throws Exception
     {
         URL address = null;
@@ -114,6 +158,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     }
 
     /**
+     * <p>Setter for the field <code>verbose</code>.</p>
+     *
      * @param verbose - sets verbose mode
      */
     public void setVerbose(boolean verbose)
@@ -122,6 +168,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     }
 
     /**
+     * <p>Getter for the field <code>verbose</code>.</p>
+     *
      * @return true if verbose is on
      */
     public boolean getVerbose()
@@ -146,6 +194,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     /**
      * Returns error message encountered during initialization of wsdfuclient.
      * Empty string if no error encountered
+     *
      * @return init error message
      */
     public String getInitError()
@@ -158,7 +207,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * Object can be used to access the web service methods directly
      *
      * @return stub
-     * @throws Exception
+     * @throws java.lang.Exception if any.
      */
     protected Stub verifyStub() throws Exception
     {
@@ -168,6 +217,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             throw new Exception("WS Client Stub not available.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat)
     {
@@ -211,6 +261,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                (thisauth != null ? (EqualsUtil.areEqual(thisauth.getUsername(), thatauth.getUsername()) && EqualsUtil.areEqual(thisauth.getPassword(), thatauth.getPassword())) : true);
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -230,6 +281,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return result;
     }
 
+    /** {@inheritDoc} */
     @Override
     protected boolean isComplete()
     {
@@ -237,18 +289,26 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return false;
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void fastRefresh()
     {
         // TODO Auto-generated method stub
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void fullRefresh()
     {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * <p>setStubConnectionTO.</p>
+     *
+     * @param millis a int.
+     * @throws org.apache.axis2.AxisFault if any.
+     */
     protected void setStubConnectionTO(int millis) throws AxisFault
     {
         Options opt = stub._getServiceClient().getOptions();
@@ -258,6 +318,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         stub._getServiceClient().setOptions(opt);
     }
 
+    /**
+     * <p>getStubConnectionTO.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     * @throws org.apache.axis2.AxisFault if any.
+     */
     protected Integer getStubConnectionTO() throws AxisFault
     {
         Integer to = null;
@@ -273,6 +339,14 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return to;
     }
 
+    /**
+     * <p>setStubOptions.</p>
+     *
+     * @param thestub a {@link org.apache.axis2.client.Stub} object.
+     * @param connection a {@link org.hpccsystems.ws.client.utils.Connection} object.
+     * @return a {@link org.apache.axis2.client.Stub} object.
+     * @throws org.apache.axis2.AxisFault if any.
+     */
     static public Stub setStubOptions(Stub thestub, Connection connection) throws AxisFault
     {
         Options opt = thestub._getServiceClient().getOptions();
@@ -288,6 +362,14 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return thestub;
     }
 
+    /**
+     * <p>setClientAuth.</p>
+     *
+     * @param user a {@link java.lang.String} object.
+     * @param pass a {@link java.lang.String} object.
+     * @param opt a {@link org.apache.axis2.client.Options} object.
+     * @return a {@link org.apache.axis2.client.Options} object.
+     */
     static public Options setClientAuth(String user, String pass, Options opt)
     {
         if (user != null && pass != null && opt != null)
@@ -306,8 +388,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /**
      * Logs and throws EspSoapFaultWrapper
-     * @param e
-     * @throws EspSoapFaultWrapper
+     *
+     * @param e a {@link org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper} object.
+     * @throws org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper if any.
      */
     protected void handleEspSoapFaults(EspSoapFaultWrapper e) throws EspSoapFaultWrapper
     {
@@ -317,9 +400,10 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /**
      * Logs and throws EspSoapFaultWrapper, if local message provided, added as wsclientmessage
-     * @param e
-     * @param message
-     * @throws EspSoapFaultWrapper
+     *
+     * @param e a {@link org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper} object.
+     * @param message a {@link java.lang.String} object.
+     * @throws org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper if any.
      */
     protected void handleEspSoapFaults(EspSoapFaultWrapper e, String message) throws EspSoapFaultWrapper
     {
@@ -333,6 +417,13 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         }
     }
 
+    /**
+     * <p>handleEspExceptions.</p>
+     *
+     * @param exp a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
+     * @param message a {@link java.lang.String} object.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper if any.
+     */
     protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp, String message) throws ArrayOfEspExceptionWrapper
     {
         if (exp == null || exp.getExceptions() == null || exp.getExceptions().size() <= 0)
@@ -345,6 +436,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         throw exp;
     }
 
+    /**
+     * <p>handleEspExceptions.</p>
+     *
+     * @param exp a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper if any.
+     */
     protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp) throws ArrayOfEspExceptionWrapper
     {
         handleEspExceptions(exp, null);
@@ -355,8 +452,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @param eclexceptions
      *            - the array of ECLException objects to throw
-     * @throws Exception
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws java.lang.Exception if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper if any.
      */
     protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclexceptions) throws Exception, ArrayOfECLExceptionWrapper
     {
@@ -370,8 +467,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *            - the array of ECLException objects to throw
      * @param message
      *            - the prefix message
-     * @throws Exception
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws java.lang.Exception if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper if any.
      */
     protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclExceptions, String message) throws Exception, ArrayOfECLExceptionWrapper
     {

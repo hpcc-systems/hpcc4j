@@ -21,6 +21,7 @@ import java.io.Serializable;
  * A filter value range. Used to construct a range (open or closed on either end)
  * of values for filtering records. The value range can be a single value for
  * an equality filter.
+ *
  */
 public class FieldFilterRange implements Serializable
 {
@@ -33,6 +34,7 @@ public class FieldFilterRange implements Serializable
         LOWER, UPPER, BOTH, NONE;
     }
 
+    /** Constant <code>serialVersionUID=1L</code> */
     public static final long serialVersionUID = 1L;
     private String[]         values;
     private boolean          leftOpen;
@@ -92,11 +94,11 @@ public class FieldFilterRange implements Serializable
     /**
      * Use for bounded range.
      *
-     * @param low
-     * @param high
-     * @param leftRangeOpen
-     * @param rightRangeOpen
-     * @param numeric_target
+     * @param low a {@link java.lang.String} object.
+     * @param high a {@link java.lang.String} object.
+     * @param leftRangeOpen a boolean.
+     * @param rightRangeOpen a boolean.
+     * @param numeric_target a boolean.
      */
     public FieldFilterRange(String low, String high, boolean leftRangeOpen, boolean rightRangeOpen, boolean numeric_target)
     {
@@ -114,8 +116,8 @@ public class FieldFilterRange implements Serializable
     /**
      * Use for a set of discrete values
      *
-     * @param valueList
-     * @param numeric_target
+     * @param valueList an array of {@link java.lang.Object} objects.
+     * @param numeric_target a boolean.
      */
     public FieldFilterRange(Object[] valueList, boolean numeric_target)
     {
@@ -210,6 +212,7 @@ public class FieldFilterRange implements Serializable
      * Create IN filter range
      * If all entries are numeric, numeric based compare created.
      * Otherwise, string-wise compare
+     *
      * @param vs
      *         set of values
      * @return the filter range
@@ -236,6 +239,7 @@ public class FieldFilterRange implements Serializable
      * @param vs
      *         set of values
      * @return the filter range
+     * @param stringecapsulate a boolean.
      */
     static public FieldFilterRange makeIn(Object [] vs, boolean stringecapsulate)
     {
@@ -244,13 +248,13 @@ public class FieldFilterRange implements Serializable
 
     /**
      * Create startswith filter range
+     *
      * @param v
      *        the subset
      * @param len
      *        the length to compare
-     * @return
-     *        the filter range
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.commons.ecl.FieldFilterRange} object.
      */
     static public FieldFilterRange makeStartsWith(Object v, short len) throws Exception
     {
@@ -331,6 +335,11 @@ public class FieldFilterRange implements Serializable
      * (non-Javadoc)
      *
      * @see java.lang.Object#toString()
+     */
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String toString()
     {

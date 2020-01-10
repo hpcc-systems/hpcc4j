@@ -22,15 +22,23 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>Utils class.</p>
+ */
 public class Utils
 {
+    /** Constant <code>DOTSEPERATORREGEX="\\."</code> */
     public static final String DOTSEPERATORREGEX = "\\.";
 
+    /** Constant <code>newLine="System.getProperty(line.separator)"</code> */
     public static String newLine = System.getProperty("line.separator");
+    /** Constant <code>fileSep="System.getProperty(file.separator)"</code> */
     public static String fileSep = System.getProperty("file.separator");;
 
+    /** Constant <code>workingDir="System.getProperty(user.dir) + fileSep"</code> */
     public final static String workingDir = System.getProperty("user.dir") + fileSep;
 
+    /** Constant <code>USNumberFormat</code> */
     public static NumberFormat USNumberFormat       = NumberFormat.getInstance(Locale.US);
     static final char          BASE64_enc_pad       = '=';
     static final char          BASE64_enc[] =
@@ -74,6 +82,13 @@ public class Utils
             (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
             (char) 0x00, (char) 0x00, (char) 0x00 };
 
+    /**
+     * <p>Base64Encode.</p>
+     *
+     * @param input an array of {@link byte} objects.
+     * @param addLineBreaks a boolean.
+     * @return a {@link java.lang.String} object.
+     */
     public static String Base64Encode(byte[] input, boolean addLineBreaks)
     {
         int length = input.length;
@@ -122,11 +137,23 @@ public class Utils
         return out.toString();
     }
 
+    /**
+     * <p>removeAllNewLines.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String removeAllNewLines(String str)
     {
         return str.trim().replaceAll("\\r\\n|\\r|\\n", " ");
     }
 
+    /**
+     * <p>isLiteralString.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isLiteralString(String str)
     {
         boolean match = QUOTEDSTRPATTERN.matcher(str).matches();
@@ -139,6 +166,12 @@ public class Utils
         return match;
     }
 
+    /**
+     * <p>isNumeric.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isNumeric(String str)
     {
         try
@@ -155,6 +188,12 @@ public class Utils
 
     private final static Pattern PARENSTRPATTERN = Pattern.compile("\\s*(\\()(.*?)(\\))\\s*",Pattern.DOTALL);
 
+    /**
+     * <p>isInParenthesis.</p>
+     *
+     * @param parenstring a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isInParenthesis(String parenstring)
     {
         if (parenstring == null)
@@ -165,8 +204,15 @@ public class Utils
          return matcher.matches();
     }
 
+    /** Constant <code>AGGFUNCPATTERN</code> */
     public final static Pattern AGGFUNCPATTERN = Pattern.compile("\\s*(.*?)(\\()(.*?)(\\))\\s*",Pattern.DOTALL);
 
+    /**
+     * <p>isAggFunction.</p>
+     *
+     * @param aggfunstr a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isAggFunction(String aggfunstr)
     {
         if (aggfunstr == null)
@@ -177,6 +223,12 @@ public class Utils
          return matcher.matches();
     }
 
+    /**
+     * <p>getParenContents.</p>
+     *
+     * @param parenstring a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String getParenContents(String parenstring)
     {
         if (parenstring == null)
@@ -190,6 +242,13 @@ public class Utils
             return parenstring;
     }
 
+    /**
+     * <p>stringToLong.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @param uponError a long.
+     * @return a long.
+     */
     public static long stringToLong(String str, long uponError)
     {
         try
@@ -203,6 +262,13 @@ public class Utils
         }
     }
 
+    /**
+     * <p>stringToInt.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @param uponError a int.
+     * @return a int.
+     */
     public static int stringToInt(String str, int uponError)
     {
         try
@@ -216,6 +282,14 @@ public class Utils
         }
     }
 
+    /**
+     * <p>replaceAll.</p>
+     *
+     * @param input a {@link java.lang.String} object.
+     * @param forReplace a {@link java.lang.String} object.
+     * @param replaceWith a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String replaceAll(String input, String forReplace, String replaceWith)
     {
         if (input == null)
@@ -250,6 +324,12 @@ public class Utils
     private final static Pattern QUOTEDSTRPATTERN = Pattern.compile(
             "\\s*(\"|\')(.*?)(\"|\')\\s*",Pattern.DOTALL);
 
+    /**
+     * <p>handleQuotedString.</p>
+     *
+     * @param quotedString a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String handleQuotedString(String quotedString)
     {
         if (quotedString == null)
@@ -263,13 +343,27 @@ public class Utils
             return quotedString;
     }
 
+    /**
+     * <p>isParameterizedStr.</p>
+     *
+     * @param value a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isParameterizedStr(String value)
     {
         return  (value.contains("${") || value.equals("?"));
     }
 
+    /** Constant <code>EscapedSingleQuote="\'\'"</code> */
     public final static String EscapedSingleQuote = "\'\'";
 
+    /**
+     * <p>hasPossibleEscapedQuoteLiteral.</p>
+     *
+     * @param quotedString a {@link java.lang.String} object.
+     * @return a boolean.
+     * @throws java.lang.Exception if any.
+     */
     public static boolean hasPossibleEscapedQuoteLiteral(String quotedString) throws Exception
     {
         if (quotedString == null)
@@ -278,6 +372,13 @@ public class Utils
         return handleQuotedString(quotedString).contains(EscapedSingleQuote);
     }
 
+    /**
+     * <p>replaceSQLwithECLEscapeChar.</p>
+     *
+     * @param quotedString a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     * @throws java.lang.Exception if any.
+     */
     public static String replaceSQLwithECLEscapeChar(String quotedString) throws Exception
     {
         if (quotedString == null)
@@ -441,13 +542,11 @@ public class Utils
      *
      * @param enumclass reference to target enumaration
      * @param strvalue string value to be mapped to enum value
-     *
      * @return The corresponding enum value if found
-     *
-     * @throws IllegalArgumentException if strvalue cannot be mapped to
+     * @throws java.lang.IllegalArgumentException if strvalue cannot be mapped to
      * given enum
-     *
-     **/
+     * @param <T> a T object.
+     */
     public static <T extends Enum<T>> T findEnumValFromString(Class<T> enumclass, String strvalue)
     {
         for(Enum enumValue : enumclass.getEnumConstants())
@@ -460,9 +559,16 @@ public class Utils
         throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
     }
 
+    /** Constant <code>BOOLEANPATTERN</code> */
     public static final Pattern BOOLEANPATTERN = Pattern.compile(
             "((?i)true|(?i)false)",Pattern.DOTALL);
 
+    /**
+     * <p>isBooleanKeyWord.</p>
+     *
+     * @param str a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     public static boolean isBooleanKeyWord(String str)
     {
        return BOOLEANPATTERN.matcher(str).matches();

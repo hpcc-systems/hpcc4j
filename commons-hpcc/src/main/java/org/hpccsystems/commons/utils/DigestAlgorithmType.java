@@ -17,6 +17,9 @@
 
 package org.hpccsystems.commons.utils;
 
+/**
+ * <p>DigestAlgorithmType class.</p>
+ */
 public enum DigestAlgorithmType
 {
     MD2 ("MD2"),
@@ -33,11 +36,21 @@ public enum DigestAlgorithmType
         theAlgoName = name;
     }
 
+    /**
+     * <p>toString.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String toString()
     {
         return getName();
     }
 
+    /**
+     * <p>getName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName()
     {
         return theAlgoName;

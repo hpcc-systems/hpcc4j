@@ -26,6 +26,8 @@ public class HpccError
     private Exception            exception;
 
     /**
+     * <p>Constructor for HpccError.</p>
+     *
      * @param errlevel
      *            - the Error Level of the error
      * @param errType
@@ -44,6 +46,8 @@ public class HpccError
     }
 
     /**
+     * <p>Constructor for HpccError.</p>
+     *
      * @param errlevel
      *            - error level of the error (fatal, error, warning, info)
      * @param errType
@@ -66,6 +70,8 @@ public class HpccError
     }
 
     /**
+     * <p>Constructor for HpccError.</p>
+     *
      * @param errlevel
      *            The Error Level of the error (FATAL,ERROR,WARNING,INFO)
      * @param errType
@@ -96,6 +102,7 @@ public class HpccError
         this.filename = filename;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -115,6 +122,8 @@ public class HpccError
     }
 
     /**
+     * <p>toEclIdeString.</p>
+     *
      * @return the Error in ECL IDE Error String format expected by ECL IDE filename(linenum,colnum):ErrorLevel
      *         ErrorCode.getNumVal():Error String
      */
@@ -135,6 +144,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>sourceID</code>.</p>
+     *
      * @return the Unique Identifier of the object that caused this error
      */
     public String getSourceID()
@@ -143,6 +154,8 @@ public class HpccError
     }
 
     /**
+     * <p>Setter for the field <code>sourceID</code>.</p>
+     *
      * @param sourceID
      *            the unique Identifier of the object that caused this error
      */
@@ -152,6 +165,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>errorCode</code>.</p>
+     *
      * @return the Error Code of this Error
      */
     public IErrorCode getErrorCode()
@@ -160,6 +175,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>errorString</code>.</p>
+     *
      * @return the Error message of this error
      */
     public String getErrorString()
@@ -168,6 +185,8 @@ public class HpccError
     }
 
     /**
+     * <p>getLineNum.</p>
+     *
      * @return The Line Number this error occurred at
      */
     public Integer getLineNum()
@@ -176,6 +195,8 @@ public class HpccError
     }
 
     /**
+     * <p>setLineNum.</p>
+     *
      * @param l
      *            Set the line number this error occurred at
      */
@@ -185,6 +206,8 @@ public class HpccError
     }
 
     /**
+     * <p>getColNum.</p>
+     *
      * @return the Column Number this error occurred at
      */
     public Integer getColNum()
@@ -193,6 +216,8 @@ public class HpccError
     }
 
     /**
+     * <p>setColNum.</p>
+     *
      * @param c
      *            the Column Number this error occurred at
      */
@@ -202,6 +227,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>filename</code>.</p>
+     *
      * @return The Filename of the file this error occurred in
      */
     public String getFilename()
@@ -210,6 +237,8 @@ public class HpccError
     }
 
     /**
+     * <p>Setter for the field <code>filename</code>.</p>
+     *
      * @param filename
      *            the Filename of the file this error occurred in
      */
@@ -219,6 +248,8 @@ public class HpccError
     }
 
     /**
+     * <p>Setter for the field <code>errorSource</code>.</p>
+     *
      * @param val
      *            the Source of this object (Composition, Contract, Kel file, etc)
      */
@@ -228,6 +259,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>errorSource</code>.</p>
+     *
      * @return the Source of this error (Composition, Contract, Kel , etc)
      */
     public IErrorSource getErrorSource()
@@ -236,6 +269,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>errorType</code>.</p>
+     *
      * @return the Type of error: VALIDATE, SYSTEM, HPCC, etc. Class must extend IErrorType
      */
     public IErrorType getErrorType()
@@ -244,6 +279,8 @@ public class HpccError
     }
 
     /**
+     * <p>Setter for the field <code>errorType</code>.</p>
+     *
      * @param val
      *            the Type of error: VALIDATE, SYSTEM, HPCC, etc. Class must extend IErrorType
      */
@@ -253,6 +290,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>additionalInfo</code>.</p>
+     *
      * @return any additional info for this exception
      */
     public String getAdditionalInfo()
@@ -261,6 +300,8 @@ public class HpccError
     }
 
     /**
+     * <p>Setter for the field <code>additionalInfo</code>.</p>
+     *
      * @param info
      *            any additional info for this exception
      */
@@ -270,6 +311,8 @@ public class HpccError
     }
 
     /**
+     * <p>Getter for the field <code>errorLevel</code>.</p>
+     *
      * @return Error Level (FATAL, ERROR, WARNING, INFO)
      */
     public HpccErrorLevel getErrorLevel()
@@ -282,6 +325,11 @@ public class HpccError
      * 
      * @see java.lang.Object#hashCode()
      */
+    /**
+     * <p>hashCode.</p>
+     *
+     * @return a int.
+     */
     public int hashCode()
     {
         return this.toEclIdeString().hashCode();
@@ -292,6 +340,7 @@ public class HpccError
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
+    /** {@inheritDoc} */
     public boolean equals(Object o)
     {
         if (o == null)
@@ -309,11 +358,21 @@ public class HpccError
         return "H";
     }
 
+    /**
+     * <p>Getter for the field <code>exception</code>.</p>
+     *
+     * @return a {@link java.lang.Exception} object.
+     */
     public Exception getException()
     {
         return exception;
     }
 
+    /**
+     * <p>Setter for the field <code>exception</code>.</p>
+     *
+     * @param ex a {@link java.lang.Exception} object.
+     */
     public void setException(Exception ex)
     {
         this.exception = ex;

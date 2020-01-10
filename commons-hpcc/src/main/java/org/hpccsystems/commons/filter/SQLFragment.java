@@ -1,6 +1,7 @@
 package org.hpccsystems.commons.filter;
 
-/*******************************************************************************
+/**
+ *****************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +15,14 @@ package org.hpccsystems.commons.filter;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ ******************************************************************************
+ *
+ */
 
 import java.util.List;
 import java.util.StringTokenizer;
 
 import org.hpccsystems.commons.utils.Utils;
-
-
 public class SQLFragment
 {
     public enum FragmentType
@@ -43,26 +44,54 @@ public class SQLFragment
     private String value    =   null;
     private FragmentType type = FragmentType.UNKNOWN_TYPE;
 
+    /**
+     * <p>Constructor for SQLFragment.</p>
+     */
     public SQLFragment() {}
+    /**
+     * <p>Constructor for SQLFragment.</p>
+     *
+     * @param framentStr a {@link java.lang.String} object.
+     */
     public SQLFragment(String framentStr)
     {
         parseExpressionFragment(framentStr);
     }
 
+    /**
+     * <p>isParameterized.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isParameterized()
     {
         return type == FragmentType.PARAMETERIZED;
     }
+    /**
+     * <p>Getter for the field <code>parent</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getParent()
     {
         return parent;
     }
 
+    /**
+     * <p>Setter for the field <code>parent</code>.</p>
+     *
+     * @param parent a {@link java.lang.String} object.
+     */
     public void setParent(String parent)
     {
         this.parent = parent.toUpperCase();
     }
 
+    /**
+     * <p>Getter for the field <code>value</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getValue()
     {
         if (type == FragmentType.CONTENT_MODIFIER || type == FragmentType.FIELD_CONTENT_MODIFIER)
@@ -71,16 +100,31 @@ public class SQLFragment
             return value;
     }
 
+    /**
+     * <p>Setter for the field <code>value</code>.</p>
+     *
+     * @param value a {@link java.lang.String} object.
+     */
     public void setValue(String value)
     {
         this.value = value;
     }
 
+    /**
+     * <p>Getter for the field <code>type</code>.</p>
+     *
+     * @return a {@link org.hpccsystems.commons.filter.SQLFragment.FragmentType} object.
+     */
     public FragmentType getType()
     {
         return type;
     }
 
+    /**
+     * <p>Setter for the field <code>type</code>.</p>
+     *
+     * @param type a {@link org.hpccsystems.commons.filter.SQLFragment.FragmentType} object.
+     */
     public void setType(FragmentType type)
     {
         this.type = type;
@@ -100,6 +144,11 @@ public class SQLFragment
         }
     }
 
+    /**
+     * <p>parseExpressionFragment.</p>
+     *
+     * @param fragment a {@link java.lang.String} object.
+     */
     public void parseExpressionFragment(String fragment)
     {
         try
@@ -194,6 +243,12 @@ public class SQLFragment
         }
     }
 
+    /**
+     * <p>createExpressionFragment.</p>
+     *
+     * @param fragment a {@link java.lang.String} object.
+     * @return a {@link org.hpccsystems.commons.filter.SQLFragment} object.
+     */
     public static SQLFragment createExpressionFragment(String fragment)
     {
         SQLFragment frag = new SQLFragment();
@@ -203,6 +258,12 @@ public class SQLFragment
         return frag;
     }
 
+    /**
+     * <p>determineFragmentType.</p>
+     *
+     * @param fragStr a {@link java.lang.String} object.
+     * @return a {@link org.hpccsystems.commons.filter.SQLFragment.FragmentType} object.
+     */
     public static FragmentType determineFragmentType (String fragStr)
     {
         if (fragStr == null || fragStr.length() <= 0)
@@ -239,6 +300,11 @@ public class SQLFragment
         }
     }
 
+    /**
+     * <p>getFullColumnName.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFullColumnName()
     {
         if (type == FragmentType.FIELD)
@@ -247,6 +313,12 @@ public class SQLFragment
             return getValue();
     }
 
+    /**
+     * <p>updateFragmentColumParent.</p>
+     *
+     * @param sqlTables a {@link java.util.List} object.
+     * @throws java.lang.Exception if any.
+     */
     public void updateFragmentColumParent(List<SQLTable> sqlTables) throws Exception
     {
         if (type == FragmentType.FIELD || type == FragmentType.FIELD_CONTENT_MODIFIER)
@@ -281,10 +353,20 @@ public class SQLFragment
 
         throw new Exception("Invalid field found: " + getFullColumnName());
     }
+    /**
+     * <p>Getter for the field <code>fnname</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getFnname()
     {
         return fnname;
     }
+    /**
+     * <p>Setter for the field <code>fnname</code>.</p>
+     *
+     * @param fnname a {@link java.lang.String} object.
+     */
     public void setFnname(String fnname)
     {
         this.fnname = fnname;

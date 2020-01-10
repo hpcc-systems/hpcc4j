@@ -21,6 +21,9 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 
+/**
+ * <p>SQLOperator class.</p>
+ */
 public class SQLOperator
 {
     public enum OperatorType
@@ -36,33 +39,53 @@ public class SQLOperator
     private static HashMap<String, OperatorType> validOps;
 
     // When adding a new operator, make sure to add it to validOps array
+    /** Constant <code>eq="new String(=)"</code> */
     public static final String  eq        = new String("=");
+    /** Constant <code>neq="new String(<>)"</code> */
     public static final String  neq       = new String("<>");
+    /** Constant <code>neq2="new String(!=)"</code> */
     public static final String  neq2      = new String("!=");
+    /** Constant <code>isNull="new String( IS NULL)"</code> */
     public static final String  isNull    = new String(" IS NULL");
+    /** Constant <code>isNotNull="new String( IS NOT NULL)"</code> */
     public static final String  isNotNull = new String(" IS NOT NULL");
+    /** Constant <code>gt="new String(>)"</code> */
     public static final String  gt        = new String(">");
+    /** Constant <code>lt="new String(<)"</code> */
     public static final String  lt        = new String("<");
+    /** Constant <code>gte="new String(>=)"</code> */
     public static final String  gte       = new String(">=");
+    /** Constant <code>lte="new String(<=)"</code> */
     public static final String  lte       = new String("<=");
+    /** Constant <code>and="new String( AND )"</code> */
     public static final String  and       = new String(" AND ");
+    /** Constant <code>or="new String( OR )"</code> */
     public static final String  or        = new String(" OR ");
     //public static final String  not       = new String(" NOT ");
     //public static final String  exists    = new String(" EXISTS ");
     //public static final String  like      = new String(" LIKE ");
+    /** Constant <code>in="new String( IN )"</code> */
     public static final String  in        = new String(" IN ");
+    /** Constant <code>notIn="new String( NOT IN )"</code> */
     public static final String  notIn     = new String(" NOT IN ");
 
 
 
+    /** Constant <code>ISNULLSPLITPATTERN="\\s+(?i)IS\\s+(?i)NULL\\s*"</code> */
     public final static String ISNULLSPLITPATTERN = "\\s+(?i)IS\\s+(?i)NULL\\s*";
+    /** Constant <code>ISNOTNULLSPLITPATTERN="\\s+(?i)IS\\s+(?i)NOT\\s+(?i)NULL\\s*"</code> */
     public final static String ISNOTNULLSPLITPATTERN = "\\s+(?i)IS\\s+(?i)NOT\\s+(?i)NULL\\s*";
+    /** Constant <code>ANDSPLITPATTERN="\\s+(?i)AND\\s+"</code> */
     public final static String ANDSPLITPATTERN = "\\s+(?i)AND\\s+";
+    /** Constant <code>ORSPLITPATTERN="\\s+(?i)OR\\s+"</code> */
     public final static String ORSPLITPATTERN = "\\s+(?i)OR\\s+";
+    /** Constant <code>NOTSPLITPATTERN="\\s+(?i)NOT\\s+"</code> */
     public final static String NOTSPLITPATTERN = "\\s+(?i)NOT\\s+";
     //public final static String EXISTSSPLITPATTERN = "\\s+(?i)EXISTS\\s*";
     //public final static String LIKESPLITPATTERN = "\\s+(?i)LIKE\\s*";
+    /** Constant <code>INSPLITPATTERN="\\s+(?i)IN\\s+"</code> */
     public final static String INSPLITPATTERN = "\\s+(?i)IN\\s+";
+    /** Constant <code>NOTINSPLITPATTERN="\\s+(?i)NOT\\s+(?i)IN\\s*"</code> */
     public final static String NOTINSPLITPATTERN = "\\s+(?i)NOT\\s+(?i)IN\\s*";
 
     private final static Pattern ISNULLPATTERN = Pattern.compile(
@@ -120,6 +143,11 @@ public class SQLOperator
     private OperatorType   type;
     private String          splitPattern = null;
 
+    /**
+     * <p>Constructor for SQLOperator.</p>
+     *
+     * @param fragment a {@link java.lang.String} object.
+     */
     public SQLOperator(String fragment)
     {
         String upperFragment = fragment.toUpperCase();
@@ -184,30 +212,57 @@ public class SQLOperator
             type = validOps.get(value);
     }
 
+    /**
+     * <p>Getter for the field <code>value</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * <p>isBinary.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isBinary()
     {
         return type == OperatorType.BINARY;
     }
 
+    /**
+     * <p>Getter for the field <code>type</code>.</p>
+     *
+     * @return a {@link org.hpccsystems.commons.filter.SQLOperator.OperatorType} object.
+     */
     public OperatorType getType()
     {
         return type;
     }
+    /**
+     * <p>isValid.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isValid()
     {
         return validOps.containsKey(value);
     }
 
+    /**
+     * <p>splitExpressionFragment.</p>
+     *
+     * @param fragment a {@link java.lang.String} object.
+     * @return an array of {@link java.lang.String} objects.
+     */
     public String [] splitExpressionFragment(String fragment)
     {
         return fragment.split(splitPattern == null ? value : splitPattern);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

@@ -7,6 +7,12 @@ public enum HpccErrorLevel
 {
     FATAL, ERROR, WARNING, INFO;
 
+    /**
+     * <p>getErrorLevel.</p>
+     *
+     * @param eclenum a int.
+     * @return a {@link org.hpccsystems.commons.errors.HpccErrorLevel} object.
+     */
     public static HpccErrorLevel getErrorLevel(int eclenum)
     {
         if (eclenum == 0)

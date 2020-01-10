@@ -25,6 +25,7 @@ public class EclRecordReader extends EclRecordBaseListener
     private List<String>              annotationParams = new ArrayList<String>();
     private String                    annotationName = null;
 
+    /** {@inheritDoc} */
     @Override
     public void enterRecord_def_inline(EclRecordParser.Record_def_inlineContext ctx)
     {
@@ -264,6 +265,8 @@ public class EclRecordReader extends EclRecordBaseListener
      * <p>
      * When entering a child dataset definition in a RECORD layout with an inline record def,
      * set the current child dataset record's inline property to true</p>
+     *
+     * @param ctx a {@link org.hpccsystems.ws.client.antlr.EclRecordParser.Nested_inline_dataset_declContext} object.
      */
     public void enterNested_inline_dataset_decl(EclRecordParser.Nested_inline_dataset_declContext ctx)
     {
@@ -304,6 +307,7 @@ public class EclRecordReader extends EclRecordBaseListener
         currentrec = new DFURecordDefWrapper();
         parentfields.add(0,currentfield);
     }
+    /** {@inheritDoc} */
     @Override
     public void exitInline_dataset_record_def(EclRecordParser.Inline_dataset_record_defContext ctx)
     {
@@ -317,6 +321,7 @@ public class EclRecordReader extends EclRecordBaseListener
         parentrecs.remove(0);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void exitExploded_dataset_record_def(EclRecordParser.Exploded_dataset_record_defContext ctx)
     {
@@ -350,21 +355,41 @@ public class EclRecordReader extends EclRecordBaseListener
         }
     }
 
+    /**
+     * <p>Getter for the field <code>errorHandler</code>.</p>
+     *
+     * @return a {@link org.hpccsystems.ws.client.antlr.ErrorListener} object.
+     */
     public ErrorListener getErrorHandler()
     {
         return errorHandler;
     }
 
+    /**
+     * <p>getEclRecordWrapper.</p>
+     *
+     * @return a {@link org.hpccsystems.ws.client.wrappers.EclRecordWrapper} object.
+     */
     public EclRecordWrapper getEclRecordWrapper()
     {
         return this.eclWraper;
     }
 
+    /**
+     * <p>Getter for the field <code>parser</code>.</p>
+     *
+     * @return a {@link org.hpccsystems.ws.client.antlr.EclRecordParser} object.
+     */
     public EclRecordParser getParser()
     {
         return parser;
     }
 
+    /**
+     * <p>Setter for the field <code>parser</code>.</p>
+     *
+     * @param parser a {@link org.hpccsystems.ws.client.antlr.EclRecordParser} object.
+     */
     public void setParser(EclRecordParser parser)
     {
         this.parser = parser;
@@ -442,12 +467,14 @@ public class EclRecordReader extends EclRecordBaseListener
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void enterComment(final EclRecordParser.CommentContext ctx)
     {
         super.enterComment(ctx);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void exitAnnotation(final EclRecordParser.AnnotationContext ctx)
     {
@@ -463,6 +490,7 @@ public class EclRecordReader extends EclRecordBaseListener
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void exitAnnotation_name(final EclRecordParser.Annotation_nameContext ctx)
     {
@@ -470,6 +498,7 @@ public class EclRecordReader extends EclRecordBaseListener
         super.exitAnnotation_name(ctx);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void exitAnnotation_param(final EclRecordParser.Annotation_paramContext ctx)
     {
@@ -477,12 +506,14 @@ public class EclRecordReader extends EclRecordBaseListener
         annotationParams.add(ctx.getChild(0).getText());
     }
 
+    /** {@inheritDoc} */
     @Override
     public void exitComment(final EclRecordParser.CommentContext ctx)
     {
         super.exitComment(ctx);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void enterAnnotation(final EclRecordParser.AnnotationContext ctx)
     {

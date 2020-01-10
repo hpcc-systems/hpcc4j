@@ -24,6 +24,10 @@ import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.errors.UnparsableContentException;
 
+/**
+ * <p>RecordDefinitionTranslator class.</p>
+ *
+ */
 public class RecordDefinitionTranslator
 {
     private static final String FIELDS_KEY         = "fields";
@@ -153,7 +157,7 @@ public class RecordDefinitionTranslator
      * @param field
      *            the FieldDef to convert
      * @return ECL Record defintion as a String
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public static String toECLRecord(FieldDef field) throws Exception
     {
@@ -347,7 +351,7 @@ public class RecordDefinitionTranslator
      * @param field
      *            the FieldDef to convert
      * @return Record as a JSONObject
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public static JSONObject toJsonRecord(FieldDef field) throws Exception
     {
@@ -651,6 +655,13 @@ public class RecordDefinitionTranslator
         return typeHash;
     }
 
+    /**
+     * <p>parseJsonRecordDefinition.</p>
+     *
+     * @param recordDefinition a {@link org.json.JSONObject} object.
+     * @return a {@link org.hpccsystems.commons.ecl.FieldDef} object.
+     * @throws org.hpccsystems.commons.errors.UnparsableContentException if any.
+     */
     public static FieldDef parseJsonRecordDefinition(JSONObject recordDefinition) throws UnparsableContentException
     {
         HashMap<String, FieldDef> typeDefinitions = new HashMap<String, FieldDef>();

@@ -1,5 +1,8 @@
 package org.hpccsystems.commons.errors;
 
+/**
+ * <p>HpccErrorCode class.</p>
+ */
 public enum HpccErrorCode implements IErrorCode
 {
 
@@ -12,6 +15,11 @@ public enum HpccErrorCode implements IErrorCode
         this.numVal = numVal;
     }
 
+    /**
+     * <p>Getter for the field <code>numVal</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getNumVal()
     {
         return numVal;

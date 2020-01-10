@@ -35,28 +35,29 @@ import org.json.JSONObject;
  * field filters with each field having a list of one or more value ranges.
  *
  * filter : setfilter | wildfilter ;
-    setfilter :  field equals set
-    wildfilter : field wildcard
-    set         : setfragment (, setfragment)*
-    setfragment : ( upperinclusive | upperexclusive) setvalue ( lowerinclusive | lowerexclusive) //ignore the single paren notation for now
-    setvalue    : INTEGER_NUM | QUOTEDUTF8STR
-    QUOTEDUTF8STR : squote utf8string squote;
-    upperinclusive    : '[' ;
-    lowerinclusive    : ']' ;
-    upperexclusive    : '(' ;
-    lowerexclusive    : ')' ;
-    wildcard : '*' ;
-    equals   : '=' ;
-    range    : ':' ;
-    squote   : '\'' ;
-    field : ( 'A'..'Z' | 'a'..'z') (( 'A'..'Z' | 'a'..'z') | UNDERSCORE | ETC | INTEGER_NUM  )* INTEGER_NUM)?;
-    INTEGER_NUM : ( '1'..'9')( '0'..'9')*;
+ *    setfilter :  field equals set
+ *    wildfilter : field wildcard
+ *    set         : setfragment (, setfragment)*
+ *    setfragment : ( upperinclusive | upperexclusive) setvalue ( lowerinclusive | lowerexclusive) //ignore the single paren notation for now
+ *    setvalue    : INTEGER_NUM | QUOTEDUTF8STR
+ *    QUOTEDUTF8STR : squote utf8string squote;
+ *    upperinclusive    : '[' ;
+ *    lowerinclusive    : ']' ;
+ *    upperexclusive    : '(' ;
+ *    lowerexclusive    : ')' ;
+ *    wildcard : '*' ;
+ *    equals   : '=' ;
+ *    range    : ':' ;
+ *    squote   : '\'' ;
+ *    field : ( 'A'..'Z' | 'a'..'z') (( 'A'..'Z' | 'a'..'z') | UNDERSCORE | ETC | INTEGER_NUM  )* INTEGER_NUM)?;
+ *    INTEGER_NUM : ( '1'..'9')( '0'..'9')*;
  *
  */
 public class FileFilter implements Serializable
 {
     private static final Logger  log                 = Logger.getLogger(FileFilter.class.getName());
 
+    /** Constant <code>serialVersionUID=2L</code> */
     public static final long serialVersionUID = 2L;
 
     private List<FieldFilter> fieldfilters = new ArrayList<FieldFilter>();
@@ -76,8 +77,9 @@ public class FileFilter implements Serializable
     /**
      * Creates a FileFilter based on an SQL filter
      * for example "(table.field2 <= 'a' AND table.field2 != 4) OR table.field2 != 5 AND field3 In ('Germany', 'France', 'UK')"
-     * @param sqlfilter
-     * @throws Exception
+     *
+     * @param sqlfilter a {@link java.lang.String} object.
+     * @throws java.lang.Exception
      */
     public FileFilter(String sqlfilter) throws Exception
     {
@@ -90,8 +92,8 @@ public class FileFilter implements Serializable
     /**
      * Creates a FileFilter based on an SQL filter object
      *
-     * @param sqlfilter
-     * @throws Exception
+     * @param sqlfilter a {@link org.hpccsystems.commons.filter.SQLFilter} object.
+     * @throws java.lang.Exception
      */
     public FileFilter(SQLFilter sqlfilter) throws Exception
     {
@@ -103,7 +105,8 @@ public class FileFilter implements Serializable
 
     /**
      * Creates a FileFilter based on the provided fieldfilter
-     * @param filter
+     *
+     * @param filter a {@link org.hpccsystems.commons.ecl.FieldFilter} object.
      */
     public FileFilter(FieldFilter filter)
     {
@@ -112,7 +115,8 @@ public class FileFilter implements Serializable
 
     /**
      * Creates a FileFilter based on the provided filefilter's fieldfilter(s)
-     * @param filter
+     *
+     * @param filter a {@link org.hpccsystems.commons.ecl.FileFilter} object.
      */
     public FileFilter(FileFilter filter)
     {
@@ -146,9 +150,9 @@ public class FileFilter implements Serializable
     /**
      * The filefilter expression is ANDed to this filefilter expression
      *
-     * @param filefilter
+     * @param filefilter a {@link org.hpccsystems.commons.ecl.FileFilter} object.
      * @return file filter
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public FileFilter andFilter(FileFilter filefilter) throws Exception
     {
@@ -170,9 +174,9 @@ public class FileFilter implements Serializable
     /**
      * The fieldfilter(s) expression is ANDed to this filefilter expression
      *
-     * @param fieldfilter
+     * @param fieldfilter a {@link org.hpccsystems.commons.ecl.FieldFilter} object.
      * @return file filter
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public FileFilter andFilter(FieldFilter fieldfilter) throws Exception
     {
@@ -189,9 +193,9 @@ public class FileFilter implements Serializable
     /**
      * The filefilter expression is ORed to this filefilter expression
      *
-     * @param filefilter
+     * @param filefilter a {@link org.hpccsystems.commons.ecl.FileFilter} object.
      * @return file filter
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public FileFilter orFilter(FileFilter filefilter) throws Exception
     {
@@ -210,9 +214,9 @@ public class FileFilter implements Serializable
      * The fieldfilter expression is ORed to this filefilter expression
      * (must target the same field)
      *
-     * @param fieldfilter
+     * @param fieldfilter a {@link org.hpccsystems.commons.ecl.FieldFilter} object.
      * @return file filter
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public FileFilter orFilter(FieldFilter fieldfilter) throws Exception
     {
@@ -253,6 +257,7 @@ public class FileFilter implements Serializable
 
     /**
      * Reports the number of filter clauses in this filefilter
+     *
      * @return size of field filters
      */
     public int getFieldFiltersCount()
@@ -262,7 +267,8 @@ public class FileFilter implements Serializable
 
     /**
      * Fetches the ith filter clause in this filefilter
-     * @param i
+     *
+     * @param i a int.
      * @return field filter
      */
     public FieldFilter getFieldFilter(int i)
@@ -277,7 +283,6 @@ public class FileFilter implements Serializable
      * JSon string representation of an array of filefilters
      *
      * @return string representation of json
-     * @throws Exception
      */
     public String toJson()
     {
@@ -365,6 +370,13 @@ public class FileFilter implements Serializable
         return false;
     }
 
+    /**
+     * <p>ConvertToHPCCFileFilter.</p>
+     *
+     * @param sqlfilter a {@link org.hpccsystems.commons.filter.SQLExpression} object.
+     * @return a {@link org.hpccsystems.commons.ecl.FileFilter} object.
+     * @throws java.lang.Exception if any.
+     */
     public static FileFilter ConvertToHPCCFileFilter(SQLExpression sqlfilter) throws Exception
     {
         FileFilter hpccfilter = null;
@@ -433,6 +445,11 @@ public class FileFilter implements Serializable
         return hpccfilter;
     }
 
+    /**
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects.
+     */
     public static void main(String [] args)
     {
         try

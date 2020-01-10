@@ -17,6 +17,10 @@ import org.json.JSONObject;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 
+/**
+ * <p>TestFieldDefinitions class.</p>
+ *
+ */
 public class TestFieldDefinitions
 {
     private static final String complexRecordDefinitionStr = "{\r\n \"ty1\": {\r\n  \"fieldType\": 1065,\r\n  \"length\": 4294967281\r\n },\r\n \"ty2\": "
@@ -46,11 +50,22 @@ public class TestFieldDefinitions
             + "\"type\": \"ty17\",\r\n   \"xpath\": \"childdataset\\u0001Row\",\r\n   \"flags\": 1044\r\n  },\r\n  {\r\n   \"name\": \"int2set\",\r\n   "
             + "\"type\": \"ty19\",\r\n   \"xpath\": \"int2set\\u0001Item\",\r\n   \"flags\": 1045\r\n  }\r\n ]\r\n}";
 
+    /**
+     * <p>getComplexRecordDefinitionJson.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public static String getComplexRecordDefinitionJson()
     {
         return complexRecordDefinitionStr;
     }
 
+    /**
+     * <p>getComplexRecordDefinition.</p>
+     *
+     * @return a {@link org.hpccsystems.commons.ecl.FieldDef} object.
+     * @throws java.lang.Exception if any.
+     */
     public static FieldDef getComplexRecordDefinition() throws Exception
     {
         String jsonStr = getComplexRecordDefinitionJson();

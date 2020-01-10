@@ -7,9 +7,13 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.IntervalSet;
 
+/**
+ * <p>ErrorStrategy class.</p>
+ */
 public class ErrorStrategy extends DefaultErrorStrategy
 {
 
+    /** {@inheritDoc} */
     @Override
     protected void reportMissingToken(Parser recognizer)
     {
@@ -29,6 +33,7 @@ public class ErrorStrategy extends DefaultErrorStrategy
         recognizer.notifyErrorListeners(t, "missing token", e);
     }
     
+    /** {@inheritDoc} */
     @Override
     protected void reportNoViableAlternative(Parser recognizer, NoViableAltException e) {
 
@@ -45,6 +50,7 @@ public class ErrorStrategy extends DefaultErrorStrategy
 
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void reportUnwantedToken(Parser recognizer)
     {

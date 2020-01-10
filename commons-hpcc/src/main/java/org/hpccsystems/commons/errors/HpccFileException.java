@@ -22,6 +22,7 @@ import java.io.Serializable;
 
 /**
  * Exception class for problems accessing files on an HPCC Cluster.
+ *
  */
 public class HpccFileException extends Exception implements Serializable
 {
@@ -35,6 +36,8 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * <p>Constructor for HpccFileException.</p>
+     *
      * @param message
      *            text explaining exception
      */
@@ -44,6 +47,8 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * <p>Constructor for HpccFileException.</p>
+     *
      * @param cause
      *            An exception that has been remapped into an HPCC Exception
      */
@@ -53,6 +58,8 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * <p>Constructor for HpccFileException.</p>
+     *
      * @param message
      *            explanation of exception
      * @param cause
@@ -64,10 +71,12 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
-     * @param message
-     * @param cause
-     * @param enableSuppression
-     * @param writableStackTrace
+     * <p>Constructor for HpccFileException.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     * @param cause a {@link java.lang.Throwable} object.
+     * @param enableSuppression a boolean.
+     * @param writableStackTrace a boolean.
      */
     public HpccFileException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {
