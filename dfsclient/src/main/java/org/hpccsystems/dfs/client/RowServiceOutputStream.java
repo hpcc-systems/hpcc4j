@@ -23,14 +23,15 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 import org.json.JSONObject;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.ecl.FieldDef;
 
 public class RowServiceOutputStream extends OutputStream
 {
-    private static final Logger  log                           = Logger.getLogger(RowServiceOutputStream.class.getName());
+    private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
     private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;       // 1 second connection timeout
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 

@@ -3,7 +3,8 @@ package org.hpccsystems.ws.client.antlr;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.platform.DFUDataColumnAnnotation;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
@@ -14,7 +15,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFURecordDefWrapper;
  */
 public class EclRecordReader extends EclRecordBaseListener
 {
-    private static final Logger       log          = Logger.getLogger(EclRecordReader.class.getName());
+    private static final Logger       log          = LogManager.getLogger(EclRecordReader.class);
     private ErrorListener             errorHandler = new ErrorListener();
     private EclRecordWrapper          eclWraper    = new EclRecordWrapper();
     private DFURecordDefWrapper       currentrec   = null;

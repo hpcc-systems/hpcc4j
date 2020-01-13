@@ -15,7 +15,8 @@ package org.hpccsystems.dfs.client;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.dfs.client.RowServiceOutputStream;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.Iterator;
 
@@ -24,7 +25,7 @@ import java.util.Iterator;
  */
 public class HPCCRemoteFileWriter<T>
 {
-    private static final Logger    log                = Logger.getLogger(HPCCRemoteFileWriter.class.getName());
+    private static final Logger    log                = LogManager.getLogger(HPCCRemoteFileWriter.class);
 
     private FieldDef               recordDef          = null;
     private DataPartition          dataPartition      = null;

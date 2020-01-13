@@ -54,7 +54,7 @@
     <commons-io.version>2.4</commons-io.version>
     <junit.version>4.12</junit.version>
     <json.version>20180813</json.version>
-    <log4j.version>1.2.17</log4j.version>
+    <log4j.version>2.13.0</log4j.version>
     <axis2.version>1.7.9</axis2.version>
   </properties>
 
@@ -99,9 +99,10 @@
       <version>${junit.version}</version>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>${log4j.version}</version>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j.version}</version>
+        <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -215,6 +216,11 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>${maven.jar.version}</version>
+          <configuration>
+            <excludes>
+              <exclude>**/log4j.properties</exclude>
+            </excludes>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>

@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.filter.SQLExpression;
 import org.hpccsystems.commons.filter.SQLFilter;
 import org.hpccsystems.commons.filter.SQLOperator;
@@ -55,7 +56,7 @@ import org.json.JSONObject;
  */
 public class FileFilter implements Serializable
 {
-    private static final Logger  log                 = Logger.getLogger(FileFilter.class.getName());
+    private static final Logger  log                 = LogManager.getLogger(FileFilter.class);
 
     public static final long serialVersionUID = 2L;
 

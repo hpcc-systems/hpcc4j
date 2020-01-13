@@ -10,7 +10,8 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Connection
 {
@@ -112,7 +113,7 @@ public class Connection
         }
     }
 
-    private final static Logger log                   = Logger.getLogger(Connection.class.getName());
+    private final static Logger log                   = LogManager.getLogger(Connection.class);
 
     public final static String protDelimiter          = "://";
     public final static char   portDelimiter          = ':';

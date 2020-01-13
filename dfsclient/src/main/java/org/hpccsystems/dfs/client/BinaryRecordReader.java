@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.errors.HpccFileException;
@@ -136,7 +137,7 @@ public class BinaryRecordReader implements IRecordReader
     private static final Charset utf8Set             = Charset.forName("UTF-8");
     private static final Charset utf16beSet          = Charset.forName("UTF-16BE");
     private static final Charset utf16leSet          = Charset.forName("UTF-16LE");
-    private static final Logger  log                 = Logger.getLogger(BinaryRecordReader.class.getName());
+    private static final Logger  log                 = LogManager.getLogger(BinaryRecordReader.class);
 
     // Scratch buffer to avoid temp allocations
     private static final int     SCRATCH_BUFFER_SIZE = 256;

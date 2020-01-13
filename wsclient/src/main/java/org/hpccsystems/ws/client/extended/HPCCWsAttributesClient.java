@@ -11,7 +11,8 @@ import java.util.Map;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.BaseHPCCWsClient;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckinAttributeRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckoutAttributeRequest;
@@ -54,7 +55,7 @@ import org.hpccsystems.ws.client.wrappers.GetAttributesWrapper;
 
 public class HPCCWsAttributesClient extends BaseHPCCWsClient
 {
-    private static final Logger                  log    = Logger.getLogger(HPCCWsAttributesClient.class.getName());
+    private static final Logger                  log    = LogManager.getLogger(HPCCWsAttributesClient.class);
     public static final String   WSATTRIBUTESWSDLURI    = "/WsAttributes";
     private static int            DEFAULTSERVICEPORT    = -1;
     private static String                    WSDLURL    = null;
