@@ -26,7 +26,8 @@ import java.util.Properties;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CopyResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
@@ -83,7 +84,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     private int                 BUFFER_LENGTH          = 1024;
 
     List<DropZoneWrapper>               localDropZones  = null;
-    private static Logger               log = Logger.getLogger(HPCCFileSprayClient.class.getName());
+    private static Logger               log = LogManager.getLogger(HPCCFileSprayClient.class);
     private static int            DEFAULTSERVICEPORT    = -1;
     private static String                    WSDLURL    = null;
 

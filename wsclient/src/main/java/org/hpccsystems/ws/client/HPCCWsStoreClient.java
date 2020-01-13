@@ -46,7 +46,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
  */
 public class HPCCWsStoreClient extends BaseHPCCWsClient
 {
-    //private static final Logger log                   = Logger.getLogger(HPCCWsStoreClient.class.getName());
+    //private static final Logger log                   = LogManager.getLogger(HPCCWsStoreClient.class);
     public static final String        WSStoreWSDLURI    = "/wsstore";
     private static int            DEFAULTSERVICEPORT    = -1;
     private static String                    WSDLURL    = null;

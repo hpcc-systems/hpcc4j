@@ -5,7 +5,8 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -31,7 +32,7 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
  */
 public class HPCCWsClient extends DataSingleton
 {
-    private static final Logger log = Logger.getLogger(HPCCWsClient.class.getName());
+    private static final Logger log = LogManager.getLogger(HPCCWsClient.class);
 
     public static DataSingletonCollection All = new DataSingletonCollection();
     public static DataSingletonCollection SubClients = new DataSingletonCollection();

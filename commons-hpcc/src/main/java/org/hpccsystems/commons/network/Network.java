@@ -12,7 +12,7 @@ import org.apache.log4j.*;
 
 public class Network
 {
-    private static final Logger log = Logger.getLogger(Network.class.getName());
+    private static final Logger log = LogManager.getLogger(Network.class);
 
     /**
      * Provides non-loopback address bound to given NIC name

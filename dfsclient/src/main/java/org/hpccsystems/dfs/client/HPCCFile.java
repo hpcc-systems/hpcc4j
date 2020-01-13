@@ -20,7 +20,8 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
@@ -42,7 +43,7 @@ public class HPCCFile implements Serializable
      */
     static private final long    serialVersionUID              = 1L;
 
-    private static final Logger  log                           = Logger.getLogger(HPCCFile.class.getName());
+    private static final Logger  log                           = LogManager.getLogger(HPCCFile.class);
 
     private DataPartition[]      dataParts;
     private FieldDef             recordDefinition;

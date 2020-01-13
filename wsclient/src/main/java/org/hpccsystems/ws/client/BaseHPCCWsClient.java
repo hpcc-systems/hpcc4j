@@ -9,7 +9,8 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
@@ -22,7 +23,7 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
-    protected static final Logger         log = Logger.getLogger(BaseHPCCWsClient.class.getName());
+    protected static final Logger         log = LogManager.getLogger(BaseHPCCWsClient.class);
     public static final String     DEAFULTECLWATCHPORT = "8010";
     public static final String  DEFAULTECLWATCHTLSPORT = "18010";
     public static String            DEFAULTSERVICEPORT = DEAFULTECLWATCHPORT;

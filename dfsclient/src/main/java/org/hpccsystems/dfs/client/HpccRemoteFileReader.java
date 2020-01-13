@@ -16,7 +16,8 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.dfs.client.RowServiceInputStream;
 import org.hpccsystems.commons.errors.HpccFileException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -26,7 +27,7 @@ import java.util.Iterator;
  */
 public class HpccRemoteFileReader<T> implements Iterator<T>
 {
-    private static final Logger   log               = Logger.getLogger(HpccRemoteFileReader.class.getName());
+    private static final Logger   log               = LogManager.getLogger(HpccRemoteFileReader.class);
 
     private FieldDef              originalRecordDef = null;
     private DataPartition         dataPartition     = null;

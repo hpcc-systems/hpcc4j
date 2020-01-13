@@ -6,7 +6,8 @@ import java.rmi.RemoteException;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData;
@@ -34,7 +35,7 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
  */
 public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 {
-    private static final Logger  log                     = Logger.getLogger(HPCCWsPackageProcessClient.class.getName());
+    private static final Logger  log                     = LogManager.getLogger(HPCCWsPackageProcessClient.class);
     public  static final String  PACKAGEPROCESSURI       = "/WsPackageProcess";
     private static int            DEFAULTSERVICEPORT    = -1;
     private static String                    WSDLURL    = null;

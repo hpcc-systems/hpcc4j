@@ -24,7 +24,8 @@ import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FileFilter;
@@ -69,7 +70,7 @@ public class RowServiceInputStream extends InputStream
     // Note: The platform may respond with more data than this if records are larger than this limit.
     public static final int          MaxReadSizeKB                 = 4096;
 
-    private static final Logger      log                           = Logger.getLogger(RowServiceInputStream.class.getName());
+    private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
 
     /**
      * @param dp

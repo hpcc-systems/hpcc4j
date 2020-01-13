@@ -15,7 +15,8 @@ package org.hpccsystems.dfs.client;
 import org.hpccsystems.dfs.client.IRecordWriter;
 import org.hpccsystems.dfs.client.IRecordAccessor;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
@@ -30,7 +31,7 @@ import java.util.Arrays;
 
 public class BinaryRecordWriter implements IRecordWriter
 {
-    private static final Logger log                 = Logger.getLogger(BinaryRecordWriter.class.getName());
+    private static final Logger log                 = LogManager.getLogger(BinaryRecordWriter.class);
 
     private static final int    DataLenFieldSize    = 4;
     private static final int    DefaultBufferSizeKB = 4096;

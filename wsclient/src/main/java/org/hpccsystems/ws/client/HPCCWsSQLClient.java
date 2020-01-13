@@ -7,7 +7,8 @@ import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfNamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
@@ -48,7 +49,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
  */
 public class HPCCWsSQLClient  extends BaseHPCCWsClient
 {
-    private static final Logger    log                   = Logger.getLogger(HPCCWsSQLClient.class.getName());
+    private static final Logger    log                   = LogManager.getLogger(HPCCWsSQLClient.class);
     public static final String     WSSQLURI              = "/WsSQL";
     private static final int       DEFAULT_RESULT_LIMIT  = 100;
     private static final String    PINGSTATEMENT         = "HPCCWsSQLClient Greets you.";
