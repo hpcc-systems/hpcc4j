@@ -6,8 +6,8 @@ import java.rmi.RemoteException;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData;
@@ -35,10 +35,10 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
  */
 public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 {
-    private static final Logger  log                     = LogManager.getLogger(HPCCWsPackageProcessClient.class);
-    public  static final String  PACKAGEPROCESSURI       = "/WsPackageProcess";
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    private static final Logger log                = LogManager.getLogger(HPCCWsPackageProcessClient.class);
+    public static final String  PACKAGEPROCESSURI  = "/WsPackageProcess";
+    private static int          DEFAULTSERVICEPORT = -1;
+    private static String       WSDLURL            = null;
 
     private static void loadWSDLURL()
     {
@@ -91,7 +91,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
     protected HPCCWsPackageProcessClient(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
 
         initWSPackageProcessStub(conn);
@@ -99,7 +99,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
     protected HPCCWsPackageProcessClient(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -110,15 +110,18 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL   Target service base URL
-     * @param user      User credentials
-     * @param pass      User credentials
+     * @param baseURL
+     *            Target service base URL
+     * @param user
+     *            User credentials
+     * @param pass
+     *            User credentials
      */
     private void initWSPackageProcessStub(Connection conn)
     {
         try
         {
-            stub = setStubOptions(new WsPackageProcessStub(conn.getBaseUrl()+PACKAGEPROCESSURI), conn);
+            stub = setStubOptions(new WsPackageProcessStub(conn.getBaseUrl() + PACKAGEPROCESSURI), conn);
         }
         catch (Exception e)
         {
@@ -139,7 +142,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         try
         {
-            ((WsPackageProcessStub)stub).ping(request);
+            ((WsPackageProcessStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -149,31 +152,30 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         return true;
     }
 
-
-
     /**
      * @param packageMapName
-     * @return String   - packagemap content
-     * @throws Exception           - Caller should handle exception in case of errors
+     * @return String - packagemap content
+     * @throws Exception
+     *             - Caller should handle exception in case of errors
      * @throws ArrayOfEspExceptionWrapper
      */
     public String getPackageMapById(String packageMapName) throws Exception, ArrayOfEspExceptionWrapper
     {
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
-        GetPackageMapByIdRequest req=new GetPackageMapByIdRequest();
+        GetPackageMapByIdRequest req = new GetPackageMapByIdRequest();
         req.setPackageMapId(packageMapName);
 
         GetPackageMapByIdResponse resp = null;
 
         try
         {
-            resp = ((WsPackageProcessStub)stub).getPackageMapById(req);
+            resp = ((WsPackageProcessStub) stub).getPackageMapById(req);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("WsPackageProcessStub.getPackageMapById(...) encountered RemoteException.", e);
+            throw new Exception("WsPackageProcessStub.getPackageMapById(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -181,7 +183,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
 
         if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not get packagemap " + packageMapName );
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not get packagemap " + packageMapName);
 
         return resp.getInfo();
     }
@@ -191,15 +193,17 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param packageMapName
      * @param process
      * @param target
-     * @return BasePackageStatus   - Caller should interrogate status object for success
-     * @throws Exception           - Caller should handle exception in case of errors
+     * @return BasePackageStatus - Caller should interrogate status object for success
+     * @throws Exception
+     *             - Caller should handle exception in case of errors
      * @throws ArrayOfEspExceptionWrapper
      */
-    public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target) throws Exception, ArrayOfEspExceptionWrapper
+    public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to activate package: " + packageMapName);
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         ActivatePackageRequest request = new ActivatePackageRequest();
 
@@ -212,11 +216,11 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         try
         {
-            resp = ((WsPackageProcessStub)stub).activatePackage(request);
+            resp = ((WsPackageProcessStub) stub).activatePackage(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("WsPackageProcessStub.activatePackage(...) encountered RemoteException.", e);
+            throw new Exception("WsPackageProcessStub.activatePackage(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -232,15 +236,16 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     /**
      * @param process
      * @param target
-     * @return BasePackageStatus   - Caller should interrogate status object for success
-     * @throws Exception           - Caller should handle exception in case of errors
+     * @return BasePackageStatus - Caller should interrogate status object for success
+     * @throws Exception
+     *             - Caller should handle exception in case of errors
      * @throws ArrayOfEspExceptionWrapper
      */
     public BasePackageStatus getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         GetPackageRequest request = new GetPackageRequest();
 
@@ -251,19 +256,18 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         try
         {
-            resp = ((WsPackageProcessStub)stub).getPackage(request);
+            resp = ((WsPackageProcessStub) stub).getPackage(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("WsPackageProcessStub.getPackage(...) encountered RemoteException.", e);
+            throw new Exception("WsPackageProcessStub.getPackage(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getPackage");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not get package");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not get package");
 
         log.debug("Get Package info: " + resp.getInfo());
 
@@ -273,19 +277,24 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     /**
      * Remove a part from a package map.
      *
-     * @param globalScope Global or non global scoped.
-     * @param partName The part name to remove.
-     * @param target The target.
-     * @param packageMap The package map id.
-     * @return BasePackageStatus   - Caller should interrogate status object for success
-     * @throws Exception           - Caller should handle exception in case of errors
+     * @param globalScope
+     *            Global or non global scoped.
+     * @param partName
+     *            The part name to remove.
+     * @param target
+     *            The target.
+     * @param packageMap
+     *            The package map id.
+     * @return BasePackageStatus - Caller should interrogate status object for success
+     * @throws Exception
+     *             - Caller should handle exception in case of errors
      */
     public BasePackageStatus removePartFromPackageMap(final boolean globalScope, final String partName, final String target, final String packageMap)
             throws Exception
     {
         log.debug("Attempting to remove package part.");
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         RemovePartFromPackageMapRequest request = new RemovePartFromPackageMapRequest();
         request.setGlobalScope(globalScope);
@@ -320,9 +329,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     {
         log.debug("Attempting to list packages");
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
-        PackageListMapData [] packageListMapDataArray = null;
+        PackageListMapData[] packageListMapDataArray = null;
         ListPackagesRequest request = new ListPackagesRequest();
 
         request.setProcess(process);
@@ -333,11 +342,11 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsPackageProcessStub)stub).listPackages(request);
+            response = ((WsPackageProcessStub) stub).listPackages(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("WsPackageProcessStub.listPackages() encountered RemoteException.", e);
+            throw new Exception("WsPackageProcessStub.listPackages() encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -350,31 +359,38 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         ArrayOfPackageListMapData packageMapList = response.getPackageMapList();
         if (packageMapList != null)
         {
-             packageListMapDataArray = packageMapList.getPackageListMapData();
+            packageListMapDataArray = packageMapList.getPackageListMapData();
         }
 
         return packageListMapDataArray;
     }
 
-    //TO-DO
-    /* Implement helper methods for most commonly used tasks:
+    // TO-DO
+    /*
+     * Implement helper methods for most commonly used tasks:
      *
      *
-    ActivatePackage
-    AddPackage
-    AddPartToPackageMap
-    CopyPackageMap
-    DeActivatePackage
-    DeletePackage
-    GetPackage
-    GetPackageMapById
-    GetPackageMapSelectOptions
-    GetPartFromPackageMap
-    GetQueryFileMapping
-    ListPackage
-    ValidatePackage
+     * ActivatePackage
+     * AddPackage
+     * AddPartToPackageMap
+     * CopyPackageMap
+     * DeActivatePackage
+     * DeletePackage
+     * GetPackage
+     * GetPackageMapById
+     * GetPackageMapSelectOptions
+     * GetPartFromPackageMap
+     * GetQueryFileMapping
+     * ListPackage
+     * ValidatePackage
      */
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new WsPackageProcessStub();

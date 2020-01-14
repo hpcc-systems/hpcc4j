@@ -8,16 +8,19 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.HashMap;
 
-import org.apache.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Network
 {
+    /** The Constant log. */
     private static final Logger log = LogManager.getLogger(Network.class);
 
     /**
      * Provides non-loopback address bound to given NIC name
-     * @param interfacename  - The NIC name to draw the local address from, or '*'
-     * @return               - Local ipv4 address
+     * @param interfacename
+     *            - The NIC name to draw the local address from, or '*'
+     * @return - Local ipv4 address
      * @throws Exception
      */
     public static String getLocalAddress(String interfacename) throws Exception
@@ -28,15 +31,16 @@ public class Network
     /**
      * Provides non-loopback address bound to given NIC name
      *
-     * @param interfacename - The NIC name to draw the local address from, or '*'
-     * @param ipv6          - True if ipv6 desired, False if ipv4 desired
+     * @param interfacename
+     *            - The NIC name to draw the local address from, or '*'
+     * @param ipv6
+     *            - True if ipv6 desired, False if ipv4 desired
      * @return
      * @throws Exception
      */
     public static String getLocalAddress(String interfacename, boolean ipv6) throws Exception
     {
-        if (interfacename == null || interfacename.isEmpty())
-            throw new Exception("getLocalAddress: Must provide valid NIC name, or '*'");
+        if (interfacename == null || interfacename.isEmpty()) throw new Exception("getLocalAddress: Must provide valid NIC name, or '*'");
 
         if (interfacename.trim().equals("*"))
         {
@@ -44,17 +48,16 @@ public class Network
             try
             {
                 nics = NetworkInterface.getNetworkInterfaces();
-                while ( nics.hasMoreElements() )
+                while (nics.hasMoreElements())
                 {
                     NetworkInterface nic = nics.nextElement();
                     Enumeration<InetAddress> addresses = nic.getInetAddresses();
-                    while ( addresses.hasMoreElements() )
+                    while (addresses.hasMoreElements())
                     {
                         InetAddress addr = addresses.nextElement();
                         if (!addr.isLoopbackAddress())
                         {
-                            if ((addr instanceof Inet4Address && !ipv6) || (addr instanceof Inet6Address && ipv6))
-                                return addr.getHostAddress();
+                            if ((addr instanceof Inet4Address && !ipv6) || (addr instanceof Inet6Address && ipv6)) return addr.getHostAddress();
                         }
                     }
                 }
@@ -69,11 +72,10 @@ public class Network
             NetworkInterface nic = NetworkInterface.getByName(interfacename);
             Enumeration<InetAddress> addresses = nic.getInetAddresses();
 
-            while ( addresses.hasMoreElements() )
+            while (addresses.hasMoreElements())
             {
                 InetAddress addr = addresses.nextElement();
-                if ((addr instanceof Inet4Address && !ipv6) || (addr instanceof Inet6Address && ipv6))
-                    return addr.getHostAddress();
+                if ((addr instanceof Inet4Address && !ipv6) || (addr instanceof Inet6Address && ipv6)) return addr.getHostAddress();
             }
         }
 
@@ -85,13 +87,14 @@ public class Network
      * Uses cached list of all non-loopback addresses bound to all local NICs
      *
      *
-     * @param address ipv4/6 to be compared to all known local addresses
+     * @param address
+     *            ipv4/6 to be compared to all known local addresses
      *
      * @return True if address is part of known local addresses False otherwise
      */
     public static boolean isLocalAddress(String address)
     {
-          return LocalAddresses.containsKey(address.toUpperCase());
+        return LocalAddresses.containsKey(address.toUpperCase());
     }
 
     private static HashMap<String, InetAddress> LocalAddresses = new HashMap<String, InetAddress>();
@@ -101,16 +104,15 @@ public class Network
         try
         {
             ifaces = NetworkInterface.getNetworkInterfaces();
-            while ( ifaces.hasMoreElements() )
+            while (ifaces.hasMoreElements())
             {
                 NetworkInterface iface = ifaces.nextElement();
                 Enumeration<InetAddress> addresses = iface.getInetAddresses();
 
-                while ( addresses.hasMoreElements() )
+                while (addresses.hasMoreElements())
                 {
                     InetAddress addr = addresses.nextElement();
-                    if (!addr.isLoopbackAddress())
-                        LocalAddresses.put(addr.getHostAddress().toUpperCase(), addr);
+                    if (!addr.isLoopbackAddress()) LocalAddresses.put(addr.getHostAddress().toUpperCase(), addr);
                 }
             }
         }

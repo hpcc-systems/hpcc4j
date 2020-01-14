@@ -46,10 +46,10 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
  */
 public class HPCCWsStoreClient extends BaseHPCCWsClient
 {
-    //private static final Logger log                   = LogManager.getLogger(HPCCWsStoreClient.class);
-    public static final String        WSStoreWSDLURI    = "/wsstore";
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    // private static final Logger log = LogManager.getLogger(HPCCWsStoreClient.class);
+    public static final String WSStoreWSDLURI     = "/wsstore";
+    private static int         DEFAULTSERVICEPORT = -1;
+    private static String      WSDLURL            = null;
 
     private static void loadWSDLURL()
     {
@@ -97,14 +97,14 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
     public static HPCCWsStoreClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCWsStoreClient(conn);
     }
 
     public static HPCCWsStoreClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -125,7 +125,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     {
         try
         {
-            stub = setStubOptions(new WsstoreStub(connection.getBaseUrl()+WSStoreWSDLURI), connection);
+            stub = setStubOptions(new WsstoreStub(connection.getBaseUrl() + WSStoreWSDLURI), connection);
         }
         catch (AxisFault e)
         {
@@ -150,7 +150,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         WsstorePingRequest request = new WsstorePingRequest();
         try
         {
-            ((WsstoreStub)stub).ping(request);
+            ((WsstoreStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -160,21 +160,20 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return true;
     }
 
-    public String [] listNamespaces(String storename, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String[] listNamespaces(String storename, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
-        String namespaces [] = null;
+        String namespaces[] = null;
         ListNamespacesRequest request = new ListNamespacesRequest();
         request.setStoreName(storename);
         request.setUserSpecific(global);
         try
         {
-            ListNamespacesResponse response = ((WsstoreStub)stub).listNamespaces(request);
+            ListNamespacesResponse response = ((WsstoreStub) stub).listNamespaces(request);
             if (response.getExceptions() != null)
                 handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not list wsstore namespaces");
 
             Namespaces_type0 namespacesresp = response.getNamespaces();
-            if (namespacesresp != null)
-                namespaces = namespacesresp.getNamespace();
+            if (namespacesresp != null) namespaces = namespacesresp.getNamespace();
         }
         catch (RemoteException e)
         {
@@ -190,22 +189,21 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return namespaces;
     }
 
-    public String [] listNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String[] listNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
-        String keyset [] = null;
+        String keyset[] = null;
         ListKeysRequest request = new ListKeysRequest();
         request.setStoreName(storename);
         request.setNamespace(namespace);
         request.setUserSpecific(!global);
         try
         {
-            ListKeysResponse response = ((WsstoreStub)stub).listKeys(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not list keys for store: " + storename + " namespace: '" + namespace + "'");
+            ListKeysResponse response = ((WsstoreStub) stub).listKeys(request);
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could Not list keys for store: " + storename + " namespace: '" + namespace + "'");
 
             KeySet_type0 keysetresp = response.getKeySet();
-            if (keysetresp != null)
-                keyset = keysetresp.getKey();
+            if (keysetresp != null) keyset = keysetresp.getKey();
         }
         catch (RemoteException e)
         {
@@ -233,9 +231,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            FetchResponse response = ((WsstoreStub)stub).fetch(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Fetch value for store: " + storename + " namespace: '" + namespace + "'" + " key: '" + key + "'");
+            FetchResponse response = ((WsstoreStub) stub).fetch(request);
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could Fetch value for store: " + storename + " namespace: '" + namespace + "'" + " key: '" + key + "'");
 
             value = response.getValue();
         }
@@ -253,7 +251,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return value;
     }
 
-    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, Cipher cipher) throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, Cipher cipher)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         String value = fetchValue(storename, namespace, key, global);
 
@@ -274,12 +273,14 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param namespace
      * @param key
      * @param global
-     * @param secretKey - Must match the secret key used to encrypt this value
+     * @param secretKey
+     *            - Must match the secret key used to encrypt this value
      * @return
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
-    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, String secretKey)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return fetchValueEncrypted(storename, namespace, secretKey, global, CryptoHelper.createDefaultCipher(secretKey, false));
     }
@@ -296,9 +297,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            FetchKeyMDResponse response = ((WsstoreStub)stub).fetchKeyMetadata(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Fetch key meteadata for store: " + storename + " namespace: '" + namespace + "'" + " key: '" + key + "'");
+            FetchKeyMDResponse response = ((WsstoreStub) stub).fetchKeyMetadata(request);
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could Fetch key meteadata for store: " + storename + " namespace: '" + namespace + "'" + " key: '" + key + "'");
 
             Pairs_type1 pairs = response.getPairs();
             if (pairs != null)
@@ -333,9 +334,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            FetchAllResponse response = ((WsstoreStub)stub).fetchAll(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Fetch all namespaces keys for store: " + storename + " namespace: '" + namespace + "'");
+            FetchAllResponse response = ((WsstoreStub) stub).fetchAll(request);
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could Fetch all namespaces keys for store: " + storename + " namespace: '" + namespace + "'");
 
             Pairs_type0 pairs = response.getPairs();
             if (pairs != null)
@@ -370,9 +371,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            SetResponse response = ((WsstoreStub)stub).set(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not Set " + key + "=" + value + " for store: " + storename + " namespace: '" + namespace + "'");
+            SetResponse response = ((WsstoreStub) stub).set(request);
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could not Set " + key + "=" + value + " for store: " + storename + " namespace: '" + namespace + "'");
 
             return response.getSuccess();
         }
@@ -388,12 +389,14 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return false;
     }
 
-    public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, Cipher cipher) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, Cipher cipher)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return setValue(storename, namespace, key, CryptoHelper.encrypt(value, cipher), global);
     }
 
-    public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AESPKCS5Pad(value, secretKey), global);
     }
@@ -408,9 +411,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            DeleteResponse response = ((WsstoreStub)stub).delete(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not delete " + key + " for store: " + storename + " namespace: '" + namespace + "'");
+            DeleteResponse response = ((WsstoreStub) stub).delete(request);
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could not delete " + key + " for store: " + storename + " namespace: '" + namespace + "'");
 
             return response.getSuccess();
         }
@@ -436,9 +439,10 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            DeleteNamespaceResponse response = ((WsstoreStub)stub).deleteNamespace(request);
+            DeleteNamespaceResponse response = ((WsstoreStub) stub).deleteNamespace(request);
             if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not delete namespace" + storename + "." + namespace + " (" +(global == true ? "global" : (targetuser != null && !targetuser.isEmpty()) ? targetuser : "user") + ")");
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not delete namespace" + storename + "."
+                        + namespace + " (" + (global == true ? "global" : (targetuser != null && !targetuser.isEmpty()) ? targetuser : "user") + ")");
 
             return response.getSuccess();
         }
@@ -463,7 +467,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
         try
         {
-            CreateStoreResponse response = ((WsstoreStub)stub).createStore(request);
+            CreateStoreResponse response = ((WsstoreStub) stub).createStore(request);
             if (response.getExceptions() != null)
                 handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not create store " + storename);
 
@@ -481,6 +485,12 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new WsstoreStub();

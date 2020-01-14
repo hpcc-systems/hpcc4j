@@ -11,8 +11,8 @@ import javax.activation.DataHandler;
 import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.CreateFileResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspSoapFault;
@@ -33,13 +33,13 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
  */
 public class HPCCWsFileIOClient extends BaseHPCCWsClient
 {
-    private static final Logger         log = LogManager.getLogger(HPCCWsFileIOClient.class);
-    public static final String FILEIOWSDLURI         = "/WsFileIO";
+    private static final Logger log                    = LogManager.getLogger(HPCCWsFileIOClient.class);
+    public static final String  FILEIOWSDLURI          = "/WsFileIO";
 
-    private final int defaultUploadChunkSize = 5000000;
+    private final int           defaultUploadChunkSize = 5000000;
 
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    private static int          DEFAULTSERVICEPORT     = -1;
+    private static String       WSDLURL                = null;
 
     private static void loadWSDLURL()
     {
@@ -80,6 +80,12 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         return DEFAULTSERVICEPORT;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new WsFileIOStub();
@@ -92,14 +98,14 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
 
     public static HPCCWsFileIOClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCWsFileIOClient(conn);
     }
 
     public static HPCCWsFileIOClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -120,7 +126,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
     {
         try
         {
-            stub = setStubOptions(new WsFileIOStub(connection.getBaseUrl()+FILEIOWSDLURI), connection);
+            stub = setStubOptions(new WsFileIOStub(connection.getBaseUrl() + FILEIOWSDLURI), connection);
         }
         catch (AxisFault e)
         {
@@ -145,7 +151,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         WsFileIOPingRequest request = new WsFileIOPingRequest();
         try
         {
-            ((WsFileIOStub)stub).ping(request);
+            ((WsFileIOStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -156,11 +162,15 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
     }
 
     /**
-     * @param fileName             - The target HPCC file name
-     * @param targetLandingZone    - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
-     * @param overwritefile        - If the file exists, should it be overwritten?
+     * @param fileName
+     *            - The target HPCC file name
+     * @param targetLandingZone
+     *            - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
+     * @param overwritefile
+     *            - If the file exists, should it be overwritten?
      * @return
-     * @throws Exception           - Caller should handle exception in case of errors
+     * @throws Exception
+     *             - Caller should handle exception in case of errors
      * @throws ArrayOfEspExceptionWrapper
      */
     public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception, ArrayOfEspExceptionWrapper
@@ -168,7 +178,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         CreateFileRequest request = new CreateFileRequest();
 
@@ -179,46 +189,51 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         CreateFileResponse resp = null;
         try
         {
-            resp = ((WsFileIOStub)stub).createFile(request);
+            resp = ((WsFileIOStub) stub).createFile(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsDFUClient.createHPCCFile(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsDFUClient.createHPCCFile(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not createHPCCFile");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not createHPCCFile");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not createHPCCFile");
 
         String result = resp.getResult();
         log.info(result);
         // I wish there was a better way to do this
-        if (!result.startsWith("Fail"))
-            success = true;
+        if (!result.startsWith("Fail")) success = true;
 
         return success;
     }
 
     /**
-     * @param data                - The data to write
-     * @param fileName            - The target HPCC file to write to
-     * @param targetLandingZone   - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
-     * @param append              - Should this data be appended?
-     * @param offset              - At what offset should this be written - Specify 0 if necessary
-     * @param uploadchunksize     - Chunksize to upload the data
+     * @param data
+     *            - The data to write
+     * @param fileName
+     *            - The target HPCC file to write to
+     * @param targetLandingZone
+     *            - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
+     * @param append
+     *            - Should this data be appended?
+     * @param offset
+     *            - At what offset should this be written - Specify 0 if necessary
+     * @param uploadchunksize
+     *            - Chunksize to upload the data
      * @return
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
      */
-    public boolean writeHPCCFileData(byte [] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = true;
         log.debug("Attempting to write data to HPCC File: " + fileName);
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         WriteFileDataRequest request = new WriteFileDataRequest();
 
@@ -231,12 +246,12 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
         int payloadsize = 0;
         int bytesleft = data.length;
-        byte [] subdata = null;
+        byte[] subdata = null;
 
         while (bytesleft > 0)
         {
             payloadsize = bytesleft >= limit ? limit : bytesleft;
-            log.trace("Writing offset: "+dataindex+"\t size: " + payloadsize);
+            log.trace("Writing offset: " + dataindex + "\t size: " + payloadsize);
 
             subdata = Arrays.copyOfRange(data, dataindex, dataindex + payloadsize);
             dataindex += payloadsize;
@@ -245,18 +260,18 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
 
             request.setData(new DataHandler(ds));
             request.setAppend(dataindex > 0);
-            request.setOffset((long)dataindex);
+            request.setOffset((long) dataindex);
 
             try
             {
-                WriteFileDataResponse response = ((WsFileIOStub)stub).writeFileData(request);
+                WriteFileDataResponse response = ((WsFileIOStub) stub).writeFileData(request);
                 if (response.getExceptions() != null)
                     handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Failed to Write file");
 
                 String result = response.getResult();
                 log.debug(result);
 
-                //Wish there was a better way - https://track.hpccsystems.com/browse/HPCC-21293
+                // Wish there was a better way - https://track.hpccsystems.com/browse/HPCC-21293
                 if (!result.startsWith("Failed"))
                 {
                     success = true;
@@ -287,22 +302,21 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         ReadFileDataResponse resp = null;
         try
         {
-            resp = ((WsFileIOStub)stub).readFileData(readFileDataRequest);
+            resp = ((WsFileIOStub) stub).readFileData(readFileDataRequest);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsDFUClient.readFileData(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsDFUClient.readFileData(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not ReadFiledata");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not ReadFiledata");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not ReadFiledata");
 
         String result = resp.getResult();
-        if (result != null && !result.isEmpty() && !result.equals("ReadFileData done.")) //Account for ESP inline success/error
+        if (result != null && !result.isEmpty() && !result.equals("ReadFileData done.")) // Account for ESP inline success/error
         {
             throw new EspSoapFault("HPCCWsFileIOClient.readfiledata error received: " + result);
         }

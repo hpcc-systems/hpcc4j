@@ -11,8 +11,8 @@ import java.util.Map;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.BaseHPCCWsClient;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckinAttributeRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfCheckoutAttributeRequest;
@@ -45,7 +45,6 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeReque
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.UpdateAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.WsAttributesStub;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
@@ -53,12 +52,18 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.hpccsystems.ws.client.wrappers.GetAttributesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.GetAttributesWrapper;
 
+/**
+ * <p>
+ * HPCCWsAttributesClient class.
+ * </p>
+ */
 public class HPCCWsAttributesClient extends BaseHPCCWsClient
 {
-    private static final Logger                  log    = LogManager.getLogger(HPCCWsAttributesClient.class);
-    public static final String   WSATTRIBUTESWSDLURI    = "/WsAttributes";
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    private static final Logger log                 = LogManager.getLogger(HPCCWsAttributesClient.class);
+
+    public static final String  WSATTRIBUTESWSDLURI = "/WsAttributes";
+    private static int          DEFAULTSERVICEPORT  = -1;
+    private static String       WSDLURL             = null;
 
     private static void loadWSDLURL()
     {
@@ -74,11 +79,25 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * <p>
+     * getServiceURI.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public static String getServiceURI()
     {
         return WSATTRIBUTESWSDLURI;
     }
 
+    /**
+     * <p>
+     * getServiceWSDLURL.
+     * </p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public static String getServiceWSDLURL()
     {
         if (WSDLURL == null)
@@ -89,6 +108,13 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         return WSDLURL;
     }
 
+    /**
+     * <p>
+     * getServiceWSDLPort.
+     * </p>
+     *
+     * @return a int.
+     */
     public static int getServiceWSDLPort()
     {
         if (WSDLURL == null)
@@ -99,21 +125,66 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         return DEFAULTSERVICEPORT;
     }
 
+    /**
+     * <p>
+     * get.
+     * </p>
+     *
+     * @param connection
+     *            a {@link org.hpccsystems.ws.client.utils.Connection} object.
+     * @return a {@link org.hpccsystems.ws.client.extended.HPCCWsAttributesClient} object.
+     */
     public static HPCCWsAttributesClient get(Connection connection)
     {
         return new HPCCWsAttributesClient(connection);
     }
 
+    /**
+     * <p>
+     * get.
+     * </p>
+     *
+     * @param protocol
+     *            a {@link java.lang.String} object.
+     * @param targetHost
+     *            a {@link java.lang.String} object.
+     * @param targetPort
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param pass
+     *            a {@link java.lang.String} object.
+     * @return a {@link org.hpccsystems.ws.client.extended.HPCCWsAttributesClient} object.
+     */
     public static HPCCWsAttributesClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCWsAttributesClient(conn);
     }
 
+    /**
+     * <p>
+     * get.
+     * </p>
+     *
+     * @param protocol
+     *            a {@link java.lang.String} object.
+     * @param targetHost
+     *            a {@link java.lang.String} object.
+     * @param targetPort
+     *            a {@link java.lang.String} object.
+     * @param user
+     *            a {@link java.lang.String} object.
+     * @param pass
+     *            a {@link java.lang.String} object.
+     * @param timeout
+     *            a int.
+     * @return a {@link org.hpccsystems.ws.client.extended.HPCCWsAttributesClient} object.
+     */
     public static HPCCWsAttributesClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -121,6 +192,14 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         return new HPCCWsAttributesClient(conn);
     }
 
+    /**
+     * <p>
+     * Constructor for HPCCWsAttributesClient.
+     * </p>
+     *
+     * @param baseConnection
+     *            a {@link org.hpccsystems.ws.client.utils.Connection} object.
+     */
     protected HPCCWsAttributesClient(Connection baseConnection)
     {
         initWsAttributesClientStub(baseConnection);
@@ -134,7 +213,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
     {
         try
         {
-            stub = setStubOptions(new WsAttributesStub(connection.getBaseUrl()+WSATTRIBUTESWSDLURI), connection);
+            stub = setStubOptions(new WsAttributesStub(connection.getBaseUrl() + WSATTRIBUTESWSDLURI), connection);
         }
         catch (AxisFault e)
         {
@@ -160,13 +239,17 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param attributename
      *            - Attribute to check
      * @return true if the attribute exists, false if it does not
-     * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
      */
     public boolean attributeExists(String modulename, String attributename, String type) throws Exception, ArrayOfEspExceptionWrapper
     {
-        List<ECLAttributeWrapper>items = findItems(modulename, attributename, type, null, null, null);
-        if (items.size()>0)
+        List<ECLAttributeWrapper> items = findItems(modulename, attributename, type, null, null, null);
+        if (items.size() > 0)
         {
             return true;
         }
@@ -189,15 +272,24 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param changedSince
      *            - only return attributes changes since this time
      * @return a list of ECLAttributeInfo
+     *         <<<<<<< HEAD
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext, String changedSince) throws Exception, ArrayOfEspExceptionWrapper
+    public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext,
+            String changedSince) throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); //Throws if stub not available
+        verifyStub(); // Throws if stub not available
 
-        if (modulename == null && attributename == null && username == null &&
-                type==null && anytext == null && changedSince == null)
+        if (modulename == null && attributename == null && username == null && type == null && anytext == null && changedSince == null)
         {
             throw new Exception("At least one find criteria is required.");
         }
@@ -218,7 +310,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         }
         if (type != null)
         {
-            String[] types=type.split(",");
+            String[] types = type.split(",");
             EspStringArray typelist = new EspStringArray();
             typelist.setItem(types);
             params.setTypeList(typelist);
@@ -232,11 +324,11 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         try
         {
-            resp = ((WsAttributesStub)stub).findAttributes(params);
+            resp = ((WsAttributesStub) stub).findAttributes(params);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsAttributesClient findItems encountered RemoteException.", e);
+            throw new Exception("HPCCWsAttributesClient findItems encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -252,7 +344,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             if (resp.getOutAttributes() != null)
             {
                 ECLAttribute[] eclAttribute = resp.getOutAttributes().getECLAttribute();
-                for (int i=0; i < eclAttribute.length;i++)
+                for (int i = 0; i < eclAttribute.length; i++)
                 {
                     results.add(new ECLAttributeWrapper(eclAttribute[i]));
                 }
@@ -269,12 +361,21 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param attributename
      *            - attribute name of the attribute
      * @return text contained by the attribute
+     *         <<<<<<< HEAD
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public String getAttributeText(String modulename, String attributename,String type) throws Exception, ArrayOfEspExceptionWrapper
+    public String getAttributeText(String modulename, String attributename, String type) throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); //Throws if stub not available
+        verifyStub(); // Throws if stub not available
 
         GetAttribute params = new GetAttribute();
 
@@ -287,11 +388,11 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsAttributesStub)stub).getAttribute(params);
+            response = ((WsAttributesStub) stub).getAttribute(params);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsAttributesClient getAttributeTest encountered RemoteException.", e);
+            throw new Exception("HPCCWsAttributesClient getAttributeTest encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -323,10 +424,18 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param newattributename
      *            - new attribute name to rename attribute to
      * @return ECL attribute of the renamed attribute
+     *         <<<<<<< HEAD
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename) throws Exception, ArrayOfEspExceptionWrapper
+    public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         if ((modulename == null && newmodulename != null) || (newmodulename == null && modulename != null))
         {
@@ -338,7 +447,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             throw new Exception("If attributename or newattributename is specified, both must be specified");
         }
 
-        verifyStub(); //Throws if stub not available
+        verifyStub(); // Throws if stub not available
 
         RenameAttributeRequest req = new RenameAttributeRequest();
 
@@ -357,11 +466,11 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsAttributesStub)stub).renameAttributes(request);
+            response = ((WsAttributesStub) stub).renameAttributes(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsAttributesClient renameAttribute encountered RemoteException.", e);
+            throw new Exception("HPCCWsAttributesClient renameAttribute encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -377,25 +486,46 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             if (outAttributes != null)
             {
                 ECLAttribute[] eclAttributes = outAttributes.getECLAttribute();
-                if (eclAttributes != null && eclAttributes.length == 1)
-                return eclAttributes[0];
+                if (eclAttributes != null && eclAttributes.length == 1) return eclAttributes[0];
             }
         }
         return null;
     }
 
     /**
-     * @param in - a list of ECLAttributeInfo objects to create or update
-     * @param checkoutin - if true, check out before updating and check in afterwards
-     * @param checkindesc - if checkoutin is true, this is the checkin message
+     * <<<<<<< HEAD
+     * @param in
+     *            - a list of ECLAttributeInfo objects to create or update
+     * @param checkoutin
+     *            - if true, check out before updating and check in afterwards
+     * @param checkindesc
+     *            - if checkoutin is true, this is the checkin message
      * @return - a list of updated eclattributeinfo objects
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     *             <p>
+     *             createOrUpdateAttributes.
+     *             </p>
+     *
+     * @param in
+     *            - a list of ECLAttributeInfo objects to create or update
+     * @param checkoutin
+     *            - if true, check out before updating and check in afterwards
+     * @param checkindesc
+     *            - if checkoutin is true, this is the checkin message
+     * @return - a list of updated eclattributeinfo objects
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
+    public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
-        List<ECLAttributeWrapper> result=new ArrayList<ECLAttributeWrapper>();
-        if (in==null || in.size()==0)
+        List<ECLAttributeWrapper> result = new ArrayList<ECLAttributeWrapper>();
+        if (in == null || in.size() == 0)
         {
             return result;
         }
@@ -405,9 +535,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
 
-        //validate items to be created
-        String allers="";
-        for (ECLAttributeWrapper item: in)
+        // validate items to be created
+        String allers = "";
+        for (ECLAttributeWrapper item : in)
         {
             try
             {
@@ -415,7 +545,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             }
             catch (Exception e)
             {
-                allers=allers + e.getMessage() + "\n";
+                allers = allers + e.getMessage() + "\n";
             }
         }
         if (!allers.isEmpty())
@@ -423,42 +553,42 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             throw new Exception(allers);
         }
 
-        //get a cached copy of the modules being updated to check whether items must be created
-        //convert objects to needed create/update soap object arrays
-        Map<String,List<String>> founditems = new HashMap<String,List<String>>();
+        // get a cached copy of the modules being updated to check whether items must be created
+        // convert objects to needed create/update soap object arrays
+        Map<String, List<String>> founditems = new HashMap<String, List<String>>();
         List<CreateAttribute> tocreate = new ArrayList<CreateAttribute>();
         SaveAttributeRequest[] toupdate = new SaveAttributeRequest[in.size()];
         CheckoutAttributeRequest[] tocheckout = new CheckoutAttributeRequest[in.size()];
         CheckinAttributeRequest[] tocheckin = new CheckinAttributeRequest[in.size()];
-        for (int i=0; i < in.size();i++)
+        for (int i = 0; i < in.size(); i++)
         {
             ECLAttributeWrapper item = in.get(i);
             if (!founditems.containsKey(item.getModuleName().toLowerCase()))
             {
-                List<ECLAttributeWrapper> found = this.findItems(item.getModuleName(),null,null,null,null,null);
-                List<String> cache=new ArrayList<String>();
+                List<ECLAttributeWrapper> found = this.findItems(item.getModuleName(), null, null, null, null, null);
+                List<String> cache = new ArrayList<String>();
                 for (ECLAttributeWrapper f : found)
                 {
                     cache.add(f.getUniqueName());
                 }
-                founditems.put(item.getModuleName().toLowerCase(),cache);
+                founditems.put(item.getModuleName().toLowerCase(), cache);
             }
 
             if (!founditems.get(item.getModuleName().toLowerCase()).contains(item.getUniqueName()))
             {
                 tocreate.add(item.toCreateAttribute());
             }
-            toupdate [i] = item.toSaveAttributeRequest();
-            tocheckout [i] = item.toCheckoutAttributeRequest();
-            tocheckin [i] = item.toCheckinAttributeRequest(checkindesc);
+            toupdate[i] = item.toSaveAttributeRequest();
+            tocheckout[i] = item.toCheckoutAttributeRequest();
+            tocheckin[i] = item.toCheckinAttributeRequest(checkindesc);
         }
 
-        //create nonexistant attributes
+        // create nonexistant attributes
         verifyStub();
 
         for (CreateAttribute req : tocreate)
         {
-            CreateAttributeResponse resp = ((WsAttributesStub)stub).createAttribute(req);
+            CreateAttributeResponse resp = ((WsAttributesStub) stub).createAttribute(req);
             if (resp != null)
             {
                 if (resp.getExceptions() != null)
@@ -468,7 +598,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             log.trace("Created " + req.getType() + " attribute " + req.getModuleName() + "." + req.getAttributeName());
         }
 
-        //check out attributes
+        // check out attributes
         if (checkoutin)
         {
             CheckoutAttributes params = new CheckoutAttributes();
@@ -477,43 +607,41 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             tocheckoutatts.setCheckoutAttributeRequest(tocheckout);
             params.setAttributes(tocheckoutatts);
 
-            UpdateAttributesResponse resp = ((WsAttributesStub)stub).checkoutAttributes(params);
+            UpdateAttributesResponse resp = ((WsAttributesStub) stub).checkoutAttributes(params);
 
             if (resp != null)
             {
-                if (resp.getExceptions() != null)
-                    handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+                if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
             }
         }
 
-        //update attributes
+        // update attributes
         SaveAttributes params = new SaveAttributes();
 
         ArrayOfSaveAttributeRequest toupdateatts = new ArrayOfSaveAttributeRequest();
         toupdateatts.setSaveAttributeRequest(toupdate);
         params.setAttributes(toupdateatts);
 
-        UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(params);
+        UpdateAttributesResponse resp = ((WsAttributesStub) stub).saveAttributes(params);
         if (resp != null)
         {
             if (resp != null)
             {
-                if (resp.getExceptions() != null)
-                    handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+                if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
             }
 
             ArrayOfECLAttribute outAttributes = resp.getOutAttributes();
             if (outAttributes != null)
             {
                 ECLAttribute[] eclAttributes = outAttributes.getECLAttribute();
-                for (int i=0; i < eclAttributes.length; i++)
+                for (int i = 0; i < eclAttributes.length; i++)
                 {
                     result.add(new ECLAttributeWrapper(eclAttributes[i]));
                 }
             }
         }
 
-        //check in attributes
+        // check in attributes
         if (checkoutin)
         {
             CheckinAttributes inparams = new CheckinAttributes();
@@ -522,12 +650,11 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             tocheckinatts.setCheckinAttributeRequest(tocheckin);
             inparams.setAttributes(tocheckinatts);
 
-            UpdateAttributesResponse upresp = ((WsAttributesStub)stub).checkinAttributes(inparams);
+            UpdateAttributesResponse upresp = ((WsAttributesStub) stub).checkinAttributes(inparams);
 
             if (upresp != null)
             {
-                if (upresp.getExceptions() != null)
-                    handleEspExceptions(new ArrayOfEspExceptionWrapper(upresp.getExceptions()));
+                if (upresp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(upresp.getExceptions()));
             }
         }
 
@@ -537,16 +664,34 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
     /**
      * Create/Update an attribute in a legacy repository
      *
-     * @param ECLAttributeItem - with the module/attribute/type/text to create or update
-     * @param checkoutin - whether to check the attribute out/in before doing this
-     * @param checkindesc - if checkoutin=true, the description to append to the checkin
+     * <<<<<<< HEAD
+     * @param ECLAttributeItem
+     *            - with the module/attribute/type/text to create or update
+     * @param checkoutin
+     *            - whether to check the attribute out/in before doing this
+     * @param checkindesc
+     *            - if checkoutin=true, the description to append to the checkin
      * @return updated ECLAttributeItem for created/updated item
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @param item
+     *            with the module/attribute/type/text to create or update
+     * @param checkoutin
+     *            whether to check the attribute out/in before doing this
+     * @param checkindesc
+     *            if checkoutin=true, the description to append to the checkin
+     * @return updated ECLAttributeItem for created/updated item
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
+    public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (item==null)
+        if (item == null)
         {
             return null;
         }
@@ -560,20 +705,19 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
 
         verifyStub();
 
-        if (!this.attributeExists(item.getModuleName(),item.getName(),item.getType()))
+        if (!this.attributeExists(item.getModuleName(), item.getName(), item.getType()))
         {
-            CreateAttributeResponse response = ((WsAttributesStub)stub).createAttribute(item.toCreateAttribute());
+            CreateAttributeResponse response = ((WsAttributesStub) stub).createAttribute(item.toCreateAttribute());
             if (response != null)
             {
-                if (response.getExceptions() != null)
-                    handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+                if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
             }
             log.trace("Created " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());
         }
 
         if (checkoutin)
         {
-            this.checkoutAttribute(item.getModuleName(),item.getName());
+            this.checkoutAttribute(item.getModuleName(), item.getName());
         }
 
         SaveAttributeRequest[] arr = { item.toSaveAttributeRequest() };
@@ -582,12 +726,11 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         arrayofattributes.setSaveAttributeRequest(arr);
         params.setAttributes(arrayofattributes);
 
-        UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(params);
+        UpdateAttributesResponse resp = ((WsAttributesStub) stub).saveAttributes(params);
         log.trace("Updated text of " + item.getType() + " attribute " + item.getModuleName() + "." + item.getName());
         if (resp != null)
         {
-            if (resp.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
 
             if (checkoutin)
             {
@@ -597,8 +740,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             if (resp.getOutAttributes() != null)
             {
                 ECLAttribute[] eclAttributes = resp.getOutAttributes().getECLAttribute();
-                if (eclAttributes != null && eclAttributes.length > 0)
-                    return new ECLAttributeWrapper(eclAttributes[0]);
+                if (eclAttributes != null && eclAttributes.length > 0) return new ECLAttributeWrapper(eclAttributes[0]);
             }
         }
 
@@ -618,11 +760,22 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *            - whether to check the attribute out/in before doing this
      * @param checkindesc
      *            - if checkoutin=true, the description to append to the checkin
+     *            <<<<<<< HEAD
      * @return
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @return ecl attribute information
+     * @param type
+     *            a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
+    public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         if (checkoutin == null)
         {
@@ -637,7 +790,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             throw new Exception("Checkin comment is required if checking attribute out / in");
         }
-        if (!this.attributeExists(modulename, attributename,type))
+        if (!this.attributeExists(modulename, attributename, type))
         {
             throw new FileNotFoundException("Cannot update " + modulename + "." + attributename + ", attribute does not exist");
         }
@@ -660,11 +813,10 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         SaveAttributes saveattributes = new SaveAttributes();
         saveattributes.setAttributes(arrayofatts);
 
-        UpdateAttributesResponse resp = ((WsAttributesStub)stub).saveAttributes(saveattributes);
+        UpdateAttributesResponse resp = ((WsAttributesStub) stub).saveAttributes(saveattributes);
         if (resp != null)
         {
-            if (resp.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
 
             if (checkoutin)
             {
@@ -673,8 +825,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
             if (resp.getOutAttributes() != null)
             {
                 ECLAttribute[] eclAttributes = resp.getOutAttributes().getECLAttribute();
-                if (eclAttributes != null && eclAttributes.length > 0)
-                    return eclAttributes[0];
+                if (eclAttributes != null && eclAttributes.length > 0) return eclAttributes[0];
             }
         }
 
@@ -691,8 +842,15 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - check in comment
      * @return ECLAttribute of checked in attribute
+     *         <<<<<<< HEAD
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
     public ECLAttribute checkinAttribute(String modulename, String attributename, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -718,21 +876,19 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         arrayofcheckinatts.setCheckinAttributeRequest(arr);
         params.setAttributes(arrayofcheckinatts);
 
-        UpdateAttributesResponse response = ((WsAttributesStub)stub).checkinAttributes(params);
+        UpdateAttributesResponse response = ((WsAttributesStub) stub).checkinAttributes(params);
 
         if (response == null)
         {
             return null;
         }
 
-        if (response.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+        if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
 
         if (response.getOutAttributes() != null)
         {
             ECLAttribute[] eclAttributes = response.getOutAttributes().getECLAttribute();
-            if (eclAttributes != null && eclAttributes.length > 0)
-                return eclAttributes[0];
+            if (eclAttributes != null && eclAttributes.length > 0) return eclAttributes[0];
         }
         return null;
     }
@@ -745,8 +901,15 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param attributename
      *            - attribute to check out
      * @return ECLAttribute of checked out attribute
+     *         <<<<<<< HEAD
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
     public ECLAttribute checkoutAttribute(String modulename, String attributename) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -767,20 +930,18 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         arrayofCheckoutAtts.setCheckoutAttributeRequest(arr);
         params.setAttributes(arrayofCheckoutAtts);
 
-        UpdateAttributesResponse response = ((WsAttributesStub)stub).checkoutAttributes(params);
+        UpdateAttributesResponse response = ((WsAttributesStub) stub).checkoutAttributes(params);
         if (response == null)
         {
             return null;
         }
 
-        if (response.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+        if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
 
         if (response.getOutAttributes() != null)
         {
             ECLAttribute[] eclAttributes = response.getOutAttributes().getECLAttribute();
-            if (eclAttributes != null && eclAttributes.length > 0)
-                return eclAttributes[0];
+            if (eclAttributes != null && eclAttributes.length > 0) return eclAttributes[0];
         }
         return null;
     }
@@ -799,10 +960,18 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - checkin comment. Required if checkin=true
      * @return the ECL Attribute of the created object
+     *         <<<<<<< HEAD
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
-    public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
+    public ECLAttribute createAttribute(String modulename, String attributename, String type, String text, Boolean checkin, String checkindesc)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         if (checkin == null)
         {
@@ -816,7 +985,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         {
             throw new Exception("Checkin comment is required if checking attribute in");
         }
-        if (this.attributeExists(modulename, attributename,type))
+        if (this.attributeExists(modulename, attributename, type))
         {
             throw new Exception(modulename + "." + attributename + " already exists");
         }
@@ -828,24 +997,33 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         req.setAttributeName(attributename);
         req.setType(type);
 
-        CreateAttributeResponse response = ((WsAttributesStub)stub).createAttribute(req);
+        CreateAttributeResponse response = ((WsAttributesStub) stub).createAttribute(req);
         if (response == null)
         {
             return null;
         }
-        if (response.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+        if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
 
         ECLAttribute attr = updateAttribute(modulename, attributename, type, text, checkin, checkindesc);
         return attr;
     }
 
-
     /**
      * Delete a module from the remote repository
-     * @param modulename - name of module to delete
+     * <<<<<<< HEAD
+     * @param modulename
+     *            - name of module to delete
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
+     *             =======
+     *
+     * @param modulename
+     *            - name of module to delete
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
+     *             >>>>>>> JAPI-192 Fix javadoc warnings
      */
     public void deleteModule(String modulename) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -854,19 +1032,24 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         DeleteModule parameters = new DeleteModule();
         parameters.setModuleName(modulename);
 
-        DeleteModuleResponse response = ((WsAttributesStub)stub).deleteModule(parameters);
-        if (response.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
+        DeleteModuleResponse response = ((WsAttributesStub) stub).deleteModule(parameters);
+        if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()));
     }
 
     /**
      * delete an attribute from the remote repository
-     * @param modulename - name of module for attribute to delete
-     * @param attributename - name of attribute to delete
-     * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper
+     *
+     * @param modulename
+     *            - name of module for attribute to delete
+     * @param attributename
+     *            - name of attribute to delete
+     * @return a {@link java.util.List} object.
+     * @throws java.lang.Exception
+     *             if any.
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             if any.
      */
-    public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception, ArrayOfEspExceptionWrapper
+    public List<ECLAttributeWrapper> deleteAttribute(String modulename, String attributename) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -876,21 +1059,20 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         dar.setAttributeName(attributename);
         dar.setModuleName(modulename);
 
-        DeleteAttributeRequest[] arr = new DeleteAttributeRequest[]{dar};
+        DeleteAttributeRequest[] arr = new DeleteAttributeRequest[] { dar };
         ArrayOfDeleteAttributeRequest arrayofdeleteatts = new ArrayOfDeleteAttributeRequest();
         arrayofdeleteatts.setDeleteAttributeRequest(arr);
         parameters.setAttributes(arrayofdeleteatts);
 
-        UpdateAttributesResponse resp = ((WsAttributesStub)stub).deleteAttributes(parameters);
+        UpdateAttributesResponse resp = ((WsAttributesStub) stub).deleteAttributes(parameters);
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()));
 
-        List<ECLAttributeWrapper> results=new ArrayList<ECLAttributeWrapper>();
+        List<ECLAttributeWrapper> results = new ArrayList<ECLAttributeWrapper>();
         if (resp.getOutAttributes() != null)
         {
             ECLAttribute[] arrayOfECLAttribute = resp.getOutAttributes().getECLAttribute();
-            for (int i=0; i < arrayOfECLAttribute.length; i++)
+            for (int i = 0; i < arrayOfECLAttribute.length; i++)
             {
                 results.add(new ECLAttributeWrapper(arrayOfECLAttribute[i]));
             }
@@ -898,6 +1080,21 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         return results;
     }
 
+    /**
+     * <p>
+     * getAttributes.
+     * </p>
+     *
+     * @param label
+     *            a {@link java.lang.String} object.
+     * @param modulename
+     *            a {@link java.lang.String} object.
+     * @param typelist
+     *            a {@link org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspStringArray} object.
+     * @return a {@link org.hpccsystems.ws.client.wrappers.GetAttributesResponseWrapper} object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
     public GetAttributesResponseWrapper getAttributes(String label, String modulename, EspStringArray typelist) throws Exception
     {
         GetAttributes request = new GetAttributes();
@@ -909,6 +1106,17 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         return getAttributes(new GetAttributesWrapper(request));
     }
 
+    /**
+     * <p>
+     * getAttributes.
+     * </p>
+     *
+     * @param request
+     *            a {@link org.hpccsystems.ws.client.wrappers.GetAttributesWrapper} object.
+     * @return a {@link org.hpccsystems.ws.client.wrappers.GetAttributesResponseWrapper} object.
+     * @throws java.lang.Exception
+     *             if any.
+     */
     public GetAttributesResponseWrapper getAttributes(GetAttributesWrapper request) throws Exception
     {
         verifyStub();
@@ -916,11 +1124,11 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
         GetAttributesResponse response = null;
         try
         {
-            response = ((WsAttributesStub)stub).getAttributes(request.getRaw());
+            response = ((WsAttributesStub) stub).getAttributes(request.getRaw());
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsAttributes.getAttributes() encountered RemoteException.", e);
+            throw new Exception("HPCCWsAttributes.getAttributes() encountered RemoteException.", e);
         }
 
         if (response != null && response.getExceptions() != null)

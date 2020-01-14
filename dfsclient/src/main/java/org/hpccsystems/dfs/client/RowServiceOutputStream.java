@@ -13,26 +13,24 @@
 package org.hpccsystems.dfs.client;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.io.OutputStream;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.json.JSONObject;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
-import org.hpccsystems.commons.errors.HpccFileException;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.commons.ecl.FieldDef;
+import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 
 public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
-    private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;       // 1 second connection timeout
+    private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;                                              // 1 second connection timeout
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
     private String               rowServiceIP                  = null;
@@ -51,7 +49,7 @@ public class RowServiceOutputStream extends OutputStream
     /**
      * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
      * Assumes SSL connection required/available
-     * @deprecated -- use  8 param version instead which contains optional useSSL param
+     * @deprecated -- use 8 param version instead which contains optional useSSL param
      * @param ip
      * @param port
      * @param accessToken
@@ -62,9 +60,10 @@ public class RowServiceOutputStream extends OutputStream
      * @throws Exception
      */
     @Deprecated
-    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
+    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression) throws Exception
     {
-        this(ip,port,true,accessToken,recordDef,filePartIndex, filePartPath, fileCompression);
+        this(ip, port, true, accessToken, recordDef, filePartIndex, filePartPath, fileCompression);
     }
 
     /**
@@ -80,7 +79,8 @@ public class RowServiceOutputStream extends OutputStream
      * @param fileCompression
      * @throws Exception
      */
-    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression) throws Exception
     {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
@@ -138,19 +138,10 @@ public class RowServiceOutputStream extends OutputStream
     {
         String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.recordDef).toString();
 
-        String initialRequest = 
-        "\n{\n" +
-        "    \"format\" : \"binary\",\n" +
-        "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n" +
-        "    \"node\" : {\n" +
-        "        \"kind\" : \"diskwrite\",\n" +
-        "        \"metaInfo\" : \"" + this.accessToken + "\",\n" +
-        "        \"fileName\" : \"" + this.filePath + "\",\n" +
-        "        \"filePart\" : \"" + this.filePartIndex + "\",\n" +
-        "        \"compressed\" : \"" + this.compressionAlgo + "\",\n" +
-        "        \"input\" : " + jsonRecordDef + "\n" +
-        "    }\n" +
-        "}\n";
+        String initialRequest = "\n{\n" + "    \"format\" : \"binary\",\n" + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
+                + "    \"node\" : {\n" + "        \"kind\" : \"diskwrite\",\n" + "        \"metaInfo\" : \"" + this.accessToken + "\",\n"
+                + "        \"fileName\" : \"" + this.filePath + "\",\n" + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
+                + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n" + "        \"input\" : " + jsonRecordDef + "\n" + "    }\n" + "}\n";
 
         // Resize scratch buffer if necessary
         byte[] jsonRequestData = initialRequest.getBytes("ISO-8859-1");
@@ -214,22 +205,26 @@ public class RowServiceOutputStream extends OutputStream
         this.handle = this.scratchBuffer.getInt();
     }
 
+    @Override
     public void close() throws IOException
     {
         this.flush();
         this.socket.close();
     }
 
+    @Override
     public void flush() throws IOException
     {
         this.socket.getOutputStream().flush();
     }
 
+    @Override
     public void write(byte[] b) throws IOException
     {
         this.write(b, 0, b.length);
     }
 
+    @Override
     public void write(byte[] b, int off, int len) throws IOException
     {
         String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\" }";
@@ -257,9 +252,10 @@ public class RowServiceOutputStream extends OutputStream
         this.readResponse();
     }
 
+    @Override
     public void write(int b) throws IOException
     {
         this.scratchBuffer.array()[0] = (byte) b;
         this.write(scratchBuffer.array(), 0, 1);
     }
-} 
+}

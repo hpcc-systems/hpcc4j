@@ -23,21 +23,28 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CryptoHelper
 {
-    private final static Logger log = LogManager.getLogger(CryptoHelper.class);
+    /** The Constant log. */
+    private final static Logger             log                         = LogManager.getLogger(CryptoHelper.class);
 
-    public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM = DigestAlgorithmType.SHA512;
-    public final static String DEFAULT_SECRETKEY_ALGORITHM = "AES";
-    public final static int DEFAULT_AES_SECRETKEY_LEN = 16;
-    public final static String DEFAULT_CIPHER_MODE = "AES/ECB/PKCS5PADDING";
+    /** Constant <code>DEFAULT_DIGEST_ALGORITHM</code>. */
+    public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM    = DigestAlgorithmType.SHA512;
+
+    /** Constant <code>DEFAULT_SECRETKEY_ALGORITHM="AES"</code>. */
+    public final static String              DEFAULT_SECRETKEY_ALGORITHM = "AES";
+
+    /** Constant <code>DEFAULT_AES_SECRETKEY_LEN=16</code>. */
+    public final static int                 DEFAULT_AES_SECRETKEY_LEN   = 16;
+
+    /** Constant <code>DEFAULT_CIPHER_MODE="AES/ECB/PKCS5PADDING"</code>. */
+    public final static String              DEFAULT_CIPHER_MODE         = "AES/ECB/PKCS5PADDING";
 
     public static SecretKeySpec createSHA512AESSecretKey(String digestInput)
     {
@@ -47,7 +54,8 @@ public class CryptoHelper
     /**
      *
      * @param utf8DigestInput
-     * @param digestAlgorithm  DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
+     * @param digestAlgorithm
+     *            DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
      * @param secretKeyAlgorithm
      * @return
      */
@@ -63,7 +71,7 @@ public class CryptoHelper
             int aesKeySize = DEFAULT_AES_SECRETKEY_LEN;
             if (secretKeyAlgorithm.equalsIgnoreCase("AES"))
             {
-                //AES only supports key sizes of 16, 24 or 32 bytes.
+                // AES only supports key sizes of 16, 24 or 32 bytes.
                 switch (digestAlgorithm)
                 {
                     case SHA512:
@@ -124,34 +132,36 @@ public class CryptoHelper
 
     /*
      *
-        AES/CBC/NoPadding (128)
-        AES/CBC/PKCS5Padding (128)
-        AES/ECB/NoPadding (128)
-        AES/ECB/PKCS5Padding (128)
-        DES/CBC/NoPadding (56)
-        DES/CBC/PKCS5Padding (56)
-        DES/ECB/NoPadding (56)
-        DES/ECB/PKCS5Padding (56)
-        DESede/CBC/NoPadding (168)
-        DESede/CBC/PKCS5Padding (168)
-        DESede/ECB/NoPadding (168)
-        DESede/ECB/PKCS5Padding (168)
-        RSA/ECB/PKCS1Padding (1024, 2048)
-        RSA/ECB/OAEPWithSHA-1AndMGF1Padding (1024, 2048)
-        RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048)
+     * AES/CBC/NoPadding (128)
+     * AES/CBC/PKCS5Padding (128)
+     * AES/ECB/NoPadding (128)
+     * AES/ECB/PKCS5Padding (128)
+     * DES/CBC/NoPadding (56)
+     * DES/CBC/PKCS5Padding (56)
+     * DES/ECB/NoPadding (56)
+     * DES/ECB/PKCS5Padding (56)
+     * DESede/CBC/NoPadding (168)
+     * DESede/CBC/PKCS5Padding (168)
+     * DESede/ECB/NoPadding (168)
+     * DESede/ECB/PKCS5Padding (168)
+     * RSA/ECB/PKCS1Padding (1024, 2048)
+     * RSA/ECB/OAEPWithSHA-1AndMGF1Padding (1024, 2048)
+     * RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048)
      */
 
     /**
-     * @param secretKey       The key to use for encrypting/decrypting
-     * @param cipherAlgorithm AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
-     * @param encryptMode     true=encrypt, false=decrypt
+     * @param secretKey
+     *            The key to use for encrypting/decrypting
+     * @param cipherAlgorithm
+     *            AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
+     * @param encryptMode
+     *            true=encrypt, false=decrypt
      * @return
      * @throws Exception
      */
     public static Cipher createCipher(SecretKeySpec secretKey, String cipherAlgorithm, boolean encryptMode) throws Exception
     {
-        if (secretKey == null)
-            throw new Exception("Must provide SecretKeySpec");
+        if (secretKey == null) throw new Exception("Must provide SecretKeySpec");
 
         if (cipherAlgorithm == null || cipherAlgorithm.isEmpty())
             throw new Exception("Must provide cipher algorithm (AES, AES/CBC/PKCS5Padding, etc.");

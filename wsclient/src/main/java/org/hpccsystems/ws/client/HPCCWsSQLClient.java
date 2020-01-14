@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfNamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException;
@@ -47,16 +47,16 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
  * Use as soap client for HPCC WsSQL web service.
  *
  */
-public class HPCCWsSQLClient  extends BaseHPCCWsClient
+public class HPCCWsSQLClient extends BaseHPCCWsClient
 {
-    private static final Logger    log                   = LogManager.getLogger(HPCCWsSQLClient.class);
-    public static final String     WSSQLURI              = "/WsSQL";
-    private static final int       DEFAULT_RESULT_LIMIT  = 100;
-    private static final String    PINGSTATEMENT         = "HPCCWsSQLClient Greets you.";
-    private Version version = null;
+    private static final Logger log                  = LogManager.getLogger(HPCCWsSQLClient.class);
+    public static final String  WSSQLURI             = "/WsSQL";
+    private static final int    DEFAULT_RESULT_LIMIT = 100;
+    private static final String PINGSTATEMENT        = "HPCCWsSQLClient Greets you.";
+    private Version             version              = null;
 
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    private static int          DEFAULTSERVICEPORT   = -1;
+    private static String       WSDLURL              = null;
 
     private static void loadWSDLURL()
     {
@@ -104,14 +104,14 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
     public static HPCCWsSQLClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCWsSQLClient(conn);
     }
 
     public static HPCCWsSQLClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -127,9 +127,12 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL   Target service base URL
-     * @param user      User credentials
-     * @param pass      User credentials
+     * @param baseURL
+     *            Target service base URL
+     * @param user
+     *            User credentials
+     * @param pass
+     *            User credentials
      */
     @SuppressWarnings("static-access")
     private void initHPCCWsSQLClientStub(Connection connection)
@@ -138,7 +141,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
         try
         {
-            stub = setStubOptions(new WssqlStub(connection.getUrl()+this.WSSQLURI), connection);
+            stub = setStubOptions(new WssqlStub(connection.getUrl() + this.WSSQLURI), connection);
         }
         catch (Exception e)
         {
@@ -159,7 +162,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
         try
         {
-            ((WssqlStub)stub).ping(request);
+            ((WssqlStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -182,15 +185,14 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         }
     }
 
-    public String [] getTargetClusters(String filter) throws Exception, ArrayOfEspExceptionWrapper
+    public String[] getTargetClusters(String filter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
         GetDBMetaDataRequest request = new GetDBMetaDataRequest();
 
         request.setIncludeTargetClusters(true);
-        if (filter != null)
-            request.setClusterType(filter);
+        if (filter != null) request.setClusterType(filter);
 
         request.setIncludeStoredProcedures(false);
         request.setIncludeTables(false);
@@ -199,30 +201,29 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
         try
         {
-            resp = ((WssqlStub)stub).getDBMetaData(request);
+            resp = ((WssqlStub) stub).getDBMetaData(request);
         }
         catch (RemoteException e)
         {
-            log.error("HPCCWsSQL.getTargetClusters("+filter+") encountered RemoteException.\n" + e.getLocalizedMessage());
+            log.error("HPCCWsSQL.getTargetClusters(" + filter + ") encountered RemoteException.\n" + e.getLocalizedMessage());
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "HPCCWsSQL.getTargetClusters("+filter+") encountered RemoteException.");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
+                "HPCCWsSQL.getTargetClusters(" + filter + ") encountered RemoteException.");
 
         return resp.getClusterNames().getClusterName();
     }
 
-    public HPCCTableWrapper [] getTables(String filter) throws Exception, ArrayOfEspExceptionWrapper
+    public HPCCTableWrapper[] getTables(String filter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
-        HPCCTableWrapper [] result = null;
+        HPCCTableWrapper[] result = null;
 
         GetDBMetaDataRequest request = new GetDBMetaDataRequest();
 
         request.setIncludeTables(true);
-        if (filter != null)
-            request.setTableFilter(filter);
+        if (filter != null) request.setTableFilter(filter);
 
         request.setIncludeStoredProcedures(false);
         request.setIncludeTargetClusters(false);
@@ -231,29 +232,29 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
         try
         {
-            resp = ((WssqlStub)stub).getDBMetaData(request);
+            resp = ((WssqlStub) stub).getDBMetaData(request);
         }
         catch (RemoteException e)
         {
-            log.error("HPCCWsSQL.getTables("+filter+") encountered RemoteException.\n" + e.getLocalizedMessage());
+            log.error("HPCCWsSQL.getTables(" + filter + ") encountered RemoteException.\n" + e.getLocalizedMessage());
         }
 
         if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not get Tables("+filter+").");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not get Tables(" + filter + ").");
 
         if (resp.getTables() != null)
         {
             HPCCTable[] hpccTables = resp.getTables().getTable();
             if (hpccTables != null && hpccTables.length > 0)
             {
-                result = new HPCCTableWrapper [hpccTables.length];
+                result = new HPCCTableWrapper[hpccTables.length];
                 for (int i = 0; i < hpccTables.length; i++)
                 {
                     result[i] = new HPCCTableWrapper(hpccTables[i]);
                 }
             }
         }
-        return  result;
+        return result;
     }
 
     public HPCCQuerySetWrapper[] getStoredProcedures(String querysetname) throws Exception, ArrayOfEspExceptionWrapper
@@ -264,8 +265,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
         request.setIncludeStoredProcedures(true);
 
-        if (querysetname != null)
-            request.setQuerySet(querysetname);
+        if (querysetname != null) request.setQuerySet(querysetname);
 
         request.setIncludeTables(false);
         request.setIncludeTargetClusters(false);
@@ -274,17 +274,17 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         GetDBMetaDataResponse resp = null;
         try
         {
-            resp = ((WssqlStub)stub).getDBMetaData(request);
+            resp = ((WssqlStub) stub).getDBMetaData(request);
         }
         catch (RemoteException e)
         {
-            log.error("HPCCWsSQL.getStoredProcedures("+querysetname+") encountered RemoteException.\n" + e.getLocalizedMessage());
+            log.error("HPCCWsSQL.getStoredProcedures(" + querysetname + ") encountered RemoteException.\n" + e.getLocalizedMessage());
         }
 
         if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not get stored procedures for '"+querysetname+"'");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not get stored procedures for '" + querysetname + "'");
 
-        HPCCQuerySetWrapper [] result = null;
+        HPCCQuerySetWrapper[] result = null;
         QuerySets_type0 querySetstype = resp.getQuerySets();
         if (querySetstype != null)
         {
@@ -327,21 +327,20 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
                 try
                 {
-                    resp = ((WssqlStub)stub).getDBSystemInfo(request);
+                    resp = ((WssqlStub) stub).getDBSystemInfo(request);
                 }
                 catch (RemoteException e)
                 {
                     log.error("HPCCWsSQL.populateSystemInfo encountered RemoteException.\n" + e.getLocalizedMessage());
                 }
 
-                if (resp.getExceptions() != null)
-                    handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "HPCCWsSQL.populateSystemInfo encountered RemoteException.\n");
+                if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
+                        "HPCCWsSQL.populateSystemInfo encountered RemoteException.\n");
 
                 if (resp != null)
                 {
                     version = new Version(resp.getFullVersion());
-                    if (version != null && version.major != 0)
-                        success = true;
+                    if (version != null && version.major != 0) success = true;
                 }
             }
             catch (Exception e)
@@ -352,44 +351,41 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         return success;
     }
 
-    public String executeSQLWUIDResponse(String sqlText, String targetCluster, String targetQuerySet) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public String executeSQLWUIDResponse(String sqlText, String targetCluster, String targetQuerySet)
+            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return executeSQLWUResponse(sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /*resultWindowCount*/, null /*resultWindowStart*/, null /*suppressResults*/, true /*Boolean suppressXmlSchema*/, null /*String userName*/, null /*Integer wait*/).getWuid();
+        return executeSQLWUResponse(
+                sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /* resultWindowCount */, null /* resultWindowStart */,
+                null /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */, null /* Integer wait */).getWuid();
     }
 
-    public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit, Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit,
+            Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait)
+            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 
         ExecuteSQLRequest request = new ExecuteSQLRequest();
 
-        if (resultLimit != null)
-            request.setResultLimit(resultLimit);
-        if (resultWindowCount != null)
-            request.setResultWindowCount(resultWindowCount);
-        if (resultWindowStart != null)
-            request.setResultWindowStart(resultWindowStart);
+        if (resultLimit != null) request.setResultLimit(resultLimit);
+        if (resultWindowCount != null) request.setResultWindowCount(resultWindowCount);
+        if (resultWindowStart != null) request.setResultWindowStart(resultWindowStart);
 
         request.setSqlText(sqlText);
 
-        if (resultWindowStart != null)
-            request.setSuppressResults(suppressResults);
-        if (suppressXmlSchema != null)
-            request.setSuppressXmlSchema(suppressXmlSchema);
+        if (resultWindowStart != null) request.setSuppressResults(suppressResults);
+        if (suppressXmlSchema != null) request.setSuppressXmlSchema(suppressXmlSchema);
 
         request.setTargetCluster(targetCluster);
 
-        if (targetQuerySet != null)
-            request.setTargetQuerySet(targetQuerySet);
-        if (userName != null)
-            request.setUserName(userName);
-        if (wait != null)
-            request.setWait(wait);
+        if (targetQuerySet != null) request.setTargetQuerySet(targetQuerySet);
+        if (userName != null) request.setUserName(userName);
+        if (wait != null) request.setWait(wait);
 
         ExecuteSQLResponse resp = null;
         try
         {
-            resp = ((WssqlStub)stub).executeSQL(request);
+            resp = ((WssqlStub) stub).executeSQL(request);
         }
         catch (RemoteException e)
         {
@@ -407,8 +403,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
                 if (exceptions != null)
                 {
                     ECLException[] eclExceptions = exceptions.getECLException();
-                    if (eclExceptions != null && eclExceptions.length > 0)
-                        handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
+                    if (eclExceptions != null && eclExceptions.length > 0) handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
                 }
                 return new ExecuteSQLResponseWrapper(resp);
             }
@@ -417,35 +412,38 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         return null;
     }
 
-    public ECLWorkunitWrapper executeSQLWUResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit, Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ECLWorkunitWrapper executeSQLWUResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit,
+            Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait)
+            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return executeSQLFullResponse(sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /*resultWindowCount*/, null /*resultWindowStart*/, null /*suppressResults*/, true /*Boolean suppressXmlSchema*/, null /*String userName*/, null /*Integer wait*/).getWorkunit();
+        return executeSQLFullResponse(
+                sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /* resultWindowCount */, null /* resultWindowStart */,
+                null /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */, null /* Integer wait */).getWorkunit();
     }
 
-    public List<List<Object>> getResults(String wuid, Integer resultWindowStart, Integer resultWindowCount) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public List<List<Object>> getResults(String wuid, Integer resultWindowStart, Integer resultWindowCount)
+            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         return Utils.parseECLResults(getResultResponse(wuid, resultWindowStart, resultWindowCount, true).getResult());
     }
 
-    public GetResultsResponseWrapper getResultResponse(String wuid, Integer resultWindowStart, Integer resultWindowCount, Boolean suppressXmlSchema) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public GetResultsResponseWrapper getResultResponse(String wuid, Integer resultWindowStart, Integer resultWindowCount, Boolean suppressXmlSchema)
+            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 
         GetResultsRequest request = new GetResultsRequest();
 
         request.setWuId(wuid);
-        if (resultWindowCount!=null)
-            request.setResultWindowCount(resultWindowCount);
-        if (resultWindowStart!=null)
-            request.setResultWindowStart(resultWindowStart);
-        if (suppressXmlSchema!=null)
-            request.setSuppressXmlSchema(suppressXmlSchema);
+        if (resultWindowCount != null) request.setResultWindowCount(resultWindowCount);
+        if (resultWindowStart != null) request.setResultWindowStart(resultWindowStart);
+        if (suppressXmlSchema != null) request.setSuppressXmlSchema(suppressXmlSchema);
 
         GetResultsResponse resp = null;
 
         try
         {
-            resp = ((WssqlStub)stub).getResults(request);
+            resp = ((WssqlStub) stub).getResults(request);
         }
         catch (RemoteException e)
         {
@@ -464,8 +462,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
                 if (exceptions != null)
                 {
                     ECLException[] eclExceptions = exceptions.getECLException();
-                    if (eclExceptions != null && eclExceptions.length > 0)
-                        handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
+                    if (eclExceptions != null && eclExceptions.length > 0) handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
                 }
                 return new GetResultsResponseWrapper(resp);
             }
@@ -476,15 +473,16 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
     public String getResultSchemaXML(String wuid) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return Utils.extactResultSchema("<root>"+getResultResponse(wuid, 0, 0, false).getResult()+"</root>");
+        return Utils.extactResultSchema("<root>" + getResultResponse(wuid, 0, 0, false).getResult() + "</root>");
     }
 
     public List<List<Object>> getResultSchema(String wuid) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return Utils.parseOutResultSchema("<root>"+getResultResponse(wuid, 0, 0, false).getResult()+"</root>");
+        return Utils.parseOutResultSchema("<root>" + getResultResponse(wuid, 0, 0, false).getResult() + "</root>");
     }
 
-    public ECLWorkunitWrapper prepareSQL(String sqlText, String targetCluster, String targetQuerySet, Integer wait) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ECLWorkunitWrapper prepareSQL(String sqlText, String targetCluster, String targetQuerySet, Integer wait)
+            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 
@@ -493,14 +491,13 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         request.setSqlText(sqlText);
         request.setTargetCluster(targetCluster);
         request.setTargetQuerySet(targetQuerySet);
-        if (wait != null)
-            request.setWait(wait);
+        if (wait != null) request.setWait(wait);
 
         PrepareSQLResponse resp = null;
 
         try
         {
-            resp = ((WssqlStub)stub).prepareSQL(request);
+            resp = ((WssqlStub) stub).prepareSQL(request);
         }
         catch (RemoteException e)
         {
@@ -519,8 +516,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
                 if (exceptions != null)
                 {
                     ECLException[] eclExceptions = exceptions.getECLException();
-                    if (eclExceptions != null && eclExceptions.length > 0)
-                        handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
+                    if (eclExceptions != null && eclExceptions.length > 0) handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
                 }
                 return new ECLWorkunitWrapper(workunit);
             }
@@ -528,19 +524,24 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         return null;
     }
 
-    public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit, String userName) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit,
+            String userName) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         return executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null, userName, true, true).getWorkunit();
     }
 
-    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit, String userName, String somesing) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit,
+            String userName, String somesing) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        ExecutePreparedSQLResponseWrapper executePreparedSQL = executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null, userName, true, true);
+        ExecutePreparedSQLResponseWrapper executePreparedSQL = executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null,
+                userName, true, true);
         String result = executePreparedSQL.getResult();
         return Utils.parseECLResults(result);
     }
 
-    public ExecutePreparedSQLResponseWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema, Boolean suppressResults) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ExecutePreparedSQLResponseWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait,
+            Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema,
+            Boolean suppressResults) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 
@@ -548,33 +549,26 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
 
         request.setWuId(wuid);
 
-        if (variables != null && variables.length>0)
+        if (variables != null && variables.length > 0)
         {
             ArrayOfNamedValue arrayofvars = new ArrayOfNamedValue();
             arrayofvars.setNamedValue(variables);
             request.setVariables(arrayofvars);
         }
 
-        if (resultWindowStart != null)
-            request.setResultWindowStart(resultWindowStart);
-        if (resultWindowCount != null)
-            request.setResultWindowCount(resultWindowCount);
-        if (suppressXmlSchema != null)
-            request.setSuppressXmlSchema(suppressXmlSchema);
-        if (suppressResults != null)
-            request.setSuppressResults(suppressResults);
-        if (targetCluster != null)
-            request.setTargetCluster(targetCluster);
-        if (userName != null)
-            request.setUserName(userName);
-        if (wait != null)
-            request.setWait(wait);
+        if (resultWindowStart != null) request.setResultWindowStart(resultWindowStart);
+        if (resultWindowCount != null) request.setResultWindowCount(resultWindowCount);
+        if (suppressXmlSchema != null) request.setSuppressXmlSchema(suppressXmlSchema);
+        if (suppressResults != null) request.setSuppressResults(suppressResults);
+        if (targetCluster != null) request.setTargetCluster(targetCluster);
+        if (userName != null) request.setUserName(userName);
+        if (wait != null) request.setWait(wait);
 
         ExecutePreparedSQLResponse resp = null;
 
         try
         {
-            resp = ((WssqlStub)stub).executePreparedSQL(request);
+            resp = ((WssqlStub) stub).executePreparedSQL(request);
         }
         catch (RemoteException e)
         {
@@ -593,8 +587,7 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
                 if (exceptions != null)
                 {
                     ECLException[] eclExceptions = exceptions.getECLException();
-                    if (eclExceptions != null && eclExceptions.length > 0)
-                        handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
+                    if (eclExceptions != null && eclExceptions.length > 0) handleECLExceptions(new ArrayOfECLExceptionWrapper(exceptions));
                 }
                 return new ExecutePreparedSQLResponseWrapper(resp);
             }
@@ -602,6 +595,12 @@ public class HPCCWsSQLClient  extends BaseHPCCWsClient
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new WssqlStub();
