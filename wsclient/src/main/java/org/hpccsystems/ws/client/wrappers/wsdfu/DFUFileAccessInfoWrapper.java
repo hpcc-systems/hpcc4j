@@ -23,7 +23,8 @@ import java.util.Hashtable;
 
 import javax.activation.DataHandler;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPartLocation;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileAccessInfo;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
@@ -44,7 +45,7 @@ public class DFUFileAccessInfoWrapper
     private String [] allFilePartCopyHosts;
     private DFUFileTypeWrapper fileType = null; //from 1_51 on
 
-    private static final Logger log = Logger.getLogger(DFUFileAccessInfoWrapper.class.getName());
+    private static final Logger log = LogManager.getLogger(DFUFileAccessInfoWrapper.class);
 
     public DFUFileAccessInfoWrapper(DFUFileAccessInfo accessInfo, DFUFileType filetype) throws Exception
     {
