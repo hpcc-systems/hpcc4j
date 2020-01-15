@@ -28,43 +28,87 @@ public class ExceptionsWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
 
-	public ExceptionsWrapper() {}
+    /**
+     * Instantiates a new exceptions wrapper.
+     */
+    public ExceptionsWrapper()
+    {
+    }
 
-	public ExceptionsWrapper(ExceptionsWrapper exceptions)
-	{
-		copy( exceptions );
-	}
+    /**
+     * Instantiates a new exceptions wrapper.
+     *
+     * @param exceptions
+     *            the exceptions
+     */
+    public ExceptionsWrapper(ExceptionsWrapper exceptions)
+    {
+        copy(exceptions);
+    }
 
-	public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
+    /**
+     * Instantiates a new exceptions wrapper.
+     *
+     * @param _exceptions
+     *            the exceptions
+     */
+    public ExceptionsWrapper(ArrayOfEspExceptionWrapper _exceptions)
+    {
+        this.local_exceptions = _exceptions;
 
-	}
+    }
 
-	private void copy(ExceptionsWrapper raw )
-	{
-		this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
-	}
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
+    private void copy(ExceptionsWrapper raw)
+    {
+        this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
+    }
 
-	@Override
-	public String toString()
-	{
-	    return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
+    }
 
-	public ExceptionsWrapper getRaw()
-	{
-		ExceptionsWrapper raw = new ExceptionsWrapper();
-		return raw;
-	}
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
+    public ExceptionsWrapper getRaw()
+    {
+        ExceptionsWrapper raw = new ExceptionsWrapper();
+        return raw;
+    }
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
+    /**
+     * Sets the exceptions.
+     *
+     * @param _exceptions
+     *            the new exceptions
+     */
+    public void setExceptions(ArrayOfEspExceptionWrapper _exceptions)
+    {
+        this.local_exceptions = _exceptions;
+    }
 
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
+    /**
+     * Gets the exceptions.
+     *
+     * @return the exceptions
+     */
+    public ArrayOfEspExceptionWrapper getExceptions()
+    {
+        return this.local_exceptions;
+    }
 }

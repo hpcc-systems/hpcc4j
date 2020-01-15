@@ -29,22 +29,58 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException;
 public class ECLExceptionWrapper extends BaseExceptionWrapper
 {
     protected String severity;
-    protected int code;
+    protected int    code;
     protected String fileName;
-    protected int lineNo;
-    protected int column;
-    protected int activity;
+    protected int    lineNo;
+    protected int    column;
+    protected int    activity;
     protected String scope;
-    protected int priority;
+    protected int    priority;
 
-    public ECLExceptionWrapper() {}
-
-    public ECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException eclexception)
+    /**
+     * Instantiates a new ECL exception wrapper.
+     */
+    public ECLExceptionWrapper()
     {
-        copy( eclexception );
     }
 
-    public ECLExceptionWrapper( String _source, String _severity, int _code, String _message, String _fileName, int _lineNo, int _column, int _activity, String _scope, int _priority )
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param eclexception
+     *            the eclexception
+     */
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException eclexception)
+    {
+        copy(eclexception);
+    }
+
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param _source
+     *            the source
+     * @param _severity
+     *            the severity
+     * @param _code
+     *            the code
+     * @param _message
+     *            the message
+     * @param _fileName
+     *            the file name
+     * @param _lineNo
+     *            the line no
+     * @param _column
+     *            the column
+     * @param _activity
+     *            the activity
+     * @param _scope
+     *            the scope
+     * @param _priority
+     *            the priority
+     */
+    public ECLExceptionWrapper(String _source, String _severity, int _code, String _message, String _fileName, int _lineNo, int _column,
+            int _activity, String _scope, int _priority)
     {
         this.source = _source;
         this.severity = _severity;
@@ -58,59 +94,107 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         this.priority = _priority;
     }
 
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param eclException
+     *            the ecl exception
+     */
     public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException eclException)
     {
         copy(eclException);
     }
 
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param eclException
+     *            the ecl exception
+     */
     public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException eclException)
     {
         copy(eclException);
     }
 
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param eclException
+     *            the ecl exception
+     */
     public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException eclException)
     {
         copy(eclException);
     }
 
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param eclException
+     *            the ecl exception
+     */
     public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException eclException)
     {
         copy(eclException);
     }
 
+    /**
+     * Instantiates a new ECL exception wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLException raw)
     {
-        code=raw.getCode();
-        column=raw.getColumn();
-        fileName=raw.getFileName();
-        lineNo=raw.getLineNo();
-        message=raw.getMessage();
-        severity=raw.getSeverity();
-        source=raw.getSource();
+        code = raw.getCode();
+        column = raw.getColumn();
+        fileName = raw.getFileName();
+        lineNo = raw.getLineNo();
+        message = raw.getMessage();
+        severity = raw.getSeverity();
+        source = raw.getSource();
     }
 
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException raw)
     {
-        code=raw.getCode();
-        column=raw.getColumn();
-        fileName=raw.getFileName();
-        lineNo=raw.getLineNo();
-        message=raw.getMessage();
-        severity=raw.getSeverity();
-        source=raw.getSource();
+        code = raw.getCode();
+        column = raw.getColumn();
+        fileName = raw.getFileName();
+        lineNo = raw.getLineNo();
+        message = raw.getMessage();
+        severity = raw.getSeverity();
+        source = raw.getSource();
     }
 
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException raw)
     {
-        code=raw.getCode();
-        column=raw.getColumn();
-        fileName=raw.getFileName();
-        lineNo=raw.getLineNo();
-        message=raw.getMessage();
-        severity=raw.getSeverity();
-        source=raw.getSource();
+        code = raw.getCode();
+        column = raw.getColumn();
+        fileName = raw.getFileName();
+        lineNo = raw.getLineNo();
+        message = raw.getMessage();
+        severity = raw.getSeverity();
+        source = raw.getSource();
     }
 
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
     private void copy(ECLException raw)
     {
         this.source = raw.getSource();
@@ -122,6 +206,12 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         this.column = raw.getColumn();
     }
 
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException raw)
     {
         this.source = raw.getSource();
@@ -136,7 +226,13 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         this.priority = raw.getPriority();
     }
 
-    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw )
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw)
     {
         this.source = raw.getSource();
         this.severity = raw.getSeverity();
@@ -150,10 +246,15 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         this.priority = raw.getPriority();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         sb.append("code: " + getCode() + "\t");
         sb.append("scope: " + getScope() + "\t");
         sb.append("severity: " + getSeverity() + "\t");
@@ -165,98 +266,225 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         return sb.toString();
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException();
-        raw.setSource( source);
-        raw.setSeverity( severity);
-        raw.setCode( code);
-        raw.setMessage( message);
-        raw.setFileName( fileName);
-        raw.setLineNo( lineNo);
-        raw.setColumn( column);
-        raw.setActivity( activity);
-        raw.setScope( scope);
-        raw.setPriority( priority);
+        raw.setSource(source);
+        raw.setSeverity(severity);
+        raw.setCode(code);
+        raw.setMessage(message);
+        raw.setFileName(fileName);
+        raw.setLineNo(lineNo);
+        raw.setColumn(column);
+        raw.setActivity(activity);
+        raw.setScope(scope);
+        raw.setPriority(priority);
         return raw;
     }
 
-    public void setSource( String _source )
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.wrappers.BaseExceptionWrapper#setSource(java.lang.String)
+     */
+    @Override
+    public void setSource(String _source)
     {
         this.source = _source;
     }
-    public String getSource( )
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.wrappers.BaseExceptionWrapper#getSource()
+     */
+    @Override
+    public String getSource()
     {
         return this.source;
     }
-    public void setSeverity( String _severity )
+
+    /**
+     * Sets the severity.
+     *
+     * @param _severity
+     *            the new severity
+     */
+    public void setSeverity(String _severity)
     {
         this.severity = _severity;
     }
-    public String getSeverity( )
+
+    /**
+     * Gets the severity.
+     *
+     * @return the severity
+     */
+    public String getSeverity()
     {
         return this.severity;
     }
-    public void setCode( int _code )
+
+    /**
+     * Sets the code.
+     *
+     * @param _code
+     *            the new code
+     */
+    public void setCode(int _code)
     {
         this.code = _code;
     }
-    public int getCode( )
+
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
+    public int getCode()
     {
         return this.code;
     }
-    public void setFileName( String _fileName )
+
+    /**
+     * Sets the file name.
+     *
+     * @param _fileName
+     *            the new file name
+     */
+    public void setFileName(String _fileName)
     {
         this.fileName = _fileName;
     }
-    public String getFileName( )
+
+    /**
+     * Gets the file name.
+     *
+     * @return the file name
+     */
+    public String getFileName()
     {
         return this.fileName;
     }
-    public void setLineNo( int _lineNo )
+
+    /**
+     * Sets the line no.
+     *
+     * @param _lineNo
+     *            the new line no
+     */
+    public void setLineNo(int _lineNo)
     {
         this.lineNo = _lineNo;
     }
-    public int getLineNo( )
+
+    /**
+     * Gets the line no.
+     *
+     * @return the line no
+     */
+    public int getLineNo()
     {
         return this.lineNo;
     }
-    public void setColumn( int _column )
+
+    /**
+     * Sets the column.
+     *
+     * @param _column
+     *            the new column
+     */
+    public void setColumn(int _column)
     {
         this.column = _column;
     }
-    public int getColumn( )
+
+    /**
+     * Gets the column.
+     *
+     * @return the column
+     */
+    public int getColumn()
     {
         return this.column;
     }
-    public void setActivity( int _activity )
+
+    /**
+     * Sets the activity.
+     *
+     * @param _activity
+     *            the new activity
+     */
+    public void setActivity(int _activity)
     {
         this.activity = _activity;
     }
-    public int getActivity( )
+
+    /**
+     * Gets the activity.
+     *
+     * @return the activity
+     */
+    public int getActivity()
     {
         return this.activity;
     }
-    public void setScope( String _scope )
+
+    /**
+     * Sets the scope.
+     *
+     * @param _scope
+     *            the new scope
+     */
+    public void setScope(String _scope)
     {
         this.scope = _scope;
     }
-    public String getScope( )
+
+    /**
+     * Gets the scope.
+     *
+     * @return the scope
+     */
+    public String getScope()
     {
         return this.scope;
     }
-    public void setPriority( int _priority )
+
+    /**
+     * Sets the priority.
+     *
+     * @param _priority
+     *            the new priority
+     */
+    public void setPriority(int _priority)
     {
         this.priority = _priority;
     }
-    public int getPriority( )
+
+    /**
+     * Gets the priority.
+     *
+     * @return the priority
+     */
+    public int getPriority()
     {
         return this.priority;
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException getRawVersion1_75()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException ex=new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException ex = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLException();
         ex.setActivity(activity);
         ex.setCode(code);
         ex.setColumn(column);

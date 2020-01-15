@@ -33,11 +33,21 @@ public class WUUpdateRequestWrapper
     List<DebugValueWrapper>       debugValues       = new ArrayList<DebugValueWrapper>();
     List<ApplicationValueWrapper> applicationValues = new ArrayList<ApplicationValueWrapper>();
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate getRaw()
     {
         return getRawVersion75();
     }
 
+    /**
+     * Gets the raw version 75.
+     *
+     * @return the raw version 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate getRawVersion75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue[] avs = null;
@@ -99,6 +109,11 @@ public class WUUpdateRequestWrapper
         return raw;
     }
 
+    /**
+     * Gets the raw version 1 69.
+     *
+     * @return the raw version 1 69
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUUpdate getRawVersion1_69()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[] avs = null;
@@ -162,6 +177,11 @@ public class WUUpdateRequestWrapper
         return raw;
     }
 
+    /**
+     * Gets the raw version 1 62.
+     *
+     * @return the raw version 1 62
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUUpdate getRawVersion1_62()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[] avs = null;
@@ -226,6 +246,11 @@ public class WUUpdateRequestWrapper
     }
 
 
+    /**
+     * Gets the raw version 1 58.
+     *
+     * @return the raw version 1 58
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUUpdate getRawVersion1_58()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[] avs = null;
@@ -287,6 +312,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the wuid.
+     *
      * @return the wuid
      */
     public String getWuid()
@@ -295,7 +322,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param wuid the wuid to set
+     * Sets the wuid.
+     *
+     * @param wuid
+     *            the wuid to set
      */
     public void setWuid(String wuid)
     {
@@ -303,6 +333,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the state.
+     *
      * @return the state
      */
     public Integer getState()
@@ -311,7 +343,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param state the state to set
+     * Sets the state.
+     *
+     * @param state
+     *            the state to set
      */
     public void setState(Integer state)
     {
@@ -319,6 +354,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the state orig.
+     *
      * @return the stateOrig
      */
     public Integer getStateOrig()
@@ -327,7 +364,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param stateOrig the stateOrig to set
+     * Sets the state orig.
+     *
+     * @param stateOrig
+     *            the stateOrig to set
      */
     public void setStateOrig(Integer stateOrig)
     {
@@ -335,6 +375,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the jobname.
+     *
      * @return the jobname
      */
     public String getJobname()
@@ -343,7 +385,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param jobname the jobname to set
+     * Sets the jobname.
+     *
+     * @param jobname
+     *            the jobname to set
      */
     public void setJobname(String jobname)
     {
@@ -351,6 +396,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the jobname orig.
+     *
      * @return the jobnameOrig
      */
     public String getJobnameOrig()
@@ -359,7 +406,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param jobnameOrig the jobnameOrig to set
+     * Sets the jobname orig.
+     *
+     * @param jobnameOrig
+     *            the jobnameOrig to set
      */
     public void setJobnameOrig(String jobnameOrig)
     {
@@ -367,6 +417,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the query text.
+     *
      * @return the queryText
      */
     public String getQueryText()
@@ -375,7 +427,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param queryText the queryText to set
+     * Sets the query text.
+     *
+     * @param queryText
+     *            the queryText to set
      */
     public void setQueryText(String queryText)
     {
@@ -383,6 +438,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the action.
+     *
      * @return the action
      */
     public Integer getAction()
@@ -391,7 +448,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param action the action to set
+     * Sets the action.
+     *
+     * @param action
+     *            the action to set
      */
     public void setAction(Integer action)
     {
@@ -399,6 +459,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the description.
+     *
      * @return the description
      */
     public String getDescription()
@@ -407,7 +469,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param description the description to set
+     * Sets the description.
+     *
+     * @param description
+     *            the description to set
      */
     public void setDescription(String description)
     {
@@ -415,6 +480,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the description orig.
+     *
      * @return the descriptionOrig
      */
     public String getDescriptionOrig()
@@ -423,7 +490,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param descriptionOrig the descriptionOrig to set
+     * Sets the description orig.
+     *
+     * @param descriptionOrig
+     *            the descriptionOrig to set
      */
     public void setDescriptionOrig(String descriptionOrig)
     {
@@ -431,6 +501,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the adds the drilldown fields.
+     *
      * @return the addDrilldownFields
      */
     public Boolean getAddDrilldownFields()
@@ -439,7 +511,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param addDrilldownFields the addDrilldownFields to set
+     * Sets the adds the drilldown fields.
+     *
+     * @param addDrilldownFields
+     *            the addDrilldownFields to set
      */
     public void setAddDrilldownFields(Boolean addDrilldownFields)
     {
@@ -447,6 +522,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the result limit.
+     *
      * @return the resultLimit
      */
     public Integer getResultLimit()
@@ -455,7 +532,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param resultLimit the resultLimit to set
+     * Sets the result limit.
+     *
+     * @param resultLimit
+     *            the resultLimit to set
      */
     public void setResultLimit(Integer resultLimit)
     {
@@ -463,6 +543,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the protected.
+     *
      * @return the _protected
      */
     public Boolean get_protected()
@@ -471,7 +553,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param _protected the _protected to set
+     * Sets the protected.
+     *
+     * @param _protected
+     *            the _protected to set
      */
     public void set_protected(Boolean _protected)
     {
@@ -479,6 +564,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the protected orig.
+     *
      * @return the protectedOrig
      */
     public Boolean getProtectedOrig()
@@ -487,7 +574,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param protectedOrig the protectedOrig to set
+     * Sets the protected orig.
+     *
+     * @param protectedOrig
+     *            the protectedOrig to set
      */
     public void setProtectedOrig(Boolean protectedOrig)
     {
@@ -495,6 +585,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the priority class.
+     *
      * @return the priorityClass
      */
     public Integer getPriorityClass()
@@ -503,7 +595,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param priorityClass the priorityClass to set
+     * Sets the priority class.
+     *
+     * @param priorityClass
+     *            the priorityClass to set
      */
     public void setPriorityClass(Integer priorityClass)
     {
@@ -511,6 +606,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the priority level.
+     *
      * @return the priorityLevel
      */
     public Integer getPriorityLevel()
@@ -519,7 +616,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param priorityLevel the priorityLevel to set
+     * Sets the priority level.
+     *
+     * @param priorityLevel
+     *            the priorityLevel to set
      */
     public void setPriorityLevel(Integer priorityLevel)
     {
@@ -527,6 +627,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the scope.
+     *
      * @return the scope
      */
     public String getScope()
@@ -535,7 +637,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param scope the scope to set
+     * Sets the scope.
+     *
+     * @param scope
+     *            the scope to set
      */
     public void setScope(String scope)
     {
@@ -543,6 +648,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the scope orig.
+     *
      * @return the scopeOrig
      */
     public String getScopeOrig()
@@ -551,7 +658,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param scopeOrig the scopeOrig to set
+     * Sets the scope orig.
+     *
+     * @param scopeOrig
+     *            the scopeOrig to set
      */
     public void setScopeOrig(String scopeOrig)
     {
@@ -559,6 +669,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the cluster selection.
+     *
      * @return the clusterSelection
      */
     public String getClusterSelection()
@@ -567,7 +679,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param clusterSelection the clusterSelection to set
+     * Sets the cluster selection.
+     *
+     * @param clusterSelection
+     *            the clusterSelection to set
      */
     public void setClusterSelection(String clusterSelection)
     {
@@ -575,6 +690,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the cluster orig.
+     *
      * @return the clusterOrig
      */
     public String getClusterOrig()
@@ -583,7 +700,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param clusterOrig the clusterOrig to set
+     * Sets the cluster orig.
+     *
+     * @param clusterOrig
+     *            the clusterOrig to set
      */
     public void setClusterOrig(String clusterOrig)
     {
@@ -591,6 +711,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the xml params.
+     *
      * @return the xmlParams
      */
     public String getXmlParams()
@@ -599,7 +721,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param xmlParams the xmlParams to set
+     * Sets the xml params.
+     *
+     * @param xmlParams
+     *            the xmlParams to set
      */
     public void setXmlParams(String xmlParams)
     {
@@ -607,6 +732,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the thor slave IP.
+     *
      * @return the thorSlaveIP
      */
     public String getThorSlaveIP()
@@ -615,7 +742,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param thorSlaveIP the thorSlaveIP to set
+     * Sets the thor slave IP.
+     *
+     * @param thorSlaveIP
+     *            the thorSlaveIP to set
      */
     public void setThorSlaveIP(String thorSlaveIP)
     {
@@ -623,6 +753,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the query main definition.
+     *
      * @return the queryMainDefinition
      */
     public String getQueryMainDefinition()
@@ -631,7 +763,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param queryMainDefinition the queryMainDefinition to set
+     * Sets the query main definition.
+     *
+     * @param queryMainDefinition
+     *            the queryMainDefinition to set
      */
     public void setQueryMainDefinition(String queryMainDefinition)
     {
@@ -639,6 +774,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the debug values.
+     *
      * @return the debugValues
      */
     public List<DebugValueWrapper> getDebugValues()
@@ -647,7 +784,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param debugValues the debugValues to set
+     * Sets the debug values.
+     *
+     * @param debugValues
+     *            the debugValues to set
      */
     public void setDebugValues(List<DebugValueWrapper> debugValues)
     {
@@ -655,6 +795,8 @@ public class WUUpdateRequestWrapper
     }
 
     /**
+     * Gets the application values.
+     *
      * @return the applicationValues
      */
     public List<ApplicationValueWrapper> getApplicationValues()
@@ -663,7 +805,10 @@ public class WUUpdateRequestWrapper
     }
 
     /**
-     * @param applicationValues the applicationValues to set
+     * Sets the application values.
+     *
+     * @param applicationValues
+     *            the applicationValues to set
      */
     public void setApplicationValues(List<ApplicationValueWrapper> applicationValues)
     {

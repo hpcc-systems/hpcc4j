@@ -23,7 +23,8 @@ import java.util.Hashtable;
 
 import javax.activation.DataHandler;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPartLocation;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileAccessInfo;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
@@ -32,19 +33,19 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPartLocation;
 
 public class DFUFileAccessInfoWrapper
 {
-    private String metaInfoBlob = null;
-    private String expiryTime = null;
-    private Integer numParts = null;
-    private String recordTypeInfoJson = null;
-    private Integer fileAccessPort = null;
-    private Boolean fileAccessSSL = null;
-    private byte[] recordTypeInfoBin = null; //1_39 specific
+    private String               metaInfoBlob       = null;
+    private String               expiryTime         = null;
+    private Integer              numParts           = null;
+    private String               recordTypeInfoJson = null;
+    private Integer              fileAccessPort     = null;
+    private Boolean              fileAccessSSL      = null;
+    private byte[]               recordTypeInfoBin  = null;                                                // 1_39 specific
 
-    private DFUFilePartWrapper [] wrappedDFUFileParts;
-    private String [] allFilePartCopyHosts;
-    private DFUFileTypeWrapper fileType = null; //from 1_51 on
+    private DFUFilePartWrapper[] wrappedDFUFileParts;
+    private String[]             allFilePartCopyHosts;
+    private DFUFileTypeWrapper   fileType           = null;                                                // from 1_51 on
 
-    private static final Logger log = Logger.getLogger(DFUFileAccessInfoWrapper.class.getName());
+    private static final Logger  log                = LogManager.getLogger(DFUFileAccessInfoWrapper.class);
 
     public DFUFileAccessInfoWrapper(DFUFileAccessInfo accessInfo, DFUFileType filetype) throws Exception
     {
@@ -72,7 +73,7 @@ public class DFUFileAccessInfoWrapper
                 DFUPartLocation[] dfufileLocations = fileLocations.getDFUPartLocation();
                 wrappedDFUFileParts = wrapAndResolveFileParts(dfufileLocations, accessInfo.getFileParts().getDFUFilePart());
 
-                allFilePartCopyHosts = new String [dfufileLocations.length];
+                allFilePartCopyHosts = new String[dfufileLocations.length];
                 for (int i = 0; i < dfufileLocations.length; i++)
                 {
                     allFilePartCopyHosts[i] = dfufileLocations[i].getHost();
@@ -109,14 +110,13 @@ public class DFUFileAccessInfoWrapper
                 e.printStackTrace();
             }
 
-            
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ArrayOfDFUPartLocation fileLocations = accessInfo.getFileLocations();
             if (fileLocations != null)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUPartLocation[] dfufileLocations = fileLocations.getDFUPartLocation();
                 wrappedDFUFileParts = wrapAndResolveFileParts(dfufileLocations, accessInfo.getFileParts().getDFUFilePart());
-    
-                allFilePartCopyHosts = new String [dfufileLocations.length];
+
+                allFilePartCopyHosts = new String[dfufileLocations.length];
                 for (int i = 0; i < dfufileLocations.length; i++)
                 {
                     allFilePartCopyHosts[i] = dfufileLocations[i].getHost();
@@ -128,13 +128,11 @@ public class DFUFileAccessInfoWrapper
         else
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
     }
-    
+
     private DFUFilePartWrapper[] wrapAndResolveFileParts(DFUPartLocation[] fileLocations, DFUFilePart[] fileParts) throws Exception
     {
-        if(fileLocations == null || fileLocations.length == 0)
-            throw new Exception("Encountered empty DFU Part Locations array");
-        if(fileParts == null || fileParts.length == 0)
-            throw new Exception("Encountered empty DFU Parts array");
+        if (fileLocations == null || fileLocations.length == 0) throw new Exception("Encountered empty DFU Part Locations array");
+        if (fileParts == null || fileParts.length == 0) throw new Exception("Encountered empty DFU Parts array");
 
         Hashtable<Integer, String> availableLocations = new Hashtable<Integer, String>(fileLocations.length);
 
@@ -144,107 +142,110 @@ public class DFUFileAccessInfoWrapper
         }
 
         int dataFilePartsCount = fileParts.length;
-        if (fileType == DFUFileTypeWrapper.Index && dataFilePartsCount % availableLocations.size() != 0) // apparently not all keyed files report TLK as file part
+        if (fileType == DFUFileTypeWrapper.Index && dataFilePartsCount % availableLocations.size() != 0) // apparently not all keyed files report TLK
+                                                                                                         // as file part
         {
             dataFilePartsCount--; // indexed files contain a non-data file part (index = n+1 where n = data file parts count)
-            log.warn("Ignoring " + fileParts.length +"th filepart (determined to be indexed file top-level-key)");
+            log.warn("Ignoring " + fileParts.length + "th filepart (determined to be indexed file top-level-key)");
         }
 
-        DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
+        DFUFilePartWrapper[] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
         for (int i = 0; i < dataFilePartsCount; i++)
         {
             Integer filepartindex = fileParts[i].getPartIndex();
-            if (filepartindex  < 1 || filepartindex > dataFilePartsCount)
+            if (filepartindex < 1 || filepartindex > dataFilePartsCount)
                 throw new IndexOutOfBoundsException("Encountered invalid Filepart index: '" + filepartindex + "'");
 
-            if ( wrappedDFUFileParts[filepartindex-1] != null)
+            if (wrappedDFUFileParts[filepartindex - 1] != null)
                 throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + filepartindex + "'");
 
-            wrappedDFUFileParts[filepartindex-1] = new DFUFilePartWrapper(fileParts[i], availableLocations);
+            wrappedDFUFileParts[filepartindex - 1] = new DFUFilePartWrapper(fileParts[i], availableLocations);
         }
         return wrappedDFUFileParts;
     }
-/*
-    @Deprecated
-    public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileAccessInfo soapdfufileaccessinfo, DFUFileTypeWrapper filetype) throws Exception
+
+    /*
+     * @Deprecated
+     * public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileAccessInfo soapdfufileaccessinfo, DFUFileTypeWrapper filetype)
+     * throws Exception
+     * {
+     * if (soapdfufileaccessinfo != null)
+     * {
+     * metaInfoBlob = soapdfufileaccessinfo.getMetaInfoBlob();
+     * expiryTime = soapdfufileaccessinfo.getExpiryTime();
+     * numParts = soapdfufileaccessinfo.getNumParts();
+     * recordTypeInfoJson = soapdfufileaccessinfo.getRecordTypeInfoJson();
+     * fileAccessPort = soapdfufileaccessinfo.getFileAccessPort();
+     * fileAccessSSL = soapdfufileaccessinfo.getFileAccessSSL();
+     * fileType = filetype;
+     * 
+     * wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
+     * 
+     * org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
+     * allFilePartCopyHosts = new String [locations.length];
+     * for (int i = 0; i < locations.length; i++)
+     * {
+     * allFilePartCopyHosts[i] = locations[i].getHost();
+     * }
+     * }
+     * else
+     * throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
+     * }
+     * 
+     * @Deprecated
+     * public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileAccessInfo soapdfufileaccessinfo) throws Exception
+     * {
+     * if (soapdfufileaccessinfo != null)
+     * {
+     * metaInfoBlob = soapdfufileaccessinfo.getMetaInfoBlob();
+     * expiryTime = soapdfufileaccessinfo.getExpiryTime();
+     * numParts = soapdfufileaccessinfo.getNumParts();
+     * recordTypeInfoJson = soapdfufileaccessinfo.getRecordTypeInfoJson();
+     * fileAccessPort = soapdfufileaccessinfo.getFileAccessPort();
+     * fileAccessSSL = soapdfufileaccessinfo.getFileAccessSSL();
+     * 
+     * wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
+     * 
+     * org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
+     * allFilePartCopyHosts = new String [locations.length];
+     * for (int i = 0; i < locations.length; i++)
+     * {
+     * allFilePartCopyHosts[i] = locations[i].getHost();
+     * }
+     * }
+     * else
+     * throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
+     * }
+     * 
+     * @Deprecated
+     * public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo soapdfufileaccessinfo) throws Exception
+     * {
+     * if (soapdfufileaccessinfo != null)
+     * {
+     * metaInfoBlob = soapdfufileaccessinfo.getMetaInfoBlob();
+     * expiryTime = soapdfufileaccessinfo.getExpiryTime();
+     * numParts = soapdfufileaccessinfo.getNumParts();
+     * recordTypeInfoJson = soapdfufileaccessinfo.getRecordTypeInfoJson();
+     * fileAccessPort = soapdfufileaccessinfo.getFileAccessPort();
+     * fileAccessSSL = soapdfufileaccessinfo.getFileAccessSSL();
+     * recordTypeInfoBin = soapdfufileaccessinfo.getRecordTypeInfoBin();
+     * 
+     * wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
+     * 
+     * org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
+     * allFilePartCopyHosts = new String [locations.length];
+     * for (int i = 0; i < locations.length; i++)
+     * {
+     * allFilePartCopyHosts[i] = locations[i].getHost();
+     * }
+     * }
+     * else
+     * throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
+     * }
+     */
+    public DFUFileAccessInfoWrapper(DFUFileAccessInfo accessInfo) throws Exception
     {
-        if (soapdfufileaccessinfo != null)
-        {
-            metaInfoBlob = soapdfufileaccessinfo.getMetaInfoBlob();
-            expiryTime = soapdfufileaccessinfo.getExpiryTime();
-            numParts = soapdfufileaccessinfo.getNumParts();
-            recordTypeInfoJson = soapdfufileaccessinfo.getRecordTypeInfoJson();
-            fileAccessPort = soapdfufileaccessinfo.getFileAccessPort();
-            fileAccessSSL = soapdfufileaccessinfo.getFileAccessSSL();
-            fileType = filetype;
-
-            wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
-
-            org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
-            allFilePartCopyHosts = new String [locations.length];
-            for (int i = 0; i < locations.length; i++)
-            {
-                allFilePartCopyHosts[i] = locations[i].getHost();
-            }
-        }
-        else
-            throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-    }
-
-    @Deprecated
-    public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUFileAccessInfo soapdfufileaccessinfo) throws Exception
-    {
-        if (soapdfufileaccessinfo != null)
-        {
-            metaInfoBlob = soapdfufileaccessinfo.getMetaInfoBlob();
-            expiryTime = soapdfufileaccessinfo.getExpiryTime();
-            numParts = soapdfufileaccessinfo.getNumParts();
-            recordTypeInfoJson = soapdfufileaccessinfo.getRecordTypeInfoJson();
-            fileAccessPort = soapdfufileaccessinfo.getFileAccessPort();
-            fileAccessSSL = soapdfufileaccessinfo.getFileAccessSSL();
-
-            wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
-
-            org.hpccsystems.ws.client.gen.wsdfu.v1_50.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
-            allFilePartCopyHosts = new String [locations.length];
-            for (int i = 0; i < locations.length; i++)
-            {
-                allFilePartCopyHosts[i] = locations[i].getHost();
-            }
-        }
-        else
-            throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-    }
-
-    @Deprecated
-    public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUFileAccessInfo soapdfufileaccessinfo) throws Exception
-    {
-        if (soapdfufileaccessinfo != null)
-        {
-            metaInfoBlob = soapdfufileaccessinfo.getMetaInfoBlob();
-            expiryTime = soapdfufileaccessinfo.getExpiryTime();
-            numParts = soapdfufileaccessinfo.getNumParts();
-            recordTypeInfoJson = soapdfufileaccessinfo.getRecordTypeInfoJson();
-            fileAccessPort = soapdfufileaccessinfo.getFileAccessPort();
-            fileAccessSSL = soapdfufileaccessinfo.getFileAccessSSL();
-            recordTypeInfoBin = soapdfufileaccessinfo.getRecordTypeInfoBin();
-
-            wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
-
-            org.hpccsystems.ws.client.gen.wsdfu.v1_39.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
-            allFilePartCopyHosts = new String [locations.length];
-            for (int i = 0; i < locations.length; i++)
-            {
-                allFilePartCopyHosts[i] = locations[i].getHost();
-            }
-        }
-        else
-            throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-    }
-*/
-	public DFUFileAccessInfoWrapper(DFUFileAccessInfo accessInfo) throws Exception
-	{
-		if (accessInfo != null)
+        if (accessInfo != null)
         {
             metaInfoBlob = accessInfo.getMetaInfoBlob();
             expiryTime = accessInfo.getExpiryTime();
@@ -252,12 +253,12 @@ public class DFUFileAccessInfoWrapper
             recordTypeInfoJson = accessInfo.getRecordTypeInfoJson();
             fileAccessPort = accessInfo.getFileAccessPort();
             fileAccessSSL = accessInfo.getFileAccessSSL();
-            //recordTypeInfoBin = accessInfo.getRecordTypeInfoBin(); //depr_ver("1.50")
-            
+            // recordTypeInfoBin = accessInfo.getRecordTypeInfoBin(); //depr_ver("1.50")
+
             DFUPartLocation[] fileLocations = accessInfo.getFileLocations().getDFUPartLocation();
             wrappedDFUFileParts = wrapAndResolveFileParts(fileLocations, accessInfo.getFileParts().getDFUFilePart());
 
-            allFilePartCopyHosts = new String [fileLocations.length];
+            allFilePartCopyHosts = new String[fileLocations.length];
             for (int i = 0; i < fileLocations.length; i++)
             {
                 allFilePartCopyHosts[i] = fileLocations[i].getHost();
@@ -265,11 +266,11 @@ public class DFUFileAccessInfoWrapper
         }
         else
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-	}
+    }
 
-	public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessInfo accessInfo, Object filetype) throws Exception
-	{
-		if (accessInfo != null)
+    public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessInfo accessInfo, Object filetype) throws Exception
+    {
+        if (accessInfo != null)
         {
             metaInfoBlob = accessInfo.getMetaInfoBlob();
             expiryTime = accessInfo.getExpiryTime();
@@ -292,7 +293,7 @@ public class DFUFileAccessInfoWrapper
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUPartLocation[] fileLocations = accessInfo.getFileLocations().getDFUPartLocation();
             wrappedDFUFileParts = wrapAndResolveFileParts(fileLocations, accessInfo.getFileParts().getDFUFilePart());
 
-            allFilePartCopyHosts = new String [fileLocations.length];
+            allFilePartCopyHosts = new String[fileLocations.length];
             for (int i = 0; i < fileLocations.length; i++)
             {
                 allFilePartCopyHosts[i] = fileLocations[i].getHost();
@@ -301,17 +302,14 @@ public class DFUFileAccessInfoWrapper
         else
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
 
-	}
+    }
 
-	private DFUFilePartWrapper[] wrapAndResolveFileParts(
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUPartLocation[] fileLocations,
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFilePart[] fileParts) throws Exception
-	{
+    private DFUFilePartWrapper[] wrapAndResolveFileParts(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUPartLocation[] fileLocations,
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFilePart[] fileParts) throws Exception
+    {
 
-    	if(fileLocations == null || fileLocations.length == 0)
-            throw new Exception("Encountered empty DFU Part Locations array");
-        if(fileParts == null || fileParts.length == 0)
-            throw new Exception("Encountered empty DFU Parts array");
+        if (fileLocations == null || fileLocations.length == 0) throw new Exception("Encountered empty DFU Part Locations array");
+        if (fileParts == null || fileParts.length == 0) throw new Exception("Encountered empty DFU Parts array");
 
         Hashtable<Integer, String> availableLocations = new Hashtable<Integer, String>(fileLocations.length);
 
@@ -326,20 +324,20 @@ public class DFUFileAccessInfoWrapper
             dataFilePartsCount--; // indexed files contain a non-data file part (index = n+1 where n = data file parts count)
         }
 
-        DFUFilePartWrapper [] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
+        DFUFilePartWrapper[] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
         for (int i = 0; i < dataFilePartsCount; i++)
         {
             Integer filepartindex = fileParts[i].getPartIndex();
-            if (filepartindex  < 1 || filepartindex > dataFilePartsCount)
+            if (filepartindex < 1 || filepartindex > dataFilePartsCount)
                 throw new IndexOutOfBoundsException("Encountered invalid data filepart index: '" + filepartindex + "'");
 
-            if (wrappedDFUFileParts[filepartindex-1] != null)
+            if (wrappedDFUFileParts[filepartindex - 1] != null)
                 throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + filepartindex + "'");
 
-            wrappedDFUFileParts[filepartindex-1] = new DFUFilePartWrapper(fileParts[i], availableLocations);
+            wrappedDFUFileParts[filepartindex - 1] = new DFUFilePartWrapper(fileParts[i], availableLocations);
         }
         return wrappedDFUFileParts;
-	}
+    }
 
     public DFUFileTypeWrapper getFileType()
     {
@@ -371,7 +369,7 @@ public class DFUFileAccessInfoWrapper
      *
      * @return fileParts
      */
-    public DFUFilePartWrapper [] getFileParts()
+    public DFUFilePartWrapper[] getFileParts()
     {
         return wrappedDFUFileParts;
     }
@@ -396,7 +394,7 @@ public class DFUFileAccessInfoWrapper
         return recordTypeInfoJson;
     }
 
-    public String [] getAllFilePartCopyLocations()
+    public String[] getAllFilePartCopyLocations()
     {
         return allFilePartCopyHosts;
     }

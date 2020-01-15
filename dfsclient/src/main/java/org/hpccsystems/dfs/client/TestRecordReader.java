@@ -34,11 +34,22 @@ public class TestRecordReader implements IRecordReader
     IRecordBuilder recordBuilder             = null;
     FieldDef       projectedRecordDefinition = null;
 
+    /**
+     * Instantiates a new test record reader.
+     *
+     * @param numTopLevelRecords
+     *            the num top level records
+     */
     TestRecordReader(int numTopLevelRecords)
     {
         totalTopLevelRecords = numTopLevelRecords;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordReader#initialize(org.hpccsystems.dfs.client.IRecordBuilder)
+     */
     public void initialize(IRecordBuilder recordBuilder) throws Exception
     {
         this.recordBuilder = recordBuilder;
@@ -51,8 +62,8 @@ public class TestRecordReader implements IRecordReader
     }
 
     /**
-     * Are there more records?
-     * 
+     * Are there more records?.
+     *
      * @return true if there is at least one more record
      * @throws HpccFileException
      *             if there was a failure on the back end. This error is not recoverable by a retry.
@@ -75,6 +86,15 @@ public class TestRecordReader implements IRecordReader
         return createMockRecord(this.recordBuilder, this.projectedRecordDefinition);
     }
 
+    /**
+     * Creates the mock value.
+     *
+     * @param fieldDef
+     *            the field def
+     * @return the object
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
     private Object createMockValue(FieldDef fieldDef) throws HpccFileException
     {
         switch (fieldDef.getFieldType())
@@ -94,11 +114,21 @@ public class TestRecordReader implements IRecordReader
             case VAR_STRING:
                 return new String("Test");
             default:
-                throw new HpccFileException(
-                        "Encountered unexpected type while creating mock value: " + fieldDef.getFieldType());
+                throw new HpccFileException("Encountered unexpected type while creating mock value: " + fieldDef.getFieldType());
         }
     }
 
+    /**
+     * Creates the mock record.
+     *
+     * @param recordBuilder
+     *            the record builder
+     * @param recordDefinition
+     *            the record definition
+     * @return the object
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
     private Object createMockRecord(IRecordBuilder recordBuilder, FieldDef recordDefinition) throws HpccFileException
     {
         try
@@ -121,8 +151,7 @@ public class TestRecordReader implements IRecordReader
                     IRecordBuilder childRecordBuilder = recordBuilder.getChildRecordBuilder(i);
                     if (childRecordBuilder == null)
                     {
-                        throw new HpccFileException(
-                                "Recieved null childRecordBuilder for record: " + fd.getFieldName());
+                        throw new HpccFileException("Recieved null childRecordBuilder for record: " + fd.getFieldName());
                     }
 
                     fieldValue = createMockRecord(childRecordBuilder, fd);
@@ -133,8 +162,7 @@ public class TestRecordReader implements IRecordReader
                     IRecordBuilder childRecordBuilder = recordBuilder.getChildRecordBuilder(i);
                     if (childRecordBuilder == null)
                     {
-                        throw new HpccFileException(
-                                "Recieved null childRecordBuilder for dataset: " + fd.getFieldName());
+                        throw new HpccFileException("Recieved null childRecordBuilder for dataset: " + fd.getFieldName());
                     }
 
                     Object childRecord = createMockRecord(childRecordBuilder, fd.getDef(0));
@@ -162,8 +190,7 @@ public class TestRecordReader implements IRecordReader
                     fieldValue = createMockValue(fd);
                     break;
                 default:
-                    throw new HpccFileException(
-                            "Encountered unexpected type while creating mock record: " + fd.getFieldType());
+                    throw new HpccFileException("Encountered unexpected type while creating mock record: " + fd.getFieldType());
             }
 
             try
@@ -172,8 +199,8 @@ public class TestRecordReader implements IRecordReader
             }
             catch (Exception e)
             {
-                throw new HpccFileException("Failed to set value for field: " + fd.getFieldName() + " of type: "
-                        + fd.getFieldType() + " with error: " + e.getMessage());
+                throw new HpccFileException(
+                        "Failed to set value for field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + " with error: " + e.getMessage());
             }
         }
 
@@ -198,7 +225,10 @@ public class TestRecordReader implements IRecordReader
     /**
      * getAvailable
      * Returns the number of bytes available to read immediately.
-     * @return
+     *
+     * @return the available
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public int getAvailable() throws IOException
     {

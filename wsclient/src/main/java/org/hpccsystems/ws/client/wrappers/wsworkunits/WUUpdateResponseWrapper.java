@@ -11,6 +11,12 @@ public class WUUpdateResponseWrapper
     private WorkunitWrapper          workunitwrapper;
     private ArrayOfEspExceptionWrapper exceptions = null;
 
+    /**
+     * Instantiates a new WU update response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUUpdateResponse resp)
     {
         if (resp == null)
@@ -23,6 +29,12 @@ public class WUUpdateResponseWrapper
         }
     }
     
+    /**
+     * Instantiates a new WU update response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUUpdateResponse resp)
     {
         if (resp == null)
@@ -35,6 +47,12 @@ public class WUUpdateResponseWrapper
         }
     }
 
+    /**
+     * Instantiates a new WU update response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUUpdateResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUUpdateResponse resp)
     {
         if (resp == null)
@@ -47,6 +65,12 @@ public class WUUpdateResponseWrapper
         }
     }
 
+    /**
+     * Instantiates a new WU update response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUUpdateResponseWrapper(WUUpdateResponse resp)
     {
         if (resp == null)
@@ -60,6 +84,8 @@ public class WUUpdateResponseWrapper
     }
 
     /**
+     * Gets the workunit wrapper.
+     *
      * @return the workunit
      */
     public WorkunitWrapper getWorkunitWrapper()
@@ -68,7 +94,10 @@ public class WUUpdateResponseWrapper
     }
 
     /**
-     * @param workunit the workunit to set
+     * Sets the workunit.
+     *
+     * @param workunit
+     *            the workunit to set
      */
     public void setWorkunit(WorkunitWrapper workunit)
     {
@@ -76,6 +105,8 @@ public class WUUpdateResponseWrapper
     }
 
     /**
+     * Gets the exceptions.
+     *
      * @return the exceptions
      */
     public ArrayOfEspExceptionWrapper getExceptions()
@@ -84,7 +115,10 @@ public class WUUpdateResponseWrapper
     }
 
     /**
-     * @param exceptions the exceptions to set
+     * Sets the exceptions.
+     *
+     * @param exceptions
+     *            the exceptions to set
      */
     public void setExceptions(ArrayOfEspExceptionWrapper exceptions)
     {
@@ -100,6 +134,11 @@ public class WUUpdateResponseWrapper
         return "WUUpdateResponseWrapper [workunit=" + workunitwrapper + ", exceptions=" + exceptions + "]";
     }
     
+    /**
+     * Gets the raw array of esp exceptions.
+     *
+     * @return the raw array of esp exceptions
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException getRawArrayOfEspExceptions()
     {
         if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0)

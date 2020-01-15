@@ -25,6 +25,15 @@ public class DropZone extends DataSingleton
 {
     public static DataSingletonCollection All = new DataSingletonCollection();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     * @return the drop zone
+     */
     public static DropZone get(Platform platform, String name)
     {
         if (name == null || name.isEmpty())
@@ -39,6 +48,14 @@ public class DropZone extends DataSingleton
     private TpDropZone              dzInfo;
     private Collection<PhysicalMachine> machines;
 
+    /**
+     * Instantiates a new drop zone.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     */
     DropZone(Platform platform, String name)
     {
         this.platform = platform;
@@ -47,6 +64,11 @@ public class DropZone extends DataSingleton
         machines = new HashSet<PhysicalMachine>();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return dzInfo.getName();
@@ -102,6 +124,15 @@ public class DropZone extends DataSingleton
         return null;
     }
 
+    /**
+     * Find DZ machine.
+     *
+     * @param serveraddress
+     *            the serveraddress
+     * @return the tp machine
+     * @throws Exception
+     *             the exception
+     */
     private TpMachine findDZMachine(String serveraddress) throws Exception
     {
         if (dzInfo != null)
@@ -128,36 +159,63 @@ public class DropZone extends DataSingleton
     }
 
     /**
-     * Get OS type of Dropzone server IF Dropzone is comprised of a single server
-     * @return
+     * Get OS type of Dropzone server IF Dropzone is comprised of a single server.
+     *
+     * @return the os
      * @throws Exception
+     *             the exception
      */
     public String getOS() throws Exception
     {
         return getOS(null);
     }
 
+    /**
+     * Gets the os.
+     *
+     * @param serveraddress
+     *            the serveraddress
+     * @return the os
+     * @throws Exception
+     *             the exception
+     */
     public String getOS(String serveraddress) throws Exception
     {
         return (HPCCEnvOSCode.fromCode(findDZMachine(serveraddress).getOS())).getName();
     }
 
     /**
-     * Find the Dropzone's directory
-     * @return
+     * Find the Dropzone's directory.
+     *
+     * @return the directory
      * @throws Exception
+     *             the exception
      */
     public String getDirectory() throws Exception
     {
         return dzInfo.getPath();
     }
 
+    /**
+     * Gets the machine.
+     *
+     * @param name
+     *            the name
+     * @return the machine
+     */
     // Machines ---
     synchronized PhysicalMachine getMachine(String name)
     {
         return PhysicalMachine.get(platform, name);
     }
 
+    /**
+     * Gets the machine.
+     *
+     * @param machinestruct
+     *            the machinestruct
+     * @return the machine
+     */
     PhysicalMachine getMachine(TpMachine machinestruct)
     {
         PhysicalMachine machine = getMachine(machinestruct.getName());
@@ -165,24 +223,38 @@ public class DropZone extends DataSingleton
         return machine;
     }
 
+    /**
+     * Gets the machines.
+     *
+     * @return the machines
+     */
     public PhysicalMachine [] getMachines()
     {
         fullRefresh();
         return machines.toArray(new PhysicalMachine[0]);
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
@@ -196,6 +268,12 @@ public class DropZone extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param queryDropzoneMachines
+     *            the query dropzone machines
+     */
     private void update(List<TpMachineWrapper> queryDropzoneMachines)
     {
          if (queryDropzoneMachines != null)
@@ -213,6 +291,12 @@ public class DropZone extends DataSingleton
          }
     }
 
+    /**
+     * Update.
+     *
+     * @param queryDropzoneMachines
+     *            the query dropzone machines
+     */
     private void update(TpMachine[] queryDropzoneMachines)
     {
         if (queryDropzoneMachines != null && queryDropzoneMachines.length > 0)
@@ -231,6 +315,12 @@ public class DropZone extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param dz
+     *            the dz
+     */
     public void update(TpDropZone dz)
     {
         if (dzInfo.getName().equals(dz.getName()))
@@ -241,6 +331,9 @@ public class DropZone extends DataSingleton
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -261,6 +354,9 @@ public class DropZone extends DataSingleton
             && EqualsUtil.areEqual(dzInfo.getPath(), that.dzInfo.getPath());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

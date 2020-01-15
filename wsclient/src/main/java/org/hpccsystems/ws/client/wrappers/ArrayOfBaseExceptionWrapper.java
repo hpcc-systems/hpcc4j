@@ -12,6 +12,8 @@ public class ArrayOfBaseExceptionWrapper extends Exception
     protected List<BaseExceptionWrapper> exceptions = new ArrayList<BaseExceptionWrapper>();
 
     /**
+     * Gets the ws client message.
+     *
      * @return the localMessage
      */
     public String getWsClientMessage()
@@ -19,16 +21,30 @@ public class ArrayOfBaseExceptionWrapper extends Exception
         return wsClientMessage;
     }
 
+    /**
+     * Sets the source.
+     *
+     * @param _source
+     *            the new source
+     */
     public void setSource( String _source )
     {
         this.source = _source;
     }
 
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
     public String getSource( )
     {
         return this.source;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Throwable#getLocalizedMessage()
+     */
     @Override
     public String getLocalizedMessage()
     {
@@ -38,6 +54,9 @@ public class ArrayOfBaseExceptionWrapper extends Exception
         return message;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Throwable#getMessage()
+     */
     @Override
     public String getMessage()
     {
@@ -47,11 +66,22 @@ public class ArrayOfBaseExceptionWrapper extends Exception
         return message;
     }
 
+    /**
+     * Sets the exceptions.
+     *
+     * @param _exception
+     *            the new exceptions
+     */
     public void setExceptions( List<BaseExceptionWrapper> _exception )
     {
         this.exceptions = _exception;
     }
 
+    /**
+     * Gets the exceptions.
+     *
+     * @return the exceptions
+     */
     public List<BaseExceptionWrapper> getExceptions( )
     {
         return this.exceptions;

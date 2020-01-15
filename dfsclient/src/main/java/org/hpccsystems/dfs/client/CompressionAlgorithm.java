@@ -16,21 +16,40 @@
 
 package org.hpccsystems.dfs.client;
 
-public enum CompressionAlgorithm 
+public enum CompressionAlgorithm
 {
-    NONE("false"),
-    DEFAULT("true"),
-    LZ4("LZ4"),
-    FLZ("FLZ"),
-    LZW("LZW"),
-    ZLIB("ZLIB");
+    NONE (
+            "false"
+    ), DEFAULT (
+            "true"
+    ), LZ4 (
+            "LZ4"
+    ), FLZ (
+            "FLZ"
+    ), LZW (
+            "LZW"
+    ), ZLIB (
+            "ZLIB"
+    );
 
     private String name = null;
+
+    /**
+     * Instantiates a new compression algorithm.
+     *
+     * @param compression
+     *            the compression
+     */
     CompressionAlgorithm(String compression)
     {
         name = compression;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Enum#toString()
+     */
     public String toString()
     {
         return name;

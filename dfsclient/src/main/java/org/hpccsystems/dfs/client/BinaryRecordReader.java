@@ -151,11 +151,11 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * A Binary record reader.
-     * 
-     * @param fp
-     *            the file part to be read
-     * @param rd
-     *            the record def
+     *
+     * @param is
+     *            the is
+     * @throws Exception
+     *             the exception
      */
     public BinaryRecordReader(InputStream is) throws Exception
     {
@@ -168,6 +168,11 @@ public class BinaryRecordReader implements IRecordReader
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordReader#initialize(org.hpccsystems.dfs.client.IRecordBuilder)
+     */
     public void initialize(IRecordBuilder rb) throws Exception
     {
         this.rootRecordBuilder = rb;
@@ -248,9 +253,13 @@ public class BinaryRecordReader implements IRecordReader
 
         return record;
     }
-   
+
     /**
      * Returns the number of bytes available to read immediately.
+     *
+     * @return the available
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public int getAvailable() throws IOException
     {
@@ -258,15 +267,17 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Parse a non-hierarchical field
-     * 
-     * @param ReadContext
-     *            the source byte array of the data from the HPCC cluster
-     * @param FieldDef
-     *            the field definition for the Record definition
+     * Parse a non-hierarchical field.
+     *
+     * @param fd
+     *            the fd
      * @param isLittleEndian
+     *            the is little endian
      * @return ParsedFieldResult
      * @throws UnparsableContentException
+     *             the unparsable content exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private Object parseFlatField(FieldDef fd, boolean isLittleEndian) throws UnparsableContentException, IOException
     {
@@ -299,7 +310,8 @@ public class BinaryRecordReader implements IRecordReader
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                     if (intValue < 0)
                     {
-                        log.warn("Detected possible unsigned value overflow in field '" + fd.getFieldName() + "'. Ensure proper value interpretation");
+                        log.warn(
+                                "Detected possible unsigned value overflow in field '" + fd.getFieldName() + "'. Ensure proper value interpretation");
                     }
                 }
                 else
@@ -424,17 +436,19 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Parse a record
-     * 
-     * @param readContext
-     *            the source byte array of the data from the HPCC cluster
+     * Parse a record.
+     *
      * @param recordDef
      *            the field definition for the Record definition
      * @param recordBuilder
      *            the record builder to use to construct the record
      * @param isLittleEndian
+     *            the is little endian
      * @return ParsedFieldResult
      * @throws UnparsableContentException
+     *             the unparsable content exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private Object parseRecord(FieldDef recordDef, IRecordBuilder recordBuilder, boolean isLittleEndian)
             throws UnparsableContentException, IOException
@@ -566,17 +580,15 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Get an integer from the byte array
-     * 
-     * @param b
-     *            the byte array from the HPCC THOR node
-     * @param pos
-     *            the position in the array
+     * Get an integer from the byte array.
+     *
      * @param len
      *            the length, 1 to 8 bytes
      * @param little_endian
      *            true if the value is little endian
      * @return the integer extracted as a long
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private long getInt(int len, boolean little_endian) throws IOException
     {
@@ -596,17 +608,15 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Get an unsigned int from the byte array
-     * 
-     * @param b
-     *            the byte array from the HPCC THOR node
-     * @param pos
-     *            the position in the array
+     * Get an unsigned int from the byte array.
+     *
      * @param len
      *            the length, 1 to 8 bytes
      * @param little_endian
      *            true if the value is little endian
      * @return the integer extracted as a long
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private long getUnsigned(int len, boolean little_endian) throws IOException
     {
@@ -620,17 +630,15 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Get a real from the byte array
-     * 
-     * @param b
-     *            the byte array of data from the THOR node
-     * @param pos
-     *            the position in the array
+     * Get a real from the byte array.
+     *
      * @param len
      *            the length, 4 or 8
      * @param little_endian
      *            true if the value is little endian
      * @return the extracted real as a double
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private double getReal(int len, boolean little_endian) throws IOException
     {
@@ -658,15 +666,17 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Get a unsigned decimal from the byte array
-     * 
-     * @param b
-     *            the byte array of data from the THOR node
-     * @param pos
-     *            the position in the array
-     * @param len
-     *            packed field of numDigits in upper half and precision in lower half
+     * Get a unsigned decimal from the byte array.
+     *
+     * @param numDigits
+     *            the num digits
+     * @param precision
+     *            the precision
+     * @param dataLen
+     *            the data len
      * @return BigDecimal
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private BigDecimal getUnsignedDecimal(int numDigits, int precision, int dataLen) throws IOException
     {
@@ -702,15 +712,17 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Get a decimal from the byte array
-     * 
-     * @param b
-     *            the byte array of data from the THOR node
-     * @param pos
-     *            the position in the array
-     * @param len
-     *            packed field of numDigits in upper half and precision in lower half
+     * Get a decimal from the byte array.
+     *
+     * @param numDigits
+     *            the num digits
+     * @param precision
+     *            the precision
+     * @param dataLen
+     *            the data len
      * @return BigDecimal
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private BigDecimal getSignedDecimal(int numDigits, int precision, int dataLen) throws IOException
     {
@@ -783,6 +795,15 @@ public class BinaryRecordReader implements IRecordReader
         return ret;
     }
 
+    /**
+     * Gets the null terminated string.
+     *
+     * @param stype
+     *            the stype
+     * @return the null terminated string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String getNullTerminatedString(HpccSrcType stype) throws IOException
     {
         Charset charset = sbcSet;
@@ -838,7 +859,7 @@ public class BinaryRecordReader implements IRecordReader
                 {
                     scratchStrBuilder.append(new String(scratchBuffer, 0, eosLocation, charset));
 
-                    // Reset back to our mark and the skip forward so we don't consume bytes 
+                    // Reset back to our mark and the skip forward so we don't consume bytes
                     // passed the end of the string
                     this.inputStream.reset();
                     this.inputStream.skip(eosLocation + 2);
@@ -885,7 +906,7 @@ public class BinaryRecordReader implements IRecordReader
                 {
                     scratchStrBuilder.append(new String(scratchBuffer, 0, eosLocation, charset));
 
-                    // Reset back to our mark and the skip forward so we don't consume bytes 
+                    // Reset back to our mark and the skip forward so we don't consume bytes
                     // passed the end of the string
                     this.inputStream.reset();
                     this.inputStream.skip(eosLocation + 1);
@@ -905,17 +926,15 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
-     * Extract a string from the byte array
-     * 
+     * Extract a string from the byte array.
+     *
      * @param styp
      *            the source type in the byte array
-     * @param b
-     *            the byte array from the THOR node
-     * @param pos
-     *            the position in the array
-     * @param len
-     *            the number of bytes
+     * @param codePoints
+     *            the code points
      * @return the extracted string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private String getString(HpccSrcType styp, int codePoints) throws IOException
     {
@@ -1115,15 +1134,14 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Get the number of code units (number of bytes) used to encode cp coded characters.
-     * 
+     *
      * @param styp
      *            the source data type
      * @param cp
      *            the number of code points.
      * @return the number of bytes
-     * @throws UnparsableContentException
-     *             when the end of the buffer was reach unexpected or the stream of data was incorrect, such as an
-     *             illegal byte sequence for UTF8.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private int getLenFromCodePoints(HpccSrcType styp, int cp) throws IOException
     {
@@ -1148,8 +1166,8 @@ public class BinaryRecordReader implements IRecordReader
                 // // check the last character to make sure it is not a truncated pair
                 // if (Character.isHighSurrogate((char) work))
                 // { // truncated pair to fix?
-                //     b[pos + ((cp - 1) * 2)] = 0;
-                //     b[pos + ((cp - 1) * 2) + 1] = 0x20; // make this a blank
+                // b[pos + ((cp - 1) * 2)] = 0;
+                // b[pos + ((cp - 1) * 2) + 1] = 0x20; // make this a blank
                 // }
                 break;
             case UTF16LE:
@@ -1163,8 +1181,8 @@ public class BinaryRecordReader implements IRecordReader
                 // // check the last character to make sure it is not a truncated pair
                 // if (Character.isHighSurrogate((char) work))
                 // { // truncated pair to fix?
-                //     b[pos + ((cp - 1) * 2)] = 0x20;
-                //     b[pos + ((cp - 1) * 2) + 1] = 0; // make this a blank
+                // b[pos + ((cp - 1) * 2)] = 0x20;
+                // b[pos + ((cp - 1) * 2) + 1] = 0; // make this a blank
                 // }
                 break;
             default:

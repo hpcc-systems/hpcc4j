@@ -32,45 +32,95 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
 {
     private static final long serialVersionUID = 1L;
 
-	public ArrayOfEspExceptionWrapper() { super();}
-
-	public ArrayOfEspExceptionWrapper(ArrayOfEspExceptionWrapper arrayofespexception)
-	{
-	    super();
-		copy( arrayofespexception );
-	}
-
-	public ArrayOfEspExceptionWrapper( String _source, List<BaseExceptionWrapper> _exception )
-	{
-	    super();
-		this.source = _source;
-		this.exceptions = _exception;
-	}
-
-	public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException arrayofespexception)
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     */
+    public ArrayOfEspExceptionWrapper()
     {
-	    super();
+        super();
+    }
+
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
+    public ArrayOfEspExceptionWrapper(ArrayOfEspExceptionWrapper arrayofespexception)
+    {
+        super();
         copy(arrayofespexception);
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param _source
+     *            the source
+     * @param _exception
+     *            the exception
+     */
+    public ArrayOfEspExceptionWrapper(String _source, List<BaseExceptionWrapper> _exception)
+    {
+        super();
+        this.source = _source;
+        this.exceptions = _exception;
+    }
+
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException arrayofespexception)
+    {
+        super();
+        copy(arrayofespexception);
+    }
+
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException arrayofespexception)
     {
         super();
         copy(arrayofespexception);
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ArrayOfEspException arrayofespexception)
     {
         super();
         copy(arrayofespexception);
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ArrayOfEspException arrayofespexception)
     {
         super();
         copy(arrayofespexception);
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -81,7 +131,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -89,6 +139,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -99,7 +155,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -107,6 +163,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -117,7 +179,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -125,6 +187,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -135,7 +203,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -143,6 +211,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -153,7 +227,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -161,6 +235,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -171,7 +251,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -179,6 +259,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ArrayOfEspException arrayofespexception)
     {
         super();
@@ -189,7 +275,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -197,11 +283,23 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfEspException arrayofespexception)
     {
         copy(arrayofespexception);
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -211,7 +309,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -219,6 +317,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Instantiates a new array of esp exception wrapper.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -228,7 +332,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -236,6 +340,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Copy.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     private void copy(ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -245,7 +355,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -253,6 +363,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Copy.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -262,7 +378,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -270,6 +386,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Copy.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -279,7 +401,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -287,6 +409,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Copy.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -296,7 +424,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -304,6 +432,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Copy.
+     *
+     * @param arrayofespexception
+     *            the arrayofespexception
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
@@ -313,7 +447,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for ( int i = 0; i < exceptionarray.length; i++)
+                for (int i = 0; i < exceptionarray.length; i++)
                 {
                     this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
                 }
@@ -321,20 +455,31 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
     private void copy(ArrayOfEspExceptionWrapper raw)
-	{
-		this.source = raw.getSource();
-		List<BaseExceptionWrapper> excepts = raw.getExceptions();
-		if (excepts != null)
-		{
-			this.exceptions = new ArrayList<BaseExceptionWrapper>();
-			for ( int i = 0; i < excepts.size(); i++)
-			{
-				this.exceptions.add(new EspExceptionWrapper((EspExceptionWrapper)excepts.get(i)));
-			}
-		}
-	}
+    {
+        this.source = raw.getSource();
+        List<BaseExceptionWrapper> excepts = raw.getExceptions();
+        if (excepts != null)
+        {
+            this.exceptions = new ArrayList<BaseExceptionWrapper>();
+            for (int i = 0; i < excepts.size(); i++)
+            {
+                this.exceptions.add(new EspExceptionWrapper((EspExceptionWrapper) excepts.get(i)));
+            }
+        }
+    }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Throwable#toString()
+     */
     @Override
     public String toString()
     {
@@ -351,18 +496,27 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         return multimessage.toString();
     }
 
+    /**
+     * Gets the esp exceptions.
+     *
+     * @return the esp exceptions
+     */
     public List<EspExceptionWrapper> getEspExceptions()
     {
-        List<EspExceptionWrapper> ecls=new ArrayList<EspExceptionWrapper>();
-        for (BaseExceptionWrapper ew:exceptions)
+        List<EspExceptionWrapper> ecls = new ArrayList<EspExceptionWrapper>();
+        for (BaseExceptionWrapper ew : exceptions)
         {
             ecls.add((EspExceptionWrapper) ew);
         }
         return ecls;
     }
-    
+
     /**
-     * @param localMessage the localMessage to set
+     * Sets the ws client message.
+     *
+     * @param localMessage
+     *            the localMessage to set
+     * @return the array of esp exception wrapper
      */
     public ArrayOfEspExceptionWrapper setWsClientMessage(String localMessage)
     {

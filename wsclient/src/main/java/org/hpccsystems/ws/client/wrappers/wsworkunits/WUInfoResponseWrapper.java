@@ -17,6 +17,12 @@ public class WUInfoResponseWrapper
     private String[]                 resultViews;
     private String                   secMethod;
 
+    /**
+     * Instantiates a new WU info response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUInfoResponseWrapper(WUInfoResponse resp)
     {
         if (resp == null)
@@ -35,6 +41,12 @@ public class WUInfoResponseWrapper
         }
     }
 
+    /**
+     * Instantiates a new WU info response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfoResponse resp)
     {
         if (resp == null)
@@ -53,6 +65,12 @@ public class WUInfoResponseWrapper
         }
     }
 
+    /**
+     * Instantiates a new WU info response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfoResponse resp)
     {
         if (resp == null)
@@ -71,6 +89,12 @@ public class WUInfoResponseWrapper
         }
     }
 
+    /**
+     * Instantiates a new WU info response wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfoResponse resp)
     {
         if (resp == null)
@@ -90,6 +114,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the workunit.
+     *
      * @return the workunit
      */
     public WorkunitWrapper getWorkunit()
@@ -98,7 +124,10 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param workunit the workunit to set
+     * Sets the workunit.
+     *
+     * @param workunit
+     *            the workunit to set
      */
     public void setWorkunit(WorkunitWrapper workunit)
     {
@@ -106,6 +135,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the exceptions.
+     *
      * @return the exceptions
      */
     public ArrayOfEspExceptionWrapper getExceptions()
@@ -114,7 +145,10 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param exceptions the exceptions to set
+     * Sets the exceptions.
+     *
+     * @param exceptions
+     *            the exceptions to set
      */
     public void setExceptions(ArrayOfEspExceptionWrapper exceptions)
     {
@@ -131,6 +165,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the auto refresh.
+     *
      * @return the autoRefresh
      */
     public Integer getAutoRefresh()
@@ -139,7 +175,10 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param autoRefresh the autoRefresh to set
+     * Sets the auto refresh.
+     *
+     * @param autoRefresh
+     *            the autoRefresh to set
      */
     public void setAutoRefresh(Integer autoRefresh)
     {
@@ -147,6 +186,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the can compile.
+     *
      * @return the canCompile
      */
     public Boolean getCanCompile()
@@ -155,7 +196,10 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param canCompile the canCompile to set
+     * Sets the can compile.
+     *
+     * @param canCompile
+     *            the canCompile to set
      */
     public void setCanCompile(Boolean canCompile)
     {
@@ -163,6 +207,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the thor slave IP.
+     *
      * @return the thorSlaveIP
      */
     public String getThorSlaveIP()
@@ -171,7 +217,10 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param thorSlaveIP the thorSlaveIP to set
+     * Sets the thor slave IP.
+     *
+     * @param thorSlaveIP
+     *            the thorSlaveIP to set
      */
     public void setThorSlaveIP(String thorSlaveIP)
     {
@@ -179,6 +228,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the result views.
+     *
      * @return the resultViews
      */
     public String[] getResultViews()
@@ -187,7 +238,10 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param resultViews the resultViews to set
+     * Sets the result views.
+     *
+     * @param resultViews
+     *            the resultViews to set
      */
     public void setResultViews(String[] resultViews)
     {
@@ -195,6 +249,8 @@ public class WUInfoResponseWrapper
     }
 
     /**
+     * Gets the sec method.
+     *
      * @return the secMethod
      */
     public String getSecMethod()
@@ -203,13 +259,21 @@ public class WUInfoResponseWrapper
     }
 
     /**
-     * @param secMethod the secMethod to set
+     * Sets the sec method.
+     *
+     * @param secMethod
+     *            the secMethod to set
      */
     public void setSecMethod(String secMethod)
     {
         this.secMethod = secMethod;
     }
     
+    /**
+     * Gets the raw array of esp exceptions 1 75.
+     *
+     * @return the raw array of esp exceptions 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException getRawArrayOfEspExceptions1_75()
     {
         if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0)
