@@ -8,7 +8,8 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.HashMap;
 
-import org.apache.log4j.*;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Network
 {
