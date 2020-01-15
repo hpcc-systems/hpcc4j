@@ -30,6 +30,15 @@ public class PhysicalFile extends DataSingleton
 {
     private static Map<Integer, PhysicalFile> PhysicalFiles = new HashMap<Integer, PhysicalFile>();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     * @return the physical file
+     */
     public static synchronized PhysicalFile get(Platform platform, String name)
     {
         PhysicalFile physicalFile = new PhysicalFile(platform, name);
@@ -44,6 +53,15 @@ public class PhysicalFile extends DataSingleton
         return physicalFile;
     }
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param fileStruct
+     *            the file struct
+     * @return the physical file
+     */
     public static synchronized PhysicalFile get(Platform platform, PhysicalFileStruct fileStruct)
     {
         PhysicalFile physicalFile = get(platform, fileStruct.getName());
@@ -60,6 +78,14 @@ public class PhysicalFile extends DataSingleton
         PHYSICALFILE
     }
 
+    /**
+     * Instantiates a new physical file.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     */
     private PhysicalFile(Platform platform, String name)
     {
         this.platform = platform;
@@ -67,48 +93,88 @@ public class PhysicalFile extends DataSingleton
         physicalfilestruct.setName(name);
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return physicalfilestruct.getName();
     }
 
+    /**
+     * Gets the filesize.
+     *
+     * @return the filesize
+     */
     public Long getFilesize()
     {
         return physicalfilestruct.getFilesize();
     }
     
+    /**
+     * Gets the modifiedtime.
+     *
+     * @return the modifiedtime
+     */
     public String getModifiedtime()
     {
         return physicalfilestruct.getModifiedtime();
     }
 
+    /**
+     * Gets the checks if is dir.
+     *
+     * @return the checks if is dir
+     */
     public boolean getIsDir()
     {
         return physicalfilestruct.getIsDir();
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public String getPath()
     {
         return physicalfilestruct.getPath();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
     }
 
+    /**
+     * Update.
+     *
+     * @param file
+     *            the file
+     */
     // Updates ---
     public void update(PhysicalFileStruct file)
     {
@@ -118,6 +184,12 @@ public class PhysicalFile extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param file
+     *            the file
+     */
     public void update(PhysicalFileStructWrapper file)
     {
         if (physicalfilestruct.getName().equals(file.getName()))
@@ -126,6 +198,9 @@ public class PhysicalFile extends DataSingleton
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -144,6 +219,9 @@ public class PhysicalFile extends DataSingleton
         return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(physicalfilestruct.getName(), that.physicalfilestruct.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

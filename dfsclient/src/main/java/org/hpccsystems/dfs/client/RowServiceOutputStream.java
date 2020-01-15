@@ -32,7 +32,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
-    private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;       // 1 second connection timeout
+    private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;                                              // 1 second connection timeout
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
     private String               rowServiceIP                  = null;
@@ -50,37 +50,57 @@ public class RowServiceOutputStream extends OutputStream
 
     /**
      * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
-     * Assumes SSL connection required/available
-     * @deprecated -- use  8 param version instead which contains optional useSSL param
+     * Assumes SSL connection required/available.
+     *
      * @param ip
+     *            the ip
      * @param port
+     *            the port
      * @param accessToken
+     *            the access token
      * @param recordDef
+     *            the record def
      * @param filePartIndex
+     *            the file part index
      * @param filePartPath
+     *            the file part path
      * @param fileCompression
+     *            the file compression
      * @throws Exception
+     *             the exception
+     * @deprecated -- use 8 param version instead which contains optional useSSL param
      */
     @Deprecated
-    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
+    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression) throws Exception
     {
-        this(ip,port,true,accessToken,recordDef,filePartIndex, filePartPath, fileCompression);
+        this(ip, port, true, accessToken, recordDef, filePartIndex, filePartPath, fileCompression);
     }
 
     /**
-     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster.
      *
      * @param ip
+     *            the ip
      * @param port
+     *            the port
      * @param useSSL
+     *            the use SSL
      * @param accessToken
+     *            the access token
      * @param recordDef
+     *            the record def
      * @param filePartIndex
+     *            the file part index
      * @param filePartPath
+     *            the file part path
      * @param fileCompression
+     *            the file compression
      * @throws Exception
+     *             the exception
      */
-    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath, CompressionAlgorithm fileCompression) throws Exception
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression) throws Exception
     {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
@@ -134,23 +154,20 @@ public class RowServiceOutputStream extends OutputStream
         makeInitialWriteRequest();
     }
 
+    /**
+     * Make initial write request.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void makeInitialWriteRequest() throws Exception
     {
         String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.recordDef).toString();
 
-        String initialRequest = 
-        "\n{\n" +
-        "    \"format\" : \"binary\",\n" +
-        "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n" +
-        "    \"node\" : {\n" +
-        "        \"kind\" : \"diskwrite\",\n" +
-        "        \"metaInfo\" : \"" + this.accessToken + "\",\n" +
-        "        \"fileName\" : \"" + this.filePath + "\",\n" +
-        "        \"filePart\" : \"" + this.filePartIndex + "\",\n" +
-        "        \"compressed\" : \"" + this.compressionAlgo + "\",\n" +
-        "        \"input\" : " + jsonRecordDef + "\n" +
-        "    }\n" +
-        "}\n";
+        String initialRequest = "\n{\n" + "    \"format\" : \"binary\",\n" + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
+                + "    \"node\" : {\n" + "        \"kind\" : \"diskwrite\",\n" + "        \"metaInfo\" : \"" + this.accessToken + "\",\n"
+                + "        \"fileName\" : \"" + this.filePath + "\",\n" + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
+                + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n" + "        \"input\" : " + jsonRecordDef + "\n" + "    }\n" + "}\n";
 
         // Resize scratch buffer if necessary
         byte[] jsonRequestData = initialRequest.getBytes("ISO-8859-1");
@@ -176,6 +193,12 @@ public class RowServiceOutputStream extends OutputStream
         this.readResponse();
     }
 
+    /**
+     * Read response.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void readResponse() throws IOException
     {
         this.scratchBuffer.clear();
@@ -214,22 +237,42 @@ public class RowServiceOutputStream extends OutputStream
         this.handle = this.scratchBuffer.getInt();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.OutputStream#close()
+     */
     public void close() throws IOException
     {
         this.flush();
         this.socket.close();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.OutputStream#flush()
+     */
     public void flush() throws IOException
     {
         this.socket.getOutputStream().flush();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.OutputStream#write(byte[])
+     */
     public void write(byte[] b) throws IOException
     {
         this.write(b, 0, b.length);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.OutputStream#write(byte[], int, int)
+     */
     public void write(byte[] b, int off, int len) throws IOException
     {
         String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\" }";
@@ -257,9 +300,14 @@ public class RowServiceOutputStream extends OutputStream
         this.readResponse();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.OutputStream#write(int)
+     */
     public void write(int b) throws IOException
     {
         this.scratchBuffer.array()[0] = (byte) b;
         this.write(scratchBuffer.array(), 0, 1);
     }
-} 
+}

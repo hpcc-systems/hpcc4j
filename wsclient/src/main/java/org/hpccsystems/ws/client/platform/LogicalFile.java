@@ -24,6 +24,15 @@ public class LogicalFile extends DataSingleton
 {
     private static Map<Integer, LogicalFile> LogicalFiles = new HashMap<Integer, LogicalFile>();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     * @return the logical file
+     */
     public static synchronized LogicalFile get(Platform platform, String name)
     {
         LogicalFile logicalFile = new LogicalFile(platform, name);
@@ -48,6 +57,14 @@ public class LogicalFile extends DataSingleton
         LOGICALFILE
     }
 
+    /**
+     * Instantiates a new logical file.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     */
     private LogicalFile(Platform platform, String name)
     {
         this.platform = platform;
@@ -59,11 +76,21 @@ public class LogicalFile extends DataSingleton
         eclsourcefile.setName(name);
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return dfulogicalfile.getName();
     }
 
+    /**
+     * Gets the workunit.
+     *
+     * @return the workunit
+     */
     public Workunit getWorkunit()
     {
         if (dfufiledetail.getWuid() == null)
@@ -77,6 +104,11 @@ public class LogicalFile extends DataSingleton
         return platform.getWorkunit(dfufiledetail.getWuid());
     }
 
+    /**
+     * Gets the file spray workunit.
+     *
+     * @return the file spray workunit
+     */
     public FileSprayWorkunit getFileSprayWorkunit()
     {
         if (dfufiledetail.getWuid() == null)
@@ -90,6 +122,11 @@ public class LogicalFile extends DataSingleton
         return platform.getFileSprayWorkunit(dfufiledetail.getWuid());
     }
 
+    /**
+     * Gets the dir.
+     *
+     * @return the dir
+     */
     public String getDir()
     {
         if (dfufiledetail.getDir() == null)
@@ -99,18 +136,27 @@ public class LogicalFile extends DataSingleton
         return dfufiledetail.getDir();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
@@ -127,6 +173,12 @@ public class LogicalFile extends DataSingleton
         notifyObservers(Notification.LOGICALFILE);
     }
 
+    /**
+     * Update.
+     *
+     * @param lf
+     *            the lf
+     */
     // Updates ---
     public void update(DFULogicalFile lf)
     {
@@ -136,6 +188,12 @@ public class LogicalFile extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param fd
+     *            the fd
+     */
     void update(DFUFileDetailWrapper fd)
     {
         if (fd != null && dfufiledetail.getName().equals(fd.getName()))
@@ -144,6 +202,12 @@ public class LogicalFile extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param sf
+     *            the sf
+     */
     public void Update(ECLSourceFile sf)
     {
         if (eclsourcefile.getName().equals(sf.getName()))
@@ -152,6 +216,9 @@ public class LogicalFile extends DataSingleton
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -170,6 +237,9 @@ public class LogicalFile extends DataSingleton
         return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(dfulogicalfile.getName(), that.dfulogicalfile.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

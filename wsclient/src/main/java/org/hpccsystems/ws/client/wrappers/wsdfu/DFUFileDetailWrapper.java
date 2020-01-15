@@ -29,6 +29,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     private boolean                      hasheader        = false;
 
     /**
+     * Checks for header.
+     *
      * @return the hasheader
      */
     public boolean hasHeader()
@@ -37,7 +39,10 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
-     * @param hasheader the hasheader to set
+     * Sets the hasheader.
+     *
+     * @param hasheader
+     *            the hasheader to set
      */
     public void setHasheader(boolean hasheader)
     {
@@ -46,9 +51,10 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
 
     /**
-     * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
+     * Create a Data Column Info object from a axis-generated soap class DFUDataColumn.
      *
      * @param base
+     *            the base
      */
     public DFUFileDetailWrapper(DFUFileDetail base)
     {
@@ -56,15 +62,15 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
-     * Create an empty Data Column Info object
-     *
-     * @param base
+     * Create an empty Data Column Info object.
      */
     public DFUFileDetailWrapper()
     {
     }
 
     /**
+     * Gets the firstline.
+     *
      * @return the first line of data associated with this file
      */
     public String getFirstline()
@@ -73,6 +79,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Sets the firstline.
+     *
      * @param firstline
      *            - set the first line of data associated with this file
      */
@@ -181,9 +189,10 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
-     * Copy a soap DFUFileDetail object into the wrapper
+     * Copy a soap DFUFileDetail object into the wrapper.
      *
      * @param base
+     *            the base
      */
     private void copy(DFUFileDetail base)
     {
@@ -238,6 +247,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Gets the columns.
+     *
      * @return the columns for this logical file as defined in dfuGetMetadata or dfuGetDataColumns
      */
     public ArrayList<DFUDataColumnWrapper> getColumns()
@@ -250,6 +261,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Sets the columns.
+     *
      * @param columns
      *            - List of DFUDataColumns
      */
@@ -275,6 +288,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Sets the columns.
+     *
      * @param childColumns
      *            - Array of DFUDataColumn objects
      */
@@ -293,6 +308,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Gets the file type.
+     *
      * @return the true FileType for this file, based on complex logic.
      */
     public FileFormat getFileType()
@@ -388,6 +405,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Checks for child datasets.
+     *
      * @return true if the DFUDataColumns for this file contain items of type Dataset, false otherwise
      */
     public boolean hasChildDatasets()
@@ -407,8 +426,11 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Deduce fields.
+     *
      * @return the calculated DFUDataColumns based on the columns, deduced file type and ecl
      * @throws Exception
+     *             the exception
      */
     public EclRecordWrapper deduceFields() throws Exception
     {
@@ -502,11 +524,14 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Gets the record from ECL.
+     *
      * @param eclRecordDefinition
      *            - a RECORD definition, either in RECORD\nSTRING1\nEND; format, or in {STRING1 field} inline format,.
      *            handles xpath recordsets and child datasets
      * @return An EclRecordWrapper object holding a collection of the recordsets in the ecl
      * @throws Exception
+     *             the exception
      */
     public static EclRecordWrapper getRecordFromECL(String eclRecordDefinition) throws Exception
     {
@@ -515,6 +540,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Checks if is sprayed csv.
+     *
      * @return true if this file shows the attributes of having been a sprayed csv , false otherwise
      */
     public boolean isSprayedCsv()
@@ -540,6 +567,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Checks for ecl.
+     *
      * @return true if getEcl is populated, false otherwise
      */
     public boolean hasEcl()
@@ -548,6 +577,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     }
 
     /**
+     * Checks if is first row valid field names.
+     *
      * @return true if the data file is a csv, if the first row of data is populated and if the values in that line,
      *         when split on the defined field separator, are valid ecl field names. Return false otherwise.
      */
@@ -583,6 +614,13 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         return true;
     }
 
+    /**
+     * Adds the key info.
+     *
+     * @param input
+     *            the input
+     * @return the ecl record wrapper
+     */
     private EclRecordWrapper addKeyInfo(EclRecordWrapper input)
     {
         if (this.getColumns() == null)
@@ -625,6 +663,11 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         return input;
     }
 
+    /**
+     * Checks if is index.
+     *
+     * @return true, if is index
+     */
     public boolean isIndex()
     {
         if (this.getColumns() == null)
@@ -642,11 +685,24 @@ public class DFUFileDetailWrapper extends DFUFileDetail
 
     }
 
+    /**
+     * Sets the columns.
+     *
+     * @param columns2
+     *            the new columns
+     */
     public void setColumns(ArrayList<DFUDataColumnWrapper> columns2)
     {
         this.columns = columns2;
     }
 
+    /**
+     * Gets the record ecl.
+     *
+     * @param content
+     *            the content
+     * @return the record ecl
+     */
     public static EclRecordWrapper getRecordEcl(String content)
     {
         if (content == null || content.isEmpty())

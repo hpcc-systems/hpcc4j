@@ -21,6 +21,15 @@ public class Graph extends DataSingleton
 {
     private static Map<Integer, Graph> Graphs = new HashMap<Integer, Graph>();
 
+    /**
+     * Gets the.
+     *
+     * @param workunit
+     *            the workunit
+     * @param name
+     *            the name
+     * @return the graph
+     */
     public static synchronized Graph get(Workunit workunit, String name)
     {
         Graph graph = new Graph(workunit, name);
@@ -43,6 +52,14 @@ public class Graph extends DataSingleton
         GRAPH
     }
 
+    /**
+     * Instantiates a new graph.
+     *
+     * @param workunit
+     *            the workunit
+     * @param name
+     *            the name
+     */
     private Graph(Workunit workunit, String name)
     {
         this.workunit = workunit;
@@ -50,21 +67,41 @@ public class Graph extends DataSingleton
         info.setName(name);
     }
 
+    /**
+     * Gets the workunit.
+     *
+     * @return the workunit
+     */
     public Workunit getWorkunit()
     {
         return workunit;
     }
 
+    /**
+     * Gets the wuid.
+     *
+     * @return the wuid
+     */
     public String getWuid()
     {
         return workunit.getWuid();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return info.getName();
     }
 
+    /**
+     * Gets the state ID.
+     *
+     * @return the state ID
+     */
     public WUState getStateID()
     {
         if (/*info.getRunning() != null && */info.getRunning())
@@ -82,24 +119,40 @@ public class Graph extends DataSingleton
         return WUState.UNKNOWN;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     public boolean isComplete()
     {
         return HPCCWsWorkUnitsClient.isWorkunitComplete(getStateID()) || workunit.isComplete();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
         workunit.getGraphs();
     }
 
+    /**
+     * Update.
+     *
+     * @param graph
+     *            the graph
+     * @return true, if successful
+     */
     // Updates ---
     boolean update(ECLGraph graph)
     {
@@ -116,6 +169,13 @@ public class Graph extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Update state.
+     *
+     * @param graph
+     *            the graph
+     * @return true, if successful
+     */
     boolean UpdateState(ECLGraph graph)
     {
         if (info.getName().equals(graph.getName()) && EqualsUtil.hasChanged(info, graph))
@@ -127,6 +187,9 @@ public class Graph extends DataSingleton
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -145,6 +208,9 @@ public class Graph extends DataSingleton
         return EqualsUtil.areEqual(workunit, that.workunit) && EqualsUtil.areEqual(info.getName(), that.info.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

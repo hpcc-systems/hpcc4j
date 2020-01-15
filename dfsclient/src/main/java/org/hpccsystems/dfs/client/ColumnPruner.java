@@ -24,20 +24,20 @@ import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.FieldDef;
 
 /**
- * Prune columns from the output request format.  Columns are pruned
+ * Prune columns from the output request format. Columns are pruned
  * that employ unsupported data types or that are not named by a column
- * selection parameter that has a list of columns.  The column
+ * selection parameter that has a list of columns. The column
  * selection parameter string is a comma separated list of
- * field names.  Nested fields are selected with the usual
+ * field names. Nested fields are selected with the usual
  * dot notation (e.g., foo.bar for the bar field in a foo field).
  * All columns are selected for a structure field when no columns are
- * specified (e.g., foo where foo is a record type).  Selection column
- * names that do not exist are ignored.  If the selection string does not
+ * specified (e.g., foo where foo is a record type). Selection column
+ * names that do not exist are ignored. If the selection string does not
  * select any column, then all columns are returned unless dropped because
  * of unsupported data types.
  *
  * The output types for certain data types is adjusted in the screening
- * process.  For instance, the QSTRING compressed string is returned as a
+ * process. For instance, the QSTRING compressed string is returned as a
  * string.
  */
 public class ColumnPruner implements Serializable
@@ -54,8 +54,10 @@ public class ColumnPruner implements Serializable
     private HashMap<String, SelectedFieldInfo> selectedFieldMap = null;
 
     /**
+     * Gets the field list string.
+     *
      * @return Project list in string format
-    */
+     */
     public String getFieldListString()
     {
         return fieldListString;
@@ -64,11 +66,12 @@ public class ColumnPruner implements Serializable
     /**
      * Contruct a pruner to remove fields from the output definition of a remote
      * read definition string.
-     * @param commaSepFieldNamelist a comma separated list of field names.  Nested
-     * fields are expressed using the normal compound name style with a dot (".")
-     * separator.  For example, item1,foo.bar1,foo.bar2,item3, selects the item1,
-     * item3 fields (which may be child datasets) and the bar1 and bar2 fields from
-     * the foo child dataset field.
+     * @param commaSepFieldNamelist
+     *            a comma separated list of field names. Nested
+     *            fields are expressed using the normal compound name style with a dot (".")
+     *            separator. For example, item1,foo.bar1,foo.bar2,item3, selects the item1,
+     *            item3 fields (which may be child datasets) and the bar1 and bar2 fields from
+     *            the foo child dataset field.
      */
     public ColumnPruner(String commaSepFieldNamelist)
     {
@@ -114,10 +117,13 @@ public class ColumnPruner implements Serializable
     /**
      * Prune the definition tokens to match the field list if
      * present and to remove unsupported types..
-     * @param recordDef record definition to prune
+     *
+     * @param originalRD
+     *            the original RD
      * @return the revised record definition
-     * @exception Exception is thrown when none of the
-     * fields in the selection list are defined.
+     * @exception Exception
+     *                is thrown when none of the
+     *                fields in the selection list are defined.
      */
     public FieldDef pruneRecordDefinition(FieldDef originalRD) throws Exception
     {
@@ -148,6 +154,15 @@ public class ColumnPruner implements Serializable
         return ret;
     }
 
+    /**
+     * Prune field definition.
+     *
+     * @param originalRecordDef
+     *            the original record def
+     * @param path
+     *            the path
+     * @return the field def
+     */
     private FieldDef pruneFieldDefinition(FieldDef originalRecordDef, String path)
     {
         SelectedFieldInfo fieldInfo = selectedFieldMap.get(path);

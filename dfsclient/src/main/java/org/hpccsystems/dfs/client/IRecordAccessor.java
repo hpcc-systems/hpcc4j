@@ -20,21 +20,55 @@ import org.hpccsystems.commons.ecl.FieldDef;
 
 /**
  * Used by IRecordWriters to access fields in a Record structure.
- * 
- * Notes for implementors: 
- * - Field values for Datasets & Sets must implement the List interface
- * - RecordAccessors for the entire record hiearchy will be used for multiple records. 
+ *
+ * Notes for implementors:
+ * - Field values for Datasets and Sets must implement the List interface
+ * - RecordAccessors for the entire record hiearchy will be used for multiple records.
  * - Child RecordAccessors must be built for fields of type Record or Dataset[Record]
  */
 public interface IRecordAccessor
 {
+
+    /**
+     * Sets the record.
+     *
+     * @param record
+     *            the record
+     * @return the i record accessor
+     */
     public IRecordAccessor setRecord(Object record);
 
+    /**
+     * Gets the num fields.
+     *
+     * @return the num fields
+     */
     public int getNumFields();
 
+    /**
+     * Gets the field value.
+     *
+     * @param index
+     *            the index
+     * @return the field value
+     */
     public Object getFieldValue(int index);
 
+    /**
+     * Gets the field definition.
+     *
+     * @param index
+     *            the index
+     * @return the field definition
+     */
     public FieldDef getFieldDefinition(int index);
 
+    /**
+     * Gets the child record accessor.
+     *
+     * @param index
+     *            the index
+     * @return the child record accessor
+     */
     public IRecordAccessor getChildRecordAccessor(int index);
 }

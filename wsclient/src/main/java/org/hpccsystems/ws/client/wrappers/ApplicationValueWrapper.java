@@ -9,10 +9,23 @@ public class ApplicationValueWrapper
     private String name;
     private String value;
 
+    /**
+     * Instantiates a new application value wrapper.
+     */
     public ApplicationValueWrapper()
     {
     }
 
+    /**
+     * Instantiates a new application value wrapper.
+     *
+     * @param app
+     *            the app
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
     public ApplicationValueWrapper(String app, String name, String value)
     {
         this.application = app;
@@ -20,6 +33,12 @@ public class ApplicationValueWrapper
         this.value = value;
     }
 
+    /**
+     * Instantiates a new application value wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ApplicationValueWrapper(ApplicationValue raw)
     {
         application = raw.getApplication();
@@ -27,6 +46,12 @@ public class ApplicationValueWrapper
         value = raw.getValue();
     }
 
+    /**
+     * Instantiates a new application value wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue raw)
     {
         application = raw.getApplication();
@@ -34,6 +59,12 @@ public class ApplicationValueWrapper
         value = raw.getValue();
     }
 
+    /**
+     * Instantiates a new application value wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue raw)
     {
         application = raw.getApplication();
@@ -41,6 +72,12 @@ public class ApplicationValueWrapper
         value = raw.getValue();
     }
 
+    /**
+     * Instantiates a new application value wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue raw)
     {
         application = raw.getApplication();
@@ -48,6 +85,12 @@ public class ApplicationValueWrapper
         value = raw.getValue();
     }
 
+    /**
+     * Instantiates a new application value wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ApplicationValueWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ApplicationValue raw)
     {
         application = raw.getApplication();
@@ -55,36 +98,74 @@ public class ApplicationValueWrapper
         value = raw.getValue();
     }
 
+    /**
+     * Gets the application.
+     *
+     * @return the application
+     */
     public String getApplication()
     {
         return application;
     }
 
+    /**
+     * Sets the application.
+     *
+     * @param application
+     *            the new application
+     */
     public void setApplication(String application)
     {
         this.application = application;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name)
     {
         this.name = name;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(String value)
     {
         this.value = value;
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue val = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue();
@@ -94,6 +175,11 @@ public class ApplicationValueWrapper
         return val;
     }
 
+    /**
+     * Gets the raw version 1 69.
+     *
+     * @return the raw version 1 69
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue getRawVersion1_69()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue();
@@ -103,6 +189,11 @@ public class ApplicationValueWrapper
         return result;
     }
 
+    /**
+     * Gets the raw version 1 62.
+     *
+     * @return the raw version 1 62
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue getRawVersion1_62()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue();
@@ -112,6 +203,11 @@ public class ApplicationValueWrapper
         return result;
     }
 
+    /**
+     * Gets the raw version 1 58.
+     *
+     * @return the raw version 1 58
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue getRawVersion1_58()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue();

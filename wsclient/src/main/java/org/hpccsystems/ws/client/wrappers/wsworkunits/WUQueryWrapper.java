@@ -41,14 +41,20 @@ public class WUQueryWrapper
 
     private List<ApplicationValueWrapper> applicationValues     = new ArrayList<ApplicationValueWrapper>();
 
+    /**
+     * Instantiates a new WU query wrapper.
+     */
     public WUQueryWrapper()
     {
     }
 
     /**
-     * 
-     * @param raw - the soap-version-specific WUQuery to use to initialize this WUQueryInfo object.
-     * @throws Exception if the input start date / end date are not null and are invalid date strings.
+     * Instantiates a new WU query wrapper.
+     *
+     * @param raw
+     *            - the soap-version-specific WUQuery to use to initialize this WUQueryInfo object.
+     * @throws Exception
+     *             if the input start date / end date are not null and are invalid date strings.
      */
     public WUQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuery raw) throws Exception
     {
@@ -113,6 +119,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the cluster.
+     *
      * @return the cluster name to filter workunits by.
      */
     public String getCluster()
@@ -121,7 +129,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param cluster - the cluster name to return workunits from.
+     * Sets the cluster.
+     *
+     * @param cluster
+     *            - the cluster name to return workunits from.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setCluster(String cluster)
     {
@@ -130,8 +142,9 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the descending.
+     *
      * @return if a sortby param is specified and getDescending is true, results will be returned descending.
-     * 
      */
     public boolean getDescending()
     {
@@ -139,7 +152,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param descending - if a sortby parameter is specified, descending will make that parameter sort descending.
+     * Sets the descending.
+     *
+     * @param descending
+     *            - if a sortby parameter is specified, descending will make that parameter sort descending.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setDescending(boolean descending)
     {
@@ -148,6 +165,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the ecl.
+     *
      * @return the ecl that will be searched for.
      */
     public String getECL()
@@ -156,7 +175,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param ecl - the ecl to search for. Wildcards (*,?) are allowed.
+     * Sets the ECL.
+     *
+     * @param eCL
+     *            the e CL
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setECL(String eCL)
     {
@@ -165,6 +188,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the end date.
+     *
      * @return - the end date to search for.
      */
     public Date getEndDate()
@@ -173,6 +198,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the jobname.
+     *
      * @return jobname that will be searched for.
      */
     public String getJobname()
@@ -181,7 +208,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param jobname - find workunits with this jobname. Wildcards (*,?) are allowed.
+     * Sets the jobname.
+     *
+     * @param jobname
+     *            - find workunits with this jobname. Wildcards (*,?) are allowed.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setJobname(String jobname)
     {
@@ -190,6 +221,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the logical file.
+     *
      * @return the logical file to search for.
      */
     public String getLogicalFile()
@@ -198,8 +231,12 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param logicalFile - the name of the logical file to search for. Wildcards allowed (*,?)
-     * Should not start with "~"
+     * Sets the logical file.
+     *
+     * @param logicalFile
+     *            - the name of the logical file to search for. Wildcards allowed (*,?)
+     *            Should not start with "~"
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setLogicalFile(String logicalFile)
     {
@@ -212,8 +249,10 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the logical file search type.
+     *
      * @return the type of logical files that will be searched for, Input or Output (can't be both). If null, input
-     * files are searched.
+     *         files are searched.
      */
     public LogicalFileSearchType getLogicalFileSearchType()
     {
@@ -221,8 +260,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param b  If searching for a logical file, if this is true, only logical files output by the workunit
-     * will be considered.
+     * Sets the output logical files only.
+     *
+     * @param lf
+     *            the lf
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setOutputLogicalFilesOnly(LogicalFileSearchType lf)
     {
@@ -231,6 +273,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the owner.
+     *
      * @return owner that workunits will be filtered by
      */
     public String getOwner()
@@ -239,7 +283,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param owner - return only workunits created by this username. Case insensitive
+     * Sets the owner.
+     *
+     * @param owner
+     *            - return only workunits created by this username. Case insensitive
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setOwner(String owner)
     {
@@ -248,6 +296,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the page size.
+     *
      * @return number of results to return
      */
     public Long getPageSize()
@@ -256,8 +306,12 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param pageSize - the number of results to return. Overrides getPageEndAt. EG if 100 results are found,
-     * getPageStartFrom is 10, getPageEndAt is 50, and getPageSize is 10, workunits 10-20 will be returned.
+     * Sets the page size.
+     *
+     * @param pageSize
+     *            - the number of results to return. Overrides getPageEndAt. EG if 100 results are found,
+     *            getPageStartFrom is 10, getPageEndAt is 50, and getPageSize is 10, workunits 10-20 will be returned.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setPageSize(Long pageSize)
     {
@@ -266,7 +320,9 @@ public class WUQueryWrapper
     }
 
     /**
-     * @return  Which result to begin returning results from
+     * Gets the page start from.
+     *
+     * @return Which result to begin returning results from
      */
     public Long getPageStartFrom()
     {
@@ -274,9 +330,13 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param pageStartFrom - Which result to begin returning results from. e.g. if 100 workunits were found and
-     * this value is 4, the first three workunits will not be included in the results. Default value is 1
-     * */
+     * Sets the page start from.
+     *
+     * @param pageStartFrom
+     *            - Which result to begin returning results from. e.g. if 100 workunits were found and
+     *            this value is 4, the first three workunits will not be included in the results. Default value is 1
+     * @return the WU query wrapper
+     */
     public WUQueryWrapper setPageStartFrom(Long pageStartFrom)
     {
         this.pageStartFrom = pageStartFrom;
@@ -284,6 +344,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the sortby.
+     *
      * @return the SortBy enum indicating the sort order in which results will be returned.
      */
     public SortBy getSortby()
@@ -292,6 +354,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the state.
+     *
      * @return the WUState enum for the state that will be searched for.
      */
     public WUState getState()
@@ -300,6 +364,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the wuid.
+     *
      * @return the workunit id that will be searched for.
      */
     public String getWuid()
@@ -308,7 +374,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param wuid - the Workunit ID to search for. Case Insensitive.
+     * Sets the wuid.
+     *
+     * @param wuid
+     *            - the Workunit ID to search for. Case Insensitive.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setWuid(String wuid)
     {
@@ -317,8 +387,10 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the application values.
+     *
      * @return the application values that will be searched for. If none have been specified,
-     * an empty list is returned.
+     *         an empty list is returned.
      */
     public List<ApplicationValueWrapper> getApplicationValues()
     {
@@ -326,8 +398,12 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param applicationValues - the application values to search for. Any workunits containing these
-     * application values will be returned.
+     * Sets the application values.
+     *
+     * @param applicationValues
+     *            - the application values to search for. Any workunits containing these
+     *            application values will be returned.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setApplicationValues(List<ApplicationValueWrapper> applicationValues)
     {
@@ -336,7 +412,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param sort how to sort the returned workunits. If null, results are returned by wuid descending.
+     * Sets the sort by.
+     *
+     * @param sort
+     *            how to sort the returned workunits. If null, results are returned by wuid descending.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setSortBy(SortBy sort)
     {
@@ -345,7 +425,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param stateenum - return workunits with only the specified state.
+     * Sets the state.
+     *
+     * @param stateenum
+     *            - return workunits with only the specified state.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setState(WUState stateenum)
     {
@@ -354,7 +438,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param date - the start date for which workunits will be retrieved.
+     * Sets the start date.
+     *
+     * @param date
+     *            - the start date for which workunits will be retrieved.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setStartDate(Date date)
     {
@@ -363,7 +451,11 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param date - the end date for which workunits will be retrieved.
+     * Sets the end date.
+     *
+     * @param date
+     *            - the end date for which workunits will be retrieved.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setEndDate(Date date)
     {
@@ -372,8 +464,12 @@ public class WUQueryWrapper
     }
 
     /**
-     * @param b - if true, only archived workunits will be returned. if false or null, only unarchived workunits will be
-     * returned.
+     * Sets the archived.
+     *
+     * @param b
+     *            - if true, only archived workunits will be returned. if false or null, only unarchived workunits will be
+     *            returned.
+     * @return the WU query wrapper
      */
     public WUQueryWrapper setArchived(Boolean b)
     {
@@ -382,6 +478,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the start date.
+     *
      * @return the start date for which workunits will be retrieved.
      */
     public Date getStartDate()
@@ -389,6 +487,12 @@ public class WUQueryWrapper
         return startDate;
     }
 
+    /**
+     * Validate.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void validate() throws Exception
     {
         // sanitize ApplicationValue[]
@@ -406,6 +510,8 @@ public class WUQueryWrapper
     }
 
     /**
+     * Gets the raw.
+     *
      * @return the raw WUQuery object
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuery getRaw()
@@ -413,6 +519,11 @@ public class WUQueryWrapper
         return getRaw1_75();
     }
 
+    /**
+     * Gets the raw 1 75.
+     *
+     * @return the raw 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuery getRaw1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuery();
@@ -500,6 +611,15 @@ public class WUQueryWrapper
         Input, Output
     }
 
+    /**
+     * Gets the raw 156.
+     *
+     * @param appvalue
+     *            the appvalue
+     * @return the raw 156
+     * @throws Exception
+     *             the exception
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery getRaw156(int appvalue) throws Exception
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery();

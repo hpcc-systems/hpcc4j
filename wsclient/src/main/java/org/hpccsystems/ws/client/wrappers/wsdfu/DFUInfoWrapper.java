@@ -27,6 +27,12 @@ public class DFUInfoWrapper
     private DFUFileDetailWrapper     detailInfo;
     private ArrayOfEspExceptionWrapper exceptions = null;
 
+    /**
+     * Instantiates a new DFU info wrapper.
+     *
+     * @param resp
+     *            the resp
+     */
     public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUInfoResponse resp)
     {
         this.detailInfo = new DFUFileDetailWrapper(resp.getFileDetail());
@@ -37,6 +43,8 @@ public class DFUInfoWrapper
     }
 
     /**
+     * Gets the file detail.
+     *
      * @return the detailInfo
      */
     public DFUFileDetailWrapper getFileDetail()
@@ -45,6 +53,8 @@ public class DFUInfoWrapper
     }
 
     /**
+     * Sets the file detail.
+     *
      * @param detailInfo
      *            the detailInfo to set
      */
@@ -54,6 +64,8 @@ public class DFUInfoWrapper
     }
 
     /**
+     * Gets the exceptions.
+     *
      * @return the exceptions
      */
     public ArrayOfEspExceptionWrapper getExceptions()
@@ -62,6 +74,8 @@ public class DFUInfoWrapper
     }
 
     /**
+     * Sets the exceptions.
+     *
      * @param exceptions
      *            the exceptions to set
      */

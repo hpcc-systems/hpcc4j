@@ -36,12 +36,25 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
     private T                            record              = null;
     private Class<T>                     recordClass         = null;
 
+    /**
+     * Instantiates a new reflection record builder.
+     *
+     * @param clazz
+     *            the clazz
+     * @param recordDef
+     *            the record def
+     */
     ReflectionRecordBuilder(Class<T> clazz, FieldDef recordDef)
     {
         this.recordClass = clazz;
         this.setRecordDefinition(recordDef);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#setRecordDefinition(org.hpccsystems.commons.ecl.FieldDef)
+     */
     public void setRecordDefinition(FieldDef recordDef)
     {
         this.fieldDef = recordDef;
@@ -80,7 +93,7 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
                         subFd = fd.getDef(0);
                     }
 
-                    childRecordBuilders[i] = new ReflectionRecordBuilder(subClass,subFd);
+                    childRecordBuilders[i] = new ReflectionRecordBuilder(subClass, subFd);
                 }
                 catch (Exception e)
                 {
@@ -110,11 +123,21 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#getRecordDefinition()
+     */
     public FieldDef getRecordDefinition()
     {
         return this.fieldDef;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#startRecord()
+     */
     public void startRecord() throws java.lang.InstantiationException
     {
         try
@@ -127,11 +150,21 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#finalizeRecord()
+     */
     public Object finalizeRecord() throws java.lang.InstantiationException
     {
         return this.record;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#setFieldValue(int, java.lang.Object)
+     */
     public void setFieldValue(int index, Object value) throws IllegalArgumentException, IllegalAccessException
     {
         if (this.fields[index] != null)
@@ -140,6 +173,11 @@ public class ReflectionRecordBuilder<T> implements IRecordBuilder
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#getChildRecordBuilder(int)
+     */
     public IRecordBuilder getChildRecordBuilder(int index)
     {
         return this.childRecordBuilders[index];

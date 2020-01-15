@@ -5,19 +5,44 @@ public class BaseExceptionWrapper
     protected String source;
     protected String message;
 
-    public void setSource( String _source )
+    /**
+     * Sets the source.
+     *
+     * @param _source
+     *            the new source
+     */
+    public void setSource(String _source)
     {
         source = _source;
     }
-    public String getSource( )
+
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
+    public String getSource()
     {
         return source;
     }
-    public void setMessage( String _message )
+
+    /**
+     * Sets the message.
+     *
+     * @param _message
+     *            the new message
+     */
+    public void setMessage(String _message)
     {
         message = _message;
     }
-    public String getMessage( )
+
+    /**
+     * Gets the message.
+     *
+     * @return the message
+     */
+    public String getMessage()
     {
         return message;
     }

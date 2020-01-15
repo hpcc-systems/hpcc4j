@@ -25,32 +25,72 @@ public class HPCCRecord
     private FieldDef rootFieldDef = null;
     private Object[] fields       = null;
 
+    /**
+     * Instantiates a new HPCC record.
+     *
+     * @param fields
+     *            the fields
+     * @param def
+     *            the def
+     */
     public HPCCRecord(Object[] fields, FieldDef def)
     {
         this.rootFieldDef = def;
         this.fields = fields;
     }
 
+    /**
+     * Gets the field defintion.
+     *
+     * @param index
+     *            the index
+     * @return the field defintion
+     */
     FieldDef getFieldDefintion(int index)
     {
         return this.rootFieldDef.getDef(index);
     }
 
+    /**
+     * Gets the field.
+     *
+     * @param index
+     *            the index
+     * @return the field
+     */
     Object getField(int index)
     {
         return fields[index];
     }
 
+    /**
+     * Sets the field.
+     *
+     * @param index
+     *            the index
+     * @param value
+     *            the value
+     */
     void setField(int index, Object value)
     {
         fields[index] = value;
     }
 
+    /**
+     * Gets the num fields.
+     *
+     * @return the num fields
+     */
     int getNumFields()
     {
         return fields.length;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     public boolean equals(Object o)
     {
         if (o == null || (o instanceof HPCCRecord) == false)

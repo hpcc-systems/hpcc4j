@@ -1,12 +1,11 @@
 package org.hpccsystems.ws.client;
 
 import java.io.File;
-
 import java.rmi.RemoteException;
 import java.util.List;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -32,9 +31,9 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
  */
 public class HPCCWsClient extends DataSingleton
 {
-    private static final Logger log = LogManager.getLogger(HPCCWsClient.class);
+    private static final Logger           log        = LogManager.getLogger(HPCCWsClient.class);
 
-    public static DataSingletonCollection All = new DataSingletonCollection();
+    public static DataSingletonCollection All        = new DataSingletonCollection();
     public static DataSingletonCollection SubClients = new DataSingletonCollection();
 
     /**
@@ -42,51 +41,66 @@ public class HPCCWsClient extends DataSingleton
      * doesn't exist, create new instance.
      *
      * @param protocol
+     *            the protocol
      * @param targetWsECLWatchAddress
+     *            the target ws ECL watch address
      * @param targetWsECLWatchPort
+     *            the target ws ECL watch port
      * @param user
+     *            the user
      * @param password
-     * @return
+     *            the password
+     * @return the HPCC ws client
      */
     public static HPCCWsClient get(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort, String user, String password)
     {
-        return (HPCCWsClient) All.get(new HPCCWsClient( protocol, targetWsECLWatchAddress, Integer.toString(targetWsECLWatchPort), user, password));
+        return (HPCCWsClient) All.get(new HPCCWsClient(protocol, targetWsECLWatchAddress, Integer.toString(targetWsECLWatchPort), user, password));
     }
 
     /**
      * Fetch pre-existing HPCCWsClient instance from collection, if pre-existing instance with exact connection option
-     * doesn't exist return null
+     * doesn't exist return null.
      *
      * @param protocol
+     *            the protocol
      * @param targetWsECLWatchAddress
+     *            the target ws ECL watch address
      * @param targetWsECLWatchPort
+     *            the target ws ECL watch port
      * @param user
+     *            the user
      * @param password
-     * @return
+     *            the password
+     * @return the no create
      */
-    public static HPCCWsClient getNoCreate(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort,String user, String password)
+    public static HPCCWsClient getNoCreate(String protocol, String targetWsECLWatchAddress, int targetWsECLWatchPort, String user, String password)
     {
-        return (HPCCWsClient) All.getNoCreate(new HPCCWsClient(protocol, targetWsECLWatchAddress, Integer.toString(targetWsECLWatchPort), user, password));
+        return (HPCCWsClient) All
+                .getNoCreate(new HPCCWsClient(protocol, targetWsECLWatchAddress, Integer.toString(targetWsECLWatchPort), user, password));
     }
 
     /**
-     * Remove an instance of HPCCWsClient from pool, and therefore from potential re-use
+     * Remove an instance of HPCCWsClient from pool, and therefore from potential re-use.
+     *
      * @param p
+     *            the p
      */
     public static void remove(HPCCWsClient p)
     {
         All.remove(p);
     }
 
-    public static final String defaultTargetWsECLWatchHost      = "localhost";
-    public static final String defaultTWsECLWatchPort           = "8010";
-    public static final String defaultTWsECLWatchSSLPort        = "18010";
+    public static final String defaultTargetWsECLWatchHost = "localhost";
+    public static final String defaultTWsECLWatchPort      = "8010";
+    public static final String defaultTWsECLWatchSSLPort   = "18010";
 
-    protected boolean verbosemode = false;
-    protected Connection connection = null;
-    protected Object connectionLock = new Object();
+    protected boolean          verbosemode                 = false;
+    protected Connection       connection                  = null;
+    protected Object           connectionLock              = new Object();
 
     /**
+     * Checks if is verbosemode.
+     *
      * @return true if the client is set to be verbose
      */
     public boolean isVerbosemode()
@@ -96,8 +110,9 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * sets the client verbose mode.
-     * @param verbosemode
      *
+     * @param verbosemode
+     *            the new verbosemode
      */
     public void setVerbosemode(boolean verbosemode)
     {
@@ -105,15 +120,18 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     *  Instantiates HPCCWsClient, attempts to establish all communications on http://localhost:8010
+     * Instantiates HPCCWsClient, attempts to establish all communications on http://localhost:8010.
      */
     protected HPCCWsClient()
     {
-        this(defaultTargetWsECLWatchHost,defaultTWsECLWatchPort);
+        this(defaultTargetWsECLWatchHost, defaultTWsECLWatchPort);
     }
 
     /**
-     *  Instantiates HPCCWsClient, attempts to establish all communications on <protocol>://localhost:<defaultportonprotocol>
+     * Instantiates HPCCWsClient, attempts to establish all communications on &lt;protocol&gt;://localhost:&lt;defaultportonprotocol&gt;.
+     *
+     * @param protocol
+     *            the protocol
      */
     protected HPCCWsClient(String protocol)
     {
@@ -121,24 +139,31 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Instantiates HPCCWsClient, communicates with HPCC on HTTP protocol
-     * @param targetWsECLWatchAddress - The address of the WsECLWatch ESP on the Target HPCC System
-     *                                  e.g. 192.168.1.100
-     * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
-     *                                  usually 8010
+     * Instantiates HPCCWsClient, communicates with HPCC on HTTP protocol.
+     *
+     * @param targetWsECLWatchAddress
+     *            - The address of the WsECLWatch ESP on the Target HPCC System
+     *            e.g. 192.168.1.100
+     * @param targetWsECLWatchPort
+     *            - The port on which WsECLWatch ESP is listening on the Target HPCC System
+     *            usually 8010
      */
-    protected HPCCWsClient( String targetWsECLWatchAddress, String targetWsECLWatchPort)
+    protected HPCCWsClient(String targetWsECLWatchAddress, String targetWsECLWatchPort)
     {
         this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort);
     }
 
     /**
-     * Instantiates HPCCWsClient, communicates with HPCC over the given protocol
-     * @param targetProtocol          - http | https
-     * @param targetWsECLWatchAddress - The address of the WsECLWatch ESP on the Target HPCC System
-     *                                  e.g. 192.168.1.100
-     * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
-     *                                  usually 8010
+     * Instantiates HPCCWsClient, communicates with HPCC over the given protocol.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetWsECLWatchAddress
+     *            - The address of the WsECLWatch ESP on the Target HPCC System
+     *            e.g. 192.168.1.100
+     * @param targetWsECLWatchPort
+     *            - The port on which WsECLWatch ESP is listening on the Target HPCC System
+     *            usually 8010
      */
     protected HPCCWsClient(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort)
     {
@@ -146,31 +171,41 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Instantiates HPCCWsClient, communicates with HPCC over http, and provides user/pass credentials
+     * Instantiates HPCCWsClient, communicates with HPCC over http, and provides user/pass credentials.
      *
-     * @param targetWsECLWatchAddress - The address of the WsECLWatch ESP on the Target HPCC System
-     *                                  e.g. 192.168.1.100
-     * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
-     *                                  usually 8010
-     * @param username                - ESP Username
-     * @param password                - ESP Password
+     * @param targetWsECLWatchAddress
+     *            - The address of the WsECLWatch ESP on the Target HPCC System
+     *            e.g. 192.168.1.100
+     * @param targetWsECLWatchPort
+     *            - The port on which WsECLWatch ESP is listening on the Target HPCC System
+     *            usually 8010
+     * @param username
+     *            - ESP Username
+     * @param password
+     *            - ESP Password
      */
     public HPCCWsClient(String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
-        this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort,  username, password);
+        this(Connection.protHttp, targetWsECLWatchAddress, targetWsECLWatchPort, username, password);
     }
 
     /**
-     * Instantiates HPCCWsClient, communicates with HPCC over given protocol, and provides user/pass credentials
-     * @param protocol                - http | https
-     * @param targetWsECLWatchAddress - The address of the WsECLWatch ESP on the Target HPCC System
-     *                                  e.g. 192.168.1.100
-     * @param targetWsECLWatchPort    - The port on which WsECLWatch ESP is listening on the Target HPCC System
-     *                                  usually 8010
-     * @param username                - ESP Username
-     * @param password                - ESP Password
+     * Instantiates HPCCWsClient, communicates with HPCC over given protocol, and provides user/pass credentials.
+     *
+     * @param protocol
+     *            - http | https
+     * @param targetWsECLWatchAddress
+     *            - The address of the WsECLWatch ESP on the Target HPCC System
+     *            e.g. 192.168.1.100
+     * @param targetWsECLWatchPort
+     *            - The port on which WsECLWatch ESP is listening on the Target HPCC System
+     *            usually 8010
+     * @param username
+     *            - ESP Username
+     * @param password
+     *            - ESP Password
      */
-    protected HPCCWsClient( String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
+    protected HPCCWsClient(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
         connection = new Connection(protocol, targetWsECLWatchAddress, targetWsECLWatchPort);
         connection.setCredentials(username, password);
@@ -178,7 +213,9 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Instantiates HPCCWsClient, uses contents of connection object to communicate with target HPCC System.
+     *
      * @param conn
+     *            the conn
      */
     protected HPCCWsClient(Connection conn)
     {
@@ -186,12 +223,18 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Caller can edit connection properties for this HPCCWsClient, then get appropriate subclient
+     * Caller can edit connection properties for this HPCCWsClient, then get appropriate subclient.
+     *
      * @param protocol
+     *            the protocol
      * @param targetWsECLWatchAddress
+     *            the target ws ECL watch address
      * @param targetWsECLWatchPort
+     *            the target ws ECL watch port
      * @param username
+     *            the username
      * @param password
+     *            the password
      */
     public synchronized void update(String protocol, String targetWsECLWatchAddress, String targetWsECLWatchPort, String username, String password)
     {
@@ -201,8 +244,11 @@ public class HPCCWsClient extends DataSingleton
         updateConnection(newConnection);
     }
 
-    /** Caller can edit connection properties for this HPCCWsClient by providing connection object, then get appropriate subclient
+    /**
+     * Caller can edit connection properties for this HPCCWsClient by providing connection object, then get appropriate subclient.
+     *
      * @param conn
+     *            the conn
      */
     public synchronized void updateConnection(Connection conn)
     {
@@ -214,8 +260,9 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * get this HPCCWsClient's connection object
-     * @return
+     * get this HPCCWsClient's connection object.
+     *
+     * @return the connection
      */
     protected Connection getConnection()
     {
@@ -226,10 +273,11 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Test availability of target HPCC ESP service
-     * @return bool value indicating if ping success
+     * Test availability of target HPCC ESP service.
      *
+     * @return bool value indicating if ping success
      * @throws Exception
+     *             the exception
      */
     public synchronized boolean pingServer() throws Exception
     {
@@ -256,24 +304,26 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsSQLClient.getServiceWSDLURL());
     }
 
-
     /**
-     * @return provides wsSQLClient on a port other than ECLWatch port.
+     * Gets the ws SQL client.
      *
      * @param wsSQLPort
-     * @return
+     *            the ws SQL port
+     * @return provides wsSQLClient on a port other than ECLWatch port.
      */
     public HPCCWsSQLClient getWsSQLClient(String wsSQLPort)
     {
         synchronized (connectionLock)
         {
-            Connection tempConn = new Connection(connection.getProtocol(),connection.getHost(),wsSQLPort);
-            tempConn.setCredentials(connection.getUserName(),connection.getPassword());
+            Connection tempConn = new Connection(connection.getProtocol(), connection.getHost(), wsSQLPort);
+            tempConn.setCredentials(connection.getUserName(), connection.getPassword());
             return (HPCCWsSQLClient) SubClients.get(HPCCWsSQLClient.get(tempConn));
         }
     }
 
     /**
+     * Gets the ws SQL client.
+     *
      * @return provides wsSQLClient for direct method execution
      */
     public HPCCWsSQLClient getWsSQLClient()
@@ -291,21 +341,25 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * provides WsAttributesClient for direct method execution
-     * @param wsAttributesPort - If wsattributes is not running on eclwatch port
-     * @return
+     * provides WsAttributesClient for direct method execution.
+     *
+     * @param wsAttributesPort
+     *            - If wsattributes is not running on eclwatch port
+     * @return the ws attributes client
      */
     public HPCCWsAttributesClient getWsAttributesClient(String wsAttributesPort)
     {
         synchronized (connectionLock)
         {
-            Connection tempConn = new Connection(connection.getProtocol(),connection.getHost(),wsAttributesPort);
-            tempConn.setCredentials(connection.getUserName(),connection.getPassword());
+            Connection tempConn = new Connection(connection.getProtocol(), connection.getHost(), wsAttributesPort);
+            tempConn.setCredentials(connection.getUserName(), connection.getPassword());
             return (HPCCWsAttributesClient) SubClients.get(HPCCWsAttributesClient.get(tempConn));
         }
     }
 
     /**
+     * Gets the ws attributes client.
+     *
      * @return provides WsAttributesClient for direct method execution
      */
     public HPCCWsAttributesClient getWsAttributesClient()
@@ -314,6 +368,8 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Gets the file spray client.
+     *
      * @return provides fileSprayClient for direct method execution
      */
     public HPCCFileSprayClient getFileSprayClient()
@@ -342,6 +398,11 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsFileIOClient.getServiceWSDLURL());
     }
 
+    /**
+     * Gets the ws file IO client.
+     *
+     * @return the ws file IO client
+     */
     public HPCCWsFileIOClient getWsFileIOClient()
     {
         synchronized (connectionLock)
@@ -351,6 +412,8 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Gets the ws package process client.
+     *
      * @return provides HPCCWsPackageProcessClient for direct method execution
      */
     public HPCCWsPackageProcessClient getWsPackageProcessClient()
@@ -370,6 +433,11 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsTopologyClient.getServiceWSDLURL());
     }
 
+    /**
+     * Gets the ws topology client.
+     *
+     * @return the ws topology client
+     */
     public HPCCWsTopologyClient getWsTopologyClient()
     {
         synchronized (connectionLock)
@@ -387,6 +455,11 @@ public class HPCCWsClient extends DataSingleton
         return Utils.parseVersionFromWSDLURL(HPCCWsDFUClient.getServiceWSDLURL());
     }
 
+    /**
+     * Gets the ws DFU client.
+     *
+     * @return the ws DFU client
+     */
     public HPCCWsDFUClient getWsDFUClient()
     {
         synchronized (connectionLock)
@@ -405,6 +478,8 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Gets the ws SMC client.
+     *
      * @return provides HPCCWsSMCClient for direct method execution
      */
     public HPCCWsSMCClient getWsSMCClient()
@@ -425,6 +500,8 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Gets the ws workunits client.
+     *
      * @return provides HPCCWsWorkUnitsClient for direct method execution
      */
     public HPCCWsWorkUnitsClient getWsWorkunitsClient()
@@ -437,8 +514,10 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Returns all the available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
-     * @return                      - The available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
+     *
+     * @return - The available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
      * @throws Exception
+     *             the exception
      */
     public String[] getAvailableClusterGroups() throws Exception
     {
@@ -465,10 +544,14 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Returns all the available target cluster names (mythor, myroxie, etc) given a cluster group type/name (thor, roxie, etc.)
-     * @param clusterGroupType         - The cluster group type/name
-     * @return                         - Names of all available target cluster in the given cluster group
+     *
+     * @param clusterGroupType
+     *            - The cluster group type/name
+     * @return - Names of all available target cluster in the given cluster group
      * @throws Exception
+     *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public String[] getAvailableClusterNames(String clusterGroupType) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
@@ -481,9 +564,13 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * @return          - List of all available target cluster names (mythor, myroxie, etc) on this HPCC System
+     * Gets the available target cluster names.
+     *
+     * @return - List of all available target cluster names (mythor, myroxie, etc) on this HPCC System
      * @throws Exception
+     *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<String> getAvailableTargetClusterNames() throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
@@ -496,13 +583,19 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Spray a fixed record length data file onto a target cluster on the target HPCC System
-     * @param fileName               - The existing file (on the target HPCC System) to spray
-     * @param targetFileLabel        - The full label the sprayed file will be assigned
-     * @param recordSize             - The record length
-     * @param targetCluster          - The cluster on which to spray
-     * @param overwritesprayedfile   - Boolean, overwrite possibly sprayed file of same name
-     * @return                       - Boolean, success.
+     * Spray a fixed record length data file onto a target cluster on the target HPCC System.
+     *
+     * @param fileName
+     *            - The existing file (on the target HPCC System) to spray
+     * @param targetFileLabel
+     *            - The full label the sprayed file will be assigned
+     * @param recordSize
+     *            - The record length
+     * @param targetCluster
+     *            - The cluster on which to spray
+     * @param overwritesprayedfile
+     *            - Boolean, overwrite possibly sprayed file of same name
+     * @return - Boolean, success.
      */
     public boolean sprayFlatHPCCFile(String fileName, String targetFileLabel, int recordSize, String targetCluster, boolean overwritesprayedfile)
     {
@@ -513,7 +606,8 @@ public class HPCCWsClient extends DataSingleton
             HPCCFileSprayClient fileSprayClient = getFileSprayClient();
 
             if (fileSprayClient != null)
-                success = handleSprayResponse(fileSprayClient.sprayFixedLocalDropZone(fileName, recordSize, targetFileLabel, "", targetCluster, overwritesprayedfile));
+                success = handleSprayResponse(
+                        fileSprayClient.sprayFixedLocalDropZone(fileName, recordSize, targetFileLabel, "", targetCluster, overwritesprayedfile));
             else
                 throw new Exception("Could not initialize HPCC fileSpray Client");
         }
@@ -532,28 +626,40 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
-
     /**
-     * Spray a variable/delimited data file onto a target cluster on the target HPCC System
-     * @param fileName                - The existing file (on the target HPCC System) to spray
-     * @param targetFileLabel         - The full label the sprayed file will be assigned
-     * @param targetCluster           - The cluster on which to spray
-     * @param escapedEscapeSequence   - The escape character sequence (must be escaped)
-     * @param escapedFieldDelim       - The field delimiter (must be escaped)
-     * @param escapedQuote            - The data quote (must be escaped)
-     * @param escapedRecTerminator    - The record terminator sequence (must be escaped)
-     * @param overwritesprayedfile    - Boolean, overwrite possibly sprayed file of same name
-     * @param format                  - SprayVariableFormat
-     * @return                        - Boolean, success.
+     * Spray a variable/delimited data file onto a target cluster on the target HPCC System.
+     *
+     * @param fileName
+     *            - The existing file (on the target HPCC System) to spray
+     * @param targetFileLabel
+     *            - The full label the sprayed file will be assigned
+     * @param targetCluster
+     *            - The cluster on which to spray
+     * @param escapedEscapeSequence
+     *            - The escape character sequence (must be escaped)
+     * @param escapedFieldDelim
+     *            - The field delimiter (must be escaped)
+     * @param escapedQuote
+     *            - The data quote (must be escaped)
+     * @param escapedRecTerminator
+     *            - The record terminator sequence (must be escaped)
+     * @param overwritesprayedfile
+     *            - Boolean, overwrite possibly sprayed file of same name
+     * @param format
+     *            - SprayVariableFormat
+     * @return - Boolean, success.
      */
 
-    public boolean sprayCustomCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, String escapedEscapeSequence, String escapedFieldDelim, String escapedQuote, String escapedRecTerminator, boolean overwritesprayedfile, SprayVariableFormat format)
+    public boolean sprayCustomCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, String escapedEscapeSequence,
+            String escapedFieldDelim, String escapedQuote, String escapedRecTerminator, boolean overwritesprayedfile, SprayVariableFormat format)
     {
         boolean success = true;
 
         try
         {
-            success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster, new DelimitedDataOptions(escapedRecTerminator, escapedFieldDelim, escapedEscapeSequence, escapedQuote), overwritesprayedfile, format);
+            success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster,
+                    new DelimitedDataOptions(escapedRecTerminator, escapedFieldDelim, escapedEscapeSequence, escapedQuote), overwritesprayedfile,
+                    format);
         }
         catch (Exception e)
         {
@@ -565,12 +671,17 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Spray a CSV delimited data file (default CSV options) onto a target cluster on the target HPCC System
-     * @param fileName                - The existing file (on the target HPCC System) to spray
-     * @param targetFileLabel         - The full label the sprayed file will be assigned
-     * @param targetCluster           - The cluster on which to spray
-     * @param overwritesprayedfile    - Boolean, overwrite possibly sprayed file of same name
-     * @return                        - Boolean, success.
+     * Spray a CSV delimited data file (default CSV options) onto a target cluster on the target HPCC System.
+     *
+     * @param fileName
+     *            - The existing file (on the target HPCC System) to spray
+     * @param targetFileLabel
+     *            - The full label the sprayed file will be assigned
+     * @param targetCluster
+     *            - The cluster on which to spray
+     * @param overwritesprayedfile
+     *            - Boolean, overwrite possibly sprayed file of same name
+     * @return - Boolean, success.
      */
     public boolean sprayDefaultCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, boolean overwritesprayedfile)
     {
@@ -578,9 +689,10 @@ public class HPCCWsClient extends DataSingleton
 
         try
         {
-            //Another way is to create the enumeration from the string representation...
-            //FileFormat.convertDFUFileFormatName2Code("csv");
-            success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster, new DelimitedDataOptions(), overwritesprayedfile, SprayVariableFormat.DFUff_csv); //could be
+            // Another way is to create the enumeration from the string representation...
+            // FileFormat.convertDFUFileFormatName2Code("csv");
+            success = sprayVariableHPCCFile(fileName, targetFileLabel, targetCluster, new DelimitedDataOptions(), overwritesprayedfile,
+                    SprayVariableFormat.DFUff_csv); // could be
         }
         catch (Exception e)
         {
@@ -591,16 +703,24 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Spray a variable/delimited data file onto a target cluster on the target HPCC System
-     * @param fileName                - The existing file (on the target HPCC System) to spray
-     * @param targetFileLabel         - The full label the sprayed file will be assigned
-     * @param targetCluster           - The cluster on which to spray
-     * @param options                 - Delimited file description
-     * @param overwritesprayedfile    - Boolean, overwrite possibly sprayed file of same name
-     * @param format                  - SprayVariableFormat
-     * @return                        - Boolean, success.
+     * Spray a variable/delimited data file onto a target cluster on the target HPCC System.
+     *
+     * @param fileName
+     *            - The existing file (on the target HPCC System) to spray
+     * @param targetFileLabel
+     *            - The full label the sprayed file will be assigned
+     * @param targetCluster
+     *            - The cluster on which to spray
+     * @param options
+     *            - Delimited file description
+     * @param overwritesprayedfile
+     *            - Boolean, overwrite possibly sprayed file of same name
+     * @param format
+     *            - SprayVariableFormat
+     * @return - Boolean, success.
      */
-    public boolean sprayVariableHPCCFile(String fileName, String targetFileLabel, String targetCluster, DelimitedDataOptions options, boolean overwritesprayedfile, SprayVariableFormat format)
+    public boolean sprayVariableHPCCFile(String fileName, String targetFileLabel, String targetCluster, DelimitedDataOptions options,
+            boolean overwritesprayedfile, SprayVariableFormat format)
     {
         boolean success = false;
 
@@ -608,7 +728,8 @@ public class HPCCWsClient extends DataSingleton
         {
             HPCCFileSprayClient fileSprayClient = getFileSprayClient();
             if (fileSprayClient != null)
-                success = handleSprayResponse(fileSprayClient.sprayVariableLocalDropZone(options, fileName, targetFileLabel, "", targetCluster, overwritesprayedfile, format));
+                success = handleSprayResponse(fileSprayClient.sprayVariableLocalDropZone(options, fileName, targetFileLabel, "", targetCluster,
+                        overwritesprayedfile, format));
             else
                 throw new Exception("Could not initialize HPCC FileSpray Client");
         }
@@ -628,24 +749,39 @@ public class HPCCWsClient extends DataSingleton
         return success;
     }
 
-    public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+    /**
+     * Handle spray response.
+     *
+     * @param progressResponseWrapper
+     *            the progress response wrapper
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper)
+            throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         HPCCFileSprayClient fileSprayClient = getFileSprayClient();
 
-        if (fileSprayClient == null)
-            throw new Exception("Could not initialize HPCC FileSpray Client");
+        if (fileSprayClient == null) throw new Exception("Could not initialize HPCC FileSpray Client");
 
         return fileSprayClient.handleSprayResponse(progressResponseWrapper, 10, 100);
-     }
+    }
 
-     /**
+    /**
      * Preferred mechanism for uploading files to HPCC landingzone. Utilizes sftp protocol, requires target machine user account
      *
-     * @param localFileName        Fully qualified local file name to be uploaded
-     * @param targetFilename       Desired name to apply to uploaded file
-     * @param machineLoginUser     Target machine user account name
-     * @param password             Target machine user account password
-     * @return
+     * @param localFileName
+     *            Fully qualified local file name to be uploaded
+     * @param targetFilename
+     *            Desired name to apply to uploaded file
+     * @param machineLoginUser
+     *            Target machine user account name
+     * @param password
+     *            Target machine user account password
+     * @return true, if successful
      */
     public boolean uploadFileToHPCC(String localFileName, String targetFilename, String machineLoginUser, String password)
     {
@@ -671,7 +807,9 @@ public class HPCCWsClient extends DataSingleton
      * NOT the preferred mechanism for uploading files to HPCC landingzone. Utilizes http protocol, targets hpcc ws
      * ONLY USE THIS METHOD for small files and/or when sftp access is not available
      *
-     * @param localFileName        Fully qualified local file name to be uploaded
+     * @param localFileName
+     *            Fully qualified local file name to be uploaded
+     * @return true, if successful
      */
     public boolean httpUploadFileToFirstHPCCLandingZone(String localFileName)
     {
@@ -693,9 +831,12 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Submits the given ECL to compile/execute on the targetclust, and returns results.
-     * @param wu           - The workunit info object
-     * @return             - If successful, the resulting dataset(s)
+     *
+     * @param wu
+     *            - The workunit info object
+     * @return - If successful, the resulting dataset(s)
      * @throws Exception
+     *             the exception
      */
     public String submitECLandGetResults(WorkunitWrapper wu) throws Exception
     {
@@ -724,14 +865,17 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Submits the given ECL to compile/execute on the targetclust, and returns parsed results.
-     * @param wu                - The workunit info
-     * @return                  - If successful, the resulting dataset(s)
+     *
+     * @param wu
+     *            - The workunit info
+     * @return - If successful, the resulting dataset(s)
      * @throws Exception
+     *             the exception
      */
 
-    public List<List <Object>> submitECLandGetResultsList(WorkunitWrapper wu) throws Exception
+    public List<List<Object>> submitECLandGetResultsList(WorkunitWrapper wu) throws Exception
     {
-        List<List <Object>> resultsList;
+        List<List<Object>> resultsList;
         String results = submitECLandGetResults(wu);
         resultsList = Utils.parseECLResults(results);
         return resultsList;
@@ -739,8 +883,9 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Submits the given ECL to compile/execute on the targetclust and returns WUID to track the query.
-     * @param wu - The workunit info to be submitted
-     * @return   - If successful, the resulting WUID, which can be used to query info, including results
+     * @param wu
+     *            - The workunit info to be submitted
+     * @return - If successful, the resulting WUID, which can be used to query info, including results
      */
     public String submitECLandGetWUID(WorkunitWrapper wu)
     {
@@ -767,8 +912,9 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Get this HPCCWsClient's connection protocol (http|https)
-     * @return
+     * Get this HPCCWsClient's connection protocol (http|https).
+     *
+     * @return the protocol
      */
     public String getProtocol()
     {
@@ -776,8 +922,9 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Get this HPCCWsClient's connection host address
-     * @return
+     * Get this HPCCWsClient's connection host address.
+     *
+     * @return the host
      */
     public String getHost()
     {
@@ -785,8 +932,9 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Get this HPCCWsClient's connection port
-     * @return
+     * Get this HPCCWsClient's connection port.
+     *
+     * @return the port int
      */
     public int getPortInt()
     {
@@ -794,8 +942,9 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Get the user name used to by HPCCWsClient to authenticate against target ECLWatch
-     * @return
+     * Get the user name used to by HPCCWsClient to authenticate against target ECLWatch.
+     *
+     * @return the user name
      */
     public String getUserName()
     {
@@ -803,26 +952,51 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
-     * Get the password used to by HPCCWsClient to authenticate against target ECLWatch
-     * @return
+     * Get the password used to by HPCCWsClient to authenticate against target ECLWatch.
+     *
+     * @return the password
      */
     public String getPassword()
     {
         return connection.getPassword();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
-    protected void fastRefresh() {}
+    protected void fastRefresh()
+    {
+    }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
-    protected void fullRefresh() {}
+    protected void fullRefresh()
+    {
+    }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -841,6 +1015,11 @@ public class HPCCWsClient extends DataSingleton
         return EqualsUtil.areEqual(getConnection(), that.getConnection());
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

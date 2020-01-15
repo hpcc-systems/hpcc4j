@@ -20,8 +20,17 @@ public class ECLSourceFileWrapper
 
     private List<ECLSourceFileWrapper> ECLSourceFiles=new ArrayList<ECLSourceFileWrapper>();
 
+    /**
+     * Instantiates a new ECL source file wrapper.
+     */
     public ECLSourceFileWrapper() {}
 
+    /**
+     * Instantiates a new ECL source file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLSourceFileWrapper(ECLSourceFile raw)
     {
         if (raw==null) {
@@ -34,6 +43,12 @@ public class ECLSourceFileWrapper
         this.setSubs(raw.getSubs());
     }
 
+    /**
+     * Instantiates a new ECL source file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLSourceFile raw)
     {
         if (raw==null)
@@ -48,6 +63,12 @@ public class ECLSourceFileWrapper
         this.setSubs(raw.getSubs());
     }
 
+    /**
+     * Instantiates a new ECL source file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLSourceFile raw)
     {
         if (raw==null)
@@ -62,6 +83,12 @@ public class ECLSourceFileWrapper
         this.setSubs(raw.getSubs());
     }
 
+    /**
+     * Instantiates a new ECL source file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLSourceFile raw)
     {
         if (raw==null)
@@ -76,6 +103,12 @@ public class ECLSourceFileWrapper
         this.setSubs(raw.getSubs());
     }
 
+    /**
+     * Instantiates a new ECL source file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLSourceFile raw)
     {
         if (raw==null)
@@ -90,6 +123,12 @@ public class ECLSourceFileWrapper
         this.setSubs(raw.getSubs());
     }
 
+    /**
+     * Sets the ECL source files.
+     *
+     * @param eclSourceFiles2
+     *            the new ECL source files
+     */
     private void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ArrayOfECLSourceFile eclSourceFiles2)
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLSourceFile[] eclSourceFileArray = eclSourceFiles2.getECLSourceFile();
@@ -99,11 +138,21 @@ public class ECLSourceFileWrapper
         }
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile getRaw()
     {
         return getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile raw =
@@ -128,6 +177,8 @@ public class ECLSourceFileWrapper
     }
 
     /**
+     * Gets the file cluster.
+     *
      * @return the fileCluster
      */
     public String getFileCluster()
@@ -136,7 +187,10 @@ public class ECLSourceFileWrapper
     }
 
     /**
-     * @param fileCluster the fileCluster to set
+     * Sets the file cluster.
+     *
+     * @param fileCluster
+     *            the fileCluster to set
      */
     public void setFileCluster(String fileCluster)
     {
@@ -144,6 +198,8 @@ public class ECLSourceFileWrapper
     }
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName()
@@ -152,7 +208,10 @@ public class ECLSourceFileWrapper
     }
 
     /**
-     * @param name the name to set
+     * Sets the name.
+     *
+     * @param name
+     *            the name to set
      */
     public void setName(String name)
     {
@@ -160,6 +219,8 @@ public class ECLSourceFileWrapper
     }
 
     /**
+     * Gets the checks if is super file.
+     *
      * @return the isSuperFile
      */
     public Boolean getIsSuperFile()
@@ -168,7 +229,10 @@ public class ECLSourceFileWrapper
     }
 
     /**
-     * @param isSuperFile the isSuperFile to set
+     * Sets the checks if is super file.
+     *
+     * @param isSuperFile
+     *            the isSuperFile to set
      */
     public void setIsSuperFile(Boolean isSuperFile)
     {
@@ -176,6 +240,8 @@ public class ECLSourceFileWrapper
     }
 
     /**
+     * Gets the subs.
+     *
      * @return the subs
      */
     public Integer getSubs()
@@ -184,7 +250,10 @@ public class ECLSourceFileWrapper
     }
 
     /**
-     * @param subs the subs to set
+     * Sets the subs.
+     *
+     * @param subs
+     *            the subs to set
      */
     public void setSubs(Integer subs)
     {
@@ -192,6 +261,8 @@ public class ECLSourceFileWrapper
     }
 
     /**
+     * Gets the count.
+     *
      * @return the count
      */
     public Integer getCount()
@@ -200,7 +271,10 @@ public class ECLSourceFileWrapper
     }
 
     /**
-     * @param count the count to set
+     * Sets the count.
+     *
+     * @param count
+     *            the count to set
      */
     public void setCount(Integer count)
     {
@@ -208,6 +282,8 @@ public class ECLSourceFileWrapper
     }
 
     /**
+     * Gets the ECL source files.
+     *
      * @return the eCLSourceFiles
      */
     public List<ECLSourceFileWrapper> getECLSourceFiles()
@@ -216,13 +292,22 @@ public class ECLSourceFileWrapper
     }
 
     /**
-     * @param eCLSourceFiles the eCLSourceFiles to set
+     * Sets the ECL source files.
+     *
+     * @param eCLSourceFiles
+     *            the eCLSourceFiles to set
      */
     public void setECLSourceFiles(List<ECLSourceFileWrapper> eCLSourceFiles)
     {
         ECLSourceFiles = eCLSourceFiles;
     }
 
+    /**
+     * Sets the ECL source files.
+     *
+     * @param eclSourceFiles
+     *            the new ECL source files
+     */
     public void setECLSourceFiles(ArrayOfECLSourceFile eclSourceFiles)
     {
         if (eclSourceFiles != null) 
@@ -235,6 +320,12 @@ public class ECLSourceFileWrapper
         }
     }
 
+    /**
+     * Sets the ECL source files.
+     *
+     * @param eclSourceFiles2
+     *            the new ECL source files
+     */
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfECLSourceFile eclSourceFiles2)
     {
         if (eclSourceFiles2 != null) 
@@ -247,6 +338,12 @@ public class ECLSourceFileWrapper
         }
     }
 
+    /**
+     * Sets the ECL source files.
+     *
+     * @param eclSourceFiles
+     *            the new ECL source files
+     */
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfECLSourceFile eclSourceFiles)
     {
         if (eclSourceFiles != null) 
@@ -259,6 +356,12 @@ public class ECLSourceFileWrapper
         }
     }
 
+    /**
+     * Sets the ECL source files.
+     *
+     * @param eclSourceFiles
+     *            the new ECL source files
+     */
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfECLSourceFile eclSourceFiles)
     {
         if (eclSourceFiles != null) 
