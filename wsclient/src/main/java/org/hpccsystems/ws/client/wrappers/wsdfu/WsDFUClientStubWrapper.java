@@ -34,8 +34,13 @@ public class WsDFUClientStubWrapper
     private String baseURL;
 
     /**
+     * Gets the 1 51 stub.
+     *
+     * @param opts
+     *            the opts
      * @return a lazy-loaded 1_39 soap proxy
      * @throws AxisFault
+     *             the axis fault
      */
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuStub get1_51Stub(Options opts) throws AxisFault
     {
@@ -48,6 +53,15 @@ public class WsDFUClientStubWrapper
         return stub1_51;
     }
 
+    /**
+     * Gets the 1 39 stub.
+     *
+     * @param opts
+     *            the opts
+     * @return the 1 39 stub
+     * @throws AxisFault
+     *             the axis fault
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub get1_39Stub(Options opts) throws AxisFault
     {
         if (stub1_39 == null)
@@ -60,8 +74,12 @@ public class WsDFUClientStubWrapper
     }
 
     /**
-     * @param baseURL The URL of the cluster to connect to
-     * @param platformVersion the version of the cluster
+     * Instantiates a new ws DFU client stub wrapper.
+     *
+     * @param baseURL
+     *            The URL of the cluster to connect to
+     * @param platformVersion
+     *            the version of the cluster
      */
      public WsDFUClientStubWrapper(String baseURL, Version platformVersion)
     {
@@ -69,16 +87,31 @@ public class WsDFUClientStubWrapper
         this.baseURL=baseURL;
     }
 
+    /**
+     * Use version 1 39.
+     *
+     * @return true, if successful
+     */
     public boolean useVersion1_39()
     {
         return platformVersion.major < 6 || platformVersion.major==7 && platformVersion.minor == 0;
     }
 
+    /**
+     * Use version 1 50.
+     *
+     * @return true, if successful
+     */
     public boolean useVersion1_50()
     {
         return platformVersion.major==7 && (platformVersion.minor == 1 || platformVersion.minor == 2);
     }
 
+    /**
+     * Use version 1 51.
+     *
+     * @return true, if successful
+     */
     public boolean useVersion1_51()
     {
         return platformVersion.major==7 && platformVersion.minor > 2;

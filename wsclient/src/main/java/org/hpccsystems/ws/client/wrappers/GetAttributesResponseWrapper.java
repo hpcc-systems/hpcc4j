@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
@@ -27,58 +25,118 @@ package org.hpccsystems.ws.client.wrappers;
  */
 public class GetAttributesResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfECLAttributeWrapper local_outAttributes;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfECLAttributeWrapper local_outAttributes;
 
-	public GetAttributesResponseWrapper() {}
+    /**
+     * Instantiates a new gets the attributes response wrapper.
+     */
+    public GetAttributesResponseWrapper()
+    {
+    }
 
-	public GetAttributesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse getattributesresponse)
-	{
-		copy( getattributesresponse );
-	}
-	public GetAttributesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfECLAttributeWrapper _outAttributes )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_outAttributes = _outAttributes;
+    /**
+     * Instantiates a new gets the attributes response wrapper.
+     *
+     * @param getattributesresponse
+     *            the getattributesresponse
+     */
+    public GetAttributesResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse getattributesresponse)
+    {
+        copy(getattributesresponse);
+    }
 
-	}
+    /**
+     * Instantiates a new gets the attributes response wrapper.
+     *
+     * @param _exceptions
+     *            the exceptions
+     * @param _outAttributes
+     *            the out attributes
+     */
+    public GetAttributesResponseWrapper(ArrayOfEspExceptionWrapper _exceptions, ArrayOfECLAttributeWrapper _outAttributes)
+    {
+        this.local_exceptions = _exceptions;
+        this.local_outAttributes = _outAttributes;
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw )
-	{
-		if (raw == null)
-			return;
+    }
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_outAttributes = new ArrayOfECLAttributeWrapper( raw.getOutAttributes());
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw)
+    {
+        if (raw == null) return;
 
-	}
+        this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
+        this.local_outAttributes = new ArrayOfECLAttributeWrapper(raw.getOutAttributes());
 
-	@Override
-	public String toString()
-	{
-		return "GetAttributesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "outAttributes = " + local_outAttributes + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse();
-		return raw;
-	}
+    }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        return "GetAttributesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "outAttributes = " + local_outAttributes + "]";
+    }
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setOutAttributes( ArrayOfECLAttributeWrapper _outAttributes )
-	{
-		this.local_outAttributes = _outAttributes;
-	}
-	public ArrayOfECLAttributeWrapper getOutAttributes( )
-	{
-		return this.local_outAttributes;
-	}
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse();
+        return raw;
+    }
+
+    /**
+     * Sets the exceptions.
+     *
+     * @param _exceptions
+     *            the new exceptions
+     */
+    public void setExceptions(ArrayOfEspExceptionWrapper _exceptions)
+    {
+        this.local_exceptions = _exceptions;
+    }
+
+    /**
+     * Gets the exceptions.
+     *
+     * @return the exceptions
+     */
+    public ArrayOfEspExceptionWrapper getExceptions()
+    {
+        return this.local_exceptions;
+    }
+
+    /**
+     * Sets the out attributes.
+     *
+     * @param _outAttributes
+     *            the new out attributes
+     */
+    public void setOutAttributes(ArrayOfECLAttributeWrapper _outAttributes)
+    {
+        this.local_outAttributes = _outAttributes;
+    }
+
+    /**
+     * Gets the out attributes.
+     *
+     * @return the out attributes
+     */
+    public ArrayOfECLAttributeWrapper getOutAttributes()
+    {
+        return this.local_outAttributes;
+    }
 }

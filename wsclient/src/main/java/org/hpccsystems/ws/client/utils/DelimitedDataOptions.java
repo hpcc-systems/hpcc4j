@@ -21,7 +21,7 @@ public class DelimitedDataOptions implements java.io.Serializable
     String quote;
 
     /**
-     * Creates a default CSV field data format descriptor
+     * Creates a default CSV field data format descriptor.
      */
     public DelimitedDataOptions()
     {
@@ -33,6 +33,15 @@ public class DelimitedDataOptions implements java.io.Serializable
 
     /**
      * Creates a custom delimited field data format descriptor, options not provided are csv defaulted.
+     *
+     * @param recordTerminator
+     *            the record terminator
+     * @param fieldDelimiter
+     *            the field delimiter
+     * @param escapeSequence
+     *            the escape sequence
+     * @param quote
+     *            the quote
      */
     public DelimitedDataOptions(String recordTerminator, String fieldDelimiter, String escapeSequence, String quote)
     {
@@ -58,41 +67,85 @@ public class DelimitedDataOptions implements java.io.Serializable
             this.quote = csvDefaultQuote;
     }
 
+    /**
+     * Gets the record terminator.
+     *
+     * @return the record terminator
+     */
     public String getRecordTerminator()
     {
         return recordTerminator;
     }
 
+    /**
+     * Sets the record terminator.
+     *
+     * @param recordTerminator
+     *            the new record terminator
+     */
     public void setRecordTerminator(String recordTerminator)
     {
         this.recordTerminator = recordTerminator;
     }
 
+    /**
+     * Gets the field delimiter.
+     *
+     * @return the field delimiter
+     */
     public String getFieldDelimiter()
     {
         return fieldDelimiter;
     }
 
+    /**
+     * Sets the field delimiter.
+     *
+     * @param fieldDelimiter
+     *            the new field delimiter
+     */
     public void setFieldDelimiter(String fieldDelimiter)
     {
         this.fieldDelimiter = fieldDelimiter;
     }
 
+    /**
+     * Gets the escape sequence.
+     *
+     * @return the escape sequence
+     */
     public String getEscapeSequence()
     {
         return escapeSequence;
     }
 
+    /**
+     * Sets the escape sequence.
+     *
+     * @param escapeSequence
+     *            the new escape sequence
+     */
     public void setEscapeSequence(String escapeSequence)
     {
         this.escapeSequence = escapeSequence;
     }
 
+    /**
+     * Gets the quote.
+     *
+     * @return the quote
+     */
     public String getQuote()
     {
         return quote;
     }
 
+    /**
+     * Sets the quote.
+     *
+     * @param quote
+     *            the new quote
+     */
     public void setQuote(String quote)
     {
         this.quote = quote;

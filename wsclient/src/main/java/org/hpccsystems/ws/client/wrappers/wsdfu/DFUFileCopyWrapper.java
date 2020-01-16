@@ -26,6 +26,14 @@ public class DFUFileCopyWrapper
     private String path;
     private String resolvedHost;
 
+    /**
+     * Instantiates a new DFU file copy wrapper.
+     *
+     * @param dfuFileCopy
+     *            the dfu file copy
+     * @param resolvedhost
+     *            the resolvedhost
+     */
     public DFUFileCopyWrapper(DFUFileCopy dfuFileCopy, String resolvedhost)
     {
         resolvedHost = resolvedhost;
@@ -34,6 +42,14 @@ public class DFUFileCopyWrapper
         path = dfuFileCopy.getPath();
     }
 
+    /**
+     * Instantiates a new DFU file copy wrapper.
+     *
+     * @param dfuFileCopy
+     *            the dfu file copy
+     * @param resolvedhost
+     *            the resolvedhost
+     */
     public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCopy dfuFileCopy, String resolvedhost)
     {
         resolvedHost = resolvedhost;
@@ -42,26 +58,52 @@ public class DFUFileCopyWrapper
         path = dfuFileCopy.getPath();
     }
 
+    /**
+     * Gets the copy host.
+     *
+     * @return the copy host
+     */
     public String getCopyHost()
     {
         return resolvedHost;
     }
 
+    /**
+     * Gets the copy path.
+     *
+     * @return the copy path
+     */
     public String getCopyPath()
     {
         return path;
     }
 
+    /**
+     * Gets the copy index.
+     *
+     * @return the copy index
+     */
     public Integer getCopyIndex()
     {
         return copyIndex;
     }
 
+    /**
+     * Gets the location index.
+     *
+     * @return the location index
+     */
     public Integer getLocationIndex()
     {
         return locationIndex;
     }
 
+    /**
+     * Sets the location index.
+     *
+     * @param locationIndex
+     *            the new location index
+     */
     public void setLocationIndex(Integer locationIndex)
     {
         this.locationIndex = locationIndex;

@@ -5,11 +5,26 @@ import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 
 public class QuerySetFilterTypeWrapper
 {
+    
+    /**
+     * From string.
+     *
+     * @param filtertype
+     *            the filtertype
+     * @return the WU query set filter type
+     */
     public static WUQuerySetFilterType fromString(String filtertype)
     {
         return get1_75FilterType(filtertype);
     }
 
+    /**
+     * Gets the 1 75 filter type.
+     *
+     * @param filtertype
+     *            the filtertype
+     * @return the 1 75 filter type
+     */
     public static WUQuerySetFilterType get1_75FilterType(QuerySetFilterType filtertype)
     {
         switch (filtertype)
@@ -28,6 +43,14 @@ public class QuerySetFilterTypeWrapper
                 return null;
         }
     }
+    
+    /**
+     * Gets the 1 75 filter type.
+     *
+     * @param filtertype
+     *            the filtertype
+     * @return the 1 75 filter type
+     */
     public static WUQuerySetFilterType get1_75FilterType(String filtertype)
     {
         if (filtertype == null || filtertype.isEmpty())

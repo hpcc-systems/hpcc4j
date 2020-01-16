@@ -21,7 +21,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileCopyWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUPartWrapper;
 
 /**
- * A no action re-map of the address.  Does provide the port information.
+ * A no action re-map of the address. Does provide the port information.
  */
 public class NullRemapper extends ClusterRemapper
 {
@@ -29,8 +29,14 @@ public class NullRemapper extends ClusterRemapper
     private boolean usesSSL        = DEFAULT_ROWSERVICE_USES_SSL;
 
     /**
+     * Instantiates a new null remapper.
+     *
      * @param ri
+     *            the ri
      * @param fileaccessinfo
+     *            the fileaccessinfo
+     * @throws HpccFileException
+     *             the hpcc file exception
      */
     public NullRemapper(RemapInfo ri, DFUFileAccessInfoWrapper fileaccessinfo) throws HpccFileException
     {
@@ -44,7 +50,9 @@ public class NullRemapper extends ClusterRemapper
         usesSSL = fileaccessinfo.getFileAccessSSL();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(org.hpccsystems.ws.client.platform.DFUFilePartInfo[])
      */
     @Override
@@ -58,27 +66,33 @@ public class NullRemapper extends ClusterRemapper
         return revisedIPs;
     }
 
-    /* (non-Javadoc)
-    * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(java.lang.String[])
-    */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(java.lang.String[])
+     */
     @Override
     public String[] reviseIPs(String[] hosts) throws HpccFileException
     {
         return hosts;
     }
 
-    /* (non-Javadoc)
-    * @see org.hpccsystems.spark.thor.ClusterRemapper#revisePort(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
-    */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.spark.thor.ClusterRemapper#revisePort(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
+     */
     @Override
     public int revisePort(DFUPartWrapper fpi)
     {
         return rowServicePort;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.hpccsystems.spark.thor.ClusterRemapper#getUsesSSLConnection(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
-    */
+     */
     @Override
     public boolean getUsesSSLConnection(DFUPartWrapper fpi)
     {

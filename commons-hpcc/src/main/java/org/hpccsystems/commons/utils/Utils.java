@@ -26,54 +26,53 @@ public class Utils
 {
     public static final String DOTSEPERATORREGEX = "\\.";
 
-    public static String newLine = System.getProperty("line.separator");
-    public static String fileSep = System.getProperty("file.separator");;
+    public static String       newLine           = System.getProperty("line.separator");
+    public static String       fileSep           = System.getProperty("file.separator");;
 
-    public final static String workingDir = System.getProperty("user.dir") + fileSep;
+    public final static String workingDir        = System.getProperty("user.dir") + fileSep;
 
-    public static NumberFormat USNumberFormat       = NumberFormat.getInstance(Locale.US);
-    static final char          BASE64_enc_pad       = '=';
-    static final char          BASE64_enc[] =
-                                            { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-            'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3',
-            '4', '5', '6', '7', '8', '9', '+', '"' };
+    public static NumberFormat USNumberFormat    = NumberFormat.getInstance(Locale.US);
+    static final char          BASE64_enc_pad    = '=';
+    static final char          BASE64_enc[]      = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+            'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '"' };
 
-    static final char          BASE64_dec[] =
-                                            { (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x3e, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x3f, (char) 0x34, (char) 0x35, (char) 0x36, (char) 0x37, (char) 0x38,
-            (char) 0x39, (char) 0x3a, (char) 0x3b, (char) 0x3c, (char) 0x3d, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x01, (char) 0x02, (char) 0x03,
-            (char) 0x04, (char) 0x05, (char) 0x06, (char) 0x07, (char) 0x08, (char) 0x09, (char) 0x0a, (char) 0x0b,
-            (char) 0x0c, (char) 0x0d, (char) 0x0e, (char) 0x0f, (char) 0x10, (char) 0x11, (char) 0x12, (char) 0x13,
-            (char) 0x14, (char) 0x15, (char) 0x16, (char) 0x17, (char) 0x18, (char) 0x19, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x1a, (char) 0x1b, (char) 0x1c, (char) 0x1d,
-            (char) 0x1e, (char) 0x1f, (char) 0x20, (char) 0x21, (char) 0x22, (char) 0x23, (char) 0x24, (char) 0x25,
-            (char) 0x26, (char) 0x27, (char) 0x28, (char) 0x29, (char) 0x2a, (char) 0x2b, (char) 0x2c, (char) 0x2d,
-            (char) 0x2e, (char) 0x2f, (char) 0x30, (char) 0x31, (char) 0x32, (char) 0x33, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
-            (char) 0x00, (char) 0x00, (char) 0x00 };
+    static final char          BASE64_dec[]      = { (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x3e, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x3f, (char) 0x34, (char) 0x35, (char) 0x36, (char) 0x37, (char) 0x38, (char) 0x39, (char) 0x3a, (char) 0x3b, (char) 0x3c,
+            (char) 0x3d, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x01,
+            (char) 0x02, (char) 0x03, (char) 0x04, (char) 0x05, (char) 0x06, (char) 0x07, (char) 0x08, (char) 0x09, (char) 0x0a, (char) 0x0b,
+            (char) 0x0c, (char) 0x0d, (char) 0x0e, (char) 0x0f, (char) 0x10, (char) 0x11, (char) 0x12, (char) 0x13, (char) 0x14, (char) 0x15,
+            (char) 0x16, (char) 0x17, (char) 0x18, (char) 0x19, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x1a, (char) 0x1b, (char) 0x1c, (char) 0x1d, (char) 0x1e, (char) 0x1f, (char) 0x20, (char) 0x21, (char) 0x22, (char) 0x23,
+            (char) 0x24, (char) 0x25, (char) 0x26, (char) 0x27, (char) 0x28, (char) 0x29, (char) 0x2a, (char) 0x2b, (char) 0x2c, (char) 0x2d,
+            (char) 0x2e, (char) 0x2f, (char) 0x30, (char) 0x31, (char) 0x32, (char) 0x33, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00,
+            (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00, (char) 0x00 };
 
+    /**
+     * Base 64 encode.
+     *
+     * @param input
+     *            the input
+     * @param addLineBreaks
+     *            the add line breaks
+     * @return the string
+     */
     public static String Base64Encode(byte[] input, boolean addLineBreaks)
     {
         int length = input.length;
@@ -94,8 +93,7 @@ public class Utils
             out.append((char) BASE64_enc[((two << 2) & 0x3c | (three >> 6))]);
             out.append((char) BASE64_enc[three & 0x3f]);
 
-            if (addLineBreaks && (i % 54 == 0))
-                out.append("\n");
+            if (addLineBreaks && (i % 54 == 0)) out.append("\n");
 
             switch (length - i)
             {
@@ -122,23 +120,44 @@ public class Utils
         return out.toString();
     }
 
+    /**
+     * Removes the all new lines.
+     *
+     * @param str
+     *            the str
+     * @return the string
+     */
     public static String removeAllNewLines(String str)
     {
         return str.trim().replaceAll("\\r\\n|\\r|\\n", " ");
     }
 
+    /**
+     * Checks if is literal string.
+     *
+     * @param str
+     *            the str
+     * @return true, if is literal string
+     */
     public static boolean isLiteralString(String str)
     {
         boolean match = QUOTEDSTRPATTERN.matcher(str).matches();
 
         if (match)
         {
-           return !QUOTEDFULLFIELDPATTERN.matcher(str).matches();
+            return !QUOTEDFULLFIELDPATTERN.matcher(str).matches();
         }
 
         return match;
     }
 
+    /**
+     * Checks if is numeric.
+     *
+     * @param str
+     *            the str
+     * @return true, if is numeric
+     */
     public static boolean isNumeric(String str)
     {
         try
@@ -153,43 +172,70 @@ public class Utils
         return true;
     }
 
-    private final static Pattern PARENSTRPATTERN = Pattern.compile("\\s*(\\()(.*?)(\\))\\s*",Pattern.DOTALL);
+    private final static Pattern PARENSTRPATTERN = Pattern.compile("\\s*(\\()(.*?)(\\))\\s*", Pattern.DOTALL);
 
+    /**
+     * Checks if is in parenthesis.
+     *
+     * @param parenstring
+     *            the parenstring
+     * @return true, if is in parenthesis
+     */
     public static boolean isInParenthesis(String parenstring)
     {
-        if (parenstring == null)
-            return false;
+        if (parenstring == null) return false;
 
         Matcher matcher = PARENSTRPATTERN.matcher(parenstring);
 
-         return matcher.matches();
+        return matcher.matches();
     }
 
-    public final static Pattern AGGFUNCPATTERN = Pattern.compile("\\s*(.*?)(\\()(.*?)(\\))\\s*",Pattern.DOTALL);
+    public final static Pattern AGGFUNCPATTERN = Pattern.compile("\\s*(.*?)(\\()(.*?)(\\))\\s*", Pattern.DOTALL);
 
+    /**
+     * Checks if is agg function.
+     *
+     * @param aggfunstr
+     *            the aggfunstr
+     * @return true, if is agg function
+     */
     public static boolean isAggFunction(String aggfunstr)
     {
-        if (aggfunstr == null)
-            return false;
+        if (aggfunstr == null) return false;
 
         Matcher matcher = AGGFUNCPATTERN.matcher(aggfunstr);
 
-         return matcher.matches();
+        return matcher.matches();
     }
 
+    /**
+     * Gets the paren contents.
+     *
+     * @param parenstring
+     *            the parenstring
+     * @return the paren contents
+     */
     public static String getParenContents(String parenstring)
     {
-        if (parenstring == null)
-        return "";
+        if (parenstring == null) return "";
 
         Matcher matcher = PARENSTRPATTERN.matcher(parenstring);
 
-        if(matcher.matches())
+        if (matcher.matches())
             return matcher.group(2).trim();
         else
             return parenstring;
     }
 
+    /**
+     * String to long.
+     *
+     * @param str
+     *            the str
+     * @param uponError
+     *            the upon error
+     * @return the long
+     */
     public static long stringToLong(String str, long uponError)
     {
         try
@@ -203,6 +249,15 @@ public class Utils
         }
     }
 
+    /**
+     * String to int.
+     *
+     * @param str
+     *            the str
+     * @param uponError
+     *            the upon error
+     * @return the int
+     */
     public static int stringToInt(String str, int uponError)
     {
         try
@@ -216,10 +271,20 @@ public class Utils
         }
     }
 
+    /**
+     * Replace all.
+     *
+     * @param input
+     *            the input
+     * @param forReplace
+     *            the for replace
+     * @param replaceWith
+     *            the replace with
+     * @return the string
+     */
     public static String replaceAll(String input, String forReplace, String replaceWith)
     {
-        if (input == null)
-            return "null";
+        if (input == null) return "null";
 
         StringBuffer result = new StringBuffer();
         boolean hasMore = true;
@@ -244,111 +309,203 @@ public class Utils
             return result.toString();
     }
 
-    private final static Pattern QUOTEDFULLFIELDPATTERN = Pattern.compile(
-            "\\s*(\"|\')(.*?){1}(\\.)(.*?){1}(\"|\')\\s*",Pattern.DOTALL);
+    private final static Pattern QUOTEDFULLFIELDPATTERN = Pattern.compile("\\s*(\"|\')(.*?){1}(\\.)(.*?){1}(\"|\')\\s*", Pattern.DOTALL);
 
-    private final static Pattern QUOTEDSTRPATTERN = Pattern.compile(
-            "\\s*(\"|\')(.*?)(\"|\')\\s*",Pattern.DOTALL);
+    private final static Pattern QUOTEDSTRPATTERN       = Pattern.compile("\\s*(\"|\')(.*?)(\"|\')\\s*", Pattern.DOTALL);
 
+    /**
+     * Handle quoted string.
+     *
+     * @param quotedString
+     *            the quoted string
+     * @return the string
+     */
     public static String handleQuotedString(String quotedString)
     {
-        if (quotedString == null)
-            return "";
+        if (quotedString == null) return "";
 
         Matcher matcher = QUOTEDSTRPATTERN.matcher(quotedString);
 
-        if(matcher.matches() )
+        if (matcher.matches())
             return matcher.group(2).trim();
         else
             return quotedString;
     }
 
+    /**
+     * Checks if is parameterized str.
+     *
+     * @param value
+     *            the value
+     * @return true, if is parameterized str
+     */
     public static boolean isParameterizedStr(String value)
     {
-        return  (value.contains("${") || value.equals("?"));
+        return (value.contains("${") || value.equals("?"));
     }
 
     public final static String EscapedSingleQuote = "\'\'";
 
+    /**
+     * Checks for possible escaped quote literal.
+     *
+     * @param quotedString
+     *            the quoted string
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     public static boolean hasPossibleEscapedQuoteLiteral(String quotedString) throws Exception
     {
-        if (quotedString == null)
-            return false;
+        if (quotedString == null) return false;
 
         return handleQuotedString(quotedString).contains(EscapedSingleQuote);
     }
 
+    /**
+     * Replace SQ lwith ECL escape char.
+     *
+     * @param quotedString
+     *            the quoted string
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     public static String replaceSQLwithECLEscapeChar(String quotedString) throws Exception
     {
-        if (quotedString == null)
-            return "";
+        if (quotedString == null) return "";
 
         String eclescaped = "\\\\'";
-        String replaced = '\''+handleQuotedString(quotedString).replaceAll("\'\'", eclescaped)+'\'';
+        String replaced = '\'' + handleQuotedString(quotedString).replaceAll("\'\'", eclescaped) + '\'';
 
         return replaced;
     }
 
     public enum EclTypes
     {
-        ECLTypeboolean(0),
-        ECLTypeint(1),
-        ECLTypereal(2),
-        ECLTypedecimal(3),
-        ECLTypestring(4),
-        ECLTypeunused1(5),
-        ECLTypedate(6),
-        ECLTypeunused2(7),
-        ECLTypeunused3(8),
-        ECLTypebitfield(9),
-        ECLTypeunused4(10),
-        ECLTypechar(11),
-        ECLTypeenumerated(12),
-        ECLTyperecord(13),
-        ECLTypevarstring(14),
-        ECLTypeblob(15),
-        ECLTypedata(16),
-        ECLTypepointer(17),
-        ECLTypeclass(18),
-        ECLTypearray(19),
-        ECLTypetable(20),
-        ECLTypeset(21),
-        ECLTyperow(22),
-        ECLTypegroupedtable(23),
-        ECLTypevoid(24),
-        ECLTypealien(25),
-        ECLTypeswapint(26),
-        ECLTypepackedint(28),
-        ECLTypeunused5(29),
-        ECLTypeqstring(30),
-        ECLTypeunicode(31),
-        ECLTypeany(32),
-        ECLTypevarunicode(33),
-        ECLTypepattern(34),
-        ECLTyperule(35),
-        ECLTypetoken(36),
-        ECLTypefeature(37),
-        ECLTypeevent(38),
-        ECLTypenull(39),
-        ECLTypescope(40),
-        ECLTypeutf8(41),
-        ECLTypetransform(42),
-        ECLTypeifblock(43), // not a real type -but used for the rtlfield serialization
-        ECLTypefunction(44),
-        ECLTypesortlist(45),
-        ECLTypemodifier(0xff), // used  by  getKind()
-        ECLTypeunsigned(0x100), // combined with some of the above, when
-                                // returning summary type information. Not
-                                // returned by getTypeCode()
-        ECLTypeebcdic(0x200), // combined with some of the above, when returning
-                              // summary type information. Not returned by
-                              // getTypeCode()
+        ECLTypeboolean (
+                0
+        ), ECLTypeint (
+                1
+        ), ECLTypereal (
+                2
+        ), ECLTypedecimal (
+                3
+        ), ECLTypestring (
+                4
+        ), ECLTypeunused1 (
+                5
+        ), ECLTypedate (
+                6
+        ), ECLTypeunused2 (
+                7
+        ), ECLTypeunused3 (
+                8
+        ), ECLTypebitfield (
+                9
+        ), ECLTypeunused4 (
+                10
+        ), ECLTypechar (
+                11
+        ), ECLTypeenumerated (
+                12
+        ), ECLTyperecord (
+                13
+        ), ECLTypevarstring (
+                14
+        ), ECLTypeblob (
+                15
+        ), ECLTypedata (
+                16
+        ), ECLTypepointer (
+                17
+        ), ECLTypeclass (
+                18
+        ), ECLTypearray (
+                19
+        ), ECLTypetable (
+                20
+        ), ECLTypeset (
+                21
+        ), ECLTyperow (
+                22
+        ), ECLTypegroupedtable (
+                23
+        ), ECLTypevoid (
+                24
+        ), ECLTypealien (
+                25
+        ), ECLTypeswapint (
+                26
+        ), ECLTypepackedint (
+                28
+        ), ECLTypeunused5 (
+                29
+        ), ECLTypeqstring (
+                30
+        ), ECLTypeunicode (
+                31
+        ), ECLTypeany (
+                32
+        ), ECLTypevarunicode (
+                33
+        ), ECLTypepattern (
+                34
+        ), ECLTyperule (
+                35
+        ), ECLTypetoken (
+                36
+        ), ECLTypefeature (
+                37
+        ), ECLTypeevent (
+                38
+        ), ECLTypenull (
+                39
+        ), ECLTypescope (
+                40
+        ), ECLTypeutf8 (
+                41
+        ), ECLTypetransform (
+                42
+        ), ECLTypeifblock (
+                43
+        ), // not a real type -but used for the rtlfield serialization
+        ECLTypefunction (
+                44
+        ), ECLTypesortlist (
+                45
+        ), ECLTypemodifier (
+                0xff
+        ), // used by getKind()
+        ECLTypeunsigned (
+                0x100
+        ), // combined with some of the above, when
+           // returning summary type information. Not
+           // returned by getTypeCode()
+        ECLTypeebcdic (
+                0x200
+        ), // combined with some of the above, when returning
+           // summary type information. Not returned by
+           // getTypeCode()
         // Some pseudo types - never actually created
-        ECLTypestringorunicode(0xfc), // any string/unicode variant
-        ECLTypenumeric(0xfd),
-        ECLTypescalar(0xfe);
+        ECLTypestringorunicode (
+                0xfc
+        ), // any string/unicode variant
+        ECLTypenumeric (
+                0xfd
+        ), ECLTypescalar (
+                0xfe
+        );
 
-        EclTypes(int eclcode){}
+        /**
+         * Instantiates a new ecl types.
+         *
+         * @param eclcode
+         *            the eclcode
+         */
+        EclTypes(int eclcode)
+        {
+        }
     }
 
     private final static HashMap<EclTypes, Integer> mapECLtypeCodeToSQLtype = new HashMap<EclTypes, Integer>();
@@ -378,11 +535,11 @@ public class Utils
      * @param ecltype
      *            The ecl type enumerated value.
      * @return The java.sql.Types value to convert to a string
-     *            representation.
+     *         representation.
      */
     public static int convertECLtypeCode2SQLtype(EclTypes ecltype)
     {
-        if(mapECLtypeCodeToSQLtype.containsKey(ecltype))
+        if (mapECLtypeCodeToSQLtype.containsKey(ecltype))
             return mapECLtypeCodeToSQLtype.get(ecltype);
         else
             return java.sql.Types.OTHER;
@@ -391,28 +548,29 @@ public class Utils
     private final static HashMap<Integer, String> mapSQLtypeCodeToJavaClass = new HashMap<Integer, String>();
     static
     {
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.CHAR,          "java.lang.Character");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.VARCHAR,       "java.lang.String");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.LONGVARCHAR,   "java.lang.String");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.NUMERIC,       "java.math.BigDecimal");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.DECIMAL,       "java.math.BigDecimal");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.BIT,           "java.lang.Boolean");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.TINYINT,       "java.lang.Byte");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.SMALLINT,      "java.lang.Short");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.INTEGER,       "java.lang.Integer");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.BIGINT,        "java.lang.Long");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.REAL,          "java.lang.Real");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.FLOAT,         "java.lang.Double");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.DOUBLE,        "java.lang.Double");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.BINARY,        "java.lang.Byte[]");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.VARBINARY,     "java.lang.Byte[]");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.CHAR, "java.lang.Character");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.VARCHAR, "java.lang.String");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.LONGVARCHAR, "java.lang.String");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.NUMERIC, "java.math.BigDecimal");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.DECIMAL, "java.math.BigDecimal");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.BIT, "java.lang.Boolean");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.TINYINT, "java.lang.Byte");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.SMALLINT, "java.lang.Short");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.INTEGER, "java.lang.Integer");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.BIGINT, "java.lang.Long");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.REAL, "java.lang.Real");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.FLOAT, "java.lang.Double");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.DOUBLE, "java.lang.Double");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.BINARY, "java.lang.Byte[]");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.VARBINARY, "java.lang.Byte[]");
         mapSQLtypeCodeToJavaClass.put(java.sql.Types.LONGVARBINARY, "java.lang.Byte[]");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.DATE,          "java.sql.Date");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.TIME,          "java.sql.Time");
-        mapSQLtypeCodeToJavaClass.put(java.sql.Types.TIMESTAMP,     "java.sql.Timestamp");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.DATE, "java.sql.Date");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.TIME, "java.sql.Time");
+        mapSQLtypeCodeToJavaClass.put(java.sql.Types.TIMESTAMP, "java.sql.Timestamp");
     }
 
     private final static String JAVA_OBJECT_TYPE_NAME = "java.lang.Object";
+
     /**
      * Translates a data type from an integer (java.sql.Types value) to a string
      * that represents the corresponding class.
@@ -425,7 +583,7 @@ public class Utils
      */
     public static String convertSQLtype2JavaClassName(int type)
     {
-        if(mapSQLtypeCodeToJavaClass.containsKey(type))
+        if (mapSQLtypeCodeToJavaClass.containsKey(type))
             return mapSQLtypeCodeToJavaClass.get(type);
         else
             return JAVA_OBJECT_TYPE_NAME;
@@ -434,37 +592,45 @@ public class Utils
     /**
      * Attempts to map a string value to an enum value of
      * a given enum class.
-     *
+     * 
      * Iterates through all enum values of given enum class,
      * and compares to given string.
      * Returns enum value if it finds match, otherwise throws Exception
      *
-     * @param enumclass reference to target enumaration
-     * @param strvalue string value to be mapped to enum value
-     *
+     * @param <T>
+     *            the generic type
+     * @param enumclass
+     *            reference to target enumaration
+     * @param strvalue
+     *            string value to be mapped to enum value
      * @return The corresponding enum value if found
-     *
-     * @throws IllegalArgumentException if strvalue cannot be mapped to
-     * given enum
-     *
-     **/
+     * @throws IllegalArgumentException
+     *             if strvalue cannot be mapped to
+     *             given enum
+     */
     public static <T extends Enum<T>> T findEnumValFromString(Class<T> enumclass, String strvalue)
     {
-        for(Enum enumValue : enumclass.getEnumConstants())
+        for (Enum enumValue : enumclass.getEnumConstants())
         {
-            if(enumValue.name().equalsIgnoreCase(strvalue))
+            if (enumValue.name().equalsIgnoreCase(strvalue))
             {
                 return (T) enumValue;
             }
         }
-        throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
+        throw new IllegalArgumentException(enumclass.getName() + ".'" + strvalue + "' is not valid.");
     }
 
-    public static final Pattern BOOLEANPATTERN = Pattern.compile(
-            "((?i)true|(?i)false)",Pattern.DOTALL);
+    public static final Pattern BOOLEANPATTERN = Pattern.compile("((?i)true|(?i)false)", Pattern.DOTALL);
 
+    /**
+     * Checks if is boolean key word.
+     *
+     * @param str
+     *            the str
+     * @return true, if is boolean key word
+     */
     public static boolean isBooleanKeyWord(String str)
     {
-       return BOOLEANPATTERN.matcher(str).matches();
+        return BOOLEANPATTERN.matcher(str).matches();
     }
 }

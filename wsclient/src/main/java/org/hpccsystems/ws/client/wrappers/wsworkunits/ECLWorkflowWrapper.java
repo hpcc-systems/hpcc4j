@@ -14,11 +14,20 @@ public class ECLWorkflowWrapper
 
     private Integer countRemaining;
 
+    /**
+     * Instantiates a new ECL workflow wrapper.
+     */
     public ECLWorkflowWrapper() {
 
     }
 
 
+    /**
+     * Instantiates a new ECL workflow wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLWorkflowWrapper(ECLWorkflow raw)
     {
         if (raw==null)
@@ -33,6 +42,12 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
+    /**
+     * Instantiates a new ECL workflow wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLWorkflow raw)
     {
         if (raw==null)
@@ -47,6 +62,12 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
+    /**
+     * Instantiates a new ECL workflow wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLWorkflow raw)
     {
         if (raw==null)
@@ -61,6 +82,12 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
+    /**
+     * Instantiates a new ECL workflow wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLWorkflow raw)
     {
         if (raw==null)
@@ -75,6 +102,12 @@ public class ECLWorkflowWrapper
         this.setWFID(raw.getWFID());
     }
 
+    /**
+     * Instantiates a new ECL workflow wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkflow raw)
     {
         if (raw==null)
@@ -90,11 +123,21 @@ public class ECLWorkflowWrapper
     }
 
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow getRaw()
     {
         return this.getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow raw =
@@ -109,6 +152,8 @@ public class ECLWorkflowWrapper
     }
 
     /**
+     * Gets the wfid.
+     *
      * @return the wFID
      */
     public String getWFID()
@@ -117,7 +162,10 @@ public class ECLWorkflowWrapper
     }
 
     /**
-     * @param wFID the wFID to set
+     * Sets the wfid.
+     *
+     * @param wFID
+     *            the wFID to set
      */
     public void setWFID(String wFID)
     {
@@ -125,6 +173,8 @@ public class ECLWorkflowWrapper
     }
 
     /**
+     * Gets the event name.
+     *
      * @return the eventName
      */
     public String getEventName()
@@ -133,7 +183,10 @@ public class ECLWorkflowWrapper
     }
 
     /**
-     * @param eventName the eventName to set
+     * Sets the event name.
+     *
+     * @param eventName
+     *            the eventName to set
      */
     public void setEventName(String eventName)
     {
@@ -141,6 +194,8 @@ public class ECLWorkflowWrapper
     }
 
     /**
+     * Gets the event text.
+     *
      * @return the eventText
      */
     public String getEventText()
@@ -149,7 +204,10 @@ public class ECLWorkflowWrapper
     }
 
     /**
-     * @param eventText the eventText to set
+     * Sets the event text.
+     *
+     * @param eventText
+     *            the eventText to set
      */
     public void setEventText(String eventText)
     {
@@ -157,6 +215,8 @@ public class ECLWorkflowWrapper
     }
 
     /**
+     * Gets the count.
+     *
      * @return the count
      */
     public Integer getCount()
@@ -165,7 +225,10 @@ public class ECLWorkflowWrapper
     }
 
     /**
-     * @param count the count to set
+     * Sets the count.
+     *
+     * @param count
+     *            the count to set
      */
     public void setCount(Integer count)
     {
@@ -173,6 +236,8 @@ public class ECLWorkflowWrapper
     }
 
     /**
+     * Gets the count remaining.
+     *
      * @return the countRemaining
      */
     public Integer getCountRemaining()
@@ -181,7 +246,10 @@ public class ECLWorkflowWrapper
     }
 
     /**
-     * @param countRemaining the countRemaining to set
+     * Sets the count remaining.
+     *
+     * @param countRemaining
+     *            the countRemaining to set
      */
     public void setCountRemaining(Integer countRemaining)
     {

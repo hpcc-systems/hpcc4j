@@ -21,47 +21,46 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.commons.filter.SQLExpression;
 import org.hpccsystems.commons.filter.SQLFilter;
-import org.hpccsystems.commons.filter.SQLOperator;
 import org.hpccsystems.commons.filter.SQLFragment.FragmentType;
+import org.hpccsystems.commons.filter.SQLOperator;
 import org.hpccsystems.commons.filter.SQLOperator.OperatorType;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * A filter to select records from a file or key. The filter is conjunction of
  * field filters with each field having a list of one or more value ranges.
  *
  * filter : setfilter | wildfilter ;
-    setfilter :  field equals set
-    wildfilter : field wildcard
-    set         : setfragment (, setfragment)*
-    setfragment : ( upperinclusive | upperexclusive) setvalue ( lowerinclusive | lowerexclusive) //ignore the single paren notation for now
-    setvalue    : INTEGER_NUM | QUOTEDUTF8STR
-    QUOTEDUTF8STR : squote utf8string squote;
-    upperinclusive    : '[' ;
-    lowerinclusive    : ']' ;
-    upperexclusive    : '(' ;
-    lowerexclusive    : ')' ;
-    wildcard : '*' ;
-    equals   : '=' ;
-    range    : ':' ;
-    squote   : '\'' ;
-    field : ( 'A'..'Z' | 'a'..'z') (( 'A'..'Z' | 'a'..'z') | UNDERSCORE | ETC | INTEGER_NUM  )* INTEGER_NUM)?;
-    INTEGER_NUM : ( '1'..'9')( '0'..'9')*;
+ * setfilter : field equals set
+ * wildfilter : field wildcard
+ * set : setfragment (, setfragment)*
+ * setfragment : ( upperinclusive | upperexclusive) setvalue ( lowerinclusive | lowerexclusive) //ignore the single paren notation for now
+ * setvalue : INTEGER_NUM | QUOTEDUTF8STR
+ * QUOTEDUTF8STR : squote utf8string squote;
+ * upperinclusive : '[' ;
+ * lowerinclusive : ']' ;
+ * upperexclusive : '(' ;
+ * lowerexclusive : ')' ;
+ * wildcard : '*' ;
+ * equals : '=' ;
+ * range : ':' ;
+ * squote : '\'' ;
+ * field : ( 'A'..'Z' | 'a'..'z') (( 'A'..'Z' | 'a'..'z') | UNDERSCORE | ETC | INTEGER_NUM )* INTEGER_NUM)?;
+ * INTEGER_NUM : ( '1'..'9')( '0'..'9')*;
  *
  */
 public class FileFilter implements Serializable
 {
-    private static final Logger  log                 = LogManager.getLogger(FileFilter.class);
+    private static final Logger log              = LogManager.getLogger(FileFilter.class);
 
-    public static final long serialVersionUID = 2L;
+    public static final long    serialVersionUID = 2L;
 
-    private List<FieldFilter> fieldfilters = new ArrayList<FieldFilter>();
-    private List<FileFilter> andFileFilters = new ArrayList<FileFilter>();
+    private List<FieldFilter>   fieldfilters     = new ArrayList<FieldFilter>();
+    private List<FileFilter>    andFileFilters   = new ArrayList<FileFilter>();
 
     /**
      * A file filter expression to select records, using a string.
@@ -71,40 +70,48 @@ public class FileFilter implements Serializable
      */
     public FileFilter()
     {
-        //expressions initialized but yet to be populated
+        // expressions initialized but yet to be populated
     }
 
     /**
      * Creates a FileFilter based on an SQL filter
-     * for example "(table.field2 <= 'a' AND table.field2 != 4) OR table.field2 != 5 AND field3 In ('Germany', 'France', 'UK')"
+     * for example
+     * <code>"(table.field2 &lt;= 'a' AND table.field2 &#33;= 4) OR table.field2 &#33;= 5 AND field3 In ('Germany', 'France', 'UK')"</code>
+     *
      * @param sqlfilter
+     *            the sqlfilter
      * @throws Exception
+     *             the exception
      */
     public FileFilter(String sqlfilter) throws Exception
     {
         if (sqlfilter != null && !sqlfilter.isEmpty())
-              ConvertToHPCCFileFilter(sqlfilter);
+            ConvertToHPCCFileFilter(sqlfilter);
         else
             throw new Exception("Could not create FileFilter, empty sqlfilter encountered");
     }
 
     /**
-     * Creates a FileFilter based on an SQL filter object
+     * Creates a FileFilter based on an SQL filter object.
      *
      * @param sqlfilter
+     *            the sqlfilter
      * @throws Exception
+     *             the exception
      */
     public FileFilter(SQLFilter sqlfilter) throws Exception
     {
         if (sqlfilter != null)
-             ConvertToHPCCFileFilter(sqlfilter);
+            ConvertToHPCCFileFilter(sqlfilter);
         else
             throw new Exception("Could not create FileFilter, empty sqlfilter encountered");
     }
 
     /**
-     * Creates a FileFilter based on the provided fieldfilter
+     * Creates a FileFilter based on the provided fieldfilter.
+     *
      * @param filter
+     *            the filter
      */
     public FileFilter(FieldFilter filter)
     {
@@ -112,8 +119,10 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * Creates a FileFilter based on the provided filefilter's fieldfilter(s)
+     * Creates a FileFilter based on the provided filefilter's fieldfilter(s).
+     *
      * @param filter
+     *            the filter
      */
     public FileFilter(FileFilter filter)
     {
@@ -121,11 +130,12 @@ public class FileFilter implements Serializable
         {
             orFilter(filter);
         }
-        catch (Exception e) {}
+        catch (Exception e)
+        {}
     }
 
     /**
-     * A null filter which selects all records
+     * A null filter which selects all records.
      *
      * @return an empty filter
      */
@@ -135,7 +145,7 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * Is this filter empty?
+     * Is this filter empty?.
      *
      * @return true when empty
      */
@@ -145,11 +155,13 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * The filefilter expression is ANDed to this filefilter expression
+     * The filefilter expression is ANDed to this filefilter expression.
      *
      * @param filefilter
-     * @return
+     *            the filefilter
+     * @return the file filter
      * @throws Exception
+     *             the exception
      */
     public FileFilter andFilter(FileFilter filefilter) throws Exception
     {
@@ -169,11 +181,13 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * The fieldfilter(s) expression is ANDed to this filefilter expression
+     * The fieldfilter(s) expression is ANDed to this filefilter expression.
      *
      * @param fieldfilter
-     * @return
+     *            the fieldfilter
+     * @return the file filter
      * @throws Exception
+     *             the exception
      */
     public FileFilter andFilter(FieldFilter fieldfilter) throws Exception
     {
@@ -188,11 +202,13 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * The filefilter expression is ORed to this filefilter expression
+     * The filefilter expression is ORed to this filefilter expression.
      *
      * @param filefilter
-     * @return
+     *            the filefilter
+     * @return the file filter
      * @throws Exception
+     *             the exception
      */
     public FileFilter orFilter(FileFilter filefilter) throws Exception
     {
@@ -206,14 +222,15 @@ public class FileFilter implements Serializable
         return this;
     }
 
-
     /**
      * The fieldfilter expression is ORed to this filefilter expression
-     * (must target the same field)
+     * (must target the same field).
      *
      * @param fieldfilter
-     * @return
+     *            the fieldfilter
+     * @return the file filter
      * @throws Exception
+     *             the exception
      */
     public FileFilter orFilter(FieldFilter fieldfilter) throws Exception
     {
@@ -224,7 +241,8 @@ public class FileFilter implements Serializable
                 if (fieldfilters.isEmpty() || fieldfilter.getFieldName().equals(fieldfilters.get(0).getFieldName()))
                     fieldfilters.add(fieldfilter);
                 else
-                    throw new Exception("FileFilter expressions must target the same field! Cannot append filter '" + fieldfilter.toString() + "' to FileFilter targeting field: '" + fieldfilters.get(0).getFieldName() + "'");
+                    throw new Exception("FileFilter expressions must target the same field! Cannot append filter '" + fieldfilter.toString()
+                            + "' to FileFilter targeting field: '" + fieldfilters.get(0).getFieldName() + "'");
             }
             else
                 andFileFilters.get(andFileFilters.size() - 1).orFilter(fieldfilter);
@@ -233,8 +251,9 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * private used for toString formatting
-     * @return
+     * private used for toString formatting.
+     *
+     * @return the string
      */
     private String outputOrFilter()
     {
@@ -253,8 +272,9 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * Reports the number of filter clauses in this filefilter
-     * @return
+     * Reports the number of filter clauses in this filefilter.
+     *
+     * @return the field filters count
      */
     public int getFieldFiltersCount()
     {
@@ -262,9 +282,11 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * Fetches the ith filter clause in this filefilter
+     * Fetches the ith filter clause in this filefilter.
+     *
      * @param i
-     * @return
+     *            the i
+     * @return the field filter
      */
     public FieldFilter getFieldFilter(int i)
     {
@@ -275,15 +297,13 @@ public class FileFilter implements Serializable
     }
 
     /**
-     * JSon string representation of an array of filefilters
+     * JSon string representation of an array of filefilters.
      *
-     * @param filefilters
-     * @return
-     * @throws Exception
+     * @return the string
      */
     public String toJson()
     {
-        JSONArray keyfilters= new JSONArray();
+        JSONArray keyfilters = new JSONArray();
 
         keyfilters.put(outputOrFilter());
 
@@ -297,10 +317,17 @@ public class FileFilter implements Serializable
         return "\"keyFilter\": " + keyfilters.toString();
     }
 
+    /**
+     * Convert to HPCC file filter.
+     *
+     * @param sqlfilterstr
+     *            the sqlfilterstr
+     * @throws Exception
+     *             the exception
+     */
     private void ConvertToHPCCFileFilter(String sqlfilterstr) throws Exception
     {
-        if (sqlfilterstr == null || sqlfilterstr.isEmpty())
-            throw new Exception("Cannot convert empty SQL Filter");
+        if (sqlfilterstr == null || sqlfilterstr.isEmpty()) throw new Exception("Cannot convert empty SQL Filter");
 
         try
         {
@@ -315,10 +342,17 @@ public class FileFilter implements Serializable
         }
     }
 
+    /**
+     * Convert to HPCC file filter.
+     *
+     * @param sqlfilter
+     *            the sqlfilter
+     * @throws Exception
+     *             the exception
+     */
     private void ConvertToHPCCFileFilter(SQLFilter sqlfilter) throws Exception
     {
-        if (sqlfilter == null)
-            throw new Exception("Cannot convert empty SQL Filter");
+        if (sqlfilter == null) throw new Exception("Cannot convert empty SQL Filter");
 
         Iterator<SQLExpression> expressions = sqlfilter.getExpressions();
         while (expressions.hasNext())
@@ -331,10 +365,20 @@ public class FileFilter implements Serializable
             else if (prevunifier.getValue().equals(SQLOperator.and))
                 andFilter(ConvertToHPCCFileFilter(sqlExpression));
             else
-                throw new Exception("Invalid filter expression unifier operator detected: '" + prevunifier.getValue() + "' in filter: '" + sqlExpression.toString() + "'");
+                throw new Exception("Invalid filter expression unifier operator detected: '" + prevunifier.getValue() + "' in filter: '"
+                        + sqlExpression.toString() + "'");
         }
-       }
+    }
 
+    /**
+     * Checks if is valid filter.
+     *
+     * @param sqlfilter
+     *            the sqlfilter
+     * @return true, if is valid filter
+     * @throws Exception
+     *             the exception
+     */
     private static boolean isValidFilter(SQLExpression sqlfilter) throws Exception
     {
         SQLOperator op = sqlfilter.getOperator();
@@ -356,47 +400,61 @@ public class FileFilter implements Serializable
             FragmentType prefixtype = sqlfilter.getPrefixType();
             FragmentType postfixtype = sqlfilter.getPostfixType();
             if (prefixtype == FragmentType.FIELD && postfixtype == FragmentType.FIELD)
-                throw new Exception("Cannot convert filter comparing 2 fields -- '" + sqlfilter.toString() +"'");
+                throw new Exception("Cannot convert filter comparing 2 fields -- '" + sqlfilter.toString() + "'");
             else if (prefixtype != FragmentType.FIELD && postfixtype != FragmentType.FIELD)
-                throw new Exception("Cannot convert filter comparing 0 fields -- '" + sqlfilter.toString() +"'");
+                throw new Exception("Cannot convert filter comparing 0 fields -- '" + sqlfilter.toString() + "'");
             return true;
         }
 
         return false;
     }
 
+    /**
+     * Convert to HPCC file filter.
+     *
+     * @param sqlfilter
+     *            the sqlfilter
+     * @return the file filter
+     * @throws Exception
+     *             the exception
+     */
     public static FileFilter ConvertToHPCCFileFilter(SQLExpression sqlfilter) throws Exception
     {
         FileFilter hpccfilter = null;
-        if (isValidFilter(sqlfilter)) //either pre or post type == field
+        if (isValidFilter(sqlfilter)) // either pre or post type == field
         {
-            boolean prefixcontainsfield = (sqlfilter.getPrefixType() ==  FragmentType.FIELD);
+            boolean prefixcontainsfield = (sqlfilter.getPrefixType() == FragmentType.FIELD);
             SQLOperator op = sqlfilter.getOperator();
             if (op.getValue().equals(SQLOperator.eq))
             {
                 if (prefixcontainsfield)
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeEq(sqlfilter.getPostfixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeEq(sqlfilter.getPostfixValue())));
                 else
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(),FieldFilterRange.makeEq(sqlfilter.getPrefixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(), FieldFilterRange.makeEq(sqlfilter.getPrefixValue())));
             }
             else if (op.getValue().equals(SQLOperator.gt))
             {
                 if (prefixcontainsfield)
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeGT(sqlfilter.getPostfixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeGT(sqlfilter.getPostfixValue())));
                 else
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(),FieldFilterRange.makeGT(sqlfilter.getPrefixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(), FieldFilterRange.makeGT(sqlfilter.getPrefixValue())));
             }
             else if (op.getValue().equals(SQLOperator.gte))
             {
                 if (prefixcontainsfield)
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeGE(sqlfilter.getPostfixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeGE(sqlfilter.getPostfixValue())));
                 else
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(),FieldFilterRange.makeGE(sqlfilter.getPrefixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(), FieldFilterRange.makeGE(sqlfilter.getPrefixValue())));
             }
             else if (op.getValue().equals(SQLOperator.in))
             {
-                String list = sqlfilter.getPostfixValue().replaceAll("^\\[|\\]$", ""); //List string representation is encapsulated in square brackets
-                hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeIn(list.split("\\s*,\\s*"), false)));  // each entry is comma+space delimited
+                String list = sqlfilter.getPostfixValue().replaceAll("^\\[|\\]$", ""); // List string representation is encapsulated in square
+                                                                                       // brackets
+                hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeIn(list.split("\\s*,\\s*"), false))); // each
+                                                                                                                                                   // entry
+                                                                                                                                                   // is
+                                                                                                                                                   // comma+space
+                                                                                                                                                   // delimited
             }
             else if (op.getValue().equals(SQLOperator.isNotNull))
             {
@@ -405,23 +463,23 @@ public class FileFilter implements Serializable
             else if (op.getValue().equals(SQLOperator.lt))
             {
                 if (prefixcontainsfield)
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeLT(sqlfilter.getPostfixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeLT(sqlfilter.getPostfixValue())));
                 else
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(),FieldFilterRange.makeLT(sqlfilter.getPrefixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(), FieldFilterRange.makeLT(sqlfilter.getPrefixValue())));
             }
             else if (op.getValue().equals(SQLOperator.lte))
             {
                 if (prefixcontainsfield)
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeLE(sqlfilter.getPostfixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeLE(sqlfilter.getPostfixValue())));
                 else
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(),FieldFilterRange.makeLE(sqlfilter.getPrefixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(), FieldFilterRange.makeLE(sqlfilter.getPrefixValue())));
             }
             else if (op.getValue().equals(SQLOperator.neq) || op.getValue().equals(SQLOperator.neq2))
             {
                 if (prefixcontainsfield)
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(),FieldFilterRange.makeNE(sqlfilter.getPostfixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeNE(sqlfilter.getPostfixValue())));
                 else
-                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(),FieldFilterRange.makeNE(sqlfilter.getPrefixValue())));
+                    hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPostfixValue(), FieldFilterRange.makeNE(sqlfilter.getPrefixValue())));
             }
             else
                 throw new Exception("Invalid filter operator detected: '" + op.getValue() + "' In filter: '" + sqlfilter.toString() + "'");
@@ -433,11 +491,18 @@ public class FileFilter implements Serializable
         return hpccfilter;
     }
 
-    public static void main(String [] args)
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
+    public static void main(String[] args)
     {
         try
         {
-            FileFilter filter = new FileFilter("(table.field2 <= 'a' AND table.field2 != 4) OR table.field2 != 5 AND field3 In ('Germany', 'France', 'UK')");
+            FileFilter filter = new FileFilter(
+                    "(table.field2 <= 'a' AND table.field2 != 4) OR table.field2 != 5 AND field3 In ('Germany', 'France', 'UK')");
             System.out.println(filter.toJson());
         }
         catch (Exception e)

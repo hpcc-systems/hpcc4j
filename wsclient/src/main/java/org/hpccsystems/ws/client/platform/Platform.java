@@ -58,6 +58,13 @@ public class Platform extends DataSingleton
 
     public static DataSingletonCollection All = new DataSingletonCollection();
 
+    /**
+     * Gets the.
+     *
+     * @param conn
+     *            the conn
+     * @return the platform
+     */
     public static Platform get(Connection conn)
     {
         if (conn == null)
@@ -66,6 +73,21 @@ public class Platform extends DataSingleton
         return (Platform) All.get(new Platform(conn));
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the platform
+     */
     public static Platform get(String protocol, String ip, int port, String user, String pass)
     {
         if (ip == null || ip.isEmpty() || port <= 0)
@@ -79,6 +101,17 @@ public class Platform extends DataSingleton
         return (Platform) All.get(new Platform(conn));
     }
 
+    /**
+     * Gets the.
+     *
+     * @param address
+     *            the address
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the platform
+     */
     public static Platform get(String address, String user, String pass)
     {
         if (address == null || address.isEmpty())
@@ -100,12 +133,33 @@ public class Platform extends DataSingleton
         return (Platform) All.get(new Platform(conn));
     }
 
+    /**
+     * Gets the no create.
+     *
+     * @param protocol
+     *            the protocol
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the no create
+     */
     @Deprecated
     public static Platform getNoCreate(String protocol, String ip, int port, String user, String pass)
     {
         return null;
     }
 
+    /**
+     * Removes the.
+     *
+     * @param p
+     *            the p
+     */
     public static void remove(Platform p)
     {
         All.remove(p);
@@ -149,11 +203,25 @@ public class Platform extends DataSingleton
     static int                              LATENCY_TEST = 0;
 
 
+    /**
+     * Instantiates a new platform.
+     *
+     * @param hpccconn
+     *            the hpccconn
+     */
     protected Platform(Connection hpccconn)
     {
         this(hpccconn, HPCCWsClientPool.DEFAULT_EXPIRE_MILLIS);
     }
 
+    /**
+     * Instantiates a new platform.
+     *
+     * @param hpccconn
+     *            the hpccconn
+     * @param pooltimeoutmillis
+     *            the pooltimeoutmillis
+     */
     protected Platform(Connection hpccconn, long pooltimeoutmillis)
     {
         hpccClientPool = new HPCCWsClientPool(hpccconn, pooltimeoutmillis);
@@ -170,10 +238,16 @@ public class Platform extends DataSingleton
         logicalFiles = new HashSet<LogicalFile>();
     }
 
+    /**
+     * Confirm disable.
+     */
     protected synchronized void confirmDisable()
     {
     }
 
+    /**
+     * Clear temp disabled.
+     */
     public void clearTempDisabled()
     {
         isTempDisabled = false;
@@ -181,6 +255,9 @@ public class Platform extends DataSingleton
         build = ""; //$NON-NLS-1$
     }
 
+    /**
+     * Test server.
+     */
     protected synchronized void testServer()
     {
         if (serverExists == SERVER_EXISTS.UNKNOWN)
@@ -198,42 +275,82 @@ public class Platform extends DataSingleton
         }
     }
 
+    /**
+     * Checks if is disabled.
+     *
+     * @return true, if is disabled
+     */
     public boolean isDisabled()
     {
         testServer();
         return isDisabled || isTempDisabled;
     }
 
+    /**
+     * Checks if is enabled.
+     *
+     * @return true, if is enabled
+     */
     public boolean isEnabled()
     {
         return !isDisabled();
     }
 
+    /**
+     * Gets the protocol.
+     *
+     * @return the protocol
+     */
     public String getProtocol()
     {
         return platformHPCCClient.getProtocol();
     }
 
+    /**
+     * Gets the ip.
+     *
+     * @return the ip
+     */
     public String getIP()
     {
         return platformHPCCClient.getHost();
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort()
     {
         return platformHPCCClient.getPortInt();
     }
 
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
     public String getUser()
     {
         return platformHPCCClient.getUserName();
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword()
     {
         return platformHPCCClient.getPassword();
     }
 
+    /**
+     * Gets the builds the.
+     *
+     * @return the builds the
+     */
     protected String getBuild()
     {
         if (isEnabled() && build.isEmpty())
@@ -251,6 +368,11 @@ public class Platform extends DataSingleton
         return build;
     }
 
+    /**
+     * Ping server.
+     *
+     * @return true, if successful
+     */
     public synchronized boolean pingServer()
     {
         boolean success = false;
@@ -265,11 +387,21 @@ public class Platform extends DataSingleton
         return success;
     }
 
+    /**
+     * Gets the builds the version.
+     *
+     * @return the builds the version
+     */
     public Version getBuildVersion()
     {
         return new Version(getBuild());
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     public Version getVersion()
     {
         if (version == null)
@@ -279,6 +411,13 @@ public class Platform extends DataSingleton
         return version;
     }
 
+    /**
+     * Hack unicode in XML for axis one and ESP.
+     *
+     * @param src
+     *            the src
+     * @return the string
+     */
     /*
      * enum WUAction:
      *   WUActionUnknown = 0
@@ -309,11 +448,39 @@ public class Platform extends DataSingleton
         return sb.toString();
     }
 
+    /**
+     * Submit.
+     *
+     * @param cluster
+     *            the cluster
+     * @param archiveOrEcl
+     *            the archive or ecl
+     * @param compileOnly
+     *            the compile only
+     * @return the workunit
+     */
     public Workunit submit(String cluster, String archiveOrEcl, boolean compileOnly)
     {
         return this.submit(cluster, archiveOrEcl, "", "", 0, compileOnly);
     }
 
+    /**
+     * Submit.
+     *
+     * @param cluster
+     *            the cluster
+     * @param archiveOrEcl
+     *            the archive or ecl
+     * @param jobname
+     *            the jobname
+     * @param filePath
+     *            the file path
+     * @param inlineResultLimit
+     *            the inline result limit
+     * @param compileOnly
+     *            the compile only
+     * @return the workunit
+     */
     public Workunit submit(String cluster, String archiveOrEcl, String jobname, String filePath, int inlineResultLimit, boolean compileOnly)
     {
         Workunit wu = null;
@@ -357,22 +524,38 @@ public class Platform extends DataSingleton
         return wu;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
     }
 
+    /**
+     * Gets the workunit.
+     *
+     * @param wuid
+     *            the wuid
+     * @return the workunit
+     */
     // Workunit ---
     public Workunit getWorkunit(String wuid)
     {
@@ -383,6 +566,13 @@ public class Platform extends DataSingleton
         return null;
     }
 
+    /**
+     * Gets the workunit.
+     *
+     * @param wu
+     *            the wu
+     * @return the workunit
+     */
     public Workunit getWorkunit(ECLWorkunit wu)
     {
         Workunit workunit = getWorkunit(wu.getWuid());
@@ -390,16 +580,63 @@ public class Platform extends DataSingleton
         return workunit;
     }
 
+    /**
+     * Gets the workunits.
+     *
+     * @param userOnly
+     *            the user only
+     * @param cluster
+     *            the cluster
+     * @param startDate
+     *            the start date
+     * @param endDate
+     *            the end date
+     * @return the workunits
+     */
     Collection<Workunit> getWorkunits(boolean userOnly, String cluster, String startDate, String endDate)
     {
         return getWorkunits(userOnly, cluster, startDate, endDate, "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
+    /**
+     * Gets the workunits.
+     *
+     * @param userOnly
+     *            the user only
+     * @param cluster
+     *            the cluster
+     * @param startDate
+     *            the start date
+     * @param endDate
+     *            the end date
+     * @param jobname
+     *            the jobname
+     * @return the workunits
+     */
     Collection<Workunit> getWorkunits(boolean userOnly, String cluster, String startDate, String endDate, String jobname)
     {
         return getWorkunits(userOnly, cluster, startDate, endDate, jobname, "", ""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    /**
+     * Gets the workunits.
+     *
+     * @param userOnly
+     *            the user only
+     * @param cluster
+     *            the cluster
+     * @param startDate
+     *            the start date
+     * @param endDate
+     *            the end date
+     * @param jobname
+     *            the jobname
+     * @param appKey
+     *            the app key
+     * @param appData
+     *            the app data
+     * @return the workunits
+     */
     public Collection<Workunit> getWorkunits(boolean userOnly, String cluster, String startDate, String endDate, String jobname, String appKey, String appData)
     {
         if (isEnabled())
@@ -434,6 +671,13 @@ public class Platform extends DataSingleton
         return new HashSet<Workunit>();
     }
 
+    /**
+     * To ESP string.
+     *
+     * @param _calendar
+     *            the calendar
+     * @return the string
+     */
     public static String toESPString(GregorianCalendar _calendar)
     {
         // 2013-10-02T23:00:00Z
@@ -446,6 +690,19 @@ public class Platform extends DataSingleton
         return df.format(calendar.getTime());
     }
 
+    /**
+     * Gets the workunits.
+     *
+     * @param owner
+     *            the owner
+     * @param cluster
+     *            the cluster
+     * @param startDate
+     *            the start date
+     * @param endDate
+     *            the end date
+     * @return the workunits
+     */
     public Collection<Workunit> getWorkunits(String owner, String cluster, GregorianCalendar startDate, GregorianCalendar endDate)
     {
         if (isEnabled())
@@ -482,16 +739,38 @@ public class Platform extends DataSingleton
         return new HashSet<Workunit>();
     }
 
+    /**
+     * Gets the workunits.
+     *
+     * @param userOnly
+     *            the user only
+     * @param cluster
+     *            the cluster
+     * @return the workunits
+     */
     public Collection<Workunit> getWorkunits(boolean userOnly, String cluster)
     {
         return getWorkunits(userOnly, cluster, "", ""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    /**
+     * Gets the workunits.
+     *
+     * @param userOnly
+     *            the user only
+     * @return the workunits
+     */
     public Collection<Workunit> getWorkunits(boolean userOnly)
     {
         return getWorkunits(userOnly, "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
+    /**
+     * Update workunits.
+     *
+     * @param response
+     *            the response
+     */
     synchronized void updateWorkunits(List<WorkunitWrapper> response)
     {
         workunits.clear();
@@ -507,12 +786,26 @@ public class Platform extends DataSingleton
         }
     }
 
+    /**
+     * Gets the file spray workunit.
+     *
+     * @param id
+     *            the id
+     * @return the file spray workunit
+     */
     // FileSPrayWorkunit ---
     public FileSprayWorkunit getFileSprayWorkunit(String id)
     {
         return FileSprayWorkunit.get(this, id);
     }
 
+    /**
+     * Gets the file spray workunit.
+     *
+     * @param wu
+     *            the wu
+     * @return the file spray workunit
+     */
     public FileSprayWorkunit getFileSprayWorkunit(DFUWorkunitWrapper wu)
     {
         FileSprayWorkunit workunit = null;
@@ -524,6 +817,13 @@ public class Platform extends DataSingleton
         return workunit;
     }
 
+    /**
+     * Gets the file spray workunits.
+     *
+     * @param cluster
+     *            the cluster
+     * @return the file spray workunits
+     */
     public FileSprayWorkunit[] getFileSprayWorkunits(String cluster)
     {
         if (isEnabled())
@@ -553,11 +853,22 @@ public class Platform extends DataSingleton
         return fileSprayWorkunits.toArray(new FileSprayWorkunit[0]);
     }
 
+    /**
+     * Gets the file spray workunits.
+     *
+     * @return the file spray workunits
+     */
     public FileSprayWorkunit[] getFileSprayWorkunits()
     {
         return getFileSprayWorkunits(""); //$NON-NLS-1$
     }
 
+    /**
+     * Update file spray workunits.
+     *
+     * @param list
+     *            the list
+     */
     synchronized void updateFileSprayWorkunits(List<DFUWorkunitWrapper> list)
     {
         fileSprayWorkunits.clear();
@@ -570,12 +881,26 @@ public class Platform extends DataSingleton
         }
     }
 
+    /**
+     * Gets the data query set.
+     *
+     * @param name
+     *            the name
+     * @return the data query set
+     */
     // LogicalFile ---
     public DataQuerySet getDataQuerySet(String name)
     {
         return DataQuerySet.get(this, name);
     }
 
+    /**
+     * Gets the data query set.
+     *
+     * @param qs
+     *            the qs
+     * @return the data query set
+     */
     public DataQuerySet getDataQuerySet(QuerySet qs)
     {
         DataQuerySet dataQuerySet = getDataQuerySet(qs.getQuerySetName());
@@ -583,6 +908,11 @@ public class Platform extends DataSingleton
         return dataQuerySet;
     }
 
+    /**
+     * Gets the data query sets.
+     *
+     * @return the data query sets
+     */
     public DataQuerySet[] getDataQuerySets()
     {
         if (isEnabled())
@@ -612,6 +942,12 @@ public class Platform extends DataSingleton
         return dataQuerySets.toArray(new DataQuerySet[0]);
     }
 
+    /**
+     * Update data query sets.
+     *
+     * @param rawQuerySets
+     *            the raw query sets
+     */
     synchronized void updateDataQuerySets(QuerySet[] rawQuerySets)
     {
         dataQuerySets.clear();
@@ -624,12 +960,26 @@ public class Platform extends DataSingleton
         }
     }
 
+    /**
+     * Gets the logical file.
+     *
+     * @param name
+     *            the name
+     * @return the logical file
+     */
     // LogicalFile ---
     public LogicalFile getLogicalFile(String name)
     {
         return LogicalFile.get(this, name);
     }
 
+    /**
+     * Gets the logical file.
+     *
+     * @param lf
+     *            the lf
+     * @return the logical file
+     */
     public LogicalFile getLogicalFile(DFULogicalFile lf)
     {
         LogicalFile logicalFile = getLogicalFile(lf.getName());
@@ -637,6 +987,13 @@ public class Platform extends DataSingleton
         return logicalFile;
     }
 
+    /**
+     * Gets the logical file.
+     *
+     * @param sf
+     *            the sf
+     * @return the logical file
+     */
     public LogicalFile getLogicalFile(ECLSourceFile sf)
     {
         LogicalFile logicalFile = getLogicalFile(sf.getName());
@@ -644,6 +1001,13 @@ public class Platform extends DataSingleton
         return logicalFile;
     }
 
+    /**
+     * Gets the logical files.
+     *
+     * @param cluster
+     *            the cluster
+     * @return the logical files
+     */
     public LogicalFile[] getLogicalFiles(String cluster)
     {
         if (isEnabled())
@@ -671,11 +1035,22 @@ public class Platform extends DataSingleton
         return logicalFiles.toArray(new LogicalFile[0]);
     }
 
+    /**
+     * Gets the logical files.
+     *
+     * @return the logical files
+     */
     public LogicalFile[] getLogicalFiles()
     {
         return getLogicalFiles(""); //$NON-NLS-1$
     }
 
+    /**
+     * Update logical files.
+     *
+     * @param rawLogicalFiles
+     *            the raw logical files
+     */
     synchronized void updateLogicalFiles(List<DFULogicalFileWrapper> rawLogicalFiles)
     {
         logicalFiles.clear();
@@ -688,12 +1063,26 @@ public class Platform extends DataSingleton
         }
     }
 
+    /**
+     * Gets the cluster.
+     *
+     * @param name
+     *            the name
+     * @return the cluster
+     */
     // Cluster ---
     public Cluster getCluster(String name)
     {
         return Cluster.get(this, name);
     }
 
+    /**
+     * Gets the cluster.
+     *
+     * @param tc
+     *            the tc
+     * @return the cluster
+     */
     public Cluster getCluster(TpTargetCluster tc)
     {
         Cluster cluster = getCluster(tc.getName());
@@ -701,6 +1090,11 @@ public class Platform extends DataSingleton
         return cluster;
     }
 
+    /**
+     * Gets the clusters.
+     *
+     * @return the clusters
+     */
     public Cluster[] getClusters()
     {
         if (isEnabled())
@@ -728,6 +1122,12 @@ public class Platform extends DataSingleton
         return clusters.toArray(new Cluster[0]);
     }
 
+    /**
+     * Update clusters.
+     *
+     * @param tpLogicalClusters
+     *            the tp logical clusters
+     */
     synchronized void updateClusters(List<TpLogicalClusterWrapper> tpLogicalClusters)
     {
         if (tpLogicalClusters != null)
@@ -739,12 +1139,26 @@ public class Platform extends DataSingleton
         }
     }
 
+    /**
+     * Gets the drop zone.
+     *
+     * @param name
+     *            the name
+     * @return the drop zone
+     */
     // Drop Zones ---
     public DropZone getDropZone(String name)
     {
         return DropZone.get(this, name);
     }
 
+    /**
+     * Gets the drop zone.
+     *
+     * @param dz
+     *            the dz
+     * @return the drop zone
+     */
     public DropZone getDropZone(TpDropZone dz)
     {
         DropZone dropZone = getDropZone(dz.getName());
@@ -752,6 +1166,13 @@ public class Platform extends DataSingleton
         return dropZone;
     }
 
+    /**
+     * Gets the drop zone.
+     *
+     * @param dz
+     *            the dz
+     * @return the drop zone
+     */
     public DropZone getDropZone(TpDropZoneWrapper dz)
     {
         DropZone dropZone = getDropZone(dz.getName());
@@ -759,6 +1180,11 @@ public class Platform extends DataSingleton
         return dropZone;
     }
 
+    /**
+     * Gets the drop zones.
+     *
+     * @return the drop zones
+     */
     public DropZone[] getDropZones()
     {
         if (isEnabled())
@@ -787,6 +1213,12 @@ public class Platform extends DataSingleton
         return dropZones.toArray(new DropZone[0]);
     }
 
+    /**
+     * Update services.
+     *
+     * @param serviceList
+     *            the service list
+     */
     private void updateServices(TpServicesWrapper serviceList)
     {
         if (serviceList != null)
@@ -796,6 +1228,12 @@ public class Platform extends DataSingleton
 
     }
 
+    /**
+     * Update drop zones.
+     *
+     * @param rawDropZones
+     *            the raw drop zones
+     */
     private void updateDropZones(List<TpDropZoneWrapper> rawDropZones)
     {
         if (rawDropZones != null)
@@ -808,32 +1246,86 @@ public class Platform extends DataSingleton
     }
 
     //Rodrigo these geturls should be in Connection...
+    /**
+     * Gets the url.
+     *
+     * @return the url
+     * @throws MalformedURLException
+     *             the malformed URL exception
+     */
     // SOAP Stub Helpers ---
     public URL getURL() throws MalformedURLException
     {
         return getURL(""); //$NON-NLS-1$
     }
 
+    /**
+     * Gets the url.
+     *
+     * @param service
+     *            the service
+     * @return the url
+     * @throws MalformedURLException
+     *             the malformed URL exception
+     */
     public URL getURL(String service) throws MalformedURLException
     {
         return new URL(getProtocol(), getIP(), getPort(), "/" + service); //$NON-NLS-1$
     }
 
+    /**
+     * Gets the url.
+     *
+     * @param service
+     *            the service
+     * @param method
+     *            the method
+     * @return the url
+     * @throws MalformedURLException
+     *             the malformed URL exception
+     */
     public URL getURL(String service, String method) throws MalformedURLException
     {
         return getURL(service + "/" + method); //$NON-NLS-1$
     }
 
+    /**
+     * Gets the url.
+     *
+     * @param service
+     *            the service
+     * @param method
+     *            the method
+     * @param params
+     *            the params
+     * @return the url
+     * @throws MalformedURLException
+     *             the malformed URL exception
+     */
     public URL getURL(String service, String method, String params) throws MalformedURLException
     {
         return getURL(service + "/" + method + "?" + params); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
+    /**
+     * Gets the widget URL.
+     *
+     * @param widget
+     *            the widget
+     * @param params
+     *            the params
+     * @return the widget URL
+     * @throws MalformedURLException
+     *             the malformed URL exception
+     */
     public URL getWidgetURL(String widget, String params) throws MalformedURLException
     {
         return getURL("esp/files/stub.htm?Widget=" + widget + (params.isEmpty() ? "" : "&" + params)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
+    /**
+     * Latency test.
+     */
     void latencyTest()
     {
         if (LATENCY_TEST == 0)
@@ -902,9 +1394,12 @@ public class Platform extends DataSingleton
 //    }
 
     /**
-     * @return HPCCWsClient instance - not thread safe - Use checkoutWsClient for multi-thread use
-     * @throws Exception
-     */
+ * Gets the ws client.
+ *
+ * @return HPCCWsClient instance - not thread safe - Use checkoutWsClient for multi-thread use
+ * @throws Exception
+ *             the exception
+ */
     public HPCCWsClient getWsClient() throws Exception
     {
         latencyTest();
@@ -912,8 +1407,11 @@ public class Platform extends DataSingleton
     }
 
     /**
+     * Check out HPCC ws client.
+     *
      * @return HPCCWsClient from HPCCClient pool, caller responsible for checking client back in
      * @throws Exception
+     *             the exception
      */
     public HPCCWsClient checkOutHPCCWsClient() throws Exception
     {
@@ -921,23 +1419,44 @@ public class Platform extends DataSingleton
     }
 
     /**
-     * @param client - returns hpccWsClient to pool for use by other threads
+     * Check in HPCC ws client.
+     *
+     * @param client
+     *            - returns hpccWsClient to pool for use by other threads
      * @throws Exception
+     *             the exception
      */
     public void checkInHPCCWsClient(HPCCWsClient client) throws Exception
     {
         hpccClientPool.checkIn(client);
     }
 
+    /**
+     * Validate HPCC ws client.
+     *
+     * @param client
+     *            the client
+     * @return true, if successful
+     */
     public boolean validateHPCCWsClient(HPCCWsClient client)
     {
         return hpccClientPool.validate(client);
     }
 
+    /**
+     * Expire HPCC ws client.
+     *
+     * @param client
+     *            the client
+     */
     public void expireHPCCWsClient(HPCCWsClient client)
     {
         hpccClientPool.expire(client);
     }
+    
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -956,6 +1475,9 @@ public class Platform extends DataSingleton
         return EqualsUtil.areEqual(platformHPCCClient, that.platformHPCCClient);
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

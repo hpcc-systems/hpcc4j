@@ -37,44 +37,57 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     public static int             NO_RECORD_LIMIT   = -1;
 
+    /**
+     * Instantiates a new hpcc remote file reader.
+     *
+     * @param dp
+     *            the dp
+     * @param originalRD
+     *            the original RD
+     * @param recBuilder
+     *            the rec builder
+     * @throws Exception
+     *             the exception
+     */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder) throws Exception
     {
-        this(dp,originalRD,recBuilder,RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS);
-    }
-    /**
-     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
-     * 
-     * @param dp
-     *            the part of the file, name and location
-     * @param originalRD
-     *            the record defintion for the dataset
-     * @param recBuilder
-     *            the IRecordBuilder used to construct records
-     * @param connectTimeout 
-     *            the connectiont timeout in seconds
-     * @param projectedRD
-     *            the requested record format
-     */
-    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout) throws Exception
-    {
-        this(dp,originalRD,recBuilder,connectTimeout,NO_RECORD_LIMIT);
+        this(dp, originalRD, recBuilder, RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
 
     /**
      * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
-     * 
+     *
      * @param dp
      *            the part of the file, name and location
      * @param originalRD
      *            the record defintion for the dataset
      * @param recBuilder
      *            the IRecordBuilder used to construct records
-     * @param projectedRD
-     *            the requested record format
-     * @param connectTimeout 
+     * @param connectTimeout
      *            the connectiont timeout in seconds
-     * @param limit 
+     * @throws Exception
+     *             the exception
+     */
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout) throws Exception
+    {
+        this(dp, originalRD, recBuilder, connectTimeout, NO_RECORD_LIMIT);
+    }
+
+    /**
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     *
+     * @param dp
+     *            the part of the file, name and location
+     * @param originalRD
+     *            the record defintion for the dataset
+     * @param recBuilder
+     *            the IRecordBuilder used to construct records
+     * @param connectTimeout
+     *            the connectiont timeout in seconds
+     * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
+     * @throws Exception
+     *             the exception
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit) throws Exception
     {
@@ -99,8 +112,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     }
 
     /**
-     * Is there more data
-     * 
+     * Is there more data.
+     *
      * @return true if there is a next record
      */
     @Override
@@ -121,8 +134,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     }
 
     /**
-     * Return next record
-     * 
+     * Return next record.
+     *
      * @return the record
      */
     @Override
@@ -141,15 +154,24 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         return (T) rslt;
     }
 
+    /**
+     * Close.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void close() throws Exception
     {
         this.inputStream.close();
     }
-    
+
     /**
      * getAvailable
      * Returns the number of bytes available to read immediately.
-     * @return
+     *
+     * @return the available
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public int getAvailable() throws IOException
     {

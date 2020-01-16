@@ -11,6 +11,12 @@ public class Version implements Comparable<Version>
     public String postfixStr    = "";
     public int    postfixInt    = 0;
 
+    /**
+     * Instantiates a new version.
+     *
+     * @param versionString
+     *            the version string
+     */
     public Version(String versionString)
     {
         // 3.6.1
@@ -30,6 +36,12 @@ public class Version implements Comparable<Version>
         }
     }
 
+    /**
+     * Calc version.
+     *
+     * @param version
+     *            the version
+     */
     void calcVersion(String version)
     {
         major = 0;
@@ -55,6 +67,12 @@ public class Version implements Comparable<Version>
         {}
     }
 
+    /**
+     * Calc postfix.
+     *
+     * @param postfix
+     *            the postfix
+     */
     void calcPostfix(String postfix)
     {
         this.postfix = postfix;
@@ -82,6 +100,9 @@ public class Version implements Comparable<Version>
         {}
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
@@ -89,6 +110,9 @@ public class Version implements Comparable<Version>
     }
 
     
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     public int compareTo(Version other)
     {
         if (other.major < major)
@@ -120,6 +144,15 @@ public class Version implements Comparable<Version>
     public final static int DISTANCE_POINT     = 100000;
     public final static int DISTANCE_MINOR     = 100000000;
 
+    /**
+     * Distance.
+     *
+     * @param l
+     *            the l
+     * @param r
+     *            the r
+     * @return the long
+     */
     public static long distance(Version l, Version r)
     {
         long retVal = 0;

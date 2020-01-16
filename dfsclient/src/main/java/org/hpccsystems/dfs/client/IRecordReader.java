@@ -27,30 +27,43 @@ import org.hpccsystems.commons.errors.HpccFileException;
 public interface IRecordReader
 {
 
+    /**
+     * Initialize.
+     *
+     * @param recordBuilder
+     *            the record builder
+     * @throws Exception
+     *             the exception
+     */
     public void initialize(IRecordBuilder recordBuilder) throws Exception;
 
     /**
-    * hasNext
-    * Are there more records?  The first time used will trigger a
-    * remote file read.
-    * @return true if there is at least one more record
-    * @throws HpccFileException if there was a failure on the back end.  This
-    * error is not recoverable by a retry.
-    */
+     * hasNext
+     * Are there more records? The first time used will trigger a
+     * remote file read.
+     * @return true if there is at least one more record
+     * @throws HpccFileException
+     *             if there was a failure on the back end. This
+     *             error is not recoverable by a retry.
+     */
     public boolean hasNext() throws HpccFileException;
 
     /**
      * getNext
      * Produce the next record.
      * @return a record
-     * @throws HpccFileException error on the back end, not recoverable
+     * @throws HpccFileException
+     *             error on the back end, not recoverable
      */
     public Object getNext() throws HpccFileException;
 
     /**
      * getAvailable
      * Returns the number of bytes available to read immediately.
-     * @return
+     *
+     * @return the available
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public int getAvailable() throws IOException;
 }

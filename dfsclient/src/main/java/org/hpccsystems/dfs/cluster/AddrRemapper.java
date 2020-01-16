@@ -27,7 +27,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileCopyWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUPartWrapper;
 
 /**
- * Map internal IP addresses to external IP addresses.  Note that the
+ * Map internal IP addresses to external IP addresses. Note that the
  * relation of parts to IP address must be in lexical order.
  *
  */
@@ -38,14 +38,17 @@ public class AddrRemapper extends ClusterRemapper
     private boolean                 usesSSL;
 
     /**
-     * Remapping of the IP addresses for virtual clusters.  Note that there
+     * Remapping of the IP addresses for virtual clusters. Note that there
      * can be more parts than nodes or fewer parts than nodes, though usually
      * the number of parts equals the number of nodes for files and is one
      * higher for keys.
-     * @param ri re-mapping information for an address re-mapper
-     * @param strings all locations available on cluster
-     * that need to be mapped
-     * @throws HpccFileException when something is wrong with the info
+     *
+     * @param ri
+     *            re-mapping information for an address re-mapper
+     * @param dfufileinfo
+     *            the dfufileinfo
+     * @throws HpccFileException
+     *             when something is wrong with the info
      */
     public AddrRemapper(RemapInfo ri, DFUFileAccessInfoWrapper dfufileinfo) throws HpccFileException
     {
@@ -110,8 +113,7 @@ public class AddrRemapper extends ClusterRemapper
     /**
      * Comparator to re-order the file parts.
      */
-    private static Comparator<DFUPartWrapper> FilePartInfoComparator = new Comparator<DFUPartWrapper>()
-    {
+    private static Comparator<DFUPartWrapper> FilePartInfoComparator = new Comparator<DFUPartWrapper>() {
         public int compare(DFUPartWrapper fpi1, DFUPartWrapper fpi2)
         {
             if (fpi1.getCopy() < fpi2.getCopy()) return -1;
@@ -122,10 +124,12 @@ public class AddrRemapper extends ClusterRemapper
         }
     };
 
-    /* (non-Javadoc)
-    * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(org.hpccsystems.ws.client.platform.DFUFilePartInfo[])
-    */
-    //@Override
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(org.hpccsystems.ws.client.platform.DFUFilePartInfo[])
+     */
+    // @Override
     public String[] reviseIPs(String[] ips) throws HpccFileException
     {
         String[] revisedips = new String[ips.length];
@@ -140,9 +144,11 @@ public class AddrRemapper extends ClusterRemapper
         return revisedips;
     }
 
-    /* (non-Javadoc)
-    * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(org.hpccsystems.ws.client.platform.DFUFilePartInfo[])
-    */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(org.hpccsystems.ws.client.platform.DFUFilePartInfo[])
+     */
     @Override
     public String[] reviseIPs(DFUFileCopyWrapper[] dfuFileCopies) throws HpccFileException
     {
@@ -158,18 +164,22 @@ public class AddrRemapper extends ClusterRemapper
         return revisedips;
     }
 
-    /* (non-Javadoc)
-    * @see org.hpccsystems.spark.thor.ClusterRemapper#revisePort(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
-    */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.spark.thor.ClusterRemapper#revisePort(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
+     */
     @Override
     public int revisePort(DFUPartWrapper fpi)
     {
         return rowServicePort;
     }
 
-    /* (non-Javadoc)
-    * @see org.hpccsystems.spark.thor.ClusterRemapper#getUsesSSLConnection(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
-    */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.spark.thor.ClusterRemapper#getUsesSSLConnection(org.hpccsystems.ws.client.platform.DFUFilePartInfo)
+     */
     @Override
     public boolean getUsesSSLConnection(DFUPartWrapper fpi)
     {

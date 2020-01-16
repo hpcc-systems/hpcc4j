@@ -48,19 +48,28 @@ public class BinaryRecordWriter implements IRecordWriter
     private IRecordAccessor     rootRecordAccessor  = null;
 
     /**
-     * BinaryRecordWriter Initializes writing procedure, and converts the provided Schema to a SparkField stucture
-     * 
+     * BinaryRecordWriter Initializes writing procedure, and converts the provided Schema to a SparkField stucture.
+     *
      * @param output
-     *            OutputStream to write to. 
-     * @param schema
-     *            The Spark schema used for all subsequent calls to writeRecord
+     *            OutputStream to write to.
      * @throws Exception
+     *             the exception
      */
     public BinaryRecordWriter(OutputStream output) throws Exception
     {
         this(output, ByteOrder.nativeOrder());
     }
 
+    /**
+     * Instantiates a new binary record writer.
+     *
+     * @param output
+     *            the output
+     * @param byteOrder
+     *            the byte order
+     * @throws Exception
+     *             the exception
+     */
     public BinaryRecordWriter(OutputStream output, ByteOrder byteOrder) throws Exception
     {
         this.outputStream = output;
@@ -69,22 +78,39 @@ public class BinaryRecordWriter implements IRecordWriter
         this.buffer.order(byteOrder);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordWriter#initialize(org.hpccsystems.dfs.client.IRecordAccessor)
+     */
     public void initialize(IRecordAccessor recordAccessor)
     {
         this.rootRecordAccessor = recordAccessor;
     }
 
     /**
-     * writeRecord Converts the provided Object into an HPCC record and writes it to the output channel
-     * 
-     * @param Object
+     * writeRecord Converts the provided Object into an HPCC record and writes it to the output channel.
+     *
+     * @param record
+     *            the record
      * @throws Exception
+     *             the exception
      */
     public void writeRecord(Object record) throws Exception
     {
         writeRecord(this.rootRecordAccessor, record);
     }
 
+    /**
+     * Write record.
+     *
+     * @param recordAccessor
+     *            the record accessor
+     * @param record
+     *            the record
+     * @throws Exception
+     *             the exception
+     */
     private void writeRecord(IRecordAccessor recordAccessor, Object record) throws Exception
     {
         // If we have less than 32 bytes left in the buffer flush to the channel
@@ -135,12 +161,14 @@ public class BinaryRecordWriter implements IRecordWriter
             };
         }
     }
-    
+
     /**
      * flush
      * Flush buffered data to InputStream. This is a blocking operation.
-     * @throws Exception 
-    */
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void flush() throws Exception
     {
         byte[] data = this.buffer.array();
@@ -153,8 +181,9 @@ public class BinaryRecordWriter implements IRecordWriter
 
     /**
      * getBufferCapacity
-     * Returns the internal buffer capacity
-     * @return 
+     * Returns the internal buffer capacity.
+     *
+     * @return the buffer capacity
      */
     public int getBufferCapacity()
     {
@@ -163,8 +192,9 @@ public class BinaryRecordWriter implements IRecordWriter
 
     /**
      * getRemainingBufferCapacity
-     * Returns the remaining capacity in the internal buffer
-     * @return
+     * Returns the remaining capacity in the internal buffer.
+     *
+     * @return the remaining buffer capacity
      */
     public int getRemainingBufferCapacity()
     {
@@ -174,8 +204,9 @@ public class BinaryRecordWriter implements IRecordWriter
     /**
      * finalize Must be called after all records have been written. Will flush the internal buffer to the output
      * channel.
-     * 
+     *
      * @throws Exception
+     *             the exception
      */
     public void finalize() throws Exception
     {
@@ -186,15 +217,24 @@ public class BinaryRecordWriter implements IRecordWriter
     /**
      * getTotalBytesWritten Returns the total bytes written thus far. This will not match the bytes written to the
      * ByteChannel until finialize is called.
-     * 
+     *
      * @return long
-     * @throws Exception
      */
     public long getTotalBytesWritten()
     {
         return this.bytesWritten;
     }
 
+    /**
+     * Write field.
+     *
+     * @param fd
+     *            the fd
+     * @param fieldValue
+     *            the field value
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     private void writeField(FieldDef fd, Object fieldValue) throws Exception
     {
@@ -420,6 +460,19 @@ public class BinaryRecordWriter implements IRecordWriter
         }
     }
 
+    /**
+     * Calculate field size.
+     *
+     * @param fd
+     *            the fd
+     * @param recordAccessor
+     *            the record accessor
+     * @param fieldValue
+     *            the field value
+     * @return the long
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     private long calculateFieldSize(FieldDef fd, IRecordAccessor recordAccessor, Object fieldValue) throws Exception
     {
@@ -583,6 +636,18 @@ public class BinaryRecordWriter implements IRecordWriter
         }
     }
 
+    /**
+     * Write list.
+     *
+     * @param fd
+     *            the fd
+     * @param childRecordAccessor
+     *            the child record accessor
+     * @param list
+     *            the list
+     * @throws Exception
+     *             the exception
+     */
     private void writeList(FieldDef fd, IRecordAccessor childRecordAccessor, List<Object> list) throws Exception
     {
         // Data layout for SETS & DATASETS are similar. Exception is SETS have a preceding unused byte.
@@ -620,6 +685,14 @@ public class BinaryRecordWriter implements IRecordWriter
         }
     }
 
+    /**
+     * Write decimal.
+     *
+     * @param fd
+     *            the fd
+     * @param decimalValue
+     *            the decimal value
+     */
     private void writeDecimal(FieldDef fd, BigDecimal decimalValue)
     {
         int precision = fd.getPrecision();
@@ -687,6 +760,12 @@ public class BinaryRecordWriter implements IRecordWriter
         this.buffer.put(workingBuffer);
     }
 
+    /**
+     * Write unsigned.
+     *
+     * @param value
+     *            the value
+     */
     private void writeUnsigned(long value)
     {
         for (int i = 0; i < 4; i++)
@@ -702,11 +781,31 @@ public class BinaryRecordWriter implements IRecordWriter
         }
     }
 
+    /**
+     * Write byte array.
+     *
+     * @param data
+     *            the data
+     * @throws Exception
+     *             the exception
+     */
     private void writeByteArray(byte[] data) throws Exception
     {
         writeByteArray(data, 0, data.length);
     }
 
+    /**
+     * Write byte array.
+     *
+     * @param data
+     *            the data
+     * @param offset
+     *            the offset
+     * @param dataEnd
+     *            the data end
+     * @throws Exception
+     *             the exception
+     */
     private void writeByteArray(byte[] data, int offset, int dataEnd) throws Exception
     {
         do
@@ -729,5 +828,4 @@ public class BinaryRecordWriter implements IRecordWriter
         while (offset < dataEnd);
     }
 
-    
 }

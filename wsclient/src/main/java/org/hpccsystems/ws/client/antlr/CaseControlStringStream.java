@@ -29,7 +29,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 /**
  *
  * @author rpastrana for HPCC
- * Edited and reformatted
+ *         Edited and reformatted
  *
  */
 
@@ -37,7 +37,12 @@ public class CaseControlStringStream extends ANTLRInputStream
 {
     public boolean toUpperCase = false;// default: Stream is case-sensitive
 
-    /** Copy data from string to a local char array */
+    /**
+     * Copy data from string to a local char array.
+     *
+     * @param input
+     *            the input
+     */
     public CaseControlStringStream(String input)
     {
         super();
@@ -45,7 +50,14 @@ public class CaseControlStringStream extends ANTLRInputStream
         this.n = input.length();
     }
 
-    /** This is the preferred constructor as no data is actually copied */
+    /**
+     * This is the preferred constructor as no data is actually copied.
+     *
+     * @param data
+     *            the data
+     * @param numberOfActualCharsInArray
+     *            the number of actual chars in array
+     */
     public CaseControlStringStream(char[] data, int numberOfActualCharsInArray)
     {
         super();
@@ -53,6 +65,11 @@ public class CaseControlStringStream extends ANTLRInputStream
         this.n = numberOfActualCharsInArray;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.antlr.v4.runtime.ANTLRInputStream#LA(int)
+     */
     @Override
     public int LA(int i)
     {

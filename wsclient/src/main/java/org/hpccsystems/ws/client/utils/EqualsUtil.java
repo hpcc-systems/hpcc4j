@@ -9,6 +9,15 @@ package org.hpccsystems.ws.client.utils;
 
 public final class EqualsUtil
 {
+    /**
+     * Checks for changed.
+     *
+     * @param target
+     *            the target
+     * @param source
+     *            the source
+     * @return true, if successful
+     */
     static public boolean hasChanged(Object target, Object source)
     {
         if (source == null)
@@ -19,16 +28,43 @@ public final class EqualsUtil
         return !EqualsUtil.areEqual(target, source);
     }
 
+    /**
+     * Are equal.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
+     */
     static public boolean areEqual(boolean aThis, boolean aThat)
     {
         return aThis == aThat;
     }
 
+    /**
+     * Are equal.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
+     */
     static public boolean areEqual(char aThis, char aThat)
     {
         return aThis == aThat;
     }
 
+    /**
+     * Are equal.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
+     */
     static public boolean areEqual(long aThis, long aThat)
     {
         /*
@@ -37,11 +73,29 @@ public final class EqualsUtil
         return aThis == aThat;
     }
 
+    /**
+     * Are equal.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
+     */
     static public boolean areEqual(float aThis, float aThat)
     {
         return Float.floatToIntBits(aThis) == Float.floatToIntBits(aThat);
     }
 
+    /**
+     * Are equal.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
+     */
     static public boolean areEqual(double aThis, double aThat)
     {
         return Double.doubleToLongBits(aThis) == Double.doubleToLongBits(aThat);
@@ -51,6 +105,12 @@ public final class EqualsUtil
      * Possibly-null object field.
      *
      * Includes type-safe enumerations and collections, but does not include arrays. See class comment.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
      */
     static public boolean areEqual(Object aThis, Object aThat)
     {
@@ -58,7 +118,13 @@ public final class EqualsUtil
     }
 
     /**
-     * Is the null state of both objects equivalent
+     * Is the null state of both objects equivalent.
+     *
+     * @param aThis
+     *            the a this
+     * @param aThat
+     *            the a that
+     * @return true, if successful
      */
     static public boolean areSameNullState(Object aThis, Object aThat)
     {
