@@ -21,7 +21,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -40,8 +39,6 @@ import org.junit.experimental.categories.Category;
 @Category(ManualUnitTest.class)
 public class EclParseRegressionTest extends BaseRemoteTest
 {
-    Logger logger=Logger.getLogger(this.getClass().getName());
-
     protected String targetThorName = System.getProperty("thorname");
     protected String targetRoxieName = System.getProperty("roxiename");
     protected String targetHthorName = System.getProperty("hthorname");
