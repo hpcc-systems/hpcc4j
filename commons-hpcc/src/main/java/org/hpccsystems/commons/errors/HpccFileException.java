@@ -35,6 +35,8 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * Instantiates a new hpcc file exception.
+     *
      * @param message
      *            text explaining exception
      */
@@ -44,6 +46,8 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * Instantiates a new hpcc file exception.
+     *
      * @param cause
      *            An exception that has been remapped into an HPCC Exception
      */
@@ -53,6 +57,8 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * Instantiates a new hpcc file exception.
+     *
      * @param message
      *            explanation of exception
      * @param cause
@@ -64,10 +70,16 @@ public class HpccFileException extends Exception implements Serializable
     }
 
     /**
+     * Instantiates a new hpcc file exception.
+     *
      * @param message
+     *            the message
      * @param cause
+     *            the cause
      * @param enableSuppression
+     *            the enable suppression
      * @param writableStackTrace
+     *            the writable stack trace
      */
     public HpccFileException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {

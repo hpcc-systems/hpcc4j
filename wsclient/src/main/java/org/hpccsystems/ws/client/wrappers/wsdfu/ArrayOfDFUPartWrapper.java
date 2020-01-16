@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
+import java.util.ArrayList;
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
@@ -16,7 +17,6 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -29,60 +29,106 @@ public class ArrayOfDFUPartWrapper
 {
     protected List<DFUPartWrapper> local_dFUPart = new ArrayList<DFUPartWrapper>();
 
-	public ArrayOfDFUPartWrapper() {}
+    /**
+     * Instantiates a new array of DFU part wrapper.
+     */
+    public ArrayOfDFUPartWrapper()
+    {
+    }
 
-	public ArrayOfDFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart arrayofdfupart)
-	{
-		copy( arrayofdfupart );
-	}
-	public ArrayOfDFUPartWrapper( List<DFUPartWrapper> _dFUPart )
-	{
-		this.local_dFUPart = _dFUPart;
+    /**
+     * Instantiates a new array of DFU part wrapper.
+     *
+     * @param arrayofdfupart
+     *            the arrayofdfupart
+     */
+    public ArrayOfDFUPartWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart arrayofdfupart)
+    {
+        copy(arrayofdfupart);
+    }
 
-	}
+    /**
+     * Instantiates a new array of DFU part wrapper.
+     *
+     * @param _dFUPart
+     *            the d FU part
+     */
+    public ArrayOfDFUPartWrapper(List<DFUPartWrapper> _dFUPart)
+    {
+        this.local_dFUPart = _dFUPart;
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart raw )
-	{
-		if (raw == null)
-			return;
+    }
 
-		if (raw.getDFUPart() != null)
-		{
-			this.local_dFUPart = new ArrayList<DFUPartWrapper>();
-			for ( int i = 0; i < raw.getDFUPart().length; i++)
-			{
-				this.local_dFUPart.add(new DFUPartWrapper(raw.getDFUPart()[i]));
-			}
-		}
-	}
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart raw)
+    {
+        if (raw == null) return;
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFUPartWrapper [" + "dFUPart = " + local_dFUPart + "]";
-	}
+        if (raw.getDFUPart() != null)
+        {
+            this.local_dFUPart = new ArrayList<DFUPartWrapper>();
+            for (int i = 0; i < raw.getDFUPart().length; i++)
+            {
+                this.local_dFUPart.add(new DFUPartWrapper(raw.getDFUPart()[i]));
+            }
+        }
+    }
 
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart();
-		if (this.local_dFUPart!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart[this.local_dFUPart.size()];
-			for ( int i = 0; i < this.local_dFUPart.size(); i++)
-			{
-				arr[i] = this.local_dFUPart.get(i) .getRaw();
-			}		raw.setDFUPart(arr);
-		}
-		return raw;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFUPartWrapper [" + "dFUPart = " + local_dFUPart + "]";
+    }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart();
+        if (this.local_dFUPart != null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart[this.local_dFUPart
+                    .size()];
+            for (int i = 0; i < this.local_dFUPart.size(); i++)
+            {
+                arr[i] = this.local_dFUPart.get(i).getRaw();
+            }
+            raw.setDFUPart(arr);
+        }
+        return raw;
+    }
 
-	public void setDFUPart( List<DFUPartWrapper> _dFUPart )
-	{
-		this.local_dFUPart = _dFUPart;
-	}
-	public List<DFUPartWrapper> getDFUPart( )
-	{
-		return this.local_dFUPart;
-	}
+    /**
+     * Sets the DFU part.
+     *
+     * @param _dFUPart
+     *            the new DFU part
+     */
+    public void setDFUPart(List<DFUPartWrapper> _dFUPart)
+    {
+        this.local_dFUPart = _dFUPart;
+    }
+
+    /**
+     * Gets the DFU part.
+     *
+     * @return the DFU part
+     */
+    public List<DFUPartWrapper> getDFUPart()
+    {
+        return this.local_dFUPart;
+    }
 }

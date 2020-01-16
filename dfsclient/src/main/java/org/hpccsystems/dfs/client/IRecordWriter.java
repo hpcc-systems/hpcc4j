@@ -25,51 +25,66 @@ import org.hpccsystems.commons.errors.HpccFileException;
 public interface IRecordWriter
 {
 
+    /**
+     * Initialize.
+     *
+     * @param accessor
+     *            the accessor
+     */
     public void initialize(IRecordAccessor accessor);
 
     /**
-    * writeRecord 
-    * Converts the provided Row into an HPCC record and writes it to the output channel
-    * @param Row
-    * @throws Exception
-    */
+     * writeRecord
+     * Converts the provided Row into an HPCC record and writes it to the output channel.
+     *
+     * @param record
+     *            the record
+     * @throws Exception
+     *             the exception
+     */
     public void writeRecord(Object record) throws Exception;
 
     /**
-    * finalize 
-    * Must be called after all records have been written.
-    * Will flush the internal buffer to the output channel.
-    * @throws Exception
-    */
+     * finalize
+     * Must be called after all records have been written.
+     * Will flush the internal buffer to the output channel.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void finalize() throws Exception;
 
     /**
-    * getTotalBytesWritten 
-    * Returns the total bytes written thus far. This will not match the bytes written to the ByteChannel until finialize is called.
-    * @return long
-    * @throws Exception
-    */
+     * getTotalBytesWritten
+     * Returns the total bytes written thus far. This will not match the bytes written to the ByteChannel until finialize is called.
+     *
+     * @return long
+     */
     public long getTotalBytesWritten();
 
     /**
-    * flush
-    * Flush buffered data to InputStream. This is a blocking operation.
-    * @throws Exception 
-    */
+     * flush
+     * Flush buffered data to InputStream. This is a blocking operation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void flush() throws Exception;
 
     /**
-    * getBufferCapacity
-    * Returns the internal buffer capacity
-    * @return 
-    */
+     * getBufferCapacity
+     * Returns the internal buffer capacity.
+     *
+     * @return the buffer capacity
+     */
     public int getBufferCapacity();
 
     /**
-    * getRemainingBufferCapacity
-    * Returns the remaining capacity in the internal buffer
-    * @return
-    */
+     * getRemainingBufferCapacity
+     * Returns the remaining capacity in the internal buffer.
+     *
+     * @return the remaining buffer capacity
+     */
     public int getRemainingBufferCapacity();
 
 }

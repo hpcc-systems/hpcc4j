@@ -1,7 +1,6 @@
 package org.hpccsystems.ws.client.wrappers;
 
-
-
+import java.util.ArrayList;
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
@@ -19,9 +18,6 @@ package org.hpccsystems.ws.client.wrappers;
  *******************************************************************************/
 import java.util.List;
 
-
-import java.util.ArrayList;
-
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLAttributeWrapper
@@ -31,62 +27,108 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLAttributeWrapper
 {
-protected List<ECLAttributeWrapper> local_eCLAttribute = new ArrayList<ECLAttributeWrapper>();
+    protected List<ECLAttributeWrapper> local_eCLAttribute = new ArrayList<ECLAttributeWrapper>();
 
-	public ArrayOfECLAttributeWrapper() {}
+    /**
+     * Instantiates a new array of ECL attribute wrapper.
+     */
+    public ArrayOfECLAttributeWrapper()
+    {
+    }
 
-	public ArrayOfECLAttributeWrapper( org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute arrayofeclattribute)
-	{
-		copy( arrayofeclattribute );
-	}
-	public ArrayOfECLAttributeWrapper( List<ECLAttributeWrapper> _eCLAttribute )
-	{
-		this.local_eCLAttribute = _eCLAttribute;
+    /**
+     * Instantiates a new array of ECL attribute wrapper.
+     *
+     * @param arrayofeclattribute
+     *            the arrayofeclattribute
+     */
+    public ArrayOfECLAttributeWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute arrayofeclattribute)
+    {
+        copy(arrayofeclattribute);
+    }
 
-	}
+    /**
+     * Instantiates a new array of ECL attribute wrapper.
+     *
+     * @param _eCLAttribute
+     *            the e CL attribute
+     */
+    public ArrayOfECLAttributeWrapper(List<ECLAttributeWrapper> _eCLAttribute)
+    {
+        this.local_eCLAttribute = _eCLAttribute;
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute raw )
-	{
-		if (raw == null)
-			return;
+    }
 
-		if (raw.getECLAttribute() != null)
-		{
-			this.local_eCLAttribute = new ArrayList<ECLAttributeWrapper>();
-			for ( int i = 0; i < raw.getECLAttribute().length; i++)
-			{
-				this.local_eCLAttribute.add(new ECLAttributeWrapper(raw.getECLAttribute()[i]));
-			}
-		}
-	}
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute raw)
+    {
+        if (raw == null) return;
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLAttributeWrapper [" + "eCLAttribute = " + local_eCLAttribute + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute();
-		if (this.local_eCLAttribute!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[] arr = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[this.local_eCLAttribute.size()];
-			for ( int i = 0; i < this.local_eCLAttribute.size(); i++)
-			{
-				arr[i] = this.local_eCLAttribute.get(i).getRaw();
-			}
-			raw.setECLAttribute(arr);
-		}
-		return raw;
-	}
+        if (raw.getECLAttribute() != null)
+        {
+            this.local_eCLAttribute = new ArrayList<ECLAttributeWrapper>();
+            for (int i = 0; i < raw.getECLAttribute().length; i++)
+            {
+                this.local_eCLAttribute.add(new ECLAttributeWrapper(raw.getECLAttribute()[i]));
+            }
+        }
+    }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLAttributeWrapper [" + "eCLAttribute = " + local_eCLAttribute + "]";
+    }
 
-	public void setECLAttribute( List<ECLAttributeWrapper> _eCLAttribute )
-	{
-		this.local_eCLAttribute = _eCLAttribute;
-	}
-	public List<ECLAttributeWrapper> getECLAttribute( )
-	{
-		return this.local_eCLAttribute;
-	}
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute();
+        if (this.local_eCLAttribute != null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[] arr = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[this.local_eCLAttribute
+                    .size()];
+            for (int i = 0; i < this.local_eCLAttribute.size(); i++)
+            {
+                arr[i] = this.local_eCLAttribute.get(i).getRaw();
+            }
+            raw.setECLAttribute(arr);
+        }
+        return raw;
+    }
+
+    /**
+     * Sets the ECL attribute.
+     *
+     * @param _eCLAttribute
+     *            the new ECL attribute
+     */
+    public void setECLAttribute(List<ECLAttributeWrapper> _eCLAttribute)
+    {
+        this.local_eCLAttribute = _eCLAttribute;
+    }
+
+    /**
+     * Gets the ECL attribute.
+     *
+     * @return the ECL attribute
+     */
+    public List<ECLAttributeWrapper> getECLAttribute()
+    {
+        return this.local_eCLAttribute;
+    }
 }

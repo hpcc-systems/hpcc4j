@@ -22,6 +22,15 @@ public class FileSprayWorkunit extends DataSingleton
 {
     public static DataSingletonCollection All = new DataSingletonCollection();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param wuid
+     *            the wuid
+     * @return the file spray workunit
+     */
     public static FileSprayWorkunit get(Platform platform, String wuid)
     {
         if (wuid == null || wuid.isEmpty())
@@ -40,6 +49,14 @@ public class FileSprayWorkunit extends DataSingleton
         LOGICALFILEWORKUNIT,
     }
 
+    /**
+     * Instantiates a new file spray workunit.
+     *
+     * @param platform
+     *            the platform
+     * @param id
+     *            the id
+     */
     FileSprayWorkunit(Platform platform, String id)
     {
         this.platform = platform;
@@ -48,16 +65,31 @@ public class FileSprayWorkunit extends DataSingleton
         setChanged();
     }
 
+    /**
+     * Gets the platform.
+     *
+     * @return the platform
+     */
     public Platform getPlatform()
     {
         return platform;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public String getID()
     {
         return info.getID();
     }
 
+    /**
+     * Gets the state ID.
+     *
+     * @return the state ID
+     */
     /*
      * enum DFUstate { 0 DFUstate_unknown, 1 DFUstate_scheduled, 2 DFUstate_queued, 3 DFUstate_started, 4
      * DFUstate_aborted, 5 DFUstate_failed, 6 DFUstate_finished, 7 DFUstate_monitoring, 8 DFUstate_aborting
@@ -90,12 +122,24 @@ public class FileSprayWorkunit extends DataSingleton
         return WUState.UNKNOWN;
     }
 
+    /**
+     * Gets the logical file.
+     *
+     * @param name
+     *            the name
+     * @return the logical file
+     */
     // Logical Files ---
     synchronized LogicalFile getLogicalFile(String name)
     {
         return LogicalFile.get(platform, name);
     }
 
+    /**
+     * Gets the logical file.
+     *
+     * @return the logical file
+     */
     public LogicalFile getLogicalFile()
     {
         if (info.getSourceLogicalName() == null || info.getDestLogicalName() == null)
@@ -117,6 +161,11 @@ public class FileSprayWorkunit extends DataSingleton
         return getLogicalFile(logicalFileName);
     }
 
+    /**
+     * Gets the file path.
+     *
+     * @return the file path
+     */
     public String getFilePath()
     {
         if (info.getSourceLogicalName() == null || info.getDestLogicalName() == null)
@@ -138,6 +187,11 @@ public class FileSprayWorkunit extends DataSingleton
         return filePath;
     }
 
+    /**
+     * Checks if is despray.
+     *
+     * @return true, if is despray
+     */
     public boolean isDespray()
     {
         if (info.getSourceLogicalName() == null || info.getDestLogicalName() == null)
@@ -151,23 +205,35 @@ public class FileSprayWorkunit extends DataSingleton
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     public boolean isComplete()
     {
         return HPCCWsWorkUnitsClient.isWorkunitComplete(getStateID());
     }
 
+    /**
+     * Refresh state.
+     */
     public void refreshState()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
@@ -199,6 +265,13 @@ public class FileSprayWorkunit extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param dfuWorkunitWrapper
+     *            the dfu workunit wrapper
+     * @return true, if successful
+     */
     // Updates ---
     public boolean update(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
@@ -220,6 +293,13 @@ public class FileSprayWorkunit extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Update state.
+     *
+     * @param dfuWorkunitWrapper
+     *            the dfu workunit wrapper
+     * @return true, if successful
+     */
     synchronized boolean updateState(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
         if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID()) && EqualsUtil.hasChanged(info.getState(), dfuWorkunitWrapper.getState()))
@@ -231,6 +311,13 @@ public class FileSprayWorkunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update logical files.
+     *
+     * @param dfuWorkunitWrapper
+     *            the dfu workunit wrapper
+     * @return true, if successful
+     */
     synchronized boolean updateLogicalFiles(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
         if (dfuWorkunitWrapper != null
@@ -245,6 +332,9 @@ public class FileSprayWorkunit extends DataSingleton
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -263,6 +353,9 @@ public class FileSprayWorkunit extends DataSingleton
         return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(info.getID(), that.info.getID());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {
@@ -272,6 +365,11 @@ public class FileSprayWorkunit extends DataSingleton
         return result;
     }
 
+    /**
+     * Gets the cluster name.
+     *
+     * @return the cluster name
+     */
     public Object getClusterName()
     {
         if (info.getClusterName() == null)

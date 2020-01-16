@@ -23,7 +23,7 @@ import org.hpccsystems.dfs.cluster.ClusterRemapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 
 /**
- * A partition of data.  One physical file
+ * A partition of data. One physical file
  * or key accessed by HPCC remote read.
  */
 public class DataPartition implements Serializable
@@ -41,62 +41,126 @@ public class DataPartition implements Serializable
 
     public static enum FileType
     {
-        FLAT("disk",true),  // disk is the prefix used in dafilesrv for flat files
-        INDEX("index",true),
-        CSV("csv",false),
-        XML("xml",false);
+        FLAT (
+                "disk", true
+        ), // disk is the prefix used in dafilesrv for flat files
+        INDEX (
+                "index", true
+        ), CSV (
+                "csv", false
+        ), XML (
+                "xml", false
+        );
 
         private String  name             = null;
         private boolean typeCanBeDeduced = false;
 
+        /**
+         * Instantiates a new file type.
+         *
+         * @param type
+         *            the type
+         * @param deduced
+         *            the deduced
+         */
         FileType(String type, boolean deduced)
         {
             name = type;
             typeCanBeDeduced = deduced;
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Enum#toString()
+         */
         public String toString()
         {
             return name;
         }
 
+        /**
+         * Type can be deduced.
+         *
+         * @return true, if successful
+         */
         public boolean typeCanBeDeduced()
         {
             return typeCanBeDeduced;
         }
     };
 
+    /**
+     * Instantiates a new data partition.
+     *
+     * @param copyLocations
+     *            the copy locations
+     * @param copyPaths
+     *            the copy paths
+     * @param partNum
+     *            the part num
+     * @param numParts
+     *            the num parts
+     * @param rowServicePort
+     *            the row service port
+     * @param shouldUseSSL
+     *            the should use SSL
+     * @param fileAccessBlob
+     *            the file access blob
+     */
     public DataPartition(String[] copyLocations, String[] copyPaths, int partNum, int numParts, int rowServicePort, boolean shouldUseSSL,
             String fileAccessBlob)
     {
         this(copyLocations, copyPaths, partNum, numParts, rowServicePort, shouldUseSSL, null, fileAccessBlob);
     }
+
     /**
-     * Construct the data part, used by makeParts
-     * @param copylocations locations of all copies of this file part
-     * @param partNum part number
-     * @param numParts number of parts
-     * @param clearport port number of clear communications
-     * @param sslport port number of ssl communications
-     * @param filter the file filter object
-     * @param fileAccessBlob file access token
+     * Construct the data part, used by makeParts.
+     *
+     * @param copyLocations
+     *            the copy locations
+     * @param copyPaths
+     *            the copy paths
+     * @param partNum
+     *            part number
+     * @param numParts
+     *            number of parts
+     * @param rowServicePort
+     *            the row service port
+     * @param shouldUseSSL
+     *            the should use SSL
+     * @param filter
+     *            the file filter object
+     * @param fileAccessBlob
+     *            file access token
      */
-    private DataPartition(String[] copyLocations, String[] copyPaths, int partNum, int numParts, int rowServicePort, boolean shouldUseSSL, FileFilter filter,
-            String fileAccessBlob)
+    private DataPartition(String[] copyLocations, String[] copyPaths, int partNum, int numParts, int rowServicePort, boolean shouldUseSSL,
+            FileFilter filter, String fileAccessBlob)
     {
         this(copyLocations, copyPaths, partNum, numParts, rowServicePort, shouldUseSSL, null, fileAccessBlob, FileType.FLAT);
     }
 
     /**
-     * Construct the data part, used by makeParts
-     * @param copylocations locations of all copies of this file part
-     * @param this_part part number
-     * @param num_parts number of parts
-     * @param clearport port number of clear communications
-     * @param sslport port number of ssl communications
-     * @param filter the file filter object
-     * @param fileAccessBlob file access token
-     * @param FileType underlying file format for this data partition
+     * Construct the data part, used by makeParts.
+     *
+     * @param copylocations
+     *            locations of all copies of this file part
+     * @param copyPaths
+     *            the copy paths
+     * @param this_part
+     *            part number
+     * @param num_parts
+     *            number of parts
+     * @param clearport
+     *            port number of clear communications
+     * @param sslport
+     *            port number of ssl communications
+     * @param filter
+     *            the file filter object
+     * @param fileAccessBlob
+     *            file access token
+     * @param fileType
+     *            the file type
      */
     private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
             String fileAccessBlob, FileType fileType)
@@ -118,7 +182,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * Security access blob
+     * Security access blob.
+     *
      * @return security access blob
      */
     public String getFileAccessBlob()
@@ -127,7 +192,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * The underying file format for this partition 
+     * The underying file format for this partition .
+     *
      * @return file type
      */
     public FileType getFileType()
@@ -136,7 +202,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * File part copy locations
+     * File part copy locations.
+     *
      * @return copy locations
      */
     public String[] getCopyLocations()
@@ -145,7 +212,10 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * Location of the ith copy of this file part
+     * Location of the ith copy of this file part.
+     *
+     * @param copyindex
+     *            the copyindex
      * @return ip address
      */
     public String getCopyIP(int copyindex)
@@ -175,7 +245,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * Port used for SSL communication
+     * Port used for SSL communication.
+     *
      * @return port
      */
     public boolean getUseSsl()
@@ -184,7 +255,10 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * Copy Path
+     * Copy Path.
+     *
+     * @param index
+     *            the index
      * @return name
      */
     public String getCopyPath(int index)
@@ -198,7 +272,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * This part's id
+     * This part's id.
+     *
      * @return the id of this part
      */
     public int getThisPart()
@@ -207,7 +282,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * Number of parts for this file
+     * Number of parts for this file.
+     *
      * @return number of parts
      */
     public int getNumParts()
@@ -216,7 +292,8 @@ public class DataPartition implements Serializable
     }
 
     /**
-     * The filter object to select specific rows
+     * The filter object to select specific rows.
+     *
      * @return the filter object.
      */
     public FileFilter getFilter()
@@ -226,6 +303,7 @@ public class DataPartition implements Serializable
 
     /*
      * (non-Javadoc)
+     * 
      * @see java.lang.Object
      */
     public String toString()
@@ -245,11 +323,18 @@ public class DataPartition implements Serializable
 
     /**
      * Make an array of data partitions for the supplied HPCC File.
-     * @param fdis the file detail information, multiple if multiple sub-files
-     * @param remap_info remap the IP or ports
-     * @param max_parts the maximum number of partitions or zero for no limit
+     *
+     * @param dfupartcopies
+     *            the dfupartcopies
+     * @param clusterremapper
+     *            the clusterremapper
+     * @param max_parts
+     *            the maximum number of partitions or zero for no limit
+     * @param fileAccessBlob
+     *            the file access blob
      * @return an array of partitions
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfupartcopies, ClusterRemapper clusterremapper, int max_parts,
             String fileAccessBlob) throws HpccFileException
@@ -257,12 +342,48 @@ public class DataPartition implements Serializable
         return createPartitions(dfupartcopies, clusterremapper, max_parts, FileFilter.nullFilter(), fileAccessBlob);
     }
 
+    /**
+     * Creates the partitions.
+     *
+     * @param dfuparts
+     *            the dfuparts
+     * @param clusterremapper
+     *            the clusterremapper
+     * @param max_parts
+     *            the max parts
+     * @param filter
+     *            the filter
+     * @param fileAccessBlob
+     *            the file access blob
+     * @return the data partition[]
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfuparts, ClusterRemapper clusterremapper, int max_parts, FileFilter filter,
             String fileAccessBlob) throws HpccFileException
     {
         return createPartitions(dfuparts, clusterremapper, max_parts, FileFilter.nullFilter(), fileAccessBlob, FileType.FLAT);
     }
-    
+
+    /**
+     * Creates the partitions.
+     *
+     * @param dfuparts
+     *            the dfuparts
+     * @param clusterremapper
+     *            the clusterremapper
+     * @param max_parts
+     *            the max parts
+     * @param filter
+     *            the filter
+     * @param fileAccessBlob
+     *            the file access blob
+     * @param fileType
+     *            the file type
+     * @return the data partition[]
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfuparts, ClusterRemapper clusterremapper, int max_parts, FileFilter filter,
             String fileAccessBlob, FileType fileType) throws HpccFileException
     {
@@ -280,7 +401,8 @@ public class DataPartition implements Serializable
                 }
 
                 DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), copyPaths, dfuparts[i].getPartIndex(),
-                        dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob, fileType);
+                        dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob,
+                        fileType);
                 rslt[i] = new_dp;
             }
         }
@@ -291,7 +413,14 @@ public class DataPartition implements Serializable
         return rslt;
     }
 
-    /* (non-Javadoc)
+    /**
+     * Index.
+     *
+     * @return the int
+     */
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.apache.spark.Partition#index()
      */
     public int index()

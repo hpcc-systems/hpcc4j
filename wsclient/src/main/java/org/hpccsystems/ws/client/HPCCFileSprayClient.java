@@ -26,8 +26,8 @@ import java.util.Properties;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CopyResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
@@ -83,11 +83,14 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     private static final long   MAX_FILE_WSUPLOAD_SIZE = 2000000000;
     private int                 BUFFER_LENGTH          = 1024;
 
-    List<DropZoneWrapper>               localDropZones  = null;
-    private static Logger               log = LogManager.getLogger(HPCCFileSprayClient.class);
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    List<DropZoneWrapper>       localDropZones         = null;
+    private static Logger       log                    = LogManager.getLogger(HPCCFileSprayClient.class);
+    private static int          DEFAULTSERVICEPORT     = -1;
+    private static String       WSDLURL                = null;
 
+    /**
+     * Load WSDLURL.
+     */
     private static void loadWSDLURL()
     {
         try
@@ -102,11 +105,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * Gets the service URI.
+     *
+     * @return the service URI
+     */
     public static String getServiceURI()
     {
         return FILESPRAYWSDLURI;
     }
 
+    /**
+     * Gets the service WSDLURL.
+     *
+     * @return the service WSDLURL
+     */
     public static String getServiceWSDLURL()
     {
         if (WSDLURL == null)
@@ -117,6 +130,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return WSDLURL;
     }
 
+    /**
+     * Gets the service WSDL port.
+     *
+     * @return the service WSDL port
+     */
     public static int getServiceWSDLPort()
     {
         if (WSDLURL == null)
@@ -127,78 +145,165 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return DEFAULTSERVICEPORT;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new FileSprayStub();
     }
 
-    //from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
+    // from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
     public enum SprayVariableFormat
     {
-        DFUff_fixed(0),
-        DFUff_csv(1),
-        DFUff_ascii(1),
-        DFUff_utf8(2),
-        DFUff_utf8n(3),
-        DFUff_utf16(4),
-        DFUff_utf16le(5),
-        DFUff_utf16be(6),
-        DFUff_utf32(7),
-        DFUff_utf32le(8),
-        DFUff_utf32be(9),
-        DFUff_variable(10),
-        DFUff_recfmvb(11),
-        DFUff_recfmv(12),
-        DFUff_variablebigendian(13);
+        DFUff_fixed (
+                0
+        ), DFUff_csv (
+                1
+        ), DFUff_ascii (
+                1
+        ), DFUff_utf8 (
+                2
+        ), DFUff_utf8n (
+                3
+        ), DFUff_utf16 (
+                4
+        ), DFUff_utf16le (
+                5
+        ), DFUff_utf16be (
+                6
+        ), DFUff_utf32 (
+                7
+        ), DFUff_utf32le (
+                8
+        ), DFUff_utf32be (
+                9
+        ), DFUff_variable (
+                10
+        ), DFUff_recfmvb (
+                11
+        ), DFUff_recfmv (
+                12
+        ), DFUff_variablebigendian (
+                13
+        );
 
         private final int id;
-        SprayVariableFormat(int id) { this.id = id; }
-        public int getValue() { return id; }
+
+        /**
+         * Instantiates a new spray variable format.
+         *
+         * @param id
+         *            the id
+         */
+        SprayVariableFormat(int id)
+        {
+            this.id = id;
+        }
+
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
+        public int getValue()
+        {
+            return id;
+        }
 
         private final static HashMap<String, SprayVariableFormat> mapVariableSprayFormatNameCode = new HashMap<String, SprayVariableFormat>();
         static
         {
-            mapVariableSprayFormatNameCode.put("csv",                SprayVariableFormat.DFUff_csv);
-            mapVariableSprayFormatNameCode.put("ascii",              SprayVariableFormat.DFUff_ascii);
-            mapVariableSprayFormatNameCode.put("utf8",               SprayVariableFormat.DFUff_utf8);
-            mapVariableSprayFormatNameCode.put("utf16",              SprayVariableFormat.DFUff_utf16);
-            mapVariableSprayFormatNameCode.put("utf16le",            SprayVariableFormat.DFUff_utf16le);
-            mapVariableSprayFormatNameCode.put("utf16be",            SprayVariableFormat.DFUff_utf16be);
-            mapVariableSprayFormatNameCode.put("utf32",              SprayVariableFormat.DFUff_utf32);
-            mapVariableSprayFormatNameCode.put("utf32le",            SprayVariableFormat.DFUff_utf32le);
-            mapVariableSprayFormatNameCode.put("utf32be",            SprayVariableFormat.DFUff_utf32be);
-            mapVariableSprayFormatNameCode.put("variable",           SprayVariableFormat.DFUff_variable);
-            mapVariableSprayFormatNameCode.put("recfmvb",            SprayVariableFormat.DFUff_recfmvb);
-            mapVariableSprayFormatNameCode.put("recfmv",             SprayVariableFormat.DFUff_recfmv);
-            mapVariableSprayFormatNameCode.put("variablebigendian",  SprayVariableFormat.DFUff_variablebigendian);
-            mapVariableSprayFormatNameCode.put("fixed",              SprayVariableFormat.DFUff_fixed);
+            mapVariableSprayFormatNameCode.put("csv", SprayVariableFormat.DFUff_csv);
+            mapVariableSprayFormatNameCode.put("ascii", SprayVariableFormat.DFUff_ascii);
+            mapVariableSprayFormatNameCode.put("utf8", SprayVariableFormat.DFUff_utf8);
+            mapVariableSprayFormatNameCode.put("utf16", SprayVariableFormat.DFUff_utf16);
+            mapVariableSprayFormatNameCode.put("utf16le", SprayVariableFormat.DFUff_utf16le);
+            mapVariableSprayFormatNameCode.put("utf16be", SprayVariableFormat.DFUff_utf16be);
+            mapVariableSprayFormatNameCode.put("utf32", SprayVariableFormat.DFUff_utf32);
+            mapVariableSprayFormatNameCode.put("utf32le", SprayVariableFormat.DFUff_utf32le);
+            mapVariableSprayFormatNameCode.put("utf32be", SprayVariableFormat.DFUff_utf32be);
+            mapVariableSprayFormatNameCode.put("variable", SprayVariableFormat.DFUff_variable);
+            mapVariableSprayFormatNameCode.put("recfmvb", SprayVariableFormat.DFUff_recfmvb);
+            mapVariableSprayFormatNameCode.put("recfmv", SprayVariableFormat.DFUff_recfmv);
+            mapVariableSprayFormatNameCode.put("variablebigendian", SprayVariableFormat.DFUff_variablebigendian);
+            mapVariableSprayFormatNameCode.put("fixed", SprayVariableFormat.DFUff_fixed);
         }
 
+        /**
+         * Convert var spray format name 2 code.
+         *
+         * @param varSprayFormatName
+         *            the var spray format name
+         * @return the spray variable format
+         */
         public static SprayVariableFormat convertVarSprayFormatName2Code(String varSprayFormatName)
         {
             String lower = varSprayFormatName.toLowerCase();
-            if(mapVariableSprayFormatNameCode.containsKey(lower))
+            if (mapVariableSprayFormatNameCode.containsKey(lower))
                 return mapVariableSprayFormatNameCode.get(lower);
             else
                 return SprayVariableFormat.DFUff_fixed;
         }
     }
 
+    /**
+     * Gets the.
+     *
+     * @param connection
+     *            the connection
+     * @return the HPCC file spray client
+     */
     public static HPCCFileSprayClient get(Connection connection)
     {
         return new HPCCFileSprayClient(connection);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetHost
+     *            the target host
+     * @param targetPort
+     *            the target port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the HPCC file spray client
+     */
     public static HPCCFileSprayClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCFileSprayClient(conn);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetHost
+     *            the target host
+     * @param targetPort
+     *            the target port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @param timeout
+     *            the timeout
+     * @return the HPCC file spray client
+     */
     public static HPCCFileSprayClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -206,6 +311,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return new HPCCFileSprayClient(conn);
     }
 
+    /**
+     * Instantiates a new HPCC file spray client.
+     *
+     * @param baseConnection
+     *            the base connection
+     */
     protected HPCCFileSprayClient(Connection baseConnection)
     {
         initWsFileSprayStub(baseConnection);
@@ -214,14 +325,15 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param connection -- All connection settings included
+     * @param connection
+     *            -- All connection settings included
      */
     private void initWsFileSprayStub(Connection connection)
     {
         try
         {
             fsconn = connection;
-            stub = setStubOptions(new FileSprayStub(connection.getBaseUrl()+FILESPRAYWSDLURI), connection);
+            stub = setStubOptions(new FileSprayStub(connection.getBaseUrl() + FILESPRAYWSDLURI), connection);
         }
         catch (AxisFault e)
         {
@@ -239,6 +351,13 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * Ping.
+     *
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     public boolean ping() throws Exception
     {
         verifyStub();
@@ -247,7 +366,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         try
         {
-            ((FileSprayStub)stub).ping(request);
+            ((FileSprayStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -258,6 +377,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
+     * Gets the file upload read buffer length.
+     *
      * @return the upload file buffer length
      */
     public int getFileUploadReadBufferLength()
@@ -266,8 +387,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Set the buffer length used to read files during upload process
+     * Set the buffer length used to read files during upload process.
+     *
      * @param length
+     *            the new file upload read buffer length
      */
     public void setFileUploadReadBufferLength(int length)
     {
@@ -275,14 +398,22 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
+     * Handle spray response.
+     *
      * @param progressResponseWrapper
+     *            the progress response wrapper
      * @param maxRetries
+     *            the max retries
      * @param milliesBetweenRetry
-     * @return
+     *            the millies between retry
+     * @return true, if successful
      * @throws Exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper, int maxRetries, int milliesBetweenRetry) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+    public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper, int maxRetries, int milliesBetweenRetry)
+            throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         boolean success = false;
         ProgressResponseWrapper progressResponse = null;
@@ -311,16 +442,16 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 log.debug(progressResponse.getState());
                 if (!state.equalsIgnoreCase("FAILED"))
                 {
-                    //this should be in a dedicated thread.
-                    for  (int i = 0; i < maxRetries && progressResponse.getPercentDone() < 100 && !progressResponse.getState().equalsIgnoreCase("FAILED"); i++)
+                    // this should be in a dedicated thread.
+                    for (int i = 0; i < maxRetries && progressResponse.getPercentDone() < 100
+                            && !progressResponse.getState().equalsIgnoreCase("FAILED"); i++)
                     {
                         log.debug(progressResponse.getProgressMessage());
                         progressResponse = getDfuProgress(progressResponseWrapper.getWuid());
 
                         try
                         {
-                            if (milliesBetweenRetry <= 0)
-                                milliesBetweenRetry = 100;
+                            if (milliesBetweenRetry <= 0) milliesBetweenRetry = 100;
 
                             Thread.sleep(milliesBetweenRetry);
                         }
@@ -338,7 +469,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 }
                 log.debug("Final summary from server: " + progressResponse.getSummaryMessage());
 
-                log.info("Spray attempt completed, verify DWUID: " +progressResponseWrapper.getWuid());
+                log.info("Spray attempt completed, verify DWUID: " + progressResponseWrapper.getWuid());
             }
         }
         return success;
@@ -346,51 +477,63 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
     /**
      * Convinience static method, crates new delmited data format descriptor. Parameters not provided are csv defaulted
+     *
      * @param recordTerminator
+     *            the record terminator
      * @param fieldDelimiter
+     *            the field delimiter
      * @param escapeSequence
+     *            the escape sequence
      * @param quote
-     * @return
+     *            the quote
+     * @return the delimited data options
      */
-    static public DelimitedDataOptions createDelimitedDataOptionsObject(String recordTerminator, String fieldDelimiter, String escapeSequence, String quote)
+    static public DelimitedDataOptions createDelimitedDataOptionsObject(String recordTerminator, String fieldDelimiter, String escapeSequence,
+            String quote)
     {
         return new DelimitedDataOptions(recordTerminator, fieldDelimiter, escapeSequence, quote);
     }
 
-    /*sample response:
+    /*
+     * sample response:
      * <?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://schemas.xmlsoap.org/ws/2002/04/secext">
- <soap:Body>
-  <DropZoneFilesResponse xmlns="urn:hpccsystems:ws:filespray">
-   <NetAddress>10.0.2.15</NetAddress>
-   <Path>/var/lib/HPCCSystems/mydropzone/</Path>
-   <OS>1</OS>
-   <DropZones>
-    <DropZone>
-     <Name>mydropzone</Name>
-     <NetAddress>10.0.2.15</NetAddress>
-     <Path>/var/lib/HPCCSystems/mydropzone</Path>
-     <Computer>localhost</Computer>
-     <Linux>true</Linux>
-    </DropZone>
-   </DropZones>
-   <Files>
-    <PhysicalFileStruct>
-     <name>eula.1028.txt</name>
-     <isDir>0</isDir>
-     <filesize>17734</filesize>
-     <modifiedtime>2014-04-03 15:17:54</modifiedtime>
-    </PhysicalFileStruct>
-   </Files>
-  </DropZoneFilesResponse>
- </soap:Body>
-</soap:Envelope>
+     * <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     * xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://schemas.xmlsoap.org/ws/2002/04/secext">
+     * <soap:Body>
+     * <DropZoneFilesResponse xmlns="urn:hpccsystems:ws:filespray">
+     * <NetAddress>10.0.2.15</NetAddress>
+     * <Path>/var/lib/HPCCSystems/mydropzone/</Path>
+     * <OS>1</OS>
+     * <DropZones>
+     * <DropZone>
+     * <Name>mydropzone</Name>
+     * <NetAddress>10.0.2.15</NetAddress>
+     * <Path>/var/lib/HPCCSystems/mydropzone</Path>
+     * <Computer>localhost</Computer>
+     * <Linux>true</Linux>
+     * </DropZone>
+     * </DropZones>
+     * <Files>
+     * <PhysicalFileStruct>
+     * <name>eula.1028.txt</name>
+     * <isDir>0</isDir>
+     * <filesize>17734</filesize>
+     * <modifiedtime>2014-04-03 15:17:54</modifiedtime>
+     * </PhysicalFileStruct>
+     * </Files>
+     * </DropZoneFilesResponse>
+     * </soap:Body>
+     * </soap:Envelope>
      */
 
     /**
+     * Fetch local drop zones.
+     *
      * @return List of all local drop zones on target HPCC system
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<DropZoneWrapper> fetchLocalDropZones() throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -398,10 +541,15 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
+     * Fetch drop zones.
+     *
      * @param dropzoneNetAddress
+     *            the dropzone net address
      * @return list of all dropzones on dropzoneNetAddress
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<DropZoneWrapper> fetchDropZones(String dropzoneNetAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -415,24 +563,23 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         DropZoneFilesResponse resp = null;
         try
         {
-            resp = ((FileSprayStub)stub).dropZoneFiles(request);
+            resp = ((FileSprayStub) stub).dropZoneFiles(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.fetchDropzones("+dropzoneNetAddress+") encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.fetchDropzones(" + dropzoneNetAddress + ") encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not FetchDropzones");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not FetchDropzones");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not FetchDropzones");
 
         List<DropZoneWrapper> dropZonesWrapper = null;
         if (resp.getDropZones() != null)
         {
-            dropZonesWrapper =new ArrayList<DropZoneWrapper>();
+            dropZonesWrapper = new ArrayList<DropZoneWrapper>();
             DropZone[] dropZone = resp.getDropZones().getDropZone();
             for (int i = 0; i < dropZone.length; i++)
             {
@@ -443,21 +590,36 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return dropZonesWrapper;
     }
 
-    public String copyFile(String from,String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    /**
+     * Copy file.
+     *
+     * @param from
+     *            the from
+     * @param to
+     *            the to
+     * @param overwrite
+     *            the overwrite
+     * @return the string
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public String copyFile(String from, String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
-        Copy cp=new Copy();
+        Copy cp = new Copy();
         cp.setSourceLogicalName(from);
         cp.setDestLogicalName(to);
         cp.setOverwrite(overwrite);
-        CopyResponse resp=null;
+        CopyResponse resp = null;
         try
         {
-            resp = ((FileSprayStub)stub).copy(cp);
+            resp = ((FileSprayStub) stub).copy(cp);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.copy(from,to,overwrite) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.copy(from,to,overwrite) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -470,7 +632,31 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return resp.getResult();
     }
 
-    public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly, boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
+    /**
+     * Fetch drop zones.
+     *
+     * @param dzname
+     *            the dzname
+     * @param netaddress
+     *            the netaddress
+     * @param os
+     *            the os
+     * @param path
+     *            the path
+     * @param subfolder
+     *            the subfolder
+     * @param dironly
+     *            the dironly
+     * @param watchvisibleonely
+     *            the watchvisibleonely
+     * @return the drop zone files response wrapper
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly,
+            boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
         DropZoneFilesRequest request = new DropZoneFilesRequest();
@@ -486,21 +672,31 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return fetchDropZones(new DropZoneFilesRequestWrapper(request));
     }
 
+    /**
+     * Fetch drop zones.
+     *
+     * @param szrequest
+     *            the szrequest
+     * @return the drop zone files response wrapper
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
     public DropZoneFilesResponseWrapper fetchDropZones(DropZoneFilesRequestWrapper szrequest) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (szrequest == null)
-            throw new Exception("DropZoneFilesRequestWrapper null detected");
+        if (szrequest == null) throw new Exception("DropZoneFilesRequestWrapper null detected");
 
         verifyStub();
 
         DropZoneFilesResponse resp = null;
         try
         {
-            resp = ((FileSprayStub)stub).dropZoneFiles(szrequest.getRaw());
+            resp = ((FileSprayStub) stub).dropZoneFiles(szrequest.getRaw());
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.fetchDropzones(DropZoneFilesRequestWrapper) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.fetchDropzones(DropZoneFilesRequestWrapper) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -512,16 +708,23 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         return new DropZoneFilesResponseWrapper(resp);
     }
+
     /**
-     * Perform HPCC Drop Zone file search
-     * @param dzname - Required, the name of the Drop Zone to query
-     * @param netaddr - Required, the netaddress of the Drop Zone node to query
-     * @param namefilter - Required, the wildcard based name-filter to query
-     * @return
+     * Perform HPCC Drop Zone file search.
+     *
+     * @param dzname
+     *            - Required, the name of the Drop Zone to query
+     * @param netaddr
+     *            - Required, the netaddress of the Drop Zone node to query
+     * @param namefilter
+     *            - Required, the wildcard based name-filter to query
+     * @return the physical file struct[]
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public PhysicalFileStruct [] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception, ArrayOfEspExceptionWrapper
+    public PhysicalFileStruct[] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -535,32 +738,37 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         try
         {
-            resp = ((FileSprayStub)stub).dropZoneFileSearch(request);
+            resp = ((FileSprayStub) stub).dropZoneFileSearch(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.dzFileSearch(...) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.dzFileSearch(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform DZFileSearch");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform DZFileSearch");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform DZFileSearch");
 
-         return resp.getFiles().getPhysicalFileStruct();
+        return resp.getFiles().getPhysicalFileStruct();
     }
 
     /**
      * Fetch list of files on a given dropzone's machine on the target HPCC System
-     * Note: a logical dropzone can contain multiple machines
-     * @param netAddress      - Address of specific dropzone instance
-     * @param path            - The dropzone zone path on the local filesystem
-     * @param OS              - Optional, OS code
-     * @return                - Array of file descriptors
+     * Note: a logical dropzone can contain multiple machines.
+     *
+     * @param netAddress
+     *            - Address of specific dropzone instance
+     * @param path
+     *            - The dropzone zone path on the local filesystem
+     * @param OS
+     *            - Optional, OS code
+     * @return - Array of file descriptors
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<PhysicalFileStructWrapper> listFiles(String netAddress, String path, String OS) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -570,26 +778,24 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         request.setNetaddr(netAddress);
         request.setPath(path);
-        if (OS != null)
-            request.setOS(OS);
+        if (OS != null) request.setOS(OS);
 
         FileListResponse resp = null;
 
         try
         {
-            resp = ((FileSprayStub)stub).fileList(request);
+            resp = ((FileSprayStub) stub).fileList(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.listFiles(...) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.listFiles(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not ListFiles");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not ListFiles");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not ListFiles");
 
         List<PhysicalFileStructWrapper> physicalFileStructWrappers = new ArrayList<PhysicalFileStructWrapper>();
 
@@ -606,18 +812,28 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     *  * Spray default CSV variable/delimited HPCC file, from the given dropzone address onto given cluster group.
+     * * Spray default CSV variable/delimited HPCC file, from the given dropzone address onto given cluster group.
+     *
      * @param dropzoneNetAddress
+     *            the dropzone net address
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @return                 - Progress response at time of request
+     *            the overwrite
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, String sourceFileName, String targetFileName, String prefix,
+            String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         DelimitedDataOptions defaultcsv = new DelimitedDataOptions();
         return sprayVariable(dropzoneNetAddress, defaultcsv, sourceFileName, targetFileName, prefix, destGroup, overwrite);
@@ -627,99 +843,149 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * Spray variable/delimited HPCC file described in the give delimited data options, from the given dropzone address onto given cluster group.
      *
      * @param dropzoneNetAddress
+     *            the dropzone net address
      * @param options
+     *            the options
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @return                 - Progress response at time of request
+     *            the overwrite
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress,  DelimitedDataOptions options, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, DelimitedDataOptions options, String sourceFileName,
+            String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DropZoneWrapper> targetDropZones = fetchDropZones(dropzoneNetAddress);
 
-        if (targetDropZones == null)
-            throw new Exception("Could not fetch target Dropzone");
+        if (targetDropZones == null) throw new Exception("Could not fetch target Dropzone");
 
         return sprayVariable(options, targetDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite);
     }
 
     /**
      * Spray variable/delimited HPCC file described in the give delimited data options, from local dropzone onto given cluster group.
+     *
      * @param options
+     *            the options
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @param format           - SprayVariableFormat object describing the file format
-     * @return                 - Progress response at time of request
+     *            the overwrite
+     * @param format
+     *            - SprayVariableFormat object describing the file format
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName,
+            String prefix, String destGroup, boolean overwrite, SprayVariableFormat format) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (localDropZones == null)
-            localDropZones = fetchLocalDropZones();
+        if (localDropZones == null) localDropZones = fetchLocalDropZones();
 
-        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null, null, null, null, null);
+        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null,
+                null, null, null, null);
     }
 
     /**
      * Spray variable/delimited HPCC file described in the give delimited data options, from given dropzone onto given cluster group.
+     *
      * @param options
+     *            the options
      * @param targetDropZone
+     *            the target drop zone
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @return                 - Progress response at time of request
+     *            the overwrite
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName,
+            String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return sprayVariable(options, targetDropZone, sourceFileName, targetFileName, prefix, destGroup, overwrite, SprayVariableFormat.DFUff_csv, null, null, null, null, null, null, null);
+        return sprayVariable(options, targetDropZone, sourceFileName, targetFileName, prefix, destGroup, overwrite, SprayVariableFormat.DFUff_csv,
+                null, null, null, null, null, null, null);
     }
 
     /**
      * Spray variable/delimited HPCC file described in the give delimited data options, from given dropzone onto given cluster group.
+     *
      * @param options
+     *            the options
      * @param targetDropZone
+     *            the target drop zone
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @param format           - SprayVariableFormat object describing the file format
+     *            the overwrite
+     * @param format
+     *            - SprayVariableFormat object describing the file format
      * @param sourceMaxRecordSize
+     *            the source max record size
      * @param maxConnections
+     *            the max connections
      * @param compress
+     *            the compress
      * @param replicate
+     *            the replicate
      * @param failIfNoSourceFile
+     *            the fail if no source file
      * @param recordStructurePresent
+     *            the record structure present
      * @param expireDays
-     * @return                 - Progress response at time of request
+     *            the expire days
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName, String targetFileName, String prefix,
-                                          String destGroup, boolean overwrite, SprayVariableFormat format, Integer sourceMaxRecordSize, Integer maxConnections,
-                                          Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Boolean recordStructurePresent, Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName,
+            String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format, Integer sourceMaxRecordSize,
+            Integer maxConnections, Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Boolean recordStructurePresent,
+            Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
-        if (targetDropZone == null)
-            throw new Exception("TargetDropZone object not available!");
+        if (targetDropZone == null) throw new Exception("TargetDropZone object not available!");
 
         SprayVariable request = new SprayVariable();
 
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(targetDropZone.getPath()+"/"+sourceFileName);
+        request.setSourcePath(targetDropZone.getPath() + "/" + sourceFileName);
         request.setDestGroup(destGroup);
         request.setDestLogicalName(targetFileName);
         request.setOverwrite(overwrite);
@@ -734,38 +1000,30 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         request.setSourceCsvTerminate(options.getRecordTerminator());
         request.setSourceFormat(format.getValue());
 
-        if (sourceMaxRecordSize != null)
-            request.setSourceMaxRecordSize(sourceMaxRecordSize);
-        if (maxConnections != null)
-            request.setMaxConnections(maxConnections);
-        if (replicate != null)
-            request.setReplicate(replicate);
-        if (compress != null)
-            request.setCompress(compress);
-        if (failIfNoSourceFile != null)
-            request.setFailIfNoSourceFile(failIfNoSourceFile);
-        if (recordStructurePresent != null)
-            request.setRecordStructurePresent(recordStructurePresent);
-        if (expireDays != null)
-            request.setExpireDays(expireDays);
+        if (sourceMaxRecordSize != null) request.setSourceMaxRecordSize(sourceMaxRecordSize);
+        if (maxConnections != null) request.setMaxConnections(maxConnections);
+        if (replicate != null) request.setReplicate(replicate);
+        if (compress != null) request.setCompress(compress);
+        if (failIfNoSourceFile != null) request.setFailIfNoSourceFile(failIfNoSourceFile);
+        if (recordStructurePresent != null) request.setRecordStructurePresent(recordStructurePresent);
+        if (expireDays != null) request.setExpireDays(expireDays);
 
         SprayResponse resp = null;
 
         try
         {
-            resp = ((FileSprayStub)stub).sprayVariable(request);
+            resp = ((FileSprayStub) stub).sprayVariable(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.sprayVariable(...) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.sprayVariable(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not SprayVariable");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SprayVariable");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SprayVariable");
 
         return getDfuProgress(resp.getWuid());
     }
@@ -776,254 +1034,315 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * default max record size
      *
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
+     *            the overwrite
      * @return ProgressResponse
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (localDropZones == null)
-            localDropZones = fetchLocalDropZones();
+        if (localDropZones == null) localDropZones = fetchLocalDropZones();
 
-        return sprayXML(localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, SprayVariableFormat.DFUff_ascii, null, null, null, null, null, null);
+        return sprayXML(localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, "tag", overwrite, SprayVariableFormat.DFUff_ascii,
+                null, null, null, null, null, null);
     }
 
     /**
      * Spray XML data file from the first local dropzone onto given cluster group.
      *
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
+     *            the overwrite
      * @param format
+     *            the format
      * @param rowtag
+     *            the rowtag
      * @param maxrecsize
+     *            the maxrecsize
      * @return ProgressResponse
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format, String rowtag, Integer maxrecsize) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite,
+            SprayVariableFormat format, String rowtag, Integer maxrecsize) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (localDropZones == null)
-            localDropZones = fetchLocalDropZones();
+        if (localDropZones == null) localDropZones = fetchLocalDropZones();
 
-        return sprayXML(localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, rowtag, overwrite, format, maxrecsize, null, null, null, null, null);
+        return sprayXML(localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, rowtag, overwrite, format, maxrecsize, null, null,
+                null, null, null);
     }
 
     /**
      * Spray XML data file from the given dropzone onto given cluster group.
      *
      * @param targetDropZone
+     *            the target drop zone
      * @param sourceFileName
+     *            the source file name
      * @param targetFileName
+     *            the target file name
      * @param prefix
+     *            the prefix
      * @param destGroup
-     * @param overwrite
-     * @param format
-     * @param maxrecsize
+     *            the dest group
      * @param rowtag
+     *            the rowtag
+     * @param overwrite
+     *            the overwrite
+     * @param format
+     *            the format
+     * @param maxrecsize
+     *            the maxrecsize
      * @param maxConnections
+     *            the max connections
      * @param replicate
+     *            the replicate
      * @param compress
+     *            the compress
      * @param failIfNoSourceFile
+     *            the fail if no source file
      * @param expireDays
+     *            the expire days
      * @return ProgressResponse
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayXML(DropZoneWrapper targetDropZone, String sourceFileName, String targetFileName, String prefix, String destGroup, String rowtag,
-                                     boolean overwrite, SprayVariableFormat format, Integer maxrecsize, Integer maxConnections, Boolean replicate,
-                                     Boolean compress, Boolean failIfNoSourceFile, Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayXML(DropZoneWrapper targetDropZone, String sourceFileName, String targetFileName, String prefix,
+            String destGroup, String rowtag, boolean overwrite, SprayVariableFormat format, Integer maxrecsize, Integer maxConnections,
+            Boolean replicate, Boolean compress, Boolean failIfNoSourceFile, Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
-        if (targetDropZone == null)
-            throw new Exception("TargetDropZone object not available!");
+        if (targetDropZone == null) throw new Exception("TargetDropZone object not available!");
 
         SprayVariable request = new SprayVariable();
 
         request.setDestGroup(destGroup);
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(targetDropZone.getPath()+"/"+sourceFileName);
+        request.setSourcePath(targetDropZone.getPath() + "/" + sourceFileName);
         request.setDestLogicalName(targetFileName);
         request.setOverwrite(overwrite);
         request.setSourceFormat(format.getValue());
         request.setSourceMaxRecordSize(maxrecsize);
         request.setSourceRowTag(rowtag);
 
-        if (maxConnections != null)
-            request.setMaxConnections(maxConnections);
-        if (replicate != null)
-            request.setReplicate(replicate);
-        if (compress != null)
-            request.setCompress(compress);
-        if (failIfNoSourceFile != null)
-            request.setFailIfNoSourceFile(failIfNoSourceFile);
-        if (expireDays != null)
-            request.setExpireDays(expireDays);
+        if (maxConnections != null) request.setMaxConnections(maxConnections);
+        if (replicate != null) request.setReplicate(replicate);
+        if (compress != null) request.setCompress(compress);
+        if (failIfNoSourceFile != null) request.setFailIfNoSourceFile(failIfNoSourceFile);
+        if (expireDays != null) request.setExpireDays(expireDays);
 
         SprayResponse resp = null;
 
         try
         {
-            resp = ((FileSprayStub)stub).sprayVariable(request);
+            resp = ((FileSprayStub) stub).sprayVariable(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.sprayXML(...) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.sprayXML(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not SprayXML");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SprayXML");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SprayXML");
 
         return getDfuProgress(resp.getWuid());
     }
 
     /**
-     * Spray fixed file from first dropzone encountered on the given dropzone net address
+     * Spray fixed file from first dropzone encountered on the given dropzone net address.
+     *
      * @param dropzoneNetAddress
+     *            the dropzone net address
      * @param sourceFileName
+     *            the source file name
      * @param recordSize
+     *            the record size
      * @param targetFileLabel
+     *            the target file label
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @return                 - Progress response at time of request
+     *            the overwrite
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayFixed(String dropzoneNetAddress, String sourceFileName, int recordSize, String targetFileLabel, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayFixed(String dropzoneNetAddress, String sourceFileName, int recordSize, String targetFileLabel, String prefix,
+            String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DropZoneWrapper> targetDropZones = fetchDropZones(dropzoneNetAddress);
 
-        if (targetDropZones == null)
-            throw new Exception("Could not fetch target Dropzone");
+        if (targetDropZones == null) throw new Exception("Could not fetch target Dropzone");
 
-        return sprayFixed(targetDropZones.get(0), sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false, -1, null, null, null, null, null, null );
+        return sprayFixed(targetDropZones.get(0), sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false,
+                false, -1, null, null, null, null, null, null);
     }
 
     /**
-     * Spray fixed file from first local dropzone encountered onto destination cluster group
+     * Spray fixed file from first local dropzone encountered onto destination cluster group.
+     *
      * @param sourceFileName
+     *            the source file name
      * @param recordSize
+     *            the record size
      * @param targetFileLabel
+     *            the target file label
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
-     * @return                 - Progress response at time of request
+     *            the overwrite
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayFixedLocalDropZone(String sourceFileName, int recordSize, String targetFileLabel, String prefix, String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayFixedLocalDropZone(String sourceFileName, int recordSize, String targetFileLabel, String prefix,
+            String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (localDropZones == null)
-            localDropZones = fetchLocalDropZones();
+        if (localDropZones == null) localDropZones = fetchLocalDropZones();
 
-        return sprayFixed(localDropZones.get(0), sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false, -1, null, null, null, null, null, null );
+        return sprayFixed(localDropZones.get(0), sourceFileName, recordSize, targetFileLabel, prefix, destGroup, overwrite, null, false, false, false,
+                -1, null, null, null, null, null, null);
     }
 
     /**
-     * Spray fixed file from the given target dropzone onto cluster destionation group
+     * Spray fixed file from the given target dropzone onto cluster destionation group.
      *
      * @param targetDropZone
+     *            the target drop zone
      * @param sourceFileName
+     *            the source file name
      * @param recordSize
+     *            the record size
      * @param targetFileLabel
+     *            the target file label
      * @param prefix
+     *            the prefix
      * @param destGroup
+     *            the dest group
      * @param overwrite
+     *            the overwrite
      * @param maxConnections
+     *            the max connections
      * @param compress
+     *            the compress
      * @param replicate
+     *            the replicate
      * @param failIfNoSourceFile
+     *            the fail if no source file
      * @param expireDays
+     *            the expire days
      * @param decryptKey
+     *            the decrypt key
      * @param encryptKey
+     *            the encrypt key
      * @param nosplit
+     *            the nosplit
      * @param recordStructurePresent
+     *            the record structure present
      * @param transferBufferSize
+     *            the transfer buffer size
      * @param wrap
-     * @return                 - Progress response at time of request
+     *            the wrap
+     * @return - Progress response at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayFixed(DropZoneWrapper targetDropZone, String sourceFileName, int recordSize, String targetFileLabel, String prefix, String destGroup, boolean overwrite,
-                                       Integer maxConnections, Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Integer expireDays, String decryptKey, String encryptKey,
-                                       Boolean nosplit, Boolean recordStructurePresent, Integer transferBufferSize, Boolean wrap) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayFixed(DropZoneWrapper targetDropZone, String sourceFileName, int recordSize, String targetFileLabel,
+            String prefix, String destGroup, boolean overwrite, Integer maxConnections, Boolean compress, Boolean replicate,
+            Boolean failIfNoSourceFile, Integer expireDays, String decryptKey, String encryptKey, Boolean nosplit, Boolean recordStructurePresent,
+            Integer transferBufferSize, Boolean wrap) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
-        if (targetDropZone == null)
-            throw new Exception("TargetDropZone object not available!");
+        if (targetDropZone == null) throw new Exception("TargetDropZone object not available!");
 
         SprayFixed request = new SprayFixed();
 
         request.setDestGroup(destGroup);
         request.setSourceRecordSize(recordSize);
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(targetDropZone.getPath()+"/"+sourceFileName);
+        request.setSourcePath(targetDropZone.getPath() + "/" + sourceFileName);
         request.setDestLogicalName(targetFileLabel);
         request.setOverwrite(overwrite);
         request.setPrefix(prefix);
-        if (maxConnections != null)
-            request.setMaxConnections(maxConnections);
-        if (compress != null)
-            request.setCompress(compress);
-        if (replicate != null)
-            request.setReplicate(replicate);
-        if (failIfNoSourceFile != null)
-            request.setFailIfNoSourceFile(failIfNoSourceFile);
-        if (expireDays != null)
-            request.setExpireDays(expireDays);
-        if (decryptKey != null && !decryptKey.isEmpty())
-            request.setDecrypt(decryptKey);
-        if (encryptKey != null && !encryptKey.isEmpty())
-            request.setEncrypt(encryptKey);
-        if (nosplit != null)
-            request.setNosplit(nosplit);
-        if (recordStructurePresent != null)
-            request.setRecordStructurePresent(recordStructurePresent);
-        if (transferBufferSize != null)
-            request.setTransferBufferSize(transferBufferSize);
-        if (wrap != null)
-            request.setWrap(wrap);
+        if (maxConnections != null) request.setMaxConnections(maxConnections);
+        if (compress != null) request.setCompress(compress);
+        if (replicate != null) request.setReplicate(replicate);
+        if (failIfNoSourceFile != null) request.setFailIfNoSourceFile(failIfNoSourceFile);
+        if (expireDays != null) request.setExpireDays(expireDays);
+        if (decryptKey != null && !decryptKey.isEmpty()) request.setDecrypt(decryptKey);
+        if (encryptKey != null && !encryptKey.isEmpty()) request.setEncrypt(encryptKey);
+        if (nosplit != null) request.setNosplit(nosplit);
+        if (recordStructurePresent != null) request.setRecordStructurePresent(recordStructurePresent);
+        if (transferBufferSize != null) request.setTransferBufferSize(transferBufferSize);
+        if (wrap != null) request.setWrap(wrap);
 
         SprayFixedResponse resp = null;
 
         try
         {
-            resp = ((FileSprayStub)stub).sprayFixed(request);
+            resp = ((FileSprayStub) stub).sprayFixed(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.sprayFixed(...) encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.sprayFixed(...) encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not SprayFixed");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SprayFixed");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SprayFixed");
 
         return getDfuProgress(resp.getWuid());
-     }
+    }
 
     /**
-     * Get progress report for given DFU Work Unit
-     * @param dfuwuid      - The DFU Work unit number
-     * @return             - The Progress report at time of request
+     * Get progress report for given DFU Work Unit.
+     *
+     * @param dfuwuid
+     *            - The DFU Work unit number
+     * @return - The Progress report at time of request
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper getDfuProgress(String dfuwuid) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1037,11 +1356,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         try
         {
-            resp = ((FileSprayStub)stub).getDFUProgress(request);
+            resp = ((FileSprayStub) stub).getDFUProgress(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.getDfuProgress(" + dfuwuid +") encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.getDfuProgress(" + dfuwuid + ") encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -1061,18 +1380,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * USE sftpPutFileOnTargetLandingZone(...) if possible
      *
      * Attempts to upload given file to HPCC System on the first dropzone encountered at the given address
+     *
      * @param file
      *            - The File to upload
      * @param targetDropzoneAddress
      *            - The target dropzone address
      * @return - Boolean, success
+     * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public boolean uploadFile(File file, String targetDropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DropZoneWrapper> dropZones = fetchDropZones(targetDropzoneAddress);
-        if (dropZones == null || dropZones.size() <= 0)
-            throw new Exception("Could not fetch target dropzone information");
+        if (dropZones == null || dropZones.size() <= 0) throw new Exception("Could not fetch target dropzone information");
         return uploadFile(file, dropZones.get(0));
     }
 
@@ -1086,18 +1408,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param file
      *            - The File to upload
      * @return - Boolean, success
+     * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public boolean uploadFileLocalDropZone(File file) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DropZoneWrapper> fetchLocalDropZones = fetchLocalDropZones();
-        if (fetchLocalDropZones == null || fetchLocalDropZones.size() <= 0)
-            throw new Exception("Could not fetch local dropzone information");
+        if (fetchLocalDropZones == null || fetchLocalDropZones.size() <= 0) throw new Exception("Could not fetch local dropzone information");
         return uploadFile(file, fetchLocalDropZones.get(0));
     }
 
     /**
-     * UPLOADS A FILE( UP TO 2GB FILE SIZES) TO THE SPECIFIED LANDING ZONE
+     * UPLOADS A FILE( UP TO 2GB FILE SIZES) TO THE SPECIFIED LANDING ZONE.
+     *
      * @param uploadFile
      *            - The File to upload
      * @param dropZone
@@ -1106,7 +1431,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public boolean uploadLargeFile(File uploadFile, DropZoneWrapper dropZone)
     {
-        if (uploadFile == null || dropZone == null){
+        if (uploadFile == null || dropZone == null)
+        {
             return false;
         }
 
@@ -1202,6 +1528,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         return returnValue;
     }
+
     /**
      * THIS IS NOT THE PREFERED WAY TO UPLOAD FILES ONTO HPCCSYSTEMS
      * ONLY USE THIS FUNCTION FOR SMALL FILES AND IN THE CASE YOU CANNOT PROVIDE
@@ -1212,20 +1539,19 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *
      * @param file
      *            - The File to upload
-     * @param dropZones
-     *            - The target HPCC file dropzone
+     * @param dropZone
+     *            the drop zone
      * @return - Boolean, success
      * @throws Exception
+     *             the exception
      */
     private boolean uploadFile(File file, DropZoneWrapper dropZone) throws Exception
     {
-        if (file == null)
-            return false;
+        if (file == null) return false;
         String filename = file.getName();
         long length = file.length();
 
-        if (length > MAX_FILE_WSUPLOAD_SIZE)
-            throw new Exception("Uploading files of this magnitude is not supported, use SFTP based functions");
+        if (length > MAX_FILE_WSUPLOAD_SIZE) throw new Exception("Uploading files of this magnitude is not supported, use SFTP based functions");
 
         InputStream fileInput = null;
         OutputStream uploadOutStream = null;
@@ -1234,8 +1560,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         String boundary = Utils.createBoundary();
         try
         {
-            if (dropZone == null)
-                throw new Exception("Dropzone information not available");
+            if (dropZone == null) throw new Exception("Dropzone information not available");
 
             String uploadurlbuilder = UPLOADURI;
             uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
@@ -1277,7 +1602,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         {
             if (!fileUploadURL.equals(fileUploadConnection.getURL()))
             {
-                log.error("HTTP Error reported on File upload related to a server redirect (" + fileUploadURL + " vs " + fileUploadConnection.getURL() + "), please verify on server.", e);
+                log.error("HTTP Error reported on File upload related to a server redirect (" + fileUploadURL + " vs " + fileUploadConnection.getURL()
+                        + "), please verify on server.", e);
             }
             else
             {
@@ -1295,7 +1621,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                     fileInput.close();
                 }
             }
-            catch (IOException e){}
+            catch (IOException e)
+            {}
 
             if (uploadOutStream != null)
             {
@@ -1303,14 +1630,15 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 {
                     uploadOutStream.close();
                 }
-                catch (IOException e){}
+                catch (IOException e)
+                {}
             }
         }
         return true;
     }
 
     /**
-     * Attempts to download the specified file from a dropzone
+     * Attempts to download the specified file from a dropzone.
      *
      * @param outFile
      *            - The File to write to
@@ -1350,7 +1678,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Attempts to download the specified file from a dropzone
+     * Attempts to download the specified file from a dropzone.
      *
      * @param outputChannel
      *            - The FileChannel to write to
@@ -1392,8 +1720,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 {
                     if (filesInDropzone.get(i).getIsDir())
                     {
-                        throw new Exception("Specified file name: " + fileName
-                                + ", is a directory. Downloading directories is unsupported.");
+                        throw new Exception("Specified file name: " + fileName + ", is a directory. Downloading directories is unsupported.");
                     }
 
                     fileWasFound = true;
@@ -1415,9 +1742,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         URL downloadURL = null;
         try
         {
-            downloadURL = new URL(
-                    fsconn.getUrl() + DOWNLOAD_URI + "Name=" + fileName + "&NetAddress=" + dropZone.getNetAddress()
-                            + "&Path=" + dropZone.getPath() + "&OS=" + (Utils.currentOSisLinux() ? "1" : "0"));
+            downloadURL = new URL(fsconn.getUrl() + DOWNLOAD_URI + "Name=" + fileName + "&NetAddress=" + dropZone.getNetAddress() + "&Path="
+                    + dropZone.getPath() + "&OS=" + (Utils.currentOSisLinux() ? "1" : "0"));
         }
         catch (java.net.MalformedURLException e)
         {
@@ -1441,66 +1767,98 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         if (bytesTransferred < fileSize)
         {
-            log.warn("File download fewer bytes transferred than expected. Transferred: "
-                      + bytesTransferred + " Expected: " + fileSize);
+            log.warn("File download fewer bytes transferred than expected. Transferred: " + bytesTransferred + " Expected: " + fileSize);
         }
 
         return bytesTransferred;
     }
 
     /**
-     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the target HPCCSystem address
-     * @param localFileName                  - The File to upload
-     * @param targetFilename (optional)      - The desired name for the uploaded file
-     * @param machineLoginUserName           - The user account name to log on to the target machine
-     * @param password                       - The user account password to log on to the target machine
+     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the target HPCCSystem address.
+     *
+     * @param localFileName
+     *            - The File to upload
+     * @param targetFilename
+     *            (optional) - The desired name for the uploaded file
+     * @param machineLoginUserName
+     *            - The user account name to log on to the target machine
+     * @param password
+     *            - The user account password to log on to the target machine
+     * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password) throws Exception, ArrayOfEspExceptionWrapper
+    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         sftpPutFileOnTargetLandingZone(localFileName, fsconn.getHost(), targetFilename, machineLoginUserName, password, null);
     }
 
     /**
-     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the target HPCCSystem address
-     * @param localFileName                  - The File to upload
-     * @param targetFilename (optional)      - The desired name for the uploaded file
-     * @param machineLoginUserName           - The user account name to log on to the target machine
-     * @param password                       - The user account password to log on to the target machine
-     * @param connconfig (optional)          - Connection config options
+     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the target HPCCSystem address.
+     *
+     * @param localFileName
+     *            - The File to upload
+     * @param targetFilename
+     *            (optional) - The desired name for the uploaded file
+     * @param machineLoginUserName
+     *            - The user account name to log on to the target machine
+     * @param password
+     *            - The user account password to log on to the target machine
+     * @param connconfig
+     *            (optional) - Connection config options
+     * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception, ArrayOfEspExceptionWrapper
+    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password,
+            Properties connconfig) throws Exception, ArrayOfEspExceptionWrapper
     {
         sftpPutFileOnTargetLandingZone(localFileName, fsconn.getHost(), targetFilename, machineLoginUserName, password, connconfig);
     }
 
     /**
-     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the given address
-     * @param localFileName                  - The File to upload
-     * @param targetDropzoneAddress          - The target landing zone ip address
-     * @param targetFilename (optional)      - The desired name for the uploaded file
-     * @param machineLoginUserName           - The user account name to log on to the target machine
-     * @param password                       - The user account password to log on to the target machine
-     * @param connconfig (optional)          - Connection config options
+     * Attempts to upload given file to HPCC Systems on the first dropzone encountered at the given address.
+     *
+     * @param localFileName
+     *            - The File to upload
+     * @param targetDropzoneAddress
+     *            - The target landing zone ip address
+     * @param targetFilename
+     *            (optional) - The desired name for the uploaded file
+     * @param machineLoginUserName
+     *            - The user account name to log on to the target machine
+     * @param password
+     *            - The user account password to log on to the target machine
+     * @param connconfig
+     *            (optional) - Connection config options
+     * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetDropzoneAddress, String targetFilename, String machineLoginUserName, String password, Properties connconfig) throws Exception, ArrayOfEspExceptionWrapper
+    public void sftpPutFileOnTargetLandingZone(String localFileName, String targetDropzoneAddress, String targetFilename, String machineLoginUserName,
+            String password, Properties connconfig) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DropZoneWrapper> dropZones = fetchDropZones(targetDropzoneAddress);
-        if (dropZones == null || dropZones.size() <= 0)
-            throw new Exception("Could not fetch target dropzone information");
+        if (dropZones == null || dropZones.size() <= 0) throw new Exception("Could not fetch target dropzone information");
 
-        Sftp.lzPut(localFileName, targetDropzoneAddress, dropZones.get(0).getPath(), targetFilename, machineLoginUserName, password, dropZones.get(0).getLinux().equals("true"), connconfig);
+        Sftp.lzPut(localFileName, targetDropzoneAddress, dropZones.get(0).getPath(), targetFilename, machineLoginUserName, password,
+                dropZones.get(0).getLinux().equals("true"), connconfig);
     }
 
     /**
-     * Attempts to fetch information regarding a DFU Workunit
+     * Attempts to fetch information regarding a DFU Workunit.
      *
      * @param workunitid
-     * @return
+     *            the workunitid
+     * @return the DFU workunit
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public GetDFUWorkunitResponseWrapper getDFUWorkunit(String workunitid) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1513,11 +1871,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         GetDFUWorkunitResponse response = null;
         try
         {
-            response = ((FileSprayStub)stub).getDFUWorkunit(request);
+            response = ((FileSprayStub) stub).getDFUWorkunit(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.getDFUWorkunit("+workunitid+") encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.getDFUWorkunit(" + workunitid + ") encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -1531,13 +1889,17 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Attempts to fetch list of DFU Workunits
+     * Attempts to fetch list of DFU Workunits.
      *
      * @param cluster
+     *            the cluster
      * @param pagesize
-     * @return
+     *            the pagesize
+     * @return the DFU workunits
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public GetDFUWorkunitsResponseWrapper getDFUWorkunits(String cluster, Long pagesize) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1551,11 +1913,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         GetDFUWorkunitsResponse response = null;
         try
         {
-            response = ((FileSprayStub)stub).getDFUWorkunits(request);
+            response = ((FileSprayStub) stub).getDFUWorkunits(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCFileSprayClient.getDFUWorkunits("+cluster+","+pagesize+") encountered RemoteException.", e);
+            throw new Exception("HPCCFileSprayClient.getDFUWorkunits(" + cluster + "," + pagesize + ") encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -1568,6 +1930,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return new GetDFUWorkunitsResponseWrapper(response);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -1582,13 +1949,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 Stub thatStub = that.verifyStub();
                 thatopt = thatStub._getServiceClient().getOptions();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 thatopt = null;
             }
 
-            if (thatopt == null)
-                return false;
+            if (thatopt == null) return false;
 
             EqualsUtil.areEqual(getFileUploadReadBufferLength(), that.getFileUploadReadBufferLength());
         }
@@ -1596,6 +1962,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return eq;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#hashCode()
+     */
     @Override
     public int hashCode()
     {

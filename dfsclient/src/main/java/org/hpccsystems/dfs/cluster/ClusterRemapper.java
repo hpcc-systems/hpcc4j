@@ -36,6 +36,11 @@ public abstract class ClusterRemapper
 
     /**
      * Constructor for common information.
+     *
+     * @param ri
+     *            the ri
+     * @throws HpccFileException
+     *             the hpcc file exception
      */
     protected ClusterRemapper(RemapInfo ri) throws HpccFileException
     {
@@ -44,38 +49,54 @@ public abstract class ClusterRemapper
 
     /**
      * The optionally revised array of hosts.
-     * @param hosts information
+     *
+     * @param hosts
+     *            information
      * @return Revised IP address as strings
+     * @throws HpccFileException
+     *             the hpcc file exception
      */
     public abstract String[] reviseIPs(String[] hosts) throws HpccFileException;
 
     /**
      * The optionally revised array of file part copy IPs.
-     * @param fpi file part information
+     *
+     * @param dfuFileCopies
+     *            the dfu file copies
      * @return an IP address as a string
+     * @throws HpccFileException
+     *             the hpcc file exception
      */
     public abstract String[] reviseIPs(DFUFileCopyWrapper[] dfuFileCopies) throws HpccFileException;
 
     /**
-     * The communications port number
-     * @param fpi the file part information
+     * The communications port number.
+     *
+     * @param fpi
+     *            the file part information
      * @return the port number
      */
     public abstract int revisePort(DFUPartWrapper fpi);
 
     /**
-     * Indicates if the target rowservice communicates over SSL
-     * @param fpi the file part information
+     * Indicates if the target rowservice communicates over SSL.
+     *
+     * @param fpi
+     *            the file part information
      * @return the port number
      */
     public abstract boolean getUsesSSLConnection(DFUPartWrapper fpi);
 
     /**
      * Factory for making a cluster re-map.
-     * @param ri the re-mapping information
-     * @param fileaccessinfo a list of file part locations
+     *
+     * @param ri
+     *            the re-mapping information
+     * @param fileaccessinfo
+     *            a list of file part locations
      * @return a re-mapping object consistent with the provided information
      * @throws HpccFileException
+     *             the hpcc file exception
      */
 
     public static ClusterRemapper makeMapper(RemapInfo ri, DFUFileAccessInfoWrapper fileaccessinfo) throws HpccFileException

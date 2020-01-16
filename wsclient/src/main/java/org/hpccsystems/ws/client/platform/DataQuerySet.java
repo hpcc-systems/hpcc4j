@@ -19,6 +19,15 @@ public class DataQuerySet extends DataSingleton
 {
     private static Map<Integer, DataQuerySet> QuerySets = new HashMap<Integer, DataQuerySet>();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     * @return the data query set
+     */
     public static synchronized DataQuerySet get(Platform platform, String name)
     {
         DataQuerySet dataQuerySet = new DataQuerySet(platform, name);
@@ -41,6 +50,14 @@ public class DataQuerySet extends DataSingleton
         QUERYSET
     }
 
+    /**
+     * Instantiates a new data query set.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     */
     private DataQuerySet(Platform platform, String name)
     {
         this.platform = platform;
@@ -48,28 +65,48 @@ public class DataQuerySet extends DataSingleton
         info.setQuerySetName(name);
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return info.getQuerySetName();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
     }
 
+    /**
+     * Update.
+     *
+     * @param qs
+     *            the qs
+     */
     // Updates ---
     public void Update(QuerySet qs)
     {
@@ -79,6 +116,9 @@ public class DataQuerySet extends DataSingleton
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -98,6 +138,9 @@ public class DataQuerySet extends DataSingleton
                 && EqualsUtil.areEqual(info.getQuerySetName(), that.info.getQuerySetName());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

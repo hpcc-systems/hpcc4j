@@ -20,8 +20,17 @@ public class ECLHelpFileWrapper
 
     private long   maxActivityId;
 
+    /**
+     * Instantiates a new ECL help file wrapper.
+     */
     public ECLHelpFileWrapper() {}
 
+    /**
+     * Instantiates a new ECL help file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLHelpFileWrapper(ECLHelpFile raw)
     {
         if (raw == null)
@@ -38,6 +47,12 @@ public class ECLHelpFileWrapper
         this.type = raw.getType();
     }
 
+    /**
+     * Instantiates a new ECL help file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLHelpFile raw)
     {
         if (raw==null)
@@ -54,6 +69,12 @@ public class ECLHelpFileWrapper
         this.type=raw.getType();
     }
 
+    /**
+     * Instantiates a new ECL help file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLHelpFile raw)
     {
         if (raw == null)
@@ -70,6 +91,12 @@ public class ECLHelpFileWrapper
         this.type = raw.getType();
     }
 
+    /**
+     * Instantiates a new ECL help file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLHelpFile raw)
     {
         if (raw == null)
@@ -86,6 +113,12 @@ public class ECLHelpFileWrapper
         this.type = raw.getType();
     }
 
+    /**
+     * Instantiates a new ECL help file wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLHelpFile raw)
     {
         if (raw == null)
@@ -103,6 +136,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName()
@@ -111,7 +146,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param name the name to set
+     * Sets the name.
+     *
+     * @param name
+     *            the name to set
      */
     public void setName(String name)
     {
@@ -119,6 +157,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the type.
+     *
      * @return the type
      */
     public String getType()
@@ -127,7 +167,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param type the type to set
+     * Sets the type.
+     *
+     * @param type
+     *            the type to set
      */
     public void setType(String type)
     {
@@ -135,6 +178,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the IP address.
+     *
      * @return the iPAddress
      */
     public String getIPAddress()
@@ -143,7 +188,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param iPAddress the iPAddress to set
+     * Sets the IP address.
+     *
+     * @param iPAddress
+     *            the iPAddress to set
      */
     public void setIPAddress(String iPAddress)
     {
@@ -151,6 +199,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the description.
+     *
      * @return the description
      */
     public String getDescription()
@@ -159,7 +209,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param description the description to set
+     * Sets the description.
+     *
+     * @param description
+     *            the description to set
      */
     public void setDescription(String description)
     {
@@ -167,6 +220,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the file size.
+     *
      * @return the fileSize
      */
     public Long getFileSize()
@@ -175,7 +230,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param fileSize the fileSize to set
+     * Sets the file size.
+     *
+     * @param fileSize
+     *            the fileSize to set
      */
     public void setFileSize(Long fileSize)
     {
@@ -183,6 +241,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the pid.
+     *
      * @return the pID
      */
     public long getPID()
@@ -191,7 +251,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param pID the pID to set
+     * Sets the pid.
+     *
+     * @param pID
+     *            the pID to set
      */
     public void setPID(long pID)
     {
@@ -199,6 +262,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the min activity id.
+     *
      * @return the minActivityId
      */
     public long getMinActivityId()
@@ -207,7 +272,10 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param minActivityId the minActivityId to set
+     * Sets the min activity id.
+     *
+     * @param minActivityId
+     *            the minActivityId to set
      */
     public void setMinActivityId(Integer minActivityId)
     {
@@ -215,6 +283,8 @@ public class ECLHelpFileWrapper
     }
 
     /**
+     * Gets the max activity id.
+     *
      * @return the maxActivityId
      */
     public long getMaxActivityId()
@@ -223,18 +293,31 @@ public class ECLHelpFileWrapper
     }
 
     /**
-     * @param maxActivityId the maxActivityId to set
+     * Sets the max activity id.
+     *
+     * @param maxActivityId
+     *            the maxActivityId to set
      */
     public void setMaxActivityId(Integer maxActivityId)
     {
         this.maxActivityId = maxActivityId;
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile getRaw()
     {
         return getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile();

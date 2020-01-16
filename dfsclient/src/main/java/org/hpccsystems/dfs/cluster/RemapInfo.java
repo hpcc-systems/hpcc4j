@@ -42,6 +42,14 @@ public class RemapInfo implements Serializable
         this.useSSLConnectionDAFileServ = true;
     }
 
+    /**
+     * Instantiates a new remap info.
+     *
+     * @param nodes
+     *            the nodes
+     * @param base_ip
+     *            the base ip
+     */
     public RemapInfo(String nodes, String base_ip)
     {
         this.clusterNodeCount = nodes.equals("") ? 0 : Integer.parseInt(nodes);
@@ -51,9 +59,12 @@ public class RemapInfo implements Serializable
     }
 
     /**
-     * Info to create a re-mapping to a range of IP addresses
-     * @param thorNodes number of nodes for this THOR cluster
-     * @param ip first alias IP
+     * Info to create a re-mapping to a range of IP addresses.
+     *
+     * @param thorNodes
+     *            number of nodes for this THOR cluster
+     * @param ip
+     *            first alias IP
      */
     public RemapInfo(int thorNodes, String ip)
     {
@@ -64,14 +75,18 @@ public class RemapInfo implements Serializable
     }
 
     /**
-     * Info to create a re-mapping to a single IP and a range of ports.  The
+     * Info to create a re-mapping to a single IP and a range of ports. The
      * port number should be zero for the case (clear or SSL) that is not
-     * supported by the cluster.  Both can be supported.  If both ports are
+     * supported by the cluster. Both can be supported. If both ports are
      * zero, the re-map will be to a range of IP addresses
-     * @param thorNodes number of nodes for this THOR cluster
-     * @param ip the IP for the cluster
-     * @param rowserviceport the port to communicate with rowservice (DAFILESERV)
-     * @param useSSL flag indicating if the target rowservice expects ssl based communication
+     * @param thorNodes
+     *            number of nodes for this THOR cluster
+     * @param ip
+     *            the IP for the cluster
+     * @param rowserviceport
+     *            the port to communicate with rowservice (DAFILESERV)
+     * @param useSSL
+     *            flag indicating if the target rowservice expects ssl based communication
      */
     public RemapInfo(int thorNodes, String ip, int rowserviceport, boolean useSSL)
     {
@@ -82,17 +97,18 @@ public class RemapInfo implements Serializable
     }
 
     /**
-       * The number of nodes in the THOR cluster.
-       * @return number of nodes
-       */
+     * The number of nodes in the THOR cluster.
+     * @return number of nodes
+     */
     public int getNodes()
     {
         return this.clusterNodeCount;
     }
 
     /**
-     * Port number for  exchange with the cluster
-     * @return  port number
+     * Port number for exchange with the cluster.
+     *
+     * @return port number
      */
     public int getRowservicePort()
     {
@@ -100,7 +116,8 @@ public class RemapInfo implements Serializable
     }
 
     /**
-     * Base port number for SSL exchange with the cluster or zero if not re-mapped
+     * Base port number for SSL exchange with the cluster or zero if not re-mapped.
+     *
      * @return SSL port number
      */
     public boolean getIsSSLConnectionRequired()
@@ -109,7 +126,8 @@ public class RemapInfo implements Serializable
     }
 
     /**
-     * Get base IP for range or IP for port range
+     * Get base IP for range or IP for port range.
+     *
      * @return IP
      */
     public String getBaseIp()
@@ -118,8 +136,9 @@ public class RemapInfo implements Serializable
     }
 
     /**
-     * Is this a null re-mapper
-     * @return
+     * Is this a null re-mapper.
+     *
+     * @return true, if is null mapper
      */
     public boolean isNullMapper()
     {

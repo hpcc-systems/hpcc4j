@@ -27,6 +27,14 @@ public class DFUCreateFileWrapper
     private String                       fileId;
     private DFUFileAccessInfoWrapper     wrappedDFUFileAccessInfo;
 
+    /**
+     * Instantiates a new DFU create file wrapper.
+     *
+     * @param resp
+     *            the resp
+     * @throws Exception
+     *             the exception
+     */
     public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCreateResponse resp) throws Exception
     {
         if (resp != null && resp.getAccessInfo() != null)
@@ -38,6 +46,14 @@ public class DFUCreateFileWrapper
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
     }
 
+    /**
+     * Instantiates a new DFU create file wrapper.
+     *
+     * @param resp
+     *            the resp
+     * @throws Exception
+     *             the exception
+     */
     public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCreateResponse resp) throws Exception
     {
         if (resp != null && resp.getAccessInfo() != null)
@@ -61,7 +77,8 @@ public class DFUCreateFileWrapper
     }
 
     /**
-     * Gets the file access blob to be used in subsequent DAFILESRV requests
+     * Gets the file access blob to be used in subsequent DAFILESRV requests.
+     *
      * @return The file access blob
      */
     public String getFileAccessInfoBlob()
@@ -120,8 +137,9 @@ public class DFUCreateFileWrapper
     }
 
     /**
-     * Gets the created file Access Information
-     * @return
+     * Gets the created file Access Information.
+     *
+     * @return the file access info
      */
     public DFUFileAccessInfoWrapper getFileAccessInfo()
     {

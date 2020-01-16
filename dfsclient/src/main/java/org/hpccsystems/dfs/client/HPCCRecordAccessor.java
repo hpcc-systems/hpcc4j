@@ -28,6 +28,12 @@ public class HPCCRecordAccessor implements IRecordAccessor
     private FieldDef             fieldDef             = null;
     private HPCCRecordAccessor[] childRecordAccessors = null;
 
+    /**
+     * Instantiates a new HPCC record accessor.
+     *
+     * @param fieldDef
+     *            the field def
+     */
     public HPCCRecordAccessor(FieldDef fieldDef)
     {
         this.fieldDef = fieldDef;
@@ -55,27 +61,52 @@ public class HPCCRecordAccessor implements IRecordAccessor
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordAccessor#setRecord(java.lang.Object)
+     */
     public IRecordAccessor setRecord(Object rd)
     {
         this.record = (HPCCRecord) rd;
         return this;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordAccessor#getNumFields()
+     */
     public int getNumFields()
     {
         return this.fieldDef.getNumDefs();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordAccessor#getFieldValue(int)
+     */
     public Object getFieldValue(int index)
     {
         return this.record.getField(index);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordAccessor#getFieldDefinition(int)
+     */
     public FieldDef getFieldDefinition(int index)
     {
         return this.fieldDef.getDef(index);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordAccessor#getChildRecordAccessor(int)
+     */
     public IRecordAccessor getChildRecordAccessor(int index)
     {
         return this.childRecordAccessors[index];

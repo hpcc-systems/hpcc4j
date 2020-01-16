@@ -68,6 +68,7 @@ public class HPCCFile implements Serializable
      * @param espconninfo
      *            The ESP connection info (protocol,address,port,user,pass)
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public HPCCFile(String fileName, Connection espconninfo) throws HpccFileException
     {
@@ -82,7 +83,14 @@ public class HPCCFile implements Serializable
      *            The HPCC file name
      * @param connectionString
      *            to eclwatch. Format: {http|https}://{HOST}:{PORT}.
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @throws MalformedURLException
+     *             the malformed URL exception
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public HPCCFile(String fileName, String connectionString, String user, String pass) throws MalformedURLException, HpccFileException
     {
@@ -95,9 +103,11 @@ public class HPCCFile implements Serializable
      * Constructor for the HpccFile. Captures HPCC logical file information from the DALI Server for the clusters behind
      * the ESP named by the IP address and re-maps the address information for the THOR nodes to visible addresses when
      * the THOR clusters are virtual.
-     * 
+     *
      * @param fileName
      *            The HPCC file name
+     * @param espconninfo
+     *            the espconninfo
      * @param targetColumnList
      *            a comma separated list of column names in dotted notation for columns within compound columns.
      * @param filter
@@ -109,6 +119,7 @@ public class HPCCFile implements Serializable
      * @param targetfilecluster
      *            optional - the hpcc cluster the target file resides in
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public HPCCFile(String fileName, Connection espconninfo, String targetColumnList, String filter, RemapInfo remap_info, int maxParts,
             String targetfilecluster) throws HpccFileException
@@ -120,8 +131,7 @@ public class HPCCFile implements Serializable
         this.espConnInfo = espconninfo;
         try
         {
-            if (filter != null && !filter.isEmpty())
-                this.filter = new FileFilter(filter);
+            if (filter != null && !filter.isEmpty()) this.filter = new FileFilter(filter);
         }
         catch (Exception e)
         {
@@ -132,7 +142,9 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * Gets the project list.
+     *
+     * @return the project list
      */
     public String getProjectList()
     {
@@ -140,13 +152,18 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Sets the project list.
+     *
      * @param projectList
-     * @throws Exception 
+     *            the project list
+     * @return the HPCC file
+     * @throws Exception
+     *             the exception
      */
     public HPCCFile setProjectList(String projectList) throws Exception
     {
         this.columnPruner = new ColumnPruner(projectList);
-        if (this.recordDefinition != null) 
+        if (this.recordDefinition != null)
         {
             this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
         }
@@ -154,6 +171,8 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Gets the file access expiry secs.
+     *
      * @return initial file access expiry in seconds
      */
     public int getFileAccessExpirySecs()
@@ -162,6 +181,8 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Sets the file access expiry secs.
+     *
      * @param fileAccessExpirySecs
      *            initial access to a file is granted for a period of time. This param can change the duration of that
      *            file access.
@@ -174,7 +195,9 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * Gets the targetfilecluster.
+     *
+     * @return the targetfilecluster
      */
     public String getTargetfilecluster()
     {
@@ -182,7 +205,10 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @param targetfilecluster sets the target file cluster
+     * Sets the targetfilecluster.
+     *
+     * @param targetfilecluster
+     *            sets the target file cluster
      * @return this HPCCFile
      */
     public HPCCFile setTargetfilecluster(String targetfilecluster)
@@ -192,7 +218,9 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * Gets the cluster remap info.
+     *
+     * @return the cluster remap info
      */
     public RemapInfo getClusterRemapInfo()
     {
@@ -200,7 +228,10 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Sets the cluster remap info.
+     *
      * @param remapinfo
+     *            the remapinfo
      * @return this HPCCFile
      */
     public HPCCFile setClusterRemapInfo(RemapInfo remapinfo)
@@ -210,7 +241,9 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * Gets the filter.
+     *
+     * @return the filter
      */
     public FileFilter getFilter()
     {
@@ -218,8 +251,13 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @param filterexpression - uses SQL 'where' syntax
+     * Sets the filter.
+     *
+     * @param filterexpression
+     *            - uses SQL 'where' syntax
      * @return this HPCCFile
+     * @throws Exception
+     *             the exception
      */
     public HPCCFile setFilter(String filterexpression) throws Exception
     {
@@ -228,7 +266,9 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * @return
+     * Gets the file name.
+     *
+     * @return the file name
      */
     public String getFileName()
     {
@@ -236,7 +276,10 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Creates the data parts.
+     *
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     private void createDataParts() throws HpccFileException
     {
@@ -274,7 +317,7 @@ public class HPCCFile implements Serializable
             {
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
-                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(),fileType);
+                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(), fileType);
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }
@@ -292,10 +335,11 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * The partitions for the file residing on an HPCC cluster
-     * 
-     * @return
+     * The partitions for the file residing on an HPCC cluster.
+     *
+     * @return the file parts
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public DataPartition[] getFileParts() throws HpccFileException
     {
@@ -306,9 +350,10 @@ public class HPCCFile implements Serializable
 
     /**
      * The record definition for a file on an HPCC cluster.
-     * 
-     * @return
+     *
+     * @return the record definition
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public final FieldDef getRecordDefinition() throws HpccFileException
     {
@@ -319,9 +364,10 @@ public class HPCCFile implements Serializable
 
     /**
      * The record definition for a file on an HPCC cluster.
-     * 
-     * @return
+     *
+     * @return the projected record definition
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     public final FieldDef getProjectedRecordDefinition() throws HpccFileException
     {
@@ -331,8 +377,8 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * Is this an index?
-     * 
+     * Is this an index?.
+     *
      * @return true if yes
      */
     public boolean isIndex()
@@ -340,6 +386,23 @@ public class HPCCFile implements Serializable
         return this.isIndex;
     }
 
+    /**
+     * Fetch read file info.
+     *
+     * @param fileName
+     *            the file name
+     * @param hpccClient
+     *            the hpcc client
+     * @param expirySeconds
+     *            the expiry seconds
+     * @param clusterName
+     *            the cluster name
+     * @return the DFU file access info wrapper
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
     private static DFUFileAccessInfoWrapper fetchReadFileInfo(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName)
             throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -347,17 +410,71 @@ public class HPCCFile implements Serializable
         return hpccClient.getFileAccess(fileName, clusterName, expirySeconds, uniqueID);
     }
 
-    private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception, ArrayOfEspExceptionWrapper
+    /**
+     * Acquire read file access.
+     *
+     * @param fileName
+     *            the file name
+     * @param hpccClient
+     *            the hpcc client
+     * @param expirySeconds
+     *            the expiry seconds
+     * @param clusterName
+     *            the cluster name
+     * @return the string
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    private static String acquireReadFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
-    private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName) throws Exception, ArrayOfEspExceptionWrapper
+    /**
+     * Acquire write file access.
+     *
+     * @param fileName
+     *            the file name
+     * @param hpccClient
+     *            the hpcc client
+     * @param expirySeconds
+     *            the expiry seconds
+     * @param clusterName
+     *            the cluster name
+     * @return the string
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    private static String acquireWriteFileAccess(String fileName, HPCCWsDFUClient hpccClient, int expirySeconds, String clusterName)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return acquireFileAccess(fileName, hpccClient, expirySeconds, clusterName);
     }
 
-    private static String acquireFileAccess(String fileName, HPCCWsDFUClient hpcc, int expirySeconds, String clusterName) throws Exception, ArrayOfEspExceptionWrapper
+    /**
+     * Acquire file access.
+     *
+     * @param fileName
+     *            the file name
+     * @param hpcc
+     *            the hpcc
+     * @param expirySeconds
+     *            the expiry seconds
+     * @param clusterName
+     *            the cluster name
+     * @return the string
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    private static String acquireFileAccess(String fileName, HPCCWsDFUClient hpcc, int expirySeconds, String clusterName)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpcc.getFileAccessBlob(fileName, clusterName, expirySeconds, uniqueID);

@@ -27,11 +27,20 @@ public enum DFUFileTypeWrapper
     protected String theDFUFileType;
     private static final Map<String,DFUFileTypeWrapper> enumtable;
 
+    /**
+     * Instantiates a new DFU file type wrapper.
+     *
+     * @param name
+     *            the name
+     */
     DFUFileTypeWrapper (String name)
     {
         theDFUFileType = name;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
     public String toString()
     {
         return theDFUFileType;
@@ -47,11 +56,25 @@ public enum DFUFileTypeWrapper
         enumtable = Collections.unmodifiableMap(map);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param name
+     *            the name
+     * @return the DFU file type wrapper
+     */
     public static DFUFileTypeWrapper get(String name)
     {
         return enumtable.get(name);
     }
 
+    /**
+     * From string.
+     *
+     * @param value
+     *            the value
+     * @return the DFU file type wrapper
+     */
     public static DFUFileTypeWrapper fromString(String value)
     {
         if (value != null && !value.isEmpty() && enumtable.containsKey(value))
@@ -62,11 +85,23 @@ public enum DFUFileTypeWrapper
         throw new IllegalArgumentException("unknown value: " + value);
     }
 
+    /**
+     * Gets the FU file type.
+     *
+     * @return the FU file type
+     */
     public DFUFileType getFUFileType()
     {
         return DFUFileType.Factory.fromValue(theDFUFileType);
     }
 
+    /**
+     * From dfu file type.
+     *
+     * @param filetype
+     *            the filetype
+     * @return the DFU file type wrapper
+     */
     public static DFUFileTypeWrapper fromDfuFileType(DFUFileType filetype)
     {
         return fromString(filetype.getValue());

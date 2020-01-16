@@ -42,11 +42,25 @@ public class WsWorkunitsClientStubWrapper
     private Version platformVersion;
     private Connection connection;
 
+    /**
+     * Gets the latest.
+     *
+     * @return the latest
+     * @throws AxisFault
+     *             the axis fault
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub getLatest() throws AxisFault
     {
         return get1_75Stub();
     }
 
+    /**
+     * Gets the 1 75 stub.
+     *
+     * @return the 1 75 stub
+     * @throws AxisFault
+     *             the axis fault
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub get1_75Stub() throws AxisFault
     {
         if (stub1_75 == null)
@@ -67,7 +81,14 @@ public class WsWorkunitsClientStubWrapper
 //        return stub1_74;
 //    }
 
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WsWorkunitsStub get1_69Stub() throws AxisFault
+    /**
+ * Gets the 1 69 stub.
+ *
+ * @return the 1 69 stub
+ * @throws AxisFault
+ *             the axis fault
+ */
+public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WsWorkunitsStub get1_69Stub() throws AxisFault
     {
         if (stub1_69 == null)
         {
@@ -77,6 +98,13 @@ public class WsWorkunitsClientStubWrapper
         return stub1_69;
     }
 
+    /**
+     * Gets the 1 62 stub.
+     *
+     * @return the 1 62 stub
+     * @throws AxisFault
+     *             the axis fault
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WsWorkunitsStub get1_62Stub() throws AxisFault
     {
         if (stub1_62 == null)
@@ -87,6 +115,13 @@ public class WsWorkunitsClientStubWrapper
         return stub1_62;
     }
 
+    /**
+     * Gets the 1 58 stub.
+     *
+     * @return the 1 58 stub
+     * @throws AxisFault
+     *             the axis fault
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub get1_58Stub() throws AxisFault
     {
         if (stub1_58 == null)
@@ -97,6 +132,13 @@ public class WsWorkunitsClientStubWrapper
         return stub1_58;
     }
 
+    /**
+     * Gets the version 1 56 raw.
+     *
+     * @return the version 1 56 raw
+     * @throws AxisFault
+     *             the axis fault
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WsWorkunitsStub getVersion1_56Raw() throws AxisFault
     {
         if (stub1_56 == null)
@@ -107,37 +149,70 @@ public class WsWorkunitsClientStubWrapper
         return stub1_56;
     }
 
+    /**
+     * Instantiates a new ws workunits client stub wrapper.
+     *
+     * @param conn
+     *            the conn
+     * @param targetVersion
+     *            the target version
+     */
     public WsWorkunitsClientStubWrapper(Connection conn, Version targetVersion)
     {
         this.connection = conn;
         this.platformVersion = targetVersion;
     }
 
+    /**
+     * Use version 1 69.
+     *
+     * @return true, if successful
+     */
     private boolean useVersion1_69()
     {
         return platformVersion.major==6 && platformVersion.minor>=4;
     }
 
+    /**
+     * Use version 1 58.
+     *
+     * @return true, if successful
+     */
     private boolean useVersion1_58()
     {
         return platformVersion.major==6 && platformVersion.minor==0;
     }
 
+    /**
+     * Use version 1 62.
+     *
+     * @return true, if successful
+     */
     private boolean useVersion1_62()
     {
         return platformVersion.major==6 && platformVersion.minor==2;
     }
 
+    /**
+     * Use version 1 75.
+     *
+     * @return true, if successful
+     */
     private boolean useVersion1_75()
     {
         return platformVersion.major==7
                 && (platformVersion.minor==0
                 || platformVersion.minor>=2);
     }
+    
     /**
-     * @param params WUInfoRequestWrapper containing request info
+     * WU info.
+     *
+     * @param params
+     *            WUInfoRequestWrapper containing request info
      * @return a WUInfoResponseWrapper containing the response
-     * @throws Exception if the WUInfo command fails or an unsupported version is specified
+     * @throws Exception
+     *             if the WUInfo command fails or an unsupported version is specified
      */
     public WUInfoResponseWrapper WUInfo(WUInfoRequestWrapper params) throws Exception
     {
@@ -177,6 +252,15 @@ public class WsWorkunitsClientStubWrapper
         throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
     }
 
+    /**
+     * WU create and update.
+     *
+     * @param params
+     *            the params
+     * @return the WU update response wrapper
+     * @throws Exception
+     *             the exception
+     */
     public WUUpdateResponseWrapper WUCreateAndUpdate(WUCreateAndUpdateWrapper params) throws Exception
     {
         if (useVersion1_58())
@@ -205,6 +289,15 @@ public class WsWorkunitsClientStubWrapper
         }
     }
 
+    /**
+     * WU create.
+     *
+     * @param params
+     *            the params
+     * @return the WU create response wrapper
+     * @throws Exception
+     *             the exception
+     */
     public WUCreateResponseWrapper WUCreate(WUCreateRequestWrapper params) throws Exception
     {
         if (useVersion1_58())
@@ -233,6 +326,15 @@ public class WsWorkunitsClientStubWrapper
         }
     }
 
+    /**
+     * WU update.
+     *
+     * @param params
+     *            the params
+     * @return the WU update response wrapper
+     * @throws Exception
+     *             the exception
+     */
     public WUUpdateResponseWrapper WUUpdate(WUUpdateRequestWrapper params) throws Exception
     {
         if (useVersion1_58())

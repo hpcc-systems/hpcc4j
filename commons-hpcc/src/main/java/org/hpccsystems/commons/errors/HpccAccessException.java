@@ -30,7 +30,10 @@ public class HpccAccessException extends Exception
     }
 
     /**
+     * Instantiates a new hpcc access exception.
+     *
      * @param message
+     *            the message
      */
     public HpccAccessException(String message)
     {
@@ -38,7 +41,10 @@ public class HpccAccessException extends Exception
     }
 
     /**
+     * Instantiates a new hpcc access exception.
+     *
      * @param cause
+     *            the cause
      */
     public HpccAccessException(Throwable cause)
     {
@@ -46,8 +52,12 @@ public class HpccAccessException extends Exception
     }
 
     /**
+     * Instantiates a new hpcc access exception.
+     *
      * @param message
+     *            the message
      * @param cause
+     *            the cause
      */
     public HpccAccessException(String message, Throwable cause)
     {
@@ -55,10 +65,16 @@ public class HpccAccessException extends Exception
     }
 
     /**
+     * Instantiates a new hpcc access exception.
+     *
      * @param message
+     *            the message
      * @param cause
+     *            the cause
      * @param enableSuppression
+     *            the enable suppression
      * @param writableStackTrace
+     *            the writable stack trace
      */
     public HpccAccessException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {

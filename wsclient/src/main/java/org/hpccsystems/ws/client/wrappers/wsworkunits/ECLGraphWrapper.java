@@ -20,8 +20,17 @@ public class ECLGraphWrapper
 
     private String whenFinished;
 
+    /**
+     * Instantiates a new ECL graph wrapper.
+     */
     public ECLGraphWrapper() {}
 
+    /**
+     * Instantiates a new ECL graph wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph raw)
     {
         if (raw==null)
@@ -39,6 +48,12 @@ public class ECLGraphWrapper
         this.setWhenStarted(raw.getWhenStarted());
     }
 
+    /**
+     * Instantiates a new ECL graph wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLGraph raw)
     {
         if (raw==null)
@@ -57,6 +72,12 @@ public class ECLGraphWrapper
         this.setWhenStarted(raw.getWhenStarted());
     }
 
+    /**
+     * Instantiates a new ECL graph wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLGraph raw)
     {
         if (raw==null)
@@ -75,6 +96,12 @@ public class ECLGraphWrapper
         this.setWhenStarted(raw.getWhenStarted());
     }
 
+    /**
+     * Instantiates a new ECL graph wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLGraph raw)
     {
         if (raw==null)
@@ -93,6 +120,12 @@ public class ECLGraphWrapper
         this.setWhenStarted(raw.getWhenStarted());
     }
 
+    /**
+     * Instantiates a new ECL graph wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLGraph raw)
     {
         if (raw==null)
@@ -111,11 +144,21 @@ public class ECLGraphWrapper
         this.setWhenStarted(raw.getWhenStarted());
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph getRaw()
     {
         return getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph result =
@@ -134,6 +177,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName()
@@ -142,7 +187,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param name the name to set
+     * Sets the name.
+     *
+     * @param name
+     *            the name to set
      */
     public void setName(String name)
     {
@@ -150,6 +198,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the label.
+     *
      * @return the label
      */
     public String getLabel()
@@ -158,7 +208,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param label the label to set
+     * Sets the label.
+     *
+     * @param label
+     *            the label to set
      */
     public void setLabel(String label)
     {
@@ -166,6 +219,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the type.
+     *
      * @return the type
      */
     public String getType()
@@ -174,7 +229,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param type the type to set
+     * Sets the type.
+     *
+     * @param type
+     *            the type to set
      */
     public void setType(String type)
     {
@@ -182,6 +240,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the running.
+     *
      * @return the running
      */
     public Boolean getRunning()
@@ -190,7 +250,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param running the running to set
+     * Sets the running.
+     *
+     * @param running
+     *            the running to set
      */
     public void setRunning(Boolean running)
     {
@@ -198,6 +261,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the complete.
+     *
      * @return the complete
      */
     public Boolean getComplete()
@@ -206,7 +271,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param complete the complete to set
+     * Sets the complete.
+     *
+     * @param complete
+     *            the complete to set
      */
     public void setComplete(Boolean complete)
     {
@@ -214,6 +282,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the failed.
+     *
      * @return the failed
      */
     public Boolean getFailed()
@@ -222,7 +292,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param failed the failed to set
+     * Sets the failed.
+     *
+     * @param failed
+     *            the failed to set
      */
     public void setFailed(Boolean failed)
     {
@@ -230,6 +303,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the running id.
+     *
      * @return the runningId
      */
     public Long getRunningId()
@@ -238,7 +313,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param runningId the runningId to set
+     * Sets the running id.
+     *
+     * @param runningId
+     *            the runningId to set
      */
     public void setRunningId(Long runningId)
     {
@@ -246,6 +324,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the when started.
+     *
      * @return the whenStarted
      */
     public String getWhenStarted()
@@ -254,7 +334,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param whenStarted the whenStarted to set
+     * Sets the when started.
+     *
+     * @param whenStarted
+     *            the whenStarted to set
      */
     public void setWhenStarted(String whenStarted)
     {
@@ -262,6 +345,8 @@ public class ECLGraphWrapper
     }
 
     /**
+     * Gets the when finished.
+     *
      * @return the whenFinished
      */
     public String getWhenFinished()
@@ -270,7 +355,10 @@ public class ECLGraphWrapper
     }
 
     /**
-     * @param whenFinished the whenFinished to set
+     * Sets the when finished.
+     *
+     * @param whenFinished
+     *            the whenFinished to set
      */
     public void setWhenFinished(String whenFinished)
     {

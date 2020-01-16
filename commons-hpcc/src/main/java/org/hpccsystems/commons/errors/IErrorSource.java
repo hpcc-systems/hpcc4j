@@ -8,7 +8,18 @@ package org.hpccsystems.commons.errors;
  */
 public interface IErrorSource
 {
+
+    /**
+     * Name.
+     *
+     * @return the string
+     */
     String name();
 
+    /**
+     * Gets the num val.
+     *
+     * @return the num val
+     */
     Integer getNumVal();
 }

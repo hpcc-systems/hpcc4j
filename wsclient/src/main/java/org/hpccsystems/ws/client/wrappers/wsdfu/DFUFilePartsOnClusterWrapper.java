@@ -33,13 +33,38 @@ public class DFUFilePartsOnClusterWrapper
     protected boolean canReplicate;
     protected ArrayOfDFUPartWrapper dFUFileParts;
 
+    /**
+     * Instantiates a new DFU file parts on cluster wrapper.
+     */
     public DFUFilePartsOnClusterWrapper() {}
 
+    /**
+     * Instantiates a new DFU file parts on cluster wrapper.
+     *
+     * @param dfufilepartsoncluster
+     *            the dfufilepartsoncluster
+     */
     public DFUFilePartsOnClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster dfufilepartsoncluster)
     {
         copy( dfufilepartsoncluster );
     }
 
+    /**
+     * Instantiates a new DFU file parts on cluster wrapper.
+     *
+     * @param _cluster
+     *            the cluster
+     * @param _baseDir
+     *            the base dir
+     * @param _replicateDir
+     *            the replicate dir
+     * @param _replicate
+     *            the replicate
+     * @param _canReplicate
+     *            the can replicate
+     * @param _dFUFileParts
+     *            the d FU file parts
+     */
     public DFUFilePartsOnClusterWrapper( String _cluster, String _baseDir, String _replicateDir, boolean _replicate, boolean _canReplicate, ArrayOfDFUPartWrapper _dFUFileParts )
     {
         this.cluster = _cluster;
@@ -50,6 +75,12 @@ public class DFUFilePartsOnClusterWrapper
         this.dFUFileParts = _dFUFileParts;
     }
 
+    /**
+     * Copy.
+     *
+     * @param raw
+     *            the raw
+     */
     private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster raw )
     {
         if (raw == null)
@@ -63,12 +94,20 @@ public class DFUFilePartsOnClusterWrapper
         this.dFUFileParts = new ArrayOfDFUPartWrapper( raw.getDFUFileParts());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
         return "DFUFilePartsOnClusterWrapper [" + "cluster = " + cluster + ", " + "baseDir = " + baseDir + ", " + "replicateDir = " + replicateDir + ", " + "replicate = " + replicate + ", " + "canReplicate = " + canReplicate + ", " + "dFUFileParts = " + dFUFileParts + "]";
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster();
@@ -81,50 +120,127 @@ public class DFUFilePartsOnClusterWrapper
     }
 
 
+    /**
+     * Sets the cluster.
+     *
+     * @param _cluster
+     *            the new cluster
+     */
     public void setCluster( String _cluster )
     {
         this.cluster = _cluster;
     }
+    
+    /**
+     * Gets the cluster.
+     *
+     * @return the cluster
+     */
     public String getCluster( )
     {
         return this.cluster;
     }
+    
+    /**
+     * Sets the base dir.
+     *
+     * @param _baseDir
+     *            the new base dir
+     */
     public void setBaseDir( String _baseDir )
     {
         this.baseDir = _baseDir;
     }
+    
+    /**
+     * Gets the base dir.
+     *
+     * @return the base dir
+     */
     public String getBaseDir( )
     {
         return this.baseDir;
     }
+    
+    /**
+     * Sets the replicate dir.
+     *
+     * @param _replicateDir
+     *            the new replicate dir
+     */
     public void setReplicateDir( String _replicateDir )
     {
         this.replicateDir = _replicateDir;
     }
+    
+    /**
+     * Gets the replicate dir.
+     *
+     * @return the replicate dir
+     */
     public String getReplicateDir( )
     {
         return this.replicateDir;
     }
+    
+    /**
+     * Sets the replicate.
+     *
+     * @param _replicate
+     *            the new replicate
+     */
     public void setReplicate( boolean _replicate )
     {
         this.replicate = _replicate;
     }
+    
+    /**
+     * Gets the replicate.
+     *
+     * @return the replicate
+     */
     public boolean getReplicate( )
     {
         return this.replicate;
     }
+    
+    /**
+     * Sets the can replicate.
+     *
+     * @param _canReplicate
+     *            the new can replicate
+     */
     public void setCanReplicate( boolean _canReplicate )
     {
         this.canReplicate = _canReplicate;
     }
+    
+    /**
+     * Gets the can replicate.
+     *
+     * @return the can replicate
+     */
     public boolean getCanReplicate( )
     {
         return this.canReplicate;
     }
+    
+    /**
+     * Sets the DFU file parts.
+     *
+     * @param _dFUFileParts
+     *            the new DFU file parts
+     */
     public void setDFUFileParts( ArrayOfDFUPartWrapper _dFUFileParts )
     {
         this.dFUFileParts = _dFUFileParts;
     }
+    
+    /**
+     * Gets the DFU file parts.
+     *
+     * @return the DFU file parts
+     */
     public ArrayOfDFUPartWrapper getDFUFileParts( )
     {
         return this.dFUFileParts;

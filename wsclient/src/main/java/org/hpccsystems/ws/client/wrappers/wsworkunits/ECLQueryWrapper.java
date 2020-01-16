@@ -16,8 +16,17 @@ public class ECLQueryWrapper
 
     private String queryMainDefinition;
 
+    /**
+     * Instantiates a new ECL query wrapper.
+     */
     public ECLQueryWrapper() {}
 
+    /**
+     * Instantiates a new ECL query wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLQueryWrapper(ECLQuery raw)
     {
         if (raw==null)
@@ -31,6 +40,12 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
+    /**
+     * Instantiates a new ECL query wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLQuery raw)
     {
         if (raw==null)
@@ -44,6 +59,12 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
+    /**
+     * Instantiates a new ECL query wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLQuery raw)
     {
         if (raw==null)
@@ -57,6 +78,12 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
+    /**
+     * Instantiates a new ECL query wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLQuery raw)
     {
         if (raw==null)
@@ -70,6 +97,12 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
+    /**
+     * Instantiates a new ECL query wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLQuery raw)
     {
         if (raw==null)
@@ -83,11 +116,21 @@ public class ECLQueryWrapper
         this.resTxt=raw.getResTxt();
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery getRaw()
     {
         return getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery raw =
@@ -103,6 +146,8 @@ public class ECLQueryWrapper
     }
 
     /**
+     * Gets the text.
+     *
      * @return the text
      */
     public String getText()
@@ -111,7 +156,10 @@ public class ECLQueryWrapper
     }
 
     /**
-     * @param text the text to set
+     * Sets the text.
+     *
+     * @param text
+     *            the text to set
      */
     public void setText(String text)
     {
@@ -119,6 +167,8 @@ public class ECLQueryWrapper
     }
 
     /**
+     * Gets the cpp.
+     *
      * @return the cpp
      */
     public String getCpp()
@@ -127,7 +177,10 @@ public class ECLQueryWrapper
     }
 
     /**
-     * @param cpp the cpp to set
+     * Sets the cpp.
+     *
+     * @param cpp
+     *            the cpp to set
      */
     public void setCpp(String cpp)
     {
@@ -135,6 +188,8 @@ public class ECLQueryWrapper
     }
 
     /**
+     * Gets the res txt.
+     *
      * @return the resTxt
      */
     public String getResTxt()
@@ -143,7 +198,10 @@ public class ECLQueryWrapper
     }
 
     /**
-     * @param resTxt the resTxt to set
+     * Sets the res txt.
+     *
+     * @param resTxt
+     *            the resTxt to set
      */
     public void setResTxt(String resTxt)
     {
@@ -151,6 +209,8 @@ public class ECLQueryWrapper
     }
 
     /**
+     * Gets the dll.
+     *
      * @return the dll
      */
     public String getDll()
@@ -159,7 +219,10 @@ public class ECLQueryWrapper
     }
 
     /**
-     * @param dll the dll to set
+     * Sets the dll.
+     *
+     * @param dll
+     *            the dll to set
      */
     public void setDll(String dll)
     {
@@ -167,6 +230,8 @@ public class ECLQueryWrapper
     }
 
     /**
+     * Gets the thor log.
+     *
      * @return the thorLog
      */
     public String getThorLog()
@@ -175,7 +240,10 @@ public class ECLQueryWrapper
     }
 
     /**
-     * @param thorLog the thorLog to set
+     * Sets the thor log.
+     *
+     * @param thorLog
+     *            the thorLog to set
      */
     public void setThorLog(String thorLog)
     {
@@ -183,6 +251,8 @@ public class ECLQueryWrapper
     }
 
     /**
+     * Gets the query main definition.
+     *
      * @return the queryMainDefinition
      */
     public String getQueryMainDefinition()
@@ -191,7 +261,10 @@ public class ECLQueryWrapper
     }
 
     /**
-     * @param queryMainDefinition the queryMainDefinition to set
+     * Sets the query main definition.
+     *
+     * @param queryMainDefinition
+     *            the queryMainDefinition to set
      */
     public void setQueryMainDefinition(String queryMainDefinition)
     {
