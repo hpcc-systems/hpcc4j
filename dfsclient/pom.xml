@@ -3,7 +3,7 @@
     <groupId>org.hpccsystems</groupId>
     <artifactId>dfsclient</artifactId>
     <packaging>jar</packaging>
-    <version>7.2.58</version>
+    <version>7.2.60-SNAPSHOT</version>
     <name>HPCC Systems Distributed File System Client Project</name>
     <description>Client interface into HPCC Systems' Distributed File System. </description>
     <url>https://hpccsystems.com</url>
@@ -100,12 +100,12 @@
         <dependency>
             <groupId>org.hpccsystems</groupId>
             <artifactId>commons-hpcc</artifactId>
-            <version>1.0.58</version>
+            <version>1.0.60-SNAPSHOT</version>
         </dependency>
     	<dependency>
             <groupId>org.hpccsystems</groupId>
             <artifactId>wsclient</artifactId>
-            <version>7.2.58</version>
+            <version>7.2.60-SNAPSHOT</version>
         </dependency>
     	<dependency>
             <groupId>log4j</groupId>
