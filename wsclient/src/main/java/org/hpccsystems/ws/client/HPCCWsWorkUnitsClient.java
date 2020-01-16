@@ -1077,7 +1077,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
                 for (int i = 0; i < info.getApplicationValues().size(); i++)
                 {
                     org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery internal = info.getRaw156(i);
-                    fallbackresponse = stubWrapper.getVersion1_56Raw().wUQuery(internal);
+                    fallbackresponse = stubWrapper.getFallbackRaw().wUQuery(internal);
                     if (fallbackresponse != null)
                     {
                         handleEspExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
@@ -1103,7 +1103,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             }
             else
             {
-                fallbackresponse = stubWrapper.getVersion1_56Raw().wUQuery(info.getRaw156(0));
+                fallbackresponse = stubWrapper.getFallbackRaw().wUQuery(info.getRaw156(0));
                 if (fallbackresponse != null)
                 {
                     handleEspExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
@@ -1997,7 +1997,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             wuids.addItem(wuid);
             fwa.setWuids(espstringarray);
 
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUActionResponse fwar = stubWrapper.getVersion1_56Raw().wUAction(fwa);
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUActionResponse fwar = stubWrapper.getFallbackRaw().wUAction(fwa);
             if (fwar == null || fwar.getActionResults() == null || fwar.getActionResults().getWUActionResult() == null
                     || fwar.getActionResults().getWUActionResult().length == 0 || fwar.getActionResults().getWUActionResult()[0].getResult() == null
                     || !fwar.getActionResults().getWUActionResult()[0].getResult().equals("Success"))
