@@ -253,11 +253,10 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         {
             HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(conn);
             targetVersion = new Version(wssmc.getHPCCBuild());
-
             if (targetVersion != null)
             {
                 stubWrapper = new WsWorkunitsClientStubWrapper(conn, targetVersion);
-                stub = stubWrapper.getLatest();
+                stub = stubWrapper.getLatestStub();
                 stub = setStubOptions(new WsWorkunitsStub(conn.getBaseUrl() + WSWORKUNITSWSDLURI), conn);
             }
             else
@@ -1067,7 +1066,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         info.validate();
 
         List<WorkunitWrapper> result = new ArrayList<WorkunitWrapper>();
-        if (!compatibilityCheck(new Version("6.0.0")))
+        if (!compatibilityCheck(new Version("6.0.0"))) // target HPCC is pre 6.0.0
         {
             Set<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit> workunit_set = new HashSet<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit>();
 
@@ -1077,7 +1076,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
                 for (int i = 0; i < info.getApplicationValues().size(); i++)
                 {
                     org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery internal = info.getRaw156(i);
-                    fallbackresponse = stubWrapper.getVersion1_56Raw().wUQuery(internal);
+                    fallbackresponse = stubWrapper.get1_56FallbackStub().wUQuery(internal);
                     if (fallbackresponse != null)
                     {
                         handleEspExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
@@ -1103,7 +1102,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             }
             else
             {
-                fallbackresponse = stubWrapper.getVersion1_56Raw().wUQuery(info.getRaw156(0));
+                fallbackresponse = stubWrapper.get1_56FallbackStub().wUQuery(info.getRaw156(0));
                 if (fallbackresponse != null)
                 {
                     handleEspExceptions(new ArrayOfEspExceptionWrapper(fallbackresponse.getExceptions()), "Error in WU query");
@@ -1997,7 +1996,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             wuids.addItem(wuid);
             fwa.setWuids(espstringarray);
 
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUActionResponse fwar = stubWrapper.getVersion1_56Raw().wUAction(fwa);
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUActionResponse fwar = stubWrapper.get1_56FallbackStub().wUAction(fwa);
             if (fwar == null || fwar.getActionResults() == null || fwar.getActionResults().getWUActionResult() == null
                     || fwar.getActionResults().getWUActionResult().length == 0 || fwar.getActionResults().getWUActionResult()[0].getResult() == null
                     || !fwar.getActionResults().getWUActionResult()[0].getResult().equals("Success"))
@@ -2046,8 +2045,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     }
 
     /**
-     * Protect a workunit.
-     *
+     * Protect a workunit
      * @param wuid
      *            - wuid to protect
      * @return WorkunitInfo with updated status
@@ -2227,8 +2225,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     }
 
     /**
-     * Call WUListQueries service.
-     *
+     * Call WUListQueries service
      * @param queryid
      *            - unique ID of the query
      * @param queryname
