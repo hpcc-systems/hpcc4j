@@ -987,12 +987,15 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
         request.setNodeGroup(cluster);
         request.setLogicalName(logicalFilename);
-        if (pagesize != null) {
+        if (pagesize != null) 
+        {
             request.setPageSize(pagesize);
         }
-        if (pageStartFrom != null) {
+        if (pageStartFrom != null) 
+        {
             request.setPageStartFrom(pageStartFrom);
         }
+        
         DFUQueryResponse resp = null;
 
         try
