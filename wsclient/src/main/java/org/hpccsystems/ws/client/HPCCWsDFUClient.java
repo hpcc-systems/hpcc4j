@@ -969,9 +969,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param cluster
      *            - the cluster to search on
      * @param pagesize
-     *            - the page to begin on
+     *            - the size of the page
      * @param pageStartFrom
-     *            - the cluster to search on
+     *            - the location to search from
      * @return - collection of files matching the logicalfilename passed in
      * @throws Exception
      * @throws ArrayOfEspExceptionWrapper
