@@ -325,14 +325,22 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case REAL:
             {
+                Double value = 0.0;
+                if (fieldValue instanceof Double)
+                {
+                    value = (Double) fieldValue;
+                }
+                else if (fieldValue instanceof Integer)
+                {
+                    value = ((Float) fieldValue).doubleValue();
+                }
+
                 if (fd.getDataLen() == 4)
                 {
-                    Double value = (Double) fieldValue;
                     this.buffer.putFloat(value.floatValue());
                 }
                 else if (fd.getDataLen() == 8)
                 {
-                    Double value = (Double) fieldValue;
                     this.buffer.putDouble(value);
                 }
                 else
