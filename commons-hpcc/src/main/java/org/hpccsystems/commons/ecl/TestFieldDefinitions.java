@@ -46,11 +46,23 @@ public class TestFieldDefinitions
             + "\"type\": \"ty17\",\r\n   \"xpath\": \"childdataset\\u0001Row\",\r\n   \"flags\": 1044\r\n  },\r\n  {\r\n   \"name\": \"int2set\",\r\n   "
             + "\"type\": \"ty19\",\r\n   \"xpath\": \"int2set\\u0001Item\",\r\n   \"flags\": 1045\r\n  }\r\n ]\r\n}";
 
+    /**
+     * Gets the complex record definition json.
+     *
+     * @return the complex record definition json
+     */
     public static String getComplexRecordDefinitionJson()
     {
         return complexRecordDefinitionStr;
     }
 
+    /**
+     * Gets the complex record definition.
+     *
+     * @return the complex record definition
+     * @throws Exception
+     *             the exception
+     */
     public static FieldDef getComplexRecordDefinition() throws Exception
     {
         String jsonStr = getComplexRecordDefinitionJson();

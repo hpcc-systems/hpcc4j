@@ -40,6 +40,15 @@ public class PhysicalMachine extends DataSingleton
     private static final Logger       log          = LogManager.getLogger(PhysicalMachine.class);
     private static Map<Integer, PhysicalMachine> physicalMachines = new HashMap<Integer, PhysicalMachine>();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     * @return the physical machine
+     */
     public static synchronized PhysicalMachine get(Platform platform, String name)
     {
         PhysicalMachine physicalMachine = new PhysicalMachine(platform, name);
@@ -63,6 +72,14 @@ public class PhysicalMachine extends DataSingleton
         PHYSICALMACHINE
     }
 
+    /**
+     * Instantiates a new physical machine.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     */
     private PhysicalMachine(Platform platform, String name)
     {
         this.platform = platform;
@@ -71,80 +88,153 @@ public class PhysicalMachine extends DataSingleton
         files = new HashSet<PhysicalFile>();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return physicalmachinestruct.getName();
     }
 
+    /**
+     * Gets the config netaddress.
+     *
+     * @return the config netaddress
+     */
     public String getConfigNetaddress()
     {
         return physicalmachinestruct.getConfigNetaddress();
     }
 
+    /**
+     * Gets the netaddress.
+     *
+     * @return the netaddress
+     */
     public String getNetaddress()
     {
         return physicalmachinestruct.getNetaddress();
     }
 
+    /**
+     * Gets the directory.
+     *
+     * @return the directory
+     */
     public String getDirectory()
     {
         return physicalmachinestruct.getDirectory();
     }
 
+    /**
+     * Gets the domain.
+     *
+     * @return the domain
+     */
     public String getDomain()
     {
         return physicalmachinestruct.getDomain();
     }
 
+    /**
+     * Gets the os.
+     *
+     * @return the os
+     */
     public int getOS()
     {
         return physicalmachinestruct.getOS();
     }
 
+    /**
+     * Gets the OS code.
+     *
+     * @return the OS code
+     */
     public HPCCEnvOSCode getOSCode()
     {
         return HPCCEnvOSCode.fromCode(physicalmachinestruct.getOS());
     }
 
+    /**
+     * Gets the OS name.
+     *
+     * @return the OS name
+     */
     public String getOSName()
     {
         return HPCCEnvOSCode.fromCode(physicalmachinestruct.getOS()).getName();
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public String getPath()
     {
         return physicalmachinestruct.getPath();
     }
 
+    /**
+     * Gets the file.
+     *
+     * @param name
+     *            the name
+     * @return the file
+     */
     // Files ---
     synchronized PhysicalFile getFile(String name)
     {
         return PhysicalFile.get(platform, name);
     }
 
+    /**
+     * Gets the file.
+     *
+     * @param fileStruct
+     *            the file struct
+     * @return the file
+     */
     PhysicalFile getFile(PhysicalFileStruct fileStruct)
     {
         return PhysicalFile.get(platform, fileStruct);
     }
 
+    /**
+     * Gets the files.
+     *
+     * @return the files
+     */
     public PhysicalFile [] getFiles()
     {
         fullRefresh();
         return files.toArray(new PhysicalFile[0]);
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
@@ -162,6 +252,12 @@ public class PhysicalMachine extends DataSingleton
         notifyObservers(Notification.PHYSICALMACHINE);
     }
 
+    /**
+     * Update.
+     *
+     * @param dzfiles
+     *            the dzfiles
+     */
     // Updates ---
     private void update(List<PhysicalFileStructWrapper> dzfiles)
     {
@@ -177,6 +273,12 @@ public class PhysicalMachine extends DataSingleton
          }
     }
 
+    /**
+     * Update.
+     *
+     * @param tpmachinestruct
+     *            the tpmachinestruct
+     */
     public void update(TpMachine tpmachinestruct)
     {
         if (physicalmachinestruct.getName().equals(tpmachinestruct.getName()))
@@ -185,11 +287,20 @@ public class PhysicalMachine extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param tpmachinestruct
+     *            the tpmachinestruct
+     */
     public void update(TpMachineWrapper tpmachinestruct)
     {
         update(tpmachinestruct.getRaw());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -208,6 +319,9 @@ public class PhysicalMachine extends DataSingleton
         return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(physicalmachinestruct.getName(), that.physicalmachinestruct.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

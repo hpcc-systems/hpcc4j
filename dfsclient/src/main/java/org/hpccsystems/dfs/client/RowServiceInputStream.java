@@ -18,6 +18,9 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.io.InputStream;
 
 import javax.net.SocketFactory;
@@ -38,8 +41,8 @@ import org.hpccsystems.commons.network.Network;
  */
 public class RowServiceInputStream extends InputStream
 {
-    private boolean                  active;
-    private boolean                  closed;
+    private AtomicBoolean            active = new AtomicBoolean(false);
+    private AtomicBoolean            closed = new AtomicBoolean(false);
     private boolean                  simulateFail;
     private boolean                  forceCursorUse;
     private byte[]                   cursorBin;
@@ -54,52 +57,94 @@ public class RowServiceInputStream extends InputStream
 
     private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
     private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
+    
+    private Thread                   prefetchThread = null;
+    private HpccFileException        prefetchException = null;
+
+    // This Semaphore only has one permit. Calling it a mutex for clarity
+    private final Semaphore          bufferWriteMutex = new Semaphore(1);
 
     private byte[]                   readBuffer;
-    private int                      readBufferLen = 0;
+    private AtomicInteger            readBufferLen = new AtomicInteger(0);
     private int                      readPos = 0;
     private int                      markPos = -1;
     private int                      recordLimit = -1;
 
+    private int                      remainingDataInCurrentRequest = 0;
+
     private Socket                   sock;
-    static int                       DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
+    public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
 
-    public static final Charset      HPCCCharSet                   = Charset.forName("ISO-8859-1");
+    private static final Charset     HPCCCharSet                   = Charset.forName("ISO-8859-1");
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
-    public static final int          MaxReadSizeKB                 = 4096;
+    private static final int         DEFAULT_MAX_READ_SIZE_KB = 4096;
+    private static final int         PREFETCH_SLEEP_MS        = 1;
 
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
+    
+    private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
+    
+    // Buffer compact threshold should always be smaller than buffer prefetch threshold
+    private int bufferPrefetchThresholdKB = DEFAULT_MAX_READ_SIZE_KB/2;
+    private int bufferCompactThresholdKB = DEFAULT_MAX_READ_SIZE_KB/4;
 
     /**
+     * Instantiates a new row service input stream.
+     *
      * @param dp
-     *          The data partition to read
+     *            The data partition to read
      * @param rd
-     *          The data record definition
+     *            The data record definition
      * @param pRd
-     *          Field definition
+     *            Field definition
      * @throws Exception
+     *             the exception
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd) throws Exception
     {
-        this(dp,rd,pRd,DEFAULT_CONNECT_TIMEOUT_MILIS);
+        this(dp, rd, pRd, DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
-    
+
     /**
+     * Instantiates a new row service input stream.
+     *
      * @param dp
-     *         The data partition to read
+     *            The data partition to read
      * @param rd
-     *         The data record definition
+     *            The data record definition
      * @param pRd
-     *         Field definition
+     *            Field definition
      * @param connectTimeout
-     *         Connection timeout
+     *            Connection timeout
      * @throws Exception
+     *             the exception
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout) throws Exception
     {
         this(dp, rd, pRd, connectTimeout, -1);
+    }
+
+    /**
+     * A plain socket connect to a THOR node for remote read.
+     *
+     * @param dp
+     *            the data partition to read
+     * @param rd
+     *            the JSON definition for the read input and output
+     * @param pRd
+     *            the rd
+     * @param connectTimeout
+     *            the connect timeout
+     * @param limit
+     *            the record limit to use for reading the dataset. -1 implies no limit
+     * @throws Exception
+     *             the exception
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit) throws Exception
+    {
+        this(dp, rd, pRd, connectTimeout, limit, true, -1);
     }
 
     /**
@@ -113,11 +158,21 @@ public class RowServiceInputStream extends InputStream
      *            the JSON definition for the read input and output
      * @param limit
      *            the record limit to use for reading the dataset. -1 implies no limit
+     * @param createPrefetchThread 
+     *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB) throws Exception
     {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
+
+        if (maxReadSizeInKB > 0)
+        {
+            this.maxReadSizeKB = maxReadSizeInKB;
+        }
+
+        this.bufferPrefetchThresholdKB = this.maxReadSizeKB/2;
+        this.bufferCompactThresholdKB = this.maxReadSizeKB/4;
 
         this.jsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.recordDefinition).toString();
         this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.projectedRecordDefinition).toString();
@@ -128,35 +183,66 @@ public class RowServiceInputStream extends InputStream
         for (int index = 0; index < copycount; index++)
         {
             String currentCopyLocation = dataPart.getCopyIP(index);
-            if(Network.isLocalAddress(currentCopyLocation))
-                prioritizedCopyIndexes.add(0,index);
+            if (Network.isLocalAddress(currentCopyLocation))
+                prioritizedCopyIndexes.add(0, index);
             else
                 prioritizedCopyIndexes.add(index);
         }
 
-        this.active = false;
-        this.closed = false;
         this.handle = 0;
         this.cursorBin = new byte[0];
         this.simulateFail = false;
-        this.connectTimeout=connectTimeout;
+        this.connectTimeout = connectTimeout;
         this.recordLimit = limit;
-        this.readBuffer = new byte[MaxReadSizeKB*1024*2];
+        this.readBuffer = new byte[this.maxReadSizeKB*1024*2];
+        this.makeActive();
 
-        this.readBlock();
+        if (createPrefetchThread)
+        {
+            RowServiceInputStream rowInputStream = this;
+            Runnable prefetchTask = new Runnable()
+            {
+                RowServiceInputStream inputStream = rowInputStream;
+                public void run()
+                {
+                    while (inputStream.isClosed() == false)
+                    {
+                        // If we don't have room in the buffer to fetch more data sleep
+                        if (inputStream.getRemainingBufferCapacity() <= (inputStream.bufferPrefetchThresholdKB * 1024))
+                        {
+                            try
+                            {
+                                Thread.sleep(PREFETCH_SLEEP_MS);
+                            }
+                            catch(Exception e){}
+                            return;
+                        }
+
+                        inputStream.prefetchData();
+                    }
+                }
+            };
+
+            prefetchThread = new Thread(prefetchTask);
+            prefetchThread.start();
+        }
     }
 
+    /**
+     * Sets the next file part copy.
+     *
+     * @return true, if successful
+     */
     private boolean setNextFilePartCopy()
     {
-        if (filePartCopyIndexPointer + 1 >= prioritizedCopyIndexes.size())
-            return false;
+        if (filePartCopyIndexPointer + 1 >= prioritizedCopyIndexes.size()) return false;
 
         filePartCopyIndexPointer++;
         return true;
     }
 
     /**
-     * The SSL usage on the DAFILESRV side
+     * The SSL usage on the DAFILESRV side.
      *
      * @return use ssl flag
      */
@@ -166,7 +252,7 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * The IP location for the file part's file copy
+     * The IP location for the file part's file copy.
      *
      * @return IP address
      */
@@ -176,7 +262,7 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * The current file part's target copy index
+     * The current file part's target copy index.
      *
      * @return Current filepart copy index (0-indexed)
      */
@@ -186,7 +272,7 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * The port number for the remote read service
+     * The port number for the remote read service.
      *
      * @return port number
      */
@@ -196,7 +282,7 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * The read transaction in JSON format
+     * The read transaction in JSON format.
      *
      * @return read transaction
      */
@@ -206,7 +292,7 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * The request string used with a handle
+     * The request string used with a handle.
      *
      * @return JSON string
      */
@@ -226,11 +312,13 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * Is the read active?
+     * Is the read active?.
+     *
+     * @return true, if is active
      */
     public boolean isActive()
     {
-        return this.active;
+        return this.active.get();
     }
 
     /**
@@ -240,11 +328,11 @@ public class RowServiceInputStream extends InputStream
      */
     public boolean isClosed()
     {
-        return this.closed;
+        return this.closed.get();
     }
 
     /**
-     * Remote read handle for next read
+     * Remote read handle for next read.
      *
      * @return the handle
      */
@@ -284,27 +372,54 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * Read a block of the remote file from a THOR node
+     * Returns remaning capacity in the read buffer.
      *
-     * @param buffer
-     *            Will attempt to reuse the provided buffer. Passing null will allocate a new buffer.
-     * @return the block sent by the node
-     * @throws HpccFileException
-     *             a problem with the read operation
+     * @return the remaining capacity 
      */
-    void readBlock() throws HpccFileException
+    public int getRemainingBufferCapacity()
     {
-        if (this.closed)
+        int totalBufferCapacity = this.readBuffer.length;
+        int currentBufferLen = this.readBufferLen.get();
+        return totalBufferCapacity - currentBufferLen;
+    }
+
+    // Run from prefetch thread only
+    private int startFetch()
+    {
+        if (!this.active.get()) // attempt to the first read
         {
-            return;
+            try
+            {
+                makeActive();
+            }
+            catch (HpccFileException e)
+            {
+                prefetchException = e;
+                try
+                {
+                    close();
+                }
+                catch(Exception ie){}
+                return -1;
+            }
         }
 
-        if (!this.active) // attempt to the first read
+        int len = 0;
+        try
         {
-            makeActive();
+            len = readReplyLen();
+        }
+        catch (HpccFileException e)
+        {
+            prefetchException = e;
+            try
+            {
+                close();
+            }
+            catch(Exception ie){}
+            return -1;
         }
 
-        int len = readReplyLen();
         if (len == 0)
         {
             try
@@ -313,14 +428,20 @@ public class RowServiceInputStream extends InputStream
             }
             catch (IOException e)
             {
-                throw new HpccFileException(e.getMessage());
+                prefetchException = new HpccFileException(e.getMessage());
             }
-            return;
+            return -1;
         }
 
         if (len < 4)
         {
-            throw new HpccFileException("Early data termination, no handle");
+            prefetchException = new HpccFileException("Early data termination, no handle");
+            try
+            {
+                close();
+            }
+            catch(Exception e){}
+            return -1;
         }
 
         try
@@ -328,29 +449,60 @@ public class RowServiceInputStream extends InputStream
             this.handle = dis.readInt();
             if (this.handle == 0)
             {
-                len = retryWithCursor();
+                try
+                {
+                    len = retryWithCursor();
+                }
+                catch (HpccFileException e)
+                {
+                    prefetchException = e;
+                    try
+                    {
+                        close();
+                    }
+                    catch(Exception ie){}
+                    return -1;
+                }
+
                 if (len == 0)
                 {
                     close();
-                    return;
+                    return -1;
                 }
 
                 if (len < 4)
                 {
-                    throw new HpccFileException("Early data termination on retry, no handle");
+                    prefetchException = new HpccFileException("Early data termination, no handle");
+                    try
+                    {
+                        close();
+                    }
+                    catch(Exception e){}
+                    return -1;
                 }
 
                 this.handle = dis.readInt();
                 if (this.handle == 0)
                 {
-                    throw new HpccFileException("Read retry failed");
+                    prefetchException = new HpccFileException("Read retry failed");
+                    try
+                    {
+                        close();
+                    }
+                    catch(Exception e){}
                 }
             }
         }
         catch (IOException e)
         {
-            throw new HpccFileException("Error during read block", e);
+            prefetchException = new HpccFileException("Error during read block", e);
+            try
+            {
+                close();
+            }
+            catch(Exception ie){}
         }
+
         int dataLen = 0;
         try
         {
@@ -358,33 +510,75 @@ public class RowServiceInputStream extends InputStream
             if (dataLen == 0)
             {
                 close();
+                return 0;
+            }
+        }
+        catch (IOException e)
+        {
+            prefetchException = new HpccFileException("Error during read block", e);
+            try
+            {
+                close();
+            }
+            catch(Exception ie){}
+        }
+
+        return dataLen;
+    }
+
+    private void readDataInFetch()
+    {
+        // Loop here while data is being consumed quickly enough
+        while (remainingDataInCurrentRequest > 0)
+        {
+            try
+            {
+                this.bufferWriteMutex.acquire();
+            }
+            catch(Exception e){}
+
+            int totalBufferCapacity = this.readBuffer.length;
+            int currentBufferLen = this.readBufferLen.get();
+            int remainingBufferCapacity = totalBufferCapacity - currentBufferLen;
+
+            remainingBufferCapacity = totalBufferCapacity - currentBufferLen;
+
+            // Read up to available bytes in input stream
+            int bytesToRead = 0;
+            try
+            {
+                bytesToRead = Math.min(remainingBufferCapacity,
+                              Math.min(this.dis.available(),remainingDataInCurrentRequest));
+                dis.readFully(this.readBuffer, currentBufferLen, bytesToRead);
+            }
+            catch (IOException e)
+            {
+                prefetchException = new HpccFileException("Error during read block", e);
+                try
+                {
+                    close();
+                }
+                catch(Exception ie){}
+            }
+
+            // ReadBufferLen should only ever be updated within the mutex so no need to do compare exchange
+            this.readBufferLen.set(currentBufferLen + bytesToRead);
+            remainingDataInCurrentRequest -= bytesToRead;
+
+            bufferWriteMutex.release();
+            
+            // If we don't have enough remove in the buffer return and let the calling prefetch thread handle sleep etc
+            if (remainingDataInCurrentRequest > 0 && this.readBufferLen.get() > (this.bufferPrefetchThresholdKB * 1024))
+            {
                 return;
             }
+        }
+    }
 
-            // Compact the array before reading in new data
-            int remainingBytesInBuffer = this.readBufferLen - this.readPos;
-            this.readBufferLen = remainingBytesInBuffer + dataLen;
-
-            // Expand read buffer if necessary
-            if (this.readBufferLen > this.readBuffer.length) {
-                byte[] newBuffer = new byte[this.readBufferLen];
-                System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
-                this.readBuffer = newBuffer;
-            } else {
-                System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
-            }
-
-            // Update the markPos
-            if (this.markPos >= 0) {
-                this.markPos -= this.readPos;
-            }
-
-            if (dataLen > this.readBuffer.length) {
-                throw new HpccFileException("Error during read block, available data len is larger than read buffer. This should not happen");
-            }
-            dis.readFully(this.readBuffer, remainingBytesInBuffer, dataLen);
-            this.readPos = 0;
-
+    private void finishFetch()
+    {
+        try
+        {
             int cursorLen = dis.readInt();
             if (cursorLen == 0)
             {
@@ -397,12 +591,17 @@ public class RowServiceInputStream extends InputStream
                 this.cursorBin = new byte[cursorLen];
             }
             dis.readFully(this.cursorBin,0,cursorLen);
-
         }
         catch (IOException e)
         {
-            throw new HpccFileException("Error during read block", e);
+            prefetchException = new HpccFileException("Error during read block", e);
+            try
+            {
+                close();
+            }
+            catch(Exception ie){}
         }
+
         if (this.simulateFail) this.handle = -1;
         String readAheadTrans = (this.forceCursorUse) ? this.getCursorTrans() : this.getHandleTrans();
         try
@@ -414,22 +613,100 @@ public class RowServiceInputStream extends InputStream
         }
         catch (IOException e)
         {
-            throw new HpccFileException("Failure sending read ahead transaction", e);
+            prefetchException = new HpccFileException("Failure sending read ahead transaction", e);
+            try
+            {
+                close();
+            }
+            catch(Exception ie){}
         }
-
-        return;
     }
 
+    public void prefetchData()
+    {
+        // If we haven't finished reading the current request continue reading it
+        if (remainingDataInCurrentRequest > 0) 
+        {
+            readDataInFetch();
+            if (remainingDataInCurrentRequest == 0)
+            {
+                finishFetch();
+            }
+        }
+        // Otherwise start a new request
+        else
+        {
+            remainingDataInCurrentRequest = startFetch();
+            readDataInFetch();
+            if (remainingDataInCurrentRequest == 0)
+            {
+                finishFetch();
+            }
+        }
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * Move unread data to front of buffer to make room for more data.
+     */
+    private void compactBuffer()
+    {
+        if (this.readPos >= this.bufferCompactThresholdKB * 1024)
+        {
+            try
+            {
+                this.bufferWriteMutex.acquire();
+            }
+            catch(Exception e){}
+
+            int remainingBytesInBuffer = this.readBufferLen.get() - this.readPos;
+            this.readBufferLen.set(remainingBytesInBuffer);
+
+            System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
+
+            // Update the markPos
+            if (this.markPos >= 0)
+            {
+                this.markPos -= this.readPos;
+            }
+            this.readPos = 0;
+
+            this.bufferWriteMutex.release();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#available()
+     */   
     public int available() throws IOException
     {
-        return this.readBufferLen - this.readPos;
+        return this.readBufferLen.get() - this.readPos;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#close()
+     */
     public void close() throws IOException
     {
-        if (this.closed == false)
+        // Using getAndSet to prevent main thread and background thread from 
+        // closing at the same time
+        if (this.closed.getAndSet(true) == false)
         {
-            this.closed = true;
+            // If close was not called from the prefetch thread wait for it to finish
+            if (this.prefetchThread != null && Thread.currentThread() != this.prefetchThread)
+            {
+                try
+                {
+                    this.prefetchThread.join();
+                }
+                catch(Exception e){}
+            }
+
             this.dos.close();
             this.dis.close();
             this.sock.close();
@@ -439,16 +716,28 @@ public class RowServiceInputStream extends InputStream
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#mark(int)
+     */
     public void mark(int readLimit)
     {
-        // Check to see if we can handle this readLimit with the current buffer / readPos
         int availableReadCapacity = this.readBuffer.length - this.readPos;
+
+        // Check to see if we can handle this readLimit with the current buffer / readPos
         if (availableReadCapacity < readLimit)
         {
+            try
+            {
+                this.bufferWriteMutex.acquire();
+            }
+            catch(Exception e){}
+
             // Check to see if compaction will work
+            int remainingBytesInBuffer = this.readBufferLen.get() - this.readPos;
             if (this.readBuffer.length > readLimit)
             {
-                int remainingBytesInBuffer = this.readBufferLen - this.readPos;
                 System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
                 this.readPos = 0;
             }
@@ -456,73 +745,116 @@ public class RowServiceInputStream extends InputStream
             else
             {
                 byte[] newBuffer = new byte[readLimit];
-                int remainingBytesInBuffer = this.readBufferLen - this.readPos;
                 System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
                 this.readBuffer = newBuffer;
                 this.readPos = 0;
             }
+
+            this.bufferWriteMutex.release();
         }
 
         this.markPos = this.readPos;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#markSupported()
+     */
     public boolean markSupported()
     {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#read()
+     */
     // Returns next byte [0-255] -1 on EOS
     public int read() throws IOException
     {
-        boolean onLastByteOfBuffer = this.readPos == this.readBufferLen;
-        if (onLastByteOfBuffer) {
-            try {
-                this.readBlock();
-            } catch (Exception e) {
-                throw new IOException(e.getMessage());
-            }
+        if (this.prefetchException != null)
+        {
+            throw new IOException(this.prefetchException.getMessage());
         }
+        
+        // We are waiting on a single byte so hot loop
+        while (this.available() < 1 && this.closed.get() == false) {}
 
-        if (this.available() < 1) {
+        if (this.available() < 1)
+        {
             return -1;
         }
 
-        int ret = this.readBuffer[this.readPos];
+        // Java byte range [-128,127] 
+        int ret = this.readBuffer[this.readPos] + 128;
         this.readPos++;
+        compactBuffer();
+
         return ret;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#read(byte[])
+     */
     // Returns -1 on EOS
     public int read(byte[] b) throws IOException
     {
-        return read(b,0,b.length);
+        return read(b, 0, b.length);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#read(byte[], int, int)
+     */
     // Returns -1 on EOS
     public int read(byte[] b, int off, int len) throws IOException
     {
-        boolean needMoreData = (this.readPos + len) >= this.readBufferLen;
-        if (needMoreData) {
-            try {
-                this.readBlock();
-            } catch (Exception e) {
-                throw new IOException(e.getMessage());
-            }
+        if (this.prefetchException != null)
+        {
+            throw new IOException(this.prefetchException.getMessage());
         }
 
-        if (this.available() < len) {
+        
+        int available = this.available();
+        if (this.closed.get() && available == 0)
+        {
             return -1;
         }
 
-        System.arraycopy(this.readBuffer,this.readPos,b,off,len);
-        this.readPos += len;
-        return len;
+        int bytesToRead = len;
+        if (bytesToRead > available)
+        {
+            bytesToRead = available;
+        }
+
+        System.arraycopy(this.readBuffer,this.readPos,b,off,bytesToRead);
+        this.readPos += bytesToRead;
+
+        compactBuffer();
+
+        return bytesToRead;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#reset()
+     */
     public void reset() throws IOException
     {
-        if (this.markPos < 0) {
-            throw new IOException("Unable to reset to marked position."
+        if (this.prefetchException != null)
+        {
+            throw new IOException(this.prefetchException.getMessage());
+        }
+
+        if (this.markPos < 0)
+        {
+            throw new IOException("Unable to reset to marked position. "
                     + "Either a mark has not been set or the reset length exceeds internal buffer length.");
         }
 
@@ -530,48 +862,53 @@ public class RowServiceInputStream extends InputStream
         this.markPos = -1;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.io.InputStream#skip(long)
+     */
     public long skip(long n) throws IOException
     {
+        if (this.prefetchException != null)
+        {
+            throw new IOException(this.prefetchException.getMessage());
+        }
+
         // Have to read the data if we need to skip
         long remainingBytesToSkip = n;
-        while (remainingBytesToSkip > 0) {
-            if (this.available() == 0 && this.closed) {
+        while (remainingBytesToSkip > 0)
+        {
+            boolean isClosed = this.closed.get();
+            int available = this.available();
+            if (available == 0 && isClosed)
+            {
                 break;
             }
 
-            long bytesToSkip = remainingBytesToSkip;
-            if (bytesToSkip > MaxReadSizeKB * 1024) {
-                bytesToSkip = MaxReadSizeKB * 1024;
-            }
-
-            boolean needMoreData = (this.readPos + bytesToSkip) >= this.readBufferLen;
-            if (needMoreData) {
-                try {
-                    this.readBlock();
-                } catch (Exception e) {
-                    throw new IOException(e.getMessage());
-                }
-            }
-
-            if (bytesToSkip > this.readBufferLen) {
-                bytesToSkip = this.readBufferLen;
+            int bytesToSkip = (int) remainingBytesToSkip;
+            if (bytesToSkip > available)
+            {
+                bytesToSkip = available; 
             }
 
             this.readPos += bytesToSkip;
             remainingBytesToSkip -= bytesToSkip;
+            
+            compactBuffer();
         }
 
         return (n - remainingBytesToSkip);
     }
 
     /**
-     * Open client socket to the primary and open the streams
+     * Open client socket to the primary and open the streams.
      *
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     private void makeActive() throws HpccFileException
     {
-        this.active = false;
+        this.active.set(false);
         this.handle = 0;
         this.cursorBin = new byte[0];
 
@@ -579,7 +916,8 @@ public class RowServiceInputStream extends InputStream
         {
             try
             {
-                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'");
+                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '"
+                        + getIP() + "'");
 
                 try
                 {
@@ -598,8 +936,7 @@ public class RowServiceInputStream extends InputStream
                         log.debug("Attempting SSL handshake...");
                         ((SSLSocket) sock).startHandshake();
                         log.debug("SSL handshake successful...");
-                        log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = "
-                                + sock.getPort());
+                        log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
                     }
                     else
                     {
@@ -633,7 +970,8 @@ public class RowServiceInputStream extends InputStream
                 {
                     throw new HpccFileException("Failed to create streams", e);
                 }
-                this.active = true;
+
+                this.active.set(true);
                 try
                 {
                     String readTrans = makeInitialRequest();
@@ -650,7 +988,8 @@ public class RowServiceInputStream extends InputStream
             }
             catch (Exception e)
             {
-                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'");
+                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP()
+                        + "'");
                 log.error(e.getMessage());
 
                 if (!setNextFilePartCopy())
@@ -667,11 +1006,10 @@ public class RowServiceInputStream extends InputStream
      */
     private String makeInitialRequest()
     {
-
         StringBuilder sb = new StringBuilder(2048);
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\", \n");
-        sb.append("\"replyLimit\" : " + RowServiceInputStream.MaxReadSizeKB + ",\n");
+        sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
         sb.append(makeNodeObject());
         sb.append("\n}\n");
 
@@ -679,14 +1017,13 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * Make the node part of the JSON request string
+     * Make the node part of the JSON request string.
      *
      * @return Json
      */
     private String makeNodeObject()
     {
-        StringBuilder sb = new StringBuilder(
-                50 + jsonRecordDefinition.length() + projectedJsonRecordDefinition.length());
+        StringBuilder sb = new StringBuilder(50 + jsonRecordDefinition.length() + projectedJsonRecordDefinition.length());
         sb.append(" \"node\" : {\n ");
 
         DataPartition.FileType fileType = this.dataPart.getFileType();
@@ -743,13 +1080,18 @@ public class RowServiceInputStream extends InputStream
         return sb.toString();
     }
 
+    /**
+     * Make cursor request.
+     *
+     * @return the string
+     */
     private String makeCursorRequest()
     {
-        StringBuilder sb = new StringBuilder(130 + this.jsonRecordDefinition.length()
-                + this.projectedJsonRecordDefinition.length() + (int) (this.cursorBin.length * 1.4));
+        StringBuilder sb = new StringBuilder(
+                130 + this.jsonRecordDefinition.length() + this.projectedJsonRecordDefinition.length() + (int) (this.cursorBin.length * 1.4));
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
-        sb.append("\"replyLimit\" : " + RowServiceInputStream.MaxReadSizeKB + ",\n");
+        sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
         sb.append(makeNodeObject());
         sb.append(",\n");
         sb.append("  \"cursorBin\" : \"");
@@ -763,6 +1105,7 @@ public class RowServiceInputStream extends InputStream
      *
      * @return length of the reply less failure indicator
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     private int readReplyLen() throws HpccFileException
     {
@@ -826,6 +1169,7 @@ public class RowServiceInputStream extends InputStream
      *
      * @return the length pf the reply less failure indication
      * @throws HpccFileException
+     *             the hpcc file exception
      */
     private int retryWithCursor() throws HpccFileException
     {

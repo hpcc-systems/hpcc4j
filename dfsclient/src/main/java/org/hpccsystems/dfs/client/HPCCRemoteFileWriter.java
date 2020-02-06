@@ -35,16 +35,18 @@ public class HPCCRemoteFileWriter<T>
     private long                   recordsWritten     = 0;
 
     /**
-     * A remote file writer
+     * A remote file writer.
      *
      * @param dp
      *            the part of the file, name and location
-     * @param originalRD
-     *            the record defintion for the dataset
-     * @param recBuilder
-     *            the IRecordBuilder used to construct records
-     * @param projectedRD
-     *            the requested record format
+     * @param recordDef
+     *            the record def
+     * @param recordAccessor
+     *            the record accessor
+     * @param fileCompression
+     *            the file compression
+     * @throws Exception
+     *             the exception
      */
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression)
             throws Exception
@@ -62,12 +64,28 @@ public class HPCCRemoteFileWriter<T>
         this.binaryRecordWriter.initialize(this.recordAccessor);
     }
 
+    /**
+     * Write record.
+     *
+     * @param record
+     *            the record
+     * @throws Exception
+     *             the exception
+     */
     public void writeRecord(T record) throws Exception
     {
         this.binaryRecordWriter.writeRecord(record);
         this.recordsWritten++;
     }
 
+    /**
+     * Write records.
+     *
+     * @param it
+     *            the it
+     * @throws Exception
+     *             the exception
+     */
     public void writeRecords(Iterator<T> it) throws Exception
     {
         while (it.hasNext())
@@ -77,46 +95,66 @@ public class HPCCRemoteFileWriter<T>
         }
     }
 
+    /**
+     * Close.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void close() throws Exception
     {
         this.binaryRecordWriter.finalize();
     }
 
+    /**
+     * Gets the bytes written.
+     *
+     * @return the bytes written
+     */
     public long getBytesWritten()
     {
         return this.binaryRecordWriter.getTotalBytesWritten();
     }
 
+    /**
+     * Gets the records written.
+     *
+     * @return the records written
+     */
     public long getRecordsWritten()
     {
         return recordsWritten;
     }
 
     /**
-    * flush
-    * Flush buffered data from IRecordWriter. This is a blocking operation.
-    * @throws Exception
-    */
+     * flush
+     * Flush buffered data from IRecordWriter. This is a blocking operation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void flush() throws Exception
     {
         this.binaryRecordWriter.flush();
     }
 
     /**
-    * getBufferCapacity
-    * Returns the IRecordWriter internal buffer capacity
-    * @return
-    */
+     * getBufferCapacity
+     * Returns the IRecordWriter internal buffer capacity.
+     *
+     * @return the buffer capacity
+     */
     public int getBufferCapacity()
     {
         return this.binaryRecordWriter.getBufferCapacity();
     }
 
     /**
-    * getRemainingBufferCapacity
-    * Returns the IRecordWriter remaining buffer capacity
-    * @return
-    */
+     * getRemainingBufferCapacity
+     * Returns the IRecordWriter remaining buffer capacity.
+     *
+     * @return the remaining buffer capacity
+     */
     public int getRemainingBufferCapacity()
     {
         return this.binaryRecordWriter.getRemainingBufferCapacity();

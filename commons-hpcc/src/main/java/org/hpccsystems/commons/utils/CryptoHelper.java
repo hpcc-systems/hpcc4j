@@ -23,7 +23,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -32,24 +31,35 @@ import org.apache.logging.log4j.LogManager;
 
 public class CryptoHelper
 {
-    private final static Logger log = LogManager.getLogger(CryptoHelper.class);
+    private final static Logger             log                         = LogManager.getLogger(CryptoHelper.class);
 
-    public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM = DigestAlgorithmType.SHA512;
-    public final static String DEFAULT_SECRETKEY_ALGORITHM = "AES";
-    public final static int DEFAULT_AES_SECRETKEY_LEN = 16;
-    public final static String DEFAULT_CIPHER_MODE = "AES/ECB/PKCS5PADDING";
+    public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM    = DigestAlgorithmType.SHA512;
+    public final static String              DEFAULT_SECRETKEY_ALGORITHM = "AES";
+    public final static int                 DEFAULT_AES_SECRETKEY_LEN   = 16;
+    public final static String              DEFAULT_CIPHER_MODE         = "AES/ECB/PKCS5PADDING";
 
+    /**
+     * Creates the SHA 512 AES secret key.
+     *
+     * @param digestInput
+     *            the digest input
+     * @return the secret key spec
+     */
     public static SecretKeySpec createSHA512AESSecretKey(String digestInput)
     {
         return createSecretKey(digestInput, DEFAULT_DIGEST_ALGORITHM, DEFAULT_SECRETKEY_ALGORITHM);
     }
 
     /**
+     * Creates the secret key.
      *
      * @param utf8DigestInput
-     * @param digestAlgorithm  DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
+     *            the utf 8 digest input
+     * @param digestAlgorithm
+     *            DigestAlgorithmType enumeration MD2 | MD5 | SHA-1 | SHA-256 | SHA-384 | SHA-512
      * @param secretKeyAlgorithm
-     * @return
+     *            the secret key algorithm
+     * @return the secret key spec
      */
     public static SecretKeySpec createSecretKey(String utf8DigestInput, DigestAlgorithmType digestAlgorithm, String secretKeyAlgorithm)
     {
@@ -63,7 +73,7 @@ public class CryptoHelper
             int aesKeySize = DEFAULT_AES_SECRETKEY_LEN;
             if (secretKeyAlgorithm.equalsIgnoreCase("AES"))
             {
-                //AES only supports key sizes of 16, 24 or 32 bytes.
+                // AES only supports key sizes of 16, 24 or 32 bytes.
                 switch (digestAlgorithm)
                 {
                     case SHA512:
@@ -97,6 +107,15 @@ public class CryptoHelper
         return secretkey;
     }
 
+    /**
+     * Encrypt.
+     *
+     * @param utf8StrToEncrypt
+     *            the utf 8 str to encrypt
+     * @param cipher
+     *            the cipher
+     * @return the string
+     */
     public static String encrypt(String utf8StrToEncrypt, Cipher cipher)
     {
         try
@@ -117,6 +136,17 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * Creates the default cipher.
+     *
+     * @param secretKey
+     *            the secret key
+     * @param encryptMode
+     *            the encrypt mode
+     * @return the cipher
+     * @throws Exception
+     *             the exception
+     */
     public static Cipher createDefaultCipher(String secretKey, boolean encryptMode) throws Exception
     {
         return createDefaultCipher(createSHA512AESSecretKey(secretKey), encryptMode);
@@ -124,34 +154,39 @@ public class CryptoHelper
 
     /*
      *
-        AES/CBC/NoPadding (128)
-        AES/CBC/PKCS5Padding (128)
-        AES/ECB/NoPadding (128)
-        AES/ECB/PKCS5Padding (128)
-        DES/CBC/NoPadding (56)
-        DES/CBC/PKCS5Padding (56)
-        DES/ECB/NoPadding (56)
-        DES/ECB/PKCS5Padding (56)
-        DESede/CBC/NoPadding (168)
-        DESede/CBC/PKCS5Padding (168)
-        DESede/ECB/NoPadding (168)
-        DESede/ECB/PKCS5Padding (168)
-        RSA/ECB/PKCS1Padding (1024, 2048)
-        RSA/ECB/OAEPWithSHA-1AndMGF1Padding (1024, 2048)
-        RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048)
+     * AES/CBC/NoPadding (128)
+     * AES/CBC/PKCS5Padding (128)
+     * AES/ECB/NoPadding (128)
+     * AES/ECB/PKCS5Padding (128)
+     * DES/CBC/NoPadding (56)
+     * DES/CBC/PKCS5Padding (56)
+     * DES/ECB/NoPadding (56)
+     * DES/ECB/PKCS5Padding (56)
+     * DESede/CBC/NoPadding (168)
+     * DESede/CBC/PKCS5Padding (168)
+     * DESede/ECB/NoPadding (168)
+     * DESede/ECB/PKCS5Padding (168)
+     * RSA/ECB/PKCS1Padding (1024, 2048)
+     * RSA/ECB/OAEPWithSHA-1AndMGF1Padding (1024, 2048)
+     * RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048)
      */
 
     /**
-     * @param secretKey       The key to use for encrypting/decrypting
-     * @param cipherAlgorithm AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
-     * @param encryptMode     true=encrypt, false=decrypt
-     * @return
+     * Creates the cipher.
+     *
+     * @param secretKey
+     *            The key to use for encrypting/decrypting
+     * @param cipherAlgorithm
+     *            AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
+     * @param encryptMode
+     *            true=encrypt, false=decrypt
+     * @return the cipher
      * @throws Exception
+     *             the exception
      */
     public static Cipher createCipher(SecretKeySpec secretKey, String cipherAlgorithm, boolean encryptMode) throws Exception
     {
-        if (secretKey == null)
-            throw new Exception("Must provide SecretKeySpec");
+        if (secretKey == null) throw new Exception("Must provide SecretKeySpec");
 
         if (cipherAlgorithm == null || cipherAlgorithm.isEmpty())
             throw new Exception("Must provide cipher algorithm (AES, AES/CBC/PKCS5Padding, etc.");
@@ -161,16 +196,45 @@ public class CryptoHelper
         return cipher;
     }
 
+    /**
+     * Creates the default cipher.
+     *
+     * @param secretKey
+     *            the secret key
+     * @param encryptMode
+     *            the encrypt mode
+     * @return the cipher
+     * @throws Exception
+     *             the exception
+     */
     public static Cipher createDefaultCipher(SecretKeySpec secretKey, boolean encryptMode) throws Exception
     {
         return createCipher(secretKey, DEFAULT_CIPHER_MODE, encryptMode);
     }
 
+    /**
+     * Encrypt SHA 512 AESPKCS 5 pad.
+     *
+     * @param utf8StrToEncrypt
+     *            the utf 8 str to encrypt
+     * @param digestInput
+     *            the digest input
+     * @return the string
+     */
     public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, String digestInput)
     {
         return encryptSHA512AESPKCS5Pad(utf8StrToEncrypt, createSHA512AESSecretKey(digestInput));
     }
 
+    /**
+     * Encrypt SHA 512 AESPKCS 5 pad.
+     *
+     * @param utf8StrToEncrypt
+     *            the utf 8 str to encrypt
+     * @param secretKey
+     *            the secret key
+     * @return the string
+     */
     public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, SecretKeySpec secretKey)
     {
         try
@@ -200,6 +264,15 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * Decrypt.
+     *
+     * @param strToDecrypt
+     *            the str to decrypt
+     * @param cipher
+     *            the cipher
+     * @return the string
+     */
     public static String decrypt(String strToDecrypt, Cipher cipher)
     {
         try
@@ -220,6 +293,15 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * Decrypt.
+     *
+     * @param utf8StrToDecrypt
+     *            the utf 8 str to decrypt
+     * @param secretspec
+     *            the secretspec
+     * @return the string
+     */
     public static String decrypt(String utf8StrToDecrypt, SecretKeySpec secretspec)
     {
         try
@@ -249,6 +331,15 @@ public class CryptoHelper
         return null;
     }
 
+    /**
+     * Decrypt.
+     *
+     * @param value
+     *            the value
+     * @param secretKey
+     *            the secret key
+     * @return the string
+     */
     public static String decrypt(String value, String secretKey)
     {
         return decrypt(value, createSHA512AESSecretKey(secretKey));

@@ -24,14 +24,17 @@ public class UnparsableContentException extends Exception
     private static final long serialVersionUID = 1l;
 
     /**
-     * Empty constructor
+     * Empty constructor.
      */
     public UnparsableContentException()
     {
     }
 
     /**
+     * Instantiates a new unparsable content exception.
+     *
      * @param message
+     *            the message
      */
     public UnparsableContentException(String message)
     {
@@ -39,7 +42,10 @@ public class UnparsableContentException extends Exception
     }
 
     /**
+     * Instantiates a new unparsable content exception.
+     *
      * @param cause
+     *            the cause
      */
     public UnparsableContentException(Throwable cause)
     {
@@ -47,8 +53,12 @@ public class UnparsableContentException extends Exception
     }
 
     /**
+     * Instantiates a new unparsable content exception.
+     *
      * @param message
+     *            the message
      * @param cause
+     *            the cause
      */
     public UnparsableContentException(String message, Throwable cause)
     {
@@ -56,10 +66,16 @@ public class UnparsableContentException extends Exception
     }
 
     /**
+     * Instantiates a new unparsable content exception.
+     *
      * @param message
+     *            the message
      * @param cause
+     *            the cause
      * @param enableSuppression
+     *            the enable suppression
      * @param writableStackTrace
+     *            the writable stack trace
      */
     public UnparsableContentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
     {

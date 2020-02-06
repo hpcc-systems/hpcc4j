@@ -28,8 +28,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,17 +39,23 @@ import org.xml.sax.SAXException;
 
 public class Utils
 {
-    private final static Logger log = LogManager.getLogger(Utils.class);
+    private final static Logger log            = LogManager.getLogger(Utils.class);
 
-    final static char LINUX_SEP =  '/';
-    final static char WIN_SEP =  '\\';
-    final static String ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
+    final static char           LINUX_SEP      = '/';
+    final static char           WIN_SEP        = '\\';
+    final static String         ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
 
-    public enum LogLevel {DEBUG,ERROR,FATAL,INFO,TRACE,WARN};
+    public enum LogLevel
+    {
+        DEBUG, ERROR, FATAL, INFO, TRACE, WARN
+    }
 
     /**
-     * @param wsdlurl - url to web service definition
-     * @return        - version reported as ver_ parameter in url
+     * Parses the version from WSDLURL.
+     *
+     * @param wsdlurl
+     *            - url to web service definition
+     * @return - version reported as ver_ parameter in url
      */
     public static String parseVersionFromWSDLURL(String wsdlurl)
     {
@@ -57,7 +63,7 @@ public class Utils
         {
             String[] pairs = wsdlurl.split("ver_=");
 
-            if(pairs.length > 1)
+            if (pairs.length > 1)
             {
                 return pairs[1];
             }
@@ -66,8 +72,20 @@ public class Utils
         return "";
     }
 
+    /**
+     * Println.
+     *
+     * @param stream
+     *            the stream
+     * @param message
+     *            the message
+     * @param onlyifverbose
+     *            the onlyifverbose
+     * @param verbosemode
+     *            the verbosemode
+     */
     @Deprecated
-    static public void println(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode )
+    static public void println(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode)
     {
         if (onlyifverbose && verbosemode)
             log.warn(message);
@@ -75,6 +93,18 @@ public class Utils
             log.info(message);
     }
 
+    /**
+     * Prints the.
+     *
+     * @param stream
+     *            the stream
+     * @param message
+     *            the message
+     * @param onlyifverbose
+     *            the onlyifverbose
+     * @param verbosemode
+     *            the verbosemode
+     */
     @Deprecated
     static public void print(PrintStream stream, String message, boolean onlyifverbose, boolean verbosemode)
     {
@@ -84,6 +114,14 @@ public class Utils
             log.info(message);
     }
 
+    /**
+     * Log.
+     *
+     * @param message
+     *            the message
+     * @param logLevel
+     *            the log level
+     */
     static public void log(String message, LogLevel logLevel)
     {
         switch (logLevel)
@@ -113,16 +151,18 @@ public class Utils
     }
 
     /**
-     * populates results object (List of Object Lists) based on HPCC result set string
+     * populates results object (List of Object Lists) based on HPCC result set string.
+     *
      * @param results
-     * @return
+     *            the results
+     * @return the list
      */
-    static public List<List <Object>> parseECLResults(String results)
+    static public List<List<Object>> parseECLResults(String results)
     {
         Utils.println(System.out, "Parsing ECL results...", false, false);
         Utils.println(System.out, results, true, false);
 
-        List<List <Object>> resultList = null;
+        List<List<Object>> resultList = null;
         try
         {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -171,8 +211,7 @@ public class Utils
 
                     System.out.println("  Dataset Name: " + eElement.getAttribute("name"));
 
-                    if (resultList == null)
-                        resultList = new ArrayList<List<Object>>();
+                    if (resultList == null) resultList = new ArrayList<List<Object>>();
 
                     NodeList datasetchildnodes = nNode.getChildNodes();
                     for (int rowsindex = 0; rowsindex < datasetchildnodes.getLength(); rowsindex++)
@@ -210,15 +249,31 @@ public class Utils
         return resultList;
     }
 
+    /**
+     * Node to string.
+     *
+     * @param node
+     *            the node
+     * @return the string
+     * @throws TransformerException
+     *             the transformer exception
+     */
     private static String nodeToString(Node node) throws TransformerException
     {
         StringWriter buf = new StringWriter();
         Transformer xform = TransformerFactory.newInstance().newTransformer();
         xform.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         xform.transform(new DOMSource(node), new StreamResult(buf));
-        return(buf.toString());
+        return (buf.toString());
     }
 
+    /**
+     * Extact result schema.
+     *
+     * @param results
+     *            the results
+     * @return the string
+     */
     static public String extactResultSchema(String results)
     {
         Utils.println(System.out, "Parsing ECL results...", false, false);
@@ -266,6 +321,13 @@ public class Utils
         return null;
     }
 
+    /**
+     * Parses the out result schema.
+     *
+     * @param results
+     *            the results
+     * @return the list
+     */
     static public List<List<Object>> parseOutResultSchema(String results)
     {
         Utils.println(System.out, "Parsing ECL results...", false, false);
@@ -282,8 +344,7 @@ public class Utils
             Utils.println(System.out, " Root element: " + doc.getDocumentElement().getNodeName(), false, false);
 
             NodeList exceptionList = doc.getElementsByTagName("Exception");
-            if (exceptionList.getLength() > 0)
-                return null;
+            if (exceptionList.getLength() > 0) return null;
 
             NodeList rowNodeList = doc.getElementsByTagName("Row");
 
@@ -298,8 +359,8 @@ public class Utils
                     List<Object> schemaCol = new ArrayList<Object>();
                     Node rowChild = rowChildNodes.item(rowChildNodeIndex);
 
-                    schemaCol.add(0,rowChild.getNodeName());
-                    schemaCol.add(1,rowChild.getNodeType());
+                    schemaCol.add(0, rowChild.getNodeName());
+                    schemaCol.add(1, rowChild.getNodeType());
 
                     schemaCols.add(rowChildNodeIndex, schemaCol);
                 }
@@ -321,6 +382,13 @@ public class Utils
         return schemaCols;
     }
 
+    /**
+     * Parses the ECL row results to list.
+     *
+     * @param rowelement
+     *            the rowelement
+     * @return the list
+     */
     @SuppressWarnings("unchecked")
     static private List<Object> parseECLRowResultsToList(Element rowelement)
     {
@@ -345,7 +413,7 @@ public class Utils
                         cell = new ArrayList<Object>();
                         for (int subchildindex = 0; subchildindex < length; subchildindex++)
                         {
-                            ((List<Object>)cell).add(parseECLRowResultsToList((Element)childSubNodes.item(subchildindex)));
+                            ((List<Object>) cell).add(parseECLRowResultsToList((Element) childSubNodes.item(subchildindex)));
                         }
                     }
                     else
@@ -365,11 +433,15 @@ public class Utils
     }
 
     /**
-     * Serializes results object List of Object Lists to string in table format
+     * Serializes results object List of Object Lists to string in table format.
+     *
      * @param resultlist
+     *            the resultlist
      * @param celldelimiter
+     *            the celldelimiter
      * @param rowdelimiter
-     * @return
+     *            the rowdelimiter
+     * @return the string
      */
     @SuppressWarnings("unchecked")
     static public String eclResultsToString(List<List<Object>> resultlist, String celldelimiter, String rowdelimiter)
@@ -382,31 +454,31 @@ public class Utils
             Object row = resultlist.get(rowindex);
             if (row != null)
             {
-                int rowlength = ((List<Object>)row).size();
+                int rowlength = ((List<Object>) row).size();
                 for (int cellindex = 0; cellindex < rowlength; cellindex++)
                 {
-                    Object cell = ((List<Object>)row).get(cellindex);
+                    Object cell = ((List<Object>) row).get(cellindex);
                     if (cell != null)
                     {
                         if (cell instanceof String)
                         {
-                            resultstr.append((String)cell);
+                            resultstr.append((String) cell);
                         }
-                        else if ( cell instanceof List<?>)
+                        else if (cell instanceof List<?>)
                         {
                             resultstr.append("[ ");
 
-                            for (Object subcell : (List<Object>)cell)
+                            for (Object subcell : (List<Object>) cell)
                             {
                                 if (subcell != null)
                                 {
                                     if (subcell instanceof String)
                                     {
-                                        resultstr.append((String)subcell);
+                                        resultstr.append((String) subcell);
                                     }
                                     else if (subcell instanceof List<?>)
                                     {
-                                        resultstr.append(eclResultsToString((List<List<Object>>)cell, celldelimiter, " | "));
+                                        resultstr.append(eclResultsToString((List<List<Object>>) cell, celldelimiter, " | "));
                                     }
                                 }
                                 else
@@ -422,31 +494,33 @@ public class Utils
                         resultstr.append("NULL");
                     }
 
-                    if (cellindex < rowlength - 1)
-                        resultstr.append(celldelimiter);
+                    if (cellindex < rowlength - 1) resultstr.append(celldelimiter);
                 }
             }
 
-            if (rowindex < rowscount - 1)
-                resultstr.append(rowdelimiter);
+            if (rowindex < rowscount - 1) resultstr.append(rowdelimiter);
         }
 
         return resultstr.toString();
     }
 
-    private static final byte[] NEWLINE = "\r\n".getBytes();
-    private static final byte[] PREFIX = "--".getBytes();
+    private static final byte[] NEWLINE       = "\r\n".getBytes();
+    private static final byte[] PREFIX        = "--".getBytes();
     private static final String BOUNDRYPREFIX = "--------------------";
 
     /**
      * Writes an char field value.
      *
+     * @param out
+     *            the out
+     * @param boundary
+     *            the boundary
      * @param name
      *            the field name (required)
      * @param value
      *            the field value
-     * @throws java.io.IOException
-     *             on input/output errors
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void writeField(OutputStream out, String boundary, String name, char value) throws java.io.IOException
     {
@@ -457,12 +531,16 @@ public class Utils
      * Writes an string field value. If the value is null, an empty string is
      * sent ("").
      *
+     * @param out
+     *            the out
+     * @param boundary
+     *            the boundary
      * @param name
      *            the field name (required)
      * @param value
      *            the field value
-     * @throws java.io.IOException
-     *             on input/output errors
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void writeField(OutputStream out, String boundary, String name, String value) throws java.io.IOException
     {
@@ -489,12 +567,18 @@ public class Utils
     }
 
     /**
-     * Writes outputstream to file in local file system
+     * Writes outputstream to file in local file system.
+     *
      * @param out
+     *            the out
      * @param name
+     *            the name
      * @param mimeType
+     *            the mime type
      * @param file
-     * @throws java.io.IOException
+     *            the file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void writeFile(OutputStream out, String name, String mimeType, File file) throws java.io.IOException
     {
@@ -517,8 +601,23 @@ public class Utils
     /**
      * Writes a input stream's contents. If the input stream is null, a
      * <code>java.lang.IllegalArgumentException</code> will be thrown.
+     *
+     * @param out
+     *            the out
+     * @param boundary
+     *            the boundary
+     * @param name
+     *            the name
+     * @param mimeType
+     *            the mime type
+     * @param fileName
+     *            the file name
+     * @param is
+     *            the is
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
-    public void writeFile(OutputStream out, String boundary, String name, String mimeType, String fileName, InputStream is)    throws java.io.IOException
+    public void writeFile(OutputStream out, String boundary, String name, String mimeType, String fileName, InputStream is) throws java.io.IOException
     {
         if (is == null)
         {
@@ -538,7 +637,7 @@ public class Utils
         out.write(boundary.getBytes());
         out.write(NEWLINE);
         // write content header
-        out.write(("Content-Disposition: form-data; name=\"" + name + "\"; filename=\""+ fileName + "\"").getBytes());
+        out.write(("Content-Disposition: form-data; name=\"" + name + "\"; filename=\"" + fileName + "\"").getBytes());
         out.write(NEWLINE);
         if (mimeType != null)
         {
@@ -559,8 +658,7 @@ public class Utils
             is.close();
         }
         catch (Exception e)
-        {
-        }
+        {}
         out.write(NEWLINE);
         out.flush();
     }
@@ -568,8 +666,21 @@ public class Utils
     /**
      * Writes the given bytes. The bytes are assumed to be the contents of a
      * file, and will be sent as such.
+     *
+     * @param out
+     *            the out
+     * @param boundary
+     *            the boundary
+     * @param mimeType
+     *            the mime type
+     * @param fileName
+     *            the file name
+     * @param data
+     *            the data
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
-    static public void writeFile(OutputStream out, String boundary, String mimeType, String fileName, byte[] data)    throws java.io.IOException
+    static public void writeFile(OutputStream out, String boundary, String mimeType, String fileName, byte[] data) throws java.io.IOException
     {
         if (out == null)
         {
@@ -589,29 +700,49 @@ public class Utils
         closeMulti(out, boundary);
     }
 
+    /**
+     * Start multi.
+     *
+     * @param out
+     *            the out
+     * @param filename
+     *            the filename
+     * @param boundary
+     *            the boundary
+     * @param mimeType
+     *            the mime type
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     static public void startMulti(OutputStream out, String filename, String boundary, String mimeType) throws IOException
     {
         out.write(Utils.PREFIX);
         out.write(boundary.getBytes());
         out.write(Utils.NEWLINE);
 
-        //output.write(("Content-Disposition: form-data; name=\"machine\" 10.0.2.15").getBytes());
-        //output.write(NEWLINE.getBytes());
-        //output.write(boundary.getBytes());
-        //output.write(NEWLINE.getBytes());
+        // output.write(("Content-Disposition: form-data; name=\"machine\" 10.0.2.15").getBytes());
+        // output.write(NEWLINE.getBytes());
+        // output.write(boundary.getBytes());
+        // output.write(NEWLINE.getBytes());
 
-        out.write(("Content-Disposition: form-data; name=\"FilesToUpload\"; filename=\""    + filename + "\"").getBytes());
+        out.write(("Content-Disposition: form-data; name=\"FilesToUpload\"; filename=\"" + filename + "\"").getBytes());
         out.write(NEWLINE);
 
-        if (mimeType == null)
-            mimeType = "application/octet-stream";
+        if (mimeType == null) mimeType = "application/octet-stream";
         out.write(("Content-Type: " + mimeType).getBytes());
         out.write(NEWLINE);
         out.write(NEWLINE);
     }
 
     /**
-     * Finishes multipart and closes stream
+     * Finishes multipart and closes stream.
+     *
+     * @param out
+     *            the out
+     * @param boundary
+     *            the boundary
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     static public void closeMulti(OutputStream out, String boundary) throws java.io.IOException
     {
@@ -631,6 +762,11 @@ public class Utils
      * <code>useCaches</code> and <code>defaultUseCaches</code> fields to
      * the appropriate settings in the correct order.
      *
+     * @param url
+     *            the url
+     * @return the URL connection
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static URLConnection createConnection(URL url) throws java.io.IOException
     {
@@ -638,7 +774,7 @@ public class Utils
         URLConnection urlConn = url.openConnection();
         if (urlConn instanceof HttpURLConnection)
         {
-            HttpURLConnection httpConn = (HttpURLConnection)urlConn;
+            HttpURLConnection httpConn = (HttpURLConnection) urlConn;
             httpConn.setRequestMethod("POST");
         }
         urlConn.setDoOutput(true);
@@ -654,21 +790,19 @@ public class Utils
     }
 
     /**
-     *  creates a Multipart boundry based on current time
+     * creates a Multipart boundry based on current time.
      *
+     * @return the string
      */
     public static String createBoundary()
     {
         return BOUNDRYPREFIX + Long.toString(System.currentTimeMillis(), 16);
     }
 
-      public enum OSType
-      {
-            Windows,
-            MacOS,
-            Linux,
-            Other
-      };
+    public enum OSType
+    {
+        Windows, MacOS, Linux, Other
+    }
 
     /**
      * HPCC Environment OS codes as defined in
@@ -676,14 +810,25 @@ public class Utils
      */
     public enum HPCCEnvOSCode
     {
-        MachineOsW2K(0),
-        MachineOsSolaris(1),
-        MachineOsLinux(2),
-        MachineOsUnknown(3);
+        MachineOsW2K (
+                0
+        ), MachineOsSolaris (
+                1
+        ), MachineOsLinux (
+                2
+        ), MachineOsUnknown (
+                3
+        );
 
-        private int code;
+        private int    code;
         private String name;
 
+        /**
+         * Instantiates a new HPCC env OS code.
+         *
+         * @param code
+         *            the code
+         */
         HPCCEnvOSCode(int code)
         {
             this.code = code;
@@ -705,6 +850,13 @@ public class Utils
             }
         }
 
+        /**
+         * From name.
+         *
+         * @param name
+         *            the name
+         * @return the HPCC env OS code
+         */
         public HPCCEnvOSCode fromName(String name)
         {
             if (name == null || name.length() == 0)
@@ -719,6 +871,13 @@ public class Utils
                 return MachineOsUnknown;
         }
 
+        /**
+         * From code.
+         *
+         * @param code
+         *            the code
+         * @return the HPCC env OS code
+         */
         static public HPCCEnvOSCode fromCode(int code)
         {
             switch (code)
@@ -735,11 +894,21 @@ public class Utils
             }
         }
 
+        /**
+         * Gets the code.
+         *
+         * @return the code
+         */
         public int getCode()
         {
             return code;
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName()
         {
             return name;
@@ -748,12 +917,12 @@ public class Utils
 
     protected static OSType detectedOS;
 
-     /**
-       * detect the operating system from the os.name System property and cache
-       * the result
-       *
-       * @returns - the operating system detected
-       */
+    /**
+     * detect the operating system from the os.name System property and cache
+     * the result
+     *
+     * @return the operating system type
+     */
     public static OSType getOperatingSystemType()
     {
         if (detectedOS == null)
@@ -779,48 +948,57 @@ public class Utils
         return detectedOS;
     }
 
-      public static boolean currentOSisLinux()
-      {
-          return getOperatingSystemType() == OSType.Linux;
-      }
+    /**
+     * Current O sis linux.
+     *
+     * @return true, if successful
+     */
+    public static boolean currentOSisLinux()
+    {
+        return getOperatingSystemType() == OSType.Linux;
+    }
 
-      /**
-      * Attempts to map a string value to an enum value of
-      * a given enum class.
-      *
-      * Iterates through all enum values of given enum class,
-      * and compares to given string.
-      * Returns enum value if it finds match, otherwise throws Exception
-      *
-      * @param enumclass reference to target enumaration
-      * @param strvalue string value to be mapped to enum value
-      *
-      * @return The corresponding enum value if found
-      *
-      * @throws IllegalArgumentException if strvalue cannot be mapped to
-      * given enum
-      *
-      **/
-      public static <T extends Enum<T>> T findEnumValFromString(Class<T> enumclass, String strvalue)
-      {
-          for(Enum enumValue : enumclass.getEnumConstants())
-          {
-              if(enumValue.name().equalsIgnoreCase(strvalue))
-              {
-                  return (T) enumValue;
-              }
-          }
-          throw new IllegalArgumentException(enumclass.getName() +".'" + strvalue + "' is not valid.");
-      }
+    /**
+     * Attempts to map a string value to an enum value of
+     * a given enum class.
+     * 
+     * Iterates through all enum values of given enum class,
+     * and compares to given string.
+     * Returns enum value if it finds match, otherwise throws Exception
+     *
+     * @param <T>
+     *            the generic type
+     * @param enumclass
+     *            reference to target enumaration
+     * @param strvalue
+     *            string value to be mapped to enum value
+     * @return The corresponding enum value if found
+     * @throws IllegalArgumentException
+     *             if strvalue cannot be mapped to
+     *             given enum
+     */
+    public static <T extends Enum<T>> T findEnumValFromString(Class<T> enumclass, String strvalue)
+    {
+        for (Enum enumValue : enumclass.getEnumConstants())
+        {
+            if (enumValue.name().equalsIgnoreCase(strvalue))
+            {
+                return (T) enumValue;
+            }
+        }
+        throw new IllegalArgumentException(enumclass.getName() + ".'" + strvalue + "' is not valid.");
+    }
 
-
-     /**
-     * @param date - java date to convert to string
+    /**
+     * Date to UTC string.
+     *
+     * @param date
+     *            - java date to convert to string
      * @return UTC String for querying esp services in format yyyy-mm-ddThh:MM:ssZ
      */
     public static String dateToUTCString(Date date)
     {
-        if (date==null)
+        if (date == null)
         {
             return null;
         }
@@ -829,13 +1007,17 @@ public class Utils
     }
 
     /**
-     * @param utc - String in yyyy-mm-ddThh:MM:ssZ format
+     * UTC string to date.
+     *
+     * @param utc
+     *            - String in yyyy-mm-ddThh:MM:ssZ format
      * @return Date equivalent to string
      * @throws ParseException
+     *             the parse exception
      */
     public static Date UTCStringToDate(String utc) throws ParseException
     {
-        if (utc==null)
+        if (utc == null)
         {
             return null;
         }

@@ -12,8 +12,17 @@ public class ThorLogInfoWrapper
 
     private Integer numberSlaves;
 
+    /**
+     * Instantiates a new thor log info wrapper.
+     */
     public ThorLogInfoWrapper() {}
 
+    /**
+     * Instantiates a new thor log info wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ThorLogInfoWrapper(ThorLogInfo raw)
     {
         if (raw==null)
@@ -27,6 +36,12 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
+    /**
+     * Instantiates a new thor log info wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ThorLogInfo raw)
     {
         if (raw==null)
@@ -40,6 +55,12 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
+    /**
+     * Instantiates a new thor log info wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ThorLogInfo raw)
     {
         if (raw==null)
@@ -53,6 +74,12 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
+    /**
+     * Instantiates a new thor log info wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ThorLogInfo raw)
     {
         if (raw==null)
@@ -66,6 +93,12 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
+    /**
+     * Instantiates a new thor log info wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ThorLogInfo raw)
     {
         if (raw==null)
@@ -79,11 +112,21 @@ public class ThorLogInfoWrapper
         this.setProcessName(raw.getProcessName());
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo getRaw()
     {
         return this.getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo raw =
@@ -97,6 +140,8 @@ public class ThorLogInfoWrapper
     }
 
     /**
+     * Gets the process name.
+     *
      * @return the processName
      */
     public String getProcessName()
@@ -105,7 +150,10 @@ public class ThorLogInfoWrapper
     }
 
     /**
-     * @param processName the processName to set
+     * Sets the process name.
+     *
+     * @param processName
+     *            the processName to set
      */
     public void setProcessName(String processName)
     {
@@ -113,6 +161,8 @@ public class ThorLogInfoWrapper
     }
 
     /**
+     * Gets the cluster group.
+     *
      * @return the clusterGroup
      */
     public String getClusterGroup()
@@ -121,7 +171,10 @@ public class ThorLogInfoWrapper
     }
 
     /**
-     * @param clusterGroup the clusterGroup to set
+     * Sets the cluster group.
+     *
+     * @param clusterGroup
+     *            the clusterGroup to set
      */
     public void setClusterGroup(String clusterGroup)
     {
@@ -129,6 +182,8 @@ public class ThorLogInfoWrapper
     }
 
     /**
+     * Gets the log date.
+     *
      * @return the logDate
      */
     public String getLogDate()
@@ -137,7 +192,10 @@ public class ThorLogInfoWrapper
     }
 
     /**
-     * @param logDate the logDate to set
+     * Sets the log date.
+     *
+     * @param logDate
+     *            the logDate to set
      */
     public void setLogDate(String logDate)
     {
@@ -145,6 +203,8 @@ public class ThorLogInfoWrapper
     }
 
     /**
+     * Gets the number slaves.
+     *
      * @return the numberSlaves
      */
     public Integer getNumberSlaves()
@@ -153,7 +213,10 @@ public class ThorLogInfoWrapper
     }
 
     /**
-     * @param numberSlaves the numberSlaves to set
+     * Sets the number slaves.
+     *
+     * @param numberSlaves
+     *            the numberSlaves to set
      */
     public void setNumberSlaves(Integer numberSlaves)
     {

@@ -38,6 +38,8 @@ public class FieldDef implements Serializable
     private int               additionalFlags    = 0;
 
     /**
+     * Instantiates a new field def.
+     *
      * @param rhs
      *            FieldDef to be copied
      */
@@ -55,6 +57,8 @@ public class FieldDef implements Serializable
     }
 
     /**
+     * Instantiates a new field def.
+     *
      * @param fieldName
      *            the name of the field
      * @param fieldType
@@ -67,18 +71,20 @@ public class FieldDef implements Serializable
      *            len may be non-zero and variable
      * @param isUnsigned
      *            Only applies to integers and decimal fields. Ignored otherwise
-     * @param HpccSrcType
-     *            Field encoding type. Primairly applies to strings. Non-strings should use LITTLE_ENDIAN.
+     * @param sourceType
+     *            the source type
      * @param childDefs
-     *            Child field defs. Only used for Records, Sets & Datasets. Sets & Dataset should have a single child. Null otherwise.
+     *            Child field defs. Only used for Records, Sets and Datasets. Sets and Dataset should have a single child. Null otherwise.
      */
-    public FieldDef(String fieldName, FieldType fieldType, String typeName, long len, boolean isFixedLength,
-            boolean isUnsigned, HpccSrcType sourceType, FieldDef[] childDefs)
+    public FieldDef(String fieldName, FieldType fieldType, String typeName, long len, boolean isFixedLength, boolean isUnsigned,
+            HpccSrcType sourceType, FieldDef[] childDefs)
     {
         this(fieldName, fieldType, typeName, len, isFixedLength, isUnsigned, 0, sourceType, childDefs);
     }
 
     /**
+     * Instantiates a new field def.
+     *
      * @param fieldName
      *            the name of the field
      * @param fieldType
@@ -91,15 +97,15 @@ public class FieldDef implements Serializable
      *            len may be non-zero and variable
      * @param isUnsigned
      *            Only applies to integers and decimal fields. Ignored otherwise
-     * @param additionalFlags 
-     *            Additional flags. Primarily used to retain layout information in HPCC records during conversion. 
-     * @param HpccSrcType
-     *            Field encoding type. Primairly applies to strings. Non-strings should use LITTLE_ENDIAN.
+     * @param additionalFlags
+     *            Additional flags. Primarily used to retain layout information in HPCC records during conversion.
+     * @param sourceType
+     *            the source type
      * @param childDefs
-     *            Child field defs. Only used for Records, Sets & Datasets. Sets & Dataset should have a single child. Null otherwise.
+     *            Child field defs. Only used for Records, Sets and Datasets. Sets and Dataset should have a single child. Null otherwise.
      */
-    public FieldDef(String fieldName, FieldType fieldType, String typeName, long len, boolean isFixedLength,
-            boolean isUnsigned, int additionalFlags, HpccSrcType sourceType, FieldDef[] childDefs)
+    public FieldDef(String fieldName, FieldType fieldType, String typeName, long len, boolean isFixedLength, boolean isUnsigned, int additionalFlags,
+            HpccSrcType sourceType, FieldDef[] childDefs)
     {
         this.fieldName = fieldName;
         this.fieldType = fieldType;
@@ -118,14 +124,13 @@ public class FieldDef implements Serializable
 
         if (this.fieldType == FieldType.VAR_STRING && (sourceType.isUTF16() == false && sourceType != HpccSrcType.SINGLE_BYTE_CHAR))
         {
-            throw new IllegalArgumentException("Invalid field defintion for: " + fieldName
-                    + "VarStrings must be encoded in either UTF16 or ASCII");
+            throw new IllegalArgumentException("Invalid field defintion for: " + fieldName + "VarStrings must be encoded in either UTF16 or ASCII");
         }
 
     }
 
     /**
-     * the name of the field
+     * the name of the field.
      *
      * @return the name
      */
@@ -135,8 +140,10 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * @param String
-     *            field name
+     * Sets the field name.
+     *
+     * @param newFieldName
+     *            the new field name
      */
     public void setFieldName(String newFieldName)
     {
@@ -164,8 +171,10 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Length of data or minimum length if variable
+     * Length of data or minimum length if variable.
+     *
      * @param dataLen
+     *            the new data len
      */
     public void setDataLen(long dataLen)
     {
@@ -173,7 +182,7 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Length of the data or minimum length if variable
+     * Length of the data or minimum length if variable.
      *
      * @return length
      */
@@ -214,7 +223,10 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Sets precision for decimal fields
+     * Sets precision for decimal fields.
+     *
+     * @param precision
+     *            the new precision
      */
     public void setPrecision(int precision)
     {
@@ -249,7 +261,10 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Sets scale for decimal fields
+     * Sets scale for decimal fields.
+     *
+     * @param scale
+     *            the new scale
      */
     public void setScale(int scale)
     {
@@ -268,7 +283,7 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Fixed or variable length
+     * Fixed or variable length.
      *
      * @return true when fixed length
      */
@@ -278,7 +293,7 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Is the underlying value type unsigned?
+     * Is the underlying value type unsigned?.
      *
      * @return true when unsigned
      */
@@ -289,8 +304,8 @@ public class FieldDef implements Serializable
 
     /**
      * Get the additional flags for this fields.
-     * 
-     * @return
+     *
+     * @return the additional flags
      */
     public int getAdditionalFlags()
     {
@@ -299,8 +314,9 @@ public class FieldDef implements Serializable
 
     /**
      * Set the additional flags for this fields.
-     * 
-     * @return
+     *
+     * @param flags
+     *            the new additional flags
      */
     public void setAdditionalFlags(int flags)
     {
@@ -330,9 +346,10 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Set the Child FieldDefs
+     * Set the Child FieldDefs.
      *
      * @param childDefs
+     *            the new defs
      */
     public void setDefs(FieldDef[] childDefs)
     {
@@ -357,11 +374,13 @@ public class FieldDef implements Serializable
             int        pos  = 0;
             FieldDef[] copy = defRef;
 
+            @Override
             public boolean hasNext()
             {
                 return (pos < copy.length) ? true : false;
             }
 
+            @Override
             public FieldDef next()
             {
                 return copy[pos++];
@@ -370,11 +389,23 @@ public class FieldDef implements Serializable
         return rslt;
     }
 
+    /**
+     * Update record meta.
+     *
+     * @param recordDef
+     *            the record def
+     */
     private static void updateRecordMeta(FieldDef recordDef)
     {
         updateRecordMinLength(recordDef);
     }
 
+    /**
+     * Update record min length.
+     *
+     * @param recordDef
+     *            the record def
+     */
     private static void updateRecordMinLength(FieldDef recordDef)
     {
         for (int i = 0; i < recordDef.getNumDefs(); i++)
@@ -390,6 +421,13 @@ public class FieldDef implements Serializable
         recordDef.setDataLen(minDataLength);
     }
 
+    /**
+     * Gets the min length in bytes.
+     *
+     * @param def
+     *            the def
+     * @return the min length in bytes
+     */
     private static long getMinLengthInBytes(FieldDef def)
     {
         switch (def.getFieldType())
@@ -420,7 +458,7 @@ public class FieldDef implements Serializable
                     {
                         dataLength++;
                     }
-                    
+
                     // Unicode datalength is in code points not bytes
                     if (def.getSourceType().isUTF16())
                     {
@@ -436,6 +474,11 @@ public class FieldDef implements Serializable
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
@@ -444,9 +487,9 @@ public class FieldDef implements Serializable
         {
             FieldDef currentFieldDef = defs[fieldIndex];
             long dataLen = currentFieldDef.getDataLen();
-            output += currentFieldDef.getFieldName() + "(" + currentFieldDef.getFieldType() + (dataLen > 0 ? " - " + currentFieldDef.getDataLen() : "") + ")";
-            if (fieldIndex < defs.length - 1)
-                output += " | ";
+            output += currentFieldDef.getFieldName() + "(" + currentFieldDef.getFieldType()
+                    + (dataLen > 0 ? " - " + currentFieldDef.getDataLen() : "") + ")";
+            if (fieldIndex < defs.length - 1) output += " | ";
         }
         return output;
     }

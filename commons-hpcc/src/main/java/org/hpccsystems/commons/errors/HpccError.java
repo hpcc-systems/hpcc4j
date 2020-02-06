@@ -26,6 +26,8 @@ public class HpccError
     private Exception            exception;
 
     /**
+     * Instantiates a new hpcc error.
+     *
      * @param errlevel
      *            - the Error Level of the error
      * @param errType
@@ -44,6 +46,8 @@ public class HpccError
     }
 
     /**
+     * Instantiates a new hpcc error.
+     *
      * @param errlevel
      *            - error level of the error (fatal, error, warning, info)
      * @param errType
@@ -55,8 +59,7 @@ public class HpccError
      * @param ex
      *            - original exception thrown
      */
-    public HpccError(HpccErrorLevel errlevel, IErrorType errType, IErrorCode constraintViolated, String errorString,
-            Exception ex)
+    public HpccError(HpccErrorLevel errlevel, IErrorType errType, IErrorCode constraintViolated, String errorString, Exception ex)
     {
         this.errorLevel = errlevel;
         this.errorType = errType;
@@ -66,6 +69,8 @@ public class HpccError
     }
 
     /**
+     * Instantiates a new hpcc error.
+     *
      * @param errlevel
      *            The Error Level of the error (FATAL,ERROR,WARNING,INFO)
      * @param errType
@@ -83,8 +88,8 @@ public class HpccError
      * @param filename
      *            the filename the error occurred in
      */
-    public HpccError(HpccErrorLevel errlevel, IErrorType errType, IErrorCode errCode, String errorString,
-            String additional, Integer lineNum, Integer colNum, String filename)
+    public HpccError(HpccErrorLevel errlevel, IErrorType errType, IErrorCode errCode, String errorString, String additional, Integer lineNum,
+            Integer colNum, String filename)
     {
         this.errorLevel = errlevel;
         this.errorType = errType;
@@ -96,14 +101,18 @@ public class HpccError
         this.filename = filename;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("[HpccError errorType=").append(String.valueOf(errorType)).append(",\n");
         sb.append("errorLevel=").append(String.valueOf(errorLevel)).append(",\n");
-        sb.append("errorCode=").append(String.valueOf(errorCode)).append("(")
-                .append(String.valueOf(errorCode.getNumVal())).append("),\n");
+        sb.append("errorCode=").append(String.valueOf(errorCode)).append("(").append(String.valueOf(errorCode.getNumVal())).append("),\n");
         sb.append("errorSource=").append(String.valueOf(errorSource)).append(",\n");
         sb.append("sourceID=").append(String.valueOf(sourceID)).append(",\n");
         sb.append("fileName=").append(String.valueOf(filename)).append(",\n");
@@ -115,6 +124,8 @@ public class HpccError
     }
 
     /**
+     * To ecl ide string.
+     *
      * @return the Error in ECL IDE Error String format expected by ECL IDE filename(linenum,colnum):ErrorLevel
      *         ErrorCode.getNumVal():Error String
      */
@@ -126,15 +137,16 @@ public class HpccError
         {
             fname = "unknown file";
         }
-        sb.append(fname).append("(").append(String.valueOf(getLineNum())).append(",")
-                .append(String.valueOf(getColNum())).append("):").append(this.getErrorLevel().toString().toLowerCase())
-                .append(" ").append(this.getErrCodePrefix()).append(String.valueOf(errorCode.getNumVal()) + ":")
-                .append(getErrorString()).append("\n");
+        sb.append(fname).append("(").append(String.valueOf(getLineNum())).append(",").append(String.valueOf(getColNum())).append("):")
+                .append(this.getErrorLevel().toString().toLowerCase()).append(" ").append(this.getErrCodePrefix())
+                .append(String.valueOf(errorCode.getNumVal()) + ":").append(getErrorString()).append("\n");
 
         return sb.toString();
     }
 
     /**
+     * Gets the source ID.
+     *
      * @return the Unique Identifier of the object that caused this error
      */
     public String getSourceID()
@@ -143,6 +155,8 @@ public class HpccError
     }
 
     /**
+     * Sets the source ID.
+     *
      * @param sourceID
      *            the unique Identifier of the object that caused this error
      */
@@ -152,6 +166,8 @@ public class HpccError
     }
 
     /**
+     * Gets the error code.
+     *
      * @return the Error Code of this Error
      */
     public IErrorCode getErrorCode()
@@ -160,6 +176,8 @@ public class HpccError
     }
 
     /**
+     * Gets the error string.
+     *
      * @return the Error message of this error
      */
     public String getErrorString()
@@ -168,6 +186,8 @@ public class HpccError
     }
 
     /**
+     * Gets the line num.
+     *
      * @return The Line Number this error occurred at
      */
     public Integer getLineNum()
@@ -176,6 +196,8 @@ public class HpccError
     }
 
     /**
+     * Sets the line num.
+     *
      * @param l
      *            Set the line number this error occurred at
      */
@@ -185,6 +207,8 @@ public class HpccError
     }
 
     /**
+     * Gets the col num.
+     *
      * @return the Column Number this error occurred at
      */
     public Integer getColNum()
@@ -193,6 +217,8 @@ public class HpccError
     }
 
     /**
+     * Sets the col num.
+     *
      * @param c
      *            the Column Number this error occurred at
      */
@@ -202,6 +228,8 @@ public class HpccError
     }
 
     /**
+     * Gets the filename.
+     *
      * @return The Filename of the file this error occurred in
      */
     public String getFilename()
@@ -210,6 +238,8 @@ public class HpccError
     }
 
     /**
+     * Sets the filename.
+     *
      * @param filename
      *            the Filename of the file this error occurred in
      */
@@ -219,6 +249,8 @@ public class HpccError
     }
 
     /**
+     * Sets the error source.
+     *
      * @param val
      *            the Source of this object (Composition, Contract, Kel file, etc)
      */
@@ -228,6 +260,8 @@ public class HpccError
     }
 
     /**
+     * Gets the error source.
+     *
      * @return the Source of this error (Composition, Contract, Kel , etc)
      */
     public IErrorSource getErrorSource()
@@ -236,6 +270,8 @@ public class HpccError
     }
 
     /**
+     * Gets the error type.
+     *
      * @return the Type of error: VALIDATE, SYSTEM, HPCC, etc. Class must extend IErrorType
      */
     public IErrorType getErrorType()
@@ -244,6 +280,8 @@ public class HpccError
     }
 
     /**
+     * Sets the error type.
+     *
      * @param val
      *            the Type of error: VALIDATE, SYSTEM, HPCC, etc. Class must extend IErrorType
      */
@@ -253,6 +291,8 @@ public class HpccError
     }
 
     /**
+     * Gets the additional info.
+     *
      * @return any additional info for this exception
      */
     public String getAdditionalInfo()
@@ -261,6 +301,8 @@ public class HpccError
     }
 
     /**
+     * Sets the additional info.
+     *
      * @param info
      *            any additional info for this exception
      */
@@ -270,6 +312,8 @@ public class HpccError
     }
 
     /**
+     * Gets the error level.
+     *
      * @return Error Level (FATAL, ERROR, WARNING, INFO)
      */
     public HpccErrorLevel getErrorLevel()
@@ -302,6 +346,8 @@ public class HpccError
     }
 
     /**
+     * Gets the err code prefix.
+     *
      * @return the Error Code prefix to use when generating ECL-formatted errors
      */
     private String getErrCodePrefix()
@@ -309,11 +355,22 @@ public class HpccError
         return "H";
     }
 
+    /**
+     * Gets the exception.
+     *
+     * @return the exception
+     */
     public Exception getException()
     {
         return exception;
     }
 
+    /**
+     * Sets the exception.
+     *
+     * @param ex
+     *            the new exception
+     */
     public void setException(Exception ex)
     {
         this.exception = ex;

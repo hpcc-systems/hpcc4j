@@ -29,11 +29,22 @@ public class HPCCRecordBuilder implements IRecordBuilder
 
     private HPCCRecordBuilder[] childRecordBuilders = null;
 
+    /**
+     * Instantiates a new HPCC record builder.
+     *
+     * @param recordDef
+     *            the record def
+     */
     public HPCCRecordBuilder(FieldDef recordDef)
     {
         setRecordDefinition(recordDef);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#setRecordDefinition(org.hpccsystems.commons.ecl.FieldDef)
+     */
     public void setRecordDefinition(FieldDef fieldDef)
     {
         this.fieldDef = fieldDef;
@@ -60,16 +71,31 @@ public class HPCCRecordBuilder implements IRecordBuilder
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#getRecordDefinition()
+     */
     public FieldDef getRecordDefinition()
     {
         return this.fieldDef;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#startRecord()
+     */
     public void startRecord() throws java.lang.InstantiationException
     {
         fields = new Object[this.fieldDef.getNumDefs()];
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#finalizeRecord()
+     */
     public Object finalizeRecord() throws java.lang.InstantiationException
     {
         HPCCRecord row = new HPCCRecord(fields, this.fieldDef);
@@ -77,11 +103,21 @@ public class HPCCRecordBuilder implements IRecordBuilder
         return row;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#setFieldValue(int, java.lang.Object)
+     */
     public void setFieldValue(int index, Object value) throws IllegalArgumentException, IllegalAccessException
     {
         this.fields[index] = value;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.dfs.client.IRecordBuilder#getChildRecordBuilder(int)
+     */
     public IRecordBuilder getChildRecordBuilder(int index)
     {
         return this.childRecordBuilders[index];

@@ -111,35 +111,74 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     private String                        xmlParams;
     private String[]                      resultViews;
 
+    /**
+     * Instantiates a new workunit wrapper.
+     */
     public WorkunitWrapper()
     {
     }
 
+    /**
+     * Instantiates a new workunit wrapper.
+     *
+     * @param base
+     *            the base
+     */
     public WorkunitWrapper(ECLWorkunit base)
     {
         copy(base);
     }
 
+    /**
+     * Instantiates a new workunit wrapper.
+     *
+     * @param base
+     *            the base
+     */
     public WorkunitWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLWorkunit base)
     {
         copy(base);
     }
 
+    /**
+     * Instantiates a new workunit wrapper.
+     *
+     * @param base
+     *            the base
+     */
     public WorkunitWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLWorkunit base)
     {
         copy(base);
     }
 
+    /**
+     * Instantiates a new workunit wrapper.
+     *
+     * @param base
+     *            the base
+     */
     public WorkunitWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLWorkunit base)
     {
         copy(base);
     }
 
+    /**
+     * Instantiates a new workunit wrapper.
+     *
+     * @param base
+     *            the base
+     */
     public WorkunitWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit base)
     {
         copy(base);
     }
 
+    /**
+     * Copy.
+     *
+     * @param base
+     *            the base
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit base)
     {
         if (base == null)
@@ -226,12 +265,26 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setXmlParams(base.getXmlParams());
     }
 
+    /**
+     * Sets the query.
+     *
+     * @param eclQuery
+     *            the ecl query
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setQuery(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLQuery eclQuery)
     {
         this.query = new ECLQueryWrapper(eclQuery);
         return this;
     }
 
+    /**
+     * Sets the results.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResults(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -246,6 +299,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the workflows.
+     *
+     * @param eclWorkflowArray
+     *            the ecl workflow array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflows(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkflow[] eclWorkflowArray)
     {
         this.workflows.clear();
@@ -260,6 +320,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the thor log list.
+     *
+     * @param thorLogInfoArray
+     *            the thor log info array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setThorLogList(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ThorLogInfo[] thorLogInfoArray)
     {
         this.thorLogList.clear();
@@ -274,6 +341,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the variables.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariables(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -289,6 +363,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the timing data.
+     *
+     * @param eclTimingDatas
+     *            the ecl timing datas
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimingData(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLTimingData[] eclTimingDatas)
     {
         this.timingData.clear();
@@ -303,6 +384,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the source files.
+     *
+     * @param eclSourceFileArray
+     *            the ecl source file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLSourceFile[] eclSourceFileArray)
     {
         this.sourceFiles.clear();
@@ -317,6 +405,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the helpers.
+     *
+     * @param eclHelpFileArray
+     *            the ecl help file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHelpers(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLHelpFile[] eclHelpFileArray)
     {
         this.helpers.clear();
@@ -330,6 +425,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the graphs.
+     *
+     * @param eclGraphArray
+     *            the ecl graph array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphs(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLGraph[] eclGraphArray)
     {
         this.getGraphs().clear();
@@ -344,6 +446,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the exceptions.
+     *
+     * @param eclExceptions
+     *            the ecl exceptions
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setExceptions(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLException[] eclExceptions)
     {
         if (eclExceptions != null)
@@ -353,6 +462,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the debug values.
+     *
+     * @param debugValueArray
+     *            the debug value array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.DebugValue[] debugValueArray)
     {
         this.debugValues.clear();
@@ -369,6 +485,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         
     }
 
+    /**
+     * Sets the application values.
+     *
+     * @param applicationValue
+     *            the application value
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ApplicationValue[] applicationValue)
     {
         if (applicationValue != null)
@@ -383,6 +506,12 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Copy.
+     *
+     * @param base
+     *            the base
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLWorkunit base)
     {
         if (base == null)
@@ -458,6 +587,12 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setXmlParams(base.getXmlParams());
     }
 
+    /**
+     * Copy.
+     *
+     * @param base
+     *            the base
+     */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLWorkunit base)
     {
         if (base == null)
@@ -607,9 +742,10 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     }
 
     /**
-     * Copy a soap ecl workunit object into the wrapper
+     * Copy a soap ecl workunit object into the wrapper.
      *
      * @param base
+     *            the base
      */
     private void copy(ECLWorkunit base)
     {
@@ -686,15 +822,22 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setXmlParams(base.getXmlParams());
     }
 
+    /**
+     * Sets the protected.
+     *
+     * @param get_protected
+     *            the new protected
+     */
     private void setProtected(Boolean get_protected)
     {
         this.isProtected = get_protected;
     }
 
     /**
-     * Copy a soap ecl workunit object into the wrapper
+     * Copy a soap ecl workunit object into the wrapper.
      *
      * @param base
+     *            the base
      */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLWorkunit base)
     {
@@ -770,6 +913,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setXmlParams(base.getXmlParams());
     }
 
+    /**
+     * Sets the variables.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariables(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -785,6 +935,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the variables.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariables(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -800,6 +957,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the variables.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariables(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -815,6 +979,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the variables.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariables(ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -830,6 +1001,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the results.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResults(ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -844,6 +1022,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the results.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResults(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -858,6 +1043,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the results.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResults(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -872,6 +1064,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the results.
+     *
+     * @param arrayOfECLResult
+     *            the array of ECL result
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResults(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfECLResult arrayOfECLResult)
     {
         if (arrayOfECLResult != null)
@@ -886,6 +1085,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the graphs.
+     *
+     * @param eclGraphs
+     *            the ecl graphs
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphs(ECLGraph[] eclGraphs)
     {
         this.getGraphs().clear();
@@ -900,6 +1106,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the graphs.
+     *
+     * @param eclGraphArray
+     *            the ecl graph array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphs(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLGraph[] eclGraphArray)
     {
         this.getGraphs().clear();
@@ -914,6 +1127,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the graphs.
+     *
+     * @param eclGraphArray
+     *            the ecl graph array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphs(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLGraph[] eclGraphArray)
     {
         this.getGraphs().clear();
@@ -929,6 +1149,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
 
     }
 
+    /**
+     * Sets the graphs.
+     *
+     * @param eclGraphArray
+     *            the ecl graph array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphs(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLGraph[] eclGraphArray)
     {
         this.getGraphs().clear();
@@ -944,30 +1171,65 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
 
     }
 
+    /**
+     * Sets the query.
+     *
+     * @param eclQuery
+     *            the ecl query
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setQuery(ECLQuery eclQuery)
     {
         this.query = new ECLQueryWrapper(eclQuery);
         return this;
     }
 
+    /**
+     * Sets the query.
+     *
+     * @param eclQuery
+     *            the ecl query
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setQuery(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLQuery eclQuery)
     {
         this.query = new ECLQueryWrapper(eclQuery);
         return this;
     }
 
+    /**
+     * Sets the query.
+     *
+     * @param eclQuery
+     *            the ecl query
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setQuery(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLQuery eclQuery)
     {
         this.query = new ECLQueryWrapper(eclQuery);
         return this;
     }
 
+    /**
+     * Sets the query.
+     *
+     * @param eclQuery
+     *            the ecl query
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setQuery(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLQuery eclQuery)
     {
         this.query = new ECLQueryWrapper(eclQuery);
         return this;
     }
 
+    /**
+     * Update.
+     *
+     * @param wu
+     *            the wu
+     * @return true, if successful
+     */
     public boolean update(ECLWorkunit wu)
     {
         boolean retVal = false;
@@ -981,6 +1243,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return retVal;
     }
 
+    /**
+     * Update.
+     *
+     * @param wu
+     *            the wu
+     * @return true, if successful
+     */
     public boolean update(WorkunitWrapper wu)
     {
         boolean retVal = false;
@@ -994,6 +1263,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return retVal;
     }
 
+    /**
+     * Update state.
+     *
+     * @param wu
+     *            the wu
+     * @return true, if successful
+     */
     synchronized boolean updateState(ECLWorkunit wu)
     {
         boolean retVal = false;
@@ -1008,6 +1284,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return retVal;
     }
 
+    /**
+     * Update state.
+     *
+     * @param wu
+     *            the wu
+     * @return true, if successful
+     */
     synchronized boolean updateState(WorkunitWrapper wu)
     {
         boolean retVal = false;
@@ -1022,22 +1305,46 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return retVal;
     }
 
+    /**
+     * Sets the max monitor millis.
+     *
+     * @param time
+     *            the time
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setMaxMonitorMillis(int time)
     {
         maxMonitorTime = time;
         return this;
     }
 
+    /**
+     * Gets the max monitor millis.
+     *
+     * @return the max monitor millis
+     */
     public int getMaxMonitorMillis()
     {
         return maxMonitorTime;
     }
 
+    /**
+     * Gets the sleep millis.
+     *
+     * @return the sleep millis
+     */
     public Integer getSleepMillis()
     {
         return sleepMillis;
     }
 
+    /**
+     * Sets the sleep millis.
+     *
+     * @param sleepTime
+     *            the sleep time
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSleepMillis(Integer sleepTime)
     {
         this.sleepMillis = sleepTime;
@@ -1058,17 +1365,36 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return resultLimit;
     }
 
+    /**
+     * Gets the named values.
+     *
+     * @return the named values
+     */
     public List<NamedValueWrapper> getNamedValues()
     {
         return namedValues;
     }
 
+    /**
+     * Sets the named values.
+     *
+     * @param namedValues
+     *            the named values
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setNamedValues(List<NamedValueWrapper> namedValues)
     {
         this.namedValues = namedValues;
         return this;
     }
 
+    /**
+     * Sets the ECL.
+     *
+     * @param ecl
+     *            the ecl
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setECL(String ecl)
     {
         if (this.getQuery() == null)
@@ -1080,11 +1406,22 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the query.
+     *
+     * @param eclQueryWrapper
+     *            the new query
+     */
     private void setQuery(ECLQueryWrapper eclQueryWrapper)
     {
         this.query = eclQueryWrapper;
     }
 
+    /**
+     * Gets the ecl.
+     *
+     * @return the ecl
+     */
     public String getECL()
     {
         if (this.getQuery() == null)
@@ -1094,22 +1431,44 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this.getQuery().getText();
     }
 
+    /**
+     * Gets the original ecl watch url.
+     *
+     * @return the original ecl watch url
+     */
     public String getOriginalEclWatchUrl()
     {
         return originalEclWatchUrl;
     }
 
+    /**
+     * Sets the original ecl watch url.
+     *
+     * @param serverhost
+     *            the serverhost
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setOriginalEclWatchUrl(String serverhost)
     {
         this.originalEclWatchUrl = serverhost;
         return this;
     }
 
+    /**
+     * Gets the application values.
+     *
+     * @return the application values
+     */
     public List<ApplicationValueWrapper> getApplicationValues()
     {
         return applicationValues;
     }
 
+    /**
+     * Gets the raw exceptions.
+     *
+     * @return the raw exceptions
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLException getRawExceptions()
     {
         if (exceptions == null)
@@ -1118,6 +1477,11 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return exceptions.getRaw();
     }
 
+    /**
+     * Gets the raw named values.
+     *
+     * @return the raw named values
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfNamedValue getRawNamedValues()
     {
         if (namedValues == null) return null;
@@ -1130,177 +1494,371 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return raw;
     }
 
+    /**
+     * Gets the max monitor time.
+     *
+     * @return the max monitor time
+     */
     public int getMaxMonitorTime()
     {
         return maxMonitorTime;
     }
 
+    /**
+     * Sets the max monitor time.
+     *
+     * @param maxMonitorTime
+     *            the max monitor time
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setMaxMonitorTime(int maxMonitorTime)
     {
         this.maxMonitorTime = maxMonitorTime;
         return this;
     }
 
+    /**
+     * Gets the results.
+     *
+     * @return the results
+     */
     public List<ECLResultWrapper> getResults()
     {
         return eclResults;
     }
 
+    /**
+     * Sets the results.
+     *
+     * @param eclResults
+     *            the ecl results
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResults(List<ECLResultWrapper> eclResults)
     {
         this.eclResults = eclResults;
         return this;
     }
 
+    /**
+     * Gets the access flag.
+     *
+     * @return the access flag
+     */
     public Integer getAccessFlag()
     {
         return accessFlag;
     }
 
+    /**
+     * Sets the access flag.
+     *
+     * @param accessFlag
+     *            the access flag
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setAccessFlag(Integer accessFlag)
     {
         this.accessFlag = accessFlag;
         return this;
     }
 
+    /**
+     * Gets the action.
+     *
+     * @return the action
+     */
     public Integer getAction()
     {
         return action;
     }
 
+    /**
+     * Sets the action.
+     *
+     * @param action
+     *            the action
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setAction(Integer action)
     {
         this.action = action;
         return this;
     }
 
+    /**
+     * Gets the action ex.
+     *
+     * @return the action ex
+     */
     public String getActionEx()
     {
         return actionEx;
     }
 
+    /**
+     * Sets the action ex.
+     *
+     * @param actionEx
+     *            the action ex
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setActionEx(String actionEx)
     {
         this.actionEx = actionEx;
         return this;
     }
 
+    /**
+     * Gets the active.
+     *
+     * @return the active
+     */
     public Boolean getActive()
     {
         return active;
     }
 
+    /**
+     * Sets the active.
+     *
+     * @param active
+     *            the active
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setActive(Boolean active)
     {
         this.active = active;
         return this;
     }
 
+    /**
+     * Gets the alert count.
+     *
+     * @return the alert count
+     */
     public Integer getAlertCount()
     {
         return alertcount;
     }
 
+    /**
+     * Sets the alert count.
+     *
+     * @param alertcount
+     *            the alertcount
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setAlertCount(Integer alertcount)
     {
         this.alertcount = alertcount;
         return this;
     }
 
+    /**
+     * Gets the allowed clusters.
+     *
+     * @return the allowed clusters
+     */
     public String[] getAllowedClusters()
     {
         return allowedClusters;
     }
 
+    /**
+     * Sets the allowed clusters.
+     *
+     * @param allowedClusters
+     *            the allowed clusters
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setAllowedClusters(String[] allowedClusters)
     {
         this.allowedClusters = allowedClusters;
         return this;
     }
 
+    /**
+     * Gets the application value count.
+     *
+     * @return the application value count
+     */
     public Integer getApplicationValueCount()
     {
         return applicationValueCount;
     }
 
+    /**
+     * Sets the application value count.
+     *
+     * @param applicationValueCount
+     *            the application value count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValueCount(Integer applicationValueCount)
     {
         this.applicationValueCount = applicationValueCount;
         return this;
     }
 
+    /**
+     * Gets the application values desc.
+     *
+     * @return the application values desc
+     */
     public String getApplicationValuesDesc()
     {
         return applicationValuesDesc;
     }
 
+    /**
+     * Sets the application values desc.
+     *
+     * @param applicationValuesDesc
+     *            the application values desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValuesDesc(String applicationValuesDesc)
     {
         this.applicationValuesDesc = applicationValuesDesc;
         return this;
     }
 
+    /**
+     * Gets the archived.
+     *
+     * @return the archived
+     */
     public Boolean getArchived()
     {
         return archived;
     }
 
+    /**
+     * Sets the archived.
+     *
+     * @param archived
+     *            the archived
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setArchived(Boolean archived)
     {
         this.archived = archived;
         return this;
     }
 
+    /**
+     * Gets the cluster.
+     *
+     * @return the cluster
+     */
     public String getCluster()
     {
         return cluster;
     }
 
+    /**
+     * Sets the cluster.
+     *
+     * @param cluster
+     *            the cluster
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setCluster(String cluster)
     {
         this.cluster = cluster;
         return this;
     }
 
+    /**
+     * Gets the cluster flag.
+     *
+     * @return the cluster flag
+     */
     public Integer getClusterFlag()
     {
         return clusterFlag;
     }
 
+    /**
+     * Sets the cluster flag.
+     *
+     * @param clusterFlag
+     *            the cluster flag
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setClusterFlag(Integer clusterFlag)
     {
         this.clusterFlag = clusterFlag;
         return this;
     }
 
+    /**
+     * Gets the date time scheduled.
+     *
+     * @return the date time scheduled
+     */
     public Calendar getDateTimeScheduled()
     {
         return dateTimeScheduled;
     }
 
+    /**
+     * Sets the date time scheduled.
+     *
+     * @param dateTimeScheduled
+     *            the date time scheduled
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDateTimeScheduled(Calendar dateTimeScheduled)
     {
         this.dateTimeScheduled = dateTimeScheduled;
         return this;
     }
 
+    /**
+     * Gets the debug value count.
+     *
+     * @return the debug value count
+     */
     public Integer getDebugValueCount()
     {
         return debugValueCount;
     }
 
+    /**
+     * Sets the debug value count.
+     *
+     * @param debugValueCount
+     *            the debug value count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValueCount(Integer debugValueCount)
     {
         this.debugValueCount = debugValueCount;
         return this;
     }
 
+    /**
+     * Sets the sleep millis.
+     *
+     * @param sleepMillis
+     *            the sleep millis
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSleepMillis(int sleepMillis)
     {
         this.sleepMillis = sleepMillis;
         return this;
     }
 
+    /**
+     * Sets the application values.
+     *
+     * @param applicationValues2
+     *            the application values 2
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValues(ApplicationValue[] applicationValues2)
     {
         if (applicationValues2 != null)
@@ -1315,12 +1873,26 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the application values.
+     *
+     * @param appVals
+     *            the app vals
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValues(List<ApplicationValueWrapper> appVals)
     {
         applicationValues = appVals;
         return this;
     }
 
+    /**
+     * Sets the application values.
+     *
+     * @param vals
+     *            the vals
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[] vals)
     {
         if (vals == null)
@@ -1337,6 +1909,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the application values.
+     *
+     * @param vals
+     *            the vals
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[] vals)
     {
         if (vals == null)
@@ -1353,6 +1932,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the application values.
+     *
+     * @param vals
+     *            the vals
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setApplicationValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[] vals)
     {
         if (vals == null)
@@ -1369,22 +1955,46 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the alertcount.
+     *
+     * @return the alertcount
+     */
     public Integer getAlertcount()
     {
         return alertcount;
     }
 
+    /**
+     * Sets the alertcount.
+     *
+     * @param alertcount
+     *            the alertcount
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setAlertcount(Integer alertcount)
     {
         this.alertcount = alertcount;
         return this;
     }
 
+    /**
+     * Gets the debug values.
+     *
+     * @return the debug values
+     */
     public List<DebugValueWrapper> getDebugValues()
     {
         return debugValues;
     }
 
+    /**
+     * Sets the debug values.
+     *
+     * @param debugValues2
+     *            the debug values 2
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValues(DebugValue[] debugValues2)
     {
         this.debugValues.clear();
@@ -1400,6 +2010,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the debug values.
+     *
+     * @param debugValueArray
+     *            the debug value array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[] debugValueArray)
     {
         this.debugValues.clear();
@@ -1415,6 +2032,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the debug values.
+     *
+     * @param debugValueArray
+     *            the debug value array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[] debugValueArray)
     {
         this.debugValues.clear();
@@ -1430,6 +2054,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the debug values.
+     *
+     * @param debugValueArray
+     *            the debug value array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[] debugValueArray)
     {
         this.debugValues.clear();
@@ -1445,61 +2076,128 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the debug values.
+     *
+     * @param debugValues
+     *            the debug values
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValues(List<DebugValueWrapper> debugValues)
     {
         this.debugValues = debugValues;
         return this;
     }
 
+    /**
+     * Gets the debug values desc.
+     *
+     * @return the debug values desc
+     */
     public String getDebugValuesDesc()
     {
         return debugValuesDesc;
     }
 
+    /**
+     * Sets the debug values desc.
+     *
+     * @param debugValuesDesc
+     *            the debug values desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDebugValuesDesc(String debugValuesDesc)
     {
         this.debugValuesDesc = debugValuesDesc;
         return this;
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public String getDescription()
     {
         return description;
     }
 
+    /**
+     * Sets the description.
+     *
+     * @param description
+     *            the description
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setDescription(String description)
     {
         this.description = description;
         return this;
     }
 
+    /**
+     * Gets the error count.
+     *
+     * @return the error count
+     */
     public Integer getErrorCount()
     {
         return errorCount;
     }
 
+    /**
+     * Sets the error count.
+     *
+     * @param errorCount
+     *            the error count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setErrorCount(Integer errorCount)
     {
         this.errorCount = errorCount;
         return this;
     }
 
+    /**
+     * Gets the event schedule.
+     *
+     * @return the event schedule
+     */
     public Integer getEventSchedule()
     {
         return eventSchedule;
     }
 
+    /**
+     * Sets the event schedule.
+     *
+     * @param eventSchedule
+     *            the event schedule
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setEventSchedule(Integer eventSchedule)
     {
         this.eventSchedule = eventSchedule;
         return this;
     }
 
+    /**
+     * Gets the exceptions.
+     *
+     * @return the exceptions
+     */
     public ArrayOfECLExceptionWrapper getExceptions()
     {
         return exceptions;
     }
 
+    /**
+     * Sets the exceptions.
+     *
+     * @param eclExceptions
+     *            the ecl exceptions
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setExceptions(ECLException[] eclExceptions)
     {
         if (eclExceptions != null && eclExceptions.length > 0)
@@ -1509,11 +2207,26 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the exceptions.
+     *
+     * @param eclExceptions
+     *            the ecl exceptions
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setExceptions(ArrayOfECLExceptionWrapper eclExceptions)
     {
         exceptions = eclExceptions;
         return this;
     }
+    
+    /**
+     * Sets the exceptions.
+     *
+     * @param eclExceptions
+     *            the ecl exceptions
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setExceptions(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException[] eclExceptions)
     {
         if (eclExceptions != null)
@@ -1523,6 +2236,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the exceptions.
+     *
+     * @param eclExceptions
+     *            the ecl exceptions
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setExceptions(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLException[] eclExceptions)
     {
         if (eclExceptions != null)
@@ -1532,6 +2252,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the exceptions.
+     *
+     * @param eclExceptions
+     *            the ecl exceptions
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setExceptions(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLException[] eclExceptions)
     {
         if (eclExceptions != null)
@@ -1541,60 +2268,125 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the graph count.
+     *
+     * @return the graph count
+     */
     public Integer getGraphCount()
     {
         return graphCount;
     }
 
+    /**
+     * Sets the graph count.
+     *
+     * @param graphCount
+     *            the graph count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphCount(Integer graphCount)
     {
         this.graphCount = graphCount;
         return this;
     }
 
+    /**
+     * Gets the graphs.
+     *
+     * @return the graphs
+     */
     public List<ECLGraphWrapper> getGraphs()
     {
         return graphs;
     }
 
+    /**
+     * Gets the graphs desc.
+     *
+     * @return the graphs desc
+     */
     public String getGraphsDesc()
     {
         return graphsDesc;
     }
 
+    /**
+     * Sets the graphs desc.
+     *
+     * @param graphsDesc
+     *            the graphs desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setGraphsDesc(String graphsDesc)
     {
         this.graphsDesc = graphsDesc;
         return this;
     }
 
+    /**
+     * Gets the checks for archive query.
+     *
+     * @return the checks for archive query
+     */
     public Boolean getHasArchiveQuery()
     {
         return hasArchiveQuery;
     }
 
+    /**
+     * Sets the has archive query.
+     *
+     * @param hasArchiveQuery
+     *            the has archive query
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHasArchiveQuery(Boolean hasArchiveQuery)
     {
         this.hasArchiveQuery = hasArchiveQuery;
         return this;
     }
 
+    /**
+     * Gets the checks for debug value.
+     *
+     * @return the checks for debug value
+     */
     public Boolean getHasDebugValue()
     {
         return hasDebugValue;
     }
 
+    /**
+     * Sets the has debug value.
+     *
+     * @param hasDebugValue
+     *            the has debug value
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHasDebugValue(Boolean hasDebugValue)
     {
         this.hasDebugValue = hasDebugValue;
         return this;
     }
 
+    /**
+     * Gets the helpers.
+     *
+     * @return the helpers
+     */
     public List<ECLHelpFileWrapper> getHelpers()
     {
         return helpers;
     }
 
+    /**
+     * Sets the helpers.
+     *
+     * @param eclHelpFiles
+     *            the ecl help files
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHelpers(ECLHelpFile[] eclHelpFiles)
     {
         this.helpers.clear();
@@ -1608,6 +2400,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the helpers.
+     *
+     * @param eclHelpFileArray
+     *            the ecl help file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHelpers(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLHelpFile[] eclHelpFileArray)
     {
         this.helpers.clear();
@@ -1621,6 +2420,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the helpers.
+     *
+     * @param eclHelpFileArray
+     *            the ecl help file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHelpers(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLHelpFile[] eclHelpFileArray)
     {
         this.helpers.clear();
@@ -1634,6 +2440,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the helpers.
+     *
+     * @param eclHelpFileArray
+     *            the ecl help file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHelpers(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLHelpFile[] eclHelpFileArray)
     {
         this.helpers.clear();
@@ -1647,187 +2460,391 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the helpers desc.
+     *
+     * @return the helpers desc
+     */
     public String getHelpersDesc()
     {
         return helpersDesc;
     }
 
+    /**
+     * Sets the helpers desc.
+     *
+     * @param helpersDesc
+     *            the helpers desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setHelpersDesc(String helpersDesc)
     {
         this.helpersDesc = helpersDesc;
         return this;
     }
 
+    /**
+     * Gets the info count.
+     *
+     * @return the info count
+     */
     public Integer getInfoCount()
     {
         return infoCount;
     }
 
+    /**
+     * Sets the info count.
+     *
+     * @param infoCount
+     *            the info count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setInfoCount(Integer infoCount)
     {
         this.infoCount = infoCount;
         return this;
     }
 
+    /**
+     * Gets the checks if is pausing.
+     *
+     * @return the checks if is pausing
+     */
     public Boolean getIsPausing()
     {
         return isPausing;
     }
 
+    /**
+     * Sets the is pausing.
+     *
+     * @param isPausing
+     *            the is pausing
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setIsPausing(Boolean isPausing)
     {
         this.isPausing = isPausing;
         return this;
     }
 
+    /**
+     * Gets the jobname.
+     *
+     * @return the jobname
+     */
     public String getJobname()
     {
         return jobname;
     }
 
+    /**
+     * Sets the jobname.
+     *
+     * @param jobname
+     *            the jobname
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setJobname(String jobname)
     {
         this.jobname = jobname;
         return this;
     }
 
+    /**
+     * Gets the owner.
+     *
+     * @return the owner
+     */
     public String getOwner()
     {
         return owner;
     }
 
+    /**
+     * Sets the owner.
+     *
+     * @param owner
+     *            the owner
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setOwner(String owner)
     {
         this.owner = owner;
         return this;
     }
 
+    /**
+     * Gets the priority class.
+     *
+     * @return the priority class
+     */
     public Integer getPriorityClass()
     {
         return priorityClass;
     }
 
+    /**
+     * Sets the priority class.
+     *
+     * @param priorityClass
+     *            the priority class
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setPriorityClass(Integer priorityClass)
     {
         this.priorityClass = priorityClass;
         return this;
     }
 
+    /**
+     * Gets the priority level.
+     *
+     * @return the priority level
+     */
     public Integer getPriorityLevel()
     {
         return priorityLevel;
     }
 
+    /**
+     * Sets the priority level.
+     *
+     * @param priorityLevel
+     *            the priority level
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setPriorityLevel(Integer priorityLevel)
     {
         this.priorityLevel = priorityLevel;
         return this;
     }
 
+    /**
+     * Gets the query.
+     *
+     * @return the query
+     */
     public ECLQueryWrapper getQuery()
     {
         return query;
     }
 
+    /**
+     * Gets the queue.
+     *
+     * @return the queue
+     */
     public String getQueue()
     {
         return queue;
     }
 
+    /**
+     * Sets the queue.
+     *
+     * @param queue
+     *            the queue
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setQueue(String queue)
     {
         this.queue = queue;
         return this;
     }
 
+    /**
+     * Gets the resource URL count.
+     *
+     * @return the resource URL count
+     */
     public Integer getResourceURLCount()
     {
         return resourceURLCount;
     }
 
+    /**
+     * Sets the resource URL count.
+     *
+     * @param resourceURLCount
+     *            the resource URL count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResourceURLCount(Integer resourceURLCount)
     {
         this.resourceURLCount = resourceURLCount;
         return this;
     }
 
+    /**
+     * Gets the resource UR ls.
+     *
+     * @return the resource UR ls
+     */
     public String[] getResourceURLs()
     {
         return resourceURLs;
     }
 
+    /**
+     * Sets the resource UR ls.
+     *
+     * @param resourceURLs
+     *            the resource UR ls
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResourceURLs(String[] resourceURLs)
     {
         this.resourceURLs = resourceURLs;
         return this;
     }
 
+    /**
+     * Gets the result count.
+     *
+     * @return the result count
+     */
     public Integer getResultCount()
     {
         return resultCount;
     }
 
+    /**
+     * Sets the result count.
+     *
+     * @param resultCount
+     *            the result count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResultCount(Integer resultCount)
     {
         this.resultCount = resultCount;
         return this;
     }
 
+    /**
+     * Sets the result limit.
+     *
+     * @param resultLimit
+     *            the result limit
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResultLimit(Integer resultLimit)
     {
         this.resultLimit = resultLimit;
         return this;
     }
 
+    /**
+     * Gets the results desc.
+     *
+     * @return the results desc
+     */
     public String getResultsDesc()
     {
         return resultsDesc;
     }
 
+    /**
+     * Sets the results desc.
+     *
+     * @param resultsDesc
+     *            the results desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResultsDesc(String resultsDesc)
     {
         this.resultsDesc = resultsDesc;
         return this;
     }
 
+    /**
+     * Gets the roxie cluster.
+     *
+     * @return the roxie cluster
+     */
     public String getRoxieCluster()
     {
         return roxieCluster;
     }
 
+    /**
+     * Sets the roxie cluster.
+     *
+     * @param roxieCluster
+     *            the roxie cluster
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setRoxieCluster(String roxieCluster)
     {
         this.roxieCluster = roxieCluster;
         return this;
     }
 
+    /**
+     * Gets the scope.
+     *
+     * @return the scope
+     */
     public String getScope()
     {
         return scope;
     }
 
+    /**
+     * Sets the scope.
+     *
+     * @param scope
+     *            the scope
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setScope(String scope)
     {
         this.scope = scope;
         return this;
     }
 
+    /**
+     * Gets the snapshot.
+     *
+     * @return the snapshot
+     */
     public String getSnapshot()
     {
         return snapshot;
     }
 
+    /**
+     * Sets the snapshot.
+     *
+     * @param snapshot
+     *            the snapshot
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSnapshot(String snapshot)
     {
         this.snapshot = snapshot;
         return this;
     }
 
+    /**
+     * Gets the source files.
+     *
+     * @return the source files
+     */
     public List<ECLSourceFileWrapper> getSourceFiles()
     {
         return sourceFiles;
     }
 
+    /**
+     * Sets the source files.
+     *
+     * @param eclSourceFiles
+     *            the ecl source files
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFiles(ECLSourceFile[] eclSourceFiles)
     {
         this.sourceFiles.clear();
@@ -1842,6 +2859,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the source files.
+     *
+     * @param eclSourceFileArray
+     *            the ecl source file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLSourceFile[] eclSourceFileArray)
     {
         this.sourceFiles.clear();
@@ -1856,6 +2880,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the source files.
+     *
+     * @param eclSourceFileArray
+     *            the ecl source file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLSourceFile[] eclSourceFileArray)
     {
         this.sourceFiles.clear();
@@ -1870,6 +2901,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the source files.
+     *
+     * @param eclSourceFileArray
+     *            the ecl source file array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLSourceFile[] eclSourceFileArray)
     {
         this.sourceFiles.clear();
@@ -1884,77 +2922,161 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the source filels desc.
+     *
+     * @return the source filels desc
+     */
     public String getSourceFilelsDesc()
     {
         return sourceFilelsDesc;
     }
 
+    /**
+     * Sets the source filels desc.
+     *
+     * @param sourceFilelsDesc
+     *            the source filels desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFilelsDesc(String sourceFilelsDesc)
     {
         this.sourceFilelsDesc = sourceFilelsDesc;
         return this;
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public String getState()
     {
         return state;
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the state
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setState(String state)
     {
         this.state = state;
         return this;
     }
 
+    /**
+     * Gets the state ex.
+     *
+     * @return the state ex
+     */
     public String getStateEx()
     {
         return stateEx;
     }
 
+    /**
+     * Sets the state ex.
+     *
+     * @param stateEx
+     *            the state ex
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setStateEx(String stateEx)
     {
         this.stateEx = stateEx;
         return this;
     }
 
+    /**
+     * Gets the state ID.
+     *
+     * @return the state ID
+     */
     public Integer getStateID()
     {
         return stateID;
     }
 
+    /**
+     * Sets the state ID.
+     *
+     * @param stateID
+     *            the state ID
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setStateID(Integer stateID)
     {
         this.stateID = stateID;
         return this;
     }
 
+    /**
+     * Gets the timer count.
+     *
+     * @return the timer count
+     */
     public Integer getTimerCount()
     {
         return timerCount;
     }
 
+    /**
+     * Sets the timer count.
+     *
+     * @param timerCount
+     *            the timer count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimerCount(Integer timerCount)
     {
         this.timerCount = timerCount;
         return this;
     }
 
+    /**
+     * Gets the timers desc.
+     *
+     * @return the timers desc
+     */
     public String getTimersDesc()
     {
         return timersDesc;
     }
 
+    /**
+     * Sets the timers desc.
+     *
+     * @param timersDesc
+     *            the timers desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimersDesc(String timersDesc)
     {
         this.timersDesc = timersDesc;
         return this;
     }
 
+    /**
+     * Gets the timing data.
+     *
+     * @return the timing data
+     */
     public List<ECLTimingDataWrapper> getTimingData()
     {
         return timingData;
     }
 
+    /**
+     * Sets the timing data.
+     *
+     * @param eclTimingDatas
+     *            the ecl timing datas
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimingData(ECLTimingData[] eclTimingDatas)
     {
         this.timingData.clear();
@@ -1969,6 +3091,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the timing data.
+     *
+     * @param eclTimingDataArray
+     *            the ecl timing data array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimingData(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLTimingData[] eclTimingDataArray)
     {
         this.timingData.clear();
@@ -1983,6 +3112,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the timing data.
+     *
+     * @param eclTimingDataArray
+     *            the ecl timing data array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimingData(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLTimingData[] eclTimingDataArray)
     {
         this.timingData.clear();
@@ -1997,6 +3133,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the timing data.
+     *
+     * @param eclTimingDataArray
+     *            the ecl timing data array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTimingData(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLTimingData[] eclTimingDataArray)
     {
         this.timingData.clear();
@@ -2011,55 +3154,115 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the total cluster time.
+     *
+     * @return the total cluster time
+     */
     public String getTotalClusterTime()
     {
         return totalClusterTime;
     }
 
+    /**
+     * Sets the total cluster time.
+     *
+     * @param totalClusterTime
+     *            the total cluster time
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setTotalClusterTime(String totalClusterTime)
     {
         this.totalClusterTime = totalClusterTime;
         return this;
     }
 
+    /**
+     * Gets the variable count.
+     *
+     * @return the variable count
+     */
     public Integer getVariableCount()
     {
         return variableCount;
     }
 
+    /**
+     * Sets the variable count.
+     *
+     * @param variableCount
+     *            the variable count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariableCount(Integer variableCount)
     {
         this.variableCount = variableCount;
         return this;
     }
 
+    /**
+     * Gets the variables.
+     *
+     * @return the variables
+     */
     public List<ECLResultWrapper> getVariables()
     {
         return variables;
     }
 
+    /**
+     * Sets the variables.
+     *
+     * @param variables
+     *            the variables
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariables(List<ECLResultWrapper> variables)
     {
         this.variables = variables;
         return this;
     }
 
+    /**
+     * Checks if is thor LCR.
+     *
+     * @return true, if is thor LCR
+     */
     public boolean isThorLCR()
     {
         return thorLCR;
     }
 
+    /**
+     * Sets the thor LCR.
+     *
+     * @param thorLCR
+     *            the thor LCR
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setThorLCR(boolean thorLCR)
     {
         this.thorLCR = thorLCR;
         return this;
     }
 
+    /**
+     * Gets the thor log list.
+     *
+     * @return the thor log list
+     */
     public List<ThorLogInfoWrapper> getThorLogList()
     {
         return thorLogList;
     }
 
+    /**
+     * Sets the thor log list.
+     *
+     * @param thorLogInfos
+     *            the thor log infos
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setThorLogList(ThorLogInfo[] thorLogInfos)
     {
         this.thorLogList.clear();
@@ -2074,6 +3277,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the thor log list.
+     *
+     * @param thorLogInfoArray
+     *            the thor log info array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setThorLogList(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ThorLogInfo[] thorLogInfoArray)
     {
         this.thorLogList.clear();
@@ -2088,6 +3298,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the thor log list.
+     *
+     * @param thorLogInfoArray
+     *            the thor log info array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setThorLogList(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ThorLogInfo[] thorLogInfoArray)
     {
         this.thorLogList.clear();
@@ -2102,6 +3319,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the thor log list.
+     *
+     * @param thorLogList
+     *            the thor log list
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setThorLogList(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ThorLogInfo[] thorLogList)
     {
         this.thorLogList.clear();
@@ -2116,44 +3340,92 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the variables desc.
+     *
+     * @return the variables desc
+     */
     public String getVariablesDesc()
     {
         return variablesDesc;
     }
 
+    /**
+     * Sets the variables desc.
+     *
+     * @param variablesDesc
+     *            the variables desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setVariablesDesc(String variablesDesc)
     {
         this.variablesDesc = variablesDesc;
         return this;
     }
 
+    /**
+     * Gets the warning count.
+     *
+     * @return the warning count
+     */
     public Integer getWarningCount()
     {
         return warningCount;
     }
 
+    /**
+     * Sets the warning count.
+     *
+     * @param warningCount
+     *            the warning count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWarningCount(Integer warningCount)
     {
         this.warningCount = warningCount;
         return this;
     }
 
+    /**
+     * Gets the workflow count.
+     *
+     * @return the workflow count
+     */
     public Integer getWorkflowCount()
     {
         return workflowCount;
     }
 
+    /**
+     * Sets the workflow count.
+     *
+     * @param workflowCount
+     *            the workflow count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflowCount(Integer workflowCount)
     {
         this.workflowCount = workflowCount;
         return this;
     }
 
+    /**
+     * Gets the workflows.
+     *
+     * @return the workflows
+     */
     public List<ECLWorkflowWrapper> getWorkflows()
     {
         return workflows;
     }
 
+    /**
+     * Sets the workflows.
+     *
+     * @param eclWorkflowArray
+     *            the ecl workflow array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflows(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLWorkflow[] eclWorkflowArray)
     {
         this.workflows.clear();
@@ -2168,6 +3440,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the workflows.
+     *
+     * @param eclWorkflowArray
+     *            the ecl workflow array
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflows(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLWorkflow[] eclWorkflowArray)
     {
         this.workflows.clear();
@@ -2182,6 +3461,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the workflows.
+     *
+     * @param eclWorkflows
+     *            the ecl workflows
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflows(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLWorkflow[] eclWorkflows)
     {
         this.workflows.clear();
@@ -2196,6 +3482,13 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Sets the workflows.
+     *
+     * @param eclWorkflows
+     *            the ecl workflows
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflows(ECLWorkflow[] eclWorkflows)
     {
         this.workflows.clear();
@@ -2210,66 +3503,136 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return this;
     }
 
+    /**
+     * Gets the workflows desc.
+     *
+     * @return the workflows desc
+     */
     public String getWorkflowsDesc()
     {
         return workflowsDesc;
     }
 
+    /**
+     * Sets the workflows desc.
+     *
+     * @param workflowsDesc
+     *            the workflows desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWorkflowsDesc(String workflowsDesc)
     {
         this.workflowsDesc = workflowsDesc;
         return this;
     }
 
+    /**
+     * Gets the wuid.
+     *
+     * @return the wuid
+     */
     public String getWuid()
     {
         return wuid;
     }
 
+    /**
+     * Sets the wuid.
+     *
+     * @param wuid
+     *            the wuid
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setWuid(String wuid)
     {
         this.wuid = wuid;
         return this;
     }
 
+    /**
+     * Gets the xml params.
+     *
+     * @return the xml params
+     */
     public String getXmlParams()
     {
         return xmlParams;
     }
 
+    /**
+     * Sets the xml params.
+     *
+     * @param xmlParams
+     *            the xml params
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setXmlParams(String xmlParams)
     {
         this.xmlParams = xmlParams;
         return this;
     }
 
+    /**
+     * Gets the source file count.
+     *
+     * @return the source file count
+     */
     public Integer getSourceFileCount()
     {
         return sourceFileCount;
     }
 
+    /**
+     * Sets the source file count.
+     *
+     * @param sourceFileCount
+     *            the source file count
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFileCount(Integer sourceFileCount)
     {
         this.sourceFileCount = sourceFileCount;
         return this;
     }
 
+    /**
+     * Gets the source files desc.
+     *
+     * @return the source files desc
+     */
     public String getSourceFilesDesc()
     {
         return sourceFileDesc;
     }
 
+    /**
+     * Sets the source files desc.
+     *
+     * @param sourceFileDesc
+     *            the source file desc
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setSourceFilesDesc(String sourceFileDesc)
     {
         this.sourceFileDesc = sourceFileDesc;
         return this;
     }
 
+    /**
+     * Gets the ecl workunit.
+     *
+     * @return the ecl workunit
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit getEclWorkunit()
     {
         return getEclWorkunitVersion75();
     }
 
+    /**
+     * Gets the ecl workunit version 75.
+     *
+     * @return the ecl workunit version 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit getEclWorkunitVersion75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit eclWorkunit = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit();
@@ -2460,21 +3823,43 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         return eclWorkunit;
     }
 
+    /**
+     * Checks if is protected.
+     *
+     * @return the boolean
+     */
     private Boolean isProtected()
     {
         return isProtected;
     }
 
+    /**
+     * Gets the thor LCR.
+     *
+     * @return the thor LCR
+     */
     private Boolean getThorLCR()
     {
         return this.thorLCR;
     }
 
+    /**
+     * Gets the result views.
+     *
+     * @return the result views
+     */
     public String[] getResultViews()
     {
         return resultViews;
     }
 
+    /**
+     * Sets the result views.
+     *
+     * @param resultViews
+     *            the result views
+     * @return the workunit wrapper
+     */
     public WorkunitWrapper setResultViews(String[] resultViews)
     {
         this.resultViews = resultViews;

@@ -23,6 +23,15 @@ public class Cluster extends DataSingleton
 {
     private static Map<Integer, Cluster> Clusters = new HashMap<Integer, Cluster>();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     * @return the cluster
+     */
     public static synchronized Cluster get(Platform platform, String name)
     {
         Cluster cluster = new Cluster(platform, name);
@@ -41,6 +50,14 @@ public class Cluster extends DataSingleton
     private TpTargetCluster       info;
     private TpClusterInfoResponse info2;
 
+    /**
+     * Instantiates a new cluster.
+     *
+     * @param platform
+     *            the platform
+     * @param name
+     *            the name
+     */
     Cluster(Platform platform, String name)
     {
         this.platform = platform;
@@ -50,23 +67,37 @@ public class Cluster extends DataSingleton
         info2.setName(name);
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return info.getName();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     protected boolean isComplete()
     {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
@@ -82,6 +113,12 @@ public class Cluster extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param ci
+     *            the ci
+     */
     private void Update(TpClusterInfoResponseWrapper ci)
     {
         if (info2.getName().equals(ci.getName()))
@@ -91,6 +128,12 @@ public class Cluster extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param tc
+     *            the tc
+     */
     public void Update(TpTargetCluster tc)
     {
         if (info.getName().equals(tc.getName()))
@@ -100,6 +143,12 @@ public class Cluster extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param ci
+     *            the ci
+     */
     void Update(TpClusterInfoResponse ci)
     {
         if (info2.getName().equals(ci.getName()))
@@ -109,6 +158,9 @@ public class Cluster extends DataSingleton
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -127,6 +179,9 @@ public class Cluster extends DataSingleton
         return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(info.getName(), that.info.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

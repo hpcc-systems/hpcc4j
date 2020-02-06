@@ -21,48 +21,72 @@ import java.util.StringTokenizer;
 
 import org.hpccsystems.commons.utils.Utils;
 
-
 public class SQLFragment
 {
     public enum FragmentType
     {
-        UNKNOWN_TYPE,
-        NUMERIC_FRAGMENT,
-        LITERAL_STRING,
-        PARAMETERIZED,
-        FIELD,
-        LIST,
-        CONTENT_MODIFIER,
-        FIELD_CONTENT_MODIFIER,
-        AGGREGATE_FUNCTION,
-        BOOLEAN;
+        UNKNOWN_TYPE, NUMERIC_FRAGMENT, LITERAL_STRING, PARAMETERIZED, FIELD, LIST, CONTENT_MODIFIER, FIELD_CONTENT_MODIFIER, AGGREGATE_FUNCTION, BOOLEAN;
     }
 
-    private String fnname   =   null;
-    private String parent   =   null;
-    private String value    =   null;
-    private FragmentType type = FragmentType.UNKNOWN_TYPE;
+    private String       fnname = null;
+    private String       parent = null;
+    private String       value  = null;
+    private FragmentType type   = FragmentType.UNKNOWN_TYPE;
 
-    public SQLFragment() {}
+    /**
+     * Instantiates a new SQL fragment.
+     */
+    public SQLFragment()
+    {
+    }
+
+    /**
+     * Instantiates a new SQL fragment.
+     *
+     * @param framentStr
+     *            the frament str
+     */
     public SQLFragment(String framentStr)
     {
         parseExpressionFragment(framentStr);
     }
 
+    /**
+     * Checks if is parameterized.
+     *
+     * @return true, if is parameterized
+     */
     public boolean isParameterized()
     {
         return type == FragmentType.PARAMETERIZED;
     }
+
+    /**
+     * Gets the parent.
+     *
+     * @return the parent
+     */
     public String getParent()
     {
         return parent;
     }
 
+    /**
+     * Sets the parent.
+     *
+     * @param parent
+     *            the new parent
+     */
     public void setParent(String parent)
     {
         this.parent = parent.toUpperCase();
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue()
     {
         if (type == FragmentType.CONTENT_MODIFIER || type == FragmentType.FIELD_CONTENT_MODIFIER)
@@ -71,21 +95,44 @@ public class SQLFragment
             return value;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(String value)
     {
         this.value = value;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public FragmentType getType()
     {
         return type;
     }
 
+    /**
+     * Sets the type.
+     *
+     * @param type
+     *            the new type
+     */
     public void setType(FragmentType type)
     {
         this.type = type;
     }
 
+    /**
+     * Handle field type.
+     *
+     * @param fragment
+     *            the fragment
+     */
     private void handleFieldType(String fragment)
     {
         String fragsplit[] = fragment.split(Utils.DOTSEPERATORREGEX, 2);
@@ -100,6 +147,12 @@ public class SQLFragment
         }
     }
 
+    /**
+     * Parses the expression fragment.
+     *
+     * @param fragment
+     *            the fragment
+     */
     public void parseExpressionFragment(String fragment)
     {
         try
@@ -140,50 +193,52 @@ public class SQLFragment
                         setValue(tmp.toString());
                     }
                     else
-                      setValue("[" + Utils.getParenContents(fragment) + "]");
+                        setValue("[" + Utils.getParenContents(fragment) + "]");
 
                     break;
-               /* case AGGREGATE_FUNCTION:
-                    Matcher matcher = HPCCJDBCUtils.AGGFUNCPATTERN.matcher(fragment);
-
-                    if (matcher.matches())
-                    {
-                        ECLFunction func = ECLFunctions.getEclFunction(matcher.group(1));
-
-                        if (func == null)
-                            HPCCJDBCUtils.traceoutln(Level.WARNING,  "Function found in HAVING clause might not be supported.");
-                        else
-                        {
-                            if (func.getFunctionType() == FunctionType.CONTENT_MODIFIER)
-                            {
-                                this.type = FragmentType.CONTENT_MODIFIER;
-
-                                setFnname(func.getEclFunction());
-                                String subfragment = matcher.group(3).trim();
-                                FragmentType subfragtype = determineFragmentType(subfragment);
-                                switch (subfragtype)
-                                {
-                                    case FIELD:
-                                        handleFieldType(subfragment);
-                                        this.type = FragmentType.FIELD_CONTENT_MODIFIER;
-                                        break;
-                                    case LITERAL_STRING:
-                                    case NUMERIC_FRAGMENT:
-                                    case PARAMETERIZED:
-                                    case BOOLEAN:
-                                        setValue(subfragment);
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                String fnname = matcher.group(1).trim();
-                                setParent(fnname);
-                                setValue(fnname+"out");
-                            }
-                        }
-                    }
-                    break;*/
+                /*
+                 * case AGGREGATE_FUNCTION:
+                 * Matcher matcher = HPCCJDBCUtils.AGGFUNCPATTERN.matcher(fragment);
+                 * 
+                 * if (matcher.matches())
+                 * {
+                 * ECLFunction func = ECLFunctions.getEclFunction(matcher.group(1));
+                 * 
+                 * if (func == null)
+                 * HPCCJDBCUtils.traceoutln(Level.WARNING, "Function found in HAVING clause might not be supported.");
+                 * else
+                 * {
+                 * if (func.getFunctionType() == FunctionType.CONTENT_MODIFIER)
+                 * {
+                 * this.type = FragmentType.CONTENT_MODIFIER;
+                 * 
+                 * setFnname(func.getEclFunction());
+                 * String subfragment = matcher.group(3).trim();
+                 * FragmentType subfragtype = determineFragmentType(subfragment);
+                 * switch (subfragtype)
+                 * {
+                 * case FIELD:
+                 * handleFieldType(subfragment);
+                 * this.type = FragmentType.FIELD_CONTENT_MODIFIER;
+                 * break;
+                 * case LITERAL_STRING:
+                 * case NUMERIC_FRAGMENT:
+                 * case PARAMETERIZED:
+                 * case BOOLEAN:
+                 * setValue(subfragment);
+                 * break;
+                 * }
+                 * }
+                 * else
+                 * {
+                 * String fnname = matcher.group(1).trim();
+                 * setParent(fnname);
+                 * setValue(fnname+"out");
+                 * }
+                 * }
+                 * }
+                 * break;
+                 */
                 default:
                     break;
             }
@@ -194,6 +249,13 @@ public class SQLFragment
         }
     }
 
+    /**
+     * Creates the expression fragment.
+     *
+     * @param fragment
+     *            the fragment
+     * @return the SQL fragment
+     */
     public static SQLFragment createExpressionFragment(String fragment)
     {
         SQLFragment frag = new SQLFragment();
@@ -203,7 +265,14 @@ public class SQLFragment
         return frag;
     }
 
-    public static FragmentType determineFragmentType (String fragStr)
+    /**
+     * Determine fragment type.
+     *
+     * @param fragStr
+     *            the frag str
+     * @return the fragment type
+     */
+    public static FragmentType determineFragmentType(String fragStr)
     {
         if (fragStr == null || fragStr.length() <= 0)
         {
@@ -239,6 +308,11 @@ public class SQLFragment
         }
     }
 
+    /**
+     * Gets the full column name.
+     *
+     * @return the full column name
+     */
     public String getFullColumnName()
     {
         if (type == FragmentType.FIELD)
@@ -247,6 +321,14 @@ public class SQLFragment
             return getValue();
     }
 
+    /**
+     * Update fragment colum parent.
+     *
+     * @param sqlTables
+     *            the sql tables
+     * @throws Exception
+     *             the exception
+     */
     public void updateFragmentColumParent(List<SQLTable> sqlTables) throws Exception
     {
         if (type == FragmentType.FIELD || type == FragmentType.FIELD_CONTENT_MODIFIER)
@@ -268,23 +350,41 @@ public class SQLFragment
 
     /**
      * Returns table name if the tablename or alias match Otherwise
-     * throw exception
+     * throw exception.
+     *
+     * @param sqlTables
+     *            the sql tables
+     * @return the string
+     * @throws Exception
+     *             the exception
      */
     private String searchForPossibleTableName(List<SQLTable> sqlTables) throws Exception
     {
         for (int i = 0; i < sqlTables.size(); i++)
         {
             SQLTable currTable = sqlTables.get(i);
-            if (parent.equalsIgnoreCase(currTable.getAlias()) || parent.equalsIgnoreCase(currTable.getName()))
-                return currTable.getName();
+            if (parent.equalsIgnoreCase(currTable.getAlias()) || parent.equalsIgnoreCase(currTable.getName())) return currTable.getName();
         }
 
         throw new Exception("Invalid field found: " + getFullColumnName());
     }
+
+    /**
+     * Gets the fnname.
+     *
+     * @return the fnname
+     */
     public String getFnname()
     {
         return fnname;
     }
+
+    /**
+     * Sets the fnname.
+     *
+     * @param fnname
+     *            the new fnname
+     */
     public void setFnname(String fnname)
     {
         this.fnname = fnname;

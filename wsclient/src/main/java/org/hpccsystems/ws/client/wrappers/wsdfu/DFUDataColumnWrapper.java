@@ -33,19 +33,29 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     private DFUDataColumn[] dataColumns;
 
     /**
-     * Create a Data Column Info object from a axis-generated soap class DFUDataColumn
-     * 
+     * Create a Data Column Info object from a axis-generated soap class DFUDataColumn.
+     *
      * @param base
+     *            the base
      */
     public DFUDataColumnWrapper(DFUDataColumn base)
     {
         copy(base);
     }
 
+    /**
+     * Instantiates a new DFU data column wrapper.
+     */
     public DFUDataColumnWrapper()
     {
     }
 
+    /**
+     * Instantiates a new DFU data column wrapper.
+     *
+     * @param dfuDataColumnWrapper
+     *            the dfu data column wrapper
+     */
     public DFUDataColumnWrapper(DFUDataColumnWrapper dfuDataColumnWrapper)
     {
 		copy(dfuDataColumnWrapper);
@@ -88,9 +98,10 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     }
 
     /**
-     * Copy a soap DFU Data Column object into the wrapper
-     * 
-     * @param base
+     * Copy a soap DFU Data Column object into the wrapper.
+     *
+     * @param dfuDataColumnWrapper
+     *            the dfu data column wrapper
      */
     protected void copy(DFUDataColumnWrapper dfuDataColumnWrapper)
     {
@@ -119,9 +130,10 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     }
 
     /**
-     * Copy a soap DFU Data Column object into the wrapper
-     * 
+     * Copy a soap DFU Data Column object into the wrapper.
+     *
      * @param base
+     *            the base
      */
     protected void copy(DFUDataColumn base)
     {
@@ -151,6 +163,8 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     }
 
     /**
+     * Gets the child columns.
+     *
      * @return list of child columns if this column is a dataset type column
      */
     public List<DFUDataColumnWrapper> getChildColumns()
@@ -163,6 +177,8 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     }
 
     /**
+     * Sets the child columns.
+     *
      * @param childColumns
      *            - List of DFUDataColumnInfo objects
      */
@@ -172,6 +188,8 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
     }
 
     /**
+     * Sets the columns.
+     *
      * @param childColumns
      *            - Array of DFUDataColumn objects
      */
@@ -189,263 +207,400 @@ public class DFUDataColumnWrapper// extends DFUDataColumnImpl
         }
     }
 
+    /**
+     * Gets the original ecl.
+     *
+     * @return the original ecl
+     */
     public String getOriginalEcl()
     {
         return originalEcl;
     }
 
+    /**
+     * Sets the original ecl.
+     *
+     * @param originalEcl
+     *            the new original ecl
+     */
     public void setOriginalEcl(String originalEcl)
     {
         this.originalEcl = originalEcl;
     }
 
+    /**
+     * Gets the xpath.
+     *
+     * @return the xpath
+     */
     public String getXpath()
     {
         return xpath;
     }
 
+    /**
+     * Sets the xpath.
+     *
+     * @param xpath
+     *            the new xpath
+     */
     public void setXpath(String xpath)
     {
         this.xpath = xpath;
     }
 
+    /**
+     * Gets the xml default val.
+     *
+     * @return the xml default val
+     */
     public String getXmlDefaultVal()
     {
         return xmlDefaultVal;
     }
 
+    /**
+     * Sets the xml default val.
+     *
+     * @param xmlDefaultVal
+     *            the new xml default val
+     */
     public void setXmlDefaultVal(String xmlDefaultVal)
     {
         this.xmlDefaultVal = xmlDefaultVal;
     }
 
+    /**
+     * Gets the maxcount.
+     *
+     * @return the maxcount
+     */
     public String getMaxcount()
     {
         return maxcount;
     }
 
+    /**
+     * Sets the maxcount.
+     *
+     * @param maxcount
+     *            the new maxcount
+     */
     public void setMaxcount(String maxcount)
     {
         this.maxcount = maxcount;
     }
 
+    /**
+     * Gets the maxlength.
+     *
+     * @return the maxlength
+     */
     public String getMaxlength()
     {
         return maxlength;
     }
 
+    /**
+     * Sets the maxlength.
+     *
+     * @param maxlength
+     *            the new maxlength
+     */
     public void setMaxlength(String maxlength)
     {
         this.maxlength = maxlength;
     }
 
+    /**
+     * Gets the annotations.
+     *
+     * @return the annotations
+     */
     public List<DFUDataColumnAnnotation> getAnnotations()
     {
         return annotations;
     }
 
+    /**
+     * Sets the annotations.
+     *
+     * @param annotations
+     *            the new annotations
+     */
     public void setAnnotations(final List<DFUDataColumnAnnotation> annotations)
     {
         this.annotations = annotations;
     }
     
+    /**
+     * Checks if is blob.
+     *
+     * @return true, if is blob
+     */
     public boolean isBlob()
     {
         return isblob;
     }
 
+    /**
+     * Sets the blob.
+     *
+     * @param blob
+     *            the new blob
+     */
     public void setBlob(boolean blob)
     {
         this.isblob = blob;
     }
 
     /**
-	 * @return the isblob
-	 */
+     * Checks if is isblob.
+     *
+     * @return the isblob
+     */
 	public boolean isIsblob()
 	{
 		return isblob;
 	}
 
 	/**
-	 * @param isblob the isblob to set
-	 */
+     * Sets the isblob.
+     *
+     * @param isblob
+     *            the isblob to set
+     */
 	public void setIsblob(boolean isblob)
 	{
 		this.isblob = isblob;
 	}
 
 	/**
-	 * @return the columnID
-	 */
+     * Gets the column ID.
+     *
+     * @return the columnID
+     */
 	public Integer getColumnID()
 	{
 		return columnID;
 	}
 
 	/**
-	 * @param columnID the columnID to set
-	 */
+     * Sets the column ID.
+     *
+     * @param columnID
+     *            the columnID to set
+     */
 	public void setColumnID(Integer columnID)
 	{
 		this.columnID = columnID;
 	}
 
 	/**
-	 * @return the columnLabel
-	 */
+     * Gets the column label.
+     *
+     * @return the columnLabel
+     */
 	public String getColumnLabel()
 	{
 		return columnLabel;
 	}
 
 	/**
-	 * @param columnLabel the columnLabel to set
-	 */
+     * Sets the column label.
+     *
+     * @param columnLabel
+     *            the columnLabel to set
+     */
 	public void setColumnLabel(String columnLabel)
 	{
 		this.columnLabel = columnLabel;
 	}
 
 	/**
-	 * @return the columnType
-	 */
+     * Gets the column type.
+     *
+     * @return the columnType
+     */
 	public String getColumnType()
 	{
 		return columnType;
 	}
 
 	/**
-	 * @param columnType the columnType to set
-	 */
+     * Sets the column type.
+     *
+     * @param columnType
+     *            the columnType to set
+     */
 	public void setColumnType(String columnType)
 	{
 		this.columnType = columnType;
 	}
 
 	/**
-	 * @return the columnValue
-	 */
+     * Gets the column value.
+     *
+     * @return the columnValue
+     */
 	public String getColumnValue()
 	{
 		return columnValue;
 	}
 
 	/**
-	 * @param columnValue the columnValue to set
-	 */
+     * Sets the column value.
+     *
+     * @param columnValue
+     *            the columnValue to set
+     */
 	public void setColumnValue(String columnValue)
 	{
 		this.columnValue = columnValue;
 	}
 
 	/**
-	 * @return the columnSize
-	 */
+     * Gets the column size.
+     *
+     * @return the columnSize
+     */
 	public Integer getColumnSize()
 	{
 		return columnSize;
 	}
 
 	/**
-	 * @param columnSize the columnSize to set
-	 */
+     * Sets the column size.
+     *
+     * @param columnSize
+     *            the columnSize to set
+     */
 	public void setColumnSize(Integer columnSize)
 	{
 		this.columnSize = columnSize;
 	}
 
 	/**
-	 * @return the maxSize
-	 */
+     * Gets the max size.
+     *
+     * @return the maxSize
+     */
 	public Integer getMaxSize()
 	{
 		return maxSize;
 	}
 
 	/**
-	 * @param maxSize the maxSize to set
-	 */
+     * Sets the max size.
+     *
+     * @param maxSize
+     *            the maxSize to set
+     */
 	public void setMaxSize(Integer maxSize)
 	{
 		this.maxSize = maxSize;
 	}
 
 	/**
-	 * @return the columnEclType
-	 */
+     * Gets the column ecl type.
+     *
+     * @return the columnEclType
+     */
 	public String getColumnEclType()
 	{
 		return columnEclType;
 	}
 
 	/**
-	 * @param columnEclType the columnEclType to set
-	 */
+     * Sets the column ecl type.
+     *
+     * @param columnEclType
+     *            the columnEclType to set
+     */
 	public void setColumnEclType(String columnEclType)
 	{
 		this.columnEclType = columnEclType;
 	}
 
 	/**
-	 * @return the columnRawSize
-	 */
+     * Gets the column raw size.
+     *
+     * @return the columnRawSize
+     */
 	public Integer getColumnRawSize()
 	{
 		return columnRawSize;
 	}
 
 	/**
-	 * @param columnRawSize the columnRawSize to set
-	 */
+     * Sets the column raw size.
+     *
+     * @param columnRawSize
+     *            the columnRawSize to set
+     */
 	public void setColumnRawSize(Integer columnRawSize)
 	{
 		this.columnRawSize = columnRawSize;
 	}
 
 	/**
-	 * @return the isNaturalColumn
-	 */
+     * Gets the checks if is natural column.
+     *
+     * @return the isNaturalColumn
+     */
 	public Boolean getIsNaturalColumn()
 	{
 		return isNaturalColumn;
 	}
 
 	/**
-	 * @param isNaturalColumn the isNaturalColumn to set
-	 */
+     * Sets the checks if is natural column.
+     *
+     * @param isNaturalColumn
+     *            the isNaturalColumn to set
+     */
 	public void setIsNaturalColumn(Boolean isNaturalColumn)
 	{
 		this.isNaturalColumn = isNaturalColumn;
 	}
 
 	/**
-	 * @return the isKeyedColumn
-	 */
+     * Gets the checks if is keyed column.
+     *
+     * @return the isKeyedColumn
+     */
 	public Boolean getIsKeyedColumn()
 	{
 		return isKeyedColumn;
 	}
 
 	/**
-	 * @param isKeyedColumn the isKeyedColumn to set
-	 */
+     * Sets the checks if is keyed column.
+     *
+     * @param isKeyedColumn
+     *            the isKeyedColumn to set
+     */
 	public void setIsKeyedColumn(Boolean isKeyedColumn)
 	{
 		this.isKeyedColumn = isKeyedColumn;
 	}
 
 	/**
-	 * @return the dataColumns
-	 */
+     * Gets the data columns.
+     *
+     * @return the dataColumns
+     */
 	public DFUDataColumn[] getDataColumns()
 	{
 		return dataColumns;
 	}
 
 	/**
-	 * @param dataColumns the dataColumns to set
-	 */
+     * Sets the data columns.
+     *
+     * @param dataColumns
+     *            the dataColumns to set
+     */
 	public void setDataColumns(DFUDataColumn[] dataColumns)
 	{
 		this.dataColumns = dataColumns;

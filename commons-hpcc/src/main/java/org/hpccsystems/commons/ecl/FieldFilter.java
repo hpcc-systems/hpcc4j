@@ -24,19 +24,21 @@ import java.util.ArrayList;
  */
 public class FieldFilter implements Serializable
 {
-    public static final long   serialVersionUID = 1L;
-    private String             name;
-    private ArrayList<FieldFilterRange> ranges = new ArrayList<FieldFilterRange>();
+    public static final long            serialVersionUID = 1L;
+    private String                      name;
+    private ArrayList<FieldFilterRange> ranges           = new ArrayList<FieldFilterRange>();
 
     /**
      * A field filter.
      *
      * @param fieldName
+     *            the field name
      * @param filterRange
+     *            the filter range
      */
     public FieldFilter(String fieldName, FieldFilterRange filterRange)
     {
-        this(fieldName, new FieldFilterRange[]{filterRange});
+        this(fieldName, new FieldFilterRange[] { filterRange });
     }
 
     /**
@@ -46,8 +48,6 @@ public class FieldFilter implements Serializable
      *            the name of a field, can be a compound name.
      * @param filterRanges
      *            the list of alternative values
-     * @param prefixMatchLength
-     *            length for the test, zero means entire field
      */
     public FieldFilter(String fieldName, FieldFilterRange[] filterRanges)
     {
@@ -72,20 +72,22 @@ public class FieldFilter implements Serializable
     /**
      * Appends a filter clause to the current filter
      * Applied to current target field
-     * Each clause if OR'ed
+     * Each clause if OR'ed.
      *
      * @param range
      *            the fieldfilter range to append (OR)
+     * @return the field filter
      */
     public FieldFilter appendFilterRange(FieldFilterRange range)
     {
-        if (range != null)
-            ranges.add(range);
+        if (range != null) ranges.add(range);
         return this;
     }
 
     /**
-     * the field name
+     * the field name.
+     *
+     * @return the field name
      */
     public String getFieldName()
     {
@@ -94,17 +96,25 @@ public class FieldFilter implements Serializable
 
     /**
      * The sumber of ranges used in this filter.
+     *
+     * @return the range count
      */
     public int getRangeCount()
     {
         return this.ranges.size();
     }
 
+    /**
+     * To string.
+     *
+     * @param outputfieldexpression
+     *            the outputfieldexpression
+     * @return the string
+     */
     public String toString(boolean outputfieldexpression)
     {
         StringBuilder sb = new StringBuilder(20 + this.name.length() + 50 * ranges.size());
-        if (outputfieldexpression)
-            sb.append(this.name);
+        if (outputfieldexpression) sb.append(this.name);
 
         if (this.ranges.size() == 0)
         {
@@ -113,8 +123,7 @@ public class FieldFilter implements Serializable
 
         if (this.ranges.size() > 0)
         {
-            if (outputfieldexpression)
-                sb.append("=");
+            if (outputfieldexpression) sb.append("=");
 
             sb.append(ranges.get(0).filterExpression());
             for (int i = 1; i < ranges.size(); i++)

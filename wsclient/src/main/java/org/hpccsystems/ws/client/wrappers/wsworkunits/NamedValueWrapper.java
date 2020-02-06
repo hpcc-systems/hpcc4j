@@ -8,52 +8,104 @@ public class NamedValueWrapper
     private String name;
     private String value;
 
-    public NamedValueWrapper() {}
-    
-    public NamedValueWrapper(String name,String value) 
+    /**
+     * Instantiates a new named value wrapper.
+     */
+    public NamedValueWrapper()
     {
-        this.name=name;
-        this.value=value;
-    }
-    public NamedValueWrapper(NamedValue raw) 
-    {
-        name=raw.getName();
-        value=raw.getValue();
     }
 
-	public String getValue()
+    /**
+     * Instantiates a new named value wrapper.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
+    public NamedValueWrapper(String name, String value)
+    {
+        this.name = name;
+        this.value = value;
+    }
+
+    /**
+     * Instantiates a new named value wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
+    public NamedValueWrapper(NamedValue raw)
+    {
+        name = raw.getName();
+        value = raw.getValue();
+    }
+
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
+    public String getValue()
     {
         return value;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(String value)
     {
         this.value = value;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name)
     {
         this.name = name;
     }
-    
+
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public NamedValue getRaw()
     {
-    	NamedValue nv = new NamedValue();
-    	nv.setName(name);
-    	nv.setValue(value);
+        NamedValue nv = new NamedValue();
+        nv.setName(name);
+        nv.setValue(value);
         return nv;
     }
 
-	public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue get1_75()
+    /**
+     * Gets the 1 75.
+     *
+     * @return the 1 75
+     */
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue get1_75()
     {
-	    org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue nv = new NamedValue();
-	    nv.setName(name);
-	    nv.setValue(value);
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue nv = new NamedValue();
+        nv.setName(name);
+        nv.setValue(value);
         return nv;
     }
 }

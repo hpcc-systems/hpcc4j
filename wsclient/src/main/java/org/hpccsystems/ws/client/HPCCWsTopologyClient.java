@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpTargetCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster;
@@ -40,20 +40,23 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpServicesWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
 
 /**
-* Use as soap client for HPCC WsTopology web service.
-* This client can be used for fetching topology information regarding the target HPCCSystem
-* of special interest are the cluster groups, and the target clusters within those groups.
-*
-*/
+ * Use as soap client for HPCC WsTopology web service.
+ * This client can be used for fetching topology information regarding the target HPCCSystem
+ * of special interest are the cluster groups, and the target clusters within those groups.
+ *
+ */
 public class HPCCWsTopologyClient extends BaseHPCCWsClient
 {
-    private static final Logger log                   = LogManager.getLogger(HPCCWsTopologyClient.class);
-    //public  static final String WSTOPOLOGYWSDLURI     = "/WsTopology/TpTargetClusterQuery";
-    public  static final String WSTOPOLOGYWSDLURI     = "/WsTopology";
+    private static final Logger log                = LogManager.getLogger(HPCCWsTopologyClient.class);
+    // public static final String WSTOPOLOGYWSDLURI = "/WsTopology/TpTargetClusterQuery";
+    public static final String  WSTOPOLOGYWSDLURI  = "/WsTopology";
 
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    private static int          DEFAULTSERVICEPORT = -1;
+    private static String       WSDLURL            = null;
 
+    /**
+     * Load WSDLURL.
+     */
     private static void loadWSDLURL()
     {
         try
@@ -68,11 +71,21 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * Gets the service URI.
+     *
+     * @return the service URI
+     */
     public static String getServiceURI()
     {
         return WSTOPOLOGYWSDLURI;
     }
 
+    /**
+     * Gets the service WSDLURL.
+     *
+     * @return the service WSDLURL
+     */
     public static String getServiceWSDLURL()
     {
         if (WSDLURL == null)
@@ -83,6 +96,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return WSDLURL;
     }
 
+    /**
+     * Gets the service WSDL port.
+     *
+     * @return the service WSDL port
+     */
     public static int getServiceWSDLPort()
     {
         if (WSDLURL == null)
@@ -93,21 +111,60 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return DEFAULTSERVICEPORT;
     }
 
+    /**
+     * Gets the.
+     *
+     * @param connection
+     *            the connection
+     * @return the HPCC ws topology client
+     */
     public static HPCCWsTopologyClient get(Connection connection)
     {
         return new HPCCWsTopologyClient(connection);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetHost
+     *            the target host
+     * @param targetPort
+     *            the target port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the HPCC ws topology client
+     */
     public static HPCCWsTopologyClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCWsTopologyClient(conn);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetHost
+     *            the target host
+     * @param targetPort
+     *            the target port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @param timeout
+     *            the timeout
+     * @return the HPCC ws topology client
+     */
     public static HPCCWsTopologyClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -115,6 +172,12 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return new HPCCWsTopologyClient(conn);
     }
 
+    /**
+     * Instantiates a new HPCC ws topology client.
+     *
+     * @param baseConnection
+     *            the base connection
+     */
     protected HPCCWsTopologyClient(Connection baseConnection)
     {
         initWsTopologyStub(baseConnection);
@@ -123,15 +186,14 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL   Target service base URL
-     * @param user      User credentials
-     * @param pass      User credentials
+     * @param connection
+     *            the connection
      */
     private void initWsTopologyStub(Connection connection)
     {
         try
         {
-            stub = setStubOptions(new WsTopologyStub(connection.getBaseUrl()+WSTOPOLOGYWSDLURI),connection);
+            stub = setStubOptions(new WsTopologyStub(connection.getBaseUrl() + WSTOPOLOGYWSDLURI), connection);
         }
         catch (AxisFault e)
         {
@@ -150,17 +212,21 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     }
 
     /**
-     * prints available target cluster names to given print stream
-     * @param stream       - Stream to print onto (System.out | System.err)
-     * @return               - Boolean, success
+     * prints available target cluster names to given print stream.
+     *
+     * @param stream
+     *            - Stream to print onto (System.out | System.err)
+     * @return - Boolean, success
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public boolean printValidTargetClusters(PrintStream stream) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpTargetClusterQueryRequest request = new TpTargetClusterQueryRequest();
 
@@ -171,11 +237,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpTargetClusterQuery(request);
+            response = ((WsTopologyStub) stub).tpTargetClusterQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.printValidTargetClusters(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.printValidTargetClusters(...) encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
@@ -184,7 +250,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         ArrayOfTpTargetCluster arrayOfTpTargetCluster = response.getTpTargetClusters();
         if (arrayOfTpTargetCluster != null)
         {
-            TpTargetCluster [] tpTargetClusters = arrayOfTpTargetCluster.getTpTargetCluster();
+            TpTargetCluster[] tpTargetClusters = arrayOfTpTargetCluster.getTpTargetCluster();
 
             for (TpTargetCluster tptargetcluster : tpTargetClusters)
             {
@@ -203,16 +269,19 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     }
 
     /**
-     * Get full descriptions of all valid cluster groups on the target HPCC System
-     * @return
+     * Get full descriptions of all valid cluster groups on the target HPCC System.
+     *
+     * @return the valid target groups
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<TpTargetClusterWrapper> getValidTargetGroups() throws Exception, ArrayOfEspExceptionWrapper
     {
         List<TpTargetClusterWrapper> tpTargetClusters = null;
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpTargetClusterQueryRequest request = new TpTargetClusterQueryRequest();
 
@@ -223,11 +292,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpTargetClusterQuery(request);
+            response = ((WsTopologyStub) stub).tpTargetClusterQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.getValidTargetGroups(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getValidTargetGroups(...) encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
@@ -235,23 +304,25 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         ArrayOfTpTargetClusterWrapper arrayOfTpTargetCluster = new ArrayOfTpTargetClusterWrapper(response.getTpTargetClusters());
 
-        if (arrayOfTpTargetCluster != null)
-            tpTargetClusters = arrayOfTpTargetCluster.getTpTargetCluster();
+        if (arrayOfTpTargetCluster != null) tpTargetClusters = arrayOfTpTargetCluster.getTpTargetCluster();
 
         return tpTargetClusters;
     }
 
     /**
-     * Get names of all available target clusters on the given HPCC System
-     * @return
+     * Get names of all available target clusters on the given HPCC System.
+     *
+     * @return the valid target group names
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public String[] getValidTargetGroupNames() throws Exception, ArrayOfEspExceptionWrapper
     {
         String[] tpTargetClusterNames = null;
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpTargetClusterQueryRequest request = new TpTargetClusterQueryRequest();
 
@@ -262,11 +333,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpTargetClusterQuery(request);
+            response = ((WsTopologyStub) stub).tpTargetClusterQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.getValidTargetGroupNames(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getValidTargetGroupNames(...) encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
@@ -274,7 +345,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         ArrayOfTpTargetCluster arrayOfTpTargetCluster = response.getTpTargetClusters();
 
         TpTargetCluster[] tpTargetClusters = arrayOfTpTargetCluster.getTpTargetCluster();
-        tpTargetClusterNames = new String [tpTargetClusters.length];
+        tpTargetClusterNames = new String[tpTargetClusters.length];
 
         for (int i = 0; i < tpTargetClusters.length; i++)
         {
@@ -285,29 +356,38 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     }
 
     /**
-     * @param name - The target dropzone name
-     * @return
+     * Query dropzone.
+     *
+     * @param name
+     *            - The target dropzone name
+     * @return the tp drop zone wrapper
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public TpDropZoneWrapper queryDropzone(String name) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<TpDropZoneWrapper> dropZones = queryDropzones(name);
-        if (dropZones.size() != 1)
-             throw new Exception ("Could not query Dropzone: '" + name + "'");
+        if (dropZones.size() != 1) throw new Exception("Could not query Dropzone: '" + name + "'");
 
         return dropZones.get(0);
     }
 
     /**
-     * @param namefilter - Empty for all dropzones, or specific dropzeon name
-     * @return
+     * Query dropzones.
+     *
+     * @param namefilter
+     *            - Empty for all dropzones, or specific dropzeon name
+     * @return the list
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<TpDropZoneWrapper> queryDropzones(String namefilter) throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpDropZoneQueryRequest request = new TpDropZoneQueryRequest();
 
@@ -317,11 +397,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpDropZoneQuery(request);
+            response = ((WsTopologyStub) stub).tpDropZoneQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.queryDropzones(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.queryDropzones(...) encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
@@ -329,19 +409,41 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         ArrayOfTpDropZoneWrapper arrayoftpdz = new ArrayOfTpDropZoneWrapper(response.getTpDropZones());
 
-         return arrayoftpdz.getTpDropZone();
+        return arrayoftpdz.getTpDropZone();
     }
 
+    /**
+     * Query dropzone machines.
+     *
+     * @param name
+     *            the name
+     * @return the list
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
     public List<TpMachineWrapper> queryDropzoneMachines(String name) throws Exception, ArrayOfEspExceptionWrapper
     {
         return queryDropzone(name).getTpMachines().getTpMachine();
     }
 
+    /**
+     * Extract cluster names.
+     *
+     * @param clusterGroupType
+     *            the cluster group type
+     * @param targetClusterNamesOnly
+     *            the target cluster names only
+     * @return the string[]
+     * @throws Exception
+     *             the exception
+     */
     private String[] extractClusterNames(String clusterGroupType, boolean targetClusterNamesOnly) throws Exception
     {
         List<String> tpClusterNames = new ArrayList<String>();
 
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpTargetClusterQueryRequest request = new TpTargetClusterQueryRequest();
 
@@ -352,11 +454,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpTargetClusterQuery(request);
+            response = ((WsTopologyStub) stub).tpTargetClusterQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.getValidClusterNames(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getValidClusterNames(...) encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
@@ -370,17 +472,19 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
             for (int i = 0; i < tpTargetClusters.length; i++)
             {
-                if (clusterGroupType == null || clusterGroupType.isEmpty() || tpTargetClusters[i].getType().equalsIgnoreCase(clusterGroupType+"cluster" )) //type == HoleCluster | ThorCluster , etc.
+                if (clusterGroupType == null || clusterGroupType.isEmpty()
+                        || tpTargetClusters[i].getType().equalsIgnoreCase(clusterGroupType + "cluster")) // type == HoleCluster | ThorCluster , etc.
                 {
                     ArrayOfTpCluster arrayOfTpCluster = tpTargetClusters[i].getTpClusters();
                     if (arrayOfTpCluster != null)
                     {
                         TpCluster[] tpClusters = arrayOfTpCluster.getTpCluster();
-                        if (tpClusters != null )
+                        if (tpClusters != null)
                         {
                             for (int k = 0; k < tpClusters.length; k++)
                             {
-                                if (clusterGroupType == null || clusterGroupType.isEmpty() || tpClusters[k].getType().equalsIgnoreCase(clusterGroupType+"cluster" ))
+                                if (clusterGroupType == null || clusterGroupType.isEmpty()
+                                        || tpClusters[k].getType().equalsIgnoreCase(clusterGroupType + "cluster"))
                                 {
                                     if (targetClusterNamesOnly)
                                     {
@@ -389,8 +493,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
                                     }
                                     else
                                     {
-                                        if (!tpClusterNames.contains(tpClusters[k].getName()))
-                                            tpClusterNames.add(tpClusters[k].getName());
+                                        if (!tpClusterNames.contains(tpClusters[k].getName())) tpClusterNames.add(tpClusters[k].getName());
                                     }
                                 }
                             }
@@ -399,19 +502,33 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
                 }
             }
         }
-        return tpClusterNames.toArray(new String [0]);
+        return tpClusterNames.toArray(new String[0]);
     }
 
+    /**
+     * Gets the valid cluster names.
+     *
+     * @param clusterGroupType
+     *            the cluster group type
+     * @return the valid cluster names
+     * @throws Exception
+     *             the exception
+     */
     public String[] getValidClusterNames(String clusterGroupType) throws Exception
     {
         return extractClusterNames(clusterGroupType, false);
     }
+
     /**
-     * Get the names of all available target clusters from a given cluster group (hthor, thor, roxie, Hole,  etc)
-     * @param clusterGroupType -- RoxieCluster, HoleCluster
-     * @return
+     * Get the names of all available target clusters from a given cluster group (hthor, thor, roxie, Hole, etc).
+     *
+     * @param clusterGroupType
+     *            -- RoxieCluster, HoleCluster
+     * @return the valid target cluster names
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public String[] getValidTargetClusterNames(String clusterGroupType) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -420,20 +537,26 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /**
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
-     * @return
+     *
+     * @return the valid target cluster names array
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
-    public String [] getValidTargetClusterNamesArray() throws Exception, ArrayOfEspExceptionWrapper
+    public String[] getValidTargetClusterNamesArray() throws Exception, ArrayOfEspExceptionWrapper
     {
         return getValidTargetClusterNames("");
     }
 
     /**
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
-     * @return
+     *
+     * @return the valid target cluster names
      * @throws Exception
+     *             the exception
      * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      */
     public List<String> getValidTargetClusterNames() throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -446,9 +569,18 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return names;
     }
 
+    /**
+     * Gets the services.
+     *
+     * @return the services
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
     public TpServicesWrapper getServices() throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpServiceQueryRequest request = new TpServiceQueryRequest();
 
@@ -458,11 +590,11 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpServiceQuery(request);
+            response = ((WsTopologyStub) stub).tpServiceQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.getServices(...) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getServices(...) encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
@@ -471,9 +603,20 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return new TpServicesWrapper(response.getServiceList());
     }
 
+    /**
+     * Gets the cluster info.
+     *
+     * @param clusterName
+     *            the cluster name
+     * @return the cluster info
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
     public TpClusterInfoResponseWrapper getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         TpClusterInfoRequest request = new TpClusterInfoRequest();
 
@@ -483,22 +626,31 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpClusterInfo(request);
+            response = ((WsTopologyStub) stub).tpClusterInfo(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.getClusterInfo("+clusterName+") encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getClusterInfo(" + clusterName + ") encountered RemoteException.", e);
         }
 
-        if (response.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get getClusterInfo for cluster: '"+clusterName+"'");
+        if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                "Could not get getClusterInfo for cluster: '" + clusterName + "'");
 
         return new TpClusterInfoResponseWrapper(response);
     }
 
+    /**
+     * Gets the logical clusters.
+     *
+     * @return the logical clusters
+     * @throws Exception
+     *             the exception
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
     public List<TpLogicalClusterWrapper> getLogicalClusters() throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); //Throws exception if stub failed
+        verifyStub(); // Throws exception if stub failed
 
         List<TpLogicalClusterWrapper> tplogclusters = null;
         TpLogicalClusterQueryRequest request = new TpLogicalClusterQueryRequest();
@@ -507,23 +659,29 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            response = ((WsTopologyStub)stub).tpLogicalClusterQuery(request);
+            response = ((WsTopologyStub) stub).tpLogicalClusterQuery(request);
         }
         catch (RemoteException e)
         {
-            throw new Exception ("HPCCWsTopologyClient.getLogicalClusters() encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getLogicalClusters() encountered RemoteException.", e);
         }
 
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not get getLogicalClusters");
 
         ArrayOfTpLogicalClusterWrapper tpLogicalClusters = new ArrayOfTpLogicalClusterWrapper(response.getTpLogicalClusters());
-        if (tpLogicalClusters != null)
-            tplogclusters = tpLogicalClusters.getTpLogicalCluster();
+        if (tpLogicalClusters != null) tplogclusters = tpLogicalClusters.getTpLogicalCluster();
 
         return tplogclusters;
     }
 
+    /**
+     * Ping.
+     *
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     public boolean ping() throws Exception
     {
         verifyStub();
@@ -532,7 +690,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
         try
         {
-            ((WsTopologyStub)stub).ping(request);
+            ((WsTopologyStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -542,6 +700,12 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new WsTopologyStub();

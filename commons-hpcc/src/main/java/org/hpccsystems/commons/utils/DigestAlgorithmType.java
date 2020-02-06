@@ -19,25 +19,48 @@ package org.hpccsystems.commons.utils;
 
 public enum DigestAlgorithmType
 {
-    MD2 ("MD2"),
-    MD5 ("MD5"),
-    SHA1 ("SHA-1"),
-    SHA256 ("SHA-256"),
-    SHA384 ("SHA-384"),
-    SHA512("SHA-512");
+    MD2 (
+            "MD2"
+    ), MD5 (
+            "MD5"
+    ), SHA1 (
+            "SHA-1"
+    ), SHA256 (
+            "SHA-256"
+    ), SHA384 (
+            "SHA-384"
+    ), SHA512 (
+            "SHA-512"
+    );
 
     private String theAlgoName;
 
-    private DigestAlgorithmType (String name)
+    /**
+     * Instantiates a new digest algorithm type.
+     *
+     * @param name
+     *            the name
+     */
+    private DigestAlgorithmType(String name)
     {
         theAlgoName = name;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Enum#toString()
+     */
     public String toString()
     {
         return getName();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return theAlgoName;

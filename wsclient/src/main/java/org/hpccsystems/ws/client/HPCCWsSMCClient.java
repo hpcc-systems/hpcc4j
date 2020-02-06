@@ -18,10 +18,13 @@ import org.hpccsystems.ws.client.utils.Connection;
  */
 public class HPCCWsSMCClient extends BaseHPCCWsClient
 {
-    public static final String             WSSMCURI     = "/WsSMC";
-    private static int            DEFAULTSERVICEPORT    = -1;
-    private static String                    WSDLURL    = null;
+    public static final String WSSMCURI           = "/WsSMC";
+    private static int         DEFAULTSERVICEPORT = -1;
+    private static String      WSDLURL            = null;
 
+    /**
+     * Load WSDLURL.
+     */
     private static void loadWSDLURL()
     {
         try
@@ -36,11 +39,21 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * Gets the service URI.
+     *
+     * @return the service URI
+     */
     public static String getServiceURI()
     {
         return WSSMCURI;
     }
 
+    /**
+     * Gets the service WSDLURL.
+     *
+     * @return the service WSDLURL
+     */
     public static String getServiceWSDLURL()
     {
         if (WSDLURL == null)
@@ -51,6 +64,11 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         return WSDLURL;
     }
 
+    /**
+     * Gets the service WSDL port.
+     *
+     * @return the service WSDL port
+     */
     public static int getServiceWSDLPort()
     {
         if (WSDLURL == null)
@@ -61,21 +79,60 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         return DEFAULTSERVICEPORT;
     }
 
+    /**
+     * Gets the.
+     *
+     * @param connection
+     *            the connection
+     * @return the HPCC ws SMC client
+     */
     public static HPCCWsSMCClient get(Connection connection)
     {
         return new HPCCWsSMCClient(connection);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetHost
+     *            the target host
+     * @param targetPort
+     *            the target port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @return the HPCC ws SMC client
+     */
     public static HPCCWsSMCClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         return new HPCCWsSMCClient(conn);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param protocol
+     *            the protocol
+     * @param targetHost
+     *            the target host
+     * @param targetPort
+     *            the target port
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @param timeout
+     *            the timeout
+     * @return the HPCC ws SMC client
+     */
     public static HPCCWsSMCClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
-        Connection conn = new Connection(protocol,targetHost,targetPort);
+        Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
@@ -83,6 +140,12 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         return new HPCCWsSMCClient(conn);
     }
 
+    /**
+     * Instantiates a new HPCC ws SMC client.
+     *
+     * @param conn
+     *            the conn
+     */
     protected HPCCWsSMCClient(Connection conn)
     {
         initWsSMCSoapProxy(conn);
@@ -91,16 +154,15 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
     /**
      * Initializes the service's underlying soap proxy. Should only be used by constructors
      *
-     * @param baseURL   Target service base URL
-     * @param user      User credentials
-     * @param pass      User credentials
+     * @param conn
+     *            the conn
      */
     @SuppressWarnings("static-access")
     private void initWsSMCSoapProxy(Connection conn)
     {
         try
         {
-            stub = setStubOptions(new WsSMCStub(conn.getUrl()+this.WSSMCURI), conn);
+            stub = setStubOptions(new WsSMCStub(conn.getUrl() + this.WSSMCURI), conn);
         }
         catch (Exception e)
         {
@@ -113,11 +175,18 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * Gets the HPCC build.
+     *
+     * @return the HPCC build
+     * @throws Exception
+     *             the exception
+     */
     public String getHPCCBuild() throws Exception
     {
         String build = null;
         {
-            verifyStub(); //Throws exception if stub failed
+            verifyStub(); // Throws exception if stub failed
 
             Activity request = new Activity();
             ActivityResponse response = null;
@@ -125,7 +194,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
             final String errMessage = "Could not determine HPCC build version: ";
             try
             {
-                response = ((WsSMCStub)stub).activity(request);
+                response = ((WsSMCStub) stub).activity(request);
             }
             catch (Exception e)
             {
@@ -142,14 +211,20 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
             if (response.getExceptions() != null)
             {
                 EspException[] exceptionarray = response.getExceptions().getException();
-                if (exceptionarray.length > 0)
-                    throw new Exception(errMessage + exceptionarray[0].getMessage());
+                if (exceptionarray.length > 0) throw new Exception(errMessage + exceptionarray[0].getMessage());
             }
             build = response.getBuild();
         }
         return build;
     }
 
+    /**
+     * Ping.
+     *
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     public boolean ping() throws Exception
     {
         verifyStub();
@@ -158,7 +233,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
 
         try
         {
-            ((WsSMCStub)stub).ping(request);
+            ((WsSMCStub) stub).ping(request);
         }
         catch (Exception e)
         {
@@ -168,6 +243,12 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
+     */
+    @Override
     public Stub getDefaultStub() throws AxisFault
     {
         return new WsSMCStub();

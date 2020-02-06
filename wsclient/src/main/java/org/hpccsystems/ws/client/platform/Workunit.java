@@ -36,6 +36,15 @@ public class Workunit extends DataSingleton
 {
     public static DataSingletonCollection All = new DataSingletonCollection();
 
+    /**
+     * Gets the.
+     *
+     * @param platform
+     *            the platform
+     * @param wuid
+     *            the wuid
+     * @return the workunit
+     */
     public static Workunit get(Platform platform, String wuid)
     {
         if (wuid == null || wuid.isEmpty())
@@ -60,6 +69,14 @@ public class Workunit extends DataSingleton
         WORKUNIT, CLUSTER, QUERY, APPLICATIONVALUES, RESULTS, GRAPHS, SOURCEFILES, JOBNAME, OWNER
     }
 
+    /**
+     * Instantiates a new workunit.
+     *
+     * @param platform
+     *            the platform
+     * @param wuid
+     *            the wuid
+     */
     private Workunit(Platform platform, String wuid)
     {
         this.platform = platform;
@@ -73,16 +90,31 @@ public class Workunit extends DataSingleton
         setChanged();
     }
 
+    /**
+     * Gets the platform.
+     *
+     * @return the platform
+     */
     public Platform getPlatform()
     {
         return platform;
     }
 
+    /**
+     * Gets the wuid.
+     *
+     * @return the wuid
+     */
     public String getWuid()
     {
         return info.getWuid();
     }
 
+    /**
+     * Gets the query text.
+     *
+     * @return the query text
+     */
     public String getQueryText()
     {
         if (info.getQuery() == null)
@@ -96,6 +128,11 @@ public class Workunit extends DataSingleton
         return ""; //$NON-NLS-1$
     }
 
+    /**
+     * Gets the cluster name.
+     *
+     * @return the cluster name
+     */
     public Object getClusterName()
     {
         if (info.getCluster() == null)
@@ -113,6 +150,11 @@ public class Workunit extends DataSingleton
      * WUStateNoLongerOnServer 999
      */
 
+    /**
+     * Gets the state ID.
+     *
+     * @return the state ID
+     */
     public WUState getStateID()
     {
         if (info.getStateID() != null)
@@ -156,6 +198,13 @@ public class Workunit extends DataSingleton
         return WUState.UNKNOWN;
     }
 
+    /**
+     * Checks if is failed state.
+     *
+     * @param state
+     *            the state
+     * @return true, if is failed state
+     */
     public static boolean isFailedState(String state)
     {
         WUState statecode = translateWUState(state);
@@ -193,6 +242,13 @@ public class Workunit extends DataSingleton
             WuStateNameMap.put("PAUSED", WUState.PAUSED);
     }
 
+    /**
+     * Translate WU state.
+     *
+     * @param state
+     *            the state
+     * @return the WU state
+     */
     public static WUState translateWUState(String state)
     {
         if (WuStateNameMap.containsKey((state.toUpperCase())))
@@ -201,6 +257,11 @@ public class Workunit extends DataSingleton
             return WUState.UNKNOWN;
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public String getState()
     {
         if (info.getState() == null)
@@ -210,6 +271,11 @@ public class Workunit extends DataSingleton
         return info.getState() != null ? info.getState() : "Unknown";//Messages.Unknown;
     }
 
+    /**
+     * Gets the date.
+     *
+     * @return the date
+     */
     public GregorianCalendar getDate()
     {
         String wuid = getWuid();
@@ -222,6 +288,11 @@ public class Workunit extends DataSingleton
         return new GregorianCalendar(year, month, date, hour, min, sec);
     }
 
+    /**
+     * Gets the result views.
+     *
+     * @return the result views
+     */
     public String[] getResultViews()
     {
         if (resultViews == null)
@@ -231,6 +302,13 @@ public class Workunit extends DataSingleton
         return resultViews.toArray(new String[0]);
     }
 
+    /**
+     * Checks for application value.
+     *
+     * @param key
+     *            the key
+     * @return true, if successful
+     */
     public boolean hasApplicationValue(String key)
     {
         if (applicationValues.isEmpty())
@@ -244,6 +322,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Gets the application value.
+     *
+     * @param key
+     *            the key
+     * @return the application value
+     */
     public String getApplicationValue(String key)
     {
         if (applicationValues.isEmpty())
@@ -257,12 +342,26 @@ public class Workunit extends DataSingleton
         return ""; //$NON-NLS-1$
     }
 
+    /**
+     * Gets the result.
+     *
+     * @param sequence
+     *            the sequence
+     * @return the result
+     */
     // Results ---
     public synchronized Result getResult(Integer sequence)
     {
         return Result.get(this, sequence);
     }
 
+    /**
+     * Gets the result.
+     *
+     * @param r
+     *            the r
+     * @return the result
+     */
     public Result getResult(ECLResult r)
     {
         Result result = getResult(r.getSequence());
@@ -270,18 +369,37 @@ public class Workunit extends DataSingleton
         return result;
     }
 
+    /**
+     * Gets the results.
+     *
+     * @return the results
+     */
     public Result[] getResults()
     {
         fullRefresh(false, true, false, false);
         return results.toArray(new Result[0]);
     }
 
+    /**
+     * Gets the graph.
+     *
+     * @param name
+     *            the name
+     * @return the graph
+     */
     // Graphs ---
     synchronized Graph getGraph(String name)
     {
         return Graph.get(this, name);
     }
 
+    /**
+     * Gets the graph.
+     *
+     * @param g
+     *            the g
+     * @return the graph
+     */
     Graph getGraph(ECLGraph g)
     {
         Graph graph = getGraph(g.getName());
@@ -289,18 +407,37 @@ public class Workunit extends DataSingleton
         return graph;
     }
 
+    /**
+     * Gets the graphs.
+     *
+     * @return the graphs
+     */
     public Graph[] getGraphs()
     {
         fullRefresh(true, false, false, false);
         return graphs.toArray(new Graph[0]);
     }
 
+    /**
+     * Gets the source file.
+     *
+     * @param name
+     *            the name
+     * @return the source file
+     */
     // Source Files ---
     synchronized LogicalFile getSourceFile(String name)
     {
         return LogicalFile.get(platform, name);
     }
 
+    /**
+     * Gets the source file.
+     *
+     * @param sf
+     *            the sf
+     * @return the source file
+     */
     LogicalFile getSourceFile(ECLSourceFile sf)
     {
         LogicalFile sourceFile = getSourceFile(sf.getName());
@@ -308,18 +445,31 @@ public class Workunit extends DataSingleton
         return sourceFile;
     }
 
+    /**
+     * Gets the source files.
+     *
+     * @return the source files
+     */
     public LogicalFile[] getSourceFiles()
     {
         fullRefresh(false, false, true, false);
         return sourceFiles.toArray(new LogicalFile[0]);
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     public boolean isComplete()
     {
         return HPCCWsWorkUnitsClient.isWorkunitComplete(getStateID());
     }
 
+    /**
+     * Gets the jobname.
+     *
+     * @return the jobname
+     */
     public String getJobname()
     {
         String retVal = info.getJobname();
@@ -330,6 +480,11 @@ public class Workunit extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Gets the owner.
+     *
+     * @return the owner
+     */
     public String getOwner()
     {
         String retVal = info.getOwner();
@@ -340,6 +495,9 @@ public class Workunit extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Abort.
+     */
     // Actions ---
     public void abort()
     {
@@ -362,6 +520,9 @@ public class Workunit extends DataSingleton
         }
     }
 
+    /**
+     * Delete.
+     */
     public void delete()
     {
         HPCCWsWorkUnitsClient wsWorkunitsClient;
@@ -384,6 +545,14 @@ public class Workunit extends DataSingleton
         }
     }
 
+    /**
+     * Resubmit.
+     *
+     * @param restart
+     *            the restart
+     * @param clone
+     *            the clone
+     */
     public void resubmit(boolean restart, boolean clone)
     {
         HPCCWsWorkUnitsClient wsWorkunitsClient;
@@ -406,21 +575,33 @@ public class Workunit extends DataSingleton
         }
     }
 
+    /**
+     * Resubmit.
+     */
     public void resubmit()
     {
         resubmit(false, false);
     }
 
+    /**
+     * Restart.
+     */
     public void restart()
     {
         resubmit(true, false);
     }
 
+    /**
+     * Clone.
+     */
     public void _clone()
     {
         resubmit(false, true);
     }
 
+    /**
+     * Publish.
+     */
     public void publish()
     {
         HPCCWsWorkUnitsClient wsWorkunitsClient;
@@ -443,12 +624,18 @@ public class Workunit extends DataSingleton
         }
     }
 
+    /**
+     * Refresh state.
+     */
     // Refresh ---
     public void refreshState()
     {
         fullRefresh(false, false, false, false);
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     @Override
     protected void fastRefresh()
     {
@@ -475,12 +662,27 @@ public class Workunit extends DataSingleton
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
         fullRefresh(true, true, true, true);
     }
 
+    /**
+     * Full refresh.
+     *
+     * @param includeGraphs
+     *            the include graphs
+     * @param includeResults
+     *            the include results
+     * @param includeSourceFiles
+     *            the include source files
+     * @param includeApplicationValues
+     *            the include application values
+     */
     void fullRefresh(boolean includeGraphs, boolean includeResults, boolean includeSourceFiles, boolean includeApplicationValues)
     {
         try
@@ -531,6 +733,13 @@ public class Workunit extends DataSingleton
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param wu
+     *            the wu
+     * @return true, if successful
+     */
     // Updates ---
     public boolean update(ECLWorkunit wu)
     {
@@ -587,6 +796,13 @@ public class Workunit extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Update state.
+     *
+     * @param wu
+     *            the wu
+     * @return true, if successful
+     */
     synchronized boolean updateState(ECLWorkunit wu)
     {
         boolean retVal = false;
@@ -602,6 +818,13 @@ public class Workunit extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Update cluster.
+     *
+     * @param cluster
+     *            the cluster
+     * @return true, if successful
+     */
     synchronized boolean updateCluster(String cluster)
     {
         if (cluster != null && EqualsUtil.hasChanged(info.getCluster(), cluster))
@@ -613,6 +836,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update owner.
+     *
+     * @param owner
+     *            the owner
+     * @return true, if successful
+     */
     synchronized boolean updateOwner(String owner)
     {
         if (owner != null && EqualsUtil.hasChanged(info.getOwner(), owner))
@@ -624,6 +854,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update jobname.
+     *
+     * @param jobname
+     *            the jobname
+     * @return true, if successful
+     */
     synchronized boolean updateJobname(String jobname)
     {
         if (jobname != null && EqualsUtil.hasChanged(info.getJobname(), jobname))
@@ -635,6 +872,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update query.
+     *
+     * @param q
+     *            the q
+     * @return true, if successful
+     */
     synchronized boolean updateQuery(ECLQuery q)
     {
         if (q != null && EqualsUtil.hasChanged(info.getQuery(), q))
@@ -646,6 +890,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update application values.
+     *
+     * @param rawAppVals
+     *            the raw app vals
+     * @return true, if successful
+     */
     synchronized boolean updateApplicationValues(ApplicationValue[] rawAppVals)
     {
         if (rawAppVals != null)
@@ -673,6 +924,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update results.
+     *
+     * @param rawResults
+     *            the raw results
+     * @return true, if successful
+     */
     synchronized boolean updateResults(ECLResult[] rawResults)
     {
         if (rawResults != null)
@@ -693,6 +951,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update graphs.
+     *
+     * @param rawGraphs
+     *            the raw graphs
+     * @return true, if successful
+     */
     synchronized boolean updateGraphs(ECLGraph[] rawGraphs)
     {
         if (rawGraphs != null)
@@ -713,6 +978,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Update source files.
+     *
+     * @param rawSourceFiles
+     *            the raw source files
+     * @return true, if successful
+     */
     synchronized boolean updateSourceFiles(ECLSourceFile[] rawSourceFiles)
     {
         if (rawSourceFiles != null)
@@ -733,6 +1005,13 @@ public class Workunit extends DataSingleton
         return false;
     }
 
+    /**
+     * Checks if is valid WUID string.
+     *
+     * @param wuid
+     *            the wuid
+     * @return true, if is valid WUID string
+     */
     static boolean isValidWUIDString(String wuid)
     {
         // W20120816-100734
@@ -750,6 +1029,10 @@ public class Workunit extends DataSingleton
 
         return false;
     }
+    
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -768,6 +1051,9 @@ public class Workunit extends DataSingleton
         return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(info.getWuid(), that.info.getWuid());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

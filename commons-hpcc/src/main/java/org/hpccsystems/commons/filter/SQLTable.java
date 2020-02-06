@@ -21,27 +21,58 @@ public class SQLTable
     private String name;
     private String alias;
 
+    /**
+     * Instantiates a new SQL table.
+     *
+     * @param name
+     *            the name
+     * @param a
+     *            the a
+     */
     public SQLTable(String name, String a)
     {
         this.name = name;
         this.alias = name;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Gets the alias.
+     *
+     * @return the alias
+     */
     public String getAlias()
     {
         return alias;
     }
 
+    /**
+     * Sets the alias.
+     *
+     * @param alias
+     *            the new alias
+     */
     public void setAlias(String alias)
     {
         this.alias = alias;
     }
 
+    /**
+     * Translate if alias.
+     *
+     * @param possibleAlias
+     *            the possible alias
+     * @return the string
+     */
     public String translateIfAlias(String possibleAlias)
     {
         if (possibleAlias.equals(alias) || possibleAlias.equals(name))

@@ -25,6 +25,15 @@ public class Result extends DataSingleton
 {
     private static Map<Integer, Result> Results = new HashMap<Integer, Result>();
 
+    /**
+     * Gets the.
+     *
+     * @param workunit
+     *            the workunit
+     * @param sequence
+     *            the sequence
+     * @return the result
+     */
     public static synchronized Result get(Workunit workunit, Integer sequence)
     {
         Result result = new Result(workunit, sequence);
@@ -53,11 +62,23 @@ public class Result extends DataSingleton
         final int                       PAGE_BEFORE = 60;
         Map<Long, Map<Integer, String>> data;
 
+        /**
+         * Instantiates a new result data.
+         */
         ResultData()
         {
             data = new HashMap<Long, Map<Integer, String>>();
         }
 
+        /**
+         * Gets the cell.
+         *
+         * @param row
+         *            the row
+         * @param col
+         *            the col
+         * @return the string
+         */
         String GetCell(long row, int col)
         {
             if (data.containsKey(row))
@@ -119,6 +140,14 @@ public class Result extends DataSingleton
 
     ResultData data;
 
+    /**
+     * Instantiates a new result.
+     *
+     * @param workunit
+     *            the workunit
+     * @param sequence
+     *            the sequence
+     */
     private Result(Workunit workunit, Integer sequence)
     {
         this.workunit = workunit;
@@ -128,36 +157,71 @@ public class Result extends DataSingleton
         setChanged();
     }
 
+    /**
+     * Gets the workunit.
+     *
+     * @return the workunit
+     */
     public Workunit getWorkunit()
     {
         return workunit;
     }
 
+    /**
+     * Gets the wuid.
+     *
+     * @return the wuid
+     */
     public String getWuid()
     {
         return workunit.getWuid();
     }
 
+    /**
+     * Gets the sequence.
+     *
+     * @return the sequence
+     */
     public Integer getSequence()
     {
         return info.getSequence();
     }
 
+    /**
+     * Gets the result name.
+     *
+     * @return the result name
+     */
     public String getResultName()
     {
         return info.getName();
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName()
     {
         return info.getName();
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue()
     {
         return info.getValue();
     }
 
+    /**
+     * Gets the state ID.
+     *
+     * @return the state ID
+     */
     public WUState getStateID()
     {
         if (/*info.getTotal() != null &&*/ info.getTotal() != -1)
@@ -167,22 +231,40 @@ public class Result extends DataSingleton
         return WUState.UNKNOWN;
     }
 
+    /**
+     * Gets the total.
+     *
+     * @return the total
+     */
     public Long getTotal()
     {
         return info.getTotal();
     }
 
+    /**
+     * Gets the result views.
+     *
+     * @return the result views
+     */
     public String[] getResultViews()
     {
         return workunit.getResultViews();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
+     */
     @Override
     public boolean isComplete()
     {
         return HPCCWsWorkUnitsClient.isWorkunitComplete(getStateID()) || workunit.isComplete();
     }
 
+    /**
+     * Gets the column count.
+     *
+     * @return the column count
+     */
     public int getColumnCount()
     {
         if (info.getECLSchemas() == null)
@@ -192,6 +274,13 @@ public class Result extends DataSingleton
         return info.getECLSchemas().getECLSchemaItem().length;
     }
 
+    /**
+     * Gets the column name.
+     *
+     * @param i
+     *            the i
+     * @return the column name
+     */
     public String getColumnName(int i)
     {
         if (info.getECLSchemas() == null)
@@ -201,11 +290,23 @@ public class Result extends DataSingleton
         return info.getECLSchemas().getECLSchemaItem()[i].getColumnName();
     }
 
+    /**
+     * Gets the cell.
+     *
+     * @param row
+     *            the row
+     * @param col
+     *            the col
+     * @return the cell
+     */
     public String getCell(int row, int col)
     {
         return data.GetCell(row, col);
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
+     */
     // Refresh + Update ---
     @Override
     protected void fastRefresh()
@@ -213,12 +314,22 @@ public class Result extends DataSingleton
         fullRefresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
+     */
     @Override
     protected void fullRefresh()
     {
         workunit.getResults();
     }
 
+    /**
+     * Update.
+     *
+     * @param result
+     *            the result
+     * @return true, if successful
+     */
     // Updates ---
     boolean update(ECLResult result)
     {
@@ -235,6 +346,13 @@ public class Result extends DataSingleton
         return retVal;
     }
 
+    /**
+     * Update state.
+     *
+     * @param result
+     *            the result
+     * @return true, if successful
+     */
     synchronized boolean UpdateState(ECLResult result)
     {
         if (result != null && info.getSequence() == result.getSequence() && EqualsUtil.hasChanged(info, result))
@@ -248,6 +366,9 @@ public class Result extends DataSingleton
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object aThat)
     {
@@ -267,6 +388,9 @@ public class Result extends DataSingleton
                 && EqualsUtil.areEqual(info.getSequence(), that.info.getSequence());
     }
 
+    /* (non-Javadoc)
+     * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
+     */
     @Override
     public int hashCode()
     {

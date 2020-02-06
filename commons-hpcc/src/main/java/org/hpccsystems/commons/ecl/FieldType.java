@@ -24,69 +24,111 @@ import java.io.Serializable;
  * The data types for data fields on an HPCC record.
  *
  */
-public enum FieldType implements Serializable {
-  INTEGER(true, "Integer", false),
-  REAL(true, "Real", false),
-  DECIMAL(true,"Decimal",false),
-  VAR_STRING(true,"VarString",false),
-  STRING(true, "String", false),
-  CHAR(true, "Char", false),
-  BOOLEAN(true, "Boolean", false),
-  BINARY(true, "Binary data", false),
-  RECORD(false, "Record", true),
-  SET(false, "Set", true),             // Set & Dataset are separate because set has a preceding unused byte
-  DATASET(false, "Dataset", true),
-  UNKNOWN(true, "Unknown", false);
+public enum FieldType implements Serializable
+{
+    INTEGER (
+            true, "Integer", false
+    ), REAL (
+            true, "Real", false
+    ), DECIMAL (
+            true, "Decimal", false
+    ), VAR_STRING (
+            true, "VarString", false
+    ), STRING (
+            true, "String", false
+    ), CHAR (
+            true, "Char", false
+    ), BOOLEAN (
+            true, "Boolean", false
+    ), BINARY (
+            true, "Binary data", false
+    ), RECORD (
+            false, "Record", true
+    ), SET (
+            false, "Set", true
+    ), // Set & Dataset are separate because set has a preceding unused byte
+    DATASET (
+            false, "Dataset", true
+    ), UNKNOWN (
+            true, "Unknown", false
+    );
 
-  static final long serialVersionUID = 1L;
-  private boolean scalar;
-  private String name;
-  private boolean composite;
-  /**
-   * A FieldType enumeration value.  Sets of primitives are not
-   * atomic and not composites.  Records and Record Sets are not
-   * atomic but are composites.  Primitives are atomic and not
-   * composites.  The primitive types are Boolean, Integer, String,
-   * and Real.
-   *
-   * The UNKNOWN type is used when the type information
-   * handled in the TypeDef class is not understood.  Possible
-   * underlying types that are not understood include the Foreign
-   * data types, QSTRING, bit fields, ECL ENUM.
-   * @param atomicType is an atomic value, a primitive value
-   * @param name the descriptive name of the this value
-   * @param composite is this a structure
-   */
-  FieldType(boolean atomicType, String name, boolean composite) {
-    this.scalar = atomicType;
-    this.name = name;
-    this.composite = composite;
-  }
-  /**
-   * default constructor for serialization support.
-   */
-  FieldType() {
-    this.scalar = true;
-    this.name = "";
-    this.composite = false;
-  }
-  /**
-   * Is this a primitive scalar type
-   */
-  public boolean isScalar() { return this.scalar; }
-  /**
-   * Is this a set of scalars?
-   */
-  public boolean isVector() { return !this.scalar && !this.composite; }
-  /**
-   * Is this a record or a set of records
-   */
-  public boolean isComposite() { return this.composite; }
-  /**
-   * Description of the type.
-   * @return a descriptive string
-   */
-  public String description() {
-    return name;
-  }
+    static final long serialVersionUID = 1L;
+    private boolean   scalar;
+    private String    name;
+    private boolean   composite;
+
+    /**
+     * A FieldType enumeration value. Sets of primitives are not
+     * atomic and not composites. Records and Record Sets are not
+     * atomic but are composites. Primitives are atomic and not
+     * composites. The primitive types are Boolean, Integer, String,
+     * and Real.
+     *
+     * The UNKNOWN type is used when the type information
+     * handled in the TypeDef class is not understood. Possible
+     * underlying types that are not understood include the Foreign
+     * data types, QSTRING, bit fields, ECL ENUM.
+     * @param atomicType
+     *            is an atomic value, a primitive value
+     * @param name
+     *            the descriptive name of the this value
+     * @param composite
+     *            is this a structure
+     */
+    FieldType(boolean atomicType, String name, boolean composite)
+    {
+        this.scalar = atomicType;
+        this.name = name;
+        this.composite = composite;
+    }
+
+    /**
+     * default constructor for serialization support.
+     */
+    FieldType()
+    {
+        this.scalar = true;
+        this.name = "";
+        this.composite = false;
+    }
+
+    /**
+     * Is this a primitive scalar type.
+     *
+     * @return true, if is scalar
+     */
+    public boolean isScalar()
+    {
+        return this.scalar;
+    }
+
+    /**
+     * Is this a set of scalars?.
+     *
+     * @return true, if is vector
+     */
+    public boolean isVector()
+    {
+        return !this.scalar && !this.composite;
+    }
+
+    /**
+     * Is this a record or a set of records.
+     *
+     * @return true, if is composite
+     */
+    public boolean isComposite()
+    {
+        return this.composite;
+    }
+
+    /**
+     * Description of the type.
+     * @return a descriptive string
+     */
+    public String description()
+    {
+        return name;
+    }
 }

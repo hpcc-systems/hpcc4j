@@ -26,42 +26,49 @@ import org.hpccsystems.commons.errors.UnparsableContentException;
 
 public class RecordDefinitionTranslator
 {
-    private static final String FIELDS_KEY         = "fields";
-    private static final String FIELD_TYPE_KEY     = "fieldType";
-    private static final String LENGTH_KEY         = "length";
-    private static final String NAME_KEY           = "name";
-    private static final String TYPE_KEY           = "type";
-    private static final String CHILD_KEY          = "child";
-    private static final String FLAGS_KEY          = "flags";
+    private static final String FIELDS_KEY            = "fields";
+    private static final String FIELD_TYPE_KEY        = "fieldType";
+    private static final String LENGTH_KEY            = "length";
+    private static final String NAME_KEY              = "name";
+    private static final String TYPE_KEY              = "type";
+    private static final String CHILD_KEY             = "child";
+    private static final String FLAGS_KEY             = "flags";
 
-    private static final int    FLAG_UNSIGNED      = 256;
-    private static final int    FLAG_UNKNOWN_SIZE  = 1024;
-    private static final int    TYPE_ID_MASK       = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
-    final private static int    type_boolean       = 0;
-    final private static int    type_int           = 1;
-    final private static int    type_real          = 2;
-    final private static int    type_decimal       = 3;
-    final private static int    type_string        = 4;
-    final private static int    type_biasedswapint = 8;          // Convert to integer
-    final private static int    type_keyedint      = 10;         // Convert to integer
-    final private static int    type_record        = 13;
-    final private static int    type_varstring     = 14;
-    final private static int    type_data          = 16;
-    final private static int    type_table         = 20;
-    final private static int    type_set           = 21;
-    final private static int    type_swapint       = 26;         // Convert to integer
-    final private static int    type_filepos       = 29;
-    final private static int    type_unicode       = 31;
-    final private static int    type_varunicode    = 33;
-    final private static int    type_utf8          = 41;
+    private static final int    FLAG_UNSIGNED         = 256;
+    private static final int    FLAG_UNKNOWN_SIZE     = 1024;
+    private static final int    TYPE_ID_MASK          = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
+    final private static int    type_boolean          = 0;
+    final private static int    type_int              = 1;
+    final private static int    type_real             = 2;
+    final private static int    type_decimal          = 3;
+    final private static int    type_string           = 4;
+    final private static int    type_biasedswapint    = 8;          // Convert to integer
+    final private static int    type_keyedint         = 10;         // Convert to integer
+    final private static int    type_record           = 13;
+    final private static int    type_varstring        = 14;
+    final private static int    type_data             = 16;
+    final private static int    type_table            = 20;
+    final private static int    type_set              = 21;
+    final private static int    type_swapint          = 26;         // Convert to integer
+    final private static int    type_filepos          = 29;
+    final private static int    type_unicode          = 31;
+    final private static int    type_varunicode       = 33;
+    final private static int    type_utf8             = 41;
 
     // These types need to be revised
-    final private static int    type_char          = 11;         // Convert to string
-    final private static int    type_qstring       = 30;         // Convert to string
+    final private static int    type_char             = 11;         // Convert to string
+    final private static int    type_qstring          = 30;         // Convert to string
 
     // Additional retained flags
     final private static int    FLAG_IS_PAYLOAD_FIELD = 0x00010000;
 
+    /**
+     * Gets the field type.
+     *
+     * @param typeID
+     *            the type ID
+     * @return the field type
+     */
     private static FieldType getFieldType(int typeID)
     {
         int type = typeID & TYPE_ID_MASK;
@@ -102,6 +109,13 @@ public class RecordDefinitionTranslator
         }
     }
 
+    /**
+     * Gets the source type.
+     *
+     * @param typeID
+     *            the type ID
+     * @return the source type
+     */
     private static HpccSrcType getSourceType(int typeID)
     {
         int type = typeID & TYPE_ID_MASK;
@@ -131,16 +145,37 @@ public class RecordDefinitionTranslator
         }
     }
 
+    /**
+     * Checks if is fixed length.
+     *
+     * @param typeID
+     *            the type ID
+     * @return true, if is fixed length
+     */
     private static boolean isFixedLength(int typeID)
     {
         return (typeID & FLAG_UNKNOWN_SIZE) == 0;
     }
 
+    /**
+     * Checks if is unsigned.
+     *
+     * @param typeID
+     *            the type ID
+     * @return true, if is unsigned
+     */
     private static boolean isUnsigned(int typeID)
     {
         return (typeID & FLAG_UNSIGNED) != 0;
     }
 
+    /**
+     * Gets the additional flags.
+     *
+     * @param flags
+     *            the flags
+     * @return the additional flags
+     */
     private static int getAdditionalFlags(int flags)
     {
         final int additionalFlagsMask = ~0x7FFF;
@@ -148,12 +183,13 @@ public class RecordDefinitionTranslator
     }
 
     /**
-     * toECL Converts the provided FieldDef into an ECL record definition
+     * toECL Converts the provided FieldDef into an ECL record definition.
      *
      * @param field
      *            the FieldDef to convert
      * @return ECL Record defintion as a String
      * @throws Exception
+     *             the exception
      */
     public static String toECLRecord(FieldDef field) throws Exception
     {
@@ -168,7 +204,7 @@ public class RecordDefinitionTranslator
         String rootRecordName = getEClTypeDefinition(field, recordDefinitionMap);
 
         // Get root record definition and remove it from the map
-        String rootDefinition = recordDefinitionMap.get(rootRecordName); 
+        String rootDefinition = recordDefinitionMap.get(rootRecordName);
         recordDefinitionMap.remove(rootRecordName);
         rootDefinition = rootDefinition.replace(rootRecordName, "RD");
 
@@ -185,7 +221,7 @@ public class RecordDefinitionTranslator
         sb.append("\n\n");
         sb.append(rootDefinition);
         String definition = sb.toString();
-        
+
         // Replace the temporary hash key
         int numRecordDefinitions = 1;
         for (HashMap.Entry<String, String> entry : recordDefinitionMap.entrySet())
@@ -197,8 +233,18 @@ public class RecordDefinitionTranslator
         return definition;
     }
 
-    private static String getEClTypeDefinition(FieldDef field, HashMap<String, String> recordDefinitionMap)
-            throws Exception
+    /**
+     * Gets the e cl type definition.
+     *
+     * @param field
+     *            the field
+     * @param recordDefinitionMap
+     *            the record definition map
+     * @return the e cl type definition
+     * @throws Exception
+     *             the exception
+     */
+    private static String getEClTypeDefinition(FieldDef field, HashMap<String, String> recordDefinitionMap) throws Exception
     {
         switch (field.getFieldType())
         {
@@ -281,9 +327,7 @@ public class RecordDefinitionTranslator
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unable to convert type to ECL string. Encountered unexpected string source type: "
-                                    + srcType);
+                    throw new Exception("Unable to convert type to ECL string. Encountered unexpected string source type: " + srcType);
                 }
 
                 if (field.isFixed())
@@ -306,9 +350,7 @@ public class RecordDefinitionTranslator
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unable to convert type to varstring. Encountered unexpected string source type: "
-                                    + srcType);
+                    throw new Exception("Unable to convert type to varstring. Encountered unexpected string source type: " + srcType);
                 }
 
                 if (field.isFixed())
@@ -323,8 +365,7 @@ public class RecordDefinitionTranslator
                 for (int i = 0; i < field.getNumDefs(); i++)
                 {
                     FieldDef childField = field.getDef(i);
-                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " "
-                            + childField.getFieldName() + ";\n";
+                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " " + childField.getFieldName() + ";\n";
                 }
                 definition += "END;\n";
 
@@ -342,12 +383,13 @@ public class RecordDefinitionTranslator
     }
 
     /**
-     * toJson Converts the provided FieldDef into a json record definition
+     * toJson Converts the provided FieldDef into a json record definition.
      *
      * @param field
      *            the FieldDef to convert
      * @return Record as a JSONObject
      * @throws Exception
+     *             the exception
      */
     public static JSONObject toJsonRecord(FieldDef field) throws Exception
     {
@@ -383,6 +425,15 @@ public class RecordDefinitionTranslator
         return rootDefinition;
     }
 
+    /**
+     * Gets the type ID.
+     *
+     * @param field
+     *            the field
+     * @return the type ID
+     * @throws Exception
+     *             the exception
+     */
     private static int getTypeID(FieldDef field) throws Exception
     {
         int typeID = 0;
@@ -474,8 +525,7 @@ public class RecordDefinitionTranslator
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unable to convert type to json. Encountered unexpected string source type: " + srcType);
+                    throw new Exception("Unable to convert type to json. Encountered unexpected string source type: " + srcType);
                 }
 
                 if (field.isFixed() == false)
@@ -499,8 +549,7 @@ public class RecordDefinitionTranslator
                 }
                 else
                 {
-                    throw new Exception(
-                            "Unable to convert type to json. Encountered unexpected varstring source type: " + srcType);
+                    throw new Exception("Unable to convert type to json. Encountered unexpected varstring source type: " + srcType);
                 }
 
                 if (field.isFixed() == false)
@@ -521,14 +570,23 @@ public class RecordDefinitionTranslator
             }
             default:
             {
-                throw new Exception("Unable to generate JSON for field : " + field.getFieldName()
-                        + " with unknown type: " + field.getFieldType().description());
+                throw new Exception(
+                        "Unable to generate JSON for field : " + field.getFieldName() + " with unknown type: " + field.getFieldType().description());
             }
         }
 
         return typeID;
     }
 
+    /**
+     * Gets the type hash.
+     *
+     * @param field
+     *            the field
+     * @return the type hash
+     * @throws Exception
+     *             the exception
+     */
     private static int getTypeHash(FieldDef field) throws Exception
     {
         int numHashComponents = 2 + field.getNumDefs();
@@ -556,8 +614,21 @@ public class RecordDefinitionTranslator
         return Arrays.hashCode(hashComponents);
     }
 
-    private static int getJsonTypeDefinition(FieldDef field, HashMap<Integer, Integer> typeDefinitionMap,
-            ArrayList<JSONObject> typeDefinitions) throws Exception
+    /**
+     * Gets the json type definition.
+     *
+     * @param field
+     *            the field
+     * @param typeDefinitionMap
+     *            the type definition map
+     * @param typeDefinitions
+     *            the type definitions
+     * @return the json type definition
+     * @throws Exception
+     *             the exception
+     */
+    private static int getJsonTypeDefinition(FieldDef field, HashMap<Integer, Integer> typeDefinitionMap, ArrayList<JSONObject> typeDefinitions)
+            throws Exception
     {
         int typeHash = getTypeHash(field);
         Integer typeIndex = typeDefinitionMap.get(typeHash);
@@ -639,8 +710,8 @@ public class RecordDefinitionTranslator
             }
             default:
             {
-                throw new Exception("Unable to generate JSON for field : " + field.getFieldName()
-                        + " with unknown type: " + field.getFieldType().description());
+                throw new Exception(
+                        "Unable to generate JSON for field : " + field.getFieldName() + " with unknown type: " + field.getFieldType().description());
             }
         }
 
@@ -651,14 +722,36 @@ public class RecordDefinitionTranslator
         return typeHash;
     }
 
+    /**
+     * Parses the json record definition.
+     *
+     * @param recordDefinition
+     *            the record definition
+     * @return the field def
+     * @throws UnparsableContentException
+     *             the unparsable content exception
+     */
     public static FieldDef parseJsonRecordDefinition(JSONObject recordDefinition) throws UnparsableContentException
     {
         HashMap<String, FieldDef> typeDefinitions = new HashMap<String, FieldDef>();
         return parseJsonRecordDefinition(recordDefinition, typeDefinitions, recordDefinition);
     }
 
-    private static FieldDef parseJsonRecordDefinition(JSONObject jsonTypeDefinitions,
-            HashMap<String, FieldDef> protoTypeDefs, JSONObject recordDefinition) throws UnparsableContentException
+    /**
+     * Parses the json record definition.
+     *
+     * @param jsonTypeDefinitions
+     *            the json type definitions
+     * @param protoTypeDefs
+     *            the proto type defs
+     * @param recordDefinition
+     *            the record definition
+     * @return the field def
+     * @throws UnparsableContentException
+     *             the unparsable content exception
+     */
+    private static FieldDef parseJsonRecordDefinition(JSONObject jsonTypeDefinitions, HashMap<String, FieldDef> protoTypeDefs,
+            JSONObject recordDefinition) throws UnparsableContentException
     {
         int typeID = recordDefinition.getInt(FIELD_TYPE_KEY);
         long length = recordDefinition.getLong(LENGTH_KEY);
@@ -666,8 +759,7 @@ public class RecordDefinitionTranslator
         FieldType fieldType = getFieldType(typeID);
         if (fieldType != FieldType.RECORD)
         {
-            throw new UnparsableContentException(
-                    "Expected top-level field to be of type Record. Found: " + fieldType.description());
+            throw new UnparsableContentException("Expected top-level field to be of type Record. Found: " + fieldType.description());
         }
 
         JSONArray fields = recordDefinition.getJSONArray(FIELDS_KEY);
@@ -689,12 +781,25 @@ public class RecordDefinitionTranslator
         boolean isFixedLength = isFixedLength(typeID);
         boolean isUnsigned = isUnsigned(typeID);
         HpccSrcType srcType = getSourceType(typeID);
-        return new FieldDef("RootRecord", fieldType, fieldType.description(), length, isFixedLength, isUnsigned,
-                    srcType, childDefs.toArray(new FieldDef[0]));
+        return new FieldDef("RootRecord", fieldType, fieldType.description(), length, isFixedLength, isUnsigned, srcType,
+                childDefs.toArray(new FieldDef[0]));
     }
 
-    private static FieldDef parseFieldDefinition(JSONObject jsonTypeDefinitions,
-            HashMap<String, FieldDef> protoTypeDefs, JSONObject jsonFieldDefinition) throws UnparsableContentException
+    /**
+     * Parses the field definition.
+     *
+     * @param jsonTypeDefinitions
+     *            the json type definitions
+     * @param protoTypeDefs
+     *            the proto type defs
+     * @param jsonFieldDefinition
+     *            the json field definition
+     * @return the field def
+     * @throws UnparsableContentException
+     *             the unparsable content exception
+     */
+    private static FieldDef parseFieldDefinition(JSONObject jsonTypeDefinitions, HashMap<String, FieldDef> protoTypeDefs,
+            JSONObject jsonFieldDefinition) throws UnparsableContentException
     {
         String name = jsonFieldDefinition.getString(NAME_KEY);
         String type = jsonFieldDefinition.getString(TYPE_KEY);
@@ -704,7 +809,8 @@ public class RecordDefinitionTranslator
         {
             flags = jsonFieldDefinition.getInt(FLAGS_KEY);
         }
-        catch(Exception e) {}
+        catch (Exception e)
+        {}
 
         FieldDef protoTypeDef = getOrParseJsonTypeDefintion(type, jsonTypeDefinitions, protoTypeDefs);
         FieldDef ret = new FieldDef(protoTypeDef);
@@ -713,8 +819,21 @@ public class RecordDefinitionTranslator
         return ret;
     }
 
-    private static FieldDef getOrParseJsonTypeDefintion(String type, JSONObject jsonTypeDefinitions,
-            HashMap<String, FieldDef> protoTypeDefs) throws UnparsableContentException
+    /**
+     * Gets the or parse json type defintion.
+     *
+     * @param type
+     *            the type
+     * @param jsonTypeDefinitions
+     *            the json type definitions
+     * @param protoTypeDefs
+     *            the proto type defs
+     * @return the or parse json type defintion
+     * @throws UnparsableContentException
+     *             the unparsable content exception
+     */
+    private static FieldDef getOrParseJsonTypeDefintion(String type, JSONObject jsonTypeDefinitions, HashMap<String, FieldDef> protoTypeDefs)
+            throws UnparsableContentException
     {
         FieldDef protoTypeDef = protoTypeDefs.get(type);
         if (protoTypeDef == null)
@@ -733,8 +852,21 @@ public class RecordDefinitionTranslator
         return protoTypeDef;
     }
 
-    private static FieldDef parseJsonTypeDefinition(JSONObject jsonTypeDefinitions,
-            HashMap<String, FieldDef> protoTypeDefs, JSONObject typeDef) throws UnparsableContentException
+    /**
+     * Parses the json type definition.
+     *
+     * @param jsonTypeDefinitions
+     *            the json type definitions
+     * @param protoTypeDefs
+     *            the proto type defs
+     * @param typeDef
+     *            the type def
+     * @return the field def
+     * @throws UnparsableContentException
+     *             the unparsable content exception
+     */
+    private static FieldDef parseJsonTypeDefinition(JSONObject jsonTypeDefinitions, HashMap<String, FieldDef> protoTypeDefs, JSONObject typeDef)
+            throws UnparsableContentException
     {
         int typeID = typeDef.getInt(FIELD_TYPE_KEY);
         long length = typeDef.getLong(LENGTH_KEY);
@@ -753,13 +885,13 @@ public class RecordDefinitionTranslator
                 FieldDef childProtoTypeDef = getOrParseJsonTypeDefintion(childType, jsonTypeDefinitions, protoTypeDefs);
 
                 FieldDef[] childDefs = { childProtoTypeDef };
-                return new FieldDef("", fieldType, fieldType.description(), length, isFixedLength(typeID),
-                        isUnsigned(typeID), getSourceType(typeID), childDefs);
+                return new FieldDef("", fieldType, fieldType.description(), length, isFixedLength(typeID), isUnsigned(typeID), getSourceType(typeID),
+                        childDefs);
             }
             default:
             {
-                return new FieldDef("", fieldType, fieldType.description(), length, isFixedLength(typeID),
-                        isUnsigned(typeID), getSourceType(typeID), new FieldDef[0]);
+                return new FieldDef("", fieldType, fieldType.description(), length, isFixedLength(typeID), isUnsigned(typeID), getSourceType(typeID),
+                        new FieldDef[0]);
             }
         }
     }

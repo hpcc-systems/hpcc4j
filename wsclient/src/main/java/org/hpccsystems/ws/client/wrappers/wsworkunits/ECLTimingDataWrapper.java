@@ -16,8 +16,17 @@ public class ECLTimingDataWrapper
 
     private Integer MS;
 
+    /**
+     * Instantiates a new ECL timing data wrapper.
+     */
     public ECLTimingDataWrapper() {}
 
+    /**
+     * Instantiates a new ECL timing data wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLTimingDataWrapper(ECLTimingData raw)
     {
         if (raw==null)
@@ -33,6 +42,12 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
+    /**
+     * Instantiates a new ECL timing data wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLTimingData raw)
     {
         if (raw==null)
@@ -48,6 +63,12 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
+    /**
+     * Instantiates a new ECL timing data wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLTimingData raw)
     {
         if (raw==null)
@@ -63,6 +84,12 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
+    /**
+     * Instantiates a new ECL timing data wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLTimingData raw)
     {
         if (raw==null)
@@ -78,6 +105,12 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
+    /**
+     * Instantiates a new ECL timing data wrapper.
+     *
+     * @param raw
+     *            the raw
+     */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLTimingData raw)
     {
         if (raw==null)
@@ -93,11 +126,21 @@ public class ECLTimingDataWrapper
         this.setSubGraphNum(raw.getSubGraphNum());
     }
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData getRaw()
     {
         return getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData raw = 
@@ -113,84 +156,125 @@ public class ECLTimingDataWrapper
     }
 
     /**
+     * Gets the name.
+     *
      * @return the name
      */
     public String getName()
     {
         return name;
     }
+    
     /**
-     * @param name the name to set
+     * Sets the name.
+     *
+     * @param name
+     *            the name to set
      */
     public void setName(String name)
     {
         this.name = name;
     }
+    
     /**
+     * Gets the graph num.
+     *
      * @return the graphNum
      */
     public Integer getGraphNum()
     {
         return graphNum;
     }
+    
     /**
-     * @param graphNum the graphNum to set
+     * Sets the graph num.
+     *
+     * @param graphNum
+     *            the graphNum to set
      */
     public void setGraphNum(Integer graphNum)
     {
         this.graphNum = graphNum;
     }
+    
     /**
+     * Gets the sub graph num.
+     *
      * @return the subGraphNum
      */
     public Integer getSubGraphNum()
     {
         return subGraphNum;
     }
+    
     /**
-     * @param subGraphNum the subGraphNum to set
+     * Sets the sub graph num.
+     *
+     * @param subGraphNum
+     *            the subGraphNum to set
      */
     public void setSubGraphNum(Integer subGraphNum)
     {
         this.subGraphNum = subGraphNum;
     }
+    
     /**
+     * Gets the gid.
+     *
      * @return the gID
      */
     public Integer getGID()
     {
         return GID;
     }
+    
     /**
-     * @param gID the gID to set
+     * Sets the gid.
+     *
+     * @param gID
+     *            the gID to set
      */
     public void setGID(Integer gID)
     {
         GID = gID;
     }
+    
     /**
+     * Gets the min.
+     *
      * @return the min
      */
     public Integer getMin()
     {
         return min;
     }
+    
     /**
-     * @param min the min to set
+     * Sets the min.
+     *
+     * @param min
+     *            the min to set
      */
     public void setMin(Integer min)
     {
         this.min = min;
     }
+    
     /**
+     * Gets the ms.
+     *
      * @return the mS
      */
     public Integer getMS()
     {
         return MS;
     }
+    
     /**
-     * @param mS the mS to set
+     * Sets the ms.
+     *
+     * @param mS
+     *            the mS to set
      */
     public void setMS(Integer mS)
     {

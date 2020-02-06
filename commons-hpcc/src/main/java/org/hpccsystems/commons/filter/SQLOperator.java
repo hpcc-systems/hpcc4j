@@ -20,77 +20,63 @@ package org.hpccsystems.commons.filter;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-
 public class SQLOperator
 {
     public enum OperatorType
     {
-        UNKNOWN,
-        PRE_UNARY,
-        POST_UNARY,
-        NOOPTRUE,
-        NOOPFALSE,
-        BINARY;
+        UNKNOWN, PRE_UNARY, POST_UNARY, NOOPTRUE, NOOPFALSE, BINARY;
     }
 
     private static HashMap<String, OperatorType> validOps;
 
     // When adding a new operator, make sure to add it to validOps array
-    public static final String  eq        = new String("=");
-    public static final String  neq       = new String("<>");
-    public static final String  neq2      = new String("!=");
-    public static final String  isNull    = new String(" IS NULL");
-    public static final String  isNotNull = new String(" IS NOT NULL");
-    public static final String  gt        = new String(">");
-    public static final String  lt        = new String("<");
-    public static final String  gte       = new String(">=");
-    public static final String  lte       = new String("<=");
-    public static final String  and       = new String(" AND ");
-    public static final String  or        = new String(" OR ");
-    //public static final String  not       = new String(" NOT ");
-    //public static final String  exists    = new String(" EXISTS ");
-    //public static final String  like      = new String(" LIKE ");
-    public static final String  in        = new String(" IN ");
-    public static final String  notIn     = new String(" NOT IN ");
+    public static final String                   eq                    = new String("=");
+    public static final String                   neq                   = new String("<>");
+    public static final String                   neq2                  = new String("!=");
+    public static final String                   isNull                = new String(" IS NULL");
+    public static final String                   isNotNull             = new String(" IS NOT NULL");
+    public static final String                   gt                    = new String(">");
+    public static final String                   lt                    = new String("<");
+    public static final String                   gte                   = new String(">=");
+    public static final String                   lte                   = new String("<=");
+    public static final String                   and                   = new String(" AND ");
+    public static final String                   or                    = new String(" OR ");
+    // public static final String not = new String(" NOT ");
+    // public static final String exists = new String(" EXISTS ");
+    // public static final String like = new String(" LIKE ");
+    public static final String                   in                    = new String(" IN ");
+    public static final String                   notIn                 = new String(" NOT IN ");
 
+    public final static String                   ISNULLSPLITPATTERN    = "\\s+(?i)IS\\s+(?i)NULL\\s*";
+    public final static String                   ISNOTNULLSPLITPATTERN = "\\s+(?i)IS\\s+(?i)NOT\\s+(?i)NULL\\s*";
+    public final static String                   ANDSPLITPATTERN       = "\\s+(?i)AND\\s+";
+    public final static String                   ORSPLITPATTERN        = "\\s+(?i)OR\\s+";
+    public final static String                   NOTSPLITPATTERN       = "\\s+(?i)NOT\\s+";
+    // public final static String EXISTSSPLITPATTERN = "\\s+(?i)EXISTS\\s*";
+    // public final static String LIKESPLITPATTERN = "\\s+(?i)LIKE\\s*";
+    public final static String                   INSPLITPATTERN        = "\\s+(?i)IN\\s+";
+    public final static String                   NOTINSPLITPATTERN     = "\\s+(?i)NOT\\s+(?i)IN\\s*";
 
+    private final static Pattern                 ISNULLPATTERN         = Pattern.compile("(.?)+" + ISNULLSPLITPATTERN, Pattern.DOTALL);
 
-    public final static String ISNULLSPLITPATTERN = "\\s+(?i)IS\\s+(?i)NULL\\s*";
-    public final static String ISNOTNULLSPLITPATTERN = "\\s+(?i)IS\\s+(?i)NOT\\s+(?i)NULL\\s*";
-    public final static String ANDSPLITPATTERN = "\\s+(?i)AND\\s+";
-    public final static String ORSPLITPATTERN = "\\s+(?i)OR\\s+";
-    public final static String NOTSPLITPATTERN = "\\s+(?i)NOT\\s+";
-    //public final static String EXISTSSPLITPATTERN = "\\s+(?i)EXISTS\\s*";
-    //public final static String LIKESPLITPATTERN = "\\s+(?i)LIKE\\s*";
-    public final static String INSPLITPATTERN = "\\s+(?i)IN\\s+";
-    public final static String NOTINSPLITPATTERN = "\\s+(?i)NOT\\s+(?i)IN\\s*";
+    private final static Pattern                 ISNOTNULLPATTERN      = Pattern.compile("(.?)+" + ISNOTNULLSPLITPATTERN, Pattern.DOTALL);
 
-    private final static Pattern ISNULLPATTERN = Pattern.compile(
-            "(.?)+"+ISNULLSPLITPATTERN,Pattern.DOTALL);
+    private final static Pattern                 ANDPATTERN            = Pattern.compile("(.?){1}" + ANDSPLITPATTERN + "(.?){1}", Pattern.DOTALL);
 
-    private final static Pattern ISNOTNULLPATTERN = Pattern.compile(
-            "(.?)+"+ISNOTNULLSPLITPATTERN,Pattern.DOTALL);
+    private final static Pattern                 ORPATTERN             = Pattern.compile("(.?){1}" + ORSPLITPATTERN + "(.?){1}", Pattern.DOTALL);
 
-    private final static Pattern ANDPATTERN = Pattern.compile(
-            "(.?){1}"+ANDSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
+    // private final static Pattern NOTPATTERN = Pattern.compile(
+    // NOTSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
 
-    private final static Pattern ORPATTERN = Pattern.compile(
-            "(.?){1}"+ORSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
+    // private final static Pattern EXISTSPATTERN = Pattern.compile(
+    // EXISTSSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
 
-    //private final static Pattern NOTPATTERN = Pattern.compile(
-    //        NOTSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
+    // private final static Pattern LIKEPATTERN = Pattern.compile(
+    // LIKESPLITPATTERN+"(.?){1}",Pattern.DOTALL);
 
-    //private final static Pattern EXISTSPATTERN = Pattern.compile(
-    //        EXISTSSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
+    private final static Pattern                 INPATTERN             = Pattern.compile("(.?)+" + INSPLITPATTERN + "(.?)+", Pattern.DOTALL);
 
-    //private final static Pattern LIKEPATTERN = Pattern.compile(
-    //        LIKESPLITPATTERN+"(.?){1}",Pattern.DOTALL);
-
-    private final static Pattern INPATTERN = Pattern.compile(
-        "(.?)+"+INSPLITPATTERN+"(.?)+",Pattern.DOTALL);
-
-    private final static Pattern NOTINPATTERN = Pattern.compile(
-            "(.?){1}"+NOTINSPLITPATTERN+"(.?){1}",Pattern.DOTALL);
+    private final static Pattern                 NOTINPATTERN          = Pattern.compile("(.?){1}" + NOTINSPLITPATTERN + "(.?){1}", Pattern.DOTALL);
 
     static
     {
@@ -99,8 +85,8 @@ public class SQLOperator
         validOps.put(eq, OperatorType.BINARY);
         validOps.put(neq, OperatorType.BINARY);
         validOps.put(neq2, OperatorType.BINARY);
-        //validOps.put(isNull, OPERATOR_TYPE.POSTUNARY);
-        //validOps.put(isNotNull, OPERATOR_TYPE.POSTUNARY);
+        // validOps.put(isNull, OPERATOR_TYPE.POSTUNARY);
+        // validOps.put(isNotNull, OPERATOR_TYPE.POSTUNARY);
         validOps.put(isNull, OperatorType.NOOPFALSE);
         validOps.put(isNotNull, OperatorType.NOOPTRUE);
         validOps.put(gt, OperatorType.BINARY);
@@ -109,17 +95,23 @@ public class SQLOperator
         validOps.put(lte, OperatorType.BINARY);
         validOps.put(and, OperatorType.BINARY);
         validOps.put(or, OperatorType.BINARY);
-        //validOps.put(not, OPERATOR_TYPE.PRE_UNARY);
-        //validOps.put(exists, OPERATOR_TYPE.PRE_UNARY);
-        //validOps.put(like, OPERATOR_TYPE.BINARY);
+        // validOps.put(not, OPERATOR_TYPE.PRE_UNARY);
+        // validOps.put(exists, OPERATOR_TYPE.PRE_UNARY);
+        // validOps.put(like, OPERATOR_TYPE.BINARY);
         validOps.put(in, OperatorType.BINARY);
         validOps.put(notIn, OperatorType.BINARY);
     }
 
-    private final String    value;
-    private OperatorType   type;
-    private String          splitPattern = null;
+    private final String value;
+    private OperatorType type;
+    private String       splitPattern = null;
 
+    /**
+     * Instantiates a new SQL operator.
+     *
+     * @param fragment
+     *            the fragment
+     */
     public SQLOperator(String fragment)
     {
         String upperFragment = fragment.toUpperCase();
@@ -180,34 +172,66 @@ public class SQLOperator
                 value = null;
         }
 
-        if (value != null)
-            type = validOps.get(value);
+        if (value != null) type = validOps.get(value);
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * Checks if is binary.
+     *
+     * @return true, if is binary
+     */
     public boolean isBinary()
     {
         return type == OperatorType.BINARY;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public OperatorType getType()
     {
         return type;
     }
+
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid()
     {
         return validOps.containsKey(value);
     }
 
-    public String [] splitExpressionFragment(String fragment)
+    /**
+     * Split expression fragment.
+     *
+     * @param fragment
+     *            the fragment
+     * @return the string[]
+     */
+    public String[] splitExpressionFragment(String fragment)
     {
         return fragment.split(splitPattern == null ? value : splitPattern);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString()
     {

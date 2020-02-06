@@ -24,11 +24,21 @@ public class WUInfoRequestWrapper
     private Boolean suppressResultSchemas;
     private String thorSlaveIP;
 
+    /**
+     * Gets the raw.
+     *
+     * @return the raw
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo getRaw()
     {
         return getRawVersion1_75();
     }
 
+    /**
+     * Gets the raw version 1 75.
+     *
+     * @return the raw version 1 75
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo getRawVersion1_75()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo request = 
@@ -81,6 +91,11 @@ public class WUInfoRequestWrapper
         return request;
     }
 
+    /**
+     * Gets the raw version 1 69.
+     *
+     * @return the raw version 1 69
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfo getRawVersion1_69()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfo request =
@@ -133,6 +148,11 @@ public class WUInfoRequestWrapper
         return request;
     }
 
+    /**
+     * Gets the raw version 1 62.
+     *
+     * @return the raw version 1 62
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfo getRawVersion1_62()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfo request =
@@ -174,6 +194,11 @@ public class WUInfoRequestWrapper
         return request;
     }
 
+    /**
+     * Gets the raw version 1 58.
+     *
+     * @return the raw version 1 58
+     */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfo getRawVersion1_58()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfo request =
@@ -216,6 +241,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the wuid.
+     *
      * @return the wuid
      */
     public String getWuid()
@@ -224,7 +251,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param wuid the wuid to set
+     * Sets the wuid.
+     *
+     * @param wuid
+     *            the wuid to set
      */
     public void setWuid(String wuid)
     {
@@ -232,6 +262,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the truncate ecl to 64 K.
+     *
      * @return the truncateEclTo64K
      */
     public Boolean getTruncateEclTo64K()
@@ -240,7 +272,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param truncateEclTo64K the truncateEclTo64K to set
+     * Sets the truncate ecl to 64 K.
+     *
+     * @param truncateEclTo64K
+     *            the truncateEclTo64K to set
      */
     public void setTruncateEclTo64K(Boolean truncateEclTo64K)
     {
@@ -248,6 +283,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the type.
+     *
      * @return the type
      */
     public String getType()
@@ -256,7 +293,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param type the type to set
+     * Sets the type.
+     *
+     * @param type
+     *            the type to set
      */
     public void setType(String type)
     {
@@ -264,6 +304,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include exceptions.
+     *
      * @return the includeExceptions
      */
     public Boolean getIncludeExceptions()
@@ -272,7 +314,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeExceptions the includeExceptions to set
+     * Sets the include exceptions.
+     *
+     * @param includeExceptions
+     *            the includeExceptions to set
      */
     public void setIncludeExceptions(Boolean includeExceptions)
     {
@@ -280,6 +325,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include graphs.
+     *
      * @return the includeGraphs
      */
     public Boolean getIncludeGraphs()
@@ -288,7 +335,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeGraphs the includeGraphs to set
+     * Sets the include graphs.
+     *
+     * @param includeGraphs
+     *            the includeGraphs to set
      */
     public void setIncludeGraphs(Boolean includeGraphs)
     {
@@ -296,6 +346,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include source files.
+     *
      * @return the includeSourceFiles
      */
     public Boolean getIncludeSourceFiles()
@@ -304,7 +356,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeSourceFiles the includeSourceFiles to set
+     * Sets the include source files.
+     *
+     * @param includeSourceFiles
+     *            the includeSourceFiles to set
      */
     public void setIncludeSourceFiles(Boolean includeSourceFiles)
     {
@@ -312,6 +367,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include results.
+     *
      * @return the includeResults
      */
     public Boolean getIncludeResults()
@@ -320,7 +377,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeResults the includeResults to set
+     * Sets the include results.
+     *
+     * @param includeResults
+     *            the includeResults to set
      */
     public void setIncludeResults(Boolean includeResults)
     {
@@ -328,6 +388,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include results view names.
+     *
      * @return the includeResultsViewNames
      */
     public Boolean getIncludeResultsViewNames()
@@ -336,7 +398,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeResultsViewNames the includeResultsViewNames to set
+     * Sets the include results view names.
+     *
+     * @param includeResultsViewNames
+     *            the includeResultsViewNames to set
      */
     public void setIncludeResultsViewNames(Boolean includeResultsViewNames)
     {
@@ -344,6 +409,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include variables.
+     *
      * @return the includeVariables
      */
     public Boolean getIncludeVariables()
@@ -352,7 +419,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeVariables the includeVariables to set
+     * Sets the include variables.
+     *
+     * @param includeVariables
+     *            the includeVariables to set
      */
     public void setIncludeVariables(Boolean includeVariables)
     {
@@ -360,6 +430,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include timers.
+     *
      * @return the includeTimers
      */
     public Boolean getIncludeTimers()
@@ -368,7 +440,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeTimers the includeTimers to set
+     * Sets the include timers.
+     *
+     * @param includeTimers
+     *            the includeTimers to set
      */
     public void setIncludeTimers(Boolean includeTimers)
     {
@@ -376,6 +451,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include debug values.
+     *
      * @return the includeDebugValues
      */
     public Boolean getIncludeDebugValues()
@@ -384,7 +461,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeDebugValues the includeDebugValues to set
+     * Sets the include debug values.
+     *
+     * @param includeDebugValues
+     *            the includeDebugValues to set
      */
     public void setIncludeDebugValues(Boolean includeDebugValues)
     {
@@ -392,6 +472,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include application values.
+     *
      * @return the includeApplicationValues
      */
     public Boolean getIncludeApplicationValues()
@@ -400,7 +482,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeApplicationValues the includeApplicationValues to set
+     * Sets the include application values.
+     *
+     * @param includeApplicationValues
+     *            the includeApplicationValues to set
      */
     public void setIncludeApplicationValues(Boolean includeApplicationValues)
     {
@@ -408,6 +493,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include workflows.
+     *
      * @return the includeWorkflows
      */
     public Boolean getIncludeWorkflows()
@@ -416,7 +503,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeWorkflows the includeWorkflows to set
+     * Sets the include workflows.
+     *
+     * @param includeWorkflows
+     *            the includeWorkflows to set
      */
     public void setIncludeWorkflows(Boolean includeWorkflows)
     {
@@ -424,6 +514,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include xml schemas.
+     *
      * @return the includeXmlSchemas
      */
     public Boolean getIncludeXmlSchemas()
@@ -432,7 +524,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeXmlSchemas the includeXmlSchemas to set
+     * Sets the include xml schemas.
+     *
+     * @param includeXmlSchemas
+     *            the includeXmlSchemas to set
      */
     public void setIncludeXmlSchemas(Boolean includeXmlSchemas)
     {
@@ -440,6 +535,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include resource UR ls.
+     *
      * @return the includeResourceURLs
      */
     public Boolean getIncludeResourceURLs()
@@ -448,7 +545,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeResourceURLs the includeResourceURLs to set
+     * Sets the include resource UR ls.
+     *
+     * @param includeResourceURLs
+     *            the includeResourceURLs to set
      */
     public void setIncludeResourceURLs(Boolean includeResourceURLs)
     {
@@ -456,6 +556,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include ECL.
+     *
      * @return the includeECL
      */
     public Boolean getIncludeECL()
@@ -464,7 +566,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeECL the includeECL to set
+     * Sets the include ECL.
+     *
+     * @param includeECL
+     *            the includeECL to set
      */
     public void setIncludeECL(Boolean includeECL)
     {
@@ -472,6 +577,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include helpers.
+     *
      * @return the includeHelpers
      */
     public Boolean getIncludeHelpers()
@@ -480,7 +587,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeHelpers the includeHelpers to set
+     * Sets the include helpers.
+     *
+     * @param includeHelpers
+     *            the includeHelpers to set
      */
     public void setIncludeHelpers(Boolean includeHelpers)
     {
@@ -488,6 +598,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include allowed clusters.
+     *
      * @return the includeAllowedClusters
      */
     public Boolean getIncludeAllowedClusters()
@@ -496,7 +608,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeAllowedClusters the includeAllowedClusters to set
+     * Sets the include allowed clusters.
+     *
+     * @param includeAllowedClusters
+     *            the includeAllowedClusters to set
      */
     public void setIncludeAllowedClusters(Boolean includeAllowedClusters)
     {
@@ -504,6 +619,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the include total cluster time.
+     *
      * @return the includeTotalClusterTime
      */
     public Boolean getIncludeTotalClusterTime()
@@ -512,7 +629,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param includeTotalClusterTime the includeTotalClusterTime to set
+     * Sets the include total cluster time.
+     *
+     * @param includeTotalClusterTime
+     *            the includeTotalClusterTime to set
      */
     public void setIncludeTotalClusterTime(Boolean includeTotalClusterTime)
     {
@@ -520,6 +640,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the suppress result schemas.
+     *
      * @return the suppressResultSchemas
      */
     public Boolean getSuppressResultSchemas()
@@ -528,7 +650,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param suppressResultSchemas the suppressResultSchemas to set
+     * Sets the suppress result schemas.
+     *
+     * @param suppressResultSchemas
+     *            the suppressResultSchemas to set
      */
     public void setSuppressResultSchemas(Boolean suppressResultSchemas)
     {
@@ -536,6 +661,8 @@ public class WUInfoRequestWrapper
     }
 
     /**
+     * Gets the thor slave IP.
+     *
      * @return the thorSlaveIP
      */
     public String getThorSlaveIP()
@@ -544,7 +671,10 @@ public class WUInfoRequestWrapper
     }
 
     /**
-     * @param thorSlaveIP the thorSlaveIP to set
+     * Sets the thor slave IP.
+     *
+     * @param thorSlaveIP
+     *            the thorSlaveIP to set
      */
     public void setThorSlaveIP(String thorSlaveIP)
     {

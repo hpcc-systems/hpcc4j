@@ -33,16 +33,15 @@ import org.junit.runners.MethodSorters;
 public class WSWorkunitsTest extends BaseRemoteTest
 {
     HPCCWsWorkUnitsClient client;
-    String testwuid = System.getProperty("targetwuid");
+    String                testwuid = System.getProperty("targetwuid");
 
+    @Override
     @Before
     public void setup() throws Exception
     {
-        if (platform == null)
-            super.setup();
-        
-        if (client == null)
-            client = wsclient.getWsWorkunitsClient();
+        if (platform == null) super.setup();
+
+        if (client == null) client = wsclient.getWsWorkunitsClient();
 
         Assert.assertNotNull(client);
     }
@@ -128,10 +127,10 @@ public class WSWorkunitsTest extends BaseRemoteTest
     {
         try
         {
-            WorkunitWrapper wu=new WorkunitWrapper();
+            WorkunitWrapper wu = new WorkunitWrapper();
             wu.setECL("OUTPUT('¶');");
             wu.setJobname("WsClientUTF8_Test");
-            wu.setCluster("thor_160");
+            wu.setCluster("thor");
 
             WURunResponse createAndRunWUFromECL = client.createAndRunWUFromECL(wu);
             createAndRunWUFromECL.getExceptions();
