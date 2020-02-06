@@ -1102,9 +1102,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster) throws Exception, ArrayOfEspExceptionWrapper
     {
-<<<<<<< HEAD
        return searchFiles(logicalFilename,cluster,null,null);   
     }
+    
     /**
      * searchFiles
      *
