@@ -1,5 +1,9 @@
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +18,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUResultWrapper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.NodeList;
 
@@ -345,5 +350,26 @@ public class WsDFUClientTest extends BaseRemoteTest
         {
             Assert.fail(e.toString());
         }
+    }
+    
+    @Test
+    @Ignore("Once I know what cluster this will run on during CI testing I'll update my params and activate the test")
+    public void searchFileTest() throws Exception 
+    {
+        String searchStr="hipie::keys::*";
+        assertNotNull(thorcluster);
+        List<DFULogicalFileWrapper> results=wsdfuclient.searchFiles(searchStr, thorcluster);
+        assertEquals(100,results.size());
+        String fname=results.get(0).getFileName();
+        results=wsdfuclient.searchFiles(searchStr, thorcluster,2,null);
+        assertEquals(2,results.size());
+        assertEquals(fname,results.get(0).getFileName());
+        results=wsdfuclient.searchFiles(searchStr, thorcluster,null,2);
+        assertEquals(100,results.size());
+        String fname2=results.get(0).getFileName();
+        assertFalse(fname.equals(fname2));
+        results=wsdfuclient.searchFiles(searchStr, thorcluster,2,2);
+        assertEquals(2,results.size());
+        assertEquals(fname2, results.get(0).getFileName());
     }
 }
