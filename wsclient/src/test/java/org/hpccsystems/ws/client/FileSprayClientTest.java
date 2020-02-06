@@ -27,7 +27,6 @@ public class FileSprayClientTest extends BaseRemoteTest
     private       HPCCFileSprayClient filesprayclient = null;
     private final String              dropzoneName    = "mydropzone";
     private List<String>              fileNames       = new ArrayList<>();
-    private final String              netAddress      = "server_ip";
     private final String              path            = "/var/lib/HPCCSystems/mydropzone";
     private final String              os              = "";
 
@@ -198,7 +197,8 @@ public class FileSprayClientTest extends BaseRemoteTest
         testUploadFile();
         try
         {
-            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, netAddress, path, null);
+            HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
+            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
             if (result.isExceptionsSpecified())
             {
                 System.out.println("failed");
@@ -210,6 +210,7 @@ public class FileSprayClientTest extends BaseRemoteTest
                 assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult()[0].getAction());
                 assertEquals(SUCCESS_RESULT, result.getDFUActionResults().getDFUActionResult()[0].getResult());
             }
+            platform.checkInHPCCWsClient(wsClient);
         }
         catch (RemoteException e)
         {
@@ -221,6 +222,11 @@ public class FileSprayClientTest extends BaseRemoteTest
             espSoapFault.printStackTrace();
             Assert.fail();
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 
     @Test
@@ -230,7 +236,8 @@ public class FileSprayClientTest extends BaseRemoteTest
         fileNames.add("SomeNoneExistantFile.txt");
         try
         {
-            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, netAddress, path, null);
+            HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
+            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
             if (result.isExceptionsSpecified())
             {
                 System.out.println("failed");
@@ -243,6 +250,7 @@ public class FileSprayClientTest extends BaseRemoteTest
                 assertEquals(FILE_DOES_NOT_EXIST_RESULT, result.getDFUActionResults().getDFUActionResult()[0].getResult());
                 System.out.println("File not found as expected");
             }
+            platform.checkInHPCCWsClient(wsClient);
         }
         catch (RemoteException e)
         {
@@ -252,6 +260,11 @@ public class FileSprayClientTest extends BaseRemoteTest
         catch (EspSoapFault espSoapFault)
         {
             espSoapFault.printStackTrace();
+            Assert.fail();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
             Assert.fail();
         }
     }
