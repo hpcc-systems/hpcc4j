@@ -77,16 +77,18 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
  */
 public class HPCCFileSprayClient extends BaseHPCCWsClient
 {
-    private static final String FILESPRAYWSDLURI       = "/FileSpray";
-    private static final String UPLOADURI              = FILESPRAYWSDLURI + "/UploadFile?upload_";
-    private static final String DOWNLOAD_URI           = FILESPRAYWSDLURI + "/DownloadFile?";
-    private static final long   MAX_FILE_WSUPLOAD_SIZE = 2000000000;
-    private int                 BUFFER_LENGTH          = 1024;
+    private static final String               FILESPRAYWSDLURI       = "/FileSpray";
+    private static final String               UPLOADURI              = FILESPRAYWSDLURI + "/UploadFile?upload_";
+    private static final String               DOWNLOAD_URI           = FILESPRAYWSDLURI + "/DownloadFile?";
+    private static final long                 MAX_FILE_WSUPLOAD_SIZE = 2000000000;
+    private int                               BUFFER_LENGTH          = 1024;
 
-    List<DropZoneWrapper>       localDropZones         = null;
-    private static Logger       log                    = LogManager.getLogger(HPCCFileSprayClient.class);
-    private static int          DEFAULTSERVICEPORT     = -1;
-    private static String       WSDLURL                = null;
+    List<DropZoneWrapper>                     localDropZones         = null;
+    private static Logger                     log                    = LogManager.getLogger(HPCCFileSprayClient.class);
+    private static int                        DEFAULTSERVICEPORT     = -1;
+    private static String                     WSDLURL                = null;
+
+    private static final PhysicalFileStruct[] NO_FILES               = {};
 
     /**
      * Load WSDLURL.
@@ -147,7 +149,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override
@@ -751,6 +753,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform DZFileSearch");
 
+        if (resp.getFiles() == null) return NO_FILES;
+
         return resp.getFiles().getPhysicalFileStruct();
     }
 
@@ -799,12 +803,15 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         List<PhysicalFileStructWrapper> physicalFileStructWrappers = new ArrayList<PhysicalFileStructWrapper>();
 
-        PhysicalFileStruct[] physicalFileStruct = resp.getFiles().getPhysicalFileStruct();
-        if (physicalFileStruct != null && physicalFileStruct.length > 0)
+        if (resp.getFiles() != null)
         {
-            for (int i = 0; i < physicalFileStruct.length; i++)
+            PhysicalFileStruct[] physicalFileStruct = resp.getFiles().getPhysicalFileStruct();
+            if (physicalFileStruct != null && physicalFileStruct.length > 0)
             {
-                physicalFileStructWrappers.add(new PhysicalFileStructWrapper(physicalFileStruct[i]));
+                for (int i = 0; i < physicalFileStruct.length; i++)
+                {
+                    physicalFileStructWrappers.add(new PhysicalFileStructWrapper(physicalFileStruct[i]));
+                }
             }
         }
 
@@ -1932,7 +1939,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#equals(java.lang.Object)
      */
     @Override
@@ -1964,7 +1971,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#hashCode()
      */
     @Override
