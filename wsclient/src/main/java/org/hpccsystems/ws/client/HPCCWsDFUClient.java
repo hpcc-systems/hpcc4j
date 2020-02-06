@@ -1094,14 +1094,33 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *            - the filename to search for
      * @param cluster
      *            - the cluster to search on
-     * @return - true if the file exists on the specified cluster (or on any cluster if the input cluster is null),
-     *         false otherwise
+     * @return - collection of files matching the logicalfilename passed in
      * @throws Exception
      *             the exception
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster) throws Exception, ArrayOfEspExceptionWrapper
+    {
+       return searchFiles(logicalFilename,cluster,null,null);   
+    }
+    
+    /**
+     * searchFiles
+     *
+     * @param logicalFilename
+     *            - the filename to search for
+     * @param cluster
+     *            - the cluster to search on
+     * @param pagesize
+     *            - the size of the page
+     * @param pageStartFrom
+     *            - the location to search from
+     * @return - collection of files matching the logicalfilename passed in
+     * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
+     */
+    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); // Throws exception if stub failed
 
@@ -1111,7 +1130,15 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
         request.setNodeGroup(cluster);
         request.setLogicalName(logicalFilename);
-
+        if (pagesize != null) 
+        {
+            request.setPageSize(pagesize);
+        }
+        if (pageStartFrom != null) 
+        {
+            request.setPageStartFrom(pageStartFrom);
+        }
+        
         DFUQueryResponse resp = null;
 
         try
