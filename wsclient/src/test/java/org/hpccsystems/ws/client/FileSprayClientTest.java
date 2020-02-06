@@ -1,9 +1,17 @@
 package org.hpccsystems.ws.client;
 
+import java.io.File;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
+import org.apache.commons.lang3.StringUtils;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
+import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
@@ -13,6 +21,9 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FileSprayClientTest extends BaseRemoteTest
 {
@@ -32,7 +43,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     {
         try
         {
-            Assert.assertTrue(filesprayclient.ping());
+            assertTrue(filesprayclient.ping());
         }
         catch (AxisFault e)
         {
@@ -131,6 +142,97 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    public void testUploadFile()
+    {
+//        File uploadFile = new File("/Users/woodbr01/Documents/demo/salesdata_orig.csv");
+//        try {
+//            filesprayclient
+//            List<DropZoneWrapper> landingZones = filesprayclient.fetchDropZones(connector.getServerHost());
+//            DropZoneWrapper zone = HPCCUtility.getDropzone(landingZones,landingZone);
+//            if (wsClient.pingServer()) {
+//                if (StringUtils.isNotBlank(zonePath)) {
+//                    String zp = zone.getPath() + zonePath;
+//                    zone.setPath(zp);
+//                }
+//                if (!fileSprayClient.uploadLargeFile(uploadFile, zone)) {
+//                    eb.take(new HError(ErrorLevel.ERROR, HpccErrorType.HPCC, HpccErrorCode.FILE_READ_ERROR,
+//                            "The File could not be uploaded"));
+//                } else {
+//                    return true;
+//                }
+//            } else {
+//                eb.take(new HError(ErrorLevel.ERROR,HpccErrorType.HPCC,HpccErrorCode.INVALID_HPCC_CLUSTER,
+//                        "The connection is not available"));
+//            }
+//            platform.checkInHPCCWsClient(wsClient);
+//        } catch (Exception e) {
+//            eb.take(new HError(ErrorLevel.ERROR,HpccErrorType.HPCC,HpccErrorCode.SYSTEM_ERROR,
+//                    e.getLocalizedMessage()));
+//        } finally {
+//            try {
+//                platform.checkInHPCCWsClient(wsClient);
+//            }catch (Exception e) {
+//                eb.take(new HError(ErrorLevel.ERROR,HpccErrorType.HPCC,HpccErrorCode.SYSTEM_ERROR,
+//                        e.getLocalizedMessage()));
+//            }
+//        }
+//        return false;
+    }
+
+    @Test
+    public void testDeleteDropZoneFile()
+    {
+        String dropzoneName = "mydropzone";
+        List<String> fileNames;
+        String netAddress = "";
+        String path = "";
+        String os;
+
+        testUploadFile();
+
+        try {
+            filesprayclient.deleteDropZoneFiles(dropzoneName, new ArrayList<>(), netAddress, path, null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            Assert.fail();
+        } catch (EspSoapFault espSoapFault) {
+            espSoapFault.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testDeleteDropZoneFileInvalidFile()
+    {
+        String dropzoneName = "mydropzone";
+        List<String> fileNames = new ArrayList<>();
+        fileNames.add("salesdata_orig.csv");
+        String netAddress = "server_ip";
+        String path = "/var/lib/HPCCSystems/mydropzone";
+        String os;
+
+//        testUploadFile();
+
+        try {
+            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, netAddress, path, null);
+            if (result.isExceptionsSpecified()) {
+                System.out.println("failed");
+                System.out.println(result.getFirstColumn());
+            } else {
+                assertEquals(fileNames.get(0), result.getDFUActionResults().getDFUActionResult()[0].getID());
+                assertEquals("Delete", result.getDFUActionResults().getDFUActionResult()[0].getAction());
+                assertEquals("Success", result.getDFUActionResults().getDFUActionResult()[0].getResult());
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            Assert.fail();
+        } catch (EspSoapFault espSoapFault) {
+            espSoapFault.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
     public void testfetchDropZonesBadURL()
     {
         try
@@ -156,7 +258,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             String wsClientMessage = e.getWsClientMessage();
             Assert.assertNotNull(wsClientMessage);
-            Assert.assertTrue(wsClientMessage.equals(message));
+            assertTrue(wsClientMessage.equals(message));
         }
     }
 
