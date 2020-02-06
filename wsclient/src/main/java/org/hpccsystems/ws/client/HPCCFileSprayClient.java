@@ -1945,7 +1945,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param path
      *          - The full path to the dropzone on the filesystem ie /var/lib/HPCCSystems/mydropzone
      * @param {string} [os]
-     *          - The os?????
+     *          - The os
      * @return
      * @throws RemoteException
      * @throws EspSoapFault
