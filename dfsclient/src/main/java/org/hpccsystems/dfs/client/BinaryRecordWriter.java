@@ -270,7 +270,8 @@ public class BinaryRecordWriter implements IRecordWriter
             case INTEGER:
             {
                 Long value = null;
-                if (fieldValue==null) {
+                if (fieldValue==null) 
+                {
                     value=new Long(0);
                 }
                 else if (fieldValue instanceof Long)
