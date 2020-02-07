@@ -18,8 +18,10 @@ package org.hpccsystems.dfs.client;
 import java.util.List;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 
 import org.hpccsystems.dfs.client.HPCCFile;
@@ -38,21 +40,23 @@ import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
-import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runners.MethodSorters;
 
 
 @Category(RemoteTests.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
-    private static final String[] datasets       = { "~benchmark::integer::20kb", "~demo::example_dataset"};
+    private static final String[] datasets       = { "~benchmark::integer::20kb"};
     private static final int[]    expectedCounts = { 1250, 6 };
 
     @Before
@@ -106,6 +110,42 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
     }
+
+
+    @Test
+    public void nullWriteTest() throws Exception
+    {
+        String fname="~test::alldatatypes";
+        HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
+        file.setProjectList("");
+        List<HPCCRecord> records = readFile(file);
+        assertEquals( "Record count mismatch for dataset:" + fname + ". got: " + records.size() + " expected:" + 5600,5600,records.size());
+
+        HPCCRecord first = records.get(0);
+        for (int f = 0; f < first.getNumFields(); f++)
+        {
+            first.setField(f, null);
+        }
+
+        // Write the dataset back
+        String copyFileName = fname + "_copy";
+        writeFile(records, copyFileName, file.getProjectedRecordDefinition());
+
+        file = new HPCCFile(copyFileName, connString, hpccUser, hpccPass);
+        records = readFile(file);
+        assertEquals( "Record count mismatch for dataset:" + copyFileName + ". got: " + records.size() + " expected:" + 5600,5600,records.size());
+
+        HPCCRecord rec0 = records.get(0);
+        assertEquals((String) rec0.getField(0), "");
+        assertEquals((Boolean) rec0.getField(1), false);
+        assertEquals((Long) rec0.getField(2), new Long(0));
+        assertEquals((Long) rec0.getField(3), new Long(0));
+        assertEquals((Long) rec0.getField(4), new Long(0));
+        assertEquals((Double) rec0.getField(5), new Double(0.0));
+        assertEquals(((BigDecimal) rec0.getField(6)).intValue(),0);
+
+    }
+    
 
     private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
     private static final SecureRandom RANDOM   = new SecureRandom();
@@ -293,6 +333,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 }
                 catch (Exception e)
                 {
+                    e.printStackTrace();
                     Assert.fail(e.getMessage());
                 }
             }
