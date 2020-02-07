@@ -1950,8 +1950,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws RemoteException
      * @throws EspSoapFault
      */
-    public DFUWorkunitsActionResponse deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws RemoteException, EspSoapFault
+    public DFUWorkunitsActionResponse deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, HPCCEnvOSCode os) throws Exception
     {
+        verifyStub();
+
         EspStringArray espStringArray = new EspStringArray();
         fileNames.forEach(fileName -> espStringArray.addItem(fileName));
 
