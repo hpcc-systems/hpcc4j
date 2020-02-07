@@ -24,25 +24,52 @@ import static org.junit.Assert.assertTrue;
 
 public class FileSprayClientTest extends BaseRemoteTest
 {
-    private       HPCCFileSprayClient filesprayclient = null;
-    private final String              dropzoneName    = "mydropzone";
-    private List<String>              fileNames       = new ArrayList<>();
-    private final String              path            = "/var/lib/HPCCSystems/mydropzone";
-    private final String              os              = "";
+    private HPCCFileSprayClient filesprayclient = null;
+    private String              dropzoneName    = System.getProperty("dropzoneName");
+    private List<String>        fileNames       = new ArrayList<>();
+    private String              testFile1       = System.getProperty("dropzoneTestFile1");
+    private String              path            = System.getProperty("dropzonePath");
+    private String              os              = System.getProperty("dropzoneOs");
 
     public static final String DELETE_ACTION              = "Delete";
     public static final String SUCCESS_RESULT             = "Success";
     public static final String FILE_DOES_NOT_EXIST_RESULT = "Warning: this file does not exist.";
+
+    static
+    {
+        if (System.getProperty("dropzoneName") == null)
+            System.out.println("dropzoneName nor provided - defaulting to someDropzone");
+
+        if (System.getProperty("testFile1") == null)
+            System.out.println("testFile1 not provided - defaulting to myfilename.txt");
+
+        if (System.getProperty("dropzonePath") == null)
+            System.out.println("dropzonePath not provided - defaulting to /path/to/dropzone");
+
+        if (System.getProperty("dropzoneOs") == null)
+            System.out.println("dropzoneOs not provided - defaulting to ''");
+    }
 
     @Before
     public void setUp() throws Exception
     {
         super.setup();
 
-        fileNames.add("Japi274deleteDropzoneFileTest.csv");
-
         filesprayclient = wsclient.getFileSprayClient();
         Assert.assertNotNull(filesprayclient);
+
+        if (testFile1 == null)
+            testFile1 = "myfilename.txt";
+        fileNames.add(testFile1);
+
+        if (dropzoneName == null)
+            dropzoneName = "someDropzone";
+
+        if (path == null)
+            path = "/path/to/dropzone";
+
+        if (os == null)
+            os = "";
     }
 
     @Test
