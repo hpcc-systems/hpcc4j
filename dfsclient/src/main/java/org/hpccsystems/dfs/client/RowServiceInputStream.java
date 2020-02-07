@@ -708,7 +708,8 @@ public class RowServiceInputStream extends InputStream
             }
 
             this.dos.close();
-            if (this.dis != null) {
+            if (this.dis != null)
+            {
                 this.dis.close();
             }
             this.sock.close();
