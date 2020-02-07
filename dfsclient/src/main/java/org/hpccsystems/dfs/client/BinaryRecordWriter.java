@@ -22,6 +22,7 @@ import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.io.OutputStream;
@@ -257,7 +258,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case BOOLEAN:
             {
-                Boolean value = (Boolean) fieldValue;
+                Boolean value = fieldValue==null?Boolean.valueOf(false):(Boolean) fieldValue;
                 byte byteValue = 0;
                 if (value)
                 {
@@ -269,13 +270,20 @@ public class BinaryRecordWriter implements IRecordWriter
             case INTEGER:
             {
                 Long value = null;
-                if (fieldValue instanceof Long)
+                if (fieldValue==null) {
+                    value=new Long(0);
+                }
+                else if (fieldValue instanceof Long)
                 {
                     value = (Long) fieldValue;
                 }
                 else if (fieldValue instanceof Integer)
                 {
                     value = ((Integer) fieldValue).longValue();
+                }
+                else if (fieldValue instanceof BigInteger)
+                {
+                    value = ((BigInteger) fieldValue).longValue();
                 }
                 else if (fieldValue instanceof Short)
                 {
@@ -287,7 +295,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else
                 {
-                    throw new Exception("Unsupported integer type: " + fieldValue.getClass().getName());
+                    throw new Exception("Unsupported integer type: " + fieldValue.getClass().getName() + " for field " + fd.getFieldName());
                 }
 
                 if (fd.getDataLen() == 1)
@@ -319,7 +327,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     throw new Exception("Writing unsigned decimals is not currently supported.");
                 }
 
-                BigDecimal value = (BigDecimal) fieldValue;
+                BigDecimal value = fieldValue==null?BigDecimal.valueOf(0):(BigDecimal) fieldValue;
                 writeDecimal(fd, value);
                 break;
             }
@@ -351,15 +359,19 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case CHAR:
             {
-                String value = (String) fieldValue;
-                byte c = (byte) value.charAt(0);
+                byte c='\0';
+                if (fieldValue!=null) 
+                {
+                    String value = (String) fieldValue;
+                    c = (byte) value.charAt(0);
+                }
                 this.buffer.put(c);
             }
             case VAR_STRING:
             case STRING:
             {
-                String value = (String) fieldValue;
-                byte[] data = null;
+                String value = fieldValue != null?(String) fieldValue:"";
+                byte[] data = new byte[0];
                 if (fd.getSourceType() == HpccSrcType.UTF16LE)
                 {
                     data = value.getBytes("UTF-16LE");
@@ -455,7 +467,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        writeUnsigned(value.length());
+                        writeUnsigned(value==null?0:value.length());
                         writeByteArray(data);
                     }
                 }
@@ -718,7 +730,7 @@ public class BinaryRecordWriter implements IRecordWriter
 
         // Strip leading zeros. We only want sig digits
         int numLeadingZeros = 0;
-        while (decimalStr.charAt(numLeadingZeros) == '0')
+        while (decimalStr.length()>numLeadingZeros && decimalStr.charAt(numLeadingZeros) == '0')
         {
             numLeadingZeros++;
         }
