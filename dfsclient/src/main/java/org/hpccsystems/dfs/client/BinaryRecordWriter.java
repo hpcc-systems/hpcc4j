@@ -250,7 +250,7 @@ public class BinaryRecordWriter implements IRecordWriter
         {
             case BINARY:
             {
-                byte[] data = (byte[]) fieldValue;
+                byte[] data = fieldValue==null?new byte[0]:(byte[]) fieldValue;
                 long dataSize = data.length;
                 writeUnsigned(dataSize);
                 writeByteArray(data);

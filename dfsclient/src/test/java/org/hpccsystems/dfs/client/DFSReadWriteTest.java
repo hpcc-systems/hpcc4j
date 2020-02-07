@@ -40,18 +40,20 @@ import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
-import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runners.MethodSorters;
 
 
 @Category(RemoteTests.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb"};
@@ -113,7 +115,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void nullWriteTest() throws Exception
     {
-        String fname="~test::mostdatatypes";
+        String fname="~test::alldatatypes";
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
         List<HPCCRecord> records = readFile(file);
@@ -331,6 +333,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 }
                 catch (Exception e)
                 {
+                    e.printStackTrace();
                     Assert.fail(e.getMessage());
                 }
             }
