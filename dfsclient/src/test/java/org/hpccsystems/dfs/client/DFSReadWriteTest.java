@@ -18,6 +18,7 @@ package org.hpccsystems.dfs.client;
 import java.util.List;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.security.SecureRandom;
@@ -59,6 +60,17 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void setup() throws Exception
     {
         super.setup();
+    }
+
+    
+    @Test
+    public void readBadlyDistributedFileTest() throws Exception
+    {
+        //this file only has data on two nodes
+        HPCCFile file = new HPCCFile("~test::alldatatypes", connString , hpccUser, hpccPass);
+        file.setProjectList("");
+        List<HPCCRecord> records = readFile(file);
+        assertEquals("Not all records loaded",records.size(),5600);
     }
 
     @Test
