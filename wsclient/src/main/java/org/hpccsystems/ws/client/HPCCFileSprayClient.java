@@ -30,12 +30,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CopyResponse;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileSprayPingRequest;
@@ -1547,7 +1550,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param file
      *            - The File to upload
      * @param dropZone
-     *            the drop zone
+     *            - The target HPCC file dropzone
      * @return - Boolean, success
      * @throws Exception
      *             the exception
@@ -1935,6 +1938,42 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not perform GetDFUWorkunits");
 
         return new GetDFUWorkunitsResponseWrapper(response);
+    }
+
+    /**
+     * Deletes a file from a drop zone
+     *
+     * @param dropzoneName
+     *          - The name of the dropzone to delete from
+     * @param fileNames
+     *          - A List of names to delete from the drop zone
+     * @param netAddress
+     *          - The net address of the dropzone
+     * @param path
+     *          - The full path to the dropzone on the filesystem ie /var/lib/HPCCSystems/mydropzone
+     * @param {string} [os]
+     *          - The os
+     * @return
+     * @throws RemoteException
+     * @throws EspSoapFault
+     */
+    public DFUWorkunitsActionResponse deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
+    {
+        verifyStub();
+
+        EspStringArray espStringArray = new EspStringArray();
+        fileNames.forEach(fileName -> espStringArray.addItem(fileName));
+
+        DeleteDropZoneFilesRequest request = new DeleteDropZoneFilesRequest();
+        request.setDropZoneName(dropzoneName);
+        request.setNames(espStringArray);
+        request.setNetAddress(netAddress);
+        request.setPath(path);
+        request.setOS(os);
+
+        DFUWorkunitsActionResponse response = ((FileSprayStub)stub).deleteDropZoneFiles(request);
+
+        return response;
     }
 
     /*
