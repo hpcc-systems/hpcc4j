@@ -579,7 +579,10 @@ public class RowServiceInputStream extends InputStream
     {
         try
         {
-            int cursorLen = dis==null?0:dis.readInt();
+            if (dis==null) {
+                return;
+            }
+            int cursorLen = dis.readInt();
             if (cursorLen == 0)
             {
                 close();
