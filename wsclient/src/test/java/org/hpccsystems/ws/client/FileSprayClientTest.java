@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -187,10 +188,11 @@ public class FileSprayClientTest extends BaseRemoteTest
         return null;
     }
 
+    @Category(IntegrationTest.class)
     @Test
     public void testUploadFile()
     {
-        File uploadFile = new File("src/test/resources/fileSprayTest/salesdata_orig.csv");
+        File uploadFile = new File("src/test/resources/fileSprayTest/Japi274deleteDropzoneFileTest.csv");
         try
         {
             HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
@@ -218,6 +220,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
+    @Category(IntegrationTest.class)
     @Test
     public void testDeleteDropZoneFile()
     {
@@ -225,17 +228,16 @@ public class FileSprayClientTest extends BaseRemoteTest
         try
         {
             HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
-            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
-            if (result.isExceptionsSpecified())
+            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
+            if (!result.getExceptions().getException().isEmpty())
             {
-                System.out.println("failed");
-                System.out.println(result.getFirstColumn());
+                Assert.fail("failed to delete file\n" + result.getExceptions().toString());
             }
             else
             {
-                assertEquals(fileNames.get(0), result.getDFUActionResults().getDFUActionResult()[0].getID());
-                assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult()[0].getAction());
-                assertEquals(SUCCESS_RESULT, result.getDFUActionResults().getDFUActionResult()[0].getResult());
+                assertEquals(fileNames.get(0), result.getDFUActionResults().getDFUActionResult().get(0).getID());
+                assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult().get(0).getAction());
+                assertEquals(SUCCESS_RESULT, result.getDFUActionResults().getDFUActionResult().get(0).getResult());
             }
             platform.checkInHPCCWsClient(wsClient);
         }
@@ -256,6 +258,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
+    @Category(IntegrationTest.class)
     @Test
     public void testDeleteDropZoneFileInvalidFile()
     {
@@ -264,19 +267,20 @@ public class FileSprayClientTest extends BaseRemoteTest
         try
         {
             HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
-            DFUWorkunitsActionResponse result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
-            if (result.isExceptionsSpecified())
+            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
+
+            if (!result.getExceptions().getException().isEmpty())
             {
-                System.out.println("failed");
-                System.out.println(result.getFirstColumn());
+                Assert.fail("Got an exception when trying to delete the non existent file\n" + result.getExceptions().toString());
             }
             else
             {
-                assertEquals(fileNames.get(0), result.getDFUActionResults().getDFUActionResult()[0].getID());
-                assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult()[0].getAction());
-                assertEquals(FILE_DOES_NOT_EXIST_RESULT, result.getDFUActionResults().getDFUActionResult()[0].getResult());
+                assertEquals(fileNames.get(0), result.getDFUActionResults().getDFUActionResult().get(0).getID());
+                assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult().get(0).getAction());
+                assertEquals(FILE_DOES_NOT_EXIST_RESULT, result.getDFUActionResults().getDFUActionResult().get(0).getResult());
                 System.out.println("File not found as expected");
             }
+
             platform.checkInHPCCWsClient(wsClient);
         }
         catch (RemoteException e)
