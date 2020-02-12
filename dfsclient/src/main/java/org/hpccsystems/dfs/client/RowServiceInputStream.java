@@ -579,6 +579,9 @@ public class RowServiceInputStream extends InputStream
     {
         try
         {
+            if (dis==null) {
+                return;
+            }
             int cursorLen = dis.readInt();
             if (cursorLen == 0)
             {
@@ -708,7 +711,10 @@ public class RowServiceInputStream extends InputStream
             }
 
             this.dos.close();
-            this.dis.close();
+            if (this.dis != null)
+            {
+                this.dis.close();
+            }
             this.sock.close();
             this.dos = null;
             this.dis = null;
