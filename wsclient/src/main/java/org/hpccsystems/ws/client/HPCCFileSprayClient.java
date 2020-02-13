@@ -30,12 +30,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CopyResponse;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileSprayPingRequest;
@@ -59,6 +62,7 @@ import org.hpccsystems.ws.client.utils.Sftp;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
@@ -77,16 +81,18 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
  */
 public class HPCCFileSprayClient extends BaseHPCCWsClient
 {
-    private static final String FILESPRAYWSDLURI       = "/FileSpray";
-    private static final String UPLOADURI              = FILESPRAYWSDLURI + "/UploadFile?upload_";
-    private static final String DOWNLOAD_URI           = FILESPRAYWSDLURI + "/DownloadFile?";
-    private static final long   MAX_FILE_WSUPLOAD_SIZE = 2000000000;
-    private int                 BUFFER_LENGTH          = 1024;
+    private static final String               FILESPRAYWSDLURI       = "/FileSpray";
+    private static final String               UPLOADURI              = FILESPRAYWSDLURI + "/UploadFile?upload_";
+    private static final String               DOWNLOAD_URI           = FILESPRAYWSDLURI + "/DownloadFile?";
+    private static final long                 MAX_FILE_WSUPLOAD_SIZE = 2000000000;
+    private int                               BUFFER_LENGTH          = 1024;
 
-    List<DropZoneWrapper>       localDropZones         = null;
-    private static Logger       log                    = LogManager.getLogger(HPCCFileSprayClient.class);
-    private static int          DEFAULTSERVICEPORT     = -1;
-    private static String       WSDLURL                = null;
+    List<DropZoneWrapper>                     localDropZones         = null;
+    private static Logger                     log                    = LogManager.getLogger(HPCCFileSprayClient.class);
+    private static int                        DEFAULTSERVICEPORT     = -1;
+    private static String                     WSDLURL                = null;
+
+    private static final PhysicalFileStruct[] NO_FILES               = {};
 
     /**
      * Load WSDLURL.
@@ -147,7 +153,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override
@@ -751,6 +757,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform DZFileSearch");
 
+        if (resp.getFiles() == null) return NO_FILES;
+
         return resp.getFiles().getPhysicalFileStruct();
     }
 
@@ -799,12 +807,15 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         List<PhysicalFileStructWrapper> physicalFileStructWrappers = new ArrayList<PhysicalFileStructWrapper>();
 
-        PhysicalFileStruct[] physicalFileStruct = resp.getFiles().getPhysicalFileStruct();
-        if (physicalFileStruct != null && physicalFileStruct.length > 0)
+        if (resp.getFiles() != null)
         {
-            for (int i = 0; i < physicalFileStruct.length; i++)
+            PhysicalFileStruct[] physicalFileStruct = resp.getFiles().getPhysicalFileStruct();
+            if (physicalFileStruct != null && physicalFileStruct.length > 0)
             {
-                physicalFileStructWrappers.add(new PhysicalFileStructWrapper(physicalFileStruct[i]));
+                for (int i = 0; i < physicalFileStruct.length; i++)
+                {
+                    physicalFileStructWrappers.add(new PhysicalFileStructWrapper(physicalFileStruct[i]));
+                }
             }
         }
 
@@ -1540,7 +1551,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param file
      *            - The File to upload
      * @param dropZone
-     *            the drop zone
+     *            - The target HPCC file dropzone
      * @return - Boolean, success
      * @throws Exception
      *             the exception
@@ -1930,9 +1941,45 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return new GetDFUWorkunitsResponseWrapper(response);
     }
 
+    /**
+     * Deletes a file from a drop zone
+     *
+     * @param dropzoneName
+     *          - The name of the dropzone to delete from
+     * @param fileNames
+     *          - A List of names to delete from the drop zone
+     * @param netAddress
+     *          - The net address of the dropzone
+     * @param path
+     *          - The full path to the dropzone on the filesystem ie /var/lib/HPCCSystems/mydropzone
+     * @param {string} [os]
+     *          - The os
+     * @return
+     * @throws RemoteException
+     * @throws EspSoapFault
+     */
+    public DFUWorkunitsActionResponseWrapper deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
+    {
+        verifyStub();
+
+        EspStringArray espStringArray = new EspStringArray();
+        fileNames.forEach(fileName -> espStringArray.addItem(fileName));
+
+        DeleteDropZoneFilesRequest request = new DeleteDropZoneFilesRequest();
+        request.setDropZoneName(dropzoneName);
+        request.setNames(espStringArray);
+        request.setNetAddress(netAddress);
+        request.setPath(path);
+        request.setOS(os);
+
+        DFUWorkunitsActionResponse response = ((FileSprayStub)stub).deleteDropZoneFiles(request);
+
+        return new DFUWorkunitsActionResponseWrapper(response);
+    }
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#equals(java.lang.Object)
      */
     @Override
@@ -1964,7 +2011,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#hashCode()
      */
     @Override
