@@ -62,6 +62,7 @@ import org.hpccsystems.ws.client.utils.Sftp;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
@@ -1957,7 +1958,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws RemoteException
      * @throws EspSoapFault
      */
-    public DFUWorkunitsActionResponse deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
+    public DFUWorkunitsActionResponseWrapper deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
     {
         verifyStub();
 
@@ -1973,7 +1974,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         DFUWorkunitsActionResponse response = ((FileSprayStub)stub).deleteDropZoneFiles(request);
 
-        return response;
+        return new DFUWorkunitsActionResponseWrapper(response);
     }
 
     /*
