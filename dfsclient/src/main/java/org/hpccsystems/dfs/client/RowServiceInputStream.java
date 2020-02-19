@@ -44,7 +44,7 @@ public class RowServiceInputStream extends InputStream
     private AtomicBoolean            active = new AtomicBoolean(false);
     private AtomicBoolean            closed = new AtomicBoolean(false);
     private boolean                  simulateFail;
-    private boolean                  forceCursorUse;
+    private boolean                  forceHandleUse = false;
     private byte[]                   cursorBin;
     private int                      handle;
     private DataPartition            dataPart;
@@ -358,17 +358,14 @@ public class RowServiceInputStream extends InputStream
     }
 
     /**
-     * Force the use of cursors instead of handles for testing.
+     * Force the use of handles instead of cursors for established connections.
      *
      * @param v
      *            the setting
-     * @return the previous setting
      */
-    public boolean setForceCursorUse(boolean v)
+    public void setForceHandleUse(boolean v)
     {
-        boolean old = this.forceCursorUse;
-        this.forceCursorUse = v;
-        return old;
+        this.forceHandleUse = v;
     }
 
     /**
@@ -386,6 +383,11 @@ public class RowServiceInputStream extends InputStream
     // Run from prefetch thread only
     private int startFetch()
     {
+        if (this.closed.get())
+        {
+            return -1;
+        }
+
         if (!this.active.get()) // attempt to the first read
         {
             try
@@ -528,6 +530,11 @@ public class RowServiceInputStream extends InputStream
 
     private void readDataInFetch()
     {
+        if (this.closed.get())
+        {
+            return;
+        }
+
         // Loop here while data is being consumed quickly enough
         while (remainingDataInCurrentRequest > 0)
         {
@@ -577,6 +584,11 @@ public class RowServiceInputStream extends InputStream
 
     private void finishFetch()
     {
+        if (this.closed.get())
+        {
+            return;
+        }
+
         try
         {
             if (dis==null) {
@@ -606,7 +618,7 @@ public class RowServiceInputStream extends InputStream
         }
 
         if (this.simulateFail) this.handle = -1;
-        String readAheadTrans = (this.forceCursorUse) ? this.getCursorTrans() : this.getHandleTrans();
+        String readAheadTrans = (this.forceHandleUse) ? this.getHandleTrans() : this.getCursorTrans();
         try
         {
             int lenTrans = readAheadTrans.length();
