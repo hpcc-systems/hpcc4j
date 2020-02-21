@@ -229,9 +229,6 @@
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${maven.deploy.version}</version>
-          <configuration>
-            <skip>true</skip>
-          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
