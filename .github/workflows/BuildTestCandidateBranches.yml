@@ -1,9 +1,9 @@
-name: Java CI
+name: CandidateBranchBuild
 
 on:
   push:
     branches:
-    - '*'
+    - 'candidate-*'
 
 jobs:
   build:
