@@ -215,7 +215,6 @@ public class RowServiceInputStream extends InputStream
                                 Thread.sleep(PREFETCH_SLEEP_MS);
                             }
                             catch(Exception e){}
-                            return;
                         }
 
                         inputStream.prefetchData();
