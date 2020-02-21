@@ -105,6 +105,8 @@
         <configuration>
           <argLine>${argLine}</argLine>
           <excludes>
+            <exclude>**/WsClientTest.java</exclude>
+            <exclude>**/WsAttributesClientTest.java</exclude>
             <exclude>**/HPCCWsWorkUnitsClientTest.java</exclude>
             <exclude>**/EclParseRegressionTest.java</exclude>
             <exclude>**/RampsDevRegressionTest.java</exclude>
