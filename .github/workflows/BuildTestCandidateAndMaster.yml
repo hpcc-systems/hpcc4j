@@ -3,7 +3,8 @@ name: CandidateBranchBuild
 on:
   push:
     branches:
-    - 'candidate-*'
+      - master
+      - 'candidate-*'
 
 jobs:
   build:
