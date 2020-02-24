@@ -3,7 +3,7 @@ name: Commons-CandidateBranchBuild
 on:
   push:
     branches:
-    - 'candidate-*'
+    - candidate-*
 
 jobs:
   build:
