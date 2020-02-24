@@ -1,3 +1,5 @@
+![JAPI Nightly](https://github.com/hpcc-systems/HPCC-JAPIs/workflows/JAPI%20Nightly/badge.svg?branch=candidate-7.6.x)
+
 HPCC-Java-APIs Project
 =======================
 
