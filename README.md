@@ -1,5 +1,4 @@
 ![JAPI Master Nightly](https://github.com/hpcc-systems/HPCC-JAPIs/workflows/JAPI%20Nightly/badge.svg?branch=master)
-![JAPI 7.6.x Nightly](https://github.com/hpcc-systems/HPCC-JAPIs/workflows/JAPI%20Nightly/badge.svg?branch=candidate-7.6.x)
 
 HPCC-Java-APIs Project
 =======================
