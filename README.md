@@ -1,4 +1,5 @@
-![JAPI Pull Request Build Tests](https://github.com/hpcc-systems/HPCC-JAPIs/workflows/JAPI%20Pull%20Request%20Build%20Tests/badge.svg)
+![JAPI Master Nightly](https://github.com/hpcc-systems/HPCC-JAPIs/workflows/JAPI%20Nightly/badge.svg?branch=master)
+![JAPI 7.6.x Nightly](https://github.com/hpcc-systems/HPCC-JAPIs/workflows/JAPI%20Nightly/badge.svg?branch=candidate-7.6.x)
 
 HPCC-Java-APIs Project
 =======================
