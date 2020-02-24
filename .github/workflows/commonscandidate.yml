@@ -1,9 +1,9 @@
 name: Commons-CandidateBranchBuild
 
 on:
-  push:
+  pull_request:
     branches:
-    - candidate-*
+    - 'candidate-7.6.x'
 
 jobs:
   build:
