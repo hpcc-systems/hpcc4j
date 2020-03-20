@@ -300,6 +300,17 @@ public class DataPartition implements Serializable
     {
         return this.fileFilter;
     }
+    
+    /**
+     * Set the filter object to select specific rows.
+     * 
+     * @return the partition
+     */
+    public DataPartition setFilter(FileFilter filter)
+    {
+        this.fileFilter = filter;
+        return this;
+    }
 
     /*
      * (non-Javadoc)

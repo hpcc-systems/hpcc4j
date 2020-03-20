@@ -46,6 +46,8 @@ public class HPCCFile implements Serializable
     private static final Logger  log                           = LogManager.getLogger(HPCCFile.class);
 
     private DataPartition[]      dataParts;
+    private long                 dataPartsCreationTimeMS       = -1;
+
     private FieldDef             recordDefinition;
     private FieldDef             projectedRecordDefinition;
     private boolean              isIndex;
@@ -191,6 +193,10 @@ public class HPCCFile implements Serializable
     public HPCCFile setFileAccessExpirySecs(int fileAccessExpirySecs)
     {
         this.fileAccessExpirySecs = fileAccessExpirySecs;
+
+        // Force the data parts to be recreated
+        this.dataParts = null;
+
         return this;
     }
 
@@ -214,6 +220,10 @@ public class HPCCFile implements Serializable
     public HPCCFile setTargetfilecluster(String targetfilecluster)
     {
         this.targetfilecluster = targetfilecluster;
+
+        // Force the data parts to be recreated
+        this.dataParts = null;
+
         return this;
     }
 
@@ -237,6 +247,10 @@ public class HPCCFile implements Serializable
     public HPCCFile setClusterRemapInfo(RemapInfo remapinfo)
     {
         this.clusterRemapInfo = remapinfo;
+
+        // Force the data parts to be recreated
+        this.dataParts = null;
+
         return this;
     }
 
@@ -262,6 +276,15 @@ public class HPCCFile implements Serializable
     public HPCCFile setFilter(String filterexpression) throws Exception
     {
         this.filter = new FileFilter(filterexpression);
+
+        if (this.dataParts != null)
+        {
+            for (int i = 0; i < this.dataParts.length; i++)
+            {
+                this.dataParts[i].setFilter(this.filter);
+            }
+        }
+
         return this;
     }
 
@@ -283,6 +306,21 @@ public class HPCCFile implements Serializable
      */
     private void createDataParts() throws HpccFileException
     {
+        long fileAccessExpiryMS = fileAccessExpirySecs * 1000;
+        long dataPartsAgeMS = System.currentTimeMillis() - dataPartsCreationTimeMS;
+        boolean accessTokenExpired = dataPartsAgeMS >= fileAccessExpiryMS;
+        if (dataParts != null && !accessTokenExpired)
+        {
+            return;
+        }
+
+        if (accessTokenExpired)
+        {
+            log.info("Refreshing data parts due to access token expiration.");
+        }
+
+        dataPartsCreationTimeMS = System.currentTimeMillis();
+
         HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(espConnInfo);
         if (dfuClient.hasInitError())
         {
@@ -343,8 +381,7 @@ public class HPCCFile implements Serializable
      */
     public DataPartition[] getFileParts() throws HpccFileException
     {
-        if (dataParts == null) createDataParts();
-
+        createDataParts();
         return dataParts;
     }
 
@@ -357,8 +394,7 @@ public class HPCCFile implements Serializable
      */
     public final FieldDef getRecordDefinition() throws HpccFileException
     {
-        if (dataParts == null) createDataParts();
-
+        createDataParts();
         return recordDefinition;
     }
 
@@ -371,8 +407,7 @@ public class HPCCFile implements Serializable
      */
     public final FieldDef getProjectedRecordDefinition() throws HpccFileException
     {
-        if (dataParts == null) createDataParts();
-
+        createDataParts();
         return projectedRecordDefinition;
     }
 
