@@ -17,6 +17,7 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWra
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -25,12 +26,12 @@ import static org.junit.Assert.assertTrue;
 
 public class FileSprayClientTest extends BaseRemoteTest
 {
-    private HPCCFileSprayClient filesprayclient = null;
+    private HPCCFileSprayClient filesprayclient = wsclient.getFileSprayClient();;
     private String              dropzoneName    = System.getProperty("dropzoneName");
     private List<String>        fileNames       = new ArrayList<>();
-    private String              testFile1       = System.getProperty("dropzoneTestFile1");
-    private String              path            = System.getProperty("dropzonePath");
-    private String              os              = System.getProperty("dropzoneOs");
+    private final static String              testFile1       = System.getProperty("dropzoneTestFile1", "myfilename.txt");
+    private final static String              path            = System.getProperty("dropzonePath", "/path/to/dropzone");
+    private final static String              os              = System.getProperty("dropzoneOs", "");
 
     public static final String DELETE_ACTION              = "Delete";
     public static final String SUCCESS_RESULT             = "Success";
@@ -51,26 +52,10 @@ public class FileSprayClientTest extends BaseRemoteTest
             System.out.println("dropzoneOs not provided - defaulting to ''");
     }
 
-    @Before
+    @BeforeClass
     public void setUp() throws Exception
     {
-        super.setup();
-
-        filesprayclient = wsclient.getFileSprayClient();
-        Assert.assertNotNull(filesprayclient);
-
-        if (testFile1 == null)
-            testFile1 = "myfilename.txt";
         fileNames.add(testFile1);
-
-        if (dropzoneName == null)
-            dropzoneName = "someDropzone";
-
-        if (path == null)
-            path = "/path/to/dropzone";
-
-        if (os == null)
-            os = "";
     }
 
     @Test

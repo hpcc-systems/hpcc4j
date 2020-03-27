@@ -17,7 +17,6 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUResultWrapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.NodeList;
@@ -25,15 +24,7 @@ import org.w3c.dom.NodeList;
 
 public class WsDFUClientTest extends BaseRemoteTest
 {
-    private HPCCWsDFUClient wsdfuclient = null;
-
-    @Before
-    public void setUp() throws Exception
-    {
-        wsdfuclient = wsclient.getWsDFUClient();
-
-        Assert.assertNotNull(wsdfuclient);
-    }
+    private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
 
     @Test
     public void testFileTypeWrapper()

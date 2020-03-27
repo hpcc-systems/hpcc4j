@@ -1,13 +1,13 @@
 /*
  * ##############################################################################
- * 
+ *
  * HPCC SYSTEMS software Copyright (C) 2018 HPCC Systems®.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -133,7 +133,8 @@ public class HPCCFile implements Serializable
         this.espConnInfo = espconninfo;
         try
         {
-            if (filter != null && !filter.isEmpty()) this.filter = new FileFilter(filter);
+            if (filter != null && !filter.isEmpty())
+                this.filter = new FileFilter(filter);
         }
         catch (Exception e)
         {
@@ -141,6 +142,7 @@ public class HPCCFile implements Serializable
         }
 
         clusterRemapInfo = remap_info;
+        this.targetfilecluster = targetfilecluster;
     }
 
     /**
@@ -309,14 +311,12 @@ public class HPCCFile implements Serializable
         long fileAccessExpiryMS = fileAccessExpirySecs * 1000;
         long dataPartsAgeMS = System.currentTimeMillis() - dataPartsCreationTimeMS;
         boolean accessTokenExpired = dataPartsAgeMS >= fileAccessExpiryMS;
-        if (dataParts != null && !accessTokenExpired)
+        if (dataParts != null)
         {
-            return;
-        }
-
-        if (accessTokenExpired)
-        {
-            log.info("Refreshing data parts due to access token expiration.");
+            if (accessTokenExpired)
+                log.info("Refreshing data parts due to access token expiration.");
+            else
+                return;
         }
 
         dataPartsCreationTimeMS = System.currentTimeMillis();

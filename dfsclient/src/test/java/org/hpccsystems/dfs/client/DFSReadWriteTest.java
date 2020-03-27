@@ -45,7 +45,6 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -58,13 +57,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb"};
     private static final int[]    expectedCounts = { 1250, 6 };
-
-    @Before
-    public void setup() throws Exception
-    {
-        super.setup();
-    }
-
     
     @Test
     public void readBadlyDistributedFileTest() throws Exception

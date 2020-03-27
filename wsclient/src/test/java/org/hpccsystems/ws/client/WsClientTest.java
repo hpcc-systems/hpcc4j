@@ -2,15 +2,14 @@ package org.hpccsystems.ws.client;
 
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class WsClientTest extends BaseRemoteTest
 {
-    String thortargetclustername = System.getProperty("thorgroupname");
-    String thorclustername = System.getProperty("thorclustername");
-    String roxietargetclustername = System.getProperty("roxiegroupname");
-    String roxieclustername = System.getProperty("roxieclustername");
+    private final static String thortargetclustername = System.getProperty("thorgroupname", "thor");
+    private final static String thorclustername = System.getProperty("thorclustername", "mythor");
+    private final static String roxietargetclustername = System.getProperty("roxiegroupname", "roxie");
+    private final static String roxieclustername = System.getProperty("roxieclustername", "myroxie");
 
     static
     {
@@ -25,21 +24,6 @@ public class WsClientTest extends BaseRemoteTest
 
         if (System.getProperty("roxieclustername") == null)
             System.out.println("roxieclustername not provided - defaulting to 'myroxie'");
-    }
-
-    @Before
-    public void setup() throws Exception
-    {
-        super.setup();
-
-        if (thortargetclustername == null)
-            thortargetclustername = "thor";
-        if (thorclustername == null)
-            thorclustername = "mythor";
-        if (roxietargetclustername == null)
-            roxietargetclustername = "roxie";
-        if (roxieclustername == null)
-            roxieclustername = "myroxie";
     }
 
     @Test

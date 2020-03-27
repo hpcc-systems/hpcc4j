@@ -15,10 +15,7 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import java.util.List;
 import java.util.ArrayList;
-
-import static org.junit.Assert.fail;
 
 import org.hpccsystems.dfs.client.HPCCFile;
 import org.hpccsystems.dfs.client.HPCCRecord;
@@ -26,13 +23,11 @@ import org.hpccsystems.dfs.client.HPCCRecordBuilder;
 import org.hpccsystems.dfs.client.HpccRemoteFileReader;
 import org.hpccsystems.dfs.client.DataPartition;
 
-import org.hpccsystems.dfs.cluster.*;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -42,12 +37,6 @@ public class DFSBenchmarkTest extends BaseRemoteTest
     private static final String[] datasets = {"benchmark::integer::100mb","benchmark::string::100mb","benchmark::varstring::100mb","benchmark::utf8::100mb",
                                             "benchmark::unicode::100mb","benchmark::real::100mb","benchmark::decimal::100mb"};
     private static final float[] minDatasetConstructionEfficiency = {0.90f,0.90f,0.90f,0.90f,0.90f,0.90f,0.90f};
-
-    @Before
-    public void setup() throws Exception
-    {
-        super.setup();
-    }
 
     @Test
     public void integrationReadBenchmark() throws Exception

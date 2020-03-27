@@ -8,8 +8,8 @@ public class WsWorkunitsClientIntegrationTest_620 extends BaseWsWorkunitsClientI
     @Override
     protected void confirmPlatform() throws Exception
     {
-        if (super.platform.getVersion().toString().startsWith(hpccver))
-            throw new Exception("Cannot run 6.2 tests against HPCC cluster on '" + super.platform.getIP() + "' version: '" + super.platform.getVersion().toString() + "'");
+        if (platform.getVersion().toString().startsWith(hpccver))
+            throw new Exception("Cannot run 6.2 tests against HPCC cluster on '" + platform.getIP() + "' version: '" + platform.getVersion().toString() + "'");
     }
 
     @Override

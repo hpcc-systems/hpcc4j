@@ -37,10 +37,10 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSFileIOClientTest extends BaseRemoteTest
 {
-    HPCCWsFileIOClient client;
+    private final static HPCCWsFileIOClient client = wsclient.getWsFileIOClient();
 
-    String testfilename = System.getProperty("lztestfile");
-    String targetLZ = System.getProperty("lzname");
+    private final static String testfilename = System.getProperty("lztestfile", "myfilename.txt");
+    private final static  String targetLZ = System.getProperty("lzname", "localhost");
 
     static
     {
@@ -49,18 +49,6 @@ public class WSFileIOClientTest extends BaseRemoteTest
 
         if (System.getProperty("lzname") == null)
             System.out.println("lzname not provided - defaulting to localhost");
-    }
-
-    @Before
-    public void setup() throws Exception
-    {
-        super.setup();
-        client = wsclient.getWsFileIOClient();
-        Assert.assertNotNull(client);
-        if (testfilename == null)
-            testfilename = "myfilename.txt";
-        if (targetLZ == null)
-            targetLZ = "localhost";
     }
 
     @Test

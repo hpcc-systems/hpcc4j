@@ -38,8 +38,6 @@ public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTes
     @Before
     public void setup() throws Exception
     {
-        super.setup(); // fetch hpcc connection info and setup platform and wsclient
-
         thorcluster=platform.getCluster(getThorClusterName());
         roxiecluster =platform.getCluster(getRoxieClusterName());
         hthorcluster=platform.getCluster(getHthorClusterName());
