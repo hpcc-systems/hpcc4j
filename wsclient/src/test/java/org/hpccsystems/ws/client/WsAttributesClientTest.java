@@ -23,26 +23,21 @@ import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class WsAttributesClientTest extends BaseRemoteTest
 {
 
-    HPCCWsAttributesClient client;
-    String testwuid = System.getProperty("targetwuid");
-    String port = System.getProperty("wsattributesport");
+    private static HPCCWsAttributesClient client = null;
+    private final static String testwuid = System.getProperty("targetwuid");
+    private final static String port = System.getProperty("8145");
 
-    @Before
+    @BeforeClass
     public void setup() throws Exception
     {
-        super.setup();
-
-        if (port == null || port.isEmpty())
-        {
+        if (System.getProperty("targetwuid") == null)
             System.out.println("No wsattributesport specified - defaulting to 8145");
-            port = "8145";
-        }
 
         Connection conn = new Connection(connection.getProtocol(), connection.getHost(), port);
         Assert.assertNotNull(conn);

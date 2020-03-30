@@ -39,7 +39,6 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetAliases_type0Wrapper
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetQueries_type0Wrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySignatureWrapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -47,40 +46,27 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSSQLClientTest extends BaseRemoteTest
 {
-    HPCCWsSQLClient client;
-    String testwuid = System.getProperty("targetwuid");
-    String wssqlport = System.getProperty("wssqlport");
+    private final static HPCCWsSQLClient client;
+    private final static String testwuid = System.getProperty("targetwuid");
+    private final static String wssqlport = System.getProperty("wssqlport", "8510");
 
     String randomtablename = null;
     String randomclustername = null;
 
     static
     {
+        Connection wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
+        Assert.assertNotNull(wssqlconn);
+        wssqlconn.setCredentials(connection.getUserName(), connection.getPassword());
+
+        client = HPCCWsSQLClient.get(wssqlconn);
+        Assert.assertNotNull(client);
+
         if (System.getProperty("targetwuid") == null)
             System.out.println("No targetwuid provided");
 
         if (System.getProperty("wssqlport") == null)
             System.out.println("No wssqlport specified - defaulting to 8510");
-    }
-
-    @Before
-    public void setup() throws Exception
-    {
-        if (platform == null)
-            super.setup();
-
-        if (client == null)
-        {
-            if (wssqlport == null || wssqlport.isEmpty())
-                wssqlport = "8510";
-
-            Connection wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
-            Assert.assertNotNull(wssqlconn);
-            wssqlconn.setCredentials(connection.getUserName(), connection.getPassword());
-
-            client = HPCCWsSQLClient.get(wssqlconn);
-        }
-        Assert.assertNotNull(client);
     }
 
     @Test

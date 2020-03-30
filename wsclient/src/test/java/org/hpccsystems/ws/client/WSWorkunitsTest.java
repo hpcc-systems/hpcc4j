@@ -25,6 +25,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -32,17 +33,14 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSWorkunitsTest extends BaseRemoteTest
 {
-    HPCCWsWorkUnitsClient client;
-    String                testwuid = System.getProperty("targetwuid");
+    private static HPCCWsWorkUnitsClient client;
+    private static String  testwuid = System.getProperty("targetwuid");
 
-    @Override
-    @Before
+
+    @BeforeClass
     public void setup() throws Exception
     {
-        if (platform == null) super.setup();
-
-        if (client == null) client = wsclient.getWsWorkunitsClient();
-
+        client = wsclient.getWsWorkunitsClient();
         Assert.assertNotNull(client);
     }
 

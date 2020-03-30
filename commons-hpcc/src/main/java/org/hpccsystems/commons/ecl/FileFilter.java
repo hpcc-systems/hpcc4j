@@ -327,7 +327,8 @@ public class FileFilter implements Serializable
      */
     private void ConvertToHPCCFileFilter(String sqlfilterstr) throws Exception
     {
-        if (sqlfilterstr == null || sqlfilterstr.isEmpty()) throw new Exception("Cannot convert empty SQL Filter");
+        if (sqlfilterstr == null || sqlfilterstr.isEmpty())
+            throw new Exception("Cannot convert empty SQL Filter");
 
         try
         {
@@ -338,7 +339,8 @@ public class FileFilter implements Serializable
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            throw e;
         }
     }
 

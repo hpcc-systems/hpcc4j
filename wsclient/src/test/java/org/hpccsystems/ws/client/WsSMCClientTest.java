@@ -7,21 +7,11 @@ import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class WsSMCClientTest extends BaseRemoteTest
 {
-    private HPCCWsSMCClient client = null;
-
-    @Before
-    public void setUp() throws Exception
-    {
-        super.setup();
-
-        client = wsclient.getWsSMCClient();
-        Assert.assertNotNull(client);
-    }
+    private static HPCCWsSMCClient client = wsclient.getWsSMCClient();
 
     @Test
     public void testFSPing()
@@ -62,8 +52,8 @@ public class WsSMCClientTest extends BaseRemoteTest
         Connection otherconnection = null;
         try
         {
-            otherconnection = new Connection(this.connection.getUrl());
-            if (this.hpccUser == null && this.hpccUser.isEmpty())
+            otherconnection = new Connection(connection.getUrl());
+            if (hpccUser == null && hpccUser.isEmpty())
             {
                 otherconnection.setUserName("something"); //ensuring this connection is different
             }
