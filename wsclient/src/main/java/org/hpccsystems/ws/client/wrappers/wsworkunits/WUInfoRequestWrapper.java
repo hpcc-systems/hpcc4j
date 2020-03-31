@@ -58,6 +58,8 @@ public class WUInfoRequestWrapper
             request.setIncludeGraphs(this.getIncludeGraphs());
         if (getIncludeGraphs() != null)
             request.setIncludeHelpers(this.getIncludeGraphs());
+        if (getIncludeHelpers() != null)
+            request.setIncludeHelpers(this.getIncludeHelpers());
         if (getIncludeResourceURLs() != null)
             request.setIncludeResourceURLs(this.getIncludeResourceURLs());
         if (getIncludeResults() != null)

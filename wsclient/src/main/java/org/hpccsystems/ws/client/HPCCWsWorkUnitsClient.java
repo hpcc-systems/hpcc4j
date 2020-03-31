@@ -755,6 +755,47 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
 
     /**
+     * Get information about a given WorkUnit, caller can request to unarchive
+     * the WU if necessary to fetch WU info.
+     *
+     * @param wuinfodetailsparams
+     *            - workunit info request wrapper
+     * @param unarchive
+     *            - unarchive archived workunit
+     * @return - ECLWorkunit object with information pertaining to the WU
+     * @throws Exception
+     *             - Caller must handle exceptions
+     * @throws ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public WorkunitWrapper getWUInfo(WUInfoRequestWrapper wuinfodetailsparams, boolean unarchive) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        WorkunitWrapper workunit = null;
+
+        verifyStub(); // Throws exception if stub failed
+
+        WUInfoResponseWrapper wuInfoResponse = stubWrapper.WUInfo(wuinfodetailsparams);
+
+        ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions1_75();
+        if (exceptions == null && wuInfoResponse.getWorkunit() != null)
+        {
+            if (unarchive && wuInfoResponse.getWorkunit().getArchived())
+            {
+                doWorkunitAction(wuinfodetailsparams.getWuid(), ECLWUActions.Restore);
+                return getWUInfo(wuinfodetailsparams,false);
+            }
+            workunit = wuInfoResponse.getWorkunit();
+            workunit.setOriginalEclWatchUrl(getEclWatchUrl());
+            workunit.setResultViews(wuInfoResponse.getResultViews());
+        }
+        else
+        {
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not fetch WU Info");
+        }
+       
+        return workunit;
+    }
+    /**
      * Get information about a given WorkUnit. Workunit must not be archived.
      *
      * @param wuid
@@ -767,7 +808,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
     public WorkunitWrapper getWUInfo(String wuid) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return getWUInfo(wuid, false);
+        return getWUInfo(wuid,false);
     }
 
     /**
@@ -786,10 +827,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
     public WorkunitWrapper getWUInfo(String wuid, boolean unarchive) throws Exception, ArrayOfEspExceptionWrapper
     {
-        WorkunitWrapper workunit = null;
-
-        verifyStub(); // Throws exception if stub failed
-
         WUInfoRequestWrapper wuinfodetailsparams = new WUInfoRequestWrapper();
         wuinfodetailsparams.setIncludeApplicationValues(false);
         wuinfodetailsparams.setIncludeDebugValues(false);
@@ -797,30 +834,14 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         wuinfodetailsparams.setIncludeGraphs(false);
         wuinfodetailsparams.setIncludeResults(true);
         wuinfodetailsparams.setWuid(wuid);
-        WUInfoResponseWrapper wuInfoResponse = stubWrapper.WUInfo(wuinfodetailsparams);
-
-        ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions1_75();
-        if (exceptions == null && wuInfoResponse.getWorkunit() != null)
-        {
-            if (unarchive && wuInfoResponse.getWorkunit().getArchived())
-            {
-                doWorkunitAction(wuid, ECLWUActions.Restore);
-                return getWUInfo(wuid);
-            }
-            workunit = wuInfoResponse.getWorkunit();
-            workunit.setOriginalEclWatchUrl(getEclWatchUrl());
-        }
-        else
-        {
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not fetch WU Info");
-        }
-
-        return workunit;
+        return getWUInfo(wuinfodetailsparams,unarchive);
     }
 
     /**
      * Get information about a given WorkUnit, Workunit must not be archived.
      * Caller can choose which WU information portion to fetch
+     * 
+     * Deprecated; use getWUInfo(WSInfoRequestWrapper,unarchive)
      *
      * @param wuid
      *            the wuid
@@ -848,17 +869,29 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @Deprecated
     public WorkunitWrapper getWUInfo(String wuid, boolean includeResults, boolean includeGraphs, boolean includeSourceFiles,
             boolean includeApplicationValues, Boolean includeDebugValues, Boolean includeExceptions, Boolean includeVariables,
             Boolean includeXmlSchemas, Boolean includeTimers) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return getWUInfo(wuid, includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, includeDebugValues, includeExceptions,
-                includeVariables, includeXmlSchemas, includeTimers, false);
+        WUInfoRequestWrapper params = new WUInfoRequestWrapper();
+        params.setWuid(wuid);
+        params.setIncludeResults(includeResults);
+        params.setIncludeGraphs(includeGraphs);
+        params.setIncludeSourceFiles(includeSourceFiles);
+        params.setIncludeApplicationValues(includeApplicationValues);
+        params.setIncludeDebugValues(includeDebugValues);
+        params.setIncludeExceptions(includeExceptions);
+        params.setIncludeVariables(includeVariables);
+        params.setIncludeXmlSchemas(includeXmlSchemas);
+        params.setIncludeTimers(includeTimers);
+        return getWUInfo(params,false);       
     }
 
     /**
      * Get information about a given WorkUnit, caller can request to unarchive
      * Caller can choose which WU information portion to fetch.
+     * Deprecated; use getWUInfo(WSInfoRequestWrapper,unarchive)
      *
      * @param wuid
      *            the wuid
@@ -888,6 +921,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @Deprecated
     public WorkunitWrapper getWUInfo(String wuid, boolean includeResults, boolean includeGraphs, boolean includeSourceFiles,
             boolean includeApplicationValues, Boolean includeDebugValues, Boolean includeExceptions, Boolean includeVariables,
             Boolean includeXmlSchemas, Boolean includeTimers, boolean unarchive) throws Exception, ArrayOfEspExceptionWrapper
@@ -907,25 +941,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         request.setIncludeTimers(includeTimers);
         request.setIncludeVariables(includeVariables);
         request.setIncludeXmlSchemas(includeXmlSchemas);
-
-        WUInfoResponseWrapper resp = stubWrapper.WUInfo(request);
-
-        handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getRawArrayOfEspExceptions1_75()), "Could not retrieve workunit");
-
-        WorkunitWrapper wk = resp.getWorkunit();
-        if (unarchive && wk != null && wk.getArchived() != null && wk.getArchived())
-        {
-            doWorkunitAction(wuid, ECLWUActions.Restore);
-            return getWUInfo(wuid, includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, includeDebugValues, includeExceptions,
-                    includeVariables, includeXmlSchemas, includeTimers, false);
-        }
-
-        if (wk == null)
-        {
-            return null;
-        }
-        wk.setResultViews(resp.getResultViews());
-        return wk;
+        return getWUInfo(request,unarchive);
     }
 
     /**
