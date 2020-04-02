@@ -20,7 +20,7 @@ public class WUQueryTest extends BaseRemoteTest
     private static HPCCWsWorkUnitsClient wswuclient;
 
     @BeforeClass
-    public void setup() throws Exception
+    public static void setup() throws Exception
     {
         wswuclient = wsclient.getWsWorkunitsClient();
     }

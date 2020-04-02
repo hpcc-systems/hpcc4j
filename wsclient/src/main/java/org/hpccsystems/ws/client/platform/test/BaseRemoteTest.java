@@ -37,9 +37,10 @@ public abstract class BaseRemoteTest
 
     protected final static String connString = System.getProperty("hpccconn", "http://localhost:8010");
     protected final static String thorcluster = System.getProperty("thorcluster", "mythor");
+    protected final static String defaultUserName = "JunitUser";
     protected static Connection connection = null;
 
-    protected final static String hpccUser = System.getProperty("hpccuser", "");
+    protected final static String hpccUser = System.getProperty("hpccuser", defaultUserName);
     protected final static String hpccPass = System.getProperty("hpccpass", "");
     protected final static String connTO = System.getProperty("connecttimeoutmillis");
     protected final static String sockTO = System.getProperty("sockettimeoutmillis");
@@ -122,7 +123,7 @@ public abstract class BaseRemoteTest
         	System.out.println("RemoteTest: 'hpccconn' set to: '" + connString + "'");
 
         if (System.getProperty("hpccuser") == null)
-            System.out.println("RemoteTest: No 'hpccuser' provided.");
+            System.out.println("RemoteTest: No 'hpccuser' provided, defaulting to '" + defaultUserName + "'");
         else
         	System.out.println("RemoteTest: 'hpccuser' set to: '" + hpccUser + "'");
 
