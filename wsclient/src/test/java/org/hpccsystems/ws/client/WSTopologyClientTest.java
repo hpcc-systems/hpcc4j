@@ -28,7 +28,6 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpDropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpLogicalClusterWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -36,19 +35,7 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSTopologyClientTest extends BaseRemoteTest
 {
-    HPCCWsTopologyClient client;
-
-    @Before
-    public void setup() throws Exception
-    {
-        if (platform == null)
-            super.setup();
-
-        if (client == null)
-            client = wsclient.getWsTopologyClient();
-
-        Assert.assertNotNull(client);
-    }
+    HPCCWsTopologyClient client = wsclient.getWsTopologyClient();
 
     @Test
     public void printValidTargetClustersTest() throws Exception, ArrayOfEspExceptionWrapper

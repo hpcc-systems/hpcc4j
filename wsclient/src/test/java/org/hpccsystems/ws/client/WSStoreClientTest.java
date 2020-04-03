@@ -30,7 +30,6 @@ import org.hpccsystems.commons.utils.DigestAlgorithmType;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -38,11 +37,12 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSStoreClientTest extends BaseRemoteTest
 {
-    HPCCWsStoreClient client;
-    static protected String storename = System.getProperty("storename");
-    static protected String namespace = System.getProperty("storenamespace");
+    private static HPCCWsStoreClient client;
     public final static String defaultStoreName = "WsClientTestStore";
     public final static String defaultNS = "Junittests";
+
+    private final static String storename = System.getProperty("storename", defaultStoreName);
+    private final static String namespace = System.getProperty("storenamespace", defaultNS);
 
     static
     {
@@ -51,23 +51,8 @@ public class WSStoreClientTest extends BaseRemoteTest
 
         if (System.getProperty("storenamespace") == null)
             System.out.println("'storenamespace' not provided, defaulting to: '" + defaultNS + "'");
-    }
-
-    @Before
-    public void setup() throws Exception
-    {
-        if (platform == null)
-            super.setup();
-
-        if (client == null)
-            client = HPCCWsStoreClient.get(connection);
-
-        if (storename == null)
-            storename = defaultStoreName;
-
-        if (namespace == null)
-            namespace = defaultNS;
-
+        
+        client = HPCCWsStoreClient.get(connection);
         Assert.assertNotNull(client);
     }
 

@@ -17,75 +17,77 @@
 
 package org.hpccsystems.ws.client.platform.test;
 
+import static org.junit.Assert.fail;
+
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.experimental.categories.Category;
 
 @Category(RemoteTest.class)
 public abstract class BaseRemoteTest
 {
-    protected Platform platform;
-    protected HPCCWsClient wsclient;
+    protected static Platform platform;
+    protected static HPCCWsClient wsclient;
 
-    protected String connString = System.getProperty("hpccconn");
-    protected String thorcluster = System.getProperty("thorcluster");
-    protected Connection connection = null;
+    protected final static String connString = System.getProperty("hpccconn", "http://localhost:8010");
+    protected final static String thorcluster = System.getProperty("thorcluster", "mythor");
+    protected final static String defaultUserName = "JunitUser";
+    protected static Connection connection = null;
 
-    protected String hpccUser = System.getProperty("hpccuser");
-    protected String hpccPass = System.getProperty("hpccpass");
-    protected String connTO = System.getProperty("connecttimeoutmillis");
-    protected String sockTO = System.getProperty("sockettimeoutmillis");
+    protected final static String hpccUser = System.getProperty("hpccuser", defaultUserName);
+    protected final static String hpccPass = System.getProperty("hpccpass", "");
+    protected final static String connTO = System.getProperty("connecttimeoutmillis");
+    protected final static String sockTO = System.getProperty("sockettimeoutmillis");
 
     /*
-     * Code used to generate HPCC file
-     * unique_keys :=  100000;  // Should be less than number of records
-     * unique_values := 10212; // Should be less than number of records
-     * dataset_name := '~benchmark::all_types::200KB';
-     * totalrecs := 779449/500;
-     *
-     * childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
-     *
-     * rec := { INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
-     *          INTEGER2 int2, UNSIGNED2 uint2, REAL8 r8, REAL4 r4,
-     *          DECIMAL16_8 dec16, UDECIMAL16_8 udec16, QSTRING qStr,
-     *          STRING8 fixStr8, STRING str, VARSTRING varStr, VARSTRING varStr8,
-     *          UTF8 utfStr, UNICODE8 uni8, UNICODE uni, VARUNICODE varUni,
-     *          DATASET(childRec) childDataset,  SET OF INTEGER1 int1Set
-     *        };
-     *
-     *        ds := DATASET(totalrecs, transform(rec,
-     *                             self.int8 := (INTEGER)(random() % unique_keys);
-     *                             self.uint8 := (INTEGER)(random() % unique_values);
-     *                             self.int4 := (INTEGER)(random() % unique_values);
-     *                             self.uint4 := (INTEGER)(random() % unique_values);
-     *                             self.int2 := (INTEGER)(random() % unique_values);
-     *                             self.uint2 := (INTEGER)(random() % unique_values);
-     *                             self.r8 := (REAL)(random() % unique_values);
-     *                             self.r4 := (REAL)(random() % unique_values);
-     *                             self.dec16 := (REAL)(random() % unique_values);
-     *                             self.udec16 := (REAL)(random() % unique_values);
-     *                             self.qStr := (STRING)(random() % unique_values);
-     *                             self.fixStr8 := (STRING)(random() % unique_values);
-     *                             self.str := (STRING)(random() % unique_values);
-     *                             self.varStr := (STRING)(random() % unique_values);
-     *                             self.varStr8 := (STRING)(random() % unique_values);
-     *                             self.utfStr := (STRING)(random() % unique_values);
-     *                             self.uni8 := (STRING)(random() % unique_values);
-     *                             self.uni := (STRING)(random() % unique_values);
-     *                             self.varUni := (STRING)(random() % unique_values);
-     *                             self.childDataset := DATASET([{'field1',2,3},{'field1',2,3}],childRec);
-     *                             self.int1Set := [1,2,3];
-     *                      ), DISTRIBUTED);
-     *         OUTPUT(ds,,dataset_name,overwrite);
-     *
+      Code used to generate HPCC file
+      unique_keys :=  100000;  // Should be less than number of records
+      unique_values := 10212; // Should be less than number of records
+      dataset_name := '~benchmark::all_types::200KB';
+      totalrecs := 779449/500;
+     
+      childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
+     
+      rec := { INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
+               INTEGER2 int2, UNSIGNED2 uint2, REAL8 r8, REAL4 r4,
+               DECIMAL16_8 dec16, UDECIMAL16_8 udec16, QSTRING qStr,
+               STRING8 fixStr8, STRING str, VARSTRING varStr, VARSTRING varStr8,
+               UTF8 utfStr, UNICODE8 uni8, UNICODE uni, VARUNICODE varUni,
+               DATASET(childRec) childDataset,  SET OF INTEGER1 int1Set
+             };
+     
+             ds := DATASET(totalrecs, transform(rec,
+                                  self.int8 := (INTEGER)(random() % unique_keys);
+                                  self.uint8 := (INTEGER)(random() % unique_values);
+                                  self.int4 := (INTEGER)(random() % unique_values);
+                                  self.uint4 := (INTEGER)(random() % unique_values);
+                                  self.int2 := (INTEGER)(random() % unique_values);
+                                  self.uint2 := (INTEGER)(random() % unique_values);
+                                  self.r8 := (REAL)(random() % unique_values);
+                                  self.r4 := (REAL)(random() % unique_values);
+                                  self.dec16 := (REAL)(random() % unique_values);
+                                  self.udec16 := (REAL)(random() % unique_values);
+                                  self.qStr := (STRING)(random() % unique_values);
+                                  self.fixStr8 := (STRING)(random() % unique_values);
+                                  self.str := (STRING)(random() % unique_values);
+                                  self.varStr := (STRING)(random() % unique_values);
+                                  self.varStr8 := (STRING)(random() % unique_values);
+                                  self.utfStr := (STRING)(random() % unique_values);
+                                  self.uni8 := (STRING)(random() % unique_values);
+                                  self.uni := (STRING)(random() % unique_values);
+                                  self.varUni := (STRING)(random() % unique_values);
+                                  self.childDataset := DATASET([{'field1',2,3},{'field1',2,3}],childRec);
+                                  self.int1Set := [1,2,3];
+                           ), DISTRIBUTED);
+              OUTPUT(ds,,dataset_name,overwrite);
      */
+     
 
     public static final String DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
 
@@ -108,7 +110,7 @@ public abstract class BaseRemoteTest
         {
             ip = InetAddress.getLocalHost();
             hostname = ip.getHostName();
-            System.out.println("Remote test executing on: " + hostname + "(" + ip + ")");
+            System.out.println("RemoteTest executing on: " + hostname + "(" + ip + ")");
         }
         catch (UnknownHostException e)
         {
@@ -116,36 +118,34 @@ public abstract class BaseRemoteTest
         }
 
         if (System.getProperty("hpccconn") == null)
-            System.out.println("RemoteTest: No 'hpccconnnect' provided, defaulting to http://localhost:8010");
+            System.out.println("RemoteTest: No 'hpccconn' provided, defaulting to http://localhost:8010");
+        else
+        	System.out.println("RemoteTest: 'hpccconn' set to: '" + connString + "'");
 
         if (System.getProperty("hpccuser") == null)
-            System.out.println("RemoteTest: No 'hpccuser' provided.");
+            System.out.println("RemoteTest: No 'hpccuser' provided, defaulting to '" + defaultUserName + "'");
+        else
+        	System.out.println("RemoteTest: 'hpccuser' set to: '" + hpccUser + "'");
 
         if (System.getProperty("hpccpass") == null)
             System.out.println("RemoteTest: No 'hpccpass' provided.");
 
         if (System.getProperty("thorcluster") == null)
             System.out.println("RemoteTest: No 'thorcluster' provided, using 'mythor'");
-    }
-
-    @Before
-    public void setup() throws Exception
-    {
+        else
+        	System.out.println("RemoteTest: 'thorcluster' set to: '" + thorcluster + "'");
+        
         if (platform == null)
         {
-            if (connString == null)
-                connString = "http://localhost:8010";
+            try
+            {
+				connection = new Connection(connString);
+			}
+            catch (MalformedURLException e)
+            {
+				fail("Could not adquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
+			}
 
-            if (hpccUser == null)
-                hpccUser = "";
-
-            if (hpccPass == null)
-                hpccPass = "";
-
-            if (thorcluster == null)
-                thorcluster = "mythor";
-
-            connection = new Connection(connString);
             Assert.assertNotNull("Could not adquire connection object", connection);
             connection.setCredentials(hpccUser, hpccPass);
 
@@ -165,25 +165,9 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+        	fail("Could not adquire wsclient object: " + e.getMessage() );
         }
 
         Assert.assertNotNull("Could not adquire wsclient object", wsclient);
-    }
-
-    @After
-    public void shutdown()
-    {
-        if (platform != null && wsclient != null)
-        {
-            try
-            {
-                platform.checkInHPCCWsClient(wsclient);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 }

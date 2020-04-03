@@ -16,61 +16,29 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionRespon
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNotNull;
 
 public class FileSprayClientTest extends BaseRemoteTest
 {
-    private HPCCFileSprayClient filesprayclient = null;
-    private String              dropzoneName    = System.getProperty("dropzoneName");
-    private List<String>        fileNames       = new ArrayList<>();
-    private String              testFile1       = System.getProperty("dropzoneTestFile1");
-    private String              path            = System.getProperty("dropzonePath");
-    private String              os              = System.getProperty("dropzoneOs");
+    private static HPCCFileSprayClient filesprayclient = wsclient.getFileSprayClient();
+    private String dropzoneName    = System.getProperty("dropzoneName", "mydropzone");
+    private static List<String> fileNames       = new ArrayList<>();
+    private final static String testFile1       = System.getProperty("dropzoneTestFile1", "Japi274deleteDropzoneFileTest.csv");
+    private final static String path            = System.getProperty("dropzonePath", "/");
+    private final static String os              = System.getProperty("dropzoneOs", "");
 
     public static final String DELETE_ACTION              = "Delete";
     public static final String SUCCESS_RESULT             = "Success";
     public static final String FILE_DOES_NOT_EXIST_RESULT = "Warning: this file does not exist.";
-
+    private DropZoneWrapper foundLocalDZ = null;
+    
     static
     {
-        if (System.getProperty("dropzoneName") == null)
-            System.out.println("dropzoneName nor provided - defaulting to someDropzone");
-
-        if (System.getProperty("testFile1") == null)
-            System.out.println("testFile1 not provided - defaulting to myfilename.txt");
-
-        if (System.getProperty("dropzonePath") == null)
-            System.out.println("dropzonePath not provided - defaulting to /path/to/dropzone");
-
-        if (System.getProperty("dropzoneOs") == null)
-            System.out.println("dropzoneOs not provided - defaulting to ''");
-    }
-
-    @Before
-    public void setUp() throws Exception
-    {
-        super.setup();
-
-        filesprayclient = wsclient.getFileSprayClient();
-        Assert.assertNotNull(filesprayclient);
-
-        if (testFile1 == null)
-            testFile1 = "myfilename.txt";
         fileNames.add(testFile1);
-
-        if (dropzoneName == null)
-            dropzoneName = "someDropzone";
-
-        if (path == null)
-            path = "/path/to/dropzone";
-
-        if (os == null)
-            os = "";
     }
 
     @Test
@@ -82,13 +50,11 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
         catch (AxisFault e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -120,8 +86,8 @@ public class FileSprayClientTest extends BaseRemoteTest
         Connection otherconnection = null;
         try
         {
-            otherconnection = new Connection(this.connection.getUrl());
-            if (this.hpccUser == null && this.hpccUser.isEmpty())
+            otherconnection = new Connection(connection.getUrl());
+            if (hpccUser == null && hpccUser.isEmpty())
             {
                 otherconnection.setUserName("something"); //ensuring this connection is different
             }
@@ -167,6 +133,7 @@ public class FileSprayClientTest extends BaseRemoteTest
                 DropZoneWrapper thisdz = dzs.get(i);
                 Assert.assertEquals(thisdz.getNetAddress(), localdzs.get(i).getNetAddress());
                 Assert.assertEquals(thisdz.getPath(), localdzs.get(i).getPath());
+                foundLocalDZ = thisdz;
             }
         }
         catch (Exception e)
@@ -188,47 +155,36 @@ public class FileSprayClientTest extends BaseRemoteTest
         return null;
     }
 
-    @Category(IntegrationTest.class)
     @Test
     public void testUploadFile()
     {
-        File uploadFile = new File("src/test/resources/fileSprayTest/Japi274deleteDropzoneFileTest.csv");
+        File uploadFile = new File("src/test/resources/filespraytest/Japi274deleteDropzoneFileTest.csv");
         try
         {
-            HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
-            List<DropZoneWrapper> landingZones = filesprayclient.fetchDropZones(wsclient.getConnection().getHost());
+            if (foundLocalDZ == null)
+            	testfetchDropZones();
 
-            DropZoneWrapper zone = getDropzone(landingZones, dropzoneName);
-            if (wsclient.pingServer())
+            assumeNotNull(foundLocalDZ);
+            if (!filesprayclient.uploadLargeFile(uploadFile, foundLocalDZ))
             {
-                if (!filesprayclient.uploadLargeFile(uploadFile, zone))
-                {
-                    Assert.fail("The File could not be uploaded");
-                }
-                else
-                    return;
+                Assert.fail("The File could not be uploaded");
             }
-            else
-            {
-                Assert.fail("The connection is not available");
-            }
-            platform.checkInHPCCWsClient(wsClient);
         }
         catch (Exception e)
         {
-            Assert.fail("");
+            Assert.fail(e.getMessage());
         }
     }
 
-    @Category(IntegrationTest.class)
     @Test
     public void testDeleteDropZoneFile()
     {
         testUploadFile();
         try
         {
-            HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
-            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
+            assumeNotNull(foundLocalDZ);
+
+            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), fileNames, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
             if (!result.getExceptions().getException().isEmpty())
             {
                 Assert.fail("failed to delete file\n" + result.getExceptions().toString());
@@ -239,35 +195,34 @@ public class FileSprayClientTest extends BaseRemoteTest
                 assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult().get(0).getAction());
                 assertEquals(SUCCESS_RESULT, result.getDFUActionResults().getDFUActionResult().get(0).getResult());
             }
-            platform.checkInHPCCWsClient(wsClient);
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
         catch (EspSoapFault espSoapFault)
         {
-            espSoapFault.printStackTrace();
-            Assert.fail();
+            Assert.fail(espSoapFault.getMessage());
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
     }
 
-    @Category(IntegrationTest.class)
     @Test
     public void testDeleteDropZoneFileInvalidFile()
     {
-        fileNames = new ArrayList<>();
-        fileNames.add("SomeNoneExistantFile.txt");
+        List<String> badFileName = new ArrayList<>();
+        badFileName.add("SomeNoneExistantFile.txt");
         try
         {
-            HPCCWsClient wsClient = platform.checkOutHPCCWsClient();
-            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(dropzoneName, fileNames, wsClient.getHost(), path, null);
+        	if (foundLocalDZ == null)
+            	testfetchDropZones();
+
+            assumeNotNull(foundLocalDZ);
+
+            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), badFileName, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
 
             if (!result.getExceptions().getException().isEmpty())
             {
@@ -275,28 +230,23 @@ public class FileSprayClientTest extends BaseRemoteTest
             }
             else
             {
-                assertEquals(fileNames.get(0), result.getDFUActionResults().getDFUActionResult().get(0).getID());
+                assertEquals(badFileName.get(0), result.getDFUActionResults().getDFUActionResult().get(0).getID());
                 assertEquals(DELETE_ACTION, result.getDFUActionResults().getDFUActionResult().get(0).getAction());
                 assertEquals(FILE_DOES_NOT_EXIST_RESULT, result.getDFUActionResults().getDFUActionResult().get(0).getResult());
-                System.out.println("File not found as expected");
+                System.out.println("File 'SomeNoneExistantFile.txt' not found as expected");
             }
-
-            platform.checkInHPCCWsClient(wsClient);
         }
         catch (RemoteException e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
-        catch (EspSoapFault espSoapFault)
+        catch (EspSoapFault e)
         {
-            espSoapFault.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -356,8 +306,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
     }
 }

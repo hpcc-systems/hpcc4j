@@ -45,7 +45,6 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -58,19 +57,12 @@ public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb"};
     private static final int[]    expectedCounts = { 1250, 6 };
-
-    @Before
-    public void setup() throws Exception
-    {
-        super.setup();
-    }
-
     
     @Test
     public void readBadlyDistributedFileTest() throws Exception
     {
         //this file only has data on two nodes
-        HPCCFile file = new HPCCFile("~test::alldatatypes", connString , hpccUser, hpccPass);
+        HPCCFile file = new HPCCFile("~benchmark::all_types::200kb", connString , hpccUser, hpccPass);
         file.setProjectList("");
         List<HPCCRecord> records = readFile(file);
         assertEquals("Not all records loaded",records.size(),5600);
@@ -126,7 +118,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void nullWriteTest() throws Exception
     {
-        String fname="~test::alldatatypes";
+        String fname="~benchmark::all_types::200kb";
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
         List<HPCCRecord> records = readFile(file);

@@ -20,7 +20,6 @@ package org.hpccsystems.ws.client;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -28,15 +27,7 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSPackageProcessTest extends BaseRemoteTest
 {
-    HPCCWsPackageProcessClient client;
-
-    @Before
-    public void setup() throws Exception
-    {
-        super.setup();
-        client = wsclient.getWsPackageProcessClient();
-        Assert.assertNotNull(client);
-    }
+    HPCCWsPackageProcessClient client = wsclient.getWsPackageProcessClient();
 
     @Test
     public void ping() throws Exception

@@ -25,16 +25,17 @@ import org.w3c.dom.NodeList;
 
 public class WsDFUClientTest extends BaseRemoteTest
 {
-    private HPCCWsDFUClient wsdfuclient = null;
+    private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
 
     @Before
-    public void setUp() throws Exception
+    public void delayhack()
     {
-        wsdfuclient = wsclient.getWsDFUClient();
+    	try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
 
-        Assert.assertNotNull(wsdfuclient);
+		}
     }
-
     @Test
     public void testFileTypeWrapper()
     {
@@ -157,7 +158,7 @@ public class WsDFUClientTest extends BaseRemoteTest
             {
                 if (file.getIsDirectory())
                 {
-                    getFirstFileAvailable(file.getDirectory());
+                    getFirstFileAvailable(!directory.isEmpty() ? directory + "::" + file.getDirectory() : file.getDirectory());
                 }
                 else
                 {
@@ -166,6 +167,7 @@ public class WsDFUClientTest extends BaseRemoteTest
                     return;
                 }
             }
+            Assert.assertNotNull("Could not find any files on HPCC for tests", randomfilename);
         }
         catch (AxisFault e)
         {
@@ -313,7 +315,7 @@ public class WsDFUClientTest extends BaseRemoteTest
             Assert.assertTrue(!deleteFiles.isEmpty());
             DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
             Assert.assertNotNull(dfuResultWrapper);
-            Assert.assertTrue(dfuResultWrapper.getActionResult().equals("File not found somefile on somecluster"));
+            Assert.assertTrue(dfuResultWrapper.getActionResult().startsWith("File not found "));
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
@@ -325,33 +327,22 @@ public class WsDFUClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
-    public void testDeleteFileWithprefixAtsignCluster()
+    @Test(expected = Exception.class)
+    public void testDeleteFileWithprefixAtsignCluster() throws Exception 
     {
-        try
-        {
-            Set<String> files = new HashSet<>();
-            files.add("@somefile");
+        Set<String> files = new HashSet<>();
+        files.add("@somefile");
 
-            Assert.assertNotNull(files);
+        Assert.assertNotNull(files);
 
-            List<DFUResultWrapper> deleteFiles = wsdfuclient.deleteFiles(files, "somecluster");
-            Assert.assertNotNull(deleteFiles);
-            Assert.assertTrue(!deleteFiles.isEmpty());
-            DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
-            Assert.assertNotNull(dfuResultWrapper);
-            Assert.assertTrue(dfuResultWrapper.getActionResult().equals("File not found @somefile on somecluster"));
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
-        }
-        catch (Exception e)
-        {
-            Assert.fail(e.toString());
-        }
+        List<DFUResultWrapper> deleteFiles = wsdfuclient.deleteFiles(files, "somecluster");
+        Assert.assertNotNull(deleteFiles);
+        Assert.assertTrue(!deleteFiles.isEmpty());
+        DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
+        Assert.assertNotNull(dfuResultWrapper);
+        Assert.assertTrue(dfuResultWrapper.getActionResult().equals("File not found @somefile on somecluster"));
     }
-    
+
     @Test
     @Ignore("Once I know what cluster this will run on during CI testing I'll update my params and activate the test")
     public void searchFileTest() throws Exception 

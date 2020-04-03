@@ -46,7 +46,6 @@ public class EclParseRegressionTest extends BaseRemoteTest
     @Before
     public void setup() throws Exception
     {
-        super.setup();
         if (targetThorName == null)
         {
             System.out.println("EclParseRegressionTest: No 'thorname' system prop provided, defaulting to 'thor' cluster name");
@@ -63,7 +62,6 @@ public class EclParseRegressionTest extends BaseRemoteTest
             targetHthorName = "roxie";
         }
     }
-
 
     File failedlist=new File("failedrecs.txt");
     File testlist=new File("alreadytested.txt");

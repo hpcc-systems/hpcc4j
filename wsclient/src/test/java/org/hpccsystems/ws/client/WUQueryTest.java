@@ -9,22 +9,20 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper.SortBy;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class WUQueryTest extends BaseRemoteTest
 {
-    HPCCWsWorkUnitsClient wswuclient;
+    private static HPCCWsWorkUnitsClient wswuclient;
 
-    @Before
-    public void setup() throws Exception
+    @BeforeClass
+    public static void setup() throws Exception
     {
-        super.setup();
-        wswuclient=wsclient.getWsWorkunitsClient();
+        wswuclient = wsclient.getWsWorkunitsClient();
     }
 
     @Test
@@ -117,11 +115,5 @@ public class WUQueryTest extends BaseRemoteTest
             Assert.fail("ascending state in wrong order:" + result.get(0).getState() + " then "
                     + result.get(result.size()-1).getState());
         }
-    }
-
-    @After
-    public void shutdown()
-    {
-        super.shutdown();
     }
 }

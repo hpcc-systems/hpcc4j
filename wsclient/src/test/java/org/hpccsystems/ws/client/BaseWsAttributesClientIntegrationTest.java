@@ -45,8 +45,6 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
     @Before
     public void setup() throws Exception
     {
-        super.setup(); // fetch hpcc connection info and setup platform and wsclient
-
         if (wsattport == null)
             wsattport = "8145";
 
@@ -57,12 +55,6 @@ public abstract class BaseWsAttributesClientIntegrationTest extends BaseRemoteTe
 
         wsattclient = wsclient.getWsAttributesClient(wsattport);
         wsattclient.setVerbose(true);
-    }
-
-    @After
-    public void shutdown()
-    {
-        super.shutdown();
     }
 
     @Test
