@@ -9,8 +9,8 @@ public class WsWorkunitsClientIntegrationTest_54 extends BaseWsWorkunitsClientIn
     @Override
     public void confirmPlatform() throws Exception
     {
-        if (super.platform.getVersion().toString().startsWith(hpccver))
-            throw new Exception("Cannot run 5.4 tests against HPCC cluster on '" + super.platform.getIP() + "' version: '" + super.platform.getVersion().toString() + "'");
+        if (platform.getVersion().toString().startsWith(hpccver))
+            throw new Exception("Cannot run 5.4 tests against HPCC cluster on '" + platform.getIP() + "' version: '" + platform.getVersion().toString() + "'");
     }
 
     @Override

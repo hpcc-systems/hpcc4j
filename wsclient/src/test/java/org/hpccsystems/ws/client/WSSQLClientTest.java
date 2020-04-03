@@ -294,7 +294,7 @@ public class WSSQLClientTest extends BaseRemoteTest
                 Assert.fail("Cannot test sql execution - could not find any clusters");
 
 
-            String sql = "Select * from " + "benchmark::integer::20kb as mytable ";
+            String sql = "Select * from benchmark::string::100MB as mytable ";
 
             String wuid = null;
             try
@@ -372,8 +372,9 @@ public class WSSQLClientTest extends BaseRemoteTest
                     System.out.println("Exception while fetching results related to WUID: " + wuid + ": " + e.getLocalizedMessage());
                 }
 
-                Assert.assertNotNull(filtercolumnname);
+                filtercolumnname = "fill";
                 String filter1 = sql + " where mytable." + filtercolumnname + " != ?";// filtercolumntype == 1 ? "";
+                System.out.println("Preparing sql: " + filter1);
 
                 ECLWorkunitWrapper prepareSQLresult = client.prepareSQL(filter1, randomclustername, null, null);
                 Assert.assertNotNull(prepareSQLresult);

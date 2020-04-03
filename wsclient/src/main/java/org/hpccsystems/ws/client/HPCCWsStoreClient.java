@@ -511,8 +511,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         try
         {
             FetchAllResponse response = ((WsstoreStub) stub).fetchAll(request);
-            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
-                    "Could Fetch all namespaces keys for store: " + storename + " namespace: '" + namespace + "'");
+            if (response.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+                    "Could not fetch all namespaces keys for store: " + storename + " namespace: '" + namespace + "'");
 
             Pairs_type0 pairs = response.getPairs();
             if (pairs != null)
