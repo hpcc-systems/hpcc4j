@@ -4,6 +4,7 @@ public class WUInfoRequestWrapper
 {
     private String wuid;
     private Boolean truncateEclTo64K;
+    private Boolean unarchive=true;
     private String type;
     private Boolean includeExceptions;
     private Boolean includeGraphs;
@@ -681,5 +682,21 @@ public class WUInfoRequestWrapper
     public void setThorSlaveIP(String thorSlaveIP)
     {
         this.thorSlaveIP = thorSlaveIP;
+    }
+
+    /**
+     * @return the unarchive
+     */
+    public boolean isUnarchive()
+    {
+        return unarchive;
+    }
+
+    /**
+     * @param unarchive the unarchive to set
+     */
+    public void setUnarchive(boolean unarchive)
+    {
+        this.unarchive = unarchive;
     }
 }

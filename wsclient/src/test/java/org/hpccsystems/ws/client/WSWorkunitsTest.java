@@ -148,7 +148,8 @@ public class WSWorkunitsTest extends BaseRemoteTest
             WUInfoRequestWrapper request=new WUInfoRequestWrapper();
             request.setWuid(testwuid);
             request.setIncludeHelpers(true);
-            wuInfo=client.getWUInfo(request, true);
+            request.setUnarchive(true);
+            wuInfo=client.getWUInfo(request);
             assertNotNull(wuInfo);
             assertEquals(testwuid,wuInfo.getWuid());
             assertTrue(wuInfo.getHelpers().size()>0);

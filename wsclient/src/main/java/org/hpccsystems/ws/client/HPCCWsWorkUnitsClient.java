@@ -768,7 +768,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public WorkunitWrapper getWUInfo(WUInfoRequestWrapper wuinfodetailsparams, boolean unarchive) throws Exception, ArrayOfEspExceptionWrapper
+    public WorkunitWrapper getWUInfo(WUInfoRequestWrapper wuinfodetailsparams) throws Exception, ArrayOfEspExceptionWrapper
     {
         WorkunitWrapper workunit = null;
 
@@ -779,10 +779,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions1_75();
         if (exceptions == null && wuInfoResponse.getWorkunit() != null)
         {
-            if (unarchive && wuInfoResponse.getWorkunit().getArchived())
+            if (wuinfodetailsparams.isUnarchive() && wuInfoResponse.getWorkunit().getArchived())
             {
                 doWorkunitAction(wuinfodetailsparams.getWuid(), ECLWUActions.Restore);
-                return getWUInfo(wuinfodetailsparams,false);
+                wuinfodetailsparams.setUnarchive(false);
+                return getWUInfo(wuinfodetailsparams);
             }
             workunit = wuInfoResponse.getWorkunit();
             workunit.setOriginalEclWatchUrl(getEclWatchUrl());
@@ -834,7 +835,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         wuinfodetailsparams.setIncludeGraphs(false);
         wuinfodetailsparams.setIncludeResults(true);
         wuinfodetailsparams.setWuid(wuid);
-        return getWUInfo(wuinfodetailsparams,unarchive);
+        wuinfodetailsparams.setUnarchive(unarchive);
+        return getWUInfo(wuinfodetailsparams);
     }
 
     /**
@@ -885,7 +887,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setIncludeVariables(includeVariables);
         params.setIncludeXmlSchemas(includeXmlSchemas);
         params.setIncludeTimers(includeTimers);
-        return getWUInfo(params,false);       
+        params.setUnarchive(false);
+        return getWUInfo(params);       
     }
 
     /**
@@ -941,7 +944,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         request.setIncludeTimers(includeTimers);
         request.setIncludeVariables(includeVariables);
         request.setIncludeXmlSchemas(includeXmlSchemas);
-        return getWUInfo(request,unarchive);
+        request.setUnarchive(unarchive);
+        return getWUInfo(request);
     }
 
     /**
