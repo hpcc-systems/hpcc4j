@@ -62,7 +62,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void readBadlyDistributedFileTest() throws Exception
     {
         //this file only has data on two nodes
-        HPCCFile file = new HPCCFile("~test::alldatatypes", connString , hpccUser, hpccPass);
+        HPCCFile file = new HPCCFile("~benchmark::all_types::200kb", connString , hpccUser, hpccPass);
         file.setProjectList("");
         List<HPCCRecord> records = readFile(file);
         assertEquals("Not all records loaded",records.size(),5600);
@@ -118,7 +118,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void nullWriteTest() throws Exception
     {
-        String fname="~test::alldatatypes";
+        String fname="~benchmark::all_types::200kb";
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
         List<HPCCRecord> records = readFile(file);

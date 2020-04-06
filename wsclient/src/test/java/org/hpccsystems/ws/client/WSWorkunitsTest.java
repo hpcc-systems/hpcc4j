@@ -20,8 +20,11 @@ package org.hpccsystems.ws.client;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeNotNull;
 
 import org.apache.axis2.AxisFault;
+
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
@@ -29,7 +32,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
-import org.junit.Before;
+
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -51,7 +54,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
     }
 
     @Test
-    public void ping() throws Exception
+    public void stageA_ping() throws Exception
     {
         try
         {
@@ -69,13 +72,43 @@ public class WSWorkunitsTest extends BaseRemoteTest
     }
 
     @Test
-    public void fastWURefreshTest() throws Exception
+    public void A1stageA_utf8Test() throws Exception
     {
         try
         {
-            if (testwuid == null || testwuid.isEmpty())
-                Assert.fail("Cannot test WsWorkunits.fastWURefreshTest without target WUID - provide 'targetwuid' System property!");
+            WorkunitWrapper wu = new WorkunitWrapper();
+            wu.setECL("OUTPUT('¶');");
+            wu.setJobname("WsClientUTF8_Test");
+            wu.setCluster("thor");
 
+            WURunResponse createAndRunWUFromECL = client.createAndRunWUFromECL(wu);
+            testwuid = createAndRunWUFromECL.getWuid();
+            createAndRunWUFromECL.getExceptions();
+        }
+        catch (AxisFault e)
+        {
+            e.printStackTrace();
+            Assert.fail(e.getLocalizedMessage());
+        }
+        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void stageB_fastWURefreshTest() throws Exception
+    {
+        assumeNotNull(testwuid);
+        assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'targetwuid' System property!", testwuid.isEmpty());
+
+        try
+        {
             WorkunitWrapper wu = new WorkunitWrapper();
             wu.setWuid(testwuid);
             client.fastWURefresh(wu);
@@ -99,13 +132,13 @@ public class WSWorkunitsTest extends BaseRemoteTest
     }
 
     @Test
-    public void getWUInfoTest() throws Exception
+    public void StageB_getWUInfoTest() throws Exception
     {
+        assumeNotNull(testwuid);
+        assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'targetwuid' System property!", testwuid.isEmpty());
+
         try
         {
-            if (testwuid == null || testwuid.isEmpty())
-                Assert.fail("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'targetwuid' System property!");
-
             WorkunitWrapper wuInfo = client.getWUInfo(testwuid);
 
             System.out.println("wuid: " + wuInfo.getWuid());
@@ -134,34 +167,5 @@ public class WSWorkunitsTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
-    }
-
-    @Test
-    public void utf8Test() throws Exception
-    {
-        try
-        {
-            WorkunitWrapper wu = new WorkunitWrapper();
-            wu.setECL("OUTPUT('¶');");
-            wu.setJobname("WsClientUTF8_Test");
-            wu.setCluster("thor");
-
-            WURunResponse createAndRunWUFromECL = client.createAndRunWUFromECL(wu);
-            createAndRunWUFromECL.getExceptions();
-        }
-        catch (AxisFault e)
-        {
-            e.printStackTrace();
-            Assert.fail(e.getLocalizedMessage());
-        }
-        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail(e.getLocalizedMessage());
-        }
-    }
+    }   
 }

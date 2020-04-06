@@ -34,7 +34,7 @@ public class WsAttributesClientTest extends BaseRemoteTest
     private final static String port = System.getProperty("8145");
 
     @BeforeClass
-    public void setup() throws Exception
+    public static void setup() throws Exception
     {
         if (System.getProperty("targetwuid") == null)
             System.out.println("No wsattributesport specified - defaulting to 8145");
