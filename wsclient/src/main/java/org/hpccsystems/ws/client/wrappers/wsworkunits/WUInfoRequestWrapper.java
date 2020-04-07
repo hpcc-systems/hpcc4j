@@ -4,7 +4,7 @@ public class WUInfoRequestWrapper
 {
     private String wuid;
     private Boolean truncateEclTo64K;
-    private Boolean unarchive=true;
+    private Boolean unarchive=false;
     private String type;
     private Boolean includeExceptions;
     private Boolean includeGraphs;
@@ -687,7 +687,7 @@ public class WUInfoRequestWrapper
     /**
      * @return the unarchive
      */
-    public boolean isUnarchive()
+    public boolean attemptUnarchive()
     {
         return unarchive;
     }
@@ -695,7 +695,7 @@ public class WUInfoRequestWrapper
     /**
      * @param unarchive the unarchive to set
      */
-    public void setUnarchive(boolean unarchive)
+    public void setAttemptUnarchive(boolean unarchive)
     {
         this.unarchive = unarchive;
     }

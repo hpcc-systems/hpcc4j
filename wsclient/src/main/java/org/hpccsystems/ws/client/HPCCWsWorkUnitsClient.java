@@ -760,8 +760,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wuinfodetailsparams
      *            - workunit info request wrapper
-     * @param unarchive
-     *            - unarchive archived workunit
      * @return - ECLWorkunit object with information pertaining to the WU
      * @throws Exception
      *             - Caller must handle exceptions
@@ -779,15 +777,22 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions1_75();
         if (exceptions == null && wuInfoResponse.getWorkunit() != null)
         {
-            if (wuinfodetailsparams.isUnarchive() && wuInfoResponse.getWorkunit().getArchived())
-            {
-                doWorkunitAction(wuinfodetailsparams.getWuid(), ECLWUActions.Restore);
-                wuinfodetailsparams.setUnarchive(false);
-                return getWUInfo(wuinfodetailsparams);
-            }
             workunit = wuInfoResponse.getWorkunit();
             workunit.setOriginalEclWatchUrl(getEclWatchUrl());
             workunit.setResultViews(wuInfoResponse.getResultViews());
+            
+            //if archived, unarchive if specified
+            if (wuinfodetailsparams.attemptUnarchive() && workunit.getArchived())
+            {
+                doWorkunitAction(wuinfodetailsparams.getWuid(), ECLWUActions.Restore);
+                wuInfoResponse = stubWrapper.WUInfo(wuinfodetailsparams);
+                if (exceptions == null && wuInfoResponse.getWorkunit() != null)
+                {
+                    workunit = wuInfoResponse.getWorkunit();
+                    workunit.setOriginalEclWatchUrl(getEclWatchUrl());
+                    workunit.setResultViews(wuInfoResponse.getResultViews());
+                }
+            }
         }
         else
         {
@@ -835,7 +840,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         wuinfodetailsparams.setIncludeGraphs(false);
         wuinfodetailsparams.setIncludeResults(true);
         wuinfodetailsparams.setWuid(wuid);
-        wuinfodetailsparams.setUnarchive(unarchive);
+        wuinfodetailsparams.setAttemptUnarchive(unarchive);
         return getWUInfo(wuinfodetailsparams);
     }
 
@@ -887,7 +892,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setIncludeVariables(includeVariables);
         params.setIncludeXmlSchemas(includeXmlSchemas);
         params.setIncludeTimers(includeTimers);
-        params.setUnarchive(false);
+        params.setAttemptUnarchive(false);
         return getWUInfo(params);       
     }
 
@@ -944,7 +949,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         request.setIncludeTimers(includeTimers);
         request.setIncludeVariables(includeVariables);
         request.setIncludeXmlSchemas(includeXmlSchemas);
-        request.setUnarchive(unarchive);
+        request.setAttemptUnarchive(unarchive);
         return getWUInfo(request);
     }
 

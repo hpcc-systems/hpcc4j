@@ -20,6 +20,7 @@ package org.hpccsystems.ws.client;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
@@ -44,7 +45,10 @@ public class WSWorkunitsTest extends BaseRemoteTest
     
     private static HPCCWsWorkUnitsClient client;
     private static String  testwuid = System.getProperty("targetwuid");
-
+    //workunit with "unknown" state
+    private static String  testunknownwuid = System.getProperty("unknownwuid");
+    //archived workunit
+    private static String  testarchivedwuid = System.getProperty("archivedwuid");
 
     @BeforeClass
     public static void setup() throws Exception
@@ -148,10 +152,75 @@ public class WSWorkunitsTest extends BaseRemoteTest
             WUInfoRequestWrapper request=new WUInfoRequestWrapper();
             request.setWuid(testwuid);
             request.setIncludeHelpers(true);
-            request.setUnarchive(true);
+            request.setAttemptUnarchive(true);
             wuInfo=client.getWUInfo(request);
             assertNotNull(wuInfo);
             assertEquals(testwuid,wuInfo.getWuid());
+            assertTrue(wuInfo.getHelpers().size()>0);
+        }
+        catch (AxisFault e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }   
+    
+    @Test
+    public void StageB_getWUInfoUnknownTest() throws Exception
+    {
+        assumeNotNull(testunknownwuid);
+        assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'unknownwuid' System property!", testunknownwuid.isEmpty());
+
+        try {
+            WUInfoRequestWrapper request=new WUInfoRequestWrapper();
+            request.setWuid(testunknownwuid);
+            request.setIncludeHelpers(true);
+            request.setAttemptUnarchive(true);
+            WorkunitWrapper wuInfo = client.getWUInfo(request);
+            assertNotNull(wuInfo);
+            assertEquals(testunknownwuid,wuInfo.getWuid());
+            assertTrue(wuInfo.getHelpers().size()==0);
+        }  
+        catch (AxisFault e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }  
+    
+    @Test
+    public void StageB_getWUInfoArchivedTest() throws Exception
+    {
+        assumeNotNull(testarchivedwuid);
+        assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'archivedwuid' System property!", testarchivedwuid.isEmpty());
+
+        try
+        {
+            WUInfoRequestWrapper request=new WUInfoRequestWrapper();
+            request.setWuid(testarchivedwuid);
+            request.setIncludeHelpers(true);
+            request.setAttemptUnarchive(true);
+            WorkunitWrapper wuInfo=client.getWUInfo(request);
+            assertNotNull(wuInfo);
+            assertEquals(testarchivedwuid,wuInfo.getWuid());
             assertTrue(wuInfo.getHelpers().size()>0);
         }
         catch (AxisFault e)
