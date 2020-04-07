@@ -10,7 +10,9 @@ import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.FastTests.class)
 public class ESPExceptionsTest
 {
 

@@ -12,6 +12,9 @@ import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 
+import org.junit.experimental.categories.Category;
+
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class SerializeTester {
 
 	public static void main(String[] args) {

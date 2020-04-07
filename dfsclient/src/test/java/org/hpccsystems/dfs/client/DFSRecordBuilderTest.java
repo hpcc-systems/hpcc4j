@@ -23,7 +23,9 @@ import org.hpccsystems.commons.ecl.TestFieldDefinitions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.FastTests.class)
 public class DFSRecordBuilderTest
 {
     private FieldDef      testFieldDefinition = null;

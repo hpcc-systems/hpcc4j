@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(IntegrationTest.class)
 public class WUQueryTest extends BaseRemoteTest
 {
     HPCCWsWorkUnitsClient wswuclient;

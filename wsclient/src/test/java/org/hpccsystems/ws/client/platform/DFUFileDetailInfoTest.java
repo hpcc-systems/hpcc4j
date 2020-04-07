@@ -30,7 +30,9 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFURecordDefWrapper;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.FastTests.class)
 public class DFUFileDetailInfoTest
 {
     public static DFUDataColumnWrapper getColumnByName(final DFURecordDefWrapper parent, final String name)

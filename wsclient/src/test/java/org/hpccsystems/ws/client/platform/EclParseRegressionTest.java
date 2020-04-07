@@ -26,7 +26,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.ManualUnitTest;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
@@ -36,7 +35,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(ManualUnitTest.class)
 public class EclParseRegressionTest extends BaseRemoteTest
 {
     protected String targetThorName = System.getProperty("thorname");

@@ -28,7 +28,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.experimental.categories.Category;
 
-@Category(RemoteTest.class)
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
 {
     protected Platform platform;

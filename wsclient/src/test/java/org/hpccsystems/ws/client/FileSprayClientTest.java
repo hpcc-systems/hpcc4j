@@ -23,6 +23,7 @@ import org.junit.experimental.categories.Category;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class FileSprayClientTest extends BaseRemoteTest
 {
     private HPCCFileSprayClient filesprayclient = null;
@@ -188,7 +189,6 @@ public class FileSprayClientTest extends BaseRemoteTest
         return null;
     }
 
-    @Category(IntegrationTest.class)
     @Test
     public void testUploadFile()
     {
@@ -220,7 +220,6 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
-    @Category(IntegrationTest.class)
     @Test
     public void testDeleteDropZoneFile()
     {
@@ -258,7 +257,6 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
-    @Category(IntegrationTest.class)
     @Test
     public void testDeleteDropZoneFileInvalidFile()
     {

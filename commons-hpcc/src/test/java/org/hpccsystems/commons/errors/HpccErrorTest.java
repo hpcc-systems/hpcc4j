@@ -8,7 +8,9 @@ import org.hpccsystems.commons.errors.HpccErrorCode;
 import org.hpccsystems.commons.errors.HpccErrorLevel;
 import org.hpccsystems.commons.errors.HpccErrorType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.FastTests.class)
 public class HpccErrorTest
 {
 
