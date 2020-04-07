@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+
 public class WUInfoRequestWrapper
 {
     private String wuid;
