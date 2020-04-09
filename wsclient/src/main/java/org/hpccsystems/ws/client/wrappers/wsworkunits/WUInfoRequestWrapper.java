@@ -1,10 +1,10 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-
 public class WUInfoRequestWrapper
 {
     private String wuid;
     private Boolean truncateEclTo64K;
+    private Boolean unarchive=false;
     private String type;
     private Boolean includeExceptions;
     private Boolean includeGraphs;
@@ -59,6 +59,8 @@ public class WUInfoRequestWrapper
             request.setIncludeGraphs(this.getIncludeGraphs());
         if (getIncludeGraphs() != null)
             request.setIncludeHelpers(this.getIncludeGraphs());
+        if (getIncludeHelpers() != null)
+            request.setIncludeHelpers(this.getIncludeHelpers());
         if (getIncludeResourceURLs() != null)
             request.setIncludeResourceURLs(this.getIncludeResourceURLs());
         if (getIncludeResults() != null)
@@ -680,5 +682,21 @@ public class WUInfoRequestWrapper
     public void setThorSlaveIP(String thorSlaveIP)
     {
         this.thorSlaveIP = thorSlaveIP;
+    }
+
+    /**
+     * @return the unarchive
+     */
+    public boolean attemptUnarchive()
+    {
+        return unarchive;
+    }
+
+    /**
+     * @param unarchive the unarchive to set
+     */
+    public void setAttemptUnarchive(boolean unarchive)
+    {
+        this.unarchive = unarchive;
     }
 }
