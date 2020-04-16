@@ -644,7 +644,7 @@
                <exclude>**/RecordDefinitions.java</exclude>
                <exclude>**/PlatformTester.java</exclude>
                <exclude>**/SerializeTester.java</exclude>
-               <exclude>**/RemoteTest.java</exclude>
+               <exclude>**/RemoteTests.java</exclude>
                <exclude>**/WSFileIOClientTest.java</exclude>
                <exclude>**/WUQueryTest.java</exclude>
              </excludes>

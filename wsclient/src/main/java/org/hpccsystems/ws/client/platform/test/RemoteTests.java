@@ -17,7 +17,7 @@
 
 package org.hpccsystems.ws.client.platform.test;
 
-public interface RemoteTest
+public interface RemoteTests
 {
 
 }
