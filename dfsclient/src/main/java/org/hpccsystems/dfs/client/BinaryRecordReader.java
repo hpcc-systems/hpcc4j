@@ -146,6 +146,11 @@ public class BinaryRecordReader implements IRecordReader
 
     private static final int     MASK_32_LOWER_HALF  = 0xffff;
     private static final int     BUFFER_GROW_SIZE    = 8192;
+    private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
+
+    // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
+    private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
+    private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
 
     /**
      * A Binary record reader.
@@ -205,7 +210,16 @@ public class BinaryRecordReader implements IRecordReader
             {
                 return true;
             }
-
+        }
+        catch (IOException e)
+        {
+            // Available may throw an IOException if no data is available and the stream is closed
+            // This shouldn't be treated as an error, but an indication of EOS
+            return false;
+        }
+        
+        try
+        {
             // Peek the next byte to see if there is remaining data. If -1 we reached EOS
             // Read limit is arbitrary we will only be reading one byte
             this.inputStream.mark(2);
@@ -214,7 +228,7 @@ public class BinaryRecordReader implements IRecordReader
         }
         catch (IOException e)
         {
-            throw new HpccFileException(e.getMessage());
+            throw new HpccFileException(e);
         }
 
         return nextByte >= 0;
@@ -348,7 +362,8 @@ public class BinaryRecordReader implements IRecordReader
                     int bytesRead = this.inputStream.read(bytes,bytesConsumed,dataLen-bytesConsumed);
                     if (bytesRead < 0)
                     {
-                        throw new IOException("Unexpected end of of stream");
+                        IOException e = new IOException("Error, Unexpected EOS while constructing binary value.");
+                        throw e;
                     }
 
                     bytesConsumed += bytesRead;
@@ -566,7 +581,8 @@ public class BinaryRecordReader implements IRecordReader
     
     private void ensureScratchBufferCapacity(int requiredCapacity) 
     {
-        if (this.scratchBuffer.length < requiredCapacity) {
+        if (this.scratchBuffer.length < requiredCapacity)
+        {
             this.scratchBuffer = Arrays.copyOf(this.scratchBuffer, requiredCapacity + BUFFER_GROW_SIZE);
         }
     }
@@ -583,7 +599,9 @@ public class BinaryRecordReader implements IRecordReader
             int bytesRead = this.inputStream.read(this.scratchBuffer, position, dataLen-bytesConsumed);
             if (bytesRead < 0)
             {
-                throw new IOException("Unexpected end of stream");
+                IOException e = new IOException("Unexpected end of stream: dataLen: " + dataLen + " bytesConsumed: " + bytesConsumed + " streamPos: " + this.inputStream.streamPos);
+                e.printStackTrace();
+                throw e;
             }
             
             position += bytesRead;
@@ -847,9 +865,22 @@ public class BinaryRecordReader implements IRecordReader
         {
             while (eosLocation < 0) 
             {
-                int readSize = this.inputStream.available();
-                readSize = (readSize / 2) * 2;
+                int readSize = 0;
+                try
+                {
+                    readSize = this.inputStream.available();
+                }
+                catch(Exception e)
+                {
+                    throw new IOException("Error, unexpected EOS while constructing UTF16 string.");
+                }
 
+                readSize = (readSize / 2) * 2;
+                if (readSize > OPTIMIZED_STRING_READ_AHEAD)
+                {
+                    readSize = OPTIMIZED_STRING_READ_AHEAD;
+                }
+                
                 this.inputStream.mark(readSize);
                 readIntoScratchBuffer(strByteLen, readSize);
 
@@ -883,7 +914,21 @@ public class BinaryRecordReader implements IRecordReader
         {
             while (eosLocation < 0) 
             {
-                int readSize = this.inputStream.available();
+                int readSize = 0;
+                try
+                {
+                    readSize = this.inputStream.available();
+                }
+                catch(IOException e)
+                {
+                    throw new IOException("Error, encountered EOS while constructing var string.");
+                }
+
+                if (readSize > OPTIMIZED_STRING_READ_AHEAD)
+                {
+                    readSize = OPTIMIZED_STRING_READ_AHEAD;
+                }
+
                 this.inputStream.mark(readSize);
                 readIntoScratchBuffer(strByteLen, readSize);
 
@@ -1009,30 +1054,50 @@ public class BinaryRecordReader implements IRecordReader
             }
             case QSTRING:
             {
-                int compressedLen = getLenFromCodePoints(styp, codePoints);
-                int expandedLen = (compressedLen * 4) / 3;
+                int expandedLen = codePoints;
+
+                // We are multiplying expandedLen by the QSTR compression ratio. We are doing this in integers
+                // so we need to handle rounding up correctly by adding divisor-1 or (QSTR_EXPANDED_CHUNK_LEN-1) in this case
+                int compressedLen = expandedLen * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
+                compressedLen /= QSTR_EXPANDED_CHUNK_LEN;
+
                 ensureScratchBufferCapacity(expandedLen + compressedLen);
 
+                int compressedBytesRead = 0;
                 int compressedBytesConsumed = 0;
-                while (compressedBytesConsumed < compressedLen)
+                while (compressedBytesRead < compressedLen)
                 {
                     // Use the second half of the remaining buffer space as a temp place to read in compressed bytes.
                     // Beginning of the buffer will be used to construct the string
 
                     int bytesToRead = compressedLen;
-                    int availableBytes = this.inputStream.available();
-                    if (bytesToRead > availableBytes) {
-                        bytesToRead = availableBytes;
+                    int availableBytes = 0;
+                    try
+                    {
+                        availableBytes = this.inputStream.available();
+                    }
+                    catch(Exception e)
+                    {
+                        throw new IOException("Error, unexpected EOS while constructing QString.");
                     }
 
-                    int compressedBytesStart = expandedLen;
-                    readIntoScratchBuffer(compressedBytesStart + compressedBytesConsumed, bytesToRead);
-
-                    int pos = 0;
-                    int writePos = 0;
-                    for (; writePos < (bytesToRead - 3); writePos += 4, pos += 3)
+                    if (bytesToRead > availableBytes)
                     {
-                        int readPos = compressedBytesStart + compressedBytesConsumed + pos;
+                        bytesToRead = availableBytes;
+                    }
+                    
+                    // Scratch buffer is divided into two parts. First expandedLen bytes are for the final expanded string
+                    // Remaining bytes are for reading in the compressed string.
+                    int readPos = expandedLen + compressedBytesConsumed;
+                    readIntoScratchBuffer(readPos, bytesToRead);
+
+                    // We want to consume only a whole chunk so round off residual chars
+                    // Below we will handle any residual bytes. (strLen % 4)
+                    int charsToWrite = (expandedLen / QSTR_EXPANDED_CHUNK_LEN) * QSTR_EXPANDED_CHUNK_LEN;
+                    
+                    int writePos = 0;
+                    for (; writePos < charsToWrite; writePos += QSTR_EXPANDED_CHUNK_LEN, readPos += QSTR_COMPRESSED_CHUNK_LEN)
+                    {
                         int b0 = this.scratchBuffer[readPos] & 0xff;
                         int b1 = this.scratchBuffer[readPos + 1] & 0xff;
                         int b2 = this.scratchBuffer[readPos + 2] & 0xff;
@@ -1041,41 +1106,50 @@ public class BinaryRecordReader implements IRecordReader
                         scratchBuffer[strByteLen + writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
                         scratchBuffer[strByteLen + writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
                         scratchBuffer[strByteLen + writePos + 3] = (byte) (' ' + (b2 & 0x3f));
+
+                        compressedBytesConsumed += QSTR_COMPRESSED_CHUNK_LEN;
                     }
 
-                    int readPos = compressedBytesStart + compressedBytesConsumed + pos;
-                    switch (bytesToRead % 4)
-                    {
-                        case 3:
-                        {
-                            int b1 = this.scratchBuffer[readPos + 1] & 0xff;
-                            int b2 = this.scratchBuffer[readPos + 2] & 0xff;
-                            scratchBuffer[strByteLen + writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
-                            writePos++;
-                            // fallthrough
-                        }
-                        case 2:
-                        {
-                            int b0 = this.scratchBuffer[readPos] & 0xff;
-                            int b1 = this.scratchBuffer[readPos + 1] & 0xff;
-                            scratchBuffer[strByteLen + writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
-                            writePos++;
-                            // fallthrough
-                        }
-                        case 1:
-                        {
-                            int b0 = this.scratchBuffer[readPos] & 0xff;
-                            scratchBuffer[strByteLen + writePos + 0] = (byte) (' ' + (b0 >> 2));
-                            writePos++;
-                            break;
-                        }
-                        case 0:
-                            break;
-                    }
-
-                    compressedBytesConsumed += bytesToRead;
+                    compressedBytesRead += bytesToRead;
                     strByteLen += writePos;
                 }
+                    
+                // Need to handle any residual chars. IE: case where string isn't a multiple of 4 chars
+                int writePos = 0;
+                int readPos = expandedLen + compressedBytesConsumed;
+                int remainingCompressedBytes = compressedBytesRead - compressedBytesConsumed;
+                switch (remainingCompressedBytes)
+                {
+                    case 3:
+                    {
+                        int b1 = this.scratchBuffer[readPos + 1] & 0xff;
+                        int b2 = this.scratchBuffer[readPos + 2] & 0xff;
+                        scratchBuffer[strByteLen + writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
+                        writePos++;
+                        // fallthrough
+                    }
+                    case 2:
+                    {
+                        int b0 = this.scratchBuffer[readPos] & 0xff;
+                        int b1 = this.scratchBuffer[readPos + 1] & 0xff;
+                        scratchBuffer[strByteLen + writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
+                        writePos++;
+                        // fallthrough
+                    }
+                    case 1:
+                    {
+                        int b0 = this.scratchBuffer[readPos] & 0xff;
+                        scratchBuffer[strByteLen + writePos + 0] = (byte) (' ' + (b0 >> 2));
+                        writePos++;
+                        break;
+                    }
+                    case 0:
+                        break;
+                    default:
+                        throw new IOException("Error while parsing QSTR invalid number of residual bytes: " + remainingCompressedBytes);
+                }
+                strByteLen += writePos;
+
                 break;
             }
             default:
