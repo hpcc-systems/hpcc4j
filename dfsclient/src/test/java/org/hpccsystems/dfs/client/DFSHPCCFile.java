@@ -13,9 +13,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(RemoteTests.class)
 public class DFSHPCCFile extends BaseRemoteTest
 {
     private static HPCCFile mockHPCCFile = null;

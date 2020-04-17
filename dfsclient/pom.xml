@@ -32,7 +32,6 @@
           <excludes>
             <exclude>**/DFSReadWriteTest.java</exclude>
             <exclude>**/DFSBenchmarkTest.java</exclude>
-            <exclude>**/RemoteTests.java</exclude>
           </excludes>
         </configuration>
       </plugin>
