@@ -674,17 +674,19 @@ public class RowServiceInputStream extends InputStream
             }
             catch(Exception e){}
 
-            int remainingBytesInBuffer = this.readBufferLen.get() - this.readPos;
-            this.readBufferLen.set(remainingBytesInBuffer);
-
-            System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
-
-            // Update the markPos
+            // Don't loose the markPos during compaction
+            int compactStartLoc = this.readPos;
             if (this.markPos >= 0)
             {
-                this.markPos -= this.readPos;
+                compactStartLoc = this.markPos;
+                this.markPos = 0;
             }
-            this.readPos = 0;
+
+            int remainingBytesInBuffer = this.readBufferLen.get() - compactStartLoc;
+            this.readBufferLen.set(remainingBytesInBuffer);
+
+            System.arraycopy(this.readBuffer,compactStartLoc,this.readBuffer,0,remainingBytesInBuffer);
+            this.readPos -= compactStartLoc;
 
             this.bufferWriteMutex.release();
         }
@@ -740,10 +742,11 @@ public class RowServiceInputStream extends InputStream
      */
     public void mark(int readLimit)
     {
-        int availableReadCapacity = this.readBuffer.length - this.readPos;
+        int availableReadCapacity = (this.readBuffer.length - this.readPos);
 
         // Check to see if we can handle this readLimit with the current buffer / readPos
-        if (availableReadCapacity < readLimit)
+        int bufferCapacityNeededWithoutCompaction = readLimit + this.bufferCompactThresholdKB * 1024;
+        if (availableReadCapacity < bufferCapacityNeededWithoutCompaction)
         {
             try
             {
@@ -753,7 +756,7 @@ public class RowServiceInputStream extends InputStream
 
             // Check to see if compaction will work
             int remainingBytesInBuffer = this.readBufferLen.get() - this.readPos;
-            if (this.readBuffer.length > readLimit)
+            if (this.readBuffer.length > bufferCapacityNeededWithoutCompaction)
             {
                 System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
                 this.readPos = 0;
@@ -761,7 +764,7 @@ public class RowServiceInputStream extends InputStream
             // Need a larger buffer
             else
             {
-                byte[] newBuffer = new byte[readLimit];
+                byte[] newBuffer = new byte[bufferCapacityNeededWithoutCompaction];
                 System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
                 this.readBuffer = newBuffer;
                 this.readPos = 0;
