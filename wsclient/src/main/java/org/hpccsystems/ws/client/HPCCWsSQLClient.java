@@ -487,7 +487,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
     {
         return executeSQLWUResponse(
                 sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /* resultWindowCount */, null /* resultWindowStart */,
-                null /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */, null /* Integer wait */).getWuid();
+                true /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */, null /* Integer wait */).getWuid();
     }
 
     /**
@@ -535,7 +535,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
 
         request.setSqlText(sqlText);
 
-        if (resultWindowStart != null) request.setSuppressResults(suppressResults);
+        if (suppressResults != null) request.setSuppressResults(suppressResults);
         if (suppressXmlSchema != null) request.setSuppressXmlSchema(suppressXmlSchema);
 
         request.setTargetCluster(targetCluster);
@@ -610,8 +610,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
             throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         return executeSQLFullResponse(
-                sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /* resultWindowCount */, null /* resultWindowStart */,
-                null /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */, null /* Integer wait */).getWorkunit();
+                sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, resultWindowCount /* resultWindowCount */, resultWindowStart /* resultWindowStart */,
+                suppressResults /* suppressResults */, suppressXmlSchema /* Boolean suppressXmlSchema */, userName /* String userName */, wait /* Integer wait */).getWorkunit();
     }
 
     /**
@@ -715,7 +715,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      */
     public String getResultSchemaXML(String wuid) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return Utils.extactResultSchema("<root>" + getResultResponse(wuid, 0, 0, false).getResult() + "</root>");
+        return Utils.extactResultSchema("<root>" + getResultResponse(wuid, 0, 1, false).getResult() + "</root>");
     }
 
     /**
@@ -733,7 +733,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      */
     public List<List<Object>> getResultSchema(String wuid) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return Utils.parseOutResultSchema("<root>" + getResultResponse(wuid, 0, 0, false).getResult() + "</root>");
+        return Utils.parseOutResultSchema("<root>" + getResultResponse(wuid, 0, 1, false).getResult() + "</root>");
     }
 
     /**
