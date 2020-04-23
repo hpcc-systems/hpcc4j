@@ -1,9 +1,12 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BufferedTokenStream;
@@ -13,8 +16,10 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 
@@ -733,6 +738,17 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         }
         cr.getEclRecordWrapper().setParseErrors(cr.getErrorHandler().getErrors());
         return cr.getEclRecordWrapper();
+    }
+
+    /*
+    * Gets the list of Clusters
+    * @return the list of clusters information
+    */
+    public Set<String> getClusters()
+    {
+        ArrayOfDFUFilePartsOnCluster clstrs = super.getDFUFilePartsOnClusters();
+        Set<String> clusters = Arrays.stream(clstrs.getDFUFilePartsOnCluster()).map(DFUFilePartsOnCluster::getCluster).collect(Collectors.toSet());
+        return clusters;
     }
 
     /**
