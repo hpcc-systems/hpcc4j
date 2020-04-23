@@ -52,9 +52,9 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
-    private static final String[] datasets       = { "~benchmark::integer::20kb"};
-    private static final int[]    expectedCounts = { 1250, 6 };
-    
+    private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};
+    private static final int[]    expectedCounts = { 1250, 5600 };
+  
     @Test
     public void readBadlyDistributedFileTest() throws Exception
     {
@@ -115,11 +115,11 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void nullWriteTest() throws Exception
     {
-        String fname="~benchmark::all_types::200kb";
+        String fname = datasets[1]; 
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
         List<HPCCRecord> records = readFile(file);
-        assertEquals( "Record count mismatch for dataset:" + fname + ". got: " + records.size() + " expected:" + 5600,5600,records.size());
+        assertEquals( "Record count mismatch for dataset:" + fname + ". got: " + records.size() + " expected:" + expectedCounts[1],expectedCounts[1],records.size());
 
         HPCCRecord first = records.get(0);
         for (int f = 0; f < first.getNumFields(); f++)
@@ -136,14 +136,34 @@ public class DFSReadWriteTest extends BaseRemoteTest
         assertEquals( "Record count mismatch for dataset:" + copyFileName + ". got: " + records.size() + " expected:" + 5600,5600,records.size());
 
         HPCCRecord rec0 = records.get(0);
-        assertEquals((String) rec0.getField(0), "");
-        assertEquals((Boolean) rec0.getField(1), false);
-        assertEquals((Long) rec0.getField(2), new Long(0));
-        assertEquals((Long) rec0.getField(3), new Long(0));
-        assertEquals((Long) rec0.getField(4), new Long(0));
-        assertEquals((Double) rec0.getField(5), new Double(0.0));
-        assertEquals(((BigDecimal) rec0.getField(6)).intValue(),0);
-
+        for (int i = 0; i < rec0.getNumFields(); i++)
+        {
+            Object field = rec0.getField(0);
+            if (field instanceof Long)
+            {
+                assertEquals((Long) field, new Long(0));
+            }
+            else if (field instanceof Double)
+            {
+                assertEquals((Double) field, new Double(0.0));
+            }
+            else if (field instanceof Boolean)
+            {
+                assertEquals((Boolean) field, new Boolean(false));
+            }
+            else if (field instanceof String)
+            {
+                assertEquals((String) field, "");
+            }
+            else if (field instanceof BigDecimal)
+            {
+                assertEquals(((BigDecimal) field).intValue(),0);
+            }
+            else if (field instanceof List)
+            {
+                assertEquals(((List) field).size(),0);
+            }
+        }
     }
     
 
