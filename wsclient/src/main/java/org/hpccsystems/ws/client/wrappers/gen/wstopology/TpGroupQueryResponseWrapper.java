@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpGroupQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.947Z
+ * TimeStamp: 2020-04-24T00:43:36.278Z
  */
 public class TpGroupQueryResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfTpGroupWrapper local_tpGroups;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfTpGroupWrapper local_tpGroups;
 
 	public TpGroupQueryResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected ArrayOfTpGroupWrapper local_tpGroups;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_tpGroups = new ArrayOfTpGroupWrapper( raw.getTpGroups());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getTpGroups() != null)
+			this.local_tpGroups = new ArrayOfTpGroupWrapper( raw.getTpGroups());
 
 	}
 

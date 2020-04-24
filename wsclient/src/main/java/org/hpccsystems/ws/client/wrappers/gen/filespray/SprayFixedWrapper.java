@@ -24,37 +24,37 @@ import javax.activation.DataHandler;
  * Class name: SprayFixedWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.076Z
+ * TimeStamp: 2020-04-24T00:05:33.984Z
  */
 public class SprayFixedWrapper
 {
-protected String local_sourceIP;
-protected String local_sourcePath;
-protected DataHandler local_srcxml;
-protected String local_sourceFormat;
-protected int local_sourceRecordSize;
-protected String local_destGroup;
-protected String local_destLogicalName;
-protected boolean local_overwrite;
-protected boolean local_replicate;
-protected int local_replicateOffset;
-protected int local_maxConnections;
-protected int local_throttle;
-protected int local_transferBufferSize;
-protected String local_prefix;
-protected boolean local_nosplit;
-protected boolean local_norecover;
-protected boolean local_compress;
-protected boolean local_push;
-protected boolean local_pull;
-protected String local_encrypt;
-protected String local_decrypt;
-protected boolean local_wrap;
-protected boolean local_failIfNoSourceFile;
-protected boolean local_recordStructurePresent;
-protected boolean local_quotedTerminator;
-protected int local_expireDays;
-protected String local_dFUServerQueue;
+	protected String local_sourceIP;
+	protected String local_sourcePath;
+	protected DataHandler local_srcxml;
+	protected String local_sourceFormat;
+	protected int local_sourceRecordSize;
+	protected String local_destGroup;
+	protected String local_destLogicalName;
+	protected boolean local_overwrite;
+	protected boolean local_replicate;
+	protected int local_replicateOffset;
+	protected int local_maxConnections;
+	protected int local_throttle;
+	protected int local_transferBufferSize;
+	protected String local_prefix;
+	protected boolean local_nosplit;
+	protected boolean local_norecover;
+	protected boolean local_compress;
+	protected boolean local_push;
+	protected boolean local_pull;
+	protected String local_encrypt;
+	protected String local_decrypt;
+	protected boolean local_wrap;
+	protected boolean local_failIfNoSourceFile;
+	protected boolean local_recordStructurePresent;
+	protected boolean local_quotedTerminator;
+	protected int local_expireDays;
+	protected String local_dFUServerQueue;
 
 	public SprayFixedWrapper() {}
 

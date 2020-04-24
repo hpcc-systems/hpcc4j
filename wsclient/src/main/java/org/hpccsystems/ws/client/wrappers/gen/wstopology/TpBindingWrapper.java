@@ -23,17 +23,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpBindingWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.892Z
+ * TimeStamp: 2020-04-24T00:43:36.403Z
  */
 public class TpBindingWrapper
 {
-protected String local_name;
-protected String local_service;
-protected String local_serviceType;
-protected String local_bindingType;
-protected String local_serviceBuildSet;
-protected String local_port;
-protected String local_protocol;
+	protected String local_name;
+	protected String local_service;
+	protected String local_serviceType;
+	protected String local_bindingType;
+	protected String local_serviceBuildSet;
+	protected String local_port;
+	protected String local_protocol;
 
 	public TpBindingWrapper() {}
 

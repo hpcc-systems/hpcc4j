@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ClusterNames_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ClusterNames_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.523Z
+ * TimeStamp: 2020-04-23T21:12:59.355Z
  */
 public class ClusterNames_type0Wrapper
 {
-protected List<String> local_clusterName = new ArrayList<String>();
+	protected List<String> local_clusterName = null;
 
 	public ClusterNames_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<String> local_clusterName = new ArrayList<String>();
 			for ( int i = 0; i < this.local_clusterName.size(); i++)
 			{
 				arr[i] = this.local_clusterName.get(i) ;
-			}		raw.setClusterName(arr);
-}
+			}
+			raw.setClusterName(arr);
+		}
 		return raw;
 	}
 

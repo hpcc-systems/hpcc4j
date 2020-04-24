@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpLogicalClusterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.958Z
+ * TimeStamp: 2020-04-24T00:43:36.327Z
  */
 public class TpLogicalClusterWrapper
 {
-protected String local_name;
-protected String local_queue;
-protected String local_languageVersion;
-protected String local_process;
-protected String local_type;
+	protected String local_name;
+	protected String local_queue;
+	protected String local_languageVersion;
+	protected String local_process;
+	protected String local_type;
 
 	public TpLogicalClusterWrapper() {}
 

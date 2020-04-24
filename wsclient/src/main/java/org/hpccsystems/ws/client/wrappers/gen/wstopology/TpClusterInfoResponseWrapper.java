@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpClusterInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.896Z
+ * TimeStamp: 2020-04-24T00:43:36.402Z
  */
 public class TpClusterInfoResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_name;
-protected String local_workUnit;
-protected ArrayOfTpQueueWrapper local_tpQueues;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_name;
+	protected String local_workUnit;
+	protected ArrayOfTpQueueWrapper local_tpQueues;
 
 	public TpClusterInfoResponseWrapper() {}
 
@@ -52,10 +52,12 @@ protected ArrayOfTpQueueWrapper local_tpQueues;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_name = raw.getName();
 		this.local_workUnit = raw.getWorkUnit();
-		this.local_tpQueues = new ArrayOfTpQueueWrapper( raw.getTpQueues());
+		if (raw.getTpQueues() != null)
+			this.local_tpQueues = new ArrayOfTpQueueWrapper( raw.getTpQueues());
 
 	}
 

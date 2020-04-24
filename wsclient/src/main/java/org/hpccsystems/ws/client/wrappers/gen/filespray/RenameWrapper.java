@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: RenameWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Rename
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.068Z
+ * TimeStamp: 2020-04-24T00:05:33.973Z
  */
 public class RenameWrapper
 {
-protected String local_srcname;
-protected String local_dstname;
-protected boolean local_overwrite;
-protected String local_dFUServerQueue;
+	protected String local_srcname;
+	protected String local_dstname;
+	protected boolean local_overwrite;
+	protected String local_dFUServerQueue;
 
 	public RenameWrapper() {}
 

@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: DebugValueWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DebugValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.536Z
+ * TimeStamp: 2020-04-23T21:12:59.336Z
  */
 public class DebugValueWrapper
 {
-protected String local_name;
-protected String local_value;
+	protected String local_name;
+	protected String local_value;
 
 	public DebugValueWrapper() {}
 

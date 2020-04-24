@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: EchoRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EchoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.538Z
+ * TimeStamp: 2020-04-23T21:12:59.378Z
  */
 public class EchoRequestWrapper
 {
-protected String local_request;
+	protected String local_request;
 
 	public EchoRequestWrapper() {}
 

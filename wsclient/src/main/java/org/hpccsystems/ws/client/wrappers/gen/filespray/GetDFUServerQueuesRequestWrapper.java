@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetDFUServerQueuesRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.052Z
+ * TimeStamp: 2020-04-24T00:05:33.913Z
  */
 public class GetDFUServerQueuesRequestWrapper
 {
-protected String local_dFUServerName;
+	protected String local_dFUServerName;
 
 	public GetDFUServerQueuesRequestWrapper() {}
 

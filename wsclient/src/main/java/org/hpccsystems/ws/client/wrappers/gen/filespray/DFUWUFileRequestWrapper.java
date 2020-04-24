@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DFUWUFileRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.031Z
+ * TimeStamp: 2020-04-24T00:05:33.910Z
  */
 public class DFUWUFileRequestWrapper
 {
-protected String local_wuid;
-protected String local_type;
-protected String local_plainText;
+	protected String local_wuid;
+	protected String local_type;
+	protected String local_plainText;
 
 	public DFUWUFileRequestWrapper() {}
 

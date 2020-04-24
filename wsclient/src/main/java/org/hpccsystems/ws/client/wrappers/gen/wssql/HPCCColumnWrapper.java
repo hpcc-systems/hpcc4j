@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: HPCCColumnWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.601Z
+ * TimeStamp: 2020-04-23T21:12:59.286Z
  */
 public class HPCCColumnWrapper
 {
-protected String local_name;
-protected String local_type;
+	protected String local_name;
+	protected String local_type;
 
 	public HPCCColumnWrapper() {}
 

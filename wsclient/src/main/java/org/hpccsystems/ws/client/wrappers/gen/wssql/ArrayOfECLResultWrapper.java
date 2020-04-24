@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.509Z
+ * TimeStamp: 2020-04-23T21:12:59.388Z
  */
 public class ArrayOfECLResultWrapper
 {
-protected List<ECLResultWrapper> local_eCLResult = new ArrayList<ECLResultWrapper>();
+	protected List<ECLResultWrapper> local_eCLResult = null;
 
 	public ArrayOfECLResultWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLResultWrapper> local_eCLResult = new ArrayList<ECLResultWrappe
 			for ( int i = 0; i < this.local_eCLResult.size(); i++)
 			{
 				arr[i] = this.local_eCLResult.get(i) .getRaw();
-			}		raw.setECLResult(arr);
-}
+			}
+			raw.setECLResult(arr);
+		}
 		return raw;
 	}
 

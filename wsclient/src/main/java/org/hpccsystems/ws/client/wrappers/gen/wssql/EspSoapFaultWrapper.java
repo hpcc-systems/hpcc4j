@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: EspSoapFaultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.577Z
+ * TimeStamp: 2020-04-23T21:12:59.434Z
  */
 public class EspSoapFaultWrapper
 {
-protected ExceptionsWrapper local_faultMessage;
+	protected ExceptionsWrapper local_faultMessage;
 
 	public EspSoapFaultWrapper() {}
 
@@ -46,7 +46,8 @@ protected ExceptionsWrapper local_faultMessage;
 		if (raw == null)
 			return;
 
-		this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
+		if (raw.getFaultMessage() != null)
+			this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
 
 	}
 

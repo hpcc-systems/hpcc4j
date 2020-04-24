@@ -24,81 +24,81 @@ import java.util.Calendar;
  * Class name: ECLWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.573Z
+ * TimeStamp: 2020-04-23T21:12:59.416Z
  */
 public class ECLWorkunitWrapper
 {
-protected String local_wuid;
-protected String local_owner;
-protected String local_cluster;
-protected String local_roxieCluster;
-protected String local_jobname;
-protected String local_queue;
-protected int local_stateID;
-protected String local_state;
-protected String local_stateEx;
-protected String local_description;
-protected boolean local_protected;
-protected boolean local_active;
-protected int local_action;
-protected String local_actionEx;
-protected Calendar local_dateTimeScheduled;
-protected int local_priorityClass;
-protected int local_priorityLevel;
-protected String local_scope;
-protected String local_snapshot;
-protected int local_resultLimit;
-protected boolean local_archived;
-protected boolean local_isPausing;
-protected boolean local_thorLCR;
-protected int local_eventSchedule;
-protected String local_totalClusterTime;
-protected String local_abortBy;
-protected String local_abortTime;
-protected ECLQueryWrapper local_query;
-protected ArrayOfECLHelpFileWrapper local_helpers;
-protected ArrayOfECLExceptionWrapper local_exceptions;
-protected ArrayOfECLGraphWrapper local_graphs;
-protected ArrayOfECLSourceFileWrapper local_sourceFiles;
-protected ArrayOfECLResultWrapper local_results;
-protected ArrayOfECLResultWrapper local_variables;
-protected ArrayOfECLTimerWrapper local_timers;
-protected ArrayOfDebugValueWrapper local_debugValues;
-protected ArrayOfApplicationValueWrapper local_applicationValues;
-protected ArrayOfECLWorkflowWrapper local_workflows;
-protected ArrayOfECLTimingDataWrapper local_timingData;
-protected AllowedClusters_type0Wrapper local_allowedClusters;
-protected int local_errorCount;
-protected int local_warningCount;
-protected int local_infoCount;
-protected int local_alertCount;
-protected int local_graphCount;
-protected int local_sourceFileCount;
-protected int local_resultCount;
-protected int local_variableCount;
-protected int local_timerCount;
-protected boolean local_hasDebugValue;
-protected int local_applicationValueCount;
-protected String local_xmlParams;
-protected int local_accessFlag;
-protected int local_clusterFlag;
-protected String local_helpersDesc;
-protected String local_graphsDesc;
-protected String local_sourceFilesDesc;
-protected String local_resultsDesc;
-protected String local_variablesDesc;
-protected String local_timersDesc;
-protected String local_debugValuesDesc;
-protected String local_applicationValuesDesc;
-protected String local_workflowsDesc;
-protected boolean local_hasArchiveQuery;
-protected ArrayOfThorLogInfoWrapper local_thorLogList;
-protected ResourceURLs_type0Wrapper local_resourceURLs;
-protected int local_resultViewCount;
-protected int local_resourceURLCount;
-protected int local_debugValueCount;
-protected int local_workflowCount;
-protected int local_helpersCount;
+	protected String local_wuid;
+	protected String local_owner;
+	protected String local_cluster;
+	protected String local_roxieCluster;
+	protected String local_jobname;
+	protected String local_queue;
+	protected int local_stateID;
+	protected String local_state;
+	protected String local_stateEx;
+	protected String local_description;
+	protected boolean local_protected;
+	protected boolean local_active;
+	protected int local_action;
+	protected String local_actionEx;
+	protected Calendar local_dateTimeScheduled;
+	protected int local_priorityClass;
+	protected int local_priorityLevel;
+	protected String local_scope;
+	protected String local_snapshot;
+	protected int local_resultLimit;
+	protected boolean local_archived;
+	protected boolean local_isPausing;
+	protected boolean local_thorLCR;
+	protected int local_eventSchedule;
+	protected String local_totalClusterTime;
+	protected String local_abortBy;
+	protected String local_abortTime;
+	protected ECLQueryWrapper local_query;
+	protected ArrayOfECLHelpFileWrapper local_helpers;
+	protected ArrayOfECLExceptionWrapper local_exceptions;
+	protected ArrayOfECLGraphWrapper local_graphs;
+	protected ArrayOfECLSourceFileWrapper local_sourceFiles;
+	protected ArrayOfECLResultWrapper local_results;
+	protected ArrayOfECLResultWrapper local_variables;
+	protected ArrayOfECLTimerWrapper local_timers;
+	protected ArrayOfDebugValueWrapper local_debugValues;
+	protected ArrayOfApplicationValueWrapper local_applicationValues;
+	protected ArrayOfECLWorkflowWrapper local_workflows;
+	protected ArrayOfECLTimingDataWrapper local_timingData;
+	protected AllowedClusters_type0Wrapper local_allowedClusters;
+	protected int local_errorCount;
+	protected int local_warningCount;
+	protected int local_infoCount;
+	protected int local_alertCount;
+	protected int local_graphCount;
+	protected int local_sourceFileCount;
+	protected int local_resultCount;
+	protected int local_variableCount;
+	protected int local_timerCount;
+	protected boolean local_hasDebugValue;
+	protected int local_applicationValueCount;
+	protected String local_xmlParams;
+	protected int local_accessFlag;
+	protected int local_clusterFlag;
+	protected String local_helpersDesc;
+	protected String local_graphsDesc;
+	protected String local_sourceFilesDesc;
+	protected String local_resultsDesc;
+	protected String local_variablesDesc;
+	protected String local_timersDesc;
+	protected String local_debugValuesDesc;
+	protected String local_applicationValuesDesc;
+	protected String local_workflowsDesc;
+	protected boolean local_hasArchiveQuery;
+	protected ArrayOfThorLogInfoWrapper local_thorLogList;
+	protected ResourceURLs_type0Wrapper local_resourceURLs;
+	protected int local_resultViewCount;
+	protected int local_resourceURLCount;
+	protected int local_debugValueCount;
+	protected int local_workflowCount;
+	protected int local_helpersCount;
 
 	public ECLWorkunitWrapper() {}
 
@@ -214,19 +214,32 @@ protected int local_helpersCount;
 		this.local_totalClusterTime = raw.getTotalClusterTime();
 		this.local_abortBy = raw.getAbortBy();
 		this.local_abortTime = raw.getAbortTime();
-		this.local_query = new ECLQueryWrapper( raw.getQuery());
-		this.local_helpers = new ArrayOfECLHelpFileWrapper( raw.getHelpers());
-		this.local_exceptions = new ArrayOfECLExceptionWrapper( raw.getExceptions());
-		this.local_graphs = new ArrayOfECLGraphWrapper( raw.getGraphs());
-		this.local_sourceFiles = new ArrayOfECLSourceFileWrapper( raw.getSourceFiles());
-		this.local_results = new ArrayOfECLResultWrapper( raw.getResults());
-		this.local_variables = new ArrayOfECLResultWrapper( raw.getVariables());
-		this.local_timers = new ArrayOfECLTimerWrapper( raw.getTimers());
-		this.local_debugValues = new ArrayOfDebugValueWrapper( raw.getDebugValues());
-		this.local_applicationValues = new ArrayOfApplicationValueWrapper( raw.getApplicationValues());
-		this.local_workflows = new ArrayOfECLWorkflowWrapper( raw.getWorkflows());
-		this.local_timingData = new ArrayOfECLTimingDataWrapper( raw.getTimingData());
-		this.local_allowedClusters = new AllowedClusters_type0Wrapper( raw.getAllowedClusters());
+		if (raw.getQuery() != null)
+			this.local_query = new ECLQueryWrapper( raw.getQuery());
+		if (raw.getHelpers() != null)
+			this.local_helpers = new ArrayOfECLHelpFileWrapper( raw.getHelpers());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfECLExceptionWrapper( raw.getExceptions());
+		if (raw.getGraphs() != null)
+			this.local_graphs = new ArrayOfECLGraphWrapper( raw.getGraphs());
+		if (raw.getSourceFiles() != null)
+			this.local_sourceFiles = new ArrayOfECLSourceFileWrapper( raw.getSourceFiles());
+		if (raw.getResults() != null)
+			this.local_results = new ArrayOfECLResultWrapper( raw.getResults());
+		if (raw.getVariables() != null)
+			this.local_variables = new ArrayOfECLResultWrapper( raw.getVariables());
+		if (raw.getTimers() != null)
+			this.local_timers = new ArrayOfECLTimerWrapper( raw.getTimers());
+		if (raw.getDebugValues() != null)
+			this.local_debugValues = new ArrayOfDebugValueWrapper( raw.getDebugValues());
+		if (raw.getApplicationValues() != null)
+			this.local_applicationValues = new ArrayOfApplicationValueWrapper( raw.getApplicationValues());
+		if (raw.getWorkflows() != null)
+			this.local_workflows = new ArrayOfECLWorkflowWrapper( raw.getWorkflows());
+		if (raw.getTimingData() != null)
+			this.local_timingData = new ArrayOfECLTimingDataWrapper( raw.getTimingData());
+		if (raw.getAllowedClusters() != null)
+			this.local_allowedClusters = new AllowedClusters_type0Wrapper( raw.getAllowedClusters());
 		this.local_errorCount = raw.getErrorCount();
 		this.local_warningCount = raw.getWarningCount();
 		this.local_infoCount = raw.getInfoCount();
@@ -251,8 +264,10 @@ protected int local_helpersCount;
 		this.local_applicationValuesDesc = raw.getApplicationValuesDesc();
 		this.local_workflowsDesc = raw.getWorkflowsDesc();
 		this.local_hasArchiveQuery = raw.getHasArchiveQuery();
-		this.local_thorLogList = new ArrayOfThorLogInfoWrapper( raw.getThorLogList());
-		this.local_resourceURLs = new ResourceURLs_type0Wrapper( raw.getResourceURLs());
+		if (raw.getThorLogList() != null)
+			this.local_thorLogList = new ArrayOfThorLogInfoWrapper( raw.getThorLogList());
+		if (raw.getResourceURLs() != null)
+			this.local_resourceURLs = new ResourceURLs_type0Wrapper( raw.getResourceURLs());
 		this.local_resultViewCount = raw.getResultViewCount();
 		this.local_resourceURLCount = raw.getResourceURLCount();
 		this.local_debugValueCount = raw.getDebugValueCount();

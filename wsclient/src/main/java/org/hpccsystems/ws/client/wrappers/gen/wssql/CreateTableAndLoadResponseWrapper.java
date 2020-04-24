@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: CreateTableAndLoadResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.528Z
+ * TimeStamp: 2020-04-23T21:12:59.356Z
  */
 public class CreateTableAndLoadResponseWrapper
 {
-protected String local_tableName;
-protected boolean local_success;
-protected String local_eclRecordDefinition;
-protected ECLWorkunitWrapper local_workunit;
+	protected String local_tableName;
+	protected boolean local_success;
+	protected String local_eclRecordDefinition;
+	protected ECLWorkunitWrapper local_workunit;
 
 	public CreateTableAndLoadResponseWrapper() {}
 
@@ -55,7 +55,8 @@ protected ECLWorkunitWrapper local_workunit;
 		this.local_tableName = raw.getTableName();
 		this.local_success = raw.getSuccess();
 		this.local_eclRecordDefinition = raw.getEclRecordDefinition();
-		this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
+		if (raw.getWorkunit() != null)
+			this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
 
 	}
 

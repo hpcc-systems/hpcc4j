@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ClusterNames_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ClusterNames_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:34.993Z
+ * TimeStamp: 2020-04-24T00:05:34.003Z
  */
 public class ClusterNames_type0Wrapper
 {
-protected List<String> local_clusterName = new ArrayList<String>();
+	protected List<String> local_clusterName = null;
 
 	public ClusterNames_type0Wrapper() {}
 

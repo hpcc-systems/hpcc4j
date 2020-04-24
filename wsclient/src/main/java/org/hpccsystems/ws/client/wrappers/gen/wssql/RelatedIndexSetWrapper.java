@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: RelatedIndexSetWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.RelatedIndexSet
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.628Z
+ * TimeStamp: 2020-04-23T21:12:59.304Z
  */
 public class RelatedIndexSetWrapper
 {
-protected String local_fileName;
-protected Indexes_type0Wrapper local_indexes;
+	protected String local_fileName;
+	protected Indexes_type0Wrapper local_indexes;
 
 	public RelatedIndexSetWrapper() {}
 
@@ -49,7 +49,8 @@ protected Indexes_type0Wrapper local_indexes;
 			return;
 
 		this.local_fileName = raw.getFileName();
-		this.local_indexes = new Indexes_type0Wrapper( raw.getIndexes());
+		if (raw.getIndexes() != null)
+			this.local_indexes = new Indexes_type0Wrapper( raw.getIndexes());
 
 	}
 

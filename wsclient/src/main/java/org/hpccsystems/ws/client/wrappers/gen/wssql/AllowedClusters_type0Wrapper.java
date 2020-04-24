@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: AllowedClusters_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AllowedClusters_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.448Z
+ * TimeStamp: 2020-04-23T21:12:59.329Z
  */
 public class AllowedClusters_type0Wrapper
 {
-protected List<String> local_allowedCluster = new ArrayList<String>();
+	protected List<String> local_allowedCluster = null;
 
 	public AllowedClusters_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<String> local_allowedCluster = new ArrayList<String>();
 			for ( int i = 0; i < this.local_allowedCluster.size(); i++)
 			{
 				arr[i] = this.local_allowedCluster.get(i) ;
-			}		raw.setAllowedCluster(arr);
-}
+			}
+			raw.setAllowedCluster(arr);
+		}
 		return raw;
 	}
 

@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DeleteDFUWorkunitResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.003Z
+ * TimeStamp: 2020-04-24T00:05:33.962Z
  */
 public class DeleteDFUWorkunitResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected boolean local_result;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected boolean local_result;
 
 	public DeleteDFUWorkunitResponseWrapper() {}
 
@@ -48,7 +48,8 @@ protected boolean local_result;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_result = raw.getResult();
 
 	}

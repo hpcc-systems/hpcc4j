@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: DataSourceInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.530Z
+ * TimeStamp: 2020-04-23T21:12:59.389Z
  */
 public class DataSourceInfoWrapper
 {
-protected String local_sprayedFileName;
-protected String local_landingZoneIP;
-protected String local_landingZonePath;
-protected String local_landingZoneFileName;
+	protected String local_sprayedFileName;
+	protected String local_landingZoneIP;
+	protected String local_landingZonePath;
+	protected String local_landingZoneFileName;
 
 	public DataSourceInfoWrapper() {}
 

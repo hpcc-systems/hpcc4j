@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpSetMachineStatusRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.980Z
+ * TimeStamp: 2020-04-24T00:43:36.378Z
  */
 public class TpSetMachineStatusRequestWrapper
 {
-protected String local_machinePath;
-protected String local_statusValue;
+	protected String local_machinePath;
+	protected String local_statusValue;
 
 	public TpSetMachineStatusRequestWrapper() {}
 

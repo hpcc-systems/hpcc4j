@@ -185,7 +185,9 @@ public class FileSprayClientTest extends BaseRemoteTest
             assumeNotNull(foundLocalDZ);
 
             DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), fileNames, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
-            if (!result.getExceptions().getException().isEmpty())
+            Assert.assertNotNull(result);
+
+            if (result.getExceptions() != null && !result.getExceptions().getException().isEmpty())
             {
                 Assert.fail("failed to delete file\n" + result.getExceptions().toString());
             }
@@ -223,8 +225,8 @@ public class FileSprayClientTest extends BaseRemoteTest
             assumeNotNull(foundLocalDZ);
 
             DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), badFileName, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
-
-            if (!result.getExceptions().getException().isEmpty())
+            Assert.assertNotNull(result);
+            if (result.getExceptions() != null && !result.getExceptions().getException().isEmpty())
             {
                 Assert.fail("Got an exception when trying to delete the non existent file\n" + result.getExceptions().toString());
             }

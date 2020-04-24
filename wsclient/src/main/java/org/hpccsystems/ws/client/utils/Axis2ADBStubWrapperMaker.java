@@ -186,7 +186,7 @@ public class Axis2ADBStubWrapperMaker
 
         public String getActualDeclaration()
         {
-            return "protected " + getActualType() + " " + getSafeName() + (isContainer ? " = new Array" + getActualType() + "()" : "") + ";\n";
+            return "protected " + getActualType() + " " + getSafeName() + (isContainer ? " = null" : "") + ";\n";
         }
      }
 
@@ -209,7 +209,7 @@ public class Axis2ADBStubWrapperMaker
         String wrappedclassname = cls.getSimpleName()+"Wrapper";
         System.out.println(cls.getName() + " to be wrapped as: " + this.targetPackage + "." + targetWsService + "." + wrappedclassname);
 
-        String fullpath = outputDir + File.separator + this.targetPackage.replace(".", "\\");// + File.separator + wrappedclassname + ".java";
+        String fullpath = outputDir + File.separator + this.targetPackage.replace(".", File.separator);
         File file = new File(fullpath);
         if (!file.exists())
         {
@@ -349,7 +349,7 @@ public class Axis2ADBStubWrapperMaker
                     copymethobody += "\t\t\t{\n\t\t\t\tthis." + simpleField.getSafeName() + ".add(new " + simpleField.getBaseType();
                     if (simpleField.isWrapped())
                         copymethobody += "Wrapper";
-                    
+
                     if (simpleField.isESPStringArray())
                         copymethobody += "(raw.get" + capitalized + "().getItem()[i]));\n\t\t\t}\n\t\t}";  //converted espstringarray to list<String>
                     else
@@ -374,7 +374,7 @@ public class Axis2ADBStubWrapperMaker
                     rawmethobody += "\n\t\t\traw.set" + capitalized + "(arr);\n\t\t}\n";
                 }
                 else if (simpleField.isWrapped)
-                    copymethobody += "\t\tthis." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
+                    copymethobody += "\t\tif (raw.get" + capitalized + "() != null)\n\t\t\tthis." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
                 else
                 {
                     boolean foundget = false;
@@ -435,7 +435,7 @@ public class Axis2ADBStubWrapperMaker
         for (Iterator<SimpleField> iterator = fields.iterator(); iterator.hasNext();)
         {
             SimpleField simpleField = (SimpleField) iterator.next();
-            fielddeclarations += simpleField.getActualDeclaration();
+            fielddeclarations += "\t" + simpleField.getActualDeclaration();
         }
         return fielddeclarations;
     }
@@ -562,7 +562,7 @@ public class Axis2ADBStubWrapperMaker
 
     public static final List<Class<?>> getClassesInPackage(String packageName)
     {
-        String path = packageName.replace(".", "\\");
+        String path = packageName.replace('.', File.separatorChar);
         List<Class<?>> classes = new ArrayList<>();
         String[] classPathEntries = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
 
@@ -695,39 +695,46 @@ public class Axis2ADBStubWrapperMaker
         Axis2ADBStubWrapperMaker wrapperMaker = new Axis2ADBStubWrapperMaker(outputdir, generatedPackageToWrap, targetPackage, targetWsServiceName);
 
         List<Class<?>> classesInPackage = getClassesInPackage(generatedPackageToWrap);
-        for (Class<?> cls : classesInPackage)
+        if (classesInPackage.size() > 0)
         {
-            if (cls.getDeclaringClass() != null) //ignore inner classes
+            for (Class<?> cls : classesInPackage)
             {
-                continue;
-            }
+                if (cls.getDeclaringClass() != null) //ignore inner classes
+                {
+                    continue;
+                }
 
-            if (cls.getSimpleName().equalsIgnoreCase(targetWsServiceName + "Stub"))
-            {
-                continue;
-            }
+                if (cls.getSimpleName().equalsIgnoreCase(targetWsServiceName + "Stub"))
+                {
+                    continue;
+                }
 
-            if (cls.getSimpleName().equalsIgnoreCase(targetWsServiceName))
-            {
-                continue;
-            }
+                if (cls.getSimpleName().equalsIgnoreCase(targetWsServiceName))
+                {
+                    continue;
+                }
 
-            if (cls.getSimpleName().equalsIgnoreCase("String"))
-            {
-                continue;
-            }
-            if (cls.getSimpleName().equalsIgnoreCase("ExtensionMapper"))
-            {
-                continue;
-            }
-            if (cls.getSimpleName().equalsIgnoreCase("EspStringArray"))
-            {
-                continue;
-            }
+                if (cls.getSimpleName().equalsIgnoreCase("String"))
+                {
+                    continue;
+                }
+                if (cls.getSimpleName().equalsIgnoreCase("ExtensionMapper"))
+                {
+                    continue;
+                }
+                if (cls.getSimpleName().equalsIgnoreCase("EspStringArray"))
+                {
+                    continue;
+                }
 
-            wrapperMaker.wrapClass(cls);
+                wrapperMaker.wrapClass(cls);
+            }
+            System.out.println("Finsished wrapping stub classes from package: " + generatedPackageToWrap + "!\n");
+            System.out.println("Confirm contents of: " + outputdir  + File.separator + targetPackage);
         }
-        System.out.println("Finsished wrapping stub classes from package: " + generatedPackageToWrap + "!\n");
-        System.out.println("Confirm contents of: " + outputdir  + File.separator + targetPackage);
+        else
+        {
+            System.out.println("Could not find any classes in package: " + generatedPackageToWrap + "\n");
+        }
     }
 } 

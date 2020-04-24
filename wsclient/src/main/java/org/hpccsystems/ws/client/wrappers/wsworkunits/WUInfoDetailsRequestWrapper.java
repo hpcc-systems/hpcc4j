@@ -4,45 +4,25 @@ public class WUInfoDetailsRequestWrapper
 {
 
     private String wuid;
-
     private Boolean truncateEclTo64K;
-
     private String type;
-
     private Boolean includeExceptions;
-
     private Boolean includeGraphs;
-
     private Boolean includeSourceFiles;
-
     private Boolean includeResults;
-
     private Boolean includeResultsViewNames;
-
     private Boolean includeVariables;
-
     private Boolean includeTimers;
-
     private Boolean includeDebugValues;
-
     private Boolean includeApplicationValues;
-
     private Boolean includeWorkflows;
-
     private Boolean includeXmlSchemas;
-
     private Boolean includeResourceURLs;
-
     private Boolean includeECL;
-
     private Boolean includeHelpers;
-
     private Boolean includeAllowedClusters;
-
     private Boolean includeTotalClusterTime;
-
     private Boolean suppressResultSchemas;
-
     private String thorSlaveIP;
 
     /**

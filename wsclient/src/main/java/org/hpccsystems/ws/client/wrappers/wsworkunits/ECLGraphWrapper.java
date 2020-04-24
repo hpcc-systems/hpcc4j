@@ -3,21 +3,13 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 public class ECLGraphWrapper
 {
     private String name;
-
     private String label;
-
     private String type;
-
     private Boolean running;
-
     private Boolean complete;
-
     private Boolean failed;
-
     private Long runningId;
-
     private String whenStarted;
-
     private String whenFinished;
 
     /**

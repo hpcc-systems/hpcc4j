@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: QuerySignatureWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.627Z
+ * TimeStamp: 2020-04-23T21:12:59.287Z
  */
 public class QuerySignatureWrapper
 {
-protected InParams_type0Wrapper local_inParams;
-protected ResultSets_type0Wrapper local_resultSets;
+	protected InParams_type0Wrapper local_inParams;
+	protected ResultSets_type0Wrapper local_resultSets;
 
 	public QuerySignatureWrapper() {}
 
@@ -48,8 +48,10 @@ protected ResultSets_type0Wrapper local_resultSets;
 		if (raw == null)
 			return;
 
-		this.local_inParams = new InParams_type0Wrapper( raw.getInParams());
-		this.local_resultSets = new ResultSets_type0Wrapper( raw.getResultSets());
+		if (raw.getInParams() != null)
+			this.local_inParams = new InParams_type0Wrapper( raw.getInParams());
+		if (raw.getResultSets() != null)
+			this.local_resultSets = new ResultSets_type0Wrapper( raw.getResultSets());
 
 	}
 

@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: EspSoapFaultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.885Z
+ * TimeStamp: 2020-04-24T00:43:36.422Z
  */
 public class EspSoapFaultWrapper
 {
-protected ExceptionsWrapper local_faultMessage;
+	protected ExceptionsWrapper local_faultMessage;
 
 	public EspSoapFaultWrapper() {}
 
@@ -46,7 +46,8 @@ protected ExceptionsWrapper local_faultMessage;
 		if (raw == null)
 			return;
 
-		this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
+		if (raw.getFaultMessage() != null)
+			this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
 
 	}
 

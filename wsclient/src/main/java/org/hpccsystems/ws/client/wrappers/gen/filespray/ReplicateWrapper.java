@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: ReplicateWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.071Z
+ * TimeStamp: 2020-04-24T00:05:34.001Z
  */
 public class ReplicateWrapper
 {
-protected String local_sourceLogicalName;
-protected int local_replicateOffset;
-protected String local_cluster;
-protected boolean local_repeatLast;
-protected boolean local_onlyRepeated;
-protected String local_dFUServerQueue;
+	protected String local_sourceLogicalName;
+	protected int local_replicateOffset;
+	protected String local_cluster;
+	protected boolean local_repeatLast;
+	protected boolean local_onlyRepeated;
+	protected String local_dFUServerQueue;
 
 	public ReplicateWrapper() {}
 

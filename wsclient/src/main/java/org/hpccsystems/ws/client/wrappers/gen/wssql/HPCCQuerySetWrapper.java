@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: HPCCQuerySetWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.605Z
+ * TimeStamp: 2020-04-23T21:12:59.314Z
  */
 public class HPCCQuerySetWrapper
 {
-protected String local_name;
-protected QuerySetQueries_type0Wrapper local_querySetQueries;
-protected QuerySetAliases_type0Wrapper local_querySetAliases;
+	protected String local_name;
+	protected QuerySetQueries_type0Wrapper local_querySetQueries;
+	protected QuerySetAliases_type0Wrapper local_querySetAliases;
 
 	public HPCCQuerySetWrapper() {}
 
@@ -51,8 +51,10 @@ protected QuerySetAliases_type0Wrapper local_querySetAliases;
 			return;
 
 		this.local_name = raw.getName();
-		this.local_querySetQueries = new QuerySetQueries_type0Wrapper( raw.getQuerySetQueries());
-		this.local_querySetAliases = new QuerySetAliases_type0Wrapper( raw.getQuerySetAliases());
+		if (raw.getQuerySetQueries() != null)
+			this.local_querySetQueries = new QuerySetQueries_type0Wrapper( raw.getQuerySetQueries());
+		if (raw.getQuerySetAliases() != null)
+			this.local_querySetAliases = new QuerySetAliases_type0Wrapper( raw.getQuerySetAliases());
 
 	}
 

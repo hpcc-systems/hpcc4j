@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DropZoneWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.036Z
+ * TimeStamp: 2020-04-24T00:05:33.933Z
  */
 public class DropZoneWrapper
 {
-protected String local_name;
-protected String local_netAddress;
-protected String local_path;
-protected String local_computer;
-protected String local_linux;
+	protected String local_name;
+	protected String local_netAddress;
+	protected String local_path;
+	protected String local_computer;
+	protected String local_linux;
 
 	public DropZoneWrapper() {}
 

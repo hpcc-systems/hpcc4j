@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLTimingDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.560Z
+ * TimeStamp: 2020-04-23T21:12:59.404Z
  */
 public class ECLTimingDataWrapper
 {
-protected String local_name;
-protected int local_graphNum;
-protected int local_subGraphNum;
-protected int local_gID;
-protected int local_min;
-protected int local_mS;
+	protected String local_name;
+	protected int local_graphNum;
+	protected int local_subGraphNum;
+	protected int local_gID;
+	protected int local_min;
+	protected int local_mS;
 
 	public ECLTimingDataWrapper() {}
 

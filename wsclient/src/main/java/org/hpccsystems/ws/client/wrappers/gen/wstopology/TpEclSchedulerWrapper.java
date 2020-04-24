@@ -23,17 +23,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpEclSchedulerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclScheduler
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.925Z
+ * TimeStamp: 2020-04-24T00:43:36.333Z
  */
 public class TpEclSchedulerWrapper
 {
-protected String local_name;
-protected String local_description;
-protected String local_build;
-protected String local_logDirectory;
-protected String local_type;
-protected String local_path;
-protected ArrayOfTpMachineWrapper local_tpMachines;
+	protected String local_name;
+	protected String local_description;
+	protected String local_build;
+	protected String local_logDirectory;
+	protected String local_type;
+	protected String local_path;
+	protected ArrayOfTpMachineWrapper local_tpMachines;
 
 	public TpEclSchedulerWrapper() {}
 
@@ -64,7 +64,8 @@ protected ArrayOfTpMachineWrapper local_tpMachines;
 		this.local_logDirectory = raw.getLogDirectory();
 		this.local_type = raw.getType();
 		this.local_path = raw.getPath();
-		this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
+		if (raw.getTpMachines() != null)
+			this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
 
 	}
 

@@ -23,21 +23,21 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpServiceQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.977Z
+ * TimeStamp: 2020-04-24T00:43:36.412Z
  */
 public class TpServiceQueryResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected int local_memThreshold;
-protected int local_diskThreshold;
-protected int local_cpuThreshold;
-protected boolean local_encapsulatedSystem;
-protected boolean local_enableSNMP;
-protected String local_preflightProcessFilter;
-protected String local_acceptLanguage;
-protected String local_memThresholdType;
-protected String local_diskThresholdType;
-protected TpServicesWrapper local_serviceList;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected int local_memThreshold;
+	protected int local_diskThreshold;
+	protected int local_cpuThreshold;
+	protected boolean local_encapsulatedSystem;
+	protected boolean local_enableSNMP;
+	protected String local_preflightProcessFilter;
+	protected String local_acceptLanguage;
+	protected String local_memThresholdType;
+	protected String local_diskThresholdType;
+	protected TpServicesWrapper local_serviceList;
 
 	public TpServiceQueryResponseWrapper() {}
 
@@ -66,7 +66,8 @@ protected TpServicesWrapper local_serviceList;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_memThreshold = raw.getMemThreshold();
 		this.local_diskThreshold = raw.getDiskThreshold();
 		this.local_cpuThreshold = raw.getCpuThreshold();
@@ -76,7 +77,8 @@ protected TpServicesWrapper local_serviceList;
 		this.local_acceptLanguage = raw.getAcceptLanguage();
 		this.local_memThresholdType = raw.getMemThresholdType();
 		this.local_diskThresholdType = raw.getDiskThresholdType();
-		this.local_serviceList = new TpServicesWrapper( raw.getServiceList());
+		if (raw.getServiceList() != null)
+			this.local_serviceList = new TpServicesWrapper( raw.getServiceList());
 
 	}
 

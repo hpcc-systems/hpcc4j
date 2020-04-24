@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ExceptionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.578Z
+ * TimeStamp: 2020-04-23T21:12:59.324Z
  */
 public class ExceptionsWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
 
 	public ExceptionsWrapper() {}
 
@@ -46,7 +46,8 @@ protected ArrayOfEspExceptionWrapper local_exceptions;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
 	}
 

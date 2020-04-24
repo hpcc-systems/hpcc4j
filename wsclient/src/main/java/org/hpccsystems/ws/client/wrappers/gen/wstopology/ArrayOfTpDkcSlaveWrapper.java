@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpDkcSlaveWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.861Z
+ * TimeStamp: 2020-04-24T00:43:36.323Z
  */
 public class ArrayOfTpDkcSlaveWrapper
 {
-protected List<TpDkcSlaveWrapper> local_tpDkcSlave = new ArrayList<TpDkcSlaveWrapper>();
+	protected List<TpDkcSlaveWrapper> local_tpDkcSlave = null;
 
 	public ArrayOfTpDkcSlaveWrapper() {}
 

@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpMachineWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.876Z
+ * TimeStamp: 2020-04-24T00:43:36.351Z
  */
 public class ArrayOfTpMachineWrapper
 {
-protected List<TpMachineWrapper> local_tpMachine = new ArrayList<TpMachineWrapper>();
+	protected List<TpMachineWrapper> local_tpMachine = null;
 
 	public ArrayOfTpMachineWrapper() {}
 

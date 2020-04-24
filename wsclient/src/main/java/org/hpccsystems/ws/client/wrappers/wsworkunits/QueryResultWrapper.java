@@ -52,9 +52,9 @@ public class QueryResultWrapper
     public QueryResultWrapper(QuerySetQuery qr)
     {
         activated = qr.getActivated();
-        this.clusters = new ArrayList<ClusterQueryWrapper>();
         if (qr.getClusters() != null)
         {
+            this.clusters = new ArrayList<ClusterQueryWrapper>();
             ClusterQueryState[] rawclusters = qr.getClusters().getClusterQueryState();
             for (ClusterQueryState rawc : rawclusters)
             {

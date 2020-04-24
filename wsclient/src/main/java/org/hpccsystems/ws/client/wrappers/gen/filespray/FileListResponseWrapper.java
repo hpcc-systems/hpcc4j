@@ -23,18 +23,18 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: FileListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.047Z
+ * TimeStamp: 2020-04-24T00:05:34.041Z
  */
 public class FileListResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_netaddr;
-protected String local_path;
-protected String local_mask;
-protected int local_oS;
-protected boolean local_directoryOnly;
-protected String local_acceptLanguage;
-protected ArrayOfPhysicalFileStructWrapper local_files;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_netaddr;
+	protected String local_path;
+	protected String local_mask;
+	protected int local_oS;
+	protected boolean local_directoryOnly;
+	protected String local_acceptLanguage;
+	protected ArrayOfPhysicalFileStructWrapper local_files;
 
 	public FileListResponseWrapper() {}
 
@@ -60,14 +60,16 @@ protected ArrayOfPhysicalFileStructWrapper local_files;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_netaddr = raw.getNetaddr();
 		this.local_path = raw.getPath();
 		this.local_mask = raw.getMask();
 		this.local_oS = raw.getOS();
 		this.local_directoryOnly = raw.getDirectoryOnly();
 		this.local_acceptLanguage = raw.getAcceptLanguage();
-		this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
+		if (raw.getFiles() != null)
+			this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
 
 	}
 

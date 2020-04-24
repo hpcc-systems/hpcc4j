@@ -23,18 +23,18 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DropZoneFilesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.041Z
+ * TimeStamp: 2020-04-24T00:05:34.032Z
  */
 public class DropZoneFilesResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_dropZoneName;
-protected String local_netAddress;
-protected String local_path;
-protected int local_oS;
-protected boolean local_eCLWatchVisibleOnly;
-protected ArrayOfDropZoneWrapper local_dropZones;
-protected ArrayOfPhysicalFileStructWrapper local_files;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_dropZoneName;
+	protected String local_netAddress;
+	protected String local_path;
+	protected int local_oS;
+	protected boolean local_eCLWatchVisibleOnly;
+	protected ArrayOfDropZoneWrapper local_dropZones;
+	protected ArrayOfPhysicalFileStructWrapper local_files;
 
 	public DropZoneFilesResponseWrapper() {}
 
@@ -60,14 +60,17 @@ protected ArrayOfPhysicalFileStructWrapper local_files;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_dropZoneName = raw.getDropZoneName();
 		this.local_netAddress = raw.getNetAddress();
 		this.local_path = raw.getPath();
 		this.local_oS = raw.getOS();
 		this.local_eCLWatchVisibleOnly = raw.getECLWatchVisibleOnly();
-		this.local_dropZones = new ArrayOfDropZoneWrapper( raw.getDropZones());
-		this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
+		if (raw.getDropZones() != null)
+			this.local_dropZones = new ArrayOfDropZoneWrapper( raw.getDropZones());
+		if (raw.getFiles() != null)
+			this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
 
 	}
 

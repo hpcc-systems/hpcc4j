@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: FileNames_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.586Z
+ * TimeStamp: 2020-04-23T21:12:59.301Z
  */
 public class FileNames_type0Wrapper
 {
-protected List<String> local_fileName = new ArrayList<String>();
+	protected List<String> local_fileName = null;
 
 	public FileNames_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<String> local_fileName = new ArrayList<String>();
 			for ( int i = 0; i < this.local_fileName.size(); i++)
 			{
 				arr[i] = this.local_fileName.get(i) ;
-			}		raw.setFileName(arr);
-}
+			}
+			raw.setFileName(arr);
+		}
 		return raw;
 	}
 

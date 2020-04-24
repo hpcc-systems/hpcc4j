@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: CreateDFUWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35Z
+ * TimeStamp: 2020-04-24T00:05:34.008Z
  */
 public class CreateDFUWorkunitWrapper
 {
-protected String local_dFUServerQueue;
+	protected String local_dFUServerQueue;
 
 	public CreateDFUWorkunitWrapper() {}
 

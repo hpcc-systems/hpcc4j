@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: InParams_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.610Z
+ * TimeStamp: 2020-04-23T21:12:59.433Z
  */
 public class InParams_type0Wrapper
 {
-protected List<HPCCColumnWrapper> local_inParam = new ArrayList<HPCCColumnWrapper>();
+	protected List<HPCCColumnWrapper> local_inParam = null;
 
 	public InParams_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<HPCCColumnWrapper> local_inParam = new ArrayList<HPCCColumnWrappe
 			for ( int i = 0; i < this.local_inParam.size(); i++)
 			{
 				arr[i] = this.local_inParam.get(i) .getRaw();
-			}		raw.setInParam(arr);
-}
+			}
+			raw.setInParam(arr);
+		}
 		return raw;
 	}
 

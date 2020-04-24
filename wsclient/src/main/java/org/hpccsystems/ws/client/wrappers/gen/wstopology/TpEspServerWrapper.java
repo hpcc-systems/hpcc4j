@@ -23,18 +23,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpEspServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.931Z
+ * TimeStamp: 2020-04-24T00:43:36.377Z
  */
 public class TpEspServerWrapper
 {
-protected String local_name;
-protected String local_description;
-protected String local_build;
-protected String local_type;
-protected String local_path;
-protected String local_logDirectory;
-protected ArrayOfTpMachineWrapper local_tpMachines;
-protected ArrayOfTpBindingWrapper local_tpBindings;
+	protected String local_name;
+	protected String local_description;
+	protected String local_build;
+	protected String local_type;
+	protected String local_path;
+	protected String local_logDirectory;
+	protected ArrayOfTpMachineWrapper local_tpMachines;
+	protected ArrayOfTpBindingWrapper local_tpBindings;
 
 	public TpEspServerWrapper() {}
 
@@ -66,8 +66,10 @@ protected ArrayOfTpBindingWrapper local_tpBindings;
 		this.local_type = raw.getType();
 		this.local_path = raw.getPath();
 		this.local_logDirectory = raw.getLogDirectory();
-		this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
-		this.local_tpBindings = new ArrayOfTpBindingWrapper( raw.getTpBindings());
+		if (raw.getTpMachines() != null)
+			this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
+		if (raw.getTpBindings() != null)
+			this.local_tpBindings = new ArrayOfTpBindingWrapper( raw.getTpBindings());
 
 	}
 

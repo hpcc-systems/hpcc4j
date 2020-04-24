@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ThorLogInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ThorLogInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.641Z
+ * TimeStamp: 2020-04-23T21:12:59.377Z
  */
 public class ThorLogInfoWrapper
 {
-protected String local_processName;
-protected String local_clusterGroup;
-protected String local_logDate;
-protected int local_numberSlaves;
+	protected String local_processName;
+	protected String local_clusterGroup;
+	protected String local_logDate;
+	protected int local_numberSlaves;
 
 	public ThorLogInfoWrapper() {}
 

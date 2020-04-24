@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: PrepareSQLRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.617Z
+ * TimeStamp: 2020-04-23T21:12:59.374Z
  */
 public class PrepareSQLRequestWrapper
 {
-protected String local_sqlText;
-protected String local_targetCluster;
-protected AlternateClusters_type1Wrapper local_alternateClusters;
-protected String local_targetQuerySet;
-protected int local_wait;
+	protected String local_sqlText;
+	protected String local_targetCluster;
+	protected AlternateClusters_type1Wrapper local_alternateClusters;
+	protected String local_targetQuerySet;
+	protected int local_wait;
 
 	public PrepareSQLRequestWrapper() {}
 
@@ -56,7 +56,8 @@ protected int local_wait;
 
 		this.local_sqlText = raw.getSqlText();
 		this.local_targetCluster = raw.getTargetCluster();
-		this.local_alternateClusters = new AlternateClusters_type1Wrapper( raw.getAlternateClusters());
+		if (raw.getAlternateClusters() != null)
+			this.local_alternateClusters = new AlternateClusters_type1Wrapper( raw.getAlternateClusters());
 		this.local_targetQuerySet = raw.getTargetQuerySet();
 		this.local_wait = raw.getWait();
 

@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLGraphWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.506Z
+ * TimeStamp: 2020-04-23T21:12:59.380Z
  */
 public class ArrayOfECLGraphWrapper
 {
-protected List<ECLGraphWrapper> local_eCLGraph = new ArrayList<ECLGraphWrapper>();
+	protected List<ECLGraphWrapper> local_eCLGraph = null;
 
 	public ArrayOfECLGraphWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLGraphWrapper> local_eCLGraph = new ArrayList<ECLGraphWrapper>(
 			for ( int i = 0; i < this.local_eCLGraph.size(); i++)
 			{
 				arr[i] = this.local_eCLGraph.get(i) .getRaw();
-			}		raw.setECLGraph(arr);
-}
+			}
+			raw.setECLGraph(arr);
+		}
 		return raw;
 	}
 

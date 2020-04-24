@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: DataTypeParamWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.533Z
+ * TimeStamp: 2020-04-23T21:12:59.312Z
  */
 public class DataTypeParamWrapper
 {
-protected String local_name;
-protected Values_type0Wrapper local_values;
+	protected String local_name;
+	protected Values_type0Wrapper local_values;
 
 	public DataTypeParamWrapper() {}
 
@@ -49,7 +49,8 @@ protected Values_type0Wrapper local_values;
 			return;
 
 		this.local_name = raw.getName();
-		this.local_values = new Values_type0Wrapper( raw.getValues());
+		if (raw.getValues() != null)
+			this.local_values = new Values_type0Wrapper( raw.getValues());
 
 	}
 

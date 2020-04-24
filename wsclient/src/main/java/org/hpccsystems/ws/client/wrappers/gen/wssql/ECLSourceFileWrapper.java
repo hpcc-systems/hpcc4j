@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLSourceFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.556Z
+ * TimeStamp: 2020-04-23T21:12:59.358Z
  */
 public class ECLSourceFileWrapper
 {
-protected String local_fileCluster;
-protected String local_name;
-protected boolean local_isSuperFile;
-protected int local_subs;
-protected int local_count;
-protected ArrayOfECLSourceFileWrapper local_eCLSourceFiles;
+	protected String local_fileCluster;
+	protected String local_name;
+	protected boolean local_isSuperFile;
+	protected int local_subs;
+	protected int local_count;
+	protected ArrayOfECLSourceFileWrapper local_eCLSourceFiles;
 
 	public ECLSourceFileWrapper() {}
 
@@ -61,7 +61,8 @@ protected ArrayOfECLSourceFileWrapper local_eCLSourceFiles;
 		this.local_isSuperFile = raw.getIsSuperFile();
 		this.local_subs = raw.getSubs();
 		this.local_count = raw.getCount();
-		this.local_eCLSourceFiles = new ArrayOfECLSourceFileWrapper( raw.getECLSourceFiles());
+		if (raw.getECLSourceFiles() != null)
+			this.local_eCLSourceFiles = new ArrayOfECLSourceFileWrapper( raw.getECLSourceFiles());
 
 	}
 

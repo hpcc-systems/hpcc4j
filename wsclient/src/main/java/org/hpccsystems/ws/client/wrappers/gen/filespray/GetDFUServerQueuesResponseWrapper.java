@@ -26,12 +26,12 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
  * Class name: GetDFUServerQueuesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.053Z
+ * TimeStamp: 2020-04-24T00:05:33.981Z
  */
 public class GetDFUServerQueuesResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected List<String> local_names = new ArrayList<String>();
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected List<String> local_names = null;
 
 	public GetDFUServerQueuesResponseWrapper() {}
 
@@ -51,7 +51,8 @@ protected List<String> local_names = new ArrayList<String>();
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		if (raw.getNames() != null)
 		{
 			this.local_names = new ArrayList<String>();

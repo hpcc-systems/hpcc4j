@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: GetDBMetaDataRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.588Z
+ * TimeStamp: 2020-04-23T21:12:59.387Z
  */
 public class GetDBMetaDataRequestWrapper
 {
-protected boolean local_includeTables;
-protected String local_tableFilter;
-protected boolean local_includeStoredProcedures;
-protected String local_querySet;
-protected boolean local_includeTargetClusters;
-protected String local_clusterType;
+	protected boolean local_includeTables;
+	protected String local_tableFilter;
+	protected boolean local_includeStoredProcedures;
+	protected String local_querySet;
+	protected boolean local_includeTargetClusters;
+	protected String local_clusterType;
 
 	public GetDBMetaDataRequestWrapper() {}
 
