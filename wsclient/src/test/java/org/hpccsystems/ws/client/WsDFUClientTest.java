@@ -30,6 +30,7 @@ import org.w3c.dom.NodeList;
 public class WsDFUClientTest extends BaseRemoteTest
 {
     private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
+    private final static String logicalfilename = System.getProperty("logicalfilename", DEFAULTHPCCFILENAME);
 
     @Before
     public void delayhack()
@@ -369,12 +370,12 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void getClustersTest() throws Exception {
-        String lzfile = System.getProperty("lztestfile");
-        if(lzfile != null) {
-            DFUFileDetailWrapper fileWrapper = wsdfuclient.getFileDetails(lzfile, null);
-            assertTrue(fileWrapper.getClusters().size() >= 1);
-        }
+    public void getClustersTest() throws Exception
+    {
+        DFUFileDetailWrapper fileWrapper = wsdfuclient.getFileDetails(logicalfilename, null);
+        Set<String> clusters = fileWrapper.getClusters();
+        assertTrue(clusters != null && !clusters.isEmpty());
+        assertTrue(clusters.stream().findFirst().isPresent());
     }
 
 }
