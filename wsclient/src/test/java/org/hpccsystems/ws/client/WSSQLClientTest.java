@@ -17,6 +17,9 @@
 
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeNotNull;
+
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
@@ -25,7 +28,6 @@ import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ECLWorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
@@ -50,8 +52,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     private final static String testwuid = System.getProperty("targetwuid");
     private final static String wssqlport = System.getProperty("wssqlport", "8510");
 
-    String randomtablename = null;
-    String randomclustername = null;
+    private static String validClusterName = null;
 
     static
     {
@@ -89,7 +90,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testGetTables() throws Exception
+    public void AAA2testGetTables() throws Exception
     {
         try
         {
@@ -97,9 +98,6 @@ public class WSSQLClientTest extends BaseRemoteTest
             Assert.assertNotNull(tables);
             for (int i = 0; i < tables.length; i++)
             {
-                if (randomtablename == null || randomtablename.isEmpty())
-                    randomtablename = tables[i].getName();
-
                 System.out.println(tables[i].getName());
             }
         }
@@ -120,7 +118,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testGetClusters() throws Exception
+    public void AAA1testGetClusters() throws Exception
     {
         try
         {
@@ -128,8 +126,8 @@ public class WSSQLClientTest extends BaseRemoteTest
             Assert.assertNotNull(clusters);
             for (int i = 0; i < clusters.length; i++)
             {
-                if (randomclustername == null || randomclustername.isEmpty())
-                    randomclustername = clusters[i];
+                if (validClusterName == null || validClusterName.isEmpty())
+                    validClusterName = clusters[i];
 
                 System.out.println(clusters[i]);
             }
@@ -243,162 +241,158 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
-    public void testSQLExecution() throws Exception
+    private void getSchema(String wuid)
     {
+        assumeNotNull(wuid);
+        assumeFalse(wuid.isEmpty());
+
+        System.out.println("Seeking result schema for wuid: " + wuid);
         try
         {
-            testGetTables();
+            String resultSchema = client.getResultSchemaXML(wuid);
+            Assert.assertNotNull (resultSchema);
+            System.out.println(resultSchema);
 
-            if (randomtablename == null || randomtablename.isEmpty())
-                Assert.fail("Cannot test sql execution - could not find any tables");
+            List<List<Object>> resultSchema2 = client.getResultSchema(wuid);
+            Assert.assertNotNull (resultSchema2);
 
-            testGetClusters();
-
-            if (randomclustername == null || randomclustername.isEmpty())
-                Assert.fail("Cannot test sql execution - could not find any clusters");
-
-
-            String sql = "Select * from " + "benchmark::integer::20kb";
-
-            ExecuteSQLResponseWrapper resp = client.executeSQLFullResponse(sql, randomclustername, "", 100, 100, 0, false, false, "WsClient-JUnit", -1);
-            Assert.assertNotNull(resp);
-            String parentWUID = resp.getParentWuId();
-            String result = resp.getResult();
-            System.out.println(result);
-        }
-        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
+            for (List<Object> list : resultSchema2)
+            {
+                System.out.print("[");
+                for (int i = 0; i < 2; i++)
+                {
+                    Object object = list.get(i);
+                    System.out.print(" " + object);
+                }
+                System.out.print(" ]");
+            }
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            System.out.println("Exception while fetching results schema related to WUID: " + wuid + ": " + e.getLocalizedMessage());
+        }
+    }
+
+    private void getResults(String wuid)
+    {
+        assumeNotNull(wuid);
+        assumeFalse(wuid.isEmpty());
+
+        System.out.println("Seeking result schema for wuid: " + wuid);
+        try
+        {
+            List<List<Object>> resutls = client.getResults(wuid, 0, 10);
+            Assert.assertNotNull (resutls);
+            for (List<Object> list : resutls)
+            {
+                for (Object object : list)
+                {
+                    System.out.print("| " + object);
+                }
+                System.out.println(" |");
+            }
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            e.toString();
             Assert.fail();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception while fetching results related to WUID: " + wuid + ": " + e.getLocalizedMessage());
         }
     }
 
     @Test
-    public void fullTest() throws Exception
+    public void testSQLExecution() throws Exception
     {
-        try
-        {
-            testGetTables();
+        assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
+        assumeFalse(validClusterName.isEmpty());
 
-            if (randomtablename == null || randomtablename.isEmpty())
-                Assert.fail("Cannot test sql execution - could not find any tables");
+        System.out.println("executing: Select * from benchmark::integer::20kb");
+        String sql = "Select * from benchmark::integer::20kb";
 
-            testGetClusters();
+        ExecuteSQLResponseWrapper resp = client.executeSQLFullResponse(sql, validClusterName, "", 10, 10, 0, false, false, "WsClient-JUnit", -1);
 
-            if (randomclustername == null || randomclustername.isEmpty())
-                Assert.fail("Cannot test sql execution - could not find any clusters");
+        Assert.assertNotNull(resp);
 
+        Assert.assertNotNull(resp.getWorkunit());
 
-            String sql = "Select * from benchmark::string::100MB as mytable ";
+        String result = resp.getResult();
+        Assert.assertNotNull(result);
+        System.out.println(result);
+    }
 
-            String wuid = null;
-            try
-            {
-                wuid = client.executeSQLWUIDResponse(sql, randomclustername, "");
-            }
-            catch (ArrayOfEspExceptionWrapper e)
-            {
-                e.toString();
-                Assert.fail();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Exception while executing SQL: " + e.getLocalizedMessage());
-            }
+    @Test
+    public void executeSQLWUIDResponseTest() throws Exception
+    {
+        assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
+        assumeFalse(validClusterName.isEmpty());
 
-            Assert.assertNotNull(wuid);
-            {
-                String filtercolumnname = null;
-                int filtercolumntype = -1;
-                System.out.println("wuid: " + wuid);
-                try
-                {
-                    String resultSchema = client.getResultSchemaXML(wuid);
-                    Assert.assertNotNull (resultSchema);
-                    System.out.println(resultSchema);
+        String sql = "Select * from benchmark::string::100MB as mytable ";
 
-                    List<List<Object>> resultSchema2 = client.getResultSchema(wuid);
-                    Assert.assertNotNull (resultSchema2);
+        System.out.println("Executing: " + sql + "; on Cluster: " + validClusterName);
 
-                    for (List<Object> list : resultSchema2)
-                    {
-                        System.out.print("[");
-                        for (int i = 0; i < 2; i++)
-                        {
-                            Object object = list.get(i);
-                            System.out.print(" " + object);
-                            if (i == 0 && filtercolumnname == null)
-                            {
-                                filtercolumnname = object.toString();
-                            }
-                            if (i == 1 && filtercolumntype == -1)
-                            {
-                                filtercolumntype = Integer.valueOf(object.toString());
-                            }
-                        }
-                        System.out.print(" ]");
-                    }
-                }
-                catch (Exception e)
-                {
-                    System.out.println("Exception while fetching results schema related to WUID: " + wuid + ": " + e.getLocalizedMessage());
-                }
+        String wuid = client.executeSQLWUIDResponse(sql, validClusterName, "");
+        System.out.println("Resulting WUID: " + wuid);
 
-                try
-                {
-                    List<List<Object>> resutls = client.getResults(wuid, 0, 10);
-                    Assert.assertNotNull (resutls);
-                    for (List<Object> list : resutls)
-                    {
-                        for (Object object : list)
-                        {
-                            System.out.print("| " + object);
-                        }
-                        System.out.println(" |");
-                    }
-                }
-                catch (ArrayOfEspExceptionWrapper e)
-                {
-                    e.toString();
-                    Assert.fail();
-                }
-                catch (Exception e)
-                {
-                    System.out.println("Exception while fetching results related to WUID: " + wuid + ": " + e.getLocalizedMessage());
-                }
+        getResults(wuid);
+        getSchema(wuid);
+    }
 
-                filtercolumnname = "fill";
-                String filter1 = sql + " where mytable." + filtercolumnname + " != ?";// filtercolumntype == 1 ? "";
-                System.out.println("Preparing sql: " + filter1);
+    @Test
+    public void executeSQLWUResponseTest() throws Exception
+    {
+        assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
+        assumeFalse(validClusterName.isEmpty());
 
-                ECLWorkunitWrapper prepareSQLresult = client.prepareSQL(filter1, randomclustername, null, null);
-                Assert.assertNotNull(prepareSQLresult);
+        String sql = "Select * from benchmark::string::100MB as mytable ";
 
-                ArrayOfNamedValue arrayofvariables = new ArrayOfNamedValue();
+        System.out.println("Executing: " + sql + "; on Cluster: " + validClusterName);
 
-                NamedValue namedValue = new NamedValue();
-                namedValue.setName("var1");
-                namedValue.setValue("1");
+        ECLWorkunitWrapper executeSQLWUResponse = client.executeSQLWUResponse(sql, validClusterName, null, 10, 10, null, false, true, null, null);
+        Assert.assertNotNull(executeSQLWUResponse);
 
-                NamedValue[] param = new NamedValue[]{namedValue};
-                arrayofvariables.setNamedValue(param);
+        System.out.println("Result count: " + executeSQLWUResponse.getResultCount());
+    }
 
-                client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables.getNamedValue(), -1, 10, 0, 10, "WsClient", true, false);
-            }
-        }
-        catch (ArrayOfECLExceptionWrapper | ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail();
-        }
+    @Test
+    public void executeSQLFullResponseTest() throws Exception
+    {
+        assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
+        assumeFalse(validClusterName.isEmpty());
+
+        String sql = "Select * from benchmark::string::100MB as mytable ";
+
+        System.out.println("Executing: " + sql + "; on Cluster: " + validClusterName);
+
+        ExecuteSQLResponseWrapper executeSQLFullResponse = client.executeSQLFullResponse(sql, validClusterName, null, 10, 10, null, false, true, null, null);
+        Assert.assertNotNull(executeSQLFullResponse);
+    }
+
+    @Test
+    public void preparedSQLTest() throws Exception
+    {
+        assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
+        assumeFalse(validClusterName.isEmpty());
+
+        String filtercolumnname = "fill";
+        String sql = "Select * from benchmark::string::100MB as mytable  where mytable." + filtercolumnname + " != ?";
+        System.out.println("Preparing sql: " + sql + "on cluster: " + validClusterName);
+
+        ECLWorkunitWrapper prepareSQLresult = client.prepareSQL(sql, validClusterName, null, null);
+        Assert.assertNotNull(prepareSQLresult);
+
+        ArrayOfNamedValue arrayofvariables = new ArrayOfNamedValue();
+
+        NamedValue namedValue = new NamedValue();
+        namedValue.setName("var1");
+        namedValue.setValue("1");
+
+        NamedValue[] param = new NamedValue[]{namedValue};
+        arrayofvariables.setNamedValue(param);
+
+        System.out.println("Executing prepared sql with param: " + namedValue.getName() + " : " + namedValue.getValue() + " on cluster: " + validClusterName);
+        client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables.getNamedValue(), -1, 10, 0, 10, "WsClient", true, false);
     }
 }
