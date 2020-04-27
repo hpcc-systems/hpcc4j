@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpMachineInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.966Z
+ * TimeStamp: 2020-04-24T00:43:36.355Z
  */
 public class TpMachineInfoResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected TpMachineWrapper local_machineInfo;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected TpMachineWrapper local_machineInfo;
 
 	public TpMachineInfoResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected TpMachineWrapper local_machineInfo;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_machineInfo = new TpMachineWrapper( raw.getMachineInfo());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getMachineInfo() != null)
+			this.local_machineInfo = new TpMachineWrapper( raw.getMachineInfo());
 
 	}
 

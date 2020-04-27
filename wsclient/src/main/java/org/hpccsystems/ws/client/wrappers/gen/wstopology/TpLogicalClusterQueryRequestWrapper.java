@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpLogicalClusterQueryRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.960Z
+ * TimeStamp: 2020-04-24T00:43:36.421Z
  */
 public class TpLogicalClusterQueryRequestWrapper
 {
-protected String local_eclServerQueue;
+	protected String local_eclServerQueue;
 
 	public TpLogicalClusterQueryRequestWrapper() {}
 

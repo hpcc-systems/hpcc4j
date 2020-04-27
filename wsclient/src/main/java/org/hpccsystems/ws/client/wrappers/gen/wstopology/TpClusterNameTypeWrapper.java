@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpClusterNameTypeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.897Z
+ * TimeStamp: 2020-04-24T00:43:36.423Z
  */
 public class TpClusterNameTypeWrapper
 {
-protected String local_name;
-protected String local_type;
-protected boolean local_isDefault;
+	protected String local_name;
+	protected String local_type;
+	protected boolean local_isDefault;
 
 	public TpClusterNameTypeWrapper() {}
 

@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfNamedValueWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfNamedValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.520Z
+ * TimeStamp: 2020-04-23T21:12:59.355Z
  */
 public class ArrayOfNamedValueWrapper
 {
-protected List<NamedValueWrapper> local_namedValue = new ArrayList<NamedValueWrapper>();
+	protected List<NamedValueWrapper> local_namedValue = null;
 
 	public ArrayOfNamedValueWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<NamedValueWrapper> local_namedValue = new ArrayList<NamedValueWra
 			for ( int i = 0; i < this.local_namedValue.size(); i++)
 			{
 				arr[i] = this.local_namedValue.get(i) .getRaw();
-			}		raw.setNamedValue(arr);
-}
+			}
+			raw.setNamedValue(arr);
+		}
 		return raw;
 	}
 

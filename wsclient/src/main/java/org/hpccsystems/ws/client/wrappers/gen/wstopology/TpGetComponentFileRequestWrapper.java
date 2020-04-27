@@ -23,17 +23,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpGetComponentFileRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.938Z
+ * TimeStamp: 2020-04-24T00:43:36.414Z
  */
 public class TpGetComponentFileRequestWrapper
 {
-protected String local_compType;
-protected String local_compName;
-protected String local_netAddress;
-protected String local_directory;
-protected String local_fileType;
-protected int local_osType;
-protected String local_plainText;
+	protected String local_compType;
+	protected String local_compName;
+	protected String local_netAddress;
+	protected String local_directory;
+	protected String local_fileType;
+	protected int local_osType;
+	protected String local_plainText;
 
 	public TpGetComponentFileRequestWrapper() {}
 

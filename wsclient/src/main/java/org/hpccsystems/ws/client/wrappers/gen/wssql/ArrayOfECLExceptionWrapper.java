@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.504Z
+ * TimeStamp: 2020-04-23T21:12:59.333Z
  */
 public class ArrayOfECLExceptionWrapper
 {
-protected List<ECLExceptionWrapper> local_eCLException = new ArrayList<ECLExceptionWrapper>();
+	protected List<ECLExceptionWrapper> local_eCLException = null;
 
 	public ArrayOfECLExceptionWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLExceptionWrapper> local_eCLException = new ArrayList<ECLExcept
 			for ( int i = 0; i < this.local_eCLException.size(); i++)
 			{
 				arr[i] = this.local_eCLException.get(i) .getRaw();
-			}		raw.setECLException(arr);
-}
+			}
+			raw.setECLException(arr);
+		}
 		return raw;
 	}
 

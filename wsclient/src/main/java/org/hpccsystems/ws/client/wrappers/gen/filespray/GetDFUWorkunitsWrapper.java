@@ -23,22 +23,22 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetDFUWorkunitsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.056Z
+ * TimeStamp: 2020-04-24T00:05:33.969Z
  */
 public class GetDFUWorkunitsWrapper
 {
-protected String local_wuid;
-protected String local_owner;
-protected String local_cluster;
-protected String local_stateReq;
-protected String local_type;
-protected String local_jobname;
-protected long local_pageSize;
-protected int local_currentPage;
-protected long local_pageStartFrom;
-protected String local_sortby;
-protected boolean local_descending;
-protected long local_cacheHint;
+	protected String local_wuid;
+	protected String local_owner;
+	protected String local_cluster;
+	protected String local_stateReq;
+	protected String local_type;
+	protected String local_jobname;
+	protected long local_pageSize;
+	protected int local_currentPage;
+	protected long local_pageStartFrom;
+	protected String local_sortby;
+	protected boolean local_descending;
+	protected long local_cacheHint;
 
 	public GetDFUWorkunitsWrapper() {}
 

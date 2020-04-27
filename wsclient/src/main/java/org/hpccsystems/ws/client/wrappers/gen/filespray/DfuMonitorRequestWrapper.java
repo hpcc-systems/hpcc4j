@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DfuMonitorRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.012Z
+ * TimeStamp: 2020-04-24T00:05:34.012Z
  */
 public class DfuMonitorRequestWrapper
 {
-protected String local_eventName;
-protected String local_logicalName;
-protected String local_ip;
-protected String local_filename;
-protected boolean local_sub;
-protected int local_shotLimit;
+	protected String local_eventName;
+	protected String local_logicalName;
+	protected String local_ip;
+	protected String local_filename;
+	protected boolean local_sub;
+	protected int local_shotLimit;
 
 	public DfuMonitorRequestWrapper() {}
 

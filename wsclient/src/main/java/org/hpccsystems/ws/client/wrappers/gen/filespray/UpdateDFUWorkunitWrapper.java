@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: UpdateDFUWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.085Z
+ * TimeStamp: 2020-04-24T00:05:33.965Z
  */
 public class UpdateDFUWorkunitWrapper
 {
-protected DFUWorkunitWrapper local_wu;
-protected String local_clusterOrig;
-protected String local_jobNameOrig;
-protected boolean local_isProtectedOrig;
-protected int local_stateOrig;
+	protected DFUWorkunitWrapper local_wu;
+	protected String local_clusterOrig;
+	protected String local_jobNameOrig;
+	protected boolean local_isProtectedOrig;
+	protected int local_stateOrig;
 
 	public UpdateDFUWorkunitWrapper() {}
 
@@ -54,7 +54,8 @@ protected int local_stateOrig;
 		if (raw == null)
 			return;
 
-		this.local_wu = new DFUWorkunitWrapper( raw.getWu());
+		if (raw.getWu() != null)
+			this.local_wu = new DFUWorkunitWrapper( raw.getWu());
 		this.local_clusterOrig = raw.getClusterOrig();
 		this.local_jobNameOrig = raw.getJobNameOrig();
 		this.local_isProtectedOrig = raw.getIsProtectedOrig();

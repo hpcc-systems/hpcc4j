@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: Tables_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.639Z
+ * TimeStamp: 2020-04-23T21:12:59.332Z
  */
 public class Tables_type0Wrapper
 {
-protected List<HPCCTableWrapper> local_table = new ArrayList<HPCCTableWrapper>();
+	protected List<HPCCTableWrapper> local_table = null;
 
 	public Tables_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<HPCCTableWrapper> local_table = new ArrayList<HPCCTableWrapper>()
 			for ( int i = 0; i < this.local_table.size(); i++)
 			{
 				arr[i] = this.local_table.get(i) .getRaw();
-			}		raw.setTable(arr);
-}
+			}
+			raw.setTable(arr);
+		}
 		return raw;
 	}
 

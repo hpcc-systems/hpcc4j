@@ -23,25 +23,25 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpServicesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.978Z
+ * TimeStamp: 2020-04-24T00:43:36.365Z
  */
 public class TpServicesWrapper
 {
-protected ArrayOfTpDaliWrapper local_tpDalis;
-protected ArrayOfTpDfuServerWrapper local_tpDfuServers;
-protected ArrayOfTpDkcSlaveWrapper local_tpDkcSlaves;
-protected ArrayOfTpDropZoneWrapper local_tpDropZones;
-protected ArrayOfTpEclAgentWrapper local_tpEclAgents;
-protected ArrayOfTpEclServerWrapper local_tpEclServers;
-protected ArrayOfTpEclServerWrapper local_tpEclCCServers;
-protected ArrayOfTpEclSchedulerWrapper local_tpEclSchedulers;
-protected ArrayOfTpEspServerWrapper local_tpEspServers;
-protected ArrayOfTpFTSlaveWrapper local_tpFTSlaves;
-protected ArrayOfTpGenesisServerWrapper local_tpGenesisServers;
-protected ArrayOfTpLdapServerWrapper local_tpLdapServers;
-protected ArrayOfTpMySqlServerWrapper local_tpMySqlServers;
-protected ArrayOfTpSashaServerWrapper local_tpSashaServers;
-protected ArrayOfTpSparkThorWrapper local_tpSparkThors;
+	protected ArrayOfTpDaliWrapper local_tpDalis;
+	protected ArrayOfTpDfuServerWrapper local_tpDfuServers;
+	protected ArrayOfTpDkcSlaveWrapper local_tpDkcSlaves;
+	protected ArrayOfTpDropZoneWrapper local_tpDropZones;
+	protected ArrayOfTpEclAgentWrapper local_tpEclAgents;
+	protected ArrayOfTpEclServerWrapper local_tpEclServers;
+	protected ArrayOfTpEclServerWrapper local_tpEclCCServers;
+	protected ArrayOfTpEclSchedulerWrapper local_tpEclSchedulers;
+	protected ArrayOfTpEspServerWrapper local_tpEspServers;
+	protected ArrayOfTpFTSlaveWrapper local_tpFTSlaves;
+	protected ArrayOfTpGenesisServerWrapper local_tpGenesisServers;
+	protected ArrayOfTpLdapServerWrapper local_tpLdapServers;
+	protected ArrayOfTpMySqlServerWrapper local_tpMySqlServers;
+	protected ArrayOfTpSashaServerWrapper local_tpSashaServers;
+	protected ArrayOfTpSparkThorWrapper local_tpSparkThors;
 
 	public TpServicesWrapper() {}
 
@@ -74,21 +74,36 @@ protected ArrayOfTpSparkThorWrapper local_tpSparkThors;
 		if (raw == null)
 			return;
 
-		this.local_tpDalis = new ArrayOfTpDaliWrapper( raw.getTpDalis());
-		this.local_tpDfuServers = new ArrayOfTpDfuServerWrapper( raw.getTpDfuServers());
-		this.local_tpDkcSlaves = new ArrayOfTpDkcSlaveWrapper( raw.getTpDkcSlaves());
-		this.local_tpDropZones = new ArrayOfTpDropZoneWrapper( raw.getTpDropZones());
-		this.local_tpEclAgents = new ArrayOfTpEclAgentWrapper( raw.getTpEclAgents());
-		this.local_tpEclServers = new ArrayOfTpEclServerWrapper( raw.getTpEclServers());
-		this.local_tpEclCCServers = new ArrayOfTpEclServerWrapper( raw.getTpEclCCServers());
-		this.local_tpEclSchedulers = new ArrayOfTpEclSchedulerWrapper( raw.getTpEclSchedulers());
-		this.local_tpEspServers = new ArrayOfTpEspServerWrapper( raw.getTpEspServers());
-		this.local_tpFTSlaves = new ArrayOfTpFTSlaveWrapper( raw.getTpFTSlaves());
-		this.local_tpGenesisServers = new ArrayOfTpGenesisServerWrapper( raw.getTpGenesisServers());
-		this.local_tpLdapServers = new ArrayOfTpLdapServerWrapper( raw.getTpLdapServers());
-		this.local_tpMySqlServers = new ArrayOfTpMySqlServerWrapper( raw.getTpMySqlServers());
-		this.local_tpSashaServers = new ArrayOfTpSashaServerWrapper( raw.getTpSashaServers());
-		this.local_tpSparkThors = new ArrayOfTpSparkThorWrapper( raw.getTpSparkThors());
+		if (raw.getTpDalis() != null)
+			this.local_tpDalis = new ArrayOfTpDaliWrapper( raw.getTpDalis());
+		if (raw.getTpDfuServers() != null)
+			this.local_tpDfuServers = new ArrayOfTpDfuServerWrapper( raw.getTpDfuServers());
+		if (raw.getTpDkcSlaves() != null)
+			this.local_tpDkcSlaves = new ArrayOfTpDkcSlaveWrapper( raw.getTpDkcSlaves());
+		if (raw.getTpDropZones() != null)
+			this.local_tpDropZones = new ArrayOfTpDropZoneWrapper( raw.getTpDropZones());
+		if (raw.getTpEclAgents() != null)
+			this.local_tpEclAgents = new ArrayOfTpEclAgentWrapper( raw.getTpEclAgents());
+		if (raw.getTpEclServers() != null)
+			this.local_tpEclServers = new ArrayOfTpEclServerWrapper( raw.getTpEclServers());
+		if (raw.getTpEclCCServers() != null)
+			this.local_tpEclCCServers = new ArrayOfTpEclServerWrapper( raw.getTpEclCCServers());
+		if (raw.getTpEclSchedulers() != null)
+			this.local_tpEclSchedulers = new ArrayOfTpEclSchedulerWrapper( raw.getTpEclSchedulers());
+		if (raw.getTpEspServers() != null)
+			this.local_tpEspServers = new ArrayOfTpEspServerWrapper( raw.getTpEspServers());
+		if (raw.getTpFTSlaves() != null)
+			this.local_tpFTSlaves = new ArrayOfTpFTSlaveWrapper( raw.getTpFTSlaves());
+		if (raw.getTpGenesisServers() != null)
+			this.local_tpGenesisServers = new ArrayOfTpGenesisServerWrapper( raw.getTpGenesisServers());
+		if (raw.getTpLdapServers() != null)
+			this.local_tpLdapServers = new ArrayOfTpLdapServerWrapper( raw.getTpLdapServers());
+		if (raw.getTpMySqlServers() != null)
+			this.local_tpMySqlServers = new ArrayOfTpMySqlServerWrapper( raw.getTpMySqlServers());
+		if (raw.getTpSashaServers() != null)
+			this.local_tpSashaServers = new ArrayOfTpSashaServerWrapper( raw.getTpSashaServers());
+		if (raw.getTpSparkThors() != null)
+			this.local_tpSparkThors = new ArrayOfTpSparkThorWrapper( raw.getTpSparkThors());
 
 	}
 

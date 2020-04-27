@@ -5,19 +5,12 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLHelpFile;
 public class ECLHelpFileWrapper
 {
     private String name;
-
     private String type;
-
     private String IPAddress;
-
     private String description;
-
     private Long   fileSize;
-
     private long   PID;
-
     private long   minActivityId;
-
     private long   maxActivityId;
 
     /**

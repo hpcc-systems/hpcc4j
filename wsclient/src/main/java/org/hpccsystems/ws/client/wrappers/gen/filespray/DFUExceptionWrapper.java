@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DFUExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.011Z
+ * TimeStamp: 2020-04-24T00:05:34.016Z
  */
 public class DFUExceptionWrapper
 {
-protected int local_code;
-protected String local_message;
+	protected int local_code;
+	protected String local_message;
 
 	public DFUExceptionWrapper() {}
 

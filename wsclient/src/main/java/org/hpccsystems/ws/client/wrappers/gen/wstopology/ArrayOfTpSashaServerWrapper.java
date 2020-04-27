@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpSashaServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSashaServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.880Z
+ * TimeStamp: 2020-04-24T00:43:36.354Z
  */
 public class ArrayOfTpSashaServerWrapper
 {
-protected List<TpSashaServerWrapper> local_tpSashaServer = new ArrayList<TpSashaServerWrapper>();
+	protected List<TpSashaServerWrapper> local_tpSashaServer = null;
 
 	public ArrayOfTpSashaServerWrapper() {}
 

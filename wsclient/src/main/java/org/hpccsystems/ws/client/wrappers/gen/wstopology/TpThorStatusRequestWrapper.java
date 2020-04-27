@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpThorStatusRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:48.002Z
+ * TimeStamp: 2020-04-24T00:43:36.423Z
  */
 public class TpThorStatusRequestWrapper
 {
-protected String local_name;
+	protected String local_name;
 
 	public TpThorStatusRequestWrapper() {}
 

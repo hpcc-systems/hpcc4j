@@ -5,15 +5,10 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLTimingData;
 public class ECLTimingDataWrapper
 {
     private String name;
-
     private Integer graphNum;
-
     private Integer subGraphNum;
-
     private Integer GID;
-
     private Integer min;
-
     private Integer MS;
 
     /**

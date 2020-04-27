@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: OutputDatasetWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.614Z
+ * TimeStamp: 2020-04-23T21:12:59.361Z
  */
 public class OutputDatasetWrapper
 {
-protected String local_name;
-protected OutParams_type0Wrapper local_outParams;
+	protected String local_name;
+	protected OutParams_type0Wrapper local_outParams;
 
 	public OutputDatasetWrapper() {}
 
@@ -49,7 +49,8 @@ protected OutParams_type0Wrapper local_outParams;
 			return;
 
 		this.local_name = raw.getName();
-		this.local_outParams = new OutParams_type0Wrapper( raw.getOutParams());
+		if (raw.getOutParams() != null)
+			this.local_outParams = new OutParams_type0Wrapper( raw.getOutParams());
 
 	}
 

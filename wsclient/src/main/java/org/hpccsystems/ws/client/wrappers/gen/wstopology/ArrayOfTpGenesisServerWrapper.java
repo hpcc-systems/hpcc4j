@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpGenesisServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.870Z
+ * TimeStamp: 2020-04-24T00:43:36.406Z
  */
 public class ArrayOfTpGenesisServerWrapper
 {
-protected List<TpGenesisServerWrapper> local_tpGenesisServer = new ArrayList<TpGenesisServerWrapper>();
+	protected List<TpGenesisServerWrapper> local_tpGenesisServer = null;
 
 	public ArrayOfTpGenesisServerWrapper() {}
 

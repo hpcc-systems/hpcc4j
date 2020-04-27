@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLWorkflowWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLWorkflow
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.517Z
+ * TimeStamp: 2020-04-23T21:12:59.302Z
  */
 public class ArrayOfECLWorkflowWrapper
 {
-protected List<ECLWorkflowWrapper> local_eCLWorkflow = new ArrayList<ECLWorkflowWrapper>();
+	protected List<ECLWorkflowWrapper> local_eCLWorkflow = null;
 
 	public ArrayOfECLWorkflowWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLWorkflowWrapper> local_eCLWorkflow = new ArrayList<ECLWorkflow
 			for ( int i = 0; i < this.local_eCLWorkflow.size(); i++)
 			{
 				arr[i] = this.local_eCLWorkflow.get(i) .getRaw();
-			}		raw.setECLWorkflow(arr);
-}
+			}
+			raw.setECLWorkflow(arr);
+		}
 		return raw;
 	}
 

@@ -23,22 +23,22 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpLogFileRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.954Z
+ * TimeStamp: 2020-04-24T00:43:36.317Z
  */
 public class TpLogFileRequestWrapper
 {
-protected String local_name;
-protected String local_type;
-protected int local_lastHours;
-protected String local_startDate;
-protected String local_endDate;
-protected int local_firstRows;
-protected int local_lastRows;
-protected int local_filterType;
-protected boolean local_reversely;
-protected boolean local_zip;
-protected int local_pageNumber;
-protected boolean local_loadData;
+	protected String local_name;
+	protected String local_type;
+	protected int local_lastHours;
+	protected String local_startDate;
+	protected String local_endDate;
+	protected int local_firstRows;
+	protected int local_lastRows;
+	protected int local_filterType;
+	protected boolean local_reversely;
+	protected boolean local_zip;
+	protected int local_pageNumber;
+	protected boolean local_loadData;
 
 	public TpLogFileRequestWrapper() {}
 

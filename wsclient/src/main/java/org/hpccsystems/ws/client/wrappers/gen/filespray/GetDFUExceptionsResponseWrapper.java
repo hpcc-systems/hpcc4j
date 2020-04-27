@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetDFUExceptionsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.051Z
+ * TimeStamp: 2020-04-24T00:05:34.052Z
  */
 public class GetDFUExceptionsResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfDFUExceptionWrapper local_result;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfDFUExceptionWrapper local_result;
 
 	public GetDFUExceptionsResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected ArrayOfDFUExceptionWrapper local_result;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_result = new ArrayOfDFUExceptionWrapper( raw.getResult());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getResult() != null)
+			this.local_result = new ArrayOfDFUExceptionWrapper( raw.getResult());
 
 	}
 

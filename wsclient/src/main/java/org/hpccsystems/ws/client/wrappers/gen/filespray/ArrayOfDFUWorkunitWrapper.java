@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfDFUWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:34.988Z
+ * TimeStamp: 2020-04-24T00:05:34.004Z
  */
 public class ArrayOfDFUWorkunitWrapper
 {
-protected List<DFUWorkunitWrapper> local_dFUWorkunit = new ArrayList<DFUWorkunitWrapper>();
+	protected List<DFUWorkunitWrapper> local_dFUWorkunit = null;
 
 	public ArrayOfDFUWorkunitWrapper() {}
 

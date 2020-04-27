@@ -24,18 +24,18 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: ECLHelpFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.550Z
+ * TimeStamp: 2020-04-23T21:12:59.293Z
  */
 public class ECLHelpFileWrapper
 {
-protected String local_name;
-protected String local_type;
-protected String local_iPAddress;
-protected String local_description;
-protected long local_fileSize;
-protected UnsignedInt local_pID;
-protected UnsignedInt local_minActivityId;
-protected UnsignedInt local_maxActivityId;
+	protected String local_name;
+	protected String local_type;
+	protected String local_iPAddress;
+	protected String local_description;
+	protected long local_fileSize;
+	protected UnsignedInt local_pID;
+	protected UnsignedInt local_minActivityId;
+	protected UnsignedInt local_maxActivityId;
 
 	public ECLHelpFileWrapper() {}
 

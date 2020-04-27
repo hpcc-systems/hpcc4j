@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfDebugValueWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.502Z
+ * TimeStamp: 2020-04-23T21:12:59.382Z
  */
 public class ArrayOfDebugValueWrapper
 {
-protected List<DebugValueWrapper> local_debugValue = new ArrayList<DebugValueWrapper>();
+	protected List<DebugValueWrapper> local_debugValue = null;
 
 	public ArrayOfDebugValueWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<DebugValueWrapper> local_debugValue = new ArrayList<DebugValueWra
 			for ( int i = 0; i < this.local_debugValue.size(); i++)
 			{
 				arr[i] = this.local_debugValue.get(i) .getRaw();
-			}		raw.setDebugValue(arr);
-}
+			}
+			raw.setDebugValue(arr);
+		}
 		return raw;
 	}
 

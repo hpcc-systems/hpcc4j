@@ -23,19 +23,19 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: CreateTableAndLoadRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.527Z
+ * TimeStamp: 2020-04-23T21:12:59.385Z
  */
 public class CreateTableAndLoadRequestWrapper
 {
-protected String local_tableName;
-protected String local_tableDescription;
-protected boolean local_overwrite;
-protected EclFields_type0Wrapper local_eclFields;
-protected String local_targetCluster;
-protected String local_owner;
-protected DataSourceInfoWrapper local_dataSource;
-protected DataTypeWrapper local_dataSourceType;
-protected int local_wait;
+	protected String local_tableName;
+	protected String local_tableDescription;
+	protected boolean local_overwrite;
+	protected EclFields_type0Wrapper local_eclFields;
+	protected String local_targetCluster;
+	protected String local_owner;
+	protected DataSourceInfoWrapper local_dataSource;
+	protected DataTypeWrapper local_dataSourceType;
+	protected int local_wait;
 
 	public CreateTableAndLoadRequestWrapper() {}
 
@@ -65,11 +65,14 @@ protected int local_wait;
 		this.local_tableName = raw.getTableName();
 		this.local_tableDescription = raw.getTableDescription();
 		this.local_overwrite = raw.getOverwrite();
-		this.local_eclFields = new EclFields_type0Wrapper( raw.getEclFields());
+		if (raw.getEclFields() != null)
+			this.local_eclFields = new EclFields_type0Wrapper( raw.getEclFields());
 		this.local_targetCluster = raw.getTargetCluster();
 		this.local_owner = raw.getOwner();
-		this.local_dataSource = new DataSourceInfoWrapper( raw.getDataSource());
-		this.local_dataSourceType = new DataTypeWrapper( raw.getDataSourceType());
+		if (raw.getDataSource() != null)
+			this.local_dataSource = new DataSourceInfoWrapper( raw.getDataSource());
+		if (raw.getDataSourceType() != null)
+			this.local_dataSourceType = new DataTypeWrapper( raw.getDataSourceType());
 		this.local_wait = raw.getWait();
 
 	}

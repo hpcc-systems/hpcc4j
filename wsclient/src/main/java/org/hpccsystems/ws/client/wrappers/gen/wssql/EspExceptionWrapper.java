@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: EspExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.575Z
+ * TimeStamp: 2020-04-23T21:12:59.321Z
  */
 public class EspExceptionWrapper
 {
-protected String local_code;
-protected String local_audience;
-protected String local_source;
-protected String local_message;
+	protected String local_code;
+	protected String local_audience;
+	protected String local_source;
+	protected String local_message;
 
 	public EspExceptionWrapper() {}
 

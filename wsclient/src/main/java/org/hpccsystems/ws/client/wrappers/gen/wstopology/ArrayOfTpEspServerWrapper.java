@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpEspServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEspServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.868Z
+ * TimeStamp: 2020-04-24T00:43:36.393Z
  */
 public class ArrayOfTpEspServerWrapper
 {
-protected List<TpEspServerWrapper> local_tpEspServer = new ArrayList<TpEspServerWrapper>();
+	protected List<TpEspServerWrapper> local_tpEspServer = null;
 
 	public ArrayOfTpEspServerWrapper() {}
 

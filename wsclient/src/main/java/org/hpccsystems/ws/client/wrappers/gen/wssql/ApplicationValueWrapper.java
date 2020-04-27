@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ApplicationValueWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.498Z
+ * TimeStamp: 2020-04-23T21:12:59.433Z
  */
 public class ApplicationValueWrapper
 {
-protected String local_application;
-protected String local_name;
-protected String local_value;
+	protected String local_application;
+	protected String local_name;
+	protected String local_value;
 
 	public ApplicationValueWrapper() {}
 

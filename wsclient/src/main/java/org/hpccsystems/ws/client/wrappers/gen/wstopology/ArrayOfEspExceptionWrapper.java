@@ -25,12 +25,12 @@ import java.util.ArrayList;
  * Class name: ArrayOfEspExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfEspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.805Z
+ * TimeStamp: 2020-04-24T00:43:36.366Z
  */
 public class ArrayOfEspExceptionWrapper
 {
-protected String local_source;
-protected List<EspExceptionWrapper> local_exception = new ArrayList<EspExceptionWrapper>();
+	protected String local_source;
+	protected List<EspExceptionWrapper> local_exception = null;
 
 	public ArrayOfEspExceptionWrapper() {}
 

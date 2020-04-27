@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: PhysicalFileStructWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.064Z
+ * TimeStamp: 2020-04-24T00:05:34.010Z
  */
 public class PhysicalFileStructWrapper
 {
-protected String local_name;
-protected boolean local_isDir;
-protected long local_filesize;
-protected String local_modifiedtime;
-protected String local_path;
-protected ArrayOfPhysicalFileStructWrapper local_files;
+	protected String local_name;
+	protected boolean local_isDir;
+	protected long local_filesize;
+	protected String local_modifiedtime;
+	protected String local_path;
+	protected ArrayOfPhysicalFileStructWrapper local_files;
 
 	public PhysicalFileStructWrapper() {}
 
@@ -61,7 +61,8 @@ protected ArrayOfPhysicalFileStructWrapper local_files;
 		this.local_filesize = raw.getFilesize();
 		this.local_modifiedtime = raw.getModifiedtime();
 		this.local_path = raw.getPath();
-		this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
+		if (raw.getFiles() != null)
+			this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
 
 	}
 

@@ -23,21 +23,21 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: ProgressResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.067Z
+ * TimeStamp: 2020-04-24T00:05:34.031Z
  */
 public class ProgressResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_wuid;
-protected int local_percentDone;
-protected int local_secsLeft;
-protected int local_kbPerSecAve;
-protected int local_kbPerSec;
-protected int local_slavesDone;
-protected String local_timeTaken;
-protected String local_progressMessage;
-protected String local_summaryMessage;
-protected String local_state;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_wuid;
+	protected int local_percentDone;
+	protected int local_secsLeft;
+	protected int local_kbPerSecAve;
+	protected int local_kbPerSec;
+	protected int local_slavesDone;
+	protected String local_timeTaken;
+	protected String local_progressMessage;
+	protected String local_summaryMessage;
+	protected String local_state;
 
 	public ProgressResponseWrapper() {}
 
@@ -66,7 +66,8 @@ protected String local_state;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_wuid = raw.getWuid();
 		this.local_percentDone = raw.getPercentDone();
 		this.local_secsLeft = raw.getSecsLeft();

@@ -24,26 +24,26 @@ import java.math.BigInteger;
  * Class name: HPCCTableWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.607Z
+ * TimeStamp: 2020-04-23T21:12:59.394Z
  */
 public class HPCCTableWrapper
 {
-protected String local_name;
-protected Columns_type0Wrapper local_columns;
-protected String local_eCL;
-protected String local_format;
-protected String local_contentType;
-protected String local_description;
-protected boolean local_isKeyed;
-protected boolean local_isSuper;
-protected String local_csvQuote;
-protected String local_csvSeparate;
-protected String local_csvTerminate;
-protected String local_group;
-protected BigInteger local_maxRecordSize;
-protected String local_modified;
-protected BigInteger local_numParts;
-protected String local_owner;
+	protected String local_name;
+	protected Columns_type0Wrapper local_columns;
+	protected String local_eCL;
+	protected String local_format;
+	protected String local_contentType;
+	protected String local_description;
+	protected boolean local_isKeyed;
+	protected boolean local_isSuper;
+	protected String local_csvQuote;
+	protected String local_csvSeparate;
+	protected String local_csvTerminate;
+	protected String local_group;
+	protected BigInteger local_maxRecordSize;
+	protected String local_modified;
+	protected BigInteger local_numParts;
+	protected String local_owner;
 
 	public HPCCTableWrapper() {}
 
@@ -78,7 +78,8 @@ protected String local_owner;
 			return;
 
 		this.local_name = raw.getName();
-		this.local_columns = new Columns_type0Wrapper( raw.getColumns());
+		if (raw.getColumns() != null)
+			this.local_columns = new Columns_type0Wrapper( raw.getColumns());
 		this.local_eCL = raw.getECL();
 		this.local_format = raw.getFormat();
 		this.local_contentType = raw.getContentType();

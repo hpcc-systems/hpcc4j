@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLSchemaItemWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.555Z
+ * TimeStamp: 2020-04-23T21:12:59.317Z
  */
 public class ECLSchemaItemWrapper
 {
-protected String local_columnName;
-protected String local_columnType;
-protected int local_columnTypeCode;
-protected boolean local_isConditional;
+	protected String local_columnName;
+	protected String local_columnType;
+	protected int local_columnTypeCode;
+	protected boolean local_isConditional;
 
 	public ECLSchemaItemWrapper() {}
 

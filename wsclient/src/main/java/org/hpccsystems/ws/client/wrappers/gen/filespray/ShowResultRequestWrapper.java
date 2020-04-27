@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: ShowResultRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.073Z
+ * TimeStamp: 2020-04-24T00:05:34.040Z
  */
 public class ShowResultRequestWrapper
 {
-protected String local_result;
+	protected String local_result;
 
 	public ShowResultRequestWrapper() {}
 

@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpFTSlaveWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpFTSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.936Z
+ * TimeStamp: 2020-04-24T00:43:36.336Z
  */
 public class TpFTSlaveWrapper
 {
-protected String local_name;
-protected String local_description;
-protected String local_build;
-protected String local_path;
-protected ArrayOfTpMachineWrapper local_tpMachines;
+	protected String local_name;
+	protected String local_description;
+	protected String local_build;
+	protected String local_path;
+	protected ArrayOfTpMachineWrapper local_tpMachines;
 
 	public TpFTSlaveWrapper() {}
 
@@ -58,7 +58,8 @@ protected ArrayOfTpMachineWrapper local_tpMachines;
 		this.local_description = raw.getDescription();
 		this.local_build = raw.getBuild();
 		this.local_path = raw.getPath();
-		this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
+		if (raw.getTpMachines() != null)
+			this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
 
 	}
 

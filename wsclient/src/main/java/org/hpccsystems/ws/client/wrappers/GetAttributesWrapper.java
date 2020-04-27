@@ -30,7 +30,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspStringArray;
 public class GetAttributesWrapper
 {
     protected String       local_moduleName;
-    protected List<String> local_typeList = new ArrayList<String>();
+    protected List<String> local_typeList = null;
     protected String       local_label;
 
     /**
@@ -100,8 +100,7 @@ public class GetAttributesWrapper
     @Override
     public String toString()
     {
-        return "GetAttributesWrapper [" + "moduleName = " + local_moduleName + ", " + "typeList = " + local_typeList + ", " + "label = " + local_label
-                + "]";
+        return "GetAttributesWrapper [" + "moduleName = " + local_moduleName + ", " + "typeList = " + local_typeList + ", " + "label = " + local_label + "]";
     }
 
     /**

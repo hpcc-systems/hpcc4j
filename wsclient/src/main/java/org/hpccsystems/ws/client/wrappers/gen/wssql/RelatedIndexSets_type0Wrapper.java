@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: RelatedIndexSets_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.RelatedIndexSets_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.630Z
+ * TimeStamp: 2020-04-23T21:12:59.399Z
  */
 public class RelatedIndexSets_type0Wrapper
 {
-protected List<RelatedIndexSetWrapper> local_relatedIndexSet = new ArrayList<RelatedIndexSetWrapper>();
+	protected List<RelatedIndexSetWrapper> local_relatedIndexSet = null;
 
 	public RelatedIndexSets_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<RelatedIndexSetWrapper> local_relatedIndexSet = new ArrayList<Rel
 			for ( int i = 0; i < this.local_relatedIndexSet.size(); i++)
 			{
 				arr[i] = this.local_relatedIndexSet.get(i) .getRaw();
-			}		raw.setRelatedIndexSet(arr);
-}
+			}
+			raw.setRelatedIndexSet(arr);
+		}
 		return raw;
 	}
 

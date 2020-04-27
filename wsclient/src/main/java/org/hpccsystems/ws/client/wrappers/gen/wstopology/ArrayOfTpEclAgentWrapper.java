@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpEclAgentWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.863Z
+ * TimeStamp: 2020-04-24T00:43:36.275Z
  */
 public class ArrayOfTpEclAgentWrapper
 {
-protected List<TpEclAgentWrapper> local_tpEclAgent = new ArrayList<TpEclAgentWrapper>();
+	protected List<TpEclAgentWrapper> local_tpEclAgent = null;
 
 	public ArrayOfTpEclAgentWrapper() {}
 

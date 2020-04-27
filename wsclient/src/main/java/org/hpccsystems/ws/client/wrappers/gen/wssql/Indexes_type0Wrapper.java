@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: Indexes_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Indexes_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.609Z
+ * TimeStamp: 2020-04-23T21:12:59.442Z
  */
 public class Indexes_type0Wrapper
 {
-protected List<String> local_index = new ArrayList<String>();
+	protected List<String> local_index = null;
 
 	public Indexes_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<String> local_index = new ArrayList<String>();
 			for ( int i = 0; i < this.local_index.size(); i++)
 			{
 				arr[i] = this.local_index.get(i) ;
-			}		raw.setIndex(arr);
-}
+			}
+			raw.setIndex(arr);
+		}
 		return raw;
 	}
 

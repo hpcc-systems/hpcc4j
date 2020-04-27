@@ -24,15 +24,15 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: GetResultsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.600Z
+ * TimeStamp: 2020-04-23T21:12:59.384Z
  */
 public class GetResultsResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_result;
-protected UnsignedInt local_resultWindowStart;
-protected UnsignedInt local_resultWindowCount;
-protected ECLWorkunitWrapper local_workunit;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_result;
+	protected UnsignedInt local_resultWindowStart;
+	protected UnsignedInt local_resultWindowCount;
+	protected ECLWorkunitWrapper local_workunit;
 
 	public GetResultsResponseWrapper() {}
 
@@ -55,11 +55,13 @@ protected ECLWorkunitWrapper local_workunit;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_result = raw.getResult();
 		this.local_resultWindowStart = raw.getResultWindowStart();
 		this.local_resultWindowCount = raw.getResultWindowCount();
-		this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
+		if (raw.getWorkunit() != null)
+			this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
 
 	}
 

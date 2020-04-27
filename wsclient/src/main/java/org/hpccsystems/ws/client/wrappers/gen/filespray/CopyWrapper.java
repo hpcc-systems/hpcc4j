@@ -23,39 +23,39 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: CopyWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:34.997Z
+ * TimeStamp: 2020-04-24T00:05:34.038Z
  */
 public class CopyWrapper
 {
-protected String local_sourceLogicalName;
-protected String local_destGroup;
-protected String local_destGroupRoxie;
-protected String local_destLogicalName;
-protected String local_sourceDali;
-protected String local_srcusername;
-protected String local_srcpassword;
-protected boolean local_overwrite;
-protected boolean local_replicate;
-protected int local_replicateOffset;
-protected int local_maxConnections;
-protected int local_throttle;
-protected int local_transferBufferSize;
-protected boolean local_nosplit;
-protected boolean local_norecover;
-protected boolean local_compress;
-protected boolean local_wrap;
-protected boolean local_multicopy;
-protected String local_sourceDiffKeyName;
-protected String local_destDiffKeyName;
-protected boolean local_superCopy;
-protected boolean local_push;
-protected boolean local_pull;
-protected boolean local_ifnewer;
-protected String local_encrypt;
-protected String local_decrypt;
-protected boolean local_preserveCompression;
-protected String local_dFUServerQueue;
-protected int local_expireDays;
+	protected String local_sourceLogicalName;
+	protected String local_destGroup;
+	protected String local_destGroupRoxie;
+	protected String local_destLogicalName;
+	protected String local_sourceDali;
+	protected String local_srcusername;
+	protected String local_srcpassword;
+	protected boolean local_overwrite;
+	protected boolean local_replicate;
+	protected int local_replicateOffset;
+	protected int local_maxConnections;
+	protected int local_throttle;
+	protected int local_transferBufferSize;
+	protected boolean local_nosplit;
+	protected boolean local_norecover;
+	protected boolean local_compress;
+	protected boolean local_wrap;
+	protected boolean local_multicopy;
+	protected String local_sourceDiffKeyName;
+	protected String local_destDiffKeyName;
+	protected boolean local_superCopy;
+	protected boolean local_push;
+	protected boolean local_pull;
+	protected boolean local_ifnewer;
+	protected String local_encrypt;
+	protected String local_decrypt;
+	protected boolean local_preserveCompression;
+	protected String local_dFUServerQueue;
+	protected int local_expireDays;
 
 	public CopyWrapper() {}
 

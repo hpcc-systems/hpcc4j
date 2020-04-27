@@ -24,11 +24,11 @@ import java.util.Calendar;
  * Class name: EchoDateTimeResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.043Z
+ * TimeStamp: 2020-04-24T00:05:34.031Z
  */
 public class EchoDateTimeResponseWrapper
 {
-protected Calendar local_result;
+	protected Calendar local_result;
 
 	public EchoDateTimeResponseWrapper() {}
 

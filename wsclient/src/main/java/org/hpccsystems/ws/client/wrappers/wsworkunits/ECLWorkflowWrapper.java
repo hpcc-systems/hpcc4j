@@ -5,13 +5,9 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkflow;
 public class ECLWorkflowWrapper
 {
     private String WFID;
-
     private String eventName;
-
     private String eventText;
-
     private Integer count;
-
     private Integer countRemaining;
 
     /**

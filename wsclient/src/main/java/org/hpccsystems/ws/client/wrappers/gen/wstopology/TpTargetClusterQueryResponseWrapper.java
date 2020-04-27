@@ -23,20 +23,20 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpTargetClusterQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:48Z
+ * TimeStamp: 2020-04-24T00:43:36.325Z
  */
 public class TpTargetClusterQueryResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected boolean local_showDetails;
-protected int local_memThreshold;
-protected int local_diskThreshold;
-protected int local_cpuThreshold;
-protected String local_memThresholdType;
-protected String local_diskThresholdType;
-protected String local_preflightProcessFilter;
-protected String local_acceptLanguage;
-protected ArrayOfTpTargetClusterWrapper local_tpTargetClusters;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected boolean local_showDetails;
+	protected int local_memThreshold;
+	protected int local_diskThreshold;
+	protected int local_cpuThreshold;
+	protected String local_memThresholdType;
+	protected String local_diskThresholdType;
+	protected String local_preflightProcessFilter;
+	protected String local_acceptLanguage;
+	protected ArrayOfTpTargetClusterWrapper local_tpTargetClusters;
 
 	public TpTargetClusterQueryResponseWrapper() {}
 
@@ -64,7 +64,8 @@ protected ArrayOfTpTargetClusterWrapper local_tpTargetClusters;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_showDetails = raw.getShowDetails();
 		this.local_memThreshold = raw.getMemThreshold();
 		this.local_diskThreshold = raw.getDiskThreshold();
@@ -73,7 +74,8 @@ protected ArrayOfTpTargetClusterWrapper local_tpTargetClusters;
 		this.local_diskThresholdType = raw.getDiskThresholdType();
 		this.local_preflightProcessFilter = raw.getPreflightProcessFilter();
 		this.local_acceptLanguage = raw.getAcceptLanguage();
-		this.local_tpTargetClusters = new ArrayOfTpTargetClusterWrapper( raw.getTpTargetClusters());
+		if (raw.getTpTargetClusters() != null)
+			this.local_tpTargetClusters = new ArrayOfTpTargetClusterWrapper( raw.getTpTargetClusters());
 
 	}
 

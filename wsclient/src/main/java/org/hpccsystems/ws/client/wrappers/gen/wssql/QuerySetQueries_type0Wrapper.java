@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: QuerySetQueries_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetQueries_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.624Z
+ * TimeStamp: 2020-04-23T21:12:59.300Z
  */
 public class QuerySetQueries_type0Wrapper
 {
-protected List<PublishedQueryWrapper> local_querySetQuery = new ArrayList<PublishedQueryWrapper>();
+	protected List<PublishedQueryWrapper> local_querySetQuery = null;
 
 	public QuerySetQueries_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<PublishedQueryWrapper> local_querySetQuery = new ArrayList<Publis
 			for ( int i = 0; i < this.local_querySetQuery.size(); i++)
 			{
 				arr[i] = this.local_querySetQuery.get(i) .getRaw();
-			}		raw.setQuerySetQuery(arr);
-}
+			}
+			raw.setQuerySetQuery(arr);
+		}
 		return raw;
 	}
 

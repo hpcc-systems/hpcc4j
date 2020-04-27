@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: PublishedQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.620Z
+ * TimeStamp: 2020-04-23T21:12:59.337Z
  */
 public class PublishedQueryWrapper
 {
-protected String local_name;
-protected String local_id;
-protected String local_wuid;
-protected boolean local_suspended;
-protected QuerySignatureWrapper local_signature;
+	protected String local_name;
+	protected String local_id;
+	protected String local_wuid;
+	protected boolean local_suspended;
+	protected QuerySignatureWrapper local_signature;
 
 	public PublishedQueryWrapper() {}
 
@@ -58,7 +58,8 @@ protected QuerySignatureWrapper local_signature;
 		this.local_id = raw.getId();
 		this.local_wuid = raw.getWuid();
 		this.local_suspended = raw.getSuspended();
-		this.local_signature = new QuerySignatureWrapper( raw.getSignature());
+		if (raw.getSignature() != null)
+			this.local_signature = new QuerySignatureWrapper( raw.getSignature());
 
 	}
 

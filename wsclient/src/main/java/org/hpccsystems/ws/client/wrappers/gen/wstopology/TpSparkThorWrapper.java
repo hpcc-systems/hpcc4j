@@ -24,24 +24,24 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: TpSparkThorWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.984Z
+ * TimeStamp: 2020-04-24T00:43:36.408Z
  */
 public class TpSparkThorWrapper
 {
-protected String local_name;
-protected String local_build;
-protected String local_thorClusterName;
-protected String local_thorPath;
-protected UnsignedInt local_sparkExecutorCores;
-protected long local_sparkExecutorMemory;
-protected UnsignedInt local_sparkMasterPort;
-protected UnsignedInt local_sparkMasterWebUIPort;
-protected UnsignedInt local_sparkWorkerCores;
-protected long local_sparkWorkerMemory;
-protected UnsignedInt local_sparkWorkerPort;
-protected String local_logDirectory;
-protected String local_path;
-protected ArrayOfTpMachineWrapper local_tpMachines;
+	protected String local_name;
+	protected String local_build;
+	protected String local_thorClusterName;
+	protected String local_thorPath;
+	protected UnsignedInt local_sparkExecutorCores;
+	protected long local_sparkExecutorMemory;
+	protected UnsignedInt local_sparkMasterPort;
+	protected UnsignedInt local_sparkMasterWebUIPort;
+	protected UnsignedInt local_sparkWorkerCores;
+	protected long local_sparkWorkerMemory;
+	protected UnsignedInt local_sparkWorkerPort;
+	protected String local_logDirectory;
+	protected String local_path;
+	protected ArrayOfTpMachineWrapper local_tpMachines;
 
 	public TpSparkThorWrapper() {}
 
@@ -86,7 +86,8 @@ protected ArrayOfTpMachineWrapper local_tpMachines;
 		this.local_sparkWorkerPort = raw.getSparkWorkerPort();
 		this.local_logDirectory = raw.getLogDirectory();
 		this.local_path = raw.getPath();
-		this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
+		if (raw.getTpMachines() != null)
+			this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
 
 	}
 

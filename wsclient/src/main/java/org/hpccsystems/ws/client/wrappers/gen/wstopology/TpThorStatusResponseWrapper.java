@@ -23,23 +23,23 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpThorStatusResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:48.004Z
+ * TimeStamp: 2020-04-24T00:43:36.343Z
  */
 public class TpThorStatusResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_name;
-protected String local_queue;
-protected String local_group;
-protected String local_thorMasterIPAddress;
-protected int local_port;
-protected String local_startTime;
-protected String local_logFile;
-protected String local_wuid;
-protected String local_graph;
-protected int local_subGraph;
-protected int local_subGraphDuration;
-protected int local_autoRefresh;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_name;
+	protected String local_queue;
+	protected String local_group;
+	protected String local_thorMasterIPAddress;
+	protected int local_port;
+	protected String local_startTime;
+	protected String local_logFile;
+	protected String local_wuid;
+	protected String local_graph;
+	protected int local_subGraph;
+	protected int local_subGraphDuration;
+	protected int local_autoRefresh;
 
 	public TpThorStatusResponseWrapper() {}
 
@@ -70,7 +70,8 @@ protected int local_autoRefresh;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_name = raw.getName();
 		this.local_queue = raw.getQueue();
 		this.local_group = raw.getGroup();

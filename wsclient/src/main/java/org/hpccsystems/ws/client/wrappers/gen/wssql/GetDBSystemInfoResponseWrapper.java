@@ -23,24 +23,24 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: GetDBSystemInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.593Z
+ * TimeStamp: 2020-04-23T21:12:59.306Z
  */
 public class GetDBSystemInfoResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_name;
-protected String local_fullVersion;
-protected String local_major;
-protected String local_minor;
-protected String local_point;
-protected String local_project;
-protected String local_maturity;
-protected String local_wsSQLFullVersion;
-protected String local_wsSQLMajor;
-protected String local_wsSQLMinor;
-protected String local_wsSQLPoint;
-protected String local_wsSQLProject;
-protected String local_wsSQLMaturity;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_name;
+	protected String local_fullVersion;
+	protected String local_major;
+	protected String local_minor;
+	protected String local_point;
+	protected String local_project;
+	protected String local_maturity;
+	protected String local_wsSQLFullVersion;
+	protected String local_wsSQLMajor;
+	protected String local_wsSQLMinor;
+	protected String local_wsSQLPoint;
+	protected String local_wsSQLProject;
+	protected String local_wsSQLMaturity;
 
 	public GetDBSystemInfoResponseWrapper() {}
 
@@ -72,7 +72,8 @@ protected String local_wsSQLMaturity;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_name = raw.getName();
 		this.local_fullVersion = raw.getFullVersion();
 		this.local_major = raw.getMajor();

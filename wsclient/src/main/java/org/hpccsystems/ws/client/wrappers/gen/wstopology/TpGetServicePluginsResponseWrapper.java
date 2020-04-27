@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpGetServicePluginsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.943Z
+ * TimeStamp: 2020-04-24T00:43:36.400Z
  */
 public class TpGetServicePluginsResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected Plugins_type0Wrapper local_plugins;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected Plugins_type0Wrapper local_plugins;
 
 	public TpGetServicePluginsResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected Plugins_type0Wrapper local_plugins;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_plugins = new Plugins_type0Wrapper( raw.getPlugins());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getPlugins() != null)
+			this.local_plugins = new Plugins_type0Wrapper( raw.getPlugins());
 
 	}
 

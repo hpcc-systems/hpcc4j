@@ -23,18 +23,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpTargetClusterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.995Z
+ * TimeStamp: 2020-04-24T00:43:36.411Z
  */
 public class TpTargetClusterWrapper
 {
-protected String local_name;
-protected String local_prefix;
-protected String local_type;
-protected ArrayOfTpClusterWrapper local_tpClusters;
-protected ArrayOfTpEclServerWrapper local_tpEclCCServers;
-protected ArrayOfTpEclServerWrapper local_tpEclServers;
-protected ArrayOfTpEclAgentWrapper local_tpEclAgents;
-protected ArrayOfTpEclSchedulerWrapper local_tpEclSchedulers;
+	protected String local_name;
+	protected String local_prefix;
+	protected String local_type;
+	protected ArrayOfTpClusterWrapper local_tpClusters;
+	protected ArrayOfTpEclServerWrapper local_tpEclCCServers;
+	protected ArrayOfTpEclServerWrapper local_tpEclServers;
+	protected ArrayOfTpEclAgentWrapper local_tpEclAgents;
+	protected ArrayOfTpEclSchedulerWrapper local_tpEclSchedulers;
 
 	public TpTargetClusterWrapper() {}
 
@@ -63,11 +63,16 @@ protected ArrayOfTpEclSchedulerWrapper local_tpEclSchedulers;
 		this.local_name = raw.getName();
 		this.local_prefix = raw.getPrefix();
 		this.local_type = raw.getType();
-		this.local_tpClusters = new ArrayOfTpClusterWrapper( raw.getTpClusters());
-		this.local_tpEclCCServers = new ArrayOfTpEclServerWrapper( raw.getTpEclCCServers());
-		this.local_tpEclServers = new ArrayOfTpEclServerWrapper( raw.getTpEclServers());
-		this.local_tpEclAgents = new ArrayOfTpEclAgentWrapper( raw.getTpEclAgents());
-		this.local_tpEclSchedulers = new ArrayOfTpEclSchedulerWrapper( raw.getTpEclSchedulers());
+		if (raw.getTpClusters() != null)
+			this.local_tpClusters = new ArrayOfTpClusterWrapper( raw.getTpClusters());
+		if (raw.getTpEclCCServers() != null)
+			this.local_tpEclCCServers = new ArrayOfTpEclServerWrapper( raw.getTpEclCCServers());
+		if (raw.getTpEclServers() != null)
+			this.local_tpEclServers = new ArrayOfTpEclServerWrapper( raw.getTpEclServers());
+		if (raw.getTpEclAgents() != null)
+			this.local_tpEclAgents = new ArrayOfTpEclAgentWrapper( raw.getTpEclAgents());
+		if (raw.getTpEclSchedulers() != null)
+			this.local_tpEclSchedulers = new ArrayOfTpEclSchedulerWrapper( raw.getTpEclSchedulers());
 
 	}
 

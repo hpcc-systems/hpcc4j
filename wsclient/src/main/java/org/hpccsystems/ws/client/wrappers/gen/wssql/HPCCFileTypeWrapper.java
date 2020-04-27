@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: HPCCFileTypeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCFileType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.604Z
+ * TimeStamp: 2020-04-23T21:12:59.430Z
  */
 public class HPCCFileTypeWrapper
 {
-protected String local_hPCCFileType;
+	protected String local_hPCCFileType;
 
 	public HPCCFileTypeWrapper() {}
 

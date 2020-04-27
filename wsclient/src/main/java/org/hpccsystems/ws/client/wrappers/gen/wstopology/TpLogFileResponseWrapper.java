@@ -23,31 +23,31 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpLogFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.957Z
+ * TimeStamp: 2020-04-24T00:43:36.392Z
  */
 public class TpLogFileResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_name;
-protected String local_type;
-protected String local_startDate;
-protected String local_endDate;
-protected int local_lastHours;
-protected int local_firstRows;
-protected int local_lastRows;
-protected boolean local_reversely;
-protected boolean local_zip;
-protected int local_filterType;
-protected String local_logData;
-protected boolean local_hasDate;
-protected long local_fileSize;
-protected long local_pageFrom;
-protected long local_pageTo;
-protected int local_pageNumber;
-protected int local_prevPage;
-protected int local_nextPage;
-protected int local_totalPages;
-protected String local_acceptLanguage;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_name;
+	protected String local_type;
+	protected String local_startDate;
+	protected String local_endDate;
+	protected int local_lastHours;
+	protected int local_firstRows;
+	protected int local_lastRows;
+	protected boolean local_reversely;
+	protected boolean local_zip;
+	protected int local_filterType;
+	protected String local_logData;
+	protected boolean local_hasDate;
+	protected long local_fileSize;
+	protected long local_pageFrom;
+	protected long local_pageTo;
+	protected int local_pageNumber;
+	protected int local_prevPage;
+	protected int local_nextPage;
+	protected int local_totalPages;
+	protected String local_acceptLanguage;
 
 	public TpLogFileResponseWrapper() {}
 
@@ -86,7 +86,8 @@ protected String local_acceptLanguage;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_name = raw.getName();
 		this.local_type = raw.getType();
 		this.local_startDate = raw.getStartDate();

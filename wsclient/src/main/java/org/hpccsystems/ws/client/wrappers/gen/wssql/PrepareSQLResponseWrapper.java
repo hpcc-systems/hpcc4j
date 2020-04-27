@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: PrepareSQLResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.619Z
+ * TimeStamp: 2020-04-23T21:12:59.352Z
  */
 public class PrepareSQLResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ECLWorkunitWrapper local_workunit;
-protected String local_result;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ECLWorkunitWrapper local_workunit;
+	protected String local_result;
 
 	public PrepareSQLResponseWrapper() {}
 
@@ -50,8 +50,10 @@ protected String local_result;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getWorkunit() != null)
+			this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
 		this.local_result = raw.getResult();
 
 	}
