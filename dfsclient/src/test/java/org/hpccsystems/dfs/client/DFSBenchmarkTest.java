@@ -30,6 +30,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Category(org.hpccsystems.commons.annotations.Benchmark.class)
 public class DFSBenchmarkTest extends BaseRemoteTest
 {
     private static final String[] datasets = {"benchmark::integer::100mb","benchmark::string::100mb","benchmark::varstring::100mb","benchmark::utf8::100mb",

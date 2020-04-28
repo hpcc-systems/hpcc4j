@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class FileSprayClientTest extends BaseRemoteTest
 {
     private static HPCCFileSprayClient filesprayclient = wsclient.getFileSprayClient();
