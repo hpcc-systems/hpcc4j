@@ -19,8 +19,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Ignore
+@Category(org.hpccsystems.commons.annotations.IntegrationTests.class)
 public abstract class BaseWsWorkunitsClientIntegrationTest extends BaseRemoteTest
 {
     HPCCWsWorkUnitsClient wswuclient;

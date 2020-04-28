@@ -1,8 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
-import org.junit.experimental.categories.Category;
-@Category(IntegrationTest.class)
+
 public class WsAttributesClientIntegrationTest_620 extends BaseWsAttributesClientIntegrationTest
 {
     @Override

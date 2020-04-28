@@ -1,8 +1,6 @@
 package org.hpccsystems.ws.client;
 
-import org.junit.experimental.categories.Category;
-@Category(IntegrationTest.class)
-public class WsWorkunitsClientIntegrationTest_54 extends BaseWsWorkunitsClientIntegrationTest
+public class WsWorkunitsClientIntegration_54_Test extends BaseWsWorkunitsClientIntegrationTest
 {
     String hpccver="5.4";
 
