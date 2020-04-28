@@ -33,12 +33,6 @@
 
   <profiles>
     <profile>
-      <id>integrationtests</id>
-      <properties>
-        <groups>org.hpccsystems.commons.annotations.IntegrationTests</groups>
-      </properties>
-    </profile>
-    <profile>
       <id>release</id>
       <properties>
         <maven.gpg.skip>false</maven.gpg.skip>

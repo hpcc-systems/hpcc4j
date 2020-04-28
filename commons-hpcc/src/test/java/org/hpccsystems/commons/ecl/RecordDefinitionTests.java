@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import org.junit.experimental.categories.Category;
 
-@Category(org.hpccsystems.commons.annotations.FastTests.class)
+@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class RecordDefinitionTests
 {
     @Before

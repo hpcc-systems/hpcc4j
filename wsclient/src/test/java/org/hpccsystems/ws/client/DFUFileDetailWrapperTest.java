@@ -32,7 +32,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFURecordDefWrapper;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(org.hpccsystems.commons.annotations.FastTests.class)
+@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class DFUFileDetailWrapperTest
 {
     private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";

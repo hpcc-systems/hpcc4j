@@ -57,7 +57,7 @@
     <log4j.version>2.13.0</log4j.version>
     <axis2.version>1.7.9</axis2.version>
     <javadoc.excludePackageNames></javadoc.excludePackageNames>
-    <groups>org.hpccsystems.commons.annotations.FastTests</groups>
+    <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
   </properties>
 
   <scm>
@@ -213,7 +213,7 @@
           <version>${maven.surefire.version}</version>
           <configuration>
             <argLine>${argLine}</argLine>
-            <groups>org.hpccsystems.commons.annotations.FastTests</groups>
+            <groups>${groups}</groups>
           </configuration>
         </plugin>
         <plugin>
@@ -352,10 +352,17 @@
       </build>
     </profile>
     <profile>
+      <id>benchmark</id>
+      <properties>
+        <maven.gpg.skip>true</maven.gpg.skip>
+        <groups>org.hpccsystems.commons.annotations.Benchmark</groups>
+      </properties>
+    </profile>
+    <profile>
       <id>jenkins-on-demand</id>
       <properties>
         <maven.gpg.skip>false</maven.gpg.skip>
-        <groups>org.hpccsystems.commons.annotations.FastTests,org.hpccsystems.commons.annotations.RemoteTests</groups>
+        <groups>org.hpccsystems.commons.annotations.BaseTests,org.hpccsystems.commons.annotations.RemoteTests</groups>
       </properties>
       <build>
         <plugins>
@@ -406,7 +413,7 @@
       <id>jenkins-release</id>
       <properties>
         <maven.gpg.skip>false</maven.gpg.skip>
-        <groups>org.hpccsystems.commons.annotations.FastTests</groups>
+        <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
       </properties>
       <build>
         <plugins>
