@@ -8,8 +8,9 @@ import org.hpccsystems.ws.client.platform.WUActionCode;
 import org.hpccsystems.ws.client.wrappers.WUState;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-
+@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class HPCCWsWorkUnitsClientTest
 {
     @Test

@@ -29,7 +29,7 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
 import org.junit.experimental.categories.Category;
 
-@Category(RemoteTests.class)
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
 {
     protected static Platform platform;

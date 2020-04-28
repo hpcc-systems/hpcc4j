@@ -27,13 +27,6 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
-        <configuration>
-          <argLine>${argLine}</argLine>
-          <excludes>
-            <exclude>**/DFSReadWriteTest.java</exclude>
-            <exclude>**/DFSBenchmarkTest.java</exclude>
-          </excludes>
-        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -54,26 +47,9 @@
   <profiles>
     <profile>
       <id>remote-test</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.surefire.version}</version>
-            <configuration combine.self="override">
-              <argLine>${argLine}</argLine>
-              <includes>
-                <include>**/RemoteTests.java</include>
-                <include>**/DFSReadWriteTest.java</include>
-                <include>**/DFSBenchmarkTest.java</include>
-              </includes>
-              <excludes>
-                <exclude>**/DFSRecordBuilderTest.java</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
+      <properties>
+        <groups>org.hpccsystems.commons.annotations.RemoteTests</groups>
+      </properties>
     </profile>
     <profile>
       <id>release</id>
@@ -97,58 +73,6 @@
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
             <version>${sonatype.staging.version}</version>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>jenkins</id>
-      <properties>
-        <surefire.excludedGroups />
-        <maven.gpg.skip>true</maven.gpg.skip>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${maven.javadoc.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>${maven.source.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${sonatype.staging.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.surefire.version}</version>
-            <configuration combine.self="override">
-              <argLine>${argLine}</argLine>
-              <includes>
-                <include>**/DFSRecordBuilderTest.java</include>
-                <include>**/DFSReadWriteTest.java</include>
-                <include>**/RemoteTests.java</include>
-              </includes>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven.gpg.version}</version>
-            <configuration>
-              <useAgent>true</useAgent>
-              <gpgArguments>
-                <arg>--batch</arg>
-                <arg>--pinentry-mode</arg>
-                <arg>loopback</arg>
-              </gpgArguments>
-            </configuration>
           </plugin>
         </plugins>
       </build>

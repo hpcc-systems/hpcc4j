@@ -48,7 +48,9 @@ import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
 {

@@ -10,7 +10,9 @@ import org.hpccsystems.commons.utils.CryptoHelper;
 import org.hpccsystems.commons.utils.DigestAlgorithmType;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class CryptoHelperTest
 {
     public String testEncrypt(String secretContent, Cipher cipher)

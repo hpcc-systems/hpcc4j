@@ -6,7 +6,9 @@ import java.net.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class LoggerManagerTest
 {
 	private static final Logger log  = LogManager.getLogger(LoggerManagerTest.class);
