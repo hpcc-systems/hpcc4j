@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpServiceQueryRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.976Z
+ * TimeStamp: 2020-04-24T00:43:36.335Z
  */
 public class TpServiceQueryRequestWrapper
 {
-protected String local_type;
+	protected String local_type;
 
 	public TpServiceQueryRequestWrapper() {}
 

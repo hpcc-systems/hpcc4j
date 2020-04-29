@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpMachineQueryRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.968Z
+ * TimeStamp: 2020-04-24T00:43:36.379Z
  */
 public class TpMachineQueryRequestWrapper
 {
-protected String local_type;
-protected String local_cluster;
-protected String local_oldIP;
-protected String local_path;
-protected String local_directory;
-protected String local_logDirectory;
+	protected String local_type;
+	protected String local_cluster;
+	protected String local_oldIP;
+	protected String local_path;
+	protected String local_directory;
+	protected String local_logDirectory;
 
 	public TpMachineQueryRequestWrapper() {}
 

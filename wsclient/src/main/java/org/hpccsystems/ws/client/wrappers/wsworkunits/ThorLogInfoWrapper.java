@@ -5,11 +5,8 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ThorLogInfo;
 public class ThorLogInfoWrapper
 {
     private String processName;
-
     private String clusterGroup;
-
     private String logDate;
-
     private Integer numberSlaves;
 
     /**

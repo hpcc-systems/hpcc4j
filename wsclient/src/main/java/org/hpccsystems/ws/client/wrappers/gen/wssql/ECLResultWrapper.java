@@ -23,20 +23,20 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.553Z
+ * TimeStamp: 2020-04-23T21:12:59.323Z
  */
 public class ECLResultWrapper
 {
-protected String local_name;
-protected int local_sequence;
-protected String local_value;
-protected String local_link;
-protected String local_fileName;
-protected boolean local_isSupplied;
-protected boolean local_showFileContent;
-protected long local_total;
-protected ArrayOfECLSchemaItemWrapper local_eCLSchemas;
-protected String local_xmlSchema;
+	protected String local_name;
+	protected int local_sequence;
+	protected String local_value;
+	protected String local_link;
+	protected String local_fileName;
+	protected boolean local_isSupplied;
+	protected boolean local_showFileContent;
+	protected long local_total;
+	protected ArrayOfECLSchemaItemWrapper local_eCLSchemas;
+	protected String local_xmlSchema;
 
 	public ECLResultWrapper() {}
 
@@ -72,7 +72,8 @@ protected String local_xmlSchema;
 		this.local_isSupplied = raw.getIsSupplied();
 		this.local_showFileContent = raw.getShowFileContent();
 		this.local_total = raw.getTotal();
-		this.local_eCLSchemas = new ArrayOfECLSchemaItemWrapper( raw.getECLSchemas());
+		if (raw.getECLSchemas() != null)
+			this.local_eCLSchemas = new ArrayOfECLSchemaItemWrapper( raw.getECLSchemas());
 		this.local_xmlSchema = raw.getXmlSchema();
 
 	}

@@ -23,20 +23,20 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpDaliWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.902Z
+ * TimeStamp: 2020-04-24T00:43:36.286Z
  */
 public class TpDaliWrapper
 {
-protected String local_name;
-protected String local_description;
-protected String local_build;
-protected String local_backupComputer;
-protected String local_backupDirectory;
-protected String local_type;
-protected String local_path;
-protected String local_logDirectory;
-protected String local_auditLogDirectory;
-protected ArrayOfTpMachineWrapper local_tpMachines;
+	protected String local_name;
+	protected String local_description;
+	protected String local_build;
+	protected String local_backupComputer;
+	protected String local_backupDirectory;
+	protected String local_type;
+	protected String local_path;
+	protected String local_logDirectory;
+	protected String local_auditLogDirectory;
+	protected ArrayOfTpMachineWrapper local_tpMachines;
 
 	public TpDaliWrapper() {}
 
@@ -73,7 +73,8 @@ protected ArrayOfTpMachineWrapper local_tpMachines;
 		this.local_path = raw.getPath();
 		this.local_logDirectory = raw.getLogDirectory();
 		this.local_auditLogDirectory = raw.getAuditLogDirectory();
-		this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
+		if (raw.getTpMachines() != null)
+			this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
 
 	}
 

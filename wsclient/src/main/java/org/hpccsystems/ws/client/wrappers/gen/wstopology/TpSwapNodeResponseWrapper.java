@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpSwapNodeResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.987Z
+ * TimeStamp: 2020-04-24T00:43:36.354Z
  */
 public class TpSwapNodeResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected boolean local_tpSwapNodeResult;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected boolean local_tpSwapNodeResult;
 
 	public TpSwapNodeResponseWrapper() {}
 
@@ -48,7 +48,8 @@ protected boolean local_tpSwapNodeResult;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_tpSwapNodeResult = raw.getTpSwapNodeResult();
 
 	}

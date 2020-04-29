@@ -23,29 +23,29 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetDFUWorkunitsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.058Z
+ * TimeStamp: 2020-04-24T00:05:33.991Z
  */
 public class GetDFUWorkunitsResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfDFUWorkunitWrapper local_results;
-protected String local_type;
-protected String local_owner;
-protected String local_cluster;
-protected String local_stateReq;
-protected long local_pageSize;
-protected long local_prevPage;
-protected long local_nextPage;
-protected long local_lastPage;
-protected long local_numWUs;
-protected long local_pageStartFrom;
-protected long local_pageEndAt;
-protected boolean local_first;
-protected String local_sortby;
-protected boolean local_descending;
-protected String local_basicQuery;
-protected String local_filters;
-protected long local_cacheHint;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfDFUWorkunitWrapper local_results;
+	protected String local_type;
+	protected String local_owner;
+	protected String local_cluster;
+	protected String local_stateReq;
+	protected long local_pageSize;
+	protected long local_prevPage;
+	protected long local_nextPage;
+	protected long local_lastPage;
+	protected long local_numWUs;
+	protected long local_pageStartFrom;
+	protected long local_pageEndAt;
+	protected boolean local_first;
+	protected String local_sortby;
+	protected boolean local_descending;
+	protected String local_basicQuery;
+	protected String local_filters;
+	protected long local_cacheHint;
 
 	public GetDFUWorkunitsResponseWrapper() {}
 
@@ -82,8 +82,10 @@ protected long local_cacheHint;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_results = new ArrayOfDFUWorkunitWrapper( raw.getResults());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getResults() != null)
+			this.local_results = new ArrayOfDFUWorkunitWrapper( raw.getResults());
 		this.local_type = raw.getType();
 		this.local_owner = raw.getOwner();
 		this.local_cluster = raw.getCluster();

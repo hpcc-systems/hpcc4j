@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLSchemaItemWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSchemaItem
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.511Z
+ * TimeStamp: 2020-04-23T21:12:59.397Z
  */
 public class ArrayOfECLSchemaItemWrapper
 {
-protected List<ECLSchemaItemWrapper> local_eCLSchemaItem = new ArrayList<ECLSchemaItemWrapper>();
+	protected List<ECLSchemaItemWrapper> local_eCLSchemaItem = null;
 
 	public ArrayOfECLSchemaItemWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLSchemaItemWrapper> local_eCLSchemaItem = new ArrayList<ECLSche
 			for ( int i = 0; i < this.local_eCLSchemaItem.size(); i++)
 			{
 				arr[i] = this.local_eCLSchemaItem.get(i) .getRaw();
-			}		raw.setECLSchemaItem(arr);
-}
+			}
+			raw.setECLSchemaItem(arr);
+		}
 		return raw;
 	}
 

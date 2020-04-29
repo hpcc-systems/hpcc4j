@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class FileSprayClientTest extends BaseRemoteTest
 {
     private static HPCCFileSprayClient filesprayclient = wsclient.getFileSprayClient();
@@ -185,7 +186,9 @@ public class FileSprayClientTest extends BaseRemoteTest
             assumeNotNull(foundLocalDZ);
 
             DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), fileNames, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
-            if (!result.getExceptions().getException().isEmpty())
+            Assert.assertNotNull(result);
+
+            if (result.getExceptions() != null && !result.getExceptions().getException().isEmpty())
             {
                 Assert.fail("failed to delete file\n" + result.getExceptions().toString());
             }
@@ -223,8 +226,8 @@ public class FileSprayClientTest extends BaseRemoteTest
             assumeNotNull(foundLocalDZ);
 
             DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), badFileName, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
-
-            if (!result.getExceptions().getException().isEmpty())
+            Assert.assertNotNull(result);
+            if (result.getExceptions() != null && !result.getExceptions().getException().isEmpty())
             {
                 Assert.fail("Got an exception when trying to delete the non existent file\n" + result.getExceptions().toString());
             }

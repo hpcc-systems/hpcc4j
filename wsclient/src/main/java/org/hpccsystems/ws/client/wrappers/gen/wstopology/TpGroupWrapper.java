@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpGroupWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.944Z
+ * TimeStamp: 2020-04-24T00:43:36.380Z
  */
 public class TpGroupWrapper
 {
-protected String local_name;
-protected String local_kind;
-protected boolean local_replicateOutputs;
+	protected String local_name;
+	protected String local_kind;
+	protected boolean local_replicateOutputs;
 
 	public TpGroupWrapper() {}
 

@@ -23,17 +23,17 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: OpenSaveResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.063Z
+ * TimeStamp: 2020-04-24T00:05:33.927Z
  */
 public class OpenSaveResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_location;
-protected String local_path;
-protected String local_name;
-protected String local_type;
-protected String local_dateTime;
-protected boolean local_viewable;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_location;
+	protected String local_path;
+	protected String local_name;
+	protected String local_type;
+	protected String local_dateTime;
+	protected boolean local_viewable;
 
 	public OpenSaveResponseWrapper() {}
 
@@ -58,7 +58,8 @@ protected boolean local_viewable;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_location = raw.getLocation();
 		this.local_path = raw.getPath();
 		this.local_name = raw.getName();

@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLSourceFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.512Z
+ * TimeStamp: 2020-04-23T21:12:59.442Z
  */
 public class ArrayOfECLSourceFileWrapper
 {
-protected List<ECLSourceFileWrapper> local_eCLSourceFile = new ArrayList<ECLSourceFileWrapper>();
+	protected List<ECLSourceFileWrapper> local_eCLSourceFile = null;
 
 	public ArrayOfECLSourceFileWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLSourceFileWrapper> local_eCLSourceFile = new ArrayList<ECLSour
 			for ( int i = 0; i < this.local_eCLSourceFile.size(); i++)
 			{
 				arr[i] = this.local_eCLSourceFile.get(i) .getRaw();
-			}		raw.setECLSourceFile(arr);
-}
+			}
+			raw.setECLSourceFile(arr);
+		}
 		return raw;
 	}
 

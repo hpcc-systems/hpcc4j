@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpClusterQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.900Z
+ * TimeStamp: 2020-04-24T00:43:36.415Z
  */
 public class TpClusterQueryResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected boolean local_enableSNMP;
-protected String local_acceptLanguage;
-protected ArrayOfTpClusterWrapper local_tpClusters;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected boolean local_enableSNMP;
+	protected String local_acceptLanguage;
+	protected ArrayOfTpClusterWrapper local_tpClusters;
 
 	public TpClusterQueryResponseWrapper() {}
 
@@ -52,10 +52,12 @@ protected ArrayOfTpClusterWrapper local_tpClusters;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_enableSNMP = raw.getEnableSNMP();
 		this.local_acceptLanguage = raw.getAcceptLanguage();
-		this.local_tpClusters = new ArrayOfTpClusterWrapper( raw.getTpClusters());
+		if (raw.getTpClusters() != null)
+			this.local_tpClusters = new ArrayOfTpClusterWrapper( raw.getTpClusters());
 
 	}
 

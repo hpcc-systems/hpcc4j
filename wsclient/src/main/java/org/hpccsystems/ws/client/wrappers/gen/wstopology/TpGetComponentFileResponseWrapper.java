@@ -24,12 +24,12 @@ import javax.activation.DataHandler;
  * Class name: TpGetComponentFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.940Z
+ * TimeStamp: 2020-04-24T00:43:36.356Z
  */
 public class TpGetComponentFileResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected DataHandler local_fileContents;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected DataHandler local_fileContents;
 
 	public TpGetComponentFileResponseWrapper() {}
 
@@ -49,7 +49,8 @@ protected DataHandler local_fileContents;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_fileContents = raw.getFileContents();
 
 	}

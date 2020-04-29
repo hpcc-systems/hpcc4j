@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLWorkflowWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.561Z
+ * TimeStamp: 2020-04-23T21:12:59.395Z
  */
 public class ECLWorkflowWrapper
 {
-protected String local_wFID;
-protected String local_eventName;
-protected String local_eventText;
-protected int local_count;
-protected int local_countRemaining;
+	protected String local_wFID;
+	protected String local_eventName;
+	protected String local_eventText;
+	protected int local_count;
+	protected int local_countRemaining;
 
 	public ECLWorkflowWrapper() {}
 

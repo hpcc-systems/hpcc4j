@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: DataTypeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.532Z
+ * TimeStamp: 2020-04-23T21:12:59.427Z
  */
 public class DataTypeWrapper
 {
-protected HPCCFileTypeWrapper local_type;
-protected Params_type0Wrapper local_params;
+	protected HPCCFileTypeWrapper local_type;
+	protected Params_type0Wrapper local_params;
 
 	public DataTypeWrapper() {}
 
@@ -48,8 +48,10 @@ protected Params_type0Wrapper local_params;
 		if (raw == null)
 			return;
 
-		this.local_type = new HPCCFileTypeWrapper( raw.getType());
-		this.local_params = new Params_type0Wrapper( raw.getParams());
+		if (raw.getType() != null)
+			this.local_type = new HPCCFileTypeWrapper( raw.getType());
+		if (raw.getParams() != null)
+			this.local_params = new Params_type0Wrapper( raw.getParams());
 
 	}
 

@@ -26,12 +26,12 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
  * Class name: DFUWorkunitsActionRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.027Z
+ * TimeStamp: 2020-04-24T00:05:34.027Z
  */
 public class DFUWorkunitsActionRequestWrapper
 {
-protected List<String> local_wuids = new ArrayList<String>();
-protected DFUWUActionsWrapper local_type;
+	protected List<String> local_wuids = null;
+	protected DFUWUActionsWrapper local_type;
 
 	public DFUWorkunitsActionRequestWrapper() {}
 
@@ -58,7 +58,8 @@ protected DFUWUActionsWrapper local_type;
 			{
 				this.local_wuids.add(new String(raw.getWuids().getItem()[i]));
 			}
-		}		this.local_type = new DFUWUActionsWrapper( raw.getType());
+		}		if (raw.getType() != null)
+			this.local_type = new DFUWUActionsWrapper( raw.getType());
 
 	}
 

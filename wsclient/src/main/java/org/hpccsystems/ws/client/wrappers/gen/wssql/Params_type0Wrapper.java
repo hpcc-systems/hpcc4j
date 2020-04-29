@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: Params_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Params_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.616Z
+ * TimeStamp: 2020-04-23T21:12:59.402Z
  */
 public class Params_type0Wrapper
 {
-protected List<DataTypeParamWrapper> local_param = new ArrayList<DataTypeParamWrapper>();
+	protected List<DataTypeParamWrapper> local_param = null;
 
 	public Params_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<DataTypeParamWrapper> local_param = new ArrayList<DataTypeParamWr
 			for ( int i = 0; i < this.local_param.size(); i++)
 			{
 				arr[i] = this.local_param.get(i) .getRaw();
-			}		raw.setParam(arr);
-}
+			}
+			raw.setParam(arr);
+		}
 		return raw;
 	}
 

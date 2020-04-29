@@ -24,12 +24,12 @@ import javax.activation.DataHandler;
  * Class name: SystemLogResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.890Z
+ * TimeStamp: 2020-04-24T00:43:36.388Z
  */
 public class SystemLogResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected DataHandler local_thefile;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected DataHandler local_thefile;
 
 	public SystemLogResponseWrapper() {}
 
@@ -49,7 +49,8 @@ protected DataHandler local_thefile;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_thefile = raw.getThefile();
 
 	}

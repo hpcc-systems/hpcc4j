@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: GetResultsRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.598Z
+ * TimeStamp: 2020-04-23T21:12:59.428Z
  */
 public class GetResultsRequestWrapper
 {
-protected String local_wuId;
-protected boolean local_suppressXmlSchema;
-protected int local_resultWindowStart;
-protected int local_resultWindowCount;
+	protected String local_wuId;
+	protected boolean local_suppressXmlSchema;
+	protected int local_resultWindowStart;
+	protected int local_resultWindowCount;
 
 	public GetResultsRequestWrapper() {}
 

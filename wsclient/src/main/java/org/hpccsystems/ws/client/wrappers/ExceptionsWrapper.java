@@ -26,7 +26,7 @@ package org.hpccsystems.ws.client.wrappers;
 
 public class ExceptionsWrapper
 {
-    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfEspExceptionWrapper local_exceptions = null;
 
     /**
      * Instantiates a new exceptions wrapper.
@@ -66,7 +66,8 @@ public class ExceptionsWrapper
      */
     private void copy(ExceptionsWrapper raw)
     {
-        this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
+        if (raw != null && raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
     }
 
     /*

@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfDropZoneWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:34.990Z
+ * TimeStamp: 2020-04-24T00:05:33.898Z
  */
 public class ArrayOfDropZoneWrapper
 {
-protected List<DropZoneWrapper> local_dropZone = new ArrayList<DropZoneWrapper>();
+	protected List<DropZoneWrapper> local_dropZone = null;
 
 	public ArrayOfDropZoneWrapper() {}
 

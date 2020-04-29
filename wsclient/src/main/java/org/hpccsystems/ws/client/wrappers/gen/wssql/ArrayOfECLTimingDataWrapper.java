@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfECLTimingDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLTimingData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.515Z
+ * TimeStamp: 2020-04-23T21:12:59.274Z
  */
 public class ArrayOfECLTimingDataWrapper
 {
-protected List<ECLTimingDataWrapper> local_eCLTimingData = new ArrayList<ECLTimingDataWrapper>();
+	protected List<ECLTimingDataWrapper> local_eCLTimingData = null;
 
 	public ArrayOfECLTimingDataWrapper() {}
 
@@ -72,8 +72,9 @@ protected List<ECLTimingDataWrapper> local_eCLTimingData = new ArrayList<ECLTimi
 			for ( int i = 0; i < this.local_eCLTimingData.size(); i++)
 			{
 				arr[i] = this.local_eCLTimingData.get(i) .getRaw();
-			}		raw.setECLTimingData(arr);
-}
+			}
+			raw.setECLTimingData(arr);
+		}
 		return raw;
 	}
 

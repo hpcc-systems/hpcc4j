@@ -24,14 +24,14 @@ import java.math.BigInteger;
  * Class name: EclFieldTypeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.546Z
+ * TimeStamp: 2020-04-23T21:12:59.391Z
  */
 public class EclFieldTypeWrapper
 {
-protected HPCCFieldTypeWrapper local_type;
-protected String local_locale;
-protected BigInteger local_length;
-protected BigInteger local_precision;
+	protected HPCCFieldTypeWrapper local_type;
+	protected String local_locale;
+	protected BigInteger local_length;
+	protected BigInteger local_precision;
 
 	public EclFieldTypeWrapper() {}
 
@@ -53,7 +53,8 @@ protected BigInteger local_precision;
 		if (raw == null)
 			return;
 
-		this.local_type = new HPCCFieldTypeWrapper( raw.getType());
+		if (raw.getType() != null)
+			this.local_type = new HPCCFieldTypeWrapper( raw.getType());
 		this.local_locale = raw.getLocale();
 		this.local_length = raw.getLength();
 		this.local_precision = raw.getPrecision();

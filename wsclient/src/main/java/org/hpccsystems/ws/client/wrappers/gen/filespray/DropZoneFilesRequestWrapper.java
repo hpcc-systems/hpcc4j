@@ -23,17 +23,17 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DropZoneFilesRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.039Z
+ * TimeStamp: 2020-04-24T00:05:34.002Z
  */
 public class DropZoneFilesRequestWrapper
 {
-protected String local_dropZoneName;
-protected String local_netAddress;
-protected String local_path;
-protected String local_oS;
-protected String local_subfolder;
-protected boolean local_eCLWatchVisibleOnly;
-protected boolean local_directoryOnly;
+	protected String local_dropZoneName;
+	protected String local_netAddress;
+	protected String local_path;
+	protected String local_oS;
+	protected String local_subfolder;
+	protected boolean local_eCLWatchVisibleOnly;
+	protected boolean local_directoryOnly;
 
 	public DropZoneFilesRequestWrapper() {}
 

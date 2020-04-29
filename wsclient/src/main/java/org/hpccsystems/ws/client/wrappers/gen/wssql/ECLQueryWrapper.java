@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.552Z
+ * TimeStamp: 2020-04-23T21:12:59.425Z
  */
 public class ECLQueryWrapper
 {
-protected String local_text;
-protected String local_cpp;
-protected String local_resTxt;
-protected String local_dll;
-protected String local_thorLog;
-protected String local_queryMainDefinition;
+	protected String local_text;
+	protected String local_cpp;
+	protected String local_resTxt;
+	protected String local_dll;
+	protected String local_thorLog;
+	protected String local_queryMainDefinition;
 
 	public ECLQueryWrapper() {}
 

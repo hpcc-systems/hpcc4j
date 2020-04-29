@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpGroupWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.872Z
+ * TimeStamp: 2020-04-24T00:43:36.386Z
  */
 public class ArrayOfTpGroupWrapper
 {
-protected List<TpGroupWrapper> local_tpGroup = new ArrayList<TpGroupWrapper>();
+	protected List<TpGroupWrapper> local_tpGroup = null;
 
 	public ArrayOfTpGroupWrapper() {}
 

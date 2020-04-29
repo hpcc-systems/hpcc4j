@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: QuerySetAliasMapWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.623Z
+ * TimeStamp: 2020-04-23T21:12:59.389Z
  */
 public class QuerySetAliasMapWrapper
 {
-protected String local_id;
-protected String local_name;
+	protected String local_id;
+	protected String local_name;
 
 	public QuerySetAliasMapWrapper() {}
 

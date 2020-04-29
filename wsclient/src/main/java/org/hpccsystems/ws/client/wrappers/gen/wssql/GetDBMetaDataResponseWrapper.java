@@ -24,15 +24,15 @@ import java.math.BigInteger;
  * Class name: GetDBMetaDataResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.590Z
+ * TimeStamp: 2020-04-23T21:12:59.439Z
  */
 public class GetDBMetaDataResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected Tables_type0Wrapper local_tables;
-protected BigInteger local_tableCount;
-protected QuerySets_type0Wrapper local_querySets;
-protected ClusterNames_type0Wrapper local_clusterNames;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected Tables_type0Wrapper local_tables;
+	protected BigInteger local_tableCount;
+	protected QuerySets_type0Wrapper local_querySets;
+	protected ClusterNames_type0Wrapper local_clusterNames;
 
 	public GetDBMetaDataResponseWrapper() {}
 
@@ -55,11 +55,15 @@ protected ClusterNames_type0Wrapper local_clusterNames;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_tables = new Tables_type0Wrapper( raw.getTables());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getTables() != null)
+			this.local_tables = new Tables_type0Wrapper( raw.getTables());
 		this.local_tableCount = raw.getTableCount();
-		this.local_querySets = new QuerySets_type0Wrapper( raw.getQuerySets());
-		this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
+		if (raw.getQuerySets() != null)
+			this.local_querySets = new QuerySets_type0Wrapper( raw.getQuerySets());
+		if (raw.getClusterNames() != null)
+			this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
 
 	}
 

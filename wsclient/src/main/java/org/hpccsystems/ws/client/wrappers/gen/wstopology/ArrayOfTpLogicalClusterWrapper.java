@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfTpLogicalClusterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.874Z
+ * TimeStamp: 2020-04-24T00:43:36.413Z
  */
 public class ArrayOfTpLogicalClusterWrapper
 {
-protected List<TpLogicalClusterWrapper> local_tpLogicalCluster = new ArrayList<TpLogicalClusterWrapper>();
+	protected List<TpLogicalClusterWrapper> local_tpLogicalCluster = null;
 
 	public ArrayOfTpLogicalClusterWrapper() {}
 

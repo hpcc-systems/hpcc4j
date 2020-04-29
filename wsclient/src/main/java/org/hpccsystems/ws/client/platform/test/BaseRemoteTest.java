@@ -29,7 +29,7 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
 import org.junit.experimental.categories.Category;
 
-@Category(RemoteTest.class)
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
 {
     protected static Platform platform;
@@ -104,6 +104,7 @@ public abstract class BaseRemoteTest
 
     static
     {
+    	//System.setProperty("log4j.configurationFile" , "/home/ubuntu/GIT/HPCC-JAPIs/log4j2.xml");
         InetAddress ip;
         String hostname;
         try

@@ -23,27 +23,27 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpMachineQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.970Z
+ * TimeStamp: 2020-04-24T00:43:36.348Z
  */
 public class TpMachineQueryResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected boolean local_enablePreflightInfo;
-protected boolean local_hasThorSpareProcess;
-protected String local_type;
-protected String local_cluster;
-protected String local_oldIP;
-protected String local_logDirectory;
-protected String local_path;
-protected int local_memThreshold;
-protected int local_diskThreshold;
-protected int local_cpuThreshold;
-protected String local_memThresholdType;
-protected String local_diskThresholdType;
-protected String local_preflightProcessFilter;
-protected boolean local_enableSNMP;
-protected String local_acceptLanguage;
-protected ArrayOfTpMachineWrapper local_tpMachines;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected boolean local_enablePreflightInfo;
+	protected boolean local_hasThorSpareProcess;
+	protected String local_type;
+	protected String local_cluster;
+	protected String local_oldIP;
+	protected String local_logDirectory;
+	protected String local_path;
+	protected int local_memThreshold;
+	protected int local_diskThreshold;
+	protected int local_cpuThreshold;
+	protected String local_memThresholdType;
+	protected String local_diskThresholdType;
+	protected String local_preflightProcessFilter;
+	protected boolean local_enableSNMP;
+	protected String local_acceptLanguage;
+	protected ArrayOfTpMachineWrapper local_tpMachines;
 
 	public TpMachineQueryResponseWrapper() {}
 
@@ -78,7 +78,8 @@ protected ArrayOfTpMachineWrapper local_tpMachines;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_enablePreflightInfo = raw.getEnablePreflightInfo();
 		this.local_hasThorSpareProcess = raw.getHasThorSpareProcess();
 		this.local_type = raw.getType();
@@ -94,7 +95,8 @@ protected ArrayOfTpMachineWrapper local_tpMachines;
 		this.local_preflightProcessFilter = raw.getPreflightProcessFilter();
 		this.local_enableSNMP = raw.getEnableSNMP();
 		this.local_acceptLanguage = raw.getAcceptLanguage();
-		this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
+		if (raw.getTpMachines() != null)
+			this.local_tpMachines = new ArrayOfTpMachineWrapper( raw.getTpMachines());
 
 	}
 

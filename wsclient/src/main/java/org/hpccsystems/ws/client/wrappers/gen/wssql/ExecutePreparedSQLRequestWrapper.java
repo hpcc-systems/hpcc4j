@@ -23,19 +23,19 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ExecutePreparedSQLRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.580Z
+ * TimeStamp: 2020-04-23T21:12:59.291Z
  */
 public class ExecutePreparedSQLRequestWrapper
 {
-protected String local_wuId;
-protected String local_userName;
-protected String local_targetCluster;
-protected boolean local_suppressResults;
-protected boolean local_suppressXmlSchema;
-protected int local_wait;
-protected int local_resultWindowStart;
-protected int local_resultWindowCount;
-protected ArrayOfNamedValueWrapper local_variables;
+	protected String local_wuId;
+	protected String local_userName;
+	protected String local_targetCluster;
+	protected boolean local_suppressResults;
+	protected boolean local_suppressXmlSchema;
+	protected int local_wait;
+	protected int local_resultWindowStart;
+	protected int local_resultWindowCount;
+	protected ArrayOfNamedValueWrapper local_variables;
 
 	public ExecutePreparedSQLRequestWrapper() {}
 
@@ -70,7 +70,8 @@ protected ArrayOfNamedValueWrapper local_variables;
 		this.local_wait = raw.getWait();
 		this.local_resultWindowStart = raw.getResultWindowStart();
 		this.local_resultWindowCount = raw.getResultWindowCount();
-		this.local_variables = new ArrayOfNamedValueWrapper( raw.getVariables());
+		if (raw.getVariables() != null)
+			this.local_variables = new ArrayOfNamedValueWrapper( raw.getVariables());
 
 	}
 

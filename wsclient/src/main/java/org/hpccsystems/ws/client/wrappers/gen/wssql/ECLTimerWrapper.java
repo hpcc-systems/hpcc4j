@@ -23,17 +23,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLTimerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.558Z
+ * TimeStamp: 2020-04-23T21:12:59.445Z
  */
 public class ECLTimerWrapper
 {
-protected String local_name;
-protected String local_value;
-protected int local_count;
-protected String local_graphName;
-protected int local_subGraphId;
-protected long local_timestamp;
-protected String local_when;
+	protected String local_name;
+	protected String local_value;
+	protected int local_count;
+	protected String local_graphName;
+	protected int local_subGraphId;
+	protected long local_timestamp;
+	protected String local_when;
 
 	public ECLTimerWrapper() {}
 

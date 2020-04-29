@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: ExceptionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.886Z
+ * TimeStamp: 2020-04-24T00:43:36.314Z
  */
 public class ExceptionsWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
 
 	public ExceptionsWrapper() {}
 
@@ -46,7 +46,8 @@ protected ArrayOfEspExceptionWrapper local_exceptions;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
 	}
 

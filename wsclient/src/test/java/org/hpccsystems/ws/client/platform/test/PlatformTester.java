@@ -34,6 +34,9 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartsOnClusterWrapper;
 
+import org.junit.experimental.categories.Category;
+
+@Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class PlatformTester
 {
     public static void writeFile(String filename, String content, boolean overwrite)

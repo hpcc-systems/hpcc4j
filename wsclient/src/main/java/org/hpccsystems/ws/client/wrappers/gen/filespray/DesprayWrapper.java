@@ -24,27 +24,27 @@ import javax.activation.DataHandler;
  * Class name: DesprayWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.008Z
+ * TimeStamp: 2020-04-24T00:05:33.923Z
  */
 public class DesprayWrapper
 {
-protected String local_sourceLogicalName;
-protected String local_destIP;
-protected String local_destPath;
-protected DataHandler local_dstxml;
-protected boolean local_overwrite;
-protected int local_maxConnections;
-protected int local_throttle;
-protected int local_transferBufferSize;
-protected String local_splitprefix;
-protected boolean local_norecover;
-protected boolean local_wrap;
-protected boolean local_multiCopy;
-protected boolean local_singleConnection;
-protected String local_dFUServerQueue;
-protected boolean local_compress;
-protected String local_encrypt;
-protected String local_decrypt;
+	protected String local_sourceLogicalName;
+	protected String local_destIP;
+	protected String local_destPath;
+	protected DataHandler local_dstxml;
+	protected boolean local_overwrite;
+	protected int local_maxConnections;
+	protected int local_throttle;
+	protected int local_transferBufferSize;
+	protected String local_splitprefix;
+	protected boolean local_norecover;
+	protected boolean local_wrap;
+	protected boolean local_multiCopy;
+	protected boolean local_singleConnection;
+	protected String local_dFUServerQueue;
+	protected boolean local_compress;
+	protected String local_encrypt;
+	protected String local_decrypt;
 
 	public DesprayWrapper() {}
 

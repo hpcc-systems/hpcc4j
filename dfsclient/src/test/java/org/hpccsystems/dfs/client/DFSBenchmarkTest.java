@@ -29,9 +29,8 @@ import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(RemoteTests.class)
+@Category(org.hpccsystems.commons.annotations.Benchmark.class)
 public class DFSBenchmarkTest extends BaseRemoteTest
 {
     private static final String[] datasets = {"benchmark::integer::100mb","benchmark::string::100mb","benchmark::varstring::100mb","benchmark::utf8::100mb",

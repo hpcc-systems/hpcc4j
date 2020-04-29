@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpLogicalClusterQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.961Z
+ * TimeStamp: 2020-04-24T00:43:36.424Z
  */
 public class TpLogicalClusterQueryResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfTpLogicalClusterWrapper local_tpLogicalClusters;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfTpLogicalClusterWrapper local_tpLogicalClusters;
 
 	public TpLogicalClusterQueryResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected ArrayOfTpLogicalClusterWrapper local_tpLogicalClusters;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_tpLogicalClusters = new ArrayOfTpLogicalClusterWrapper( raw.getTpLogicalClusters());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getTpLogicalClusters() != null)
+			this.local_tpLogicalClusters = new ArrayOfTpLogicalClusterWrapper( raw.getTpLogicalClusters());
 
 	}
 

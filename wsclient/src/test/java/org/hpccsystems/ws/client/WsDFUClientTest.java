@@ -3,6 +3,8 @@ package org.hpccsystems.ws.client;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,8 +12,10 @@ import java.util.Set;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
@@ -26,6 +30,7 @@ import org.w3c.dom.NodeList;
 public class WsDFUClientTest extends BaseRemoteTest
 {
     private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
+    private final static String logicalfilename = System.getProperty("logicalfilename", DEFAULTHPCCFILENAME);
 
     @Before
     public void delayhack()
@@ -363,4 +368,14 @@ public class WsDFUClientTest extends BaseRemoteTest
         assertEquals(2,results.size());
         assertEquals(fname2, results.get(0).getFileName());
     }
+
+    @Test
+    public void getClustersTest() throws Exception
+    {
+        DFUFileDetailWrapper fileWrapper = wsdfuclient.getFileDetails(logicalfilename, null);
+        Set<String> clusters = fileWrapper.getClusters();
+        assertTrue(clusters != null && !clusters.isEmpty());
+        assertTrue(clusters.stream().findFirst().isPresent());
+    }
+
 }

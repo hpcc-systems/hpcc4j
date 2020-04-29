@@ -23,19 +23,19 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: ECLGraphWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLGraph
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.548Z
+ * TimeStamp: 2020-04-23T21:12:59.327Z
  */
 public class ECLGraphWrapper
 {
-protected String local_name;
-protected String local_label;
-protected String local_type;
-protected boolean local_running;
-protected boolean local_complete;
-protected boolean local_failed;
-protected long local_runningId;
-protected String local_whenStarted;
-protected String local_whenFinished;
+	protected String local_name;
+	protected String local_label;
+	protected String local_type;
+	protected boolean local_running;
+	protected boolean local_complete;
+	protected boolean local_failed;
+	protected long local_runningId;
+	protected String local_whenStarted;
+	protected String local_whenFinished;
 
 	public ECLGraphWrapper() {}
 

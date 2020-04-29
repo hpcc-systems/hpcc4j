@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: Columns_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Columns_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.525Z
+ * TimeStamp: 2020-04-23T21:12:59.402Z
  */
 public class Columns_type0Wrapper
 {
-protected List<HPCCColumnWrapper> local_column = new ArrayList<HPCCColumnWrapper>();
+	protected List<HPCCColumnWrapper> local_column = null;
 
 	public Columns_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<HPCCColumnWrapper> local_column = new ArrayList<HPCCColumnWrapper
 			for ( int i = 0; i < this.local_column.size(); i++)
 			{
 				arr[i] = this.local_column.get(i) .getRaw();
-			}		raw.setColumn(arr);
-}
+			}
+			raw.setColumn(arr);
+		}
 		return raw;
 	}
 

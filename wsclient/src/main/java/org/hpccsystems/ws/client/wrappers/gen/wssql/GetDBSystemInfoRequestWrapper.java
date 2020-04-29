@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: GetDBSystemInfoRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.591Z
+ * TimeStamp: 2020-04-23T21:12:59.444Z
  */
 public class GetDBSystemInfoRequestWrapper
 {
-protected boolean local_includeAll;
+	protected boolean local_includeAll;
 
 	public GetDBSystemInfoRequestWrapper() {}
 

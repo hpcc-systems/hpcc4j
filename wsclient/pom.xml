@@ -102,29 +102,6 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
-        <configuration>
-          <argLine>${argLine}</argLine>
-          <excludes>
-            <exclude>**/WsClientTest.java</exclude>
-            <exclude>**/WsAttributesClientTest.java</exclude>
-            <exclude>**/HPCCWsWorkUnitsClientTest.java</exclude>
-            <exclude>**/EclParseRegressionTest.java</exclude>
-            <exclude>**/RampsDevRegressionTest.java</exclude>
-            <exclude>**/*IntegrationTest.java</exclude>
-            <exclude>**/*IntegrationTest_620.java</exclude>
-            <exclude>**/*IntegrationTest_54.java</exclude>
-            <exclude>**/WSFileIOClientTest.java</exclude>
-            <exclude>**/WUQueryTest.java</exclude>
-            <exclude>**/FileSprayClientTest.java</exclude>
-            <exclude>**/WsDFUClientTest.java</exclude>
-            <exclude>**/WSPackageProcessTest.java</exclude>
-            <exclude>**/WsSMCClientTest.java</exclude>
-            <exclude>**/WSSQLClientTest.java</exclude>
-            <exclude>**/WSStoreClientTest.java</exclude>
-            <exclude>**/WSTopologyClientTest.java</exclude>
-            <exclude>**/WSWorkunitsTest.java</exclude>
-          </excludes>
-        </configuration>
       </plugin>
    </plugins>
  </build>
@@ -592,66 +569,15 @@
    </profile>
    <profile>
      <id>remote-test</id>
-     <build>
-       <plugins>
-         <plugin>
-           <artifactId>maven-surefire-plugin</artifactId>
-           <version>${maven.surefire.version}</version>
-           <configuration combine.self="override">
-             <argLine>${argLine}</argLine>
-             <includes>
-               <!-- currently not setup as a test, won't execute -->
-               <include>**/PlatformTester.java</include> 
-             </includes>
-             <excludes>
-               <exclude>**/ManualUnitTest.java</exclude>
-               <exclude>**/DFUFileDetailInfoTest.java</exclude>
-               <exclude>**/EclParseRegressionTest.java</exclude>
-               <exclude>**/RampsDevRegressionTest.java</exclude>
-               <exclude>**/Accounts.java</exclude>
-               <exclude>**/Persons.java</exclude>
-               <exclude>**/RecordDefinitions.java</exclude>
-               <exclude>**/PlatformTester.java</exclude>
-               <exclude>**/SerializeTester.java</exclude>
-               <exclude>**/WSFileIOClientTest.java</exclude>
-               <exclude>**/WUQueryTest.java</exclude>
-               <exclude>**/*IntegrationTest.java</exclude>
-               <exclude>**/*IntegrationTest_620.java</exclude>
-               <exclude>**/*IntegrationTest_54.java</exclude>
-             </excludes>
-           </configuration>
-         </plugin>
-       </plugins>
-     </build>
+     <properties>
+       <groups>org.hpccsystems.commons.annotations.RemoteTests</groups>
+     </properties>
    </profile>
    <profile>
      <id>integrationtests</id>
-     <build>
-       <plugins>
-         <plugin>
-           <artifactId>maven-surefire-plugin</artifactId>
-           <version>${maven.surefire.version}</version>
-           <configuration combine.self="override">
-             <argLine>${argLine}</argLine>
-             <excludes>
-               <exclude>**/HPCCWsWorkUnitsClientTest.java</exclude>
-               <exclude>**/ManualUnitTest.java</exclude>
-               <exclude>**/DFUFileDetailInfoTest.java</exclude>
-               <exclude>**/EclParseRegressionTest.java</exclude>
-               <exclude>**/RampsDevRegressionTest.java</exclude>
-               <exclude>**/Accounts.java</exclude>
-               <exclude>**/Persons.java</exclude>
-               <exclude>**/RecordDefinitions.java</exclude>
-               <exclude>**/PlatformTester.java</exclude>
-               <exclude>**/SerializeTester.java</exclude>
-               <exclude>**/RemoteTest.java</exclude>
-               <exclude>**/WSFileIOClientTest.java</exclude>
-               <exclude>**/WUQueryTest.java</exclude>
-             </excludes>
-           </configuration>
-         </plugin>
-       </plugins>
-     </build>
+     <properties>
+       <groups>org.hpccsystems.commons.annotations.IntegrationTests</groups>
+     </properties>
    </profile>
    <profile>
      <id>release</id>
@@ -683,57 +609,10 @@
      </build>
    </profile>
    <profile>
-     <id>jenkins</id>
-     <properties>
-       <maven.gpg.skip>false</maven.gpg.skip>
-     </properties>
-     <build>
-       <plugins>
-         <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-javadoc-plugin</artifactId>
-           <version>${maven.javadoc.version}</version>
-           <configuration>
-                <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*</excludePackageNames>
-           </configuration>
-         </plugin>
-         <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-source-plugin</artifactId>
-           <version>${maven.source.version}</version>
-         </plugin>
-         <plugin>
-           <groupId>org.sonatype.plugins</groupId>
-           <artifactId>nexus-staging-maven-plugin</artifactId>
-           <version>${sonatype.staging.version}</version>
-         </plugin>
-         <plugin>
-           <artifactId>maven-surefire-plugin</artifactId>
-           <version>${maven.surefire.version}</version>
-           <configuration combine.self="override">
-             <argLine>${argLine}</argLine>
-             <excludes>
-               <exclude>**/*IntegrationTest.java</exclude>
-               <exclude>**/*IntegrationTest_620.java</exclude>
-               <exclude>**/*IntegrationTest_54.java</exclude>
-             </excludes>
-           </configuration>
-         </plugin>
-         <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-gpg-plugin</artifactId>
-           <version>${maven.gpg.version}</version>
-           <configuration>
-             <useAgent>true</useAgent>
-             <gpgArguments>
-               <arg>--batch</arg>
-               <arg>--pinentry-mode</arg>
-               <arg>loopback</arg>
-             </gpgArguments>
-           </configuration>
-         </plugin>
-       </plugins>
-     </build>
+       <id>jenkins-on-demand</id>
+       <properties>
+           <javadoc.excludedPackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*</javadoc.excludedPackageNames>
+       </properties>
    </profile>
  </profiles>
 </project>

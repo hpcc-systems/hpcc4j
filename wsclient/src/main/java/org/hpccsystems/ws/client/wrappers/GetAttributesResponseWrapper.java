@@ -25,8 +25,8 @@ package org.hpccsystems.ws.client.wrappers;
  */
 public class GetAttributesResponseWrapper
 {
-    protected ArrayOfEspExceptionWrapper local_exceptions;
-    protected ArrayOfECLAttributeWrapper local_outAttributes;
+    protected ArrayOfEspExceptionWrapper local_exceptions = null;
+    protected ArrayOfECLAttributeWrapper local_outAttributes = null;
 
     /**
      * Instantiates a new gets the attributes response wrapper.
@@ -69,11 +69,13 @@ public class GetAttributesResponseWrapper
      */
     private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw)
     {
-        if (raw == null) return;
+        if (raw == null)
+            return;
 
-        this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
-        this.local_outAttributes = new ArrayOfECLAttributeWrapper(raw.getOutAttributes());
-
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
+        if (raw.getOutAttributes() != null)
+            this.local_outAttributes = new ArrayOfECLAttributeWrapper(raw.getOutAttributes());
     }
 
     /*

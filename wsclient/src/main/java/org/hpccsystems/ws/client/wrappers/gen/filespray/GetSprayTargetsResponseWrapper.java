@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetSprayTargetsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.060Z
+ * TimeStamp: 2020-04-24T00:05:34.011Z
  */
 public class GetSprayTargetsResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected GroupNodes_type0Wrapper local_groupNodes;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected GroupNodes_type0Wrapper local_groupNodes;
 
 	public GetSprayTargetsResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected GroupNodes_type0Wrapper local_groupNodes;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_groupNodes = new GroupNodes_type0Wrapper( raw.getGroupNodes());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getGroupNodes() != null)
+			this.local_groupNodes = new GroupNodes_type0Wrapper( raw.getGroupNodes());
 
 	}
 

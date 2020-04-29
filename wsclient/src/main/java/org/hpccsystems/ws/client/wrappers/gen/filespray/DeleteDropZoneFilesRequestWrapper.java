@@ -26,15 +26,15 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
  * Class name: DeleteDropZoneFilesRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.006Z
+ * TimeStamp: 2020-04-24T00:05:34.006Z
  */
 public class DeleteDropZoneFilesRequestWrapper
 {
-protected String local_dropZoneName;
-protected String local_netAddress;
-protected String local_path;
-protected String local_oS;
-protected List<String> local_names = new ArrayList<String>();
+	protected String local_dropZoneName;
+	protected String local_netAddress;
+	protected String local_path;
+	protected String local_oS;
+	protected List<String> local_names = null;
 
 	public DeleteDropZoneFilesRequestWrapper() {}
 

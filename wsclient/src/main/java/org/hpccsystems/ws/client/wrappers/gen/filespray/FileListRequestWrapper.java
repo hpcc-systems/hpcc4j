@@ -23,15 +23,15 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: FileListRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.046Z
+ * TimeStamp: 2020-04-24T00:05:34.051Z
  */
 public class FileListRequestWrapper
 {
-protected String local_netaddr;
-protected String local_path;
-protected String local_mask;
-protected String local_oS;
-protected boolean local_directoryOnly;
+	protected String local_netaddr;
+	protected String local_path;
+	protected String local_mask;
+	protected String local_oS;
+	protected boolean local_directoryOnly;
 
 	public FileListRequestWrapper() {}
 

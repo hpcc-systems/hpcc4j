@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpListTargetClustersResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.952Z
+ * TimeStamp: 2020-04-24T00:43:36.351Z
  */
 public class TpListTargetClustersResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfTpClusterNameTypeWrapper local_targetClusters;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfTpClusterNameTypeWrapper local_targetClusters;
 
 	public TpListTargetClustersResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected ArrayOfTpClusterNameTypeWrapper local_targetClusters;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_targetClusters = new ArrayOfTpClusterNameTypeWrapper( raw.getTargetClusters());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getTargetClusters() != null)
+			this.local_targetClusters = new ArrayOfTpClusterNameTypeWrapper( raw.getTargetClusters());
 
 	}
 

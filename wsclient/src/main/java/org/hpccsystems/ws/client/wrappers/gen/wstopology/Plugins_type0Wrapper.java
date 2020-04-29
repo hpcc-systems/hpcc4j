@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: Plugins_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.887Z
+ * TimeStamp: 2020-04-24T00:43:36.363Z
  */
 public class Plugins_type0Wrapper
 {
-protected List<TpEspServicePluginWrapper> local_plugin = new ArrayList<TpEspServicePluginWrapper>();
+	protected List<TpEspServicePluginWrapper> local_plugin = null;
 
 	public Plugins_type0Wrapper() {}
 

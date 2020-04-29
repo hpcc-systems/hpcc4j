@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GroupNodeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.061Z
+ * TimeStamp: 2020-04-24T00:05:33.994Z
  */
 public class GroupNodeWrapper
 {
-protected String local_name;
-protected String local_clusterType;
-protected boolean local_replicateOutputs;
+	protected String local_name;
+	protected String local_clusterType;
+	protected boolean local_replicateOutputs;
 
 	public GroupNodeWrapper() {}
 

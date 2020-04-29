@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * Class name: EclFieldDeclarationWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.543Z
+ * TimeStamp: 2020-04-23T21:12:59.341Z
  */
 public class EclFieldDeclarationWrapper
 {
-protected String local_fieldName;
-protected EclFieldTypeWrapper local_eclFieldType;
+	protected String local_fieldName;
+	protected EclFieldTypeWrapper local_eclFieldType;
 
 	public EclFieldDeclarationWrapper() {}
 
@@ -49,7 +49,8 @@ protected EclFieldTypeWrapper local_eclFieldType;
 			return;
 
 		this.local_fieldName = raw.getFieldName();
-		this.local_eclFieldType = new EclFieldTypeWrapper( raw.getEclFieldType());
+		if (raw.getEclFieldType() != null)
+			this.local_eclFieldType = new EclFieldTypeWrapper( raw.getEclFieldType());
 
 	}
 

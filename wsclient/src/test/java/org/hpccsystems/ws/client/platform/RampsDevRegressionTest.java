@@ -7,7 +7,9 @@ import java.util.List;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(org.hpccsystems.commons.annotations.IntegrationTests.class)
 public class RampsDevRegressionTest extends EclParseRegressionTest
 {
     @Test

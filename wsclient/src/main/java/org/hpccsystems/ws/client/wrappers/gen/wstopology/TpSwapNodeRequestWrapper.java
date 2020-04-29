@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpSwapNodeRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.986Z
+ * TimeStamp: 2020-04-24T00:43:36.384Z
  */
 public class TpSwapNodeRequestWrapper
 {
-protected String local_cluster;
-protected String local_oldIP;
-protected String local_newIP;
+	protected String local_cluster;
+	protected String local_oldIP;
+	protected String local_newIP;
 
 	public TpSwapNodeRequestWrapper() {}
 

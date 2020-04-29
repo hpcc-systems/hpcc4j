@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpEspServicePluginWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.933Z
+ * TimeStamp: 2020-04-24T00:43:36.267Z
  */
 public class TpEspServicePluginWrapper
 {
-protected String local_shortName;
-protected String local_longName;
-protected String local_folderName;
-protected String local_widgetName;
+	protected String local_shortName;
+	protected String local_longName;
+	protected String local_folderName;
+	protected String local_widgetName;
 
 	public TpEspServicePluginWrapper() {}
 

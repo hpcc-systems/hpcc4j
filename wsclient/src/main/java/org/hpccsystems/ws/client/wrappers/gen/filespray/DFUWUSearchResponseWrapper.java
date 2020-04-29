@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DFUWUSearchResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.034Z
+ * TimeStamp: 2020-04-24T00:05:34.003Z
  */
 public class DFUWUSearchResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ClusterNames_type0Wrapper local_clusterNames;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ClusterNames_type0Wrapper local_clusterNames;
 
 	public DFUWUSearchResponseWrapper() {}
 
@@ -48,8 +48,10 @@ protected ClusterNames_type0Wrapper local_clusterNames;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getClusterNames() != null)
+			this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
 
 	}
 

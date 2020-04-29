@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ResultSets_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ResultSets_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.635Z
+ * TimeStamp: 2020-04-23T21:12:59.350Z
  */
 public class ResultSets_type0Wrapper
 {
-protected List<OutputDatasetWrapper> local_resultSet = new ArrayList<OutputDatasetWrapper>();
+	protected List<OutputDatasetWrapper> local_resultSet = null;
 
 	public ResultSets_type0Wrapper() {}
 
@@ -72,8 +72,9 @@ protected List<OutputDatasetWrapper> local_resultSet = new ArrayList<OutputDatas
 			for ( int i = 0; i < this.local_resultSet.size(); i++)
 			{
 				arr[i] = this.local_resultSet.get(i) .getRaw();
-			}		raw.setResultSet(arr);
-}
+			}
+			raw.setResultSet(arr);
+		}
 		return raw;
 	}
 

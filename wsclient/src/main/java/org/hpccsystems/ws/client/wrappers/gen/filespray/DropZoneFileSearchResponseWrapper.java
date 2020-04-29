@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DropZoneFileSearchResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.038Z
+ * TimeStamp: 2020-04-24T00:05:33.917Z
  */
 public class DropZoneFileSearchResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected ArrayOfPhysicalFileStructWrapper local_files;
-protected String local_warning;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfPhysicalFileStructWrapper local_files;
+	protected String local_warning;
 
 	public DropZoneFileSearchResponseWrapper() {}
 
@@ -50,8 +50,10 @@ protected String local_warning;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getFiles() != null)
+			this.local_files = new ArrayOfPhysicalFileStructWrapper( raw.getFiles());
 		this.local_warning = raw.getWarning();
 
 	}
