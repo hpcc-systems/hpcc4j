@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: EspExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.484Z
+ * TimeStamp: 2020-04-29T14:39:01.414Z
  */
 public class EspExceptionWrapper
 {
-protected String local_code;
-protected String local_audience;
-protected String local_source;
-protected String local_message;
+	protected String local_code;
+	protected String local_audience;
+	protected String local_source;
+	protected String local_message;
 
 	public EspExceptionWrapper() {}
 

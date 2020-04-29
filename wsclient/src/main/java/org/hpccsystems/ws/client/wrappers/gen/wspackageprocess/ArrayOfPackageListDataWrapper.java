@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfPackageListDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.449Z
+ * TimeStamp: 2020-04-29T14:39:01.563Z
  */
 public class ArrayOfPackageListDataWrapper
 {
-protected List<PackageListDataWrapper> local_packageListData = new ArrayList<PackageListDataWrapper>();
+	protected List<PackageListDataWrapper> local_packageListData = null;
 
 	public ArrayOfPackageListDataWrapper() {}
 

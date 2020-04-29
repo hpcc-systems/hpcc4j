@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: ArrayOfSuperFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.454Z
+ * TimeStamp: 2020-04-29T14:39:01.453Z
  */
 public class ArrayOfSuperFileWrapper
 {
-protected List<SuperFileWrapper> local_superFile = new ArrayList<SuperFileWrapper>();
+	protected List<SuperFileWrapper> local_superFile = null;
 
 	public ArrayOfSuperFileWrapper() {}
 

@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: EchoRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.479Z
+ * TimeStamp: 2020-04-29T14:39:01.495Z
  */
 public class EchoRequestWrapper
 {
-protected String local_request;
+	protected String local_request;
 
 	public EchoRequestWrapper() {}
 

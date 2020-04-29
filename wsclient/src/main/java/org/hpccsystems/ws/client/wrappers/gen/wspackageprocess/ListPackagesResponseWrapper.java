@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: ListPackagesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.542Z
+ * TimeStamp: 2020-04-29T14:39:01.547Z
  */
 public class ListPackagesResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected BasePackageStatusWrapper local_status;
-protected ArrayOfPackageListMapDataWrapper local_packageMapList;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected BasePackageStatusWrapper local_status;
+	protected ArrayOfPackageListMapDataWrapper local_packageMapList;
 
 	public ListPackagesResponseWrapper() {}
 
@@ -50,9 +50,12 @@ protected ArrayOfPackageListMapDataWrapper local_packageMapList;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		this.local_packageMapList = new ArrayOfPackageListMapDataWrapper( raw.getPackageMapList());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getStatus() != null)
+			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+		if (raw.getPackageMapList() != null)
+			this.local_packageMapList = new ArrayOfPackageListMapDataWrapper( raw.getPackageMapList());
 
 	}
 

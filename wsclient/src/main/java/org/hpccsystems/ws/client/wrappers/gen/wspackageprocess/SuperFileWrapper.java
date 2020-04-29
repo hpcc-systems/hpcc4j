@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: SuperFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.566Z
+ * TimeStamp: 2020-04-29T14:39:01.571Z
  */
 public class SuperFileWrapper
 {
-protected String local_name;
-protected SubFiles_type0Wrapper local_subFiles;
+	protected String local_name;
+	protected SubFiles_type0Wrapper local_subFiles;
 
 	public SuperFileWrapper() {}
 
@@ -49,7 +49,8 @@ protected SubFiles_type0Wrapper local_subFiles;
 			return;
 
 		this.local_name = raw.getName();
-		this.local_subFiles = new SubFiles_type0Wrapper( raw.getSubFiles());
+		if (raw.getSubFiles() != null)
+			this.local_subFiles = new SubFiles_type0Wrapper( raw.getSubFiles());
 
 	}
 

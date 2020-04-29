@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: ExceptionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.489Z
+ * TimeStamp: 2020-04-29T14:39:01.423Z
  */
 public class ExceptionsWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
 
 	public ExceptionsWrapper() {}
 
@@ -46,7 +46,8 @@ protected ArrayOfEspExceptionWrapper local_exceptions;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
 	}
 
