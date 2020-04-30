@@ -28,6 +28,7 @@ import org.junit.runners.MethodSorters;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -41,8 +42,8 @@ public class WSPackageProcessTest extends BaseRemoteTest
     {
         if (targetRoxieName == null)
         {
-            System.out.println("WSPackageProcessTest: No 'roxiename' system prop provided, defaulting to 'roxie' cluster name");
-            targetRoxieName = "roxie";
+            System.out.println("WSPackageProcessTest: No 'roxiename' system prop provided, defaulting to '' ");
+            targetRoxieName = "";
         }
     }
     @Test
@@ -65,12 +66,14 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
-    public void listPackage() throws Exception {
+    public void listPackage() throws Exception
+    {
         List<PackageListMapDataWrapper> packages = client.listPackages("*", targetRoxieName, null);
         if(packages==null || packages.isEmpty()) {
-            fail("could not retrieve package lists from target cluster : " + targetRoxieName );
+            fail("could not retrieve package lists from target cluster : '" + targetRoxieName + "'" );
         }
         for(PackageListMapDataWrapper pkg : packages) {
+            assertTrue(pkg.getId() != null && !pkg.getId().isEmpty());
             String pkgByID = client.getPackageMapById(pkg.getId());
             if(!pkgByID.contains("<PackageMaps id=\""+pkg.getId()+"\"")) {
                 fail("failed to retrieve package map by id : " + pkg.getId());
