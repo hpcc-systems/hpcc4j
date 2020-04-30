@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetPackageMapByIdResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.505Z
+ * TimeStamp: 2020-04-29T14:39:01.428Z
  */
 public class GetPackageMapByIdResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected BasePackageStatusWrapper local_status;
-protected String local_info;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected BasePackageStatusWrapper local_status;
+	protected String local_info;
 
 	public GetPackageMapByIdResponseWrapper() {}
 
@@ -50,8 +50,10 @@ protected String local_info;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getStatus() != null)
+			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
 		this.local_info = raw.getInfo();
 
 	}

@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetQueryFileMappingRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.529Z
+ * TimeStamp: 2020-04-29T14:39:01.455Z
  */
 public class GetQueryFileMappingRequestWrapper
 {
-protected String local_target;
-protected String local_pMID;
-protected String local_queryName;
-protected boolean local_globalScope;
+	protected String local_target;
+	protected String local_pMID;
+	protected String local_queryName;
+	protected boolean local_globalScope;
 
 	public GetQueryFileMappingRequestWrapper() {}
 

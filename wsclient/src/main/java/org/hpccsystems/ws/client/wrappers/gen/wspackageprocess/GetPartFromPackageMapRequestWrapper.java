@@ -23,14 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetPartFromPackageMapRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.523Z
+ * TimeStamp: 2020-04-29T14:39:01.396Z
  */
 public class GetPartFromPackageMapRequestWrapper
 {
-protected String local_target;
-protected String local_packageMap;
-protected boolean local_globalScope;
-protected String local_partName;
+	protected String local_target;
+	protected String local_packageMap;
+	protected boolean local_globalScope;
+	protected String local_partName;
 
 	public GetPartFromPackageMapRequestWrapper() {}
 

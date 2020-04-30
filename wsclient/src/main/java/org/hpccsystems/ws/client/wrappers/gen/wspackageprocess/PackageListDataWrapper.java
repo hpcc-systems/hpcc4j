@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: PackageListDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.547Z
+ * TimeStamp: 2020-04-29T14:39:01.530Z
  */
 public class PackageListDataWrapper
 {
-protected String local_id;
-protected String local_queries;
+	protected String local_id;
+	protected String local_queries;
 
 	public PackageListDataWrapper() {}
 

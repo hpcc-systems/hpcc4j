@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetPackageMapByIdRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.500Z
+ * TimeStamp: 2020-04-29T14:39:01.479Z
  */
 public class GetPackageMapByIdRequestWrapper
 {
-protected String local_packageMapId;
+	protected String local_packageMapId;
 
 	public GetPackageMapByIdRequestWrapper() {}
 

@@ -23,25 +23,25 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: CopyPackageMapRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.464Z
+ * TimeStamp: 2020-04-29T14:39:01.508Z
  */
 public class CopyPackageMapRequestWrapper
 {
-protected String local_sourcePath;
-protected String local_remoteUserName;
-protected String local_remotePassword;
-protected String local_target;
-protected String local_process;
-protected String local_pMID;
-protected boolean local_activate;
-protected String local_daliIp;
-protected boolean local_globalScope;
-protected String local_sourceProcess;
-protected boolean local_preloadAllPackages;
-protected boolean local_replacePackageMap;
-protected boolean local_updateSuperFiles;
-protected boolean local_updateCloneFrom;
-protected boolean local_appendCluster;
+	protected String local_sourcePath;
+	protected String local_remoteUserName;
+	protected String local_remotePassword;
+	protected String local_target;
+	protected String local_process;
+	protected String local_pMID;
+	protected boolean local_activate;
+	protected String local_daliIp;
+	protected boolean local_globalScope;
+	protected String local_sourceProcess;
+	protected boolean local_preloadAllPackages;
+	protected boolean local_replacePackageMap;
+	protected boolean local_updateSuperFiles;
+	protected boolean local_updateCloneFrom;
+	protected boolean local_appendCluster;
 
 	public CopyPackageMapRequestWrapper() {}
 

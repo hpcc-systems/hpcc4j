@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetPackageRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.517Z
+ * TimeStamp: 2020-04-29T14:39:01.515Z
  */
 public class GetPackageRequestWrapper
 {
-protected String local_target;
-protected String local_process;
+	protected String local_target;
+	protected String local_process;
 
 	public GetPackageRequestWrapper() {}
 

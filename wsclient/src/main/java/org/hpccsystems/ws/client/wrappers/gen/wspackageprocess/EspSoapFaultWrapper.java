@@ -23,11 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: EspSoapFaultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.486Z
+ * TimeStamp: 2020-04-29T14:39:01.547Z
  */
 public class EspSoapFaultWrapper
 {
-protected ExceptionsWrapper local_faultMessage;
+	protected ExceptionsWrapper local_faultMessage;
 
 	public EspSoapFaultWrapper() {}
 
@@ -46,7 +46,8 @@ protected ExceptionsWrapper local_faultMessage;
 		if (raw == null)
 			return;
 
-		this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
+		if (raw.getFaultMessage() != null)
+			this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
 
 	}
 

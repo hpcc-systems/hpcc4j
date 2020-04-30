@@ -26,18 +26,18 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray
  * Class name: ValidatePackageResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.585Z
+ * TimeStamp: 2020-04-29T14:39:01.544Z
  */
 public class ValidatePackageResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected String local_pMID;
-protected BasePackageStatusWrapper local_status;
-protected List<String> local_warnings = new ArrayList<String>();
-protected List<String> local_errors = new ArrayList<String>();
-protected ValidatePackageInfoWrapper local_packages;
-protected ValidatePackageQueriesWrapper local_queries;
-protected ValidatePackageFilesWrapper local_files;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected String local_pMID;
+	protected BasePackageStatusWrapper local_status;
+	protected List<String> local_warnings = null;
+	protected List<String> local_errors = null;
+	protected ValidatePackageInfoWrapper local_packages;
+	protected ValidatePackageQueriesWrapper local_queries;
+	protected ValidatePackageFilesWrapper local_files;
 
 	public ValidatePackageResponseWrapper() {}
 
@@ -63,9 +63,11 @@ protected ValidatePackageFilesWrapper local_files;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 		this.local_pMID = raw.getPMID();
-		this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+		if (raw.getStatus() != null)
+			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
 		if (raw.getWarnings() != null)
 		{
 			this.local_warnings = new ArrayList<String>();
@@ -80,9 +82,12 @@ protected ValidatePackageFilesWrapper local_files;
 			{
 				this.local_errors.add(new String(raw.getErrors().getItem()[i]));
 			}
-		}		this.local_packages = new ValidatePackageInfoWrapper( raw.getPackages());
-		this.local_queries = new ValidatePackageQueriesWrapper( raw.getQueries());
-		this.local_files = new ValidatePackageFilesWrapper( raw.getFiles());
+		}		if (raw.getPackages() != null)
+			this.local_packages = new ValidatePackageInfoWrapper( raw.getPackages());
+		if (raw.getQueries() != null)
+			this.local_queries = new ValidatePackageQueriesWrapper( raw.getQueries());
+		if (raw.getFiles() != null)
+			this.local_files = new ValidatePackageFilesWrapper( raw.getFiles());
 
 	}
 

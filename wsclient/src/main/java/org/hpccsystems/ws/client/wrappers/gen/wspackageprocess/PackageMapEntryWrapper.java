@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: PackageMapEntryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.554Z
+ * TimeStamp: 2020-04-29T14:39:01.548Z
  */
 public class PackageMapEntryWrapper
 {
-protected String local_id;
-protected String local_target;
-protected String local_process;
+	protected String local_id;
+	protected String local_target;
+	protected String local_process;
 
 	public PackageMapEntryWrapper() {}
 

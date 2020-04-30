@@ -26,19 +26,19 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray
  * Class name: ValidatePackageRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.582Z
+ * TimeStamp: 2020-04-29T14:39:01.413Z
  */
 public class ValidatePackageRequestWrapper
 {
-protected String local_info;
-protected String local_target;
-protected String local_process;
-protected boolean local_active;
-protected String local_pMID;
-protected String local_queryIdToVerify;
-protected List<String> local_queriesToVerify = new ArrayList<String>();
-protected boolean local_checkDFS;
-protected boolean local_globalScope;
+	protected String local_info;
+	protected String local_target;
+	protected String local_process;
+	protected boolean local_active;
+	protected String local_pMID;
+	protected String local_queryIdToVerify;
+	protected List<String> local_queriesToVerify = null;
+	protected boolean local_checkDFS;
+	protected boolean local_globalScope;
 
 	public ValidatePackageRequestWrapper() {}
 
