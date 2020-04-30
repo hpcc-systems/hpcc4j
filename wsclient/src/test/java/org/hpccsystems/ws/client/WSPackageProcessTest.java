@@ -19,16 +19,32 @@ package org.hpccsystems.ws.client;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import java.util.List;
+
+import static org.junit.Assert.fail;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSPackageProcessTest extends BaseRemoteTest
 {
     HPCCWsPackageProcessClient client = wsclient.getWsPackageProcessClient();
+    private String targetRoxieName = System.getProperty("roxiename");
 
+    @Before
+    public void setup() throws Exception
+    {
+        if (targetRoxieName == null)
+        {
+            System.out.println("WSPackageProcessTest: No 'roxiename' system prop provided, defaulting to 'roxie' cluster name");
+            targetRoxieName = "roxie";
+        }
+    }
     @Test
     public void ping() throws Exception
     {
@@ -39,12 +55,27 @@ public class WSPackageProcessTest extends BaseRemoteTest
         catch (AxisFault e)
         {
             e.printStackTrace();
-            Assert.fail();
+            fail();
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
+            fail();
         }
+    }
+
+    @Test
+    public void listPackage() throws Exception {
+        List<PackageListMapDataWrapper> packages = client.listPackages("*", targetRoxieName, null);
+        if(packages==null || packages.isEmpty()) {
+            fail("could not retrieve package lists from target cluster : " + targetRoxieName );
+        }
+        for(PackageListMapDataWrapper pkg : packages) {
+            String pkgByID = client.getPackageMapById(pkg.getId());
+            if(!pkgByID.contains("<PackageMaps id=\""+pkg.getId()+"\"")) {
+                fail("failed to retrieve package map by id : " + pkg.getId());
+            }
+        }
+
     }
 }
