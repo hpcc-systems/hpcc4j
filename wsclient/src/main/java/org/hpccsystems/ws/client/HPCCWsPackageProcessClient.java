@@ -3,7 +3,6 @@ package org.hpccsystems.ws.client;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspSoapFault;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse;
@@ -23,7 +21,6 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequ
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest;
@@ -31,8 +28,8 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProce
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.*;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
@@ -287,7 +284,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         ActivatePackageRequest request = new ActivatePackageRequest();
 
-        request.setGlobalScope(new Boolean(globalScope));
+        request.setGlobalScope(globalScope);
         request.setPackageMap(packageMapName);
         request.setProcess(process);
         request.setTarget(target);

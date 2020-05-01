@@ -780,7 +780,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             workunit = wuInfoResponse.getWorkunit();
             workunit.setOriginalEclWatchUrl(getEclWatchUrl());
             workunit.setResultViews(wuInfoResponse.getResultViews());
-            
+
             //if archived, unarchive if specified
             if (wuinfodetailsparams.attemptUnarchive() && workunit.getArchived())
             {
@@ -798,7 +798,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         {
             handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Could not fetch WU Info");
         }
-       
+
         return workunit;
     }
     /**
@@ -847,7 +847,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     /**
      * Get information about a given WorkUnit, Workunit must not be archived.
      * Caller can choose which WU information portion to fetch
-     * 
+     *
      * Deprecated; use getWUInfo(WSInfoRequestWrapper,unarchive)
      *
      * @param wuid
@@ -887,13 +887,18 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setIncludeGraphs(includeGraphs);
         params.setIncludeSourceFiles(includeSourceFiles);
         params.setIncludeApplicationValues(includeApplicationValues);
-        params.setIncludeDebugValues(includeDebugValues);
-        params.setIncludeExceptions(includeExceptions);
-        params.setIncludeVariables(includeVariables);
-        params.setIncludeXmlSchemas(includeXmlSchemas);
-        params.setIncludeTimers(includeTimers);
+        if (includeDebugValues != null)
+            params.setIncludeDebugValues(includeDebugValues);
+        if (includeExceptions != null)
+            params.setIncludeExceptions(includeExceptions);
+        if (includeVariables != null)
+            params.setIncludeVariables(includeVariables);
+        if (includeXmlSchemas != null)
+            params.setIncludeXmlSchemas(includeXmlSchemas);
+        if (includeTimers != null)
+            params.setIncludeTimers(includeTimers);
         params.setAttemptUnarchive(false);
-        return getWUInfo(params);       
+        return getWUInfo(params);
     }
 
     /**
@@ -944,11 +949,16 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         request.setSuppressResultSchemas(!includeResults);
         request.setIncludeSourceFiles(includeSourceFiles);
         request.setIncludeApplicationValues(includeApplicationValues);
-        request.setIncludeDebugValues(includeDebugValues);
-        request.setIncludeExceptions(includeExceptions);
-        request.setIncludeTimers(includeTimers);
-        request.setIncludeVariables(includeVariables);
-        request.setIncludeXmlSchemas(includeXmlSchemas);
+        if (includeDebugValues != null)
+            request.setIncludeDebugValues(includeDebugValues);
+        if (includeExceptions != null)
+            request.setIncludeExceptions(includeExceptions);
+        if (includeTimers != null)
+            request.setIncludeTimers(includeTimers);
+        if (includeVariables != null)
+            request.setIncludeVariables(includeVariables);
+        if (includeXmlSchemas != null)
+            request.setIncludeXmlSchemas(includeXmlSchemas);
         request.setAttemptUnarchive(unarchive);
         return getWUInfo(request);
     }
@@ -1059,11 +1069,14 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         info.setWuid(wuid);
         info.setJobname(jobname);
         info.setCluster(cluster);
-        info.setArchived(archived);
+        if (archived)
+            info.setArchived(archived);
         info.setSortBy(sortby);
         info.setState(state);
-        info.setEndDate(endDate);
-        info.setStartDate(startDate);
+        if (endDate != null)
+            info.setEndDate(endDate);
+        if (startDate != null)
+            info.setStartDate(startDate);
         info.setOwner(owner);
         info.setApplicationValues(applicationValues);
         info.setPageSize(pageSize == null ? 10000 : pageSize);
@@ -1292,8 +1305,15 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     public List<WorkunitWrapper> getWorkunits(String jobName, String owner, String ecl, Boolean archived, String wuid, String cluster, WUState state)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        WUQueryWrapper params = new WUQueryWrapper().setJobname(jobName).setOwner(owner).setECL(ecl).setArchived(archived).setWuid(wuid)
-                .setCluster(cluster).setState(state);
+        WUQueryWrapper params = new WUQueryWrapper();
+        params.setJobname(jobName);
+        params.setOwner(owner);
+        params.setECL(ecl);
+        if (archived != null)
+            params.setArchived(archived);
+        params.setWuid(wuid);
+        params.setCluster(cluster);
+        params.setState(state);
         return workUnitUQuery(params);
     }
 
@@ -1764,7 +1784,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         WUSyntaxCheckECL checkParams = new WUSyntaxCheckECL();
         checkParams.setECL(ecl);
         checkParams.setCluster(cluster);
-        checkParams.setTimeToWait(timeout);
+        if (timeout != null)
+            checkParams.setTimeToWait(timeout);
         WUSyntaxCheckResponse resp = ((WsWorkunits) stub).wUSyntaxCheckECL(checkParams);
         ArrayOfECLExceptionWrapper result = null;
         if (resp.getErrors() != null)
@@ -2153,9 +2174,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     {
         WURun params = new WURun();
         params.setWuid(wuid);
-        params.setCloneWorkunit(cloneWorkunit);
+        if (cloneWorkunit != null)
+            params.setCloneWorkunit(cloneWorkunit);
         // default setting is synchronous/waits until workunit completes. Set this to asynchronous
-        params.setWait(timeout);
+        if (timeout != null)
+            params.setWait(timeout);
 
         if (appvalues != null)
         {

@@ -37,11 +37,11 @@ import static org.junit.Assert.fail;
 public class WSPackageProcessTest extends BaseRemoteTest
 {
     HPCCWsPackageProcessClient client = wsclient.getWsPackageProcessClient();
-    private String targetRoxieName = System.getProperty("roxiename");
+    private static String targetRoxieName = System.getProperty("roxiename");
     private static String validPackageID = null;
 
     @BeforeClass
-    public void setup() throws Exception
+    static public void setup() throws Exception
     {
         if (targetRoxieName == null)
         {
