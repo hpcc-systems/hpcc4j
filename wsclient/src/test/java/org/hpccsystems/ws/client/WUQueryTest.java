@@ -60,21 +60,21 @@ public class WUQueryTest extends BaseRemoteTest
     {
         //wuid descending
         List<WorkunitWrapper> result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.WUID).setDescending(true));
-        if (result.get(0).getWuid().compareTo(result.get(1).getWuid())<0)
+        if (result.get(0).getWuid().compareToIgnoreCase(result.get(1).getWuid())<0)
         {
             Assert.fail("descending workunits in wrong order:" + result.get(0).getWuid() + " then " + result.get(1).getWuid());
         }
 
         //wuid ascending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.WUID).setDescending(false));
-        if (result.get(1).getWuid().compareTo(result.get(0).getWuid())<0)
+        if (result.get(1).getWuid().compareToIgnoreCase(result.get(0).getWuid())<0)
         {
             Assert.fail("ascending workunits in wrong order:" + result.get(0).getWuid() + " then " + result.get(1).getWuid());
         }
 
         //cluster descending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Cluster).setDescending(true));
-        if (result.get(0).getCluster().compareTo(result.get(result.size()-1).getCluster())<0)
+        if (result.get(0).getCluster().compareToIgnoreCase(result.get(result.size()-1).getCluster())<0)
         {
             Assert.fail("descending clusters in wrong order:" + result.get(0).getCluster() + " then "
                     + result.get(result.size()-1).getCluster());
@@ -82,7 +82,7 @@ public class WUQueryTest extends BaseRemoteTest
 
         //cluster ascending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Cluster).setDescending(false));
-        if (result.get(1).getCluster().compareTo(result.get(0).getCluster())<0)
+        if (result.get(1).getCluster().compareToIgnoreCase(result.get(0).getCluster())<0)
         {
             Assert.fail("ascending clusters in wrong order:" + result.get(0).getCluster() + " then "
                     + result.get(result.size()-1).getCluster());
@@ -90,7 +90,7 @@ public class WUQueryTest extends BaseRemoteTest
 
         //jobname descending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Jobname).setDescending(true));
-        if (result.get(0).getJobname().compareTo(result.get(result.size()-1).getJobname())<0)
+        if (result.get(0).getJobname().compareToIgnoreCase(result.get(result.size()-1).getJobname())<0)
         {
             Assert.fail("descending jobname in wrong order:" + result.get(0).getJobname() + " then "
                     + result.get(result.size()-1).getJobname());
@@ -98,7 +98,7 @@ public class WUQueryTest extends BaseRemoteTest
 
         //jobname ascending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Jobname).setDescending(false));
-        if (result.get(1).getJobname().compareTo(result.get(0).getJobname())<0)
+        if (result.get(1).getJobname().compareToIgnoreCase(result.get(0).getJobname())<0)
         {
             Assert.fail("ascending jobname in wrong order:" + result.get(0).getJobname() + " then "
                     + result.get(result.size()-1).getJobname());
@@ -106,7 +106,7 @@ public class WUQueryTest extends BaseRemoteTest
 
         //owner descending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Owner).setDescending(true));
-        if (result.get(0).getOwner().compareTo(result.get(result.size()-1).getOwner())<0)
+        if (result.get(0).getOwner().compareToIgnoreCase(result.get(result.size()-1).getOwner())<0)
         {
             Assert.fail("descending owner in wrong order:" + result.get(0).getOwner() + " then "
                     + result.get(result.size()-1).getOwner());
@@ -114,7 +114,7 @@ public class WUQueryTest extends BaseRemoteTest
 
         //owner ascending
         result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.Owner).setDescending(false));
-        if (result.get(1).getOwner().compareTo(result.get(0).getOwner())<0)
+        if (result.get(1).getOwner().compareToIgnoreCase(result.get(0).getOwner())<0)
         {
             Assert.fail("ascending owner in wrong order:" + result.get(0).getOwner() + " then "
                     + result.get(result.size()-1).getOwner());
@@ -126,7 +126,7 @@ public class WUQueryTest extends BaseRemoteTest
         assumeFalse("Not enough WUs with known state", result.get(0).getState().equals("unknown"));
         assumeFalse("Not enough WUs with known state", result.get(result.size()-1).getState().equals("unknown"));
 
-        if (result.get(0).getState().compareTo(result.get(result.size()-1).getState())<0)
+        if (result.get(0).getState().compareToIgnoreCase(result.get(result.size()-1).getState())<0)
         {
             Assert.fail("descending state in wrong order:" + result.get(0).getState() + " then "
                     + result.get(result.size()-1).getState());
@@ -137,7 +137,7 @@ public class WUQueryTest extends BaseRemoteTest
         assumeTrue("Not enough WUs to test sortby.state Ascending", result.size() > 1);
         assumeFalse("Not enough WUs with known state", result.get(0).getState().equals("unknown"));
         assumeFalse("Not enough WUs with known state", result.get(result.size()-1).getState().equals("unknown"));
-        if (result.get(result.size()-1).getState().compareTo(result.get(0).getState())<0)
+        if (result.get(result.size()-1).getState().compareToIgnoreCase(result.get(0).getState())<0)
         {
             Assert.fail("ascending state in wrong order:" + result.get(0).getState() + " then "
                     + result.get(result.size()-1).getState());
