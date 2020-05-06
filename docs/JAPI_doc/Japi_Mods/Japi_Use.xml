@@ -5,7 +5,7 @@
   <title>Use Cases</title>
 
   <para>This section provides examples that illustrate typical Java client and
-  HPCC Systems<superscript>®</superscript> interaction. </para>
+  HPCC Systems<superscript>®</superscript> interaction.</para>
 
   <sect2>
     <title>wsclient</title>
@@ -76,5 +76,112 @@
     WS actions, such as spraying a file:</para>
 
     <programlisting>connector.sprayFlatHPCCFile("persons", "mythor::persons", 155, clusters.get(0), true); </programlisting>
+  </sect2>
+
+  <sect2>
+    <title>DFSClient</title>
+
+    <para>Example: User wants to read file "example::dataset" in a parallel
+    fashion from HPCC Systems into a Java client.</para>
+
+    <sect3>
+      <title>Reading Example:</title>
+
+      <para>The following example is for reading in parallel from</para>
+
+      <programlisting>HPCCFile file = new HPCCFile("example::dataset", "http://127.0.0.1:8010" , "user", "pass");
+DataPartition[] fileParts = file.getFileParts(); 
+ArrayList&lt;HPCCRecord&gt; records = new ArrayList&lt;HPCCRecord&gt;(); 
+for (int i = 0; i &lt; fileParts.length; i++) 
+{ 
+    HpccRemoteFileReader&lt;HPCCRecord&gt; fileReader = null; 
+    try 
+    { 
+       HPCCRecordBuilder recordBuilder = new 
+                         HPCCRecordBuilder(file.getProjectedRecordDefinition());
+       fileReader = new HpccRemoteFileReader&lt;HPCCRecord&gt;(fileParts[i], 
+                    file.getRecordDefinition(), recordBuilder);
+    } 
+    catch (Exception e) { }  
+    while (fileReader.hasNext()) 
+    { 
+       HPCCRecord record = fileReader.next(); 
+       records.add(record); 
+    } 
+    fileReader.close(); 
+}  </programlisting>
+    </sect3>
+
+    <sect3>
+      <title>Writing Example:</title>
+
+      <para>Example: User wants to spray their dataset into an HPCC Systems
+      logical file named "example::dataset.</para>
+
+      <programlisting>FieldDef[] fieldDefs = new FieldDef[2]; 
+fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, 
+                            HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]); 
+fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, 
+                            HpccSrcType.UTF8, new FieldDef[0]); 
+FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, 
+                                  HpccSrcType.LITTLE_ENDIAN, fieldDefs); 
+
+String eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDef); 
+
+// See WSClient documentation on connection / construction of WSClient 
+Platform platform; 
+HPCCWsClient wsclient; 
+
+HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient(); 
+DFUCreateFileWrapper createResult = dfuClient.createFile("example::dataset", "mythor", 
+                                    eclRecordDefn, 300, false, DFUFileTypeWrapper.Flat, ""); 
+DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts(); 
+DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts, 
+         new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()), 
+dfuFileParts.length, createResult.getFileAccessInfoBlob()); 
+
+//------------------------------------------------------------------------------ 
+// Write partitions to file parts 
+//------------------------------------------------------------------------------ 
+
+ArrayList&lt;HPCCRecord&gt; records = new ArrayList&lt;HPCCRecord&gt;(); 
+
+int recordsPerPartition = records.size() / dfuFileParts.length; 
+int residualRecords = records.size() % dfuFileParts.length; 
+
+int recordCount = 0; 
+int bytesWritten = 0; 
+for (int partitionIndex = 0; partitionIndex &lt; hpccPartitions.length; partitionIndex++) 
+{ 
+   int numRecordsInPartition = recordsPerPartition; 
+   if (partitionIndex == dfuFileParts.length - 1) 
+   { 
+      numRecordsInPartition += residualRecords; 
+   } 
+
+   HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef); 
+   HPCCRemoteFileWriter&lt;HPCCRecord&gt; fileWriter = new 
+   HPCCRemoteFileWriter&lt;HPCCRecord&gt;(hpccPartitions[partitionIndex], recordDef, 
+         recordAccessor, CompressionAlgorithm.NONE); 
+   try 
+   { 
+         for (int j = 0; j &lt; numRecordsInPartition; j++, recordCount++) 
+         {  
+             fileWriter.writeRecord(records.get(recordCount)); 
+         } 
+         fileWriter.close(); 
+         bytesWritten += fileWriter.getBytesWritten(); 
+   } 
+   catch (Exception e) 
+   { 
+   } 
+} 
+
+//------------------------------------------------------------------------------ 
+// Publish and finalize the file 
+//------------------------------------------------------------------------------ 
+
+dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, recordCount, bytesWritten, true);</programlisting>
+    </sect3>
   </sect2>
 </sect1>

@@ -3,7 +3,7 @@
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <book xml:base="../">
   <bookinfo>
-    <title>The HPCC JAVA APIs Project</title>
+    <title>HPCC Systems<superscript>®</superscript> JAVA APIs Project</title>
 
     <mediaobject>
       <imageobject>
@@ -29,7 +29,7 @@
       fictitious. Any similarity to actual persons, living or dead, is purely
       coincidental.</para>
 
-      <para />
+      <para></para>
     </legalnotice>
 
     <xi:include href="common/Version.xml" xpointer="FooterInfo"
@@ -51,7 +51,7 @@
   </bookinfo>
 
   <chapter>
-    <title>HPCC Java APIs Overview</title>
+    <title>HPCC Systems Java APIs Overview</title>
 
     <xi:include href="JAPI_doc/Japi_Mods/Japi_Intro.xml"
                 xpointer="element(/1)"
@@ -60,7 +60,8 @@
     <xi:include href="JAPI_doc/Japi_Mods/Japi_Use.xml" xpointer="element(/1)"
                 xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-    <xi:include href="JAPI_doc/Japi_Mods/Japi_Build.xml" xpointer="element(/1)"
+    <xi:include href="JAPI_doc/Japi_Mods/Japi_Build.xml"
+                xpointer="element(/1)"
                 xmlns:xi="http://www.w3.org/2001/XInclude" />
   </chapter>
 
