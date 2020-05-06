@@ -1117,39 +1117,35 @@ public class BinaryRecordReader implements IRecordReader
                 // Need to handle any residual chars. IE: case where string isn't a multiple of 4 chars
                 int writePos = 0;
                 int readPos = expandedLen + compressedBytesConsumed;
-                int remainingCompressedBytes = compressedBytesRead - compressedBytesConsumed;
-                switch (remainingCompressedBytes)
+                int remainingChars = expandedLen - strByteLen;
+                switch (remainingChars)
                 {
                     case 3:
                     {
                         int b1 = this.scratchBuffer[readPos + 1] & 0xff;
                         int b2 = this.scratchBuffer[readPos + 2] & 0xff;
-                        scratchBuffer[strByteLen + writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
-                        writePos++;
+                        scratchBuffer[strByteLen + writePos+2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
                         // fallthrough
                     }
                     case 2:
                     {
                         int b0 = this.scratchBuffer[readPos] & 0xff;
                         int b1 = this.scratchBuffer[readPos + 1] & 0xff;
-                        scratchBuffer[strByteLen + writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
-                        writePos++;
+                        scratchBuffer[strByteLen + writePos+1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
                         // fallthrough
                     }
                     case 1:
                     {
                         int b0 = this.scratchBuffer[readPos] & 0xff;
-                        scratchBuffer[strByteLen + writePos + 0] = (byte) (' ' + (b0 >> 2));
-                        writePos++;
+                        scratchBuffer[strByteLen + writePos+0] = (byte) (' ' + (b0 >> 2));
                         break;
                     }
                     case 0:
                         break;
                     default:
-                        throw new IOException("Error while parsing QSTR invalid number of residual bytes: " + remainingCompressedBytes);
+                        throw new IOException("Error while parsing QSTR invalid number of residual bytes: " + remainingChars);
                 }
-                strByteLen += writePos;
-
+                strByteLen += writePos + remainingChars;
                 break;
             }
             default:
