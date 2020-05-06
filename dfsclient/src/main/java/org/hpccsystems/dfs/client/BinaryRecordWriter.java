@@ -27,6 +27,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.ArrayList;
 
 import java.util.Arrays;
 
@@ -40,6 +41,10 @@ public class BinaryRecordWriter implements IRecordWriter
     private static final byte   PositiveSignValue   = 0x0f;
     private static final int    MASK_32_LOWER_HALF  = 0xffff;
     private static final int    SCRATCH_BUFFER_SIZE = 256;
+
+    // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
+    private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
+    private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
 
     private byte[]              scratchBuffer       = new byte[SCRATCH_BUFFER_SIZE];
 
@@ -148,6 +153,10 @@ public class BinaryRecordWriter implements IRecordWriter
                     if (fieldValue instanceof List)
                     {
                         listValue = (List<Object>) fieldValue;
+                    }
+                    else if (fieldValue == null)
+                    {
+                        listValue = new ArrayList<Object>();
                     }
                     else
                     {
@@ -323,13 +332,15 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case DECIMAL:
             {
+                BigDecimal value = fieldValue==null?BigDecimal.valueOf(0):(BigDecimal) fieldValue;
                 if (fd.isUnsigned())
                 {
-                    throw new Exception("Writing unsigned decimals is not currently supported.");
+                    writeUnsignedDecimal(fd, value);
                 }
-
-                BigDecimal value = fieldValue==null?BigDecimal.valueOf(0):(BigDecimal) fieldValue;
-                writeDecimal(fd, value);
+                else
+                {
+                    writeDecimal(fd, value);
+                }
                 break;
             }
             case REAL:
@@ -391,7 +402,48 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else if (fd.getSourceType() == HpccSrcType.QSTRING)
                 {
-                    throw new Exception("Writing QStrings is currently unsupported.");
+                    byte[] tempData = value.getBytes("ISO-8859-1");
+
+                    // We are multiplying expandedLen by the QSTR compression ratio. We are doing this in integers
+                    // so we need to handle rounding up correctly by adding divisor-1 or (QSTR_EXPANDED_CHUNK_LEN-1) in this case
+                    int compressedDataLen = tempData.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
+                    compressedDataLen /= QSTR_EXPANDED_CHUNK_LEN;
+                    data = new byte[compressedDataLen];
+                    
+                    int bitOffset = 0;
+                    for (int i = 0; i < tempData.length; i++)
+                    {
+                        int byteIdx = bitOffset / 8;
+                        int qstrByteValue = (tempData[i] & 0xff) - ' ';
+                        int charIdxMod = i % QSTR_EXPANDED_CHUNK_LEN;
+                        switch (charIdxMod)
+                        {
+                            case 3:
+                                // The full 6 bits of Char 3 are in the bot 6 bits of byte 3
+                                data[byteIdx] |= (byte) (qstrByteValue & 0x3F);
+                                break;
+                            case 2:
+                                // The top 4 bits of Char 2 are in the bot 4 bits of byte1
+                                data[byteIdx] |= (byte) ((qstrByteValue & 0x3C) >> 2);
+                                
+                                // The bot 2 bits of Char 2 are in the top 2 bits of byte2
+                                data[byteIdx+1] = (byte) ((qstrByteValue & 0x3) << 6);
+                                break;
+                            case 1:
+                                // Top 2 bits of Char 1 are in the bot 2 bits of byte 0
+                                data[byteIdx] |= (byte) ((qstrByteValue & 0x30) >> 4);
+
+                                //The bot 4 bits of Char 1 are in the top 4 bits of byte 1
+                                data[byteIdx+1] = (byte) ((qstrByteValue & 0xF) << 4);
+                                break;
+                            case 0:
+                                // Char 0 is in the top 6 bits of byte 0
+                                data[byteIdx] = (byte) ((qstrByteValue & 0x3F) << 2);
+                                break;
+                        }
+
+                        bitOffset += 6;
+                    }
                 }
                 else
                 {
@@ -540,11 +592,6 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case DECIMAL:
             {
-                if (fd.isUnsigned())
-                {
-                    throw new Exception("Writing unsigned decimals not supported");
-                }
-
                 return fd.getDataLen();
             }
             case REAL:
@@ -583,7 +630,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else if (fd.getSourceType() == HpccSrcType.QSTRING)
                     {
-                        throw new Exception("Writing QStrings is currently unsupported.");
+                        dataLen = fd.getDataLen();
                     }
                     else
                     {
@@ -615,7 +662,12 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else if (fd.getSourceType() == HpccSrcType.QSTRING)
                 {
-                    throw new Exception("Writing QStrings is currently unsupported.");
+                    data = value.getBytes("ISO-8859-1");
+                    // We are multiplying expandedLen by the QSTR compression ratio. We are doing this in integers
+                    // so we need to handle rounding up correctly by adding divisor-1 or (QSTR_EXPANDED_CHUNK_LEN-1) in this case
+                    int compressedDataLen = data.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
+                    compressedDataLen /= QSTR_EXPANDED_CHUNK_LEN;
+                    data = new byte[compressedDataLen];
                 }
                 else
                 {
@@ -738,16 +790,16 @@ public class BinaryRecordWriter implements IRecordWriter
         decimalStr = decimalStr.substring(numLeadingZeros);
 
         int intDigits = decimalStr.indexOf('.');
+        if (intDigits < 0)
+        {
+            intDigits = decimalStr.length();
+        }
 
         byte[] workingBuffer = new byte[dataLen];
         Arrays.fill(workingBuffer, (byte) 0);
 
         // Calculate padding at the beginning.
         int bitOffset = (mostSigDigit - intDigits) * 4;
-        if (bitOffset == 0)
-        {
-            bitOffset = 4;
-        }
 
         // Even precision values are shifted by an additional 4 bits
         if (precision % 2 == 0)
@@ -776,6 +828,68 @@ public class BinaryRecordWriter implements IRecordWriter
         else
         {
             workingBuffer[dataLen - 1] |= BinaryRecordWriter.PositiveSignValue;
+        }
+
+        this.buffer.put(workingBuffer);
+    }
+
+    /**
+     * Write unsigned decimal.
+     *
+     * @param fd
+     *            the fd
+     * @param decimalValue
+     *            the decimal value
+     */
+    private void writeUnsignedDecimal(FieldDef fd, BigDecimal decimalValue)
+    {
+        int precision = fd.getPrecision();
+        int scale = fd.getScale();
+        int dataLen = (int) fd.getDataLen();
+
+        int mostSigDigit = precision - scale;
+
+        // If the value is negative clamp it to zero
+        boolean isNegative = decimalValue.signum() == -1;
+        if (isNegative)
+        {
+            decimalValue = BigDecimal.valueOf(0);
+        }
+
+        String decimalStr = decimalValue.stripTrailingZeros().toPlainString();
+
+        // Strip leading zeros. We only want sig digits
+        int numLeadingZeros = 0;
+        while (decimalStr.length()>numLeadingZeros && decimalStr.charAt(numLeadingZeros) == '0')
+        {
+            numLeadingZeros++;
+        }
+        decimalStr = decimalStr.substring(numLeadingZeros);
+
+        int intDigits = decimalStr.indexOf('.');
+        if (intDigits < 0)
+        {
+            intDigits = decimalStr.length();
+        }
+
+        byte[] workingBuffer = new byte[dataLen];
+        Arrays.fill(workingBuffer, (byte) 0);
+
+        // Calculate padding at the beginning.
+        int bitOffset = (mostSigDigit - intDigits) * 4;
+
+        for (int i = 0; i < decimalStr.length(); i++)
+        {
+            if (decimalStr.charAt(i) == '.')
+            {
+                continue;
+            }
+            int byteOffset = bitOffset / 8;
+            int bitShift = (bitOffset + 4) % 8;
+
+            int digit = (decimalStr.charAt(i) - '0');
+            workingBuffer[byteOffset] |= (digit << bitShift);
+            bitOffset += 4;
         }
 
         this.buffer.put(workingBuffer);
