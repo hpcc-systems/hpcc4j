@@ -32,6 +32,7 @@ import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -49,11 +50,13 @@ public class EclParseRegressionTest extends BaseRemoteTest
             System.out.println("EclParseRegressionTest: No 'thorname' system prop provided, defaulting to 'thor' cluster name");
             targetThorName = "thor";
         }
+
         if (targetRoxieName == null)
         {
             System.out.println("EclParseRegressionTest: No 'roxiename' system prop provided, defaulting to 'roxie' cluster name");
             targetRoxieName = "roxie";
         }
+
         if (targetHthorName == null)
         {
             System.out.println("EclParseRegressionTest: No 'hthorname' system prop provided, defaulting to 'hthor' cluster name");
@@ -93,6 +96,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
         return targetHthorName;
     }
 
+    @Ignore("Single file used for testing -- run as needed")
     @Test
     public void testSingle() throws Exception, ArrayOfEspExceptionWrapper
     {
