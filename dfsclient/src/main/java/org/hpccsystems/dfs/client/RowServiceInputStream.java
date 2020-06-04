@@ -35,6 +35,8 @@ import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.network.Network;
 
+import org.hpccsystems.dfs.client.CompileTimeConstants;
+
 /**
  * The connection to a specific THOR node for a specific file part.
  *
@@ -73,6 +75,20 @@ public class RowServiceInputStream extends InputStream
     private int                      recordLimit = -1;
 
     private int                      remainingDataInCurrentRequest = 0;
+    private long                     streamPos = 0;
+
+    private long                     firstByteTimeNS = -1;
+    private long                     mutexWaitTimeNS = 0;
+    private long                     waitTimeNS = 0;
+    private long                     sleepTimeNS = 0;
+    private long                     fetchStartTimeNS = 0;
+    private long                     fetchTimeNS = 0;
+    private long                     fetchFinishTimeNS = 0;
+    private long                     closeTimeNS = 0;
+    private int                      numLongWaits = 0;
+    private int                      numFetches = 0;
+    private long                     numPartialBlockReads = 0;
+    private long                     numBlockReads = 0;
 
     private Socket                   sock;
     public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
@@ -83,6 +99,7 @@ public class RowServiceInputStream extends InputStream
     // Note: The platform may respond with more data than this if records are larger than this limit.
     private static final int         DEFAULT_MAX_READ_SIZE_KB = 4096;
     private static final int         PREFETCH_SLEEP_MS        = 1;
+    private static final int         LONG_WAIT_THRESHOLD_US   = 100;
 
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
     
@@ -217,7 +234,17 @@ public class RowServiceInputStream extends InputStream
                         {
                             try
                             {
-                                Thread.sleep(PREFETCH_SLEEP_MS);
+                                if (CompileTimeConstants.PROFILE_CODE)
+                                {
+                                    long sleepTime = System.nanoTime();
+                                    Thread.sleep(PREFETCH_SLEEP_MS);
+                                    sleepTime = System.nanoTime() - sleepTime;
+                                    sleepTimeNS += sleepTime;
+                                }
+                                else
+                                {
+                                    Thread.sleep(PREFETCH_SLEEP_MS);
+                                }
                             }
                             catch(Exception e){}
                         }
@@ -392,6 +419,7 @@ public class RowServiceInputStream extends InputStream
             return -1;
         }
 
+        numFetches++;
         if (!this.active.get()) // attempt to the first read
         {
             try
@@ -542,7 +570,21 @@ public class RowServiceInputStream extends InputStream
         // Loop here while data is being consumed quickly enough
         while (remainingDataInCurrentRequest > 0)
         {
-            this.bufferWriteMutex.acquireUninterruptibly();
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                boolean acquired = this.bufferWriteMutex.tryAcquire();
+                if (acquired == false)
+                {
+                    long aquireTime = System.nanoTime();
+                    this.bufferWriteMutex.acquireUninterruptibly();
+                    aquireTime = System.nanoTime() - aquireTime;
+                    mutexWaitTimeNS += aquireTime;
+                }
+            }
+            else
+            {
+                this.bufferWriteMutex.acquireUninterruptibly();
+            }
 
             int totalBufferCapacity = this.readBufferCapacity.get();
             int currentBufferLen = this.readBufferDataLen.get();
@@ -642,20 +684,79 @@ public class RowServiceInputStream extends InputStream
         // If we haven't finished reading the current request continue reading it
         if (remainingDataInCurrentRequest > 0) 
         {
-            readDataInFetch();
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                long nsFetching = System.nanoTime();
+                readDataInFetch();
+                nsFetching = System.nanoTime() - nsFetching;
+                fetchTimeNS += nsFetching;
+            }
+            else
+            {
+                readDataInFetch();
+            }
+
             if (remainingDataInCurrentRequest == 0)
             {
-                finishFetch();
+                if (CompileTimeConstants.PROFILE_CODE)
+                {
+                    long nsFinishFetch = System.nanoTime();
+                    finishFetch();
+                    nsFinishFetch = System.nanoTime() - nsFinishFetch;
+                    fetchFinishTimeNS += nsFinishFetch;
+                }
+                else
+                {
+                    finishFetch();
+                }
             }
         }
         // Otherwise start a new request
         else
         {
-            remainingDataInCurrentRequest = startFetch();
-            readDataInFetch();
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                long nsStartFetch = System.nanoTime();
+                remainingDataInCurrentRequest = startFetch();
+                nsStartFetch = System.nanoTime() - nsStartFetch;
+                fetchStartTimeNS += nsStartFetch;
+            }
+            else
+            {
+                remainingDataInCurrentRequest = startFetch();
+            }
+
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                long nsFetching = System.nanoTime();
+                readDataInFetch();
+                nsFetching = System.nanoTime() - nsFetching;
+                fetchTimeNS += nsFetching;
+
+                // If this is the first fetch. numFetches gets incremented at the start of a fetch
+                if (numFetches == 1 && firstByteTimeNS > 0)
+                {
+                    firstByteTimeNS = System.nanoTime() - firstByteTimeNS;
+                }
+            }
+            else
+            {
+                readDataInFetch();
+            }
+
             if (remainingDataInCurrentRequest == 0)
             {
-                finishFetch();
+                if (CompileTimeConstants.PROFILE_CODE)
+                {
+                    long nsFinishFetch = System.nanoTime();
+                    finishFetch();
+                    nsFinishFetch = System.nanoTime() - nsFinishFetch;
+                    fetchFinishTimeNS += nsFinishFetch;
+                }
+                else
+                {
+                    finishFetch();
+                }
             }
         }
     }
@@ -667,7 +768,22 @@ public class RowServiceInputStream extends InputStream
      */
     private void compactBuffer()
     {
-        this.bufferWriteMutex.acquireUninterruptibly();
+        if (CompileTimeConstants.PROFILE_CODE)
+        {
+            boolean acquired = this.bufferWriteMutex.tryAcquire();
+            if (acquired == false)
+            {
+                long aquireTime = System.nanoTime();
+                this.bufferWriteMutex.acquireUninterruptibly();
+                aquireTime = System.nanoTime() - aquireTime;
+                mutexWaitTimeNS += aquireTime;
+            }
+        }
+        else
+        {
+            this.bufferWriteMutex.acquireUninterruptibly();
+        }
+
         if (this.readPos >= this.bufferCompactThresholdKB * 1024)
         {
             // Don't loose the markPos during compaction
@@ -761,7 +877,21 @@ public class RowServiceInputStream extends InputStream
     @Override
     public void mark(int readLim)
     {
-        this.bufferWriteMutex.acquireUninterruptibly();
+        if (CompileTimeConstants.PROFILE_CODE)
+        {
+            boolean acquired = this.bufferWriteMutex.tryAcquire();
+            if (acquired == false)
+            {
+                long aquireTime = System.nanoTime();
+                this.bufferWriteMutex.acquireUninterruptibly();
+                aquireTime = System.nanoTime() - aquireTime;
+                mutexWaitTimeNS += aquireTime;
+            }
+        }
+        else
+        {
+            this.bufferWriteMutex.acquireUninterruptibly();
+        }
 
         int availableReadCapacity = (this.readBufferCapacity.get() - this.readPos);
         this.readLimit = readLim;
@@ -819,14 +949,37 @@ public class RowServiceInputStream extends InputStream
         }
 
         // We are waiting on a single byte so hot loop
+        long waitNS = 0;
         try
         {
             // Available will throw an exception when it reaches EOS and available bytes == 0
-            while (this.available() < 1) {}
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                waitNS = System.nanoTime();
+                while (this.available() < 1) {}
+                waitNS = System.nanoTime() - waitNS;
+                waitTimeNS += waitNS;
+
+                float timeUS = waitNS / 1000.0f;
+                if (timeUS >= LONG_WAIT_THRESHOLD_US)
+                {
+                    numLongWaits++;
+                }
+            }
+            else
+            {
+                while (this.available() < 1) {}
+            }
         }
         catch (IOException e)
         {
-            // Read failed due to EOS
+            // waitNS in this case is the time it took for the stream to close
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                closeTimeNS = System.nanoTime() - waitNS;
+            }
+
+            // Read failed due to EOS. Other side closed socket
             return -1;
         }
 
@@ -834,6 +987,7 @@ public class RowServiceInputStream extends InputStream
         // Java byte range [-128,127] 
         int ret = this.readBuffer[this.readPos] + 128;
         this.readPos++;
+        this.streamPos++;
 
         compactBuffer();
 
@@ -880,10 +1034,13 @@ public class RowServiceInputStream extends InputStream
         if (bytesToRead > available)
         {
             bytesToRead = available;
+            numPartialBlockReads++;
         }
+        numBlockReads++;
 
         System.arraycopy(this.readBuffer,this.readPos,b,off,bytesToRead);
         this.readPos += bytesToRead;
+        this.streamPos += bytesToRead;
 
         compactBuffer();
 
@@ -909,6 +1066,7 @@ public class RowServiceInputStream extends InputStream
                     + "Either a mark has not been set or the reset length exceeds internal buffer length.");
         }
 
+        this.streamPos -= (this.readPos - this.markPos);
         this.readPos = this.markPos;
         this.markPos = -1;
     }
@@ -952,7 +1110,75 @@ public class RowServiceInputStream extends InputStream
             compactBuffer();
         }
 
-        return (n - remainingBytesToSkip);
+        long bytesSkipped = (n - remainingBytesToSkip);
+        this.streamPos += bytesSkipped;
+
+        return bytesSkipped;
+    }
+
+    public long getBytesRead()
+    {
+        return this.streamPos;
+    }
+
+    public long getFirstByteTimeNS()
+    {
+        return firstByteTimeNS;
+    }
+
+    public long getWaitTimeNS()
+    {
+        return waitTimeNS;
+    }
+
+    public long getSleepTimeNS()
+    {
+        return sleepTimeNS;
+    }
+
+    public long getFetchStartTimeNS()
+    {
+        return fetchStartTimeNS;
+    }
+
+    public long getFetchTimeNS()
+    {
+        return fetchTimeNS;
+    }
+
+    public long getFetchFinishTimeNS()
+    {
+        return fetchFinishTimeNS;
+    }
+
+    public long getCloseTimeNS()
+    {
+        return closeTimeNS;
+    }
+
+    public long getMutexWaitTimeNS()
+    {
+        return mutexWaitTimeNS;
+    }
+
+    public int getNumLongWaits()
+    {
+        return numLongWaits;
+    }
+
+    public int getNumFetches()
+    {
+        return numFetches;
+    }
+
+    public long getNumPartialBlockReads()
+    {
+        return numPartialBlockReads;
+    }
+
+    public long getNumBlockReads()
+    {
+        return numBlockReads;
     }
 
     /**
@@ -1039,6 +1265,11 @@ public class RowServiceInputStream extends InputStream
                 {
                     throw new HpccFileException("Failed on initial remote read read trans", e);
                 }
+            
+                if (CompileTimeConstants.PROFILE_CODE)
+                {
+                    firstByteTimeNS = System.nanoTime();
+                }
                 return;
             }
             catch (Exception e)
@@ -1052,6 +1283,7 @@ public class RowServiceInputStream extends InputStream
                     throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e);
             }
         }
+
     }
 
     /**
