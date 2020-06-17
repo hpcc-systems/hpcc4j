@@ -221,7 +221,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             JSONArray testResults = rawReadTests.get(i).toFlatJson();
             for (int j = 0; j < testResults.length(); j++)
             {
-                fileWriter.write(testResults.get(j).toString());
+                fileWriter.write(testResults.get(j).toString() + "\n");
             }
         }
 
@@ -230,7 +230,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             JSONArray testResults = readParseTests.get(i).toFlatJson();
             for (int j = 0; j < testResults.length(); j++)
             {
-                fileWriter.write(testResults.get(j).toString());
+                fileWriter.write(testResults.get(j).toString() + "\n");
             }
         }
 
