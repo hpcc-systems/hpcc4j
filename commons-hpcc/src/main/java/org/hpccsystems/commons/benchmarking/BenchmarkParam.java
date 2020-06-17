@@ -2,6 +2,9 @@ package org.hpccsystems.commons.benchmarking;
 
 import org.json.JSONObject;
 
+/**
+ * A helper class that represents a parameter for a benchmark test.
+ */
 public class BenchmarkParam
 {
     public String name = "";

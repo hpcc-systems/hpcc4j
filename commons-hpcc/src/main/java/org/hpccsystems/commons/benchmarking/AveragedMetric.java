@@ -7,6 +7,9 @@ import java.lang.Math;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+/**
+ * A helper class that collects data points for a given metric and provides basic statistical functions. 
+ */
 public class AveragedMetric
 {
     // First 20 Thompson Tau values. Used to determine if a datapoint is an outlier
@@ -18,6 +21,9 @@ public class AveragedMetric
         1.8153f, 1.8290f, 1.8403f, 1.8498f, 1.8579f,
         1.8649f, 1.8710f, 1.8764f, 1.8811f, 1.8853f
     };
+
+    private static final int MAX_DATA_POINTS = 20;
+    private static final int MIN_DATA_POINTS_FOR_OUTLIERS = 3;
 
     private ArrayList<Float> dataPoints = new ArrayList<Float>();
 
@@ -45,7 +51,7 @@ public class AveragedMetric
 
     public void addDataPoint(float dataPoint)
     {
-        if (dataPoints.size() >= 20)
+        if (dataPoints.size() >= MAX_DATA_POINTS)
         {
             return;
         }
@@ -55,7 +61,7 @@ public class AveragedMetric
 
     public void discardOutliers()
     {
-        if (dataPoints.size() < 3)
+        if (dataPoints.size() < MIN_DATA_POINTS_FOR_OUTLIERS)
         {
             return;
         }
@@ -78,8 +84,8 @@ public class AveragedMetric
 
             for (int i = 0; i < dataPoints.size(); i++)
             {
-                float absoluteDeviation = dataPoints.get(i).floatValue() - avg;
-                if (largestAbsDeviation < Math.abs(absoluteDeviation))
+                float absoluteDeviation = Math.abs(dataPoints.get(i).floatValue() - avg);
+                if (largestAbsDeviation < absoluteDeviation)
                 {
                     largestAbsDeviation = absoluteDeviation;
                     largestAbsDeviationIndex = i;

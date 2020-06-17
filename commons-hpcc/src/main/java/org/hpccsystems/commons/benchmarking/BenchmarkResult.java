@@ -6,6 +6,9 @@ import java.util.HashMap;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+/**
+ * A helper class that can be used to record the results of a benchmark test.
+ */
 public class BenchmarkResult
 {
     private String testGroup = "";
@@ -109,7 +112,7 @@ public class BenchmarkResult
         // Write test results
         JSONArray jsonMetrics = new JSONArray();
 
-        if (selectedResults == null)
+        if (selectedResults == null || selectedResults.length == 0)
         {
             for (HashMap.Entry<String, AveragedMetric> entry : metrics.entrySet())
             {
@@ -151,7 +154,7 @@ public class BenchmarkResult
     {
         JSONArray results = new JSONArray();
 
-        if (selectedResults == null)
+        if (selectedResults == null || selectedResults.length == 0)
         {
             for (HashMap.Entry<String, AveragedMetric> entry : metrics.entrySet())
             {

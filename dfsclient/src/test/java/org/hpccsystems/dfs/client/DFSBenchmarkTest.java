@@ -136,6 +136,8 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             System.out.print(datasets[i] + " samples: [");
 
             BenchmarkResult result = new BenchmarkResult("Read & Parse Tests","read_parse::" + datasets[i]);
+            readParseTests.add(result);
+
             result.addParameter(new BenchmarkParam("dataset",datasets[i]));
 
             result.addMetric(new AveragedMetric(READ_TIME_METRIC,"s"));
@@ -212,13 +214,14 @@ public class DFSBenchmarkTest extends BaseRemoteTest
         fileWriter.close();
 
         // Output ELK results
-        JSONArray elkResults = new JSONArray();
+        outputPath = "elk_results.json";
+        fileWriter = new FileWriter(outputPath);
         for (int i = 0; i < rawReadTests.size(); i++)
         {
             JSONArray testResults = rawReadTests.get(i).toFlatJson();
             for (int j = 0; j < testResults.length(); j++)
             {
-                elkResults.put(testResults.get(j));
+                fileWriter.write(testResults.get(j).toString());
             }
         }
 
@@ -227,13 +230,10 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             JSONArray testResults = readParseTests.get(i).toFlatJson();
             for (int j = 0; j < testResults.length(); j++)
             {
-                elkResults.put(testResults.get(j));
+                fileWriter.write(testResults.get(j).toString());
             }
         }
 
-        outputPath = "elk_results.json";
-        fileWriter = new FileWriter(outputPath);
-        fileWriter.write(elkResults.toString());
         fileWriter.close();
     }
 
