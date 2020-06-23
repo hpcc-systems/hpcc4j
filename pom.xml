@@ -58,6 +58,8 @@
     <axis2.version>1.7.9</axis2.version>
     <javadoc.excludePackageNames></javadoc.excludePackageNames>
     <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
+    <codehaus.template.version>1.0.0</codehaus.template.version>
+    <project.benchmarking>false</project.benchmarking>
   </properties>
 
   <scm>
@@ -301,6 +303,19 @@
           <configuration>
             <skip>${maven.gpg.skip}</skip>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>templating-maven-plugin</artifactId>
+          <version>${codehaus.template.version}</version>
+          <executions>
+            <execution>
+              <id>filter-src</id>
+              <goals>
+                <goal>filter-sources</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
