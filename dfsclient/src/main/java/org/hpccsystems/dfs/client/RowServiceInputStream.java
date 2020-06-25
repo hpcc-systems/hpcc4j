@@ -65,9 +65,11 @@ public class RowServiceInputStream extends InputStream
     private final Semaphore          bufferWriteMutex = new Semaphore(1);
 
     private byte[]                   readBuffer;
-    private AtomicInteger            readBufferLen = new AtomicInteger(0);
+    private AtomicInteger            readBufferCapacity = new AtomicInteger(0);
+    private AtomicInteger            readBufferDataLen = new AtomicInteger(0);
     private int                      readPos = 0;
     private int                      markPos = -1;
+    private int                      readLimit = -1;
     private int                      recordLimit = -1;
 
     private int                      remainingDataInCurrentRequest = 0;
@@ -194,7 +196,10 @@ public class RowServiceInputStream extends InputStream
         this.simulateFail = false;
         this.connectTimeout = connectTimeout;
         this.recordLimit = limit;
-        this.readBuffer = new byte[this.maxReadSizeKB*1024*2];
+
+        this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
+        this.readBuffer = new byte[this.readBufferCapacity.get()];
+
         this.makeActive();
 
         if (createPrefetchThread)
@@ -374,8 +379,8 @@ public class RowServiceInputStream extends InputStream
      */
     public int getRemainingBufferCapacity()
     {
-        int totalBufferCapacity = this.readBuffer.length;
-        int currentBufferLen = this.readBufferLen.get();
+        int totalBufferCapacity = this.readBufferCapacity.get();
+        int currentBufferLen = this.readBufferDataLen.get();
         return totalBufferCapacity - currentBufferLen;
     }
 
@@ -537,14 +542,10 @@ public class RowServiceInputStream extends InputStream
         // Loop here while data is being consumed quickly enough
         while (remainingDataInCurrentRequest > 0)
         {
-            try
-            {
-                this.bufferWriteMutex.acquire();
-            }
-            catch(Exception e){}
+            this.bufferWriteMutex.acquireUninterruptibly();
 
-            int totalBufferCapacity = this.readBuffer.length;
-            int currentBufferLen = this.readBufferLen.get();
+            int totalBufferCapacity = this.readBufferCapacity.get();
+            int currentBufferLen = this.readBufferDataLen.get();
             int remainingBufferCapacity = totalBufferCapacity - currentBufferLen;
 
             remainingBufferCapacity = totalBufferCapacity - currentBufferLen;
@@ -567,14 +568,14 @@ public class RowServiceInputStream extends InputStream
                 catch(Exception ie){}
             }
 
-            // ReadBufferLen should only ever be updated within the mutex so no need to do compare exchange
-            this.readBufferLen.set(currentBufferLen + bytesToRead);
+            // readBufferDataLen should only ever be updated within the mutex so no need to do compare exchange
+            this.readBufferDataLen.addAndGet(bytesToRead);
             remainingDataInCurrentRequest -= bytesToRead;
 
             bufferWriteMutex.release();
             
-            // If we don't have enough remove in the buffer return and let the calling prefetch thread handle sleep etc
-            if (remainingDataInCurrentRequest > 0 && this.readBufferLen.get() > (this.bufferPrefetchThresholdKB * 1024))
+            // If we don't have enough room in the buffer. Return, and let the calling prefetch thread handle sleep etc
+            if (remainingDataInCurrentRequest > 0 && this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
             {
                 return;
             }
@@ -666,40 +667,56 @@ public class RowServiceInputStream extends InputStream
      */
     private void compactBuffer()
     {
+        this.bufferWriteMutex.acquireUninterruptibly();
         if (this.readPos >= this.bufferCompactThresholdKB * 1024)
         {
-            try
-            {
-                this.bufferWriteMutex.acquire();
-            }
-            catch(Exception e){}
-
             // Don't loose the markPos during compaction
             int compactStartLoc = this.readPos;
             if (this.markPos >= 0)
             {
-                compactStartLoc = this.markPos;
-                this.markPos = 0;
+                int markOffset = this.readPos - this.markPos;
+                if (markOffset <= readLimit)
+                {
+                    compactStartLoc = this.markPos;
+                    this.markPos = 0;
+                }
+                else
+                {
+                    // We have gone past our read limit so go ahead reset the markPos
+                    this.markPos = -1;
+                }
             }
 
-            int remainingBytesInBuffer = this.readBufferLen.get() - compactStartLoc;
-            this.readBufferLen.set(remainingBytesInBuffer);
-
+            int remainingBytesInBuffer = this.readBufferDataLen.addAndGet(-compactStartLoc);
             System.arraycopy(this.readBuffer,compactStartLoc,this.readBuffer,0,remainingBytesInBuffer);
             this.readPos -= compactStartLoc;
-
-            this.bufferWriteMutex.release();
         }
+        this.bufferWriteMutex.release();
     }
-
     /*
      * (non-Javadoc)
      * 
      * @see java.io.InputStream#available()
-     */   
+     */
+    @Override
     public int available() throws IOException
     {
-        return this.readBufferLen.get() - this.readPos;
+        // Do the check for closed first here to avoid data races
+        if (this.closed.get())
+        {
+            int bufferLen = this.readBufferDataLen.get();
+            int availBytes = bufferLen - this.readPos;
+            if (availBytes == 0)
+            {
+                // this.bufferWriteMutex.release();
+                throw new IOException("End of input stream.");
+            }
+        }
+
+        int bufferLen = this.readBufferDataLen.get();
+        int availBytes = bufferLen - this.readPos;
+
+        return availBytes;
     }
 
     /*
@@ -707,6 +724,7 @@ public class RowServiceInputStream extends InputStream
      * 
      * @see java.io.InputStream#close()
      */
+    @Override
     public void close() throws IOException
     {
         // Using getAndSet to prevent main thread and background thread from 
@@ -740,23 +758,22 @@ public class RowServiceInputStream extends InputStream
      * 
      * @see java.io.InputStream#mark(int)
      */
-    public void mark(int readLimit)
+    @Override
+    public void mark(int readLim)
     {
-        int availableReadCapacity = (this.readBuffer.length - this.readPos);
+        this.bufferWriteMutex.acquireUninterruptibly();
+
+        int availableReadCapacity = (this.readBufferCapacity.get() - this.readPos);
+        this.readLimit = readLim;
 
         // Check to see if we can handle this readLimit with the current buffer / readPos
-        int bufferCapacityNeededWithoutCompaction = readLimit + this.bufferCompactThresholdKB * 1024;
-        if (availableReadCapacity < bufferCapacityNeededWithoutCompaction)
+        if (availableReadCapacity <= this.readLimit)
         {
-            try
-            {
-                this.bufferWriteMutex.acquire();
-            }
-            catch(Exception e){}
+            int requiredBufferLength = this.readPos + this.readLimit;
 
             // Check to see if compaction will work
-            int remainingBytesInBuffer = this.readBufferLen.get() - this.readPos;
-            if (this.readBuffer.length > bufferCapacityNeededWithoutCompaction)
+            int remainingBytesInBuffer = this.readBufferDataLen.addAndGet(-this.readPos);
+            if (this.readBufferCapacity.get() >= requiredBufferLength)
             {
                 System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
                 this.readPos = 0;
@@ -764,16 +781,16 @@ public class RowServiceInputStream extends InputStream
             // Need a larger buffer
             else
             {
-                byte[] newBuffer = new byte[bufferCapacityNeededWithoutCompaction];
+                byte[] newBuffer = new byte[requiredBufferLength];
                 System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
                 this.readBuffer = newBuffer;
+                this.readBufferCapacity.set(requiredBufferLength);
                 this.readPos = 0;
             }
-
-            this.bufferWriteMutex.release();
         }
 
         this.markPos = this.readPos;
+        this.bufferWriteMutex.release();
     }
 
     /*
@@ -781,6 +798,7 @@ public class RowServiceInputStream extends InputStream
      * 
      * @see java.io.InputStream#markSupported()
      */
+    @Override
     public boolean markSupported()
     {
         return true;
@@ -792,24 +810,31 @@ public class RowServiceInputStream extends InputStream
      * @see java.io.InputStream#read()
      */
     // Returns next byte [0-255] -1 on EOS
+    @Override
     public int read() throws IOException
     {
         if (this.prefetchException != null)
         {
             throw new IOException(this.prefetchException.getMessage());
         }
-        
-        // We are waiting on a single byte so hot loop
-        while (this.available() < 1 && this.closed.get() == false) {}
 
-        if (this.available() < 1)
+        // We are waiting on a single byte so hot loop
+        try
         {
+            // Available will throw an exception when it reaches EOS and available bytes == 0
+            while (this.available() < 1) {}
+        }
+        catch (IOException e)
+        {
+            // Read failed due to EOS
             return -1;
         }
+
 
         // Java byte range [-128,127] 
         int ret = this.readBuffer[this.readPos] + 128;
         this.readPos++;
+
         compactBuffer();
 
         return ret;
@@ -821,6 +846,7 @@ public class RowServiceInputStream extends InputStream
      * @see java.io.InputStream#read(byte[])
      */
     // Returns -1 on EOS
+    @Override
     public int read(byte[] b) throws IOException
     {
         return read(b, 0, b.length);
@@ -832,6 +858,7 @@ public class RowServiceInputStream extends InputStream
      * @see java.io.InputStream#read(byte[], int, int)
      */
     // Returns -1 on EOS
+    @Override
     public int read(byte[] b, int off, int len) throws IOException
     {
         if (this.prefetchException != null)
@@ -839,9 +866,12 @@ public class RowServiceInputStream extends InputStream
             throw new IOException(this.prefetchException.getMessage());
         }
 
-        
-        int available = this.available();
-        if (this.closed.get() && available == 0)
+        int available = 0;
+        try
+        {
+            available = this.available();
+        }
+        catch (IOException e)
         {
             return -1;
         }
@@ -865,6 +895,7 @@ public class RowServiceInputStream extends InputStream
      * 
      * @see java.io.InputStream#reset()
      */
+    @Override
     public void reset() throws IOException
     {
         if (this.prefetchException != null)
@@ -887,6 +918,7 @@ public class RowServiceInputStream extends InputStream
      * 
      * @see java.io.InputStream#skip(long)
      */
+    @Override
     public long skip(long n) throws IOException
     {
         if (this.prefetchException != null)
@@ -898,9 +930,12 @@ public class RowServiceInputStream extends InputStream
         long remainingBytesToSkip = n;
         while (remainingBytesToSkip > 0)
         {
-            boolean isClosed = this.closed.get();
-            int available = this.available();
-            if (available == 0 && isClosed)
+            int available = 0;
+            try
+            {
+                available = this.available();
+            }
+            catch (IOException e)
             {
                 break;
             }

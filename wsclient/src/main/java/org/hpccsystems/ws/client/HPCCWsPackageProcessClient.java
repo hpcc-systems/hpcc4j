@@ -3,6 +3,9 @@ package org.hpccsystems.ws.client;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
@@ -11,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspSoapFault;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse;
@@ -19,7 +21,6 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequ
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest;
@@ -27,7 +28,8 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProce
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
-
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
@@ -273,7 +275,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public BasePackageStatus activatePackage(boolean globalScope, String packageMapName, String process, String target)
+    public BasePackageStatusWrapper activatePackage(boolean globalScope, String packageMapName, String process, String target)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to activate package: " + packageMapName);
@@ -282,7 +284,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         ActivatePackageRequest request = new ActivatePackageRequest();
 
-        request.setGlobalScope(new Boolean(globalScope));
+        request.setGlobalScope(globalScope);
         request.setPackageMap(packageMapName);
         request.setProcess(process);
         request.setTarget(target);
@@ -305,7 +307,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform activatePackage");
 
-        return resp.getStatus();
+        if (resp.getStatus() != null)
+            return new BasePackageStatusWrapper(resp.getStatus());
+
+        return null;
     }
 
     /**
@@ -321,7 +326,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public BasePackageStatus getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
+    public BasePackageStatusWrapper getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
@@ -351,7 +356,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         log.debug("Get Package info: " + resp.getInfo());
 
-        return resp.getStatus();
+        if (resp.getStatus() != null)
+            return new BasePackageStatusWrapper(resp.getStatus());
+
+        return null;
     }
 
     /**
@@ -369,7 +377,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws Exception
      *             - Caller should handle exception in case of errors
      */
-    public BasePackageStatus removePartFromPackageMap(final boolean globalScope, final String partName, final String target, final String packageMap)
+    public BasePackageStatusWrapper removePartFromPackageMap(final boolean globalScope, final String partName, final String target, final String packageMap)
             throws Exception
     {
         log.debug("Attempting to remove package part.");
@@ -382,11 +390,11 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         request.setPackageMap(packageMap);
         request.setTarget(target);
 
-        RemovePartFromPackageMapResponse response = null;
+        RemovePartFromPackageMapResponse resp = null;
 
         try
         {
-            response = ((WsPackageProcessStub) stub).removePartFromPackageMap(request);
+            resp = ((WsPackageProcessStub) stub).removePartFromPackageMap(request);
         }
         catch (RemoteException e)
         {
@@ -397,13 +405,19 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could not remove package part.");
         }
 
-        if (response.getExceptions() != null)
+        if (resp.getExceptions() != null)
         {
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not Remove package part");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not Remove package part");
         }
 
-        return response.getStatus();
+        if (resp.getStatus() != null)
+            return new BasePackageStatusWrapper(resp.getStatus());
+
+        return null;
     }
+
+    /*@deprecated
+    public PackageListMapData[] listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper*/
 
     /**
      * List packages.
@@ -414,19 +428,19 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *            the target
      * @param processFilter
      *            the process filter
-     * @return the package list map data[]
+     * @return List of PackageListMapDataWrappers
      * @throws Exception
      *             the exception
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public PackageListMapData[] listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper
+    public List<PackageListMapDataWrapper> listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to list packages");
 
         verifyStub(); // Throws exception if stub failed
 
-        PackageListMapData[] packageListMapDataArray = null;
+        List<PackageListMapDataWrapper> result = null;
         ListPackagesRequest request = new ListPackagesRequest();
 
         request.setProcess(process);
@@ -454,10 +468,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         ArrayOfPackageListMapData packageMapList = response.getPackageMapList();
         if (packageMapList != null)
         {
-            packageListMapDataArray = packageMapList.getPackageListMapData();
+            result = Arrays.stream(packageMapList.getPackageListMapData()).map(PackageListMapDataWrapper::new).collect(Collectors.toList());
         }
 
-        return packageListMapDataArray;
+        return result;
     }
 
     // TO-DO
@@ -482,7 +496,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override

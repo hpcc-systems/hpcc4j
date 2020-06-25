@@ -26,11 +26,11 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray
  * Class name: ValidatePackageQueriesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageQueries
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.579Z
+ * TimeStamp: 2020-04-29T14:39:01.402Z
  */
 public class ValidatePackageQueriesWrapper
 {
-protected List<String> local_unmatched = new ArrayList<String>();
+	protected List<String> local_unmatched = null;
 
 	public ValidatePackageQueriesWrapper() {}
 

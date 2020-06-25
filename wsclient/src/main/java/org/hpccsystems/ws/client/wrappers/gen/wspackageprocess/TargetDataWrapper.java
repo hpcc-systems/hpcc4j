@@ -26,13 +26,13 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray
  * Class name: TargetDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.569Z
+ * TimeStamp: 2020-04-29T14:39:01.563Z
  */
 public class TargetDataWrapper
 {
-protected String local_name;
-protected String local_type;
-protected List<String> local_processes = new ArrayList<String>();
+	protected String local_name;
+	protected String local_type;
+	protected List<String> local_processes = null;
 
 	public TargetDataWrapper() {}
 

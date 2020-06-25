@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: PackageMaps_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMaps_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.556Z
+ * TimeStamp: 2020-04-29T14:39:01.433Z
  */
 public class PackageMaps_type0Wrapper
 {
-protected List<PackageMapEntryWrapper> local_packageMap = new ArrayList<PackageMapEntryWrapper>();
+	protected List<PackageMapEntryWrapper> local_packageMap = null;
 
 	public PackageMaps_type0Wrapper() {}
 

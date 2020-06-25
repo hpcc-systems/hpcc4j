@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: FilesNotFound_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.491Z
+ * TimeStamp: 2020-04-29T14:39:01.564Z
  */
 public class FilesNotFound_type0Wrapper
 {
-protected List<String> local_file = new ArrayList<String>();
+	protected List<String> local_file = null;
 
 	public FilesNotFound_type0Wrapper() {}
 

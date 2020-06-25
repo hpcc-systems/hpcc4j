@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<sect1 id="JAPI_Build" role="nobrk">
-  <title>Builds</title>
+<sect1 id="JAPI_Build">
+  <title>Buids</title>
 
   <para>To build the projects using Maven, navigate to the base directory of
   the project and issue the following command:</para>
 
   <programlisting>mvn install</programlisting>
+
+  <para><variablelist>
+      <varlistentry>
+        <term>NOTE:</term>
+
+        <listitem>
+          <para>hpcccommons, wsclient, and dfsclient are controlled via the
+          top-level maven pom file and can be built with a single command. All
+          sub-projects can be built individually using the pom file in each
+          sub-project directory.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist></para>
 
   <para>For more information on how to use Maven see <ulink
   url="http://maven.apache.org">http://maven.apache.org</ulink></para>
@@ -21,14 +34,14 @@
     <para><ulink
     url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
 
-    <para>To utilize this library as a dependency in your own maven project, add
-    the following definition to your pom.xml.</para>
+    <para>To utilize this library as a dependency in your own maven project,
+    add the following definition to your pom.xml.</para>
 
     <programlisting>
     &lt;dependency&gt;
         &lt;groupId&gt;org.hpccsystems&lt;/groupId&gt;
         &lt;artifactId&gt;wsclient&lt;/artifactId&gt;
-        &lt;version&gt;1.0.0&lt;/version&gt;
+        &lt;version&gt;7.8.2-1&lt;/version&gt;
     &lt;/dependency&gt;
     </programlisting>
 

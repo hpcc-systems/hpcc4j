@@ -23,13 +23,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetQueryFileMappingResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.531Z
+ * TimeStamp: 2020-04-29T14:39:01.361Z
  */
 public class GetQueryFileMappingResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected UnmappedFiles_type0Wrapper local_unmappedFiles;
-protected ArrayOfSuperFileWrapper local_superFiles;
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected UnmappedFiles_type0Wrapper local_unmappedFiles;
+	protected ArrayOfSuperFileWrapper local_superFiles;
 
 	public GetQueryFileMappingResponseWrapper() {}
 
@@ -50,9 +50,12 @@ protected ArrayOfSuperFileWrapper local_superFiles;
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_unmappedFiles = new UnmappedFiles_type0Wrapper( raw.getUnmappedFiles());
-		this.local_superFiles = new ArrayOfSuperFileWrapper( raw.getSuperFiles());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getUnmappedFiles() != null)
+			this.local_unmappedFiles = new UnmappedFiles_type0Wrapper( raw.getUnmappedFiles());
+		if (raw.getSuperFiles() != null)
+			this.local_superFiles = new ArrayOfSuperFileWrapper( raw.getSuperFiles());
 
 	}
 

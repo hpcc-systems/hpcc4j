@@ -23,12 +23,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: BasePackageStatusWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.459Z
+ * TimeStamp: 2020-04-29T14:39:01.570Z
  */
 public class BasePackageStatusWrapper
 {
-protected int local_code;
-protected String local_description;
+	protected int local_code;
+	protected String local_description;
 
 	public BasePackageStatusWrapper() {}
 

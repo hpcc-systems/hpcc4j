@@ -25,11 +25,11 @@ import java.util.ArrayList;
  * Class name: SubFiles_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.564Z
+ * TimeStamp: 2020-04-29T14:39:01.411Z
  */
 public class SubFiles_type0Wrapper
 {
-protected List<String> local_file = new ArrayList<String>();
+	protected List<String> local_file = null;
 
 	public SubFiles_type0Wrapper() {}
 

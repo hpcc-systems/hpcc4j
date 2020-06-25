@@ -23,16 +23,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: PackageListMapDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.551Z
+ * TimeStamp: 2020-04-29T14:39:01.425Z
  */
 public class PackageListMapDataWrapper
 {
-protected String local_id;
-protected String local_target;
-protected String local_process;
-protected ArrayOfPackageListDataWrapper local_pkgListData;
-protected boolean local_active;
-protected String local_description;
+	protected String local_id;
+	protected String local_target;
+	protected String local_process;
+	protected ArrayOfPackageListDataWrapper local_pkgListData;
+	protected boolean local_active;
+	protected String local_description;
 
 	public PackageListMapDataWrapper() {}
 
@@ -59,7 +59,8 @@ protected String local_description;
 		this.local_id = raw.getId();
 		this.local_target = raw.getTarget();
 		this.local_process = raw.getProcess();
-		this.local_pkgListData = new ArrayOfPackageListDataWrapper( raw.getPkgListData());
+		if (raw.getPkgListData() != null)
+			this.local_pkgListData = new ArrayOfPackageListDataWrapper( raw.getPkgListData());
 		this.local_active = raw.getActive();
 		this.local_description = raw.getDescription();
 

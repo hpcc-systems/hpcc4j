@@ -26,14 +26,14 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray
  * Class name: GetPackageMapSelectOptionsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.516Z
+ * TimeStamp: 2020-04-29T14:39:01.429Z
  */
 public class GetPackageMapSelectOptionsResponseWrapper
 {
-protected ArrayOfEspExceptionWrapper local_exceptions;
-protected BasePackageStatusWrapper local_status;
-protected ArrayOfTargetDataWrapper local_targets;
-protected List<String> local_processFilters = new ArrayList<String>();
+	protected ArrayOfEspExceptionWrapper local_exceptions;
+	protected BasePackageStatusWrapper local_status;
+	protected ArrayOfTargetDataWrapper local_targets;
+	protected List<String> local_processFilters = null;
 
 	public GetPackageMapSelectOptionsResponseWrapper() {}
 
@@ -55,9 +55,12 @@ protected List<String> local_processFilters = new ArrayList<String>();
 		if (raw == null)
 			return;
 
-		this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		this.local_targets = new ArrayOfTargetDataWrapper( raw.getTargets());
+		if (raw.getExceptions() != null)
+			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+		if (raw.getStatus() != null)
+			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+		if (raw.getTargets() != null)
+			this.local_targets = new ArrayOfTargetDataWrapper( raw.getTargets());
 		if (raw.getProcessFilters() != null)
 		{
 			this.local_processFilters = new ArrayList<String>();

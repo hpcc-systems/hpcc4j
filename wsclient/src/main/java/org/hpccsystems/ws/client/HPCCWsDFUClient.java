@@ -1490,8 +1490,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             requestbase.setCluster(cluster);
             requestbase.setExpirySeconds(expirySeconds);
             requestbase.setName(fileName);
-            requestbase.setReturnBinTypeInfo(returnBinTypeInfo);
-            requestbase.setReturnJsonTypeInfo(returnJsonTypeInfo);
+            if (returnBinTypeInfo != null)
+                requestbase.setReturnBinTypeInfo(returnBinTypeInfo);
+            if (returnJsonTypeInfo != null)
+                requestbase.setReturnJsonTypeInfo(returnJsonTypeInfo);
             requestbase.setAccessRole(accessrole);
             requestbase.setAccessType(accesstype);
 

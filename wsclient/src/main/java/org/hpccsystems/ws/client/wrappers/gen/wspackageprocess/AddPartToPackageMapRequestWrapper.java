@@ -23,24 +23,24 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: AddPartToPackageMapRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.440Z
+ * TimeStamp: 2020-04-29T14:39:01.532Z
  */
 public class AddPartToPackageMapRequestWrapper
 {
-protected String local_target;
-protected String local_process;
-protected String local_packageMap;
-protected boolean local_globalScope;
-protected String local_partName;
-protected String local_content;
-protected boolean local_deletePrevious;
-protected String local_daliIp;
-protected String local_sourceProcess;
-protected boolean local_allowForeignFiles;
-protected boolean local_preloadAllPackages;
-protected boolean local_updateSuperFiles;
-protected boolean local_updateCloneFrom;
-protected boolean local_appendCluster;
+	protected String local_target;
+	protected String local_process;
+	protected String local_packageMap;
+	protected boolean local_globalScope;
+	protected String local_partName;
+	protected String local_content;
+	protected boolean local_deletePrevious;
+	protected String local_daliIp;
+	protected String local_sourceProcess;
+	protected boolean local_allowForeignFiles;
+	protected boolean local_preloadAllPackages;
+	protected boolean local_updateSuperFiles;
+	protected boolean local_updateCloneFrom;
+	protected boolean local_appendCluster;
 
 	public AddPartToPackageMapRequestWrapper() {}
 

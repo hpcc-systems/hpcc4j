@@ -26,12 +26,12 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray
  * Class name: ValidatePackageFilesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageFiles
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.575Z
+ * TimeStamp: 2020-04-29T14:39:01.543Z
  */
 public class ValidatePackageFilesWrapper
 {
-protected List<String> local_unmatched = new ArrayList<String>();
-protected NotInDFS_type0Wrapper local_notInDFS;
+	protected List<String> local_unmatched = null;
+	protected NotInDFS_type0Wrapper local_notInDFS;
 
 	public ValidatePackageFilesWrapper() {}
 
@@ -58,7 +58,8 @@ protected NotInDFS_type0Wrapper local_notInDFS;
 			{
 				this.local_unmatched.add(new String(raw.getUnmatched().getItem()[i]));
 			}
-		}		this.local_notInDFS = new NotInDFS_type0Wrapper( raw.getNotInDFS());
+		}		if (raw.getNotInDFS() != null)
+			this.local_notInDFS = new NotInDFS_type0Wrapper( raw.getNotInDFS());
 
 	}
 

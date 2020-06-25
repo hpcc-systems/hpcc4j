@@ -19,15 +19,36 @@ package org.hpccsystems.ws.client;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
 import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSPackageProcessTest extends BaseRemoteTest
 {
     HPCCWsPackageProcessClient client = wsclient.getWsPackageProcessClient();
+    private static String targetRoxieName = System.getProperty("roxiename");
+    private static String validPackageID = null;
+
+    @BeforeClass
+    static public void setup() throws Exception
+    {
+        if (targetRoxieName == null)
+        {
+            System.out.println("WSPackageProcessTest: No 'roxiename' system prop provided, defaulting to '' ");
+            targetRoxieName = "";
+        }
+    }
 
     @Test
     public void ping() throws Exception
@@ -39,12 +60,49 @@ public class WSPackageProcessTest extends BaseRemoteTest
         catch (AxisFault e)
         {
             e.printStackTrace();
-            Assert.fail();
+            fail();
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail();
+            fail();
         }
+    }
+
+    @Test
+    public void AA1_listPackageTest() throws Exception
+    {
+        List<PackageListMapDataWrapper> packages = client.listPackages("*", targetRoxieName, null);
+        if(packages==null || packages.isEmpty())
+        {
+            fail("Could not retrieve package lists from target cluster : '" + targetRoxieName + "'" );
+        }
+
+        for(PackageListMapDataWrapper pkg : packages)
+        {
+            assertTrue(pkg.getId() != null && !pkg.getId().isEmpty());
+
+            String pkgByID = client.getPackageMapById(pkg.getId());
+            assertTrue(pkgByID != null && !pkgByID.isEmpty());
+
+            if (validPackageID == null)
+                validPackageID = pkg.getId();
+
+            if(!pkgByID.contains("<PackageMaps id=\""+pkg.getId()+"\""))
+            {
+                fail("Failed to retrieve package map by id : " + pkg.getId());
+            }
+        }
+    }
+
+    @Test
+    public void getPackageTest() throws Exception
+    {
+        Assume.assumeNotNull(validPackageID);
+
+        BasePackageStatusWrapper getPackageStatus = client.getPackage("", targetRoxieName);
+
+        Assert.assertNotNull(getPackageStatus);
+        Assert.assertEquals(0, getPackageStatus.getCode());
     }
 }
