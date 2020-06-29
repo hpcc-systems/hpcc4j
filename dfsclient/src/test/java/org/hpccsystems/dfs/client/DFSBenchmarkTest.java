@@ -15,7 +15,11 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
+import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.io.File;
+import java.io.FileWriter;
 
 import org.hpccsystems.dfs.client.HPCCFile;
 import org.hpccsystems.dfs.client.HPCCRecord;
@@ -26,124 +30,237 @@ import org.hpccsystems.dfs.client.DataPartition;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+
+import org.json.JSONObject;
+import org.json.JSONArray;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import org.hpccsystems.commons.benchmarking.BenchmarkResult;
+import org.hpccsystems.commons.benchmarking.BenchmarkParam;
+import org.hpccsystems.commons.benchmarking.SimpleMetric;
+import org.hpccsystems.commons.benchmarking.AveragedMetric;
+import org.hpccsystems.commons.benchmarking.IMetric;
+import org.hpccsystems.commons.benchmarking.Units;
+import org.hpccsystems.commons.benchmarking.MetricSumTransformer;
+import org.hpccsystems.commons.benchmarking.MetricAverageTransformer;
+
 @Category(org.hpccsystems.commons.annotations.Benchmark.class)
 public class DFSBenchmarkTest extends BaseRemoteTest
 {
-    private static final String[] datasets = {"benchmark::integer::100mb","benchmark::string::100mb","benchmark::varstring::100mb","benchmark::utf8::100mb",
-                                            "benchmark::unicode::100mb","benchmark::real::100mb","benchmark::decimal::100mb"};
-    private static final float[] minDatasetConstructionEfficiency = {0.90f,0.90f,0.90f,0.90f,0.90f,0.90f,0.90f};
+    private static final String[] datasets = {  "benchmark::integer::100mb",
+                                                "benchmark::string::100mb",
+                                                "benchmark::varstring::100mb",
+                                                "benchmark::utf8::100mb",
+                                                "benchmark::unicode::100mb",
+                                                "benchmark::real::100mb",
+                                                "benchmark::decimal::100mb" };
 
-    @Test
-    public void integrationReadBenchmark() throws Exception
+    private static final String READ_TIME_METRIC = "readTime";
+    private static final String BANDWIDTH_METRIC = "bandwidth";
+    private static final String RPS_METRIC = "recordsPerSecond";
+
+    private static final String[] JENKINS_SELECTED_METRICS = {BANDWIDTH_METRIC, RowServiceInputStream.WAIT_TIME_METRIC, RowServiceInputStream.SLEEP_TIME_METRIC};
+
+    private void setDesiredMetricScales(BenchmarkResult result)
     {
-        int numReadSamples = 5;
-        for (int i = 0; i < datasets.length; i++)
-        {
-            HPCCFile file = new HPCCFile(datasets[i], connString, hpccUser, hpccPass);
-            file.setFileAccessExpirySecs(1000);
-
-            // Raw streaming
-            ArrayList<Float> rawReadTimes = new ArrayList<Float>(numReadSamples);
-            for (int j = 0; j < numReadSamples; j++)
-            {
-                long startTime = System.currentTimeMillis();
-                try
-                {
-                    readRawFileData(file);
-                }
-                catch(Exception e)
-                {
-                    Assert.fail(e.getMessage());
-                }
-
-                long endTime = System.currentTimeMillis();
-
-                float timeInSeconds = (endTime - startTime);
-                timeInSeconds /= 1000.0;
-                rawReadTimes.add(new Float(timeInSeconds));
-            }
-
-            // Remove longest sample (Remove long samples due to wwarmup)
-            Float longestSample = rawReadTimes.get(0);
-            int sampleToRemove = 0;
-            for (int j = 0; j < rawReadTimes.size(); j++)
-            {
-                Float currentReadSample = rawReadTimes.get(j);
-                if (longestSample < currentReadSample)
-                {
-                    longestSample = currentReadSample;
-                    sampleToRemove = j;
-                }
-            }
-            rawReadTimes.remove(sampleToRemove);
-            System.out.println("Removing longest sample: " + longestSample + " due to warm up.");
-
-            float avgRawReadTime = 0;
-            for (int j = 0; j < rawReadTimes.size(); j++)
-            {
-                avgRawReadTime += rawReadTimes.get(j);
-            }
-            avgRawReadTime /= rawReadTimes.size();
-
-            ArrayList<Float> serialReadTimes = new ArrayList<Float>(numReadSamples);
-            for (int j = 0; j < numReadSamples; j++)
-            {
-                long startTime = System.currentTimeMillis();
-                try
-                {
-                    readFileSerially(file);
-                }
-                catch(Exception e)
-                {
-                    Assert.fail(e.getMessage());
-                }
-
-                long endTime = System.currentTimeMillis();
-
-                float timeInSeconds = (endTime - startTime);
-                timeInSeconds /= 1000.0;
-                serialReadTimes.add(new Float(timeInSeconds));
-            }
-
-            // Remove longest sample (Remove long samples due to wwarmup)
-            longestSample = serialReadTimes.get(0);
-            sampleToRemove = 0;
-            for (int j = 0; j < serialReadTimes.size(); j++)
-            {
-                Float currentReadSample = serialReadTimes.get(j);
-                if (longestSample < currentReadSample)
-                {
-                    longestSample = currentReadSample;
-                    sampleToRemove = j;
-                }
-            }
-            serialReadTimes.remove(sampleToRemove);
-            System.out.println("Removing longest sample: " + longestSample + " due to warm up.");
-
-            float avgSerialReadTime = 0;
-            for (int j = 0; j < serialReadTimes.size(); j++)
-            {
-                avgSerialReadTime += serialReadTimes.get(j);
-            }
-            avgSerialReadTime /= serialReadTimes.size();
-
-            float recordConstructionEfficiency = avgRawReadTime / avgSerialReadTime;
-            // if (recordConstructionEfficiency < minDatasetConstructionEfficiency[i])
-            // {
-            //     Assert.fail("Record construction efficiency lower than expected for dataset: " 
-            //         + datasets[i] + " min efficiency: " + minDatasetConstructionEfficiency[i]
-            //         + " benchmarked efficiency: " + recordConstructionEfficiency);
-            // }
-            System.out.println("Record construction efficiency: " + recordConstructionEfficiency + " for: " + datasets[i]);
-        }
+        result.setMetricDesiredUnitScale(READ_TIME_METRIC, Units.Scale.UNIT);
+        result.setMetricDesiredUnitScale(BANDWIDTH_METRIC, Units.Scale.MEGA);
+        result.setMetricDesiredUnitScale(RPS_METRIC, Units.Scale.MEGA);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.BYTES_READ_METRIC, Units.Scale.MEGA);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.FIRST_BYTE_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.WAIT_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.SLEEP_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.FETCH_START_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.FETCH_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.FETCH_FINISH_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.CLOSE_TIME_METRIC, Units.Scale.MILLI);
+        result.setMetricDesiredUnitScale(RowServiceInputStream.MUTEX_WAIT_TIME_METRIC, Units.Scale.MILLI);
     }
 
-    public long readRawFileData(HPCCFile file) throws Exception
+    @Test
+    public void readBenchmarks() throws Exception
+    {
+        System.out.println("Starting Raw Read Tests");
+        System.out.println("-------------------------------------------------------------");
+        
+        MetricSumTransformer sumTransformer = new MetricSumTransformer();
+        MetricAverageTransformer aggregateTransformer = new MetricAverageTransformer();
+        ArrayList<BenchmarkResult> rawReadTests = new ArrayList<BenchmarkResult>();
+        int numReadSamples = 20;
+        for (int i = 0; i < datasets.length; i++)
+        {
+            System.out.print(datasets[i] + " samples: [");
+
+            BenchmarkResult result = new BenchmarkResult("DFSClient: Read", datasets[i]);
+            rawReadTests.add(result);
+            setDesiredMetricScales(result);
+
+            result.addParameter(new BenchmarkParam("dataset",datasets[i]));
+
+            // Raw streaming
+            List<IMetric> avgdMetrics = new ArrayList<IMetric>();
+            for (int j = 0; j < numReadSamples; j++)
+            {
+                System.out.print(" " + j);
+                HPCCFile file = new HPCCFile(datasets[i], connString, hpccUser, hpccPass);
+                file.setFileAccessExpirySecs(1000);
+
+                try
+                {
+                    List<IMetric> metrics = new ArrayList<IMetric>();
+                    long readTimeNS = System.nanoTime();
+                    readRawFileData(file,metrics);
+                    readTimeNS = System.nanoTime() - readTimeNS;
+
+                    metrics = sumTransformer.transform(metrics);
+                    metrics.add(new SimpleMetric((double)readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+
+                    avgdMetrics.addAll(metrics);
+                }
+                catch(Exception e)
+                {
+                    Assert.fail(e.getMessage());
+                }
+            }
+            avgdMetrics = aggregateTransformer.transform(avgdMetrics);
+            result.addMetrics(avgdMetrics);
+            
+            // Calculate and add bandwidth
+            IMetric readTimeMetric = result.getMetric(READ_TIME_METRIC);
+            double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale,Units.Scale.UNIT);
+
+            IMetric bytesReadMetric = result.getMetric(RowServiceInputStream.BYTES_READ_METRIC);
+            double fileSize = bytesReadMetric.getValue() * Units.calculateScaleConversion(bytesReadMetric.getUnits().scale,Units.Scale.UNIT);
+            double avgBandwidth = fileSize / avgReadTime;
+            result.addMetric(new SimpleMetric(avgBandwidth, BANDWIDTH_METRIC, new Units(Units.Type.BYTES)));
+
+            System.out.println(" ]");
+        }
+
+        System.out.println("\nStarting Read & Parse Tests");
+        System.out.println("-------------------------------------------------------------");
+
+        ArrayList<BenchmarkResult> readParseTests = new ArrayList<BenchmarkResult>();
+        for (int i = 0; i < datasets.length; i++)
+        {
+            System.out.print(datasets[i] + " samples: [");
+
+            BenchmarkResult result = new BenchmarkResult("DFSClient: Read & Parse",datasets[i]);
+            readParseTests.add(result);
+            setDesiredMetricScales(result);
+
+            result.addParameter(new BenchmarkParam("dataset",datasets[i]));
+            List<IMetric> avgdMetrics = new ArrayList<IMetric>();
+
+            // Raw streaming
+            long numRecords = 0;
+            for (int j = 0; j < numReadSamples; j++)
+            {
+                System.out.print(" " + j);
+                HPCCFile file = new HPCCFile(datasets[i], connString, hpccUser, hpccPass);
+                file.setFileAccessExpirySecs(1000);
+
+                try
+                {
+
+                    List<IMetric> metrics = new ArrayList<IMetric>();
+                    long readTimeNS = System.nanoTime();
+                    numRecords = readFileSerially(file,metrics);
+                    readTimeNS = System.nanoTime() - readTimeNS;
+
+                    metrics = sumTransformer.transform(metrics);
+                    metrics.add(new SimpleMetric((double)readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+                    
+                    avgdMetrics.addAll(metrics);
+                }
+                catch(Exception e)
+                {
+                    Assert.fail(e.getMessage());
+                }
+            }
+            avgdMetrics = aggregateTransformer.transform(avgdMetrics);
+            result.addMetrics(avgdMetrics);
+
+            // Calculate and add bandwidth
+            IMetric readTimeMetric = result.getMetric(READ_TIME_METRIC);
+            double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale,Units.Scale.UNIT);
+
+            IMetric bytesReadMetric = result.getMetric(RowServiceInputStream.BYTES_READ_METRIC);
+            double fileSize = bytesReadMetric.getValue() * Units.calculateScaleConversion(bytesReadMetric.getUnits().scale,Units.Scale.UNIT);
+            double avgBandwidth = fileSize / avgReadTime;
+            result.addMetric(new SimpleMetric(avgBandwidth, BANDWIDTH_METRIC, new Units(Units.Type.BYTES)));
+
+            // Calculate and add RPS
+            double avgRPS = numRecords / avgReadTime;
+            result.addMetric(new SimpleMetric(avgRPS, RPS_METRIC, new Units(Units.Type.COUNT)));
+
+            System.out.println(" ]");
+        }
+
+        // Output plugin results
+        JSONArray testGroups = new JSONArray();
+        
+        JSONObject rawReadGroup = new JSONObject();
+        rawReadGroup.put("name","Raw Read Tests");
+
+        JSONArray jsonTests = new JSONArray();
+        for (int i = 0; i < rawReadTests.size(); i++)
+        {
+            jsonTests.put(rawReadTests.get(i).toJson(JENKINS_SELECTED_METRICS));
+        }
+
+        rawReadGroup.put("tests",jsonTests);
+        testGroups.put(rawReadGroup);
+
+        JSONObject readParseGroup = new JSONObject();
+        readParseGroup.put("name","Read & Parse Tests");
+
+        jsonTests = new JSONArray();
+        for (int i = 0; i < readParseTests.size(); i++)
+        {
+            jsonTests.put(readParseTests.get(i).toJson(JENKINS_SELECTED_METRICS));
+        }
+
+        readParseGroup.put("tests",jsonTests);
+        testGroups.put(readParseGroup);
+
+        JSONObject output = new JSONObject();
+        output.put("groups",testGroups);
+        
+        String outputPath = "results.json";
+        FileWriter fileWriter = new FileWriter(outputPath);
+        fileWriter.write(output.toString());
+        fileWriter.close();
+
+        // Output ELK results
+        outputPath = "elk_results_" + System.currentTimeMillis() + ".json";
+        fileWriter = new FileWriter(outputPath);
+        for (int i = 0; i < rawReadTests.size(); i++)
+        {
+            JSONArray testResults = rawReadTests.get(i).toFlatJson();
+            for (int j = 0; j < testResults.length(); j++)
+            {
+                fileWriter.write(testResults.get(j).toString() + "\n");
+            }
+        }
+
+        for (int i = 0; i < readParseTests.size(); i++)
+        {
+            JSONArray testResults = readParseTests.get(i).toFlatJson();
+            for (int j = 0; j < testResults.length(); j++)
+            {
+                fileWriter.write(testResults.get(j).toString() + "\n");
+            }
+        }
+
+        fileWriter.close();
+    }
+
+    public void readRawFileData(HPCCFile file, List<IMetric> metrics) throws Exception
     {
         if (file == null)
         {
@@ -162,8 +279,8 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             Assert.fail("Invalid or null record definition");
         }
 
-        long bytesRead = 0;
         byte[] buffer = new byte[4 * 1024 * 1024];
+
         for (int i = 0; i < fileParts.length; i++)
         {
             RowServiceInputStream inputStream = new RowServiceInputStream(fileParts[i],originalRD,originalRD,120,-1);
@@ -180,7 +297,12 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
             while (hasMoreData)
             {
-                bytesRead += inputStream.read(buffer,0,inputStream.available()); 
+                int bytesToRead = inputStream.available();
+                if (bytesToRead > buffer.length)
+                {
+                    bytesToRead = buffer.length;
+                }
+                inputStream.read(buffer,0,bytesToRead); 
 
                 try
                 {
@@ -200,12 +322,13 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                     hasMoreData = nextByte >= 0;
                 }
             }
+            
+            metrics.addAll(inputStream.getMetrics());
+            inputStream.close();
         }
-
-        return bytesRead;
     }
 
-    public int readFileSerially(HPCCFile file) throws Exception
+    public int readFileSerially(HPCCFile file, List<IMetric> metrics) throws Exception
     {
         if (file == null)
         {
@@ -227,7 +350,6 @@ public class DFSBenchmarkTest extends BaseRemoteTest
         int recordCount = 0;
         for (int i = 0; i < fileParts.length; i++)
         {
-            int filePartRecordCount = 0;
             HpccRemoteFileReader<HPCCRecord> fileReader = null;
             try
             {
@@ -256,9 +378,10 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                 else
                 {
                     recordCount++;
-                    filePartRecordCount++;
                 }
             }
+
+            metrics.addAll(fileReader.getInputStream().getMetrics());
             fileReader.close();
         }
 
