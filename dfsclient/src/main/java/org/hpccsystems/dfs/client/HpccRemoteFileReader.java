@@ -226,4 +226,14 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     {
         return this.binaryRecordReader.getAvailable();
     }
+
+    public RowServiceInputStream getInputStream()
+    {
+        return this.inputStream;
+    }
+
+    public BinaryRecordReader getRecordReader()
+    {
+        return this.binaryRecordReader;
+    }
 }
