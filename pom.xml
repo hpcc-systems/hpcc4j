@@ -54,7 +54,7 @@
     <commons-io.version>2.4</commons-io.version>
     <junit.version>4.12</junit.version>
     <json.version>20180813</json.version>
-    <log4j.version>2.13.0</log4j.version>
+    <log4j.version>2.13.2</log4j.version>
     <axis2.version>1.7.9</axis2.version>
     <javadoc.excludePackageNames></javadoc.excludePackageNames>
     <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
