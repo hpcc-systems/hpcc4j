@@ -50,6 +50,8 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsRespon
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Rename;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixedResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayResponse;
@@ -1975,6 +1977,43 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         DFUWorkunitsActionResponse response = ((FileSprayStub)stub).deleteDropZoneFiles(request);
 
         return new DFUWorkunitsActionResponseWrapper(response);
+    }
+    
+    
+    /**
+     * Renames HPCC logical file
+     * 
+     * @param sourceFileName - The name of the file to rename
+     * @param targetFilename - The new name for the file
+     * @param overwrite      - Overwrite if targetfilename already exists
+     * @return               - The resulting DFU workunit
+     *                         Can be used to track progress and status via getDFUWorkunit(String) or getDfuProgress
+     * @throws Exception 
+     * @throws ArrayOfEspExceptionWrapper
+     */
+    public String renameLogicalFile(String sourceFileName, String targetFilename, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        verifyStub();
+
+        Rename request = new Rename();
+
+        request.setSrcname(sourceFileName);
+        request.setDstname(targetFilename);
+        request.setOverwrite(overwrite);
+
+        RenameResponse resp = null;
+        try
+        {
+            resp = ((FileSprayStub) stub).rename(request);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not rename file");
+        }
+
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not rename file");
+
+        return resp.getWuid();
     }
 
     /*
