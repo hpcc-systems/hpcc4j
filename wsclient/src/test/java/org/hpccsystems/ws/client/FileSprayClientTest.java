@@ -15,11 +15,13 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 import org.junit.experimental.categories.Category;
 
@@ -32,6 +34,8 @@ public class FileSprayClientTest extends BaseRemoteTest
     private final static String testFile1       = System.getProperty("dropzoneTestFile1", "Japi274deleteDropzoneFileTest.csv");
     private final static String path            = System.getProperty("dropzonePath", "/");
     private final static String os              = System.getProperty("dropzoneOs", "");
+    private final static String renameSrcName   = System.getProperty("renameSource", "");
+    private final static String renameToName    = System.getProperty("renameTarget", "");
 
     public static final String DELETE_ACTION              = "Delete";
     public static final String SUCCESS_RESULT             = "Success";
@@ -311,6 +315,35 @@ public class FileSprayClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             Assert.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testRenameLogicalFile()
+    {
+    	assumeNotNull(renameSrcName);
+    	assumeFalse(renameSrcName.isEmpty());
+
+    	assumeNotNull(renameToName);
+    	assumeFalse(renameToName.isEmpty());
+
+        try
+        {
+            String dfuworkunitrespoinse = filesprayclient.renameLogicalFile(renameSrcName, renameToName, false);
+            Assert.assertNotNull(dfuworkunitrespoinse);
+            Assert.assertTrue(!dfuworkunitrespoinse.isEmpty());
+
+            ProgressResponseWrapper dfuProgress = filesprayclient.getDfuProgress(dfuworkunitrespoinse);
+            Assert.assertNotNull(dfuProgress);
+            Assert.assertNull(dfuProgress.getExceptions());
+          
+            Thread.sleep(200); //give the rename process a chance
+
+            System.out.println("Rename result: " + dfuProgress.getSummaryMessage());
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
         }
     }
 }
