@@ -32,7 +32,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
-    private static int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;                                              // 1 second connection timeout
+    public static final int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;                                              // 1 second connection timeout
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
     private String               rowServiceIP                  = null;
@@ -102,6 +102,37 @@ public class RowServiceOutputStream extends OutputStream
     RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression) throws Exception
     {
+        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, DEFAULT_CONNECT_TIMEOUT_MILIS);
+    }
+
+
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param useSSL
+     *            the use SSL
+     * @param accessToken
+     *            the access token
+     * @param recordDef
+     *            the record def
+     * @param filePartIndex
+     *            the file part index
+     * @param filePartPath
+     *            the file part path
+     * @param fileCompression
+     *            the file compression
+     * @param connectTimeoutMs
+     *            the socket timeout in ms (default is 1000)
+     * @throws Exception
+     *             the exception
+     */
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression, int connectTimeoutMs) throws Exception
+    {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
         this.recordDef = recordDef;
@@ -121,7 +152,7 @@ public class RowServiceOutputStream extends OutputStream
                 // We are opening up a long standing connection and writing a significant amount of data
                 // So we don't care as much about individual packet latency or connection time overhead
                 socket.setPerformancePreferences(0, 1, 2);
-                socket.connect(new InetSocketAddress(this.rowServiceIP, this.rowServicePort), DEFAULT_CONNECT_TIMEOUT_MILIS);
+                socket.connect(new InetSocketAddress(this.rowServiceIP, this.rowServicePort), connectTimeoutMs);
 
                 log.debug("Attempting SSL handshake...");
                 ((SSLSocket) this.socket).startHandshake();
