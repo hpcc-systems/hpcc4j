@@ -42,7 +42,7 @@ public abstract class BaseRemoteTest
 
     protected final static String hpccUser = System.getProperty("hpccuser", defaultUserName);
     protected final static String hpccPass = System.getProperty("hpccpass", "");
-    protected final static String connTO = System.getProperty("connecttimeoutmillis");
+    protected final static Integer connTO = System.getProperty("connecttimeoutmillis")==null?null:Integer.valueOf(System.getProperty("connecttimeoutmillis"));
     protected final static String sockTO = System.getProperty("sockettimeoutmillis");
 
     /*
@@ -151,7 +151,7 @@ public abstract class BaseRemoteTest
             connection.setCredentials(hpccUser, hpccPass);
 
             if (connTO != null)
-            	connection.setConnectTimeoutMilli(Integer.valueOf(connTO));
+            	connection.setConnectTimeoutMilli(connTO);
 
             if (sockTO != null)
             	connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));

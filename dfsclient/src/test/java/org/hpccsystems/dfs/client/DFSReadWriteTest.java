@@ -61,10 +61,10 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void readBadlyDistributedFileTest() throws Exception
     {
         //this file only has data on two nodes
-        HPCCFile file = new HPCCFile("~benchmark::all_types::200kb", connString , hpccUser, hpccPass);
+        HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
         file.setProjectList("");
-        List<HPCCRecord> records = readFile(file);
-        assertEquals("Not all records loaded",records.size(),5600);
+        List<HPCCRecord> records = readFile(file, connTO);
+        assertEquals("Not all records loaded",expectedCounts[1], records.size());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCFile file = new HPCCFile(datasets[i], connString , hpccUser, hpccPass);
             file.setProjectList("");
 
-            List<HPCCRecord> records = readFile(file);
+            List<HPCCRecord> records = readFile(file, connTO);
             if (records.size() != expectedCounts[i])
             {
                 Assert.fail("Record count mismatch for dataset: " + datasets[i] + " got: " + records.size() + " expected: " + expectedCounts[i]);
@@ -83,12 +83,12 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             // Write the dataset back
             String copyFileName = datasets[i] + "-copy13";
-            writeFile(records, copyFileName, file.getProjectedRecordDefinition());
+            writeFile(records, copyFileName, file.getProjectedRecordDefinition(),connTO);
 
             // Read and compare to original dataset
             file = new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
-            List<HPCCRecord> copiedRecords = readFile(file);
+            List<HPCCRecord> copiedRecords = readFile(file, connTO);
             if (copiedRecords.equals(records) == false)
             {
                 Assert.fail("Written dataset does not match original dataset: " + copyFileName);
@@ -105,7 +105,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             FieldDef recdef=file.getRecordDefinition();
             file.setProjectList(StringUtils.join(projectedfields, ","));
-            List<HPCCRecord> recs=readFile(file);
+            List<HPCCRecord> recs=readFile(file, connTO);
             if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1) 
             {
                 fail("recs did not project correctly");
@@ -120,7 +120,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         String fname = datasets[1]; 
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
-        List<HPCCRecord> records = readFile(file);
+        List<HPCCRecord> records = readFile(file, connTO);
         assertEquals( "Record count mismatch for dataset:" + fname + ". got: " + records.size() + " expected:" + expectedCounts[1],expectedCounts[1],records.size());
 
         HPCCRecord first = records.get(0);
@@ -131,11 +131,12 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         // Write the dataset back
         String copyFileName = fname + "_copy";
-        writeFile(records, copyFileName, file.getProjectedRecordDefinition());
+        writeFile(records, copyFileName, file.getProjectedRecordDefinition(),connTO);
 
         file = new HPCCFile(copyFileName, connString, hpccUser, hpccPass);
-        records = readFile(file);
-        assertEquals( "Record count mismatch for dataset:" + copyFileName + ". got: " + records.size() + " expected:" + 5600,5600,records.size());
+        records = readFile(file, connTO);
+        assertEquals( "Record count mismatch for dataset:" + copyFileName + ". got: " + records.size() +
+                " expected:" + expectedCounts[1],expectedCounts[1],records.size());
 
         HPCCRecord rec0 = records.get(0);
         for (int i = 0; i < rec0.getNumFields(); i++)
@@ -206,10 +207,10 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
-        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
+        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef,connTO);
 
         HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
-        records = readFile(file);
+        records = readFile(file, connTO);
         if (records.size() != 10)
         {
             Assert.fail("Failed to read large record dataset");
@@ -234,25 +235,28 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
-        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef);
+        writeFile(records, "benchmark::large_record_8MB::10rows", recordDef,connTO);
 
         HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
         file.setFilter("key = 0 OR key > 10");
 
-        records = readFile(file);
+        records = readFile(file, connTO);
         if (records.size() != 1)
         {
             Assert.fail("Failed to read filtered record dataset");
         }
     }
 
-    public List<HPCCRecord> readFile(HPCCFile file) throws Exception
+    public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis) throws Exception
     {
         if (file == null)
         {
             Assert.fail("HPCCFile construction failed.");
         }
-
+        if (connectTimeoutMillis != null) 
+        {
+            file.setFileAccessExpirySecs(connectTimeoutMillis/1000);
+        }
         DataPartition[] fileParts = file.getFileParts();
         if (fileParts == null || fileParts.length == 0)
         {
@@ -301,7 +305,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         return records;
     }
 
-    private void writeFile(List<HPCCRecord> records, String fileName, FieldDef recordDef)
+    private void writeFile(List<HPCCRecord> records, String fileName, FieldDef recordDef, Integer connectTimeoutMs)
     {
         try
         {
@@ -315,7 +319,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             String clusterName = this.thorcluster;
             System.out.println("Create Start");
-            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, 300, false, DFUFileTypeWrapper.Flat, "");
+            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, connTO==null?300:connTO, false, DFUFileTypeWrapper.Flat, "");
             System.out.println("Create Finished");
 
             DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
@@ -342,8 +346,22 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 }
 
                 HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
-                HPCCRemoteFileWriter<HPCCRecord> fileWriter = new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
-                        recordAccessor, CompressionAlgorithm.NONE);
+                HPCCRemoteFileWriter<HPCCRecord> fileWriter = null;
+                if (connectTimeoutMs != null) 
+                {
+                    fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
+                            recordAccessor, CompressionAlgorithm.NONE,connectTimeoutMs);
+                    //wait a bit longer than the default timeout to ensure the override connect timeout
+                    //is being honoured
+                    if (connectTimeoutMs != null 
+                            && connectTimeoutMs > RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1) 
+                    {
+                        Thread.sleep(RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1);
+                    }
+                } else {
+                    fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
+                            recordAccessor, CompressionAlgorithm.NONE);
+                }
                 try
                 {
                     for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
@@ -370,9 +388,11 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             Assert.fail("Failed to write file with error: " + e.getMessage());
         }
     }
+
 
     private class LongKVData
     {
