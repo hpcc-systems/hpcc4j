@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<sect1 id="JAPI_Build">
+<sect1 id="HPCC4J_Build">
   <title>Buids</title>
 
   <para>To build the projects using Maven, navigate to the base directory of
@@ -26,13 +26,13 @@
   url="http://maven.apache.org">http://maven.apache.org</ulink></para>
 
   <sect2>
-    <title>HPCC JAPIs Source Code</title>
+    <title>HPCC4J Source Code</title>
 
     <para>The source can be found under the HPCC Platform github account in
-    the HPCC-JAPIs repo.</para>
+    the HPCC4J repo.</para>
 
     <para><ulink
-    url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
+    url="https://github.com/hpcc-systems/HPCC4J">https://github.com/hpcc-systems/HPCC4J</ulink></para>
 
     <para>To utilize this library as a dependency in your own maven project,
     add the following definition to your pom.xml.</para>
@@ -47,7 +47,7 @@
 
     <para>Contributions to source are accepted and encouraged. All
     contributions must follow the JAVA source format described in the
-    HPCC-JAVA-Formatter.xml file which can be found in HPCC-JAPIs/eclipse.
+    HPCC-JAVA-Formatter.xml file which can be found in HPCC4J/eclipse.
     This formatter can be used by the Eclipse IDE to automatically format JAVA
     source code.</para>
 

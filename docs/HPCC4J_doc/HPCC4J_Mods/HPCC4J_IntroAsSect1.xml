@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<sect1 id="IntroJAPI" role="nobrk">
-  <title>Introduction to JAPI</title>
+<sect1 id="IntroHPCC4J" role="nobrk">
+  <title>Introduction to HPCC4J</title>
 
-  <para>The HPCC Java API is a collection Java based APIs which help
+  <para>The HPCC4J is a collection Java based APIs which help
   developers interact with HPCC in a relatively simple, and standardized
   fashion.</para>
 
@@ -12,7 +12,7 @@
   API set has some useful capabilities.</para>
 </sect1>
 <sect1>
-    <title>JAPI Projects</title>
+    <title>HPCC4J Projects</title>
 
     <para>The projects contained in the Java API repository:</para>
 
@@ -56,7 +56,7 @@
   <sect1>
     <title>Use Cases</title>
 
-    <para>The following use cases depict how you can work with the JAPI
+    <para>The following use cases depict how you can work with the HPCC4J
     projects. </para>
 
     <sect2>
@@ -134,7 +134,7 @@
   <sect1>
     <title>Builds</title>
 
-    <para>Each individual JAPI project has been set up as an Eclipse Java
+    <para>Each individual HPCC4J project has been set up as an Eclipse Java
     project (you may use other IDEs as well).</para>
 
     <para>The project has also been configured to be built using Maven.</para>
@@ -153,12 +153,12 @@
     <title>JAVA Source</title>
 
     <para>The source can be found under the HPCC Platform github account in
-    the JAPI repo. </para>
+    the HPCC4J repo. </para>
 
     <para><ulink
-    url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
+    url="https://github.com/hpcc-systems/HPCC4J">https://github.com/hpcc-systems/HPCC4J</ulink></para>
 
-    <para>To utilize the API(s) you can either import the pertinent JAPI
+    <para>To utilize the API(s) you can either import the pertinent HPCC4J
     project into your workspace and access the API source directly, or you can
     build the library and subsequently import into the client project. </para>
 

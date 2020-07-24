@@ -17,9 +17,9 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-set(JAPI_SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
-set(CMAKE_MODULE_PATH "${JAPI_SOURCE_PATH}/cmake_modules/")
+set(HPCC4J_SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+set(CMAKE_MODULE_PATH "${HPCC4J_SOURCE_PATH}/cmake_modules/")
 
-INCLUDE(${CMAKE_MODULE_PATH}/japisSetup.cmake)
+INCLUDE(${CMAKE_MODULE_PATH}/hpcc4jSetup.cmake)
 
 add_subdirectory(docs)

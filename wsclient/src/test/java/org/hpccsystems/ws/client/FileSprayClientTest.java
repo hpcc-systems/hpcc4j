@@ -31,7 +31,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     private static HPCCFileSprayClient filesprayclient = wsclient.getFileSprayClient();
     private String dropzoneName    = System.getProperty("dropzoneName", "mydropzone");
     private static List<String> fileNames       = new ArrayList<>();
-    private final static String testFile1       = System.getProperty("dropzoneTestFile1", "Japi274deleteDropzoneFileTest.csv");
+    private final static String testFile1       = System.getProperty("dropzoneTestFile1", "HPCC4J274deleteDropzoneFileTest.csv");
     private final static String path            = System.getProperty("dropzonePath", "/");
     private final static String os              = System.getProperty("dropzoneOs", "");
     private final static String renameSrcName   = System.getProperty("renameSource", "");
@@ -164,7 +164,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     @Test
     public void testUploadFile()
     {
-        File uploadFile = new File("src/test/resources/filespraytest/Japi274deleteDropzoneFileTest.csv");
+        File uploadFile = new File("src/test/resources/filespraytest/HPCC4J274deleteDropzoneFileTest.csv");
         try
         {
             if (foundLocalDZ == null)

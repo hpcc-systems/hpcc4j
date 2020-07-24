@@ -104,7 +104,7 @@ public abstract class BaseRemoteTest
 
     static
     {
-    	//System.setProperty("log4j.configurationFile" , "/home/ubuntu/GIT/HPCC-JAPIs/log4j2.xml");
+    	//System.setProperty("log4j.configurationFile" , "/home/ubuntu/GIT/HPCC4J/log4j2.xml");
         InetAddress ip;
         String hostname;
         try

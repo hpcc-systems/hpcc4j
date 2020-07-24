@@ -1,4 +1,4 @@
-name: JAPI Pull Request Build Tests
+name: HPCC4J Pull Request Build Tests
 
 on: [pull_request]
 

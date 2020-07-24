@@ -684,7 +684,7 @@ public class Axis2ADBStubWrapperMaker
             System.out.println("Error: Missing parameter: 'targetpackage'\n\n");
             printUsage();
         }
-        //String outputdir = "C:\\assignments\\GIT\\hpcc-japis\\wsclient\\src\\main\\java";
+        //String outputdir = "C:\\assignments\\GIT\\HPCC4J\\wsclient\\src\\main\\java";
         String outputdir = argsprops.getProperty("outputdir");
         if (outputdir == null || outputdir.isEmpty())
         {

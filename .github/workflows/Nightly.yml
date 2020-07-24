@@ -1,4 +1,4 @@
-name: JAPI Nightly
+name: HPCC4J Nightly
 
 on:
   schedule:

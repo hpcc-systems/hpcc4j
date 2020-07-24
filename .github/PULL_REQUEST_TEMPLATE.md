@@ -1,4 +1,4 @@
-<!-- Thank you for submitting a pull request to the HPCC Java APIs (JAPIS) project
+<!-- Thank you for submitting a pull request to the HPCC4J project
 
  PLEASE READ the following before proceeding.
 
@@ -8,7 +8,7 @@
  The title line of the pull request (and of each commit within it) should refer to the
  associated issue using the format:
 
- JAPI-nnnnn Short description of issue
+ HPCC4J-nnnnn Short description of issue
 
  This will allow the Jira ticket to be automatically updated to refer to this pull request,and
  and will ensure that the automatically-generated changelog is properly formatted.
