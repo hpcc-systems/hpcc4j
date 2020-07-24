@@ -34,7 +34,6 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.json.JSONObject;
-import org.w3c.dom.NodeList;
 
 public class HPCCFile implements Serializable
 {
