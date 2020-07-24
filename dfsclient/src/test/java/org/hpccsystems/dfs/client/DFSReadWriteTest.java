@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -41,6 +43,7 @@ import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
@@ -170,6 +173,23 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
     
 
+    @Test
+    public void getMetadataTest() throws Exception
+    {
+        String fname = datasets[0]; 
+        HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
+        DFUFileDetailWrapper meta=file.getOriginalFileMetadata();
+        assertNotNull("Meta was null for this file",meta);
+        assertNotNull("Record count was null for this file",meta.getRecordCount());
+        assertEquals(expectedCounts[0],new Long(meta.getRecordCountInt64()).intValue());
+        
+        file=new HPCCFile("notthere",connString,hpccUser,hpccPass);
+        meta=file.getOriginalFileMetadata();
+        assertNull("Meta should be null for nonexistent file",meta);
+        
+     }
+
+    
     private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
     private static final SecureRandom RANDOM   = new SecureRandom();
 
