@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<sect1 id="JAPI_Use">
+<sect1 id="HPCC4J_Use">
   <title>Use Cases</title>
 
   <para>This section provides examples that illustrate typical Java client and

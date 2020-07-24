@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<sect1 id="IntroJAPI" role="nobrk">
-  <title>Introduction to the HPCC Systems<superscript>®</superscript>
-  JAPIs</title>
+<sect1 id="IntroHPCC4J" role="nobrk">
+  <title>Introduction to HPCC4J</title>
 
-  <para>The HPCC Systems Java APIs is a collection Java based APIs which help
-  developers interact with HPCC Systems servers and tools in a relatively
-  simple, and standardized fashion.</para>
+  <para>The HPCC Systems for Java is a collection of Java based APIs and tools
+  which help developers interact with HPCC Systems servers and tools in a 
+  relatively simple, and standardized fashion.</para>
 
   <para>The project houses multiple HPCC Systems centric Java based APIs and
   tools.</para>
 
-  <para>The project is available on Github in the HPCC-JAPIs
+  <para>The project is available on Github in the hpcc4j
   repository.</para>
 
   <para><ulink
-  url="https://github.com/hpcc-systems/HPCC-JAPIs">https://github.com/hpcc-systems/HPCC-JAPIs</ulink></para>
+  url="https://github.com/hpcc-systems/hpcc4j">https://github.com/hpcc-systems/hpcc4j</ulink></para>
 
   <sect2>
     <title>wsclient</title>

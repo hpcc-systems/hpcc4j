@@ -15,5 +15,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-DOCBOOK_TO_PDF( ${FO_XSL} Japi_Includer.xml "HPCC_JAPIs")
+DOCBOOK_TO_PDF( ${FO_XSL} HPCC4J_Includer.xml "HPCC4J")
 
