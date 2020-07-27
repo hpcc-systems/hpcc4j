@@ -182,11 +182,14 @@ public class DFSReadWriteTest extends BaseRemoteTest
         assertNotNull("Meta was null for this file",meta);
         assertNotNull("Record count was null for this file",meta.getRecordCount());
         assertEquals(expectedCounts[0],new Long(meta.getRecordCountInt64()).intValue());
-        
-        file=new HPCCFile("notthere",connString,hpccUser,hpccPass);
-        meta=file.getOriginalFileMetadata();
+     }
+
+    @Test
+    public void getNullMetadataTest() throws Exception
+    {
+        HPCCFile file=new HPCCFile("notthere",connString,hpccUser,hpccPass);
+        DFUFileDetailWrapper meta=file.getOriginalFileMetadata();
         assertNull("Meta should be null for nonexistent file",meta);
-        
      }
 
     
