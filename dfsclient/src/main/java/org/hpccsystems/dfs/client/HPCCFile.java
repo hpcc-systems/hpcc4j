@@ -32,6 +32,7 @@ import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.json.JSONObject;
 
 public class HPCCFile implements Serializable
@@ -60,7 +61,7 @@ public class HPCCFile implements Serializable
     private RemapInfo            clusterRemapInfo              = new RemapInfo();
     private FileFilter           filter;
     private ColumnPruner         columnPruner;
-
+    private DFUFileDetailWrapper originalFileMetadata          = null;
     /**
      * Constructor for the HpccFile. Captures HPCC logical file information from the DALI Server for the clusters behind
      * the ESP named by the Connection.
@@ -339,7 +340,6 @@ public class HPCCFile implements Serializable
             {
                 throw new Exception("File record definiton returned from ESP was null");
             }
-
         }
         catch (Exception e)
         {
@@ -513,5 +513,30 @@ public class HPCCFile implements Serializable
     {
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpcc.getFileAccessBlob(fileName, clusterName, expirySeconds, uniqueID);
+    }
+    
+    /**
+     * @return the file metadata information for this HPCCFile (if it exists)
+     */
+    public DFUFileDetailWrapper getOriginalFileMetadata() 
+    {
+        if (originalFileMetadata==null) 
+        {
+            HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(espConnInfo);
+            if (dfuClient.hasInitError())
+            {
+                String errmesg = "Could not fetch '" + fileName + "' info from WsDFU ESP due to wsdfuclient init error: " + dfuClient.getInitError();
+                log.error(errmesg);
+            }
+            try
+            {
+                originalFileMetadata=dfuClient.getFileDetails(fileName,targetfilecluster);
+            }
+            catch (Exception e)
+            {
+                log.error("Unable to retrieve file or record information: " + e.getMessage(),e);
+            }
+        }
+        return originalFileMetadata;
     }
 }
