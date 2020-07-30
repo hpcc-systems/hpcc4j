@@ -28,6 +28,11 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>templating-maven-plugin</artifactId>
+        <version>${codehaus.template.version}</version>
+      </plugin>    
     </plugins>
   </build>
 

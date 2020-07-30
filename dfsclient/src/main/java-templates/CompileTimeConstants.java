@@ -7,7 +7,7 @@ public class CompileTimeConstants
 {
     private static final Logger log = LogManager.getLogger(CompileTimeConstants.class);
 
-    public static final boolean PROFILE_CODE = false;
+    public static final boolean PROFILE_CODE = ${project.benchmarking};
 
     static
     {
