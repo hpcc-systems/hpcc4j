@@ -332,15 +332,8 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case DECIMAL:
             {
-                BigDecimal value = fieldValue==null?BigDecimal.valueOf(0):(BigDecimal) fieldValue;
-                if (fd.isUnsigned())
-                {
-                    writeUnsignedDecimal(fd, value);
-                }
-                else
-                {
-                    writeDecimal(fd, value);
-                }
+                BigDecimal value = fieldValue==null ? BigDecimal.valueOf(0) : (BigDecimal) fieldValue;
+                writeDecimal(fd, value);
                 break;
             }
             case REAL:
@@ -378,6 +371,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     c = (byte) value.charAt(0);
                 }
                 this.buffer.put(c);
+                break;
             }
             case VAR_STRING:
             case STRING:
@@ -757,7 +751,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
         }
     }
-
+    
     /**
      * Write decimal.
      *
@@ -768,131 +762,67 @@ public class BinaryRecordWriter implements IRecordWriter
      */
     private void writeDecimal(FieldDef fd, BigDecimal decimalValue)
     {
-        int precision = fd.getPrecision();
-        int scale = fd.getScale();
         int dataLen = (int) fd.getDataLen();
+        for (int i = 0; i < dataLen; i++)
+        {
+            this.scratchBuffer[i] = 0;
+        }
 
-        int mostSigDigit = precision - scale;
         boolean isNegative = decimalValue.signum() == -1;
-        if (isNegative)
+        if (fd.isUnsigned())
         {
-            decimalValue = decimalValue.negate();
-        }
-
-        String decimalStr = decimalValue.stripTrailingZeros().toPlainString();
-
-        // Strip leading zeros. We only want sig digits
-        int numLeadingZeros = 0;
-        while (decimalStr.length()>numLeadingZeros && decimalStr.charAt(numLeadingZeros) == '0')
-        {
-            numLeadingZeros++;
-        }
-        decimalStr = decimalStr.substring(numLeadingZeros);
-
-        int intDigits = decimalStr.indexOf('.');
-        if (intDigits < 0)
-        {
-            intDigits = decimalStr.length();
-        }
-
-        byte[] workingBuffer = new byte[dataLen];
-        Arrays.fill(workingBuffer, (byte) 0);
-
-        // Calculate padding at the beginning.
-        int bitOffset = (mostSigDigit - intDigits) * 4;
-
-        // Even precision values are shifted by an additional 4 bits
-        if (precision % 2 == 0)
-        {
-            bitOffset += 4;
-        }
-
-        for (int i = 0; i < decimalStr.length(); i++)
-        {
-            if (decimalStr.charAt(i) == '.')
+            if (isNegative)
             {
-                continue;
+                decimalValue = BigDecimal.ZERO;
             }
-            int byteOffset = bitOffset / 8;
-            int bitShift = (bitOffset + 4) % 8;
-
-            int digit = (decimalStr.charAt(i) - '0');
-            workingBuffer[byteOffset] |= (digit << bitShift);
-            bitOffset += 4;
-        }
-
-        if (isNegative)
-        {
-            workingBuffer[dataLen - 1] |= BinaryRecordWriter.NegativeSignValue;
         }
         else
         {
-            workingBuffer[dataLen - 1] |= BinaryRecordWriter.PositiveSignValue;
-        }
-
-        this.buffer.put(workingBuffer);
-    }
-
-    /**
-     * Write unsigned decimal.
-     *
-     * @param fd
-     *            the fd
-     * @param decimalValue
-     *            the decimal value
-     */
-    private void writeUnsignedDecimal(FieldDef fd, BigDecimal decimalValue)
-    {
-        int precision = fd.getPrecision();
-        int scale = fd.getScale();
-        int dataLen = (int) fd.getDataLen();
-
-        int mostSigDigit = precision - scale;
-
-        // If the value is negative clamp it to zero
-        boolean isNegative = decimalValue.signum() == -1;
-        if (isNegative)
-        {
-            decimalValue = BigDecimal.valueOf(0);
-        }
-
-        String decimalStr = decimalValue.stripTrailingZeros().toPlainString();
-
-        // Strip leading zeros. We only want sig digits
-        int numLeadingZeros = 0;
-        while (decimalStr.length()>numLeadingZeros && decimalStr.charAt(numLeadingZeros) == '0')
-        {
-            numLeadingZeros++;
-        }
-        decimalStr = decimalStr.substring(numLeadingZeros);
-
-        int intDigits = decimalStr.indexOf('.');
-        if (intDigits < 0)
-        {
-            intDigits = decimalStr.length();
-        }
-
-        byte[] workingBuffer = new byte[dataLen];
-        Arrays.fill(workingBuffer, (byte) 0);
-
-        // Calculate padding at the beginning.
-        int bitOffset = (mostSigDigit - intDigits) * 4;
-
-        for (int i = 0; i < decimalStr.length(); i++)
-        {
-            if (decimalStr.charAt(i) == '.')
+            if (isNegative)
             {
-                continue;
+                decimalValue = decimalValue.negate();
+                this.scratchBuffer[dataLen - 1] |= BinaryRecordWriter.NegativeSignValue;
             }
-            int byteOffset = bitOffset / 8;
-            int bitShift = (bitOffset + 4) % 8;
-
-            int digit = (decimalStr.charAt(i) - '0');
-            workingBuffer[byteOffset] |= (digit << bitShift);
-            bitOffset += 4;
+            else
+            {
+                this.scratchBuffer[dataLen - 1] |= BinaryRecordWriter.PositiveSignValue;
+            }
         }
 
-        this.buffer.put(workingBuffer);
+        int desiredPrecision = fd.getPrecision();
+        int desiredScale = fd.getScale();
+
+        // This will give us back an integer value of just the significant digits in the new scale.
+        // Correctly truncating decimal sig digits and dropping int digits larger than precision - scale
+        BigInteger unscaledInt = decimalValue.scaleByPowerOfTen(desiredScale).toBigIntegerExact();
+
+        int signOffset = 4;
+        if (fd.isUnsigned()) {
+            signOffset = 0;
+        }
+
+        // 1e18
+        BigInteger divisor = BigInteger.valueOf(1000000000000000000L);
+        for (int currentDigit = 0; currentDigit < desiredPrecision;) 
+        {
+            // Consume 18 digits at a time
+            BigInteger[] quotientRemainder = unscaledInt.divideAndRemainder(divisor);
+            unscaledInt = quotientRemainder[0];
+
+            long val = quotientRemainder[1].longValue();
+            for (int j = 0; j < 18 && currentDigit < desiredPrecision; j++, currentDigit++)
+            {
+                int bitOffset = currentDigit * 4 + signOffset;
+                int byteOffset = bitOffset / 8;
+                int bitShift = bitOffset % 8;
+
+                long digit = val % 10;
+                val /= 10;
+                this.scratchBuffer[dataLen - 1 - byteOffset] |= (digit << bitShift);
+            }
+        }
+
+        this.buffer.put(this.scratchBuffer, 0, dataLen);
     }
 
     /**
