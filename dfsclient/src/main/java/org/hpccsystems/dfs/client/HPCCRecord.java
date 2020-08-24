@@ -114,4 +114,26 @@ public class HPCCRecord
 
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        String ret = "[";
+        for (int i = 0; i < fields.length; i++)
+        {
+            if (i != 0)
+            {
+                ret += ", ";
+            }
+
+            ret += fields[i];
+        }
+        ret += "]";
+
+        return ret;
+    }
 };

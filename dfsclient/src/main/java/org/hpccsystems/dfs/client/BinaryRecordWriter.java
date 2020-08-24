@@ -141,7 +141,14 @@ public class BinaryRecordWriter implements IRecordWriter
                 case STRING:
                 case CHAR:
                 case VAR_STRING:
-                    writeField(fd, fieldValue);
+                    try
+                    {
+                        writeField(fd, fieldValue);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception("Error while writing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ", e);
+                    }
                     break;
                 case RECORD:
                     writeRecord(recordAccessor.getChildRecordAccessor(i), fieldValue);
@@ -740,7 +747,14 @@ public class BinaryRecordWriter implements IRecordWriter
         {
             for (Object value : list)
             {
-                this.writeField(fd.getDef(0), value);
+                try
+                {
+                    this.writeField(fd.getDef(0), value);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error while writing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ", e);
+                }
             }
         }
         else
@@ -751,7 +765,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
         }
     }
-    
+
     /**
      * Write decimal.
      *
@@ -797,7 +811,8 @@ public class BinaryRecordWriter implements IRecordWriter
         BigInteger unscaledInt = decimalValue.scaleByPowerOfTen(desiredScale).toBigIntegerExact();
 
         int signOffset = 4;
-        if (fd.isUnsigned()) {
+        if (fd.isUnsigned())
+        {
             signOffset = 0;
         }
 

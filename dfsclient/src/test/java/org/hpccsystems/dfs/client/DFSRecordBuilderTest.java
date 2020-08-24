@@ -67,5 +67,4 @@ public class DFSRecordBuilderTest
             Assert.fail("Test failed with error: " + e.getMessage());
         }
     }
-
 }
