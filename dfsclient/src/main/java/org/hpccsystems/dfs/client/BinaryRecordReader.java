@@ -481,7 +481,14 @@ public class BinaryRecordReader implements IRecordReader
                 case STRING:
                 case CHAR:
                 case VAR_STRING:
-                    fieldValue = parseFlatField(fd, isLittleEndian);
+                    try
+                    {
+                        fieldValue = parseFlatField(fd, isLittleEndian);
+                    }
+                    catch(Exception e)
+                    {
+                        throw new IOException("Error while parsing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ", e);
+                    }
                     break;
                 case RECORD:
                 {
@@ -527,7 +534,14 @@ public class BinaryRecordReader implements IRecordReader
                             long setEndPos = this.inputStream.getStreamPosition() + dataLen;
                             while (this.inputStream.getStreamPosition() < setEndPos)
                             {
-                                ws.add(parseFlatField(childFd, isLittleEndian));
+                                try
+                                {
+                                    ws.add(parseFlatField(childFd, isLittleEndian));
+                                }
+                                catch(Exception e)
+                                {
+                                    throw new IOException("Error while parsing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ", e);
+                                }
                             }
                             break;
                         }

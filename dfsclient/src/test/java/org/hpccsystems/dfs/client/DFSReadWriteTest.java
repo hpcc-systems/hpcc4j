@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import org.hpccsystems.dfs.client.HPCCFile;
@@ -116,7 +117,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
-
     @Test
     public void nullWriteTest() throws Exception
     {
@@ -171,7 +171,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
     }
-    
 
     @Test
     public void getMetadataTest() throws Exception
@@ -216,17 +215,19 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void integrationLargeRecordTest() throws Exception
     {
         // Create a large record dataset
-        FieldDef[] fieldDefs = new FieldDef[2];
+        FieldDef[] fieldDefs = new FieldDef[3];
         fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
-        fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("char", FieldType.CHAR, "STRING1", 1, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
         List<HPCCRecord> records = new ArrayList<HPCCRecord>();
         for (int i = 0; i < 10; i++)
         {
-            Object[] fields = new Object[2];
+            Object[] fields = new Object[3];
             fields[0] = new Long(i);
-            fields[1] = generateRandomString(8096 * 1024);
+            fields[1] = "C";
+            fields[2] = generateRandomString(8096 * 1024);
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
@@ -234,9 +235,85 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
         records = readFile(file, connTO);
-        if (records.size() != 10)
+        if (records.size() < 10)
         {
             Assert.fail("Failed to read large record dataset");
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            HPCCRecord record = records.get(i);
+            String charStr = (String) record.getField(1);
+            if (charStr.equals("C") == false)
+            {
+                Assert.fail("Record mismatch");
+            }
+        }
+    }
+
+    @Test
+    public void numericOverflowTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[7];
+        fieldDefs[0] = new FieldDef("int1", FieldType.INTEGER, "INTEGER1", 1, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("uint1", FieldType.INTEGER, "UNSIGNED1", 1, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("int2", FieldType.INTEGER, "INTEGER2", 2, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[3] = new FieldDef("uint2", FieldType.INTEGER, "UNSIGNED2", 2, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[4] = new FieldDef("int4", FieldType.INTEGER, "INTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[5] = new FieldDef("uint4", FieldType.INTEGER, "UNSIGNED4", 4, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[6] = new FieldDef("dec24", FieldType.DECIMAL, "DECIMAL24_12", 0, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[6].setPrecision(24);
+        fieldDefs[6].setScale(12);
+
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+        
+        BigInteger intDigits = BigInteger.valueOf(1234567890000000L);
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[7];
+            fields[0] = new Long(128);
+            fields[1] = new Long(256);
+            fields[2] = new Long(32768);
+            fields[3] = new Long(65536);
+            fields[4] = new Long(2147483648L);
+            fields[5] = new Long(4294967296L);
+            fields[6] = new BigDecimal(intDigits,0);
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+
+        String fileName = "benchmark::numeric_overflow_test::10rows";
+        writeFile(records, fileName, recordDef, connTO);
+
+        HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
+
+        Object[] expectedFields = new Object[7];
+        expectedFields[0] = new Long(-128);
+        expectedFields[1] = new Long(0);
+        expectedFields[2] = new Long(-32768);
+        expectedFields[3] = new Long(0);
+        expectedFields[4] = new Long(-2147483648L);
+        expectedFields[5] = new Long(0);
+
+        BigDecimal expectedDecimal = new BigDecimal(BigInteger.valueOf(567890000000L),0);
+        expectedFields[6] = expectedDecimal.setScale(12);
+
+        HPCCRecord expectedRecord = new HPCCRecord(expectedFields, recordDef);
+        records = readFile(file, connTO);
+        for (int i = 0; i < 10; i++)
+        {
+            HPCCRecord record = records.get(i);
+            BigDecimal actDecimal = (BigDecimal) record.getField(6);
+            record.setField(6,actDecimal.setScale(12));
+
+            if (record.equals(expectedRecord) == false)
+            {
+                System.out.println("Expected: " + expectedRecord);
+                System.out.println("Actual: " + record);
+                Assert.fail("Records did not match.");
+            }
         }
     }
 
@@ -423,7 +500,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
         public Long value;
     };
 
-    @Test
     public void testReflectionRecordBuilder() throws Exception
     {
         /*
