@@ -4,17 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
@@ -32,15 +34,19 @@ public class WsDFUClientTest extends BaseRemoteTest
     private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
     private final static String logicalfilename = System.getProperty("logicalfilename", DEFAULTHPCCFILENAME);
 
+    private final static String testfilename = System.getProperty("newSuperFileName");
+    private final static  String testsubfilename = System.getProperty("existingSubFileName");
+
     @Before
     public void delayhack()
     {
-    	try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-
-		}
+        try
+        {
+            Thread.sleep(5000);
+        }
+        catch (InterruptedException e) {}
     }
+
     @Test
     public void testFileTypeWrapper()
     {
@@ -333,7 +339,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test(expected = Exception.class)
-    public void testDeleteFileWithprefixAtsignCluster() throws Exception 
+    public void testDeleteFileWithprefixAtsignCluster() throws Exception
     {
         Set<String> files = new HashSet<>();
         files.add("@somefile");
@@ -350,7 +356,7 @@ public class WsDFUClientTest extends BaseRemoteTest
 
     @Test
     @Ignore("Once I know what cluster this will run on during CI testing I'll update my params and activate the test")
-    public void searchFileTest() throws Exception 
+    public void searchFileTest() throws Exception
     {
         String searchStr="hipie::keys::*";
         assertNotNull(thorcluster);
@@ -378,4 +384,111 @@ public class WsDFUClientTest extends BaseRemoteTest
         assertTrue(clusters.stream().findFirst().isPresent());
     }
 
+    @Test
+    public void createSuperFileTest() throws Exception
+    {
+        try
+        {
+            wsdfuclient.createSuperfile("hpcc4j::tests::junit::mysuperfile", new String [] {""});
+        }
+        catch (Exception e)
+        {
+            String localizedMessage = e.getLocalizedMessage();
+            if (localizedMessage.contains(" already exists"))
+            {
+                System.out.print("createSuperFileTest() could not run validate because target superfile already exists: hpcc4j::tests::junit::mysuperfile");
+            }
+            else throw e;
+        }
+    }
+
+    @Test
+    public void createNewSuperFileWrapperTest() throws Exception
+    {
+        assumeNotNull(testfilename);
+        assumeNotNull(testsubfilename);
+
+        AddtoSuperfileRequestWrapper req = new AddtoSuperfileRequestWrapper();
+        req.setExistingFile(false);
+        req.setSuperfile(testfilename);
+        List<String> _names = new ArrayList<String>();
+        _names.add(testsubfilename);
+        req.setNames(_names );
+
+        AddtoSuperfileResponseWrapper resp = wsdfuclient.addToSuperFile(req);
+        Assert.assertNotNull(resp);
+    }
+
+    @Test
+    public void createNewSuperFileNoSubfilesTest() throws Exception
+    {
+        assumeNotNull(testfilename);
+         try
+         {
+             wsdfuclient.createSuperfile(testfilename, new String [] {""});
+         }
+         catch (Exception e)
+         {
+             String localizedMessage = e.getLocalizedMessage();
+             if (localizedMessage.contains(" already exists"))
+             {
+                 System.out.print("createNewSuperFileNoSubfilesTest() could not run validate because target superfile already exists: '" +  testfilename + "'");
+             }
+             else throw e;
+         }
+    }
+
+    @Test (expected = ArrayOfEspExceptionWrapper.class)
+    public void addToNonExistingSuperFileWrapperTest() throws Exception
+    {
+        assumeNotNull(testfilename);
+        assumeNotNull(testsubfilename);
+
+        AddtoSuperfileRequestWrapper req = new AddtoSuperfileRequestWrapper();
+        req.setExistingFile(true);
+        req.setSuperfile(testfilename);
+        List<String> _names = new ArrayList<String>();
+        _names.add(testsubfilename);
+        req.setNames(_names );
+
+        try
+        {
+            wsdfuclient.addToSuperFile(req);
+        }
+        catch (Exception e)
+        {
+            String localizedMessage = e.getLocalizedMessage();
+            if (localizedMessage.contains("Cannot find file " + testfilename))
+            {
+                throw e;
+            }
+            else
+            {
+                Assert.fail("Should not be able to create new superfile with existing flag set: " + e.getMessage());
+            }
+        }
+    }
+
+    @Test (expected = ArrayOfEspExceptionWrapper.class)
+    public void createNewSuperFileInvalidSubfileTest() throws Exception
+    {
+        assumeNotNull(testfilename);
+        try
+        {
+            wsdfuclient.createSuperfile(testfilename, new String [] {"BOGUSFILENAME"});
+        }
+        catch (Exception e)
+        {
+            String localizedMessage = e.getLocalizedMessage();
+            if (localizedMessage.contains("sub file BOGUSFILENAME not found"))
+            {
+                throw e;
+            }
+            else
+            {
+                Assert.fail("BOGUS subfile name should report failure: " + e.getMessage());
+            }
+        }
+        Assert.fail("BOGUS subfile name should report failure");
+    }
 }

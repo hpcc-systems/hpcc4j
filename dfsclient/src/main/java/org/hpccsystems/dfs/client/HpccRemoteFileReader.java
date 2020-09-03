@@ -177,6 +177,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         {
             rslt = false;
             log.error("Read failure for " + this.dataPartition.toString());
+            throw new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
         }
 
         return rslt;

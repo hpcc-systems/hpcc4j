@@ -496,11 +496,7 @@ public class RecordDefinitionTranslator
             }
             case CHAR:
             {
-                typeID = type_char;
-                if (field.isUnsigned())
-                {
-                    typeID |= FLAG_UNSIGNED;
-                }
+                typeID = type_string;
                 break;
             }
             case STRING:

@@ -20,6 +20,8 @@ import org.apache.axis2.client.Stub;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUActionInfo;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFULogicalFile;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUActionInfo;
@@ -61,6 +63,8 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
@@ -507,6 +511,78 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 throw new Exception(basefile + " and " + subfiles[i] + " have different ecl layouts in the same superfile");
             }
         }
+    }
+
+    /**
+     * Create super file
+     * @param superfilename
+     * @param subfiles
+     * @return
+     * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
+     */
+    public AddtoSuperfileResponseWrapper createSuperfile(String superfilename, String[] subfiles) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        AddtoSuperfileRequestWrapper request = new AddtoSuperfileRequestWrapper();
+
+        request.setSuperfile(superfilename);
+        request.setExistingFile(false);
+
+        //wsdfu > 1.15
+        String comadelimitedsubfiles = "";
+        for (int i = 0; i < subfiles.length; i++)
+        {
+            if (i > 0)
+                comadelimitedsubfiles += ", ";
+
+            comadelimitedsubfiles += subfiles[i];
+        }
+        if (!comadelimitedsubfiles.isEmpty())
+            request.setSubfiles(comadelimitedsubfiles);
+
+        //wsdfu pre 1.15
+        if ( subfiles != null && subfiles.length > 0)
+        {
+            request.setNames(Arrays.asList(subfiles));
+        }
+
+        return addToSuperFile(request);
+    }
+
+    /**
+     * @param request - User provided request wrapper
+     * @return
+     * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
+     */
+    public AddtoSuperfileResponseWrapper addToSuperFile(AddtoSuperfileRequestWrapper request) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        if (request == null)
+            throw new Exception("HPCCWsDFUClient.createSuperfile: request cannot be null");
+
+        verifyStub(); // Throws exception if stub failed
+
+        AddtoSuperfileResponse resp = null;
+
+        try
+        {
+            resp = ((WsDfuStub) stub).addtoSuperfile(request.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWsDFUClient.createSuperfile(" + request.getSuperfile() + ", subfiles) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform createSuperfile");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform createSuperfile");
+
+        return new AddtoSuperfileResponseWrapper(resp);
     }
 
     /**
@@ -1102,9 +1178,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster) throws Exception, ArrayOfEspExceptionWrapper
     {
-       return searchFiles(logicalFilename,cluster,null,null);   
+       return searchFiles(logicalFilename,cluster,null,null);
     }
-    
+
     /**
      * searchFiles
      *
@@ -1130,15 +1206,15 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
         request.setNodeGroup(cluster);
         request.setLogicalName(logicalFilename);
-        if (pagesize != null) 
+        if (pagesize != null)
         {
             request.setPageSize(pagesize);
         }
-        if (pageStartFrom != null) 
+        if (pageStartFrom != null)
         {
             request.setPageStartFrom(pageStartFrom);
         }
-        
+
         DFUQueryResponse resp = null;
 
         try

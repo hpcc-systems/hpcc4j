@@ -32,7 +32,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
-    public static final int           DEFAULT_CONNECT_TIMEOUT_MILIS = 1000;                                              // 1 second connection timeout
+    public static final int      DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
     private String               rowServiceIP                  = null;
