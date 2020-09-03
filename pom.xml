@@ -34,7 +34,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.assembly.version>3.1.1</maven.assembly.version>
-    <sonatype.staging.version>1.6.7</sonatype.staging.version>
+    <sonatype.staging.version>1.6.8</sonatype.staging.version>
+    <sonatype.staging.autorelease>false</sonatype.staging.autorelease>
     <maven.gpg.version>1.6</maven.gpg.version>
     <maven.gpg.skip>true</maven.gpg.skip>
     <maven.javadoc.version>3.1.0</maven.javadoc.version>
@@ -193,7 +194,7 @@
           <configuration>
             <serverId>ossrh</serverId>
             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+            <autoReleaseAfterClose>${sonatype.staging.autorelease}</autoReleaseAfterClose>
           </configuration>
         </plugin>
         <plugin>
@@ -326,6 +327,7 @@
     <profile>
       <id>release</id>
       <properties>
+        <sonatype.staging.autorelease>true</sonatype.staging.autorelease>
         <maven.gpg.skip>false</maven.gpg.skip>
       </properties>
       <build>
@@ -430,6 +432,7 @@
     <profile>
       <id>jenkins-release</id>
       <properties>
+        <sonatype.staging.autorelease>true</sonatype.staging.autorelease>
         <maven.gpg.skip>false</maven.gpg.skip>
         <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
       </properties>
