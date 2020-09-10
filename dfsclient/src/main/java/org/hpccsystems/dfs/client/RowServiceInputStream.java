@@ -49,9 +49,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 {
     private AtomicBoolean            active = new AtomicBoolean(false);
     private AtomicBoolean            closed = new AtomicBoolean(false);
-    private boolean                  simulateFail;
-    private boolean                  forceHandleUse = false;
-    private byte[]                   cursorBin;
+    private boolean                  simulateFail = false;
+    private boolean                  forceTokenUse = false;
+    private byte[]                   tokenBin;
     private int                      handle;
     private DataPartition            dataPart;
     private FieldDef                 recordDefinition              = null;
@@ -230,7 +230,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         this.handle = 0;
-        this.cursorBin = new byte[0];
+        this.tokenBin = new byte[0];
         this.simulateFail = false;
         this.connectTimeout = connectTimeout;
         this.recordLimit = limit;
@@ -344,26 +344,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
-     * The request string used with a handle.
-     *
-     * @return JSON string
-     */
-    public String getHandleTrans()
-    {
-        return this.makeHandleRequest();
-    }
-
-    /**
-     * transaction when a cursor is required for the next read.
-     *
-     * @return a JSON request
-     */
-    public String getCursorTrans()
-    {
-        return this.makeCursorRequest();
-    }
-
-    /**
      * Is the read active?.
      *
      * @return true, if is active
@@ -394,11 +374,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
-     * Simulate a handle failure and use the file cursor instead. The handle is set to an invalid value so the THOR node
-     * will indicate that the handle is unknown and request a cursor.
+     * Simulate a handle failure and use the file token instead. The handle is set to an invalid value so the THOR node
+     * will indicate that the handle is unknown and request a otken.
      *
      * @param v
-     *            true indicates that an invalid handle should be sent to force the fall back to a cursor. NOTE: this
+     *            true indicates that an invalid handle should be sent to force the fall back to a token. NOTE: this
      *            class reads ahead, so the use this before the first read.
      * @return the prior value
      */
@@ -410,14 +390,24 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
-     * Force the use of handles instead of cursors for established connections.
+     * Force the use of tokens instead of handles for established connections.
      *
      * @param v
      *            the setting
      */
+    public void setForceTokenUse(boolean v)
+    {
+        this.forceTokenUse = v;
+    }
+
+    /**
+     * This method now does nothing as handle use is now the default.
+     * @param v
+     *
+     * @deprecated
+     */
     public void setForceHandleUse(boolean v)
     {
-        this.forceHandleUse = v;
     }
 
     /**
@@ -506,7 +496,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 try
                 {
-                    len = retryWithCursor();
+                    len = retryWithToken();
+                    log.warn("Unable to make request with handle, retyring with token.");
                 }
                 catch (HpccFileException e)
                 {
@@ -657,18 +648,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             if (dis==null) {
                 return;
             }
-            int cursorLen = dis.readInt();
-            if (cursorLen == 0)
+            int tokenLen = dis.readInt();
+            if (tokenLen == 0)
             {
                 close();
                 return;
             }
 
-            if (this.cursorBin == null || cursorLen > this.cursorBin.length)
+            if (this.tokenBin == null || tokenLen > this.tokenBin.length)
             {
-                this.cursorBin = new byte[cursorLen];
+                this.tokenBin = new byte[tokenLen];
             }
-            dis.readFully(this.cursorBin,0,cursorLen);
+            dis.readFully(this.tokenBin,0,tokenLen);
         }
         catch (IOException e)
         {
@@ -681,12 +672,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         if (this.simulateFail) this.handle = -1;
-        String readAheadTrans = (this.forceHandleUse) ? this.getHandleTrans() : this.getCursorTrans();
+        String readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
+
         try
         {
-            int lenTrans = readAheadTrans.length();
-            this.dos.writeInt(lenTrans);
-            this.dos.write(readAheadTrans.getBytes(HPCCCharSet), 0, lenTrans);
+            int requestLen = readAheadRequest.length();
+            this.dos.writeInt(requestLen);
+            this.dos.write(readAheadRequest.getBytes(HPCCCharSet), 0, requestLen);
             this.dos.flush();
         }
         catch (IOException e)
@@ -1168,7 +1160,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         this.active.set(false);
         this.handle = 0;
-        this.cursorBin = new byte[0];
+        this.tokenBin = new byte[0];
 
         while (true)
         {
@@ -1332,6 +1324,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      *
      * @return the request as a JSON string
      */
+
     private String makeHandleRequest()
     {
         StringBuilder sb = new StringBuilder(100);
@@ -1345,21 +1338,21 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
-     * Make cursor request.
+     * Make token request.
      *
      * @return the string
      */
-    private String makeCursorRequest()
+    private String makeTokenRequest()
     {
         StringBuilder sb = new StringBuilder(
-                130 + this.jsonRecordDefinition.length() + this.projectedJsonRecordDefinition.length() + (int) (this.cursorBin.length * 1.4));
+                130 + this.jsonRecordDefinition.length() + this.projectedJsonRecordDefinition.length() + (int) (this.tokenBin.length * 1.4));
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
         sb.append(makeNodeObject());
         sb.append(",\n");
-        sb.append("  \"cursorBin\" : \"");
-        sb.append(java.util.Base64.getEncoder().encodeToString(this.cursorBin));
+        sb.append("  \"cursorBin\" : \""); // dafilesrv calls our "token" a cursor. Renamed on our side to reduce confusion
+        sb.append(java.util.Base64.getEncoder().encodeToString(this.tokenBin));
         sb.append("\" \n}\n");
         return sb.toString();
     }
@@ -1429,15 +1422,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
-     * Retry with a cursor and read the reply. Process failures as indicated.
+     * Retry with the full access token and read the reply. Process failures as indicated.
      *
      * @return the length pf the reply less failure indication
      * @throws HpccFileException
      *             the hpcc file exception
      */
-    private int retryWithCursor() throws HpccFileException
+    private int retryWithToken() throws HpccFileException
     {
-        String retryTrans = this.makeCursorRequest();
+        String retryTrans = this.makeTokenRequest();
         int len = retryTrans.length();
         try
         {
