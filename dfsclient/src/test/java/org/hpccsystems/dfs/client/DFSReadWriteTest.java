@@ -60,7 +60,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};
     private static final int[]    expectedCounts = { 1250, 5600 };
-  
+
     @Test
     public void readBadlyDistributedFileTest() throws Exception
     {
@@ -181,7 +181,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         assertNotNull("Meta was null for this file",meta);
         assertNotNull("Record count was null for this file",meta.getRecordCount());
         assertEquals(expectedCounts[0],new Long(meta.getRecordCountInt64()).intValue());
-     }
+    }
 
     @Test
     public void getNullMetadataTest() throws Exception
@@ -369,14 +369,14 @@ public class DFSReadWriteTest extends BaseRemoteTest
             Assert.fail("Invalid or null record definition");
         }
 
-        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        ArrayList<HpccRemoteFileReader<HPCCRecord>> fileReaders = new ArrayList<HpccRemoteFileReader<HPCCRecord>>();
         for (int i = 0; i < fileParts.length; i++)
         {
-            HpccRemoteFileReader<HPCCRecord> fileReader = null;
             try
             {
                 HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
-                fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+                fileReaders.add(fileReader);
             }
             catch (Exception e)
             {
@@ -389,6 +389,15 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
                 Assert.fail("Error constructing reader: " + e.getMessage());
             }
+        }
+
+        // Force file access token to expire
+        Thread.sleep(file.getFileAccessExpirySecs() * 1000);
+
+        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < fileReaders.size(); i++)
+        {
+            HpccRemoteFileReader<HPCCRecord> fileReader = fileReaders.get(i);
             while (fileReader.hasNext())
             {
                 HPCCRecord record = fileReader.next();
