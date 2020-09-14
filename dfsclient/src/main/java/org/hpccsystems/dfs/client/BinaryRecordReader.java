@@ -639,7 +639,7 @@ public class BinaryRecordReader implements IRecordReader
         long v = getUnsigned(len, little_endian);
 
         // Make the value negative if it should have been by extending sign bit
-        long negMask = (0x80 << (len - 1) * 8);
+        long negMask = (0x80L << (len - 1) * 8);
         if ((v & negMask) != 0)
         {
             for (int i = len; i < 8; i++)
