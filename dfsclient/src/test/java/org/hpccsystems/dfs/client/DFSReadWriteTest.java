@@ -453,6 +453,9 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 records.add(record);
             }
             fileReader.close();
+
+            if (fileReader.getRemoteReadMessageCount() > 0)
+                System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
         }
 
         return records;
