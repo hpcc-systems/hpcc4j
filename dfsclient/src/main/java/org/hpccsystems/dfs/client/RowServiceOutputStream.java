@@ -174,7 +174,7 @@ public class RowServiceOutputStream extends OutputStream
         }
         catch (Exception e)
         {
-            String errorMessage = "Exception occured while attempting to connect to row service: " + e.getMessage();
+            String errorMessage = "Exception occured while attempting to connect to row service (" + rowServiceIP + ":" + rowServicePort + "): " + e.getMessage();
             log.error(errorMessage);
             throw new Exception(errorMessage);
         }

@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.nio.charset.Charset;
-import java.nio.ByteBuffer;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,9 +28,6 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.errors.UnparsableContentException;
-
-import org.hpccsystems.dfs.client.IRecordBuilder;
-import org.hpccsystems.dfs.client.IRecordReader;
 
 class CountingInputStream extends InputStream
 {
@@ -129,7 +125,7 @@ public class BinaryRecordReader implements IRecordReader
     private CountingInputStream  inputStream;
     private FieldDef             rootRecordDefinition;
     protected boolean            defaultLE;
-    
+
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
     private static final Charset sbcSet              = Charset.forName("ISO-8859-1");
@@ -152,6 +148,18 @@ public class BinaryRecordReader implements IRecordReader
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
     private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
 
+    private StreamOperationMessages  messages = new StreamOperationMessages();
+
+    public String getStreamMessages()
+    {
+        return messages.getMessagesSummary();
+    }
+
+    public int getStreamMessageCount()
+    {
+        return messages.getTotalMessageCount();
+    }
+
     /**
      * A Binary record reader.
      *
@@ -173,7 +181,7 @@ public class BinaryRecordReader implements IRecordReader
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordReader#initialize(org.hpccsystems.dfs.client.IRecordBuilder)
      */
     public void initialize(IRecordBuilder rb) throws Exception
@@ -193,7 +201,7 @@ public class BinaryRecordReader implements IRecordReader
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.spark.thor.IRecordReader#hasNext()
      */
     public boolean hasNext() throws HpccFileException
@@ -217,7 +225,7 @@ public class BinaryRecordReader implements IRecordReader
             // This shouldn't be treated as an error, but an indication of EOS
             return false;
         }
-        
+
         try
         {
             // Peek the next byte to see if there is remaining data. If -1 we reached EOS
@@ -236,7 +244,7 @@ public class BinaryRecordReader implements IRecordReader
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.spark.thor.IRecordReader#getNext()
      */
     public Object getNext() throws HpccFileException
@@ -312,8 +320,7 @@ public class BinaryRecordReader implements IRecordReader
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                     if (intValue < 0)
                     {
-                        log.warn(
-                                "Detected possible unsigned value overflow in field '" + fd.getFieldName() + "'. Ensure proper value interpretation");
+                        messages.addMessage("Warning: Possible unsigned value overflow, ensure proper value interpretation. Field: '" + fd.getFieldName() + "'");
                     }
                 }
                 else
@@ -457,7 +464,6 @@ public class BinaryRecordReader implements IRecordReader
     private Object parseRecord(FieldDef recordDef, IRecordBuilder recordBuilder, boolean isLittleEndian)
             throws UnparsableContentException, IOException
     {
-
         try
         {
             recordBuilder.startRecord();
@@ -592,8 +598,7 @@ public class BinaryRecordReader implements IRecordReader
         }
     }
 
-    
-    private void ensureScratchBufferCapacity(int requiredCapacity) 
+    private void ensureScratchBufferCapacity(int requiredCapacity)
     {
         if (this.scratchBuffer.length < requiredCapacity)
         {
@@ -617,12 +622,12 @@ public class BinaryRecordReader implements IRecordReader
                 e.printStackTrace();
                 throw e;
             }
-            
+
             position += bytesRead;
             bytesConsumed += bytesRead;
         }
     }
-    
+
     /**
      * Get an integer from the byte array.
      *
@@ -639,7 +644,7 @@ public class BinaryRecordReader implements IRecordReader
         long v = getUnsigned(len, little_endian);
 
         // Make the value negative if it should have been by extending sign bit
-        long negMask = (0x80 << (len - 1) * 8);
+        long negMask = (0x80L << (len - 1) * 8);
         if ((v & negMask) != 0)
         {
             for (int i = len; i < 8; i++)
@@ -877,7 +882,7 @@ public class BinaryRecordReader implements IRecordReader
         int strByteLen = 0;
         if (stype.isUTF16())
         {
-            while (eosLocation < 0) 
+            while (eosLocation < 0)
             {
                 int readSize = 0;
                 try
@@ -894,7 +899,7 @@ public class BinaryRecordReader implements IRecordReader
                 {
                     readSize = OPTIMIZED_STRING_READ_AHEAD;
                 }
-                
+
                 this.inputStream.mark(readSize);
                 readIntoScratchBuffer(strByteLen, readSize);
 
@@ -926,7 +931,7 @@ public class BinaryRecordReader implements IRecordReader
         }
         else
         {
-            while (eosLocation < 0) 
+            while (eosLocation < 0)
             {
                 int readSize = 0;
                 try
@@ -1099,7 +1104,7 @@ public class BinaryRecordReader implements IRecordReader
                     {
                         bytesToRead = availableBytes;
                     }
-                    
+
                     // Scratch buffer is divided into two parts. First expandedLen bytes are for the final expanded string
                     // Remaining bytes are for reading in the compressed string.
                     int readPos = expandedLen + compressedBytesConsumed;
@@ -1108,7 +1113,7 @@ public class BinaryRecordReader implements IRecordReader
                     // We want to consume only a whole chunk so round off residual chars
                     // Below we will handle any residual bytes. (strLen % 4)
                     int charsToWrite = (expandedLen / QSTR_EXPANDED_CHUNK_LEN) * QSTR_EXPANDED_CHUNK_LEN;
-                    
+
                     int writePos = 0;
                     for (; writePos < charsToWrite; writePos += QSTR_EXPANDED_CHUNK_LEN, readPos += QSTR_COMPRESSED_CHUNK_LEN)
                     {
@@ -1127,7 +1132,7 @@ public class BinaryRecordReader implements IRecordReader
                     compressedBytesRead += bytesToRead;
                     strByteLen += writePos;
                 }
-                    
+
                 // Need to handle any residual chars. IE: case where string isn't a multiple of 4 chars
                 int writePos = 0;
                 int readPos = expandedLen + compressedBytesConsumed;

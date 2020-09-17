@@ -13,7 +13,6 @@
 package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.commons.ecl.FieldDef;
-import org.hpccsystems.dfs.client.RowServiceInputStream;
 import org.hpccsystems.commons.errors.HpccFileException;
 
 import org.apache.logging.log4j.Logger;
@@ -128,7 +127,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             throw new Exception("HpccRemoteFileReader: Original record definition is null.");
         }
 
-        if (connectTimeout < 1) {
+        if (connectTimeout < 1)
+        {
             connectTimeout = RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS;
         }
 
@@ -144,6 +144,24 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB);
         this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
         this.binaryRecordReader.initialize(this.recordBuilder);
+    }
+
+    public int getRemoteReadMessageCount()
+    {
+        int count = 0;
+        if (binaryRecordReader != null)
+            count = binaryRecordReader.getStreamMessageCount();
+
+        return count;
+    }
+
+    public String getRemoteReadMessages()
+    {
+        String report = "";
+        if (binaryRecordReader != null)
+            report = binaryRecordReader.getStreamMessages();
+
+        return report;
     }
 
     /**
@@ -205,13 +223,14 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     }
 
     /**
-     * Close.
+     * Closes inputstream, reports summary of messages generated during read operation.
      *
      * @throws Exception
      *             the exception
      */
     public void close() throws Exception
     {
+        report();
         this.inputStream.close();
     }
 
@@ -236,5 +255,20 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     public BinaryRecordReader getRecordReader()
     {
         return this.binaryRecordReader;
+    }
+
+    /**
+     * Reports summary of messages generated during read operation.
+     *
+     * @throws Exception
+     *             the exception
+     */
+    public void report()
+    {
+        if (getRemoteReadMessageCount() > 0)
+        {
+            log.warn("DataPartition '" + this.dataPartition + "' read operation messages:\n");
+            log.warn(getRemoteReadMessages());
+        }
     }
 }

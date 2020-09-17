@@ -331,10 +331,22 @@ public class BinaryRecordWriter implements IRecordWriter
                 {
                     this.buffer.putLong(value);
                 }
+                else if (fd.getDataLen() < 8 && fd.getDataLen() > 0)
+                {
+                    long lastByteIdx = fd.getDataLen() -1;
+                    for (int i = 0; i < lastByteIdx; i++)
+                    {
+                        this.buffer.put((byte) ((value >> (i*8)) & 0xFF));
+                    }
+                   
+                    long signBit = value < 0 ? 0x80L : 0;
+                    this.buffer.put((byte) (((value >> (lastByteIdx*8)) & 0xFF) | signBit));
+                }
                 else
                 {
                     throw new Exception("Unsupported integer length: " + fd.getDataLen() + " for field: " + fd.getFieldName());
                 }
+
                 break;
             }
             case DECIMAL:
