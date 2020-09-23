@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: UpdateDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.965Z
+ * TimeStamp: 2020-09-23T03:42:02.645Z
  */
 public class UpdateDFUWorkunitWrapper
 {
@@ -35,7 +35,7 @@ public class UpdateDFUWorkunitWrapper
 
 	public UpdateDFUWorkunitWrapper() {}
 
-	public UpdateDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit updatedfuworkunit)
+	public UpdateDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunit updatedfuworkunit)
 	{
 		copy( updatedfuworkunit );
 	}
@@ -49,7 +49,7 @@ public class UpdateDFUWorkunitWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class UpdateDFUWorkunitWrapper
 	{
 		return "UpdateDFUWorkunitWrapper [" + "wu = " + local_wu + ", " + "clusterOrig = " + local_clusterOrig + ", " + "jobNameOrig = " + local_jobNameOrig + ", " + "isProtectedOrig = " + local_isProtectedOrig + ", " + "stateOrig = " + local_stateOrig + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunit();
 		raw.setClusterOrig( local_clusterOrig);
 		raw.setJobNameOrig( local_jobNameOrig);
 		raw.setIsProtectedOrig( local_isProtectedOrig);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLGraphWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.380Z
+ * TimeStamp: 2020-09-23T04:21:56.872Z
  */
 public class ArrayOfECLGraphWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLGraphWrapper
 
 	public ArrayOfECLGraphWrapper() {}
 
-	public ArrayOfECLGraphWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph arrayofeclgraph)
+	public ArrayOfECLGraphWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph arrayofeclgraph)
 	{
 		copy( arrayofeclgraph );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLGraphWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLGraphWrapper
 	{
 		return "ArrayOfECLGraphWrapper [" + "eCLGraph = " + local_eCLGraph + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLGraph();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph();
 		if (this.local_eCLGraph!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLGraph[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLGraph[this.local_eCLGraph.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLGraph[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLGraph[this.local_eCLGraph.size()];
 			for ( int i = 0; i < this.local_eCLGraph.size(); i++)
 			{
 				arr[i] = this.local_eCLGraph.get(i) .getRaw();

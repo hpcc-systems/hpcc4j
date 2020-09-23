@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetRelatedIndexesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetRelatedIndexesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.350Z
+ * TimeStamp: 2020-09-23T04:21:56.940Z
  */
 public class GetRelatedIndexesResponseWrapper
 {
@@ -31,7 +31,7 @@ public class GetRelatedIndexesResponseWrapper
 
 	public GetRelatedIndexesResponseWrapper() {}
 
-	public GetRelatedIndexesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetRelatedIndexesResponse getrelatedindexesresponse)
+	public GetRelatedIndexesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesResponse getrelatedindexesresponse)
 	{
 		copy( getrelatedindexesresponse );
 	}
@@ -41,7 +41,7 @@ public class GetRelatedIndexesResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetRelatedIndexesResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class GetRelatedIndexesResponseWrapper
 	{
 		return "GetRelatedIndexesResponseWrapper [" + "relatedIndexSets = " + local_relatedIndexSets + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetRelatedIndexesResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetRelatedIndexesResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesResponse();
 		return raw;
 	}
 

@@ -50,9 +50,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         this.connection = conn;
         this.platformVersion = targetVersion;
 
-        if (useVersion1_75())
+        if (useVersion1_79())
         {
-            versionedStub = new WsWorkunitsClientStub1_75(connection);
+            versionedStub = new WsWorkunitsClientStub1_79(connection);
         }
         else if (useVersion1_69())
         {
@@ -70,16 +70,6 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         {
             throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
         }
-    }
-
-    /**
-     * Use version 1 69.
-     *
-     * @return true, if successful
-     */
-    private boolean useVersion1_69()
-    {
-        return platformVersion.major == 6 && platformVersion.minor >= 4;
     }
 
     /**
@@ -103,13 +93,22 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
     }
 
     /**
-     * Use version 1 75.
+     * Use version 1 69.
      *
      * @return true, if successful
      */
-    private boolean useVersion1_75()
+    private boolean useVersion1_69()
     {
-        return platformVersion.major == 7 && (platformVersion.minor == 0 || platformVersion.minor >= 2);
+        return platformVersion.major == 6 && platformVersion.minor >= 4;
+    }
+    /**
+     * Use version 1 79.
+     *
+     * @return true, if successful
+     */
+    private boolean useVersion1_79()
+    {
+        return platformVersion.major == 7 && platformVersion.minor >= 0;
     }
 
     /**
@@ -177,9 +176,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      * @return the latest
      * @throws AxisFault
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub getLatestStub() throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub getLatestStub() throws AxisFault
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub(
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub(
                 connection.getBaseUrl() + HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
 
         return stub;

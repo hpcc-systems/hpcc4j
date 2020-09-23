@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.344Z
+ * TimeStamp: 2020-09-23T21:40:52.900Z
  */
 public class ArrayOfTpClusterWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpClusterWrapper
 
 	public ArrayOfTpClusterWrapper() {}
 
-	public ArrayOfTpClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster arrayoftpcluster)
+	public ArrayOfTpClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpCluster arrayoftpcluster)
 	{
 		copy( arrayoftpcluster );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpClusterWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpCluster raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpClusterWrapper
 	{
 		return "ArrayOfTpClusterWrapper [" + "tpCluster = " + local_tpCluster + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpCluster getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpCluster();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpCluster();
 		if (this.local_tpCluster!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster[this.local_tpCluster.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster[this.local_tpCluster.size()];
 			for ( int i = 0; i < this.local_tpCluster.size(); i++)
 			{
 				arr[i] = this.local_tpCluster.get(i) .getRaw();

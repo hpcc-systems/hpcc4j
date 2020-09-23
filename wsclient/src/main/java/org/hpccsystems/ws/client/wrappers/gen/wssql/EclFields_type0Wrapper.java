@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EclFields_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFields_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFields_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.303Z
+ * TimeStamp: 2020-09-23T04:21:56.898Z
  */
 public class EclFields_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class EclFields_type0Wrapper
 
 	public EclFields_type0Wrapper() {}
 
-	public EclFields_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFields_type0 eclfields_type0)
+	public EclFields_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFields_type0 eclfields_type0)
 	{
 		copy( eclfields_type0 );
 	}
@@ -43,7 +43,7 @@ public class EclFields_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFields_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFields_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class EclFields_type0Wrapper
 	{
 		return "EclFields_type0Wrapper [" + "eclField = " + local_eclField + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFields_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFields_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFields_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFields_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFields_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFields_type0();
 		if (this.local_eclField!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration[this.local_eclField.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration[this.local_eclField.size()];
 			for ( int i = 0; i < this.local_eclField.size(); i++)
 			{
 				arr[i] = this.local_eclField.get(i) .getRaw();

@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUPartWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2019-08-20T13:59:09.298Z
  */
@@ -42,7 +42,7 @@ public class ArrayOfDFUPartWrapper
      * @param arrayofdfupart
      *            the arrayofdfupart
      */
-    public ArrayOfDFUPartWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart arrayofdfupart)
+    public ArrayOfDFUPartWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPart arrayofdfupart)
     {
         copy(arrayofdfupart);
     }
@@ -65,7 +65,7 @@ public class ArrayOfDFUPartWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPart raw)
     {
         if (raw == null) return;
 
@@ -95,12 +95,12 @@ public class ArrayOfDFUPartWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPart getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPart();
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPart();
         if (this.local_dFUPart != null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart[this.local_dFUPart
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUPart[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUPart[this.local_dFUPart
                     .size()];
             for (int i = 0; i < this.local_dFUPart.size(); i++)
             {

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.309Z
+ * TimeStamp: 2020-09-23T21:40:52.933Z
  */
 public class TpClusterWrapper
 {
@@ -42,7 +42,7 @@ public class TpClusterWrapper
 
 	public TpClusterWrapper() {}
 
-	public TpClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster tpcluster)
+	public TpClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster tpcluster)
 	{
 		copy( tpcluster );
 	}
@@ -63,7 +63,7 @@ public class TpClusterWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster raw )
 	{
 		if (raw == null)
 			return;
@@ -89,9 +89,9 @@ public class TpClusterWrapper
 	{
 		return "TpClusterWrapper [" + "type = " + local_type + ", " + "name = " + local_name + ", " + "queueName = " + local_queueName + ", " + "build = " + local_build + ", " + "directory = " + local_directory + ", " + "logDirectory = " + local_logDirectory + ", " + "desc = " + local_desc + ", " + "path = " + local_path + ", " + "dataModel = " + local_dataModel + ", " + "oS = " + local_oS + ", " + "hasThorSpareProcess = " + local_hasThorSpareProcess + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpCluster();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpCluster();
 		raw.setType( local_type);
 		raw.setName( local_name);
 		raw.setQueueName( local_queueName);

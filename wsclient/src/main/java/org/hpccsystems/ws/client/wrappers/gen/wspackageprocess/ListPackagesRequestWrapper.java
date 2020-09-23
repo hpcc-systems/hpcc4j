@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ListPackagesRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.540Z
+ * TimeStamp: 2020-09-23T03:53:35.706Z
  */
 public class ListPackagesRequestWrapper
 {
@@ -33,7 +33,7 @@ public class ListPackagesRequestWrapper
 
 	public ListPackagesRequestWrapper() {}
 
-	public ListPackagesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest listpackagesrequest)
+	public ListPackagesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest listpackagesrequest)
 	{
 		copy( listpackagesrequest );
 	}
@@ -45,7 +45,7 @@ public class ListPackagesRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class ListPackagesRequestWrapper
 	{
 		return "ListPackagesRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + ", " + "processFilter = " + local_processFilter + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest();
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);
 		raw.setProcessFilter( local_processFilter);

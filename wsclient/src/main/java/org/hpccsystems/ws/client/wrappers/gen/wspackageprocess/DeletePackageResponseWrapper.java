@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeletePackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.496Z
+ * TimeStamp: 2020-09-23T03:53:35.682Z
  */
 public class DeletePackageResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DeletePackageResponseWrapper
 
 	public DeletePackageResponseWrapper() {}
 
-	public DeletePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageResponse deletepackageresponse)
+	public DeletePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse deletepackageresponse)
 	{
 		copy( deletepackageresponse );
 	}
@@ -43,7 +43,7 @@ public class DeletePackageResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class DeletePackageResponseWrapper
 	{
 		return "DeletePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse();
 		return raw;
 	}
 

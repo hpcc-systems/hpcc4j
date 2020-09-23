@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLResultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.388Z
+ * TimeStamp: 2020-09-23T04:21:56.874Z
  */
 public class ArrayOfECLResultWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLResultWrapper
 
 	public ArrayOfECLResultWrapper() {}
 
-	public ArrayOfECLResultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult arrayofeclresult)
+	public ArrayOfECLResultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLResult arrayofeclresult)
 	{
 		copy( arrayofeclresult );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLResultWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLResult raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLResultWrapper
 	{
 		return "ArrayOfECLResultWrapper [" + "eCLResult = " + local_eCLResult + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLResult getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLResult();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLResult();
 		if (this.local_eCLResult!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLResult[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLResult[this.local_eCLResult.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult[this.local_eCLResult.size()];
 			for ( int i = 0; i < this.local_eCLResult.size(); i++)
 			{
 				arr[i] = this.local_eCLResult.get(i) .getRaw();

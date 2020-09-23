@@ -2,7 +2,7 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 
 import java.util.ArrayList;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUDataColumn;
 import org.hpccsystems.ws.client.utils.FileFormat;
 
 // This class wraps the generated soap ECL Workunit, providing comparable and to-string methods for end-users.

@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExecuteSQLResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.390Z
+ * TimeStamp: 2020-09-23T04:21:56.933Z
  */
 public class ExecuteSQLResponseWrapper
 {
@@ -38,7 +38,7 @@ public class ExecuteSQLResponseWrapper
 
 	public ExecuteSQLResponseWrapper() {}
 
-	public ExecuteSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse executesqlresponse)
+	public ExecuteSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLResponse executesqlresponse)
 	{
 		copy( executesqlresponse );
 	}
@@ -54,7 +54,7 @@ public class ExecuteSQLResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -76,9 +76,9 @@ public class ExecuteSQLResponseWrapper
 	{
 		return "ExecuteSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "parentWuId = " + local_parentWuId + ", " + "result = " + local_result + ", " + "workunit = " + local_workunit + ", " + "resultLimit = " + local_resultLimit + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLResponse();
 		raw.setParentWuId( local_parentWuId);
 		raw.setResult( local_result);
 		raw.setResultLimit( local_resultLimit);

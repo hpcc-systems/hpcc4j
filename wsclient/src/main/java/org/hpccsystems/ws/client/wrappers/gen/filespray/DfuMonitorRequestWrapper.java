@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DfuMonitorRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.012Z
+ * TimeStamp: 2020-09-23T03:42:02.569Z
  */
 public class DfuMonitorRequestWrapper
 {
@@ -36,7 +36,7 @@ public class DfuMonitorRequestWrapper
 
 	public DfuMonitorRequestWrapper() {}
 
-	public DfuMonitorRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest dfumonitorrequest)
+	public DfuMonitorRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorRequest dfumonitorrequest)
 	{
 		copy( dfumonitorrequest );
 	}
@@ -51,7 +51,7 @@ public class DfuMonitorRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class DfuMonitorRequestWrapper
 	{
 		return "DfuMonitorRequestWrapper [" + "eventName = " + local_eventName + ", " + "logicalName = " + local_logicalName + ", " + "ip = " + local_ip + ", " + "filename = " + local_filename + ", " + "sub = " + local_sub + ", " + "shotLimit = " + local_shotLimit + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorRequest();
 		raw.setEventName( local_eventName);
 		raw.setLogicalName( local_logicalName);
 		raw.setIp( local_ip);

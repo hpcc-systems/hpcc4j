@@ -11,12 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
-import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 

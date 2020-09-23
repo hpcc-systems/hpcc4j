@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPackageMapSelectOptionsRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.556Z
+ * TimeStamp: 2020-09-23T03:53:35.694Z
  */
 public class GetPackageMapSelectOptionsRequestWrapper
 {
@@ -33,7 +33,7 @@ public class GetPackageMapSelectOptionsRequestWrapper
 
 	public GetPackageMapSelectOptionsRequestWrapper() {}
 
-	public GetPackageMapSelectOptionsRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsRequest getpackagemapselectoptionsrequest)
+	public GetPackageMapSelectOptionsRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest getpackagemapselectoptionsrequest)
 	{
 		copy( getpackagemapselectoptionsrequest );
 	}
@@ -45,7 +45,7 @@ public class GetPackageMapSelectOptionsRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class GetPackageMapSelectOptionsRequestWrapper
 	{
 		return "GetPackageMapSelectOptionsRequestWrapper [" + "includeTargets = " + local_includeTargets + ", " + "includeProcesses = " + local_includeProcesses + ", " + "includeProcessFilters = " + local_includeProcessFilters + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest();
 		raw.setIncludeTargets( local_includeTargets);
 		raw.setIncludeProcesses( local_includeProcesses);
 		raw.setIncludeProcessFilters( local_includeProcessFilters);

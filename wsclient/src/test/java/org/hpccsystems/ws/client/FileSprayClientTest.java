@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspSoapFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
@@ -208,10 +207,10 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             Assert.fail(e.getMessage());
         }
-        catch (EspSoapFault espSoapFault)
-        {
-            Assert.fail(espSoapFault.getMessage());
-        }
+        //catch (EspSoapFault espSoapFault)
+        //{
+        //    Assert.fail(espSoapFault.getMessage());
+        //}
         catch (Exception e)
         {
             Assert.fail(e.getMessage());
@@ -245,10 +244,6 @@ public class FileSprayClientTest extends BaseRemoteTest
             }
         }
         catch (RemoteException e)
-        {
-            Assert.fail(e.getMessage());
-        }
-        catch (EspSoapFault e)
         {
             Assert.fail(e.getMessage());
         }

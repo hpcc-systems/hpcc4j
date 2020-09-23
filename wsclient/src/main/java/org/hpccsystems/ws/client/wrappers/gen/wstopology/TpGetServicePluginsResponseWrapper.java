@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetServicePluginsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.400Z
+ * TimeStamp: 2020-09-23T21:40:52.959Z
  */
 public class TpGetServicePluginsResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpGetServicePluginsResponseWrapper
 
 	public TpGetServicePluginsResponseWrapper() {}
 
-	public TpGetServicePluginsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse tpgetservicepluginsresponse)
+	public TpGetServicePluginsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse tpgetservicepluginsresponse)
 	{
 		copy( tpgetservicepluginsresponse );
 	}
@@ -43,7 +43,7 @@ public class TpGetServicePluginsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpGetServicePluginsResponseWrapper
 	{
 		return "TpGetServicePluginsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "plugins = " + local_plugins + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse();
 		return raw;
 	}
 

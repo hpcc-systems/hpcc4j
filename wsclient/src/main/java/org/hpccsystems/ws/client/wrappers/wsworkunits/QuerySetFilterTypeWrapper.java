@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerySetFilterType;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerySetFilterType;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 
 public class QuerySetFilterTypeWrapper
@@ -15,17 +15,17 @@ public class QuerySetFilterTypeWrapper
      */
     public static WUQuerySetFilterType fromString(String filtertype)
     {
-        return get1_75FilterType(filtertype);
+        return getFilterType(filtertype);
     }
 
     /**
-     * Gets the 1 75 filter type.
+     * Gets the filter type.
      *
      * @param filtertype
      *            the filtertype
-     * @return the 1 75 filter type
+     * @return the filter type
      */
-    public static WUQuerySetFilterType get1_75FilterType(QuerySetFilterType filtertype)
+    public static WUQuerySetFilterType getFilterType(QuerySetFilterType filtertype)
     {
         switch (filtertype)
         {
@@ -45,13 +45,13 @@ public class QuerySetFilterTypeWrapper
     }
     
     /**
-     * Gets the 1 75 filter type.
+     * Gets the filter type.
      *
      * @param filtertype
      *            the filtertype
-     * @return the 1 75 filter type
+     * @return the  filter type
      */
-    public static WUQuerySetFilterType get1_75FilterType(String filtertype)
+    public static WUQuerySetFilterType getFilterType(String filtertype)
     {
         if (filtertype == null || filtertype.isEmpty())
             return null;

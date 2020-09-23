@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.FileUsedByQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.FileUsedByQuery;
 
 public class QueryFileWrapper
 {

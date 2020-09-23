@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: OpenSaveResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.927Z
+ * TimeStamp: 2020-09-23T03:42:02.626Z
  */
 public class OpenSaveResponseWrapper
 {
@@ -37,7 +37,7 @@ public class OpenSaveResponseWrapper
 
 	public OpenSaveResponseWrapper() {}
 
-	public OpenSaveResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse opensaveresponse)
+	public OpenSaveResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveResponse opensaveresponse)
 	{
 		copy( opensaveresponse );
 	}
@@ -53,7 +53,7 @@ public class OpenSaveResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -74,9 +74,9 @@ public class OpenSaveResponseWrapper
 	{
 		return "OpenSaveResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "location = " + local_location + ", " + "path = " + local_path + ", " + "name = " + local_name + ", " + "type = " + local_type + ", " + "dateTime = " + local_dateTime + ", " + "viewable = " + local_viewable + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.OpenSaveResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveResponse();
 		raw.setLocation( local_location);
 		raw.setPath( local_path);
 		raw.setName( local_name);

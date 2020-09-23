@@ -22,9 +22,9 @@ import java.math.BigInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCTableWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.394Z
+ * TimeStamp: 2020-09-23T04:21:56.947Z
  */
 public class HPCCTableWrapper
 {
@@ -47,7 +47,7 @@ public class HPCCTableWrapper
 
 	public HPCCTableWrapper() {}
 
-	public HPCCTableWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable hpcctable)
+	public HPCCTableWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable hpcctable)
 	{
 		copy( hpcctable );
 	}
@@ -72,7 +72,7 @@ public class HPCCTableWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable raw )
 	{
 		if (raw == null)
 			return;
@@ -102,9 +102,9 @@ public class HPCCTableWrapper
 	{
 		return "HPCCTableWrapper [" + "name = " + local_name + ", " + "columns = " + local_columns + ", " + "eCL = " + local_eCL + ", " + "format = " + local_format + ", " + "contentType = " + local_contentType + ", " + "description = " + local_description + ", " + "isKeyed = " + local_isKeyed + ", " + "isSuper = " + local_isSuper + ", " + "csvQuote = " + local_csvQuote + ", " + "csvSeparate = " + local_csvSeparate + ", " + "csvTerminate = " + local_csvTerminate + ", " + "group = " + local_group + ", " + "maxRecordSize = " + local_maxRecordSize + ", " + "modified = " + local_modified + ", " + "numParts = " + local_numParts + ", " + "owner = " + local_owner + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable();
 		raw.setName( local_name);
 		raw.setECL( local_eCL);
 		raw.setFormat( local_format);

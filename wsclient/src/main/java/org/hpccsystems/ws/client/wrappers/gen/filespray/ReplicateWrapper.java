@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ReplicateWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Replicate
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.001Z
+ * TimeStamp: 2020-09-23T03:42:02.633Z
  */
 public class ReplicateWrapper
 {
@@ -36,7 +36,7 @@ public class ReplicateWrapper
 
 	public ReplicateWrapper() {}
 
-	public ReplicateWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate replicate)
+	public ReplicateWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Replicate replicate)
 	{
 		copy( replicate );
 	}
@@ -51,7 +51,7 @@ public class ReplicateWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Replicate raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class ReplicateWrapper
 	{
 		return "ReplicateWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "replicateOffset = " + local_replicateOffset + ", " + "cluster = " + local_cluster + ", " + "repeatLast = " + local_repeatLast + ", " + "onlyRepeated = " + local_onlyRepeated + ", " + "dFUServerQueue = " + local_dFUServerQueue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Replicate getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Replicate();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Replicate raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Replicate();
 		raw.setSourceLogicalName( local_sourceLogicalName);
 		raw.setReplicateOffset( local_replicateOffset);
 		raw.setCluster( local_cluster);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpGenesisServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.406Z
+ * TimeStamp: 2020-09-23T21:40:52.913Z
  */
 public class ArrayOfTpGenesisServerWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpGenesisServerWrapper
 
 	public ArrayOfTpGenesisServerWrapper() {}
 
-	public ArrayOfTpGenesisServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer arrayoftpgenesisserver)
+	public ArrayOfTpGenesisServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer arrayoftpgenesisserver)
 	{
 		copy( arrayoftpgenesisserver );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpGenesisServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpGenesisServerWrapper
 	{
 		return "ArrayOfTpGenesisServerWrapper [" + "tpGenesisServer = " + local_tpGenesisServer + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGenesisServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer();
 		if (this.local_tpGenesisServer!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer[this.local_tpGenesisServer.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer[this.local_tpGenesisServer.size()];
 			for ( int i = 0; i < this.local_tpGenesisServer.size(); i++)
 			{
 				arr[i] = this.local_tpGenesisServer.get(i) .getRaw();

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUActionResultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUActionResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.016Z
+ * TimeStamp: 2020-09-23T03:42:02.539Z
  */
 public class ArrayOfDFUActionResultWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfDFUActionResultWrapper
 
 	public ArrayOfDFUActionResultWrapper() {}
 
-	public ArrayOfDFUActionResultWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult arrayofdfuactionresult)
+	public ArrayOfDFUActionResultWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUActionResult arrayofdfuactionresult)
 	{
 		copy( arrayofdfuactionresult );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfDFUActionResultWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUActionResult raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfDFUActionResultWrapper
 	{
 		return "ArrayOfDFUActionResultWrapper [" + "dFUActionResult = " + local_dFUActionResult + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUActionResult getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUActionResult();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUActionResult raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUActionResult();
 		if (this.local_dFUActionResult!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult[this.local_dFUActionResult.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult[this.local_dFUActionResult.size()];
 			for ( int i = 0; i < this.local_dFUActionResult.size(); i++)
 			{
 				arr[i] = this.local_dFUActionResult.get(i) .getRaw();

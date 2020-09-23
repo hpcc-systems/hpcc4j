@@ -5,11 +5,11 @@ import java.net.URL;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
-import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.Activity;
-import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.ActivityResponse;
-import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.EspException;
-import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.Ping;
-import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21.WsSMCStub;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Activity;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ActivityResponse;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspException;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Ping;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.WsSMCStub;
 import org.hpccsystems.ws.client.utils.Connection;
 
 /**

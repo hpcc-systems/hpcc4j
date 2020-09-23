@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeActivatePackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.487Z
+ * TimeStamp: 2020-09-23T03:53:35.679Z
  */
 public class DeActivatePackageResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DeActivatePackageResponseWrapper
 
 	public DeActivatePackageResponseWrapper() {}
 
-	public DeActivatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageResponse deactivatepackageresponse)
+	public DeActivatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageResponse deactivatepackageresponse)
 	{
 		copy( deactivatepackageresponse );
 	}
@@ -43,7 +43,7 @@ public class DeActivatePackageResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class DeActivatePackageResponseWrapper
 	{
 		return "DeActivatePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageResponse();
 		return raw;
 	}
 

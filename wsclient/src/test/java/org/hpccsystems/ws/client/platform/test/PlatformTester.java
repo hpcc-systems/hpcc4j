@@ -14,7 +14,6 @@ import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLResponse;
 import org.hpccsystems.ws.client.platform.PhysicalFile;
 import org.hpccsystems.ws.client.platform.PhysicalMachine;
 import org.hpccsystems.ws.client.platform.Platform;
@@ -23,16 +22,12 @@ import org.hpccsystems.ws.client.platform.test.data.Accounts;
 import org.hpccsystems.ws.client.platform.test.data.Persons;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.utils.Utils.HPCCEnvOSCode;
-import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartsOnClusterWrapper;
 
 import org.junit.experimental.categories.Category;
 

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Values_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Values_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Values_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.313Z
+ * TimeStamp: 2020-09-23T04:21:56.973Z
  */
 public class Values_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class Values_type0Wrapper
 
 	public Values_type0Wrapper() {}
 
-	public Values_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Values_type0 values_type0)
+	public Values_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Values_type0 values_type0)
 	{
 		copy( values_type0 );
 	}
@@ -43,7 +43,7 @@ public class Values_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Values_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Values_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class Values_type0Wrapper
 	{
 		return "Values_type0Wrapper [" + "value = " + local_value + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Values_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Values_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Values_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Values_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Values_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Values_type0();
 		if (this.local_value!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_value.size()];

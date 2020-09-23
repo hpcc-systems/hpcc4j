@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: BasePackageStatusWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.570Z
+ * TimeStamp: 2020-09-23T03:53:35.674Z
  */
 public class BasePackageStatusWrapper
 {
@@ -32,7 +32,7 @@ public class BasePackageStatusWrapper
 
 	public BasePackageStatusWrapper() {}
 
-	public BasePackageStatusWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus basepackagestatus)
+	public BasePackageStatusWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus basepackagestatus)
 	{
 		copy( basepackagestatus );
 	}
@@ -43,7 +43,7 @@ public class BasePackageStatusWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class BasePackageStatusWrapper
 	{
 		return "BasePackageStatusWrapper [" + "code = " + local_code + ", " + "description = " + local_description + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.BasePackageStatus();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus();
 		raw.setCode( local_code);
 		raw.setDescription( local_description);
 		return raw;

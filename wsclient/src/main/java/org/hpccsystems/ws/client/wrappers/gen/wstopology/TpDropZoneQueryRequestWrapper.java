@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDropZoneQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.387Z
+ * TimeStamp: 2020-09-23T21:40:52.945Z
  */
 public class TpDropZoneQueryRequestWrapper
 {
@@ -32,7 +32,7 @@ public class TpDropZoneQueryRequestWrapper
 
 	public TpDropZoneQueryRequestWrapper() {}
 
-	public TpDropZoneQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest tpdropzonequeryrequest)
+	public TpDropZoneQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryRequest tpdropzonequeryrequest)
 	{
 		copy( tpdropzonequeryrequest );
 	}
@@ -43,7 +43,7 @@ public class TpDropZoneQueryRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class TpDropZoneQueryRequestWrapper
 	{
 		return "TpDropZoneQueryRequestWrapper [" + "name = " + local_name + ", " + "eCLWatchVisibleOnly = " + local_eCLWatchVisibleOnly + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryRequest();
 		raw.setName( local_name);
 		raw.setECLWatchVisibleOnly( local_eCLWatchVisibleOnly);
 		return raw;

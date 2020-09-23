@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpLogicalClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.413Z
+ * TimeStamp: 2020-09-23T21:40:52.916Z
  */
 public class ArrayOfTpLogicalClusterWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpLogicalClusterWrapper
 
 	public ArrayOfTpLogicalClusterWrapper() {}
 
-	public ArrayOfTpLogicalClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster arrayoftplogicalcluster)
+	public ArrayOfTpLogicalClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster arrayoftplogicalcluster)
 	{
 		copy( arrayoftplogicalcluster );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpLogicalClusterWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpLogicalClusterWrapper
 	{
 		return "ArrayOfTpLogicalClusterWrapper [" + "tpLogicalCluster = " + local_tpLogicalCluster + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLogicalCluster();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster();
 		if (this.local_tpLogicalCluster!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster[this.local_tpLogicalCluster.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster[this.local_tpLogicalCluster.size()];
 			for ( int i = 0; i < this.local_tpLogicalCluster.size(); i++)
 			{
 				arr[i] = this.local_tpLogicalCluster.get(i) .getRaw();

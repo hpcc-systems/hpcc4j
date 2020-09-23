@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DropZoneFileSearchResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.917Z
+ * TimeStamp: 2020-09-23T03:42:02.595Z
  */
 public class DropZoneFileSearchResponseWrapper
 {
@@ -33,7 +33,7 @@ public class DropZoneFileSearchResponseWrapper
 
 	public DropZoneFileSearchResponseWrapper() {}
 
-	public DropZoneFileSearchResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse dropzonefilesearchresponse)
+	public DropZoneFileSearchResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse dropzonefilesearchresponse)
 	{
 		copy( dropzonefilesearchresponse );
 	}
@@ -45,7 +45,7 @@ public class DropZoneFileSearchResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class DropZoneFileSearchResponseWrapper
 	{
 		return "DropZoneFileSearchResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "files = " + local_files + ", " + "warning = " + local_warning + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse();
 		raw.setWarning( local_warning);
 		return raw;
 	}

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: QuerySetAliasMapWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.389Z
+ * TimeStamp: 2020-09-23T04:21:56.959Z
  */
 public class QuerySetAliasMapWrapper
 {
@@ -32,7 +32,7 @@ public class QuerySetAliasMapWrapper
 
 	public QuerySetAliasMapWrapper() {}
 
-	public QuerySetAliasMapWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap querysetaliasmap)
+	public QuerySetAliasMapWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap querysetaliasmap)
 	{
 		copy( querysetaliasmap );
 	}
@@ -43,7 +43,7 @@ public class QuerySetAliasMapWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class QuerySetAliasMapWrapper
 	{
 		return "QuerySetAliasMapWrapper [" + "id = " + local_id + ", " + "name = " + local_name + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySetAliasMap();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap();
 		raw.setId( local_id);
 		raw.setName( local_name);
 		return raw;

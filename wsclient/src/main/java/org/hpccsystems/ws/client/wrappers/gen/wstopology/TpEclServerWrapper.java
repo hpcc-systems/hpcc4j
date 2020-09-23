@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpEclServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.420Z
+ * TimeStamp: 2020-09-23T21:40:52.950Z
  */
 public class TpEclServerWrapper
 {
@@ -37,7 +37,7 @@ public class TpEclServerWrapper
 
 	public TpEclServerWrapper() {}
 
-	public TpEclServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclServer tpeclserver)
+	public TpEclServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclServer tpeclserver)
 	{
 		copy( tpeclserver );
 	}
@@ -53,7 +53,7 @@ public class TpEclServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclServer raw )
 	{
 		if (raw == null)
 			return;
@@ -74,9 +74,9 @@ public class TpEclServerWrapper
 	{
 		return "TpEclServerWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "logDirectory = " + local_logDirectory + ", " + "type = " + local_type + ", " + "path = " + local_path + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclServer();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

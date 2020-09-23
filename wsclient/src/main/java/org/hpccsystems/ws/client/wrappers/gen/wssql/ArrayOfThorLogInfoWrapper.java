@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfThorLogInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfThorLogInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfThorLogInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.351Z
+ * TimeStamp: 2020-09-23T04:21:56.883Z
  */
 public class ArrayOfThorLogInfoWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfThorLogInfoWrapper
 
 	public ArrayOfThorLogInfoWrapper() {}
 
-	public ArrayOfThorLogInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfThorLogInfo arrayofthorloginfo)
+	public ArrayOfThorLogInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfThorLogInfo arrayofthorloginfo)
 	{
 		copy( arrayofthorloginfo );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfThorLogInfoWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfThorLogInfo raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfThorLogInfo raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfThorLogInfoWrapper
 	{
 		return "ArrayOfThorLogInfoWrapper [" + "thorLogInfo = " + local_thorLogInfo + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfThorLogInfo getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfThorLogInfo getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfThorLogInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfThorLogInfo();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfThorLogInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfThorLogInfo();
 		if (this.local_thorLogInfo!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ThorLogInfo[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ThorLogInfo[this.local_thorLogInfo.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ThorLogInfo[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ThorLogInfo[this.local_thorLogInfo.size()];
 			for ( int i = 0; i < this.local_thorLogInfo.size(); i++)
 			{
 				arr[i] = this.local_thorLogInfo.get(i) .getRaw();

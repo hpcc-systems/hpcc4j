@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.426Z
+ * TimeStamp: 2020-09-23T03:53:35.684Z
  */
 public class EchoResponseWrapper
 {
@@ -31,7 +31,7 @@ public class EchoResponseWrapper
 
 	public EchoResponseWrapper() {}
 
-	public EchoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoResponse echoresponse)
+	public EchoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoResponse echoresponse)
 	{
 		copy( echoresponse );
 	}
@@ -41,7 +41,7 @@ public class EchoResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class EchoResponseWrapper
 	{
 		return "EchoResponseWrapper [" + "response = " + local_response + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoResponse();
 		raw.setResponse( local_response);
 		return raw;
 	}

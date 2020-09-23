@@ -26,11 +26,11 @@ import javax.activation.DataHandler;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUPartLocation;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileAccessInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPartLocation;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPartLocation;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFileAccessInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePart;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFileType;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUPartLocation;
 
 public class DFUFileAccessInfoWrapper
 {
@@ -167,7 +167,7 @@ public class DFUFileAccessInfoWrapper
 
     /*
      * @Deprecated
-     * public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUFileAccessInfo soapdfufileaccessinfo, DFUFileTypeWrapper filetype)
+     * public DFUFileAccessInfoWrapper(org.hpccsystems.ws.client.gen.wsdfu.v1_55.DFUFileAccessInfo soapdfufileaccessinfo, DFUFileTypeWrapper filetype)
      * throws Exception
      * {
      * if (soapdfufileaccessinfo != null)
@@ -182,7 +182,7 @@ public class DFUFileAccessInfoWrapper
      * 
      * wrappedDFUFileParts = wrapAndResolveFileParts(soapdfufileaccessinfo.getFileLocations(), soapdfufileaccessinfo.getFileParts());
      * 
-     * org.hpccsystems.ws.client.gen.wsdfu.v1_51.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
+     * org.hpccsystems.ws.client.gen.wsdfu.v1_55.DFUPartLocation[] locations = soapdfufileaccessinfo.getFileLocations();
      * allFilePartCopyHosts = new String [locations.length];
      * for (int i = 0; i < locations.length; i++)
      * {

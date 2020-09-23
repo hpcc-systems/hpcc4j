@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfPackageListDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.563Z
+ * TimeStamp: 2020-09-23T03:53:35.669Z
  */
 public class ArrayOfPackageListDataWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfPackageListDataWrapper
 
 	public ArrayOfPackageListDataWrapper() {}
 
-	public ArrayOfPackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData arrayofpackagelistdata)
+	public ArrayOfPackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData arrayofpackagelistdata)
 	{
 		copy( arrayofpackagelistdata );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfPackageListDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfPackageListDataWrapper
 	{
 		return "ArrayOfPackageListDataWrapper [" + "packageListData = " + local_packageListData + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListData();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData();
 		if (this.local_packageListData!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData[this.local_packageListData.size()];
+			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData[this.local_packageListData.size()];
 			for ( int i = 0; i < this.local_packageListData.size(); i++)
 			{
 				arr[i] = this.local_packageListData.get(i) .getRaw();

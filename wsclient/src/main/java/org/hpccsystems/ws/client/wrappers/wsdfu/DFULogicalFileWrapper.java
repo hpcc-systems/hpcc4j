@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFULogicalFile;
 
 public class DFULogicalFileWrapper
 {   
@@ -291,7 +291,7 @@ public class DFULogicalFileWrapper
         String name=isDir?dirname:filename;
         return name;
     }
-    
+
     /**
      * Sets the file name.
      *

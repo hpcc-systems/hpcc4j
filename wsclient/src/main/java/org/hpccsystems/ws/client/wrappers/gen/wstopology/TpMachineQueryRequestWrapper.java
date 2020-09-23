@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.379Z
+ * TimeStamp: 2020-09-23T21:40:52.979Z
  */
 public class TpMachineQueryRequestWrapper
 {
@@ -36,7 +36,7 @@ public class TpMachineQueryRequestWrapper
 
 	public TpMachineQueryRequestWrapper() {}
 
-	public TpMachineQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest tpmachinequeryrequest)
+	public TpMachineQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryRequest tpmachinequeryrequest)
 	{
 		copy( tpmachinequeryrequest );
 	}
@@ -51,7 +51,7 @@ public class TpMachineQueryRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class TpMachineQueryRequestWrapper
 	{
 		return "TpMachineQueryRequestWrapper [" + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "oldIP = " + local_oldIP + ", " + "path = " + local_path + ", " + "directory = " + local_directory + ", " + "logDirectory = " + local_logDirectory + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryRequest();
 		raw.setType( local_type);
 		raw.setCluster( local_cluster);
 		raw.setOldIP( local_oldIP);

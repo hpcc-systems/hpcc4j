@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DropZoneWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.933Z
+ * TimeStamp: 2020-09-23T03:42:02.587Z
  */
 public class DropZoneWrapper
 {
@@ -35,7 +35,7 @@ public class DropZoneWrapper
 
 	public DropZoneWrapper() {}
 
-	public DropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone dropzone)
+	public DropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone dropzone)
 	{
 		copy( dropzone );
 	}
@@ -49,7 +49,7 @@ public class DropZoneWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone raw )
 	{
 		if (raw == null)
 			return;
@@ -67,9 +67,9 @@ public class DropZoneWrapper
 	{
 		return "DropZoneWrapper [" + "name = " + local_name + ", " + "netAddress = " + local_netAddress + ", " + "path = " + local_path + ", " + "computer = " + local_computer + ", " + "linux = " + local_linux + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone();
 		raw.setName( local_name);
 		raw.setNetAddress( local_netAddress);
 		raw.setPath( local_path);

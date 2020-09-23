@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUActionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUActions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.009Z
+ * TimeStamp: 2020-09-23T03:42:02.581Z
  */
 public class DFUWUActionsWrapper
 {
@@ -31,7 +31,7 @@ public class DFUWUActionsWrapper
 
 	public DFUWUActionsWrapper() {}
 
-	public DFUWUActionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUActions dfuwuactions)
+	public DFUWUActionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions dfuwuactions)
 	{
 		copy( dfuwuactions );
 	}
@@ -41,7 +41,7 @@ public class DFUWUActionsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUActions raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class DFUWUActionsWrapper
 	{
 		return "DFUWUActionsWrapper [" + "dFUWUActions = " + local_dFUWUActions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUActions getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUActions raw = null;
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setDFUWUActions(dFUWUActions);
 		return raw;
 	}

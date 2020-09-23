@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AlternateClusters_type1Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AlternateClusters_type1
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AlternateClusters_type1
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.446Z
+ * TimeStamp: 2020-09-23T04:21:56.866Z
  */
 public class AlternateClusters_type1Wrapper
 {
@@ -33,7 +33,7 @@ public class AlternateClusters_type1Wrapper
 
 	public AlternateClusters_type1Wrapper() {}
 
-	public AlternateClusters_type1Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AlternateClusters_type1 alternateclusters_type1)
+	public AlternateClusters_type1Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AlternateClusters_type1 alternateclusters_type1)
 	{
 		copy( alternateclusters_type1 );
 	}
@@ -43,7 +43,7 @@ public class AlternateClusters_type1Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AlternateClusters_type1 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AlternateClusters_type1 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class AlternateClusters_type1Wrapper
 	{
 		return "AlternateClusters_type1Wrapper [" + "alternateCluster = " + local_alternateCluster + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AlternateClusters_type1 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AlternateClusters_type1 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AlternateClusters_type1 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.AlternateClusters_type1();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AlternateClusters_type1 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AlternateClusters_type1();
 		if (this.local_alternateCluster!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_alternateCluster.size()];

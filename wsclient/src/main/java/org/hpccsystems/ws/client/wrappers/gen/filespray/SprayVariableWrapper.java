@@ -22,9 +22,9 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SprayVariableWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayVariable
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.023Z
+ * TimeStamp: 2020-09-23T03:42:02.642Z
  */
 public class SprayVariableWrapper
 {
@@ -53,6 +53,7 @@ public class SprayVariableWrapper
 	protected boolean local_compress;
 	protected boolean local_push;
 	protected boolean local_pull;
+	protected boolean local_noCommon;
 	protected String local_encrypt;
 	protected String local_decrypt;
 	protected boolean local_failIfNoSourceFile;
@@ -62,14 +63,16 @@ public class SprayVariableWrapper
 	protected boolean local_isJSON;
 	protected int local_expireDays;
 	protected String local_dFUServerQueue;
+	protected String local_srcUsername;
+	protected String local_srcPassword;
 
 	public SprayVariableWrapper() {}
 
-	public SprayVariableWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable sprayvariable)
+	public SprayVariableWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayVariable sprayvariable)
 	{
 		copy( sprayvariable );
 	}
-	public SprayVariableWrapper( String _sourceIP, String _sourcePath, DataHandler _srcxml, int _sourceMaxRecordSize, int _sourceFormat, boolean _noSourceCsvSeparator, String _sourceCsvSeparate, String _sourceCsvTerminate, String _sourceCsvQuote, String _sourceCsvEscape, String _sourceRowTag, String _destGroup, String _destLogicalName, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, String _sourceRowPath, boolean _isJSON, int _expireDays, String _dFUServerQueue )
+	public SprayVariableWrapper( String _sourceIP, String _sourcePath, DataHandler _srcxml, int _sourceMaxRecordSize, int _sourceFormat, boolean _noSourceCsvSeparator, String _sourceCsvSeparate, String _sourceCsvTerminate, String _sourceCsvQuote, String _sourceCsvEscape, String _sourceRowTag, String _destGroup, String _destLogicalName, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, boolean _noCommon, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, String _sourceRowPath, boolean _isJSON, int _expireDays, String _dFUServerQueue, String _srcUsername, String _srcPassword )
 	{
 		this.local_sourceIP = _sourceIP;
 		this.local_sourcePath = _sourcePath;
@@ -96,6 +99,7 @@ public class SprayVariableWrapper
 		this.local_compress = _compress;
 		this.local_push = _push;
 		this.local_pull = _pull;
+		this.local_noCommon = _noCommon;
 		this.local_encrypt = _encrypt;
 		this.local_decrypt = _decrypt;
 		this.local_failIfNoSourceFile = _failIfNoSourceFile;
@@ -105,10 +109,12 @@ public class SprayVariableWrapper
 		this.local_isJSON = _isJSON;
 		this.local_expireDays = _expireDays;
 		this.local_dFUServerQueue = _dFUServerQueue;
+		this.local_srcUsername = _srcUsername;
+		this.local_srcPassword = _srcPassword;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayVariable raw )
 	{
 		if (raw == null)
 			return;
@@ -138,6 +144,7 @@ public class SprayVariableWrapper
 		this.local_compress = raw.getCompress();
 		this.local_push = raw.getPush();
 		this.local_pull = raw.getPull();
+		this.local_noCommon = raw.getNoCommon();
 		this.local_encrypt = raw.getEncrypt();
 		this.local_decrypt = raw.getDecrypt();
 		this.local_failIfNoSourceFile = raw.getFailIfNoSourceFile();
@@ -147,17 +154,19 @@ public class SprayVariableWrapper
 		this.local_isJSON = raw.getIsJSON();
 		this.local_expireDays = raw.getExpireDays();
 		this.local_dFUServerQueue = raw.getDFUServerQueue();
+		this.local_srcUsername = raw.getSrcUsername();
+		this.local_srcPassword = raw.getSrcPassword();
 
 	}
 
 	@Override
 	public String toString()
 	{
-		return "SprayVariableWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceMaxRecordSize = " + local_sourceMaxRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "noSourceCsvSeparator = " + local_noSourceCsvSeparator + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "sourceRowTag = " + local_sourceRowTag + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "sourceRowPath = " + local_sourceRowPath + ", " + "isJSON = " + local_isJSON + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + "]";
+		return "SprayVariableWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceMaxRecordSize = " + local_sourceMaxRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "noSourceCsvSeparator = " + local_noSourceCsvSeparator + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "sourceRowTag = " + local_sourceRowTag + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "sourceRowPath = " + local_sourceRowPath + ", " + "isJSON = " + local_isJSON + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "srcUsername = " + local_srcUsername + ", " + "srcPassword = " + local_srcPassword + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayVariable getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayVariable();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayVariable raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayVariable();
 		raw.setSourceIP( local_sourceIP);
 		raw.setSourcePath( local_sourcePath);
 		raw.setSrcxml( local_srcxml);
@@ -183,6 +192,7 @@ public class SprayVariableWrapper
 		raw.setCompress( local_compress);
 		raw.setPush( local_push);
 		raw.setPull( local_pull);
+		raw.setNoCommon( local_noCommon);
 		raw.setEncrypt( local_encrypt);
 		raw.setDecrypt( local_decrypt);
 		raw.setFailIfNoSourceFile( local_failIfNoSourceFile);
@@ -192,6 +202,8 @@ public class SprayVariableWrapper
 		raw.setIsJSON( local_isJSON);
 		raw.setExpireDays( local_expireDays);
 		raw.setDFUServerQueue( local_dFUServerQueue);
+		raw.setSrcUsername( local_srcUsername);
+		raw.setSrcPassword( local_srcPassword);
 		return raw;
 	}
 
@@ -396,6 +408,14 @@ public class SprayVariableWrapper
 	{
 		return this.local_pull;
 	}
+	public void setNoCommon( boolean _noCommon )
+	{
+		this.local_noCommon = _noCommon;
+	}
+	public boolean getNoCommon( )
+	{
+		return this.local_noCommon;
+	}
 	public void setEncrypt( String _encrypt )
 	{
 		this.local_encrypt = _encrypt;
@@ -467,5 +487,21 @@ public class SprayVariableWrapper
 	public String getDFUServerQueue( )
 	{
 		return this.local_dFUServerQueue;
+	}
+	public void setSrcUsername( String _srcUsername )
+	{
+		this.local_srcUsername = _srcUsername;
+	}
+	public String getSrcUsername( )
+	{
+		return this.local_srcUsername;
+	}
+	public void setSrcPassword( String _srcPassword )
+	{
+		this.local_srcPassword = _srcPassword;
+	}
+	public String getSrcPassword( )
+	{
+		return this.local_srcPassword;
 	}
 }

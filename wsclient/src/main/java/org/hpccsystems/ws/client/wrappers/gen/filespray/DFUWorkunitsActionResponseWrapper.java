@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWorkunitsActionResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.977Z
+ * TimeStamp: 2020-09-23T03:42:02.579Z
  */
 public class DFUWorkunitsActionResponseWrapper
 {
@@ -33,7 +33,7 @@ public class DFUWorkunitsActionResponseWrapper
 
 	public DFUWorkunitsActionResponseWrapper() {}
 
-	public DFUWorkunitsActionResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse dfuworkunitsactionresponse)
+	public DFUWorkunitsActionResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse dfuworkunitsactionresponse)
 	{
 		copy( dfuworkunitsactionresponse );
 	}
@@ -45,7 +45,7 @@ public class DFUWorkunitsActionResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class DFUWorkunitsActionResponseWrapper
 	{
 		return "DFUWorkunitsActionResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "firstColumn = " + local_firstColumn + ", " + "dFUActionResults = " + local_dFUActionResults + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse();
 		raw.setFirstColumn( local_firstColumn);
 		return raw;
 	}

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfPackageListMapDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.492Z
+ * TimeStamp: 2020-09-23T03:53:35.670Z
  */
 public class ArrayOfPackageListMapDataWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfPackageListMapDataWrapper
 
 	public ArrayOfPackageListMapDataWrapper() {}
 
-	public ArrayOfPackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData arrayofpackagelistmapdata)
+	public ArrayOfPackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData arrayofpackagelistmapdata)
 	{
 		copy( arrayofpackagelistmapdata );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfPackageListMapDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfPackageListMapDataWrapper
 	{
 		return "ArrayOfPackageListMapDataWrapper [" + "packageListMapData = " + local_packageListMapData + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfPackageListMapData();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData();
 		if (this.local_packageListMapData!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData[this.local_packageListMapData.size()];
+			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData[this.local_packageListMapData.size()];
 			for ( int i = 0; i < this.local_packageListMapData.size(); i++)
 			{
 				arr[i] = this.local_packageListMapData.get(i) .getRaw();
