@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPartFromPackageMapResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.442Z
+ * TimeStamp: 2020-09-23T03:53:35.700Z
  */
 public class GetPartFromPackageMapResponseWrapper
 {
@@ -33,7 +33,7 @@ public class GetPartFromPackageMapResponseWrapper
 
 	public GetPartFromPackageMapResponseWrapper() {}
 
-	public GetPartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapResponse getpartfrompackagemapresponse)
+	public GetPartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse getpartfrompackagemapresponse)
 	{
 		copy( getpartfrompackagemapresponse );
 	}
@@ -45,7 +45,7 @@ public class GetPartFromPackageMapResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class GetPartFromPackageMapResponseWrapper
 	{
 		return "GetPartFromPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "content = " + local_content + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse();
 		raw.setContent( local_content);
 		return raw;
 	}

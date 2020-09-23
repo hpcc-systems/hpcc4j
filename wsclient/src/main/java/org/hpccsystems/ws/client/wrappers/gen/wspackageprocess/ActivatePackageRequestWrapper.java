@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ActivatePackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.465Z
+ * TimeStamp: 2020-09-23T03:53:35.643Z
  */
 public class ActivatePackageRequestWrapper
 {
@@ -34,7 +34,7 @@ public class ActivatePackageRequestWrapper
 
 	public ActivatePackageRequestWrapper() {}
 
-	public ActivatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest activatepackagerequest)
+	public ActivatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest activatepackagerequest)
 	{
 		copy( activatepackagerequest );
 	}
@@ -47,7 +47,7 @@ public class ActivatePackageRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class ActivatePackageRequestWrapper
 	{
 		return "ActivatePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest();
 		raw.setTarget( local_target);
 		raw.setPackageMap( local_packageMap);
 		raw.setProcess( local_process);

@@ -19,7 +19,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2020-08-18T21:53:15.022Z
  */
@@ -32,7 +32,7 @@ public class EspExceptionWrapper
 
 	public EspExceptionWrapper() {}
 
-	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException espexception)
+	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException espexception)
 	{
 		copy( espexception );
 	}
@@ -45,7 +45,7 @@ public class EspExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException raw )
 	{
 		if (raw == null)
 			return;
@@ -62,9 +62,9 @@ public class EspExceptionWrapper
 	{
 		return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException();
 		raw.setCode( local_code);
 		raw.setAudience( local_audience);
 		raw.setSource( local_source);

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.283Z
+ * TimeStamp: 2020-09-23T21:40:52.938Z
  */
 public class TpClusterQueryRequestWrapper
 {
@@ -31,7 +31,7 @@ public class TpClusterQueryRequestWrapper
 
 	public TpClusterQueryRequestWrapper() {}
 
-	public TpClusterQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryRequest tpclusterqueryrequest)
+	public TpClusterQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryRequest tpclusterqueryrequest)
 	{
 		copy( tpclusterqueryrequest );
 	}
@@ -41,7 +41,7 @@ public class TpClusterQueryRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class TpClusterQueryRequestWrapper
 	{
 		return "TpClusterQueryRequestWrapper [" + "type = " + local_type + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryRequest();
 		raw.setType( local_type);
 		return raw;
 	}

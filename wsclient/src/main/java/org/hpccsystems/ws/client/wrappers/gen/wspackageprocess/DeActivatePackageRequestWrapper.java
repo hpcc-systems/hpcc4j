@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeActivatePackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.481Z
+ * TimeStamp: 2020-09-23T03:53:35.678Z
  */
 public class DeActivatePackageRequestWrapper
 {
@@ -34,7 +34,7 @@ public class DeActivatePackageRequestWrapper
 
 	public DeActivatePackageRequestWrapper() {}
 
-	public DeActivatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageRequest deactivatepackagerequest)
+	public DeActivatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest deactivatepackagerequest)
 	{
 		copy( deactivatepackagerequest );
 	}
@@ -47,7 +47,7 @@ public class DeActivatePackageRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class DeActivatePackageRequestWrapper
 	{
 		return "DeActivatePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeActivatePackageRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest();
 		raw.setTarget( local_target);
 		raw.setPackageMap( local_packageMap);
 		raw.setProcess( local_process);

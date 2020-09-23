@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ActivatePackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.467Z
+ * TimeStamp: 2020-09-23T03:53:35.660Z
  */
 public class ActivatePackageResponseWrapper
 {
@@ -32,7 +32,7 @@ public class ActivatePackageResponseWrapper
 
 	public ActivatePackageResponseWrapper() {}
 
-	public ActivatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse activatepackageresponse)
+	public ActivatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse activatepackageresponse)
 	{
 		copy( activatepackageresponse );
 	}
@@ -43,7 +43,7 @@ public class ActivatePackageResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class ActivatePackageResponseWrapper
 	{
 		return "ActivatePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ActivatePackageResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse();
 		return raw;
 	}
 

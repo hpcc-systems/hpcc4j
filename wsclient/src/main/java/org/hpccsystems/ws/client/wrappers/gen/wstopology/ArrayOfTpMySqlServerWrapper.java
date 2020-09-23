@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpMySqlServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMySqlServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMySqlServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.400Z
+ * TimeStamp: 2020-09-23T21:40:52.918Z
  */
 public class ArrayOfTpMySqlServerWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpMySqlServerWrapper
 
 	public ArrayOfTpMySqlServerWrapper() {}
 
-	public ArrayOfTpMySqlServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMySqlServer arrayoftpmysqlserver)
+	public ArrayOfTpMySqlServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMySqlServer arrayoftpmysqlserver)
 	{
 		copy( arrayoftpmysqlserver );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpMySqlServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMySqlServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMySqlServer raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpMySqlServerWrapper
 	{
 		return "ArrayOfTpMySqlServerWrapper [" + "tpMySqlServer = " + local_tpMySqlServer + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMySqlServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMySqlServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMySqlServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMySqlServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMySqlServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMySqlServer();
 		if (this.local_tpMySqlServer!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer[this.local_tpMySqlServer.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer[this.local_tpMySqlServer.size()];
 			for ( int i = 0; i < this.local_tpMySqlServer.size(); i++)
 			{
 				arr[i] = this.local_tpMySqlServer.get(i) .getRaw();

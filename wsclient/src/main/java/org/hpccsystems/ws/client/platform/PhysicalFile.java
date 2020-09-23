@@ -20,7 +20,6 @@ package org.hpccsystems.ws.client.platform;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -62,7 +61,7 @@ public class PhysicalFile extends DataSingleton
      *            the file struct
      * @return the physical file
      */
-    public static synchronized PhysicalFile get(Platform platform, PhysicalFileStruct fileStruct)
+    public static synchronized PhysicalFile get(Platform platform, PhysicalFileStructWrapper fileStruct)
     {
         PhysicalFile physicalFile = get(platform, fileStruct.getName());
         physicalFile.update(fileStruct);
@@ -71,7 +70,7 @@ public class PhysicalFile extends DataSingleton
     }
 
     private Platform           platform;
-    private PhysicalFileStruct physicalfilestruct;
+    private PhysicalFileStructWrapper physicalfilestruct;
 
     public enum Notification
     {
@@ -89,7 +88,7 @@ public class PhysicalFile extends DataSingleton
     private PhysicalFile(Platform platform, String name)
     {
         this.platform = platform;
-        physicalfilestruct = new PhysicalFileStruct();
+        physicalfilestruct = new PhysicalFileStructWrapper();
         physicalfilestruct.setName(name);
     }
 
@@ -175,26 +174,11 @@ public class PhysicalFile extends DataSingleton
      * @param file
      *            the file
      */
-    // Updates ---
-    public void update(PhysicalFileStruct file)
-    {
-        if (physicalfilestruct.getName().equals(file.getName()))
-        {
-            physicalfilestruct = file;
-        }
-    }
-
-    /**
-     * Update.
-     *
-     * @param file
-     *            the file
-     */
     public void update(PhysicalFileStructWrapper file)
     {
         if (physicalfilestruct.getName().equals(file.getName()))
         {
-            physicalfilestruct = file.getRaw();
+            physicalfilestruct = file;
         }
     }
 

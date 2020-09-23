@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpTargetClusterQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.325Z
+ * TimeStamp: 2020-09-23T21:40:53.012Z
  */
 public class TpTargetClusterQueryResponseWrapper
 {
@@ -40,7 +40,7 @@ public class TpTargetClusterQueryResponseWrapper
 
 	public TpTargetClusterQueryResponseWrapper() {}
 
-	public TpTargetClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse tptargetclusterqueryresponse)
+	public TpTargetClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryResponse tptargetclusterqueryresponse)
 	{
 		copy( tptargetclusterqueryresponse );
 	}
@@ -59,7 +59,7 @@ public class TpTargetClusterQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -84,9 +84,9 @@ public class TpTargetClusterQueryResponseWrapper
 	{
 		return "TpTargetClusterQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "showDetails = " + local_showDetails + ", " + "memThreshold = " + local_memThreshold + ", " + "diskThreshold = " + local_diskThreshold + ", " + "cpuThreshold = " + local_cpuThreshold + ", " + "memThresholdType = " + local_memThresholdType + ", " + "diskThresholdType = " + local_diskThresholdType + ", " + "preflightProcessFilter = " + local_preflightProcessFilter + ", " + "acceptLanguage = " + local_acceptLanguage + ", " + "tpTargetClusters = " + local_tpTargetClusters + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryResponse();
 		raw.setShowDetails( local_showDetails);
 		raw.setMemThreshold( local_memThreshold);
 		raw.setDiskThreshold( local_diskThreshold);

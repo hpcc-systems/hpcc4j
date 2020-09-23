@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUExceptionsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.052Z
+ * TimeStamp: 2020-09-23T03:42:02.612Z
  */
 public class GetDFUExceptionsResponseWrapper
 {
@@ -32,7 +32,7 @@ public class GetDFUExceptionsResponseWrapper
 
 	public GetDFUExceptionsResponseWrapper() {}
 
-	public GetDFUExceptionsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse getdfuexceptionsresponse)
+	public GetDFUExceptionsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse getdfuexceptionsresponse)
 	{
 		copy( getdfuexceptionsresponse );
 	}
@@ -43,7 +43,7 @@ public class GetDFUExceptionsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class GetDFUExceptionsResponseWrapper
 	{
 		return "GetDFUExceptionsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptionsResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse();
 		return raw;
 	}
 

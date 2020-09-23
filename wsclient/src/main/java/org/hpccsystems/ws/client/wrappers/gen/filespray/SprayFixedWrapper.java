@@ -22,9 +22,9 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SprayFixedWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayFixed
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.984Z
+ * TimeStamp: 2020-09-23T03:42:02.638Z
  */
 public class SprayFixedWrapper
 {
@@ -47,6 +47,7 @@ public class SprayFixedWrapper
 	protected boolean local_compress;
 	protected boolean local_push;
 	protected boolean local_pull;
+	protected boolean local_noCommon;
 	protected String local_encrypt;
 	protected String local_decrypt;
 	protected boolean local_wrap;
@@ -58,11 +59,11 @@ public class SprayFixedWrapper
 
 	public SprayFixedWrapper() {}
 
-	public SprayFixedWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed sprayfixed)
+	public SprayFixedWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayFixed sprayfixed)
 	{
 		copy( sprayfixed );
 	}
-	public SprayFixedWrapper( String _sourceIP, String _sourcePath, DataHandler _srcxml, String _sourceFormat, int _sourceRecordSize, String _destGroup, String _destLogicalName, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, String _encrypt, String _decrypt, boolean _wrap, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, int _expireDays, String _dFUServerQueue )
+	public SprayFixedWrapper( String _sourceIP, String _sourcePath, DataHandler _srcxml, String _sourceFormat, int _sourceRecordSize, String _destGroup, String _destLogicalName, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, boolean _noCommon, String _encrypt, String _decrypt, boolean _wrap, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, int _expireDays, String _dFUServerQueue )
 	{
 		this.local_sourceIP = _sourceIP;
 		this.local_sourcePath = _sourcePath;
@@ -83,6 +84,7 @@ public class SprayFixedWrapper
 		this.local_compress = _compress;
 		this.local_push = _push;
 		this.local_pull = _pull;
+		this.local_noCommon = _noCommon;
 		this.local_encrypt = _encrypt;
 		this.local_decrypt = _decrypt;
 		this.local_wrap = _wrap;
@@ -94,7 +96,7 @@ public class SprayFixedWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayFixed raw )
 	{
 		if (raw == null)
 			return;
@@ -118,6 +120,7 @@ public class SprayFixedWrapper
 		this.local_compress = raw.getCompress();
 		this.local_push = raw.getPush();
 		this.local_pull = raw.getPull();
+		this.local_noCommon = raw.getNoCommon();
 		this.local_encrypt = raw.getEncrypt();
 		this.local_decrypt = raw.getDecrypt();
 		this.local_wrap = raw.getWrap();
@@ -132,11 +135,11 @@ public class SprayFixedWrapper
 	@Override
 	public String toString()
 	{
-		return "SprayFixedWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceFormat = " + local_sourceFormat + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "wrap = " + local_wrap + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + "]";
+		return "SprayFixedWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceFormat = " + local_sourceFormat + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "wrap = " + local_wrap + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayFixed getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SprayFixed();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayFixed raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SprayFixed();
 		raw.setSourceIP( local_sourceIP);
 		raw.setSourcePath( local_sourcePath);
 		raw.setSrcxml( local_srcxml);
@@ -156,6 +159,7 @@ public class SprayFixedWrapper
 		raw.setCompress( local_compress);
 		raw.setPush( local_push);
 		raw.setPull( local_pull);
+		raw.setNoCommon( local_noCommon);
 		raw.setEncrypt( local_encrypt);
 		raw.setDecrypt( local_decrypt);
 		raw.setWrap( local_wrap);
@@ -319,6 +323,14 @@ public class SprayFixedWrapper
 	public boolean getPull( )
 	{
 		return this.local_pull;
+	}
+	public void setNoCommon( boolean _noCommon )
+	{
+		this.local_noCommon = _noCommon;
+	}
+	public boolean getNoCommon( )
+	{
+		return this.local_noCommon;
 	}
 	public void setEncrypt( String _encrypt )
 	{

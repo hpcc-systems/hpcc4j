@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EclFieldDeclarationWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.341Z
+ * TimeStamp: 2020-09-23T04:21:56.896Z
  */
 public class EclFieldDeclarationWrapper
 {
@@ -32,7 +32,7 @@ public class EclFieldDeclarationWrapper
 
 	public EclFieldDeclarationWrapper() {}
 
-	public EclFieldDeclarationWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration eclfielddeclaration)
+	public EclFieldDeclarationWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration eclfielddeclaration)
 	{
 		copy( eclfielddeclaration );
 	}
@@ -43,7 +43,7 @@ public class EclFieldDeclarationWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class EclFieldDeclarationWrapper
 	{
 		return "EclFieldDeclarationWrapper [" + "fieldName = " + local_fieldName + ", " + "eclFieldType = " + local_eclFieldType + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldDeclaration();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldDeclaration();
 		raw.setFieldName( local_fieldName);
 		return raw;
 	}

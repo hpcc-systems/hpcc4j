@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: UpdateDFUWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.912Z
+ * TimeStamp: 2020-09-23T03:42:02.646Z
  */
 public class UpdateDFUWorkunitResponseWrapper
 {
@@ -31,7 +31,7 @@ public class UpdateDFUWorkunitResponseWrapper
 
 	public UpdateDFUWorkunitResponseWrapper() {}
 
-	public UpdateDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunitResponse updatedfuworkunitresponse)
+	public UpdateDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunitResponse updatedfuworkunitresponse)
 	{
 		copy( updatedfuworkunitresponse );
 	}
@@ -41,7 +41,7 @@ public class UpdateDFUWorkunitResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunitResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunitResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class UpdateDFUWorkunitResponseWrapper
 	{
 		return "UpdateDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunitResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunitResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.UpdateDFUWorkunitResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.UpdateDFUWorkunitResponse();
 		return raw;
 	}
 

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeletePackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.527Z
+ * TimeStamp: 2020-09-23T03:53:35.681Z
  */
 public class DeletePackageRequestWrapper
 {
@@ -35,7 +35,7 @@ public class DeletePackageRequestWrapper
 
 	public DeletePackageRequestWrapper() {}
 
-	public DeletePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageRequest deletepackagerequest)
+	public DeletePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest deletepackagerequest)
 	{
 		copy( deletepackagerequest );
 	}
@@ -49,7 +49,7 @@ public class DeletePackageRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class DeletePackageRequestWrapper
 	{
 		return "DeletePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + ", " + "packageMaps = " + local_packageMaps + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.DeletePackageRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest();
 		raw.setTarget( local_target);
 		raw.setPackageMap( local_packageMap);
 		raw.setProcess( local_process);

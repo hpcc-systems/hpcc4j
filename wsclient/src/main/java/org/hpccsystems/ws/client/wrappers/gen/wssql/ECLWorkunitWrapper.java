@@ -18,13 +18,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * limitations under the License.
  *******************************************************************************/
 import java.util.Calendar;
+import java.util.List;
+import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.416Z
+ * TimeStamp: 2020-09-23T04:21:56.923Z
  */
 public class ECLWorkunitWrapper
 {
@@ -99,14 +102,15 @@ public class ECLWorkunitWrapper
 	protected int local_debugValueCount;
 	protected int local_workflowCount;
 	protected int local_helpersCount;
+	protected List<String> local_serviceNames = null;
 
 	public ECLWorkunitWrapper() {}
 
-	public ECLWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit eclworkunit)
+	public ECLWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit eclworkunit)
 	{
 		copy( eclworkunit );
 	}
-	public ECLWorkunitWrapper( String _wuid, String _owner, String _cluster, String _roxieCluster, String _jobname, String _queue, int _stateID, String _state, String _stateEx, String _description, boolean _protected, boolean _active, int _action, String _actionEx, Calendar _dateTimeScheduled, int _priorityClass, int _priorityLevel, String _scope, String _snapshot, int _resultLimit, boolean _archived, boolean _isPausing, boolean _thorLCR, int _eventSchedule, String _totalClusterTime, String _abortBy, String _abortTime, ECLQueryWrapper _query, ArrayOfECLHelpFileWrapper _helpers, ArrayOfECLExceptionWrapper _exceptions, ArrayOfECLGraphWrapper _graphs, ArrayOfECLSourceFileWrapper _sourceFiles, ArrayOfECLResultWrapper _results, ArrayOfECLResultWrapper _variables, ArrayOfECLTimerWrapper _timers, ArrayOfDebugValueWrapper _debugValues, ArrayOfApplicationValueWrapper _applicationValues, ArrayOfECLWorkflowWrapper _workflows, ArrayOfECLTimingDataWrapper _timingData, AllowedClusters_type0Wrapper _allowedClusters, int _errorCount, int _warningCount, int _infoCount, int _alertCount, int _graphCount, int _sourceFileCount, int _resultCount, int _variableCount, int _timerCount, boolean _hasDebugValue, int _applicationValueCount, String _xmlParams, int _accessFlag, int _clusterFlag, String _helpersDesc, String _graphsDesc, String _sourceFilesDesc, String _resultsDesc, String _variablesDesc, String _timersDesc, String _debugValuesDesc, String _applicationValuesDesc, String _workflowsDesc, boolean _hasArchiveQuery, ArrayOfThorLogInfoWrapper _thorLogList, ResourceURLs_type0Wrapper _resourceURLs, int _resultViewCount, int _resourceURLCount, int _debugValueCount, int _workflowCount, int _helpersCount )
+	public ECLWorkunitWrapper( String _wuid, String _owner, String _cluster, String _roxieCluster, String _jobname, String _queue, int _stateID, String _state, String _stateEx, String _description, boolean _protected, boolean _active, int _action, String _actionEx, Calendar _dateTimeScheduled, int _priorityClass, int _priorityLevel, String _scope, String _snapshot, int _resultLimit, boolean _archived, boolean _isPausing, boolean _thorLCR, int _eventSchedule, String _totalClusterTime, String _abortBy, String _abortTime, ECLQueryWrapper _query, ArrayOfECLHelpFileWrapper _helpers, ArrayOfECLExceptionWrapper _exceptions, ArrayOfECLGraphWrapper _graphs, ArrayOfECLSourceFileWrapper _sourceFiles, ArrayOfECLResultWrapper _results, ArrayOfECLResultWrapper _variables, ArrayOfECLTimerWrapper _timers, ArrayOfDebugValueWrapper _debugValues, ArrayOfApplicationValueWrapper _applicationValues, ArrayOfECLWorkflowWrapper _workflows, ArrayOfECLTimingDataWrapper _timingData, AllowedClusters_type0Wrapper _allowedClusters, int _errorCount, int _warningCount, int _infoCount, int _alertCount, int _graphCount, int _sourceFileCount, int _resultCount, int _variableCount, int _timerCount, boolean _hasDebugValue, int _applicationValueCount, String _xmlParams, int _accessFlag, int _clusterFlag, String _helpersDesc, String _graphsDesc, String _sourceFilesDesc, String _resultsDesc, String _variablesDesc, String _timersDesc, String _debugValuesDesc, String _applicationValuesDesc, String _workflowsDesc, boolean _hasArchiveQuery, ArrayOfThorLogInfoWrapper _thorLogList, ResourceURLs_type0Wrapper _resourceURLs, int _resultViewCount, int _resourceURLCount, int _debugValueCount, int _workflowCount, int _helpersCount, List<String> _serviceNames )
 	{
 		this.local_wuid = _wuid;
 		this.local_owner = _owner;
@@ -179,10 +183,11 @@ public class ECLWorkunitWrapper
 		this.local_debugValueCount = _debugValueCount;
 		this.local_workflowCount = _workflowCount;
 		this.local_helpersCount = _helpersCount;
+		this.local_serviceNames = _serviceNames;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -273,17 +278,24 @@ public class ECLWorkunitWrapper
 		this.local_debugValueCount = raw.getDebugValueCount();
 		this.local_workflowCount = raw.getWorkflowCount();
 		this.local_helpersCount = raw.getHelpersCount();
-
+		if (raw.getServiceNames() != null)
+		{
+			this.local_serviceNames = new ArrayList<String>();
+			for ( int i = 0; i < raw.getServiceNames().getItem().length; i++)
+			{
+				this.local_serviceNames.add(new String(raw.getServiceNames().getItem()[i]));
+			}
+		}
 	}
 
 	@Override
 	public String toString()
 	{
-		return "ECLWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "jobname = " + local_jobname + ", " + "queue = " + local_queue + ", " + "stateID = " + local_stateID + ", " + "state = " + local_state + ", " + "stateEx = " + local_stateEx + ", " + "description = " + local_description + ", " + "protected = " + local_protected + ", " + "active = " + local_active + ", " + "action = " + local_action + ", " + "actionEx = " + local_actionEx + ", " + "dateTimeScheduled = " + local_dateTimeScheduled + ", " + "priorityClass = " + local_priorityClass + ", " + "priorityLevel = " + local_priorityLevel + ", " + "scope = " + local_scope + ", " + "snapshot = " + local_snapshot + ", " + "resultLimit = " + local_resultLimit + ", " + "archived = " + local_archived + ", " + "isPausing = " + local_isPausing + ", " + "thorLCR = " + local_thorLCR + ", " + "eventSchedule = " + local_eventSchedule + ", " + "totalClusterTime = " + local_totalClusterTime + ", " + "abortBy = " + local_abortBy + ", " + "abortTime = " + local_abortTime + ", " + "query = " + local_query + ", " + "helpers = " + local_helpers + ", " + "exceptions = " + local_exceptions + ", " + "graphs = " + local_graphs + ", " + "sourceFiles = " + local_sourceFiles + ", " + "results = " + local_results + ", " + "variables = " + local_variables + ", " + "timers = " + local_timers + ", " + "debugValues = " + local_debugValues + ", " + "applicationValues = " + local_applicationValues + ", " + "workflows = " + local_workflows + ", " + "timingData = " + local_timingData + ", " + "allowedClusters = " + local_allowedClusters + ", " + "errorCount = " + local_errorCount + ", " + "warningCount = " + local_warningCount + ", " + "infoCount = " + local_infoCount + ", " + "alertCount = " + local_alertCount + ", " + "graphCount = " + local_graphCount + ", " + "sourceFileCount = " + local_sourceFileCount + ", " + "resultCount = " + local_resultCount + ", " + "variableCount = " + local_variableCount + ", " + "timerCount = " + local_timerCount + ", " + "hasDebugValue = " + local_hasDebugValue + ", " + "applicationValueCount = " + local_applicationValueCount + ", " + "xmlParams = " + local_xmlParams + ", " + "accessFlag = " + local_accessFlag + ", " + "clusterFlag = " + local_clusterFlag + ", " + "helpersDesc = " + local_helpersDesc + ", " + "graphsDesc = " + local_graphsDesc + ", " + "sourceFilesDesc = " + local_sourceFilesDesc + ", " + "resultsDesc = " + local_resultsDesc + ", " + "variablesDesc = " + local_variablesDesc + ", " + "timersDesc = " + local_timersDesc + ", " + "debugValuesDesc = " + local_debugValuesDesc + ", " + "applicationValuesDesc = " + local_applicationValuesDesc + ", " + "workflowsDesc = " + local_workflowsDesc + ", " + "hasArchiveQuery = " + local_hasArchiveQuery + ", " + "thorLogList = " + local_thorLogList + ", " + "resourceURLs = " + local_resourceURLs + ", " + "resultViewCount = " + local_resultViewCount + ", " + "resourceURLCount = " + local_resourceURLCount + ", " + "debugValueCount = " + local_debugValueCount + ", " + "workflowCount = " + local_workflowCount + ", " + "helpersCount = " + local_helpersCount + "]";
+		return "ECLWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "jobname = " + local_jobname + ", " + "queue = " + local_queue + ", " + "stateID = " + local_stateID + ", " + "state = " + local_state + ", " + "stateEx = " + local_stateEx + ", " + "description = " + local_description + ", " + "protected = " + local_protected + ", " + "active = " + local_active + ", " + "action = " + local_action + ", " + "actionEx = " + local_actionEx + ", " + "dateTimeScheduled = " + local_dateTimeScheduled + ", " + "priorityClass = " + local_priorityClass + ", " + "priorityLevel = " + local_priorityLevel + ", " + "scope = " + local_scope + ", " + "snapshot = " + local_snapshot + ", " + "resultLimit = " + local_resultLimit + ", " + "archived = " + local_archived + ", " + "isPausing = " + local_isPausing + ", " + "thorLCR = " + local_thorLCR + ", " + "eventSchedule = " + local_eventSchedule + ", " + "totalClusterTime = " + local_totalClusterTime + ", " + "abortBy = " + local_abortBy + ", " + "abortTime = " + local_abortTime + ", " + "query = " + local_query + ", " + "helpers = " + local_helpers + ", " + "exceptions = " + local_exceptions + ", " + "graphs = " + local_graphs + ", " + "sourceFiles = " + local_sourceFiles + ", " + "results = " + local_results + ", " + "variables = " + local_variables + ", " + "timers = " + local_timers + ", " + "debugValues = " + local_debugValues + ", " + "applicationValues = " + local_applicationValues + ", " + "workflows = " + local_workflows + ", " + "timingData = " + local_timingData + ", " + "allowedClusters = " + local_allowedClusters + ", " + "errorCount = " + local_errorCount + ", " + "warningCount = " + local_warningCount + ", " + "infoCount = " + local_infoCount + ", " + "alertCount = " + local_alertCount + ", " + "graphCount = " + local_graphCount + ", " + "sourceFileCount = " + local_sourceFileCount + ", " + "resultCount = " + local_resultCount + ", " + "variableCount = " + local_variableCount + ", " + "timerCount = " + local_timerCount + ", " + "hasDebugValue = " + local_hasDebugValue + ", " + "applicationValueCount = " + local_applicationValueCount + ", " + "xmlParams = " + local_xmlParams + ", " + "accessFlag = " + local_accessFlag + ", " + "clusterFlag = " + local_clusterFlag + ", " + "helpersDesc = " + local_helpersDesc + ", " + "graphsDesc = " + local_graphsDesc + ", " + "sourceFilesDesc = " + local_sourceFilesDesc + ", " + "resultsDesc = " + local_resultsDesc + ", " + "variablesDesc = " + local_variablesDesc + ", " + "timersDesc = " + local_timersDesc + ", " + "debugValuesDesc = " + local_debugValuesDesc + ", " + "applicationValuesDesc = " + local_applicationValuesDesc + ", " + "workflowsDesc = " + local_workflowsDesc + ", " + "hasArchiveQuery = " + local_hasArchiveQuery + ", " + "thorLogList = " + local_thorLogList + ", " + "resourceURLs = " + local_resourceURLs + ", " + "resultViewCount = " + local_resultViewCount + ", " + "resourceURLCount = " + local_resourceURLCount + ", " + "debugValueCount = " + local_debugValueCount + ", " + "workflowCount = " + local_workflowCount + ", " + "helpersCount = " + local_helpersCount + ", " + "serviceNames = " + local_serviceNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit();
 		raw.setWuid( local_wuid);
 		raw.setOwner( local_owner);
 		raw.setCluster( local_cluster);
@@ -340,6 +352,15 @@ public class ECLWorkunitWrapper
 		raw.setDebugValueCount( local_debugValueCount);
 		raw.setWorkflowCount( local_workflowCount);
 		raw.setHelpersCount( local_helpersCount);
+		if (this.local_serviceNames!= null)
+		{
+			EspStringArray arr = new EspStringArray();
+			for ( int i = 0; i < this.local_serviceNames.size(); i++)
+			{
+				arr.addItem(this.local_serviceNames.get(i));
+			}
+			raw.setServiceNames(arr);
+		}
 		return raw;
 	}
 
@@ -911,5 +932,13 @@ public class ECLWorkunitWrapper
 	public int getHelpersCount( )
 	{
 		return this.local_helpersCount;
+	}
+	public void setServiceNames( List<String> _serviceNames )
+	{
+		this.local_serviceNames = _serviceNames;
+	}
+	public List<String> getServiceNames( )
+	{
+		return this.local_serviceNames;
 	}
 }

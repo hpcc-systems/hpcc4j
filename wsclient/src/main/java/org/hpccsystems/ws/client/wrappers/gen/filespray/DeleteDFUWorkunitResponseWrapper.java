@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeleteDFUWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.962Z
+ * TimeStamp: 2020-09-23T03:42:02.556Z
  */
 public class DeleteDFUWorkunitResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DeleteDFUWorkunitResponseWrapper
 
 	public DeleteDFUWorkunitResponseWrapper() {}
 
-	public DeleteDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse deletedfuworkunitresponse)
+	public DeleteDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse deletedfuworkunitresponse)
 	{
 		copy( deletedfuworkunitresponse );
 	}
@@ -43,7 +43,7 @@ public class DeleteDFUWorkunitResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class DeleteDFUWorkunitResponseWrapper
 	{
 		return "DeleteDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse();
 		raw.setResult( local_result);
 		return raw;
 	}

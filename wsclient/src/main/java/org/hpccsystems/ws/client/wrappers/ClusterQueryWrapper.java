@@ -19,7 +19,7 @@ public class ClusterQueryWrapper
      * @param raw
      *            the raw
      */
-    public ClusterQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ClusterQueryState raw)
+    public ClusterQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ClusterQueryState raw)
     {
         this.name = raw.getCluster();
         this.state = raw.getState();

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.953Z
+ * TimeStamp: 2020-09-23T03:42:02.576Z
  */
 public class DFUWorkunitWrapper
 {
@@ -84,7 +84,7 @@ public class DFUWorkunitWrapper
 
 	public DFUWorkunitWrapper() {}
 
-	public DFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit dfuworkunit)
+	public DFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit dfuworkunit)
 	{
 		copy( dfuworkunit );
 	}
@@ -147,7 +147,7 @@ public class DFUWorkunitWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -214,9 +214,9 @@ public class DFUWorkunitWrapper
 	{
 		return "DFUWorkunitWrapper [" + "iD = " + local_iD + ", " + "dFUServerName = " + local_dFUServerName + ", " + "clusterName = " + local_clusterName + ", " + "jobName = " + local_jobName + ", " + "queue = " + local_queue + ", " + "user = " + local_user + ", " + "isProtected = " + local_isProtected + ", " + "command = " + local_command + ", " + "commandMessage = " + local_commandMessage + ", " + "percentDone = " + local_percentDone + ", " + "secsLeft = " + local_secsLeft + ", " + "progressMessage = " + local_progressMessage + ", " + "summaryMessage = " + local_summaryMessage + ", " + "state = " + local_state + ", " + "sourceLogicalName = " + local_sourceLogicalName + ", " + "sourceIP = " + local_sourceIP + ", " + "sourceFilePath = " + local_sourceFilePath + ", " + "sourceDali = " + local_sourceDali + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "rowTag = " + local_rowTag + ", " + "sourceNumParts = " + local_sourceNumParts + ", " + "sourceDirectory = " + local_sourceDirectory + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destGroupName = " + local_destGroupName + ", " + "destDirectory = " + local_destDirectory + ", " + "destIP = " + local_destIP + ", " + "destFilePath = " + local_destFilePath + ", " + "destFormat = " + local_destFormat + ", " + "destNumParts = " + local_destNumParts + ", " + "destRecordSize = " + local_destRecordSize + ", " + "replicate = " + local_replicate + ", " + "overwrite = " + local_overwrite + ", " + "compress = " + local_compress + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "timeStarted = " + local_timeStarted + ", " + "timeStopped = " + local_timeStopped + ", " + "stateMessage = " + local_stateMessage + ", " + "monitorEventName = " + local_monitorEventName + ", " + "monitorSub = " + local_monitorSub + ", " + "monitorShotLimit = " + local_monitorShotLimit + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "archived = " + local_archived + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "preserveCompression = " + local_preserveCompression + ", " + "expireDays = " + local_expireDays + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit();
 		raw.setID( local_iD);
 		raw.setDFUServerName( local_dFUServerName);
 		raw.setClusterName( local_clusterName);

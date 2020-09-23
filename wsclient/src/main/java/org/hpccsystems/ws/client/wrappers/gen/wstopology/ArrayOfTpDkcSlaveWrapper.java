@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpDkcSlaveWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDkcSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.323Z
+ * TimeStamp: 2020-09-23T21:40:52.905Z
  */
 public class ArrayOfTpDkcSlaveWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpDkcSlaveWrapper
 
 	public ArrayOfTpDkcSlaveWrapper() {}
 
-	public ArrayOfTpDkcSlaveWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave arrayoftpdkcslave)
+	public ArrayOfTpDkcSlaveWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDkcSlave arrayoftpdkcslave)
 	{
 		copy( arrayoftpdkcslave );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpDkcSlaveWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDkcSlave raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpDkcSlaveWrapper
 	{
 		return "ArrayOfTpDkcSlaveWrapper [" + "tpDkcSlave = " + local_tpDkcSlave + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDkcSlave getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDkcSlave();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDkcSlave raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDkcSlave();
 		if (this.local_tpDkcSlave!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave[this.local_tpDkcSlave.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave[this.local_tpDkcSlave.size()];
 			for ( int i = 0; i < this.local_tpDkcSlave.size(); i++)
 			{
 				arr[i] = this.local_tpDkcSlave.get(i) .getRaw();

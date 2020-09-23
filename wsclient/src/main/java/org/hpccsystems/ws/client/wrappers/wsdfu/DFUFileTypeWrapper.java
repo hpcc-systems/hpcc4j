@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFileType;
 
 /**
  * DFUFileTypeWrapper

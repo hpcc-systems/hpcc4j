@@ -16,14 +16,6 @@ package org.hpccsystems.ws.client.wrappers;
  * limitations under the License.
  *******************************************************************************/
 
-/**
- * Generated Axis2 ADB stub class wrapper
- * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions
- * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-03T01:15:45.838Z
- */
-
 public class ExceptionsWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions = null;

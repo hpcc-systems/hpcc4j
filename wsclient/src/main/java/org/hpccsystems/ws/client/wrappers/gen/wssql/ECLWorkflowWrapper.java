@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLWorkflowWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.395Z
+ * TimeStamp: 2020-09-23T04:21:56.910Z
  */
 public class ECLWorkflowWrapper
 {
@@ -35,7 +35,7 @@ public class ECLWorkflowWrapper
 
 	public ECLWorkflowWrapper() {}
 
-	public ECLWorkflowWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow eclworkflow)
+	public ECLWorkflowWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow eclworkflow)
 	{
 		copy( eclworkflow );
 	}
@@ -49,7 +49,7 @@ public class ECLWorkflowWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow raw )
 	{
 		if (raw == null)
 			return;
@@ -67,9 +67,9 @@ public class ECLWorkflowWrapper
 	{
 		return "ECLWorkflowWrapper [" + "wFID = " + local_wFID + ", " + "eventName = " + local_eventName + ", " + "eventText = " + local_eventText + ", " + "count = " + local_count + ", " + "countRemaining = " + local_countRemaining + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLWorkflow();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow();
 		raw.setWFID( local_wFID);
 		raw.setEventName( local_eventName);
 		raw.setEventText( local_eventText);

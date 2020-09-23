@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpLdapServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLdapServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLdapServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.291Z
+ * TimeStamp: 2020-09-23T21:40:52.915Z
  */
 public class ArrayOfTpLdapServerWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpLdapServerWrapper
 
 	public ArrayOfTpLdapServerWrapper() {}
 
-	public ArrayOfTpLdapServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLdapServer arrayoftpldapserver)
+	public ArrayOfTpLdapServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLdapServer arrayoftpldapserver)
 	{
 		copy( arrayoftpldapserver );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpLdapServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLdapServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLdapServer raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpLdapServerWrapper
 	{
 		return "ArrayOfTpLdapServerWrapper [" + "tpLdapServer = " + local_tpLdapServer + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLdapServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLdapServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLdapServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpLdapServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLdapServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLdapServer();
 		if (this.local_tpLdapServer!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer[this.local_tpLdapServer.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer[this.local_tpLdapServer.size()];
 			for ( int i = 0; i < this.local_tpLdapServer.size(); i++)
 			{
 				arr[i] = this.local_tpLdapServer.get(i) .getRaw();

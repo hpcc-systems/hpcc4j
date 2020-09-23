@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ShowResultResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.011Z
+ * TimeStamp: 2020-09-23T03:42:02.635Z
  */
 public class ShowResultResponseWrapper
 {
@@ -32,7 +32,7 @@ public class ShowResultResponseWrapper
 
 	public ShowResultResponseWrapper() {}
 
-	public ShowResultResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultResponse showresultresponse)
+	public ShowResultResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultResponse showresultresponse)
 	{
 		copy( showresultresponse );
 	}
@@ -43,7 +43,7 @@ public class ShowResultResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class ShowResultResponseWrapper
 	{
 		return "ShowResultResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ShowResultResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultResponse();
 		raw.setResult( local_result);
 		return raw;
 	}

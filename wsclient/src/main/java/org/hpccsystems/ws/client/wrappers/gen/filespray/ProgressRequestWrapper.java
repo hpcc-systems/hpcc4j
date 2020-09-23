@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ProgressRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.029Z
+ * TimeStamp: 2020-09-23T03:42:02.628Z
  */
 public class ProgressRequestWrapper
 {
@@ -31,7 +31,7 @@ public class ProgressRequestWrapper
 
 	public ProgressRequestWrapper() {}
 
-	public ProgressRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest progressrequest)
+	public ProgressRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressRequest progressrequest)
 	{
 		copy( progressrequest );
 	}
@@ -41,7 +41,7 @@ public class ProgressRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class ProgressRequestWrapper
 	{
 		return "ProgressRequestWrapper [" + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressRequest();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

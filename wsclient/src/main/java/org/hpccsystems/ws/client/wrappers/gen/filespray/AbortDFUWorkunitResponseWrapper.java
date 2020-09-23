@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AbortDFUWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.041Z
+ * TimeStamp: 2020-09-23T03:42:02.537Z
  */
 public class AbortDFUWorkunitResponseWrapper
 {
@@ -31,7 +31,7 @@ public class AbortDFUWorkunitResponseWrapper
 
 	public AbortDFUWorkunitResponseWrapper() {}
 
-	public AbortDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse abortdfuworkunitresponse)
+	public AbortDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse abortdfuworkunitresponse)
 	{
 		copy( abortdfuworkunitresponse );
 	}
@@ -41,7 +41,7 @@ public class AbortDFUWorkunitResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class AbortDFUWorkunitResponseWrapper
 	{
 		return "AbortDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.AbortDFUWorkunitResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse();
 		return raw;
 	}
 

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpFTSlaveWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpFTSlave
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpFTSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.393Z
+ * TimeStamp: 2020-09-23T21:40:52.912Z
  */
 public class ArrayOfTpFTSlaveWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpFTSlaveWrapper
 
 	public ArrayOfTpFTSlaveWrapper() {}
 
-	public ArrayOfTpFTSlaveWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpFTSlave arrayoftpftslave)
+	public ArrayOfTpFTSlaveWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpFTSlave arrayoftpftslave)
 	{
 		copy( arrayoftpftslave );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpFTSlaveWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpFTSlave raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpFTSlave raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpFTSlaveWrapper
 	{
 		return "ArrayOfTpFTSlaveWrapper [" + "tpFTSlave = " + local_tpFTSlave + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpFTSlave getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpFTSlave getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpFTSlave raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpFTSlave();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpFTSlave raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpFTSlave();
 		if (this.local_tpFTSlave!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpFTSlave[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpFTSlave[this.local_tpFTSlave.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpFTSlave[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpFTSlave[this.local_tpFTSlave.size()];
 			for ( int i = 0; i < this.local_tpFTSlave.size(); i++)
 			{
 				arr[i] = this.local_tpFTSlave.get(i) .getRaw();

@@ -28,7 +28,7 @@ import org.hpccsystems.ws.client.platform.Version;
  */
 public class WsDFUClientStubWrapper
 {
-    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuStub stub1_51                     = null;
+    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.WsDfuStub stub1_51                     = null;
     private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39                     = null;
     private Version platformVersion;
     private String baseURL;
@@ -42,11 +42,11 @@ public class WsDFUClientStubWrapper
      * @throws AxisFault
      *             the axis fault
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuStub get1_51Stub(Options opts) throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.WsDfuStub get1_51Stub(Options opts) throws AxisFault
     {
         if (stub1_51 == null)
         {
-            stub1_51 = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuStub(baseURL);
+            stub1_51 = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.WsDfuStub(baseURL);
             if (opts != null)
                 stub1_51._getServiceClient().setOptions(opts);
         }

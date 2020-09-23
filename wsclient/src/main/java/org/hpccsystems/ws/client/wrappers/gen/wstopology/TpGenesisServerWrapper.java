@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGenesisServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.413Z
+ * TimeStamp: 2020-09-23T21:40:52.955Z
  */
 public class TpGenesisServerWrapper
 {
@@ -35,7 +35,7 @@ public class TpGenesisServerWrapper
 
 	public TpGenesisServerWrapper() {}
 
-	public TpGenesisServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer tpgenesisserver)
+	public TpGenesisServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer tpgenesisserver)
 	{
 		copy( tpgenesisserver );
 	}
@@ -49,7 +49,7 @@ public class TpGenesisServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class TpGenesisServerWrapper
 	{
 		return "TpGenesisServerWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "path = " + local_path + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGenesisServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: InParams_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.InParams_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.433Z
+ * TimeStamp: 2020-09-23T04:21:56.949Z
  */
 public class InParams_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class InParams_type0Wrapper
 
 	public InParams_type0Wrapper() {}
 
-	public InParams_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0 inparams_type0)
+	public InParams_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.InParams_type0 inparams_type0)
 	{
 		copy( inparams_type0 );
 	}
@@ -43,7 +43,7 @@ public class InParams_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.InParams_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class InParams_type0Wrapper
 	{
 		return "InParams_type0Wrapper [" + "inParam = " + local_inParam + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.InParams_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.InParams_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.InParams_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.InParams_type0();
 		if (this.local_inParam!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn[this.local_inParam.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn[this.local_inParam.size()];
 			for ( int i = 0; i < this.local_inParam.size(); i++)
 			{
 				arr[i] = this.local_inParam.get(i) .getRaw();

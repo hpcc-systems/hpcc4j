@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: NotInDFS_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.NotInDFS_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.NotInDFS_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.519Z
+ * TimeStamp: 2020-09-23T03:53:35.707Z
  */
 public class NotInDFS_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class NotInDFS_type0Wrapper
 
 	public NotInDFS_type0Wrapper() {}
 
-	public NotInDFS_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.NotInDFS_type0 notindfs_type0)
+	public NotInDFS_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.NotInDFS_type0 notindfs_type0)
 	{
 		copy( notindfs_type0 );
 	}
@@ -43,7 +43,7 @@ public class NotInDFS_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.NotInDFS_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.NotInDFS_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class NotInDFS_type0Wrapper
 	{
 		return "NotInDFS_type0Wrapper [" + "file = " + local_file + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.NotInDFS_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.NotInDFS_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.NotInDFS_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.NotInDFS_type0();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.NotInDFS_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.NotInDFS_type0();
 		if (this.local_file!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_file.size()];

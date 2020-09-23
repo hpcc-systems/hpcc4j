@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGroupQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.278Z
+ * TimeStamp: 2020-09-23T21:40:52.962Z
  */
 public class TpGroupQueryResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpGroupQueryResponseWrapper
 
 	public TpGroupQueryResponseWrapper() {}
 
-	public TpGroupQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse tpgroupqueryresponse)
+	public TpGroupQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryResponse tpgroupqueryresponse)
 	{
 		copy( tpgroupqueryresponse );
 	}
@@ -43,7 +43,7 @@ public class TpGroupQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpGroupQueryResponseWrapper
 	{
 		return "TpGroupQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpGroups = " + local_tpGroups + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryResponse();
 		return raw;
 	}
 

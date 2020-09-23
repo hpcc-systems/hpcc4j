@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpEclAgentWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.383Z
+ * TimeStamp: 2020-09-23T21:40:52.947Z
  */
 public class TpEclAgentWrapper
 {
@@ -38,7 +38,7 @@ public class TpEclAgentWrapper
 
 	public TpEclAgentWrapper() {}
 
-	public TpEclAgentWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent tpeclagent)
+	public TpEclAgentWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent tpeclagent)
 	{
 		copy( tpeclagent );
 	}
@@ -55,7 +55,7 @@ public class TpEclAgentWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent raw )
 	{
 		if (raw == null)
 			return;
@@ -77,9 +77,9 @@ public class TpEclAgentWrapper
 	{
 		return "TpEclAgentWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "type = " + local_type + ", " + "path = " + local_path + ", " + "daliServer = " + local_daliServer + ", " + "logDir = " + local_logDir + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

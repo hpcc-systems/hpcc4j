@@ -17,13 +17,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import java.util.List;
+import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLogFileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.392Z
+ * TimeStamp: 2020-09-23T21:40:52.968Z
  */
 public class TpLogFileResponseWrapper
 {
@@ -48,14 +51,15 @@ public class TpLogFileResponseWrapper
 	protected int local_nextPage;
 	protected int local_totalPages;
 	protected String local_acceptLanguage;
+	protected List<String> local_logFieldNames = null;
 
 	public TpLogFileResponseWrapper() {}
 
-	public TpLogFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse tplogfileresponse)
+	public TpLogFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileResponse tplogfileresponse)
 	{
 		copy( tplogfileresponse );
 	}
-	public TpLogFileResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _name, String _type, String _startDate, String _endDate, int _lastHours, int _firstRows, int _lastRows, boolean _reversely, boolean _zip, int _filterType, String _logData, boolean _hasDate, long _fileSize, long _pageFrom, long _pageTo, int _pageNumber, int _prevPage, int _nextPage, int _totalPages, String _acceptLanguage )
+	public TpLogFileResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _name, String _type, String _startDate, String _endDate, int _lastHours, int _firstRows, int _lastRows, boolean _reversely, boolean _zip, int _filterType, String _logData, boolean _hasDate, long _fileSize, long _pageFrom, long _pageTo, int _pageNumber, int _prevPage, int _nextPage, int _totalPages, String _acceptLanguage, List<String> _logFieldNames )
 	{
 		this.local_exceptions = _exceptions;
 		this.local_name = _name;
@@ -78,10 +82,11 @@ public class TpLogFileResponseWrapper
 		this.local_nextPage = _nextPage;
 		this.local_totalPages = _totalPages;
 		this.local_acceptLanguage = _acceptLanguage;
+		this.local_logFieldNames = _logFieldNames;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -108,17 +113,24 @@ public class TpLogFileResponseWrapper
 		this.local_nextPage = raw.getNextPage();
 		this.local_totalPages = raw.getTotalPages();
 		this.local_acceptLanguage = raw.getAcceptLanguage();
-
+		if (raw.getLogFieldNames() != null)
+		{
+			this.local_logFieldNames = new ArrayList<String>();
+			for ( int i = 0; i < raw.getLogFieldNames().getItem().length; i++)
+			{
+				this.local_logFieldNames.add(new String(raw.getLogFieldNames().getItem()[i]));
+			}
+		}
 	}
 
 	@Override
 	public String toString()
 	{
-		return "TpLogFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "name = " + local_name + ", " + "type = " + local_type + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "lastHours = " + local_lastHours + ", " + "firstRows = " + local_firstRows + ", " + "lastRows = " + local_lastRows + ", " + "reversely = " + local_reversely + ", " + "zip = " + local_zip + ", " + "filterType = " + local_filterType + ", " + "logData = " + local_logData + ", " + "hasDate = " + local_hasDate + ", " + "fileSize = " + local_fileSize + ", " + "pageFrom = " + local_pageFrom + ", " + "pageTo = " + local_pageTo + ", " + "pageNumber = " + local_pageNumber + ", " + "prevPage = " + local_prevPage + ", " + "nextPage = " + local_nextPage + ", " + "totalPages = " + local_totalPages + ", " + "acceptLanguage = " + local_acceptLanguage + "]";
+		return "TpLogFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "name = " + local_name + ", " + "type = " + local_type + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "lastHours = " + local_lastHours + ", " + "firstRows = " + local_firstRows + ", " + "lastRows = " + local_lastRows + ", " + "reversely = " + local_reversely + ", " + "zip = " + local_zip + ", " + "filterType = " + local_filterType + ", " + "logData = " + local_logData + ", " + "hasDate = " + local_hasDate + ", " + "fileSize = " + local_fileSize + ", " + "pageFrom = " + local_pageFrom + ", " + "pageTo = " + local_pageTo + ", " + "pageNumber = " + local_pageNumber + ", " + "prevPage = " + local_prevPage + ", " + "nextPage = " + local_nextPage + ", " + "totalPages = " + local_totalPages + ", " + "acceptLanguage = " + local_acceptLanguage + ", " + "logFieldNames = " + local_logFieldNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileResponse();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		raw.setStartDate( local_startDate);
@@ -139,6 +151,15 @@ public class TpLogFileResponseWrapper
 		raw.setNextPage( local_nextPage);
 		raw.setTotalPages( local_totalPages);
 		raw.setAcceptLanguage( local_acceptLanguage);
+		if (this.local_logFieldNames!= null)
+		{
+			EspStringArray arr = new EspStringArray();
+			for ( int i = 0; i < this.local_logFieldNames.size(); i++)
+			{
+				arr.addItem(this.local_logFieldNames.get(i));
+			}
+			raw.setLogFieldNames(arr);
+		}
 		return raw;
 	}
 
@@ -310,5 +331,13 @@ public class TpLogFileResponseWrapper
 	public String getAcceptLanguage( )
 	{
 		return this.local_acceptLanguage;
+	}
+	public void setLogFieldNames( List<String> _logFieldNames )
+	{
+		this.local_logFieldNames = _logFieldNames;
+	}
+	public List<String> getLogFieldNames( )
+	{
+		return this.local_logFieldNames;
 	}
 }

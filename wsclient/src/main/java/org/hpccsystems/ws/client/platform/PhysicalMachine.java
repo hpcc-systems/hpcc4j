@@ -26,8 +26,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
@@ -198,7 +197,7 @@ public class PhysicalMachine extends DataSingleton
      *            the file struct
      * @return the file
      */
-    PhysicalFile getFile(PhysicalFileStruct fileStruct)
+    PhysicalFile getFile(PhysicalFileStructWrapper fileStruct)
     {
         return PhysicalFile.get(platform, fileStruct);
     }

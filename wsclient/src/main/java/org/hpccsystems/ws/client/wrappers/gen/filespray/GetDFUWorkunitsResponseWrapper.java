@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUWorkunitsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunitsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.991Z
+ * TimeStamp: 2020-09-23T03:42:02.619Z
  */
 public class GetDFUWorkunitsResponseWrapper
 {
@@ -49,7 +49,7 @@ public class GetDFUWorkunitsResponseWrapper
 
 	public GetDFUWorkunitsResponseWrapper() {}
 
-	public GetDFUWorkunitsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse getdfuworkunitsresponse)
+	public GetDFUWorkunitsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunitsResponse getdfuworkunitsresponse)
 	{
 		copy( getdfuworkunitsresponse );
 	}
@@ -77,7 +77,7 @@ public class GetDFUWorkunitsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunitsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -111,9 +111,9 @@ public class GetDFUWorkunitsResponseWrapper
 	{
 		return "GetDFUWorkunitsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "results = " + local_results + ", " + "type = " + local_type + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "pageSize = " + local_pageSize + ", " + "prevPage = " + local_prevPage + ", " + "nextPage = " + local_nextPage + ", " + "lastPage = " + local_lastPage + ", " + "numWUs = " + local_numWUs + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "first = " + local_first + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "basicQuery = " + local_basicQuery + ", " + "filters = " + local_filters + ", " + "cacheHint = " + local_cacheHint + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunitsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunitsResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunitsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunitsResponse();
 		raw.setType( local_type);
 		raw.setOwner( local_owner);
 		raw.setCluster( local_cluster);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLSourceFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSourceFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.442Z
+ * TimeStamp: 2020-09-23T04:21:56.876Z
  */
 public class ArrayOfECLSourceFileWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLSourceFileWrapper
 
 	public ArrayOfECLSourceFileWrapper() {}
 
-	public ArrayOfECLSourceFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile arrayofeclsourcefile)
+	public ArrayOfECLSourceFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSourceFile arrayofeclsourcefile)
 	{
 		copy( arrayofeclsourcefile );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLSourceFileWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSourceFile raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLSourceFileWrapper
 	{
 		return "ArrayOfECLSourceFileWrapper [" + "eCLSourceFile = " + local_eCLSourceFile + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSourceFile getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLSourceFile();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSourceFile();
 		if (this.local_eCLSourceFile!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile[this.local_eCLSourceFile.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile[this.local_eCLSourceFile.size()];
 			for ( int i = 0; i < this.local_eCLSourceFile.size(); i++)
 			{
 				arr[i] = this.local_eCLSourceFile.get(i) .getRaw();

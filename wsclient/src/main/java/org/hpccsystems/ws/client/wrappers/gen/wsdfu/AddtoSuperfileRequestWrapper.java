@@ -17,12 +17,12 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddtoSuperfileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.AddtoSuperfileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2020-08-18T21:53:14.845Z
  */
@@ -36,7 +36,7 @@ public class AddtoSuperfileRequestWrapper
 
 	public AddtoSuperfileRequestWrapper() {}
 
-	public AddtoSuperfileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest addtosuperfilerequest)
+	public AddtoSuperfileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.AddtoSuperfileRequest addtosuperfilerequest)
 	{
 		copy( addtosuperfilerequest );
 	}
@@ -50,7 +50,7 @@ public class AddtoSuperfileRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.AddtoSuperfileRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -74,9 +74,9 @@ public class AddtoSuperfileRequestWrapper
 	{
 		return "AddtoSuperfileRequestWrapper [" + "superfile = " + local_superfile + ", " + "subfiles = " + local_subfiles + ", " + "names = " + local_names + ", " + "existingFile = " + local_existingFile + ", " + "backToPage = " + local_backToPage + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.AddtoSuperfileRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileRequest();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.AddtoSuperfileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.AddtoSuperfileRequest();
 		raw.setSuperfile( local_superfile);
 		raw.setSubfiles( local_subfiles);
 		if (this.local_names!= null)

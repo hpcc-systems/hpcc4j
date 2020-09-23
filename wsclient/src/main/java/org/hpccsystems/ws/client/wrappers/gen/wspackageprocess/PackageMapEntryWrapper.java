@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PackageMapEntryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.548Z
+ * TimeStamp: 2020-09-23T03:53:35.711Z
  */
 public class PackageMapEntryWrapper
 {
@@ -33,7 +33,7 @@ public class PackageMapEntryWrapper
 
 	public PackageMapEntryWrapper() {}
 
-	public PackageMapEntryWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry packagemapentry)
+	public PackageMapEntryWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry packagemapentry)
 	{
 		copy( packagemapentry );
 	}
@@ -45,7 +45,7 @@ public class PackageMapEntryWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class PackageMapEntryWrapper
 	{
 		return "PackageMapEntryWrapper [" + "id = " + local_id + ", " + "target = " + local_target + ", " + "process = " + local_process + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageMapEntry();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry();
 		raw.setId( local_id);
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);

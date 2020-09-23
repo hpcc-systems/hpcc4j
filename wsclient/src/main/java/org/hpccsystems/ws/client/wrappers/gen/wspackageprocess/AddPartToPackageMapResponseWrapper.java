@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddPartToPackageMapResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.480Z
+ * TimeStamp: 2020-09-23T03:53:35.667Z
  */
 public class AddPartToPackageMapResponseWrapper
 {
@@ -33,7 +33,7 @@ public class AddPartToPackageMapResponseWrapper
 
 	public AddPartToPackageMapResponseWrapper() {}
 
-	public AddPartToPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapResponse addparttopackagemapresponse)
+	public AddPartToPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse addparttopackagemapresponse)
 	{
 		copy( addparttopackagemapresponse );
 	}
@@ -45,7 +45,7 @@ public class AddPartToPackageMapResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class AddPartToPackageMapResponseWrapper
 	{
 		return "AddPartToPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse();
 		return raw;
 	}
 

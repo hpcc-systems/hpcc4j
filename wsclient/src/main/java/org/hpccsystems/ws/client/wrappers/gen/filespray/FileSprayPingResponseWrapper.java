@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FileSprayPingResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileSprayPingResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2019-08-29T20:02:35.049Z
+ * TimeStamp: 2020-09-23T03:42:02.610Z
  */
 public class FileSprayPingResponseWrapper
 {
 
 	public FileSprayPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileSprayPingResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileSprayPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileSprayPingResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse();
 		return raw;
 	}
 

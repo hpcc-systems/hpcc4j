@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ValidatePackageInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.524Z
+ * TimeStamp: 2020-09-23T03:53:35.726Z
  */
 public class ValidatePackageInfoWrapper
 {
@@ -34,7 +34,7 @@ public class ValidatePackageInfoWrapper
 
 	public ValidatePackageInfoWrapper() {}
 
-	public ValidatePackageInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageInfo validatepackageinfo)
+	public ValidatePackageInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageInfo validatepackageinfo)
 	{
 		copy( validatepackageinfo );
 	}
@@ -44,7 +44,7 @@ public class ValidatePackageInfoWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageInfo raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageInfo raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class ValidatePackageInfoWrapper
 	{
 		return "ValidatePackageInfoWrapper [" + "unmatched = " + local_unmatched + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageInfo getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageInfo getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageInfo raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageInfo();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageInfo raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageInfo();
 		if (this.local_unmatched!= null)
 		{
 			EspStringArray arr = new EspStringArray();

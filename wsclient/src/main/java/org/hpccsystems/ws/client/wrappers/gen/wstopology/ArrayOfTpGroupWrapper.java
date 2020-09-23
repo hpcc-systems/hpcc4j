@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpGroupWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.386Z
+ * TimeStamp: 2020-09-23T21:40:52.914Z
  */
 public class ArrayOfTpGroupWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpGroupWrapper
 
 	public ArrayOfTpGroupWrapper() {}
 
-	public ArrayOfTpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup arrayoftpgroup)
+	public ArrayOfTpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup arrayoftpgroup)
 	{
 		copy( arrayoftpgroup );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpGroupWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpGroupWrapper
 	{
 		return "ArrayOfTpGroupWrapper [" + "tpGroup = " + local_tpGroup + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpGroup();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup();
 		if (this.local_tpGroup!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup[this.local_tpGroup.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup[this.local_tpGroup.size()];
 			for ( int i = 0; i < this.local_tpGroup.size(); i++)
 			{
 				arr[i] = this.local_tpGroup.get(i) .getRaw();

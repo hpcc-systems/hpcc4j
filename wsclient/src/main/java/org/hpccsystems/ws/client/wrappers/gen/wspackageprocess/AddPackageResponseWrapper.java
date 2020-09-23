@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddPackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.572Z
+ * TimeStamp: 2020-09-23T03:53:35.663Z
  */
 public class AddPackageResponseWrapper
 {
@@ -33,7 +33,7 @@ public class AddPackageResponseWrapper
 
 	public AddPackageResponseWrapper() {}
 
-	public AddPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPackageResponse addpackageresponse)
+	public AddPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse addpackageresponse)
 	{
 		copy( addpackageresponse );
 	}
@@ -45,7 +45,7 @@ public class AddPackageResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPackageResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class AddPackageResponseWrapper
 	{
 		return "AddPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPackageResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPackageResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse();
 		return raw;
 	}
 
