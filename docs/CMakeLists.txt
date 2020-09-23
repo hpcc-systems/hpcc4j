@@ -16,7 +16,7 @@
 ################################################################################
 
 cmake_minimum_required(VERSION 2.8)
-PROJECT(japi-docs)
+PROJECT(hpcc4j-docs)
 
 set (version "7.8.0")
 set (stagever "1")
@@ -45,7 +45,7 @@ add_subdirectory(resources)
 
 # modified for H2h repo
 # Doc dirs to include.
-add_subdirectory(JAPI_doc)
+add_subdirectory(HPCC4J_doc)
 
 GET_PROPERTY(_targets GLOBAL PROPERTY DOC_TARGETS)
 add_custom_target(docs ALL DEPENDS ${_targets})

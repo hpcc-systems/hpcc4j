@@ -20,7 +20,7 @@ This project is to be built using Maven. To build the projects using Maven, navi
 
 `mvn install`
 
-NOTE: This project, wsclient and commons-hpcc can be built together via the maven pom file at the JAPI repo root directory
+NOTE: This project, wsclient and commons-hpcc can be built together via the maven pom file at the hpcc4j repo root directory
 
 Developers who want to do a deployment must insure they have their credentials set in settings.xml under their maven configuration folder.  The following command will execute a clean build of the jar, jar-with-dependencies, javadoc, and source packages.  It will also attempt to sign the packages before uploading them to the sonatype repository for staging.
 
