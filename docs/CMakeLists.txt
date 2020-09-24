@@ -18,11 +18,34 @@
 cmake_minimum_required(VERSION 2.8)
 PROJECT(hpcc4j-docs)
 
-set (version "7.8.0")
-set (stagever "1")
-
-set (DOC_VERSION ${version}) #Must be manually updated
-Message("Building doc version: ${DOC_VERSION}")
+if(NOT DOC_VERSION)
+	execute_process(
+		COMMAND "grep" "-m 1" "<version>" "${CMAKE_CURRENT_SOURCE_DIR}/../pom.xml"
+		COMMAND "sed" "s/[ ]*<version>//"
+		COMMAND "sed" "s/-[0-9]*[^0-9][^0-9]*<\\/version>$//"
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		OUTPUT_VARIABLE version
+		RESULT_VARIABLE version_rv
+		)
+	if("${version_rv}" GREATER "0")
+		message(FATAL_ERROR "error fetching version, please set manually")
+	endif()
+	string(STRIP "${version}" version)
+	execute_process(
+	COMMAND "grep" "-m 1" "<version>" "${CMAKE_CURRENT_SOURCE_DIR}/../pom.xml"
+	COMMAND "sed" "s/[ ]*<version>[0-9]*.[0-9]*.[0-9]*-//"
+	COMMAND "sed" "s/[-][^0-9]*<\\/version>$//"
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	OUTPUT_VARIABLE stagever
+	RESULT_VARIABLE stagever_rv
+	)
+	if("${stagever_rv}" GREATER "0")
+		set(stagever "0")
+	endif()
+	string(STRIP "${stagever}" stagever)
+    set(DOC_VERSION "${version}")
+endif()
+message("Building doc version: ${DOC_VERSION}")
 define_property(GLOBAL PROPERTY DOC_TARGETS BRIEF_DOCS "docs" FULL_DOCS "docs")
 mark_as_advanced(DOC_TARGETS)
 
