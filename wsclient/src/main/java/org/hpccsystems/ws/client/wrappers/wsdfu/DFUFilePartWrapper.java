@@ -22,16 +22,16 @@ import java.util.Hashtable;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCopy;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
 
-enum FilePartKind
-{
-    TLK, DATA
-}
-
 public class DFUFilePartWrapper
 {
     private Integer              partIndex;
     private DFUFileCopyWrapper[] wrappedDFUFileCopies;
     private FilePartKind         kind = FilePartKind.DATA;
+
+    public enum FilePartKind
+    {
+        TLK, DATA
+    }
 
     /**
      * Gets the kind.

@@ -296,6 +296,11 @@ public class FileFilter implements Serializable
         return fieldfilters.get(i);
     }
 
+    public List<FileFilter> getAndFileFilters()
+    {
+        return andFileFilters;
+    }
+
     /**
      * JSon string representation of an array of filefilters.
      *

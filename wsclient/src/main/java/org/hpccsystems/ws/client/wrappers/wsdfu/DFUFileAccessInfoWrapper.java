@@ -143,13 +143,6 @@ public class DFUFileAccessInfoWrapper
         }
 
         int dataFilePartsCount = fileParts.length;
-        if (fileType == DFUFileTypeWrapper.Index && dataFilePartsCount % availableLocations.size() != 0) // apparently not all keyed files report TLK
-                                                                                                         // as file part
-        {
-            dataFilePartsCount--; // indexed files contain a non-data file part (index = n+1 where n = data file parts count)
-            log.warn("Ignoring " + fileParts.length + "th filepart (determined to be indexed file top-level-key)");
-        }
-
         DFUFilePartWrapper[] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
         for (int i = 0; i < dataFilePartsCount; i++)
         {
@@ -320,11 +313,6 @@ public class DFUFileAccessInfoWrapper
         }
 
         int dataFilePartsCount = fileParts.length;
-        if (fileType == DFUFileTypeWrapper.Index && dataFilePartsCount % availableLocations.size() != 0)
-        {
-            dataFilePartsCount--; // indexed files contain a non-data file part (index = n+1 where n = data file parts count)
-        }
-
         DFUFilePartWrapper[] wrappedDFUFileParts = new DFUFilePartWrapper[dataFilePartsCount];
         for (int i = 0; i < dataFilePartsCount; i++)
         {
