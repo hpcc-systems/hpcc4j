@@ -614,8 +614,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToRead = 0;
             try
             {
+                // Read at least 512 bytes at a time
+                bytesToRead = Math.max(512,this.dis.available());
+                
+                // Limit bytes to read based on remaining data in request and buffer capacity
                 bytesToRead = Math.min(remainingBufferCapacity,
-                              Math.min(this.dis.available(),remainingDataInCurrentRequest));
+                              Math.min(bytesToRead,remainingDataInCurrentRequest));
                 dis.readFully(this.readBuffer, currentBufferLen, bytesToRead);
             }
             catch (IOException e)
@@ -635,7 +639,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             bufferWriteMutex.release();
             
             // If we don't have enough room in the buffer. Return, and let the calling prefetch thread handle sleep etc
-            if (remainingDataInCurrentRequest > 0 && this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
+            if (this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
             {
                 return;
             }

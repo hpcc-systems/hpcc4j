@@ -19,6 +19,8 @@ package org.hpccsystems.dfs.client;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.UUID;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +49,8 @@ public class HPCCFile implements Serializable
     private static final Logger  log                           = LogManager.getLogger(HPCCFile.class);
 
     private DataPartition[]      dataParts;
+    private DataPartition        tlkPartition                  = null;
+    private PartitionProcessor   partitionProcessor            = null;
     private long                 dataPartsCreationTimeMS       = -1;
 
     private FieldDef             recordDefinition;
@@ -356,7 +360,22 @@ public class HPCCFile implements Serializable
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
                         /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(), fileType);
+
+                // Check to see if this file has a TLK. The TLK will always be the last partition.
+                // If we do have a TLK remove it from the standard list of data partitions.
+                if (this.isIndex())
+                {
+                    DataPartition lastPart = this.dataParts[this.dataParts.length-1];
+                    if (lastPart.isTLK())
+                    {
+                        this.tlkPartition = lastPart;
+                        this.dataParts = Arrays.copyOfRange(this.dataParts,0,this.dataParts.length-1);
+                    }
+                }
+
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
+                
+                this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }
             else
@@ -373,7 +392,8 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * The partitions for the file residing on an HPCC cluster.
+     * The partitions for the file residing on an HPCC cluster. If a filter has been set on an index file
+     * Only the partitions matching the filter will be returned.
      *
      * @return the file parts
      * @throws HpccFileException
@@ -381,8 +401,31 @@ public class HPCCFile implements Serializable
      */
     public DataPartition[] getFileParts() throws HpccFileException
     {
+        return findMatchingPartitions(this.filter).toArray(new DataPartition[0]);
+    }
+
+    /**
+     * Return the list of partitions with records matching the provided filter
+     *
+     * @return the file parts
+     */
+    public List<DataPartition> findMatchingPartitions(FileFilter filter) throws HpccFileException
+    {
         createDataParts();
-        return dataParts;
+        List<DataPartition> matchedPartitions = this.partitionProcessor.findMatchingPartitions(filter);
+
+        // Apply the filter to the partitions
+        for (DataPartition partition : matchedPartitions)
+        {
+            partition.setFilter(filter);
+        }
+
+        return matchedPartitions;
+    }
+
+    public PartitionProcessor getPartitionProcessor()
+    {
+        return this.partitionProcessor;
     }
 
     /**
