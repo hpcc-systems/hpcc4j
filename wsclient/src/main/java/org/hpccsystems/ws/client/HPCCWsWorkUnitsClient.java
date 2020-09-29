@@ -21,6 +21,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfNamedValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfQuerySetQuery;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWUActions;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspSoapFault;
@@ -2258,15 +2259,19 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not search queries:");
 
-        QuerySetQuery[] queries = resp.getQuerysetQueries().getQuerySetQuery();
-
         List<QueryResultWrapper> result = new ArrayList<QueryResultWrapper>();
 
-        if (queries != null)
+        ArrayOfQuerySetQuery querysetQueries = resp.getQuerysetQueries();
+        if (querysetQueries != null)
         {
-            for (QuerySetQuery item : queries)
+            QuerySetQuery[] queries = querysetQueries.getQuerySetQuery();
+
+            if (queries != null)
             {
-                result.add(new QueryResultWrapper(item));
+                for (QuerySetQuery item : queries)
+                {
+                    result.add(new QueryResultWrapper(item));
+                }
             }
         }
         return result;
@@ -2329,15 +2334,22 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not fetch queries: ");
 
-        QuerySetQuery[] queries = response.getQuerysetQueries().getQuerySetQuery();
         List<QueryResultWrapper> result = new ArrayList<QueryResultWrapper>();
-        if (queries != null)
+
+        ArrayOfQuerySetQuery querysetQueries = response.getQuerysetQueries();
+        if (querysetQueries != null)
         {
-            for (QuerySetQuery item : queries)
+            QuerySetQuery[] queries = querysetQueries.getQuerySetQuery();
+
+            if (queries != null)
             {
-                result.add(new QueryResultWrapper(item));
+                for (QuerySetQuery item : queries)
+                {
+                    result.add(new QueryResultWrapper(item));
+                }
             }
         }
+
         return result;
     }
 
