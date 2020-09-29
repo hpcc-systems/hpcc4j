@@ -19,8 +19,8 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 
 import java.util.Hashtable;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCopy;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePart;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFileCopy;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePart;
 
 enum FilePartKind
 {

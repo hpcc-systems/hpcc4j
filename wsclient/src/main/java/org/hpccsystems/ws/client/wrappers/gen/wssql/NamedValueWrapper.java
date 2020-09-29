@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: NamedValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.378Z
+ * TimeStamp: 2020-09-23T04:21:56.950Z
  */
 public class NamedValueWrapper
 {
@@ -32,7 +32,7 @@ public class NamedValueWrapper
 
 	public NamedValueWrapper() {}
 
-	public NamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue namedvalue)
+	public NamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue namedvalue)
 	{
 		copy( namedvalue );
 	}
@@ -43,7 +43,7 @@ public class NamedValueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class NamedValueWrapper
 	{
 		return "NamedValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.NamedValue();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue();
 		raw.setName( local_name);
 		raw.setValue( local_value);
 		return raw;

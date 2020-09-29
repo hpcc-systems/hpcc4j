@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateTableAndLoadRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.385Z
+ * TimeStamp: 2020-09-23T04:21:56.886Z
  */
 public class CreateTableAndLoadRequestWrapper
 {
@@ -39,7 +39,7 @@ public class CreateTableAndLoadRequestWrapper
 
 	public CreateTableAndLoadRequestWrapper() {}
 
-	public CreateTableAndLoadRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest createtableandloadrequest)
+	public CreateTableAndLoadRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest createtableandloadrequest)
 	{
 		copy( createtableandloadrequest );
 	}
@@ -57,7 +57,7 @@ public class CreateTableAndLoadRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -82,9 +82,9 @@ public class CreateTableAndLoadRequestWrapper
 	{
 		return "CreateTableAndLoadRequestWrapper [" + "tableName = " + local_tableName + ", " + "tableDescription = " + local_tableDescription + ", " + "overwrite = " + local_overwrite + ", " + "eclFields = " + local_eclFields + ", " + "targetCluster = " + local_targetCluster + ", " + "owner = " + local_owner + ", " + "dataSource = " + local_dataSource + ", " + "dataSourceType = " + local_dataSourceType + ", " + "wait = " + local_wait + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.CreateTableAndLoadRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest();
 		raw.setTableName( local_tableName);
 		raw.setTableDescription( local_tableDescription);
 		raw.setOverwrite( local_overwrite);

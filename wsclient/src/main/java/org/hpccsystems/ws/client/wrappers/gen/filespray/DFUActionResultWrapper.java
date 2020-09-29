@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUActionResultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.028Z
+ * TimeStamp: 2020-09-23T03:42:02.565Z
  */
 public class DFUActionResultWrapper
 {
@@ -33,7 +33,7 @@ public class DFUActionResultWrapper
 
 	public DFUActionResultWrapper() {}
 
-	public DFUActionResultWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult dfuactionresult)
+	public DFUActionResultWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult dfuactionresult)
 	{
 		copy( dfuactionresult );
 	}
@@ -45,7 +45,7 @@ public class DFUActionResultWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class DFUActionResultWrapper
 	{
 		return "DFUActionResultWrapper [" + "iD = " + local_iD + ", " + "action = " + local_action + ", " + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUActionResult();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult();
 		raw.setID( local_iD);
 		raw.setAction( local_action);
 		raw.setResult( local_result);

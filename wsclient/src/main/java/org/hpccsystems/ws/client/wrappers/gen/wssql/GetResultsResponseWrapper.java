@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetResultsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.384Z
+ * TimeStamp: 2020-09-23T04:21:56.942Z
  */
 public class GetResultsResponseWrapper
 {
@@ -36,7 +36,7 @@ public class GetResultsResponseWrapper
 
 	public GetResultsResponseWrapper() {}
 
-	public GetResultsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse getresultsresponse)
+	public GetResultsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsResponse getresultsresponse)
 	{
 		copy( getresultsresponse );
 	}
@@ -50,7 +50,7 @@ public class GetResultsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class GetResultsResponseWrapper
 	{
 		return "GetResultsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "workunit = " + local_workunit + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsResponse();
 		raw.setResult( local_result);
 		raw.setResultWindowStart( local_resultWindowStart);
 		raw.setResultWindowCount( local_resultWindowCount);

@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetServicePluginsRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.406Z
+ * TimeStamp: 2020-09-23T21:40:52.958Z
  */
 public class TpGetServicePluginsRequestWrapper
 {
 
 	public TpGetServicePluginsRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetServicePluginsRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest();
 		return raw;
 	}
 

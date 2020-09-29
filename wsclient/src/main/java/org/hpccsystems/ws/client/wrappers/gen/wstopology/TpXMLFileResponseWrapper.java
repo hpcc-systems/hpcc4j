@@ -22,9 +22,9 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpXMLFileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.280Z
+ * TimeStamp: 2020-09-23T21:40:53.017Z
  */
 public class TpXMLFileResponseWrapper
 {
@@ -33,7 +33,7 @@ public class TpXMLFileResponseWrapper
 
 	public TpXMLFileResponseWrapper() {}
 
-	public TpXMLFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileResponse tpxmlfileresponse)
+	public TpXMLFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileResponse tpxmlfileresponse)
 	{
 		copy( tpxmlfileresponse );
 	}
@@ -44,7 +44,7 @@ public class TpXMLFileResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpXMLFileResponseWrapper
 	{
 		return "TpXMLFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "thefile = " + local_thefile + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileResponse();
 		raw.setThefile( local_thefile);
 		return raw;
 	}

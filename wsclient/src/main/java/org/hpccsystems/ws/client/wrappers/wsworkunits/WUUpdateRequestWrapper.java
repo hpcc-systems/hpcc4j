@@ -38,38 +38,38 @@ public class WUUpdateRequestWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUUpdate getRaw()
     {
-        return getRawVersion75();
+        return getRawVersion79();
     }
 
     /**
-     * Gets the raw version 75.
+     * Gets the raw version 79.
      *
-     * @return the raw version 75
+     * @return the raw version 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate getRawVersion75()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUUpdate getRawVersion79()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue[] avs = null;
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue[] avs = null;
         if (this.getApplicationValues().size() > 0)
         {
-            avs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue[this.getApplicationValues().size()];
+            avs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue[this.getApplicationValues().size()];
             for (int i = 0; i < this.getApplicationValues().size(); i++)
             {
-                avs[i] = this.getApplicationValues().get(i).getRawVersion1_75();
+                avs[i] = this.getApplicationValues().get(i).getRawLatestVersion();
             }
         }
 
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.DebugValue[] dvs = null;
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue[] dvs = null;
         if (this.getDebugValues().size() > 0)
         {
-            dvs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.DebugValue[this.getDebugValues().size()];
+            dvs = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue[this.getDebugValues().size()];
             for (int i = 0; i < this.getDebugValues().size(); i++)
             {
-                dvs[i] = this.getDebugValues().get(i).getRawVersion1_75();
+                dvs[i] = this.getDebugValues().get(i).getRawVersion1_79();
             }
         }
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdate();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUUpdate raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUUpdate();
         raw.setWuid(wuid);
         raw.setState(state);
         raw.setStateOrig(stateOrig);
@@ -95,14 +95,14 @@ public class WUUpdateRequestWrapper
 
         if (dvs != null && dvs.length > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfDebugValue dvarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfDebugValue();
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfDebugValue dvarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfDebugValue();
             dvarray.setDebugValue(dvs);
             raw.setDebugValues(dvarray);
         }
 
         if (avs != null && avs.length > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue avarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue();
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue avarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue();
             avarray.setApplicationValue(avs);
             raw.setApplicationValues(avarray);
         }

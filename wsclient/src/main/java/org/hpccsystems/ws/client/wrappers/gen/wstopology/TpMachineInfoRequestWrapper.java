@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineInfoRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.295Z
+ * TimeStamp: 2020-09-23T21:40:52.976Z
  */
 public class TpMachineInfoRequestWrapper
 {
@@ -32,7 +32,7 @@ public class TpMachineInfoRequestWrapper
 
 	public TpMachineInfoRequestWrapper() {}
 
-	public TpMachineInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoRequest tpmachineinforequest)
+	public TpMachineInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest tpmachineinforequest)
 	{
 		copy( tpmachineinforequest );
 	}
@@ -43,7 +43,7 @@ public class TpMachineInfoRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class TpMachineInfoRequestWrapper
 	{
 		return "TpMachineInfoRequestWrapper [" + "name = " + local_name + ", " + "netAddress = " + local_netAddress + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest();
 		raw.setName( local_name);
 		raw.setNetAddress( local_netAddress);
 		return raw;

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUWorkunitsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.969Z
+ * TimeStamp: 2020-09-23T03:42:02.617Z
  */
 public class GetDFUWorkunitsWrapper
 {
@@ -42,7 +42,7 @@ public class GetDFUWorkunitsWrapper
 
 	public GetDFUWorkunitsWrapper() {}
 
-	public GetDFUWorkunitsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits getdfuworkunits)
+	public GetDFUWorkunitsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunits getdfuworkunits)
 	{
 		copy( getdfuworkunits );
 	}
@@ -63,7 +63,7 @@ public class GetDFUWorkunitsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunits raw )
 	{
 		if (raw == null)
 			return;
@@ -88,9 +88,9 @@ public class GetDFUWorkunitsWrapper
 	{
 		return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "type = " + local_type + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunits getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUWorkunits();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunits raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUWorkunits();
 		raw.setWuid( local_wuid);
 		raw.setOwner( local_owner);
 		raw.setCluster( local_cluster);

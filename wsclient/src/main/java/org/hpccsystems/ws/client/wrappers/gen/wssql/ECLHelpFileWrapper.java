@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLHelpFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.293Z
+ * TimeStamp: 2020-09-23T04:21:56.902Z
  */
 public class ECLHelpFileWrapper
 {
@@ -39,7 +39,7 @@ public class ECLHelpFileWrapper
 
 	public ECLHelpFileWrapper() {}
 
-	public ECLHelpFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile eclhelpfile)
+	public ECLHelpFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile eclhelpfile)
 	{
 		copy( eclhelpfile );
 	}
@@ -56,7 +56,7 @@ public class ECLHelpFileWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile raw )
 	{
 		if (raw == null)
 			return;
@@ -77,9 +77,9 @@ public class ECLHelpFileWrapper
 	{
 		return "ECLHelpFileWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "iPAddress = " + local_iPAddress + ", " + "description = " + local_description + ", " + "fileSize = " + local_fileSize + ", " + "pID = " + local_pID + ", " + "minActivityId = " + local_minActivityId + ", " + "maxActivityId = " + local_maxActivityId + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		raw.setIPAddress( local_iPAddress);

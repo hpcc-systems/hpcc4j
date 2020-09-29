@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ListPackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.545Z
+ * TimeStamp: 2020-09-23T03:53:35.703Z
  */
 public class ListPackageRequestWrapper
 {
@@ -32,7 +32,7 @@ public class ListPackageRequestWrapper
 
 	public ListPackageRequestWrapper() {}
 
-	public ListPackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageRequest listpackagerequest)
+	public ListPackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest listpackagerequest)
 	{
 		copy( listpackagerequest );
 	}
@@ -43,7 +43,7 @@ public class ListPackageRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class ListPackageRequestWrapper
 	{
 		return "ListPackageRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest();
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);
 		return raw;

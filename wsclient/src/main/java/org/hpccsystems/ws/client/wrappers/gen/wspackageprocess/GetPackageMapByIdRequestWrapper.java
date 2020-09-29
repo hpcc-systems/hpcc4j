@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPackageMapByIdRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.479Z
+ * TimeStamp: 2020-09-23T03:53:35.692Z
  */
 public class GetPackageMapByIdRequestWrapper
 {
@@ -31,7 +31,7 @@ public class GetPackageMapByIdRequestWrapper
 
 	public GetPackageMapByIdRequestWrapper() {}
 
-	public GetPackageMapByIdRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest getpackagemapbyidrequest)
+	public GetPackageMapByIdRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest getpackagemapbyidrequest)
 	{
 		copy( getpackagemapbyidrequest );
 	}
@@ -41,7 +41,7 @@ public class GetPackageMapByIdRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class GetPackageMapByIdRequestWrapper
 	{
 		return "GetPackageMapByIdRequestWrapper [" + "packageMapId = " + local_packageMapId + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest();
 		raw.setPackageMapId( local_packageMapId);
 		return raw;
 	}

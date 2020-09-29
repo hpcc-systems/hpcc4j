@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.333Z
+ * TimeStamp: 2020-09-23T04:21:56.871Z
  */
 public class ArrayOfECLExceptionWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLExceptionWrapper
 
 	public ArrayOfECLExceptionWrapper() {}
 
-	public ArrayOfECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException arrayofeclexception)
+	public ArrayOfECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLException arrayofeclexception)
 	{
 		copy( arrayofeclexception );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLException raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLExceptionWrapper
 	{
 		return "ArrayOfECLExceptionWrapper [" + "eCLException = " + local_eCLException + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLException();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLException();
 		if (this.local_eCLException!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException[this.local_eCLException.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException[this.local_eCLException.size()];
 			for ( int i = 0; i < this.local_eCLException.size(); i++)
 			{
 				arr[i] = this.local_eCLException.get(i) .getRaw();

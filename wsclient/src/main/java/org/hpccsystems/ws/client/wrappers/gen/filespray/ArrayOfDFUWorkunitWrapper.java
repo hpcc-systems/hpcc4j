@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.004Z
+ * TimeStamp: 2020-09-23T03:42:02.541Z
  */
 public class ArrayOfDFUWorkunitWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfDFUWorkunitWrapper
 
 	public ArrayOfDFUWorkunitWrapper() {}
 
-	public ArrayOfDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit arrayofdfuworkunit)
+	public ArrayOfDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit arrayofdfuworkunit)
 	{
 		copy( arrayofdfuworkunit );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfDFUWorkunitWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfDFUWorkunitWrapper
 	{
 		return "ArrayOfDFUWorkunitWrapper [" + "dFUWorkunit = " + local_dFUWorkunit + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit();
 		if (this.local_dFUWorkunit!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunit[this.local_dFUWorkunit.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit[this.local_dFUWorkunit.size()];
 			for ( int i = 0; i < this.local_dFUWorkunit.size(); i++)
 			{
 				arr[i] = this.local_dFUWorkunit.get(i) .getRaw();

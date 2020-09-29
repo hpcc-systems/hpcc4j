@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.927Z
+ * TimeStamp: 2020-09-23T03:42:02.540Z
  */
 public class ArrayOfDFUExceptionWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfDFUExceptionWrapper
 
 	public ArrayOfDFUExceptionWrapper() {}
 
-	public ArrayOfDFUExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException arrayofdfuexception)
+	public ArrayOfDFUExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUException arrayofdfuexception)
 	{
 		copy( arrayofdfuexception );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfDFUExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUException raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfDFUExceptionWrapper
 	{
 		return "ArrayOfDFUExceptionWrapper [" + "dFUException = " + local_dFUException + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDFUException();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUException();
 		if (this.local_dFUException!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException[this.local_dFUException.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException[this.local_dFUException.size()];
 			for ( int i = 0; i < this.local_dFUException.size(); i++)
 			{
 				arr[i] = this.local_dFUException.get(i) .getRaw();

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfPhysicalFileStructWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.924Z
+ * TimeStamp: 2020-09-23T03:42:02.544Z
  */
 public class ArrayOfPhysicalFileStructWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfPhysicalFileStructWrapper
 
 	public ArrayOfPhysicalFileStructWrapper() {}
 
-	public ArrayOfPhysicalFileStructWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct arrayofphysicalfilestruct)
+	public ArrayOfPhysicalFileStructWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct arrayofphysicalfilestruct)
 	{
 		copy( arrayofphysicalfilestruct );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfPhysicalFileStructWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfPhysicalFileStructWrapper
 	{
 		return "ArrayOfPhysicalFileStructWrapper [" + "physicalFileStruct = " + local_physicalFileStruct + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfPhysicalFileStruct();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct();
 		if (this.local_physicalFileStruct!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.PhysicalFileStruct[this.local_physicalFileStruct.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.PhysicalFileStruct[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.PhysicalFileStruct[this.local_physicalFileStruct.size()];
 			for ( int i = 0; i < this.local_physicalFileStruct.size(); i++)
 			{
 				arr[i] = this.local_physicalFileStruct.get(i) .getRaw();

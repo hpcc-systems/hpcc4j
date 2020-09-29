@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DataTypeParamWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.312Z
+ * TimeStamp: 2020-09-23T04:21:56.891Z
  */
 public class DataTypeParamWrapper
 {
@@ -32,7 +32,7 @@ public class DataTypeParamWrapper
 
 	public DataTypeParamWrapper() {}
 
-	public DataTypeParamWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam datatypeparam)
+	public DataTypeParamWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam datatypeparam)
 	{
 		copy( datatypeparam );
 	}
@@ -43,7 +43,7 @@ public class DataTypeParamWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class DataTypeParamWrapper
 	{
 		return "DataTypeParamWrapper [" + "name = " + local_name + ", " + "values = " + local_values + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataTypeParam();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam();
 		raw.setName( local_name);
 		return raw;
 	}

@@ -3,11 +3,11 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfDebugValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.DebugValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUCreateAndUpdate;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfDebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
 
@@ -382,9 +382,9 @@ public class WUCreateAndUpdateWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUCreateAndUpdate getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate getRaw()
     {
-        return getRawVersion1_75();
+        return getRawLatestVersion();
     }
 
     /**
@@ -610,13 +610,13 @@ public class WUCreateAndUpdateWrapper
     }
 
     /**
-     * Gets the raw version 1 75.
+     * Gets the raw version 1 79.
      *
-     * @return the raw version 1 75
+     * @return the raw version 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUCreateAndUpdate getRawVersion1_75()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate getRawLatestVersion()
     {
-        WUCreateAndUpdate request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUCreateAndUpdate();
+        WUCreateAndUpdate request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate();
 
         if (_protected) request.setProtected(_protected);
         if (action != null) request.setAction(action);
@@ -719,7 +719,7 @@ public class WUCreateAndUpdateWrapper
      * @param debugValues
      *            the debugValues to set
      */
-    public void setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.DebugValue[] debugValues)
+    public void setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue[] debugValues)
     {
         this.debugValues.clear();
         if (debugValues == null)

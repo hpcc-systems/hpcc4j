@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SubmitDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SubmitDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SubmitDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.042Z
+ * TimeStamp: 2020-09-23T03:42:02.643Z
  */
 public class SubmitDFUWorkunitWrapper
 {
@@ -31,7 +31,7 @@ public class SubmitDFUWorkunitWrapper
 
 	public SubmitDFUWorkunitWrapper() {}
 
-	public SubmitDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SubmitDFUWorkunit submitdfuworkunit)
+	public SubmitDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SubmitDFUWorkunit submitdfuworkunit)
 	{
 		copy( submitdfuworkunit );
 	}
@@ -41,7 +41,7 @@ public class SubmitDFUWorkunitWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SubmitDFUWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SubmitDFUWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class SubmitDFUWorkunitWrapper
 	{
 		return "SubmitDFUWorkunitWrapper [" + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SubmitDFUWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SubmitDFUWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SubmitDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.SubmitDFUWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SubmitDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.SubmitDFUWorkunit();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

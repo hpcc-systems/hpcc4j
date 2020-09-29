@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DataSourceInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.389Z
+ * TimeStamp: 2020-09-23T04:21:56.889Z
  */
 public class DataSourceInfoWrapper
 {
@@ -34,7 +34,7 @@ public class DataSourceInfoWrapper
 
 	public DataSourceInfoWrapper() {}
 
-	public DataSourceInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo datasourceinfo)
+	public DataSourceInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo datasourceinfo)
 	{
 		copy( datasourceinfo );
 	}
@@ -47,7 +47,7 @@ public class DataSourceInfoWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class DataSourceInfoWrapper
 	{
 		return "DataSourceInfoWrapper [" + "sprayedFileName = " + local_sprayedFileName + ", " + "landingZoneIP = " + local_landingZoneIP + ", " + "landingZonePath = " + local_landingZonePath + ", " + "landingZoneFileName = " + local_landingZoneFileName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataSourceInfo();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo();
 		raw.setSprayedFileName( local_sprayedFileName);
 		raw.setLandingZoneIP( local_landingZoneIP);
 		raw.setLandingZonePath( local_landingZonePath);

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDaliWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.286Z
+ * TimeStamp: 2020-09-23T21:40:52.940Z
  */
 public class TpDaliWrapper
 {
@@ -40,7 +40,7 @@ public class TpDaliWrapper
 
 	public TpDaliWrapper() {}
 
-	public TpDaliWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali tpdali)
+	public TpDaliWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali tpdali)
 	{
 		copy( tpdali );
 	}
@@ -59,7 +59,7 @@ public class TpDaliWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali raw )
 	{
 		if (raw == null)
 			return;
@@ -83,9 +83,9 @@ public class TpDaliWrapper
 	{
 		return "TpDaliWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "backupComputer = " + local_backupComputer + ", " + "backupDirectory = " + local_backupDirectory + ", " + "type = " + local_type + ", " + "path = " + local_path + ", " + "logDirectory = " + local_logDirectory + ", " + "auditLogDirectory = " + local_auditLogDirectory + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

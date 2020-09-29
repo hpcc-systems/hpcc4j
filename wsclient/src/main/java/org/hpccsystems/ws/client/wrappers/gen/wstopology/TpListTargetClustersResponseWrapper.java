@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpListTargetClustersResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.351Z
+ * TimeStamp: 2020-09-23T21:40:52.965Z
  */
 public class TpListTargetClustersResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpListTargetClustersResponseWrapper
 
 	public TpListTargetClustersResponseWrapper() {}
 
-	public TpListTargetClustersResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse tplisttargetclustersresponse)
+	public TpListTargetClustersResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersResponse tplisttargetclustersresponse)
 	{
 		copy( tplisttargetclustersresponse );
 	}
@@ -43,7 +43,7 @@ public class TpListTargetClustersResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpListTargetClustersResponseWrapper
 	{
 		return "TpListTargetClustersResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "targetClusters = " + local_targetClusters + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersResponse();
 		return raw;
 	}
 

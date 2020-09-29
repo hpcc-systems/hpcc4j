@@ -45,7 +45,6 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeReque
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.UpdateAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.WsAttributesStub;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;

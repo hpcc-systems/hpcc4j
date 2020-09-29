@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpQueueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpQueue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.292Z
+ * TimeStamp: 2020-09-23T21:40:52.919Z
  */
 public class ArrayOfTpQueueWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpQueueWrapper
 
 	public ArrayOfTpQueueWrapper() {}
 
-	public ArrayOfTpQueueWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpQueue arrayoftpqueue)
+	public ArrayOfTpQueueWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue arrayoftpqueue)
 	{
 		copy( arrayoftpqueue );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpQueueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpQueue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpQueueWrapper
 	{
 		return "ArrayOfTpQueueWrapper [" + "tpQueue = " + local_tpQueue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpQueue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpQueue raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpQueue();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue();
 		if (this.local_tpQueue!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue[this.local_tpQueue.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue[this.local_tpQueue.size()];
 			for ( int i = 0; i < this.local_tpQueue.size(); i++)
 			{
 				arr[i] = this.local_tpQueue.get(i) .getRaw();

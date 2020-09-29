@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpClusterNameTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpClusterNameType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.421Z
+ * TimeStamp: 2020-09-23T21:40:52.901Z
  */
 public class ArrayOfTpClusterNameTypeWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpClusterNameTypeWrapper
 
 	public ArrayOfTpClusterNameTypeWrapper() {}
 
-	public ArrayOfTpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpClusterNameType arrayoftpclusternametype)
+	public ArrayOfTpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType arrayoftpclusternametype)
 	{
 		copy( arrayoftpclusternametype );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpClusterNameTypeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpClusterNameType raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpClusterNameTypeWrapper
 	{
 		return "ArrayOfTpClusterNameTypeWrapper [" + "tpClusterNameType = " + local_tpClusterNameType + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpClusterNameType getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpClusterNameType();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType();
 		if (this.local_tpClusterNameType!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType[this.local_tpClusterNameType.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType[this.local_tpClusterNameType.size()];
 			for ( int i = 0; i < this.local_tpClusterNameType.size(); i++)
 			{
 				arr[i] = this.local_tpClusterNameType.get(i) .getRaw();

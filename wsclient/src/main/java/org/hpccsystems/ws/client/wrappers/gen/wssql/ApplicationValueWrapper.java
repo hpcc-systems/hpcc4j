@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ApplicationValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.433Z
+ * TimeStamp: 2020-09-23T04:21:56.868Z
  */
 public class ApplicationValueWrapper
 {
@@ -33,7 +33,7 @@ public class ApplicationValueWrapper
 
 	public ApplicationValueWrapper() {}
 
-	public ApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue applicationvalue)
+	public ApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue applicationvalue)
 	{
 		copy( applicationvalue );
 	}
@@ -45,7 +45,7 @@ public class ApplicationValueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class ApplicationValueWrapper
 	{
 		return "ApplicationValueWrapper [" + "application = " + local_application + ", " + "name = " + local_name + ", " + "value = " + local_value + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ApplicationValue();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue();
 		raw.setApplication( local_application);
 		raw.setName( local_name);
 		raw.setValue( local_value);

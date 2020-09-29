@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGroupQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.385Z
+ * TimeStamp: 2020-09-23T21:40:52.961Z
  */
 public class TpGroupQueryRequestWrapper
 {
@@ -31,7 +31,7 @@ public class TpGroupQueryRequestWrapper
 
 	public TpGroupQueryRequestWrapper() {}
 
-	public TpGroupQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryRequest tpgroupqueryrequest)
+	public TpGroupQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest tpgroupqueryrequest)
 	{
 		copy( tpgroupqueryrequest );
 	}
@@ -41,7 +41,7 @@ public class TpGroupQueryRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class TpGroupQueryRequestWrapper
 	{
 		return "TpGroupQueryRequestWrapper [" + "kind = " + local_kind + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroupQueryRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest();
 		raw.setKind( local_kind);
 		return raw;
 	}

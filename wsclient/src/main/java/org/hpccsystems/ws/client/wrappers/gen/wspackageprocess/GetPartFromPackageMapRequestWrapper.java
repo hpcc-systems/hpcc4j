@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPartFromPackageMapRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.396Z
+ * TimeStamp: 2020-09-23T03:53:35.699Z
  */
 public class GetPartFromPackageMapRequestWrapper
 {
@@ -34,7 +34,7 @@ public class GetPartFromPackageMapRequestWrapper
 
 	public GetPartFromPackageMapRequestWrapper() {}
 
-	public GetPartFromPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest getpartfrompackagemaprequest)
+	public GetPartFromPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest getpartfrompackagemaprequest)
 	{
 		copy( getpartfrompackagemaprequest );
 	}
@@ -47,7 +47,7 @@ public class GetPartFromPackageMapRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class GetPartFromPackageMapRequestWrapper
 	{
 		return "GetPartFromPackageMapRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPartFromPackageMapRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest();
 		raw.setTarget( local_target);
 		raw.setPackageMap( local_packageMap);
 		raw.setGlobalScope( local_globalScope);

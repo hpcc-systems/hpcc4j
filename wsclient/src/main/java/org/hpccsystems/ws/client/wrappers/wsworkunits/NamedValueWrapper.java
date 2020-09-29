@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.NamedValue;
 
 public class NamedValueWrapper
 {
@@ -97,13 +97,13 @@ public class NamedValueWrapper
     }
 
     /**
-     * Gets the 1 75.
+     * Gets the 1 79.
      *
-     * @return the 1 75
+     * @return the 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue get1_75()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.NamedValue get1_79()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue nv = new NamedValue();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.NamedValue nv = new NamedValue();
         nv.setName(name);
         nv.setValue(value);
         return nv;

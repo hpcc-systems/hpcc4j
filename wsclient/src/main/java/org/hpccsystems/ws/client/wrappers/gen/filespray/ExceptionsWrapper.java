@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.974Z
+ * TimeStamp: 2020-09-23T03:42:02.604Z
  */
 public class ExceptionsWrapper
 {
@@ -31,7 +31,7 @@ public class ExceptionsWrapper
 
 	public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions exceptions)
+	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Exceptions exceptions)
 	{
 		copy( exceptions );
 	}
@@ -41,7 +41,7 @@ public class ExceptionsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Exceptions raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class ExceptionsWrapper
 	{
 		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Exceptions getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Exceptions();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Exceptions();
 		return raw;
 	}
 

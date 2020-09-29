@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.008Z
+ * TimeStamp: 2020-09-23T03:42:02.553Z
  */
 public class CreateDFUWorkunitWrapper
 {
@@ -31,7 +31,7 @@ public class CreateDFUWorkunitWrapper
 
 	public CreateDFUWorkunitWrapper() {}
 
-	public CreateDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit createdfuworkunit)
+	public CreateDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit createdfuworkunit)
 	{
 		copy( createdfuworkunit );
 	}
@@ -41,7 +41,7 @@ public class CreateDFUWorkunitWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class CreateDFUWorkunitWrapper
 	{
 		return "CreateDFUWorkunitWrapper [" + "dFUServerQueue = " + local_dFUServerQueue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit();
 		raw.setDFUServerQueue( local_dFUServerQueue);
 		return raw;
 	}

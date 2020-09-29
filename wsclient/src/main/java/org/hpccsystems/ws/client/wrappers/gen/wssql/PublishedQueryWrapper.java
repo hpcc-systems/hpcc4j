@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PublishedQueryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.337Z
+ * TimeStamp: 2020-09-23T04:21:56.957Z
  */
 public class PublishedQueryWrapper
 {
@@ -35,7 +35,7 @@ public class PublishedQueryWrapper
 
 	public PublishedQueryWrapper() {}
 
-	public PublishedQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery publishedquery)
+	public PublishedQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery publishedquery)
 	{
 		copy( publishedquery );
 	}
@@ -49,7 +49,7 @@ public class PublishedQueryWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class PublishedQueryWrapper
 	{
 		return "PublishedQueryWrapper [" + "name = " + local_name + ", " + "id = " + local_id + ", " + "wuid = " + local_wuid + ", " + "suspended = " + local_suspended + ", " + "signature = " + local_signature + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PublishedQuery();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery();
 		raw.setName( local_name);
 		raw.setId( local_id);
 		raw.setWuid( local_wuid);

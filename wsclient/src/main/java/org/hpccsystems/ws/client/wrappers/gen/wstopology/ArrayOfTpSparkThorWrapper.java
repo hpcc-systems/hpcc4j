@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpSparkThorWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSparkThor
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.395Z
+ * TimeStamp: 2020-09-23T21:40:52.921Z
  */
 public class ArrayOfTpSparkThorWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpSparkThorWrapper
 
 	public ArrayOfTpSparkThorWrapper() {}
 
-	public ArrayOfTpSparkThorWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSparkThor arrayoftpsparkthor)
+	public ArrayOfTpSparkThorWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor arrayoftpsparkthor)
 	{
 		copy( arrayoftpsparkthor );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpSparkThorWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSparkThor raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpSparkThorWrapper
 	{
 		return "ArrayOfTpSparkThorWrapper [" + "tpSparkThor = " + local_tpSparkThor + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSparkThor getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSparkThor raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpSparkThor();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor();
 		if (this.local_tpSparkThor!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor[this.local_tpSparkThor.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor[this.local_tpSparkThor.size()];
 			for ( int i = 0; i < this.local_tpSparkThor.size(); i++)
 			{
 				arr[i] = this.local_tpSparkThor.get(i) .getRaw();

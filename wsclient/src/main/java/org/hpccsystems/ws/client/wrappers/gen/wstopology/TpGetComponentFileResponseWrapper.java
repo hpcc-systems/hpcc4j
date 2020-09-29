@@ -22,9 +22,9 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetComponentFileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.356Z
+ * TimeStamp: 2020-09-23T21:40:52.957Z
  */
 public class TpGetComponentFileResponseWrapper
 {
@@ -33,7 +33,7 @@ public class TpGetComponentFileResponseWrapper
 
 	public TpGetComponentFileResponseWrapper() {}
 
-	public TpGetComponentFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse tpgetcomponentfileresponse)
+	public TpGetComponentFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse tpgetcomponentfileresponse)
 	{
 		copy( tpgetcomponentfileresponse );
 	}
@@ -44,7 +44,7 @@ public class TpGetComponentFileResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpGetComponentFileResponseWrapper
 	{
 		return "TpGetComponentFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "fileContents = " + local_fileContents + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse();
 		raw.setFileContents( local_fileContents);
 		return raw;
 	}

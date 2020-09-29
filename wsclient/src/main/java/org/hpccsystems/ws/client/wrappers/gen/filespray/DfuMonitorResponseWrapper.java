@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DfuMonitorResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.993Z
+ * TimeStamp: 2020-09-23T03:42:02.570Z
  */
 public class DfuMonitorResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DfuMonitorResponseWrapper
 
 	public DfuMonitorResponseWrapper() {}
 
-	public DfuMonitorResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorResponse dfumonitorresponse)
+	public DfuMonitorResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorResponse dfumonitorresponse)
 	{
 		copy( dfumonitorresponse );
 	}
@@ -43,7 +43,7 @@ public class DfuMonitorResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class DfuMonitorResponseWrapper
 	{
 		return "DfuMonitorResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DfuMonitorResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DfuMonitorResponse();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

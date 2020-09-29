@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.973Z
+ * TimeStamp: 2020-09-23T03:42:02.611Z
  */
 public class GetDFUExceptionsWrapper
 {
@@ -31,7 +31,7 @@ public class GetDFUExceptionsWrapper
 
 	public GetDFUExceptionsWrapper() {}
 
-	public GetDFUExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptions getdfuexceptions)
+	public GetDFUExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptions getdfuexceptions)
 	{
 		copy( getdfuexceptions );
 	}
@@ -41,7 +41,7 @@ public class GetDFUExceptionsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptions raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptions raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class GetDFUExceptionsWrapper
 	{
 		return "GetDFUExceptionsWrapper [" + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptions getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptions getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptions raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUExceptions();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptions raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptions();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

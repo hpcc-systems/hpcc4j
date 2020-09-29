@@ -20,7 +20,7 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUFilePartsOnClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePartsOnCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2019-08-20T13:59:09.351Z
  */
@@ -44,7 +44,7 @@ public class DFUFilePartsOnClusterWrapper
      * @param dfufilepartsoncluster
      *            the dfufilepartsoncluster
      */
-    public DFUFilePartsOnClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster dfufilepartsoncluster)
+    public DFUFilePartsOnClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePartsOnCluster dfufilepartsoncluster)
     {
         copy( dfufilepartsoncluster );
     }
@@ -81,7 +81,7 @@ public class DFUFilePartsOnClusterWrapper
      * @param raw
      *            the raw
      */
-    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster raw )
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePartsOnCluster raw )
     {
         if (raw == null)
             return;
@@ -108,9 +108,9 @@ public class DFUFilePartsOnClusterWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePartsOnCluster getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster();
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePartsOnCluster raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePartsOnCluster();
         raw.setCluster( cluster);
         raw.setBaseDir( baseDir);
         raw.setReplicateDir( replicateDir);

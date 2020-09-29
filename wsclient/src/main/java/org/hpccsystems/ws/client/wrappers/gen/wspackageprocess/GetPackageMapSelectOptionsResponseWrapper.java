@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPackageMapSelectOptionsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.429Z
+ * TimeStamp: 2020-09-23T03:53:35.695Z
  */
 public class GetPackageMapSelectOptionsResponseWrapper
 {
@@ -37,7 +37,7 @@ public class GetPackageMapSelectOptionsResponseWrapper
 
 	public GetPackageMapSelectOptionsResponseWrapper() {}
 
-	public GetPackageMapSelectOptionsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse getpackagemapselectoptionsresponse)
+	public GetPackageMapSelectOptionsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsResponse getpackagemapselectoptionsresponse)
 	{
 		copy( getpackagemapselectoptionsresponse );
 	}
@@ -50,7 +50,7 @@ public class GetPackageMapSelectOptionsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -76,9 +76,9 @@ public class GetPackageMapSelectOptionsResponseWrapper
 	{
 		return "GetPackageMapSelectOptionsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "targets = " + local_targets + ", " + "processFilters = " + local_processFilters + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapSelectOptionsResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsResponse();
 		if (this.local_processFilters!= null)
 		{
 			EspStringArray arr = new EspStringArray();

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpXMLFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.353Z
+ * TimeStamp: 2020-09-23T21:40:53.016Z
  */
 public class TpXMLFileRequestWrapper
 {
@@ -31,7 +31,7 @@ public class TpXMLFileRequestWrapper
 
 	public TpXMLFileRequestWrapper() {}
 
-	public TpXMLFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileRequest tpxmlfilerequest)
+	public TpXMLFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest tpxmlfilerequest)
 	{
 		copy( tpxmlfilerequest );
 	}
@@ -41,7 +41,7 @@ public class TpXMLFileRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class TpXMLFileRequestWrapper
 	{
 		return "TpXMLFileRequestWrapper [" + "name = " + local_name + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpXMLFileRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest();
 		raw.setName( local_name);
 		return raw;
 	}

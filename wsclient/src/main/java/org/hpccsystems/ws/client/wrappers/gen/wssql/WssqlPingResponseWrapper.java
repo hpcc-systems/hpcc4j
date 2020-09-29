@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WssqlPingResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.WssqlPingResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.WssqlPingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2019-08-13T16:31:16.645Z
+ * TimeStamp: 2020-09-23T04:21:56.975Z
  */
 public class WssqlPingResponseWrapper
 {
 
 	public WssqlPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.WssqlPingResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.WssqlPingResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.WssqlPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.WssqlPingResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.WssqlPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.WssqlPingResponse();
 		return raw;
 	}
 

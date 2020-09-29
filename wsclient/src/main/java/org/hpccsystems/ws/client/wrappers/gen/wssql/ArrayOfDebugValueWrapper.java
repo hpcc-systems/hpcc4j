@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDebugValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfDebugValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.382Z
+ * TimeStamp: 2020-09-23T04:21:56.870Z
  */
 public class ArrayOfDebugValueWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfDebugValueWrapper
 
 	public ArrayOfDebugValueWrapper() {}
 
-	public ArrayOfDebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue arrayofdebugvalue)
+	public ArrayOfDebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfDebugValue arrayofdebugvalue)
 	{
 		copy( arrayofdebugvalue );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfDebugValueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfDebugValue raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfDebugValueWrapper
 	{
 		return "ArrayOfDebugValueWrapper [" + "debugValue = " + local_debugValue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfDebugValue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfDebugValue();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfDebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfDebugValue();
 		if (this.local_debugValue!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DebugValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DebugValue[this.local_debugValue.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue[this.local_debugValue.size()];
 			for ( int i = 0; i < this.local_debugValue.size(); i++)
 			{
 				arr[i] = this.local_debugValue.get(i) .getRaw();

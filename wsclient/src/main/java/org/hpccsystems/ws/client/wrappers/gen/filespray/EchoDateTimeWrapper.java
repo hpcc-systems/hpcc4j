@@ -22,9 +22,9 @@ import java.util.Calendar;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoDateTimeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTime
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.008Z
+ * TimeStamp: 2020-09-23T03:42:02.601Z
  */
 public class EchoDateTimeWrapper
 {
@@ -32,7 +32,7 @@ public class EchoDateTimeWrapper
 
 	public EchoDateTimeWrapper() {}
 
-	public EchoDateTimeWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTime echodatetime)
+	public EchoDateTimeWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime echodatetime)
 	{
 		copy( echodatetime );
 	}
@@ -42,7 +42,7 @@ public class EchoDateTimeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTime raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class EchoDateTimeWrapper
 	{
 		return "EchoDateTimeWrapper [" + "dt = " + local_dt + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTime getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTime raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTime();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime();
 		raw.setDt( local_dt);
 		return raw;
 	}

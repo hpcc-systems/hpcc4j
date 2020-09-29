@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpEspServicePluginWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.267Z
+ * TimeStamp: 2020-09-23T21:40:52.953Z
  */
 public class TpEspServicePluginWrapper
 {
@@ -34,7 +34,7 @@ public class TpEspServicePluginWrapper
 
 	public TpEspServicePluginWrapper() {}
 
-	public TpEspServicePluginWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin tpespserviceplugin)
+	public TpEspServicePluginWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin tpespserviceplugin)
 	{
 		copy( tpespserviceplugin );
 	}
@@ -47,7 +47,7 @@ public class TpEspServicePluginWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class TpEspServicePluginWrapper
 	{
 		return "TpEspServicePluginWrapper [" + "shortName = " + local_shortName + ", " + "longName = " + local_longName + ", " + "folderName = " + local_folderName + ", " + "widgetName = " + local_widgetName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin();
 		raw.setShortName( local_shortName);
 		raw.setLongName( local_longName);
 		raw.setFolderName( local_folderName);

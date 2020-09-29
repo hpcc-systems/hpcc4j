@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ListPackagesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.547Z
+ * TimeStamp: 2020-09-23T03:53:35.707Z
  */
 public class ListPackagesResponseWrapper
 {
@@ -33,7 +33,7 @@ public class ListPackagesResponseWrapper
 
 	public ListPackagesResponseWrapper() {}
 
-	public ListPackagesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse listpackagesresponse)
+	public ListPackagesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse listpackagesresponse)
 	{
 		copy( listpackagesresponse );
 	}
@@ -45,7 +45,7 @@ public class ListPackagesResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class ListPackagesResponseWrapper
 	{
 		return "ListPackagesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "packageMapList = " + local_packageMapList + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackagesResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse();
 		return raw;
 	}
 

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DropZoneFilesRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFilesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.002Z
+ * TimeStamp: 2020-09-23T03:42:02.597Z
  */
 public class DropZoneFilesRequestWrapper
 {
@@ -37,7 +37,7 @@ public class DropZoneFilesRequestWrapper
 
 	public DropZoneFilesRequestWrapper() {}
 
-	public DropZoneFilesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest dropzonefilesrequest)
+	public DropZoneFilesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFilesRequest dropzonefilesrequest)
 	{
 		copy( dropzonefilesrequest );
 	}
@@ -53,7 +53,7 @@ public class DropZoneFilesRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFilesRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -73,9 +73,9 @@ public class DropZoneFilesRequestWrapper
 	{
 		return "DropZoneFilesRequestWrapper [" + "dropZoneName = " + local_dropZoneName + ", " + "netAddress = " + local_netAddress + ", " + "path = " + local_path + ", " + "oS = " + local_oS + ", " + "subfolder = " + local_subfolder + ", " + "eCLWatchVisibleOnly = " + local_eCLWatchVisibleOnly + ", " + "directoryOnly = " + local_directoryOnly + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFilesRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFilesRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFilesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFilesRequest();
 		raw.setDropZoneName( local_dropZoneName);
 		raw.setNetAddress( local_netAddress);
 		raw.setPath( local_path);

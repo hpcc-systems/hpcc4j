@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpBindingWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpBinding
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpBinding
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.337Z
+ * TimeStamp: 2020-09-23T21:40:52.899Z
  */
 public class ArrayOfTpBindingWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpBindingWrapper
 
 	public ArrayOfTpBindingWrapper() {}
 
-	public ArrayOfTpBindingWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpBinding arrayoftpbinding)
+	public ArrayOfTpBindingWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpBinding arrayoftpbinding)
 	{
 		copy( arrayoftpbinding );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpBindingWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpBinding raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpBinding raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpBindingWrapper
 	{
 		return "ArrayOfTpBindingWrapper [" + "tpBinding = " + local_tpBinding + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpBinding getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpBinding getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpBinding raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpBinding();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpBinding raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpBinding();
 		if (this.local_tpBinding!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding[this.local_tpBinding.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding[this.local_tpBinding.size()];
 			for ( int i = 0; i < this.local_tpBinding.size(); i++)
 			{
 				arr[i] = this.local_tpBinding.get(i) .getRaw();

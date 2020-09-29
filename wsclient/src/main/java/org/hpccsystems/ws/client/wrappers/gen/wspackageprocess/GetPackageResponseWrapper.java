@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.512Z
+ * TimeStamp: 2020-09-23T03:53:35.698Z
  */
 public class GetPackageResponseWrapper
 {
@@ -33,7 +33,7 @@ public class GetPackageResponseWrapper
 
 	public GetPackageResponseWrapper() {}
 
-	public GetPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse getpackageresponse)
+	public GetPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse getpackageresponse)
 	{
 		copy( getpackageresponse );
 	}
@@ -45,7 +45,7 @@ public class GetPackageResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class GetPackageResponseWrapper
 	{
 		return "GetPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "info = " + local_info + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse();
 		raw.setInfo( local_info);
 		return raw;
 	}
