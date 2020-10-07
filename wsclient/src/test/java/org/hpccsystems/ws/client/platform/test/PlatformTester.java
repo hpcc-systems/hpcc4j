@@ -348,12 +348,12 @@ public class PlatformTester
             connector.setVerbosemode(true);
             System.out.println("wsdfu ver: " + connector.getwsDFUClientClientVer());
             HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
-            if (v.major == 7 && v.minor == 0)
+            if (v.getMajor() == 7 && v.getMinor() == 0)
             {
                 System.out.println("Attempting file access on HPCC 7.0.x cluster...");
                 DFUFileAccessInfoWrapper a = wsDFUClient.getFileAccess(SecAccessType.Read, "benchmark::integer::2mb", "thor_160", 120, "random", true, true, true);
             }
-            else if (v.major == 7 && v.minor > 0)
+            else if (v.getMajor() == 7 && v.getMinor() > 0)
             {
                 System.out.println("Attempting file access on HPCC 7.0.x cluster...");
                 wsDFUClient.getFileAccess("benchmark::integer::2mb", "thor_160", 120, "random");

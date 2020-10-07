@@ -94,7 +94,7 @@ public class WsDFUClientStubWrapper
      */
     public boolean useVersion1_39()
     {
-        return platformVersion.major < 6 || platformVersion.major==7 && platformVersion.minor == 0;
+        return platformVersion.getMajor() < 6 || platformVersion.getMinor()==7 && platformVersion.getMinor() == 0;
     }
 
     /**
@@ -104,7 +104,7 @@ public class WsDFUClientStubWrapper
      */
     public boolean useVersion1_50()
     {
-        return platformVersion.major==7 && (platformVersion.minor == 1 || platformVersion.minor == 2);
+        return platformVersion.getMajor() == 7 && (platformVersion.getMinor() == 1 || platformVersion.getMinor() == 2);
     }
 
     /**
@@ -114,6 +114,6 @@ public class WsDFUClientStubWrapper
      */
     public boolean useVersion1_51()
     {
-        return platformVersion.major==7 && platformVersion.minor > 2;
+        return platformVersion.getMajor() == 7 && platformVersion.getMinor() > 2;
     }
 }
