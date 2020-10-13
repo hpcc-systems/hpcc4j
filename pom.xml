@@ -53,7 +53,7 @@
     <jsch.version>0.1.54</jsch.version>
     <commons-lang3.version>3.4</commons-lang3.version>
     <commons-io.version>2.4</commons-io.version>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <json.version>20180813</json.version>
     <log4j.version>2.13.2</log4j.version>
     <axis2.version>1.7.9</axis2.version>
