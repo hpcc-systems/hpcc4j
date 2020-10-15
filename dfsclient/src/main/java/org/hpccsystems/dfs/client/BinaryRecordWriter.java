@@ -302,6 +302,10 @@ public class BinaryRecordWriter implements IRecordWriter
                 {
                     value = ((BigInteger) fieldValue).longValue();
                 }
+                else if (fieldValue instanceof BigDecimal)
+                {
+                    value = ((BigDecimal) fieldValue).longValue();
+                }
                 else if (fieldValue instanceof Short)
                 {
                     value = ((Short) fieldValue).longValue();
