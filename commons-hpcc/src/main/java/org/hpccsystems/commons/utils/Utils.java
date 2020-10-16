@@ -14,11 +14,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 ############################################################################## */
 
-import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -632,5 +631,17 @@ public class Utils
     public static boolean isBooleanKeyWord(String str)
     {
         return BOOLEANPATTERN.matcher(str).matches();
+    }
+
+    /**
+     * Extracts raw (8 byte unsigned value) from Long type
+     *
+     * @param unsigned8 - 8 byte unsigned value stored in Long type
+     *
+     * @return  raw 8 byte unsigned value stored in BigInteger
+     */
+    public static BigInteger extractUnsigned8Val(long unsigned8)
+    {
+        return (BigInteger.valueOf((unsigned8 >> 32) & 0xffffffffL).shiftLeft(32)).add((BigInteger.valueOf(unsigned8 & 0xffffffffL)));
     }
 }

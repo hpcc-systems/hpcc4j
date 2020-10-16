@@ -320,7 +320,7 @@ public class BinaryRecordReader implements IRecordReader
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                     if (intValue < 0)
                     {
-                        messages.addMessage("Warning: Possible unsigned value overflow, ensure proper value interpretation. Field: '" + fd.getFieldName() + "'");
+                        messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary." );
                     }
                 }
                 else
