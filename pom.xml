@@ -38,7 +38,7 @@
     <sonatype.staging.autorelease>false</sonatype.staging.autorelease>
     <maven.gpg.version>1.6</maven.gpg.version>
     <maven.gpg.skip>true</maven.gpg.skip>
-    <maven.javadoc.version>3.1.0</maven.javadoc.version>
+    <maven.javadoc.version>3.2.0</maven.javadoc.version>
     <maven.source.version>2.2.1</maven.source.version>
     <maven.resources.version>3.0.2</maven.resources.version>
     <maven.clean.version>3.1.0</maven.clean.version>
@@ -285,9 +285,11 @@
             </execution>
           </executions>
           <configuration>
-                <source>8</source>
-                <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*</excludePackageNames>
-           </configuration>
+              <source>1.8</source>
+              <detectOfflineLinks>false</detectOfflineLinks>
+              <detectJavaApiLink>false</detectJavaApiLink>
+              <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*</excludePackageNames>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
