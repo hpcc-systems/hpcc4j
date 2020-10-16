@@ -175,7 +175,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      * Gets the latest WsWorkunits Stub.
      *
      * @return the latest
-     * @throws AxisFault
+     * @throws AxisFault axis fault exception
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub getLatestStub() throws AxisFault
     {

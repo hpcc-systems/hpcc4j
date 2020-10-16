@@ -515,11 +515,11 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
     /**
      * Create super file
-     * @param superfilename
-     * @param subfiles
-     * @return
-     * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @param superfilename super file name
+     * @param subfiles sub files
+     * @return Add to super file request object
+     * @throws Exception general exception
+     * @throws ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
     public AddtoSuperfileResponseWrapper createSuperfile(String superfilename, String[] subfiles) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -553,9 +553,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
     /**
      * @param request - User provided request wrapper
-     * @return
-     * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @return add to super file response object
+     * @throws Exception general exception
+     * @throws ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
     public AddtoSuperfileResponseWrapper addToSuperFile(AddtoSuperfileRequestWrapper request) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1193,8 +1193,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param pageStartFrom
      *            - the location to search from
      * @return - collection of files matching the logicalfilename passed in
-     * @throws Exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws Exception general exception
+     * @throws ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
     public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom) throws Exception, ArrayOfEspExceptionWrapper
     {

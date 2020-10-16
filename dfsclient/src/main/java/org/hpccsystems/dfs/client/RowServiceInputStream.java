@@ -192,14 +192,20 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * 
      * @param dp 
      *            the data partition to read  
-     * @param hpccPart
-     *            the remote file name and IP
      * @param rd
      *            the JSON definition for the read input and output
-     * @param limit
+     * @param pRd
+     *            the projected record definition
+     * @param connectTimeout
+     * 			  the connection timeout
+	 * @param limit
      *            the record limit to use for reading the dataset. -1 implies no limit
-     * @param createPrefetchThread 
+     * @param createPrefetchThread
      *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
+     * @param maxReadSizeInKB
+     *            max readsize in kilobytes
+     * @throws Exception
+     *            general exception
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB) throws Exception
     {
@@ -402,7 +408,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /**
      * This method now does nothing as handle use is now the default.
-     * @param v
+     * @param v boolean for Force Handle Use
      *
      * @deprecated
      */
