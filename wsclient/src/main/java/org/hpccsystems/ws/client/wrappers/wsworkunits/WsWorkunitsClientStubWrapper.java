@@ -68,7 +68,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         }
         else
         {
-            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.major));
+            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.getMajor()));
         }
     }
 
@@ -79,7 +79,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      */
     private boolean useVersion1_69()
     {
-        return platformVersion.major == 6 && platformVersion.minor >= 4;
+        return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
     }
 
     /**
@@ -89,7 +89,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      */
     private boolean useVersion1_58()
     {
-        return platformVersion.major == 6 && platformVersion.minor == 0;
+        return platformVersion.getMajor() == 6 && platformVersion.getMinor() == 0;
     }
 
     /**
@@ -99,7 +99,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      */
     private boolean useVersion1_62()
     {
-        return platformVersion.major == 6 && platformVersion.minor == 2;
+        return platformVersion.getMajor() == 6 && platformVersion.getMinor() == 2;
     }
 
     /**
@@ -109,7 +109,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      */
     private boolean useVersion1_75()
     {
-        return platformVersion.major == 7 && (platformVersion.minor == 0 || platformVersion.minor >= 2);
+        return platformVersion.getMajor() == 7 && (platformVersion.getMinor() == 0 || platformVersion.getMinor() >= 2);
     }
 
     /**

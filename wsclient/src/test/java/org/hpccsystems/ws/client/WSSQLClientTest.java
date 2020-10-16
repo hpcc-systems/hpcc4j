@@ -179,7 +179,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         {
             Version version = client.getVersion();
             Assert.assertNotNull(version);
-            Assert.assertNotEquals(0, version.major);
+            Assert.assertNotEquals(0, version.getMajor());
             System.out.println(version.toString());
         }
         catch (Exception e)
