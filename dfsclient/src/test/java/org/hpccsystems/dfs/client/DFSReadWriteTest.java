@@ -255,7 +255,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void numericOverflowTest() throws Exception
     {
         // Create a large record dataset
-        FieldDef[] fieldDefs = new FieldDef[15];
+        FieldDef[] fieldDefs = new FieldDef[16];
         fieldDefs[0] = new FieldDef("int1", FieldType.INTEGER, "INTEGER1", 1, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         fieldDefs[1] = new FieldDef("uint1", FieldType.INTEGER, "UNSIGNED1", 1, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         fieldDefs[2] = new FieldDef("int2", FieldType.INTEGER, "INTEGER2", 2, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
@@ -273,14 +273,15 @@ public class DFSReadWriteTest extends BaseRemoteTest
         fieldDefs[14] = new FieldDef("dec24", FieldType.DECIMAL, "DECIMAL24_12", 0, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         fieldDefs[14].setPrecision(24);
         fieldDefs[14].setScale(12);
-
+        fieldDefs[15] = new FieldDef("uint8", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
         
         BigInteger intDigits = BigInteger.valueOf(1234567890000000L);
         List<HPCCRecord> records = new ArrayList<HPCCRecord>();
         for (int i = 0; i < 10; i++)
         {
-            Object[] fields = new Object[15];
+            Object[] fields = new Object[16];
             // 1 Byte ints
             fields[0] = new Long(128);
             fields[1] = new Long(256);
@@ -310,6 +311,9 @@ public class DFSReadWriteTest extends BaseRemoteTest
             fields[13] = new Long(72057594037927936L);
 
             fields[14] = new BigDecimal(intDigits,0);
+            
+            fields[15]=  new BigDecimal("9223372036854775807");
+            
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
@@ -319,7 +323,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
 
-        Object[] expectedFields = new Object[15];
+        Object[] expectedFields = new Object[16];
         expectedFields[0] = new Long(-128);
         expectedFields[1] = new Long(0);
         
@@ -344,13 +348,20 @@ public class DFSReadWriteTest extends BaseRemoteTest
         BigDecimal expectedDecimal = new BigDecimal(BigInteger.valueOf(567890000000L),0);
         expectedFields[14] = expectedDecimal.setScale(12);
 
+        expectedFields[15]=  new BigDecimal("9223372036854775807");
+        
         HPCCRecord expectedRecord = new HPCCRecord(expectedFields, recordDef);
         records = readFile(file, connTO);
+
+        BigInteger UNSIGNED_LONG_MASK = BigInteger.ONE.shiftLeft(Long.SIZE).subtract(BigInteger.ONE);
         for (int i = 0; i < 10; i++)
         {
             HPCCRecord record = records.get(i);
             BigDecimal actDecimal = (BigDecimal) record.getField(14);
             record.setField(14,actDecimal.setScale(12));
+            
+            record.setField(15,new BigDecimal(BigInteger.valueOf(((Long)record.getField(15)).longValue())
+                    .and(UNSIGNED_LONG_MASK)));
 
             if (record.equals(expectedRecord) == false)
             {
