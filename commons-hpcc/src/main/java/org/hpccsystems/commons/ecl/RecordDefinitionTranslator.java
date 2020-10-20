@@ -258,6 +258,11 @@ public class RecordDefinitionTranslator
             }
             case BINARY:
             {
+                if (field.isFixed())
+                {
+                    return "DATA" + field.getDataLen();
+                }
+                
                 return "DATA";
             }
             case BOOLEAN:
