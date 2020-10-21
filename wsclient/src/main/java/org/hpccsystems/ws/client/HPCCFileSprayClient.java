@@ -1954,11 +1954,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *          - The net address of the dropzone
      * @param path
      *          - The full path to the dropzone on the filesystem ie /var/lib/HPCCSystems/mydropzone
-     * @param {string} [os]
+     * @param os
      *          - The os
-     * @return
-     * @throws RemoteException
-     * @throws EspSoapFault
+     * @return response from dfu workunit
+     * @throws RemoteException remote exception
+     * @throws EspSoapFault esp soap exception
      */
     public DFUWorkunitsActionResponseWrapper deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
     {
@@ -1988,8 +1988,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite      - Overwrite if targetfilename already exists
      * @return               - The resulting DFU workunit
      *                         Can be used to track progress and status via getDFUWorkunit(String) or getDfuProgress
-     * @throws Exception 
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws Exception general exception
+     * @throws ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
     public String renameLogicalFile(String sourceFileName, String targetFilename, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {

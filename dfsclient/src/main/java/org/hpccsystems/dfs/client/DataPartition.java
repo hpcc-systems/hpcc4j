@@ -303,7 +303,8 @@ public class DataPartition implements Serializable
     
     /**
      * Set the filter object to select specific rows.
-     * 
+     *
+     * @param filter file filter 
      * @return the partition
      */
     public DataPartition setFilter(FileFilter filter)

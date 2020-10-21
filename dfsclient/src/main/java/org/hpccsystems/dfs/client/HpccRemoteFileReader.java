@@ -67,8 +67,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the IRecordBuilder used to construct records
      * @param connectTimeout 
      *            the connection timeout in seconds, -1 for default
-     * @param projectedRD
-     *            the requested record format
      * @throws Exception
      *             the exception
      */
@@ -91,7 +89,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
      * @throws Exception
-     *             the exception
+     *            general exception
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit) throws Exception
     {
@@ -107,8 +105,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the record defintion for the dataset
      * @param recBuilder
      *            the IRecordBuilder used to construct records
-     * @param projectedRD
-     *            the requested record format
      * @param connectTimeout 
      *            the connection timeout in seconds, -1 for default
      * @param limit 
@@ -117,6 +113,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the input stream should create and manage prefetching on its own thread. If false prefetch needs to be called on another thread periodically.
      * @param readSizeKB 
      *            read request size in KB, -1 specifies use default value
+     * @throws Exception
+     * 			  general exception
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB) throws Exception
     {
@@ -260,8 +258,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     /**
      * Reports summary of messages generated during read operation.
      *
-     * @throws Exception
-     *             the exception
      */
     public void report()
     {

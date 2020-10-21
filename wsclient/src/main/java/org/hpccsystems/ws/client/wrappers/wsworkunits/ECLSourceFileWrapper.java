@@ -303,7 +303,7 @@ public class ECLSourceFileWrapper
     /**
      * Sets the ECL source files.
      *
-     * @param eclSourceFiles
+     * @param sourceFiles
      *            the new ECL source files
      */
     public void setECLSourceFiles(ArrayOfECLSourceFile sourceFiles)
@@ -339,7 +339,7 @@ public class ECLSourceFileWrapper
     /**
      * Sets the ECL source files.
      *
-     * @param eclSourceFiles
+     * @param sourceFiles
      *            the new ECL source files
      */
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfECLSourceFile sourceFiles)
@@ -357,7 +357,7 @@ public class ECLSourceFileWrapper
     /**
      * Sets the ECL source files.
      *
-     * @param eclSourceFiles
+     * @param sourceFiles
      *            the new ECL source files
      */
     public void setECLSourceFiles(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfECLSourceFile sourceFiles)
