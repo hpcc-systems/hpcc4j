@@ -100,7 +100,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      */
     private boolean useVersion1_69()
     {
-        return platformVersion.major == 6 && platformVersion.minor >= 4;
+        return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
     }
     /**
      * Use version 1 79.
@@ -109,7 +109,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      */
     private boolean useVersion1_79()
     {
-        return platformVersion.major == 7 && (platformVersion.minor == 0 || platformVersion.minor >= 2);
+        return platformVersion.getMajor() == 7 && (platformVersion.getMinor() == 0 || platformVersion.getMinor() >= 2);
     }
 
     /**
