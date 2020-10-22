@@ -125,6 +125,7 @@ public class HPCCRemoteFileWriter<T>
      */
     public void close() throws Exception
     {
+        this.report();
         this.binaryRecordWriter.finalize();
     }
 
@@ -182,4 +183,32 @@ public class HPCCRemoteFileWriter<T>
         return this.binaryRecordWriter.getRemainingBufferCapacity();
     }
 
+    public int getRemoteWriteMessageCount()
+    {
+        int count = 0;
+        if (this.binaryRecordWriter != null)
+            count = this.binaryRecordWriter.getStreamMessageCount();
+
+        return count;
+    }
+
+    public String getRemoteWriteMessages()
+    {
+        String report = "";
+        if (this.binaryRecordWriter != null)
+            report = this.binaryRecordWriter.getStreamMessages();
+
+        return report;
+    }
+    
+    /**
+     * Reports summary of messages generated during write operation.
+     */
+    public void report()
+    {
+        if (getRemoteWriteMessageCount() > 0)
+        {
+            log.warn(getRemoteWriteMessages());
+        }
+    }
 }

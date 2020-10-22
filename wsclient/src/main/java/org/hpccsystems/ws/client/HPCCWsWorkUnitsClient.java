@@ -1009,19 +1009,22 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
     private boolean compatibilityCheck(Version input)
     {
-        if (targetVersion == null || input == null) return false;
+        if (targetVersion == null || input == null)
+            return false;
 
-        if (targetVersion.major > input.major)
+        if (targetVersion.getMajor() > input.getMajor())
             return true;
-        else if (targetVersion.major < input.major) return false;
+        else if (targetVersion.getMajor() < input.getMajor())
+            return false;
 
-        if (targetVersion.minor > input.minor)
+        if (targetVersion.getMinor() > input.getMinor())
             return true;
-        else if (targetVersion.minor < input.minor) return false;
+        else if (targetVersion.getMinor() < input.getMinor())
+            return false;
 
-        if (targetVersion.point > input.point)
+        if (targetVersion.getPoint() > input.getPoint())
             return true;
-        else if (targetVersion.point < input.point)
+        else if (targetVersion.getPoint() < input.getPoint())
             return false;
         else
             return true;

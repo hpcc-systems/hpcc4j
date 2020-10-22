@@ -454,7 +454,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
                 if (resp != null)
                 {
                     version = new Version(resp.getFullVersion());
-                    if (version != null && version.major != 0) success = true;
+                    if (version != null && version.getMajor() != 0)
+                        success = true;
                 }
             }
             catch (Exception e)

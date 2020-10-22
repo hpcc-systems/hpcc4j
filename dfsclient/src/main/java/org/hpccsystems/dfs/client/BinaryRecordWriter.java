@@ -53,6 +53,18 @@ public class BinaryRecordWriter implements IRecordWriter
     private long                bytesWritten        = 0;
     private IRecordAccessor     rootRecordAccessor  = null;
 
+    private StreamOperationMessages  messages = new StreamOperationMessages();
+
+    public String getStreamMessages()
+    {
+        return messages.getMessagesSummary();
+    }
+
+    public int getStreamMessageCount()
+    {
+        return messages.getTotalMessageCount();
+    }
+
     /**
      * BinaryRecordWriter Initializes writing procedure, and converts the provided Schema to a SparkField stucture.
      *
@@ -266,10 +278,39 @@ public class BinaryRecordWriter implements IRecordWriter
         {
             case BINARY:
             {
-                byte[] data = fieldValue==null?new byte[0]:(byte[]) fieldValue;
-                long dataSize = data.length;
-                writeUnsigned(dataSize);
-                writeByteArray(data);
+                byte[] data = fieldValue == null ? new byte[0] : (byte[]) fieldValue;
+                if (fd.isFixed())
+                {
+                    int bytesToWrite = data.length;
+                    if (bytesToWrite > fd.getDataLen())
+                    {
+                        messages.addMessage("Warning: Potential truncation of binary data for field: '" + fd.getFieldName() + "'");
+                        bytesToWrite = (int) fd.getDataLen();
+                    }
+
+                    writeByteArray(data, 0, bytesToWrite);
+
+                    // Fill in remaining length with 0
+                    int numFillBytes = (int) fd.getDataLen() - bytesToWrite;
+                    while (numFillBytes > 0)
+                    {
+                        int fillLength = numFillBytes;
+                        if (fillLength > SCRATCH_BUFFER_SIZE)
+                        {
+                            fillLength = SCRATCH_BUFFER_SIZE;
+                        }
+
+                        Arrays.fill(scratchBuffer, 0, fillLength, (byte) '\0');
+                        writeByteArray(scratchBuffer, 0, fillLength);
+                        numFillBytes -= fillLength;
+                    }
+                }
+                else
+                {
+                    long dataSize = data.length;
+                    writeUnsigned(dataSize);
+                    writeByteArray(data);
+                }
                 break;
             }
             case BOOLEAN:
@@ -301,6 +342,10 @@ public class BinaryRecordWriter implements IRecordWriter
                 else if (fieldValue instanceof BigInteger)
                 {
                     value = ((BigInteger) fieldValue).longValue();
+                }
+                else if (fieldValue instanceof BigDecimal)
+                {
+                    value = ((BigDecimal) fieldValue).longValue();
                 }
                 else if (fieldValue instanceof Short)
                 {
@@ -592,8 +637,15 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case BINARY:
             {
-                byte[] data = (byte[]) fieldValue;
-                return data.length + BinaryRecordWriter.DataLenFieldSize;
+                if (fd.isFixed())
+                {
+                    return fd.getDataLen();
+                }
+                else
+                {
+                    byte[] data = (byte[]) fieldValue;
+                    return data.length + BinaryRecordWriter.DataLenFieldSize;
+                }
             }
             case BOOLEAN:
             {

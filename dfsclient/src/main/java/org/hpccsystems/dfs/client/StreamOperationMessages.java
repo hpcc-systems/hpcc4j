@@ -88,6 +88,7 @@ public class StreamOperationMessages
      *                  Message should be as detailed as possible. However
      *                  in extreme cases, unnecessarily unique messages can impact
      *                  resource consumption
+     * @param fieldName Field name for message
      */
     public void addMessage(String message, String fieldName)
     {

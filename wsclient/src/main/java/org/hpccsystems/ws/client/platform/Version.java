@@ -1,15 +1,43 @@
+/*******************************************************************************
+ * HPCC SYSTEMS software Copyright (C) 2020 HPCC Systems®.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
 package org.hpccsystems.ws.client.platform;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Version implements Comparable<Version>
 {
-    public String versionString = "";
-    public String prefix        = "";
-    public int    major         = 0;
-    public int    minor         = 0;
-    public int    point         = 0;
-    public String postfix       = "";
-    public String postfixStr    = "";
-    public int    postfixInt    = 0;
+    private String versionString = "";
+    private String project        = "";
+    private int    major         = -1;
+    private int    minor         = -1;
+    private int    point         = -1;
+    private int    sequence      = -1;
+    private String maturity      = "";
+
+
+    // 3.6.1
+    // community_3.10.8-rc14
+    // community_3.10.0-7rc
+    // random-projname_1.2.3
+    // community_7.12.0-closedown1
+    // <optional project name consisting of upper/lower alpha and dash, post-fixed by underscore><Major>.<Minor><Point><optional maturity and sequence version, prefixed by dash>
+    final String regex = "(?:(?<project>[a-zA-Z-]*)_)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<point>\\d+)(?:\\-(?<presequence>\\d+)?(?:(?<maturity>(?i)rc|trunk|closedown)?(?<postsequence>\\d+)?))?";
+    final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 
     /**
      * Instantiates a new version.
@@ -19,85 +47,40 @@ public class Version implements Comparable<Version>
      */
     public Version(String versionString)
     {
-        // 3.6.1
-        // community_3.10.0-7rc
-        // community_3.10.8-rc14
         this.versionString = versionString;
-        String[] parts = versionString.split("(_|-|\\[|\\])");
-        if (parts.length == 1)
+
+        final Matcher matcher = pattern.matcher(versionString);
+        if (matcher.find())
         {
-            calcVersion(parts[0]);
-        }
-        else if (parts.length >= 3)
-        {
-            prefix = parts[0];
-            calcVersion(parts[1]);
-            calcPostfix(parts[2]);
+            System.out.println("Full match: " + matcher.group(0));
+            project = matcher.group(1);
+            if (matcher.group(2) != null)
+                major = Integer.parseInt(matcher.group(2));
+            if (matcher.group(3) != null)
+                minor = Integer.parseInt(matcher.group(3));
+            if (matcher.group(4) != null)
+                point = Integer.parseInt(matcher.group(4));
+
+            maturity = matcher.group("maturity");
+            if (maturity != null)
+                maturity = maturity.toLowerCase();
+
+            if (matcher.group("presequence") != null)
+                sequence = Integer.parseInt(matcher.group("presequence"));
+
+            if (matcher.group("postsequence") != null)
+            {
+                if (sequence != -1)
+                    System.err.println("Version: Invalid sequence detected in version string: " + versionString);
+
+                sequence = Integer.parseInt(matcher.group("postsequence"));
+            }
         }
     }
 
-    /**
-     * Calc version.
-     *
-     * @param version
-     *            the version
-     */
-    void calcVersion(String version)
+    public String getOriginalVersionString()
     {
-        major = 0;
-        minor = 0;
-        point = 0;
-        try
-        {
-            String[] parts = version.split("\\.");
-            if (parts.length >= 1)
-            {
-                major = new Integer(parts[0]);
-            }
-            if (parts.length >= 2)
-            {
-                minor = new Integer(parts[1]);
-            }
-            if (parts.length >= 3)
-            {
-                point = new Integer(parts[2]);
-            }
-        }
-        catch (NumberFormatException e)
-        {}
-    }
-
-    /**
-     * Calc postfix.
-     *
-     * @param postfix
-     *            the postfix
-     */
-    void calcPostfix(String postfix)
-    {
-        this.postfix = postfix;
-        if (postfix.isEmpty())
-        {
-            return;
-        }
-        String postfixIntStr = "";
-        for (char c : postfix.toCharArray())
-        {
-            if (Character.isDigit(c))
-            {
-                postfixIntStr += c;
-            }
-            else
-            {
-                postfixStr += c;
-            }
-        }
-        try
-        {
-            postfixInt = new Integer(postfixIntStr);
-        }
-        catch (NumberFormatException e)
-        {}
+        return versionString;
     }
 
     /* (non-Javadoc)
@@ -106,10 +89,25 @@ public class Version implements Comparable<Version>
     @Override
     public String toString()
     {
-        return versionString;
+        String reconstructedVerString = "";
+        if (project != null && !project.isEmpty())
+            reconstructedVerString += project + "_";
+
+        reconstructedVerString += major + "." + minor + "." + point;
+
+        if (sequence > 0 || (maturity != null && !maturity.isEmpty()))
+        {
+            reconstructedVerString += "-";
+
+            if (maturity != null)
+                reconstructedVerString += maturity;
+            reconstructedVerString += sequence;
+        }
+
+        return reconstructedVerString;
     }
 
-    
+
     /* (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
@@ -117,26 +115,30 @@ public class Version implements Comparable<Version>
     {
         if (other.major < major)
             return -1;
-        else if (other.major > major) return 1;
+        else if (other.major > major)
+            return 1;
 
         if (other.minor < minor)
             return -1;
-        else if (other.minor > minor) return 1;
+        else if (other.minor > minor)
+            return 1;
 
         if (other.point < point)
             return -1;
-        else if (other.point > point) return 1;
-
-        if (!other.postfixStr.isEmpty() && postfixStr.isEmpty()) // rc
-            return -1;
-        else if (other.postfixStr.isEmpty() && !postfixStr.isEmpty()) // rc
+        else if (other.point > point)
             return 1;
 
-        if (other.postfixInt < postfixInt)
+        if (!other.maturity.isEmpty() && maturity.isEmpty()) // rc
             return -1;
-        else if (other.postfixInt > postfixInt) return 1;
+        else if (other.maturity.isEmpty() && !maturity.isEmpty()) // rc
+            return 1;
 
-        return other.prefix.compareTo(prefix);
+        if (other.sequence < sequence)
+            return -1;
+        else if (other.sequence > sequence)
+            return 1;
+
+        return other.project.compareTo(project);
     }
 
     public final static int DISTANCE_SUFFIXINT = 100;
@@ -156,11 +158,46 @@ public class Version implements Comparable<Version>
     public static long distance(Version l, Version r)
     {
         long retVal = 0;
-        retVal += Math.abs(r.postfixInt - l.postfixInt);
-        retVal += Math.abs(r.postfix.compareTo(l.postfix)) * DISTANCE_SUFFIXINT;
+        retVal += Math.abs(r.sequence - l.sequence);
+        retVal += Math.abs(r.maturity.compareTo(l.maturity)) * DISTANCE_SUFFIXINT;
         retVal += Math.abs(r.point - l.point) * DISTANCE_SUFFIXSTR;
         retVal += Math.abs(r.minor - l.minor) * DISTANCE_POINT;
         retVal += Math.abs(r.major - l.major) * DISTANCE_MINOR;
         return retVal;
+    }
+
+    public String getPrefix()
+    {
+        return project;
+    }
+
+    public int getMajor()
+    {
+        return major;
+    }
+
+    public int getMinor()
+    {
+        return minor;
+    }
+
+    public int getPoint()
+    {
+        return point;
+    }
+
+    public String getMaturity()
+    {
+        return maturity;
+    }
+
+    public int getSequence()
+    {
+        return sequence;
+    }
+
+    public String getProject()
+    {
+        return project;
     }
 }

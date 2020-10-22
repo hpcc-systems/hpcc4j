@@ -16,6 +16,7 @@
 package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.commons.ecl.FieldDef;
+import java.util.Arrays;
 
 /**
  * A generic Record
@@ -106,9 +107,19 @@ public class HPCCRecord
 
         for (int i = 0; i < fields.length; i++)
         {
-            if (fields[i].equals(rhs.fields[i]) == false)
+            if (fields[i] instanceof byte[] && rhs.fields[i] instanceof byte[])
             {
-                return false;
+                if (Arrays.equals((byte[]) fields[i], (byte[]) rhs.fields[i]) == false)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (fields[i].equals(rhs.fields[i]) == false)
+                {
+                    return false;
+                }
             }
         }
 
@@ -129,8 +140,17 @@ public class HPCCRecord
             {
                 ret += ", ";
             }
+            
+            if (fields[i] instanceof byte[])
+            {
+                byte[] data = (byte[]) fields[i];
+                ret += Arrays.toString(data);
+            }
+            else
+            {
+                ret += fields[i];
+            }
 
-            ret += fields[i];
         }
         ret += "]";
 
