@@ -1,6 +1,8 @@
 package org.hpccsystems.ws.client.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -122,7 +124,8 @@ public class Connection
                 String credstring = new String(decoder.decode(encodedCreds));
                 String[] creds = credstring.split(":");
 
-                if (creds.length != 2) throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
+                if (creds.length != 2)
+                    throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
 
                 this.userName = creds[0];
                 this.password = creds[1];
@@ -150,7 +153,7 @@ public class Connection
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#hashCode()
          */
         @Override
@@ -884,7 +887,7 @@ public class Connection
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -895,7 +898,7 @@ public class Connection
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -918,7 +921,7 @@ public class Connection
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -928,5 +931,73 @@ public class Connection
         result = HashCodeUtil.hash(result, getUrl());
         result = HashCodeUtil.hash(result, credentials);
         return result;
+    }
+
+    /**
+     * Sends HTTP Get request to connection's URL + uri
+     * Returns entire response payload
+     *
+     * @param uri - Appended to connection URL
+     * @return
+     * @throws Exception
+     */
+    public String sendGetRequest(String uri) throws Exception
+    {
+        return sendHTTPRequest(uri, "GET");
+    }
+
+    /**
+     * Sends HTTP request to connection's URL + uri
+     * Caller specifies the desired HTTP method
+     *
+     * Returns entire response payload
+     *
+     * @param uri
+     * @param method - One of GET|POST|HEAD|OPTIONS|PUT|DELETE|TRACE
+
+     * @return
+     * @throws Exception
+     */
+    public String sendHTTPRequest(String uri, String method) throws Exception
+    {
+        if (method == null || method.isEmpty())
+            throw new Exception ("Must provide valid HTTP method");
+
+        URL url = new URL (getBaseUrl() + (uri != null && uri.startsWith("/") ? "" : "/") + uri);
+
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //throws IOException
+
+         Connection.log.info("Sending HTTP " + method + "Request to:" + url.toString());
+
+         if (hasCredentials())
+         {
+             httpURLConnection.setRequestProperty("Authorization", getBasicAuthString());
+         }
+
+         httpURLConnection.setRequestMethod(method); //throws ProtocolException
+
+         int responseCode = httpURLConnection.getResponseCode(); //throws IOException
+
+         Connection.log.info("HTTP Response code: " + responseCode);
+
+         if (responseCode == HttpURLConnection.HTTP_OK) //success
+         {
+             BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream())); //throws IOException
+             String inputLine;
+             StringBuffer response = new StringBuffer();
+
+             while ((inputLine = in.readLine()) != null) // throws IOException
+             {
+                 response.append(inputLine);
+             }
+
+             in.close(); //throws IOException
+
+             return response.toString();
+         }
+         else
+         {
+             throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage() );
+         }
     }
 }

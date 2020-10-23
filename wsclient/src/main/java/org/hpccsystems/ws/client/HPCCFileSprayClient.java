@@ -118,7 +118,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return FILESPRAYWSDLURI;
     }
@@ -340,7 +340,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     {
         try
         {
-            fsconn = connection;
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new FileSprayStub(connection.getBaseUrl() + FILESPRAYWSDLURI), connection);
         }
         catch (AxisFault e)
@@ -1465,12 +1465,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         try
         {
             String boundary = Utils.createBoundary();
-            fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
+            fileUploadURL = new URL(wsconn.getUrl() + uploadurlbuilder);
             fileUploadConnection = Connection.createConnection(fileUploadURL);
             fileUploadConnection = fileUploadURL.openConnection();
             fileUploadConnection.setDoOutput(true);
             fileUploadConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-            fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
+            fileUploadConnection.setRequestProperty("Authorization", wsconn.getBasicAuthString());
             output = fileUploadConnection.getOutputStream();
 
             Utils.startMulti(output, uploadFile.getName(), boundary, "");
@@ -1579,12 +1579,12 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
             uploadurlbuilder += "&Path=" + dropZone.getPath();
             uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
-            fileUploadURL = new URL(fsconn.getUrl() + uploadurlbuilder);
+            fileUploadURL = new URL(wsconn.getUrl() + uploadurlbuilder);
             fileUploadConnection = Connection.createConnection(fileUploadURL);
 
-            if (fsconn.hasCredentials())
+            if (wsconn.hasCredentials())
             {
-                fileUploadConnection.setRequestProperty("Authorization", fsconn.getBasicAuthString());
+                fileUploadConnection.setRequestProperty("Authorization", wsconn.getBasicAuthString());
             }
 
             fileUploadConnection.setRequestProperty("Content-Length", Long.toString(length));
@@ -1755,7 +1755,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         URL downloadURL = null;
         try
         {
-            downloadURL = new URL(fsconn.getUrl() + DOWNLOAD_URI + "Name=" + fileName + "&NetAddress=" + dropZone.getNetAddress() + "&Path="
+            downloadURL = new URL(wsconn.getUrl() + DOWNLOAD_URI + "Name=" + fileName + "&NetAddress=" + dropZone.getNetAddress() + "&Path="
                     + dropZone.getPath() + "&OS=" + (Utils.currentOSisLinux() ? "1" : "0"));
         }
         catch (java.net.MalformedURLException e)
@@ -1805,7 +1805,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        sftpPutFileOnTargetLandingZone(localFileName, fsconn.getHost(), targetFilename, machineLoginUserName, password, null);
+        sftpPutFileOnTargetLandingZone(localFileName, wsconn.getHost(), targetFilename, machineLoginUserName, password, null);
     }
 
     /**
@@ -1829,7 +1829,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password,
             Properties connconfig) throws Exception, ArrayOfEspExceptionWrapper
     {
-        sftpPutFileOnTargetLandingZone(localFileName, fsconn.getHost(), targetFilename, machineLoginUserName, password, connconfig);
+        sftpPutFileOnTargetLandingZone(localFileName, wsconn.getHost(), targetFilename, machineLoginUserName, password, connconfig);
     }
 
     /**

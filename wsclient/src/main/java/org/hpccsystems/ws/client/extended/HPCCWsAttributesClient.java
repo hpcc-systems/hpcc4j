@@ -45,7 +45,6 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeReque
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.UpdateAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.WsAttributesStub;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
@@ -82,7 +81,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSATTRIBUTESWSDLURI;
     }
@@ -199,6 +198,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsAttributesStub(connection.getBaseUrl()+WSATTRIBUTESWSDLURI), connection);
         }
         catch (AxisFault e)

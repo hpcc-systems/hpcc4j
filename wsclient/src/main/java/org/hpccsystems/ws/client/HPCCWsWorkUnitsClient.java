@@ -133,7 +133,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSWORKUNITSWSDLURI;
     }
@@ -249,14 +249,15 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     public void initWsWorkUnitsClientStub(Connection conn)
     {
         initErrMessage = "";
-
         try
         {
+            setActiveConnectionInfo( conn);
+
             HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(conn);
-            targetVersion = new Version(wssmc.getHPCCBuild());
-            if (targetVersion != null)
+            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
+            if (targetHPCCBuildVersion != null)
             {
-                stubWrapper = new WsWorkunitsClientStubWrapper(conn, targetVersion);
+                stubWrapper = new WsWorkunitsClientStubWrapper(conn, targetHPCCBuildVersion);
                 stub = stubWrapper.getLatestStub();
                 stub = setStubOptions(new WsWorkunitsStub(conn.getBaseUrl() + WSWORKUNITSWSDLURI), conn);
             }
@@ -1008,22 +1009,22 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
     private boolean compatibilityCheck(Version input)
     {
-        if (targetVersion == null || input == null)
+        if (targetHPCCBuildVersion == null || input == null)
             return false;
 
-        if (targetVersion.getMajor() > input.getMajor())
+        if (targetHPCCBuildVersion.getMajor() > input.getMajor())
             return true;
-        else if (targetVersion.getMajor() < input.getMajor())
+        else if (targetHPCCBuildVersion.getMajor() < input.getMajor())
             return false;
 
-        if (targetVersion.getMinor() > input.getMinor())
+        if (targetHPCCBuildVersion.getMinor() > input.getMinor())
             return true;
-        else if (targetVersion.getMinor() < input.getMinor())
+        else if (targetHPCCBuildVersion.getMinor() < input.getMinor())
             return false;
 
-        if (targetVersion.getPoint() > input.getPoint())
+        if (targetHPCCBuildVersion.getPoint() > input.getPoint())
             return true;
-        else if (targetVersion.getPoint() < input.getPoint())
+        else if (targetHPCCBuildVersion.getPoint() < input.getPoint())
             return false;
         else
             return true;

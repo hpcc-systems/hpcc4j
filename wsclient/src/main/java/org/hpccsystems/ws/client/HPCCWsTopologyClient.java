@@ -76,7 +76,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSTOPOLOGYWSDLURI;
     }
@@ -193,6 +193,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsTopologyStub(connection.getBaseUrl() + WSTOPOLOGYWSDLURI), connection);
         }
         catch (AxisFault e)
