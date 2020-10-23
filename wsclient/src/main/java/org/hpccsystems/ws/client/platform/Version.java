@@ -26,8 +26,9 @@ public class Version implements Comparable<Version>
     private int    major         = -1;
     private int    minor         = -1;
     private int    point         = -1;
-    private int    sequence      = -1;
+    private long   sequence      = -1;
     private String maturity      = "";
+    private String tag           = "";
 
 
     // 3.6.1
@@ -35,8 +36,11 @@ public class Version implements Comparable<Version>
     // community_3.10.0-7rc
     // random-projname_1.2.3
     // community_7.12.0-closedown1
-    // <optional project name consisting of upper/lower alpha and dash, post-fixed by underscore><Major>.<Minor><Point><optional maturity and sequence version, prefixed by dash>
-    final String regex = "(?:(?<project>[a-zA-Z-]*)_)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<point>\\d+)(?:\\-(?<presequence>\\d+)?(?:(?<maturity>(?i)rc|trunk|closedown)?(?<postsequence>\\d+)?))?";
+    // internal_7.13.0-trunk10232020052732[remotes/origin/master-0-g04158c-dirty]
+    // <optional project name consisting of upper/lower alpha and dash, post-fixed by underscore><Major>.<Minor><Point>
+    // <optional maturity and sequence version, prefixed by dash><optional "tag" encapsulated in square brackets>
+
+    final String regex = "(?:(?<project>[a-zA-Z-]*)_)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<point>\\d+)(?:\\-(?<presequence>\\d+)?(?:(?<maturity>(?i)rc|trunk|closedown)?(?<postsequence>\\d+)?))?(?<tag>\\[.+\\])?";
     final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 
     /**
@@ -66,15 +70,18 @@ public class Version implements Comparable<Version>
                 maturity = maturity.toLowerCase();
 
             if (matcher.group("presequence") != null)
-                sequence = Integer.parseInt(matcher.group("presequence"));
+                sequence = Long.parseLong(matcher.group("presequence"));
 
             if (matcher.group("postsequence") != null)
             {
                 if (sequence != -1)
                     System.err.println("Version: Invalid sequence detected in version string: " + versionString);
 
-                sequence = Integer.parseInt(matcher.group("postsequence"));
+                sequence = Long.parseLong(matcher.group("postsequence"));
             }
+
+            if (matcher.group("tag") != null)
+                tag = matcher.group("tag");
         }
     }
 
@@ -103,6 +110,9 @@ public class Version implements Comparable<Version>
                 reconstructedVerString += maturity;
             reconstructedVerString += sequence;
         }
+
+        if (tag != null)
+            reconstructedVerString += tag;
 
         return reconstructedVerString;
     }
@@ -191,7 +201,7 @@ public class Version implements Comparable<Version>
         return maturity;
     }
 
-    public int getSequence()
+    public long getSequence()
     {
         return sequence;
     }
@@ -199,5 +209,10 @@ public class Version implements Comparable<Version>
     public String getProject()
     {
         return project;
+    }
+
+    public String getTag()
+    {
+        return tag;
     }
 }
