@@ -116,4 +116,19 @@ public class VersionTest
 		Assert.assertNull(hpccver.getMaturity());
 		Assert.assertTrue(hpccver.getSequence()==1);
 	}
+
+	@Test
+	public void privateInternalTest()
+	{
+		String ver = "internal_7.13.0-trunk10232020052732[remotes/origin/master-0-g04158c-dirty]";
+		Version hpccver = new Version(ver);
+		Assert.assertTrue(hpccver.toString().equals(ver));
+		Assert.assertTrue(hpccver.getMajor()==7);
+		Assert.assertTrue(hpccver.getMinor()==13);
+		Assert.assertTrue(hpccver.getPoint()==0);
+		Assert.assertTrue(hpccver.getProject().equals("internal"));
+		Assert.assertTrue(hpccver.getMaturity().equals("trunk"));
+		Assert.assertTrue(hpccver.getSequence()==10232020052732L);
+		Assert.assertTrue(hpccver.getTag().equals("[remotes/origin/master-0-g04158c-dirty]"));
+	}
 }
