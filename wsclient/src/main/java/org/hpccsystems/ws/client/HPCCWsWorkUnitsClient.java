@@ -1000,36 +1000,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     }
 
     /**
-     * Check the version found at instantiation with compatibility version.
-     *
-     * @param input
-     *            the input
-     * @return boolean true if server build version >= input version
-     */
-    private boolean compatibilityCheck(Version input)
-    {
-        if (targetVersion == null || input == null)
-            return false;
-
-        if (targetVersion.getMajor() > input.getMajor())
-            return true;
-        else if (targetVersion.getMajor() < input.getMajor())
-            return false;
-
-        if (targetVersion.getMinor() > input.getMinor())
-            return true;
-        else if (targetVersion.getMinor() < input.getMinor())
-            return false;
-
-        if (targetVersion.getPoint() > input.getPoint())
-            return true;
-        else if (targetVersion.getPoint() < input.getPoint())
-            return false;
-        else
-            return true;
-    }
-
-    /**
      * As of Platform version 6.0.0. Now maps to new prototype, excluding the pageSize and startPageFrom parameters.
      * Executes a WUQuery, based on parameters provided. If a custom WUQuery is desired, the caller can make a direct
      * call to WUQuery based on the soapproxy for this client. If using applicationValues objects for filtering, a user
@@ -1108,7 +1078,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         info.validate();
 
         List<WorkunitWrapper> result = new ArrayList<WorkunitWrapper>();
-        if (!compatibilityCheck(new Version("6.0.0"))) // target HPCC is pre 6.0.0
+        if (!compatibilityCheck(6,0,0)) // target HPCC is pre 6.0.0
         {
             Set<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit> workunit_set = new HashSet<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit>();
 
