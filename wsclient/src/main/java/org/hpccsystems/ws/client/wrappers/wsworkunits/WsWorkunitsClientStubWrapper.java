@@ -72,8 +72,8 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         }
     }
 
+
     /**
-        return platformVersion.major == 6 && platformVersion.minor >= 4;
      * Use version 1 58.
      *
      * @return true, if successful
