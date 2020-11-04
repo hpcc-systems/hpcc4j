@@ -26,11 +26,11 @@ import javax.activation.DataHandler;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfDFUPartLocation;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFileAccessInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFilePart;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUFileType;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUPartLocation;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFUPartLocation;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileAccessInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePart;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileType;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPartLocation;
 
 public class DFUFileAccessInfoWrapper
 {

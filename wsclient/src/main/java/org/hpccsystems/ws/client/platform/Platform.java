@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFULogicalFile;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices;
