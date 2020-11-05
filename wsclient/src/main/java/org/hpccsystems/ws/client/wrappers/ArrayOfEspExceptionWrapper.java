@@ -77,7 +77,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException arrayofespexception)
     {
         super();
         copy(arrayofespexception);
@@ -407,12 +407,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.ArrayOfEspException arrayofespexception)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();

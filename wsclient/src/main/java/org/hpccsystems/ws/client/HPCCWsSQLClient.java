@@ -80,7 +80,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSSQLURI;
     }
@@ -200,6 +200,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
 
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WssqlStub(connection.getUrl() + this.WSSQLURI), connection);
         }
         catch (Exception e)

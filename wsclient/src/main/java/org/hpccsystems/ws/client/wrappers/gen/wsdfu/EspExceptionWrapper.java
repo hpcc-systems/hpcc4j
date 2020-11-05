@@ -1,7 +1,9 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
+
+
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2020 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-08-18T21:53:15.022Z
+ * TimeStamp: 2020-11-04T21:52:26.437Z
  */
 public class EspExceptionWrapper
 {
@@ -32,7 +34,7 @@ public class EspExceptionWrapper
 
 	public EspExceptionWrapper() {}
 
-	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException espexception)
+	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException espexception)
 	{
 		copy( espexception );
 	}
@@ -45,7 +47,7 @@ public class EspExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException raw )
 	{
 		if (raw == null)
 			return;
@@ -62,9 +64,9 @@ public class EspExceptionWrapper
 	{
 		return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException();
 		raw.setCode( local_code);
 		raw.setAudience( local_audience);
 		raw.setSource( local_source);

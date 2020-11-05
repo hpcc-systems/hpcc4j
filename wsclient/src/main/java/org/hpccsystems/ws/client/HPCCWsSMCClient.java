@@ -44,7 +44,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSSMCURI;
     }
@@ -162,6 +162,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(conn);
             stub = setStubOptions(new WsSMCStub(conn.getUrl() + this.WSSMCURI), conn);
         }
         catch (Exception e)
