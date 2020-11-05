@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.348Z
+ * TimeStamp: 2020-09-23T21:40:52.981Z
  */
 public class TpMachineQueryResponseWrapper
 {
@@ -47,7 +47,7 @@ public class TpMachineQueryResponseWrapper
 
 	public TpMachineQueryResponseWrapper() {}
 
-	public TpMachineQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse tpmachinequeryresponse)
+	public TpMachineQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryResponse tpmachinequeryresponse)
 	{
 		copy( tpmachinequeryresponse );
 	}
@@ -73,7 +73,7 @@ public class TpMachineQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -105,9 +105,9 @@ public class TpMachineQueryResponseWrapper
 	{
 		return "TpMachineQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "enablePreflightInfo = " + local_enablePreflightInfo + ", " + "hasThorSpareProcess = " + local_hasThorSpareProcess + ", " + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "oldIP = " + local_oldIP + ", " + "logDirectory = " + local_logDirectory + ", " + "path = " + local_path + ", " + "memThreshold = " + local_memThreshold + ", " + "diskThreshold = " + local_diskThreshold + ", " + "cpuThreshold = " + local_cpuThreshold + ", " + "memThresholdType = " + local_memThresholdType + ", " + "diskThresholdType = " + local_diskThresholdType + ", " + "preflightProcessFilter = " + local_preflightProcessFilter + ", " + "enableSNMP = " + local_enableSNMP + ", " + "acceptLanguage = " + local_acceptLanguage + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineQueryResponse();
 		raw.setEnablePreflightInfo( local_enablePreflightInfo);
 		raw.setHasThorSpareProcess( local_hasThorSpareProcess);
 		raw.setType( local_type);

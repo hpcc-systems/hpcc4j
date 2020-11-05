@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddPartToPackageMapRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.532Z
+ * TimeStamp: 2020-09-23T03:53:35.665Z
  */
 public class AddPartToPackageMapRequestWrapper
 {
@@ -44,7 +44,7 @@ public class AddPartToPackageMapRequestWrapper
 
 	public AddPartToPackageMapRequestWrapper() {}
 
-	public AddPartToPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest addparttopackagemaprequest)
+	public AddPartToPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapRequest addparttopackagemaprequest)
 	{
 		copy( addparttopackagemaprequest );
 	}
@@ -67,7 +67,7 @@ public class AddPartToPackageMapRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -94,9 +94,9 @@ public class AddPartToPackageMapRequestWrapper
 	{
 		return "AddPartToPackageMapRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + ", " + "content = " + local_content + ", " + "deletePrevious = " + local_deletePrevious + ", " + "daliIp = " + local_daliIp + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "preloadAllPackages = " + local_preloadAllPackages + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.AddPartToPackageMapRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapRequest();
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);
 		raw.setPackageMap( local_packageMap);

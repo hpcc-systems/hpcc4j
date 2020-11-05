@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.312Z
+ * TimeStamp: 2020-09-23T21:40:52.923Z
  */
 public class EspExceptionWrapper
 {
@@ -34,7 +34,7 @@ public class EspExceptionWrapper
 
 	public EspExceptionWrapper() {}
 
-	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException espexception)
+	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException espexception)
 	{
 		copy( espexception );
 	}
@@ -47,7 +47,7 @@ public class EspExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class EspExceptionWrapper
 	{
 		return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.EspException();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException();
 		raw.setCode( local_code);
 		raw.setAudience( local_audience);
 		raw.setSource( local_source);

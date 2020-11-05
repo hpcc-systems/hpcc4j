@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PrepareSQLRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.374Z
+ * TimeStamp: 2020-09-23T04:21:56.955Z
  */
 public class PrepareSQLRequestWrapper
 {
@@ -35,7 +35,7 @@ public class PrepareSQLRequestWrapper
 
 	public PrepareSQLRequestWrapper() {}
 
-	public PrepareSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest preparesqlrequest)
+	public PrepareSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLRequest preparesqlrequest)
 	{
 		copy( preparesqlrequest );
 	}
@@ -49,7 +49,7 @@ public class PrepareSQLRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class PrepareSQLRequestWrapper
 	{
 		return "PrepareSQLRequestWrapper [" + "sqlText = " + local_sqlText + ", " + "targetCluster = " + local_targetCluster + ", " + "alternateClusters = " + local_alternateClusters + ", " + "targetQuerySet = " + local_targetQuerySet + ", " + "wait = " + local_wait + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLRequest();
 		raw.setSqlText( local_sqlText);
 		raw.setTargetCluster( local_targetCluster);
 		raw.setTargetQuerySet( local_targetQuerySet);

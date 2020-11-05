@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DropZoneFileSearchRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.916Z
+ * TimeStamp: 2020-09-23T03:42:02.593Z
  */
 public class DropZoneFileSearchRequestWrapper
 {
@@ -34,7 +34,7 @@ public class DropZoneFileSearchRequestWrapper
 
 	public DropZoneFileSearchRequestWrapper() {}
 
-	public DropZoneFileSearchRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest dropzonefilesearchrequest)
+	public DropZoneFileSearchRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest dropzonefilesearchrequest)
 	{
 		copy( dropzonefilesearchrequest );
 	}
@@ -47,7 +47,7 @@ public class DropZoneFileSearchRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class DropZoneFileSearchRequestWrapper
 	{
 		return "DropZoneFileSearchRequestWrapper [" + "dropZoneName = " + local_dropZoneName + ", " + "server = " + local_server + ", " + "eCLWatchVisibleOnly = " + local_eCLWatchVisibleOnly + ", " + "nameFilter = " + local_nameFilter + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZoneFileSearchRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest();
 		raw.setDropZoneName( local_dropZoneName);
 		raw.setServer( local_server);
 		raw.setECLWatchVisibleOnly( local_eCLWatchVisibleOnly);

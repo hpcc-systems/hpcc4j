@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FileListRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.051Z
+ * TimeStamp: 2020-09-23T03:42:02.606Z
  */
 public class FileListRequestWrapper
 {
@@ -35,7 +35,7 @@ public class FileListRequestWrapper
 
 	public FileListRequestWrapper() {}
 
-	public FileListRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest filelistrequest)
+	public FileListRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListRequest filelistrequest)
 	{
 		copy( filelistrequest );
 	}
@@ -49,7 +49,7 @@ public class FileListRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -67,9 +67,9 @@ public class FileListRequestWrapper
 	{
 		return "FileListRequestWrapper [" + "netaddr = " + local_netaddr + ", " + "path = " + local_path + ", " + "mask = " + local_mask + ", " + "oS = " + local_oS + ", " + "directoryOnly = " + local_directoryOnly + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListRequest();
 		raw.setNetaddr( local_netaddr);
 		raw.setPath( local_path);
 		raw.setMask( local_mask);

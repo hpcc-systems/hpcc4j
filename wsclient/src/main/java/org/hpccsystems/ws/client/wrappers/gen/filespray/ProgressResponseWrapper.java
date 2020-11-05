@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ProgressResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.031Z
+ * TimeStamp: 2020-09-23T03:42:02.629Z
  */
 public class ProgressResponseWrapper
 {
@@ -41,7 +41,7 @@ public class ProgressResponseWrapper
 
 	public ProgressResponseWrapper() {}
 
-	public ProgressResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse progressresponse)
+	public ProgressResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressResponse progressresponse)
 	{
 		copy( progressresponse );
 	}
@@ -61,7 +61,7 @@ public class ProgressResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -86,9 +86,9 @@ public class ProgressResponseWrapper
 	{
 		return "ProgressResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + ", " + "percentDone = " + local_percentDone + ", " + "secsLeft = " + local_secsLeft + ", " + "kbPerSecAve = " + local_kbPerSecAve + ", " + "kbPerSec = " + local_kbPerSec + ", " + "slavesDone = " + local_slavesDone + ", " + "timeTaken = " + local_timeTaken + ", " + "progressMessage = " + local_progressMessage + ", " + "summaryMessage = " + local_summaryMessage + ", " + "state = " + local_state + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ProgressResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ProgressResponse();
 		raw.setWuid( local_wuid);
 		raw.setPercentDone( local_percentDone);
 		raw.setSecsLeft( local_secsLeft);

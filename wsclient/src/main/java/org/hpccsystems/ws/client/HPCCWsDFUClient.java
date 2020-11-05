@@ -20,43 +20,46 @@ import org.apache.axis2.client.Stub;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUActionInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUActionInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUArrayActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUArrayActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUArrayActions;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileAccessResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileAccessV2Request;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCreateResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileCreateV2Request;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePublishRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePublishResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileViewRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileViewResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUGetFileMetaDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUGetFileMetaDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUInfoRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUSearchDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUSearchDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspSoapFault;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspStringArray;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileListRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.SuperfileListResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuPingRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.WsDfuStub;
+
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUArrayActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUArrayActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUArrayActions;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileAccessResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileAccessV2Request;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileCreateResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileCreateV2Request;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePublishRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePublishResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetFileMetaDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetFileMetaDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileListRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileListResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuStub;
+
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
@@ -92,6 +95,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
     private static int             DEFAULTSERVICEPORT = -1;
     private static String          WSDLURL            = null;
+
+    private static final Version HPCC700              = new Version("7.0.0");
 
     /**
      * Load WSDLURL.
@@ -252,7 +257,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             if (targetHPCCBuildVersion != null)
             {
                 stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetHPCCBuildVersion);
-                stub = stubwrapper.get1_51Stub(null);
+                stub = stubwrapper.get1_56Stub(null);
             }
             else
                 throw new Exception("Cannot initialize HPCCWsDFUStub without valid HPCC version object");
@@ -1273,16 +1278,17 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public String getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername,
             int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetHPCCBuildVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
+        if (targetHPCCBuildVersion == null || stub == null)
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() == 0)
+        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
             if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
 
             return fileaccessinfo.getFileAccessInfoBlob();
         }
-        else if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() > 0)
+        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             return getFileAccessBlob(filename, clustername, expiryseconds, jobid);
         }
@@ -1312,16 +1318,17 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetHPCCBuildVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
+        if (targetHPCCBuildVersion == null || stub == null)
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() > 0)
+        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(filename, clustername, expiryseconds, jobid);
             if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
 
             return fileaccessinfo.getFileAccessInfoBlob();
         }
-        else if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() == 0)
+        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             return getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid);
         }
@@ -1364,9 +1371,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetHPCCBuildVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
+        if (targetHPCCBuildVersion == null || stub == null)
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() == 0)
+        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39 = stubwrapper.get1_39Stub(stuboptions);
 
@@ -1405,7 +1413,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
         }
-        else if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() > 0)
+        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             return getFileAccess(filename, clustername, expiryseconds, jobid);
         }
@@ -1436,9 +1444,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetHPCCBuildVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
+        if (targetHPCCBuildVersion == null || stub == null)
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() > 0)
+        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             verifyStub(); // Throws exception if stub failed
 
@@ -1475,10 +1484,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo(), resp.getType());
         }
-        else if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() == 0)
+        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
-            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid,
-                    true, false, true);
+            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid, true, false, true);
         }
         else
             throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
@@ -1545,9 +1553,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole accessrole,
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetHPCCBuildVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
+        if (targetHPCCBuildVersion == null || stub == null)
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() == 0)
+        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39 = stubwrapper.get1_39Stub(stuboptions);
 
@@ -1596,7 +1605,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
             return new DFUCreateFileWrapper(resp);
         }
-        else if (targetHPCCBuildVersion.getMajor() > 7 || targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() > 0)
+        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, null, null);
         }
@@ -1712,9 +1721,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds,
             Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetHPCCBuildVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
+        if (targetHPCCBuildVersion == null || stub == null)
+            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.getMajor() > 7 || targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() > 0)
+        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             verifyStub(); // Throws exception if stub failed
 
@@ -1758,10 +1768,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
             return new DFUCreateFileWrapper(resp);
         }
-        else if (targetHPCCBuildVersion.getMajor() == 7 && targetHPCCBuildVersion.getMinor() == 0)
+        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
-            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetHPCCBuildVersion.getMajor() + "."
-                    + targetHPCCBuildVersion.getMinor());
+            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
         }
         else
             throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());

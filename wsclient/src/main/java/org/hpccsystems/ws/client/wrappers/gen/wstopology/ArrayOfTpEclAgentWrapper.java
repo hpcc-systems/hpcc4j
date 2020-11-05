@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpEclAgentWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclAgent
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.275Z
+ * TimeStamp: 2020-09-23T21:40:52.907Z
  */
 public class ArrayOfTpEclAgentWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpEclAgentWrapper
 
 	public ArrayOfTpEclAgentWrapper() {}
 
-	public ArrayOfTpEclAgentWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent arrayoftpeclagent)
+	public ArrayOfTpEclAgentWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclAgent arrayoftpeclagent)
 	{
 		copy( arrayoftpeclagent );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpEclAgentWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclAgent raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpEclAgentWrapper
 	{
 		return "ArrayOfTpEclAgentWrapper [" + "tpEclAgent = " + local_tpEclAgent + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclAgent getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpEclAgent();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclAgent raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclAgent();
 		if (this.local_tpEclAgent!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEclAgent[this.local_tpEclAgent.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclAgent[this.local_tpEclAgent.size()];
 			for ( int i = 0; i < this.local_tpEclAgent.size(); i++)
 			{
 				arr[i] = this.local_tpEclAgent.get(i) .getRaw();

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpServiceQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.335Z
+ * TimeStamp: 2020-09-23T21:40:52.988Z
  */
 public class TpServiceQueryRequestWrapper
 {
@@ -31,7 +31,7 @@ public class TpServiceQueryRequestWrapper
 
 	public TpServiceQueryRequestWrapper() {}
 
-	public TpServiceQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest tpservicequeryrequest)
+	public TpServiceQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest tpservicequeryrequest)
 	{
 		copy( tpservicequeryrequest );
 	}
@@ -41,7 +41,7 @@ public class TpServiceQueryRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class TpServiceQueryRequestWrapper
 	{
 		return "TpServiceQueryRequestWrapper [" + "type = " + local_type + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest();
 		raw.setType( local_type);
 		return raw;
 	}

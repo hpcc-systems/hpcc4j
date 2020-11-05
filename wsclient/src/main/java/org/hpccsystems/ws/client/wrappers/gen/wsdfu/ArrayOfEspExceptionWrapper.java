@@ -1,7 +1,9 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
+
+
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2020 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfEspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-08-18T21:53:14.872Z
+ * TimeStamp: 2020-11-04T21:52:26.220Z
  */
 public class ArrayOfEspExceptionWrapper
 {
@@ -32,7 +34,7 @@ public class ArrayOfEspExceptionWrapper
 
 	public ArrayOfEspExceptionWrapper() {}
 
-	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException arrayofespexception)
+	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException arrayofespexception)
 	{
 		copy( arrayofespexception );
 	}
@@ -43,7 +45,7 @@ public class ArrayOfEspExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException raw )
 	{
 		if (raw == null)
 			return;
@@ -64,13 +66,13 @@ public class ArrayOfEspExceptionWrapper
 	{
 		return "ArrayOfEspExceptionWrapper [" + "source = " + local_source + ", " + "exception = " + local_exception + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfEspException();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfEspException();
 		raw.setSource( local_source);
 		if (this.local_exception!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.EspException[this.local_exception.size()];
+			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException[this.local_exception.size()];
 			for ( int i = 0; i < this.local_exception.size(); i++)
 			{
 				arr[i] = this.local_exception.get(i) .getRaw();

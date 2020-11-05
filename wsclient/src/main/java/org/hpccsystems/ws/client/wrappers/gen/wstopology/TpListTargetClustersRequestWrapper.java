@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpListTargetClustersRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:47.951Z
+ * TimeStamp: 2020-09-23T21:40:52.964Z
  */
 public class TpListTargetClustersRequestWrapper
 {
 
 	public TpListTargetClustersRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpListTargetClustersRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpListTargetClustersRequest();
 		return raw;
 	}
 

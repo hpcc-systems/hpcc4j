@@ -17,13 +17,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.290Z
+ * TimeStamp: 2020-09-23T21:40:52.975Z
  */
 public class TpMachineWrapper
 {
@@ -38,14 +39,15 @@ public class TpMachineWrapper
 	protected String local_path;
 	protected int local_port;
 	protected int local_processNumber;
+	protected UnsignedInt local_channels;
 
 	public TpMachineWrapper() {}
 
-	public TpMachineWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine tpmachine)
+	public TpMachineWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine tpmachine)
 	{
 		copy( tpmachine );
 	}
-	public TpMachineWrapper( String _name, String _netaddress, String _configNetaddress, String _domain, String _directory, String _type, String _available, int _oS, String _path, int _port, int _processNumber )
+	public TpMachineWrapper( String _name, String _netaddress, String _configNetaddress, String _domain, String _directory, String _type, String _available, int _oS, String _path, int _port, int _processNumber, UnsignedInt _channels )
 	{
 		this.local_name = _name;
 		this.local_netaddress = _netaddress;
@@ -58,10 +60,11 @@ public class TpMachineWrapper
 		this.local_path = _path;
 		this.local_port = _port;
 		this.local_processNumber = _processNumber;
+		this.local_channels = _channels;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine raw )
 	{
 		if (raw == null)
 			return;
@@ -77,17 +80,18 @@ public class TpMachineWrapper
 		this.local_path = raw.getPath();
 		this.local_port = raw.getPort();
 		this.local_processNumber = raw.getProcessNumber();
+		this.local_channels = raw.getChannels();
 
 	}
 
 	@Override
 	public String toString()
 	{
-		return "TpMachineWrapper [" + "name = " + local_name + ", " + "netaddress = " + local_netaddress + ", " + "configNetaddress = " + local_configNetaddress + ", " + "domain = " + local_domain + ", " + "directory = " + local_directory + ", " + "type = " + local_type + ", " + "available = " + local_available + ", " + "oS = " + local_oS + ", " + "path = " + local_path + ", " + "port = " + local_port + ", " + "processNumber = " + local_processNumber + "]";
+		return "TpMachineWrapper [" + "name = " + local_name + ", " + "netaddress = " + local_netaddress + ", " + "configNetaddress = " + local_configNetaddress + ", " + "domain = " + local_domain + ", " + "directory = " + local_directory + ", " + "type = " + local_type + ", " + "available = " + local_available + ", " + "oS = " + local_oS + ", " + "path = " + local_path + ", " + "port = " + local_port + ", " + "processNumber = " + local_processNumber + ", " + "channels = " + local_channels + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine();
 		raw.setName( local_name);
 		raw.setNetaddress( local_netaddress);
 		raw.setConfigNetaddress( local_configNetaddress);
@@ -99,6 +103,7 @@ public class TpMachineWrapper
 		raw.setPath( local_path);
 		raw.setPort( local_port);
 		raw.setProcessNumber( local_processNumber);
+		raw.setChannels( local_channels);
 		return raw;
 	}
 
@@ -190,5 +195,13 @@ public class TpMachineWrapper
 	public int getProcessNumber( )
 	{
 		return this.local_processNumber;
+	}
+	public void setChannels( UnsignedInt _channels )
+	{
+		this.local_channels = _channels;
+	}
+	public UnsignedInt getChannels( )
+	{
+		return this.local_channels;
 	}
 }

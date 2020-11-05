@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpSetMachineStatusResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.409Z
+ * TimeStamp: 2020-09-23T21:40:52.995Z
  */
 public class TpSetMachineStatusResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpSetMachineStatusResponseWrapper
 
 	public TpSetMachineStatusResponseWrapper() {}
 
-	public TpSetMachineStatusResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusResponse tpsetmachinestatusresponse)
+	public TpSetMachineStatusResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse tpsetmachinestatusresponse)
 	{
 		copy( tpsetmachinestatusresponse );
 	}
@@ -43,7 +43,7 @@ public class TpSetMachineStatusResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class TpSetMachineStatusResponseWrapper
 	{
 		return "TpSetMachineStatusResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpSetMachineStatusResult = " + local_tpSetMachineStatusResult + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSetMachineStatusResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse();
 		raw.setTpSetMachineStatusResult( local_tpSetMachineStatusResult);
 		return raw;
 	}

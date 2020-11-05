@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GroupNodeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.994Z
+ * TimeStamp: 2020-09-23T03:42:02.623Z
  */
 public class GroupNodeWrapper
 {
@@ -33,7 +33,7 @@ public class GroupNodeWrapper
 
 	public GroupNodeWrapper() {}
 
-	public GroupNodeWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode groupnode)
+	public GroupNodeWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode groupnode)
 	{
 		copy( groupnode );
 	}
@@ -45,7 +45,7 @@ public class GroupNodeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class GroupNodeWrapper
 	{
 		return "GroupNodeWrapper [" + "name = " + local_name + ", " + "clusterType = " + local_clusterType + ", " + "replicateOutputs = " + local_replicateOutputs + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode();
 		raw.setName( local_name);
 		raw.setClusterType( local_clusterType);
 		raw.setReplicateOutputs( local_replicateOutputs);

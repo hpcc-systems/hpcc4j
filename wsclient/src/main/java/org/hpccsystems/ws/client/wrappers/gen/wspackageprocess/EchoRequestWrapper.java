@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.495Z
+ * TimeStamp: 2020-09-23T03:53:35.683Z
  */
 public class EchoRequestWrapper
 {
@@ -31,7 +31,7 @@ public class EchoRequestWrapper
 
 	public EchoRequestWrapper() {}
 
-	public EchoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest echorequest)
+	public EchoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoRequest echorequest)
 	{
 		copy( echorequest );
 	}
@@ -41,7 +41,7 @@ public class EchoRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class EchoRequestWrapper
 	{
 		return "EchoRequestWrapper [" + "request = " + local_request + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EchoRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EchoRequest();
 		raw.setRequest( local_request);
 		return raw;
 	}

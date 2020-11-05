@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.402Z
+ * TimeStamp: 2020-09-23T21:40:52.935Z
  */
 public class TpClusterInfoResponseWrapper
 {
@@ -34,7 +34,7 @@ public class TpClusterInfoResponseWrapper
 
 	public TpClusterInfoResponseWrapper() {}
 
-	public TpClusterInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse tpclusterinforesponse)
+	public TpClusterInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoResponse tpclusterinforesponse)
 	{
 		copy( tpclusterinforesponse );
 	}
@@ -47,7 +47,7 @@ public class TpClusterInfoResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -66,9 +66,9 @@ public class TpClusterInfoResponseWrapper
 	{
 		return "TpClusterInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "name = " + local_name + ", " + "workUnit = " + local_workUnit + ", " + "tpQueues = " + local_tpQueues + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterInfoResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoResponse();
 		raw.setName( local_name);
 		raw.setWorkUnit( local_workUnit);
 		return raw;

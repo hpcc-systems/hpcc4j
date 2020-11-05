@@ -26,18 +26,28 @@ public class Version implements Comparable<Version>
     private int    major         = -1;
     private int    minor         = -1;
     private int    point         = -1;
-    private int    sequence      = -1;
+    private long   sequence      = -1;
     private String maturity      = "";
-
+    private String tag           = "";
 
     // 3.6.1
     // community_3.10.8-rc14
     // community_3.10.0-7rc
     // random-projname_1.2.3
     // community_7.12.0-closedown1
-    // <optional project name consisting of upper/lower alpha and dash, post-fixed by underscore><Major>.<Minor><Point><optional maturity and sequence version, prefixed by dash>
-    final String regex = "(?:(?<project>[a-zA-Z-]*)_)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<point>\\d+)(?:\\-(?<presequence>\\d+)?(?:(?<maturity>(?i)rc|trunk|closedown)?(?<postsequence>\\d+)?))?";
+    // internal_7.13.0-trunk10232020052732[remotes/origin/master-0-g04158c-dirty]
+    // <optional project name consisting of upper/lower alpha and dash, post-fixed by underscore><Major>.<Minor><Point>
+    // <optional maturity and sequence version, prefixed by dash><optional "tag" encapsulated in square brackets>
+
+    final String regex = "(?:(?<project>[a-zA-Z-]*)_)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<point>\\d+)(?:\\-(?<presequence>\\d+)?(?:(?<maturity>(?i)rc|trunk|closedown)?(?<postsequence>\\d+)?))?(?<tag>\\[.+\\])?";
     final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+
+    public Version(int major, int minor, int point)
+    {
+        this.major = major;
+        this.minor = minor;
+        this.point = point;
+    }
 
     /**
      * Instantiates a new version.
@@ -66,15 +76,18 @@ public class Version implements Comparable<Version>
                 maturity = maturity.toLowerCase();
 
             if (matcher.group("presequence") != null)
-                sequence = Integer.parseInt(matcher.group("presequence"));
+                sequence = Long.parseLong(matcher.group("presequence"));
 
             if (matcher.group("postsequence") != null)
             {
                 if (sequence != -1)
                     System.err.println("Version: Invalid sequence detected in version string: " + versionString);
 
-                sequence = Integer.parseInt(matcher.group("postsequence"));
+                sequence = Long.parseLong(matcher.group("postsequence"));
             }
+
+            if (matcher.group("tag") != null)
+                tag = matcher.group("tag");
         }
     }
 
@@ -104,9 +117,85 @@ public class Version implements Comparable<Version>
             reconstructedVerString += sequence;
         }
 
+        if (tag != null)
+            reconstructedVerString += tag;
+
         return reconstructedVerString;
     }
 
+    public final static int OTHER_VERSION_IS_OLDER = -1;
+    public final static int EQUIVALENT_VERSIONS = 0;
+    public final static int OTHER_VERSION_IS_NEWER = 1;
+
+    public boolean isEquivalentTo(int othermajor, int otherminor, int otherpoint)
+    {
+        return compareTo(othermajor, otherminor, otherpoint) == EQUIVALENT_VERSIONS;
+    }
+
+    public boolean isOlderThan(int othermajor, int otherminor, int otherpoint)
+    {
+        return compareTo(othermajor, otherminor, otherpoint) == OTHER_VERSION_IS_NEWER;
+    }
+
+    public boolean isNewerThan(int othermajor, int otherminor, int otherpoint)
+    {
+        return compareTo(othermajor, otherminor, otherpoint) == OTHER_VERSION_IS_OLDER;
+    }
+
+    public boolean isEqualOrNewerThan(int othermajor, int otherminor, int otherpoint)
+    {
+        return compareTo(othermajor, otherminor, otherpoint) <= EQUIVALENT_VERSIONS;
+    }
+
+    public boolean isEqualOrOlderThan(int othermajor, int otherminor, int otherpoint)
+    {
+        return compareTo(othermajor, otherminor, otherpoint) >= EQUIVALENT_VERSIONS;
+    }
+
+    public int compareTo(int othermajor, int otherminor, int otherpoint)
+    {
+         if (othermajor < major)
+             return OTHER_VERSION_IS_OLDER;
+         else if (othermajor > major)
+             return OTHER_VERSION_IS_NEWER;
+
+        if (otherminor < minor)
+            return OTHER_VERSION_IS_OLDER;
+        else if (otherminor > minor)
+            return OTHER_VERSION_IS_NEWER;
+
+        if (otherpoint < point)
+            return OTHER_VERSION_IS_OLDER;
+        else if (otherpoint > point)
+            return OTHER_VERSION_IS_NEWER;
+
+        return EQUIVALENT_VERSIONS;
+     }
+
+    public boolean isEquivalentTo(Version other)
+    {
+        return compareTo(other.major, other.minor, other.point) == EQUIVALENT_VERSIONS;
+    }
+
+    public boolean isOlderThan(Version other)
+    {
+        return compareTo(other.major, other.minor, other.point) == OTHER_VERSION_IS_NEWER;
+    }
+
+    public boolean isNewerThan(Version other)
+    {
+        return compareTo(other.major, other.minor, other.point) == OTHER_VERSION_IS_OLDER;
+    }
+
+    public boolean isEqualOrNewerThan(Version other)
+    {
+        return compareTo(other.major, other.minor, other.point) <= EQUIVALENT_VERSIONS;
+    }
+
+    public boolean isEqualOrOlderThan(Version other)
+    {
+        return compareTo(other.major, other.minor, other.point) >= EQUIVALENT_VERSIONS;
+    }
 
     /* (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -114,33 +203,56 @@ public class Version implements Comparable<Version>
     public int compareTo(Version other)
     {
         if (other.major < major)
-            return -1;
+            return OTHER_VERSION_IS_OLDER;
         else if (other.major > major)
-            return 1;
+            return OTHER_VERSION_IS_NEWER;
 
         if (other.minor < minor)
-            return -1;
+            return OTHER_VERSION_IS_OLDER;
         else if (other.minor > minor)
-            return 1;
+            return OTHER_VERSION_IS_NEWER;
 
         if (other.point < point)
-            return -1;
+            return OTHER_VERSION_IS_OLDER;
         else if (other.point > point)
-            return 1;
+            return OTHER_VERSION_IS_NEWER;
 
-        if (!other.maturity.isEmpty() && maturity.isEmpty()) // rc
-            return -1;
-        else if (other.maturity.isEmpty() && !maturity.isEmpty()) // rc
-            return 1;
+        if (!other.isGold() && isGold())   // GOLD entails a greater than -1 seq and no maturity
+            return OTHER_VERSION_IS_OLDER;
+        else if (other.isGold() && !isGold())
+            return OTHER_VERSION_IS_NEWER;
+        else
+        {
+            if (other.maturity != maturity && !other.maturity.equals(maturity))
+            {
+                if (other.maturity.equalsIgnoreCase("trunk"))
+                    return OTHER_VERSION_IS_OLDER;
+                else if (maturity.equalsIgnoreCase("trunk"))
+                    return OTHER_VERSION_IS_NEWER;
+                else if (other.maturity.equalsIgnoreCase("rc"))
+                    return OTHER_VERSION_IS_OLDER;
+                else if (maturity.equalsIgnoreCase("rc"))
+                    return OTHER_VERSION_IS_NEWER;
+                else if (other.maturity.equalsIgnoreCase("closedown"))
+                    return OTHER_VERSION_IS_OLDER;
+                else if (maturity.equalsIgnoreCase("closedown"))
+                    return OTHER_VERSION_IS_NEWER;
+            }
+        }
 
         if (other.sequence < sequence)
-            return -1;
+            return OTHER_VERSION_IS_OLDER;
         else if (other.sequence > sequence)
-            return 1;
+            return OTHER_VERSION_IS_NEWER;
 
-        return other.project.compareTo(project);
+        //cannot make assertions regarding project name, nor tag
+        return EQUIVALENT_VERSIONS;
     }
 
+    public boolean isGold()
+    {
+        return maturity == null || maturity.isEmpty();
+    }
     public final static int DISTANCE_SUFFIXINT = 100;
     public final static int DISTANCE_SUFFIXSTR = 1000;
     public final static int DISTANCE_POINT     = 100000;
@@ -191,7 +303,7 @@ public class Version implements Comparable<Version>
         return maturity;
     }
 
-    public int getSequence()
+    public long getSequence()
     {
         return sequence;
     }
@@ -199,5 +311,10 @@ public class Version implements Comparable<Version>
     public String getProject()
     {
         return project;
+    }
+
+    public String getTag()
+    {
+        return tag;
     }
 }

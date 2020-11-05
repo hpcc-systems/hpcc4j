@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PrepareSQLResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.352Z
+ * TimeStamp: 2020-09-23T04:21:56.956Z
  */
 public class PrepareSQLResponseWrapper
 {
@@ -33,7 +33,7 @@ public class PrepareSQLResponseWrapper
 
 	public PrepareSQLResponseWrapper() {}
 
-	public PrepareSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse preparesqlresponse)
+	public PrepareSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLResponse preparesqlresponse)
 	{
 		copy( preparesqlresponse );
 	}
@@ -45,7 +45,7 @@ public class PrepareSQLResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class PrepareSQLResponseWrapper
 	{
 		return "PrepareSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "workunit = " + local_workunit + ", " + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.PrepareSQLResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PrepareSQLResponse();
 		raw.setResult( local_result);
 		return raw;
 	}

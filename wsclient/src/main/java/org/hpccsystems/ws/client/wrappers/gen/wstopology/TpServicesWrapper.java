@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpServicesWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.365Z
+ * TimeStamp: 2020-09-23T21:40:52.992Z
  */
 public class TpServicesWrapper
 {
@@ -45,7 +45,7 @@ public class TpServicesWrapper
 
 	public TpServicesWrapper() {}
 
-	public TpServicesWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices tpservices)
+	public TpServicesWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices tpservices)
 	{
 		copy( tpservices );
 	}
@@ -69,7 +69,7 @@ public class TpServicesWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices raw )
 	{
 		if (raw == null)
 			return;
@@ -112,9 +112,9 @@ public class TpServicesWrapper
 	{
 		return "TpServicesWrapper [" + "tpDalis = " + local_tpDalis + ", " + "tpDfuServers = " + local_tpDfuServers + ", " + "tpDkcSlaves = " + local_tpDkcSlaves + ", " + "tpDropZones = " + local_tpDropZones + ", " + "tpEclAgents = " + local_tpEclAgents + ", " + "tpEclServers = " + local_tpEclServers + ", " + "tpEclCCServers = " + local_tpEclCCServers + ", " + "tpEclSchedulers = " + local_tpEclSchedulers + ", " + "tpEspServers = " + local_tpEspServers + ", " + "tpFTSlaves = " + local_tpFTSlaves + ", " + "tpGenesisServers = " + local_tpGenesisServers + ", " + "tpLdapServers = " + local_tpLdapServers + ", " + "tpMySqlServers = " + local_tpMySqlServers + ", " + "tpSashaServers = " + local_tpSashaServers + ", " + "tpSparkThors = " + local_tpSparkThors + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServices();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices();
 		return raw;
 	}
 

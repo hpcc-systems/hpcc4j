@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CopyPackageMapRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.508Z
+ * TimeStamp: 2020-09-23T03:53:35.676Z
  */
 public class CopyPackageMapRequestWrapper
 {
@@ -45,7 +45,7 @@ public class CopyPackageMapRequestWrapper
 
 	public CopyPackageMapRequestWrapper() {}
 
-	public CopyPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest copypackagemaprequest)
+	public CopyPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapRequest copypackagemaprequest)
 	{
 		copy( copypackagemaprequest );
 	}
@@ -69,7 +69,7 @@ public class CopyPackageMapRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -97,9 +97,9 @@ public class CopyPackageMapRequestWrapper
 	{
 		return "CopyPackageMapRequestWrapper [" + "sourcePath = " + local_sourcePath + ", " + "remoteUserName = " + local_remoteUserName + ", " + "remotePassword = " + local_remotePassword + ", " + "target = " + local_target + ", " + "process = " + local_process + ", " + "pMID = " + local_pMID + ", " + "activate = " + local_activate + ", " + "daliIp = " + local_daliIp + ", " + "globalScope = " + local_globalScope + ", " + "sourceProcess = " + local_sourceProcess + ", " + "preloadAllPackages = " + local_preloadAllPackages + ", " + "replacePackageMap = " + local_replacePackageMap + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapRequest();
 		raw.setSourcePath( local_sourcePath);
 		raw.setRemoteUserName( local_remoteUserName);
 		raw.setRemotePassword( local_remotePassword);

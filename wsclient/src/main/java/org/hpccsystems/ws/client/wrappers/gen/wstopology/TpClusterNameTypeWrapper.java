@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterNameTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.423Z
+ * TimeStamp: 2020-09-23T21:40:52.936Z
  */
 public class TpClusterNameTypeWrapper
 {
@@ -33,7 +33,7 @@ public class TpClusterNameTypeWrapper
 
 	public TpClusterNameTypeWrapper() {}
 
-	public TpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType tpclusternametype)
+	public TpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType tpclusternametype)
 	{
 		copy( tpclusternametype );
 	}
@@ -45,7 +45,7 @@ public class TpClusterNameTypeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class TpClusterNameTypeWrapper
 	{
 		return "TpClusterNameTypeWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "isDefault = " + local_isDefault + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterNameType();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		raw.setIsDefault( local_isDefault);

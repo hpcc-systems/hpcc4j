@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TargetDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.563Z
+ * TimeStamp: 2020-09-23T03:53:35.724Z
  */
 public class TargetDataWrapper
 {
@@ -36,7 +36,7 @@ public class TargetDataWrapper
 
 	public TargetDataWrapper() {}
 
-	public TargetDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData targetdata)
+	public TargetDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData targetdata)
 	{
 		copy( targetdata );
 	}
@@ -48,7 +48,7 @@ public class TargetDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class TargetDataWrapper
 	{
 		return "TargetDataWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "processes = " + local_processes + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.TargetData();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		if (this.local_processes!= null)

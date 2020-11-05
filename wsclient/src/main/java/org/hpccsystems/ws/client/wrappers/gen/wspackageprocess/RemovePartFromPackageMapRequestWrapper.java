@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RemovePartFromPackageMapRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.542Z
+ * TimeStamp: 2020-09-23T03:53:35.713Z
  */
 public class RemovePartFromPackageMapRequestWrapper
 {
@@ -34,7 +34,7 @@ public class RemovePartFromPackageMapRequestWrapper
 
 	public RemovePartFromPackageMapRequestWrapper() {}
 
-	public RemovePartFromPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest removepartfrompackagemaprequest)
+	public RemovePartFromPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest removepartfrompackagemaprequest)
 	{
 		copy( removepartfrompackagemaprequest );
 	}
@@ -47,7 +47,7 @@ public class RemovePartFromPackageMapRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class RemovePartFromPackageMapRequestWrapper
 	{
 		return "RemovePartFromPackageMapRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest();
 		raw.setTarget( local_target);
 		raw.setPackageMap( local_packageMap);
 		raw.setGlobalScope( local_globalScope);

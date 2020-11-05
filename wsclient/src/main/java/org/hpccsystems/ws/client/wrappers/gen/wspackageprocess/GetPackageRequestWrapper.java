@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.515Z
+ * TimeStamp: 2020-09-23T03:53:35.696Z
  */
 public class GetPackageRequestWrapper
 {
@@ -32,7 +32,7 @@ public class GetPackageRequestWrapper
 
 	public GetPackageRequestWrapper() {}
 
-	public GetPackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest getpackagerequest)
+	public GetPackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest getpackagerequest)
 	{
 		copy( getpackagerequest );
 	}
@@ -43,7 +43,7 @@ public class GetPackageRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class GetPackageRequestWrapper
 	{
 		return "GetPackageRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest();
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);
 		return raw;

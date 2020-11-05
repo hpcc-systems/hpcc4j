@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfEspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.003Z
+ * TimeStamp: 2020-09-23T03:42:02.543Z
  */
 public class ArrayOfEspExceptionWrapper
 {
@@ -34,7 +34,7 @@ public class ArrayOfEspExceptionWrapper
 
 	public ArrayOfEspExceptionWrapper() {}
 
-	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException arrayofespexception)
+	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException arrayofespexception)
 	{
 		copy( arrayofespexception );
 	}
@@ -45,7 +45,7 @@ public class ArrayOfEspExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException raw )
 	{
 		if (raw == null)
 			return;
@@ -66,13 +66,13 @@ public class ArrayOfEspExceptionWrapper
 	{
 		return "ArrayOfEspExceptionWrapper [" + "source = " + local_source + ", " + "exception = " + local_exception + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfEspException();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException();
 		raw.setSource( local_source);
 		if (this.local_exception!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspException[this.local_exception.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException[this.local_exception.size()];
 			for ( int i = 0; i < this.local_exception.size(); i++)
 			{
 				arr[i] = this.local_exception.get(i) .getRaw();

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateDFUWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.936Z
+ * TimeStamp: 2020-09-23T03:42:02.554Z
  */
 public class CreateDFUWorkunitResponseWrapper
 {
@@ -32,7 +32,7 @@ public class CreateDFUWorkunitResponseWrapper
 
 	public CreateDFUWorkunitResponseWrapper() {}
 
-	public CreateDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunitResponse createdfuworkunitresponse)
+	public CreateDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunitResponse createdfuworkunitresponse)
 	{
 		copy( createdfuworkunitresponse );
 	}
@@ -43,7 +43,7 @@ public class CreateDFUWorkunitResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunitResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunitResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class CreateDFUWorkunitResponseWrapper
 	{
 		return "CreateDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunitResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunitResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.CreateDFUWorkunitResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunitResponse();
 		return raw;
 	}
 

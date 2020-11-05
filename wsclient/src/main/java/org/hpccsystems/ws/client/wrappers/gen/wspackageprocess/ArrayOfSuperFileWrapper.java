@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfSuperFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.453Z
+ * TimeStamp: 2020-09-23T03:53:35.671Z
  */
 public class ArrayOfSuperFileWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfSuperFileWrapper
 
 	public ArrayOfSuperFileWrapper() {}
 
-	public ArrayOfSuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile arrayofsuperfile)
+	public ArrayOfSuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile arrayofsuperfile)
 	{
 		copy( arrayofsuperfile );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfSuperFileWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfSuperFileWrapper
 	{
 		return "ArrayOfSuperFileWrapper [" + "superFile = " + local_superFile + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ArrayOfSuperFile();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile();
 		if (this.local_superFile!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile[this.local_superFile.size()];
+			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile[this.local_superFile.size()];
 			for ( int i = 0; i < this.local_superFile.size(); i++)
 			{
 				arr[i] = this.local_superFile.get(i) .getRaw();

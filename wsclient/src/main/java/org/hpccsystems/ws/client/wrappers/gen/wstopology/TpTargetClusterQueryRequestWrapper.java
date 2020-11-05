@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpTargetClusterQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.422Z
+ * TimeStamp: 2020-09-23T21:40:53.010Z
  */
 public class TpTargetClusterQueryRequestWrapper
 {
@@ -33,7 +33,7 @@ public class TpTargetClusterQueryRequestWrapper
 
 	public TpTargetClusterQueryRequestWrapper() {}
 
-	public TpTargetClusterQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest tptargetclusterqueryrequest)
+	public TpTargetClusterQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryRequest tptargetclusterqueryrequest)
 	{
 		copy( tptargetclusterqueryrequest );
 	}
@@ -45,7 +45,7 @@ public class TpTargetClusterQueryRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class TpTargetClusterQueryRequestWrapper
 	{
 		return "TpTargetClusterQueryRequestWrapper [" + "type = " + local_type + ", " + "name = " + local_name + ", " + "showDetails = " + local_showDetails + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetClusterQueryRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetClusterQueryRequest();
 		raw.setType( local_type);
 		raw.setName( local_name);
 		raw.setShowDetails( local_showDetails);

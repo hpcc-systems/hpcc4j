@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUFileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.040Z
+ * TimeStamp: 2020-09-23T03:42:02.583Z
  */
 public class DFUWUFileResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DFUWUFileResponseWrapper
 
 	public DFUWUFileResponseWrapper() {}
 
-	public DFUWUFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileResponse dfuwufileresponse)
+	public DFUWUFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse dfuwufileresponse)
 	{
 		copy( dfuwufileresponse );
 	}
@@ -43,7 +43,7 @@ public class DFUWUFileResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class DFUWUFileResponseWrapper
 	{
 		return "DFUWUFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "file = " + local_file + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse();
 		raw.setFile( local_file);
 		return raw;
 	}

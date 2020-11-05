@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RemovePartFromPackageMapResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.476Z
+ * TimeStamp: 2020-09-23T03:53:35.714Z
  */
 public class RemovePartFromPackageMapResponseWrapper
 {
@@ -32,7 +32,7 @@ public class RemovePartFromPackageMapResponseWrapper
 
 	public RemovePartFromPackageMapResponseWrapper() {}
 
-	public RemovePartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse removepartfrompackagemapresponse)
+	public RemovePartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse removepartfrompackagemapresponse)
 	{
 		copy( removepartfrompackagemapresponse );
 	}
@@ -43,7 +43,7 @@ public class RemovePartFromPackageMapResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class RemovePartFromPackageMapResponseWrapper
 	{
 		return "RemovePartFromPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.RemovePartFromPackageMapResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse();
 		return raw;
 	}
 

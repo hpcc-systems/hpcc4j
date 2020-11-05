@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetQueryFileMappingRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.455Z
+ * TimeStamp: 2020-09-23T03:53:35.701Z
  */
 public class GetQueryFileMappingRequestWrapper
 {
@@ -34,7 +34,7 @@ public class GetQueryFileMappingRequestWrapper
 
 	public GetQueryFileMappingRequestWrapper() {}
 
-	public GetQueryFileMappingRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest getqueryfilemappingrequest)
+	public GetQueryFileMappingRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingRequest getqueryfilemappingrequest)
 	{
 		copy( getqueryfilemappingrequest );
 	}
@@ -47,7 +47,7 @@ public class GetQueryFileMappingRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class GetQueryFileMappingRequestWrapper
 	{
 		return "GetQueryFileMappingRequestWrapper [" + "target = " + local_target + ", " + "pMID = " + local_pMID + ", " + "queryName = " + local_queryName + ", " + "globalScope = " + local_globalScope + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingRequest();
 		raw.setTarget( local_target);
 		raw.setPMID( local_pMID);
 		raw.setQueryName( local_queryName);

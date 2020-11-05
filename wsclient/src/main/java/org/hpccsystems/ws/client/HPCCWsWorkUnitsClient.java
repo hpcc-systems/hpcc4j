@@ -17,56 +17,57 @@ import org.apache.axis2.client.Stub;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfNamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfQuerySetQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWUActions;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspSoapFault;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspStringArray;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.FileUsedByQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.NamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.Ping;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.Queries_type0;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySet;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySetQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySetQueryActionItem;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySetQueryActionResult;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.QuerySetQueryActionTypes;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUAbort;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUAction;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUDelete;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUDeleteResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUListQueries;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUListQueriesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WULogFileResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUPublishWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUPublishWorkunitResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQueryFiles;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQueryFilesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerySetDetailsResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerySetQueryActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerysetDetails;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerysetQueryAction;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerysets;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUQuerysetsResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUResubmit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUResult;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUResultResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WURun;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WURunResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUSubmit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUSubmitResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUSyntaxCheckECL;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUSyntaxCheckResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunits;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub;
+
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfNamedValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfQuerySetQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWUActions;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.FileUsedByQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.NamedValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.Ping;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.Queries_type0;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySet;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySetQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySetQueryActionItem;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySetQueryActionResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySetQueryActionTypes;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUAbort;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUAction;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUDelete;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUDeleteResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUListQueries;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUListQueriesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WULogFileResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUPublishWorkunit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUPublishWorkunitResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQueryFiles;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQueryFilesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerySetDetailsResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerySetQueryActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerysetDetails;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerysetQueryAction;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerysets;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuerysetsResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUResubmit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUResultResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WURun;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WURunResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUSubmit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUSubmitResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUSyntaxCheckECL;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUSyntaxCheckResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunits;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WUActionCode;
@@ -776,7 +777,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUInfoResponseWrapper wuInfoResponse = stubWrapper.WUInfo(wuinfodetailsparams);
 
-        ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions1_75();
+        ArrayOfEspException exceptions = wuInfoResponse.getRawArrayOfEspExceptions1_79();
         if (exceptions == null && wuInfoResponse.getWorkunit() != null)
         {
             workunit = wuInfoResponse.getWorkunit();
@@ -1001,36 +1002,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     }
 
     /**
-     * Check the version found at instantiation with compatibility version.
-     *
-     * @param input
-     *            the input
-     * @return boolean true if server build version >= input version
-     */
-    private boolean compatibilityCheck(Version input)
-    {
-        if (targetHPCCBuildVersion == null || input == null)
-            return false;
-
-        if (targetHPCCBuildVersion.getMajor() > input.getMajor())
-            return true;
-        else if (targetHPCCBuildVersion.getMajor() < input.getMajor())
-            return false;
-
-        if (targetHPCCBuildVersion.getMinor() > input.getMinor())
-            return true;
-        else if (targetHPCCBuildVersion.getMinor() < input.getMinor())
-            return false;
-
-        if (targetHPCCBuildVersion.getPoint() > input.getPoint())
-            return true;
-        else if (targetHPCCBuildVersion.getPoint() < input.getPoint())
-            return false;
-        else
-            return true;
-    }
-
-    /**
      * As of Platform version 6.0.0. Now maps to new prototype, excluding the pageSize and startPageFrom parameters.
      * Executes a WUQuery, based on parameters provided. If a custom WUQuery is desired, the caller can make a direct
      * call to WUQuery based on the soapproxy for this client. If using applicationValues objects for filtering, a user
@@ -1109,7 +1080,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         info.validate();
 
         List<WorkunitWrapper> result = new ArrayList<WorkunitWrapper>();
-        if (!compatibilityCheck(new Version("6.0.0"))) // target HPCC is pre 6.0.0
+        if (!compatibilityCheck(6,0,0)) // target HPCC is pre 6.0.0
         {
             Set<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit> workunit_set = new HashSet<org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkunit>();
 
@@ -1172,7 +1143,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
                 handleEspExceptions(new ArrayOfEspExceptionWrapper(wUQuery.getExceptions()), "Error in WU query");
             else
             {
-                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfECLWorkunit workunits = wUQuery.getWorkunits();
+                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLWorkunit workunits = wUQuery.getWorkunits();
                 if (workunits != null)
                 {
                     ECLWorkunit[] eclWorkunits = workunits.getECLWorkunit();
@@ -2256,7 +2227,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         params.setFilter(filtervalue);
         if (filtertype != null)
         {
-            params.setFilterType(QuerySetFilterTypeWrapper.get1_75FilterType(filtertype));
+            params.setFilterType(QuerySetFilterTypeWrapper.getFilterType(filtertype));
         }
         params.setQuerySetName(querySetName);
         WUQuerySetDetailsResponse resp = ((WsWorkunitsStub) stub).wUQuerysetDetails(params);

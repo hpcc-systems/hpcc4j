@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SuperFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.571Z
+ * TimeStamp: 2020-09-23T03:53:35.722Z
  */
 public class SuperFileWrapper
 {
@@ -32,7 +32,7 @@ public class SuperFileWrapper
 
 	public SuperFileWrapper() {}
 
-	public SuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile superfile)
+	public SuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile superfile)
 	{
 		copy( superfile );
 	}
@@ -43,7 +43,7 @@ public class SuperFileWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class SuperFileWrapper
 	{
 		return "SuperFileWrapper [" + "name = " + local_name + ", " + "subFiles = " + local_subFiles + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SuperFile();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile();
 		raw.setName( local_name);
 		return raw;
 	}

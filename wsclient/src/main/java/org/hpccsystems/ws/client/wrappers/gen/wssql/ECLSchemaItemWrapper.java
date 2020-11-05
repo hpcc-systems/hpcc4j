@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLSchemaItemWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.317Z
+ * TimeStamp: 2020-09-23T04:21:56.905Z
  */
 public class ECLSchemaItemWrapper
 {
@@ -34,7 +34,7 @@ public class ECLSchemaItemWrapper
 
 	public ECLSchemaItemWrapper() {}
 
-	public ECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem eclschemaitem)
+	public ECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem eclschemaitem)
 	{
 		copy( eclschemaitem );
 	}
@@ -47,7 +47,7 @@ public class ECLSchemaItemWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class ECLSchemaItemWrapper
 	{
 		return "ECLSchemaItemWrapper [" + "columnName = " + local_columnName + ", " + "columnType = " + local_columnType + ", " + "columnTypeCode = " + local_columnTypeCode + ", " + "isConditional = " + local_isConditional + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSchemaItem();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem();
 		raw.setColumnName( local_columnName);
 		raw.setColumnType( local_columnType);
 		raw.setColumnTypeCode( local_columnTypeCode);

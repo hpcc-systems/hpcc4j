@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ListPackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.535Z
+ * TimeStamp: 2020-09-23T03:53:35.705Z
  */
 public class ListPackageResponseWrapper
 {
@@ -33,7 +33,7 @@ public class ListPackageResponseWrapper
 
 	public ListPackageResponseWrapper() {}
 
-	public ListPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageResponse listpackageresponse)
+	public ListPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageResponse listpackageresponse)
 	{
 		copy( listpackageresponse );
 	}
@@ -45,7 +45,7 @@ public class ListPackageResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class ListPackageResponseWrapper
 	{
 		return "ListPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "pkgListMapData = " + local_pkgListMapData + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ListPackageResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageResponse();
 		return raw;
 	}
 

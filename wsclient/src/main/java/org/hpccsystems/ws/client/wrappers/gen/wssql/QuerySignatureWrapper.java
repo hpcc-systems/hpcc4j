@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: QuerySignatureWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.287Z
+ * TimeStamp: 2020-09-23T04:21:56.962Z
  */
 public class QuerySignatureWrapper
 {
@@ -32,7 +32,7 @@ public class QuerySignatureWrapper
 
 	public QuerySignatureWrapper() {}
 
-	public QuerySignatureWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature querysignature)
+	public QuerySignatureWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature querysignature)
 	{
 		copy( querysignature );
 	}
@@ -43,7 +43,7 @@ public class QuerySignatureWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class QuerySignatureWrapper
 	{
 		return "QuerySignatureWrapper [" + "inParams = " + local_inParams + ", " + "resultSets = " + local_resultSets + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySignature();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature();
 		return raw;
 	}
 

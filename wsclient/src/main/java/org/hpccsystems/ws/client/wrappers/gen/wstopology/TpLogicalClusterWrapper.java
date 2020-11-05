@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLogicalClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.327Z
+ * TimeStamp: 2020-09-23T21:40:52.971Z
  */
 public class TpLogicalClusterWrapper
 {
@@ -35,7 +35,7 @@ public class TpLogicalClusterWrapper
 
 	public TpLogicalClusterWrapper() {}
 
-	public TpLogicalClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster tplogicalcluster)
+	public TpLogicalClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster tplogicalcluster)
 	{
 		copy( tplogicalcluster );
 	}
@@ -49,7 +49,7 @@ public class TpLogicalClusterWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster raw )
 	{
 		if (raw == null)
 			return;
@@ -67,9 +67,9 @@ public class TpLogicalClusterWrapper
 	{
 		return "TpLogicalClusterWrapper [" + "name = " + local_name + ", " + "queue = " + local_queue + ", " + "languageVersion = " + local_languageVersion + ", " + "process = " + local_process + ", " + "type = " + local_type + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalCluster();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster();
 		raw.setName( local_name);
 		raw.setQueue( local_queue);
 		raw.setLanguageVersion( local_languageVersion);

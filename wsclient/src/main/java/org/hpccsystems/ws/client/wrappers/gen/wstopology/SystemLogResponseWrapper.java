@@ -22,9 +22,9 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SystemLogResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.388Z
+ * TimeStamp: 2020-09-23T21:40:52.930Z
  */
 public class SystemLogResponseWrapper
 {
@@ -33,7 +33,7 @@ public class SystemLogResponseWrapper
 
 	public SystemLogResponseWrapper() {}
 
-	public SystemLogResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse systemlogresponse)
+	public SystemLogResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogResponse systemlogresponse)
 	{
 		copy( systemlogresponse );
 	}
@@ -44,7 +44,7 @@ public class SystemLogResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class SystemLogResponseWrapper
 	{
 		return "SystemLogResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "thefile = " + local_thefile + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogResponse();
 		raw.setThefile( local_thefile);
 		return raw;
 	}

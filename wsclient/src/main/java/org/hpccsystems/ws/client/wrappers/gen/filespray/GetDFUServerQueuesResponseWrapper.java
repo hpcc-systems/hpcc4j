@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUServerQueuesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.981Z
+ * TimeStamp: 2020-09-23T03:42:02.614Z
  */
 public class GetDFUServerQueuesResponseWrapper
 {
@@ -35,7 +35,7 @@ public class GetDFUServerQueuesResponseWrapper
 
 	public GetDFUServerQueuesResponseWrapper() {}
 
-	public GetDFUServerQueuesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse getdfuserverqueuesresponse)
+	public GetDFUServerQueuesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesResponse getdfuserverqueuesresponse)
 	{
 		copy( getdfuserverqueuesresponse );
 	}
@@ -46,7 +46,7 @@ public class GetDFUServerQueuesResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class GetDFUServerQueuesResponseWrapper
 	{
 		return "GetDFUServerQueuesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "names = " + local_names + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesResponse();
 		if (this.local_names!= null)
 		{
 			EspStringArray arr = new EspStringArray();

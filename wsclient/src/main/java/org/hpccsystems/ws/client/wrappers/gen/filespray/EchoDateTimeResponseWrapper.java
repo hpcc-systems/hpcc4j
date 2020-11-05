@@ -22,9 +22,9 @@ import java.util.Calendar;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoDateTimeResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.031Z
+ * TimeStamp: 2020-09-23T03:42:02.602Z
  */
 public class EchoDateTimeResponseWrapper
 {
@@ -32,7 +32,7 @@ public class EchoDateTimeResponseWrapper
 
 	public EchoDateTimeResponseWrapper() {}
 
-	public EchoDateTimeResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse echodatetimeresponse)
+	public EchoDateTimeResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse echodatetimeresponse)
 	{
 		copy( echodatetimeresponse );
 	}
@@ -42,7 +42,7 @@ public class EchoDateTimeResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class EchoDateTimeResponseWrapper
 	{
 		return "EchoDateTimeResponseWrapper [" + "result = " + local_result + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EchoDateTimeResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse();
 		raw.setResult( local_result);
 		return raw;
 	}
