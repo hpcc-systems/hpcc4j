@@ -22,9 +22,9 @@ import java.math.BigInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EclFieldTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.391Z
+ * TimeStamp: 2020-09-23T04:21:56.899Z
  */
 public class EclFieldTypeWrapper
 {
@@ -35,7 +35,7 @@ public class EclFieldTypeWrapper
 
 	public EclFieldTypeWrapper() {}
 
-	public EclFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType eclfieldtype)
+	public EclFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldType eclfieldtype)
 	{
 		copy( eclfieldtype );
 	}
@@ -48,7 +48,7 @@ public class EclFieldTypeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldType raw )
 	{
 		if (raw == null)
 			return;
@@ -66,9 +66,9 @@ public class EclFieldTypeWrapper
 	{
 		return "EclFieldTypeWrapper [" + "type = " + local_type + ", " + "locale = " + local_locale + ", " + "length = " + local_length + ", " + "precision = " + local_precision + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldType getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.EclFieldType();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EclFieldType();
 		raw.setLocale( local_locale);
 		raw.setLength( local_length);
 		raw.setPrecision( local_precision);

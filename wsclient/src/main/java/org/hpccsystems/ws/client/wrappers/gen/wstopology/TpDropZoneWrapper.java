@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDropZoneWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.411Z
+ * TimeStamp: 2020-09-23T21:40:52.944Z
  */
 public class TpDropZoneWrapper
 {
@@ -37,7 +37,7 @@ public class TpDropZoneWrapper
 
 	public TpDropZoneWrapper() {}
 
-	public TpDropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone tpdropzone)
+	public TpDropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone tpdropzone)
 	{
 		copy( tpdropzone );
 	}
@@ -53,7 +53,7 @@ public class TpDropZoneWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone raw )
 	{
 		if (raw == null)
 			return;
@@ -74,9 +74,9 @@ public class TpDropZoneWrapper
 	{
 		return "TpDropZoneWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "path = " + local_path + ", " + "eCLWatchVisible = " + local_eCLWatchVisible + ", " + "uMask = " + local_uMask + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

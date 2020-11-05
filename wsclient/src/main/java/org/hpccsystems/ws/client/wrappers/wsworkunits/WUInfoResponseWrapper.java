@@ -2,8 +2,8 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUInfoResponse;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 
@@ -270,17 +270,17 @@ public class WUInfoResponseWrapper
     }
     
     /**
-     * Gets the raw array of esp exceptions 1 75.
+     * Gets the raw array of esp exceptions 1 79.
      *
-     * @return the raw array of esp exceptions 1 75
+     * @return the raw array of esp exceptions 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException getRawArrayOfEspExceptions1_75()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException getRawArrayOfEspExceptions1_79()
     {
         if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0)
             return null;
 
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException result = 
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException result = 
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException();
 
         List<EspExceptionWrapper> espExceptions = exceptions.getEspExceptions();
         for (EspExceptionWrapper espExceptionWrapper : espExceptions)

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLTimingDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.404Z
+ * TimeStamp: 2020-09-23T04:21:56.909Z
  */
 public class ECLTimingDataWrapper
 {
@@ -36,7 +36,7 @@ public class ECLTimingDataWrapper
 
 	public ECLTimingDataWrapper() {}
 
-	public ECLTimingDataWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData ecltimingdata)
+	public ECLTimingDataWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData ecltimingdata)
 	{
 		copy( ecltimingdata );
 	}
@@ -51,7 +51,7 @@ public class ECLTimingDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class ECLTimingDataWrapper
 	{
 		return "ECLTimingDataWrapper [" + "name = " + local_name + ", " + "graphNum = " + local_graphNum + ", " + "subGraphNum = " + local_subGraphNum + ", " + "gID = " + local_gID + ", " + "min = " + local_min + ", " + "mS = " + local_mS + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLTimingData();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData();
 		raw.setName( local_name);
 		raw.setGraphNum( local_graphNum);
 		raw.setSubGraphNum( local_subGraphNum);

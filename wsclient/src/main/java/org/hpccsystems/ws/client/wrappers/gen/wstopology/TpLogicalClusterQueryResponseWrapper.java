@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLogicalClusterQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.424Z
+ * TimeStamp: 2020-09-23T21:40:52.973Z
  */
 public class TpLogicalClusterQueryResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpLogicalClusterQueryResponseWrapper
 
 	public TpLogicalClusterQueryResponseWrapper() {}
 
-	public TpLogicalClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse tplogicalclusterqueryresponse)
+	public TpLogicalClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse tplogicalclusterqueryresponse)
 	{
 		copy( tplogicalclusterqueryresponse );
 	}
@@ -43,7 +43,7 @@ public class TpLogicalClusterQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpLogicalClusterQueryResponseWrapper
 	{
 		return "TpLogicalClusterQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpLogicalClusters = " + local_tpLogicalClusters + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogicalClusterQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse();
 		return raw;
 	}
 

@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

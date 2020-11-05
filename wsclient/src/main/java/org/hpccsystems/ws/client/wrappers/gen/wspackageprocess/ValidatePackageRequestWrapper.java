@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ValidatePackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.413Z
+ * TimeStamp: 2020-09-23T03:53:35.729Z
  */
 public class ValidatePackageRequestWrapper
 {
@@ -37,16 +37,19 @@ public class ValidatePackageRequestWrapper
 	protected String local_pMID;
 	protected String local_queryIdToVerify;
 	protected List<String> local_queriesToVerify = null;
+	protected List<String> local_queriesToIgnore = null;
 	protected boolean local_checkDFS;
 	protected boolean local_globalScope;
+	protected boolean local_ignoreWarnings;
+	protected boolean local_ignoreOptionalFiles;
 
 	public ValidatePackageRequestWrapper() {}
 
-	public ValidatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest validatepackagerequest)
+	public ValidatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageRequest validatepackagerequest)
 	{
 		copy( validatepackagerequest );
 	}
-	public ValidatePackageRequestWrapper( String _info, String _target, String _process, boolean _active, String _pMID, String _queryIdToVerify, List<String> _queriesToVerify, boolean _checkDFS, boolean _globalScope )
+	public ValidatePackageRequestWrapper( String _info, String _target, String _process, boolean _active, String _pMID, String _queryIdToVerify, List<String> _queriesToVerify, List<String> _queriesToIgnore, boolean _checkDFS, boolean _globalScope, boolean _ignoreWarnings, boolean _ignoreOptionalFiles )
 	{
 		this.local_info = _info;
 		this.local_target = _target;
@@ -55,12 +58,15 @@ public class ValidatePackageRequestWrapper
 		this.local_pMID = _pMID;
 		this.local_queryIdToVerify = _queryIdToVerify;
 		this.local_queriesToVerify = _queriesToVerify;
+		this.local_queriesToIgnore = _queriesToIgnore;
 		this.local_checkDFS = _checkDFS;
 		this.local_globalScope = _globalScope;
+		this.local_ignoreWarnings = _ignoreWarnings;
+		this.local_ignoreOptionalFiles = _ignoreOptionalFiles;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -78,19 +84,28 @@ public class ValidatePackageRequestWrapper
 			{
 				this.local_queriesToVerify.add(new String(raw.getQueriesToVerify().getItem()[i]));
 			}
+		}		if (raw.getQueriesToIgnore() != null)
+		{
+			this.local_queriesToIgnore = new ArrayList<String>();
+			for ( int i = 0; i < raw.getQueriesToIgnore().getItem().length; i++)
+			{
+				this.local_queriesToIgnore.add(new String(raw.getQueriesToIgnore().getItem()[i]));
+			}
 		}		this.local_checkDFS = raw.getCheckDFS();
 		this.local_globalScope = raw.getGlobalScope();
+		this.local_ignoreWarnings = raw.getIgnoreWarnings();
+		this.local_ignoreOptionalFiles = raw.getIgnoreOptionalFiles();
 
 	}
 
 	@Override
 	public String toString()
 	{
-		return "ValidatePackageRequestWrapper [" + "info = " + local_info + ", " + "target = " + local_target + ", " + "process = " + local_process + ", " + "active = " + local_active + ", " + "pMID = " + local_pMID + ", " + "queryIdToVerify = " + local_queryIdToVerify + ", " + "queriesToVerify = " + local_queriesToVerify + ", " + "checkDFS = " + local_checkDFS + ", " + "globalScope = " + local_globalScope + "]";
+		return "ValidatePackageRequestWrapper [" + "info = " + local_info + ", " + "target = " + local_target + ", " + "process = " + local_process + ", " + "active = " + local_active + ", " + "pMID = " + local_pMID + ", " + "queryIdToVerify = " + local_queryIdToVerify + ", " + "queriesToVerify = " + local_queriesToVerify + ", " + "queriesToIgnore = " + local_queriesToIgnore + ", " + "checkDFS = " + local_checkDFS + ", " + "globalScope = " + local_globalScope + ", " + "ignoreWarnings = " + local_ignoreWarnings + ", " + "ignoreOptionalFiles = " + local_ignoreOptionalFiles + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.ValidatePackageRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageRequest();
 		raw.setInfo( local_info);
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);
@@ -106,8 +121,19 @@ public class ValidatePackageRequestWrapper
 			}
 			raw.setQueriesToVerify(arr);
 		}
+		if (this.local_queriesToIgnore!= null)
+		{
+			EspStringArray arr = new EspStringArray();
+			for ( int i = 0; i < this.local_queriesToIgnore.size(); i++)
+			{
+				arr.addItem(this.local_queriesToIgnore.get(i));
+			}
+			raw.setQueriesToIgnore(arr);
+		}
 		raw.setCheckDFS( local_checkDFS);
 		raw.setGlobalScope( local_globalScope);
+		raw.setIgnoreWarnings( local_ignoreWarnings);
+		raw.setIgnoreOptionalFiles( local_ignoreOptionalFiles);
 		return raw;
 	}
 
@@ -168,6 +194,14 @@ public class ValidatePackageRequestWrapper
 	{
 		return this.local_queriesToVerify;
 	}
+	public void setQueriesToIgnore( List<String> _queriesToIgnore )
+	{
+		this.local_queriesToIgnore = _queriesToIgnore;
+	}
+	public List<String> getQueriesToIgnore( )
+	{
+		return this.local_queriesToIgnore;
+	}
 	public void setCheckDFS( boolean _checkDFS )
 	{
 		this.local_checkDFS = _checkDFS;
@@ -183,5 +217,21 @@ public class ValidatePackageRequestWrapper
 	public boolean getGlobalScope( )
 	{
 		return this.local_globalScope;
+	}
+	public void setIgnoreWarnings( boolean _ignoreWarnings )
+	{
+		this.local_ignoreWarnings = _ignoreWarnings;
+	}
+	public boolean getIgnoreWarnings( )
+	{
+		return this.local_ignoreWarnings;
+	}
+	public void setIgnoreOptionalFiles( boolean _ignoreOptionalFiles )
+	{
+		this.local_ignoreOptionalFiles = _ignoreOptionalFiles;
+	}
+	public boolean getIgnoreOptionalFiles( )
+	{
+		return this.local_ignoreOptionalFiles;
 	}
 }

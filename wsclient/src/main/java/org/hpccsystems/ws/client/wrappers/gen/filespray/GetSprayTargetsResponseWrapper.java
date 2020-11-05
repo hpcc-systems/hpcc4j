@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetSprayTargetsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.011Z
+ * TimeStamp: 2020-09-23T03:42:02.622Z
  */
 public class GetSprayTargetsResponseWrapper
 {
@@ -32,7 +32,7 @@ public class GetSprayTargetsResponseWrapper
 
 	public GetSprayTargetsResponseWrapper() {}
 
-	public GetSprayTargetsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse getspraytargetsresponse)
+	public GetSprayTargetsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse getspraytargetsresponse)
 	{
 		copy( getspraytargetsresponse );
 	}
@@ -43,7 +43,7 @@ public class GetSprayTargetsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class GetSprayTargetsResponseWrapper
 	{
 		return "GetSprayTargetsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "groupNodes = " + local_groupNodes + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetSprayTargetsResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse();
 		return raw;
 	}
 

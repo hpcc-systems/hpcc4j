@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.415Z
+ * TimeStamp: 2020-09-23T21:40:52.939Z
  */
 public class TpClusterQueryResponseWrapper
 {
@@ -34,7 +34,7 @@ public class TpClusterQueryResponseWrapper
 
 	public TpClusterQueryResponseWrapper() {}
 
-	public TpClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse tpclusterqueryresponse)
+	public TpClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryResponse tpclusterqueryresponse)
 	{
 		copy( tpclusterqueryresponse );
 	}
@@ -47,7 +47,7 @@ public class TpClusterQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -66,9 +66,9 @@ public class TpClusterQueryResponseWrapper
 	{
 		return "TpClusterQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "enableSNMP = " + local_enableSNMP + ", " + "acceptLanguage = " + local_acceptLanguage + ", " + "tpClusters = " + local_tpClusters + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpClusterQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterQueryResponse();
 		raw.setEnableSNMP( local_enableSNMP);
 		raw.setAcceptLanguage( local_acceptLanguage);
 		return raw;

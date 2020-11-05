@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGroupWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.380Z
+ * TimeStamp: 2020-09-23T21:40:52.960Z
  */
 public class TpGroupWrapper
 {
@@ -33,7 +33,7 @@ public class TpGroupWrapper
 
 	public TpGroupWrapper() {}
 
-	public TpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup tpgroup)
+	public TpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup tpgroup)
 	{
 		copy( tpgroup );
 	}
@@ -45,7 +45,7 @@ public class TpGroupWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class TpGroupWrapper
 	{
 		return "TpGroupWrapper [" + "name = " + local_name + ", " + "kind = " + local_kind + ", " + "replicateOutputs = " + local_replicateOutputs + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGroup();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup();
 		raw.setName( local_name);
 		raw.setKind( local_kind);
 		raw.setReplicateOutputs( local_replicateOutputs);

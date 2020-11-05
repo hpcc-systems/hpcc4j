@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDkcSlaveWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.415Z
+ * TimeStamp: 2020-09-23T21:40:52.942Z
  */
 public class TpDkcSlaveWrapper
 {
@@ -35,7 +35,7 @@ public class TpDkcSlaveWrapper
 
 	public TpDkcSlaveWrapper() {}
 
-	public TpDkcSlaveWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave tpdkcslave)
+	public TpDkcSlaveWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave tpdkcslave)
 	{
 		copy( tpdkcslave );
 	}
@@ -49,7 +49,7 @@ public class TpDkcSlaveWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class TpDkcSlaveWrapper
 	{
 		return "TpDkcSlaveWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "path = " + local_path + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDkcSlave();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDkcSlave();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

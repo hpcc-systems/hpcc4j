@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLSourceFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.358Z
+ * TimeStamp: 2020-09-23T04:21:56.907Z
  */
 public class ECLSourceFileWrapper
 {
@@ -36,7 +36,7 @@ public class ECLSourceFileWrapper
 
 	public ECLSourceFileWrapper() {}
 
-	public ECLSourceFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile eclsourcefile)
+	public ECLSourceFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile eclsourcefile)
 	{
 		copy( eclsourcefile );
 	}
@@ -51,7 +51,7 @@ public class ECLSourceFileWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile raw )
 	{
 		if (raw == null)
 			return;
@@ -71,9 +71,9 @@ public class ECLSourceFileWrapper
 	{
 		return "ECLSourceFileWrapper [" + "fileCluster = " + local_fileCluster + ", " + "name = " + local_name + ", " + "isSuperFile = " + local_isSuperFile + ", " + "subs = " + local_subs + ", " + "count = " + local_count + ", " + "eCLSourceFiles = " + local_eCLSourceFiles + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLSourceFile();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSourceFile();
 		raw.setFileCluster( local_fileCluster);
 		raw.setName( local_name);
 		raw.setIsSuperFile( local_isSuperFile);

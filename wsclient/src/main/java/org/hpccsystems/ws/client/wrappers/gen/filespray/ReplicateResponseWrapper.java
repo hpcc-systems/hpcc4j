@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ReplicateResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ReplicateResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ReplicateResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.040Z
+ * TimeStamp: 2020-09-23T03:42:02.634Z
  */
 public class ReplicateResponseWrapper
 {
@@ -32,7 +32,7 @@ public class ReplicateResponseWrapper
 
 	public ReplicateResponseWrapper() {}
 
-	public ReplicateResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ReplicateResponse replicateresponse)
+	public ReplicateResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ReplicateResponse replicateresponse)
 	{
 		copy( replicateresponse );
 	}
@@ -43,7 +43,7 @@ public class ReplicateResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ReplicateResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ReplicateResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class ReplicateResponseWrapper
 	{
 		return "ReplicateResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ReplicateResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ReplicateResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ReplicateResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ReplicateResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ReplicateResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ReplicateResponse();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

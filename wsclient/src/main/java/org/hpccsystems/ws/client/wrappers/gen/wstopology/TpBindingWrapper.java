@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpBindingWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.403Z
+ * TimeStamp: 2020-09-23T21:40:52.931Z
  */
 public class TpBindingWrapper
 {
@@ -37,7 +37,7 @@ public class TpBindingWrapper
 
 	public TpBindingWrapper() {}
 
-	public TpBindingWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding tpbinding)
+	public TpBindingWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding tpbinding)
 	{
 		copy( tpbinding );
 	}
@@ -53,7 +53,7 @@ public class TpBindingWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding raw )
 	{
 		if (raw == null)
 			return;
@@ -73,9 +73,9 @@ public class TpBindingWrapper
 	{
 		return "TpBindingWrapper [" + "name = " + local_name + ", " + "service = " + local_service + ", " + "serviceType = " + local_serviceType + ", " + "bindingType = " + local_bindingType + ", " + "serviceBuildSet = " + local_serviceBuildSet + ", " + "port = " + local_port + ", " + "protocol = " + local_protocol + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpBinding();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpBinding();
 		raw.setName( local_name);
 		raw.setService( local_service);
 		raw.setServiceType( local_serviceType);

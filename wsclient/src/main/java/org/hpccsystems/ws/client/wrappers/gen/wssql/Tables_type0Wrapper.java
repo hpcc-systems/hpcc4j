@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Tables_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Tables_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.332Z
+ * TimeStamp: 2020-09-23T04:21:56.971Z
  */
 public class Tables_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class Tables_type0Wrapper
 
 	public Tables_type0Wrapper() {}
 
-	public Tables_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0 tables_type0)
+	public Tables_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Tables_type0 tables_type0)
 	{
 		copy( tables_type0 );
 	}
@@ -43,7 +43,7 @@ public class Tables_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Tables_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class Tables_type0Wrapper
 	{
 		return "Tables_type0Wrapper [" + "table = " + local_table + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Tables_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.Tables_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Tables_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Tables_type0();
 		if (this.local_table!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCTable[this.local_table.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable[this.local_table.size()];
 			for ( int i = 0; i < this.local_table.size(); i++)
 			{
 				arr[i] = this.local_table.get(i) .getRaw();

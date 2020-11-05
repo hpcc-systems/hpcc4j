@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDropZoneQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.425Z
+ * TimeStamp: 2020-09-23T21:40:52.946Z
  */
 public class TpDropZoneQueryResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpDropZoneQueryResponseWrapper
 
 	public TpDropZoneQueryResponseWrapper() {}
 
-	public TpDropZoneQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse tpdropzonequeryresponse)
+	public TpDropZoneQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse tpdropzonequeryresponse)
 	{
 		copy( tpdropzonequeryresponse );
 	}
@@ -43,7 +43,7 @@ public class TpDropZoneQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpDropZoneQueryResponseWrapper
 	{
 		return "TpDropZoneQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpDropZones = " + local_tpDropZones + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZoneQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse();
 		return raw;
 	}
 

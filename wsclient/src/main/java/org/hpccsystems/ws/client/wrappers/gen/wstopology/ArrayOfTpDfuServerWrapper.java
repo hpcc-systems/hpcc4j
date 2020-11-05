@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpDfuServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDfuServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDfuServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.319Z
+ * TimeStamp: 2020-09-23T21:40:52.904Z
  */
 public class ArrayOfTpDfuServerWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpDfuServerWrapper
 
 	public ArrayOfTpDfuServerWrapper() {}
 
-	public ArrayOfTpDfuServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDfuServer arrayoftpdfuserver)
+	public ArrayOfTpDfuServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDfuServer arrayoftpdfuserver)
 	{
 		copy( arrayoftpdfuserver );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpDfuServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDfuServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDfuServer raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpDfuServerWrapper
 	{
 		return "ArrayOfTpDfuServerWrapper [" + "tpDfuServer = " + local_tpDfuServer + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDfuServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDfuServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDfuServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDfuServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDfuServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDfuServer();
 		if (this.local_tpDfuServer!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer[this.local_tpDfuServer.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer[this.local_tpDfuServer.size()];
 			for ( int i = 0; i < this.local_tpDfuServer.size(); i++)
 			{
 				arr[i] = this.local_tpDfuServer.get(i) .getRaw();

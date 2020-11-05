@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Plugins_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Plugins_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.363Z
+ * TimeStamp: 2020-09-23T21:40:52.927Z
  */
 public class Plugins_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class Plugins_type0Wrapper
 
 	public Plugins_type0Wrapper() {}
 
-	public Plugins_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0 plugins_type0)
+	public Plugins_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Plugins_type0 plugins_type0)
 	{
 		copy( plugins_type0 );
 	}
@@ -43,7 +43,7 @@ public class Plugins_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Plugins_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class Plugins_type0Wrapper
 	{
 		return "Plugins_type0Wrapper [" + "plugin = " + local_plugin + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Plugins_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Plugins_type0();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Plugins_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Plugins_type0();
 		if (this.local_plugin!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpEspServicePlugin[this.local_plugin.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServicePlugin[this.local_plugin.size()];
 			for ( int i = 0; i < this.local_plugin.size(); i++)
 			{
 				arr[i] = this.local_plugin.get(i) .getRaw();

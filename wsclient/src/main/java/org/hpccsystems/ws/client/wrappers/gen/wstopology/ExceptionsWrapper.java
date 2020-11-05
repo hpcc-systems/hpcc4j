@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.314Z
+ * TimeStamp: 2020-09-23T21:40:52.925Z
  */
 public class ExceptionsWrapper
 {
@@ -31,7 +31,7 @@ public class ExceptionsWrapper
 
 	public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions exceptions)
+	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions exceptions)
 	{
 		copy( exceptions );
 	}
@@ -41,7 +41,7 @@ public class ExceptionsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class ExceptionsWrapper
 	{
 		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.Exceptions();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions();
 		return raw;
 	}
 

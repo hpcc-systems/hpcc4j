@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMySqlServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.293Z
+ * TimeStamp: 2020-09-23T21:40:52.982Z
  */
 public class TpMySqlServerWrapper
 {
@@ -35,7 +35,7 @@ public class TpMySqlServerWrapper
 
 	public TpMySqlServerWrapper() {}
 
-	public TpMySqlServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer tpmysqlserver)
+	public TpMySqlServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer tpmysqlserver)
 	{
 		copy( tpmysqlserver );
 	}
@@ -49,7 +49,7 @@ public class TpMySqlServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class TpMySqlServerWrapper
 	{
 		return "TpMySqlServerWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "path = " + local_path + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMySqlServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMySqlServer();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

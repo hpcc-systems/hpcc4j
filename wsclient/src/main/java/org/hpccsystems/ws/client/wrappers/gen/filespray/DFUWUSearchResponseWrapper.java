@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUSearchResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.003Z
+ * TimeStamp: 2020-09-23T03:42:02.586Z
  */
 public class DFUWUSearchResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DFUWUSearchResponseWrapper
 
 	public DFUWUSearchResponseWrapper() {}
 
-	public DFUWUSearchResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse dfuwusearchresponse)
+	public DFUWUSearchResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse dfuwusearchresponse)
 	{
 		copy( dfuwusearchresponse );
 	}
@@ -43,7 +43,7 @@ public class DFUWUSearchResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class DFUWUSearchResponseWrapper
 	{
 		return "DFUWUSearchResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "clusterNames = " + local_clusterNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse();
 		return raw;
 	}
 

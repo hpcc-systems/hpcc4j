@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpDropZoneWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.426Z
+ * TimeStamp: 2020-09-23T21:40:52.906Z
  */
 public class ArrayOfTpDropZoneWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpDropZoneWrapper
 
 	public ArrayOfTpDropZoneWrapper() {}
 
-	public ArrayOfTpDropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone arrayoftpdropzone)
+	public ArrayOfTpDropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDropZone arrayoftpdropzone)
 	{
 		copy( arrayoftpdropzone );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpDropZoneWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDropZone raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpDropZoneWrapper
 	{
 		return "ArrayOfTpDropZoneWrapper [" + "tpDropZone = " + local_tpDropZone + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDropZone getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDropZone();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDropZone raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDropZone();
 		if (this.local_tpDropZone!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDropZone[this.local_tpDropZone.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone[this.local_tpDropZone.size()];
 			for ( int i = 0; i < this.local_tpDropZone.size(); i++)
 			{
 				arr[i] = this.local_tpDropZone.get(i) .getRaw();

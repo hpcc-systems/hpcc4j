@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SystemLogRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.398Z
+ * TimeStamp: 2020-09-23T21:40:52.928Z
  */
 public class SystemLogRequestWrapper
 {
@@ -33,7 +33,7 @@ public class SystemLogRequestWrapper
 
 	public SystemLogRequestWrapper() {}
 
-	public SystemLogRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogRequest systemlogrequest)
+	public SystemLogRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogRequest systemlogrequest)
 	{
 		copy( systemlogrequest );
 	}
@@ -45,7 +45,7 @@ public class SystemLogRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class SystemLogRequestWrapper
 	{
 		return "SystemLogRequestWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "zip = " + local_zip + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.SystemLogRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.SystemLogRequest();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		raw.setZip( local_zip);

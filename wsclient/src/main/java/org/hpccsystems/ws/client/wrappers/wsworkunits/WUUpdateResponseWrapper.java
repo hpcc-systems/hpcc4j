@@ -2,7 +2,7 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUUpdateResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUUpdateResponse;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 
@@ -139,17 +139,17 @@ public class WUUpdateResponseWrapper
      *
      * @return the raw array of esp exceptions
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException getRawArrayOfEspExceptions()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException getRawArrayOfEspExceptions()
     {
         if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0)
             return null;
 
         List<EspExceptionWrapper> espExceptions = exceptions.getEspExceptions();
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ArrayOfEspException();
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException[] raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException[espExceptions.size()];
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfEspException();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspException[] raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspException[espExceptions.size()];
         for (int i = 0; i < raw.length; i++ )
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException esp = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.EspException();
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspException esp = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspException();
 
             esp.setAudience(espExceptions.get(i).getAudience());
             esp.setMessage(espExceptions.get(i).getMessage());

@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WsTopologyPingRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.WsTopologyPingRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2019-09-05T13:55:48.008Z
+ * TimeStamp: 2020-09-23T21:40:53.018Z
  */
 public class WsTopologyPingRequestWrapper
 {
 
 	public WsTopologyPingRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.WsTopologyPingRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.WsTopologyPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.WsTopologyPingRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingRequest();
 		return raw;
 	}
 

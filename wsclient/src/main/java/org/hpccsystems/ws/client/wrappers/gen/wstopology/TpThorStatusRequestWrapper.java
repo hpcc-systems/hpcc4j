@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpThorStatusRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.423Z
+ * TimeStamp: 2020-09-23T21:40:53.014Z
  */
 public class TpThorStatusRequestWrapper
 {
@@ -31,7 +31,7 @@ public class TpThorStatusRequestWrapper
 
 	public TpThorStatusRequestWrapper() {}
 
-	public TpThorStatusRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest tpthorstatusrequest)
+	public TpThorStatusRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusRequest tpthorstatusrequest)
 	{
 		copy( tpthorstatusrequest );
 	}
@@ -41,7 +41,7 @@ public class TpThorStatusRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class TpThorStatusRequestWrapper
 	{
 		return "TpThorStatusRequestWrapper [" + "name = " + local_name + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusRequest();
 		raw.setName( local_name);
 		return raw;
 	}

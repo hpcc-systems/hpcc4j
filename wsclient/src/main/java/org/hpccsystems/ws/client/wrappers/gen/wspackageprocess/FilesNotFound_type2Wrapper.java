@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FilesNotFound_type2Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type2
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.FilesNotFound_type2
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.515Z
+ * TimeStamp: 2020-09-23T03:53:35.690Z
  */
 public class FilesNotFound_type2Wrapper
 {
@@ -33,7 +33,7 @@ public class FilesNotFound_type2Wrapper
 
 	public FilesNotFound_type2Wrapper() {}
 
-	public FilesNotFound_type2Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type2 filesnotfound_type2)
+	public FilesNotFound_type2Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.FilesNotFound_type2 filesnotfound_type2)
 	{
 		copy( filesnotfound_type2 );
 	}
@@ -43,7 +43,7 @@ public class FilesNotFound_type2Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type2 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.FilesNotFound_type2 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class FilesNotFound_type2Wrapper
 	{
 		return "FilesNotFound_type2Wrapper [" + "file = " + local_file + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type2 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.FilesNotFound_type2 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type2 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.FilesNotFound_type2();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.FilesNotFound_type2 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.FilesNotFound_type2();
 		if (this.local_file!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_file.size()];

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SubFiles_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SubFiles_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.411Z
+ * TimeStamp: 2020-09-23T03:53:35.721Z
  */
 public class SubFiles_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class SubFiles_type0Wrapper
 
 	public SubFiles_type0Wrapper() {}
 
-	public SubFiles_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0 subfiles_type0)
+	public SubFiles_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SubFiles_type0 subfiles_type0)
 	{
 		copy( subfiles_type0 );
 	}
@@ -43,7 +43,7 @@ public class SubFiles_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SubFiles_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class SubFiles_type0Wrapper
 	{
 		return "SubFiles_type0Wrapper [" + "file = " + local_file + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SubFiles_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.SubFiles_type0();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SubFiles_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SubFiles_type0();
 		if (this.local_file!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_file.size()];

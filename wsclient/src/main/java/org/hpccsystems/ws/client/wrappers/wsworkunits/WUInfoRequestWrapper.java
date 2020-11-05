@@ -30,20 +30,20 @@ public class WUInfoRequestWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUInfo getRaw()
     {
-        return getRawVersion1_75();
+        return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw version 1 75.
+     * Gets the raw version 1 79.
      *
-     * @return the raw version 1 75
+     * @return the raw version 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo getRawVersion1_75()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUInfo getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo request = 
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfo();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUInfo request = 
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUInfo();
 
         if (getIncludeAllowedClusters() != null)
             request.setIncludeAllowedClusters(this.getIncludeAllowedClusters());
@@ -85,11 +85,6 @@ public class WUInfoRequestWrapper
             request.setType(this.getType());
         if (getWuid() != null)
             request.setWuid(this.getWuid());
-
-        //org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoDocument requestDoc =
-        //        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WUInfoDocument.Factory.newInstance();
-
-        //requestDoc.setWUInfo(request);
 
         return request;
     }

@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeleteDFUWorkunitsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.052Z
+ * TimeStamp: 2020-09-23T03:42:02.557Z
  */
 public class DeleteDFUWorkunitsWrapper
 {
@@ -34,7 +34,7 @@ public class DeleteDFUWorkunitsWrapper
 
 	public DeleteDFUWorkunitsWrapper() {}
 
-	public DeleteDFUWorkunitsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits deletedfuworkunits)
+	public DeleteDFUWorkunitsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunits deletedfuworkunits)
 	{
 		copy( deletedfuworkunits );
 	}
@@ -44,7 +44,7 @@ public class DeleteDFUWorkunitsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunits raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class DeleteDFUWorkunitsWrapper
 	{
 		return "DeleteDFUWorkunitsWrapper [" + "wuids = " + local_wuids + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunits getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunits();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunits raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunits();
 		if (this.local_wuids!= null)
 		{
 			EspStringArray arr = new EspStringArray();

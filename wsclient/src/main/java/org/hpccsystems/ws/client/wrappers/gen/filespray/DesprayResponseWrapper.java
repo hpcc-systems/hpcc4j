@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DesprayResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DesprayResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.979Z
+ * TimeStamp: 2020-09-23T03:42:02.564Z
  */
 public class DesprayResponseWrapper
 {
@@ -32,7 +32,7 @@ public class DesprayResponseWrapper
 
 	public DesprayResponseWrapper() {}
 
-	public DesprayResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DesprayResponse desprayresponse)
+	public DesprayResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse desprayresponse)
 	{
 		copy( desprayresponse );
 	}
@@ -43,7 +43,7 @@ public class DesprayResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DesprayResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class DesprayResponseWrapper
 	{
 		return "DesprayResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DesprayResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DesprayResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DesprayResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

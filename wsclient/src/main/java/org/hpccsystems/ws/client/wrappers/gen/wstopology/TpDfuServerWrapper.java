@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDfuServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.376Z
+ * TimeStamp: 2020-09-23T21:40:52.941Z
  */
 public class TpDfuServerWrapper
 {
@@ -38,7 +38,7 @@ public class TpDfuServerWrapper
 
 	public TpDfuServerWrapper() {}
 
-	public TpDfuServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer tpdfuserver)
+	public TpDfuServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer tpdfuserver)
 	{
 		copy( tpdfuserver );
 	}
@@ -55,7 +55,7 @@ public class TpDfuServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer raw )
 	{
 		if (raw == null)
 			return;
@@ -77,9 +77,9 @@ public class TpDfuServerWrapper
 	{
 		return "TpDfuServerWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "queue = " + local_queue + ", " + "type = " + local_type + ", " + "path = " + local_path + ", " + "logDirectory = " + local_logDirectory + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDfuServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDfuServer();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: QuerySets_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySets_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySets_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.335Z
+ * TimeStamp: 2020-09-23T04:21:56.961Z
  */
 public class QuerySets_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class QuerySets_type0Wrapper
 
 	public QuerySets_type0Wrapper() {}
 
-	public QuerySets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySets_type0 querysets_type0)
+	public QuerySets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySets_type0 querysets_type0)
 	{
 		copy( querysets_type0 );
 	}
@@ -43,7 +43,7 @@ public class QuerySets_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySets_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySets_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class QuerySets_type0Wrapper
 	{
 		return "QuerySets_type0Wrapper [" + "querySet = " + local_querySet + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySets_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySets_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.QuerySets_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySets_type0();
 		if (this.local_querySet!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet[this.local_querySet.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet[this.local_querySet.size()];
 			for ( int i = 0; i < this.local_querySet.size(); i++)
 			{
 				arr[i] = this.local_querySet.get(i) .getRaw();

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FileNames_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.FileNames_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.301Z
+ * TimeStamp: 2020-09-23T04:21:56.933Z
  */
 public class FileNames_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class FileNames_type0Wrapper
 
 	public FileNames_type0Wrapper() {}
 
-	public FileNames_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0 filenames_type0)
+	public FileNames_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.FileNames_type0 filenames_type0)
 	{
 		copy( filenames_type0 );
 	}
@@ -43,7 +43,7 @@ public class FileNames_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.FileNames_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class FileNames_type0Wrapper
 	{
 		return "FileNames_type0Wrapper [" + "fileName = " + local_fileName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.FileNames_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.FileNames_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.FileNames_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.FileNames_type0();
 		if (this.local_fileName!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_fileName.size()];
