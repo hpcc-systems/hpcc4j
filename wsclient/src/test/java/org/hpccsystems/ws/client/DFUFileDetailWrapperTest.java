@@ -50,6 +50,7 @@ public class DFUFileDetailWrapperTest
     private final String ML_INLINE = "RECORD\nSTRING SSN; /* @FOO(BAR) */\nEND;";
     private final String FULL_RECORD = "child := RECORD\n\t\tSTRING name;\nEND;\nRECORD // @LARGE\nSTRING FNAME;\nSTRING LNAME;\nSTRING MNAME;\nSTRING DOB;\nSTRING SSN; // @METATYPE(SSN)\nSTRING ADDR1;\nSTRING ADDR2;\nSTRING CITY;\nSTRING STATE;\nSTRING ZIP; // @METATYPE(ZIP), @FEW, @MULTIPARAMS(PARAM1,PARAM2)\nSTRING DLNUMBER;\nDATASET(child) KIDS;\nEND;";
     private final String INLINE_WITH_MAXLENGTH = "{ , MAXLENGTH(84) string4 sic4_code, string80 sic4_description };";
+    private final String PAYLOAD = "RECORD\nSTRING SSN\n=>\nUNSIGNED8 _FPOS_;\nEND;";
 
     public static DFUDataColumnWrapper getColumnByName(final DFUDataColumnWrapper parent, final String name)
     {
@@ -198,6 +199,16 @@ public class DFUFileDetailWrapperTest
         assertNotNull(column);
     }
 
+    @Test
+    public void testPayload() throws Exception {
+        EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(PAYLOAD);
+        if (info.getParseErrors().size()!=0) {
+            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+        }
+        assertEquals("SSN",info.getRecordsets().get("unnamed0").getChildColumns().get(0).getColumnLabel());
+        assertEquals("_FPOS_",info.getRecordsets().get("unnamed0").getChildColumns().get(1).getColumnLabel());
+        
+    }
     @Test
     public void testGetRecordEclWithAnnotationLikeComment() throws Exception {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_LIKE_COMMENT);

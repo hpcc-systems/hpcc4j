@@ -47,7 +47,7 @@
     <maven.install.version>2.5.2</maven.install.version>
     <maven.jar.version>3.0.2</maven.jar.version>
     <maven.surefire.version>2.22.1</maven.surefire.version>
-    <antlr.version>4.7</antlr.version>
+    <antlr.version>4.8-1</antlr.version>
     <axis.version>1.4</axis.version>
     <javax.mail.version>1.4</javax.mail.version>
     <jsch.version>0.1.54</jsch.version>
