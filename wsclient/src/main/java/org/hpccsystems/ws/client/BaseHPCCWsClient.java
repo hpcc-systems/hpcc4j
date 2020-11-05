@@ -523,4 +523,36 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         log.error(eclExceptions.toString());
         throw eclExceptions;
     }
+
+    /**
+     *  Determine if target HPCC's build version is compatible with a given version.
+     *
+     * @param major
+     * @param minor
+     * @param point
+     *
+     * @return boolean true if server build version >= input version
+     */
+    protected boolean compatibilityCheck(int major, int minor, int point)
+    {
+        if (targetVersion == null)
+            return false;
+
+        return targetVersion.isEqualOrNewerThan(major, minor, point);
+    }
+
+    /**
+     * Determine if target HPCC's build version is compatible with a given version.
+     *
+     * @param input
+     *            the input
+     * @return boolean true if server build version >= input version
+     */
+    protected boolean compatibilityCheck(Version input)
+    {
+        if (targetVersion == null || input == null)
+            return false;
+
+        return targetVersion.isEqualOrNewerThan(input);
+    }
 }
