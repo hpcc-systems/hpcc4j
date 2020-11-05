@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.910Z
+ * TimeStamp: 2020-09-23T03:42:02.582Z
  */
 public class DFUWUFileRequestWrapper
 {
@@ -33,7 +33,7 @@ public class DFUWUFileRequestWrapper
 
 	public DFUWUFileRequestWrapper() {}
 
-	public DFUWUFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest dfuwufilerequest)
+	public DFUWUFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest dfuwufilerequest)
 	{
 		copy( dfuwufilerequest );
 	}
@@ -45,7 +45,7 @@ public class DFUWUFileRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class DFUWUFileRequestWrapper
 	{
 		return "DFUWUFileRequestWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "plainText = " + local_plainText + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUFileRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest();
 		raw.setWuid( local_wuid);
 		raw.setType( local_type);
 		raw.setPlainText( local_plainText);

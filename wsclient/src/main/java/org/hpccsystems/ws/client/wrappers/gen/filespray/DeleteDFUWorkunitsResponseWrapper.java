@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeleteDFUWorkunitsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.911Z
+ * TimeStamp: 2020-09-23T03:42:02.558Z
  */
 public class DeleteDFUWorkunitsResponseWrapper
 {
@@ -31,7 +31,7 @@ public class DeleteDFUWorkunitsResponseWrapper
 
 	public DeleteDFUWorkunitsResponseWrapper() {}
 
-	public DeleteDFUWorkunitsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitsResponse deletedfuworkunitsresponse)
+	public DeleteDFUWorkunitsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitsResponse deletedfuworkunitsresponse)
 	{
 		copy( deletedfuworkunitsresponse );
 	}
@@ -41,7 +41,7 @@ public class DeleteDFUWorkunitsResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitsResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitsResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class DeleteDFUWorkunitsResponseWrapper
 	{
 		return "DeleteDFUWorkunitsResponseWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitsResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitsResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDFUWorkunitsResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitsResponse();
 		return raw;
 	}
 

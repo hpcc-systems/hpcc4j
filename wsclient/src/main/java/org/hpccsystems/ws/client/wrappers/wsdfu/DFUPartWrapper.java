@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart;
+
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
@@ -19,7 +21,7 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUPartWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUPart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2019-08-20T13:59:09.378Z
  */
@@ -43,7 +45,7 @@ public class DFUPartWrapper
      * @param dfupart
      *            the dfupart
      */
-    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart dfupart)
+    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart dfupart)
     {
         copy( dfupart );
     }
@@ -77,7 +79,7 @@ public class DFUPartWrapper
      * @param raw
      *            the raw
      */
-    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart raw )
+    private void copy(DFUPart raw )
     {
         if (raw == null)
             return;
@@ -103,9 +105,9 @@ public class DFUPartWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart getRaw()
+    public DFUPart getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUPart();
+        DFUPart raw = new DFUPart();
         raw.setId( local_id);
         raw.setCopy( local_copy);
         raw.setIp( local_ip);

@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWorkunitsActionRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.027Z
+ * TimeStamp: 2020-09-23T03:42:02.578Z
  */
 public class DFUWorkunitsActionRequestWrapper
 {
@@ -35,7 +35,7 @@ public class DFUWorkunitsActionRequestWrapper
 
 	public DFUWorkunitsActionRequestWrapper() {}
 
-	public DFUWorkunitsActionRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest dfuworkunitsactionrequest)
+	public DFUWorkunitsActionRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionRequest dfuworkunitsactionrequest)
 	{
 		copy( dfuworkunitsactionrequest );
 	}
@@ -46,7 +46,7 @@ public class DFUWorkunitsActionRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class DFUWorkunitsActionRequestWrapper
 	{
 		return "DFUWorkunitsActionRequestWrapper [" + "wuids = " + local_wuids + ", " + "type = " + local_type + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWorkunitsActionRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionRequest();
 		if (this.local_wuids!= null)
 		{
 			EspStringArray arr = new EspStringArray();

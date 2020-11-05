@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpDaliWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDali
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.306Z
+ * TimeStamp: 2020-09-23T21:40:52.903Z
  */
 public class ArrayOfTpDaliWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpDaliWrapper
 
 	public ArrayOfTpDaliWrapper() {}
 
-	public ArrayOfTpDaliWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDali arrayoftpdali)
+	public ArrayOfTpDaliWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali arrayoftpdali)
 	{
 		copy( arrayoftpdali );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpDaliWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDali raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpDaliWrapper
 	{
 		return "ArrayOfTpDaliWrapper [" + "tpDali = " + local_tpDali + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDali getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDali raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpDali();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali();
 		if (this.local_tpDali!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpDali[this.local_tpDali.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali[this.local_tpDali.size()];
 			for ( int i = 0; i < this.local_tpDali.size(); i++)
 			{
 				arr[i] = this.local_tpDali.get(i) .getRaw();

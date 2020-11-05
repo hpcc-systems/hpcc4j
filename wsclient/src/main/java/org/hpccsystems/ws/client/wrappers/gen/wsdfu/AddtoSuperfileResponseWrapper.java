@@ -1,7 +1,9 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
+
+
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2020 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddtoSuperfileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-08-18T21:53:14.847Z
+ * TimeStamp: 2020-11-04T21:52:26.183Z
  */
 public class AddtoSuperfileResponseWrapper
 {
@@ -32,7 +34,7 @@ public class AddtoSuperfileResponseWrapper
 
 	public AddtoSuperfileResponseWrapper() {}
 
-	public AddtoSuperfileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse addtosuperfileresponse)
+	public AddtoSuperfileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse addtosuperfileresponse)
 	{
 		copy( addtosuperfileresponse );
 	}
@@ -45,7 +47,7 @@ public class AddtoSuperfileResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +66,9 @@ public class AddtoSuperfileResponseWrapper
 	{
 		return "AddtoSuperfileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "subfiles = " + local_subfiles + ", " + "backToPage = " + local_backToPage + ", " + "subfileNames = " + local_subfileNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.AddtoSuperfileResponse();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse();
 		raw.setSubfiles( local_subfiles);
 		raw.setBackToPage( local_backToPage);
 		return raw;

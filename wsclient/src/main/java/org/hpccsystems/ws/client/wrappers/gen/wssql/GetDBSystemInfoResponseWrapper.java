@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDBSystemInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.306Z
+ * TimeStamp: 2020-09-23T04:21:56.938Z
  */
 public class GetDBSystemInfoResponseWrapper
 {
@@ -44,7 +44,7 @@ public class GetDBSystemInfoResponseWrapper
 
 	public GetDBSystemInfoResponseWrapper() {}
 
-	public GetDBSystemInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse getdbsysteminforesponse)
+	public GetDBSystemInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoResponse getdbsysteminforesponse)
 	{
 		copy( getdbsysteminforesponse );
 	}
@@ -67,7 +67,7 @@ public class GetDBSystemInfoResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -95,9 +95,9 @@ public class GetDBSystemInfoResponseWrapper
 	{
 		return "GetDBSystemInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "name = " + local_name + ", " + "fullVersion = " + local_fullVersion + ", " + "major = " + local_major + ", " + "minor = " + local_minor + ", " + "point = " + local_point + ", " + "project = " + local_project + ", " + "maturity = " + local_maturity + ", " + "wsSQLFullVersion = " + local_wsSQLFullVersion + ", " + "wsSQLMajor = " + local_wsSQLMajor + ", " + "wsSQLMinor = " + local_wsSQLMinor + ", " + "wsSQLPoint = " + local_wsSQLPoint + ", " + "wsSQLProject = " + local_wsSQLProject + ", " + "wsSQLMaturity = " + local_wsSQLMaturity + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBSystemInfoResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoResponse();
 		raw.setName( local_name);
 		raw.setFullVersion( local_fullVersion);
 		raw.setMajor( local_major);

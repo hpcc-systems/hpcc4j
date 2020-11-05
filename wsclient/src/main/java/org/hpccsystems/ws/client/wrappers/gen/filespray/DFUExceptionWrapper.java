@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.016Z
+ * TimeStamp: 2020-09-23T03:42:02.567Z
  */
 public class DFUExceptionWrapper
 {
@@ -32,7 +32,7 @@ public class DFUExceptionWrapper
 
 	public DFUExceptionWrapper() {}
 
-	public DFUExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException dfuexception)
+	public DFUExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException dfuexception)
 	{
 		copy( dfuexception );
 	}
@@ -43,7 +43,7 @@ public class DFUExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class DFUExceptionWrapper
 	{
 		return "DFUExceptionWrapper [" + "code = " + local_code + ", " + "message = " + local_message + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUException();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUException();
 		raw.setCode( local_code);
 		raw.setMessage( local_message);
 		return raw;

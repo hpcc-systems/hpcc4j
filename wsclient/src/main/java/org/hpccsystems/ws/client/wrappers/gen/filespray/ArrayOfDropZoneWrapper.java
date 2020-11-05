@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDropZoneWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.898Z
+ * TimeStamp: 2020-09-23T03:42:02.542Z
  */
 public class ArrayOfDropZoneWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfDropZoneWrapper
 
 	public ArrayOfDropZoneWrapper() {}
 
-	public ArrayOfDropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone arrayofdropzone)
+	public ArrayOfDropZoneWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDropZone arrayofdropzone)
 	{
 		copy( arrayofdropzone );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfDropZoneWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDropZone raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfDropZoneWrapper
 	{
 		return "ArrayOfDropZoneWrapper [" + "dropZone = " + local_dropZone + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDropZone getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.ArrayOfDropZone();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDropZone raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDropZone();
 		if (this.local_dropZone!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DropZone[this.local_dropZone.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone[this.local_dropZone.size()];
 			for ( int i = 0; i < this.local_dropZone.size(); i++)
 			{
 				arr[i] = this.local_dropZone.get(i) .getRaw();

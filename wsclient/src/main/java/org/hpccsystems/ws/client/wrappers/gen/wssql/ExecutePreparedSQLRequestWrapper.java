@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExecutePreparedSQLRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.291Z
+ * TimeStamp: 2020-09-23T04:21:56.929Z
  */
 public class ExecutePreparedSQLRequestWrapper
 {
@@ -39,7 +39,7 @@ public class ExecutePreparedSQLRequestWrapper
 
 	public ExecutePreparedSQLRequestWrapper() {}
 
-	public ExecutePreparedSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest executepreparedsqlrequest)
+	public ExecutePreparedSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest executepreparedsqlrequest)
 	{
 		copy( executepreparedsqlrequest );
 	}
@@ -57,7 +57,7 @@ public class ExecutePreparedSQLRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -80,9 +80,9 @@ public class ExecutePreparedSQLRequestWrapper
 	{
 		return "ExecutePreparedSQLRequestWrapper [" + "wuId = " + local_wuId + ", " + "userName = " + local_userName + ", " + "targetCluster = " + local_targetCluster + ", " + "suppressResults = " + local_suppressResults + ", " + "suppressXmlSchema = " + local_suppressXmlSchema + ", " + "wait = " + local_wait + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "variables = " + local_variables + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecutePreparedSQLRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest();
 		raw.setWuId( local_wuId);
 		raw.setUserName( local_userName);
 		raw.setTargetCluster( local_targetCluster);

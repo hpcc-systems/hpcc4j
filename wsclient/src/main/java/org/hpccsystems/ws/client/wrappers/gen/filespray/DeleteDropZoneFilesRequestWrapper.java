@@ -19,14 +19,14 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  *******************************************************************************/
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeleteDropZoneFilesRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.006Z
+ * TimeStamp: 2020-09-23T03:42:02.560Z
  */
 public class DeleteDropZoneFilesRequestWrapper
 {
@@ -38,7 +38,7 @@ public class DeleteDropZoneFilesRequestWrapper
 
 	public DeleteDropZoneFilesRequestWrapper() {}
 
-	public DeleteDropZoneFilesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest deletedropzonefilesrequest)
+	public DeleteDropZoneFilesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest deletedropzonefilesrequest)
 	{
 		copy( deletedropzonefilesrequest );
 	}
@@ -52,7 +52,7 @@ public class DeleteDropZoneFilesRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -76,9 +76,9 @@ public class DeleteDropZoneFilesRequestWrapper
 	{
 		return "DeleteDropZoneFilesRequestWrapper [" + "dropZoneName = " + local_dropZoneName + ", " + "netAddress = " + local_netAddress + ", " + "path = " + local_path + ", " + "oS = " + local_oS + ", " + "names = " + local_names + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DeleteDropZoneFilesRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest();
 		raw.setDropZoneName( local_dropZoneName);
 		raw.setNetAddress( local_netAddress);
 		raw.setPath( local_path);

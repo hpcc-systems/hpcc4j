@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpSwapNodeRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.384Z
+ * TimeStamp: 2020-09-23T21:40:52.998Z
  */
 public class TpSwapNodeRequestWrapper
 {
@@ -33,7 +33,7 @@ public class TpSwapNodeRequestWrapper
 
 	public TpSwapNodeRequestWrapper() {}
 
-	public TpSwapNodeRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest tpswapnoderequest)
+	public TpSwapNodeRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeRequest tpswapnoderequest)
 	{
 		copy( tpswapnoderequest );
 	}
@@ -45,7 +45,7 @@ public class TpSwapNodeRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -61,9 +61,9 @@ public class TpSwapNodeRequestWrapper
 	{
 		return "TpSwapNodeRequestWrapper [" + "cluster = " + local_cluster + ", " + "oldIP = " + local_oldIP + ", " + "newIP = " + local_newIP + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeRequest();
 		raw.setCluster( local_cluster);
 		raw.setOldIP( local_oldIP);
 		raw.setNewIP( local_newIP);

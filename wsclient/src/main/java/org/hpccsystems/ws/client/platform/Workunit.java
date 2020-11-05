@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLGraph;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLResult;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.EqualsUtil;

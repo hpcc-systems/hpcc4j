@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpThorStatusResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.343Z
+ * TimeStamp: 2020-09-23T21:40:53.015Z
  */
 public class TpThorStatusResponseWrapper
 {
@@ -43,7 +43,7 @@ public class TpThorStatusResponseWrapper
 
 	public TpThorStatusResponseWrapper() {}
 
-	public TpThorStatusResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse tpthorstatusresponse)
+	public TpThorStatusResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusResponse tpthorstatusresponse)
 	{
 		copy( tpthorstatusresponse );
 	}
@@ -65,7 +65,7 @@ public class TpThorStatusResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -92,9 +92,9 @@ public class TpThorStatusResponseWrapper
 	{
 		return "TpThorStatusResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "name = " + local_name + ", " + "queue = " + local_queue + ", " + "group = " + local_group + ", " + "thorMasterIPAddress = " + local_thorMasterIPAddress + ", " + "port = " + local_port + ", " + "startTime = " + local_startTime + ", " + "logFile = " + local_logFile + ", " + "wuid = " + local_wuid + ", " + "graph = " + local_graph + ", " + "subGraph = " + local_subGraph + ", " + "subGraphDuration = " + local_subGraphDuration + ", " + "autoRefresh = " + local_autoRefresh + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpThorStatusResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpThorStatusResponse();
 		raw.setName( local_name);
 		raw.setQueue( local_queue);
 		raw.setGroup( local_group);

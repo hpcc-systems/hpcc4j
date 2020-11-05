@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DataTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.427Z
+ * TimeStamp: 2020-09-23T04:21:56.890Z
  */
 public class DataTypeWrapper
 {
@@ -32,7 +32,7 @@ public class DataTypeWrapper
 
 	public DataTypeWrapper() {}
 
-	public DataTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType datatype)
+	public DataTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataType datatype)
 	{
 		copy( datatype );
 	}
@@ -43,7 +43,7 @@ public class DataTypeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataType raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class DataTypeWrapper
 	{
 		return "DataTypeWrapper [" + "type = " + local_type + ", " + "params = " + local_params + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataType getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.DataType();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataType();
 		return raw;
 	}
 

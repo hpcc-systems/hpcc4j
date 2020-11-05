@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCQuerySetWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.314Z
+ * TimeStamp: 2020-09-23T04:21:56.946Z
  */
 public class HPCCQuerySetWrapper
 {
@@ -33,7 +33,7 @@ public class HPCCQuerySetWrapper
 
 	public HPCCQuerySetWrapper() {}
 
-	public HPCCQuerySetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet hpccqueryset)
+	public HPCCQuerySetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet hpccqueryset)
 	{
 		copy( hpccqueryset );
 	}
@@ -45,7 +45,7 @@ public class HPCCQuerySetWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class HPCCQuerySetWrapper
 	{
 		return "HPCCQuerySetWrapper [" + "name = " + local_name + ", " + "querySetQueries = " + local_querySetQueries + ", " + "querySetAliases = " + local_querySetAliases + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCQuerySet();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCQuerySet();
 		raw.setName( local_name);
 		return raw;
 	}

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.299Z
+ * TimeStamp: 2020-09-23T04:21:56.895Z
  */
 public class ECLExceptionWrapper
 {
@@ -40,7 +40,7 @@ public class ECLExceptionWrapper
 
 	public ECLExceptionWrapper() {}
 
-	public ECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException eclexception)
+	public ECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException eclexception)
 	{
 		copy( eclexception );
 	}
@@ -59,7 +59,7 @@ public class ECLExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException raw )
 	{
 		if (raw == null)
 			return;
@@ -82,9 +82,9 @@ public class ECLExceptionWrapper
 	{
 		return "ECLExceptionWrapper [" + "source = " + local_source + ", " + "severity = " + local_severity + ", " + "code = " + local_code + ", " + "message = " + local_message + ", " + "fileName = " + local_fileName + ", " + "lineNo = " + local_lineNo + ", " + "column = " + local_column + ", " + "activity = " + local_activity + ", " + "scope = " + local_scope + ", " + "priority = " + local_priority + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLException();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLException();
 		raw.setSource( local_source);
 		raw.setSeverity( local_severity);
 		raw.setCode( local_code);

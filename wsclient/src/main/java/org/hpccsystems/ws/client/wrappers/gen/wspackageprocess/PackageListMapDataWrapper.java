@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PackageListMapDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.425Z
+ * TimeStamp: 2020-09-23T03:53:35.710Z
  */
 public class PackageListMapDataWrapper
 {
@@ -36,7 +36,7 @@ public class PackageListMapDataWrapper
 
 	public PackageListMapDataWrapper() {}
 
-	public PackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData packagelistmapdata)
+	public PackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData packagelistmapdata)
 	{
 		copy( packagelistmapdata );
 	}
@@ -51,7 +51,7 @@ public class PackageListMapDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData raw )
 	{
 		if (raw == null)
 			return;
@@ -71,9 +71,9 @@ public class PackageListMapDataWrapper
 	{
 		return "PackageListMapDataWrapper [" + "id = " + local_id + ", " + "target = " + local_target + ", " + "process = " + local_process + ", " + "pkgListData = " + local_pkgListData + ", " + "active = " + local_active + ", " + "description = " + local_description + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListMapData();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData();
 		raw.setId( local_id);
 		raw.setTarget( local_target);
 		raw.setProcess( local_process);

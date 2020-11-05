@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CopyPackageMapResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.415Z
+ * TimeStamp: 2020-09-23T03:53:35.677Z
  */
 public class CopyPackageMapResponseWrapper
 {
@@ -33,7 +33,7 @@ public class CopyPackageMapResponseWrapper
 
 	public CopyPackageMapResponseWrapper() {}
 
-	public CopyPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapResponse copypackagemapresponse)
+	public CopyPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse copypackagemapresponse)
 	{
 		copy( copypackagemapresponse );
 	}
@@ -45,7 +45,7 @@ public class CopyPackageMapResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class CopyPackageMapResponseWrapper
 	{
 		return "CopyPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.CopyPackageMapResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse();
 		return raw;
 	}
 

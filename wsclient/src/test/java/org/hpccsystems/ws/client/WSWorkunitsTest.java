@@ -20,13 +20,12 @@ package org.hpccsystems.ws.client;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
 import org.apache.axis2.AxisFault;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WURunResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;

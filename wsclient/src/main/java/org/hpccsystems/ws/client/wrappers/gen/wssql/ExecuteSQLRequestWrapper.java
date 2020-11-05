@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExecuteSQLRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.405Z
+ * TimeStamp: 2020-09-23T04:21:56.931Z
  */
 public class ExecuteSQLRequestWrapper
 {
@@ -42,7 +42,7 @@ public class ExecuteSQLRequestWrapper
 
 	public ExecuteSQLRequestWrapper() {}
 
-	public ExecuteSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLRequest executesqlrequest)
+	public ExecuteSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLRequest executesqlrequest)
 	{
 		copy( executesqlrequest );
 	}
@@ -63,7 +63,7 @@ public class ExecuteSQLRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -89,9 +89,9 @@ public class ExecuteSQLRequestWrapper
 	{
 		return "ExecuteSQLRequestWrapper [" + "sqlText = " + local_sqlText + ", " + "userName = " + local_userName + ", " + "targetCluster = " + local_targetCluster + ", " + "alternateClusters = " + local_alternateClusters + ", " + "targetQuerySet = " + local_targetQuerySet + ", " + "suppressResults = " + local_suppressResults + ", " + "suppressXmlSchema = " + local_suppressXmlSchema + ", " + "wait = " + local_wait + ", " + "resultLimit = " + local_resultLimit + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "ignoreCache = " + local_ignoreCache + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ExecuteSQLRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecuteSQLRequest();
 		raw.setSqlText( local_sqlText);
 		raw.setUserName( local_userName);
 		raw.setTargetCluster( local_targetCluster);

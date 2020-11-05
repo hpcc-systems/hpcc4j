@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCColumnWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.286Z
+ * TimeStamp: 2020-09-23T04:21:56.943Z
  */
 public class HPCCColumnWrapper
 {
@@ -32,7 +32,7 @@ public class HPCCColumnWrapper
 
 	public HPCCColumnWrapper() {}
 
-	public HPCCColumnWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn hpcccolumn)
+	public HPCCColumnWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn hpcccolumn)
 	{
 		copy( hpcccolumn );
 	}
@@ -43,7 +43,7 @@ public class HPCCColumnWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class HPCCColumnWrapper
 	{
 		return "HPCCColumnWrapper [" + "name = " + local_name + ", " + "type = " + local_type + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCColumn();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		return raw;

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetResultsRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.428Z
+ * TimeStamp: 2020-09-23T04:21:56.941Z
  */
 public class GetResultsRequestWrapper
 {
@@ -34,7 +34,7 @@ public class GetResultsRequestWrapper
 
 	public GetResultsRequestWrapper() {}
 
-	public GetResultsRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest getresultsrequest)
+	public GetResultsRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsRequest getresultsrequest)
 	{
 		copy( getresultsrequest );
 	}
@@ -47,7 +47,7 @@ public class GetResultsRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class GetResultsRequestWrapper
 	{
 		return "GetResultsRequestWrapper [" + "wuId = " + local_wuId + ", " + "suppressXmlSchema = " + local_suppressXmlSchema + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetResultsRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetResultsRequest();
 		raw.setWuId( local_wuId);
 		raw.setSuppressXmlSchema( local_suppressXmlSchema);
 		raw.setResultWindowStart( local_resultWindowStart);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLHelpFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLHelpFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLHelpFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.402Z
+ * TimeStamp: 2020-09-23T04:21:56.873Z
  */
 public class ArrayOfECLHelpFileWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLHelpFileWrapper
 
 	public ArrayOfECLHelpFileWrapper() {}
 
-	public ArrayOfECLHelpFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLHelpFile arrayofeclhelpfile)
+	public ArrayOfECLHelpFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLHelpFile arrayofeclhelpfile)
 	{
 		copy( arrayofeclhelpfile );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLHelpFileWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLHelpFile raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLHelpFile raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLHelpFileWrapper
 	{
 		return "ArrayOfECLHelpFileWrapper [" + "eCLHelpFile = " + local_eCLHelpFile + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLHelpFile getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLHelpFile getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ArrayOfECLHelpFile();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLHelpFile();
 		if (this.local_eCLHelpFile!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLHelpFile[this.local_eCLHelpFile.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLHelpFile[this.local_eCLHelpFile.size()];
 			for ( int i = 0; i < this.local_eCLHelpFile.size(); i++)
 			{
 				arr[i] = this.local_eCLHelpFile.get(i) .getRaw();

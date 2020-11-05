@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLQueryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.425Z
+ * TimeStamp: 2020-09-23T04:21:56.903Z
  */
 public class ECLQueryWrapper
 {
@@ -36,7 +36,7 @@ public class ECLQueryWrapper
 
 	public ECLQueryWrapper() {}
 
-	public ECLQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery eclquery)
+	public ECLQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLQuery eclquery)
 	{
 		copy( eclquery );
 	}
@@ -51,7 +51,7 @@ public class ECLQueryWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLQuery raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class ECLQueryWrapper
 	{
 		return "ECLQueryWrapper [" + "text = " + local_text + ", " + "cpp = " + local_cpp + ", " + "resTxt = " + local_resTxt + ", " + "dll = " + local_dll + ", " + "thorLog = " + local_thorLog + ", " + "queryMainDefinition = " + local_queryMainDefinition + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLQuery getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.ECLQuery();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLQuery();
 		raw.setText( local_text);
 		raw.setCpp( local_cpp);
 		raw.setResTxt( local_resTxt);

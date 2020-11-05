@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpSparkThorWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.408Z
+ * TimeStamp: 2020-09-23T21:40:52.996Z
  */
 public class TpSparkThorWrapper
 {
@@ -45,7 +45,7 @@ public class TpSparkThorWrapper
 
 	public TpSparkThorWrapper() {}
 
-	public TpSparkThorWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor tpsparkthor)
+	public TpSparkThorWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor tpsparkthor)
 	{
 		copy( tpsparkthor );
 	}
@@ -68,7 +68,7 @@ public class TpSparkThorWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor raw )
 	{
 		if (raw == null)
 			return;
@@ -96,9 +96,9 @@ public class TpSparkThorWrapper
 	{
 		return "TpSparkThorWrapper [" + "name = " + local_name + ", " + "build = " + local_build + ", " + "thorClusterName = " + local_thorClusterName + ", " + "thorPath = " + local_thorPath + ", " + "sparkExecutorCores = " + local_sparkExecutorCores + ", " + "sparkExecutorMemory = " + local_sparkExecutorMemory + ", " + "sparkMasterPort = " + local_sparkMasterPort + ", " + "sparkMasterWebUIPort = " + local_sparkMasterWebUIPort + ", " + "sparkWorkerCores = " + local_sparkWorkerCores + ", " + "sparkWorkerMemory = " + local_sparkWorkerMemory + ", " + "sparkWorkerPort = " + local_sparkWorkerPort + ", " + "logDirectory = " + local_logDirectory + ", " + "path = " + local_path + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSparkThor();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor();
 		raw.setName( local_name);
 		raw.setBuild( local_build);
 		raw.setThorClusterName( local_thorClusterName);

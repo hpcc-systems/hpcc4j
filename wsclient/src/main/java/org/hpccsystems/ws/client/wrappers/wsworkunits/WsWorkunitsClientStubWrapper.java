@@ -50,9 +50,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         this.connection = conn;
         this.platformVersion = targetVersion;
 
-        if (useVersion1_75())
+        if (useVersion1_79())
         {
-            versionedStub = new WsWorkunitsClientStub1_75(connection);
+            versionedStub = new WsWorkunitsClientStub1_79(connection);
         }
         else if (useVersion1_69())
         {
@@ -72,15 +72,6 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         }
     }
 
-    /**
-     * Use version 1 69.
-     *
-     * @return true, if successful
-     */
-    private boolean useVersion1_69()
-    {
-        return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
-    }
 
     /**
      * Use version 1 58.
@@ -103,11 +94,20 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
     }
 
     /**
-     * Use version 1 75.
+     * Use version 1 69.
      *
      * @return true, if successful
      */
-    private boolean useVersion1_75()
+    private boolean useVersion1_69()
+    {
+        return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
+    }
+    /**
+     * Use version 1 79.
+     *
+     * @return true, if successful
+     */
+    private boolean useVersion1_79()
     {
         return platformVersion.getMajor() == 7 && (platformVersion.getMinor() == 0 || platformVersion.getMinor() >= 2);
     }
@@ -177,9 +177,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      * @return the latest
      * @throws AxisFault axis fault exception
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub getLatestStub() throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub getLatestStub() throws AxisFault
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WsWorkunitsStub(
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub(
                 connection.getBaseUrl() + HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
 
         return stub;

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpTargetClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.411Z
+ * TimeStamp: 2020-09-23T21:40:53.006Z
  */
 public class TpTargetClusterWrapper
 {
@@ -38,7 +38,7 @@ public class TpTargetClusterWrapper
 
 	public TpTargetClusterWrapper() {}
 
-	public TpTargetClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster tptargetcluster)
+	public TpTargetClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster tptargetcluster)
 	{
 		copy( tptargetcluster );
 	}
@@ -55,7 +55,7 @@ public class TpTargetClusterWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster raw )
 	{
 		if (raw == null)
 			return;
@@ -81,9 +81,9 @@ public class TpTargetClusterWrapper
 	{
 		return "TpTargetClusterWrapper [" + "name = " + local_name + ", " + "prefix = " + local_prefix + ", " + "type = " + local_type + ", " + "tpClusters = " + local_tpClusters + ", " + "tpEclCCServers = " + local_tpEclCCServers + ", " + "tpEclServers = " + local_tpEclServers + ", " + "tpEclAgents = " + local_tpEclAgents + ", " + "tpEclSchedulers = " + local_tpEclSchedulers + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpTargetCluster();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster();
 		raw.setName( local_name);
 		raw.setPrefix( local_prefix);
 		raw.setType( local_type);

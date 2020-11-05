@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GroupNodes_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.919Z
+ * TimeStamp: 2020-09-23T03:42:02.624Z
  */
 public class GroupNodes_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class GroupNodes_type0Wrapper
 
 	public GroupNodes_type0Wrapper() {}
 
-	public GroupNodes_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0 groupnodes_type0)
+	public GroupNodes_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 groupnodes_type0)
 	{
 		copy( groupnodes_type0 );
 	}
@@ -43,7 +43,7 @@ public class GroupNodes_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class GroupNodes_type0Wrapper
 	{
 		return "GroupNodes_type0Wrapper [" + "groupNode = " + local_groupNode + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0 raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNodes_type0();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0();
 		if (this.local_groupNode!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GroupNode[this.local_groupNode.size()];
+			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode[this.local_groupNode.size()];
 			for ( int i = 0; i < this.local_groupNode.size(); i++)
 			{
 				arr[i] = this.local_groupNode.get(i) .getRaw();

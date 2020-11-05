@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WsPackageProcessPingRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2019-12-13T14:42:31.588Z
+ * TimeStamp: 2020-09-23T03:53:35.736Z
  */
 public class WsPackageProcessPingRequestWrapper
 {
 
 	public WsPackageProcessPingRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.WsPackageProcessPingRequest();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingRequest();
 		return raw;
 	}
 

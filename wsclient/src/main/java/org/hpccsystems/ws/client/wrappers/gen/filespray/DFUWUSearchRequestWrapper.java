@@ -21,18 +21,18 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUSearchRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.053Z
+ * TimeStamp: 2020-09-23T03:42:02.584Z
  */
 public class DFUWUSearchRequestWrapper
 {
 
 	public DFUWUSearchRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.DFUWUSearchRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchRequest();
 		return raw;
 	}
 

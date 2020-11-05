@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileType;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileType;
 
 /**
  * DFUFileTypeWrapper
@@ -22,7 +22,9 @@ public enum DFUFileTypeWrapper
     Index ("Index"),
     Xml ("Xml"),
     Csv ("Csv"),
-    Json ("Json");
+    Json ("Json"),
+	IndexLocal("IndexLocal"),
+    IndexPartitioned("IndexPartitioned");
 
     protected String theDFUFileType;
     private static final Map<String,DFUFileTypeWrapper> enumtable;

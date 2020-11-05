@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: OutputDatasetWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.OutputDataset
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.361Z
+ * TimeStamp: 2020-09-23T04:21:56.953Z
  */
 public class OutputDatasetWrapper
 {
@@ -32,7 +32,7 @@ public class OutputDatasetWrapper
 
 	public OutputDatasetWrapper() {}
 
-	public OutputDatasetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset outputdataset)
+	public OutputDatasetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.OutputDataset outputdataset)
 	{
 		copy( outputdataset );
 	}
@@ -43,7 +43,7 @@ public class OutputDatasetWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.OutputDataset raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class OutputDatasetWrapper
 	{
 		return "OutputDatasetWrapper [" + "name = " + local_name + ", " + "outParams = " + local_outParams + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.OutputDataset getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.OutputDataset();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.OutputDataset raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.OutputDataset();
 		raw.setName( local_name);
 		return raw;
 	}

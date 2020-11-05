@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLogFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.317Z
+ * TimeStamp: 2020-09-23T21:40:52.966Z
  */
 public class TpLogFileRequestWrapper
 {
@@ -39,14 +39,15 @@ public class TpLogFileRequestWrapper
 	protected boolean local_zip;
 	protected int local_pageNumber;
 	protected boolean local_loadData;
+	protected boolean local_includeLogFieldNames;
 
 	public TpLogFileRequestWrapper() {}
 
-	public TpLogFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest tplogfilerequest)
+	public TpLogFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileRequest tplogfilerequest)
 	{
 		copy( tplogfilerequest );
 	}
-	public TpLogFileRequestWrapper( String _name, String _type, int _lastHours, String _startDate, String _endDate, int _firstRows, int _lastRows, int _filterType, boolean _reversely, boolean _zip, int _pageNumber, boolean _loadData )
+	public TpLogFileRequestWrapper( String _name, String _type, int _lastHours, String _startDate, String _endDate, int _firstRows, int _lastRows, int _filterType, boolean _reversely, boolean _zip, int _pageNumber, boolean _loadData, boolean _includeLogFieldNames )
 	{
 		this.local_name = _name;
 		this.local_type = _type;
@@ -60,10 +61,11 @@ public class TpLogFileRequestWrapper
 		this.local_zip = _zip;
 		this.local_pageNumber = _pageNumber;
 		this.local_loadData = _loadData;
+		this.local_includeLogFieldNames = _includeLogFieldNames;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -80,17 +82,18 @@ public class TpLogFileRequestWrapper
 		this.local_zip = raw.getZip();
 		this.local_pageNumber = raw.getPageNumber();
 		this.local_loadData = raw.getLoadData();
+		this.local_includeLogFieldNames = raw.getIncludeLogFieldNames();
 
 	}
 
 	@Override
 	public String toString()
 	{
-		return "TpLogFileRequestWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "lastHours = " + local_lastHours + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "firstRows = " + local_firstRows + ", " + "lastRows = " + local_lastRows + ", " + "filterType = " + local_filterType + ", " + "reversely = " + local_reversely + ", " + "zip = " + local_zip + ", " + "pageNumber = " + local_pageNumber + ", " + "loadData = " + local_loadData + "]";
+		return "TpLogFileRequestWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "lastHours = " + local_lastHours + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "firstRows = " + local_firstRows + ", " + "lastRows = " + local_lastRows + ", " + "filterType = " + local_filterType + ", " + "reversely = " + local_reversely + ", " + "zip = " + local_zip + ", " + "pageNumber = " + local_pageNumber + ", " + "loadData = " + local_loadData + ", " + "includeLogFieldNames = " + local_includeLogFieldNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLogFileRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogFileRequest();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		raw.setLastHours( local_lastHours);
@@ -103,6 +106,7 @@ public class TpLogFileRequestWrapper
 		raw.setZip( local_zip);
 		raw.setPageNumber( local_pageNumber);
 		raw.setLoadData( local_loadData);
+		raw.setIncludeLogFieldNames( local_includeLogFieldNames);
 		return raw;
 	}
 
@@ -202,5 +206,13 @@ public class TpLogFileRequestWrapper
 	public boolean getLoadData( )
 	{
 		return this.local_loadData;
+	}
+	public void setIncludeLogFieldNames( boolean _includeLogFieldNames )
+	{
+		this.local_includeLogFieldNames = _includeLogFieldNames;
+	}
+	public boolean getIncludeLogFieldNames( )
+	{
+		return this.local_includeLogFieldNames;
 	}
 }

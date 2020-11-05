@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetQueryFileMappingResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.361Z
+ * TimeStamp: 2020-09-23T03:53:35.702Z
  */
 public class GetQueryFileMappingResponseWrapper
 {
@@ -33,7 +33,7 @@ public class GetQueryFileMappingResponseWrapper
 
 	public GetQueryFileMappingResponseWrapper() {}
 
-	public GetQueryFileMappingResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse getqueryfilemappingresponse)
+	public GetQueryFileMappingResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingResponse getqueryfilemappingresponse)
 	{
 		copy( getqueryfilemappingresponse );
 	}
@@ -45,7 +45,7 @@ public class GetQueryFileMappingResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class GetQueryFileMappingResponseWrapper
 	{
 		return "GetQueryFileMappingResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "unmappedFiles = " + local_unmappedFiles + ", " + "superFiles = " + local_superFiles + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetQueryFileMappingResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetQueryFileMappingResponse();
 		return raw;
 	}
 

@@ -22,9 +22,9 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DesprayWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.923Z
+ * TimeStamp: 2020-09-23T03:42:02.562Z
  */
 public class DesprayWrapper
 {
@@ -48,7 +48,7 @@ public class DesprayWrapper
 
 	public DesprayWrapper() {}
 
-	public DesprayWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray despray)
+	public DesprayWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray despray)
 	{
 		copy( despray );
 	}
@@ -74,7 +74,7 @@ public class DesprayWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray raw )
 	{
 		if (raw == null)
 			return;
@@ -104,9 +104,9 @@ public class DesprayWrapper
 	{
 		return "DesprayWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destIP = " + local_destIP + ", " + "destPath = " + local_destPath + ", " + "dstxml = " + local_dstxml + ", " + "overwrite = " + local_overwrite + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "splitprefix = " + local_splitprefix + ", " + "norecover = " + local_norecover + ", " + "wrap = " + local_wrap + ", " + "multiCopy = " + local_multiCopy + ", " + "singleConnection = " + local_singleConnection + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "compress = " + local_compress + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Despray();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray();
 		raw.setSourceLogicalName( local_sourceLogicalName);
 		raw.setDestIP( local_destIP);
 		raw.setDestPath( local_destPath);

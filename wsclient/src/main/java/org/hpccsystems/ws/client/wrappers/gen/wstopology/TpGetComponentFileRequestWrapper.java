@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetComponentFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.414Z
+ * TimeStamp: 2020-09-23T21:40:52.956Z
  */
 public class TpGetComponentFileRequestWrapper
 {
@@ -37,7 +37,7 @@ public class TpGetComponentFileRequestWrapper
 
 	public TpGetComponentFileRequestWrapper() {}
 
-	public TpGetComponentFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest tpgetcomponentfilerequest)
+	public TpGetComponentFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileRequest tpgetcomponentfilerequest)
 	{
 		copy( tpgetcomponentfilerequest );
 	}
@@ -53,7 +53,7 @@ public class TpGetComponentFileRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -73,9 +73,9 @@ public class TpGetComponentFileRequestWrapper
 	{
 		return "TpGetComponentFileRequestWrapper [" + "compType = " + local_compType + ", " + "compName = " + local_compName + ", " + "netAddress = " + local_netAddress + ", " + "directory = " + local_directory + ", " + "fileType = " + local_fileType + ", " + "osType = " + local_osType + ", " + "plainText = " + local_plainText + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpGetComponentFileRequest();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileRequest();
 		raw.setCompType( local_compType);
 		raw.setCompName( local_compName);
 		raw.setNetAddress( local_netAddress);

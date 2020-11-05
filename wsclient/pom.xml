@@ -172,7 +172,7 @@
                </configuration>
              </execution>
              <execution>
-               <id>filespray116</id>
+               <id>filespray120</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -182,20 +182,20 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_16</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsFileSpray-117.wsdl</wsdlFile>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_20</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsFileSpray-120.wsdl</wsdlFile>
                  <syncMode>sync</syncMode>
-                 <wsdlVersion>1.16</wsdlVersion>
+                 <wsdlVersion>1.20</wsdlVersion>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:filespray</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_16</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_20</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
              <execution>
-               <id>filespray117</id>
+               <id>wsdfu156</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -205,60 +205,14 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_17</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsFileSpray-117.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <wsdlVersion>1.17</wsdlVersion>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:filespray</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.v1_17</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
-               <id>wsdfu151</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsDFU-151.wsdl</wsdlFile>
-                 <wsdlVersion>1.51</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsDFU-156.wsdl</wsdlFile>
+                 <wsdlVersion>1.56</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wsdfu</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
-               <id>wsdfu150</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_50</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsDFU-150.wsdl</wsdlFile>
-                 <wsdlVersion>1.50</wsdlVersion>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wsdfu</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_50</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
@@ -310,7 +264,7 @@
                </configuration>
              </execution>
              <execution>
-               <id>wstopology128</id>
+               <id>wstopology130</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -320,20 +274,20 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsTopology-128.wsdl</wsdlFile>
-                 <wsdlVersion>1.28</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsTopology-130.wsdl</wsdlFile>
+                 <wsdlVersion>1.30</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wstopology</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
              <execution>
-               <id>wssmc121</id>
+               <id>wssmc123</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -343,20 +297,20 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsSMC-121.wsdl</wsdlFile>
-                 <wsdlVersion>1.21</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsSMC-123.wsdl</wsdlFile>
+                 <wsdlVersion>1.23</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wssmc</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.v1_21</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
              <execution>
-               <id>wspp103</id>
+               <id>wspp104</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -366,20 +320,20 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsPackageProcess-103.wsdl</wsdlFile>
-                 <wsdlVersion>1.03</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsPackageProcess-104.wsdl</wsdlFile>
+                 <wsdlVersion>1.04</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wspackageprocess</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
              <execution>
-               <id>wswu175</id>
+               <id>wswu179</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -389,14 +343,14 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsWorkunits-175.wsdl</wsdlFile>
-                 <wsdlVersion>1.75</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsWorkunits-179.wsdl</wsdlFile>
+                 <wsdlVersion>1.79</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wsworkunits</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
@@ -517,7 +471,7 @@
                </configuration>
              </execution>
              <execution>
-               <id>wssql105</id>
+               <id>wssql305</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -527,20 +481,20 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v1_05</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsSQL-105.wsdl</wsdlFile>
-                 <wsdlVersion>1.05</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v3_05</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsSQL-305.wsdl</wsdlFile>
+                 <wsdlVersion>3.05</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wssql</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v1_05</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v3_05</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
              <execution>
-               <id>wsstore101</id>
+               <id>wsstore102</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -550,14 +504,14 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsStore-101.wsdl</wsdlFile>
-                 <wsdlVersion>1.01</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.v1_02</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsStore-102.wsdl</wsdlFile>
+                 <wsdlVersion>1.02</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wsstore</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.v1_01</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.v1_02</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>

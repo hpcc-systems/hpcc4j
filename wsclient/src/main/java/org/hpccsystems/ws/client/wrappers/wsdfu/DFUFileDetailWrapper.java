@@ -16,10 +16,10 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.ArrayOfDFUFilePartsOnCluster;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_51.DFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 
@@ -27,7 +27,7 @@ import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 // classes.
 public class DFUFileDetailWrapper extends DFUFileDetail
 {
-    private static final long            serialVersionUID = 1L;
+    private static final long            serialVersionUID = 155L;
 
     private ArrayList<DFUDataColumnWrapper> columns;
     private String                       firstline        = null;

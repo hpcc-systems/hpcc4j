@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDBMetaDataRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.387Z
+ * TimeStamp: 2020-09-23T04:21:56.934Z
  */
 public class GetDBMetaDataRequestWrapper
 {
@@ -36,7 +36,7 @@ public class GetDBMetaDataRequestWrapper
 
 	public GetDBMetaDataRequestWrapper() {}
 
-	public GetDBMetaDataRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest getdbmetadatarequest)
+	public GetDBMetaDataRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataRequest getdbmetadatarequest)
 	{
 		copy( getdbmetadatarequest );
 	}
@@ -51,7 +51,7 @@ public class GetDBMetaDataRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -70,9 +70,9 @@ public class GetDBMetaDataRequestWrapper
 	{
 		return "GetDBMetaDataRequestWrapper [" + "includeTables = " + local_includeTables + ", " + "tableFilter = " + local_tableFilter + ", " + "includeStoredProcedures = " + local_includeStoredProcedures + ", " + "querySet = " + local_querySet + ", " + "includeTargetClusters = " + local_includeTargetClusters + ", " + "clusterType = " + local_clusterType + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.GetDBMetaDataRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataRequest();
 		raw.setIncludeTables( local_includeTables);
 		raw.setTableFilter( local_tableFilter);
 		raw.setIncludeStoredProcedures( local_includeStoredProcedures);

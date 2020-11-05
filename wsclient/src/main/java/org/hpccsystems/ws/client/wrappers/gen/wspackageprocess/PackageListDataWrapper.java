@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PackageListDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.530Z
+ * TimeStamp: 2020-09-23T03:53:35.709Z
  */
 public class PackageListDataWrapper
 {
@@ -32,7 +32,7 @@ public class PackageListDataWrapper
 
 	public PackageListDataWrapper() {}
 
-	public PackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData packagelistdata)
+	public PackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData packagelistdata)
 	{
 		copy( packagelistdata );
 	}
@@ -43,7 +43,7 @@ public class PackageListDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class PackageListDataWrapper
 	{
 		return "PackageListDataWrapper [" + "id = " + local_id + ", " + "queries = " + local_queries + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.PackageListData();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData();
 		raw.setId( local_id);
 		raw.setQueries( local_queries);
 		return raw;

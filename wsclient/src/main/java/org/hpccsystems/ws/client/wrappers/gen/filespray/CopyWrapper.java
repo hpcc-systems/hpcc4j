@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CopyWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.038Z
+ * TimeStamp: 2020-09-23T03:42:02.550Z
  */
 public class CopyWrapper
 {
@@ -51,6 +51,7 @@ public class CopyWrapper
 	protected boolean local_push;
 	protected boolean local_pull;
 	protected boolean local_ifnewer;
+	protected boolean local_noCommon;
 	protected String local_encrypt;
 	protected String local_decrypt;
 	protected boolean local_preserveCompression;
@@ -59,11 +60,11 @@ public class CopyWrapper
 
 	public CopyWrapper() {}
 
-	public CopyWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy copy)
+	public CopyWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy copy)
 	{
 		copy( copy );
 	}
-	public CopyWrapper( String _sourceLogicalName, String _destGroup, String _destGroupRoxie, String _destLogicalName, String _sourceDali, String _srcusername, String _srcpassword, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, boolean _nosplit, boolean _norecover, boolean _compress, boolean _wrap, boolean _multicopy, String _sourceDiffKeyName, String _destDiffKeyName, boolean _superCopy, boolean _push, boolean _pull, boolean _ifnewer, String _encrypt, String _decrypt, boolean _preserveCompression, String _dFUServerQueue, int _expireDays )
+	public CopyWrapper( String _sourceLogicalName, String _destGroup, String _destGroupRoxie, String _destLogicalName, String _sourceDali, String _srcusername, String _srcpassword, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, boolean _nosplit, boolean _norecover, boolean _compress, boolean _wrap, boolean _multicopy, String _sourceDiffKeyName, String _destDiffKeyName, boolean _superCopy, boolean _push, boolean _pull, boolean _ifnewer, boolean _noCommon, String _encrypt, String _decrypt, boolean _preserveCompression, String _dFUServerQueue, int _expireDays )
 	{
 		this.local_sourceLogicalName = _sourceLogicalName;
 		this.local_destGroup = _destGroup;
@@ -89,6 +90,7 @@ public class CopyWrapper
 		this.local_push = _push;
 		this.local_pull = _pull;
 		this.local_ifnewer = _ifnewer;
+		this.local_noCommon = _noCommon;
 		this.local_encrypt = _encrypt;
 		this.local_decrypt = _decrypt;
 		this.local_preserveCompression = _preserveCompression;
@@ -97,7 +99,7 @@ public class CopyWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy raw )
 	{
 		if (raw == null)
 			return;
@@ -126,6 +128,7 @@ public class CopyWrapper
 		this.local_push = raw.getPush();
 		this.local_pull = raw.getPull();
 		this.local_ifnewer = raw.getIfnewer();
+		this.local_noCommon = raw.getNoCommon();
 		this.local_encrypt = raw.getEncrypt();
 		this.local_decrypt = raw.getDecrypt();
 		this.local_preserveCompression = raw.getPreserveCompression();
@@ -137,11 +140,11 @@ public class CopyWrapper
 	@Override
 	public String toString()
 	{
-		return "CopyWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destGroup = " + local_destGroup + ", " + "destGroupRoxie = " + local_destGroupRoxie + ", " + "destLogicalName = " + local_destLogicalName + ", " + "sourceDali = " + local_sourceDali + ", " + "srcusername = " + local_srcusername + ", " + "srcpassword = " + local_srcpassword + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "wrap = " + local_wrap + ", " + "multicopy = " + local_multicopy + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "superCopy = " + local_superCopy + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "ifnewer = " + local_ifnewer + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "preserveCompression = " + local_preserveCompression + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "expireDays = " + local_expireDays + "]";
+		return "CopyWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destGroup = " + local_destGroup + ", " + "destGroupRoxie = " + local_destGroupRoxie + ", " + "destLogicalName = " + local_destLogicalName + ", " + "sourceDali = " + local_sourceDali + ", " + "srcusername = " + local_srcusername + ", " + "srcpassword = " + local_srcpassword + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "wrap = " + local_wrap + ", " + "multicopy = " + local_multicopy + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "superCopy = " + local_superCopy + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "ifnewer = " + local_ifnewer + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "preserveCompression = " + local_preserveCompression + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "expireDays = " + local_expireDays + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.Copy();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy();
 		raw.setSourceLogicalName( local_sourceLogicalName);
 		raw.setDestGroup( local_destGroup);
 		raw.setDestGroupRoxie( local_destGroupRoxie);
@@ -166,6 +169,7 @@ public class CopyWrapper
 		raw.setPush( local_push);
 		raw.setPull( local_pull);
 		raw.setIfnewer( local_ifnewer);
+		raw.setNoCommon( local_noCommon);
 		raw.setEncrypt( local_encrypt);
 		raw.setDecrypt( local_decrypt);
 		raw.setPreserveCompression( local_preserveCompression);
@@ -366,6 +370,14 @@ public class CopyWrapper
 	public boolean getIfnewer( )
 	{
 		return this.local_ifnewer;
+	}
+	public void setNoCommon( boolean _noCommon )
+	{
+		this.local_noCommon = _noCommon;
+	}
+	public boolean getNoCommon( )
+	{
+		return this.local_noCommon;
 	}
 	public void setEncrypt( String _encrypt )
 	{

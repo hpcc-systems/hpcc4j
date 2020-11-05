@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpServiceQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.412Z
+ * TimeStamp: 2020-09-23T21:40:52.990Z
  */
 public class TpServiceQueryResponseWrapper
 {
@@ -41,7 +41,7 @@ public class TpServiceQueryResponseWrapper
 
 	public TpServiceQueryResponseWrapper() {}
 
-	public TpServiceQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse tpservicequeryresponse)
+	public TpServiceQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryResponse tpservicequeryresponse)
 	{
 		copy( tpservicequeryresponse );
 	}
@@ -61,7 +61,7 @@ public class TpServiceQueryResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -87,9 +87,9 @@ public class TpServiceQueryResponseWrapper
 	{
 		return "TpServiceQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "memThreshold = " + local_memThreshold + ", " + "diskThreshold = " + local_diskThreshold + ", " + "cpuThreshold = " + local_cpuThreshold + ", " + "encapsulatedSystem = " + local_encapsulatedSystem + ", " + "enableSNMP = " + local_enableSNMP + ", " + "preflightProcessFilter = " + local_preflightProcessFilter + ", " + "acceptLanguage = " + local_acceptLanguage + ", " + "memThresholdType = " + local_memThresholdType + ", " + "diskThresholdType = " + local_diskThresholdType + ", " + "serviceList = " + local_serviceList + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpServiceQueryResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryResponse();
 		raw.setMemThreshold( local_memThreshold);
 		raw.setDiskThreshold( local_diskThreshold);
 		raw.setCpuThreshold( local_cpuThreshold);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpMachineWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.351Z
+ * TimeStamp: 2020-09-23T21:40:52.917Z
  */
 public class ArrayOfTpMachineWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfTpMachineWrapper
 
 	public ArrayOfTpMachineWrapper() {}
 
-	public ArrayOfTpMachineWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine arrayoftpmachine)
+	public ArrayOfTpMachineWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine arrayoftpmachine)
 	{
 		copy( arrayoftpmachine );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfTpMachineWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfTpMachineWrapper
 	{
 		return "ArrayOfTpMachineWrapper [" + "tpMachine = " + local_tpMachine + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.ArrayOfTpMachine();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine();
 		if (this.local_tpMachine!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachine[this.local_tpMachine.size()];
+			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine[this.local_tpMachine.size()];
 			for ( int i = 0; i < this.local_tpMachine.size(); i++)
 			{
 				arr[i] = this.local_tpMachine.get(i) .getRaw();

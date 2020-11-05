@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUServerQueuesRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:33.913Z
+ * TimeStamp: 2020-09-23T03:42:02.613Z
  */
 public class GetDFUServerQueuesRequestWrapper
 {
@@ -31,7 +31,7 @@ public class GetDFUServerQueuesRequestWrapper
 
 	public GetDFUServerQueuesRequestWrapper() {}
 
-	public GetDFUServerQueuesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest getdfuserverqueuesrequest)
+	public GetDFUServerQueuesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest getdfuserverqueuesrequest)
 	{
 		copy( getdfuserverqueuesrequest );
 	}
@@ -41,7 +41,7 @@ public class GetDFUServerQueuesRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class GetDFUServerQueuesRequestWrapper
 	{
 		return "GetDFUServerQueuesRequestWrapper [" + "dFUServerName = " + local_dFUServerName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.GetDFUServerQueuesRequest();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest();
 		raw.setDFUServerName( local_dFUServerName);
 		return raw;
 	}

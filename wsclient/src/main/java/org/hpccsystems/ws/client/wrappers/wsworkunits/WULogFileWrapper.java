@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.activation.DataHandler;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_75.WULogFileResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WULogFileResponse;
 
 public class WULogFileWrapper
 {

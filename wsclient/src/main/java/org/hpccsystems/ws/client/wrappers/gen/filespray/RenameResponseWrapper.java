@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RenameResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.028Z
+ * TimeStamp: 2020-09-23T03:42:02.631Z
  */
 public class RenameResponseWrapper
 {
@@ -32,7 +32,7 @@ public class RenameResponseWrapper
 
 	public RenameResponseWrapper() {}
 
-	public RenameResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse renameresponse)
+	public RenameResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse renameresponse)
 	{
 		copy( renameresponse );
 	}
@@ -43,7 +43,7 @@ public class RenameResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class RenameResponseWrapper
 	{
 		return "RenameResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.RenameResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse();
 		raw.setWuid( local_wuid);
 		return raw;
 	}

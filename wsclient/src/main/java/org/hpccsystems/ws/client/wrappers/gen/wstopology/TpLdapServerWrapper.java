@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLdapServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.425Z
+ * TimeStamp: 2020-09-23T21:40:52.963Z
  */
 public class TpLdapServerWrapper
 {
@@ -35,7 +35,7 @@ public class TpLdapServerWrapper
 
 	public TpLdapServerWrapper() {}
 
-	public TpLdapServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer tpldapserver)
+	public TpLdapServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer tpldapserver)
 	{
 		copy( tpldapserver );
 	}
@@ -49,7 +49,7 @@ public class TpLdapServerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class TpLdapServerWrapper
 	{
 		return "TpLdapServerWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "build = " + local_build + ", " + "path = " + local_path + ", " + "tpMachines = " + local_tpMachines + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpLdapServer();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLdapServer();
 		raw.setName( local_name);
 		raw.setDescription( local_description);
 		raw.setBuild( local_build);

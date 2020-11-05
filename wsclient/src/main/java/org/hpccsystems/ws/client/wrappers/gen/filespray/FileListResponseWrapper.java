@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FileListResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-04-24T00:05:34.041Z
+ * TimeStamp: 2020-09-23T03:42:02.607Z
  */
 public class FileListResponseWrapper
 {
@@ -38,7 +38,7 @@ public class FileListResponseWrapper
 
 	public FileListResponseWrapper() {}
 
-	public FileListResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse filelistresponse)
+	public FileListResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListResponse filelistresponse)
 	{
 		copy( filelistresponse );
 	}
@@ -55,7 +55,7 @@ public class FileListResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -78,9 +78,9 @@ public class FileListResponseWrapper
 	{
 		return "FileListResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "netaddr = " + local_netaddr + ", " + "path = " + local_path + ", " + "mask = " + local_mask + ", " + "oS = " + local_oS + ", " + "directoryOnly = " + local_directoryOnly + ", " + "acceptLanguage = " + local_acceptLanguage + ", " + "files = " + local_files + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_17.FileListResponse();
+		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileListResponse();
 		raw.setNetaddr( local_netaddr);
 		raw.setPath( local_path);
 		raw.setMask( local_mask);

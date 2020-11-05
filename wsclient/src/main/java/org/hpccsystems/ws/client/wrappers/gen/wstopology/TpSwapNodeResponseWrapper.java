@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpSwapNodeResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.354Z
+ * TimeStamp: 2020-09-23T21:40:52.999Z
  */
 public class TpSwapNodeResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpSwapNodeResponseWrapper
 
 	public TpSwapNodeResponseWrapper() {}
 
-	public TpSwapNodeResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse tpswapnoderesponse)
+	public TpSwapNodeResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeResponse tpswapnoderesponse)
 	{
 		copy( tpswapnoderesponse );
 	}
@@ -43,7 +43,7 @@ public class TpSwapNodeResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -59,9 +59,9 @@ public class TpSwapNodeResponseWrapper
 	{
 		return "TpSwapNodeResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpSwapNodeResult = " + local_tpSwapNodeResult + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpSwapNodeResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSwapNodeResponse();
 		raw.setTpSwapNodeResult( local_tpSwapNodeResult);
 		return raw;
 	}

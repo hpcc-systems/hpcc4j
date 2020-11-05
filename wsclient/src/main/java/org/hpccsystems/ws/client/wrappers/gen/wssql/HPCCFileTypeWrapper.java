@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCFileTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCFileType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFileType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-04-23T21:12:59.430Z
+ * TimeStamp: 2020-09-23T04:21:56.945Z
  */
 public class HPCCFileTypeWrapper
 {
@@ -31,7 +31,7 @@ public class HPCCFileTypeWrapper
 
 	public HPCCFileTypeWrapper() {}
 
-	public HPCCFileTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCFileType hpccfiletype)
+	public HPCCFileTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFileType hpccfiletype)
 	{
 		copy( hpccfiletype );
 	}
@@ -41,7 +41,7 @@ public class HPCCFileTypeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCFileType raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFileType raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class HPCCFileTypeWrapper
 	{
 		return "HPCCFileTypeWrapper [" + "hPCCFileType = " + local_hPCCFileType + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCFileType getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFileType getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v1_05.HPCCFileType raw = null;
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFileType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setHPCCFileType(hPCCFileType);
 		return raw;
 	}

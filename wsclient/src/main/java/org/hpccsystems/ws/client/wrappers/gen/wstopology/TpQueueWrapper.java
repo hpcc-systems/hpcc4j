@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpQueueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.328Z
+ * TimeStamp: 2020-09-23T21:40:52.984Z
  */
 public class TpQueueWrapper
 {
@@ -32,7 +32,7 @@ public class TpQueueWrapper
 
 	public TpQueueWrapper() {}
 
-	public TpQueueWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue tpqueue)
+	public TpQueueWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue tpqueue)
 	{
 		copy( tpqueue );
 	}
@@ -43,7 +43,7 @@ public class TpQueueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class TpQueueWrapper
 	{
 		return "TpQueueWrapper [" + "name = " + local_name + ", " + "workUnit = " + local_workUnit + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpQueue();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue();
 		raw.setName( local_name);
 		raw.setWorkUnit( local_workUnit);
 		return raw;

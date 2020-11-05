@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-04-24T00:43:36.355Z
+ * TimeStamp: 2020-09-23T21:40:52.977Z
  */
 public class TpMachineInfoResponseWrapper
 {
@@ -32,7 +32,7 @@ public class TpMachineInfoResponseWrapper
 
 	public TpMachineInfoResponseWrapper() {}
 
-	public TpMachineInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse tpmachineinforesponse)
+	public TpMachineInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse tpmachineinforesponse)
 	{
 		copy( tpmachineinforesponse );
 	}
@@ -43,7 +43,7 @@ public class TpMachineInfoResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class TpMachineInfoResponseWrapper
 	{
 		return "TpMachineInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "machineInfo = " + local_machineInfo + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_28.TpMachineInfoResponse();
+		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse();
 		return raw;
 	}
 

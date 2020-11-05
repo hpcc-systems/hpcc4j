@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetPackageMapByIdResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2020-04-29T14:39:01.428Z
+ * TimeStamp: 2020-09-23T03:53:35.693Z
  */
 public class GetPackageMapByIdResponseWrapper
 {
@@ -33,7 +33,7 @@ public class GetPackageMapByIdResponseWrapper
 
 	public GetPackageMapByIdResponseWrapper() {}
 
-	public GetPackageMapByIdResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse getpackagemapbyidresponse)
+	public GetPackageMapByIdResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse getpackagemapbyidresponse)
 	{
 		copy( getpackagemapbyidresponse );
 	}
@@ -45,7 +45,7 @@ public class GetPackageMapByIdResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class GetPackageMapByIdResponseWrapper
 	{
 		return "GetPackageMapByIdResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "info = " + local_info + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_03.GetPackageMapByIdResponse();
+		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse();
 		raw.setInfo( local_info);
 		return raw;
 	}
