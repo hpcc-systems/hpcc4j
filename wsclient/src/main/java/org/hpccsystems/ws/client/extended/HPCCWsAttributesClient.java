@@ -81,7 +81,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSATTRIBUTESWSDLURI;
     }
@@ -198,6 +198,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsAttributesStub(connection.getBaseUrl()+WSATTRIBUTESWSDLURI), connection);
         }
         catch (AxisFault e)

@@ -1,7 +1,16 @@
 package org.hpccsystems.ws.client;
 
+import java.io.ByteArrayInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.addressing.EndpointReference;
@@ -20,6 +29,7 @@ import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.w3c.dom.Document;
 
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
@@ -28,10 +38,11 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     public static final String    DEFAULTECLWATCHTLSPORT = "18010";
     public static String          DEFAULTSERVICEPORT     = DEAFULTECLWATCHPORT;
 
-    protected Connection          fsconn                 = null;
+    protected Connection          wsconn                 = null;
     protected boolean             verbose                = false;
     protected String              initErrMessage         = "";
-    protected Version             targetVersion          = null;
+    protected Version             targetHPCCBuildVersion = null;
+    protected Double              targetESPInterfaceVer  = null;
 
     protected Stub                stub;
 
@@ -222,7 +233,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
      */
     @Override
@@ -272,7 +283,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
      */
     @Override
@@ -295,7 +306,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
      */
     @Override
@@ -307,7 +318,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
      */
     @Override
@@ -318,7 +329,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
      */
     @Override
@@ -525,6 +536,94 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     }
 
     /**
+     * Provides the target ESP Interface version
+     *
+     * @return
+     */
+    public double getTargetESPInterfaceVersion()
+    {
+        if (targetESPInterfaceVer == null)
+            loadESPRuntimeInterfaceVer();
+
+        return targetESPInterfaceVer;
+    }
+
+    /**
+     * Stores active connection information for post-initialization use
+     *
+     * @param conn
+     */
+    protected void setActiveConnectionInfo(Connection conn)
+    {
+        wsconn = conn;
+    }
+
+
+    /**
+     * All implementations must provide the target web service URI
+     * @return
+     */
+    public abstract String getServiceURI();
+
+    /**
+     * Attempts to retrieve the default WSDL version of the target runtime ESP service
+     * Appends the target ESP service path and the "version_" literal to the connection's base URL
+     *
+     * @param wsName - Target ESP service URI/path
+     * @return       - If successful, the default runtime WSDL version in double format
+     * @throws Exception
+     */
+    protected void loadESPRuntimeInterfaceVer()
+    {
+        if (wsconn != null)
+        {
+            if (getServiceURI() == null || getServiceURI().isEmpty())
+                log.warn("Could not load ESP interface version, ensure target ws name is provided");
+            else
+            {
+
+                String response = null;
+                try
+                {
+                    response = wsconn.sendGetRequest(getServiceURI()+"/version_");
+                }
+                catch (Exception httpGetException)
+                {
+                    log.error("Encountered error fetching ESP interface version for " + wsconn.getBaseUrl() + getServiceURI() + "\n" + httpGetException.getLocalizedMessage());
+                }
+
+                if (response == null || response.isEmpty())
+                {
+                    log.error("Received empty ESP interface version response (" + wsconn.getBaseUrl() + getServiceURI() + ")");
+                }
+                else
+                {
+                    try
+                    {
+                        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                        DocumentBuilder parser = factory.newDocumentBuilder();
+                        Document document = parser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+
+                        XPath xpath = XPathFactory.newInstance().newXPath();
+                        XPathExpression expr = xpath.compile("string(/VersionInfo/Version)");
+
+                        targetESPInterfaceVer = (double)expr.evaluate(document, XPathConstants.NUMBER);
+                        log.info(wsconn.getBaseUrl() + getServiceURI() + " version: " + targetESPInterfaceVer);
+                    }
+                    catch (Exception e)
+                    {
+                        log.error("Encountered error parsing ESP interface version for " + wsconn.getBaseUrl() + getServiceURI() + "\n" + e.getLocalizedMessage());
+                    }
+                }
+            }
+        }
+        else
+        {
+            log.warn("Could not load ESP interface version, ensure client is properly initialized");
+        }
+    }
+
+     /**
      *  Determine if target HPCC's build version is compatible with a given version.
      *
      * @param major
@@ -535,10 +634,10 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     protected boolean compatibilityCheck(int major, int minor, int point)
     {
-        if (targetVersion == null)
+        if (targetHPCCBuildVersion == null)
             return false;
 
-        return targetVersion.isEqualOrNewerThan(major, minor, point);
+        return targetHPCCBuildVersion.isEqualOrNewerThan(major, minor, point);
     }
 
     /**
@@ -550,9 +649,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     protected boolean compatibilityCheck(Version input)
     {
-        if (targetVersion == null || input == null)
+        if (targetHPCCBuildVersion == null || input == null)
             return false;
 
-        return targetVersion.isEqualOrNewerThan(input);
+        return targetHPCCBuildVersion.isEqualOrNewerThan(input);
     }
 }

@@ -134,7 +134,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSWORKUNITSWSDLURI;
     }
@@ -250,14 +250,15 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
     public void initWsWorkUnitsClientStub(Connection conn)
     {
         initErrMessage = "";
-
         try
         {
+            setActiveConnectionInfo( conn);
+
             HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(conn);
-            targetVersion = new Version(wssmc.getHPCCBuild());
-            if (targetVersion != null)
+            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
+            if (targetHPCCBuildVersion != null)
             {
-                stubWrapper = new WsWorkunitsClientStubWrapper(conn, targetVersion);
+                stubWrapper = new WsWorkunitsClientStubWrapper(conn, targetHPCCBuildVersion);
                 stub = stubWrapper.getLatestStub();
                 stub = setStubOptions(new WsWorkunitsStub(conn.getBaseUrl() + WSWORKUNITSWSDLURI), conn);
             }

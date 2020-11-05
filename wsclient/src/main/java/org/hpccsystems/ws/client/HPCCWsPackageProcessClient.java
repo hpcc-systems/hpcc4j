@@ -64,7 +64,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return PACKAGEPROCESSURI;
     }
@@ -180,6 +180,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(conn);
             stub = setStubOptions(new WsPackageProcessStub(conn.getBaseUrl() + PACKAGEPROCESSURI), conn);
         }
         catch (Exception e)

@@ -73,7 +73,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSStoreWSDLURI;
     }
@@ -190,6 +190,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsstoreStub(connection.getBaseUrl() + WSStoreWSDLURI), connection);
         }
         catch (AxisFault e)

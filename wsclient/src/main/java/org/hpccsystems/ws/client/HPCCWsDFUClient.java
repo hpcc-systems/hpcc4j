@@ -120,7 +120,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return WSDFUURI;
     }
@@ -250,12 +250,13 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
         try
         {
+            setActiveConnectionInfo(conn);
             HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(conn);
-            targetVersion = new Version(wssmc.getHPCCBuild());
+            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
 
-            if (targetVersion != null)
+            if (targetHPCCBuildVersion != null)
             {
-                stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetVersion);
+                stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetHPCCBuildVersion);
                 stub = stubwrapper.get1_56Stub(null);
             }
             else
@@ -1277,22 +1278,22 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public String getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername,
             int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetVersion == null || stub == null)
+        if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.isEquivalentTo(HPCC700))
+        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
             if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
 
             return fileaccessinfo.getFileAccessInfoBlob();
         }
-        else if (targetVersion.isNewerThan(HPCC700))
+        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             return getFileAccessBlob(filename, clustername, expiryseconds, jobid);
         }
         else
-            throw new Exception("File access not supported in HPCC version: " + targetVersion.getMajor() + "." + targetVersion.getMinor() + ".x");
+            throw new Exception("File access not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor() + ".x");
     }
 
     /**
@@ -1317,22 +1318,22 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public String getFileAccessBlob(String filename, String clustername, int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetVersion == null || stub == null)
+        if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.isNewerThan(HPCC700))
+        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(filename, clustername, expiryseconds, jobid);
             if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
 
             return fileaccessinfo.getFileAccessInfoBlob();
         }
-        else if (targetVersion.isEquivalentTo(HPCC700))
+        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             return getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid);
         }
         else
-            throw new Exception("File access blob not supported in HPCC version: " + targetVersion.getMajor() + "." + targetVersion.getMinor() + ".x");
+            throw new Exception("File access blob not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor() + ".x");
     }
 
     /**
@@ -1370,10 +1371,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetVersion == null || stub == null)
+        if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.isEquivalentTo(HPCC700))
+        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39 = stubwrapper.get1_39Stub(stuboptions);
 
@@ -1412,12 +1413,12 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
         }
-        else if (targetVersion.isNewerThan(HPCC700))
+        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             return getFileAccess(filename, clustername, expiryseconds, jobid);
         }
         else
-            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetVersion.getMajor() + "." + targetVersion.getMinor());
+            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
     }
 
     /**
@@ -1443,10 +1444,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public DFUFileAccessInfoWrapper getFileAccess(String filename, String clustername, int expiryseconds, String jobid)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetVersion == null || stub == null)
+        if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.isNewerThan(HPCC700))
+        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             verifyStub(); // Throws exception if stub failed
 
@@ -1483,12 +1484,12 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo(), resp.getType());
         }
-        else if (targetVersion.isEquivalentTo(HPCC700))
+        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid, true, false, true);
         }
         else
-            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetVersion.getMajor() + "." + targetVersion.getMinor());
+            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
     }
 
     /**
@@ -1552,10 +1553,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole accessrole,
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetVersion == null || stub == null)
+        if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.isEquivalentTo(HPCC700))
+        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
             org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39 = stubwrapper.get1_39Stub(stuboptions);
 
@@ -1604,12 +1605,12 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
             return new DFUCreateFileWrapper(resp);
         }
-        else if (targetVersion.isNewerThan(HPCC700))
+        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, null, null);
         }
         else
-            throw new Exception("WSDFU File Create not available on HPCC v" + targetVersion.getMajor() + "." + targetVersion.getMinor());
+            throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
     }
 
     /**
@@ -1720,10 +1721,10 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds,
             Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (targetVersion == null || stub == null)
+        if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.isNewerThan(HPCC700))
+        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
         {
             verifyStub(); // Throws exception if stub failed
 
@@ -1767,12 +1768,12 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
             return new DFUCreateFileWrapper(resp);
         }
-        else if (targetVersion.isEquivalentTo(HPCC700))
+        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
-            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetVersion.getMajor() + "." + targetVersion.getMinor());
+            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
         }
         else
-            throw new Exception("WSDFU File Create not available on HPCC v" + targetVersion.getMajor() + "." + targetVersion.getMinor());
+            throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
 
     }
 

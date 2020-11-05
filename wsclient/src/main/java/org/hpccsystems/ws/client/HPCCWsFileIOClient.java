@@ -63,7 +63,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      *
      * @return the service URI
      */
-    public static String getServiceURI()
+    public String getServiceURI()
     {
         return FILEIOWSDLURI;
     }
@@ -191,6 +191,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
     {
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsFileIOStub(connection.getBaseUrl() + FILEIOWSDLURI), connection);
         }
         catch (AxisFault e)

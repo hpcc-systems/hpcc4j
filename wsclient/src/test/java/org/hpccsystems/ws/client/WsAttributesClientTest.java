@@ -76,7 +76,7 @@ public class WsAttributesClientTest extends BaseRemoteTest
         Assert.assertNotNull(connectionURL);
         Assert.assertEquals(connectionURL.getHost(), "1.1.1.1");
         Assert.assertEquals(connectionURL.getPort(), 1234);
-        Assert.assertEquals(connectionURL.getPath(), HPCCWsAttributesClient.getServiceURI());
+        Assert.assertEquals(connectionURL.getPath(), client.getServiceURI());
 
         Assert.assertNotEquals(connectionURL.getHost(), HPCCWsAttributesClient.getServiceWSDLPort());
         Assert.assertNotEquals(connectionURL.getPort(), HPCCWsAttributesClient.getServiceWSDLPort());
