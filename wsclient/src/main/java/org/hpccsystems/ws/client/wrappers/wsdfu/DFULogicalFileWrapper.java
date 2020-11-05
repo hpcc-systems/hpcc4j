@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFULogicalFile;
 
 public class DFULogicalFileWrapper
 {   

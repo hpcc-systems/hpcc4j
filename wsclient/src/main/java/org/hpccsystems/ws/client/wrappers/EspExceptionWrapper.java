@@ -82,7 +82,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();

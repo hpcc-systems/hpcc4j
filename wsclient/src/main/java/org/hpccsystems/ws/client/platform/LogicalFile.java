@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFULogicalFile;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
