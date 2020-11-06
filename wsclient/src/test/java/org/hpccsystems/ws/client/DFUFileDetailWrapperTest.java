@@ -200,9 +200,11 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testPayload() throws Exception {
+    public void testPayload() throws Exception 
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(PAYLOAD);
-        if (info.getParseErrors().size()!=0) {
+        if (info.getParseErrors().size()!=0) 
+        {
             fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
         }
         assertEquals("SSN",info.getRecordsets().get("unnamed0").getChildColumns().get(0).getColumnLabel());
