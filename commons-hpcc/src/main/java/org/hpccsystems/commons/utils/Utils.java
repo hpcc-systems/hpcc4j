@@ -321,12 +321,13 @@ public class Utils
      */
     public static String handleQuotedString(String quotedString)
     {
-        if (quotedString == null) return "";
+        if (quotedString == null)
+            return "";
 
         Matcher matcher = QUOTEDSTRPATTERN.matcher(quotedString);
 
         if (matcher.matches())
-            return matcher.group(2).trim();
+            return matcher.group(2);
         else
             return quotedString;
     }
@@ -372,7 +373,8 @@ public class Utils
      */
     public static String replaceSQLwithECLEscapeChar(String quotedString) throws Exception
     {
-        if (quotedString == null) return "";
+        if (quotedString == null)
+            return "";
 
         String eclescaped = "\\\\'";
         String replaced = '\'' + handleQuotedString(quotedString).replaceAll("\'\'", eclescaped) + '\'';
@@ -382,119 +384,62 @@ public class Utils
 
     public enum EclTypes
     {
-        ECLTypeboolean (
-                0
-        ), ECLTypeint (
-                1
-        ), ECLTypereal (
-                2
-        ), ECLTypedecimal (
-                3
-        ), ECLTypestring (
-                4
-        ), ECLTypeunused1 (
-                5
-        ), ECLTypedate (
-                6
-        ), ECLTypeunused2 (
-                7
-        ), ECLTypeunused3 (
-                8
-        ), ECLTypebitfield (
-                9
-        ), ECLTypeunused4 (
-                10
-        ), ECLTypechar (
-                11
-        ), ECLTypeenumerated (
-                12
-        ), ECLTyperecord (
-                13
-        ), ECLTypevarstring (
-                14
-        ), ECLTypeblob (
-                15
-        ), ECLTypedata (
-                16
-        ), ECLTypepointer (
-                17
-        ), ECLTypeclass (
-                18
-        ), ECLTypearray (
-                19
-        ), ECLTypetable (
-                20
-        ), ECLTypeset (
-                21
-        ), ECLTyperow (
-                22
-        ), ECLTypegroupedtable (
-                23
-        ), ECLTypevoid (
-                24
-        ), ECLTypealien (
-                25
-        ), ECLTypeswapint (
-                26
-        ), ECLTypepackedint (
-                28
-        ), ECLTypeunused5 (
-                29
-        ), ECLTypeqstring (
-                30
-        ), ECLTypeunicode (
-                31
-        ), ECLTypeany (
-                32
-        ), ECLTypevarunicode (
-                33
-        ), ECLTypepattern (
-                34
-        ), ECLTyperule (
-                35
-        ), ECLTypetoken (
-                36
-        ), ECLTypefeature (
-                37
-        ), ECLTypeevent (
-                38
-        ), ECLTypenull (
-                39
-        ), ECLTypescope (
-                40
-        ), ECLTypeutf8 (
-                41
-        ), ECLTypetransform (
-                42
-        ), ECLTypeifblock (
-                43
-        ), // not a real type -but used for the rtlfield serialization
-        ECLTypefunction (
-                44
-        ), ECLTypesortlist (
-                45
-        ), ECLTypemodifier (
-                0xff
-        ), // used by getKind()
-        ECLTypeunsigned (
-                0x100
-        ), // combined with some of the above, when
-           // returning summary type information. Not
-           // returned by getTypeCode()
-        ECLTypeebcdic (
-                0x200
-        ), // combined with some of the above, when returning
-           // summary type information. Not returned by
-           // getTypeCode()
+        ECLTypeboolean (0),
+        ECLTypeint (1),
+        ECLTypereal (2),
+        ECLTypedecimal (3),
+        ECLTypestring (4),
+        ECLTypeunused1 (5),
+        ECLTypedate (6),
+        ECLTypeunused2 (7),
+        ECLTypeunused3 (8),
+        ECLTypebitfield (9),
+        ECLTypeunused4 (10),
+        ECLTypechar (11),
+        ECLTypeenumerated (12),
+        ECLTyperecord (13),
+        ECLTypevarstring (14),
+        ECLTypeblob (15),
+        ECLTypedata (16),
+        ECLTypepointer (17),
+        ECLTypeclass (18),
+        ECLTypearray (19),
+        ECLTypetable (20),
+        ECLTypeset (21),
+        ECLTyperow (22),
+        ECLTypegroupedtable (23),
+        ECLTypevoid (24),
+        ECLTypealien (25),
+        ECLTypeswapint (26),
+        ECLTypepackedint (28),
+        ECLTypeunused5 (29),
+        ECLTypeqstring (30),
+        ECLTypeunicode (31),
+        ECLTypeany (32),
+        ECLTypevarunicode (33),
+        ECLTypepattern (34),
+        ECLTyperule (35),
+        ECLTypetoken (36),
+        ECLTypefeature (37),
+        ECLTypeevent (38),
+        ECLTypenull (39),
+        ECLTypescope (40),
+        ECLTypeutf8 (41),
+        ECLTypetransform (42),
+        ECLTypeifblock (43), // not a real type -but used for the rtlfield serialization
+        ECLTypefunction (44),
+        ECLTypesortlist (45),
+        ECLTypemodifier (0xff),  // used by getKind()
+        ECLTypeunsigned (0x100), // combined with some of the above, when
+                                 // returning summary type information. Not
+                                 // returned by getTypeCode()
+        ECLTypeebcdic (0x200),  // combined with some of the above, when returning
+                                // summary type information. Not returned by
+                                // getTypeCode()
         // Some pseudo types - never actually created
-        ECLTypestringorunicode (
-                0xfc
-        ), // any string/unicode variant
-        ECLTypenumeric (
-                0xfd
-        ), ECLTypescalar (
-                0xfe
-        );
+        ECLTypestringorunicode (0xfc), // any string/unicode variant
+        ECLTypenumeric (0xfd),
+        ECLTypescalar (0xfe);
 
         /**
          * Instantiates a new ecl types.
@@ -591,7 +536,7 @@ public class Utils
     /**
      * Attempts to map a string value to an enum value of
      * a given enum class.
-     * 
+     *
      * Iterates through all enum values of given enum class,
      * and compares to given string.
      * Returns enum value if it finds match, otherwise throws Exception

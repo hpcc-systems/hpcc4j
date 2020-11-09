@@ -187,6 +187,48 @@ public class FilterTests
             filter = new FileFilter(" Field1 > 12 OR Field1 = 5 AND Field2 > 100 OR Field2 IN 1, 2, 3 ");
             Assert.assertEquals("\"keyFilter\": [\"Field1=('12',),['5']\",\"Field2=('100',),[1],[2],[3]\"]", filter.toJson());
             System.out.println("Field1 > 12 OR Field1 = 5 AND Field2 > 100 OR Field2 IN 1, 2, 3  -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 = 'or' ");
+            Assert.assertEquals("Field1=[''or'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = 'Or' ");
+            Assert.assertEquals("Field1=[''Or'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = 'oR' ");
+            Assert.assertEquals("Field1=[''oR'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = 'OR' ");
+            Assert.assertEquals("Field1=[''OR'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = ' OR' ");
+            Assert.assertEquals("Field1=['' OR'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = ' OR ' ");
+            Assert.assertEquals("Field1=['' OR '']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \"OR\" ");
+            Assert.assertEquals("Field1=[''OR'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \" OR\" ");
+            Assert.assertEquals("Field1=['' OR'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \"OR \" ");
+            Assert.assertEquals("Field1=[''OR '']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \" OR \" ");
+            Assert.assertEquals("Field1=['' OR '']", filter.getFieldFilter(0).toString());
+
+            filter = new FileFilter(" Field1 = 'and' ");
+            Assert.assertEquals("Field1=[''and'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = 'And' ");
+            Assert.assertEquals("Field1=[''And'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = 'anD' ");
+            Assert.assertEquals("Field1=[''anD'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = 'AND' ");
+            Assert.assertEquals("Field1=[''AND'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = ' AND' ");
+            Assert.assertEquals("Field1=['' AND'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = ' AND ' ");
+            Assert.assertEquals("Field1=['' AND '']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \"AND\" ");
+            Assert.assertEquals("Field1=[''AND'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \" AND\" ");
+            Assert.assertEquals("Field1=['' AND'']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \"AND \" ");
+            Assert.assertEquals("Field1=[''AND '']", filter.getFieldFilter(0).toString());
+            filter = new FileFilter(" Field1 = \" AND \" ");
+            Assert.assertEquals("Field1=['' AND '']", filter.getFieldFilter(0).toString());
         }
         catch (Exception e)
         {

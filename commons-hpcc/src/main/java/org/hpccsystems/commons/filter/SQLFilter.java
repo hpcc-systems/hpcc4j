@@ -34,7 +34,7 @@ public class SQLFilter
     public final static SQLOperator andOperator    = new SQLOperator(SQLOperator.and);
     public final static SQLOperator orOperator     = new SQLOperator(SQLOperator.or);
 
-    private final static String     otherThanQuote = " [^\'] ";
+    private final static String     otherThanQuote = " [^\'\"] ";
     private final static String     quotedString   = String.format(" \' %s* \' ", otherThanQuote);
 
     public final static String      andregex       = "(?x) " +                                        // enable comments, ignore white spaces
