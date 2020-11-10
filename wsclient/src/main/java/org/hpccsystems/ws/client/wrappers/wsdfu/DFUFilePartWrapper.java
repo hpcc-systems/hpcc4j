@@ -22,38 +22,20 @@ import java.util.Hashtable;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileCopy;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePart;
 
-enum FilePartKind
-{
-    TLK, DATA
-}
-
 public class DFUFilePartWrapper
 {
     private Integer              partIndex;
     private DFUFileCopyWrapper[] wrappedDFUFileCopies;
-    private FilePartKind         kind = FilePartKind.DATA;
+    private boolean				 topLevelKey = false;
 
     /**
-     * Gets the kind.
-     *
-     * @return the kind
+     * Is this part a Top level key
+     * @return
      */
-    public FilePartKind getKind()
+    public boolean isTopLevelKey()
     {
-        return kind;
-    }
-
-    /**
-     * Sets the kind.
-     *
-     * @param kind
-     *            the kind to set
-     * @return the DFU file part wrapper
-     */
-    public DFUFilePartWrapper setKind(FilePartKind kind)
-    {        this.kind = kind;
-        return this;
-    }
+		return topLevelKey;
+	}
 
     /**
      * Instantiates a new DFU file part wrapper.
@@ -66,6 +48,8 @@ public class DFUFilePartWrapper
     public DFUFilePartWrapper(DFUFilePart dfuFilePart, Hashtable<Integer, String> availableLocations)
     {
         partIndex = dfuFilePart.getPartIndex();
+        topLevelKey = dfuFilePart.getTopLevelKey();
+
         DFUFileCopy[] dfufilecopies = dfuFilePart.getCopies().getDFUFileCopy();
         wrappedDFUFileCopies = new DFUFileCopyWrapper[dfufilecopies.length];
         for (int i = 0; i < dfufilecopies.length; i++)
