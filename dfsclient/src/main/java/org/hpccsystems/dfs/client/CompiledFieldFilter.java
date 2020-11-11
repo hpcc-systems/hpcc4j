@@ -71,7 +71,7 @@ public class CompiledFieldFilter
                 convertedValues[i] = convertValue(filterValues[i], fdType);
             }
 
-            Arrays.sort(convertedValues, (a, b) -> this.compare(a,b));
+            Arrays.sort(convertedValues, (a, b) -> this.compareValues(a,b));
 
             lowerValue = convertedValues[0];
             upperValue = convertedValues[convertedValues.length-1];
@@ -103,7 +103,7 @@ public class CompiledFieldFilter
         return fieldIndex;
     }
 
-    private int compare(Object a, Object b) 
+    private int compareValues(Object a, Object b) 
     {
         switch (fieldType)
         {
@@ -262,10 +262,10 @@ public class CompiledFieldFilter
     public boolean matchesRange(Object inclusiveBegin, Object exclusiveEnd)
     {
         // 1 if inclusive begin is less than lowerValue, 0 if equal
-        int beginCompare = compare(lowerValue, inclusiveBegin);
+        int beginCompare = compareValues(lowerValue, inclusiveBegin);
         
         // 1 if exclusive end is greater than lowerValue, 0 if equal
-        int endCompare = compare(exclusiveEnd, lowerValue);
+        int endCompare = compareValues(exclusiveEnd, lowerValue);
 
         if (beginCompare >= lowerComparisonType && endCompare > 0)
         {
@@ -273,10 +273,10 @@ public class CompiledFieldFilter
         }
         
         // 1 if inclusive begin is less than upperValue, 0 if equal
-        beginCompare = compare(upperValue, inclusiveBegin);
+        beginCompare = compareValues(upperValue, inclusiveBegin);
         
         // 1 if exclusive end is greater than upperValue, 0 if equal
-        endCompare = compare(exclusiveEnd, upperValue);
+        endCompare = compareValues(exclusiveEnd, upperValue);
 
         if (beginCompare >= upperComparisonType && endCompare > 0)
         {

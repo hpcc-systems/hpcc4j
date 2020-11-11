@@ -243,6 +243,7 @@ public class PartitionProcessor
             catch (Exception e)
             {
                 numRetries++;
+                log.error("Failed to read TLK file part retry: " + numRetries + " error: " + e.getMessage());
                 readFailureException = e;
             }
         }
@@ -285,6 +286,11 @@ public class PartitionProcessor
 
     public List<DataPartition> findMatchingPartitions(FileFilter filter)
     {
+        if (filter == null)
+        {
+            return Arrays.asList(dataPartitions);
+        }
+
         // If we don't have a set of partition ranges. There wasn't a TLK
         // associated with the file, so return all partitions.
         if (dataPartitionRanges.size() == 0)

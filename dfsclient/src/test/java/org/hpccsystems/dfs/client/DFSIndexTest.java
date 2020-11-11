@@ -130,7 +130,7 @@ public class DFSIndexTest extends BaseRemoteTest
                 String filterStr = null;
                 if (rangeStart.getField(0) instanceof String)
                 {
-                    filterStr = "key = \"" + rangeStart.getField(0).toString() + "\"";
+                    filterStr = "key = \'" + rangeStart.getField(0).toString() + "\'";
                 }
                 else
                 {
@@ -152,7 +152,7 @@ public class DFSIndexTest extends BaseRemoteTest
                 HPCCRecord rangeEnd = partitionRangeEnd.get(j);
                 if (rangeStart.getField(0) instanceof String)
                 {
-                    filterStr = "key = \"" + rangeEnd.getField(0).toString() + "\"";
+                    filterStr = "key = \'" + rangeEnd.getField(0).toString() + "\'";
                 }
                 else
                 {
