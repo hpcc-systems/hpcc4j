@@ -16,6 +16,7 @@
 package org.hpccsystems.commons.ecl;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -94,8 +95,13 @@ public class FieldFilter implements Serializable
         return this.name;
     }
 
+    public List<FieldFilterRange> getRanges()
+    {
+        return ranges;
+    }
+
     /**
-     * The sumber of ranges used in this filter.
+     * The number of ranges used in this filter.
      *
      * @return the range count
      */
