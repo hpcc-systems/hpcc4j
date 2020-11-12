@@ -147,6 +147,19 @@ public class SQLFragment
         }
     }
 
+    private void handleSQLFieldType(String fragment)
+    {
+        String fragsplit[] = fragment.split(Utils.DOTSEPERATORREGEX, 2);
+        if (fragsplit.length == 1)
+        {
+            setValue(Utils.handleQuotedIdentifier(fragsplit[0]));
+        }
+        else
+        {
+            setParent(Utils.handleQuotedIdentifier(fragsplit[0]));
+            setValue(Utils.handleQuotedIdentifier(fragsplit[1]));
+        }
+    }
     /**
      * Parses the expression fragment.
      *
@@ -169,7 +182,7 @@ public class SQLFragment
                     setValue(fragment);
                     break;
                 case FIELD:
-                    handleFieldType(fragment);
+                    handleSQLFieldType(fragment);
                     break;
                 case LIST:
 
@@ -282,7 +295,7 @@ public class SQLFragment
         {
             return FragmentType.PARAMETERIZED;
         }
-        else if (Utils.isLiteralString(fragStr))
+        else if (Utils.isSQLLiteralString(fragStr))
         {
             return FragmentType.LITERAL_STRING;
         }
