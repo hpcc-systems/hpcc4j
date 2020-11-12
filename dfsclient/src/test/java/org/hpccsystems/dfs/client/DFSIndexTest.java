@@ -16,6 +16,7 @@
 package org.hpccsystems.dfs.client;
 
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -53,6 +54,7 @@ import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class DFSIndexTest extends BaseRemoteTest
 {
+
     @Test
     public void hpccTLKFilterTest() throws Exception
     {
@@ -92,25 +94,14 @@ public class DFSIndexTest extends BaseRemoteTest
             // Create index
             //------------------------------------------------------------------------------
 
-            String indexName = datasetName + "::key";
-            String ecl = "rec := " + RecordDefinitionTranslator.toECLRecord(recordDef);
-            ecl += "ds := DATASET('" + datasetName + "', rec, THOR);";
-            ecl += "idx := INDEX(ds, {key}, {payload},'" + indexName + "');";
-            ecl += "BUILDINDEX(idx, OVERWRITE);";
-            
-            WorkunitWrapper wu = new WorkunitWrapper();
-            wu.setECL(ecl);
-            wu.setJobname("IndexCreation" + datasetName);
-            wu.setCluster(thorcluster);
-
+            String indexName = null;
             try
             {
-                HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
-                String result = client.createAndRunWUFromECLAndGetResults(wu);
+                indexName = createIndexOnDataset(datasetName,recordDef);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Assert.fail("Test failed with error: " + e.getMessage());
+                Assume.assumeNoException("Failed to create index with error: ", e);
             }
 
             //------------------------------------------------------------------------------
@@ -171,6 +162,46 @@ public class DFSIndexTest extends BaseRemoteTest
                 }
             }
         }
+    }
+
+    @Test
+    public void tlkFilterExample() throws Exception
+    {
+        System.out.println("Starting tlk filter test.");
+        //------------------------------------------------------------------------------
+        // Read index and check TLK against known partition ranges
+        //------------------------------------------------------------------------------
+        
+        HPCCFile file = new HPCCFile("~test::index::integer::key", connString , hpccUser, hpccPass);
+        
+        // Find partitions that match the provided filter
+        FileFilter filter = new FileFilter("key = 40");
+        List<DataPartition> filteredPartitions = file.findMatchingPartitions(filter);
+        
+        Assert.assertTrue("Unexpected number of partitions", filteredPartitions.size() == 1);
+
+        DataPartition matchedPart = filteredPartitions.get(0);
+        HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(matchedPart, file.getRecordDefinition(), recordBuilder);
+        
+        boolean foundRecord = false; 
+        while (fileReader.hasNext())
+        {
+            HPCCRecord record = fileReader.next();
+            if (record == null)
+            {
+                Assert.fail("Received null record during read");
+            }
+
+            Long keyValue = (Long) record.getField(0);
+            if (keyValue == 40)
+            {
+                foundRecord = true;
+            }
+        }
+        fileReader.close();
+
+        Assert.assertTrue("Did not find record in partition", foundRecord);
     }
 
     private String partitionListToString(List<DataPartition> partitions)
@@ -250,6 +281,24 @@ public class DFSIndexTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail("Failed to write file with error: " + e.getMessage());
         }
+    }
+
+    String createIndexOnDataset(String datasetName, FieldDef recordDef) throws Exception
+    {
+        String indexName = datasetName + "::key";
+        String ecl = "rec := " + RecordDefinitionTranslator.toECLRecord(recordDef);
+        ecl += "ds := DATASET('" + datasetName + "', rec, THOR);";
+        ecl += "idx := INDEX(ds, {key}, {payload},'" + indexName + "');";
+        ecl += "BUILDINDEX(idx, OVERWRITE);";
+        
+        WorkunitWrapper wu = new WorkunitWrapper();
+        wu.setECL(ecl);
+        wu.setJobname("IndexCreation" + datasetName);
+        wu.setCluster(thorcluster);
+        
+        HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
+        String result = client.createAndRunWUFromECLAndGetResults(wu);
+        return indexName;
     }
 
     List<HPCCRecord> createRecordRange(int partitionIndex, int numPartitions, FieldDef recordDef)
@@ -348,6 +397,7 @@ public class DFSIndexTest extends BaseRemoteTest
         DFSIndexTest test = new DFSIndexTest();
         try {
             test.hpccTLKFilterTest();
+            test.tlkFilterExample();
         } catch(Exception e) {}
     }
 }

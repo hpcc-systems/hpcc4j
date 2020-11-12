@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.FieldFilter;
 import org.hpccsystems.commons.ecl.FileFilter;
@@ -28,6 +31,8 @@ import org.hpccsystems.commons.ecl.FieldFilterRange;
 // Need to have the "comparisonType" to allow for equals & notEquals
 public class CompiledFieldFilter
 {
+    private static final Logger log = LogManager.getLogger(CompiledFieldFilter.class);
+
     private static final String minStringValue = "";
 
     // 32 chars of the max extended ascii char.
@@ -148,6 +153,7 @@ public class CompiledFieldFilter
             default:
                 // We should never get to this point as an exception will be thrown before this point 
                 // for unsupported types. Creating a default with return to keep the compiler happy.
+                log.error("Invalid key field type: " + fieldType + " in comparison. This should never happen.");
                 return 0;
         }
     }

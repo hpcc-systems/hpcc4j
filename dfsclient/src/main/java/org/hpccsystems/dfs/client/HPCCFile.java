@@ -35,6 +35,7 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.json.JSONObject;
 
 public class HPCCFile implements Serializable
@@ -55,7 +56,7 @@ public class HPCCFile implements Serializable
 
     private FieldDef             recordDefinition;
     private FieldDef             projectedRecordDefinition;
-    private boolean              isIndex;
+    private boolean              isIndex                       = false;
     static private final int     DEFAULT_ACCESS_EXPIRY_SECONDS = 120;
     private int                  fileAccessExpirySecs          = DEFAULT_ACCESS_EXPIRY_SECONDS;
 
@@ -339,6 +340,8 @@ public class HPCCFile implements Serializable
         try
         {
             fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs, targetfilecluster);
+            this.isIndex = fileinfoforread.getFileType() == DFUFileTypeWrapper.Index;
+
             originalRecDefInJSON = fileinfoforread.getRecordTypeInfoJson();
             if (originalRecDefInJSON == null)
             {
@@ -413,13 +416,6 @@ public class HPCCFile implements Serializable
     {
         createDataParts();
         List<DataPartition> matchedPartitions = this.partitionProcessor.findMatchingPartitions(filter);
-
-        // Apply the filter to the partitions
-        for (DataPartition partition : matchedPartitions)
-        {
-            partition.setFilter(filter);
-        }
-
         return matchedPartitions;
     }
 
