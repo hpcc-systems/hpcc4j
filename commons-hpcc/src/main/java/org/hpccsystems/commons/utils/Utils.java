@@ -151,6 +151,25 @@ public class Utils
     }
 
     /**
+     * Checks if is SQL literal string.
+     *
+     * @param str
+     *            the str
+     * @return true, if is literal string
+     */
+    public static boolean isSQLLiteralString(String str)
+    {
+        boolean match = QUOTEDSQLSTRPATTERN.matcher(str).matches();
+
+        if (match)
+        {
+            return !QUOTEDSQLQUALIFIEDIDPATTERN.matcher(str).matches();
+        }
+
+        return match;
+    }
+
+    /**
      * Checks if is numeric.
      *
      * @param str
@@ -312,6 +331,10 @@ public class Utils
 
     private final static Pattern QUOTEDSTRPATTERN       = Pattern.compile("\\s*(\"|\')(.*?)(\"|\')\\s*", Pattern.DOTALL);
 
+    private final static Pattern QUOTEDSQLQUALIFIEDIDPATTERN = Pattern.compile("\\s*(\")(.*?){1}(\\.)(.*?){1}(\")\\s*", Pattern.DOTALL);
+    private final static Pattern QUOTEDSQLIDPATTERN          = Pattern.compile("\\s*(\")(.*?)(\")\\s*", Pattern.DOTALL);
+    private final static Pattern QUOTEDSQLSTRPATTERN         = Pattern.compile("\\s*(\')(.*?)(\')\\s*", Pattern.DOTALL);
+
     /**
      * Handle quoted string.
      *
@@ -325,6 +348,19 @@ public class Utils
             return "";
 
         Matcher matcher = QUOTEDSTRPATTERN.matcher(quotedString);
+
+        if (matcher.matches())
+            return matcher.group(2);
+        else
+            return quotedString;
+    }
+
+    public static String handleQuotedIdentifier(String quotedString)
+    {
+        if (quotedString == null)
+            return "";
+
+        Matcher matcher = QUOTEDSQLIDPATTERN.matcher(quotedString);
 
         if (matcher.matches())
             return matcher.group(2);

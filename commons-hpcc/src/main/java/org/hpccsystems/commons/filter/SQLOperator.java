@@ -75,8 +75,8 @@ public class SQLOperator
     // LIKESPLITPATTERN+"(.?){1}",Pattern.DOTALL);
 
     private final static Pattern                 INPATTERN             = Pattern.compile("(.?)+" + INSPLITPATTERN + "(.?)+", Pattern.DOTALL);
-
-    private final static Pattern                 NOTINPATTERN          = Pattern.compile("(.?){1}" + NOTINSPLITPATTERN + "(.?){1}", Pattern.DOTALL);
+    private final static Pattern                 NOTINPATTERN          = Pattern.compile("(.?)+" + NOTINSPLITPATTERN + "(.?)+", Pattern.DOTALL);
+    //private final static Pattern                 NOTINPATTERN          = Pattern.compile("(.?){1}" + NOTINSPLITPATTERN + "(.?){1}", Pattern.DOTALL);
 
     static
     {
