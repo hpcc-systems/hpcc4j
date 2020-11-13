@@ -82,7 +82,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
             WorkunitWrapper wu = new WorkunitWrapper();
             wu.setECL("OUTPUT('¶');");
             wu.setJobname("WsClientUTF8_Test");
-            wu.setCluster("thor");
+            wu.setCluster(thorclustername);
 
             WURunResponse createAndRunWUFromECL = client.createAndRunWUFromECL(wu);
             testwuid = createAndRunWUFromECL.getWuid();

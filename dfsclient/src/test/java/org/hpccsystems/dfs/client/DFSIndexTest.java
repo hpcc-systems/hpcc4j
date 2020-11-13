@@ -228,8 +228,8 @@ public class DFSIndexTest extends BaseRemoteTest
 
             HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 
-            String clusterName = this.thorcluster;
-            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, 300, false, DFUFileTypeWrapper.Flat, "");
+            String filegroupname = this.thorClusterFileGroup;
+            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, filegroupname, eclRecordDefn, 300, false, DFUFileTypeWrapper.Flat, "");
 
             DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
             DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts,
@@ -294,7 +294,7 @@ public class DFSIndexTest extends BaseRemoteTest
         WorkunitWrapper wu = new WorkunitWrapper();
         wu.setECL(ecl);
         wu.setJobname("IndexCreation" + datasetName);
-        wu.setCluster(thorcluster);
+        wu.setCluster(thorclustername);
         
         HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
         String result = client.createAndRunWUFromECLAndGetResults(wu);
