@@ -62,7 +62,6 @@ public class Version implements Comparable<Version>
         final Matcher matcher = pattern.matcher(versionString);
         if (matcher.find())
         {
-            System.out.println("Full match: " + matcher.group(0));
             project = matcher.group(1);
             if (matcher.group(2) != null)
                 major = Integer.parseInt(matcher.group(2));
