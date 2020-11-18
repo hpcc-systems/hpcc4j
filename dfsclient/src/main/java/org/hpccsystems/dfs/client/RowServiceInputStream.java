@@ -105,6 +105,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private static final int         PREFETCH_SLEEP_MS        = 1;
     private static final int         LONG_WAIT_THRESHOLD_US   = 100;
 
+    // This is used to prevent the prefetch thread from hot looping when
+    // the network connection is slow. The read on the socket will block until
+    // at least 512 bytes are available
+    private static final int         MIN_SOCKET_READ_SIZE     = 512;
+
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
     
     private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
@@ -614,8 +619,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToRead = 0;
             try
             {
+                // Read at least MIN_SOCKET_READ_SIZE bytes at a time
+                bytesToRead = Math.max(MIN_SOCKET_READ_SIZE,this.dis.available());
+                
+                // Limit bytes to read based on remaining data in request and buffer capacity
                 bytesToRead = Math.min(remainingBufferCapacity,
-                              Math.min(this.dis.available(),remainingDataInCurrentRequest));
+                              Math.min(bytesToRead,remainingDataInCurrentRequest));
                 dis.readFully(this.readBuffer, currentBufferLen, bytesToRead);
             }
             catch (IOException e)
@@ -635,7 +644,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             bufferWriteMutex.release();
             
             // If we don't have enough room in the buffer. Return, and let the calling prefetch thread handle sleep etc
-            if (remainingDataInCurrentRequest > 0 && this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
+            if (this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
             {
                 return;
             }

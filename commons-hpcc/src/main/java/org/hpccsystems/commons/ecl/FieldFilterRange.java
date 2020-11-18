@@ -140,6 +140,26 @@ public class FieldFilterRange implements Serializable
         this.number = numeric_target;
         prefix = (short) 0;
     }
+    
+    public String[] getValues()
+    {
+        return this.values;
+    }
+
+    public Bound getBound()
+    {
+        return this.bound;
+    }
+
+    public boolean getLeftOpen()
+    {
+        return this.leftOpen;
+    }
+
+    public boolean getRightOpen()
+    {
+        return this.rightOpen;
+    }
 
     /**
      * Create equality filter range.

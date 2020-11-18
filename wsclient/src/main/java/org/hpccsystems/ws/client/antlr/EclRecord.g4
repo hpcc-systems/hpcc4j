@@ -36,6 +36,8 @@ eclfield_recref:
     OPAREN TOKEN CPAREN
 ;
 
+payload_sep : '=>' ;
+
 record_def_inline:
     OCURLY (COMMA maxlength)? eclfield_decl ((COMMA)* eclfield_decl)* CCURLY SEMI
 ;
@@ -117,7 +119,7 @@ CPAREN             : ')';
 OCURLY             : '{';
 CCURLY             : '}';
 COMMA              : ',';
-SEMI               : ';';
+SEMI               : (';' | WS '=>');
 EQ                 : '=';
 
 ASSING_SYM             : ':=';

@@ -38,6 +38,7 @@ public class DataPartition implements Serializable
     private FileFilter       fileFilter;
     private String           fileAccessBlob;
     private FileType         fileType;
+    private boolean          isTLK;
 
     public static enum FileType
     {
@@ -415,6 +416,8 @@ public class DataPartition implements Serializable
                 DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), copyPaths, dfuparts[i].getPartIndex(),
                         dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob,
                         fileType);
+                new_dp.isTLK = dfuparts[i].isTopLevelKey();
+
                 rslt[i] = new_dp;
             }
         }
@@ -430,13 +433,19 @@ public class DataPartition implements Serializable
      *
      * @return the int
      */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.spark.Partition#index()
-     */
     public int index()
     {
         return this.this_part - 1;
     }
+
+    /**
+     * Is this data partition the TLK
+     * 
+     * @return isTLK
+     */
+    public boolean isTLK()
+    {
+        return this.isTLK;
+    }
+
 }

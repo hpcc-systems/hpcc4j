@@ -362,6 +362,19 @@ public class FieldDef implements Serializable
         updateRecordMeta(this);
     }
 
+    public int getDefIndexWithFieldName(String fieldName)
+    {
+        for (int i = 0; i < this.defs.length; i++)
+        {
+            if (this.defs[i].getFieldName().equals(fieldName))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     /**
      * An iterator to walk though the type definitions that compose this type.
      *
