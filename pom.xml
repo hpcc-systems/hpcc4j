@@ -57,6 +57,9 @@
     <json.version>20180813</json.version>
     <log4j.version>2.13.2</log4j.version>
     <axis2.version>1.7.9</axis2.version>
+    <hadoop.version>2.10.1</hadoop.version>
+    <parquet.version>1.11.1</parquet.version>
+    <avro.version>1.10.0</avro.version>
     <javadoc.excludePackageNames></javadoc.excludePackageNames>
     <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
     <codehaus.template.version>1.0.0</codehaus.template.version>
