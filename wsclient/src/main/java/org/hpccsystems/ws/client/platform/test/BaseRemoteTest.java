@@ -36,7 +36,12 @@ public abstract class BaseRemoteTest
     protected static HPCCWsClient wsclient;
 
     protected final static String connString = System.getProperty("hpccconn", "http://localhost:8010");
-    protected final static String thorcluster = System.getProperty("thorcluster", "mythor");
+    protected final static String thorClusterFileGroup = System.getProperty("thorgroupname", "mythor");
+    protected final static String thorclustername = System.getProperty("thorclustername", "thor");
+
+    protected final static String roxieClusterGroup = System.getProperty("roxiegroupname", "myroxie");
+    protected final static String roxieclustername = System.getProperty("roxieclustername", "roxie");
+
     protected final static String defaultUserName = "JunitUser";
     protected static Connection connection = null;
 
@@ -51,9 +56,9 @@ public abstract class BaseRemoteTest
       unique_values := 10212; // Should be less than number of records
       dataset_name := '~benchmark::all_types::200KB';
       totalrecs := 779449/500;
-     
+
       childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
-     
+
       rec := { INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
                INTEGER2 int2, UNSIGNED2 uint2, REAL8 r8, REAL4 r4,
                DECIMAL16_8 dec16, UDECIMAL16_8 udec16, QSTRING qStr,
@@ -61,7 +66,7 @@ public abstract class BaseRemoteTest
                UTF8 utfStr, UNICODE8 uni8, UNICODE uni, VARUNICODE varUni,
                DATASET(childRec) childDataset,  SET OF INTEGER1 int1Set
              };
-     
+
              ds := DATASET(totalrecs, transform(rec,
                                   self.int8 := (INTEGER)(random() % unique_keys);
                                   self.uint8 := (INTEGER)(random() % unique_values);
@@ -87,7 +92,7 @@ public abstract class BaseRemoteTest
                            ), DISTRIBUTED);
               OUTPUT(ds,,dataset_name,overwrite);
      */
-     
+
 
     public static final String DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
 
@@ -104,7 +109,22 @@ public abstract class BaseRemoteTest
 
     static
     {
-    	//System.setProperty("log4j.configurationFile" , "/home/ubuntu/GIT/HPCC4J/log4j2.xml");
+        String legacythorcluster = System.getProperty("thorcluster");
+        if (legacythorcluster != null && !legacythorcluster.isEmpty())
+            System.out.println("WARNING! 'thorcluster' has been deprecated - Use 'thorclustername' and/or 'thorgroupname' instead");
+
+        if (System.getProperty("thorgroupname") == null)
+            System.out.println("thorgroupname not provided - defaulting to 'mythor'");
+
+        if (System.getProperty("thorclustername") == null)
+            System.out.println("thorclustername not provided - defaulting to 'thor'");
+
+        if (System.getProperty("roxiegroupname") == null)
+            System.out.println("roxiegroupname not provided - defaulting to 'myroxie'");
+
+        if (System.getProperty("roxieclustername") == null)
+            System.out.println("roxieclustername not provided - defaulting to 'roxie'");
+
         InetAddress ip;
         String hostname;
         try
@@ -121,12 +141,12 @@ public abstract class BaseRemoteTest
         if (System.getProperty("hpccconn") == null)
             System.out.println("RemoteTest: No 'hpccconn' provided, defaulting to http://localhost:8010");
         else
-        	System.out.println("RemoteTest: 'hpccconn' set to: '" + connString + "'");
+            System.out.println("RemoteTest: 'hpccconn' set to: '" + connString + "'");
 
         if (System.getProperty("hpccuser") == null)
             System.out.println("RemoteTest: No 'hpccuser' provided, defaulting to '" + defaultUserName + "'");
         else
-        	System.out.println("RemoteTest: 'hpccuser' set to: '" + hpccUser + "'");
+            System.out.println("RemoteTest: 'hpccuser' set to: '" + hpccUser + "'");
 
         if (System.getProperty("hpccpass") == null)
             System.out.println("RemoteTest: No 'hpccpass' provided.");
@@ -134,27 +154,27 @@ public abstract class BaseRemoteTest
         if (System.getProperty("thorcluster") == null)
             System.out.println("RemoteTest: No 'thorcluster' provided, using 'mythor'");
         else
-        	System.out.println("RemoteTest: 'thorcluster' set to: '" + thorcluster + "'");
-        
+            System.out.println("RemoteTest: 'thorcluster' set to: '" + thorClusterFileGroup + "'");
+
         if (platform == null)
         {
             try
             {
-				connection = new Connection(connString);
-			}
+                connection = new Connection(connString);
+            }
             catch (MalformedURLException e)
             {
-				fail("Could not adquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
-			}
+                fail("Could not adquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
+            }
 
             Assert.assertNotNull("Could not adquire connection object", connection);
             connection.setCredentials(hpccUser, hpccPass);
 
             if (connTO != null)
-            	connection.setConnectTimeoutMilli(connTO);
+                connection.setConnectTimeoutMilli(connTO);
 
             if (sockTO != null)
-            	connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
+                connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
 
             platform = Platform.get(connection);
 
@@ -166,7 +186,7 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
-        	fail("Could not adquire wsclient object: " + e.getMessage() );
+            fail("Could not adquire wsclient object: " + e.getMessage() );
         }
 
         Assert.assertNotNull("Could not adquire wsclient object", wsclient);

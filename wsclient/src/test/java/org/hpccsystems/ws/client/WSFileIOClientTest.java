@@ -64,7 +64,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
             ProgressResponseWrapper dfuspray=wsclient.getFileSprayClient().sprayVariable(
                     new DelimitedDataOptions(),
                     wsclient.getFileSprayClient().fetchLocalDropZones().get(0),
-                    lzfile,"~" + hpccfilename,"",thorcluster,true,
+                    lzfile,"~" + hpccfilename,"",thorClusterFileGroup,true,
                     HPCCFileSprayClient.SprayVariableFormat.DFUff_csv,
                     null, null, null, null, null, null, null); 
             Thread.sleep(1000);
@@ -94,7 +94,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
             System.out.println("Test file successfully sprayed to " + "~" + hpccfilename + ", attempting copy to " + hpccfilename + "_2");
             wsclient.getFileSprayClient().copyFile(hpccfilename,hpccfilename + "_2",true);
             Thread.sleep(1000);
-            DFUInfoWrapper copiedContent=wsclient.getWsDFUClient().getFileInfo(hpccfilename + "_2", thorcluster);
+            DFUInfoWrapper copiedContent=wsclient.getWsDFUClient().getFileInfo(hpccfilename + "_2", thorClusterFileGroup);
             if (copiedContent ==null || copiedContent.getExceptions() != null) 
             {
                 if (copiedContent != null ) 
@@ -117,11 +117,11 @@ public class WSFileIOClientTest extends BaseRemoteTest
                 Set<String> fnames=new HashSet<String>();
                 fnames.add(hpccfilename);
                 fnames.add(hpccfilename + "_2");
-                wsclient.getWsDFUClient().deleteFiles(fnames, thorcluster);
+                wsclient.getWsDFUClient().deleteFiles(fnames, thorClusterFileGroup);
             } 
             catch (Exception e2) 
             {
-                System.out.println("Could not delete test file " + hpccfilename + " from " + thorcluster + ":" + e2.getMessage());
+                System.out.println("Could not delete test file " + hpccfilename + " from " + thorClusterFileGroup + ":" + e2.getMessage());
             }
         }
     }

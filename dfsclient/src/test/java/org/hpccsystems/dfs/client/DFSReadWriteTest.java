@@ -484,7 +484,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 
-            String clusterName = this.thorcluster;
+            String clusterName = this.thorClusterFileGroup;
             System.out.println("Create Start");
             DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, connTO==null?300:connTO, false, DFUFileTypeWrapper.Flat, "");
             System.out.println("Create Finished");
