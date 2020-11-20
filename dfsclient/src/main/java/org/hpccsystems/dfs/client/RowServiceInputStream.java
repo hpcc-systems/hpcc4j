@@ -619,8 +619,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToRead = 0;
             try
             {
-                // Read at least MIN_SOCKET_READ_SIZE bytes at a time
-                bytesToRead = Math.max(MIN_SOCKET_READ_SIZE,this.dis.available());
+                bytesToRead = this.dis.available();
                 
                 // Limit bytes to read based on remaining data in request and buffer capacity
                 bytesToRead = Math.min(remainingBufferCapacity,
