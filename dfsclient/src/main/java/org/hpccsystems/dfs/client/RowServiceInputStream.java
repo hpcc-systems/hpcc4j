@@ -77,8 +77,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private int                      readLimit = -1;
     private int                      recordLimit = -1;
 
+    private int                      totalDataInCurrentRequest = 0;
     private int                      remainingDataInCurrentRequest = 0;
     private long                     streamPos = 0;
+    
+    // Used for restarts 
+    private long                     streamPosOfFetchStart = 0;
+    private List<Long>               streamPosOfFetches = new ArrayList<Long>();
+    private List<byte[]>             tokenBinOfFetches = new ArrayList<byte[]>();
 
     private long                     firstByteTimeNS = -1;
     private long                     mutexWaitTimeNS = 0;
@@ -133,6 +139,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public static final String PARTIAL_BLOCK_READS_METRIC = "numPartialBlockReads";
     public static final String BLOCK_READS_METRIC = "numBlockReads";
 
+    public static class RestartInformation
+    {
+        public long streamPos = 0;
+        public byte[] tokenBin = null;
+    }
 
     /**
      * Instantiates a new row service input stream.
@@ -213,6 +224,33 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB) throws Exception
     {
+        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, null);
+    }
+
+    /**
+     * A plain socket connect to a THOR node for remote read
+     *
+     * @param dp
+     *            the data partition to read
+     * @param rd
+     *            the JSON definition for the read input and output
+     * @param pRd
+     *            the projected record definition
+     * @param connectTimeout
+     *               the connection timeout
+     * @param limit
+     *            the record limit to use for reading the dataset. -1 implies no limit
+     * @param createPrefetchThread
+     *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
+     * @param maxReadSizeInKB
+     *            max readsize in kilobytes
+     * @param restartInfo 
+     *            information used to restart a read from a particular stream position
+     * @throws Exception
+     *            general exception
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo) throws Exception
+    {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
 
@@ -240,13 +278,20 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         this.handle = 0;
-        this.tokenBin = new byte[0];
+        this.tokenBin = null;
         this.simulateFail = false;
         this.connectTimeout = connectTimeout;
         this.recordLimit = limit;
 
         this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
         this.readBuffer = new byte[this.readBufferCapacity.get()];
+
+        if (restartInfo != null)
+        {
+            this.tokenBin = restartInfo.tokenBin;
+            this.streamPos = restartInfo.streamPos;
+            this.streamPosOfFetchStart = this.streamPos;
+        }
 
         this.makeActive();
 
@@ -288,6 +333,30 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             prefetchThread = new Thread(prefetchTask);
             prefetchThread.start();
         }
+    }
+
+    /**
+     * Returns RestartInformation for the given streamPos if possible.
+     * 
+     * @return RestartInformation
+     */
+    RestartInformation getRestartInformationForStreamPos(long streamPos)
+    {
+        RestartInformation restartInfo = new RestartInformation();
+
+        // Note if we don't find a valid start point we will restart from the beginning of the file
+        for (int i = streamPosOfFetches.size()-1; i >= 0; i--)
+        {
+            Long fetchStreamPos = streamPosOfFetches.get(i);
+            if (fetchStreamPos <= streamPos)
+            {
+                restartInfo.streamPos = fetchStreamPos;
+                restartInfo.tokenBin = tokenBinOfFetches.get(i);
+                break;
+            }
+        }
+
+        return restartInfo;
     }
 
     /**
@@ -668,10 +737,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 return;
             }
 
+            streamPosOfFetches.add(streamPosOfFetchStart);
+            streamPosOfFetchStart += totalDataInCurrentRequest;
+
             if (this.tokenBin == null || tokenLen > this.tokenBin.length)
             {
                 this.tokenBin = new byte[tokenLen];
             }
+            else
+            {
+                tokenBinOfFetches.add(this.tokenBin);
+            }
+
             dis.readFully(this.tokenBin,0,tokenLen);
         }
         catch (IOException e)
@@ -743,13 +820,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             if (CompileTimeConstants.PROFILE_CODE)
             {
                 long nsStartFetch = System.nanoTime();
-                remainingDataInCurrentRequest = startFetch();
+                totalDataInCurrentRequest = startFetch();
+                remainingDataInCurrentRequest = totalDataInCurrentRequest;
                 nsStartFetch = System.nanoTime() - nsStartFetch;
                 fetchStartTimeNS += nsStartFetch;
             }
             else
             {
-                remainingDataInCurrentRequest = startFetch();
+                totalDataInCurrentRequest = startFetch();
+                remainingDataInCurrentRequest = totalDataInCurrentRequest;
             }
 
             if (CompileTimeConstants.PROFILE_CODE)
@@ -1173,7 +1252,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         this.active.set(false);
         this.handle = 0;
-        this.tokenBin = new byte[0];
 
         while (true)
         {
@@ -1237,7 +1315,17 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 this.active.set(true);
                 try
                 {
-                    String readTrans = makeInitialRequest();
+                    String readTrans = null;
+                    if (this.tokenBin == null)
+                    {
+                        this.tokenBin = new byte[0];
+                        readTrans = makeInitialRequest();
+                    }
+                    else
+                    {
+                        readTrans = makeTokenRequest();
+                    }
+
                     int transLen = readTrans.length();
                     this.dos.writeInt(transLen);
                     this.dos.write(readTrans.getBytes(HPCCCharSet), 0, transLen);
