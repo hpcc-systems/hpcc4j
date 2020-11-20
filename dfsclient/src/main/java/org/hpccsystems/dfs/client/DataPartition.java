@@ -21,6 +21,7 @@ import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.dfs.cluster.ClusterRemapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 
 /**
  * A partition of data. One physical file
@@ -47,6 +48,12 @@ public class DataPartition implements Serializable
         ), // disk is the prefix used in dafilesrv for flat files
         INDEX (
                 "index", true
+        ), INDEX_LOCAL (
+                "indexlocal", true
+        ), INDEX_PARTITIONED (
+                "indexpartitioned", true
+        ), JSON (
+                "json", true
         ), CSV (
                 "csv", false
         ), XML (
@@ -88,6 +95,29 @@ public class DataPartition implements Serializable
         public boolean typeCanBeDeduced()
         {
             return typeCanBeDeduced;
+        }
+
+        public static FileType fromWrappedFileType(DFUFileTypeWrapper wrappedType) throws Exception
+        {
+            switch (wrappedType)
+            {
+                case Flat:
+                    return FileType.FLAT;
+                case Index:
+                    return FileType.INDEX;
+                case Xml:
+                    return FileType.XML;
+                case Csv:
+                    return FileType.CSV;
+                case Json:
+                    return FileType.JSON;
+                case IndexLocal:
+                    return FileType.INDEX_LOCAL;
+                case IndexPartitioned:
+                    return FileType.INDEX_PARTITIONED;
+                default:
+                    throw new Exception("Unknown file type: " + wrappedType);
+            }
         }
     };
 

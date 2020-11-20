@@ -98,6 +98,24 @@ public enum DFUFileTypeWrapper
     }
 
     /**
+     * Gets isIndex
+     *
+     * @return isIndex
+     */
+    public boolean isIndex()
+    {
+        switch(this)
+        {
+            case Index:
+            case IndexLocal:
+            case IndexPartitioned:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
      * From dfu file type.
      *
      * @param filetype
