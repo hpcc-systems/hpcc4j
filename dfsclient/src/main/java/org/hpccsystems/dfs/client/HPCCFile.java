@@ -340,7 +340,7 @@ public class HPCCFile implements Serializable
         try
         {
             fileinfoforread = fetchReadFileInfo(fileName, dfuClient, fileAccessExpirySecs, targetfilecluster);
-            this.isIndex = fileinfoforread.getFileType() == DFUFileTypeWrapper.Index;
+            this.isIndex = fileinfoforread.getFileType().isIndex();
 
             originalRecDefInJSON = fileinfoforread.getRecordTypeInfoJson();
             if (originalRecDefInJSON == null)
@@ -354,8 +354,16 @@ public class HPCCFile implements Serializable
             throw new HpccFileException("Unable to retrieve file or record information: " + e.getMessage(), e);
         }
 
-        String fileTypeStr = fileinfoforread.getFileType().toString().toUpperCase();
-        DataPartition.FileType fileType = DataPartition.FileType.valueOf(fileTypeStr);
+        DataPartition.FileType fileType = DataPartition.FileType.FLAT;
+        try
+        {
+            fileType = DataPartition.FileType.fromWrappedFileType(fileinfoforread.getFileType());
+        }
+        catch (Exception e)
+        {
+            throw new HpccFileException(e);
+        }
+
         try
         {
             if (fileinfoforread.getNumParts() > 0)
