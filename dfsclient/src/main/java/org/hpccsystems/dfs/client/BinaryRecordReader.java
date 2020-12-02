@@ -125,6 +125,7 @@ public class BinaryRecordReader implements IRecordReader
     private CountingInputStream  inputStream;
     private FieldDef             rootRecordDefinition;
     protected boolean            defaultLE;
+    private long                 streamPosAfterLastRecord = 0;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -160,6 +161,16 @@ public class BinaryRecordReader implements IRecordReader
         return messages.getTotalMessageCount();
     }
 
+    public long getStreamPosAfterLastRecord()
+    {
+        return this.streamPosAfterLastRecord;
+    }
+
+    public BinaryRecordReader(InputStream is) throws Exception
+    {
+        this(is,0);
+    }
+
     /**
      * A Binary record reader.
      *
@@ -168,9 +179,15 @@ public class BinaryRecordReader implements IRecordReader
      * @throws Exception
      *             the exception
      */
-    public BinaryRecordReader(InputStream is) throws Exception
+    public BinaryRecordReader(InputStream is, long streamPos) throws Exception
     {
+        if (streamPos < 0)
+        {
+            throw new Exception("BinaryRecordReader: invalid initial streamPos provided: " + streamPos);
+        }
+
         this.inputStream = new CountingInputStream(is);
+        this.inputStream.streamPos = streamPos;
         this.defaultLE = true;
 
         if (this.inputStream.markSupported() == false)
@@ -271,6 +288,7 @@ public class BinaryRecordReader implements IRecordReader
             throw new HpccFileException("Failed to parse next record: " + e.getMessage(), e);
         }
 
+        this.streamPosAfterLastRecord = this.inputStream.getStreamPosition();
         return record;
     }
 
