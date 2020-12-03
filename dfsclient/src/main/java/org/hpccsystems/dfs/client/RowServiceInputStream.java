@@ -38,8 +38,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.network.Network;
-
-import org.hpccsystems.dfs.client.CompileTimeConstants;
+import org.hpccsystems.generated.CompileTimeConstants;
 
 /**
  * The connection to a specific THOR node for a specific file part.
@@ -63,7 +62,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
     private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
-    
+
     private Thread                   prefetchThread = null;
     private HpccFileException        prefetchException = null;
 
@@ -78,8 +77,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private int                      readLimit = -1;
     private int                      recordLimit = -1;
 
+    private int                      totalDataInCurrentRequest = 0;
     private int                      remainingDataInCurrentRequest = 0;
     private long                     streamPos = 0;
+    
+    // Used for restarts 
+    private long                     streamPosOfFetchStart = 0;
+    private List<Long>               streamPosOfFetches = new ArrayList<Long>();
+    private List<byte[]>             tokenBinOfFetches = new ArrayList<byte[]>();
 
     private long                     firstByteTimeNS = -1;
     private long                     mutexWaitTimeNS = 0;
@@ -111,9 +116,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private static final int         MIN_SOCKET_READ_SIZE     = 512;
 
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
-    
+
     private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
-    
+
     // Buffer compact threshold should always be smaller than buffer prefetch threshold
     private int bufferPrefetchThresholdKB = DEFAULT_MAX_READ_SIZE_KB/2;
     private int bufferCompactThresholdKB = DEFAULT_MAX_READ_SIZE_KB/4;
@@ -134,6 +139,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public static final String PARTIAL_BLOCK_READS_METRIC = "numPartialBlockReads";
     public static final String BLOCK_READS_METRIC = "numBlockReads";
 
+    public static class RestartInformation
+    {
+        public long streamPos = 0;
+        public byte[] tokenBin = null;
+    }
 
     /**
      * Instantiates a new row service input stream.
@@ -194,16 +204,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /**
      * A plain socket connect to a THOR node for remote read
-     * 
-     * @param dp 
-     *            the data partition to read  
+     *
+     * @param dp
+     *            the data partition to read
      * @param rd
      *            the JSON definition for the read input and output
      * @param pRd
      *            the projected record definition
      * @param connectTimeout
-     * 			  the connection timeout
-	 * @param limit
+     *               the connection timeout
+     * @param limit
      *            the record limit to use for reading the dataset. -1 implies no limit
      * @param createPrefetchThread
      *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
@@ -213,6 +223,33 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      *            general exception
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB) throws Exception
+    {
+        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, null);
+    }
+
+    /**
+     * A plain socket connect to a THOR node for remote read
+     *
+     * @param dp
+     *            the data partition to read
+     * @param rd
+     *            the JSON definition for the read input and output
+     * @param pRd
+     *            the projected record definition
+     * @param connectTimeout
+     *               the connection timeout
+     * @param limit
+     *            the record limit to use for reading the dataset. -1 implies no limit
+     * @param createPrefetchThread
+     *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
+     * @param maxReadSizeInKB
+     *            max readsize in kilobytes
+     * @param restartInfo 
+     *            information used to restart a read from a particular stream position
+     * @throws Exception
+     *            general exception
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo) throws Exception
     {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
@@ -241,13 +278,20 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         this.handle = 0;
-        this.tokenBin = new byte[0];
+        this.tokenBin = null;
         this.simulateFail = false;
         this.connectTimeout = connectTimeout;
         this.recordLimit = limit;
 
         this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
         this.readBuffer = new byte[this.readBufferCapacity.get()];
+
+        if (restartInfo != null)
+        {
+            this.tokenBin = restartInfo.tokenBin;
+            this.streamPos = restartInfo.streamPos;
+            this.streamPosOfFetchStart = this.streamPos;
+        }
 
         this.makeActive();
 
@@ -289,6 +333,30 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             prefetchThread = new Thread(prefetchTask);
             prefetchThread.start();
         }
+    }
+
+    /**
+     * Returns RestartInformation for the given streamPos if possible.
+     * 
+     * @return RestartInformation
+     */
+    RestartInformation getRestartInformationForStreamPos(long streamPos)
+    {
+        RestartInformation restartInfo = new RestartInformation();
+
+        // Note if we don't find a valid start point we will restart from the beginning of the file
+        for (int i = streamPosOfFetches.size()-1; i >= 0; i--)
+        {
+            Long fetchStreamPos = streamPosOfFetches.get(i);
+            if (fetchStreamPos <= streamPos)
+            {
+                restartInfo.streamPos = fetchStreamPos;
+                restartInfo.tokenBin = tokenBinOfFetches.get(i);
+                break;
+            }
+        }
+
+        return restartInfo;
     }
 
     /**
@@ -424,7 +492,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     /**
      * Returns remaning capacity in the read buffer.
      *
-     * @return the remaining capacity 
+     * @return the remaining capacity
      */
     public int getRemainingBufferCapacity()
     {
@@ -619,8 +687,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToRead = 0;
             try
             {
-                // Read at least MIN_SOCKET_READ_SIZE bytes at a time
-                bytesToRead = Math.max(MIN_SOCKET_READ_SIZE,this.dis.available());
+                bytesToRead = this.dis.available();
                 
                 // Limit bytes to read based on remaining data in request and buffer capacity
                 bytesToRead = Math.min(remainingBufferCapacity,
@@ -642,7 +709,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             remainingDataInCurrentRequest -= bytesToRead;
 
             bufferWriteMutex.release();
-            
+
             // If we don't have enough room in the buffer. Return, and let the calling prefetch thread handle sleep etc
             if (this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
             {
@@ -670,10 +737,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 return;
             }
 
+            streamPosOfFetches.add(streamPosOfFetchStart);
+            streamPosOfFetchStart += totalDataInCurrentRequest;
+
             if (this.tokenBin == null || tokenLen > this.tokenBin.length)
             {
                 this.tokenBin = new byte[tokenLen];
             }
+            else
+            {
+                tokenBinOfFetches.add(this.tokenBin);
+            }
+
             dis.readFully(this.tokenBin,0,tokenLen);
         }
         catch (IOException e)
@@ -710,7 +785,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public void prefetchData()
     {
         // If we haven't finished reading the current request continue reading it
-        if (remainingDataInCurrentRequest > 0) 
+        if (remainingDataInCurrentRequest > 0)
         {
             if (CompileTimeConstants.PROFILE_CODE)
             {
@@ -745,13 +820,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             if (CompileTimeConstants.PROFILE_CODE)
             {
                 long nsStartFetch = System.nanoTime();
-                remainingDataInCurrentRequest = startFetch();
+                totalDataInCurrentRequest = startFetch();
+                remainingDataInCurrentRequest = totalDataInCurrentRequest;
                 nsStartFetch = System.nanoTime() - nsStartFetch;
                 fetchStartTimeNS += nsStartFetch;
             }
             else
             {
-                remainingDataInCurrentRequest = startFetch();
+                totalDataInCurrentRequest = startFetch();
+                remainingDataInCurrentRequest = totalDataInCurrentRequest;
             }
 
             if (CompileTimeConstants.PROFILE_CODE)
@@ -788,10 +865,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             }
         }
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * Move unread data to front of buffer to make room for more data.
      */
     private void compactBuffer()
@@ -839,7 +916,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#available()
      */
     @Override
@@ -865,13 +942,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#close()
      */
     @Override
     public void close() throws IOException
     {
-        // Using getAndSet to prevent main thread and background thread from 
+        // Using getAndSet to prevent main thread and background thread from
         // closing at the same time
         if (this.closed.getAndSet(true) == false)
         {
@@ -899,7 +976,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#mark(int)
      */
     @Override
@@ -953,7 +1030,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#markSupported()
      */
     @Override
@@ -964,7 +1041,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#read()
      */
     // Returns next byte [0-255] -1 on EOS
@@ -1012,7 +1089,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
 
-        // Java byte range [-128,127] 
+        // Java byte range [-128,127]
         int ret = this.readBuffer[this.readPos] + 128;
         this.readPos++;
         this.streamPos++;
@@ -1024,7 +1101,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#read(byte[])
      */
     // Returns -1 on EOS
@@ -1036,7 +1113,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#read(byte[], int, int)
      */
     // Returns -1 on EOS
@@ -1077,7 +1154,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#reset()
      */
     @Override
@@ -1101,7 +1178,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.InputStream#skip(long)
      */
     @Override
@@ -1129,12 +1206,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToSkip = (int) remainingBytesToSkip;
             if (bytesToSkip > available)
             {
-                bytesToSkip = available; 
+                bytesToSkip = available;
             }
 
             this.readPos += bytesToSkip;
             remainingBytesToSkip -= bytesToSkip;
-            
+
             compactBuffer();
         }
 
@@ -1175,7 +1252,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         this.active.set(false);
         this.handle = 0;
-        this.tokenBin = new byte[0];
 
         while (true)
         {
@@ -1239,7 +1315,17 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 this.active.set(true);
                 try
                 {
-                    String readTrans = makeInitialRequest();
+                    String readTrans = null;
+                    if (this.tokenBin == null)
+                    {
+                        this.tokenBin = new byte[0];
+                        readTrans = makeInitialRequest();
+                    }
+                    else
+                    {
+                        readTrans = makeTokenRequest();
+                    }
+
                     int transLen = readTrans.length();
                     this.dos.writeInt(transLen);
                     this.dos.write(readTrans.getBytes(HPCCCharSet), 0, transLen);
@@ -1249,7 +1335,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     throw new HpccFileException("Failed on initial remote read read trans", e);
                 }
-            
+
                 if (CompileTimeConstants.PROFILE_CODE)
                 {
                     firstByteTimeNS = System.nanoTime();
@@ -1269,6 +1355,210 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
     }
+
+    /* Notes on protocol:
+    *
+    * A JSON request with these top-level fields:
+    * "format" - the format of the reply. Supported formats = "binary", "xml", "json"
+    * "handle" - the handle of for a file session that was previously open (for continuation)
+    * "commCompression" - compression format of the communication protocol. Supports "LZ4", "LZW", "FLZ" (TBD: "ZLIB")
+    * "replyLimit" - Number of K to limit each reply size to. (default 1024)
+    * "node" - contains all 'activity' properties below:
+    *
+    * For a secured dafilesrv (streaming protocol), requests will only be accepted if the meta blob ("metaInfo") has a matching signature.
+    * The request must specify "filePart" (1 based) to denote the partition # being read from or written to.
+    *
+    * "filePartCopy" (1 based) defaults to 1
+    *
+    * "kind" - supported kinds = "diskread", "diskwrite", "indexread", "indexcount" (TBD: "diskcount", "indexwrite", "disklookup")
+    * NB: disk vs index will be auto detected if "kind" is absent.
+    *
+    * "action" - supported actions = "count" (used if "kind" is auto-detected to specify count should be performed instead of read)
+    *
+    * "keyFilter" - filter the results by this expression (See: HPCC-18474 for more details).
+    *
+    * "chooseN" - maximum # of results to return
+    *
+    * "compressed" - specifies whether input file is compressed. NB: not relevant to "index" types. Default = false. Auto-detected.
+    *
+    * "input" - specifies layout on disk of the file being read.
+    *
+    * "output" - where relavant, specifies the output format to be returned
+    *
+    * "fileName" is only used for unsecured non signed connections (normally forbidden), and specifies the fully qualified path to a physical file.
+    *
+    */
+        /* Example JSON request:
+        *
+        * {
+        *  "format" : "binary",
+        *  "handle" : "1234",
+        *  "replyLimit" : "64",
+        *  "commCompression" : "LZ4",
+        *  "node" : {
+        *   "metaInfo" : "",
+        *   "filePart" : 2,
+        *   "filePartCopy" : 1,
+        *   "kind" : "diskread",
+        *   "fileName": "examplefilename",
+        *   "keyFilter" : "f1='1    '",
+        *   "chooseN" : 5,
+        *   "compressed" : "false"
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *   "output" : {
+        *    "f2" : "string",
+        *    "f1" : "real"
+        *   }
+        *  }
+        * }
+        * OR
+        * {
+        *  "format" : "binary",
+        *  "handle" : "1234",
+        *  "replyLimit" : "64",
+        *  "commCompression" : "LZ4",
+        *  "node" : {
+        *   "kind" : "diskread",
+        *   "fileName": "examplefilename",
+        *   "keyFilter" : "f1='1    '",
+        *   "chooseN" : 5,
+        *   "compressed" : "false"
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *   "output" : {
+        *    "f2" : "string",
+        *    "f1" : "real"
+        *   }
+        *  }
+        * }
+        * OR
+        * {
+        *  "format" : "xml",
+        *  "handle" : "1234",
+        *  "replyLimit" : "64",
+        *  "node" : {
+        *   "kind" : "diskread",
+        *   "fileName": "examplefilename",
+        *   "keyFilter" : "f1='1    '",
+        *   "chooseN" : 5,
+        *   "compressed" : "false"
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *   "output" : {
+        *    "f2" : "string",
+        *    "f1" : "real"
+        *   }
+        *  }
+        * }
+        * OR
+        * {
+        *  "format" : "xml",
+        *  "handle" : "1234",
+        *  "node" : {
+        *   "kind" : "indexread",
+        *   "fileName": "examplefilename",
+        *   "keyFilter" : "f1='1    '",
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *   "output" : {
+        *    "f2" : "string",
+        *    "f1" : "real"
+        *   }
+        *  }
+        * OR
+        * {
+        *  "format" : "xml",
+        *  "node" : {
+        *   "kind" : "xmlread",
+        *   "fileName": "examplefilename",
+        *   "keyFilter" : "f1='1    '",
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *   "output" : {
+        *    "f2" : "string",
+        *    "f1" : "real"
+        *   }
+        *   "ActivityOptions" : { // usually not required, options here may override file meta info.
+        *    "rowTag" : "/Dataset/OtherRow"
+        *   }
+        *  }
+        * OR
+        * {
+        *  "format" : "xml",
+        *  "node" : {
+        *   "kind" : "csvread",
+        *   "fileName": "examplefilename",
+        *   "keyFilter" : "f1='1    '",
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *   "output" : {
+        *    "f2" : "string",
+        *    "f1" : "real"
+        *   }
+        *   "ActivityOptions" : { // usually not required, options here may override file meta info.
+        *    "csvQuote" : "\"",
+        *    "csvSeparate" : ","
+        *    "csvTerminate" : "\\n,\\r\\n",
+        *   }
+        *  }
+        * OR
+        * {
+        *  "format" : "xml",
+        *  "node" : {
+        *   "action" : "count",            // if present performs count with/without filter and returns count
+        *   "fileName": "examplefilename", // can be either index or flat file
+        *   "keyFilter" : "f1='1    '",
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   },
+        *  }
+        * }
+        * OR
+        * {
+        *  "format" : "binary",
+        *  "handle" : "1234",
+        *  "replyLimit" : "64",
+        *  "commCompression" : "LZ4",
+        *  "node" : {
+        *   "kind" : "diskwrite",
+        *   "fileName": "examplefilename",
+        *   "compressed" : "false" (or "LZ4", "FLZ", "LZW")
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   }
+        *  }
+        * }
+        * OR
+        * {
+        *  "format" : "binary",
+        *  "handle" : "1234",
+        *  "replyLimit" : "64",
+        *  "node" : {
+        *   "kind" : "indexwrite",
+        *   "fileName": "examplefilename",
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   }
+        *  }
+        * }
+        *
+        */
 
     /**
      * Creates a request string using the record definition, filename, and current state of the file transfer.

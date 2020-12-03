@@ -14,7 +14,6 @@ package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -38,6 +37,13 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     public static final int    NO_RECORD_LIMIT                  = -1;
     public static final int    DEFAULT_READ_SIZE_OPTION         = -1;
     public static final int    DEFAULT_CONNECT_TIMEOUT_OPTION   = -1;
+
+    public static class FileReadResumeInfo
+    {
+        public long inputStreamPos = 0;
+        public byte[] tokenBin = null;
+        public long recordReaderStreamPos = 0;
+    };
 
     /**
      * Instantiates a new hpcc remote file reader.
@@ -118,6 +124,33 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB) throws Exception
     {
+        this(dp, originalRD, recBuilder, connectTimeout, limit, true, DEFAULT_READ_SIZE_OPTION, null);
+    }
+
+    /**
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     * 
+     * @param dp
+     *            the part of the file, name and location
+     * @param originalRD
+     *            the record defintion for the dataset
+     * @param recBuilder
+     *            the IRecordBuilder used to construct records
+     * @param connectTimeout 
+     *            the connection timeout in seconds, -1 for default
+     * @param limit 
+     *            the maximum number of records to read from the provided data partition, -1 specifies no limit
+     * @param createPrefetchThread 
+     *            the input stream should create and manage prefetching on its own thread. If false prefetch needs to be called on another thread periodically.
+     * @param readSizeKB 
+     *            read request size in KB, -1 specifies use default value
+     * @param resumeInfo 
+     *            FileReadeResumeInfo data required to restart a read from a particular point in a file
+     * @throws Exception
+     * 			  general exception
+     */
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo) throws Exception
+    {
         this.handlePrefetch = createPrefetchThread;
         this.originalRecordDef = originalRD;
         if (this.originalRecordDef == null)
@@ -138,10 +171,66 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         {
             throw new Exception("IRecordBuilder does not have a valid record definition.");
         }
+        if (resumeInfo == null)
+        {
+            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB);
+            this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
+            this.binaryRecordReader.initialize(this.recordBuilder);
+        }
+        else
+        {
+            RowServiceInputStream.RestartInformation restartInfo = new RowServiceInputStream.RestartInformation();
+            restartInfo.streamPos = resumeInfo.inputStreamPos;
+            restartInfo.tokenBin = resumeInfo.tokenBin;
 
-        this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB);
-        this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
-        this.binaryRecordReader.initialize(this.recordBuilder);
+            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, restartInfo);
+            long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
+            if (bytesToSkip < 0)
+            {
+                throw new Exception("Unable to restart unexpected stream pos in record reader.");
+            }
+            this.inputStream.skip(bytesToSkip);
+
+            this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos);
+            this.binaryRecordReader.initialize(this.recordBuilder);
+        }
+    }
+
+    /**
+     * Returns the stream position within the file.
+     * 
+     * @return stream position
+     */
+    public long getStreamPosition()
+    {
+        return this.binaryRecordReader.getStreamPosAfterLastRecord();
+    }
+
+    /**
+     * Returns read resume info for the current position within the file.
+     * 
+     * @return FileReadResumeInfo
+     */
+    public FileReadResumeInfo getFileReadResumeInfo()
+    {
+        return getFileReadResumeInfo(this.getStreamPosition());
+    }
+
+    /**
+     * Returns read resume info for the specified position within the file.
+     * 
+     * @return FileReadResumeInfo
+     */
+    public FileReadResumeInfo getFileReadResumeInfo(Long streamPosition)
+    {
+        FileReadResumeInfo resumeInfo = new FileReadResumeInfo();
+        resumeInfo.recordReaderStreamPos = streamPosition;
+
+        RowServiceInputStream.RestartInformation isRestartInfo = this.inputStream.getRestartInformationForStreamPos(resumeInfo.recordReaderStreamPos);
+        resumeInfo.inputStreamPos = isRestartInfo.streamPos;
+        resumeInfo.tokenBin = isRestartInfo.tokenBin;
+
+        return resumeInfo;
     }
 
     public int getRemoteReadMessageCount()

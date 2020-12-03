@@ -327,6 +327,7 @@ public class WsDFUClientTest extends BaseRemoteTest
             DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
             Assert.assertNotNull(dfuResultWrapper);
             Assert.assertTrue(dfuResultWrapper.getActionResult().startsWith("File not found "));
+            Assert.assertTrue(dfuResultWrapper.getFailed());
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
@@ -359,18 +360,18 @@ public class WsDFUClientTest extends BaseRemoteTest
     public void searchFileTest() throws Exception
     {
         String searchStr="hipie::keys::*";
-        assertNotNull(thorcluster);
-        List<DFULogicalFileWrapper> results=wsdfuclient.searchFiles(searchStr, thorcluster);
+        assertNotNull(thorClusterFileGroup);
+        List<DFULogicalFileWrapper> results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup);
         assertEquals(100,results.size());
         String fname=results.get(0).getFileName();
-        results=wsdfuclient.searchFiles(searchStr, thorcluster,2,null);
+        results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,2,null);
         assertEquals(2,results.size());
         assertEquals(fname,results.get(0).getFileName());
-        results=wsdfuclient.searchFiles(searchStr, thorcluster,null,2);
+        results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,null,2);
         assertEquals(100,results.size());
         String fname2=results.get(0).getFileName();
         assertFalse(fname.equals(fname2));
-        results=wsdfuclient.searchFiles(searchStr, thorcluster,2,2);
+        results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,2,2);
         assertEquals(2,results.size());
         assertEquals(fname2, results.get(0).getFileName());
     }

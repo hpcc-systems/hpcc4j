@@ -67,6 +67,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         //this file only has data on two nodes
         HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
         file.setProjectList("");
+
         List<HPCCRecord> records = readFile(file, connTO);
         assertEquals("Not all records loaded",expectedCounts[1], records.size());
     }
@@ -123,6 +124,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         String fname = datasets[1]; 
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
+
         List<HPCCRecord> records = readFile(file, connTO);
         assertEquals( "Record count mismatch for dataset:" + fname + ". got: " + records.size() + " expected:" + expectedCounts[1],expectedCounts[1],records.size());
 
@@ -137,6 +139,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         writeFile(records, copyFileName, file.getProjectedRecordDefinition(),connTO);
 
         file = new HPCCFile(copyFileName, connString, hpccUser, hpccPass);
+
         records = readFile(file, connTO);
         assertEquals( "Record count mismatch for dataset:" + copyFileName + ". got: " + records.size() +
                 " expected:" + expectedCounts[1],expectedCounts[1],records.size());
@@ -189,7 +192,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         HPCCFile file=new HPCCFile("notthere",connString,hpccUser,hpccPass);
         DFUFileDetailWrapper meta=file.getOriginalFileMetadata();
         assertNull("Meta should be null for nonexistent file",meta);
-     }
+    }
 
     
     private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
@@ -402,6 +405,129 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void resumeFileReadTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
+        
+        DataPartition[] fileParts = file.getFileParts();
+        FieldDef originalRD = file.getRecordDefinition();
+
+        // Get a list of records per partition
+        ArrayList<ArrayList<HPCCRecord>> recordPartitions = new ArrayList<ArrayList<HPCCRecord>>();
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+            
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+            while (fileReader.hasNext())
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during read");
+                }
+
+                records.add(record);
+            }
+            fileReader.close();
+
+            recordPartitions.add(records);
+        }
+
+        // Read have the records in each partition and then grab the resume info for the file reader
+        file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
+        
+        fileParts = file.getFileParts();
+        originalRD = file.getRecordDefinition();
+
+        // Get a list of records per partition and resume info
+        ArrayList<ArrayList<HPCCRecord>> resumedRecordPartitions = new ArrayList<ArrayList<HPCCRecord>>();
+        ArrayList<HpccRemoteFileReader.FileReadResumeInfo> partitionResumeList = new ArrayList<HpccRemoteFileReader.FileReadResumeInfo>();
+
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+            
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+
+            int numRecordsToRead = recordPartitions.get(i).size() / 2;
+            while (fileReader.hasNext() && records.size() < numRecordsToRead)
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during read");
+                }
+
+                records.add(record);
+            }
+
+            fileReader.close();
+            partitionResumeList.add(fileReader.getFileReadResumeInfo());
+
+            resumedRecordPartitions.add(records);
+        }
+
+        // Resume reads
+        file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
+        
+        fileParts = file.getFileParts();
+        originalRD = file.getRecordDefinition();
+
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            ArrayList<HPCCRecord> records = resumedRecordPartitions.get(i);
+            
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+
+            // Create a new file reader with the resume info from above
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder,
+                                                                                                -1, -1, true, -1, partitionResumeList.get(i));
+
+            while (fileReader.hasNext())
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during resume read");
+                }
+
+                records.add(record);
+            }
+
+            fileReader.close();
+        }
+
+        // Compare the records
+        for (int i = 0; i < recordPartitions.size(); i++)
+        {
+            ArrayList<HPCCRecord> records = recordPartitions.get(i);
+            ArrayList<HPCCRecord> resumedRecords = resumedRecordPartitions.get(i);
+            if (records.size() != resumedRecords.size())
+            {
+                System.out.println("Actual record count: " + records.size() + " resumed record count: " + resumedRecords.size());
+                Assert.fail("Resumed records didn't match original records");
+            }
+
+            for (int j = 0; j < records.size(); j++)
+            {
+                if (records.get(j).equals(resumedRecords.get(j)) == false)
+                {
+                    System.out.println("Original Record " + j + ":");
+                    System.out.println(records.get(j));
+                    
+                    System.out.println("\nResumed Record " + j + ":");
+                    System.out.println(resumedRecords.get(j));
+
+                    Assert.fail("Resumed records didn't match original records");
+                }
+            }
+        }
+    }
+
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis) throws Exception
     {
         if (file == null)
@@ -484,7 +610,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 
-            String clusterName = this.thorcluster;
+            String clusterName = this.thorClusterFileGroup;
             System.out.println("Create Start");
             DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, connTO==null?300:connTO, false, DFUFileTypeWrapper.Flat, "");
             System.out.println("Create Finished");

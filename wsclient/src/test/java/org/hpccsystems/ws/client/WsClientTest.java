@@ -6,24 +6,15 @@ import org.junit.Test;
 
 public class WsClientTest extends BaseRemoteTest
 {
-    private final static String thortargetclustername = System.getProperty("thorgroupname", "thor");
-    private final static String thorclustername = System.getProperty("thorclustername", "mythor");
-    private final static String roxietargetclustername = System.getProperty("roxiegroupname", "roxie");
-    private final static String roxieclustername = System.getProperty("roxieclustername", "myroxie");
-
     static
     {
-        if (System.getProperty("thortargetclustername") == null)
-            System.out.println("thortargetclustername not provided - defaulting to 'thor'");
+        String legacythortargetclustername = System.getProperty("thortargetclustername");
+        if (legacythortargetclustername != null && !legacythortargetclustername.isEmpty())
+            System.out.println("WARNING! 'thortargetclustername' has been deprecated - Use 'thorgroupname' instead");
 
-        if (System.getProperty("thorclustername") == null)
-            System.out.println("thorclustername not provided - defaulting to 'mythor'");
-
-        if (System.getProperty("roxietargetclustername") == null)
-            System.out.println("roxietargetclustername not provided - defaulting to 'roxie'");
-
-        if (System.getProperty("roxieclustername") == null)
-            System.out.println("roxieclustername not provided - defaulting to 'myroxie'");
+        String legacyroxietargetclustername = System.getProperty("roxietargetclustername");
+        if (legacyroxietargetclustername != null && !legacyroxietargetclustername.isEmpty())
+            System.out.println("WARNING! 'roxietargetclustername' has been deprecated - Use 'roxiegroupname' instead");
     }
 
     @Test
@@ -74,11 +65,12 @@ public class WsClientTest extends BaseRemoteTest
             boolean found = false;
             for (int i = 0; i < availableClusterGroups.length; i++)
             {
-                if (availableClusterGroups[i].equalsIgnoreCase(roxieclustername))
+                System.out.println(availableClusterGroups[i]);
+                if (availableClusterGroups[i].equalsIgnoreCase(roxieClusterGroup))
                     found = true;
             }
             if (!found)
-                Assert.fail("Did not find roxie cluster named: '" + roxieclustername +"'");
+                Assert.fail("Did not find roxie cluster named: '" + roxieClusterGroup +"'");
         }
         catch (Exception e)
         {
@@ -97,11 +89,12 @@ public class WsClientTest extends BaseRemoteTest
             boolean found = false;
             for (int i = 0; i < availableClusterGroups.length; i++)
             {
-                if (availableClusterGroups[i].equalsIgnoreCase(thorclustername))
+                System.out.println(availableClusterGroups[i]);
+                if (availableClusterGroups[i].equalsIgnoreCase(thorClusterFileGroup))
                     found = true;
             }
             if (!found)
-                Assert.fail("Did not find thor cluster named: '" + thorclustername +"'");
+                Assert.fail("Did not find thor cluster named: '" + thorClusterFileGroup +"'");
         }
         catch (Exception e)
         {

@@ -32,7 +32,7 @@ public class WUQueryTest extends BaseRemoteTest
     {
         WorkunitWrapper wu=new WorkunitWrapper();
         wu.setECL("OUTPUT('1');");
-        wu.setCluster("thor");
+        wu.setCluster(thorclustername);
         wu.setJobname("testGetWorkunitByAppName");
         wu.setOwner("user");
         ApplicationValueWrapper av=new ApplicationValueWrapper("HIPIE","testkey","testvalue");

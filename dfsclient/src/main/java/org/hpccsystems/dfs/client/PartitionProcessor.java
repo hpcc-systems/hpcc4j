@@ -274,11 +274,11 @@ public class PartitionProcessor
 
         // Last record in TLK encompasses the last two partitions range for some reason.
         // So duplicate its range to cover the last partition
-        DataPartitionRecordRange secondToLast = dataPartitionRanges.get(dataPartitionRanges.size()-1);
-
         DataPartitionRecordRange lastRange = new DataPartitionRecordRange();
-        lastRange.begin = secondToLast.begin;
-        lastRange.end = secondToLast.end;
+
+        int lastTlkRecordIndex = tlkRecords.size()-1;
+        lastRange.begin = tlkRecords.get(lastTlkRecordIndex-1);
+        lastRange.end = tlkRecords.get(lastTlkRecordIndex);
         lastRange.dataPartition = this.dataPartitions[this.dataPartitions.length-1];
 
         dataPartitionRanges.add(lastRange);

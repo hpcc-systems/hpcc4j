@@ -1,4 +1,4 @@
-package org.hpccsystems.dfs.client;
+package org.hpccsystems.generated;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
