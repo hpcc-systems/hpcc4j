@@ -2,6 +2,7 @@ package org.hpccsystems.ws.client.utils;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -11,7 +12,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipEntry;
 import java.util.Properties;
+import java.util.Enumeration;
+import java.net.URL;
 
 /**
  *
@@ -559,9 +564,9 @@ public class Axis2ADBStubWrapperMaker
             sfield.setType(type.getSimpleName());
         }
     }
-
     public static final List<Class<?>> getClassesInPackage(String packageName)
     {
+        System.out.println(System.getProperty("java.class.path"));
         String path = packageName.replace('.', File.separatorChar);
         List<Class<?>> classes = new ArrayList<>();
         String[] classPathEntries = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
@@ -569,7 +574,39 @@ public class Axis2ADBStubWrapperMaker
         String name;
         for (String classpathEntry : classPathEntries)
         {
-            if (!classpathEntry.endsWith(".jar"))
+            if (classpathEntry.endsWith(".jar"))
+            {
+                System.out.println("Attempting to load: " + classpathEntry);
+                try
+                {
+                    ZipInputStream zip = new ZipInputStream(new FileInputStream(classpathEntry));
+                    for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry())
+                    {
+                        if (!entry.isDirectory() && entry.getName().endsWith(".class"))
+                        {
+                            String className = entry.getName().replace('/', '.');
+                            className = className.substring(0,className.length()-6);
+
+                            int maxClassLength = className.length();
+                            if (maxClassLength > packageName.length())
+                            {
+                                maxClassLength = packageName.length();
+                            }
+
+                            if (className.substring(0,maxClassLength).equals(packageName))
+                            {
+                                classes.add(Class.forName(className));
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+            }
+            else
             {
                 try
                 {
@@ -697,7 +734,7 @@ public class Axis2ADBStubWrapperMaker
         List<Class<?>> classesInPackage = getClassesInPackage(generatedPackageToWrap);
         if (classesInPackage.size() > 0)
         {
-            for (Class<?> cls : classesInPackage)
+            for (Class cls : classesInPackage)
             {
                 if (cls.getDeclaringClass() != null) //ignore inner classes
                 {
