@@ -345,12 +345,12 @@ public class BinaryRecordReader implements IRecordReader
                 {
                     intValue = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
                 }
-                fieldValue = new Long(intValue);
+                fieldValue = Long.valueOf(intValue);
                 break;
             case REAL:
                 // fixed number of bytes (4 or 8) in type info
                 double u = getReal((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
-                fieldValue = new Double(u);
+                fieldValue = Double.valueOf(u);
                 break;
             case DECIMAL:
                 BigDecimal decValue = null;
@@ -399,7 +399,7 @@ public class BinaryRecordReader implements IRecordReader
             case BOOLEAN:
                 // fixed length for each boolean value specified by type def
                 long value = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
-                fieldValue = new Boolean(value != 0);
+                fieldValue = Boolean.valueOf(value != 0);
                 break;
             case CHAR:
                 fieldValue = getString(fd.getSourceType(), 1);
