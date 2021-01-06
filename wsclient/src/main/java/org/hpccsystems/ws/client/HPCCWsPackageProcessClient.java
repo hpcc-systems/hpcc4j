@@ -13,7 +13,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspSoapFault;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse;
@@ -28,7 +32,9 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProce
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.AddPackageRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.DeletePackageRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
@@ -217,6 +223,89 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
 
         return true;
+    }
+
+    /**
+     * @param reqwrapper - Add package request options object (AddPackageRequestWrapper)
+     * @return           - Add package response object
+     * @throws Exception
+     */
+    public AddPackageResponse addPackage(AddPackageRequestWrapper reqwrapper) throws Exception
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        AddPackageRequest req = new AddPackageRequest();
+        req.setActivate(reqwrapper.getActivate());
+        req.setAllowForeignFiles(reqwrapper.getAllowForeignFiles());
+        req.setAppendCluster(reqwrapper.getAppendCluster());
+        req.setDaliIp(reqwrapper.getDaliIp());
+        req.setGlobalScope(reqwrapper.getGlobalScope());
+        req.setInfo(reqwrapper.getInfo());
+        req.setOverWrite(reqwrapper.getOverWrite());
+        req.setPackageMap(reqwrapper.getPackageMap());
+        req.setPreloadAllPackages(reqwrapper.getPreloadAllPackages());
+        req.setProcess(reqwrapper.getProcess());
+        req.setReplacePackageMap(reqwrapper.getReplacePackageMap());
+        req.setSourceProcess(reqwrapper.getSourceProcess());
+        req.setTarget(reqwrapper.getTarget());
+        req.setUpdateCloneFrom(reqwrapper.getUpdateCloneFrom());
+        req.setUpdateSuperFiles(reqwrapper.getUpdateSuperFiles());
+
+        AddPackageResponse resp = null;
+
+        try
+        {
+            resp = ((WsPackageProcessStub) stub).addPackage(req);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("WsPackageProcessStub.addPackage(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform addPackage");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not addPackage");
+
+        return resp;
+    }
+
+    /**
+     * @param reqwrapper - Delete package request options object (DeletePackageRequestWrapper)
+     * @return           - Delete package response object
+     * @throws Exception
+     */
+    public DeletePackageResponse deletePackage(DeletePackageRequestWrapper reqwrapper) throws Exception
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        DeletePackageRequest req = new DeletePackageRequest();
+        req.setPackageMap(reqwrapper.getPackageMap());
+        req.setGlobalScope(reqwrapper.getGlobalScope());
+        req.setProcess(reqwrapper.getProcess());
+        req.setTarget(reqwrapper.getTarget());
+
+        DeletePackageResponse resp = null;
+
+        try
+        {
+            resp = ((WsPackageProcessStub) stub).deletePackage(req);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("WsPackageProcessStub.deletePackage(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform deletePackage(" + req.getPackageMap() +")");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not deletePackage");
+
+        return resp;
     }
 
     /**

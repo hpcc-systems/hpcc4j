@@ -18,7 +18,9 @@
 package org.hpccsystems.ws.client;
 
 import org.apache.axis2.AxisFault;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.AddPackageRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
 import org.junit.Assert;
@@ -104,5 +106,43 @@ public class WSPackageProcessTest extends BaseRemoteTest
 
         Assert.assertNotNull(getPackageStatus);
         Assert.assertEquals(0, getPackageStatus.getCode());
+    }
+
+    @Test
+    public void addPackageTest()
+    {
+        Assume.assumeNotNull(validPackageID);
+
+        AddPackageRequestWrapper myaddpackagereq = new AddPackageRequestWrapper();
+        //caller sets appropriate values
+        myaddpackagereq.setPackageMap("somepackagemapcontent");
+        myaddpackagereq.setActivate(true);
+        myaddpackagereq.setInfo("myinfo");
+
+        AddPackageResponse addpackageresp = null;
+        try
+        {
+            addpackageresp = client.addPackage(myaddpackagereq);
+        }
+        catch (Exception e)
+        {
+            // process exceptions appropriately
+        }
+
+        Assert.assertNotNull(addpackageresp);
+        Assert.assertEquals(0, addpackageresp.getStatus().getCode()); //big assumption
+
+        String [] missingfiles = addpackageresp.getFilesNotFound().getFile();
+
+        if (missingfiles.length != 0)
+        {
+            System.out.println("Missing files: ");
+            for (String missingfile : missingfiles)
+            {
+                System.out.println(missingfile + " ");
+            }
+
+            Assert.assertEquals("Missing Files reported", 0, missingfiles.length);
+        }
     }
 }
