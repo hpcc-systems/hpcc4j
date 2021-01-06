@@ -225,6 +225,53 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         return true;
     }
 
+    public AddPackageResponse addPackage(String packageMapID, String packageMapContent) throws Exception
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        AddPackageRequest req = new AddPackageRequest();
+        req.setPackageMap(packageMapID);
+        req.setInfo(packageMapContent);
+
+        req.setActivate(true);
+
+        /*defaults for everything else?
+         *
+        req.setAllowForeignFiles(reqwrapper.getAllowForeignFiles());
+        req.setAppendCluster(reqwrapper.getAppendCluster());
+        req.setDaliIp(reqwrapper.getDaliIp());
+        req.setGlobalScope(reqwrapper.getGlobalScope());
+        req.setOverWrite(reqwrapper.getOverWrite());
+        req.setPreloadAllPackages(reqwrapper.getPreloadAllPackages());
+        req.setProcess(reqwrapper.getProcess());
+        req.setReplacePackageMap(reqwrapper.getReplacePackageMap());
+        req.setSourceProcess(reqwrapper.getSourceProcess());
+        req.setTarget(reqwrapper.getTarget());
+        req.setUpdateCloneFrom(reqwrapper.getUpdateCloneFrom());
+        req.setUpdateSuperFiles(reqwrapper.getUpdateSuperFiles());
+        */
+
+        AddPackageResponse resp = null;
+
+        try
+        {
+            resp = ((WsPackageProcessStub) stub).addPackage(req);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("WsPackageProcessStub.addPackage(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform addPackage");
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not addPackage");
+
+        return resp;
+    }
+
     /**
      * @param reqwrapper - Add package request options object (AddPackageRequestWrapper)
      * @return           - Add package response object
