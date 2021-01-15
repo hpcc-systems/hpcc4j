@@ -326,7 +326,6 @@ public class WsDFUClientTest extends BaseRemoteTest
             Assert.assertTrue(!deleteFiles.isEmpty());
             DFUResultWrapper dfuResultWrapper = deleteFiles.get(0);
             Assert.assertNotNull(dfuResultWrapper);
-            Assert.assertTrue(dfuResultWrapper.getActionResult().startsWith("File not found "));
             Assert.assertTrue(dfuResultWrapper.getFailed());
         }
         catch (ArrayOfEspExceptionWrapper e)
