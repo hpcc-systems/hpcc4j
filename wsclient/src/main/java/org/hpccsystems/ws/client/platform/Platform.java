@@ -647,7 +647,7 @@ public class Platform extends DataSingleton
                 org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
                 WUQueryWrapper info = new WUQueryWrapper().setJobname(jobname).setCluster(cluster)
                         .setStartDate(Utils.UTCStringToDate(startDate)).setEndDate(Utils.UTCStringToDate(endDate))
-                        .setPageSize(new Long(100)).setOwner(userOnly ? getUser() : null);
+                        .setPageSize(Long.valueOf(100)).setOwner(userOnly ? getUser() : null);
                 info.getApplicationValues().add(new ApplicationValueWrapper("org.hpccsystems.ws.client", appKey, appData));
 
                 List<WorkunitWrapper> response = wsWorkUnitsClient.workUnitUQuery(info);
@@ -715,7 +715,7 @@ public class Platform extends DataSingleton
                 info.setCluster(cluster);
                 info.setStartDate(startDate.getTime());
                 info.setEndDate(endDate.getTime());
-                info.setPageSize(new Long(100));
+                info.setPageSize(Long.valueOf(100));
                 info.setOwner(owner);
                 List<WorkunitWrapper> response = wsWorkUnitsClient.workUnitUQuery(info);
 
@@ -832,7 +832,7 @@ public class Platform extends DataSingleton
             try
             {
                 org.hpccsystems.ws.client.HPCCFileSprayClient fileSprayClient = platformHPCCClient.getFileSprayClient();
-                GetDFUWorkunitsResponseWrapper response = fileSprayClient.getDFUWorkunits(cluster, new Long(100));
+                GetDFUWorkunitsResponseWrapper response = fileSprayClient.getDFUWorkunits(cluster, Long.valueOf(100));
                 if (response != null)
                 {
                     ArrayOfDFUWorkunitWrapper results = response.getResults();

@@ -336,7 +336,7 @@ public class DFSIndexTest extends BaseRemoteTest
             {
                 case BOOLEAN:
                 {
-                    return new Boolean(isStart == false);
+                    return Boolean.valueOf(isStart == false);
                 }
                 case INTEGER:
                 {

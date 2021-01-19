@@ -150,15 +150,15 @@ public class DFSReadWriteTest extends BaseRemoteTest
             Object field = rec0.getField(0);
             if (field instanceof Long)
             {
-                assertEquals((Long) field, new Long(0));
+                assertEquals((Long) field, Long.valueOf(0));
             }
             else if (field instanceof Double)
             {
-                assertEquals((Double) field, new Double(0.0));
+                assertEquals((Double) field, Double.valueOf(0.0));
             }
             else if (field instanceof Boolean)
             {
-                assertEquals((Boolean) field, new Boolean(false));
+                assertEquals((Boolean) field, Boolean.valueOf(false));
             }
             else if (field instanceof String)
             {
@@ -183,7 +183,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         DFUFileDetailWrapper meta=file.getOriginalFileMetadata();
         assertNotNull("Meta was null for this file",meta);
         assertNotNull("Record count was null for this file",meta.getRecordCount());
-        assertEquals(expectedCounts[0],new Long(meta.getRecordCountInt64()).intValue());
+        assertEquals(expectedCounts[0],Long.valueOf(meta.getRecordCountInt64()).intValue());
     }
 
     @Test
@@ -228,7 +228,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         for (int i = 0; i < 10; i++)
         {
             Object[] fields = new Object[3];
-            fields[0] = new Long(i);
+            fields[0] = Long.valueOf(i);
             fields[1] = "C";
             fields[2] = generateRandomString(8096 * 1024);
             HPCCRecord record = new HPCCRecord(fields, recordDef);
@@ -286,32 +286,32 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             Object[] fields = new Object[16];
             // 1 Byte ints
-            fields[0] = new Long(128);
-            fields[1] = new Long(256);
+            fields[0] = Long.valueOf(128);
+            fields[1] = Long.valueOf(256);
             
             // 2 Byte ints
-            fields[2] = new Long(32768);
-            fields[3] = new Long(65536);
+            fields[2] = Long.valueOf(32768);
+            fields[3] = Long.valueOf(65536);
             
             // 3 Byte ints
-            fields[4] = new Long(8388608);
-            fields[5] = new Long(16777216);
+            fields[4] = Long.valueOf(8388608);
+            fields[5] = Long.valueOf(16777216);
             
             // 4 Byte ints
-            fields[6] = new Long(2147483648L);
-            fields[7] = new Long(4294967296L);
+            fields[6] = Long.valueOf(2147483648L);
+            fields[7] = Long.valueOf(4294967296L);
             
             // 5 Byte ints
-            fields[8] = new Long(549755813888L);
-            fields[9] = new Long(1099511627776L);
+            fields[8] = Long.valueOf(549755813888L);
+            fields[9] = Long.valueOf(1099511627776L);
             
             // 6 Byte ints
-            fields[10] = new Long(140737488355328L);
-            fields[11] = new Long(281474976710656L);
+            fields[10] = Long.valueOf(140737488355328L);
+            fields[11] = Long.valueOf(281474976710656L);
 
             // 7 Byte ints
-            fields[12] = new Long(36028797018963968L);
-            fields[13] = new Long(72057594037927936L);
+            fields[12] = Long.valueOf(36028797018963968L);
+            fields[13] = Long.valueOf(72057594037927936L);
 
             fields[14] = new BigDecimal(intDigits,0);
             
@@ -327,26 +327,26 @@ public class DFSReadWriteTest extends BaseRemoteTest
         HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
 
         Object[] expectedFields = new Object[16];
-        expectedFields[0] = new Long(-128);
-        expectedFields[1] = new Long(0);
+        expectedFields[0] = Long.valueOf(-128);
+        expectedFields[1] = Long.valueOf(0);
         
-        expectedFields[2] = new Long(-32768);
-        expectedFields[3] = new Long(0);
+        expectedFields[2] = Long.valueOf(-32768);
+        expectedFields[3] = Long.valueOf(0);
        
-        expectedFields[4] = new Long(-8388608);
-        expectedFields[5] = new Long(0);
+        expectedFields[4] = Long.valueOf(-8388608);
+        expectedFields[5] = Long.valueOf(0);
 
-        expectedFields[6] = new Long(-2147483648L);
-        expectedFields[7] = new Long(0);
+        expectedFields[6] = Long.valueOf(-2147483648L);
+        expectedFields[7] = Long.valueOf(0);
 
-        expectedFields[8] = new Long(-549755813888L);
-        expectedFields[9] = new Long(0);
+        expectedFields[8] = Long.valueOf(-549755813888L);
+        expectedFields[9] = Long.valueOf(0);
         
-        expectedFields[10] = new Long(-140737488355328L);
-        expectedFields[11] = new Long(0);
+        expectedFields[10] = Long.valueOf(-140737488355328L);
+        expectedFields[11] = Long.valueOf(0);
 
-        expectedFields[12] = new Long(-36028797018963968L);
-        expectedFields[13] = new Long(0);
+        expectedFields[12] = Long.valueOf(-36028797018963968L);
+        expectedFields[13] = Long.valueOf(0);
 
         BigDecimal expectedDecimal = new BigDecimal(BigInteger.valueOf(567890000000L),0);
         expectedFields[14] = expectedDecimal.setScale(12);
@@ -388,7 +388,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         for (int i = 0; i < 10; i++)
         {
             Object[] fields = new Object[2];
-            fields[0] = new Long(i);
+            fields[0] = Long.valueOf(i);
             fields[1] = generateRandomString(8096 * 1024);
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
