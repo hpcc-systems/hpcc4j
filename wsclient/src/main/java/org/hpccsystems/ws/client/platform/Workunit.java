@@ -31,6 +31,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.WUState;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;
 
 public class Workunit extends DataSingleton
 {
@@ -644,7 +645,7 @@ public class Workunit extends DataSingleton
         try
         {
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
-            List<WorkunitWrapper> response = wsWorkunitsClient.workUnitUQuery(new WUQueryWrapper().setWuid(info.getWuid()).setPageSize(new Long(1)));
+            List<WorkunitWrapper> response = wsWorkunitsClient.workUnitUQuery(new WUQueryWrapper().setWuid(info.getWuid()).setPageSize(Long.valueOf(1)));
             if (response.size() == 1)
             {
                 update(response.get(0).getEclWorkunit());
@@ -690,7 +691,18 @@ public class Workunit extends DataSingleton
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
             try
             {
-                WorkunitWrapper wi = wsWorkunitsClient.getWUInfo(info.getWuid(), includeResults, includeGraphs, includeSourceFiles, includeApplicationValues, false, false, false, false, false);
+                WUInfoRequestWrapper wuinforeq = new WUInfoRequestWrapper();
+                wuinforeq.setWuid(info.getWuid());
+                wuinforeq.setIncludeResults(includeResults);
+                wuinforeq.setIncludeGraphs(includeGraphs);
+                wuinforeq.setIncludeSourceFiles(includeSourceFiles);
+                wuinforeq.setIncludeApplicationValues(includeApplicationValues);
+                wuinforeq.setIncludeDebugValues(false);
+                wuinforeq.setIncludeExceptions(false);
+                wuinforeq.setIncludeVariables(false);
+                wuinforeq.setIncludeXmlSchemas(false);
+                wuinforeq.setIncludeTimers(false);
+                WorkunitWrapper wi = wsWorkunitsClient.getWUInfo(wuinforeq);
                 if (wi != null)
                 {
                     update(wi.getEclWorkunit());

@@ -524,7 +524,7 @@ public class Utils
      */
     public void writeField(OutputStream out, String boundary, String name, char value) throws java.io.IOException
     {
-        writeField(out, boundary, name, new Character(value).toString());
+        writeField(out, boundary, name, Character.valueOf(value));
     }
 
     /**

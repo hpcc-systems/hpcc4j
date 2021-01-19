@@ -100,15 +100,15 @@ public class TestRecordReader implements IRecordReader
         switch (fieldDef.getFieldType())
         {
             case INTEGER:
-                return new Long(0);
+                return Long.valueOf(0);
             case REAL:
-                return new Double(1.1);
+                return Double.valueOf(1.1);
             case DECIMAL:
                 return new BigDecimal(1.1);
             case BINARY:
                 return new byte[0];
             case BOOLEAN:
-                return new Boolean(false);
+                return Boolean.valueOf(false);
             case STRING:
             case CHAR:
             case VAR_STRING:

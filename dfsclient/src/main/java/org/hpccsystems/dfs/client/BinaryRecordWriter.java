@@ -329,7 +329,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 Long value = null;
                 if (fieldValue==null) 
                 {
-                    value=new Long(0);
+                    value=Long.valueOf(0);
                 }
                 else if (fieldValue instanceof Long)
                 {
