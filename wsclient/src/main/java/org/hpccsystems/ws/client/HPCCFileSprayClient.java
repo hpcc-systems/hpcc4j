@@ -28,10 +28,13 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CopyResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse;
@@ -1978,11 +1981,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         return new DFUWorkunitsActionResponseWrapper(response);
     }
-    
-    
+
     /**
      * Renames HPCC logical file
-     * 
+     *
      * @param sourceFileName - The name of the file to rename
      * @param targetFilename - The new name for the file
      * @param overwrite      - Overwrite if targetfilename already exists
@@ -2046,6 +2048,40 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         }
 
         return eq;
+    }
+
+    /**
+     * @param sourcelogicalname
+     * @param destinationIP
+     * @param destinationPath
+     * @return
+     * @throws Exception
+     */
+    public String Despray(String sourcelogicalname, String destinationIP, String destinationPath) throws Exception
+    {
+        verifyStub();
+
+        Despray despray = new Despray();
+        despray.setSourceLogicalName(sourcelogicalname);
+        despray.setDestIP(destinationIP);
+        despray.setDestPath(destinationPath);
+
+        DesprayResponse resp = null;
+
+        try
+        {
+            resp = ((FileSprayStub) stub).despray(despray);
+        }
+        catch (RemoteException | EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not Despray file");
+            e.printStackTrace();
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not rename file");
+
+        return resp.getWuid();
     }
 
     /*

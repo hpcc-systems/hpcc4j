@@ -36,11 +36,14 @@ public class FileSprayClientTest extends BaseRemoteTest
     private final static String renameSrcName   = System.getProperty("renameSource", "");
     private final static String renameToName    = System.getProperty("renameTarget", "");
 
+    private final static String despraySrcName   = System.getProperty("despraySource", "");
+    private final static String desprayTarget    = System.getProperty("desprayTarget", "");
+
     public static final String DELETE_ACTION              = "Delete";
     public static final String SUCCESS_RESULT             = "Success";
     public static final String FILE_DOES_NOT_EXIST_RESULT = "Warning: this file does not exist.";
     private DropZoneWrapper foundLocalDZ = null;
-    
+
     static
     {
         fileNames.add(testFile1);
@@ -167,7 +170,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         try
         {
             if (foundLocalDZ == null)
-            	testfetchDropZones();
+                testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
             if (!filesprayclient.uploadLargeFile(uploadFile, foundLocalDZ))
@@ -218,14 +221,38 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    public void testDespray()
+    {
+        assumeNotNull(despraySrcName);
+        assumeFalse(despraySrcName.isEmpty());
+
+        if (foundLocalDZ == null)
+            testfetchDropZones();
+
+        assumeNotNull(foundLocalDZ);
+
+        String targetpath = desprayTarget != null && !desprayTarget.isEmpty() ? desprayTarget :  foundLocalDZ.getPath() + "/" + despraySrcName;
+        String wuid = "";
+        try
+        {
+            wuid =  filesprayclient.Despray(despraySrcName, foundLocalDZ.getNetAddress(), targetpath);
+            System.out.println("testDespray wuid: " + wuid);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testDeleteDropZoneFileInvalidFile()
     {
         List<String> badFileName = new ArrayList<>();
         badFileName.add("SomeNoneExistantFile.txt");
         try
         {
-        	if (foundLocalDZ == null)
-            	testfetchDropZones();
+            if (foundLocalDZ == null)
+                testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
 
@@ -316,11 +343,11 @@ public class FileSprayClientTest extends BaseRemoteTest
     @Test
     public void testRenameLogicalFile()
     {
-    	assumeNotNull(renameSrcName);
-    	assumeFalse(renameSrcName.isEmpty());
+        assumeNotNull(renameSrcName);
+        assumeFalse(renameSrcName.isEmpty());
 
-    	assumeNotNull(renameToName);
-    	assumeFalse(renameToName.isEmpty());
+        assumeNotNull(renameToName);
+        assumeFalse(renameToName.isEmpty());
 
         try
         {
@@ -331,7 +358,6 @@ public class FileSprayClientTest extends BaseRemoteTest
             ProgressResponseWrapper dfuProgress = filesprayclient.getDfuProgress(dfuworkunitrespoinse);
             Assert.assertNotNull(dfuProgress);
             Assert.assertNull(dfuProgress.getExceptions());
-          
             Thread.sleep(200); //give the rename process a chance
 
             System.out.println("Rename result: " + dfuProgress.getSummaryMessage());
