@@ -212,24 +212,21 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     protected void initWsDFUXRefClientStub(Connection conn)
     {
+        setActiveConnectionInfo(conn);
         try
         {
-            setActiveConnectionInfo(conn);
             stub = setStubOptions(new WsDFUXRefStub(conn.getBaseUrl() + WSDFUXREFURI), conn);
-        }
-        catch (AxisFault e)
-        {
-            log.error("Could not initialize WsDFUXRefStub - Review all HPCC connection values");
-            e.printStackTrace();
         }
         catch (Exception e)
         {
-            log.error("Could not initialize WsDFUXRefStub - Review all HPCC connection values");
+            stub = null;
+
+            initErrMessage = "Could not initialize WsDFUXRefStub - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
+                initErrMessage += "\n" + e.getLocalizedMessage();
             }
+            log.error(initErrMessage);
         }
     }
 
