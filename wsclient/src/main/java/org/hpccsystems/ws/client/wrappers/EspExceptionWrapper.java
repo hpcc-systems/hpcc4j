@@ -258,6 +258,14 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
         this.message = raw.getMessage();
     }
 
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
     /**
      * Copy.
      *
