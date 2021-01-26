@@ -22,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
+import static org.junit.Assume.assumeTrue;
+
 import org.junit.experimental.categories.Category;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
@@ -40,7 +42,8 @@ public class FileSprayClientTest extends BaseRemoteTest
     public static final String SUCCESS_RESULT             = "Success";
     public static final String FILE_DOES_NOT_EXIST_RESULT = "Warning: this file does not exist.";
     private DropZoneWrapper foundLocalDZ = null;
-    
+    private String sprayedFile = null;
+
     static
     {
         fileNames.add(testFile1);
@@ -167,7 +170,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         try
         {
             if (foundLocalDZ == null)
-            	testfetchDropZones();
+                testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
             if (!filesprayclient.uploadLargeFile(uploadFile, foundLocalDZ))
@@ -179,6 +182,29 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             Assert.fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void testSprayCSV()
+    {
+        try
+        {
+            if (foundLocalDZ == null)
+                testfetchDropZones();
+
+            assumeNotNull(foundLocalDZ);
+
+            ProgressResponseWrapper prog = filesprayclient.sprayVariable(foundLocalDZ.getNetAddress(), "HPCC4J274deleteDropzoneFileTest.csv", "HPCC4JSprayFileTest.csv", null, thorClusterFileGroup, true);
+
+            Assert.assertNotNull(prog);
+            Assert.assertTrue(filesprayclient.handleSprayResponse(prog, 1, 1));
+            sprayedFile = "HPCC4JSprayFileTest.csv";
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getMessage());
+        }
+
     }
 
     @Test
@@ -218,14 +244,35 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    public void testDespray()
+    {
+        testSprayCSV();
+
+        assumeNotNull(sprayedFile);
+        assumeTrue(!sprayedFile.isEmpty());
+
+        String wuid = "";
+        try
+        {
+            wuid =  filesprayclient.despray(sprayedFile, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath()+"/"+sprayedFile);
+            System.out.println("testDespray wuid: " + wuid + " Target file: " + foundLocalDZ.getNetAddress() + "/" + foundLocalDZ.getPath()+"/"+sprayedFile);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail("testDespray failed");
+        }
+    }
+
+    @Test
     public void testDeleteDropZoneFileInvalidFile()
     {
         List<String> badFileName = new ArrayList<>();
         badFileName.add("SomeNoneExistantFile.txt");
         try
         {
-        	if (foundLocalDZ == null)
-            	testfetchDropZones();
+            if (foundLocalDZ == null)
+                testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
 
@@ -316,11 +363,11 @@ public class FileSprayClientTest extends BaseRemoteTest
     @Test
     public void testRenameLogicalFile()
     {
-    	assumeNotNull(renameSrcName);
-    	assumeFalse(renameSrcName.isEmpty());
+        assumeNotNull(renameSrcName);
+        assumeFalse(renameSrcName.isEmpty());
 
-    	assumeNotNull(renameToName);
-    	assumeFalse(renameToName.isEmpty());
+        assumeNotNull(renameToName);
+        assumeFalse(renameToName.isEmpty());
 
         try
         {
@@ -331,7 +378,6 @@ public class FileSprayClientTest extends BaseRemoteTest
             ProgressResponseWrapper dfuProgress = filesprayclient.getDfuProgress(dfuworkunitrespoinse);
             Assert.assertNotNull(dfuProgress);
             Assert.assertNull(dfuProgress.getExceptions());
-          
             Thread.sleep(200); //give the rename process a chance
 
             System.out.println("Rename result: " + dfuProgress.getSummaryMessage());
