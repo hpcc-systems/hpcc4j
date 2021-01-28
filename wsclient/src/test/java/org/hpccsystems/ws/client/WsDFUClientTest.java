@@ -99,6 +99,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         filetype2 = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Index");
         Assert.assertTrue(filetype.equals(filetype2));
     }
+
     @Test
     public void testDFUPing()
     {

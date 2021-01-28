@@ -21,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFUActionInfo;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFULogicalFile;
