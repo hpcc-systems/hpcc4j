@@ -572,9 +572,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
 
-        // Force file access token to expire
-        Thread.sleep(file.getFileAccessExpirySecs() * 1000);
-
         ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
         for (int i = 0; i < fileReaders.size(); i++)
         {
