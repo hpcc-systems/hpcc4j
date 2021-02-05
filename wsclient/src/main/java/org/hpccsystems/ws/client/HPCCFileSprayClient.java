@@ -28,10 +28,13 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CopyResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDropZoneFilesRequest;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Despray;
+import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DesprayResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZone;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchRequest;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DropZoneFileSearchResponse;
@@ -65,6 +68,8 @@ import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
@@ -484,7 +489,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Convinience static method, crates new delmited data format descriptor. Parameters not provided are csv defaulted
+     * Convenience static method, crates new delimited data format descriptor. Parameters not provided are csv defaulted
      *
      * @param recordTerminator
      *            the record terminator
@@ -848,8 +853,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, String sourceFileName, String targetFileName, String prefix,
             String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
-        DelimitedDataOptions defaultcsv = new DelimitedDataOptions();
-        return sprayVariable(dropzoneNetAddress, defaultcsv, sourceFileName, targetFileName, prefix, destGroup, overwrite);
+        return sprayVariable(dropzoneNetAddress, DelimitedDataOptions.DefaultCSVDataOptions, sourceFileName, targetFileName, prefix, destGroup, overwrite);
     }
 
     /**
@@ -880,7 +884,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     {
         List<DropZoneWrapper> targetDropZones = fetchDropZones(dropzoneNetAddress);
 
-        if (targetDropZones == null) throw new Exception("Could not fetch target Dropzone");
+        if (targetDropZones == null)
+            throw new Exception("Could not fetch target Dropzone");
 
         return sprayVariable(options, targetDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite);
     }
@@ -911,10 +916,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public ProgressResponseWrapper sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName,
             String prefix, String destGroup, boolean overwrite, SprayVariableFormat format) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (localDropZones == null) localDropZones = fetchLocalDropZones();
+        if (localDropZones == null)
+            localDropZones = fetchLocalDropZones();
 
-        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null,
-                null, null, null, null);
+        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null, null, null, null, null);
     }
 
     /**
@@ -1978,11 +1983,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         return new DFUWorkunitsActionResponseWrapper(response);
     }
-    
-    
+
     /**
      * Renames HPCC logical file
-     * 
+     *
      * @param sourceFileName - The name of the file to rename
      * @param targetFilename - The new name for the file
      * @param overwrite      - Overwrite if targetfilename already exists
@@ -2046,6 +2050,139 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         }
 
         return eq;
+    }
+
+    /**
+     * Despray HPCC logical file - see actual service page for field descriptions
+     *
+     * @param sourcelogicalname
+     * @param destinationIP
+     * @param destinationPath
+     * @return
+     * @throws Exception
+     */
+    public String despray(String sourcelogicalname, String destinationIP, String destinationPath) throws Exception
+    {
+        return despray(null, null, destinationIP, destinationPath, null, null, null, null, null, null, null, sourcelogicalname, null, null, null, null).getWuid();
+    }
+
+    /**
+     * Despray HPCC logical file - see actual service page for field descriptions
+     *
+     * @param sourcelogicalname
+     * @param destinationIP
+     * @param destinationPath
+     * @param splitprefix
+     * @param overwrite
+     * @param singleconnection
+     * @return
+     * @throws Exception
+     */
+    public String despray(String sourcelogicalname, String destinationIP, String destinationPath, String splitprefix, boolean overwrite, boolean singleconnection) throws Exception
+    {
+        return despray(null, null,destinationIP, destinationPath, null, null, null, null, null, overwrite, singleconnection, sourcelogicalname, splitprefix, null, null, null).getWuid();
+    }
+
+    /**
+     * Despray HPCC logical file - see actual service page for field descriptions
+     *
+     * @param compressed
+     * @param decrypt
+     * @param destip
+     * @param destpath
+     * @param dfuserverqueue
+     * @param encrypt
+     * @param maxconnections
+     * @param multicopy
+     * @param norecover
+     * @param overwrite
+     * @param singleconnection
+     * @param sourcelogicalname
+     * @param splitprefix
+     * @param throttle
+     * @param transferbuffersize
+     * @param wrap
+     * @return
+     * @throws Exception
+     */
+    public DesprayResponseWrapper despray(Boolean compressed, String decrypt, String destip,
+            String destpath, String dfuserverqueue, String encrypt,
+            Integer maxconnections, Boolean multicopy, Boolean norecover, Boolean overwrite,
+            Boolean singleconnection, String sourcelogicalname, String splitprefix,
+            Integer throttle, Integer transferbuffersize, Boolean wrap) throws Exception
+    {
+        verifyStub();
+
+        if (sourcelogicalname == null || sourcelogicalname.isEmpty())
+            throw new Exception("HPCCFileSpray.despray: sourcelogicalname cannot be null nor empty");
+
+        Despray despray = new Despray();
+        despray.setSourceLogicalName(sourcelogicalname);
+
+        if (compressed != null)
+            despray.setCompress(compressed);
+        if (decrypt != null)
+            despray.setDecrypt(decrypt);
+        if (destip != null)
+            despray.setDestIP(destip);
+        if (destpath != null)
+            despray.setDestPath(destpath);
+        if (dfuserverqueue != null)
+            despray.setDFUServerQueue(dfuserverqueue);
+        if (encrypt != null)
+            despray.setEncrypt(encrypt);
+        if (maxconnections != null)
+            despray.setMaxConnections(maxconnections);
+        if (multicopy != null)
+            despray.setMultiCopy(multicopy);
+        if (norecover != null)
+            despray.setNorecover(norecover);
+        if (overwrite != null)
+            despray.setOverwrite(overwrite);
+        if (singleconnection != null)
+            despray.setSingleConnection(singleconnection);
+        if (splitprefix != null)
+            despray.setSplitprefix(splitprefix);
+        if (throttle != null)
+            despray.setThrottle(throttle);
+        if (transferbuffersize != null)
+            despray.setTransferBufferSize(transferbuffersize);
+        if (wrap != null)
+            despray.setWrap(wrap);
+
+        DesprayResponse resp = null;
+
+        try
+        {
+            resp = ((FileSprayStub) stub).despray(despray);
+        }
+        catch (RemoteException | EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not Despray file: '" + sourcelogicalname + "'");
+            e.printStackTrace();
+        }
+
+        if (resp.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not Despray file: '" + sourcelogicalname + "'");
+
+        return new DesprayResponseWrapper(resp);
+    }
+
+    /**
+     * Despray HPCC logical file
+     *
+     * @param desprayreq
+     * @return
+     * @throws Exception
+     */
+    public DesprayResponseWrapper despray(DesprayWrapper desprayreq) throws Exception
+    {
+        if (desprayreq == null)
+            throw new Exception("HPCCFileSpray.despray: desprayreq cannot be null");
+
+        return despray(desprayreq.getCompress(), desprayreq.getDecrypt(), desprayreq.getDestIP(), desprayreq.getDestPath(), desprayreq.getDFUServerQueue(), desprayreq.getEncrypt(),
+                desprayreq.getMaxConnections(), desprayreq.getMultiCopy(), desprayreq.getNorecover(), desprayreq.getOverwrite(), desprayreq.getSingleConnection(), desprayreq.getSourceLogicalName(),
+                desprayreq.getSplitprefix(), desprayreq.getThrottle(), desprayreq.getTransferBufferSize(), desprayreq.getWrap());
     }
 
     /*

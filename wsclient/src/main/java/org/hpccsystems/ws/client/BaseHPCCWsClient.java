@@ -228,7 +228,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         if (stub != null)
             return stub;
         else
-            throw new Exception("WS Client Stub not available.");
+            throw new Exception("WS Client Stub not available." + (hasInitError() ? "\n" + initErrMessage : ""));
     }
 
     /*

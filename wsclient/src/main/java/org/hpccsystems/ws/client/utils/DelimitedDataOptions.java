@@ -20,6 +20,8 @@ public class DelimitedDataOptions implements java.io.Serializable
     String escapeSequence;
     String quote;
 
+    public final static DelimitedDataOptions DefaultCSVDataOptions = new DelimitedDataOptions();
+
     /**
      * Creates a default CSV field data format descriptor.
      */
