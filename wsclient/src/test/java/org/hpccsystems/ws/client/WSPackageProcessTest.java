@@ -77,29 +77,27 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
-    public void AA1_listPackageTest() throws Exception
+    public void BBB1_listPackageTest() throws Exception
     {
         List<PackageListMapDataWrapper> packages = client.listPackages("*", targetRoxieName, null);
-        if(packages==null || packages.isEmpty())
+        if(packages!=null)
         {
-            fail("Could not retrieve package lists from target cluster : '" + targetRoxieName + "'" );
-        }
-
-        for(PackageListMapDataWrapper pkg : packages)
-        {
-            assertTrue(pkg.getId() != null && !pkg.getId().isEmpty());
-
-            String pkgByID = client.getPackageMapById(pkg.getId());
-            assertTrue(pkgByID != null && !pkgByID.isEmpty());
-
-            if (validPackageID == null)
-                validPackageID = pkg.getId();
-
-            System.out.println ("Found package: " + pkg.getId());
-
-            if(!pkgByID.contains("<PackageMaps id=\""+pkg.getId()+"\""))
+            for(PackageListMapDataWrapper pkg : packages)
             {
-                fail("Failed to retrieve package map by id : " + pkg.getId());
+                assertTrue(pkg.getId() != null && !pkg.getId().isEmpty());
+
+                String pkgByID = client.getPackageMapById(pkg.getId());
+                assertTrue(pkgByID != null && !pkgByID.isEmpty());
+
+                if (validPackageID == null)
+                    validPackageID = pkg.getId();
+
+                System.out.println ("Found package: " + pkg.getId());
+
+                if(!pkgByID.contains("<PackageMaps id=\""+pkg.getId()+"\""))
+                {
+                    fail("Failed to retrieve package map by id : " + pkg.getId());
+                }
             }
         }
     }
@@ -116,11 +114,11 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
-    public void AA1addPackageTest() throws Exception
+    public void AAA1addPackageTest() throws Exception
     {
         System.out.println("WsPackageProcess junittest: AddPackageTest(" + StaticPMName + ") ...");
 
-        AddPackageResponse addpackageresp = client.addPackage(StaticPMName, PackageMapContent, this.thorClusterFileGroup, null, true);
+        AddPackageResponse addpackageresp = client.addPackage(StaticPMName, PackageMapContent, "*", null, true);
 
         Assert.assertNotNull(addpackageresp);
 
@@ -142,15 +140,15 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
-    public void BB1addPackageTestWrapper()
+    public void AAA1addPackageTestWrapper()
     {
         System.out.println("WsPackageProcess junittest: addPackageTestWrapper(" + StaticPMName + ") ...");
         AddPackageRequestWrapper myaddpackagereq = new AddPackageRequestWrapper();
 
-        myaddpackagereq.setPackageMap(StaticPMName);
+        myaddpackagereq.setPackageMap(StaticPMName+"Wrapper");
         myaddpackagereq.setActivate(false);
         myaddpackagereq.setInfo(PackageMapContent);
-        myaddpackagereq.setTarget(this.thorClusterFileGroup);
+        myaddpackagereq.setTarget("*");
         myaddpackagereq.setOverWrite(true);
 
         AddPackageResponse addpackageresp = null;
@@ -182,22 +180,22 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
-    public void AA2deletePackageTest() throws Exception
+    public void ZZZ2deletePackageTest() throws Exception
     {
-        DeletePackageResponse delpackageresp = client.deletePackage(StaticPMName, this.thorClusterFileGroup);
+        DeletePackageResponse delpackageresp = client.deletePackage(StaticPMName, "*");
         Assert.assertNotNull(delpackageresp);
         System.out.println("Status message: " + delpackageresp.getStatus().getDescription());
         Assert.assertEquals(0, delpackageresp.getStatus().getCode());
     }
 
     @Test
-    public void BB2deletePackageTestWrapper()
+    public void ZZZ2deletePackageTestWrapper()
     {
         System.out.println("WsPackageProcess junittest: deletePackageTestWrapper(" + StaticPMName + ")...");
         DeletePackageRequestWrapper mydelpackagereq = new DeletePackageRequestWrapper();
         //caller sets appropriate values
-        mydelpackagereq.setPackageMap(StaticPMName);
-        mydelpackagereq.setTarget(this.thorClusterFileGroup);
+        mydelpackagereq.setPackageMap(StaticPMName+"wrapper");
+        mydelpackagereq.setTarget("*");
         mydelpackagereq.setProcess("*");
 
         DeletePackageResponse delpackageresp = null;
