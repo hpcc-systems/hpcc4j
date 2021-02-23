@@ -149,29 +149,6 @@
                </configuration>
              </execution-->
              <execution>
-               <id>wsdfuxref101</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-                 <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_01</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsDFUXRef-101.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <wsdlVersion>1.21</wsdlVersion>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wsdfuxref</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_01</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
                <id>wsattributes121</id>
                <phase>process-resources</phase>
                <goals>
