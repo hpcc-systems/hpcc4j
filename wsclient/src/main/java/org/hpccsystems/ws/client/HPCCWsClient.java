@@ -472,28 +472,6 @@ public class HPCCWsClient extends DataSingleton
      * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
      * @return Original WSDL version
      */
-    public String getwsDFUXRefClientClientVer()
-    {
-        return Utils.parseVersionFromWSDLURL(HPCCWsDFUXRefClient.getServiceWSDLURL());
-    }
-
-    /**
-     * Gets the WsDFUXRef client.
-     *
-     * @return the WsDFUXRef client
-     */
-    public HPCCWsDFUXRefClient getWsDFUXRefClient()
-    {
-        synchronized (connectionLock)
-        {
-            return (HPCCWsDFUXRefClient) SubClients.get(HPCCWsDFUXRefClient.get(connection));
-        }
-    }
-
-    /**
-     * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
-     * @return Original WSDL version
-     */
     public String getWsSMCClientClientVer()
     {
         return Utils.parseVersionFromWSDLURL(HPCCWsSMCClient.getServiceWSDLURL());
