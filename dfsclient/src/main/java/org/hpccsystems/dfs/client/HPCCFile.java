@@ -152,6 +152,28 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Extracts the file part from a fileposition value.
+     *
+     * @return the project list
+     */
+    public static int getFilePartFromFPos(long fpos)
+    {
+        // Last 16 bits store information on file part & if this is a local fpos
+        return (int) ((fpos >>> 48L) & 0x7fffL);
+    }
+
+    /**
+     * Extracts the offset in the file part from a fileposition value. 
+     *
+     * @return the project list
+     */
+    public static long getOffsetFromFPos(long fpos) 
+    {
+        // First 48 bits store the offset
+        return fpos & 0xffffffffffffL;
+    }
+
+    /**
      * Gets the project list.
      *
      * @return the project list
