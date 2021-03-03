@@ -80,8 +80,9 @@ public class RecordDefinitionTranslator
             case type_biasedswapint:
             case type_keyedint:
             case type_int:
-            case type_filepos:
                 return FieldType.INTEGER;
+            case type_filepos:
+                return FieldType.FILEPOS;
             case type_real:
                 return FieldType.REAL;
             case type_decimal:
@@ -284,6 +285,21 @@ public class RecordDefinitionTranslator
 
                 return root + field.getDataLen();
             }
+            case FILEPOS:
+            {
+                String root = "UNSIGNED";
+                if (field.isUnsigned() == false)
+                {
+                    throw new Exception("Error: Filepos must be unsigned"); 
+                }
+
+                if (field.getDataLen() != 8)
+                {
+                    throw new Exception("Error: Unsupported filepos size: " + field.getDataLen() + " must be 8.");
+                }
+
+                return root + field.getDataLen();
+            }
             case DECIMAL:
             {
                 String root = "DECIMAL";
@@ -370,7 +386,13 @@ public class RecordDefinitionTranslator
                 for (int i = 0; i < field.getNumDefs(); i++)
                 {
                     FieldDef childField = field.getDef(i);
-                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " " + childField.getFieldName() + ";\n";
+                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " " + childField.getFieldName();
+                    if (childField.getFieldType() == FieldType.FILEPOS)
+                    {
+                        definition += " {virtual(fileposition)}";
+                    }
+
+                    definition += ";\n";
                 }
                 definition += "END;\n";
 
@@ -474,6 +496,11 @@ public class RecordDefinitionTranslator
             case BOOLEAN:
             {
                 typeID = type_boolean;
+                break;
+            }
+            case FILEPOS:
+            {
+                typeID = type_filepos | FLAG_UNSIGNED;
                 break;
             }
             case INTEGER:
@@ -657,6 +684,7 @@ public class RecordDefinitionTranslator
             case BOOLEAN:
             case BINARY:
             case INTEGER:
+            case FILEPOS:
             case REAL:
             case CHAR:
             case STRING:

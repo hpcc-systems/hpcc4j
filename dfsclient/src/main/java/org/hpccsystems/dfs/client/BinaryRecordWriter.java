@@ -146,6 +146,7 @@ public class BinaryRecordWriter implements IRecordWriter
             switch (fd.getFieldType())
             {
                 case INTEGER:
+                case FILEPOS:
                 case REAL:
                 case DECIMAL:
                 case BINARY:
@@ -325,6 +326,7 @@ public class BinaryRecordWriter implements IRecordWriter
                 break;
             }
             case INTEGER:
+            case FILEPOS:
             {
                 Long value = null;
                 if (fieldValue==null) 
@@ -652,6 +654,10 @@ public class BinaryRecordWriter implements IRecordWriter
                 return 1;
             }
             case INTEGER:
+            {
+                return fd.getDataLen();
+            }
+            case FILEPOS:
             {
                 return fd.getDataLen();
             }

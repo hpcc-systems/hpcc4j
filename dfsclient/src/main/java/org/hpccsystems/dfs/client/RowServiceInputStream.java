@@ -17,6 +17,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -50,6 +51,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private AtomicBoolean            closed = new AtomicBoolean(false);
     private boolean                  simulateFail = false;
     private boolean                  forceTokenUse = false;
+    private boolean                  inFetchingMode = false;
     private byte[]                   tokenBin;
     private int                      handle;
     private DataPartition            dataPart;
@@ -85,6 +87,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private long                     streamPosOfFetchStart = 0;
     private List<Long>               streamPosOfFetches = new ArrayList<Long>();
     private List<byte[]>             tokenBinOfFetches = new ArrayList<byte[]>();
+
+    // Used for fetch requests
+    private List<Long>               fetchRequestOffsets = new ArrayList<Long>();
 
     private long                     firstByteTimeNS = -1;
     private long                     mutexWaitTimeNS = 0;
@@ -224,7 +229,32 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB) throws Exception
     {
-        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, null);
+        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, null, false);
+    }
+
+    /**
+     * A plain socket connect to a THOR node for remote read
+     *
+     * @param dp
+     *            the data partition to read
+     * @param rd
+     *            the JSON definition for the read input and output
+     * @param pRd
+     *            the projected record definition
+     * @param connectTimeout
+     *               the connection timeout
+     * @param limit
+     *            the record limit to use for reading the dataset. -1 implies no limit
+     * @param createPrefetchThread
+     *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
+     * @param maxReadSizeInKB
+     *            max readsize in kilobytes
+     * @throws Exception
+     *            general exception
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restart) throws Exception
+    {
+        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, restart, false);
     }
 
     /**
@@ -246,13 +276,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      *            max readsize in kilobytes
      * @param restartInfo 
      *            information used to restart a read from a particular stream position
+     * @param isFetching 
+     *            Will this input stream be used to serviced batched fetch requests
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching) throws Exception
     {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
+        this.inFetchingMode = isFetching;
 
         if (maxReadSizeInKB > 0)
         {
@@ -293,7 +326,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.streamPosOfFetchStart = this.streamPos;
         }
 
-        this.makeActive();
+        if (inFetchingMode == false)
+        {
+            this.makeActive();
+        }
+        else
+        {
+            Long[] emptyOffsets = {0L};
+            startBlockingFetchRequest(Arrays.asList(emptyOffsets));
+        }
 
         if (createPrefetchThread)
         {
@@ -501,6 +542,86 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return totalBufferCapacity - currentBufferLen;
     }
 
+    /**
+     * Starts a block fetching request for the requested records.
+     * 
+     * Starts a block fetching request that will block until all of the requested records have been consumed.
+     * Should only be called from a separate thread from the thread that is consuming data from the input stream.
+     */
+    public void startBlockingFetchRequest(List<Long> fetchOffsets) throws Exception
+    {
+        if (inFetchingMode == false)
+        {
+            throw new Exception("Error: attempted to start a fetch request for an input stream in sequential read mode.");
+        }
+
+        // Clear stream information, but keep streamPos & markPos as they are due to potential wrapping counting streams
+        readPos = 0;
+        totalDataInCurrentRequest = 0;
+        remainingDataInCurrentRequest = 0;
+
+        // Clear restart info
+        streamPosOfFetchStart = 0;
+        streamPosOfFetches.clear();
+        tokenBinOfFetches.clear();
+
+        this.fetchRequestOffsets.clear();
+        this.fetchRequestOffsets.addAll(fetchOffsets);
+
+        if (CompileTimeConstants.PROFILE_CODE)
+        {
+            long nsStartFetch = System.nanoTime();
+            totalDataInCurrentRequest = startFetch();
+            remainingDataInCurrentRequest = totalDataInCurrentRequest;
+            nsStartFetch = System.nanoTime() - nsStartFetch;
+            fetchStartTimeNS += nsStartFetch;
+        }
+        else
+        {
+            totalDataInCurrentRequest = startFetch();
+            remainingDataInCurrentRequest = totalDataInCurrentRequest;
+        }
+
+        if (CompileTimeConstants.PROFILE_CODE)
+        {
+            long nsFetching = System.nanoTime();
+            while (remainingDataInCurrentRequest > 0)
+            {
+                readDataInFetch();
+            }
+            nsFetching = System.nanoTime() - nsFetching;
+            fetchTimeNS += nsFetching;
+
+            // If this is the first fetch. numFetches gets incremented at the start of a fetch
+            if (numFetches == 1 && firstByteTimeNS > 0)
+            {
+                firstByteTimeNS = System.nanoTime() - firstByteTimeNS;
+            }
+        }
+        else
+        {
+            while (remainingDataInCurrentRequest > 0)
+            {
+                readDataInFetch();
+            }
+        }
+
+        if (remainingDataInCurrentRequest == 0)
+        {
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                long nsFinishFetch = System.nanoTime();
+                finishFetch();
+                nsFinishFetch = System.nanoTime() - nsFinishFetch;
+                fetchFinishTimeNS += nsFinishFetch;
+            }
+            else
+            {
+                finishFetch();
+            }
+        }
+    }
+
     // Run from prefetch thread only
     private int startFetch()
     {
@@ -509,8 +630,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return -1;
         }
 
+        //------------------------------------------------------------------------------
+        // If we haven't made the connection active, activate it now and send the 
+        // first request.
+        //
+        // If we are in fetching mode and the connection is active send the 
+        // "read ahead" request
+        //------------------------------------------------------------------------------
+
         numFetches++;
-        if (!this.active.get()) // attempt to the first read
+        if (!this.active.get())
         {
             try
             {
@@ -527,6 +656,36 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 return -1;
             }
         }
+        else
+        {
+            // Send read ahead request when inFetchingMode
+            if (inFetchingMode)
+            {
+                if (this.simulateFail) this.handle = -1;
+                String readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
+
+                try
+                {
+                    int requestLen = readAheadRequest.length();
+                    this.dos.writeInt(requestLen);
+                    this.dos.write(readAheadRequest.getBytes(HPCCCharSet), 0, requestLen);
+                    this.dos.flush();
+                }
+                catch (IOException e)
+                {
+                    prefetchException = new HpccFileException("Failure sending read ahead transaction", e);
+                    try
+                    {
+                        close();
+                    }
+                    catch(Exception ie){}
+                }
+            }
+        }
+
+        //------------------------------------------------------------------------------
+        // Read the response length from the request
+        //------------------------------------------------------------------------------
 
         int len = 0;
         try
@@ -544,6 +703,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return -1;
         }
 
+        // If len == 0 we have finished reading the file
         if (len == 0)
         {
             try
@@ -557,6 +717,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return -1;
         }
 
+        // Invalid response len, should be at least 4
         if (len < 4)
         {
             prefetchException = new HpccFileException("Early data termination, no handle");
@@ -567,6 +728,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             catch(Exception e){}
             return -1;
         }
+
+        //------------------------------------------------------------------------------
+        // Read the new handle, and retry with the token if it is invalid
+        //------------------------------------------------------------------------------
 
         try
         {
@@ -628,14 +793,21 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             catch(Exception ie){}
         }
 
+        //------------------------------------------------------------------------------
+        // Read / return the length of the record data in this request
+        //------------------------------------------------------------------------------
+
         int dataLen = 0;
         try
         {
             dataLen = dis.readInt();
-            if (dataLen == 0)
+            if (inFetchingMode == false)
             {
-                close();
-                return 0;
+                if (dataLen == 0)
+                {
+                    close();
+                    return 0;
+                }
             }
         }
         catch (IOException e)
@@ -725,6 +897,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return;
         }
 
+        //------------------------------------------------------------------------------
+        // Read token that represents the cursor for the end of this request
+        //------------------------------------------------------------------------------
+
         try
         {
             if (dis==null) {
@@ -761,24 +937,32 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             catch(Exception ie){}
         }
 
-        if (this.simulateFail) this.handle = -1;
-        String readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
+        //------------------------------------------------------------------------------
+        // Send read ahead request
+        //------------------------------------------------------------------------------
 
-        try
+        if (inFetchingMode == false)
         {
-            int requestLen = readAheadRequest.length();
-            this.dos.writeInt(requestLen);
-            this.dos.write(readAheadRequest.getBytes(HPCCCharSet), 0, requestLen);
-            this.dos.flush();
-        }
-        catch (IOException e)
-        {
-            prefetchException = new HpccFileException("Failure sending read ahead transaction", e);
+            // Create the read ahead request
+            if (this.simulateFail) this.handle = -1;
+            String readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
+
             try
             {
-                close();
+                int requestLen = readAheadRequest.length();
+                this.dos.writeInt(requestLen);
+                this.dos.write(readAheadRequest.getBytes(HPCCCharSet), 0, requestLen);
+                this.dos.flush();
             }
-            catch(Exception ie){}
+            catch (IOException e)
+            {
+                prefetchException = new HpccFileException("Failure sending read ahead transaction", e);
+                try
+                {
+                    close();
+                }
+                catch(Exception ie){}
+            }
         }
     }
 
@@ -1558,7 +1742,58 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         *  }
         * }
         *
+        * Fetch fpos stream example:
+        * {
+        *  "format" : "binary",
+        *  "replyLimit" : "64",
+        *  "fetch" : {
+        *   "fpos" : "30",
+        *   "fpos" : "90"
+        *  },
+        *  "node" : {
+        *   "kind" : "diskread",
+        *   "fileName": "examplefilename",
+        *   "input" : {
+        *    "f1" : "string5",
+        *    "f2" : "string5"
+        *   }
+        *  }
+        * }
+        * 
+        * fetch continuation:
+        * {
+        *  "format" : "binary",
+        *  "handle" : "1234",
+        *  "replyLimit" : "64",
+        *  "fetch" : {
+        *   "fpos" : "120",
+        *   "fpos" : "135",
+        *   "fpos" : "150"
+        *  }
+        * }
+        *
         */
+    
+    private void makeFetchObject(StringBuilder sb)
+    {
+        if (inFetchingMode)
+        {
+            sb.append("\"fetch\" : {\n");
+            for (int i = 0; i < fetchRequestOffsets.size(); i++)
+            {
+                sb.append("\"fpos\" : " + fetchRequestOffsets.get(i));
+                if (i != fetchRequestOffsets.size())
+                {
+                    sb.append(",\n");
+                }
+                else
+                {
+                    sb.append("\n");
+                }
+            }
+            sb.append("},\n");
+        }
+    }
 
     /**
      * Creates a request string using the record definition, filename, and current state of the file transfer.
@@ -1571,6 +1806,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\", \n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
+
+        if (inFetchingMode)
+        {
+            makeFetchObject(sb);
+        }
+
         sb.append(makeNodeObject());
         sb.append("\n}\n");
 
@@ -1603,17 +1844,22 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append("\"filePartCopy\" : \"");
         sb.append(getFilePartCopy() + 1);
         sb.append("\", \n");
-        FileFilter fileFilter = this.dataPart.getFilter();
-        if (fileFilter != null && fileFilter.isEmpty() == false)
-        {
-            sb.append(" ");
-            sb.append(this.dataPart.getFilter().toJson());
-            sb.append(",\n");
-        }
 
-        if (this.recordLimit > -1)
+        // Do not apply filters and limits when inFetchingMode
+        if (inFetchingMode == false)
         {
-            sb.append("\"chooseN\" : \"" + this.recordLimit + "\",\n");
+            FileFilter fileFilter = this.dataPart.getFilter();
+            if (fileFilter != null && fileFilter.isEmpty() == false)
+            {
+                sb.append(" ");
+                sb.append(this.dataPart.getFilter().toJson());
+                sb.append(",\n");
+            }
+
+            if (this.recordLimit > -1)
+            {
+                sb.append("\"chooseN\" : \"" + this.recordLimit + "\",\n");
+            }
         }
 
         sb.append("\n \"input\" : ");
@@ -1635,9 +1881,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         StringBuilder sb = new StringBuilder(100);
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
-        sb.append("  \"handle\" : \"");
-        sb.append(Integer.toString(this.handle));
-        sb.append("\" \n}");
+        sb.append("  \"handle\" : \"" + Integer.toString(this.handle) + "\",");
+
+        if (inFetchingMode)
+        {
+            makeFetchObject(sb);
+        }
+
+        sb.append("\n}");
 
         return sb.toString();
     }

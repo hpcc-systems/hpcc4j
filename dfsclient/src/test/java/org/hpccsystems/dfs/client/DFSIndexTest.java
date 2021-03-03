@@ -301,6 +301,60 @@ public class DFSIndexTest extends BaseRemoteTest
         return indexName;
     }
 
+    @Test
+    public void testBatchRandomAccess() throws Exception
+    {
+        try
+        {
+            HPCCFile file = new HPCCFile("~test::index::integer", connString , hpccUser, hpccPass);
+            DataPartition[] fileParts = file.getFileParts();
+            FieldDef originalRD = file.getRecordDefinition();
+
+            System.out.println("Num file parts: " + fileParts.length);
+            ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+
+            for (long i = 0; i < fileParts.length; i++)
+            {
+                HpccRandomAccessFileReader<HPCCRecord> fileReader = null;
+                try
+                {
+                    DataPartition fp = fileParts[(int)i];
+                    HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+                    fileReader = new HpccRandomAccessFileReader<HPCCRecord>(fp, originalRD, recordBuilder,-1);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+
+                Long[] recOffsets = {20L};
+                fileReader.addRecordRequests(Arrays.asList(recOffsets));
+
+                while (fileReader.hasNext())
+                {
+                    HPCCRecord record = fileReader.next();
+                    if (record == null)
+                    {
+                        System.out.println("Error: failed to read record.");
+                    }
+
+                    long expectedKeyValue = 3 + 4 * i;
+                    Long keyValue = (Long) record.getField(0);
+                    if (keyValue == expectedKeyValue)
+                    {
+                        System.out.println("Error: key values did not match.");
+                    }
+                }
+
+                fileReader.close();
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     List<HPCCRecord> createRecordRange(int partitionIndex, int numPartitions, FieldDef recordDef)
     {
         Object[] rangeStartFields = new Object[recordDef.getNumDefs()];
