@@ -297,6 +297,20 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Sets the filter.
+     *
+     * @param filefilter
+     * @return this HPCCFile
+     * @throws Exception
+     *             the exception
+     */
+    public HPCCFile setFilter(FileFilter filefilter) throws Exception
+    {
+        this.filter = filefilter;
+        return this;
+    }
+
+    /**
      * Gets the file name.
      *
      * @return the file name
