@@ -319,10 +319,6 @@
               <goals>
                 <goal>filter-sources</goal>
               </goals>
-               <configuration>
-                  <!-- generated classes would belong to package org.hpccsystems.generated -->
-                  <outputDirectory>${project.build.directory}/generated-sources/java-templates/org/hpccsystems/generated</outputDirectory>
-                </configuration>
             </execution>
           </executions>
         </plugin>
