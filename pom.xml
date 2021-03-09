@@ -11,9 +11,8 @@
   <description>hpccsystems parent pom</description>
   <issueManagement>
     <system>Jira</system>
-    <url>https://track.hpccsystems.com/browse/JAPI</url>
+    <url>https://track.hpccsystems.com/browse/hpcc4j</url>
   </issueManagement>
-
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
