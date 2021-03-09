@@ -15,6 +15,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+message(STATUS "testing")
 cmake_minimum_required(VERSION 2.8)
 
 set(HPCC4J_SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
