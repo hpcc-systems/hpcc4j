@@ -1,6 +1,6 @@
 ![hpcc4j Master Nightly](https://github.com/hpcc-systems/hpcc4j/workflows/hpcc4j%20Nightly/badge.svg?branch=master)
 
-##### Current Maven Central Releases:
+##### Current Maven Central Releases:test
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j/badge.svg?subject=hpcc4j)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient/badge.svg?subject=dfsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient)
 
 HPCC4J Project
