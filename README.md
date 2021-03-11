@@ -3,7 +3,7 @@
 ##### Current Maven Central Releases:
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j/badge.svg?subject=hpcc4j)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient/badge.svg?subject=dfsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient)
 
-HPCC4J Project
+HPCC4J Project test
 =======================
 
 #### Java based libraries for interaction with HPCC services/tools
