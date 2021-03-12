@@ -185,7 +185,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testSprayCSV()
+    public void testSprayCSV() //invalid if testUploadFile unsuccessful
     {
         try
         {
@@ -193,6 +193,8 @@ public class FileSprayClientTest extends BaseRemoteTest
                 testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
+
+            testUploadFile();
 
             ProgressResponseWrapper prog = filesprayclient.sprayVariable(foundLocalDZ.getNetAddress(), "HPCC4J274deleteDropzoneFileTest.csv", "HPCC4JSprayFileTest.csv", null, thorClusterFileGroup, true);
 
