@@ -16,10 +16,6 @@
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 public class DFUInfoWrapper
@@ -33,7 +29,7 @@ public class DFUInfoWrapper
      * @param resp
      *            the resp
      */
-    public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUInfoResponse resp)
+    public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse resp)
     {
         this.detailInfo = new DFUFileDetailWrapper(resp.getFileDetail());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null)

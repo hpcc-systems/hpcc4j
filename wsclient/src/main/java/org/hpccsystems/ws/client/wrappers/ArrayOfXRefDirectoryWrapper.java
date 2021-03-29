@@ -15,13 +15,14 @@ public class ArrayOfXRefDirectoryWrapper
 {
     private List<XRefDirectoryWrapper> directories = null;
     private String cluster = null;
+
     private final static String CLUSTER_TAG = "Cluster";
     private final static String DIRECTORY_TAG = "Directory";
 
     public ArrayOfXRefDirectoryWrapper(String wsdfuxrefresponse)
     {
         directories = new ArrayList<XRefDirectoryWrapper>();
-        if (wsdfuxrefresponse != null)
+        if (wsdfuxrefresponse != null && !wsdfuxrefresponse.isEmpty())
         {
             try
             {
@@ -29,7 +30,9 @@ public class ArrayOfXRefDirectoryWrapper
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
                 Document doc = dBuilder.parse(new ByteArrayInputStream(wsdfuxrefresponse.getBytes("UTF-8")));
+
                 NodeList xrefnodelist = doc.getElementsByTagName(CLUSTER_TAG);
+
                 if (xrefnodelist.getLength() > 0)
                 {
                     cluster = xrefnodelist.item(0).getTextContent();

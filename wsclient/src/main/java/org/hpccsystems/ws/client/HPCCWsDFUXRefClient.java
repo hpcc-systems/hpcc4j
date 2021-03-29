@@ -556,6 +556,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

@@ -24,15 +24,14 @@ import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
 import org.apache.axis2.AxisFault;
-
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WURunResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WUSubmitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
-
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -41,7 +40,7 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSWorkunitsTest extends BaseRemoteTest
 {
-    
+
     private static HPCCWsWorkUnitsClient client;
     private static String  testwuid = System.getProperty("targetwuid");
     //workunit with "unknown" state
@@ -147,7 +146,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
             System.out.println("wuid: " + wuInfo.getWuid());
             assertNotNull(wuInfo);
             assertEquals(testwuid,wuInfo.getWuid());
-            
+
             WUInfoRequestWrapper request=new WUInfoRequestWrapper();
             request.setWuid(testwuid);
             request.setIncludeHelpers(true);
@@ -171,8 +170,8 @@ public class WSWorkunitsTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
-    }   
-    
+    }
+
     @Test
     public void StageB_getWUInfoUnknownTest() throws Exception
     {
@@ -188,7 +187,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
             assertNotNull(wuInfo);
             assertEquals(testunknownwuid,wuInfo.getWuid());
             assertTrue(wuInfo.getHelpers().size()==0);
-        }  
+        }
         catch (AxisFault e)
         {
             e.printStackTrace();
@@ -203,8 +202,8 @@ public class WSWorkunitsTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
-    }  
-    
+    }
+
     @Test
     public void StageB_getWUInfoArchivedTest() throws Exception
     {
@@ -236,5 +235,33 @@ public class WSWorkunitsTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
-    }   
+    }
+
+    @Test
+    public void StageB_SubmitECLTest() throws Exception
+    {
+        assumeNotNull(testwuid);
+
+        try
+        {
+            WUSubmitWrapper req = new WUSubmitWrapper();
+            req.setWuid(testwuid);
+            req.setCluster(thorclustername);
+            client.submitWU(req);
+        }
+        catch (AxisFault e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            Assert.fail(e.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }

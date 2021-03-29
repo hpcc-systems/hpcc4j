@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import static org.junit.Assume.assumeNotNull;
+
 import java.net.URL;
 
 import org.apache.logging.log4j.LogManager;

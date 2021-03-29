@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddtoSuperfileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-11-04T21:52:26.183Z
+ * TimeStamp: 2021-03-26T20:56:01.636Z
  */
 public class AddtoSuperfileResponseWrapper
 {
@@ -34,7 +34,7 @@ public class AddtoSuperfileResponseWrapper
 
 	public AddtoSuperfileResponseWrapper() {}
 
-	public AddtoSuperfileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse addtosuperfileresponse)
+	public AddtoSuperfileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse addtosuperfileresponse)
 	{
 		copy( addtosuperfileresponse );
 	}
@@ -47,7 +47,7 @@ public class AddtoSuperfileResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -66,9 +66,9 @@ public class AddtoSuperfileResponseWrapper
 	{
 		return "AddtoSuperfileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "subfiles = " + local_subfiles + ", " + "backToPage = " + local_backToPage + ", " + "subfileNames = " + local_subfileNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse();
 		raw.setSubfiles( local_subfiles);
 		raw.setBackToPage( local_backToPage);
 		return raw;

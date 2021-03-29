@@ -219,6 +219,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

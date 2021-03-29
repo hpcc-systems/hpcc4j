@@ -22,7 +22,7 @@ public class ArrayOfXRefNodeWrapper
     {
         nodes = new ArrayList<XRefNodeWrapper>();
 
-        if (response != null)
+        if (response != null && !response.isEmpty())
         {
             try
             {

@@ -20,43 +20,43 @@ import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.AddtoSuperfileResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFUActionInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUActionInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUArrayActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUArrayActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUArrayActions;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileAccessResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileAccessV2Request;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileCreateResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileCreateV2Request;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePublishRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePublishResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileViewRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileViewResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetFileMetaDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUGetFileMetaDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUInfoRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUSearchDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUSearchDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspStringArray;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileListRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SuperfileListResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuPingRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuStub;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessV2Request;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileCreateResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileCreateV2Request;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePublishRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePublishResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetFileMetaDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetFileMetaDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub;
 
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -65,6 +65,8 @@ import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
@@ -79,6 +81,10 @@ import org.w3c.dom.NodeList;
 
 /**
  * Provides soap client for HPCC WsDFU web service.
+ *
+ */
+/**
+ * @author PastraRX
  *
  */
 public class HPCCWsDFUClient extends BaseHPCCWsClient
@@ -255,7 +261,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             if (targetHPCCBuildVersion != null)
             {
                 stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetHPCCBuildVersion);
-                stub = stubwrapper.get1_56Stub(null);
+                stub = stubwrapper.get1_57Stub(null);
             }
             else
                 throw new Exception("Cannot initialize HPCCWsDFUStub without valid HPCC version object");
@@ -985,7 +991,44 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         return logicalfiles;
     }
 
+
     /**
+     * Return wrapped response from WsDFU DFUSearchData method requests.
+     *
+     * @param DFUSearchDataRequestWrapper
+     * @return
+     * @throws Exception
+     * @throws ArrayOfEspExceptionWrapper
+     */
+    public DFUSearchDataResponseWrapper getDFUData(DFUSearchDataRequestWrapper req) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        if (req == null)
+            throw new Exception("DFUSearchDataRequesWrapper cannot be null!");
+
+        DFUSearchDataResponse resp = null;
+
+        try
+        {
+            resp = ((WsDfuStub) stub).dFUSearchData(req.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWsDFUClient.getDFUData(...) encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform getDFUData");
+        }
+
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not getDFUData");
+
+        return new DFUSearchDataResponseWrapper(resp);
+    }
+
+    /**
+     * Deprecated - use DFUSearchDataResponseWrapper getDFUData(DFUSearchDataRequestWrapper req) instead
      * Return raw response from WsDFU DFUSearchData method requests.
      *
      * @param openLogicalName
@@ -1008,6 +1051,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @Deprecated
     public DFUSearchDataResponse getDFUData(String openLogicalName, String cluster, boolean roxieSelections, int chooseFile, int count,
             boolean schemaOnly, long startIndex) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1974,6 +2018,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

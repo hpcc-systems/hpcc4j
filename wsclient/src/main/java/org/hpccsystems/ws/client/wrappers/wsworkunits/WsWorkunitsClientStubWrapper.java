@@ -50,9 +50,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         this.connection = conn;
         this.platformVersion = targetVersion;
 
-        if (useVersion1_79())
+        if (useVersion1_81())
         {
-            versionedStub = new WsWorkunitsClientStub1_79(connection);
+            versionedStub = new WsWorkunitsClientStub1_81(connection);
         }
         else if (useVersion1_69())
         {
@@ -68,7 +68,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         }
         else
         {
-            throw new UnsupportedOperationException("Can only handle cluster versions 6 and 7, not version " + String.valueOf(platformVersion.getMajor()));
+            throw new UnsupportedOperationException("Encountered unsupported HPCC version: " + String.valueOf(platformVersion.getMajor()));
         }
     }
 
@@ -103,13 +103,13 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
     }
     /**
-     * Use version 1 79.
+     * Use version 1_81.
      *
      * @return true, if successful
      */
-    private boolean useVersion1_79()
+    private boolean useVersion1_81()
     {
-        return platformVersion.getMajor() == 7 && (platformVersion.getMinor() == 0 || platformVersion.getMinor() >= 2);
+        return platformVersion.getMajor() >= 7;
     }
 
     /**
@@ -177,18 +177,18 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      * @return the latest
      * @throws AxisFault axis fault exception
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub getLatestStub() throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WsWorkunitsStub getLatestStub() throws AxisFault
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WsWorkunitsStub(
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WsWorkunitsStub(
                 connection.getBaseUrl() + HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
 
         return stub;
     }
 
     /**
-     * Gets the 1 56 fallback stub.
+     * Gets the 1_56 fallback stub.
      *
-     * @return the 1 56 fallback stub
+     * @return the 1_56 fallback stub
      * @throws Exception
      *             the exception
      */

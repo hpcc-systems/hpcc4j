@@ -17,7 +17,7 @@
 
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileCopy;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileCopy;
 
 public class DFUFileCopyWrapper
 {

@@ -23,7 +23,7 @@ public class ECLGraphWrapper
      * @param raw
      *            the raw
      */
-    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph raw)
+    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph raw)
     {
         if (raw==null)
         {
@@ -141,7 +141,7 @@ public class ECLGraphWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph getRaw()
     {
         return getRawLatestVersion();
     }
@@ -151,10 +151,10 @@ public class ECLGraphWrapper
      *
      * @return the raw version 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph result =
-                        new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph result =
+                        new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph();
 
         result.setComplete(this.getComplete());
         result.setFailed(this.getFailed());
