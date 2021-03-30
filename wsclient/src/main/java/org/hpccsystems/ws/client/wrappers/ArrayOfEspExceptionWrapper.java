@@ -332,6 +332,23 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException arrayofespexception)
+    {
+        if (arrayofespexception != null)
+        {
+            this.source = arrayofespexception.getSource();
+            org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException[] exceptionarray = arrayofespexception.getException();
+            if (exceptionarray != null)
+            {
+                this.exceptions = new ArrayList<BaseExceptionWrapper>();
+                for (int i = 0; i < exceptionarray.length; i++)
+                {
+                    this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
+                }
+            }
+        }
+    }
+
     /**
      * Copy.
      *

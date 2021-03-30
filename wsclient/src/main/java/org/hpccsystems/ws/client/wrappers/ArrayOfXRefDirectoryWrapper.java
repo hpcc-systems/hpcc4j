@@ -1,0 +1,73 @@
+package org.hpccsystems.ws.client.wrappers;
+
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class ArrayOfXRefDirectoryWrapper
+{
+    private List<XRefDirectoryWrapper> directories = null;
+    private String cluster = null;
+    private final static String CLUSTER_TAG = "Cluster";
+    private final static String DIRECTORY_TAG = "Directory";
+
+    public ArrayOfXRefDirectoryWrapper(String wsdfuxrefresponse)
+    {
+        directories = new ArrayList<XRefDirectoryWrapper>();
+        if (wsdfuxrefresponse != null)
+        {
+            try
+            {
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+                Document doc = dBuilder.parse(new ByteArrayInputStream(wsdfuxrefresponse.getBytes("UTF-8")));
+                NodeList xrefnodelist = doc.getElementsByTagName(CLUSTER_TAG);
+                if (xrefnodelist.getLength() > 0)
+                {
+                    cluster = xrefnodelist.item(0).getTextContent();
+                }
+
+                xrefnodelist = doc.getElementsByTagName(DIRECTORY_TAG);
+
+                for (int index = 0; index < xrefnodelist.getLength(); index++)
+                {
+                    Node currentNode = xrefnodelist.item(index);
+                    directories.add(new XRefDirectoryWrapper(currentNode));
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<XRefDirectoryWrapper> getDirectories()
+    {
+        return directories;
+    }
+
+    public void addDirectory(XRefDirectoryWrapper dir)
+    {
+        directories.add(dir);
+    }
+
+    @Override
+    public String toString()
+    {
+        String out = "Cluster: "+ cluster + "\nDirectories:\n";
+        for (XRefDirectoryWrapper xRefDirectoryWrapper : directories)
+        {
+            out += "\t" + xRefDirectoryWrapper.toString() + "\n";
+        }
+        return out;
+    }
+}
