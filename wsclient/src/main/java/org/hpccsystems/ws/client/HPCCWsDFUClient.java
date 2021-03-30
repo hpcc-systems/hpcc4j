@@ -17,7 +17,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -734,12 +733,12 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         // attempt to add additional info in from ecl record
         try
         {
-            if (eclrecord != null && !StringUtils.isEmpty(eclrecord))
+            if (eclrecord != null && !eclrecord.isEmpty())
             {
                 EclRecordWrapper recinfo = DFUFileDetailWrapper.getRecordEcl(eclrecord);
                 if (recinfo.getParseErrors().size() > 0)
                 {
-                    throw new Exception(StringUtils.join(recinfo.getParseErrors(), "\n"));
+                    throw new Exception(String.join("\n", recinfo.getParseErrors()));
                 }
                 if (recinfo.getRecordsets().size() > 0 && recinfo.getRecordsets().containsKey(EclRecordWrapper.UNNAMED)
                         && recinfo.getRecordsets().get(EclRecordWrapper.UNNAMED).getChildColumns().size() == cols.size())

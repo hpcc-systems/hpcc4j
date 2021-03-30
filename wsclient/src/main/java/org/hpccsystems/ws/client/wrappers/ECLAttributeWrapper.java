@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckinAttributeRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckoutAttributeRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CreateAttribute;
@@ -581,7 +580,7 @@ public class ECLAttributeWrapper
      */
     private String checkitem(String val, String label) throws Exception
     {
-        if (StringUtils.isEmpty(val))
+        if (val == null || val.isEmpty())
         {
             return label + " is required";
         }
@@ -611,11 +610,11 @@ public class ECLAttributeWrapper
         {
             errs.add(res);
         }
-        if (StringUtils.isEmpty(text))
+        if (text == null || text.isEmpty())
         {
             errs.add("Ecl is required");
         }
-        if (StringUtils.isEmpty(type))
+        if (type == null || type.isEmpty())
         {
             errs.add("attribute type is required");
         }
@@ -625,7 +624,7 @@ public class ECLAttributeWrapper
         }
         if (errs.size() > 0)
         {
-            throw new Exception(StringUtils.join(errs, "\n"));
+            throw new Exception(String.join("\n", errs));
         }
     }
 

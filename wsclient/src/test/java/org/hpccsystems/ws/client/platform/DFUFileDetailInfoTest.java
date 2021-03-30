@@ -23,7 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.platform.test.data.ECLRecords;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
@@ -54,7 +53,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.WITH_ANNOTATION);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -74,7 +73,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.FULL_RECORD);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -111,7 +110,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.WITH_ANNOTATION_NO_PARAMS);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -129,7 +128,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.WITH_ANNOTATION_AND_COMMENT);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -148,7 +147,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.WITH_ANNOTATION_MULTI_PARAMS);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -169,7 +168,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.WITH_COMMENT);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -185,7 +184,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.INLINE_WITH_MAXLENGTH);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -200,7 +199,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.WITH_ANNOTATION_LIKE_COMMENT);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -216,7 +215,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.ML_WITH_ANNOTATION);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -235,7 +234,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.ML_WITH_ANNOTATION_AND_COMMENT);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -253,7 +252,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.ML_WITH_ANNOTATION_MULTI_PARAMS);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed get multi-annotated recordset:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed get multi-annotated recordset:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -274,7 +273,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.ML_WITH_COMMENT);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed get ml with comment test:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed get ml with comment test:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -289,7 +288,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.ML_WITH_ANNOTATION_LIKE_COMMENT);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed get record with annotation comment:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed get record with annotation comment:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -304,7 +303,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.ML_INLINE);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed get ml inline test:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed get ml inline test:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -324,7 +323,7 @@ public class DFUFileDetailInfoTest
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ECLRecords.MAXLENGTH);
         if (info.getParseErrors().size()!=0)
         {
-            fail("Failed get maxlength test:" + StringUtils.join(info.getParseErrors(),"\n"));
+            fail("Failed get maxlength test:" + String.join("\n",info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -347,7 +346,7 @@ public class DFUFileDetailInfoTest
             EclRecordWrapper rec=DFUFileDetailWrapper.getRecordFromECL(item.getValue());
             if (rec.getParseErrors().size()!=0)
             {                
-                System.out.println(item.getKey() + " FAILED:" + StringUtils.join(rec.getParseErrors(),"\n"));
+                System.out.println(item.getKey() + " FAILED:" + String.join("\n",rec.getParseErrors()));
                 passed=false;
             }
             else
