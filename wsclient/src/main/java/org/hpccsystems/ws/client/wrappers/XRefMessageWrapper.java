@@ -5,6 +5,9 @@ import org.w3c.dom.NodeList;
 
 public class XRefMessageWrapper
 {
+    private final static String TEXT_TAG = "text";
+    private final static String FILE_TAG = "file";
+
     protected String text = null;
     protected String file = null;
     protected String type = null;
@@ -56,11 +59,11 @@ public class XRefMessageWrapper
                 {
                     Node childNode = currentChildren.item(childindex);
                     String tagName = childNode.getNodeName();
-                    if (tagName.equalsIgnoreCase("text"))
+                    if (tagName.equalsIgnoreCase(TEXT_TAG))
                     {
                         setText(childNode.getTextContent());
                     }
-                    else if (tagName.equalsIgnoreCase("file"))
+                    else if (tagName.equalsIgnoreCase(FILE_TAG))
                     {
                         setFile(childNode.getTextContent());
                     }

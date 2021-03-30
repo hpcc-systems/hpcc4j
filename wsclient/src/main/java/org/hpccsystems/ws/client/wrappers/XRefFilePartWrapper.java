@@ -5,6 +5,9 @@ import org.w3c.dom.NodeList;
 
 public class XRefFilePartWrapper
 {
+    private final static String NODE_TAG = "Node";
+    private final static String NUM_TAG = "Num";
+
     private int num;
     private String node;
 
@@ -23,11 +26,11 @@ public class XRefFilePartWrapper
                 Node partChildNode = currentPartChildren.item(partschildrenindex);
                 String childtagName = partChildNode.getNodeName();
 
-                if (childtagName.equalsIgnoreCase("Num"))
+                if (childtagName.equalsIgnoreCase(NUM_TAG))
                 {
                     setNum(Integer.valueOf(partChildNode.getTextContent()));
                 }
-                else if (childtagName.equalsIgnoreCase("Node"))
+                else if (childtagName.equalsIgnoreCase(NODE_TAG))
                 {
                     setNode(partChildNode.getTextContent());
                 }

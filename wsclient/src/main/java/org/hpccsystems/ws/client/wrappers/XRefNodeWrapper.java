@@ -5,6 +5,10 @@ import org.w3c.dom.NodeList;
 
 public class XRefNodeWrapper
 {
+    private final static String NAME_TAG = "name";
+    private final static String STATUS_TAG = "status";
+    private final static String MODIFIED_TAG = "modified";
+
     protected String name = null;
     protected String modified = null;
     protected String status = null;
@@ -63,15 +67,15 @@ public class XRefNodeWrapper
                 {
                     Node childNode = currentChildren.item(childindex);
                     String tagName = childNode.getNodeName();
-                    if (tagName.equalsIgnoreCase("name"))
+                    if (tagName.equalsIgnoreCase(NAME_TAG))
                     {
                         setName(childNode.getTextContent());
                     }
-                    else if (tagName.equalsIgnoreCase("status"))
+                    else if (tagName.equalsIgnoreCase(STATUS_TAG))
                     {
                         setStatus(childNode.getTextContent());
                     }
-                    else if (tagName.equalsIgnoreCase("modified"))
+                    else if (tagName.equalsIgnoreCase(MODIFIED_TAG))
                     {
                         setModified(childNode.getTextContent());
                     }

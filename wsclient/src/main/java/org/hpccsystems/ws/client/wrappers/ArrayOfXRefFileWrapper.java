@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 
 public class ArrayOfXRefFileWrapper
 {
+    private final static String FILE_TAG = "File";
     private List<XRefFileWrapper> files = null;
 
     public ArrayOfXRefFileWrapper(String wsdfuxrefresp)
@@ -27,9 +28,7 @@ public class ArrayOfXRefFileWrapper
 
                 Document doc = dBuilder.parse(new ByteArrayInputStream(wsdfuxrefresp.getBytes("UTF-8")));
 
-                //NodeList xrefnodes = doc.getElementsByTagName("Orphans");
-                //if (xrefnodes.getLength() > 0)
-                NodeList xrefnodelist = doc.getElementsByTagName("File");
+                NodeList xrefnodelist = doc.getElementsByTagName(FILE_TAG);
                 for (int index = 0; index < xrefnodelist.getLength(); index++)
                 {
                     files.add(new XRefFileWrapper(xrefnodelist.item(index)));

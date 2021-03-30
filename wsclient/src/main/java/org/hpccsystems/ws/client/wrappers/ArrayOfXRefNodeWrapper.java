@@ -13,6 +13,9 @@ import org.w3c.dom.NodeList;
 
 public class ArrayOfXRefNodeWrapper
 {
+    private final static String NODES_TAG = "XRefNodes";
+    private final static String NODE_TAG = "XRefNode";
+
     protected List<XRefNodeWrapper> nodes = null;
 
     public ArrayOfXRefNodeWrapper (String response)
@@ -28,15 +31,15 @@ public class ArrayOfXRefNodeWrapper
 
                 Document doc = dBuilder.parse(new ByteArrayInputStream(response.getBytes("UTF-8")));
 
-                NodeList xrefnodes = doc.getElementsByTagName("XRefNodes");
+                NodeList xrefnodes = doc.getElementsByTagName(NODES_TAG);
                 if (xrefnodes.getLength() > 0)
                 {
-                    NodeList xrefnodelist = doc.getElementsByTagName("XRefNode");
-
+                    NodeList xrefnodelist = xrefnodes.item(0).getChildNodes(); //we're only going to work on the first xrefnodes element
                     for (int index = 0; index < xrefnodelist.getLength(); index++)
                     {
                         Node currentNode = xrefnodelist.item(index);
-                        nodes.add(new XRefNodeWrapper(currentNode));
+                        if (currentNode.getNodeName().equals(NODE_TAG))
+                            nodes.add(new XRefNodeWrapper(currentNode));
                     }
                 }
             }
