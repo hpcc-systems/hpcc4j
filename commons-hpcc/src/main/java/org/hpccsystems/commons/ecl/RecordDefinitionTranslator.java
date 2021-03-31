@@ -55,6 +55,15 @@ public class RecordDefinitionTranslator
     final private static int    type_varunicode       = 33;
     final private static int    type_utf8             = 41;
 
+    // FNoInitializer,                 // 0 means no initialiser - not a special virtual initialiser
+    // FVirtualFilePosition,
+    // FVirtualLocalFilePosition,
+    // FVirtualFilename,
+    // FVirtualRowSize,
+    // FVirtualLimit = 25
+
+    final private static int    FVirtualLocalFilePosition = 2;
+
     // These types need to be revised
     final private static int    type_char             = 11;         // Convert to string
     final private static int    type_qstring          = 30;         // Convert to string
@@ -80,8 +89,9 @@ public class RecordDefinitionTranslator
             case type_biasedswapint:
             case type_keyedint:
             case type_int:
-            case type_filepos:
                 return FieldType.INTEGER;
+            case type_filepos:
+                return FieldType.FILEPOS;
             case type_real:
                 return FieldType.REAL;
             case type_decimal:
@@ -284,6 +294,20 @@ public class RecordDefinitionTranslator
 
                 return root + field.getDataLen();
             }
+            case FILEPOS:
+            {
+                if (field.isUnsigned() == false)
+                {
+                    throw new Exception("Error: Filepos must be unsigned"); 
+                }
+
+                if (field.getDataLen() != 8)
+                {
+                    throw new Exception("Error: Unsupported filepos size: " + field.getDataLen() + " must be 8.");
+                }
+
+                return "UNSIGNED8";
+            }
             case DECIMAL:
             {
                 String root = "DECIMAL";
@@ -370,7 +394,13 @@ public class RecordDefinitionTranslator
                 for (int i = 0; i < field.getNumDefs(); i++)
                 {
                     FieldDef childField = field.getDef(i);
-                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " " + childField.getFieldName() + ";\n";
+                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " " + childField.getFieldName();
+                    if (childField.getFieldType() == FieldType.FILEPOS)
+                    {
+                        definition += " {virtual(fileposition)}";
+                    }
+
+                    definition += ";\n";
                 }
                 definition += "END;\n";
 
@@ -474,6 +504,11 @@ public class RecordDefinitionTranslator
             case BOOLEAN:
             {
                 typeID = type_boolean;
+                break;
+            }
+            case FILEPOS:
+            {
+                typeID = type_filepos | FLAG_UNSIGNED;
                 break;
             }
             case INTEGER:
@@ -652,6 +687,13 @@ public class RecordDefinitionTranslator
                 int childTypeIndex = typeDefinitionMap.get(childTypeHash);
                 String childTypeName = "ty" + (childTypeIndex + 1);
                 typeDef.put("child", childTypeName);
+                break;
+            }
+            case FILEPOS:
+            {
+                typeDef.put("fieldType", typeID);
+                typeDef.put("length", field.getDataLen());
+                typeDef.put("vinit", FVirtualLocalFilePosition);
                 break;
             }
             case BOOLEAN:

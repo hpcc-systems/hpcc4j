@@ -28,6 +28,8 @@ public enum FieldType implements Serializable
 {
     INTEGER (
             true, "Integer", false
+    ), FILEPOS (
+            true , "Filepos", false
     ), REAL (
             true, "Real", false
     ), DECIMAL (
