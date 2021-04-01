@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-11-04T21:52:26.439Z
+ * TimeStamp: 2021-03-26T20:56:01.876Z
  */
 public class ExceptionsWrapper
 {
@@ -31,7 +31,7 @@ public class ExceptionsWrapper
 
 	public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.Exceptions exceptions)
+	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.Exceptions exceptions)
 	{
 		copy( exceptions );
 	}
@@ -41,7 +41,7 @@ public class ExceptionsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.Exceptions raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.Exceptions raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class ExceptionsWrapper
 	{
 		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.Exceptions getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.Exceptions getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.Exceptions();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.Exceptions();
 		return raw;
 	}
 

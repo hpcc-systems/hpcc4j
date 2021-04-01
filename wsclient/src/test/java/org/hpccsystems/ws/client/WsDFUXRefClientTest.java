@@ -1,15 +1,11 @@
 package org.hpccsystems.ws.client;
 
-import java.util.List;
-
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefMessageWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefNodeWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesResponseWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.UnusedFiles_type0Wrapper;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -45,6 +41,7 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     @Test
     public void testDFUPing()
     {
+        System.out.println("Testing XREFPING...");
         try
         {
             Assert.assertTrue(wsdfuxrefclient.ping());
@@ -62,8 +59,27 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testXRefList()
+    public void A1_testXRefBuild()
     {
+        System.out.println("Testing XREFBUILD...");
+        Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
+        Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
+
+        try
+        {
+            wsdfuxrefclient.build(WsDFUXRefClientTest.processCluster);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void A2_testXRefList()
+    {
+        System.out.println("Testing XREFLIST...");
         Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
 
         try
@@ -83,6 +99,7 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     @Test
     public void testDirectories()
     {
+        System.out.println("Testing XREFDIRECTORIES...");
         Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
@@ -99,57 +116,9 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void A1_testXRefBuild()
-    {
-        Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
-        Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
-
-        try
-        {
-            wsdfuxrefclient.build(WsDFUXRefClientTest.processCluster);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail();
-        }
-    }
-
-    @Test
-    public void Z9_testXRefBuildCancel()
-    {
-        Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
-
-        try
-        {
-            wsdfuxrefclient.buildCancel();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail();
-        }
-    }
-
-    @Test
-    public void testCleanDirectories()
-    {
-        Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
-
-        try
-        {
-            wsdfuxrefclient.cleanDirectories(WsDFUXRefClientTest.processCluster);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail();
-        }
-    }
-
-    @Test
     public void testFoundFiles()
     {
+        System.out.println("Testing XREFFOUNDFILES...");
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -168,6 +137,7 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     @Test
     public void testLostFiles()
     {
+        System.out.println("Testing XREFLOSTFILES...");
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -188,6 +158,7 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     @Test
     public void testXRefMessages()
     {
+        System.out.println("Testing XREFMESSAGES...");
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -206,6 +177,7 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     @Test
     public void testOrphanedFiles()
     {
+        System.out.println("Testing XREFORPHANEDFILES...");
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -222,26 +194,46 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
         }
     }
 
+// Server side doesn't behave as other methods - not including in our tests
+//  https://track.hpccsystems.com/browse/HPCC-25622
+//    @Test
+//    public void testUnusedFiles()
+//    {
+//        System.out.println("Testing XREFUNUSEDFILES...");
+//        Assume.assumeNotNull("Aborting testUnusedFiles", roxieClusterGroup);
+//        Assume.assumeFalse("Aborting testUnusedFiles", roxieClusterGroup.isEmpty());
+//
+//        try
+//        {
+//            DFUXRefUnusedFilesResponseWrapper resp = wsdfuxrefclient.unusedFiles(roxieClusterGroup, null, null); //only works on Roxy clusters?
+//            Assert.assertNotNull(resp);
+//            System.out.println("Unused Files (" + resp.getUnusedFileCount() + "):");
+//            if (resp.getExceptions() != null && resp.getExceptions().getException().size() > 0)
+//                System.out.println("Exceptions encountered: " + resp.getExceptions().getException().toString());
+//            UnusedFiles_type0Wrapper files = resp.getUnusedFiles();
+//            Assert.assertNotNull(files);
+//            List<String> filenames = files.getFile();
+//            for (String filename : filenames)
+//            {
+//                System.out.println(filename);
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//            Assert.fail();
+//        }
+//    }
+
     @Test
-    public void testUnusedFiles()
+    public void Z9_testXRefBuildCancel()
     {
-        Assume.assumeNotNull("Aborting testUnusedFiles", WsDFUXRefClientTest.processCluster);
-        Assume.assumeFalse("Aborting testUnusedFiles", WsDFUXRefClientTest.processCluster.isEmpty());
+        System.out.println("Testing XREFBUILDCANCEL...");
+        Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
         {
-            DFUXRefUnusedFilesResponseWrapper resp = wsdfuxrefclient.unusedFiles(WsDFUXRefClientTest.processCluster, null, null);
-            Assert.assertNotNull(resp);
-            System.out.println("Unused Files (" + resp.getUnusedFileCount() + "):");
-            if (resp.getExceptions() != null && resp.getExceptions().getException().size() > 0)
-                System.out.println("Exceptions encountered: " + resp.getExceptions().getException().toString());
-            UnusedFiles_type0Wrapper files = resp.getUnusedFiles();
-            Assert.assertNotNull(files);
-            List<String> filenames = files.getFile();
-            for (String filename : filenames)
-            {
-                System.out.println(filename);
-            }
+            wsdfuxrefclient.buildCancel();
         }
         catch (Exception e)
         {
@@ -249,4 +241,22 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
             Assert.fail();
         }
     }
+
+    @Test
+    public void testCleanDirectories()
+    {
+        System.out.println("Testing XREFCLEANDIRECTORIES...");
+        Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
+
+        try
+        {
+            wsdfuxrefclient.cleanDirectories(WsDFUXRefClientTest.processCluster);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
 }

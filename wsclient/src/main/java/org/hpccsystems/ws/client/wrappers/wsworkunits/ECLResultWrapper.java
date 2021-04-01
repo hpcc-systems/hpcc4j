@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLResult;
 
 public class ECLResultWrapper
 {
@@ -116,14 +116,14 @@ public class ECLResultWrapper
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the raw version 1_81.
      *
-     * @return the raw version 1 79
+     * @return the raw version 1_81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLResult getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLResult raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLResult();
 
         raw.setFileName(this.getFilename());
         raw.setIsSupplied(this.getIsSupplied());
@@ -142,7 +142,7 @@ public class ECLResultWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLResult getRaw()
     {
         return getRawLatestVersion();
     }

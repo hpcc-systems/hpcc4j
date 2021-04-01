@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUActionInfo;
 
 public class DFUResultWrapper
 {

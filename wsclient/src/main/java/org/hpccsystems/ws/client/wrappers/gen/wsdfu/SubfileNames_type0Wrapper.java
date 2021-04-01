@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SubfileNames_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SubfileNames_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SubfileNames_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-11-04T21:52:26.475Z
+ * TimeStamp: 2021-03-26T20:56:01.910Z
  */
 public class SubfileNames_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class SubfileNames_type0Wrapper
 
 	public SubfileNames_type0Wrapper() {}
 
-	public SubfileNames_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SubfileNames_type0 subfilenames_type0)
+	public SubfileNames_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SubfileNames_type0 subfilenames_type0)
 	{
 		copy( subfilenames_type0 );
 	}
@@ -43,7 +43,7 @@ public class SubfileNames_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SubfileNames_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SubfileNames_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class SubfileNames_type0Wrapper
 	{
 		return "SubfileNames_type0Wrapper [" + "subfileName = " + local_subfileName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SubfileNames_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SubfileNames_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SubfileNames_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.SubfileNames_type0();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SubfileNames_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SubfileNames_type0();
 		if (this.local_subfileName!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_subfileName.size()];

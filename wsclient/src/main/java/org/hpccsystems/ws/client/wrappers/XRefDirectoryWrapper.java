@@ -34,23 +34,26 @@ public class XRefDirectoryWrapper
 
     public XRefDirectoryWrapper(String wsdfuxrefresp)
     {
-        try
+        if (wsdfuxrefresp != null && !wsdfuxrefresp.isEmpty())
         {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
-            Document doc = dBuilder.parse(new ByteArrayInputStream(wsdfuxrefresp.getBytes("UTF-8")));
-
-            NodeList xrefnodelist = doc.getElementsByTagName(DIRECTORY_TAG);
-
-            if (xrefnodelist.getLength() > 0)
+            try
             {
-                populateDirectory(xrefnodelist.item(0));
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+                Document doc = dBuilder.parse(new ByteArrayInputStream(wsdfuxrefresp.getBytes("UTF-8")));
+
+                NodeList xrefnodelist = doc.getElementsByTagName(DIRECTORY_TAG);
+
+                if (xrefnodelist.getLength() > 0)
+                {
+                    populateDirectory(xrefnodelist.item(0));
+                }
             }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue;
 
 public class ApplicationValueWrapper
 {
@@ -162,13 +162,13 @@ public class ApplicationValueWrapper
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the raw version 1 81.
      *
-     * @return the raw version 1 79
+     * @return the raw version 1 81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue val = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue val = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue();
         val.setApplication(this.getApplication());
         val.setName(this.getName());
         val.setValue(this.getValue());

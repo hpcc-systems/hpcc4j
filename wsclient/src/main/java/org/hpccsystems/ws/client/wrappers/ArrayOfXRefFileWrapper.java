@@ -19,7 +19,7 @@ public class ArrayOfXRefFileWrapper
     {
         files = new ArrayList<XRefFileWrapper>();
 
-        if (wsdfuxrefresp != null)
+        if (wsdfuxrefresp != null && !wsdfuxrefresp.isEmpty())
         {
             try
             {

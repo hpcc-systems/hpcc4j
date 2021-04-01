@@ -3,11 +3,11 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfDebugValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfDebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreateAndUpdate;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
 
@@ -15,51 +15,28 @@ public class WUCreateAndUpdateWrapper
 {
 
     private String                        wuid;
-
     private Integer                       state;
-
     private Integer                       stateOrig;
-
     private String                        jobname;
-
     private String                        jobnameOrig;
-
     private String                        queryText;
-
     private Integer                       action;
-
     private String                        description;
-
     private String                        descriptionOrig;
-
     private boolean                       addDrilldownFields=false;
-
     private Integer                       resultLimit;
-
     private boolean                       _protected=false;
-
     private boolean                       protectedOrig=false;
-
     private Integer                       priorityClass;
-
     private Integer                       priorityLevel;
-
     private String                        scope;
-
     private String                        scopeOrig;
-
     private String                        clusterSelection;
-
     private String                        clusterOrig;
-
     private String                        xmlParams;
-
     private String                        thorSlaveIP;
-
     private String                        queryMainDefinition;
-
     private List<ApplicationValueWrapper> applicationValues = new ArrayList<ApplicationValueWrapper>();
-
     private List<DebugValueWrapper>       debugValues       = new ArrayList<DebugValueWrapper>();
 
     /**
@@ -382,7 +359,7 @@ public class WUCreateAndUpdateWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreateAndUpdate getRaw()
     {
         return getRawLatestVersion();
     }
@@ -610,13 +587,13 @@ public class WUCreateAndUpdateWrapper
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the raw version 1 81.
      *
-     * @return the raw version 1 79
+     * @return the raw version 1 81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreateAndUpdate getRawLatestVersion()
     {
-        WUCreateAndUpdate request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreateAndUpdate();
+        WUCreateAndUpdate request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreateAndUpdate();
 
         if (_protected) request.setProtected(_protected);
         if (action != null) request.setAction(action);
@@ -719,7 +696,7 @@ public class WUCreateAndUpdateWrapper
      * @param debugValues
      *            the debugValues to set
      */
-    public void setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue[] debugValues)
+    public void setDebugValues(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue[] debugValues)
     {
         this.debugValues.clear();
         if (debugValues == null)

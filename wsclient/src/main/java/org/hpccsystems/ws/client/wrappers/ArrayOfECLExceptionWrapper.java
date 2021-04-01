@@ -3,8 +3,8 @@ package org.hpccsystems.ws.client.wrappers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLException;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException;
 
 public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
 {
@@ -48,7 +48,7 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param eclExceptions
      *            the ecl exceptions
      */
-    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLException[] eclExceptions)
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException[] eclExceptions)
     {
         super();
         copy(eclExceptions);
@@ -270,7 +270,7 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
         ArrayOfECLException eclexceptions = new ArrayOfECLException();
         for (BaseExceptionWrapper ew : exceptions)
         {
-            eclexceptions.addECLException(((ECLExceptionWrapper) ew).getRawVersion1_79());
+            eclexceptions.addECLException(((ECLExceptionWrapper) ew).getRawVersion1_81());
         }
 
         return eclexceptions;

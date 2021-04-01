@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ThorLogInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ThorLogInfo;
 
 public class ThorLogInfoWrapper
 {
@@ -114,20 +114,20 @@ public class ThorLogInfoWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ThorLogInfo getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ThorLogInfo getRaw()
     {
         return getRawLatest();
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the raw version 1_81.
      *
-     * @return the raw version 1 79
+     * @return the raw version 1_81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ThorLogInfo getRawLatest()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ThorLogInfo getRawLatest()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ThorLogInfo raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ThorLogInfo();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ThorLogInfo raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ThorLogInfo();
 
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());

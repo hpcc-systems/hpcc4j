@@ -296,6 +296,100 @@ public class HPCCWsClient extends DataSingleton
     }
 
     /**
+     * Queries ECLWatch for containerized flag.
+     *
+     * @return
+     * @throws Exception
+     */
+    public boolean isContainerized() throws Exception
+    {
+        HPCCWsSMCClient wsSMCClient = getWsSMCClient();
+
+        try
+        {
+            return wsSMCClient.isContainerized();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    /**
+     * Gets the HPCCWsResourcesClient client.
+     *
+     * @param HPCCWsResourcesClient
+     *            the HPCCWsResourcesClient port
+     * @return provides HPCCWsResourcesClient on a port other than ECLWatch port.
+     */
+    public HPCCWsResourcesClient getHPCCWsResourcesClient(String wsresourcesport)
+    {
+        synchronized (connectionLock)
+        {
+            Connection tempConn = new Connection(connection.getProtocol(), connection.getHost(), wsresourcesport);
+            tempConn.setCredentials(connection.getUserName(), connection.getPassword());
+            return (HPCCWsResourcesClient) SubClients.get(HPCCWsResourcesClient.get(tempConn));
+        }
+    }
+
+    /**
+     * Gets the HPCCWsResourcesClient client.
+     *
+     * @return provides HPCCWsResourcesClient for direct method execution
+     */
+    public HPCCWsResourcesClient getHPCCWsResourcesClient()
+    {
+        return getHPCCWsResourcesClient(String.valueOf(HPCCWsResourcesClient.getServiceWSDLPort()));
+    }
+
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsCodeSignClient logic.
+     * @return Original WSDL version
+     */
+    public String getHPCCWsResourcesClientVer()
+    {
+        return Utils.parseVersionFromWSDLURL(HPCCWsResourcesClient.getServiceWSDLURL());
+    }
+
+    /**
+     * Gets the WsCodeSign client.
+     *
+     * @param WsCodeSign
+     *            the WsCodeSign port
+     * @return provides WsCodeSign on a port other than ECLWatch port.
+     */
+    public HPCCWsCodeSignClient getWsCodeSignClient(String codeSignPort)
+    {
+        synchronized (connectionLock)
+        {
+            Connection tempConn = new Connection(connection.getProtocol(), connection.getHost(), codeSignPort);
+            tempConn.setCredentials(connection.getUserName(), connection.getPassword());
+            return (HPCCWsCodeSignClient) SubClients.get(HPCCWsCodeSignClient.get(tempConn));
+        }
+    }
+
+    /**
+     * Gets the WsCodeSign client.
+     *
+     * @return provides WsCodeSign for direct method execution
+     */
+    public HPCCWsCodeSignClient getWsCodeSignClient()
+    {
+        return getWsCodeSignClient(String.valueOf(HPCCWsCodeSignClient.getServiceWSDLPort()));
+    }
+
+    /**
+     * Reports the version of the original WSDL used to create the HPCCWsCodeSignClient logic.
+     * @return Original WSDL version
+     */
+    public String getHPCCWsCodeSignClientVer()
+    {
+        return Utils.parseVersionFromWSDLURL(HPCCWsCodeSignClient.getServiceWSDLURL());
+    }
+
+    /**
      * Reports the version of the original WSDL used to create the HPCCWsAttributesClient logic.
      * @return Original WSDL version
      */

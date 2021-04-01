@@ -28,7 +28,7 @@ public class ArrayOfXRefMessageWrapper
     {
         messages = new ArrayList<XRefMessageWrapper>();
 
-        if (response != null)
+        if (response != null && !response.isEmpty())
         {
             try
             {
@@ -52,6 +52,7 @@ public class ArrayOfXRefMessageWrapper
                 }
 
                 xrefnodelist = doc.getElementsByTagName(CLUSTER_TAG);
+
                 if(xrefnodelist.getLength() > 0)
                     cluster = xrefnodelist.item(0).getTextContent();
 

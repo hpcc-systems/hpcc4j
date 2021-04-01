@@ -28,29 +28,28 @@ import org.hpccsystems.ws.client.platform.Version;
  */
 public class WsDFUClientStubWrapper
 {
-    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuStub stub1_56                     = null;
+    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub stub1_57                     = null;
     private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39                     = null;
-    private Version platformVersion;
     private String baseURL;
 
     /**
-     * Gets the 1 56 stub.
+     * Gets the 1_57 stub.
      *
      * @param opts
      *            the opts
-     * @return a lazy-loaded 1_39 soap proxy
+     * @return a lazy-loaded 1_57 soap proxy
      * @throws AxisFault
      *             the axis fault
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuStub get1_56Stub(Options opts) throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub get1_57Stub(Options opts) throws AxisFault
     {
-        if (stub1_56 == null)
+        if (stub1_57 == null)
         {
-            stub1_56 = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.WsDfuStub(baseURL);
+            stub1_57 = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub(baseURL);
             if (opts != null)
-                stub1_56._getServiceClient().setOptions(opts);
+                stub1_57._getServiceClient().setOptions(opts);
         }
-        return stub1_56;
+        return stub1_57;
     }
 
     /**
@@ -79,41 +78,10 @@ public class WsDFUClientStubWrapper
      * @param baseURL
      *            The URL of the cluster to connect to
      * @param platformVersion
-     *            the version of the cluster
+     *            the version of the cluster - not in use
      */
      public WsDFUClientStubWrapper(String baseURL, Version platformVersion)
     {
-        this.platformVersion=platformVersion;
         this.baseURL=baseURL;
-    }
-
-    /**
-     * Use version 1 39.
-     *
-     * @return true, if successful
-     */
-    public boolean useVersion1_39()
-    {
-        return platformVersion.getMajor() < 6 || platformVersion.getMinor()==7 && platformVersion.getMinor() == 0;
-    }
-
-    /**
-     * Use version 1 50.
-     *
-     * @return true, if successful
-     */
-    public boolean useVersion1_50()
-    {
-        return platformVersion.getMajor() == 7 && (platformVersion.getMinor() == 1 || platformVersion.getMinor() == 2);
-    }
-
-    /**
-     * Use version 1 51.
-     *
-     * @return true, if successful
-     */
-    public boolean useVersion1_51()
-    {
-        return platformVersion.getMajor() == 7 && platformVersion.getMinor() > 2;
     }
 }

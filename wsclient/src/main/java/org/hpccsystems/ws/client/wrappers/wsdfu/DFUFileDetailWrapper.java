@@ -16,10 +16,10 @@ import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.ArrayOfDFUFilePartsOnCluster;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 
