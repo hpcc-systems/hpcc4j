@@ -1,4 +1,5 @@
-HPCC Systems Distributed File Stream Client Project 
+HPCC Systems Distributed File Stream Client Project
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient/badge.svg?subject=dfsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient) [![javadoc](https://javadoc-badge.appspot.com/org.hpccsystems/dfsclient.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/dfsclient)
 =======================
 
 #### Description
