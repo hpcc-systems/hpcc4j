@@ -31,7 +31,7 @@
     information needed by HPCC to compile and execute an ECL query
     correctly.</para>
 
-    <programlisting> WorkunitInfo wu=new WorkunitInfo();
+    <programlisting> WorkunitInfo wu=new WorkunitInfo();!
  wu.setECL("output('Hello World');"); // The ECL to execute.
  wu.setCluster("mythor");             // This can be hardcoded to a known cluster, 
                                       // or can be selected from 
