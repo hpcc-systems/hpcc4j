@@ -49,11 +49,11 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
  * All actions supported treat HPCC Systems as a standard database system.
  * Supported actions include fetching HPCC 'database' metadata, tables, and stored procedures.
  * Client can submit SQL based queries, execute prepared SQL queries, fetch results, and more.
- *
  */
 public class HPCCWsSQLClient extends BaseHPCCWsClient
 {
     private static final Logger log                  = LogManager.getLogger(HPCCWsSQLClient.class);
+    /** Constant <code>WSSQLURI="/WsSQL"</code> */
     public static final String  WSSQLURI             = "/WsSQL";
     private static final int    DEFAULT_RESULT_LIMIT = 100;
     private static final String PINGSTATEMENT        = "HPCCWsSQLClient Greets you.";
@@ -222,7 +222,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -268,9 +268,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param filter
      *            the filter
      * @return the target clusters
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String[] getTargetClusters(String filter) throws Exception, ArrayOfEspExceptionWrapper
@@ -308,9 +308,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param filter
      *            the filter
      * @return the tables
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public HPCCTableWrapper[] getTables(String filter) throws Exception, ArrayOfEspExceptionWrapper
@@ -362,9 +362,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param querysetname
      *            the querysetname
      * @return the stored procedures
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public HPCCQuerySetWrapper[] getStoredProcedures(String querysetname) throws Exception, ArrayOfEspExceptionWrapper
@@ -482,11 +482,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param targetQuerySet
      *            the target query set
      * @return the string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public String executeSQLWUIDResponse(String sqlText, String targetCluster, String targetQuerySet)
@@ -521,11 +521,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param wait
      *            the wait
      * @return the execute SQL response wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit,
@@ -605,11 +605,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param wait
      *            the wait
      * @return the ECL workunit wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public ECLWorkunitWrapper executeSQLWUResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit,
@@ -631,11 +631,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param resultWindowCount
      *            the result window count
      * @return the results
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public List<List<Object>> getResults(String wuid, Integer resultWindowStart, Integer resultWindowCount)
@@ -656,11 +656,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param suppressXmlSchema
      *            the suppress xml schema
      * @return the result response
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public GetResultsResponseWrapper getResultResponse(String wuid, Integer resultWindowStart, Integer resultWindowCount, Boolean suppressXmlSchema)
@@ -713,11 +713,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param wuid
      *            the wuid
      * @return the result schema XML
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public String getResultSchemaXML(String wuid) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
@@ -731,11 +731,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param wuid
      *            the wuid
      * @return the result schema
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public List<List<Object>> getResultSchema(String wuid) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
@@ -755,11 +755,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param wait
      *            the wait
      * @return the ECL workunit wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public ECLWorkunitWrapper prepareSQL(String sqlText, String targetCluster, String targetQuerySet, Integer wait)
@@ -821,11 +821,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param userName
      *            the user name
      * @return the ECL workunit wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit,
@@ -852,11 +852,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param somesing
      *            the somesing
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit,
@@ -892,11 +892,11 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @param suppressResults
      *            the suppress results
      * @return the execute prepared SQL response wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public ExecutePreparedSQLResponseWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait,
@@ -960,6 +960,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {

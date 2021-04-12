@@ -47,7 +47,7 @@ public class AvroGenericRecordAccessor implements IRecordAccessor
     /**
      * Sets the record.
      *
-     * @param record
+     * @param rec
      *            the record
      * @return the i record accessor
      */

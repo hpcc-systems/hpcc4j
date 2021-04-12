@@ -37,10 +37,10 @@ import org.hpccsystems.ws.client.wrappers.gen.wssmc.GetBuildInfoResponseWrapper;
 
 /**
  * Use as soap client for HPCC WsSMC web service, also known as eclwatch
- *
  */
 public class HPCCWsSMCClient extends BaseHPCCWsClient
 {
+    /** Constant <code>WSSMCURI="/WsSMC"</code> */
     public static final String WSSMCURI           = "/WsSMC";
     private static int         DEFAULTSERVICEPORT = -1;
     private static String      WSDLURL            = null;
@@ -204,7 +204,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      * Gets the HPCC build.
      *
      * @return the HPCC build
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public String getHPCCBuild() throws Exception
@@ -243,11 +243,11 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         return build;
     }
 
-    /**
+   /**
     * Is target ECLWATCH running in container mode.
     *
     * @return true, if successful
-    * @throws Exception
+    * @throws java.lang.Exception
     *             the exception
     */
    public boolean isContainerized() throws Exception
@@ -292,7 +292,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      * GetBuildInfo.
      *
      * @return GetBuildInfoResponseWrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public GetBuildInfoResponseWrapper getBuildInfo() throws Exception
@@ -324,7 +324,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -351,6 +351,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {

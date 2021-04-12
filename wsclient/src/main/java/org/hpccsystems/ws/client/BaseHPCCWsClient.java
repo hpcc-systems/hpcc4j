@@ -34,13 +34,16 @@ import org.w3c.dom.Document;
 /**
  * Defines functionality common to all HPCC WS Clients.
  * Typically implemented by specific HPCC Web service clients.
- *
  */
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
+    /** Constant <code>log</code> */
     protected static final Logger log                    = LogManager.getLogger(BaseHPCCWsClient.class);
+    /** Constant <code>DEAFULTECLWATCHPORT="8010"</code> */
     public static final String    DEAFULTECLWATCHPORT    = "8010";
+    /** Constant <code>DEFAULTECLWATCHTLSPORT="18010"</code> */
     public static final String    DEFAULTECLWATCHTLSPORT = "18010";
+    /** Constant <code>DEFAULTSERVICEPORT="DEAFULTECLWATCHPORT"</code> */
     public static String          DEFAULTSERVICEPORT     = DEAFULTECLWATCHPORT;
 
     protected Connection          wsconn                 = null;
@@ -55,7 +58,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * Gets the default stub.
      *
      * @return the default stub
-     * @throws AxisFault
+     * @throws org.apache.axis2.AxisFault
      *             the axis fault
      */
     abstract public Stub getDefaultStub() throws AxisFault;
@@ -136,7 +139,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * @param stub
      *            the stub
      * @return the service WSDL port
-     * @throws MalformedURLException
+     * @throws java.net.MalformedURLException
      *             the malformed URL exception
      */
     public static int getServiceWSDLPort(Stub stub) throws MalformedURLException
@@ -158,7 +161,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * Gets the connection URL.
      *
      * @return the connection URL
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public URL getConnectionURL() throws Exception
@@ -225,7 +228,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * Object can be used to access the web service methods directly.
      *
      * @return the stub
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     protected Stub verifyStub() throws Exception
@@ -241,6 +244,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
      */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat)
     {
@@ -291,6 +295,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
      */
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -314,6 +319,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
      */
+    /** {@inheritDoc} */
     @Override
     protected boolean isComplete()
     {
@@ -326,6 +332,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
      */
+    /** {@inheritDoc} */
     @Override
     protected void fastRefresh()
     {
@@ -337,6 +344,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
      */
+    /** {@inheritDoc} */
     @Override
     protected void fullRefresh()
     {
@@ -348,7 +356,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @param millis
      *            the new stub connection TO
-     * @throws AxisFault
+     * @throws org.apache.axis2.AxisFault
      *             the axis fault
      */
     protected void setStubConnectionTO(int millis) throws AxisFault
@@ -364,7 +372,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * Gets the stub connection TO.
      *
      * @return the stub connection TO
-     * @throws AxisFault
+     * @throws org.apache.axis2.AxisFault
      *             the axis fault
      */
     protected Integer getStubConnectionTO() throws AxisFault
@@ -391,7 +399,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      * @param connection
      *            the connection
      * @return the stub
-     * @throws AxisFault
+     * @throws org.apache.axis2.AxisFault
      *             the axis fault
      */
     static public Stub setStubOptions(Stub thestub, Connection connection) throws AxisFault
@@ -441,7 +449,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @param e
      *            the e
-     * @throws EspSoapFaultWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper
      *             the esp soap fault wrapper
      */
     protected void handleEspSoapFaults(EspSoapFaultWrapper e) throws EspSoapFaultWrapper
@@ -456,7 +464,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *            the e
      * @param message
      *            the message
-     * @throws EspSoapFaultWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper
      *             the esp soap fault wrapper
      */
     protected void handleEspSoapFaults(EspSoapFaultWrapper e, String message) throws EspSoapFaultWrapper
@@ -477,7 +485,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *            the exp
      * @param message
      *            the message
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp, String message) throws ArrayOfEspExceptionWrapper
@@ -495,7 +503,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @param exp
      *            the exp
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     protected void handleEspExceptions(ArrayOfEspExceptionWrapper exp) throws ArrayOfEspExceptionWrapper
@@ -508,9 +516,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @param eclexceptions
      *            the eclexceptions
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclexceptions) throws Exception, ArrayOfECLExceptionWrapper
@@ -525,9 +533,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *            - the array of ECLException objects to throw
      * @param message
      *            - the prefix message
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     protected void handleECLExceptions(ArrayOfECLExceptionWrapper eclExceptions, String message) throws Exception, ArrayOfECLExceptionWrapper
@@ -566,17 +574,14 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     /**
      * All implementations must provide the target web service URI
-     * @return
+     *
+     * @return a {@link java.lang.String} object.
      */
     public abstract String getServiceURI();
 
     /**
      * Attempts to retrieve the default WSDL version of the target runtime ESP service
      * Appends the target ESP service path and the "version_" literal to the connection's base URL
-     *
-     * @param wsName - Target ESP service URI/path
-     * @return       - If successful, the default runtime WSDL version in double format
-     * @throws Exception
      */
     protected void loadESPRuntimeInterfaceVer()
     {
@@ -628,14 +633,13 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         }
     }
 
-     /**
+    /**
      *  Determine if target HPCC's build version is compatible with a given version.
      *
-     * @param major
-     * @param minor
-     * @param point
-     *
-     * @return boolean true if server build version >= input version
+     * @param major a int.
+     * @param minor a int.
+     * @param point a int.
+     * @return boolean true if server build version &gt;= input version
      */
     protected boolean compatibilityCheck(int major, int minor, int point)
     {
@@ -650,7 +654,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      *
      * @param input
      *            the input
-     * @return boolean true if server build version >= input version
+     * @return boolean true if server build version &gt;= input version
      */
     protected boolean compatibilityCheck(Version input)
     {

@@ -44,12 +44,12 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
  *
  * This client can be used for fetching topology information regarding the target HPCCSystem
  * of special interest are the cluster groups, and the target clusters within those groups.
- *
  */
 public class HPCCWsTopologyClient extends BaseHPCCWsClient
 {
     private static final Logger log                = LogManager.getLogger(HPCCWsTopologyClient.class);
     // public static final String WSTOPOLOGYWSDLURI = "/WsTopology/TpTargetClusterQuery";
+    /** Constant <code>WSTOPOLOGYWSDLURI="/WsTopology"</code> */
     public static final String  WSTOPOLOGYWSDLURI  = "/WsTopology";
 
     private static int          DEFAULTSERVICEPORT = -1;
@@ -219,9 +219,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param stream
      *            - Stream to print onto (System.out | System.err)
      * @return - Boolean, success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean printValidTargetClusters(PrintStream stream) throws Exception, ArrayOfEspExceptionWrapper
@@ -274,9 +274,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get full descriptions of all valid cluster groups on the target HPCC System.
      *
      * @return the valid target groups
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<TpTargetClusterWrapper> getValidTargetGroups() throws Exception, ArrayOfEspExceptionWrapper
@@ -315,9 +315,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get names of all available target clusters on the given HPCC System.
      *
      * @return the valid target group names
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String[] getValidTargetGroupNames() throws Exception, ArrayOfEspExceptionWrapper
@@ -363,9 +363,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param name
      *            - The target dropzone name
      * @return the tp drop zone wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public TpDropZoneWrapper queryDropzone(String name) throws Exception, ArrayOfEspExceptionWrapper
@@ -382,9 +382,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param namefilter
      *            - Empty for all dropzones, or specific dropzeon name
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<TpDropZoneWrapper> queryDropzones(String namefilter) throws Exception, ArrayOfEspExceptionWrapper
@@ -420,9 +420,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param name
      *            the name
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<TpMachineWrapper> queryDropzoneMachines(String name) throws Exception, ArrayOfEspExceptionWrapper
@@ -513,7 +513,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param clusterGroupType
      *            the cluster group type
      * @return the valid cluster names
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public String[] getValidClusterNames(String clusterGroupType) throws Exception
@@ -527,9 +527,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param clusterGroupType
      *            -- RoxieCluster, HoleCluster
      * @return the valid target cluster names
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String[] getValidTargetClusterNames(String clusterGroupType) throws Exception, ArrayOfEspExceptionWrapper
@@ -541,9 +541,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
      *
      * @return the valid target cluster names array
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String[] getValidTargetClusterNamesArray() throws Exception, ArrayOfEspExceptionWrapper
@@ -555,9 +555,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Get the names of all available target clusters (mythor, myroxie, etc.) from all cluster groups (hthor, thor, roxie, etc)
      *
      * @return the valid target cluster names
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<String> getValidTargetClusterNames() throws Exception, ArrayOfEspExceptionWrapper
@@ -575,9 +575,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Gets the services.
      *
      * @return the services
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public TpServicesWrapper getServices() throws Exception, ArrayOfEspExceptionWrapper
@@ -611,9 +611,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @param clusterName
      *            the cluster name
      * @return the cluster info
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public TpClusterInfoResponseWrapper getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
@@ -645,9 +645,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Gets the logical clusters.
      *
      * @return the logical clusters
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<TpLogicalClusterWrapper> getLogicalClusters() throws Exception, ArrayOfEspExceptionWrapper
@@ -681,7 +681,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -708,6 +708,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {

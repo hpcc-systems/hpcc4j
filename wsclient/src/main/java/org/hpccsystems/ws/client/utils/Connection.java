@@ -21,7 +21,6 @@ import org.apache.logging.log4j.Logger;
  *
  * Facilitates HPCC connectivity, provides several convenience methods such as credential encoding,
  * connection URL parsing, and others.
- *
  */
 public class Connection
 {
@@ -178,13 +177,20 @@ public class Connection
 
     private final static Logger log                           = LogManager.getLogger(Connection.class);
 
+    /** Constant <code>protDelimiter="://"</code> */
     public final static String  protDelimiter                 = "://";
+    /** Constant <code>portDelimiter=':'</code> */
     public final static char    portDelimiter                 = ':';
+    /** Constant <code>pathDelimiter='/'</code> */
     public final static char    pathDelimiter                 = '/';
+    /** Constant <code>firstOptDelimiter='?'</code> */
     public final static char    firstOptDelimiter             = '?';
+    /** Constant <code>subsequentOptDelimiter='&amp;'</code> */
     public final static char    subsequentOptDelimiter        = '&';
 
+    /** Constant <code>protHttp="http"</code> */
     public final static String  protHttp                      = "http";
+    /** Constant <code>protHttps="https"</code> */
     public final static String  protHttps                     = "https";
 
     private String              protocol;
@@ -199,14 +205,22 @@ public class Connection
     private StringBuffer        baseUrl;
     private StringBuffer        uriAndParams;
 
+    /** Constant <code>CONNECT_TIMEOUT_PARAM="connecttimeoutmillis"</code> */
     final static public String  CONNECT_TIMEOUT_PARAM         = "connecttimeoutmillis";
+    /** Constant <code>READ_TIMEOUT_PARAM="readtimeoutmillis"</code> */
     final static public String  READ_TIMEOUT_PARAM            = "readtimeoutmillis";
+    /** Constant <code>WRITE_TIMEOUT_PARAM="writetimeoutmillis"</code> */
     final static public String  WRITE_TIMEOUT_PARAM           = "writetimeoutmillis";
+    /** Constant <code>SOCKET_TIMEOUT_PARAM="sockettimeoutmillis"</code> */
     final static public String  SOCKET_TIMEOUT_PARAM          = "sockettimeoutmillis";
 
+    /** Constant <code>DEFAULT_CONNECT_TIMEOUT_MILLI=150000</code> */
     final static public int     DEFAULT_CONNECT_TIMEOUT_MILLI = 150000;
+    /** Constant <code>DEFAULT_SO_TIMEOUT_MILLI=150000</code> */
     final static public int     DEFAULT_SO_TIMEOUT_MILLI      = 150000;
+    /** Constant <code>DEFAULT_WRITE_TIMEOUT_MILLI=150000</code> */
     final static public int     DEFAULT_WRITE_TIMEOUT_MILLI   = 150000;
+    /** Constant <code>DEFAULT_READ_TIMEOUT_MILLI=180 * 1000</code> */
     final static public int     DEFAULT_READ_TIMEOUT_MILLI    = 180 * 1000;
     final static boolean        DEFAULT_MAINTAIN_SESSION      = true;
 
@@ -244,7 +258,7 @@ public class Connection
      *
      * @param connectionstring
      *            as defined by java.net.URL
-     * @throws MalformedURLException
+     * @throws java.net.MalformedURLException
      *             the malformed URL exception
      */
     public Connection(String connectionstring) throws MalformedURLException
@@ -495,7 +509,7 @@ public class Connection
      *
      * @param encodedcreds
      *            the new encoded credentials
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public void setEncodedCredentials(String encodedcreds) throws Exception
@@ -700,7 +714,7 @@ public class Connection
      * @param url
      *            the url
      * @return the URL connection
-     * @throws IOException
+     * @throws java.io.IOException
      *             Signals that an I/O exception has occurred.
      */
     public static URLConnection createConnection(URL url) throws java.io.IOException
@@ -897,6 +911,7 @@ public class Connection
      *
      * @see java.lang.Object#toString()
      */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -908,6 +923,7 @@ public class Connection
      *
      * @see java.lang.Object#equals(java.lang.Object)
      */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat)
     {
@@ -931,6 +947,7 @@ public class Connection
      *
      * @see java.lang.Object#hashCode()
      */
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -945,8 +962,8 @@ public class Connection
      * Returns entire response payload
      *
      * @param uri - Appended to connection URL
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link java.lang.String} object.
      */
     public String sendGetRequest(String uri) throws Exception
     {
@@ -959,11 +976,10 @@ public class Connection
      *
      * Returns entire response payload
      *
-     * @param uri
+     * @param uri a {@link java.lang.String} object.
      * @param method - One of GET|POST|HEAD|OPTIONS|PUT|DELETE|TRACE
-
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link java.lang.String} object.
      */
     public String sendHTTPRequest(String uri, String method) throws Exception
     {

@@ -47,11 +47,11 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
  *
  * Supported actions include listing all namespaces, creating key store,
  * setting/fetching/deleting by key, and setting encrypted values, and more.
- *
  */
 public class HPCCWsStoreClient extends BaseHPCCWsClient
 {
     // private static final Logger log = LogManager.getLogger(HPCCWsStoreClient.class);
+    /** Constant <code>WSStoreWSDLURI="/wsstore"</code> */
     public static final String WSStoreWSDLURI     = "/wsstore";
     private static int         DEFAULTSERVICEPORT = -1;
     private static String      WSDLURL            = null;
@@ -218,7 +218,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -247,9 +247,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return the string[]
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String[] listNamespaces(String storename, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -291,9 +291,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return the string[]
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String[] listNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -338,9 +338,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return the string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String fetchValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -389,9 +389,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param cipher
      *            the cipher
      * @return the string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, Cipher cipher)
@@ -425,9 +425,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param secretKey
      *            - Must match the secret key used to encrypt this value
      * @return the string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, String secretKey)
@@ -448,9 +448,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return the properties
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -501,9 +501,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return the properties
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public Properties fetchAllNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -558,9 +558,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean setValue(String storename, String namespace, String key, String value, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -608,9 +608,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param cipher
      *            the cipher
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, Cipher cipher)
@@ -635,9 +635,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param secretKey
      *            the secret key
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey)
@@ -658,9 +658,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param global
      *            the global
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean deleteValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
@@ -703,9 +703,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param targetuser
      *            the targetuser
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean deleteNamespace(String storename, String namespace, boolean global, String targetuser) throws Exception, ArrayOfEspExceptionWrapper
@@ -747,9 +747,9 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @param type
      *            the type
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean createStore(String storename, String description, String type) throws Exception, ArrayOfEspExceptionWrapper
@@ -784,6 +784,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {
