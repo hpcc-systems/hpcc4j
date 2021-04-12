@@ -1,0 +1,31 @@
+name: Javadoc Test
+
+on: 
+  pull_request:
+    branches:
+      - "master"
+      - "candidate-*"
+
+jobs:
+  test-javadoc:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: Setup JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+  
+    - name: Build with Maven
+      run: mvn -B -Dmaven.test.skip=True clean javadoc:javadoc
