@@ -35,7 +35,6 @@ import org.hpccsystems.dfs.client.HpccRemoteFileReader;
 import org.hpccsystems.dfs.client.DataPartition;
 
 import org.hpccsystems.dfs.cluster.*;
-import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
@@ -109,7 +108,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             file=new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
             FieldDef recdef=file.getRecordDefinition();
-            file.setProjectList(StringUtils.join(projectedfields, ","));
+            file.setProjectList(String.join(",", projectedfields));
             List<HPCCRecord> recs=readFile(file, connTO);
             if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1) 
             {

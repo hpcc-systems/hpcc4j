@@ -2,15 +2,22 @@ package org.hpccsystems.ws.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Activity;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ActivityResponse;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspException;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfo;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse;
+import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Ping;
 import org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.WsSMCStub;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wssmc.GetBuildInfoResponseWrapper;
 
 /**
  * Use as soap client for HPCC WsSMC web service, also known as eclwatch
@@ -22,6 +29,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
     private static int         DEFAULTSERVICEPORT = -1;
     private static String      WSDLURL            = null;
 
+    private static final String CONTAINERIZED_BUILD_INFO_TAG = "CONTAINERIZED";
     /**
      * Load WSDLURL.
      */
@@ -220,6 +228,83 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
     }
 
     /**
+    * Is target ECLWATCH running in container mode.
+    *
+    * @return true, if successful
+    * @throws Exception
+    *             the exception
+    */
+   public boolean isContainerized() throws Exception
+   {
+       verifyStub();
+
+       GetBuildInfoResponse resp = null;
+
+       try
+       {
+           resp = ((WsSMCStub) stub).getBuildInfo(new GetBuildInfo());
+       }
+       catch (RemoteException e)
+       {
+           log.error("HPCCWsSMCClient.isContainerized encountered RemoteException.\n" + e.getLocalizedMessage());
+       }
+
+       if (resp != null)
+       {
+           if (resp.getExceptions() != null)
+               handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not query container mode info");
+       }
+
+       if (resp == null)
+           throw new Exception("HPCCWsSMCClient.isContainerized received invalid response - cannot determine if HPCC is running in container mode");
+
+       ArrayOfNamedValue buildinfo = resp.getBuildInfo();
+       if ( buildinfo != null)
+       {
+           NamedValue[] buildinfoarray = buildinfo.getNamedValue();
+           for (int i = 0; i < buildinfoarray.length; i++)
+           {
+               if (buildinfoarray[i].getName().equalsIgnoreCase(CONTAINERIZED_BUILD_INFO_TAG))
+                   return buildinfoarray[i].getValue().equalsIgnoreCase("ON");
+           }
+       }
+
+       return false;
+   }
+
+    /**
+     * GetBuildInfo.
+     *
+     * @return GetBuildInfoResponseWrapper
+     * @throws Exception
+     *             the exception
+     */
+    public GetBuildInfoResponseWrapper getBuildInfo() throws Exception
+    {
+        verifyStub();
+
+        GetBuildInfoResponse resp = null;
+
+        try
+        {
+            resp = ((WsSMCStub) stub).getBuildInfo(new GetBuildInfo());
+
+        }
+        catch (RemoteException e)
+        {
+            log.error("HPCCWsSMCClient.getBuildInfo encountered RemoteException.\n" + e.getLocalizedMessage());
+        }
+
+        if (resp != null)
+        {
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not query buidinfo");
+        }
+
+        return new GetBuildInfoResponseWrapper(resp);
+    }
+
+    /**
      * Ping.
      *
      * @return true, if successful
@@ -238,6 +323,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 
@@ -246,7 +332,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override

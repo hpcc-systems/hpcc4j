@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspSoapFaultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-11-04T21:52:26.438Z
+ * TimeStamp: 2021-03-26T20:56:01.875Z
  */
 public class EspSoapFaultWrapper
 {
@@ -31,7 +31,7 @@ public class EspSoapFaultWrapper
 
 	public EspSoapFaultWrapper() {}
 
-	public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault espsoapfault)
+	public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault espsoapfault)
 	{
 		copy( espsoapfault );
 	}
@@ -41,7 +41,7 @@ public class EspSoapFaultWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class EspSoapFaultWrapper
 	{
 		return "EspSoapFaultWrapper [" + "faultMessage = " + local_faultMessage + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspSoapFault();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault();
 		return raw;
 	}
 

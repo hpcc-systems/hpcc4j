@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart;
 
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
@@ -21,7 +21,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUPartWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55.DFUPart
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2019-08-20T13:59:09.378Z
  */
@@ -45,7 +45,7 @@ public class DFUPartWrapper
      * @param dfupart
      *            the dfupart
      */
-    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart dfupart)
+    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart dfupart)
     {
         copy( dfupart );
     }

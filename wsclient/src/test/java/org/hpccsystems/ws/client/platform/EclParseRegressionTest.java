@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
@@ -125,7 +124,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
             {
                 DFUFileDetailWrapper info = getDFUClient().getFileDetails(rec, null);
                 rececl=info.getEcl();
-                if (StringUtils.isEmpty(rececl))
+                if (rececl == null || rececl.isEmpty())
                 {
                     throw new Exception("No record ecl for " + rec);
                 }
@@ -142,7 +141,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 alreadytested.add(rec);
                 if (rece.getParseErrors().size()!=0)
                 {
-                    throw new Exception("Failed to parse " + rec + ":" + StringUtils.join(rece.getParseErrors(),"\n"));
+                    throw new Exception("Failed to parse " + rec + ":" + String.join("\n",rece.getParseErrors()));
                 }
                 System.out.println(rec + " parsed fine");
             }
@@ -172,9 +171,26 @@ public class EclParseRegressionTest extends BaseRemoteTest
         }
         finally
         {
-            Files.write(testlist.toPath(), StringUtils.join(alreadytested,"\r\n").getBytes());
-            Files.write(failedlist.toPath(), StringUtils.join(failedrecs,"\r\n").getBytes());
+            Files.write(testlist.toPath(), String.join("\r\n",alreadytested).getBytes());
+            Files.write(failedlist.toPath(), String.join("\r\n",failedrecs).getBytes());
         }
+    }
+
+    private int countMatches(String str, String pattern)
+    {
+        int index = 0;
+        int matches = 0;
+        do 
+        {
+            index = str.indexOf(pattern,index);
+            if (index >= 0)
+            {
+                matches++;
+                index += pattern.length();
+            }
+        } while(index >= 0);
+
+        return matches;
     }
 
     private void testScope(String scope) throws Exception, ArrayOfEspExceptionWrapper
@@ -183,7 +199,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
         for (DFULogicalFileWrapper file:files)
         {
             String fullfilename= file.getIsDirectory()==true?file.getDirectory():file.getFileName();
-            if (!StringUtils.isEmpty(scope) && !fullfilename.startsWith(scope))
+            if (scope != null && !scope.isEmpty() && !fullfilename.startsWith(scope))
             {
                 fullfilename=scope + "::" + fullfilename;
             }
@@ -216,7 +232,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
                     System.out.print(fullfilename + " is superfile");
                 }
                 rececl=info.getEcl();
-                if (StringUtils.isEmpty(rececl))
+                if (rececl != null || rececl.isEmpty())
                 {
                     throw new Exception("No record ecl for " + fullfilename);
                 }
@@ -231,7 +247,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
 
             try
             {
-                if (StringUtils.countMatches(rececl, "RECORD")>1 || StringUtils.countMatches(rececl,"{")>1)
+                if (countMatches(rececl, "RECORD")>1 || countMatches(rececl,"{")>1)
                 {
                     System.out.println(fullfilename + " has child datasets");
                 }
@@ -240,7 +256,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 alreadytested.add(fullfilename);
                 if (rec.getParseErrors().size()!=0)
                 {
-                    throw new Exception("Failed to parse " + fullfilename + ":" + StringUtils.join(rec.getParseErrors(),"\n"));
+                    throw new Exception("Failed to parse " + fullfilename + ":" + String.join("\n",rec.getParseErrors()));
                 }
             }
             catch (Exception e)

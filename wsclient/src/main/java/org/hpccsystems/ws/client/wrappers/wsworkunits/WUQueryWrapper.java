@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.WUState;
@@ -56,7 +56,7 @@ public class WUQueryWrapper
      * @throws Exception
      *             if the input start date / end date are not null and are invalid date strings.
      */
-    public WUQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuery raw) throws Exception
+    public WUQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUQuery raw) throws Exception
     {
         //not setting before or after or count. They've been replaced by pageStartFrom and papgeSize.
         //not setting roxiecluster, it's deprecated and cluster is used. This is as of
@@ -514,27 +514,27 @@ public class WUQueryWrapper
      *
      * @return the raw WUQuery object
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuery getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUQuery getRaw()
     {
         return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw 1 79.
+     * Gets the raw 1 81.
      *
-     * @return the raw 1 79
+     * @return the raw 1 81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuery getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUQuery getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUQuery();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUQuery();
         if (applicationValues.size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue[] appvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue[applicationValues.size()];
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue arrayofappvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue();
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue[] appvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue[applicationValues.size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfApplicationValue arrayofappvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfApplicationValue();
             for (int i = 0; i < applicationValues.size(); i++)
             {
                 ApplicationValueWrapper wrapped = applicationValues.get(i);
-                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue item = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue();
+                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue item = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue();
                 item.setApplication(wrapped.getApplication());
                 item.setName(wrapped.getName());
                 item.setValue(wrapped.getValue());

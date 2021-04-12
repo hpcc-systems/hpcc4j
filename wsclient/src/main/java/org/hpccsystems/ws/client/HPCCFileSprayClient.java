@@ -28,7 +28,6 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.Copy;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CopyResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunitsActionResponse;
@@ -172,37 +171,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     // from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
     public enum SprayVariableFormat
     {
-        DFUff_fixed (
-                0
-        ), DFUff_csv (
-                1
-        ), DFUff_ascii (
-                1
-        ), DFUff_utf8 (
-                2
-        ), DFUff_utf8n (
-                3
-        ), DFUff_utf16 (
-                4
-        ), DFUff_utf16le (
-                5
-        ), DFUff_utf16be (
-                6
-        ), DFUff_utf32 (
-                7
-        ), DFUff_utf32le (
-                8
-        ), DFUff_utf32be (
-                9
-        ), DFUff_variable (
-                10
-        ), DFUff_recfmvb (
-                11
-        ), DFUff_recfmv (
-                12
-        ), DFUff_variablebigendian (
-                13
-        );
+        DFUff_fixed (0),
+        DFUff_csv (1),
+        DFUff_ascii (1),
+        DFUff_utf8 (2),
+        DFUff_utf8n (3),
+        DFUff_utf16 (4),
+        DFUff_utf16le (5),
+        DFUff_utf16be (6),
+        DFUff_utf32 (7),
+        DFUff_utf32le (8),
+        DFUff_utf32be (9),
+        DFUff_variable (10),
+        DFUff_recfmvb (11),
+        DFUff_recfmv (12),
+        DFUff_variablebigendian (13);
 
         private final int id;
 
@@ -383,6 +366,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

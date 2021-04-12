@@ -8,19 +8,19 @@ public class WUCreateRequestWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreate getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreate getRaw()
     {
         return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the raw version 1 81.
      *
-     * @return the raw version 1 79
+     * @return the raw version 1 81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreate getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreate getRawLatestVersion()
     {
-        return new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.WUCreate();
+        return new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreate();
     }
     
     /**

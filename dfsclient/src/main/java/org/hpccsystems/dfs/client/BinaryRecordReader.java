@@ -330,6 +330,7 @@ public class BinaryRecordReader implements IRecordReader
         // Embedded field lengths are little endian
         switch (fd.getFieldType())
         {
+            case FILEPOS:
             case INTEGER:
                 // fixed number of bytes in type info
                 long intValue = 0;
@@ -498,6 +499,7 @@ public class BinaryRecordReader implements IRecordReader
             switch (fd.getFieldType())
             {
                 case INTEGER:
+                case FILEPOS:
                 case REAL:
                 case DECIMAL:
                 case BINARY:
@@ -547,6 +549,7 @@ public class BinaryRecordReader implements IRecordReader
                     switch (childFd.getFieldType())
                     {
                         case INTEGER:
+                        case FILEPOS:
                         case REAL:
                         case DECIMAL:
                         case BINARY:

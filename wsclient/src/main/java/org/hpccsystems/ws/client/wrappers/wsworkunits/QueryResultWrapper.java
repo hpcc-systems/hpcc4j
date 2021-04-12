@@ -3,9 +3,9 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ClusterQueryState;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySetQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySetQueryActionResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ClusterQueryState;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.QuerySetQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.QuerySetQueryActionResult;
 import org.hpccsystems.ws.client.wrappers.ClusterQueryWrapper;
 
 public class QueryResultWrapper

@@ -233,6 +233,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

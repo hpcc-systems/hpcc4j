@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems</groupId>
   <artifactId>hpcc4j</artifactId>
-  <version>8.1.0-0-SNAPSHOT</version>
+  <version>8.0.5-0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>HPCC Systems Java Projects</name>
   <url>https://hpccsystems.com</url>
@@ -51,7 +51,6 @@
     <axis.version>1.4</axis.version>
     <javax.mail.version>1.4</javax.mail.version>
     <jsch.version>0.1.54</jsch.version>
-    <commons-lang3.version>3.4</commons-lang3.version>
     <commons-io.version>2.4</commons-io.version>
     <junit.version>4.13.1</junit.version>
     <json.version>20180813</json.version>
@@ -131,11 +130,6 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>${commons-io.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
       <groupId>com.jcraft</groupId>

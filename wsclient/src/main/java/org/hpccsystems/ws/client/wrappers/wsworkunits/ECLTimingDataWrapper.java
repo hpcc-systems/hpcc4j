@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLTimingData;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLTimingData;
 
 public class ECLTimingDataWrapper
 {
@@ -126,7 +126,7 @@ public class ECLTimingDataWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLTimingData getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLTimingData getRaw()
     {
         return getRawLatestVersion();
     }
@@ -136,10 +136,10 @@ public class ECLTimingDataWrapper
      *
      * @return the raw version 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLTimingData getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLTimingData getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLTimingData raw = 
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLTimingData();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLTimingData raw = 
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLTimingData();
 
         raw.setGID(this.getGID());
         raw.setGraphNum(this.getGraphNum());

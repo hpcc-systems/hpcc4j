@@ -3,8 +3,8 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLSourceFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile;
 
 public class ECLSourceFileWrapper
 {
@@ -141,20 +141,20 @@ public class ECLSourceFileWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile getRaw()
     {
         return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the raw version 1_81.
      *
-     * @return the raw version 1 79
+     * @return the raw version 1_81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile();
 
         raw.setCount(this.getCount());
         if (this.getECLSourceFiles().size()>0)

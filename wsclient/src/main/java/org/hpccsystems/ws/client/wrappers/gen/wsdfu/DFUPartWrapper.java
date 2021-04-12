@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUPartWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2020-11-04T21:52:26.379Z
+ * TimeStamp: 2021-03-26T20:56:01.819Z
  */
 public class DFUPartWrapper
 {
@@ -35,7 +35,7 @@ public class DFUPartWrapper
 
 	public DFUPartWrapper() {}
 
-	public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart dfupart)
+	public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart dfupart)
 	{
 		copy( dfupart );
 	}
@@ -49,7 +49,7 @@ public class DFUPartWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart raw )
 	{
 		if (raw == null)
 			return;
@@ -67,9 +67,9 @@ public class DFUPartWrapper
 	{
 		return "DFUPartWrapper [" + "id = " + local_id + ", " + "copy = " + local_copy + ", " + "ip = " + local_ip + ", " + "partsize = " + local_partsize + ", " + "partSizeInt64 = " + local_partSizeInt64 + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFUPart();
+		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart();
 		raw.setId( local_id);
 		raw.setCopy( local_copy);
 		raw.setIp( local_ip);

@@ -9,7 +9,7 @@
   <parent>
     <groupId>org.hpccsystems</groupId>
     <artifactId>hpcc4j</artifactId>
-    <version>8.1.0-0-SNAPSHOT</version>
+    <version>8.0.5-0-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -149,6 +149,52 @@
                </configuration>
              </execution-->
              <execution>
+               <id>wsdfuxref102</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsDFUXRef-102.wsdl</wsdlFile>
+                 <syncMode>sync</syncMode>
+                 <wsdlVersion>1.02</wsdlVersion>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wsdfuxref</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+             <execution>
+               <id>wscodesign101</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsCodeSign-101.wsdl</wsdlFile>
+                 <syncMode>sync</syncMode>
+                 <wsdlVersion>1.01</wsdlVersion>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:ws_codesign</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+             <execution>
                <id>wsattributes121</id>
                <phase>process-resources</phase>
                <goals>
@@ -195,7 +241,7 @@
                </configuration>
              </execution>
              <execution>
-               <id>wsdfu155</id>
+               <id>wsdfu157</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -205,14 +251,14 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsDFU-155.wsdl</wsdlFile>
-                 <wsdlVersion>1.55</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsDFU-157.wsdl</wsdlFile>
+                 <wsdlVersion>1.57</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wsdfu</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_55</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
@@ -333,7 +379,7 @@
                </configuration>
              </execution>
              <execution>
-               <id>wswu179</id>
+               <id>wsresources100</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -343,14 +389,37 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsWorkunits-179.wsdl</wsdlFile>
-                 <wsdlVersion>1.79</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsResources-100.wsdl</wsdlFile>
+                 <wsdlVersion>1.81</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wsresources</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+             <execution>
+               <id>wswu181</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+               <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsWorkunits-181.wsdl</wsdlFile>
+                 <wsdlVersion>1.81</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wsworkunits</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>

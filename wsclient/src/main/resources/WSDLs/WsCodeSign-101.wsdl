@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:ws_codesign" targetNamespace="urn:hpccsystems:ws:ws_codesign"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:ws_codesign" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="ListUserIDsRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="ListUserIDsResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="UserIDs" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="EspStringArray"><xsd:sequence><xsd:element name="Item" type="xsd:string"  minOccurs="0" maxOccurs="unbounded" /></xsd:sequence></xsd:complexType>
+<xsd:element name="ws_codesignPingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="ws_codesignPingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="SignRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" default="gpg" name="SigningMethod" type="tns:SigningMethodType"/>
+<xsd:element minOccurs="0" name="UserID" type="xsd:string"/>
+<xsd:element minOccurs="0" name="KeyPass" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Text" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:simpleType name="SigningMethodType"><xsd:restriction base="xsd:string"><xsd:enumeration value="gpg"/></xsd:restriction></xsd:simpleType><xsd:element name="SignResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="RetCode" type="xsd:int"/>
+<xsd:element minOccurs="0" name="ErrMsg" type="xsd:string"/>
+<xsd:element minOccurs="0" name="SignedText" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="VerifyRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Text" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="VerifyResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="RetCode" type="xsd:int"/>
+<xsd:element minOccurs="0" name="ErrMsg" type="xsd:string"/>
+<xsd:element minOccurs="0" name="IsVerified" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="SignedBy" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="ListUserIDsSoapIn"><part name="parameters" element="tns:ListUserIDsRequest"/></message><message name="ListUserIDsSoapOut"><part name="parameters" element="tns:ListUserIDsResponse"/></message><message name="PingSoapIn"><part name="parameters" element="tns:ws_codesignPingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:ws_codesignPingResponse"/></message><message name="SignSoapIn"><part name="parameters" element="tns:SignRequest"/></message><message name="SignSoapOut"><part name="parameters" element="tns:SignResponse"/></message><message name="VerifySoapIn"><part name="parameters" element="tns:VerifyRequest"/></message><message name="VerifySoapOut"><part name="parameters" element="tns:VerifyResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="ws_codesignServiceSoap"><operation name="ListUserIDs"><input message="tns:ListUserIDsSoapIn"/><output message="tns:ListUserIDsSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Sign"><input message="tns:SignSoapIn"/><output message="tns:SignSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Verify"><input message="tns:VerifySoapIn"/><output message="tns:VerifySoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="ws_codesignServiceSoap" type="tns:ws_codesignServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="ListUserIDs"><soap:operation soapAction="ws_codesign/ListUserIDs?ver_=1.1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Ping"><soap:operation soapAction="ws_codesign/Ping?ver_=1.1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Sign"><soap:operation soapAction="ws_codesign/Sign?ver_=1.1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Verify"><soap:operation soapAction="ws_codesign/Verify?ver_=1.1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="ws_codesign"><port name="ws_codesignServiceSoap" binding="tns:ws_codesignServiceSoap"><soap:address location="http://localhost:8888/ws_codesign?ver_=1.1"/></port></service></definitions>

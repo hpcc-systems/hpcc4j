@@ -228,6 +228,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

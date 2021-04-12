@@ -695,6 +695,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         }
         catch (Exception e)
         {
+            log.error(e.getLocalizedMessage());
             return false;
         }
 

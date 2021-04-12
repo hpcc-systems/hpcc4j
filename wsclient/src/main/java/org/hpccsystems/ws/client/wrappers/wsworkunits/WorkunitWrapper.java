@@ -5,31 +5,31 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.AllowedClusters_type0;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfApplicationValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfDebugValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLException;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLGraph;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLHelpFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLResult;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLSourceFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLTimingData;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLWorkflow;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfNamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfThorLogInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.DebugValue;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLException;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLGraph;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLHelpFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLQuery;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLResult;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLTimingData;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkflow;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ResourceURLs_type0;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ThorLogInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.AllowedClusters_type0;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfDebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLGraph;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLHelpFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLTimingData;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLWorkflow;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfNamedValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfThorLogInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLHelpFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLResult;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLTimingData;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkflow;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ResourceURLs_type0;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ThorLogInfo;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.DebugValueWrapper;
@@ -1469,7 +1469,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
      *
      * @return the raw exceptions
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfECLException getRawExceptions()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLException getRawExceptions()
     {
         if (exceptions == null)
             return null;
@@ -1482,14 +1482,14 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
      *
      * @return the raw named values
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfNamedValue getRawNamedValues()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfNamedValue getRawNamedValues()
     {
         if (namedValues == null) return null;
 
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ArrayOfNamedValue raw = new ArrayOfNamedValue();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfNamedValue raw = new ArrayOfNamedValue();
         for (NamedValueWrapper item : namedValues)
         {
-            raw.addNamedValue(item.get1_79());
+            raw.addNamedValue(item.get1_81());
         }
         return raw;
     }
@@ -3623,7 +3623,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
      *
      * @return the ecl workunit
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit getEclWorkunit()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkunit getEclWorkunit()
     {
         return getLatestEclWorkunitVersion();
     }
@@ -3633,9 +3633,9 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
      *
      * @return the ecl workunit version 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit getLatestEclWorkunitVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkunit getLatestEclWorkunitVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit eclWorkunit = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkunit eclWorkunit = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkunit();
 
         eclWorkunit.setAccessFlag(this.getAccessFlag());
         eclWorkunit.setAction(this.getAction());
@@ -3694,7 +3694,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
             List<ECLExceptionWrapper> eclException = getExceptions().getECLException();
             for (ECLExceptionWrapper eclExceptionWrapper : eclException)
             {
-                arrayofeclexceptions.addECLException(eclExceptionWrapper.getRawVersion1_79());
+                arrayofeclexceptions.addECLException(eclExceptionWrapper.getRawVersion1_81());
             }
             eclWorkunit.setExceptions(arrayofeclexceptions);
         }

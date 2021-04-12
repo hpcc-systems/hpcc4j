@@ -26,14 +26,12 @@ import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFULogicalFile;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZone;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServices;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpTargetCluster;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLSourceFile;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.ECLWorkunit;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.QuerySet;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLSourceFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkunit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.QuerySet;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
@@ -199,6 +197,7 @@ public class Platform extends DataSingleton
     private Collection<FileSprayWorkunit>   fileSprayWorkunits;
     private Collection<DataQuerySet>        dataQuerySets;
     private Collection<LogicalFile>         logicalFiles;
+    private Boolean                         isContainerized;
 
     static int                              LATENCY_TEST = 0;
 
@@ -236,6 +235,7 @@ public class Platform extends DataSingleton
         fileSprayWorkunits = new HashSet<FileSprayWorkunit>();
         dataQuerySets = new HashSet<DataQuerySet>();
         logicalFiles = new HashSet<LogicalFile>();
+        isContainerized = null;
     }
 
     /**
@@ -253,6 +253,22 @@ public class Platform extends DataSingleton
         isTempDisabled = false;
         serverExists = SERVER_EXISTS.UNKNOWN;
         build = ""; //$NON-NLS-1$
+    }
+
+    public synchronized boolean isContainerized()
+    {
+        if (isContainerized == null)
+        {
+            try
+            {
+                isContainerized = platformHPCCClient.isContainerized();
+            }
+            catch (Exception e)
+            {
+                isContainerized = null;
+            }
+        }
+        return isContainerized;
     }
 
     /**
@@ -1453,7 +1469,7 @@ public class Platform extends DataSingleton
     {
         hpccClientPool.expire(client);
     }
-    
+
     /* (non-Javadoc)
      * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
      */

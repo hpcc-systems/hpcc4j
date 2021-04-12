@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspException;
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
@@ -82,7 +80,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_56.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -180,7 +178,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_79.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -195,20 +193,6 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      *            the raw
      */
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspException raw)
-    {
-        this.code = raw.getCode();
-        this.audience = raw.getAudience();
-        this.source = raw.getSource();
-        this.message = raw.getMessage();
-    }
-
-    /**
-     * Instantiates a new esp exception wrapper.
-     *
-     * @param raw
-     *            the raw
-     */
-    public EspExceptionWrapper(EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -251,6 +235,46 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      *            the raw
      */
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspException raw)
+    {
+         this.code = raw.getCode();
+         this.audience = raw.getAudience();
+         this.source = raw.getSource();
+         this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException raw)
+    {
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
+    }
+
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
