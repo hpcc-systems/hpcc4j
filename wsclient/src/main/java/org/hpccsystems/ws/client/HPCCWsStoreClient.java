@@ -40,7 +40,7 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 /**
- * Facilitates access to HPCC key/value based Storage.
+ * Facilitates access to HPCC Systems key/value based Storage.
  *
  * 7.x+ HPCC Systems deployments are capable of exposing a light-weight
  * in-memory key/value store system.

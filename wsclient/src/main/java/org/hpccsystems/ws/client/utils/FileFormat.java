@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.utils;
 import java.util.HashMap;
 
 /**
- * Enumeration and convenience methods of known HPCC File formats
+ * Enumeration and convenience methods of known HPCC File formats.
  *
  */
 public enum FileFormat

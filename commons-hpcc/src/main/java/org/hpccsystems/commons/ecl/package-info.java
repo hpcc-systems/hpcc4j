@@ -1,6 +1,6 @@
 /**
  * <pre>
- * Provides basic HPCC ECL language construct support
+ * Provides basic HPCC Systems ECL language construct support.
  *</pre>
  */
 package org.hpccsystems.commons.ecl;

@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Provides generic support for parsing of ECL Dataset responses from
- * HPCC Engines.
+ * HPCC Systems engines (Thor, Roxie).
  *
  */
 public class DatasetParser

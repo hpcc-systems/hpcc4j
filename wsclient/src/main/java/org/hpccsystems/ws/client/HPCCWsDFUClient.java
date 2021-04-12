@@ -80,7 +80,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 /**
- * Facilitates Logical File System actions on target HPCC instance.
+ * Facilitates Logical File System actions on target HPCC Systems instance.
  *
  * Supported actions include fetching file information, file data, file listings,
  * creating, publishing and deleting files, and more.

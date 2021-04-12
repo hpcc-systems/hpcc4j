@@ -38,7 +38,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Provides multiple functions which support HPCCWsClient actions
+ * Provides multiple functions which support HPCCWsClient actions.
  *
  */
 public class Utils

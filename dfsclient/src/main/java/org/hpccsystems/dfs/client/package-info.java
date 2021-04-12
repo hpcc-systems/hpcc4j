@@ -1,6 +1,6 @@
 /**
  * <pre>
- * Provides efficient  distributed data ingestion and extraction.
+ * Provides efficient distributed data ingestion and extraction.
  *
  *</pre>
  */

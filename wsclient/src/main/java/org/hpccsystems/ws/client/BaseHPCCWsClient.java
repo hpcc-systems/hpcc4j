@@ -32,8 +32,9 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.w3c.dom.Document;
 
 /**
- * Defines functionality common to all HPCC WS Clients.
- * Typically implemented by specific HPCC Web service clients.
+ * Defines functionality common to all HPCC Systmes web service clients.
+ *
+ * Typically implemented by specialized HPCC Web service clients.
  */
 public abstract class BaseHPCCWsClient extends DataSingleton
 {

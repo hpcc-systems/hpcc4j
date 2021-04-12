@@ -1,5 +1,5 @@
 /**
- * Layer of abstraction between caller and HPCC Web Service interface
+ * Layer of abstraction between caller and HPCC Systems Web Service interface.
  *
  * Provides a uniform, and consistent representation of HPCC Systems web
  * service response objects which shields callers from unnecessary implementation
