@@ -40,8 +40,13 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 /**
- * Use as soap client for HPCC WsFileIo web service.
- * This includes creating a new file, and appending data to a file in the given SHPCC System.
+ * Facilitates access to HPCC key/value based Storage.
+ *
+ * 7.x+ HPCC Systems deployments are capable of exposing a light-weight
+ * in-memory key/value store system.
+ *
+ * Supported actions include listing all namespaces, creating key store,
+ * setting/fetching/deleting by key, and setting encrypted values, and more.
  *
  */
 public class HPCCWsStoreClient extends BaseHPCCWsClient
@@ -776,7 +781,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override

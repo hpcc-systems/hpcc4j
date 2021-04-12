@@ -16,6 +16,13 @@ import java.util.Base64.Encoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Represents and structures connection information
+ *
+ * Facilitates HPCC connectivity, provides several convenience methods such as credential encoding,
+ * connection URL parsing, and others.
+ *
+ */
 public class Connection
 {
     private class Credentials

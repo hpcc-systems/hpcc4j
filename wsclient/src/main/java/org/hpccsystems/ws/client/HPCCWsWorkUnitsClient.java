@@ -99,7 +99,10 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WsWorkunitsClientStubWrapper;
 
 /**
- * ESP Client code for common WsWorkUnits operations
+ * Facilitates ECL WorkUnit related actions.
+ *
+ * Supported actions include fetching Workunit info, submiting ECL query,
+ * fetching workunit status, publishing workunit, deleting, aborting and more.
  */
 public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 {

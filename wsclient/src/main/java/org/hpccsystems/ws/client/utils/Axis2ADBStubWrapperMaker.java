@@ -15,10 +15,21 @@ import java.util.List;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 import java.util.Properties;
-import java.util.Enumeration;
-import java.net.URL;
+
 
 /**
+ * Generates wrapper classes around generated Axis2 ADB stub classes.
+ *
+ * This tool is typically only used by contributors to the HPCC4J WsClient project.
+ * The tool scours all available stub classes in the 'targetpackage', generates
+ * abstracted classes in the 'outputdir' in the given 'outputpackage' and 'servicename'.
+ *
+ * Sample parameters:
+ *
+ *  targetpackage=org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23
+ *  outputdir=C:\HPCC4J\wsclient\src\main\java
+ *  outputpackage=org.hpccsystems.ws.client.wrappers.gen
+ *  servicename=wssmc
  *
  */
 public class Axis2ADBStubWrapperMaker
@@ -32,7 +43,7 @@ public class Axis2ADBStubWrapperMaker
                                               + " */\n";
 
     private String crheader = "\n/*******************************************************************************\n"
-                             + " * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.\n"
+                             + " * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.\n"
                              + " *\n"
                              + " * Licensed under the Apache License, Version 2.0 (the \"License\");\n"
                              + " * you may not use this file except in compliance with the License.\n"

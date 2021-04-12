@@ -21,8 +21,8 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
 /**
  *
- * The HPCCWSCLient attempts to abstract out as much of the details for some of the most common
- * HPCC ESP actions. More actions, and more flexibility can be added in the future.
+ * Convenient interface which exposes most common HPCC-centric activities.
+ * More actions, and more flexibility can be added in the future.
  *
  * If neither the HPCCWsClient nor the Service specific client classes expose a desired action,
  * it can be executed by obtaining the SoapProxy from the appropriate client, an executing the

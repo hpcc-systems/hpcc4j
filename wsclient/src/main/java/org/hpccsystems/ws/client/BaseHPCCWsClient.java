@@ -31,6 +31,11 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.w3c.dom.Document;
 
+/**
+ * Defines functionality common to all HPCC WS Clients.
+ * Typically implemented by specific HPCC Web service clients.
+ *
+ */
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
     protected static final Logger log                    = LogManager.getLogger(BaseHPCCWsClient.class);
@@ -538,7 +543,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     /**
      * Provides the target ESP Interface version
      *
-     * @return
+     * @return The runtime ESP interface default version
      */
     public double getTargetESPInterfaceVersion()
     {
@@ -551,7 +556,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     /**
      * Stores active connection information for post-initialization use
      *
-     * @param conn
+     * @param conn Connection object
      */
     protected void setActiveConnectionInfo(Connection conn)
     {

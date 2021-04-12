@@ -80,11 +80,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 /**
- * Provides soap client for HPCC WsDFU web service.
+ * Facilitates Logical File System actions on target HPCC instance.
  *
- */
-/**
- * @author PastraRX
+ * Supported actions include fetching file information, file data, file listings,
+ * creating, publishing and deleting files, and more.
  *
  */
 public class HPCCWsDFUClient extends BaseHPCCWsClient

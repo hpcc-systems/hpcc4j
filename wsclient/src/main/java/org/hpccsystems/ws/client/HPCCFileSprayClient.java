@@ -79,10 +79,11 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrappe
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 
 /**
- * Use as soap client for HPCC wsFileSpray web service.
- * This includes uploading files to dropzone, listing files in a dropzone,
+ * Facilitates File Spray related activities.
+ * This includes listing available dropzones, uploading files to dropzone, listing files in a dropzone,
  * spraying files from dropzone and more.
  * This class can be enhanced to provide further service calls.
+ *
  *
  */
 public class HPCCFileSprayClient extends BaseHPCCWsClient
@@ -169,6 +170,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     // from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
+    /**
+     * Used to declare variable data format of file to be sprayed
+     *
+     */
     public enum SprayVariableFormat
     {
         DFUff_fixed (0),
@@ -247,7 +252,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCFileSprayClient connected to target HPCC Systems
+     * as described by connection object.
      *
      * @param connection
      *            the connection
@@ -259,7 +265,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCFileSprayClient connected to target HPCC Systems
+     * as described by connection parameters.
      *
      * @param protocol
      *            the protocol
@@ -281,7 +288,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCFileSprayClient connected to target HPCC Systems
+     * as described by connection parameters.
      *
      * @param protocol
      *            the protocol
@@ -348,7 +356,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Ping.
+     * Sends ping request to WsFileSpray service on target HPCC Systems instance.
      *
      * @return true, if successful
      * @throws Exception

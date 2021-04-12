@@ -27,8 +27,9 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 /**
- * Use as soap client for HPCC WsFileIo web service.
- * This includes creating a new file, and appending data to a file in the given SHPCC System.
+ * Facilitates File I/O actions on target HPCC instance.
+ *
+ * Actions supported include creating a new file, and appending data to a file in the given HPCC System.
  *
  */
 public class HPCCWsFileIOClient extends BaseHPCCWsClient
@@ -100,7 +101,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override

@@ -40,7 +40,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpServicesWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
 
 /**
- * Use as soap client for HPCC WsTopology web service.
+ * Facilitates accessing HPCC Systems instance topology information.
+ *
  * This client can be used for fetching topology information regarding the target HPCCSystem
  * of special interest are the cluster groups, and the target clusters within those groups.
  *
@@ -704,7 +705,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override

@@ -41,7 +41,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyResponseWrapper;
 
 /**
- * Client for HPCC's HPCCWsResources web service
+ * Facilitates ECL Code signing and verification related activities.
  */
 public class HPCCWsCodeSignClient extends BaseHPCCWsClient
 {

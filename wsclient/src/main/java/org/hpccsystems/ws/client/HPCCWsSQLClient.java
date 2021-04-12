@@ -44,7 +44,11 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCQuerySetWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
 
 /**
- * Use as soap client for HPCC WsSQL web service.
+ * Facilitates SQL based action onto target HPCC Systems instance.
+ *
+ * All actions supported treat HPCC Systems as a standard database system.
+ * Supported actions include fetching HPCC 'database' metadata, tables, and stored procedures.
+ * Client can submit SQL based queries, execute prepared SQL queries, fetch results, and more.
  *
  */
 public class HPCCWsSQLClient extends BaseHPCCWsClient
@@ -953,7 +957,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
     @Override

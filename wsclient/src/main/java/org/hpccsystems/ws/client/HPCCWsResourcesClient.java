@@ -35,7 +35,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWra
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper;
 
 /**
- * Client for HPCC's HPCCWsResources web service
+ * Facilitates discovery of containerized HPCC Systems resources
+ *
  */
 public class HPCCWsResourcesClient extends BaseHPCCWsClient
 {
