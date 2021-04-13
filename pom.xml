@@ -282,8 +282,15 @@
             </execution>
           </executions>
           <configuration>
+                <doclint>none</doclint>
+                <additionalparam>-Xdoclint:none</additionalparam>
                 <source>8</source>
-                <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*</excludePackageNames>
+                <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*:org.hpccsystems.ws.client.wrappers.gen.*:org.hpccsystems.ws.client.extended.*</excludePackageNames>
+                <header>Copyright &copy; 2021 HPCC Systems&reg;. All rights reserved</header>
+                <footer>Copyright &copy; 2021 HPCC Systems&reg;. All rights reserved</footer>
+                <includeDependencySources>true</includeDependencySources>
+                <failOnWarnings>true</failOnWarnings>
+              <dependencySourceIncludes>org.hpccsystems:*</dependencySourceIncludes>
            </configuration>
         </plugin>
         <plugin>

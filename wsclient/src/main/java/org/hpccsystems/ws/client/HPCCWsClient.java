@@ -21,19 +21,20 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
 /**
  *
- * The HPCCWSCLient attempts to abstract out as much of the details for some of the most common
- * HPCC ESP actions. More actions, and more flexibility can be added in the future.
+ * Convenient interface which exposes most common HPCC-centric activities.
+ * More actions, and more flexibility can be added in the future.
  *
  * If neither the HPCCWsClient nor the Service specific client classes expose a desired action,
  * it can be executed by obtaining the SoapProxy from the appropriate client, an executing the
  * web service method request directly.
- *
  */
 public class HPCCWsClient extends DataSingleton
 {
     private static final Logger           log        = LogManager.getLogger(HPCCWsClient.class);
 
+    /** Constant <code>All</code> */
     public static DataSingletonCollection All        = new DataSingletonCollection();
+    /** Constant <code>SubClients</code> */
     public static DataSingletonCollection SubClients = new DataSingletonCollection();
 
     /**
@@ -90,8 +91,11 @@ public class HPCCWsClient extends DataSingleton
         All.remove(p);
     }
 
+    /** Constant <code>defaultTargetWsECLWatchHost="localhost"</code> */
     public static final String defaultTargetWsECLWatchHost = "localhost";
+    /** Constant <code>defaultTWsECLWatchPort="8010"</code> */
     public static final String defaultTWsECLWatchPort      = "8010";
+    /** Constant <code>defaultTWsECLWatchSSLPort="18010"</code> */
     public static final String defaultTWsECLWatchSSLPort   = "18010";
 
     protected boolean          verbosemode                 = false;
@@ -276,7 +280,7 @@ public class HPCCWsClient extends DataSingleton
      * Test availability of target HPCC ESP service.
      *
      * @return bool value indicating if ping success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public synchronized boolean pingServer() throws Exception
@@ -298,8 +302,8 @@ public class HPCCWsClient extends DataSingleton
     /**
      * Queries ECLWatch for containerized flag.
      *
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a boolean.
      */
     public boolean isContainerized() throws Exception
     {
@@ -320,9 +324,8 @@ public class HPCCWsClient extends DataSingleton
     /**
      * Gets the HPCCWsResourcesClient client.
      *
-     * @param HPCCWsResourcesClient
-     *            the HPCCWsResourcesClient port
      * @return provides HPCCWsResourcesClient on a port other than ECLWatch port.
+     * @param wsresourcesport a {@link java.lang.String} object.
      */
     public HPCCWsResourcesClient getHPCCWsResourcesClient(String wsresourcesport)
     {
@@ -346,6 +349,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsCodeSignClient logic.
+     *
      * @return Original WSDL version
      */
     public String getHPCCWsResourcesClientVer()
@@ -356,9 +360,8 @@ public class HPCCWsClient extends DataSingleton
     /**
      * Gets the WsCodeSign client.
      *
-     * @param WsCodeSign
-     *            the WsCodeSign port
      * @return provides WsCodeSign on a port other than ECLWatch port.
+     * @param codeSignPort a {@link java.lang.String} object.
      */
     public HPCCWsCodeSignClient getWsCodeSignClient(String codeSignPort)
     {
@@ -382,6 +385,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsCodeSignClient logic.
+     *
      * @return Original WSDL version
      */
     public String getHPCCWsCodeSignClientVer()
@@ -391,6 +395,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsAttributesClient logic.
+     *
      * @return Original WSDL version
      */
     public String getWsSQLClientVer()
@@ -427,6 +432,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsAttributesClient logic.
+     *
      * @return Original WSDL version
      */
     public String getWsAttributesClientVer()
@@ -476,6 +482,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsPackageProcessClient logic.
+     *
      * @return Original WSDL version
      */
     public String getHPCCWsPackageProcessClientVer()
@@ -485,6 +492,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsFileIOClient logic.
+     *
      * @return Original WSDL version
      */
     public String getWsFileIOClientVer()
@@ -520,6 +528,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsTopologyClient logic.
+     *
      * @return Original WSDL version
      */
     public String getWsTopologyClientVer()
@@ -542,6 +551,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
+     *
      * @return Original WSDL version
      */
     public String getwsDFUClientClientVer()
@@ -564,6 +574,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
+     *
      * @return Original WSDL version
      */
     public String getwsDFUXRefClientClientVer()
@@ -586,6 +597,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsSMCClient logic.
+     *
      * @return Original WSDL version
      */
     public String getWsSMCClientClientVer()
@@ -608,6 +620,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Reports the version of the original WSDL used to create the HPCCWsWorkUnitsClient logic.
+     *
      * @return Original WSDL version
      */
     public String getWsWorkunitsClientVer()
@@ -632,7 +645,7 @@ public class HPCCWsClient extends DataSingleton
      * Returns all the available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
      *
      * @return - The available cluster groups (hthor, thor, roxie, etc.) on the target HPCC System.
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public String[] getAvailableClusterGroups() throws Exception
@@ -664,7 +677,7 @@ public class HPCCWsClient extends DataSingleton
      * @param clusterGroupType
      *            - The cluster group type/name
      * @return - Names of all available target cluster in the given cluster group
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
@@ -683,7 +696,7 @@ public class HPCCWsClient extends DataSingleton
      * Gets the available target cluster names.
      *
      * @return - List of all available target cluster names (mythor, myroxie, etc) on this HPCC System
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
@@ -765,7 +778,6 @@ public class HPCCWsClient extends DataSingleton
      *            - SprayVariableFormat
      * @return - Boolean, success.
      */
-
     public boolean sprayCustomCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, String escapedEscapeSequence,
             String escapedFieldDelim, String escapedQuote, String escapedRecTerminator, boolean overwritesprayedfile, SprayVariableFormat format)
     {
@@ -871,7 +883,7 @@ public class HPCCWsClient extends DataSingleton
      * @param progressResponseWrapper
      *            the progress response wrapper
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
@@ -951,7 +963,7 @@ public class HPCCWsClient extends DataSingleton
      * @param wu
      *            - The workunit info object
      * @return - If successful, the resulting dataset(s)
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public String submitECLandGetResults(WorkunitWrapper wu) throws Exception
@@ -985,10 +997,9 @@ public class HPCCWsClient extends DataSingleton
      * @param wu
      *            - The workunit info
      * @return - If successful, the resulting dataset(s)
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
-
     public List<List<Object>> submitECLandGetResultsList(WorkunitWrapper wu) throws Exception
     {
         List<List<Object>> resultsList;
@@ -999,6 +1010,7 @@ public class HPCCWsClient extends DataSingleton
 
     /**
      * Submits the given ECL to compile/execute on the targetclust and returns WUID to track the query.
+     *
      * @param wu
      *            - The workunit info to be submitted
      * @return - If successful, the resulting WUID, which can be used to query info, including results
@@ -1082,6 +1094,7 @@ public class HPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#isComplete()
      */
+    /** {@inheritDoc} */
     @Override
     protected boolean isComplete()
     {
@@ -1093,6 +1106,7 @@ public class HPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#fastRefresh()
      */
+    /** {@inheritDoc} */
     @Override
     protected void fastRefresh()
     {
@@ -1103,6 +1117,7 @@ public class HPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#fullRefresh()
      */
+    /** {@inheritDoc} */
     @Override
     protected void fullRefresh()
     {
@@ -1113,6 +1128,7 @@ public class HPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
      */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat)
     {
@@ -1136,6 +1152,7 @@ public class HPCCWsClient extends DataSingleton
      *
      * @see org.hpccsystems.ws.client.utils.DataSingleton#hashCode()
      */
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {

@@ -27,6 +27,10 @@ enum FilePartKind
     TLK, DATA
 }
 
+/**
+ * <p>DFUFilePartWrapper class.</p>
+ *
+ */
 public class DFUFilePartWrapper
 {
     private Integer              partIndex;
@@ -35,7 +39,8 @@ public class DFUFilePartWrapper
 
     /**
      * Is this part a Top level key
-     * @return
+     *
+     * @return a boolean.
      */
     public boolean isTopLevelKey()
     {
@@ -99,7 +104,7 @@ public class DFUFilePartWrapper
      * Gets the part index.
      *
      * @return the part index
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public Integer getPartIndex() throws Exception
@@ -112,7 +117,7 @@ public class DFUFilePartWrapper
      * Gets the copies.
      *
      * @return the copies
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public DFUFileCopyWrapper[] getCopies() throws Exception

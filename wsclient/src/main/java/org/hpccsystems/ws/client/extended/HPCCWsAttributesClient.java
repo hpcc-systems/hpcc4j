@@ -52,9 +52,14 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.hpccsystems.ws.client.wrappers.GetAttributesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.GetAttributesWrapper;
 
+/**
+ * <p>HPCCWsAttributesClient class.</p>
+ *
+ */
 public class HPCCWsAttributesClient extends BaseHPCCWsClient
 {
     private static final Logger                  log    = LogManager.getLogger(HPCCWsAttributesClient.class);
+    /** Constant <code>WSATTRIBUTESWSDLURI="/WsAttributes"</code> */
     public static final String   WSATTRIBUTESWSDLURI    = "/WsAttributes";
     private static int            DEFAULTSERVICEPORT    = -1;
     private static String                    WSDLURL    = null;
@@ -227,9 +232,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param type
      *            the type
      * @return true if the attribute exists, false if it does not
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean attributeExists(String modulename, String attributename, String type) throws Exception, ArrayOfEspExceptionWrapper
@@ -260,9 +265,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param changedSince
      *            - only return attributes changes since this time
      * @return a list of ECLAttributeInfo
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<ECLAttributeWrapper> findItems(String modulename, String attributename, String type, String username, String anytext, String changedSince) throws Exception, ArrayOfEspExceptionWrapper
@@ -344,9 +349,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param type
      *            the type
      * @return text contained by the attribute
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String getAttributeText(String modulename, String attributename,String type) throws Exception, ArrayOfEspExceptionWrapper
@@ -400,9 +405,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param newattributename
      *            - new attribute name to rename attribute to
      * @return ECL attribute of the renamed attribute
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ECLAttribute renameAttribute(String modulename, String attributename, String newmodulename, String newattributename) throws Exception, ArrayOfEspExceptionWrapper
@@ -473,9 +478,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - if checkoutin is true, this is the checkin message
      * @return - a list of updated eclattributeinfo objects
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<ECLAttributeWrapper> createOrUpdateAttributes(List<ECLAttributeWrapper> in, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
@@ -630,9 +635,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - if checkoutin=true, the description to append to the checkin
      * @return updated ECLAttributeItem for created/updated item
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ECLAttributeWrapper createOrUpdateAttribute(ECLAttributeWrapper item, boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
@@ -712,9 +717,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - if checkoutin=true, the description to append to the checkin
      * @return the ECL attribute
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ECLAttribute updateAttribute(String modulename, String attributename, String type, String text, Boolean checkoutin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
@@ -786,9 +791,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - check in comment
      * @return ECLAttribute of checked in attribute
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ECLAttribute checkinAttribute(String modulename, String attributename, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
@@ -842,9 +847,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param attributename
      *            - attribute to check out
      * @return ECLAttribute of checked out attribute
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ECLAttribute checkoutAttribute(String modulename, String attributename) throws Exception, ArrayOfEspExceptionWrapper
@@ -900,9 +905,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param checkindesc
      *            - checkin comment. Required if checkin=true
      * @return the ECL Attribute of the created object
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ECLAttribute createAttribute(String modulename, String attributename, String type,String text, Boolean checkin, String checkindesc) throws Exception, ArrayOfEspExceptionWrapper
@@ -949,9 +954,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      *
      * @param modulename
      *            - name of module to delete
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void deleteModule(String modulename) throws Exception, ArrayOfEspExceptionWrapper
@@ -974,9 +979,9 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param attributename
      *            - name of attribute to delete
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<ECLAttributeWrapper> deleteAttribute(String modulename,String attributename) throws Exception, ArrayOfEspExceptionWrapper
@@ -1021,7 +1026,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param typelist
      *            the typelist
      * @return the attributes
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public GetAttributesResponseWrapper getAttributes(String label, String modulename, EspStringArray typelist) throws Exception
@@ -1041,7 +1046,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      * @param request
      *            the request
      * @return the attributes
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public GetAttributesResponseWrapper getAttributes(GetAttributesWrapper request) throws Exception
@@ -1067,6 +1072,7 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
     /* (non-Javadoc)
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {

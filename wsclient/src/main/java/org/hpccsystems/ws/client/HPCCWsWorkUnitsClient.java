@@ -99,14 +99,21 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WsWorkunitsClientStubWrapper;
 
 /**
- * ESP Client code for common WsWorkUnits operations
+ * Facilitates ECL WorkUnit related actions.
+ *
+ * Supported actions include fetching Workunit info, submiting ECL query,
+ * fetching workunit status, publishing workunit, deleting, aborting and more.
  */
 public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 {
     private static final Logger          log                = LogManager.getLogger(HPCCWsWorkUnitsClient.class);
+    /** Constant <code>WSWORKUNITSWSDLURI="/WsWorkunits"</code> */
     public static final String           WSWORKUNITSWSDLURI = "/WsWorkunits";
+    /** Constant <code>defaultWaitTime=10000</code> */
     public static final int              defaultWaitTime    = 10000;
+    /** Constant <code>defaultResultLimit=100</code> */
     public static final int              defaultResultLimit = 100;
+    /** Constant <code>defaultMaxWaitTime=1000 * 60 * 5</code> */
     public static final int              defaultMaxWaitTime = 1000 * 60 * 5;
     private WsWorkunitsClientStubWrapper stubWrapper        = null;
 
@@ -285,9 +292,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wu
      *            the wu
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void fastWURefresh(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
@@ -342,7 +349,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wu
      *            the wu
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     protected void fullWURefresh(WorkunitWrapper wu) throws Exception
@@ -363,7 +370,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *            the include source files
      * @param includeApplicationValues
      *            the include application values
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public void fullWURefresh(WorkunitWrapper wu, boolean includeGraphs, boolean includeResults, boolean includeSourceFiles,
@@ -411,9 +418,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wuid
      *            the wuid
      * @return true if state is compiled
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean isWorkunitCompiled(String wuid) throws Exception, ArrayOfEspExceptionWrapper
@@ -483,9 +490,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wuid
      *            the wuid
      * @return true, if is workunit complete
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean isWorkunitComplete(String wuid) throws Exception, ArrayOfEspExceptionWrapper
@@ -644,9 +651,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            - Workunitinfo object containing all pertinent information for WU request
      * @return the WU publish workunit response
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WUPublishWorkunitResponse publishWUFromEcl(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
@@ -684,9 +691,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            the wu
      * @return the WU publish workunit response
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WUPublishWorkunitResponse publishWU(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
@@ -722,7 +729,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wuid
      *            the wuid
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public void publishWU(String wuid) throws Exception
@@ -762,12 +769,17 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Get information about a given WorkUnit, caller can request to unarchive
      * the WU if necessary to fetch WU info.
      *
+     * @return - ECLWorkunit object with information pertaining to the WU
+     * @throws java.lang.Exception
+     *             - Caller must handle exceptions
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
      * @param wuinfodetailsparams
      *            - workunit info request wrapper
      * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws Exception
+     * @throws java.lang.java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WorkunitWrapper getWUInfo(WUInfoRequestWrapper wuinfodetailsparams) throws Exception, ArrayOfEspExceptionWrapper
@@ -811,9 +823,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wuid
      *            - ID of target workunit
      * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WorkunitWrapper getWUInfo(String wuid) throws Exception, ArrayOfEspExceptionWrapper
@@ -830,9 +842,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param unarchive
      *            - unarchive archived workunit
      * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WorkunitWrapper getWUInfo(String wuid, boolean unarchive) throws Exception, ArrayOfEspExceptionWrapper
@@ -875,9 +887,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param includeTimers
      *            the include timers
      * @return the WU info
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     @Deprecated
@@ -933,9 +945,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param unarchive
      *            the unarchive
      * @return the WU info
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     @Deprecated
@@ -972,7 +984,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * ESP. Temporarily increases timeout value to 3 seconds;
      *
      * @return - True if able to reply is received within timout value of 3 secs, false otherwise
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
      */
     public boolean testWUQuery() throws Exception
@@ -1033,9 +1045,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param applicationValues
      *            the application values
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<WorkunitWrapper> workUnitUQuery(String wuid, String jobname, String cluster, Boolean archived, WUQueryWrapper.SortBy sortby,
@@ -1068,9 +1080,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param info
      *            the info
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<WorkunitWrapper> workUnitUQuery(WUQueryWrapper info) throws Exception, ArrayOfEspExceptionWrapper
@@ -1166,9 +1178,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wuid
      *            - The ID of the target workunit
      * @return - true if errors present
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean doesWUContainErrors(String wuid) throws Exception, ArrayOfEspExceptionWrapper
@@ -1187,9 +1199,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            - The workunit information used to create WU on HPCC cluster
      * @return the workunit wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WorkunitWrapper createWUFromECL(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
@@ -1240,9 +1252,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param compileOnly
      *            the compile only
      * @return the workunit wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     /*
@@ -1274,9 +1286,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param state
      *            - WUState of workunits to find
      * @return an List &lt;WorkunitInfo&gt; of matching workunits
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<WorkunitWrapper> getWorkunits(String jobName, String owner, String ecl, Boolean archived, String wuid, String cluster, WUState state)
@@ -1300,9 +1312,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param params
      *            the params
      * @return the workunits
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<WorkunitWrapper> getWorkunits(WUQueryWrapper params) throws Exception, ArrayOfEspExceptionWrapper
@@ -1316,11 +1328,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            the wu
      * @return - Object with WU information
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public WorkunitWrapper compileWUFromECL(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
@@ -1363,8 +1375,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * Provides caller full control over request options via WUSubmitWrapper
      *
-     * @param wusubmitwrapper
-     * @throws Exception
+     * @param wusubmitwrapper a {@link org.hpccsystems.ws.client.wrappers.wsworkunits.WUSubmitWrapper} object.
+     * @throws java.lang.Exception
      */
     public void submitWU(WUSubmitWrapper wusubmitwrapper) throws Exception
     {
@@ -1396,9 +1408,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wu
      *            the wu
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void submitWU(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper
@@ -1413,9 +1425,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *            the wuid
      * @param cluster
      *            the cluster
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void submitWU(String wuid, String cluster) throws Exception, ArrayOfEspExceptionWrapper
@@ -1452,11 +1464,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            the wu
      * @return - Object with WU information
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public WURunResponse createAndRunWUFromECL(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
@@ -1508,11 +1520,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            the wu
      * @return - Object with WU information
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public String createAndRunWUFromECLAndGetResults(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
@@ -1528,11 +1540,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wu
      *            the wu
      * @return - Workunit ID
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller must handle exceptions
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
-     * @throws ArrayOfECLExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
     public String createAndRunWUFromECLAndGetWUID(WorkunitWrapper wu) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
@@ -1557,9 +1569,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param resultCount
      *            - Total result record count
      * @return - Results in xml string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String fetchResultsFromLogicalName(String logicalName, int sequence, String cluster, boolean suppressXMLShema, long resultOffset,
@@ -1589,9 +1601,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param resultCount
      *            - Total result record count re
      * @return - Results in xml string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String fetchResults(String wuid, int sequence, String cluster, boolean suppressXMLShema, long resultOffset, int resultCount)
@@ -1623,7 +1635,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param resultCount
      *            the result count
      * @return the WU result response
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WUResultResponse fetchRawResults(String wuidorlogicalname, boolean useWuid, int sequence, String cluster, boolean suppressXMLShema,
@@ -1682,7 +1694,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param parameters
      *            the parameters
      * @return the WU result response
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WUResultResponse fetchRawResults(WUResult parameters) throws Exception
@@ -1784,7 +1796,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param timeout
      *            - Maximum time for this check
      * @return the array of ECL exception wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public ArrayOfECLExceptionWrapper syntaxCheckECL(String ecl, String cluster, Integer timeout) throws Exception
@@ -1815,7 +1827,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param filter
      *            the filter
      * @return the queries detail
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WUQuerySetDetailsResponse getQueriesDetail(String querySetName, String clusterName, String filter) throws Exception
@@ -1835,7 +1847,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wuid
      *            the wuid
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public void abortWU(String wuid) throws Exception
@@ -1855,9 +1867,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wuid
      *            the wuid
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void deleteWU(String wuid) throws Exception, ArrayOfEspExceptionWrapper
@@ -1884,7 +1896,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *            the restart
      * @param clone
      *            the clone
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public void resubmitWU(String wuid, boolean restart, boolean clone) throws Exception
@@ -1905,7 +1917,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Fetch set of available QuerySets.
      *
      * @return the query sets
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public QuerySet[] getQuerySets() throws Exception
@@ -1929,9 +1941,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wur
      *            the wur
      * @return WUResultResponse
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WUResultResponse getWorkunitResult(WUResult wur) throws Exception, ArrayOfEspExceptionWrapper
@@ -1947,9 +1959,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param resultname
      *            - resultname to return result for
      * @return content of result
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String getWorkunitResult(String wuid, String resultname) throws Exception, ArrayOfEspExceptionWrapper
@@ -1978,9 +1990,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param unarchive
      *            the unarchive
      * @return WUResultResponse
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public WUResultResponse getWorkunitResult(WUResult wur, boolean unarchive) throws Exception, ArrayOfEspExceptionWrapper
@@ -2004,11 +2016,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param action
      *            - The action to be requested see ECLWUActions
      * @return true, if successful
-     * @throws RemoteException
+     * @throws java.rmi.RemoteException
      *             the remote exception
-     * @throws Exception
+     * @throws java.rmi.RemoteException
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean doWorkunitAction(String wuid, ECLWUActions action) throws RemoteException, Exception, ArrayOfEspExceptionWrapper
@@ -2086,7 +2098,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Create a new workunit. Does not update/run/submit
      *
      * @return new WorkunitInfo containing created wuid
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WorkunitWrapper createWorkunit() throws Exception
@@ -2102,10 +2114,11 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
     /**
      * Protect a workunit
+     *
      * @param wuid
      *            - wuid to protect
      * @return WorkunitInfo with updated status
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WorkunitWrapper protectWorkunit(String wuid) throws Exception
@@ -2137,7 +2150,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param entirefile
      *            the entirefile
      * @return the workunit file
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WULogFileWrapper getWorkunitFile(String wuid, String filename, WUFileType filetype, String description, String ipaddr, boolean entirefile)
@@ -2176,7 +2189,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param appsource
      *            - application source for app values
      * @return WorkunitInfo with wuid of run, run status and result
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public WorkunitWrapper runWorkunit(String wuid, HashMap<String, String> namedvalues, HashMap<String, String> appvalues, Integer timeout,
@@ -2250,7 +2263,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param clustername
      *            the clustername
      * @return the list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public List<QueryResultWrapper> searchQueries(QuerySetFilterType filtertype, String filtervalue, String querySetName, String clustername)
@@ -2288,6 +2301,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
     /**
      * Call WUListQueries service
+     *
      * @param queryid
      *            - unique ID of the query
      * @param queryname
@@ -2307,7 +2321,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param descending
      *            the descending
      * @return List of QueryResults populated from QuerySetQuery list
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public List<QueryResultWrapper> listQueries(String queryid, String queryname, String clustername, String querysetname, Integer pageSize,
@@ -2370,7 +2384,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param cluster
      *            - the cluster to search for said query
      * @return - List &lt;QueryFileWrapper&gt; of matching queries
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public List<QueryFileWrapper> getQueryFiles(String queryname, String cluster) throws Exception
@@ -2407,7 +2421,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param cluster
      *            - cluster to activate upon
      * @return the query result wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public QueryResultWrapper activateQuery(String queryId, String cluster) throws Exception
@@ -2450,7 +2464,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param cluster
      *            - cluster to delete from
      * @return - List &lt;QueryResult&gt; result of actions
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public List<QueryResultWrapper> deleteQueries(Set<String> querynames, String cluster) throws Exception
@@ -2498,7 +2512,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -2525,6 +2539,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {

@@ -79,11 +79,10 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrappe
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 
 /**
- * Use as soap client for HPCC wsFileSpray web service.
- * This includes uploading files to dropzone, listing files in a dropzone,
+ * Facilitates File Spray related activities.
+ * This includes listing available dropzones, uploading files to dropzone, listing files in a dropzone,
  * spraying files from dropzone and more.
  * This class can be enhanced to provide further service calls.
- *
  */
 public class HPCCFileSprayClient extends BaseHPCCWsClient
 {
@@ -162,6 +161,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {
@@ -169,6 +169,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     // from HPCC-Platform/dali/dfu/dfuwu.hpp DFUfileformat
+    /**
+     * Used to declare variable data format of file to be sprayed
+     *
+     */
     public enum SprayVariableFormat
     {
         DFUff_fixed (0),
@@ -247,7 +251,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCFileSprayClient connected to target HPCC Systems
+     * as described by connection object.
      *
      * @param connection
      *            the connection
@@ -259,7 +264,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCFileSprayClient connected to target HPCC Systems
+     * as described by connection parameters.
      *
      * @param protocol
      *            the protocol
@@ -281,7 +287,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCFileSprayClient connected to target HPCC Systems
+     * as described by connection parameters.
      *
      * @param protocol
      *            the protocol
@@ -348,10 +355,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     }
 
     /**
-     * Ping.
+     * Sends ping request to WsFileSpray service on target HPCC Systems instance.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -404,9 +411,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param milliesBetweenRetry
      *            the millies between retry
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper, int maxRetries, int milliesBetweenRetry)
@@ -527,9 +534,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * Fetch local drop zones.
      *
      * @return List of all local drop zones on target HPCC system
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<DropZoneWrapper> fetchLocalDropZones() throws Exception, ArrayOfEspExceptionWrapper
@@ -543,9 +550,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param dropzoneNetAddress
      *            the dropzone net address
      * @return list of all dropzones on dropzoneNetAddress
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<DropZoneWrapper> fetchDropZones(String dropzoneNetAddress) throws Exception, ArrayOfEspExceptionWrapper
@@ -597,9 +604,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return the string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String copyFile(String from, String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
@@ -647,9 +654,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param watchvisibleonely
      *            the watchvisibleonely
      * @return the drop zone files response wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly,
@@ -675,9 +682,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param szrequest
      *            the szrequest
      * @return the drop zone files response wrapper
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public DropZoneFilesResponseWrapper fetchDropZones(DropZoneFilesRequestWrapper szrequest) throws Exception, ArrayOfEspExceptionWrapper
@@ -716,9 +723,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param namefilter
      *            - Required, the wildcard based name-filter to query
      * @return the physical file struct[]
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public PhysicalFileStruct[] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception, ArrayOfEspExceptionWrapper
@@ -764,9 +771,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param OS
      *            - Optional, OS code
      * @return - Array of file descriptors
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<PhysicalFileStructWrapper> listFiles(String netAddress, String path, String OS) throws Exception, ArrayOfEspExceptionWrapper
@@ -829,9 +836,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, String sourceFileName, String targetFileName, String prefix,
@@ -858,9 +865,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, DelimitedDataOptions options, String sourceFileName,
@@ -892,9 +899,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param format
      *            - SprayVariableFormat object describing the file format
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName,
@@ -924,9 +931,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName,
@@ -970,9 +977,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param expireDays
      *            the expire days
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName,
@@ -1046,9 +1053,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return ProgressResponse
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite)
@@ -1080,9 +1087,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param maxrecsize
      *            the maxrecsize
      * @return ProgressResponse
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayLocalXML(String sourceFileName, String targetFileName, String prefix, String destGroup, boolean overwrite,
@@ -1126,9 +1133,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param expireDays
      *            the expire days
      * @return ProgressResponse
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayXML(DropZoneWrapper targetDropZone, String sourceFileName, String targetFileName, String prefix,
@@ -1194,9 +1201,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayFixed(String dropzoneNetAddress, String sourceFileName, int recordSize, String targetFileLabel, String prefix,
@@ -1226,9 +1233,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite
      *            the overwrite
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayFixedLocalDropZone(String sourceFileName, int recordSize, String targetFileLabel, String prefix,
@@ -1280,9 +1287,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param wrap
      *            the wrap
      * @return - Progress response at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper sprayFixed(DropZoneWrapper targetDropZone, String sourceFileName, int recordSize, String targetFileLabel,
@@ -1341,9 +1348,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param dfuwuid
      *            - The DFU Work unit number
      * @return - The Progress report at time of request
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public ProgressResponseWrapper getDfuProgress(String dfuwuid) throws Exception, ArrayOfEspExceptionWrapper
@@ -1388,9 +1395,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param targetDropzoneAddress
      *            - The target dropzone address
      * @return - Boolean, success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean uploadFile(File file, String targetDropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
@@ -1410,9 +1417,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param file
      *            - The File to upload
      * @return - Boolean, success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean uploadFileLocalDropZone(File file) throws Exception, ArrayOfEspExceptionWrapper
@@ -1786,9 +1793,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *            - The user account name to log on to the target machine
      * @param password
      *            - The user account password to log on to the target machine
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password)
@@ -1810,9 +1817,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *            - The user account password to log on to the target machine
      * @param connconfig
      *            (optional) - Connection config options
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetFilename, String machineLoginUserName, String password,
@@ -1836,9 +1843,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *            - The user account password to log on to the target machine
      * @param connconfig
      *            (optional) - Connection config options
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public void sftpPutFileOnTargetLandingZone(String localFileName, String targetDropzoneAddress, String targetFilename, String machineLoginUserName,
@@ -1857,9 +1864,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param workunitid
      *            the workunitid
      * @return the DFU workunit
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public GetDFUWorkunitResponseWrapper getDFUWorkunit(String workunitid) throws Exception, ArrayOfEspExceptionWrapper
@@ -1898,9 +1905,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param pagesize
      *            the pagesize
      * @return the DFU workunits
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public GetDFUWorkunitsResponseWrapper getDFUWorkunits(String cluster, Long pagesize) throws Exception, ArrayOfEspExceptionWrapper
@@ -1946,8 +1953,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param os
      *          - The os
      * @return response from dfu workunit
-     * @throws RemoteException remote exception
-     * @throws EspSoapFault esp soap exception
+     * @throws java.lang.Exception if any.
      */
     public DFUWorkunitsActionResponseWrapper deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
     {
@@ -1976,8 +1982,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param overwrite      - Overwrite if targetfilename already exists
      * @return               - The resulting DFU workunit
      *                         Can be used to track progress and status via getDFUWorkunit(String) or getDfuProgress
-     * @throws Exception general exception
-     * @throws ArrayOfEspExceptionWrapper array of esp exception wrapper
+     * @throws java.lang.Exception general exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
     public String renameLogicalFile(String sourceFileName, String targetFilename, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -2009,6 +2015,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#equals(java.lang.Object)
      */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat)
     {
@@ -2039,11 +2046,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     /**
      * Despray HPCC logical file - see actual service page for field descriptions
      *
-     * @param sourcelogicalname
-     * @param destinationIP
-     * @param destinationPath
-     * @return
-     * @throws Exception
+     * @param sourcelogicalname a {@link java.lang.String} object.
+     * @param destinationIP a {@link java.lang.String} object.
+     * @param destinationPath a {@link java.lang.String} object.
+     * @throws java.lang.Exception
+     * @return a {@link java.lang.String} object.
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath) throws Exception
     {
@@ -2053,14 +2060,14 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     /**
      * Despray HPCC logical file - see actual service page for field descriptions
      *
-     * @param sourcelogicalname
-     * @param destinationIP
-     * @param destinationPath
-     * @param splitprefix
-     * @param overwrite
-     * @param singleconnection
-     * @return
-     * @throws Exception
+     * @param sourcelogicalname a {@link java.lang.String} object.
+     * @param destinationIP a {@link java.lang.String} object.
+     * @param destinationPath a {@link java.lang.String} object.
+     * @param splitprefix a {@link java.lang.String} object.
+     * @param overwrite a boolean.
+     * @param singleconnection a boolean.
+     * @throws java.lang.Exception
+     * @return a {@link java.lang.String} object.
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath, String splitprefix, boolean overwrite, boolean singleconnection) throws Exception
     {
@@ -2070,24 +2077,24 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     /**
      * Despray HPCC logical file - see actual service page for field descriptions
      *
-     * @param compressed
-     * @param decrypt
-     * @param destip
-     * @param destpath
-     * @param dfuserverqueue
-     * @param encrypt
-     * @param maxconnections
-     * @param multicopy
-     * @param norecover
-     * @param overwrite
-     * @param singleconnection
-     * @param sourcelogicalname
-     * @param splitprefix
-     * @param throttle
-     * @param transferbuffersize
-     * @param wrap
-     * @return
-     * @throws Exception
+     * @param compressed a {@link java.lang.Boolean} object.
+     * @param decrypt a {@link java.lang.String} object.
+     * @param destip a {@link java.lang.String} object.
+     * @param destpath a {@link java.lang.String} object.
+     * @param dfuserverqueue a {@link java.lang.String} object.
+     * @param encrypt a {@link java.lang.String} object.
+     * @param maxconnections a {@link java.lang.Integer} object.
+     * @param multicopy a {@link java.lang.Boolean} object.
+     * @param norecover a {@link java.lang.Boolean} object.
+     * @param overwrite a {@link java.lang.Boolean} object.
+     * @param singleconnection a {@link java.lang.Boolean} object.
+     * @param sourcelogicalname a {@link java.lang.String} object.
+     * @param splitprefix a {@link java.lang.String} object.
+     * @param throttle a {@link java.lang.Integer} object.
+     * @param transferbuffersize a {@link java.lang.Integer} object.
+     * @param wrap a {@link java.lang.Boolean} object.
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
     public DesprayResponseWrapper despray(Boolean compressed, String decrypt, String destip,
             String destpath, String dfuserverqueue, String encrypt,
@@ -2155,9 +2162,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     /**
      * Despray HPCC logical file
      *
-     * @param desprayreq
-     * @return
-     * @throws Exception
+     * @param desprayreq a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayWrapper} object.
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
     public DesprayResponseWrapper despray(DesprayWrapper desprayreq) throws Exception
     {
@@ -2174,6 +2181,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#hashCode()
      */
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
