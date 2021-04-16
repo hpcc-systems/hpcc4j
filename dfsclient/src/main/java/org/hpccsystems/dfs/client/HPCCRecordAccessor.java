@@ -22,6 +22,9 @@ import org.hpccsystems.dfs.client.HPCCRecord;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 
+/** 
+ * Allows consumers of IRecordAccessor to access data within an @see org.hpccsystems.dfs.client.HPCCRecord.
+ */
 public class HPCCRecordAccessor implements IRecordAccessor
 {
     private HPCCRecord           record               = null;

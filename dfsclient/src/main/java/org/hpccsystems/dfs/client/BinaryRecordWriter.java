@@ -31,6 +31,12 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 
+/**
+ * Serializes records into the provided OutputStream utilizing the provided IRecordAccessor to access record data.
+ * 
+ * The IRecordAccessor must match the type of records that are provided to {@link #writeRecord(Object) writeRecord}.
+ * The data written to the OutputStream will be in the HPCC Systems binary record format.
+ */
 public class BinaryRecordWriter implements IRecordWriter
 {
     private static final Logger log                 = LogManager.getLogger(BinaryRecordWriter.class);

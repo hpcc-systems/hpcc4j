@@ -19,7 +19,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import java.util.Arrays;
 
 /**
- * A generic Record
+ * A generic instance of a record described by FieldDef. Fields are accessible by index.
  */
 public class HPCCRecord
 {

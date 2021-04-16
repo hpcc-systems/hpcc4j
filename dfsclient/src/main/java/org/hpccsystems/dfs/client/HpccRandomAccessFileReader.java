@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * File reader that allows random access of records in an HPCC file part.
+ * File reader that allows random access of records in an HPCC Systems file part.
  * 
  * A connection to the remote dafilesrv will be opened upon initialization and remain open to process fetch requests in batches.
  */

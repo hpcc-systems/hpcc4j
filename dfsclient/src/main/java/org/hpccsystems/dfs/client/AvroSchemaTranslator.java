@@ -45,6 +45,9 @@ STRING -> CharSequence
 UNION -> [Could be lots of types depending on meta info]
 */
 
+/**
+ * A helper class that translates a given Avro record Schema into an HPCC Systems record definition.
+ */
 public class AvroSchemaTranslator
 {
     public static FieldDef toHPCC(Schema schema, String fieldName) throws Exception

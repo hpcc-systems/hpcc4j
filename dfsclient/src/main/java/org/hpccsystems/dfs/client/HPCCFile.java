@@ -38,13 +38,12 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.json.JSONObject;
 
+/**
+ * Access to file content on a collection of one or more HPCC Systems clusters.
+ *
+ */
 public class HPCCFile implements Serializable
 {
-
-    /**
-     * Access to file content on a collection of one or more HPCC clusters.
-     *
-     */
     static private final long    serialVersionUID              = 1L;
 
     private static final Logger  log                           = LogManager.getLogger(HPCCFile.class);
@@ -321,7 +320,7 @@ public class HPCCFile implements Serializable
     /**
      * Sets the filter.
      *
-     * @param filefilter
+     * @param filefilter the filter
      * @return this HPCCFile
      * @throws Exception
      *             the exception
@@ -454,7 +453,9 @@ public class HPCCFile implements Serializable
     /**
      * Return the list of partitions with records matching the provided filter
      *
+     * @param filter the filter
      * @return the file parts
+     * @throws HpccFileException the exception
      */
     public List<DataPartition> findMatchingPartitions(FileFilter filter) throws HpccFileException
     {

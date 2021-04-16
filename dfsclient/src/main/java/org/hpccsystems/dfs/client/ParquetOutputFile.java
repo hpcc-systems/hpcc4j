@@ -23,6 +23,9 @@ import java.io.FileOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * A helper class that can be used to represent a parqut file being written.
+ */
 public class ParquetOutputFile implements OutputFile
 {
     public static class ParquetOutputStream extends DelegatingPositionOutputStream

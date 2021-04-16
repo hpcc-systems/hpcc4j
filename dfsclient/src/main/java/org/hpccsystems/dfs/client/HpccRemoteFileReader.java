@@ -21,7 +21,8 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Remote file reader used by the HpccRDD.
+ * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition 
+ * and constructs records via the provided @see org.hpccsystems.dfs.client#IRecordBuilder.
  */
 public class HpccRemoteFileReader<T> implements Iterator<T>
 {
@@ -219,6 +220,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     /**
      * Returns read resume info for the specified position within the file.
      * 
+     * @param streamPosition the stream position to resume from
      * @return FileReadResumeInfo
      */
     public FileReadResumeInfo getFileReadResumeInfo(Long streamPosition)
