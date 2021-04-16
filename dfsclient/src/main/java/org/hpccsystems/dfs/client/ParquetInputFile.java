@@ -23,6 +23,9 @@ import org.apache.parquet.io.InputFile;
 import org.apache.parquet.io.SeekableInputStream;
 import org.apache.parquet.io.DelegatingSeekableInputStream;
 
+/**
+ * Helper class that can be used to represent a parquet input file.
+ */
 public class ParquetInputFile implements InputFile
 {
     public static class ParquetInputStream extends DelegatingSeekableInputStream

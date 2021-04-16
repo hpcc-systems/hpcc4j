@@ -21,7 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import java.util.Iterator;
 
 /**
- * Remote file writer
+ * Remote file writer the writes data to the file part represented by @see org.hpccsystems.dfs.client.DataPartition
+ * and uses the provided @see org.hpccsystems.dfs.client.IRecordAccessor to access records.
  */
 public class HPCCRemoteFileWriter<T>
 {

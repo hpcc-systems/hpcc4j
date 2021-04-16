@@ -42,8 +42,7 @@ import org.hpccsystems.commons.network.Network;
 import org.hpccsystems.generated.CompileTimeConstants;
 
 /**
- * The connection to a specific THOR node for a specific file part.
- *
+ * An input stream that uses the row service provided by the HPCC platform to read a particular file part.
  */
 public class RowServiceInputStream extends InputStream implements IProfilable
 {

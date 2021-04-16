@@ -22,6 +22,9 @@ import org.hpccsystems.dfs.client.HPCCRecord;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 
+/** 
+ * Allows consumers of IRecordBuilder to construct an @see org.hpccsystems.dfs.client.HPCCRecord.
+ */
 public class HPCCRecordBuilder implements IRecordBuilder
 {
     private Object[]            fields              = null;

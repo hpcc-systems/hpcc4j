@@ -24,8 +24,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 
 /**
- * A partition of data. One physical file
- * or key accessed by HPCC remote read.
+ * A partition of data. One physical file or key accessed by HPCC Systems remote read.
  */
 public class DataPartition implements Serializable
 {

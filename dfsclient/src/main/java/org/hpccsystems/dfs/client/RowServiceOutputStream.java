@@ -29,6 +29,9 @@ import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.ecl.FieldDef;
 
+/**
+ * An output stream that uses the row service and HPCC Systems web services file creation APIs to write to a specific file part.
+ */
 public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
