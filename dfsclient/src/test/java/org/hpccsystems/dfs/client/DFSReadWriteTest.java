@@ -65,10 +65,19 @@ public class DFSReadWriteTest extends BaseRemoteTest
     {
         //this file only has data on two nodes
         HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
-        file.setProjectList("");
 
-        List<HPCCRecord> records = readFile(file, connTO);
+        List<HPCCRecord> records = readFile(file, connTO, false);
         assertEquals("Not all records loaded",expectedCounts[1], records.size());
+    }
+
+    @Test
+    public void readWithForcedTimeoutTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);
+
+        // Set expiration to 15,000ms
+        List<HPCCRecord> records = readFile(file, 15000, true);
+        assertEquals("Not all records loaded",expectedCounts[0], records.size());
     }
 
     @Test
@@ -79,7 +88,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCFile file = new HPCCFile(datasets[i], connString , hpccUser, hpccPass);
             file.setProjectList("");
 
-            List<HPCCRecord> records = readFile(file, connTO);
+            List<HPCCRecord> records = readFile(file, connTO, false);
             if (records.size() != expectedCounts[i])
             {
                 Assert.fail("Record count mismatch for dataset: " + datasets[i] + " got: " + records.size() + " expected: " + expectedCounts[i]);
@@ -92,7 +101,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             // Read and compare to original dataset
             file = new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
-            List<HPCCRecord> copiedRecords = readFile(file, connTO);
+            List<HPCCRecord> copiedRecords = readFile(file, connTO, false);
             if (copiedRecords.equals(records) == false)
             {
                 Assert.fail("Written dataset does not match original dataset: " + copyFileName);
@@ -109,7 +118,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             FieldDef recdef=file.getRecordDefinition();
             file.setProjectList(String.join(",", projectedfields));
-            List<HPCCRecord> recs=readFile(file, connTO);
+            List<HPCCRecord> recs=readFile(file, connTO, false);
             if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1) 
             {
                 fail("recs did not project correctly");
@@ -124,7 +133,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
 
-        List<HPCCRecord> records = readFile(file, connTO);
+        List<HPCCRecord> records = readFile(file, connTO, false);
         assertEquals( "Record count mismatch for dataset:" + fname + ". got: " + records.size() + " expected:" + expectedCounts[1],expectedCounts[1],records.size());
 
         HPCCRecord first = records.get(0);
@@ -139,7 +148,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         file = new HPCCFile(copyFileName, connString, hpccUser, hpccPass);
 
-        records = readFile(file, connTO);
+        records = readFile(file, connTO, false);
         assertEquals( "Record count mismatch for dataset:" + copyFileName + ". got: " + records.size() +
                 " expected:" + expectedCounts[1],expectedCounts[1],records.size());
 
@@ -236,7 +245,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         writeFile(records, "benchmark::large_record_8MB::10rows", recordDef,connTO);
 
         HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
-        records = readFile(file, connTO);
+        records = readFile(file, connTO, false);
         if (records.size() < 10)
         {
             Assert.fail("Failed to read large record dataset");
@@ -353,7 +362,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         expectedFields[15]=  new BigDecimal("9223372036854775807");
         
         HPCCRecord expectedRecord = new HPCCRecord(expectedFields, recordDef);
-        records = readFile(file, connTO);
+        records = readFile(file, connTO, false);
 
         BigInteger UNSIGNED_LONG_MASK = BigInteger.ONE.shiftLeft(Long.SIZE).subtract(BigInteger.ONE);
         for (int i = 0; i < 10; i++)
@@ -397,7 +406,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         HPCCFile file = new HPCCFile("benchmark::large_record_8MB::10rows", connString , hpccUser, hpccPass);
         file.setFilter("key = 0 OR key > 10");
 
-        records = readFile(file, connTO);
+        records = readFile(file, connTO, false);
         if (records.size() != 1)
         {
             Assert.fail("Failed to read filtered record dataset");
@@ -527,7 +536,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
-    public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis) throws Exception
+    public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
     {
         if (file == null)
         {
@@ -569,6 +578,11 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
                 Assert.fail("Error constructing reader: " + e.getMessage());
             }
+        }
+
+        if (shouldForceTimeout)
+        {
+            Thread.sleep(file.getFileAccessExpirySecs()*1000);
         }
 
         ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
