@@ -1,7 +1,6 @@
 package org.hpccsystems.ws.client;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefMessageWrapper;

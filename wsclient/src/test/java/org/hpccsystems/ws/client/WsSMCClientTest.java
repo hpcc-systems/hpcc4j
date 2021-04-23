@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.Version;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
 import org.junit.Test;

@@ -20,7 +20,6 @@ package org.hpccsystems.ws.client;
 import java.net.URL;
 
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
 import org.junit.BeforeClass;

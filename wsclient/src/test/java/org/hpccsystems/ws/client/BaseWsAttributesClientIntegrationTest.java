@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.platform.Cluster;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
 import org.junit.Before;

@@ -7,7 +7,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.dfs.cluster.RemapInfo;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.AfterClass;
 import org.junit.Assert;

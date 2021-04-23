@@ -25,7 +25,6 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse;
 import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.AddPackageRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.DeletePackageRequestWrapper;

@@ -13,7 +13,6 @@ import java.util.Set;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;

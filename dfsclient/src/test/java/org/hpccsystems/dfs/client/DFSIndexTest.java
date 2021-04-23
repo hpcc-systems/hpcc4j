@@ -15,41 +15,28 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.lang.StringBuilder;
-import java.lang.Math;
+import java.util.List;
 
-import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
-import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
-
-import org.hpccsystems.dfs.cluster.*;
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HPCCRecordBuilder;
-import org.hpccsystems.dfs.client.HpccRemoteFileReader;
-import org.hpccsystems.dfs.client.DataPartition;
-import org.hpccsystems.dfs.client.CompiledFieldFilter;
-
-import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
-import org.hpccsystems.commons.ecl.FieldFilter;
 import org.hpccsystems.commons.ecl.FileFilter;
-import org.hpccsystems.commons.ecl.FieldFilterRange;
+import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
+import org.hpccsystems.dfs.cluster.NullRemapper;
+import org.hpccsystems.dfs.cluster.RemapInfo;
+import org.hpccsystems.ws.client.BaseRemoteTest;
+import org.hpccsystems.ws.client.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
+import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class DFSIndexTest extends BaseRemoteTest
