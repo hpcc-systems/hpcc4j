@@ -51,7 +51,7 @@
     <axis.version>1.4</axis.version>
     <javax.mail.version>1.4</javax.mail.version>
     <jsch.version>0.1.54</jsch.version>
-    <commons-io.version>2.4</commons-io.version>
+    <commons-io.version>2.7</commons-io.version>
     <junit.version>4.13.1</junit.version>
     <json.version>20180813</json.version>
     <log4j.version>2.13.2</log4j.version>
