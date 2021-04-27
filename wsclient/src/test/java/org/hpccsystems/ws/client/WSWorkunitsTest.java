@@ -25,7 +25,6 @@ import static org.junit.Assume.assumeNotNull;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WURunResponse;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;

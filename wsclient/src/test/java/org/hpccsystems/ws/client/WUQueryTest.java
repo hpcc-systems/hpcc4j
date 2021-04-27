@@ -5,7 +5,6 @@ import static org.junit.Assume.assumeTrue;
 
 import java.util.List;
 
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;

@@ -15,38 +15,26 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hpccsystems.dfs.client.HPCCFile;
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HPCCRecordBuilder;
-import org.hpccsystems.dfs.client.HpccRemoteFileReader;
-import org.hpccsystems.dfs.client.DataPartition;
-
+import org.hpccsystems.commons.benchmarking.BenchmarkParam;
+import org.hpccsystems.commons.benchmarking.BenchmarkResult;
+import org.hpccsystems.commons.benchmarking.IMetric;
+import org.hpccsystems.commons.benchmarking.MetricAverageTransformer;
+import org.hpccsystems.commons.benchmarking.MetricSumTransformer;
+import org.hpccsystems.commons.benchmarking.SimpleMetric;
+import org.hpccsystems.commons.benchmarking.Units;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
-
-import org.json.JSONObject;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.json.JSONArray;
-
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-
-import org.hpccsystems.commons.benchmarking.BenchmarkResult;
-import org.hpccsystems.commons.benchmarking.BenchmarkParam;
-import org.hpccsystems.commons.benchmarking.SimpleMetric;
-import org.hpccsystems.commons.benchmarking.AveragedMetric;
-import org.hpccsystems.commons.benchmarking.IMetric;
-import org.hpccsystems.commons.benchmarking.Units;
-import org.hpccsystems.commons.benchmarking.MetricSumTransformer;
-import org.hpccsystems.commons.benchmarking.MetricAverageTransformer;
 
 @Category(org.hpccsystems.commons.annotations.Benchmark.class)
 public class DFSBenchmarkTest extends BaseRemoteTest

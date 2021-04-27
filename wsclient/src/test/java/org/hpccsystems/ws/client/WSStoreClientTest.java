@@ -27,7 +27,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.commons.utils.CryptoHelper;
 import org.hpccsystems.commons.utils.DigestAlgorithmType;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;

@@ -21,7 +21,6 @@ import java.io.PrintStream;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpDropZoneWrapper;

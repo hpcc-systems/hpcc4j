@@ -26,7 +26,6 @@ import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue;
 import org.hpccsystems.ws.client.platform.Version;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.ECLWorkunitWrapper;

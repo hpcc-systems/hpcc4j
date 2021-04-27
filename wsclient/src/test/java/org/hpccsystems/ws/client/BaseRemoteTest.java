@@ -15,7 +15,7 @@
     limitations under the License.
 ############################################################################## */
 
-package org.hpccsystems.ws.client.platform.test;
+package org.hpccsystems.ws.client;
 
 import static org.junit.Assert.fail;
 
@@ -23,7 +23,6 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 
-import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;

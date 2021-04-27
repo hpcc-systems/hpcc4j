@@ -15,9 +15,6 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -26,22 +23,18 @@ import static org.junit.Assert.fail;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hpccsystems.dfs.client.HPCCFile;
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HPCCRecordBuilder;
-import org.hpccsystems.dfs.client.HPCCRecordAccessor;
-import org.hpccsystems.dfs.client.HpccRemoteFileReader;
-import org.hpccsystems.dfs.client.DataPartition;
-
-import org.hpccsystems.dfs.cluster.*;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.dfs.cluster.NullRemapper;
+import org.hpccsystems.dfs.cluster.RemapInfo;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFilePartWrapper;
@@ -50,8 +43,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.junit.experimental.categories.Category;
+import org.junit.runners.MethodSorters;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
