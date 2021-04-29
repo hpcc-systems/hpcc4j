@@ -41,12 +41,13 @@ import org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyResponseWrapper;
 
 /**
- * Client for HPCC's HPCCWsResources web service
+ * Facilitates ECL Code signing and verification related activities.
  */
 public class HPCCWsCodeSignClient extends BaseHPCCWsClient
 {
     private static final Logger    log                = LogManager.getLogger(HPCCWsCodeSignClient.class);
 
+    /** Constant <code>WSRESOURCESURI="/ws_codesign"</code> */
     public static final String     WSRESOURCESURI     = "/ws_codesign";
     private static int             DEFAULTSERVICEPORT = -1;
     private static String          WSDLURL            = null;
@@ -113,6 +114,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {
@@ -217,6 +219,13 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
         }
     }
 
+    /**
+     * <p>listUserIDs.</p>
+     *
+     * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.ListUserIDsRequestWrapper} object.
+     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.ListUserIDsResponseWrapper} object.
+     * @throws java.lang.Exception if any.
+     */
     public ListUserIDsResponseWrapper listUserIDs(ListUserIDsRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -244,6 +253,13 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
         return new ListUserIDsResponseWrapper(resp);
     }
 
+    /**
+     * <p>sign.</p>
+     *
+     * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.SignRequestWrapper} object.
+     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.SignResponseWrapper} object.
+     * @throws java.lang.Exception if any.
+     */
     public SignResponseWrapper sign(SignRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -271,6 +287,13 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
         return new SignResponseWrapper(resp);
     }
 
+    /**
+     * <p>verify.</p>
+     *
+     * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyRequestWrapper} object.
+     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyResponseWrapper} object.
+     * @throws java.lang.Exception if any.
+     */
     public VerifyResponseWrapper verify(VerifyRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -302,7 +325,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception

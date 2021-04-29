@@ -37,6 +37,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * Provides multiple functions which support HPCCWsClient actions.
+ *
+ */
 public class Utils
 {
     private final static Logger log            = LogManager.getLogger(Utils.class);
@@ -961,7 +965,7 @@ public class Utils
     /**
      * Attempts to map a string value to an enum value of
      * a given enum class.
-     * 
+     *
      * Iterates through all enum values of given enum class,
      * and compares to given string.
      * Returns enum value if it finds match, otherwise throws Exception

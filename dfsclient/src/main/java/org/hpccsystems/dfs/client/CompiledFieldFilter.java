@@ -29,6 +29,12 @@ import org.hpccsystems.commons.ecl.FieldFilterRange;
 // Really needs to be two Field Filters
 //
 // Need to have the "comparisonType" to allow for equals & notEquals
+
+/**
+ * A helper class that represents an individual filter applied to a field.
+ * 
+ * A value range can be tested against the CompiledFieldFilter via {@link #matchesRange(Object, Object) matchesRange}.
+ */
 public class CompiledFieldFilter
 {
     private static final Logger log = LogManager.getLogger(CompiledFieldFilter.class);
@@ -265,6 +271,12 @@ public class CompiledFieldFilter
         }
     }
 
+    /**
+     * Checks the filter against the provided value range.
+     * @param inclusiveBegin the start of the field range
+     * @param exclusiveEnd the end of the field range
+     * @return true if the filter would match a value in the range, false otherwise.
+     */
     public boolean matchesRange(Object inclusiveBegin, Object exclusiveEnd)
     {
         // 1 if inclusive begin is less than lowerValue, 0 if equal

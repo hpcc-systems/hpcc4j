@@ -27,13 +27,14 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 /**
- * Use as soap client for HPCC WsFileIo web service.
- * This includes creating a new file, and appending data to a file in the given SHPCC System.
+ * Facilitates File I/O actions on target HPCC instance.
  *
+ * Actions supported include creating a new file, and appending data to a file in the given HPCC System.
  */
 public class HPCCWsFileIOClient extends BaseHPCCWsClient
 {
     private static final Logger log                    = LogManager.getLogger(HPCCWsFileIOClient.class);
+    /** Constant <code>FILEIOWSDLURI="/WsFileIO"</code> */
     public static final String  FILEIOWSDLURI          = "/WsFileIO";
 
     private final int           defaultUploadChunkSize = 5000000;
@@ -100,9 +101,10 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {
@@ -214,7 +216,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -245,9 +247,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param overwritefile
      *            - If the file exists, should it be overwritten?
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception, ArrayOfEspExceptionWrapper
@@ -303,9 +305,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param uploadchunksize
      *            - Chunksize to upload the data
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize)
@@ -384,9 +386,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @param offset
      *            the offset
      * @return the string
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String readFileData(String dropzone, String fileName, long datasize, long offset) throws Exception, ArrayOfEspExceptionWrapper

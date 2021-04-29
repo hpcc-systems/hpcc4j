@@ -42,8 +42,7 @@ import org.hpccsystems.commons.network.Network;
 import org.hpccsystems.generated.CompileTimeConstants;
 
 /**
- * The connection to a specific THOR node for a specific file part.
- *
+ * An input stream that uses the row service provided by the HPCC platform to read a particular file part.
  */
 public class RowServiceInputStream extends InputStream implements IProfilable
 {
@@ -429,15 +428,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         RestartInformation restartInfo = new RestartInformation();
 
-        // Note if we don't find a valid start point we will restart from the beginning of the file
-        for (int i = streamPosOfFetches.size()-1; i >= 0; i--)
+        synchronized (streamPosOfFetches)
         {
-            Long fetchStreamPos = streamPosOfFetches.get(i);
-            if (fetchStreamPos <= streamPos)
+            // Note if we don't find a valid start point we will restart from the beginning of the file
+            for (int i = streamPosOfFetches.size()-1; i >= 0; i--)
             {
-                restartInfo.streamPos = fetchStreamPos;
-                restartInfo.tokenBin = tokenBinOfFetches.get(i);
-                break;
+                Long fetchStreamPos = streamPosOfFetches.get(i);
+                if (fetchStreamPos <= streamPos)
+                {
+                    restartInfo.streamPos = fetchStreamPos;
+                    restartInfo.tokenBin = tokenBinOfFetches.get(i);
+                    break;
+                }
             }
         }
 
@@ -606,8 +608,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         // Clear restart info
         streamPosOfFetchStart = 0;
-        streamPosOfFetches.clear();
-        tokenBinOfFetches.clear();
+        synchronized (streamPosOfFetches)
+        {
+            streamPosOfFetches.clear();
+            tokenBinOfFetches.clear();
+        }
 
         this.fetchRequestOffsets.clear();
         this.fetchRequestOffsets.addAll(fetchOffsets);
@@ -957,19 +962,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 return;
             }
 
-            streamPosOfFetches.add(streamPosOfFetchStart);
-            streamPosOfFetchStart += totalDataInCurrentRequest;
-
             if (this.tokenBin == null || tokenLen > this.tokenBin.length)
             {
                 this.tokenBin = new byte[tokenLen];
             }
-            else
+            dis.readFully(this.tokenBin,0,tokenLen);
+            
+            this.streamPosOfFetchStart += totalDataInCurrentRequest;
+            synchronized (streamPosOfFetches)
             {
+                streamPosOfFetches.add(this.streamPosOfFetchStart);
                 tokenBinOfFetches.add(this.tokenBin);
             }
-
-            dis.readFully(this.tokenBin,0,tokenLen);
         }
         catch (IOException e)
         {

@@ -42,22 +42,25 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
 /*
-ARRAY -> Collection
-BOOLEAN  -> Boolean
-BYTES -> ByteBuffer
-DOUBLE -> Double
-ENUM -> GenericEnumSymbol
-FIXED -> GenericFixed
-FLOAT -> Float
-INT -> Int
-LONG -> Long
-MAP -> Map
-NULL 
-RECORD -> IndexedRecord
-STRING -> CharSequence
-UNION -> [Could be lots of types depending on meta info]
+    ARRAY -> Collection
+    BOOLEAN  -> Boolean
+    BYTES -> ByteBuffer
+    DOUBLE -> Double
+    ENUM -> GenericEnumSymbol
+    FIXED -> GenericFixed
+    FLOAT -> Float
+    INT -> Int
+    LONG -> Long
+    MAP -> Map
+    NULL 
+    RECORD -> IndexedRecord
+    STRING -> CharSequence
+    UNION -> [Could be lots of types depending on meta info]
 */
 
+/**
+ * A helper class that translates a given Avro field or record type to the corresponding HPCC Systems type.
+*/
 public class AvroRecordTranslator 
 {
     private final static ArrayList<Object> EMPTY_ARRAY_LIST = new ArrayList<Object>();

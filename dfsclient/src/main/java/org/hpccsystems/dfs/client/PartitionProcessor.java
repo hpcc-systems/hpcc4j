@@ -34,6 +34,9 @@ import org.hpccsystems.commons.ecl.FieldFilter;
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.FieldFilterRange;
 
+/**
+ * Uses the Top Level Key partition, if present, to determine which file parts in an index match a given FileFilter.
+ */
 public class PartitionProcessor 
 {
     // A set field filters that are all OR'd togther

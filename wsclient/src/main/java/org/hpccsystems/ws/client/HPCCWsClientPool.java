@@ -3,9 +3,14 @@ package org.hpccsystems.ws.client;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.ObjectPool;
 
+/**
+ * <p>HPCCWsClientPool class.</p>
+ *
+ */
 public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
 {
     private Connection       m_connection;
+    /** Constant <code>DEFAULT_EXPIRE_MILLIS=60000</code> */
     public static final long DEFAULT_EXPIRE_MILLIS = 60000;
 
     /**
@@ -82,6 +87,7 @@ public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
      * 
      * @see org.hpccsystems.ws.client.utils.ObjectPool#create()
      */
+    /** {@inheritDoc} */
     @Override
     protected HPCCWsClient create()
     {
@@ -93,6 +99,7 @@ public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
      * 
      * @see org.hpccsystems.ws.client.utils.ObjectPool#validate(java.lang.Object)
      */
+    /** {@inheritDoc} */
     @Override
     public boolean validate(HPCCWsClient client)
     {
@@ -111,6 +118,7 @@ public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
      * 
      * @see org.hpccsystems.ws.client.utils.ObjectPool#expire(java.lang.Object)
      */
+    /** {@inheritDoc} */
     @Override
     public void expire(HPCCWsClient client)
     {

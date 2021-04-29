@@ -39,11 +39,11 @@ import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDat
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
- *
  */
 public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 {
     private static final Logger log                = LogManager.getLogger(HPCCWsPackageProcessClient.class);
+    /** Constant <code>PACKAGEPROCESSURI="/WsPackageProcess"</code> */
     public static final String  PACKAGEPROCESSURI  = "/WsPackageProcess";
     private static int          DEFAULTSERVICEPORT = -1;
     private static String       WSDLURL            = null;
@@ -204,7 +204,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception
@@ -227,14 +227,16 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     }
 
     /**
+     * <p>addPackage.</p>
+     *
      * @param packageMapID      - The name of the new packagemap
      * @param packageMapContent - The packagemap content
      * @param targetCluster     - The packagemap cluster name
      * @param daliip            - The target Dali IP
      *
      * All other request values are defaulted
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip) throws Exception
     {
@@ -242,6 +244,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     }
 
     /**
+     * <p>addPackage.</p>
+     *
      * @param packageMapID      - The name of the new packagemap
      * @param packageMapContent - The packagemap content
      * @param targetCluster     - The packagemap cluster name
@@ -249,8 +253,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param overwrite         - Option to overwrite package map is pre-existing
      *
      * All other request values are defaulted
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite) throws Exception
     {
@@ -258,16 +262,16 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     }
 
     /**
+     * <p>addPackage.</p>
+     *
      * @param packageMapID      - The name of the new packagemap
      * @param packageMapContent - The packagemap content
      * @param targetCluster     - The packagemap cluster name
      * @param daliip            - The target Dali IP
      * @param overwrite         - Option to overwrite package map is pre-existing
-     * @param acrive            - Option to set new package map as active
-     *
-     * All other request values are defaulted
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @param active a {@link java.lang.Boolean} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite, Boolean active) throws Exception
     {
@@ -275,6 +279,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     }
 
     /**
+     * <p>addPackage.</p>
+     *
      * @param packageMapID       - The name of the new packagemap
      * @param packageMapContent  - The packagemap content
      * @param targetCluster      - The packagemap cluster name
@@ -290,8 +296,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param sourceprocess      - The source process
      * @param updateclonefrom    - Option to update clone from
      * @param updatesuperfiles   - Option to update superfiles
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, Boolean active, Boolean allowforeignfiles, Boolean appendcluster,
                                          String daliip, Boolean globalscope, Boolean overwrite, Boolean preloadallpackages, String process, Boolean replacepackagemap, String sourceprocess,
@@ -343,14 +349,15 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     }
 
     /**
+     * <p>addPackage.</p>
+     *
      * @param reqwrapper - Add package request options object (AddPackageRequestWrapper)
      *                     Caller is responsible for setting all options appropriately
      *                     This call might override server side defaults
-     *
      * @return           - Add package response object
      *                     Caller is responsible for interpreting response codes/status.
      *                     Function will report Java Exception if service reports any exceptions
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public AddPackageResponse addPackage(AddPackageRequestWrapper reqwrapper) throws Exception
     {
@@ -399,8 +406,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *
      * @param packageMapID  - The packagemap to delete
      * @param targetcluster - The packagemap cluster
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse} object.
      */
     public DeletePackageResponse deletePackage(String packageMapID, String targetcluster) throws Exception
     {
@@ -413,8 +420,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param packageMapID  - The packagemap to delete
      * @param targetcluster - The packagemap cluster
      * @param process       - The process
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse} object.
      */
     public DeletePackageResponse deletePackage(String packageMapID, String targetcluster, String process) throws Exception
     {
@@ -428,8 +435,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param targetcluster - The packagemap cluster
      * @param process       - The process
      * @param globalscope   - Is the target packagemap global scoped
-     * @return
-     * @throws Exception
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse} object.
      */
     public DeletePackageResponse deletePackage(String packageMapID, String targetcluster, String process, Boolean globalscope) throws Exception
     {
@@ -468,12 +475,14 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
     }
 
     /**
+     * <p>deletePackage.</p>
+     *
      * @param reqwrapper - Delete package request options object (DeletePackageRequestWrapper)
      *                     Caller is responsible for setting all options appropriately
      *                     This call might override server side defaults
      * @return           - Delete package response object
      *                     Caller is responsible for interpreting response codes/status.
-     * @throws Exception
+     * @throws java.lang.Exception
      */
     public DeletePackageResponse deletePackage(DeletePackageRequestWrapper reqwrapper) throws Exception
     {
@@ -512,9 +521,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param packageMapName
      *            the package map name
      * @return String - packagemap content
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public String getPackageMapById(String packageMapName) throws Exception, ArrayOfEspExceptionWrapper
@@ -558,9 +567,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param target
      *            the target
      * @return BasePackageStatus - Caller should interrogate status object for success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public BasePackageStatusWrapper activatePackage(boolean globalScope, String packageMapName, String process, String target)
@@ -609,9 +618,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param target
      *            the target
      * @return BasePackageStatus - Caller should interrogate status object for success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller should handle exception in case of errors
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public BasePackageStatusWrapper getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
@@ -662,7 +671,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param packageMap
      *            The package map id.
      * @return BasePackageStatus - Caller should interrogate status object for success
-     * @throws Exception
+     * @throws java.lang.Exception
      *             - Caller should handle exception in case of errors
      */
     public BasePackageStatusWrapper removePartFromPackageMap(final boolean globalScope, final String partName, final String target, final String packageMap)
@@ -717,9 +726,9 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param processFilter
      *            the process filter
      * @return List of PackageListMapDataWrappers
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
-     * @throws ArrayOfEspExceptionWrapper
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
     public List<PackageListMapDataWrapper> listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper
@@ -787,6 +796,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {

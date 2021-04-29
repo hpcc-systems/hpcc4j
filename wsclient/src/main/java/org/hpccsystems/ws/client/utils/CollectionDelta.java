@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Used internally to monitor and track changes in generic collections.
+ *
+ */
 public class CollectionDelta
 {
     private ArrayList<DataSingleton>   before;

@@ -35,12 +35,13 @@ import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWra
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper;
 
 /**
- * Client for HPCC's HPCCWsResources web service
+ * Facilitates discovery of containerized HPCC Systems resources.
  */
 public class HPCCWsResourcesClient extends BaseHPCCWsClient
 {
     private static final Logger    log                = LogManager.getLogger(HPCCWsResourcesClient.class);
 
+    /** Constant <code>WSRESOURCESURI="/WsResources"</code> */
     public static final String     WSRESOURCESURI     = "/WsResources";
     private static int             DEFAULTSERVICEPORT = -1;
     private static String          WSDLURL            = null;
@@ -107,6 +108,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      *
      * @see org.hpccsystems.ws.client.BaseHPCCWsClient#getDefaultStub()
      */
+    /** {@inheritDoc} */
     @Override
     public Stub getDefaultStub() throws AxisFault
     {
@@ -214,9 +216,9 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     /**
      * Submit service query request
      *
-     * @param req
-     * @return
-     * @throws Exception
+     * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper} object.
+     * @throws java.lang.Exception
+     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper} object.
      */
     public ServiceQueryResponseWrapper serviceQuery(ServiceQueryRequestWrapper req) throws Exception
     {
@@ -248,7 +250,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws Exception
+     * @throws java.lang.Exception
      *             the exception
      */
     public boolean ping() throws Exception

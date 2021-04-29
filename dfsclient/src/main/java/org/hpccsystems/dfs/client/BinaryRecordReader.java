@@ -117,7 +117,9 @@ class CountingInputStream extends InputStream
 }
 
 /**
- * Reads HPCC Cluster data in binary format.
+ * Deserializes data from the provided InputStream and constructs records via the provided IRecordBuilder.
+ * 
+ * Data in the InputStream is expected to be in the HPCC Systems binary record format.
  */
 public class BinaryRecordReader implements IRecordReader
 {
@@ -174,8 +176,8 @@ public class BinaryRecordReader implements IRecordReader
     /**
      * A Binary record reader.
      *
-     * @param is
-     *            the is
+     * @param is the input stream
+     * @param streamPos the position in the stream to start reading at
      * @throws Exception
      *             the exception
      */
