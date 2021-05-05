@@ -1405,7 +1405,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
         }
-        else if (targetVersion.major == 7 && targetVersion.minor > 0)
+        else if (targetVersion.major > 7 || (targetVersion.major == 7 && targetVersion.minor > 0))
         {
             return getFileAccess(filename, clustername, expiryseconds, jobid);
         }
@@ -1438,7 +1438,11 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     {
         if (targetVersion == null || stub == null) throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetVersion.major == 7 && targetVersion.minor > 0)
+        if (targetVersion.major == 7 && targetVersion.minor == 0)
+        {
+            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid,true, false, true);
+        }
+        else if (targetVersion.major > 7  || (targetVersion.major == 7 && targetVersion.minor > 0))
         {
             verifyStub(); // Throws exception if stub failed
 
@@ -1474,11 +1478,6 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
 
             return new DFUFileAccessInfoWrapper(resp.getAccessInfo(), resp.getType());
-        }
-        else if (targetVersion.major == 7 && targetVersion.minor == 0)
-        {
-            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid,
-                    true, false, true);
         }
         else
             throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetVersion.major + "." + targetVersion.minor);
