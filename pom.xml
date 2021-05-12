@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems</groupId>
   <artifactId>hpcc4j</artifactId>
-  <version>8.0.5-0-SNAPSHOT</version>
+  <version>8.1.0-0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>HPCC Systems Java Projects</name>
   <url>https://hpccsystems.com</url>
@@ -110,6 +110,7 @@
         <artifactId>log4j-core</artifactId>
         <version>${log4j.version}</version>
         <type>pom</type>
+        <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -223,6 +224,7 @@
             <excludes>
               <exclude>**/log4j.properties</exclude>
               <exclude>**/log4j2.xml</exclude>
+              <exclude>**/WSDLs</exclude>
             </excludes>
           </configuration>
         </plugin>
@@ -283,7 +285,12 @@
           </executions>
           <configuration>
                 <source>8</source>
-                <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*</excludePackageNames>
+                <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*:org.hpccsystems.ws.client.wrappers.gen.*:org.hpccsystems.ws.client.extended.*</excludePackageNames>
+                <header>Copyright © 2021 HPCC Systems®. All rights reserved</header>
+                <footer>Copyright © 2021 HPCC Systems®. All rights reserved</footer>
+                <includeDependencySources>true</includeDependencySources>
+                <failOnWarnings>true</failOnWarnings>
+              <dependencySourceIncludes>org.hpccsystems:*</dependencySourceIncludes>
            </configuration>
         </plugin>
         <plugin>
