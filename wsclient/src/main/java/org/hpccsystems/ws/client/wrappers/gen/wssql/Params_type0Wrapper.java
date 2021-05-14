@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Params_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Params_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.954Z
+ * TimeStamp: 2021-05-14T01:46:09.112Z
  */
 public class Params_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class Params_type0Wrapper
 
 	public Params_type0Wrapper() {}
 
-	public Params_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Params_type0 params_type0)
+	public Params_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 params_type0)
 	{
 		copy( params_type0 );
 	}
@@ -43,7 +43,7 @@ public class Params_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Params_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class Params_type0Wrapper
 	{
 		return "Params_type0Wrapper [" + "param = " + local_param + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Params_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Params_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Params_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0();
 		if (this.local_param!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataTypeParam[this.local_param.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataTypeParam[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataTypeParam[this.local_param.size()];
 			for ( int i = 0; i < this.local_param.size(); i++)
 			{
 				arr[i] = this.local_param.get(i) .getRaw();

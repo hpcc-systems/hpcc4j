@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCFieldTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFieldType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.944Z
+ * TimeStamp: 2021-05-14T01:46:09.064Z
  */
 public class HPCCFieldTypeWrapper
 {
@@ -31,7 +31,7 @@ public class HPCCFieldTypeWrapper
 
 	public HPCCFieldTypeWrapper() {}
 
-	public HPCCFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFieldType hpccfieldtype)
+	public HPCCFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType hpccfieldtype)
 	{
 		copy( hpccfieldtype );
 	}
@@ -41,7 +41,7 @@ public class HPCCFieldTypeWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFieldType raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class HPCCFieldTypeWrapper
 	{
 		return "HPCCFieldTypeWrapper [" + "hPCCFieldType = " + local_hPCCFieldType + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFieldType getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCFieldType raw = null;
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setHPCCFieldType(hPCCFieldType);
 		return raw;
 	}

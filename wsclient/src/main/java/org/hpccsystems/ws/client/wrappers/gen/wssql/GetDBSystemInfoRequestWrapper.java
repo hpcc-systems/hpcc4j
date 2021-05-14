@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDBSystemInfoRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.937Z
+ * TimeStamp: 2021-05-14T01:46:09.108Z
  */
 public class GetDBSystemInfoRequestWrapper
 {
@@ -31,7 +31,7 @@ public class GetDBSystemInfoRequestWrapper
 
 	public GetDBSystemInfoRequestWrapper() {}
 
-	public GetDBSystemInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoRequest getdbsysteminforequest)
+	public GetDBSystemInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest getdbsysteminforequest)
 	{
 		copy( getdbsysteminforequest );
 	}
@@ -41,7 +41,7 @@ public class GetDBSystemInfoRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class GetDBSystemInfoRequestWrapper
 	{
 		return "GetDBSystemInfoRequestWrapper [" + "includeAll = " + local_includeAll + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBSystemInfoRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest();
 		raw.setIncludeAll( local_includeAll);
 		return raw;
 	}

@@ -125,13 +125,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();

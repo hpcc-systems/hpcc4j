@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RelatedIndexSets_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSets_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSets_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.964Z
+ * TimeStamp: 2021-05-14T01:46:09.043Z
  */
 public class RelatedIndexSets_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class RelatedIndexSets_type0Wrapper
 
 	public RelatedIndexSets_type0Wrapper() {}
 
-	public RelatedIndexSets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSets_type0 relatedindexsets_type0)
+	public RelatedIndexSets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSets_type0 relatedindexsets_type0)
 	{
 		copy( relatedindexsets_type0 );
 	}
@@ -43,7 +43,7 @@ public class RelatedIndexSets_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSets_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSets_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class RelatedIndexSets_type0Wrapper
 	{
 		return "RelatedIndexSets_type0Wrapper [" + "relatedIndexSet = " + local_relatedIndexSet + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSets_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSets_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSets_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSets_type0();
 		if (this.local_relatedIndexSet!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSet[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.RelatedIndexSet[this.local_relatedIndexSet.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet[this.local_relatedIndexSet.size()];
 			for ( int i = 0; i < this.local_relatedIndexSet.size(); i++)
 			{
 				arr[i] = this.local_relatedIndexSet.get(i) .getRaw();

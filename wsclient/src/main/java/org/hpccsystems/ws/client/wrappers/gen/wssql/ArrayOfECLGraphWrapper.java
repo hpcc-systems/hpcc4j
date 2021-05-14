@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLGraphWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.872Z
+ * TimeStamp: 2021-05-14T01:46:09.111Z
  */
 public class ArrayOfECLGraphWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLGraphWrapper
 
 	public ArrayOfECLGraphWrapper() {}
 
-	public ArrayOfECLGraphWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph arrayofeclgraph)
+	public ArrayOfECLGraphWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph arrayofeclgraph)
 	{
 		copy( arrayofeclgraph );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLGraphWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLGraphWrapper
 	{
 		return "ArrayOfECLGraphWrapper [" + "eCLGraph = " + local_eCLGraph + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLGraph();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph();
 		if (this.local_eCLGraph!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLGraph[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLGraph[this.local_eCLGraph.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLGraph[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLGraph[this.local_eCLGraph.size()];
 			for ( int i = 0; i < this.local_eCLGraph.size(); i++)
 			{
 				arr[i] = this.local_eCLGraph.get(i) .getRaw();

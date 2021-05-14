@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspSoapFaultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspSoapFault
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.927Z
+ * TimeStamp: 2021-05-14T01:46:09.097Z
  */
 public class EspSoapFaultWrapper
 {
@@ -31,7 +31,7 @@ public class EspSoapFaultWrapper
 
 	public EspSoapFaultWrapper() {}
 
-	public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspSoapFault espsoapfault)
+	public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault espsoapfault)
 	{
 		copy( espsoapfault );
 	}
@@ -41,7 +41,7 @@ public class EspSoapFaultWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspSoapFault raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class EspSoapFaultWrapper
 	{
 		return "EspSoapFaultWrapper [" + "faultMessage = " + local_faultMessage + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspSoapFault getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspSoapFault();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault();
 		return raw;
 	}
 

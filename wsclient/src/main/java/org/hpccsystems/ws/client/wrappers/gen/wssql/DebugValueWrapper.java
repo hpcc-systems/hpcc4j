@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DebugValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.892Z
+ * TimeStamp: 2021-05-14T01:46:09.094Z
  */
 public class DebugValueWrapper
 {
@@ -32,7 +32,7 @@ public class DebugValueWrapper
 
 	public DebugValueWrapper() {}
 
-	public DebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue debugvalue)
+	public DebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue debugvalue)
 	{
 		copy( debugvalue );
 	}
@@ -43,7 +43,7 @@ public class DebugValueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue raw )
 	{
 		if (raw == null)
 			return;
@@ -58,9 +58,9 @@ public class DebugValueWrapper
 	{
 		return "DebugValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DebugValue();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue();
 		raw.setName( local_name);
 		raw.setValue( local_value);
 		return raw;

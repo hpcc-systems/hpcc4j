@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EchoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.894Z
+ * TimeStamp: 2021-05-14T01:46:09.036Z
  */
 public class EchoResponseWrapper
 {
@@ -31,7 +31,7 @@ public class EchoResponseWrapper
 
 	public EchoResponseWrapper() {}
 
-	public EchoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EchoResponse echoresponse)
+	public EchoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse echoresponse)
 	{
 		copy( echoresponse );
 	}
@@ -41,7 +41,7 @@ public class EchoResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EchoResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -55,9 +55,9 @@ public class EchoResponseWrapper
 	{
 		return "EchoResponseWrapper [" + "response = " + local_response + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EchoResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EchoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EchoResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse();
 		raw.setResponse( local_response);
 		return raw;
 	}

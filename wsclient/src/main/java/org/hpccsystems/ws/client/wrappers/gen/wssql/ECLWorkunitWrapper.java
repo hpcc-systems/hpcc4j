@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.923Z
+ * TimeStamp: 2021-05-14T01:46:09.086Z
  */
 public class ECLWorkunitWrapper
 {
@@ -106,7 +106,7 @@ public class ECLWorkunitWrapper
 
 	public ECLWorkunitWrapper() {}
 
-	public ECLWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit eclworkunit)
+	public ECLWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkunit eclworkunit)
 	{
 		copy( eclworkunit );
 	}
@@ -187,7 +187,7 @@ public class ECLWorkunitWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkunit raw )
 	{
 		if (raw == null)
 			return;
@@ -293,9 +293,9 @@ public class ECLWorkunitWrapper
 	{
 		return "ECLWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "jobname = " + local_jobname + ", " + "queue = " + local_queue + ", " + "stateID = " + local_stateID + ", " + "state = " + local_state + ", " + "stateEx = " + local_stateEx + ", " + "description = " + local_description + ", " + "protected = " + local_protected + ", " + "active = " + local_active + ", " + "action = " + local_action + ", " + "actionEx = " + local_actionEx + ", " + "dateTimeScheduled = " + local_dateTimeScheduled + ", " + "priorityClass = " + local_priorityClass + ", " + "priorityLevel = " + local_priorityLevel + ", " + "scope = " + local_scope + ", " + "snapshot = " + local_snapshot + ", " + "resultLimit = " + local_resultLimit + ", " + "archived = " + local_archived + ", " + "isPausing = " + local_isPausing + ", " + "thorLCR = " + local_thorLCR + ", " + "eventSchedule = " + local_eventSchedule + ", " + "totalClusterTime = " + local_totalClusterTime + ", " + "abortBy = " + local_abortBy + ", " + "abortTime = " + local_abortTime + ", " + "query = " + local_query + ", " + "helpers = " + local_helpers + ", " + "exceptions = " + local_exceptions + ", " + "graphs = " + local_graphs + ", " + "sourceFiles = " + local_sourceFiles + ", " + "results = " + local_results + ", " + "variables = " + local_variables + ", " + "timers = " + local_timers + ", " + "debugValues = " + local_debugValues + ", " + "applicationValues = " + local_applicationValues + ", " + "workflows = " + local_workflows + ", " + "timingData = " + local_timingData + ", " + "allowedClusters = " + local_allowedClusters + ", " + "errorCount = " + local_errorCount + ", " + "warningCount = " + local_warningCount + ", " + "infoCount = " + local_infoCount + ", " + "alertCount = " + local_alertCount + ", " + "graphCount = " + local_graphCount + ", " + "sourceFileCount = " + local_sourceFileCount + ", " + "resultCount = " + local_resultCount + ", " + "variableCount = " + local_variableCount + ", " + "timerCount = " + local_timerCount + ", " + "hasDebugValue = " + local_hasDebugValue + ", " + "applicationValueCount = " + local_applicationValueCount + ", " + "xmlParams = " + local_xmlParams + ", " + "accessFlag = " + local_accessFlag + ", " + "clusterFlag = " + local_clusterFlag + ", " + "helpersDesc = " + local_helpersDesc + ", " + "graphsDesc = " + local_graphsDesc + ", " + "sourceFilesDesc = " + local_sourceFilesDesc + ", " + "resultsDesc = " + local_resultsDesc + ", " + "variablesDesc = " + local_variablesDesc + ", " + "timersDesc = " + local_timersDesc + ", " + "debugValuesDesc = " + local_debugValuesDesc + ", " + "applicationValuesDesc = " + local_applicationValuesDesc + ", " + "workflowsDesc = " + local_workflowsDesc + ", " + "hasArchiveQuery = " + local_hasArchiveQuery + ", " + "thorLogList = " + local_thorLogList + ", " + "resourceURLs = " + local_resourceURLs + ", " + "resultViewCount = " + local_resultViewCount + ", " + "resourceURLCount = " + local_resourceURLCount + ", " + "debugValueCount = " + local_debugValueCount + ", " + "workflowCount = " + local_workflowCount + ", " + "helpersCount = " + local_helpersCount + ", " + "serviceNames = " + local_serviceNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkunit getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkunit();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkunit();
 		raw.setWuid( local_wuid);
 		raw.setOwner( local_owner);
 		raw.setCluster( local_cluster);

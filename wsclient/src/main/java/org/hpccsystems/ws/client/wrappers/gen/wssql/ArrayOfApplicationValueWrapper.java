@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfApplicationValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfApplicationValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.869Z
+ * TimeStamp: 2021-05-14T01:46:09.109Z
  */
 public class ArrayOfApplicationValueWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfApplicationValueWrapper
 
 	public ArrayOfApplicationValueWrapper() {}
 
-	public ArrayOfApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfApplicationValue arrayofapplicationvalue)
+	public ArrayOfApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue arrayofapplicationvalue)
 	{
 		copy( arrayofapplicationvalue );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfApplicationValueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfApplicationValue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfApplicationValueWrapper
 	{
 		return "ArrayOfApplicationValueWrapper [" + "applicationValue = " + local_applicationValue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfApplicationValue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfApplicationValue();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue();
 		if (this.local_applicationValue!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ApplicationValue[this.local_applicationValue.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue[this.local_applicationValue.size()];
 			for ( int i = 0; i < this.local_applicationValue.size(); i++)
 			{
 				arr[i] = this.local_applicationValue.get(i) .getRaw();

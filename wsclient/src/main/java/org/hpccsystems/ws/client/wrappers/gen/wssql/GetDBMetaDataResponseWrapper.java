@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import java.math.BigInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDBMetaDataResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.936Z
+ * TimeStamp: 2021-05-14T01:46:09.091Z
  */
 public class GetDBMetaDataResponseWrapper
 {
@@ -36,7 +36,7 @@ public class GetDBMetaDataResponseWrapper
 
 	public GetDBMetaDataResponseWrapper() {}
 
-	public GetDBMetaDataResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataResponse getdbmetadataresponse)
+	public GetDBMetaDataResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse getdbmetadataresponse)
 	{
 		copy( getdbmetadataresponse );
 	}
@@ -50,7 +50,7 @@ public class GetDBMetaDataResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -72,9 +72,9 @@ public class GetDBMetaDataResponseWrapper
 	{
 		return "GetDBMetaDataResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tables = " + local_tables + ", " + "tableCount = " + local_tableCount + ", " + "querySets = " + local_querySets + ", " + "clusterNames = " + local_clusterNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetDBMetaDataResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse();
 		raw.setTableCount( local_tableCount);
 		return raw;
 	}

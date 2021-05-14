@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLSchemaItemWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSchemaItem
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.875Z
+ * TimeStamp: 2021-05-14T01:46:09.090Z
  */
 public class ArrayOfECLSchemaItemWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLSchemaItemWrapper
 
 	public ArrayOfECLSchemaItemWrapper() {}
 
-	public ArrayOfECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSchemaItem arrayofeclschemaitem)
+	public ArrayOfECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem arrayofeclschemaitem)
 	{
 		copy( arrayofeclschemaitem );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLSchemaItemWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSchemaItem raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLSchemaItemWrapper
 	{
 		return "ArrayOfECLSchemaItemWrapper [" + "eCLSchemaItem = " + local_eCLSchemaItem + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSchemaItem getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLSchemaItem();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem();
 		if (this.local_eCLSchemaItem!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLSchemaItem[this.local_eCLSchemaItem.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem[this.local_eCLSchemaItem.size()];
 			for ( int i = 0; i < this.local_eCLSchemaItem.size(); i++)
 			{
 				arr[i] = this.local_eCLSchemaItem.get(i) .getRaw();

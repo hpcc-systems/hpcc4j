@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfEspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.881Z
+ * TimeStamp: 2021-05-14T01:46:09.101Z
  */
 public class ArrayOfEspExceptionWrapper
 {
@@ -34,7 +34,7 @@ public class ArrayOfEspExceptionWrapper
 
 	public ArrayOfEspExceptionWrapper() {}
 
-	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException arrayofespexception)
+	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException arrayofespexception)
 	{
 		copy( arrayofespexception );
 	}
@@ -45,7 +45,7 @@ public class ArrayOfEspExceptionWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException raw )
 	{
 		if (raw == null)
 			return;
@@ -66,13 +66,13 @@ public class ArrayOfEspExceptionWrapper
 	{
 		return "ArrayOfEspExceptionWrapper [" + "source = " + local_source + ", " + "exception = " + local_exception + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfEspException();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException();
 		raw.setSource( local_source);
 		if (this.local_exception!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspException[this.local_exception.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspException[this.local_exception.size()];
 			for ( int i = 0; i < this.local_exception.size(); i++)
 			{
 				arr[i] = this.local_exception.get(i) .getRaw();
