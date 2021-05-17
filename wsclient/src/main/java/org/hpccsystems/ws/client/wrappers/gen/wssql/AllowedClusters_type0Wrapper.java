@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AllowedClusters_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AllowedClusters_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.852Z
+ * TimeStamp: 2021-05-14T01:46:09.088Z
  */
 public class AllowedClusters_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class AllowedClusters_type0Wrapper
 
 	public AllowedClusters_type0Wrapper() {}
 
-	public AllowedClusters_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AllowedClusters_type0 allowedclusters_type0)
+	public AllowedClusters_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 allowedclusters_type0)
 	{
 		copy( allowedclusters_type0 );
 	}
@@ -43,7 +43,7 @@ public class AllowedClusters_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AllowedClusters_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,9 +63,9 @@ public class AllowedClusters_type0Wrapper
 	{
 		return "AllowedClusters_type0Wrapper [" + "allowedCluster = " + local_allowedCluster + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AllowedClusters_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AllowedClusters_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.AllowedClusters_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0();
 		if (this.local_allowedCluster!= null)
 		{
 			java.lang.String[] arr = new java.lang.String[this.local_allowedCluster.size()];

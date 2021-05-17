@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: PublishedQueryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.957Z
+ * TimeStamp: 2021-05-14T01:46:09.111Z
  */
 public class PublishedQueryWrapper
 {
@@ -35,7 +35,7 @@ public class PublishedQueryWrapper
 
 	public PublishedQueryWrapper() {}
 
-	public PublishedQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery publishedquery)
+	public PublishedQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery publishedquery)
 	{
 		copy( publishedquery );
 	}
@@ -49,7 +49,7 @@ public class PublishedQueryWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery raw )
 	{
 		if (raw == null)
 			return;
@@ -68,9 +68,9 @@ public class PublishedQueryWrapper
 	{
 		return "PublishedQueryWrapper [" + "name = " + local_name + ", " + "id = " + local_id + ", " + "wuid = " + local_wuid + ", " + "suspended = " + local_suspended + ", " + "signature = " + local_signature + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.PublishedQuery();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery();
 		raw.setName( local_name);
 		raw.setId( local_id);
 		raw.setWuid( local_wuid);

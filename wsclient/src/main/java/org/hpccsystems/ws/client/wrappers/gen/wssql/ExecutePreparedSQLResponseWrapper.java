@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExecutePreparedSQLResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.930Z
+ * TimeStamp: 2021-05-14T01:46:09.088Z
  */
 public class ExecutePreparedSQLResponseWrapper
 {
@@ -37,7 +37,7 @@ public class ExecutePreparedSQLResponseWrapper
 
 	public ExecutePreparedSQLResponseWrapper() {}
 
-	public ExecutePreparedSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLResponse executepreparedsqlresponse)
+	public ExecutePreparedSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse executepreparedsqlresponse)
 	{
 		copy( executepreparedsqlresponse );
 	}
@@ -52,7 +52,7 @@ public class ExecutePreparedSQLResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -73,9 +73,9 @@ public class ExecutePreparedSQLResponseWrapper
 	{
 		return "ExecutePreparedSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "parentWuId = " + local_parentWuId + ", " + "result = " + local_result + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "workunit = " + local_workunit + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse();
 		raw.setParentWuId( local_parentWuId);
 		raw.setResult( local_result);
 		raw.setResultWindowStart( local_resultWindowStart);

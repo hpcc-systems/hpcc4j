@@ -540,7 +540,7 @@
                </configuration>
              </execution>
              <execution>
-               <id>wssql305</id>
+               <id>wssql306</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -550,14 +550,14 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v3_05</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsSQL-305.wsdl</wsdlFile>
-                 <wsdlVersion>3.05</wsdlVersion>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v3_06</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsSQL-306.wsdl</wsdlFile>
+                 <wsdlVersion>3.06</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wssql</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v3_05</packageName>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.v3_06</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>

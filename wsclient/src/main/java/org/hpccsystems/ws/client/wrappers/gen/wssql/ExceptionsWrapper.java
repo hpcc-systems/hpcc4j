@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.928Z
+ * TimeStamp: 2021-05-14T01:46:09.110Z
  */
 public class ExceptionsWrapper
 {
@@ -31,7 +31,7 @@ public class ExceptionsWrapper
 
 	public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Exceptions exceptions)
+	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions exceptions)
 	{
 		copy( exceptions );
 	}
@@ -41,7 +41,7 @@ public class ExceptionsWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Exceptions raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class ExceptionsWrapper
 	{
 		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Exceptions getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.Exceptions();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions();
 		return raw;
 	}
 

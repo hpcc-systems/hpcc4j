@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,14 @@ import java.math.BigInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCTableWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.947Z
+ * TimeStamp: 2021-05-14T01:46:09.064Z
  */
 public class HPCCTableWrapper
 {
 	protected String local_name;
-	protected Columns_type0Wrapper local_columns;
+	protected Columns_type1Wrapper local_columns;
 	protected String local_eCL;
 	protected String local_format;
 	protected String local_contentType;
@@ -47,11 +47,11 @@ public class HPCCTableWrapper
 
 	public HPCCTableWrapper() {}
 
-	public HPCCTableWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable hpcctable)
+	public HPCCTableWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable hpcctable)
 	{
 		copy( hpcctable );
 	}
-	public HPCCTableWrapper( String _name, Columns_type0Wrapper _columns, String _eCL, String _format, String _contentType, String _description, boolean _isKeyed, boolean _isSuper, String _csvQuote, String _csvSeparate, String _csvTerminate, String _group, BigInteger _maxRecordSize, String _modified, BigInteger _numParts, String _owner )
+	public HPCCTableWrapper( String _name, Columns_type1Wrapper _columns, String _eCL, String _format, String _contentType, String _description, boolean _isKeyed, boolean _isSuper, String _csvQuote, String _csvSeparate, String _csvTerminate, String _group, BigInteger _maxRecordSize, String _modified, BigInteger _numParts, String _owner )
 	{
 		this.local_name = _name;
 		this.local_columns = _columns;
@@ -72,14 +72,14 @@ public class HPCCTableWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable raw )
 	{
 		if (raw == null)
 			return;
 
 		this.local_name = raw.getName();
 		if (raw.getColumns() != null)
-			this.local_columns = new Columns_type0Wrapper( raw.getColumns());
+			this.local_columns = new Columns_type1Wrapper( raw.getColumns());
 		this.local_eCL = raw.getECL();
 		this.local_format = raw.getFormat();
 		this.local_contentType = raw.getContentType();
@@ -102,9 +102,9 @@ public class HPCCTableWrapper
 	{
 		return "HPCCTableWrapper [" + "name = " + local_name + ", " + "columns = " + local_columns + ", " + "eCL = " + local_eCL + ", " + "format = " + local_format + ", " + "contentType = " + local_contentType + ", " + "description = " + local_description + ", " + "isKeyed = " + local_isKeyed + ", " + "isSuper = " + local_isSuper + ", " + "csvQuote = " + local_csvQuote + ", " + "csvSeparate = " + local_csvSeparate + ", " + "csvTerminate = " + local_csvTerminate + ", " + "group = " + local_group + ", " + "maxRecordSize = " + local_maxRecordSize + ", " + "modified = " + local_modified + ", " + "numParts = " + local_numParts + ", " + "owner = " + local_owner + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCTable();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable();
 		raw.setName( local_name);
 		raw.setECL( local_eCL);
 		raw.setFormat( local_format);
@@ -132,11 +132,11 @@ public class HPCCTableWrapper
 	{
 		return this.local_name;
 	}
-	public void setColumns( Columns_type0Wrapper _columns )
+	public void setColumns( Columns_type1Wrapper _columns )
 	{
 		this.local_columns = _columns;
 	}
-	public Columns_type0Wrapper getColumns( )
+	public Columns_type1Wrapper getColumns( )
 	{
 		return this.local_columns;
 	}

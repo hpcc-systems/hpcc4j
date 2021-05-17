@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetRelatedIndexesRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.939Z
+ * TimeStamp: 2021-05-14T01:46:09.109Z
  */
 public class GetRelatedIndexesRequestWrapper
 {
@@ -31,7 +31,7 @@ public class GetRelatedIndexesRequestWrapper
 
 	public GetRelatedIndexesRequestWrapper() {}
 
-	public GetRelatedIndexesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesRequest getrelatedindexesrequest)
+	public GetRelatedIndexesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest getrelatedindexesrequest)
 	{
 		copy( getrelatedindexesrequest );
 	}
@@ -41,7 +41,7 @@ public class GetRelatedIndexesRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class GetRelatedIndexesRequestWrapper
 	{
 		return "GetRelatedIndexesRequestWrapper [" + "fileNames = " + local_fileNames + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.GetRelatedIndexesRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest();
 		return raw;
 	}
 

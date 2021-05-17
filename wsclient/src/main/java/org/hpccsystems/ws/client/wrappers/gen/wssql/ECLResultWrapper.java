@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLResultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.904Z
+ * TimeStamp: 2021-05-14T01:46:09.095Z
  */
 public class ECLResultWrapper
 {
@@ -40,7 +40,7 @@ public class ECLResultWrapper
 
 	public ECLResultWrapper() {}
 
-	public ECLResultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult eclresult)
+	public ECLResultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult eclresult)
 	{
 		copy( eclresult );
 	}
@@ -59,7 +59,7 @@ public class ECLResultWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult raw )
 	{
 		if (raw == null)
 			return;
@@ -83,9 +83,9 @@ public class ECLResultWrapper
 	{
 		return "ECLResultWrapper [" + "name = " + local_name + ", " + "sequence = " + local_sequence + ", " + "value = " + local_value + ", " + "link = " + local_link + ", " + "fileName = " + local_fileName + ", " + "isSupplied = " + local_isSupplied + ", " + "showFileContent = " + local_showFileContent + ", " + "total = " + local_total + ", " + "eCLSchemas = " + local_eCLSchemas + ", " + "xmlSchema = " + local_xmlSchema + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLResult();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult();
 		raw.setName( local_name);
 		raw.setSequence( local_sequence);
 		raw.setValue( local_value);

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateTableAndLoadRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.886Z
+ * TimeStamp: 2021-05-14T01:46:09.112Z
  */
 public class CreateTableAndLoadRequestWrapper
 {
@@ -39,7 +39,7 @@ public class CreateTableAndLoadRequestWrapper
 
 	public CreateTableAndLoadRequestWrapper() {}
 
-	public CreateTableAndLoadRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest createtableandloadrequest)
+	public CreateTableAndLoadRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest createtableandloadrequest)
 	{
 		copy( createtableandloadrequest );
 	}
@@ -57,7 +57,7 @@ public class CreateTableAndLoadRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -82,9 +82,9 @@ public class CreateTableAndLoadRequestWrapper
 	{
 		return "CreateTableAndLoadRequestWrapper [" + "tableName = " + local_tableName + ", " + "tableDescription = " + local_tableDescription + ", " + "overwrite = " + local_overwrite + ", " + "eclFields = " + local_eclFields + ", " + "targetCluster = " + local_targetCluster + ", " + "owner = " + local_owner + ", " + "dataSource = " + local_dataSource + ", " + "dataSourceType = " + local_dataSourceType + ", " + "wait = " + local_wait + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest();
 		raw.setTableName( local_tableName);
 		raw.setTableDescription( local_tableDescription);
 		raw.setOverwrite( local_overwrite);
