@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLTimerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.877Z
+ * TimeStamp: 2021-05-14T01:46:09.092Z
  */
 public class ArrayOfECLTimerWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLTimerWrapper
 
 	public ArrayOfECLTimerWrapper() {}
 
-	public ArrayOfECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimer arrayofecltimer)
+	public ArrayOfECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer arrayofecltimer)
 	{
 		copy( arrayofecltimer );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLTimerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLTimerWrapper
 	{
 		return "ArrayOfECLTimerWrapper [" + "eCLTimer = " + local_eCLTimer + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimer();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer();
 		if (this.local_eCLTimer!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer[this.local_eCLTimer.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer[this.local_eCLTimer.size()];
 			for ( int i = 0; i < this.local_eCLTimer.size(); i++)
 			{
 				arr[i] = this.local_eCLTimer.get(i) .getRaw();

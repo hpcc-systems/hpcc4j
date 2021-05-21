@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLTimerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.908Z
+ * TimeStamp: 2021-05-14T01:46:09.065Z
  */
 public class ECLTimerWrapper
 {
@@ -37,7 +37,7 @@ public class ECLTimerWrapper
 
 	public ECLTimerWrapper() {}
 
-	public ECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer ecltimer)
+	public ECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer ecltimer)
 	{
 		copy( ecltimer );
 	}
@@ -53,7 +53,7 @@ public class ECLTimerWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer raw )
 	{
 		if (raw == null)
 			return;
@@ -73,9 +73,9 @@ public class ECLTimerWrapper
 	{
 		return "ECLTimerWrapper [" + "name = " + local_name + ", " + "value = " + local_value + ", " + "count = " + local_count + ", " + "graphName = " + local_graphName + ", " + "subGraphId = " + local_subGraphId + ", " + "timestamp = " + local_timestamp + ", " + "when = " + local_when + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimer();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer();
 		raw.setName( local_name);
 		raw.setValue( local_value);
 		raw.setCount( local_count);

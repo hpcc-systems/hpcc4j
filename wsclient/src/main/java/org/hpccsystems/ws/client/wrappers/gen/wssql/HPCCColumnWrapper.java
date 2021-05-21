@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,46 +21,50 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCColumnWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.943Z
+ * TimeStamp: 2021-05-14T01:46:09.066Z
  */
 public class HPCCColumnWrapper
 {
 	protected String local_name;
 	protected String local_type;
+	protected Columns_type0Wrapper local_columns;
 
 	public HPCCColumnWrapper() {}
 
-	public HPCCColumnWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn hpcccolumn)
+	public HPCCColumnWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn hpcccolumn)
 	{
 		copy( hpcccolumn );
 	}
-	public HPCCColumnWrapper( String _name, String _type )
+	public HPCCColumnWrapper( String _name, String _type, Columns_type0Wrapper _columns )
 	{
 		this.local_name = _name;
 		this.local_type = _type;
+		this.local_columns = _columns;
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn raw )
 	{
 		if (raw == null)
 			return;
 
 		this.local_name = raw.getName();
 		this.local_type = raw.getType();
+		if (raw.getColumns() != null)
+			this.local_columns = new Columns_type0Wrapper( raw.getColumns());
 
 	}
 
 	@Override
 	public String toString()
 	{
-		return "HPCCColumnWrapper [" + "name = " + local_name + ", " + "type = " + local_type + "]";
+		return "HPCCColumnWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "columns = " + local_columns + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.HPCCColumn();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn();
 		raw.setName( local_name);
 		raw.setType( local_type);
 		return raw;
@@ -82,5 +86,13 @@ public class HPCCColumnWrapper
 	public String getType( )
 	{
 		return this.local_type;
+	}
+	public void setColumns( Columns_type0Wrapper _columns )
+	{
+		this.local_columns = _columns;
+	}
+	public Columns_type0Wrapper getColumns( )
+	{
+		return this.local_columns;
 	}
 }

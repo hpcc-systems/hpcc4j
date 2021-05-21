@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExecutePreparedSQLRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.929Z
+ * TimeStamp: 2021-05-14T01:46:09.053Z
  */
 public class ExecutePreparedSQLRequestWrapper
 {
@@ -39,7 +39,7 @@ public class ExecutePreparedSQLRequestWrapper
 
 	public ExecutePreparedSQLRequestWrapper() {}
 
-	public ExecutePreparedSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest executepreparedsqlrequest)
+	public ExecutePreparedSQLRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest executepreparedsqlrequest)
 	{
 		copy( executepreparedsqlrequest );
 	}
@@ -57,7 +57,7 @@ public class ExecutePreparedSQLRequestWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest raw )
 	{
 		if (raw == null)
 			return;
@@ -80,9 +80,9 @@ public class ExecutePreparedSQLRequestWrapper
 	{
 		return "ExecutePreparedSQLRequestWrapper [" + "wuId = " + local_wuId + ", " + "userName = " + local_userName + ", " + "targetCluster = " + local_targetCluster + ", " + "suppressResults = " + local_suppressResults + ", " + "suppressXmlSchema = " + local_suppressXmlSchema + ", " + "wait = " + local_wait + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "variables = " + local_variables + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ExecutePreparedSQLRequest();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest();
 		raw.setWuId( local_wuId);
 		raw.setUserName( local_userName);
 		raw.setTargetCluster( local_targetCluster);

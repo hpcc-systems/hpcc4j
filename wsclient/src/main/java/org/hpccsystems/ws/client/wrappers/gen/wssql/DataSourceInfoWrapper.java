@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DataSourceInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataSourceInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.889Z
+ * TimeStamp: 2021-05-14T01:46:09.061Z
  */
 public class DataSourceInfoWrapper
 {
@@ -34,7 +34,7 @@ public class DataSourceInfoWrapper
 
 	public DataSourceInfoWrapper() {}
 
-	public DataSourceInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo datasourceinfo)
+	public DataSourceInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataSourceInfo datasourceinfo)
 	{
 		copy( datasourceinfo );
 	}
@@ -47,7 +47,7 @@ public class DataSourceInfoWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataSourceInfo raw )
 	{
 		if (raw == null)
 			return;
@@ -64,9 +64,9 @@ public class DataSourceInfoWrapper
 	{
 		return "DataSourceInfoWrapper [" + "sprayedFileName = " + local_sprayedFileName + ", " + "landingZoneIP = " + local_landingZoneIP + ", " + "landingZonePath = " + local_landingZonePath + ", " + "landingZoneFileName = " + local_landingZoneFileName + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataSourceInfo getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.DataSourceInfo();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataSourceInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataSourceInfo();
 		raw.setSprayedFileName( local_sprayedFileName);
 		raw.setLandingZoneIP( local_landingZoneIP);
 		raw.setLandingZonePath( local_landingZonePath);

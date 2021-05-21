@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SetRelatedIndexesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.SetRelatedIndexesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.970Z
+ * TimeStamp: 2021-05-14T01:46:09.107Z
  */
 public class SetRelatedIndexesResponseWrapper
 {
@@ -31,7 +31,7 @@ public class SetRelatedIndexesResponseWrapper
 
 	public SetRelatedIndexesResponseWrapper() {}
 
-	public SetRelatedIndexesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.SetRelatedIndexesResponse setrelatedindexesresponse)
+	public SetRelatedIndexesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse setrelatedindexesresponse)
 	{
 		copy( setrelatedindexesresponse );
 	}
@@ -41,7 +41,7 @@ public class SetRelatedIndexesResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.SetRelatedIndexesResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -56,9 +56,9 @@ public class SetRelatedIndexesResponseWrapper
 	{
 		return "SetRelatedIndexesResponseWrapper [" + "relatedIndexSets = " + local_relatedIndexSets + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.SetRelatedIndexesResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.SetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.SetRelatedIndexesResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse();
 		return raw;
 	}
 

@@ -136,7 +136,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();

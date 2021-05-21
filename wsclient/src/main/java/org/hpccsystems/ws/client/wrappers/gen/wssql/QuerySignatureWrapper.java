@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: QuerySignatureWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.962Z
+ * TimeStamp: 2021-05-14T01:46:09.107Z
  */
 public class QuerySignatureWrapper
 {
@@ -32,7 +32,7 @@ public class QuerySignatureWrapper
 
 	public QuerySignatureWrapper() {}
 
-	public QuerySignatureWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature querysignature)
+	public QuerySignatureWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature querysignature)
 	{
 		copy( querysignature );
 	}
@@ -43,7 +43,7 @@ public class QuerySignatureWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature raw )
 	{
 		if (raw == null)
 			return;
@@ -60,9 +60,9 @@ public class QuerySignatureWrapper
 	{
 		return "QuerySignatureWrapper [" + "inParams = " + local_inParams + ", " + "resultSets = " + local_resultSets + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySignature();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature();
 		return raw;
 	}
 

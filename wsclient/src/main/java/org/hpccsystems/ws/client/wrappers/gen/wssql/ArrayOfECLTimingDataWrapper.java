@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLTimingDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimingData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.879Z
+ * TimeStamp: 2021-05-14T01:46:09.111Z
  */
 public class ArrayOfECLTimingDataWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLTimingDataWrapper
 
 	public ArrayOfECLTimingDataWrapper() {}
 
-	public ArrayOfECLTimingDataWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimingData arrayofecltimingdata)
+	public ArrayOfECLTimingDataWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData arrayofecltimingdata)
 	{
 		copy( arrayofecltimingdata );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLTimingDataWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimingData raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLTimingDataWrapper
 	{
 		return "ArrayOfECLTimingDataWrapper [" + "eCLTimingData = " + local_eCLTimingData + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimingData getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLTimingData();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData();
 		if (this.local_eCLTimingData!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLTimingData[this.local_eCLTimingData.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimingData[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimingData[this.local_eCLTimingData.size()];
 			for ( int i = 0; i < this.local_eCLTimingData.size(); i++)
 			{
 				arr[i] = this.local_eCLTimingData.get(i) .getRaw();

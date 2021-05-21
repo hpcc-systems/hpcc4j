@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateTableAndLoadResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.887Z
+ * TimeStamp: 2021-05-14T01:46:09.067Z
  */
 public class CreateTableAndLoadResponseWrapper
 {
@@ -34,7 +34,7 @@ public class CreateTableAndLoadResponseWrapper
 
 	public CreateTableAndLoadResponseWrapper() {}
 
-	public CreateTableAndLoadResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadResponse createtableandloadresponse)
+	public CreateTableAndLoadResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse createtableandloadresponse)
 	{
 		copy( createtableandloadresponse );
 	}
@@ -47,7 +47,7 @@ public class CreateTableAndLoadResponseWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadResponse raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse raw )
 	{
 		if (raw == null)
 			return;
@@ -65,9 +65,9 @@ public class CreateTableAndLoadResponseWrapper
 	{
 		return "CreateTableAndLoadResponseWrapper [" + "tableName = " + local_tableName + ", " + "success = " + local_success + ", " + "eclRecordDefinition = " + local_eclRecordDefinition + ", " + "workunit = " + local_workunit + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadResponse getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.CreateTableAndLoadResponse();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse();
 		raw.setTableName( local_tableName);
 		raw.setSuccess( local_success);
 		raw.setEclRecordDefinition( local_eclRecordDefinition);

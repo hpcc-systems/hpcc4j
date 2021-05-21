@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: QuerySetAliases_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliases_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.958Z
+ * TimeStamp: 2021-05-14T01:46:09.107Z
  */
 public class QuerySetAliases_type0Wrapper
 {
@@ -33,7 +33,7 @@ public class QuerySetAliases_type0Wrapper
 
 	public QuerySetAliases_type0Wrapper() {}
 
-	public QuerySetAliases_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliases_type0 querysetaliases_type0)
+	public QuerySetAliases_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 querysetaliases_type0)
 	{
 		copy( querysetaliases_type0 );
 	}
@@ -43,7 +43,7 @@ public class QuerySetAliases_type0Wrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliases_type0 raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class QuerySetAliases_type0Wrapper
 	{
 		return "QuerySetAliases_type0Wrapper [" + "querySetAlias = " + local_querySetAlias + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliases_type0 getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliases_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliases_type0();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0();
 		if (this.local_querySetAlias!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.QuerySetAliasMap[this.local_querySetAlias.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap[this.local_querySetAlias.size()];
 			for ( int i = 0; i < this.local_querySetAlias.size(); i++)
 			{
 				arr[i] = this.local_querySetAlias.get(i) .getRaw();

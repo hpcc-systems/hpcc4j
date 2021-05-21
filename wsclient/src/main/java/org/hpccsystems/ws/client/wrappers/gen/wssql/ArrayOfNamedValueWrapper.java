@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfNamedValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.882Z
+ * TimeStamp: 2021-05-14T01:46:09.101Z
  */
 public class ArrayOfNamedValueWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfNamedValueWrapper
 
 	public ArrayOfNamedValueWrapper() {}
 
-	public ArrayOfNamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue arrayofnamedvalue)
+	public ArrayOfNamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue arrayofnamedvalue)
 	{
 		copy( arrayofnamedvalue );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfNamedValueWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfNamedValueWrapper
 	{
 		return "ArrayOfNamedValueWrapper [" + "namedValue = " + local_namedValue + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfNamedValue();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue();
 		if (this.local_namedValue!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.NamedValue[this.local_namedValue.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue[this.local_namedValue.size()];
 			for ( int i = 0; i < this.local_namedValue.size(); i++)
 			{
 				arr[i] = this.local_namedValue.get(i) .getRaw();

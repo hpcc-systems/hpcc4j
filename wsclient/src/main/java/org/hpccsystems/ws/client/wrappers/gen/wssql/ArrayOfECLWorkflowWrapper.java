@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfECLWorkflowWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLWorkflow
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2020-09-23T04:21:56.880Z
+ * TimeStamp: 2021-05-14T01:46:09.098Z
  */
 public class ArrayOfECLWorkflowWrapper
 {
@@ -33,7 +33,7 @@ public class ArrayOfECLWorkflowWrapper
 
 	public ArrayOfECLWorkflowWrapper() {}
 
-	public ArrayOfECLWorkflowWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLWorkflow arrayofeclworkflow)
+	public ArrayOfECLWorkflowWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow arrayofeclworkflow)
 	{
 		copy( arrayofeclworkflow );
 	}
@@ -43,7 +43,7 @@ public class ArrayOfECLWorkflowWrapper
 
 	}
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLWorkflow raw )
+	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow raw )
 	{
 		if (raw == null)
 			return;
@@ -63,12 +63,12 @@ public class ArrayOfECLWorkflowWrapper
 	{
 		return "ArrayOfECLWorkflowWrapper [" + "eCLWorkflow = " + local_eCLWorkflow + "]";
 	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLWorkflow getRaw()
+	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow getRaw()
 	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ArrayOfECLWorkflow();
+		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow();
 		if (this.local_eCLWorkflow!= null)
 		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_05.ECLWorkflow[this.local_eCLWorkflow.size()];
+			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkflow[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkflow[this.local_eCLWorkflow.size()];
 			for ( int i = 0; i < this.local_eCLWorkflow.size(); i++)
 			{
 				arr[i] = this.local_eCLWorkflow.get(i) .getRaw();
