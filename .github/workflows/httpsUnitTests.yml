@@ -1,0 +1,84 @@
+name: https unit tests
+
+on: 
+  pull_request:
+    branches:
+      - "master"
+      - "candidate-*"
+
+  workflow_dispatch:
+
+jobs:
+  test-against-platform:
+    runs-on: ubuntu-latest
+
+    services:
+      hpccsystems-platform:
+        image: hpccsystemslegacy/platform
+        ports:
+          - 18510:18510
+          - 18010:18010
+          - 18002:18002
+
+    steps:
+      
+    - uses: actions/checkout@v2
+
+    - name: Setup JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: Fetch hpccsystems-platform docker container name
+      run: |
+        echo "PLATFORM_CONTAINER_NAME=$(docker ps --format \"{{.Names}}\")"  >> $GITHUB_ENV
+
+    - name: HPCCSystems Platform version
+      run: |
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} cat /etc/HPCCSystems/version
+    
+    - name: HPCCSystems Certificate Setup
+      run: |
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /opt/HPCCSystems/etc/init.d/distributePKI
+
+    - name: HPCCSystems Datafile Setup
+      run: |
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init start
+        wget -q https://raw.githubusercontent.com/Michael-Gardner/hpccsystems-java-project-testbed/main/generatedata.sh
+
+        #wget http://localhost:8010/WsDFUXRef/version_
+        #wget http://localhost:8510/WsSQL/version_
+        #wget http://localhost:8010/WsWorkunits/version_
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} cat /var/log/HPCCSystems/myesp/esp.log
+
+        chmod +x generatedata.sh
+        docker cp generatedata.sh ${{ env.PLATFORM_CONTAINER_NAME }}:/home/hpcc/generatedata.sh
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /home/hpcc/generatedata.sh
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init stop
+
+    - name: Setup Certs in java
+      run: |
+        docker cp ${{ env.PLATFORM_CONTAINER_NAME }}:/home/hpcc/certificate/certificate.pem certificate.pem
+        CERTFILE=$(realpath certificate.pem)
+        keytool -importcert -v -keystore ${JAVA_HOME}/jre/lib/security/cacerts -storepass changeit -noprompt -alias hpccsystems -file ${CERTFILE}
+        keytool -list -alias hpccsystems -v -keystore ${JAVA_HOME}/jre/lib/security/cacerts
+
+    - name: HPCCSystems https setup and start
+      run: |
+        docker cp .github/workflows/https-environment.xml ${{ env.PLATFORM_CONTAINER_NAME }}:/etc/HPCCSystems/environment.xml 
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init start
+        wget --no-check-certificate https://localhost:18010/WsDFUXRef/version_
+        wget --no-check-certificate https://localhost:18510/WsSQL/version_
+        wget --no-check-certificate https://localhost:18010/WsWorkunits/version_
+        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} cat /var/log/HPCCSystems/myesp/esp.log
+    
+    # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
+    - name: Cashe Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+  
+    - name: Build with Maven
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=https://localhost:18010 -Dwssqlport=18510 install
