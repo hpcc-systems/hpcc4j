@@ -1877,12 +1877,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append(" \"node\" : {\n ");
 
         DataPartition.FileType fileType = this.dataPart.getFileType();
-        boolean needToSpecifyFileType = fileType.typeCanBeDeduced() == false;
-        if (needToSpecifyFileType)
-        {
-            sb.append("\"kind\" : \"");
-            sb.append(fileType.toString() + "read\",\n");
-        }
+        sb.append("\"kind\" : \"");
+        sb.append(fileType.toString() + "read\",\n");
 
         sb.append("\"metaInfo\" : \"");
         sb.append(this.dataPart.getFileAccessBlob());
