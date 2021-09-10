@@ -16,6 +16,10 @@
 
 package org.hpccsystems.commons.fastlz4j;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.hpccsystems.commons.fastlz4j.FastLZ4j;
@@ -103,11 +107,32 @@ public class FastLZ4jTests
         Assert.assertTrue(Arrays.equals(longInput, decompressed));
     }
 
-    byte[] shortInput = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non magna accumsan,"
-                    + " blandit ante sit amet, elementum nisl. Pellentesque quis laoreet tellus, id lobortis mi."
-                    + " Pellentesque tellus libero, lobortis quis elementum ultrices, cursus ut urna. Sed eget urna"
-                    + " magna. Suspendisse eu quam erat. Etiam iaculis ultricies massa, in auctor enim vehicula sit"
-                    + " amet. Proin maximus magna sed pulvinar hendrerit. Nam sed posuere erat. Phasellus in purus"
-                    + " sit amet lorem suscipit suscipit sed vel odio. Nam lacinia leo.").getBytes();
+    static byte[] shortInput = null;
+    static
+    {
+        Path testFilePath = Paths.get("src","test","resources","LoremIpsum.txt");
+        File testFile = testFilePath.toFile();
+
+        FileInputStream stream = null;
+        try
+        {
+            stream = new FileInputStream(testFile);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Unable to open test file for FastLZ4jTests: " + testFilePath);
+        }
+
+        shortInput = new byte[(int) testFile.length()];
+        try
+        {
+            stream.read(shortInput);
+            stream.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Unable to read test file for FastLZ4jTest: " + e.getMessage());
+        }
+    }
 }
 
