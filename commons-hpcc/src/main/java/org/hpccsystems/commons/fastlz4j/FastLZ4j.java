@@ -20,7 +20,8 @@
  * This code has been ported from the original C version of FastLZ.
  * The original version can be found here: https://ariya.github.io/FastLZ/
  * 
- * A copy of the original FastLZ license has been included for completeness.
+ * A copy of the original FastLZ license has been included for completeness here:
+ * https://github.com/hpcc-systems/hpcc4j/blob/master/commons-hpcc/src/main/java/org/hpccsystems/commons/fastlz4j/FastLZ_LICENSE.MIT
  *******************************************************************************/
 
 package org.hpccsystems.commons.fastlz4j;
