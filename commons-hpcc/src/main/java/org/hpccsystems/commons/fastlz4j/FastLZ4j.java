@@ -23,9 +23,9 @@
  * A copy of the original FastLZ license has been included for completeness.
  *******************************************************************************/
 
-package org.hpccsystems.commons.fastlz;
+package org.hpccsystems.commons.fastlz4j;
 
-public class FastLZ
+public class FastLZ4j
 {
 
     static final int MAX_COPY = 32;
@@ -137,21 +137,21 @@ public class FastLZ
         return dest;
     }
 
-    static int flz1_match(int len, int distance, byte[] opBuffer, int op)
+    static int flz1_match(int len, int distance, byte[] opBuffer, int outputPos)
     {
         --distance;
         if (len > MAX_LEN - 2)
         {
             while (len > MAX_LEN - 2)
             {
-                opBuffer[op] = (byte) ((7 << 5) + (distance >> 8));
-                op++;
+                opBuffer[outputPos] = (byte) ((7 << 5) + (distance >> 8));
+                outputPos++;
 
-                opBuffer[op] = (byte) (MAX_LEN - 2 - 7 - 2);
-                op++;
+                opBuffer[outputPos] = (byte) (MAX_LEN - 2 - 7 - 2);
+                outputPos++;
                 
-                opBuffer[op] = (byte) (distance & 255);
-                op++;
+                opBuffer[outputPos] = (byte) (distance & 255);
+                outputPos++;
 
                 len -= MAX_LEN - 2;
             }
@@ -159,112 +159,111 @@ public class FastLZ
 
         if (len < 7)
         {
-            opBuffer[op] = (byte) ((len << 5) + (distance >> 8));
-            op++;
+            opBuffer[outputPos] = (byte) ((len << 5) + (distance >> 8));
+            outputPos++;
             
-            opBuffer[op] = (byte) (distance & 255);
-            op++;
+            opBuffer[outputPos] = (byte) (distance & 255);
+            outputPos++;
         }
         else
         {
-            opBuffer[op] = (byte) ((7 << 5) + (distance >> 8));
-            op++;
+            opBuffer[outputPos] = (byte) ((7 << 5) + (distance >> 8));
+            outputPos++;
 
-            opBuffer[op] = (byte) (len - 7);
-            op++;
+            opBuffer[outputPos] = (byte) (len - 7);
+            outputPos++;
 
-            opBuffer[op] = (byte) (distance & 255);
-            op++;
+            opBuffer[outputPos] = (byte) (distance & 255);
+            outputPos++;
         }
-        return op;
+        return outputPos;
     }
 
-    static int flz2_match(long len, long distance, byte[] opBuffer, int op)
+    static int flz2_match(long len, long distance, byte[] opBuffer, int outputPos)
     {
         --distance;
         if (distance < MAX_L2_DISTANCE)
         {
             if (len < 7)
             {
-                opBuffer[op] = (byte) ((len << 5) + (distance >> 8));
-                op++;
+                opBuffer[outputPos] = (byte) ((len << 5) + (distance >> 8));
+                outputPos++;
                 
-                opBuffer[op] = (byte) (distance & 255);
-                op++;
+                opBuffer[outputPos] = (byte) (distance & 255);
+                outputPos++;
             }
             else
             {
-                opBuffer[op] = (byte) ((7 << 5) + (distance >> 8));
-                op++;
+                opBuffer[outputPos] = (byte) ((7 << 5) + (distance >> 8));
+                outputPos++;
 
                 for (len -= 7; len >= 255; len -= 255)
                 {
-                    opBuffer[op] = (byte) 255;
-                    op++;
+                    opBuffer[outputPos] = (byte) 255;
+                    outputPos++;
                 }
 
-                opBuffer[op] = (byte) len;
-                op++;
+                opBuffer[outputPos] = (byte) len;
+                outputPos++;
 
-                opBuffer[op] = (byte) (distance & 255);
-                op++;
+                opBuffer[outputPos] = (byte) (distance & 255);
+                outputPos++;
             }
         }
         else
         {
-            /* far away, but not yet in the another galaxy... */
             if (len < 7)
             {
                 distance -= MAX_L2_DISTANCE;
 
-                opBuffer[op] = (byte) ((len << 5) + 31);
-                op++;
+                opBuffer[outputPos] = (byte) ((len << 5) + 31);
+                outputPos++;
                 
-                opBuffer[op] = (byte) 255;
-                op++;
+                opBuffer[outputPos] = (byte) 255;
+                outputPos++;
                 
-                opBuffer[op] = (byte) (distance >> 8);
-                op++;
+                opBuffer[outputPos] = (byte) (distance >> 8);
+                outputPos++;
 
-                opBuffer[op] = (byte) (distance & 255);
-                op++;
+                opBuffer[outputPos] = (byte) (distance & 255);
+                outputPos++;
             }
             else
             {
                 distance -= MAX_L2_DISTANCE;
-                opBuffer[op] = (byte) ((7 << 5) + 31);
-                op++;
+                opBuffer[outputPos] = (byte) ((7 << 5) + 31);
+                outputPos++;
 
                 for (len -= 7; len >= 255; len -= 255)
                 {
-                    opBuffer[op] = (byte) 255;
-                    op++;
+                    opBuffer[outputPos] = (byte) 255;
+                    outputPos++;
                 }
                 
-                opBuffer[op] = (byte) len;
-                op++;
+                opBuffer[outputPos] = (byte) len;
+                outputPos++;
                 
-                opBuffer[op] = (byte) 255;
-                op++;
+                opBuffer[outputPos] = (byte) 255;
+                outputPos++;
                 
-                opBuffer[op] = (byte) (distance >> 8);
-                op++;
+                opBuffer[outputPos] = (byte) (distance >> 8);
+                outputPos++;
 
-                opBuffer[op] = (byte) (distance & 255);
-                op++;
+                opBuffer[outputPos] = (byte) (distance & 255);
+                outputPos++;
             }
         }
-        return op;
+        return outputPos;
     }
 
     static int fastlz1_compress(byte[] input, byte[] output) 
     {
-        int ip = 0;
-        int ip_start = ip;
-        int ip_bound = ip + input.length - 4; // because readU32
-        int ip_limit = ip + input.length - 12 - 1;
+        int inputPos = 0;
+        int inputPosStart = inputPos;
+        int inputPosBound = inputPos + input.length - 4; // because readU32
+        int inputPosLimit = inputPos + input.length - 12 - 1;
 
-        int op = 0;
+        int outputPos = 0;
 
         long[] htab = new long[HASH_SIZE];
         long seq, hash;
@@ -276,11 +275,11 @@ public class FastLZ
         }
 
         /* we start with literal copy */
-        int anchor = ip;
-        ip += 2;
+        int anchor = inputPos;
+        inputPos += 2;
 
         /* main loop */
-        while (ip < ip_limit)
+        while (inputPos < inputPosLimit)
         {
             int ref = 0;
             int distance;
@@ -289,84 +288,84 @@ public class FastLZ
             /* find potential match */
             do
             {
-                seq = (flz_readu32(input, ip) & 0xffffffL);
+                seq = (flz_readu32(input, inputPos) & 0xffffffL);
                 hash = flz_hash(seq);
-                ref = (int) (ip_start + htab[(int) hash]);
-                htab[(int) hash] = ip - ip_start;
-                distance = ip - ref;
+                ref = (int) (inputPosStart + htab[(int) hash]);
+                htab[(int) hash] = inputPos - inputPosStart;
+                distance = inputPos - ref;
                 cmp = distance < (long) MAX_L1_DISTANCE ? (flz_readu32(input,ref) & 0xffffffL) : 0x1000000L;
 
-                if (ip >= ip_limit)
+                if (inputPos >= inputPosLimit)
                     break;
 
-                ++ip;
+                ++inputPos;
             } while (seq != cmp);
 
-            if (ip >= ip_limit)
+            if (inputPos >= inputPosLimit)
                 break;
 
-            --ip;
+            --inputPos;
 
-            if (ip > anchor)
+            if (inputPos > anchor)
             {
-                op = flz_literals(ip - anchor, input, anchor, output, op);
+                outputPos = flz_literals(inputPos - anchor, input, anchor, output, outputPos);
             }
 
-            int len = flz_cmp(input, (ref + 3), input, ip + 3, ip_bound);
-            op = flz1_match(len, distance, output, op);
+            int len = flz_cmp(input, (ref + 3), input, inputPos + 3, inputPosBound);
+            outputPos = flz1_match(len, distance, output, outputPos);
 
             /* update the hash at match boundary */
-            ip += len;
-            seq = flz_readu32(input, ip);
+            inputPos += len;
+            seq = flz_readu32(input, inputPos);
             hash = flz_hash(seq & 0xffffffL);
-            htab[(int) hash] = ip++ - ip_start;
+            htab[(int) hash] = inputPos++ - inputPosStart;
             seq >>= 8;
             hash = flz_hash(seq);
-            htab[(int) hash] = ip++ - ip_start;
+            htab[(int) hash] = inputPos++ - inputPosStart;
 
-            anchor = ip;
+            anchor = inputPos;
         }
 
         int copy = input.length - anchor;
-        op = flz_finalize(copy, input, anchor, output, op);
+        outputPos = flz_finalize(copy, input, anchor, output, outputPos);
 
-        return op;
+        return outputPos;
     }
 
     static int fastlz1_decompress(byte[] inputBuffer, int compressedLen, byte[] outputBuffer)
     {
-        int ip = 0;
-        int ip_bound = compressedLen -2;
+        int inputPos = 0;
+        int inputPosBound = compressedLen -2;
 
-        int op = 0;
-        int ctrl = inputBuffer[ip] & 31;
-        ip++;
+        int outputPos = 0;
+        int ctrlCode = inputBuffer[inputPos] & 31;
+        inputPos++;
 
         while (true)
         {
-            if (ctrl >= 32) 
+            if (ctrlCode >= 32) 
             {
-                int len = (ctrl >> 5) - 1;
-                int ofs = (ctrl & 31) << 8;
+                int len = (ctrlCode >> 5) - 1;
+                int ofs = (ctrlCode & 31) << 8;
 
-                int ref = op - ofs - 1;
+                int ref = outputPos - ofs - 1;
                 if (len == 7 - 1)
                 {
-                    if (!(ip <= ip_bound ))
+                    if (!(inputPos <= inputPosBound ))
                     {
                         return 0;
                     }
 
-                    len += (inputBuffer[ip] & 0xFF);
-                    ip++;
+                    len += (inputBuffer[inputPos] & 0xFF);
+                    inputPos++;
                 }
 
-                ref -= inputBuffer[ip] & 0xFF;
-                ip++;
+                ref -= inputBuffer[inputPos] & 0xFF;
+                inputPos++;
 
                 len += 3;
 
-                if (!((op + len) < outputBuffer.length))
+                if (!((outputPos + len) < outputBuffer.length))
                 {
                     return 0;
                 }
@@ -376,46 +375,46 @@ public class FastLZ
                     return 0;
                 }
 
-                flz_copy(outputBuffer, op, outputBuffer, ref, len);
-                op += len;
+                flz_copy(outputBuffer, outputPos, outputBuffer, ref, len);
+                outputPos += len;
             }
             else
             {
-                ctrl++;
-                if (!((op + ctrl) <= outputBuffer.length))
+                ctrlCode++;
+                if (!((outputPos + ctrlCode) <= outputBuffer.length))
                 {
                     return 0;
                 }
 
-                if (!((ip + ctrl) <= inputBuffer.length))
+                if (!((inputPos + ctrlCode) <= inputBuffer.length))
                 {
                     return 0;
                 }
 
-                flz_copy(outputBuffer, op, inputBuffer, ip, ctrl);
-                ip += ctrl;
-                op += ctrl;
+                flz_copy(outputBuffer, outputPos, inputBuffer, inputPos, ctrlCode);
+                inputPos += ctrlCode;
+                outputPos += ctrlCode;
             }
 
-            if (ip > ip_bound)
+            if (inputPos > inputPosBound)
             {
                 break;
             }
 
-            ctrl = (inputBuffer[ip] & 0xFF);
-            ip++;
+            ctrlCode = (inputBuffer[inputPos] & 0xFF);
+            inputPos++;
         }
 
-        return op;
+        return outputPos;
     }
 
     static int fastlz2_compress(byte[] input, byte[] output)
     {
-        int ip = 0;
-        int op = 0; 
+        int inputPos = 0;
+        int outputPos = 0; 
 
-        int ip_bound = ip + input.length - 4;
-        int ip_limit = ip + input.length - 12 - 1;
+        int inputPosBound = inputPos + input.length - 4;
+        int inputPosLimit = inputPos + input.length - 12 - 1;
 
         long[] htab = new long[HASH_SIZE];
         long seq, hash;
@@ -427,11 +426,11 @@ public class FastLZ
         }
 
         // we start with literal copy
-        int anchor = ip;
-        ip += 2;
+        int anchor = inputPos;
+        inputPos += 2;
 
         // main loop
-        while (ip < ip_limit)
+        while (inputPos < inputPosLimit)
         {
             int ref = 0;
             int distance;
@@ -440,98 +439,98 @@ public class FastLZ
             // find potential match
             do
             {
-                seq = flz_readu32(input, ip) & 0xffffffL;
+                seq = flz_readu32(input, inputPos) & 0xffffffL;
                 hash = flz_hash(seq);
                 ref = (int) htab[(int) hash];
-                htab[(int) hash] = ip;
-                distance = ip - ref;
+                htab[(int) hash] = inputPos;
+                distance = inputPos - ref;
                 cmp = (distance < MAX_FARDISTANCE) ? flz_readu32(input,ref) & 0xffffffL : 0x1000000L;
 
-                if (ip >= ip_limit)
+                if (inputPos >= inputPosLimit)
                     break;
-                ++ip;
+                ++inputPos;
             } while (seq != cmp);
 
-            if (ip >= ip_limit)
+            if (inputPos >= inputPosLimit)
                 break;
 
-            --ip;
+            --inputPos;
 
             // far, needs at least 5-byte match
             if (distance >= MAX_L2_DISTANCE)
             {
-                if (input[ref+3] != input[ip+3] || input[ref+4] != input[ip+4])
+                if (input[ref+3] != input[inputPos+3] || input[ref+4] != input[inputPos+4])
                 {
-                    ++ip;
+                    ++inputPos;
                     continue;
                 }
             }
 
-            if (ip > anchor)
+            if (inputPos > anchor)
             {
-                op = flz_literals(ip - anchor, input, anchor, output, op);
+                outputPos = flz_literals(inputPos - anchor, input, anchor, output, outputPos);
             }
 
-            int len = flz_cmp(input, (ref + 3), input, (ip + 3), ip_bound);
-            op = flz2_match(len, distance, output, op);
+            int len = flz_cmp(input, (ref + 3), input, (inputPos + 3), inputPosBound);
+            outputPos = flz2_match(len, distance, output, outputPos);
 
             // update the hash at match boundary
-            ip += len;
-            seq = flz_readu32(input,ip);
+            inputPos += len;
+            seq = flz_readu32(input,inputPos);
             hash = flz_hash(seq & 0xffffffL);
-            htab[(int) hash] = ip++;
+            htab[(int) hash] = inputPos++;
             seq >>= 8;
 
             hash = flz_hash(seq);
-            htab[(int) hash] = ip++;
+            htab[(int) hash] = inputPos++;
 
-            anchor = ip;
+            anchor = inputPos;
         }
 
         int copy = input.length - anchor;
-        op = flz_finalize(copy, input, anchor, output, op);
+        outputPos = flz_finalize(copy, input, anchor, output, outputPos);
 
         // marker for fastlz2
         output[0] |= (1 << 5);
 
-        return op;
+        return outputPos;
     }
 
     static int fastlz2_decompress(byte[] inputBuffer, int compressedLen, byte[] outputBuffer)
     {
-        int ip = 0;
-        int ip_bound = compressedLen -2;
+        int inputPos = 0;
+        int inputPosBound = compressedLen -2;
 
-        int op = 0;
-        int ctrl = inputBuffer[ip] & 31;
-        ip++;
+        int outputPos = 0;
+        int ctrlCode = inputBuffer[inputPos] & 31;
+        inputPos++;
 
         while (true)
         {
-            if (ctrl >= 32)
+            if (ctrlCode >= 32)
             {
-                int len = (ctrl >> 5) - 1;
-                int ofs = (ctrl & 31) << 8;
-                int ref = op - ofs - 1;
+                int len = (ctrlCode >> 5) - 1;
+                int ofs = (ctrlCode & 31) << 8;
+                int ref = outputPos - ofs - 1;
 
                 int code = 0;
                 if (len == 7 - 1)
                 {
                     do
                     {
-                        if (!(ip <= ip_bound ))
+                        if (!(inputPos <= inputPosBound ))
                         {
                             return 0;
                         }
 
-                        code = (inputBuffer[ip] & 0xFF);
-                        ip++;
+                        code = (inputBuffer[inputPos] & 0xFF);
+                        inputPos++;
 
                         len += code;
                     } while (code == 255);
                 }
-                code = (inputBuffer[ip] & 0xFF);
-                ip++;
+                code = (inputBuffer[inputPos] & 0xFF);
+                inputPos++;
 
                 ref -= code;
                 len += 3;
@@ -541,22 +540,22 @@ public class FastLZ
                 {
                     if (ofs == (31 << 8))
                     {
-                        if (!(ip < ip_bound ))
+                        if (!(inputPos < inputPosBound ))
                         {
                             return 0;
                         }
 
-                        ofs = (inputBuffer[ip] & 0xFF) << 8;
-                        ip++;
+                        ofs = (inputBuffer[inputPos] & 0xFF) << 8;
+                        inputPos++;
 
-                        ofs += (inputBuffer[ip] & 0xFF);
-                        ip++;
+                        ofs += (inputBuffer[inputPos] & 0xFF);
+                        inputPos++;
 
-                        ref = op - ofs - MAX_L2_DISTANCE - 1;
+                        ref = outputPos - ofs - MAX_L2_DISTANCE - 1;
                     }
                 }
 
-                if (!((op + len) <= outputBuffer.length))
+                if (!((outputPos + len) <= outputBuffer.length))
                 {
                     return 0;
                 }
@@ -566,42 +565,42 @@ public class FastLZ
                     return 0;
                 }
 
-                flz_copy(outputBuffer, op, outputBuffer, ref, len);
-                op += len;
+                flz_copy(outputBuffer, outputPos, outputBuffer, ref, len);
+                outputPos += len;
             }
             else
             {
-                ctrl++;
-                if (!((op + ctrl) <= outputBuffer.length))
+                ctrlCode++;
+                if (!((outputPos + ctrlCode) <= outputBuffer.length))
                 {
                     return 0;
                 }
 
-                if (!((ip + ctrl) <= inputBuffer.length))
+                if (!((inputPos + ctrlCode) <= inputBuffer.length))
                 {
                     return 0;
                 }
 
-                flz_copy(outputBuffer, op, inputBuffer, ip, ctrl);
-                ip += ctrl;
-                op += ctrl;
+                flz_copy(outputBuffer, outputPos, inputBuffer, inputPos, ctrlCode);
+                inputPos += ctrlCode;
+                outputPos += ctrlCode;
             }
 
-            if (ip >= inputBuffer.length)
+            if (inputPos >= inputBuffer.length)
                 break;
 
-            ctrl = inputBuffer[ip] & 0xFF;
-            ip++;
+            ctrlCode = inputBuffer[inputPos] & 0xFF;
+            inputPos++;
         }
 
-        return op;
+        return outputPos;
     }
 
     public static class DecompressionState
     {
-        private int ip = -1;
-        private int op = -1;
-        private int ctrl = -1;
+        private int inputPos = -1;
+        private int outputPos = -1;
+        private int ctrlCode = -1;
         private int compressionLevel = -1;
 
         private int totalCompressedLen = -1;
@@ -614,13 +613,15 @@ public class FastLZ
 
             if (this.totalCompressedLen <= 0 && this.expectedDecompressionLen <= 0)
             {
-                throw new Exception("Either totalCompressedLen or expectedDecompressionLen must be greater than 0 for successfull decompression.");
+                throw new Exception("Either totalCompressedLen " + totalCompressedLen 
+                                  + " or expectedDecompressionLen " + expectedDecompressionLen
+                                  + " must be greater than 0 for successful decompression.");
             }
         }
 
         public int getDecompressedDataLen()
         {
-            return op;
+            return outputPos;
         }
     };
 
@@ -632,40 +633,40 @@ public class FastLZ
         }
 
         // Initialize
-        boolean needsInit = state.ip < 0;
+        boolean needsInit = state.inputPos < 0;
         if (needsInit)
         {
-            state.ip = 0;
-            state.op = 0;
-            state.ctrl = 0;
+            state.inputPos = 0;
+            state.outputPos = 0;
+            state.ctrlCode = 0;
 
-            state.ctrl = inputBuffer[state.ip] & 31;
-            state.ip++;
+            state.ctrlCode = inputBuffer[state.inputPos] & 31;
+            state.inputPos++;
         }
 
         // Intermediate state will be applied to decompression state after successfully 
         // decompressing a sequence of bytes
-        int ip = state.ip;
-        int op = state.op;
-        int ctrl = state.ctrl;
+        int inputPos = state.inputPos;
+        int outputPos = state.outputPos;
+        int ctrlCode = state.ctrlCode;
 
-        int ip_bound = availableCompressedLen - 2;
-        if (!(ip <= ip_bound))
+        int inputPosBound = availableCompressedLen - 2;
+        if (!(inputPos <= inputPosBound))
         {
             return false;
         }
 
         while (true)
         {
-            ip = state.ip;
-            op = state.op;
-            ctrl = state.ctrl;
+            inputPos = state.inputPos;
+            outputPos = state.outputPos;
+            ctrlCode = state.ctrlCode;
 
-            if (ctrl >= 32)
+            if (ctrlCode >= 32)
             {
-                int len = (ctrl >> 5) - 1;
-                int ofs = (ctrl & 31) << 8;
-                int ref = op - ofs - 1;
+                int len = (ctrlCode >> 5) - 1;
+                int ofs = (ctrlCode & 31) << 8;
+                int ref = outputPos - ofs - 1;
 
                 int code = 0;
                 if (len == 7 - 1)
@@ -673,20 +674,20 @@ public class FastLZ
                     do
                     {
                         // We don't have enough data to keep decompressing exit without updating state
-                        if (!(ip <= ip_bound))
+                        if (!(inputPos <= inputPosBound))
                         {
                             return false;
                         }
 
-                        code = (inputBuffer[ip] & 0xFF);
-                        ip++;
+                        code = (inputBuffer[inputPos] & 0xFF);
+                        inputPos++;
 
                         len += code;
                     } while (code == 255);
                 }
 
-                code = (inputBuffer[ip] & 0xFF);
-                ip++;
+                code = (inputBuffer[inputPos] & 0xFF);
+                inputPos++;
 
                 ref -= code;
                 len += 3;
@@ -697,54 +698,54 @@ public class FastLZ
                     if (ofs == (31 << 8))
                     {
                         // We don't have enough data to keep decompressing exit without updating state
-                        if (!(ip < ip_bound))
+                        if (!(inputPos < inputPosBound))
                         {
                             return false;
                         }
 
-                        ofs = (inputBuffer[ip] & 0xFF) << 8;
-                        ip++;
+                        ofs = (inputBuffer[inputPos] & 0xFF) << 8;
+                        inputPos++;
 
-                        ofs += (inputBuffer[ip] & 0xFF);
-                        ip++;
+                        ofs += (inputBuffer[inputPos] & 0xFF);
+                        inputPos++;
 
-                        ref = op - ofs - MAX_L2_DISTANCE - 1;
+                        ref = outputPos - ofs - MAX_L2_DISTANCE - 1;
                     }
                 }
 
-                flz_copy(outputBuffer, op, outputBuffer, ref, len);
-                op += len;
+                flz_copy(outputBuffer, outputPos, outputBuffer, ref, len);
+                outputPos += len;
             }
             else
             {
-                ctrl++;
+                ctrlCode++;
 
                 // Roll back here if we don't have enough data in the buffer
-                if ((ip + ctrl) > availableCompressedLen)
+                if ((inputPos + ctrlCode) > availableCompressedLen)
                 {
                     return false;
                 }
 
-                flz_copy(outputBuffer, op, inputBuffer, ip, ctrl);
-                ip += ctrl;
-                op += ctrl;
+                flz_copy(outputBuffer, outputPos, inputBuffer, inputPos, ctrlCode);
+                inputPos += ctrlCode;
+                outputPos += ctrlCode;
             }
 
             // Apply decompression state
-            state.ip = ip;
-            state.op = op;
-            state.ctrl = ctrl;
+            state.inputPos = inputPos;
+            state.outputPos = outputPos;
+            state.ctrlCode = ctrlCode;
 
             // We have finished decompressing
-            if (state.ip >= state.totalCompressedLen
-            || state.op >= state.expectedDecompressionLen)
+            if (state.inputPos >= state.totalCompressedLen
+            || state.outputPos >= state.expectedDecompressionLen)
                 break;
 
-            state.ctrl = inputBuffer[state.ip] & 0xFF;
-            state.ip++;
+            state.ctrlCode = inputBuffer[state.inputPos] & 0xFF;
+            state.inputPos++;
 
             // We don't have enough data to keep decompressing exit
-            if (!(state.ip < ip_bound))
+            if (!(state.inputPos < inputPosBound))
             {
                 return false;
             }
@@ -759,9 +760,8 @@ public class FastLZ
         // for short block, choose fastlz1
         if (input.length < 65536)
             return fastlz1_compress(input, output);
-
-        // else...
-        return fastlz2_compress(input, output);
+        else
+            return fastlz2_compress(input, output);
     }
 
     public static int decompress(byte[] input, int inputLength, byte[] output)
@@ -778,6 +778,9 @@ public class FastLZ
 
     public static boolean decompress_streaming(DecompressionState state, byte[] input, int inputAvailableLength, byte[] output) throws Exception
     {
+        if (input.length < 1)
+            return false;
+
         // magic identifier for compression level
         if (state.compressionLevel < 0)
         {
@@ -792,8 +795,8 @@ public class FastLZ
                 if (inputAvailableLength < state.totalCompressedLen)
                     return false;
 
-                state.op = fastlz1_decompress(input, inputAvailableLength, output);
-                state.ip = state.totalCompressedLen;
+                state.outputPos = fastlz1_decompress(input, inputAvailableLength, output);
+                state.inputPos = state.totalCompressedLen;
 
                 return true;
             }
@@ -802,14 +805,14 @@ public class FastLZ
                 // We don't have a total compressed len available so attempt to decompress
                 // If we don't get the expected decompression len bail
 
-                state.op = fastlz1_decompress(input, inputAvailableLength, output);
-                if (state.op >= state.expectedDecompressionLen)
+                state.outputPos = fastlz1_decompress(input, inputAvailableLength, output);
+                if (state.outputPos >= state.expectedDecompressionLen)
                 {
-                    state.ip = inputAvailableLength;
+                    state.inputPos = inputAvailableLength;
                     return true;
                 }
 
-                state.op = 0;
+                state.outputPos = 0;
                 return false;
             }
         }
