@@ -275,7 +275,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * @param processCluster a {@link java.lang.String} object.
      * @param getFileDetails a {@link java.lang.Boolean} object.
      * @param checkPackageMaps a {@link java.lang.Boolean} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesResponseWrapper} object.
      */
     public DFUXRefUnusedFilesResponseWrapper unusedFiles(String processCluster, Boolean getFileDetails, Boolean checkPackageMaps) throws Exception
@@ -312,7 +312,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * <p>orphanedFiles.</p>
      *
      * @param cluster a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper} object.
      */
     public ArrayOfXRefFileWrapper orphanedFiles(String cluster) throws Exception
@@ -340,7 +340,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * <p>lostFiles.</p>
      *
      * @param cluster a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper} object.
      */
     public ArrayOfXRefFileWrapper lostFiles(String cluster) throws Exception
@@ -399,7 +399,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * @param action "Attach", "Delete", "DeleteLogical"
      * @param type "Found", "Lost", "Orphan"
      * @param xrefFilesArray a {@link org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspStringArray} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
     public String action(String cluster, String action, String type, EspStringArray xrefFilesArray) throws Exception
@@ -431,7 +431,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * <p>cleanDirectories.</p>
      *
      * @param cluster a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      */
     public void cleanDirectories(String cluster) throws Exception
     {
@@ -461,7 +461,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
     /**
      * <p>buildCancel.</p>
      *
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
     public String buildCancel() throws Exception
@@ -487,7 +487,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * <p>build.</p>
      *
      * @param cluster a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
     public String build(String cluster) throws Exception
@@ -514,7 +514,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * <p>foundFiles.</p>
      *
      * @param cluster a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper} object.
      */
     public ArrayOfXRefFileWrapper foundFiles(String cluster) throws Exception
@@ -542,7 +542,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * <p>messages.</p>
      *
      * @param cluster a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefMessageWrapper} object.
      */
     public ArrayOfXRefMessageWrapper messages(String cluster) throws Exception
@@ -569,7 +569,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
     /**
      * <p>list.</p>
      *
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefNodeWrapper} object.
      */
     public ArrayOfXRefNodeWrapper list() throws Exception
@@ -596,7 +596,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * Ping.
      *
      * @return true, if successful
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      *             the exception
      */
     public boolean ping() throws Exception

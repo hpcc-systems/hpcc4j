@@ -217,7 +217,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      * Submit service query request
      *
      * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper} object.
      */
     public ServiceQueryResponseWrapper serviceQuery(ServiceQueryRequestWrapper req) throws Exception

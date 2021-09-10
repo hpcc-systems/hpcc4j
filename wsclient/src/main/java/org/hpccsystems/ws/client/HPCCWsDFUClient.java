@@ -1001,8 +1001,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     /**
      * Return wrapped response from WsDFU DFUSearchData method requests.
      *
-     * @throws java.lang.Exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     * @throws Exception a {@link java.lang.Exception} object.
+     * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
      * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataRequestWrapper} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataResponseWrapper} object.
      */

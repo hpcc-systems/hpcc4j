@@ -778,9 +778,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wuinfodetailsparams
      *            - workunit info request wrapper
      * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws java.lang.java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      *             - Caller must handle exceptions
-     * @throws org.hpccsystems.ws.client.wrappers.org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
      *             the array of esp exception wrapper
      */
     public WorkunitWrapper getWUInfo(WUInfoRequestWrapper wuinfodetailsparams) throws Exception, ArrayOfEspExceptionWrapper
@@ -1377,7 +1377,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Provides caller full control over request options via WUSubmitWrapper
      *
      * @param wusubmitwrapper a {@link org.hpccsystems.ws.client.wrappers.wsworkunits.WUSubmitWrapper} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      */
     public void submitWU(WUSubmitWrapper wusubmitwrapper) throws Exception
     {
