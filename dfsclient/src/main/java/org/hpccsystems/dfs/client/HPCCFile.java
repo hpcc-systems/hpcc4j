@@ -153,6 +153,7 @@ public class HPCCFile implements Serializable
     /**
      * Extracts the file part from a fileposition value.
      *
+     * @param fpos file position
      * @return the project list
      */
     public static int getFilePartFromFPos(long fpos)
@@ -164,6 +165,7 @@ public class HPCCFile implements Serializable
     /**
      * Extracts the offset in the file part from a fileposition value. 
      *
+     * @param fpos file position
      * @return the project list
      */
     public static long getOffsetFromFPos(long fpos) 

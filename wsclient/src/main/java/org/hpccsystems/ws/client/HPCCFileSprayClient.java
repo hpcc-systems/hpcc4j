@@ -2088,7 +2088,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param sourcelogicalname a {@link java.lang.String} object.
      * @param destinationIP a {@link java.lang.String} object.
      * @param destinationPath a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link java.lang.String} object.
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath) throws Exception
@@ -2105,7 +2105,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param splitprefix a {@link java.lang.String} object.
      * @param overwrite a boolean.
      * @param singleconnection a boolean.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link java.lang.String} object.
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath, String splitprefix, boolean overwrite, boolean singleconnection) throws Exception
@@ -2132,7 +2132,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param throttle a {@link java.lang.Integer} object.
      * @param transferbuffersize a {@link java.lang.Integer} object.
      * @param wrap a {@link java.lang.Boolean} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
     public DesprayResponseWrapper despray(Boolean compressed, String decrypt, String destip,
@@ -2202,7 +2202,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * Despray HPCC logical file
      *
      * @param desprayreq a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayWrapper} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
     public DesprayResponseWrapper despray(DesprayWrapper desprayreq) throws Exception
