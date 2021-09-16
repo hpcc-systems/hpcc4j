@@ -302,7 +302,7 @@ public class HPCCWsClient extends DataSingleton
     /**
      * Queries ECLWatch for containerized flag.
      *
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a boolean.
      */
     public boolean isContainerized() throws Exception

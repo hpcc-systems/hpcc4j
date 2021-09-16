@@ -962,7 +962,7 @@ public class Connection
      * Returns entire response payload
      *
      * @param uri - Appended to connection URL
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
     public String sendGetRequest(String uri) throws Exception
@@ -978,7 +978,7 @@ public class Connection
      *
      * @param uri a {@link java.lang.String} object.
      * @param method - One of GET|POST|HEAD|OPTIONS|PUT|DELETE|TRACE
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
     public String sendHTTPRequest(String uri, String method) throws Exception

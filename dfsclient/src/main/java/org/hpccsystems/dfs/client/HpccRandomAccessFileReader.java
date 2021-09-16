@@ -86,6 +86,8 @@ public class HpccRandomAccessFileReader<T> implements Iterator<T>
 
     /**
      * Add a list of records to be fetched via hasNext() / next()
+     * @param recordOffsets
+     *            the record offset 
      */
     public void addRecordRequests(List<Long> recordOffsets)
     {

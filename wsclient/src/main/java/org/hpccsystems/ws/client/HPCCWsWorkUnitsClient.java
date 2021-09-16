@@ -17,6 +17,7 @@ import org.apache.axis2.client.Stub;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.commons.errors.WUException;
 
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ApplicationValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfApplicationValue;
@@ -777,9 +778,9 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * @param wuinfodetailsparams
      *            - workunit info request wrapper
      * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws java.lang.java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      *             - Caller must handle exceptions
-     * @throws org.hpccsystems.ws.client.wrappers.org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
      *             the array of esp exception wrapper
      */
     public WorkunitWrapper getWUInfo(WUInfoRequestWrapper wuinfodetailsparams) throws Exception, ArrayOfEspExceptionWrapper
@@ -1376,7 +1377,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Provides caller full control over request options via WUSubmitWrapper
      *
      * @param wusubmitwrapper a {@link org.hpccsystems.ws.client.wrappers.wsworkunits.WUSubmitWrapper} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object.
      */
     public void submitWU(WUSubmitWrapper wusubmitwrapper) throws Exception
     {
@@ -1477,8 +1478,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         verifyStub(); // Throws exception if stub failed
 
-        WorkunitWrapper compiledWU = null;
-        compiledWU = compileWUFromECL(wu);
+        WorkunitWrapper compiledWU = compileWUFromECL(wu);
 
         if (compiledWU != null)
         {
@@ -1493,11 +1493,15 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             }
             catch (RemoteException e)
             {
-                throw new Exception("WsWorkunits.createAndRunWUFromECL(...) encountered RemoteException.", e);
+                throw new WUException("WsWorkunits.createAndRunWUFromECL(...) encountered RemoteException.", e, compiledWU.getWuid());
             }
             catch (EspSoapFault e)
             {
                 handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error running WUID: " + compiledWU.getWuid());
+            }
+            catch (Exception e)
+            {
+                throw new WUException(e, compiledWU.getWuid());
             }
 
             if (wuRunResponse.getExceptions() != null)

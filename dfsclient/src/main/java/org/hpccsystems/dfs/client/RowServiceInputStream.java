@@ -248,6 +248,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
      * @param maxReadSizeInKB
      *            max readsize in kilobytes
+     * @param restart
+     *            RestartInformation object
      * @throws Exception
      *            general exception
      */
@@ -593,6 +595,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * 
      * Starts a block fetching request that will block until all of the requested records have been consumed.
      * Should only be called from a separate thread from the thread that is consuming data from the input stream.
+     * @param fetchOffsets
+     *          List of offset locations to fetch.
+     * @throws Exception a {@link java.lang.Exception} object.
      */
     public void startBlockingFetchRequest(List<Long> fetchOffsets) throws Exception
     {
@@ -1877,12 +1882,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append(" \"node\" : {\n ");
 
         DataPartition.FileType fileType = this.dataPart.getFileType();
-        boolean needToSpecifyFileType = fileType.typeCanBeDeduced() == false;
-        if (needToSpecifyFileType)
-        {
-            sb.append("\"kind\" : \"");
-            sb.append(fileType.toString() + "read\",\n");
-        }
+        sb.append("\"kind\" : \"");
+        sb.append(fileType.toString() + "read\",\n");
 
         sb.append("\"metaInfo\" : \"");
         sb.append(this.dataPart.getFileAccessBlob());

@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,11 +18,18 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.charset.StandardCharsets;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
@@ -77,6 +85,7 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitResponseWr
 import org.hpccsystems.ws.client.wrappers.gen.filespray.GetDFUWorkunitsResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
+import org.w3c.dom.Document;
 
 /**
  * Facilitates File Spray related activities.
@@ -1450,13 +1459,19 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         URL fileUploadURL = null;
         String uploadurlbuilder = UPLOADURI;
         uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
-        uploadurlbuilder += "&Path=" + dropZone.getPath();
-        uploadurlbuilder += "&OS=" + (Utils.currentOSisLinux() ? "1" : "0");
+        String path = dropZone.getPath().trim();
+        if (!path.endsWith("/"))
+            path += "/";
+        uploadurlbuilder += "&Path=" + path;
+        uploadurlbuilder += "&OS=" + (dropZone.getLinux().equalsIgnoreCase("true") ? "2" : "1");
+        uploadurlbuilder += "&rawxml_=1";
         WritableByteChannel outchannel = null;
         FileChannel inChannel = null;
         OutputStream output = null;
         InputStream input = null;
         RandomAccessFile aFile = null;
+
+        StringBuffer response = new StringBuffer();
 
         try
         {
@@ -1499,10 +1514,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 Utils.closeMulti(output, boundary);
             }
 
-            StringBuffer response = new StringBuffer();
             BufferedReader rreader = new BufferedReader(new InputStreamReader(fileUploadConnection.getInputStream()));
-            String line = null;
 
+            String line = null;
             while ((line = rreader.readLine()) != null)
             {
                 response.append(line);
@@ -1534,6 +1548,31 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 log.error("Encountered error while closing: " + e.getLocalizedMessage());
             }
         }
+
+        if (response.length() > 0)
+        {
+            try
+            {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder parser = factory.newDocumentBuilder();
+                Document document = parser.parse(new ByteArrayInputStream(response.toString().getBytes(StandardCharsets.UTF_8)));
+
+                XPath xpath = XPathFactory.newInstance().newXPath();
+                XPathExpression expr = xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
+
+                String result = expr.evaluate(document);
+                log.info("uploadLargeFile ( " + uploadFile + ") result: '" + result + "'");
+
+                if (result.isEmpty() || !result.equalsIgnoreCase("Success"))
+                    returnValue = false;
+            }
+            catch (Exception e)
+            {
+                log.error("Encountered error parsing uploadLargeFile response:\n" + e.getLocalizedMessage());
+            }
+        }
+        else
+            returnValue = false;
 
         return returnValue;
     }
@@ -2049,7 +2088,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param sourcelogicalname a {@link java.lang.String} object.
      * @param destinationIP a {@link java.lang.String} object.
      * @param destinationPath a {@link java.lang.String} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link java.lang.String} object.
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath) throws Exception
@@ -2066,7 +2105,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param splitprefix a {@link java.lang.String} object.
      * @param overwrite a boolean.
      * @param singleconnection a boolean.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link java.lang.String} object.
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath, String splitprefix, boolean overwrite, boolean singleconnection) throws Exception
@@ -2093,7 +2132,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param throttle a {@link java.lang.Integer} object.
      * @param transferbuffersize a {@link java.lang.Integer} object.
      * @param wrap a {@link java.lang.Boolean} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
     public DesprayResponseWrapper despray(Boolean compressed, String decrypt, String destip,
@@ -2163,7 +2202,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * Despray HPCC logical file
      *
      * @param desprayreq a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayWrapper} object.
-     * @throws java.lang.Exception
+     * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
     public DesprayResponseWrapper despray(DesprayWrapper desprayreq) throws Exception
