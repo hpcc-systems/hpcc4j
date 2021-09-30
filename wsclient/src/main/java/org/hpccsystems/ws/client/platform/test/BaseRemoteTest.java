@@ -109,6 +109,23 @@ public abstract class BaseRemoteTest
 
     static
     {
+        // This allows testing against locally created self signed certs to work.
+        // In production certs will need to be created valid hostnames
+        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+        new javax.net.ssl.HostnameVerifier()
+        {
+
+            public boolean verify(String hostname,javax.net.ssl.SSLSession sslSession)
+            {
+                if (hostname.equals("localhost"))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
         String legacythorcluster = System.getProperty("thorcluster");
         if (legacythorcluster != null && !legacythorcluster.isEmpty())
             System.out.println("WARNING! 'thorcluster' has been deprecated - Use 'thorclustername' and/or 'thorgroupname' instead");
