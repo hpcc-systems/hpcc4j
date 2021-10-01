@@ -24,19 +24,19 @@ import org.hpccsystems.ws.client.platform.WorkunitInfo;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.Utils;
-
-import com.hp.hpl.jena.graph.Node;
-import com.hp.hpl.jena.n3.turtle.TurtleParseException;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.RDFReader;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
-import com.hp.hpl.jena.shared.SyntaxError;
-import com.hp.hpl.jena.util.FileManager;
+import org.apache.jena.riot.*;
+import org.apache.jena.graph.Node;
+import org.apache.jena.ttl.turtle.parser.ParseException;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.RDFReaderI;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.shared.SyntaxError;
+import org.apache.jena.util.FileManager;
 
 public class RDFHPCCWsClient extends HPCCWsClient
 {
@@ -558,57 +558,12 @@ public class RDFHPCCWsClient extends HPCCWsClient
 
     static public Model createModelFromFile(String targetrdflanguage, String targetrdflocation, String targetrdfbaseuri, boolean verbosemode)
     {
-        Model model = ModelFactory.createDefaultModel();
-        RDFReader reader = model.getReader(targetrdflanguage);
-
-        //Open inputstream from specified RDF file
-        InputStream in = FileManager.get().open( targetrdflocation );
+        final Model model = RDFDataMgr.loadModel(targetrdflocation);
 
         Utils.println(System.out, "Attempting to create a Jena model:", false, verbosemode);
         Utils.println(System.out, " Original RDF location: " + targetrdflocation, false, verbosemode);
         Utils.println(System.out, " RDF Syntax: " + targetrdflanguage, false, verbosemode);
         Utils.println(System.out, " Base URI: " + targetrdfbaseuri, false, verbosemode);
-
-        if (in == null)
-        {
-            Utils.println(System.out, "Error: RDF data: " + targetrdflocation + " not found", false, verbosemode);
-            return null;
-        }
-        else
-        {
-            try
-            {
-                reader.read(model, in, targetrdfbaseuri);
-            }
-            catch (SyntaxError e)
-            {
-                Utils.println(System.out, "Error while loading model: Language Syntax error: " + e.getLocalizedMessage(), false, verbosemode);
-            }
-            catch (TurtleParseException e)
-            {
-                Utils.println(System.out, "Error while loading model: " + e.getLocalizedMessage(), false, verbosemode);
-            }
-            catch (Exception e)
-            {
-                Utils.println(System.out, "Error while loading model: " + e.getLocalizedMessage(), false, verbosemode);
-                e.printStackTrace();
-            }
-            finally
-            {
-                if (in != null)
-                {
-                    try
-                    {
-                        in.close();
-                    }
-                    catch (IOException e)
-                    {
-                        Utils.println(System.out, "Error while closing input file stream:\n", false, verbosemode);
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
 
         if (model != null)
             Utils.println(System.out, "Model created.", false, verbosemode);

@@ -3,7 +3,7 @@
     <groupId>org.hpccsystems</groupId>
     <artifactId>rdf2hpcc</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>RDF Data Ingestion into HPCC</name>
     <description>This project allows a user to import RDF data into an easily ingestible format for HPCC</description>
     <url>https://hpccsystems.com</url>
@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.8.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,7 +77,12 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>jena-core</artifactId>
-            <version>2.7.4</version>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
