@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.925Z
+ * TimeStamp: 2021-10-27T23:40:06.325Z
  */
 public class ExceptionsWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
 
-	public ExceptionsWrapper() {}
+    public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions exceptions)
-	{
-		copy( exceptions );
-	}
-	public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
+    public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions exceptions)
+    {
+        copy( exceptions );
+    }
+    public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.Exceptions();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
 }

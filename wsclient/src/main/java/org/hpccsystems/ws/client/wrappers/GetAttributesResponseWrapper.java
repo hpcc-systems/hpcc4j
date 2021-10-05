@@ -41,7 +41,7 @@ public class GetAttributesResponseWrapper
      * @param getattributesresponse
      *            the getattributesresponse
      */
-    public GetAttributesResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse getattributesresponse)
+    public GetAttributesResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributesResponse getattributesresponse)
     {
         copy(getattributesresponse);
     }
@@ -67,7 +67,7 @@ public class GetAttributesResponseWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributesResponse raw)
     {
         if (raw == null)
             return;
@@ -94,9 +94,9 @@ public class GetAttributesResponseWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributesResponse getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributesResponse();
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributesResponse();
         return raw;
     }
 

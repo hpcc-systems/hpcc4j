@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUActionInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.638Z
+ * TimeStamp: 2021-10-27T14:48:55.224Z
  */
 public class ArrayOfDFUActionInfoWrapper
 {
-	protected List<DFUActionInfoWrapper> local_dFUActionInfo = null;
+    protected List<DFUActionInfoWrapper> local_dFUActionInfo = null;
 
-	public ArrayOfDFUActionInfoWrapper() {}
+    public ArrayOfDFUActionInfoWrapper() {}
 
-	public ArrayOfDFUActionInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo arrayofdfuactioninfo)
-	{
-		copy( arrayofdfuactioninfo );
-	}
-	public ArrayOfDFUActionInfoWrapper( List<DFUActionInfoWrapper> _dFUActionInfo )
-	{
-		this.local_dFUActionInfo = _dFUActionInfo;
+    public ArrayOfDFUActionInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo arrayofdfuactioninfo)
+    {
+        copy( arrayofdfuactioninfo );
+    }
+    public ArrayOfDFUActionInfoWrapper( List<DFUActionInfoWrapper> _dFUActionInfo )
+    {
+        this.local_dFUActionInfo = _dFUActionInfo;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDFUActionInfo() != null)
-		{
-			this.local_dFUActionInfo = new ArrayList<DFUActionInfoWrapper>();
-			for ( int i = 0; i < raw.getDFUActionInfo().length; i++)
-			{
-				this.local_dFUActionInfo.add(new DFUActionInfoWrapper(raw.getDFUActionInfo()[i]));
-			}
-		}
-	}
+        if (raw.getDFUActionInfo() != null)
+        {
+            this.local_dFUActionInfo = new ArrayList<DFUActionInfoWrapper>();
+            for ( int i = 0; i < raw.getDFUActionInfo().length; i++)
+            {
+                this.local_dFUActionInfo.add(new DFUActionInfoWrapper(raw.getDFUActionInfo()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFUActionInfoWrapper [" + "dFUActionInfo = " + local_dFUActionInfo + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo();
-		if (this.local_dFUActionInfo!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUActionInfo[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUActionInfo[this.local_dFUActionInfo.size()];
-			for ( int i = 0; i < this.local_dFUActionInfo.size(); i++)
-			{
-				arr[i] = this.local_dFUActionInfo.get(i) .getRaw();
-			}
-			raw.setDFUActionInfo(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFUActionInfoWrapper [" + "dFUActionInfo = " + local_dFUActionInfo + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo();
+        if (this.local_dFUActionInfo!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUActionInfo[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUActionInfo[this.local_dFUActionInfo.size()];
+            for ( int i = 0; i < this.local_dFUActionInfo.size(); i++)
+            {
+                arr[i] = this.local_dFUActionInfo.get(i) .getRaw();
+            }
+            raw.setDFUActionInfo(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDFUActionInfo( List<DFUActionInfoWrapper> _dFUActionInfo )
-	{
-		this.local_dFUActionInfo = _dFUActionInfo;
-	}
-	public List<DFUActionInfoWrapper> getDFUActionInfo( )
-	{
-		return this.local_dFUActionInfo;
-	}
+    public void setDFUActionInfo( List<DFUActionInfoWrapper> _dFUActionInfo )
+    {
+        this.local_dFUActionInfo = _dFUActionInfo;
+    }
+    public List<DFUActionInfoWrapper> getDFUActionInfo( )
+    {
+        return this.local_dFUActionInfo;
+    }
 }

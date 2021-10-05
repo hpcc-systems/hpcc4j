@@ -28,13 +28,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 public class WsPackageProcessPingResponseWrapper
 {
 
-	public WsPackageProcessPingResponseWrapper() {}
+    public WsPackageProcessPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingResponse();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.WsPackageProcessPingResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.WsPackageProcessPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.WsPackageProcessPingResponse();
+        return raw;
+    }
 
 
 }

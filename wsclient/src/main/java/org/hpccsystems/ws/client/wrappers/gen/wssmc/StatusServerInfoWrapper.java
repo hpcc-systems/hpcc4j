@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: StatusServerInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.StatusServerInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.124Z
+ * TimeStamp: 2021-10-27T20:17:20.617Z
  */
 public class StatusServerInfoWrapper
 {
-	protected TargetClusterWrapper local_targetClusterInfo;
-	protected ServerJobQueueWrapper local_serverInfo;
-	protected ArrayOfActiveWorkunitWrapper local_workunits;
+    protected TargetClusterWrapper local_targetClusterInfo;
+    protected ServerJobQueueWrapper local_serverInfo;
+    protected ArrayOfActiveWorkunitWrapper local_workunits;
 
-	public StatusServerInfoWrapper() {}
+    public StatusServerInfoWrapper() {}
 
-	public StatusServerInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.StatusServerInfo statusserverinfo)
-	{
-		copy( statusserverinfo );
-	}
-	public StatusServerInfoWrapper( TargetClusterWrapper _targetClusterInfo, ServerJobQueueWrapper _serverInfo, ArrayOfActiveWorkunitWrapper _workunits )
-	{
-		this.local_targetClusterInfo = _targetClusterInfo;
-		this.local_serverInfo = _serverInfo;
-		this.local_workunits = _workunits;
+    public StatusServerInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo statusserverinfo)
+    {
+        copy( statusserverinfo );
+    }
+    public StatusServerInfoWrapper( TargetClusterWrapper _targetClusterInfo, ServerJobQueueWrapper _serverInfo, ArrayOfActiveWorkunitWrapper _workunits )
+    {
+        this.local_targetClusterInfo = _targetClusterInfo;
+        this.local_serverInfo = _serverInfo;
+        this.local_workunits = _workunits;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.StatusServerInfo raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTargetClusterInfo() != null)
-			this.local_targetClusterInfo = new TargetClusterWrapper( raw.getTargetClusterInfo());
-		if (raw.getServerInfo() != null)
-			this.local_serverInfo = new ServerJobQueueWrapper( raw.getServerInfo());
-		if (raw.getWorkunits() != null)
-			this.local_workunits = new ArrayOfActiveWorkunitWrapper( raw.getWorkunits());
+        if (raw.getTargetClusterInfo() != null)
+            this.local_targetClusterInfo = new TargetClusterWrapper( raw.getTargetClusterInfo());
+        if (raw.getServerInfo() != null)
+            this.local_serverInfo = new ServerJobQueueWrapper( raw.getServerInfo());
+        if (raw.getWorkunits() != null)
+            this.local_workunits = new ArrayOfActiveWorkunitWrapper( raw.getWorkunits());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "StatusServerInfoWrapper [" + "targetClusterInfo = " + local_targetClusterInfo + ", " + "serverInfo = " + local_serverInfo + ", " + "workunits = " + local_workunits + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.StatusServerInfo getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.StatusServerInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.StatusServerInfo();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "StatusServerInfoWrapper [" + "targetClusterInfo = " + local_targetClusterInfo + ", " + "serverInfo = " + local_serverInfo + ", " + "workunits = " + local_workunits + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo();
+        return raw;
+    }
 
 
-	public void setTargetClusterInfo( TargetClusterWrapper _targetClusterInfo )
-	{
-		this.local_targetClusterInfo = _targetClusterInfo;
-	}
-	public TargetClusterWrapper getTargetClusterInfo( )
-	{
-		return this.local_targetClusterInfo;
-	}
-	public void setServerInfo( ServerJobQueueWrapper _serverInfo )
-	{
-		this.local_serverInfo = _serverInfo;
-	}
-	public ServerJobQueueWrapper getServerInfo( )
-	{
-		return this.local_serverInfo;
-	}
-	public void setWorkunits( ArrayOfActiveWorkunitWrapper _workunits )
-	{
-		this.local_workunits = _workunits;
-	}
-	public ArrayOfActiveWorkunitWrapper getWorkunits( )
-	{
-		return this.local_workunits;
-	}
+    public void setTargetClusterInfo( TargetClusterWrapper _targetClusterInfo )
+    {
+        this.local_targetClusterInfo = _targetClusterInfo;
+    }
+    public TargetClusterWrapper getTargetClusterInfo( )
+    {
+        return this.local_targetClusterInfo;
+    }
+    public void setServerInfo( ServerJobQueueWrapper _serverInfo )
+    {
+        this.local_serverInfo = _serverInfo;
+    }
+    public ServerJobQueueWrapper getServerInfo( )
+    {
+        return this.local_serverInfo;
+    }
+    public void setWorkunits( ArrayOfActiveWorkunitWrapper _workunits )
+    {
+        this.local_workunits = _workunits;
+    }
+    public ArrayOfActiveWorkunitWrapper getWorkunits( )
+    {
+        return this.local_workunits;
+    }
 }

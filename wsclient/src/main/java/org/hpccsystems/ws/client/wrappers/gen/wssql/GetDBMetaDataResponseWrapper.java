@@ -28,96 +28,96 @@ import java.math.BigInteger;
  */
 public class GetDBMetaDataResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected Tables_type0Wrapper local_tables;
-	protected BigInteger local_tableCount;
-	protected QuerySets_type0Wrapper local_querySets;
-	protected ClusterNames_type0Wrapper local_clusterNames;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected Tables_type0Wrapper local_tables;
+    protected BigInteger local_tableCount;
+    protected QuerySets_type0Wrapper local_querySets;
+    protected ClusterNames_type0Wrapper local_clusterNames;
 
-	public GetDBMetaDataResponseWrapper() {}
+    public GetDBMetaDataResponseWrapper() {}
 
-	public GetDBMetaDataResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse getdbmetadataresponse)
-	{
-		copy( getdbmetadataresponse );
-	}
-	public GetDBMetaDataResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Tables_type0Wrapper _tables, BigInteger _tableCount, QuerySets_type0Wrapper _querySets, ClusterNames_type0Wrapper _clusterNames )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_tables = _tables;
-		this.local_tableCount = _tableCount;
-		this.local_querySets = _querySets;
-		this.local_clusterNames = _clusterNames;
+    public GetDBMetaDataResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse getdbmetadataresponse)
+    {
+        copy( getdbmetadataresponse );
+    }
+    public GetDBMetaDataResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Tables_type0Wrapper _tables, BigInteger _tableCount, QuerySets_type0Wrapper _querySets, ClusterNames_type0Wrapper _clusterNames )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_tables = _tables;
+        this.local_tableCount = _tableCount;
+        this.local_querySets = _querySets;
+        this.local_clusterNames = _clusterNames;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getTables() != null)
-			this.local_tables = new Tables_type0Wrapper( raw.getTables());
-		this.local_tableCount = raw.getTableCount();
-		if (raw.getQuerySets() != null)
-			this.local_querySets = new QuerySets_type0Wrapper( raw.getQuerySets());
-		if (raw.getClusterNames() != null)
-			this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getTables() != null)
+            this.local_tables = new Tables_type0Wrapper( raw.getTables());
+        this.local_tableCount = raw.getTableCount();
+        if (raw.getQuerySets() != null)
+            this.local_querySets = new QuerySets_type0Wrapper( raw.getQuerySets());
+        if (raw.getClusterNames() != null)
+            this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetDBMetaDataResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tables = " + local_tables + ", " + "tableCount = " + local_tableCount + ", " + "querySets = " + local_querySets + ", " + "clusterNames = " + local_clusterNames + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse();
-		raw.setTableCount( local_tableCount);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetDBMetaDataResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tables = " + local_tables + ", " + "tableCount = " + local_tableCount + ", " + "querySets = " + local_querySets + ", " + "clusterNames = " + local_clusterNames + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse();
+        raw.setTableCount( local_tableCount);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setTables( Tables_type0Wrapper _tables )
-	{
-		this.local_tables = _tables;
-	}
-	public Tables_type0Wrapper getTables( )
-	{
-		return this.local_tables;
-	}
-	public void setTableCount( BigInteger _tableCount )
-	{
-		this.local_tableCount = _tableCount;
-	}
-	public BigInteger getTableCount( )
-	{
-		return this.local_tableCount;
-	}
-	public void setQuerySets( QuerySets_type0Wrapper _querySets )
-	{
-		this.local_querySets = _querySets;
-	}
-	public QuerySets_type0Wrapper getQuerySets( )
-	{
-		return this.local_querySets;
-	}
-	public void setClusterNames( ClusterNames_type0Wrapper _clusterNames )
-	{
-		this.local_clusterNames = _clusterNames;
-	}
-	public ClusterNames_type0Wrapper getClusterNames( )
-	{
-		return this.local_clusterNames;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setTables( Tables_type0Wrapper _tables )
+    {
+        this.local_tables = _tables;
+    }
+    public Tables_type0Wrapper getTables( )
+    {
+        return this.local_tables;
+    }
+    public void setTableCount( BigInteger _tableCount )
+    {
+        this.local_tableCount = _tableCount;
+    }
+    public BigInteger getTableCount( )
+    {
+        return this.local_tableCount;
+    }
+    public void setQuerySets( QuerySets_type0Wrapper _querySets )
+    {
+        this.local_querySets = _querySets;
+    }
+    public QuerySets_type0Wrapper getQuerySets( )
+    {
+        return this.local_querySets;
+    }
+    public void setClusterNames( ClusterNames_type0Wrapper _clusterNames )
+    {
+        this.local_clusterNames = _clusterNames;
+    }
+    public ClusterNames_type0Wrapper getClusterNames( )
+    {
+        return this.local_clusterNames;
+    }
 }

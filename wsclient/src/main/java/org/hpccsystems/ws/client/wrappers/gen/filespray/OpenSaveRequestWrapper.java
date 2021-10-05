@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,114 +21,114 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: OpenSaveRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.625Z
+ * TimeStamp: 2021-10-27T18:52:06.488Z
  */
 public class OpenSaveRequestWrapper
 {
-	protected String local_location;
-	protected String local_path;
-	protected String local_name;
-	protected String local_type;
-	protected String local_dateTime;
-	protected boolean local_binaryFile;
+    protected String local_location;
+    protected String local_path;
+    protected String local_name;
+    protected String local_type;
+    protected String local_dateTime;
+    protected boolean local_binaryFile;
 
-	public OpenSaveRequestWrapper() {}
+    public OpenSaveRequestWrapper() {}
 
-	public OpenSaveRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveRequest opensaverequest)
-	{
-		copy( opensaverequest );
-	}
-	public OpenSaveRequestWrapper( String _location, String _path, String _name, String _type, String _dateTime, boolean _binaryFile )
-	{
-		this.local_location = _location;
-		this.local_path = _path;
-		this.local_name = _name;
-		this.local_type = _type;
-		this.local_dateTime = _dateTime;
-		this.local_binaryFile = _binaryFile;
+    public OpenSaveRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest opensaverequest)
+    {
+        copy( opensaverequest );
+    }
+    public OpenSaveRequestWrapper( String _location, String _path, String _name, String _type, String _dateTime, boolean _binaryFile )
+    {
+        this.local_location = _location;
+        this.local_path = _path;
+        this.local_name = _name;
+        this.local_type = _type;
+        this.local_dateTime = _dateTime;
+        this.local_binaryFile = _binaryFile;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_location = raw.getLocation();
-		this.local_path = raw.getPath();
-		this.local_name = raw.getName();
-		this.local_type = raw.getType();
-		this.local_dateTime = raw.getDateTime();
-		this.local_binaryFile = raw.getBinaryFile();
+        this.local_location = raw.getLocation();
+        this.local_path = raw.getPath();
+        this.local_name = raw.getName();
+        this.local_type = raw.getType();
+        this.local_dateTime = raw.getDateTime();
+        this.local_binaryFile = raw.getBinaryFile();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "OpenSaveRequestWrapper [" + "location = " + local_location + ", " + "path = " + local_path + ", " + "name = " + local_name + ", " + "type = " + local_type + ", " + "dateTime = " + local_dateTime + ", " + "binaryFile = " + local_binaryFile + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.OpenSaveRequest();
-		raw.setLocation( local_location);
-		raw.setPath( local_path);
-		raw.setName( local_name);
-		raw.setType( local_type);
-		raw.setDateTime( local_dateTime);
-		raw.setBinaryFile( local_binaryFile);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "OpenSaveRequestWrapper [" + "location = " + local_location + ", " + "path = " + local_path + ", " + "name = " + local_name + ", " + "type = " + local_type + ", " + "dateTime = " + local_dateTime + ", " + "binaryFile = " + local_binaryFile + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest();
+        raw.setLocation( local_location);
+        raw.setPath( local_path);
+        raw.setName( local_name);
+        raw.setType( local_type);
+        raw.setDateTime( local_dateTime);
+        raw.setBinaryFile( local_binaryFile);
+        return raw;
+    }
 
 
-	public void setLocation( String _location )
-	{
-		this.local_location = _location;
-	}
-	public String getLocation( )
-	{
-		return this.local_location;
-	}
-	public void setPath( String _path )
-	{
-		this.local_path = _path;
-	}
-	public String getPath( )
-	{
-		return this.local_path;
-	}
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setType( String _type )
-	{
-		this.local_type = _type;
-	}
-	public String getType( )
-	{
-		return this.local_type;
-	}
-	public void setDateTime( String _dateTime )
-	{
-		this.local_dateTime = _dateTime;
-	}
-	public String getDateTime( )
-	{
-		return this.local_dateTime;
-	}
-	public void setBinaryFile( boolean _binaryFile )
-	{
-		this.local_binaryFile = _binaryFile;
-	}
-	public boolean getBinaryFile( )
-	{
-		return this.local_binaryFile;
-	}
+    public void setLocation( String _location )
+    {
+        this.local_location = _location;
+    }
+    public String getLocation( )
+    {
+        return this.local_location;
+    }
+    public void setPath( String _path )
+    {
+        this.local_path = _path;
+    }
+    public String getPath( )
+    {
+        return this.local_path;
+    }
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setType( String _type )
+    {
+        this.local_type = _type;
+    }
+    public String getType( )
+    {
+        return this.local_type;
+    }
+    public void setDateTime( String _dateTime )
+    {
+        this.local_dateTime = _dateTime;
+    }
+    public String getDateTime( )
+    {
+        return this.local_dateTime;
+    }
+    public void setBinaryFile( boolean _binaryFile )
+    {
+        this.local_binaryFile = _binaryFile;
+    }
+    public boolean getBinaryFile( )
+    {
+        return this.local_binaryFile;
+    }
 }

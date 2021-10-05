@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class ActivatePackageResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
 
-	public ActivatePackageResponseWrapper() {}
+    public ActivatePackageResponseWrapper() {}
 
-	public ActivatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse activatepackageresponse)
-	{
-		copy( activatepackageresponse );
-	}
-	public ActivatePackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
+    public ActivatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse activatepackageresponse)
+    {
+        copy( activatepackageresponse );
+    }
+    public ActivatePackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ActivatePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ActivatePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WsTopologyPingResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:53.019Z
+ * TimeStamp: 2021-10-27T23:40:06.388Z
  */
 public class WsTopologyPingResponseWrapper
 {
 
-	public WsTopologyPingResponseWrapper() {}
+    public WsTopologyPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.WsTopologyPingResponse();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse();
+        return raw;
+    }
 
 
 }

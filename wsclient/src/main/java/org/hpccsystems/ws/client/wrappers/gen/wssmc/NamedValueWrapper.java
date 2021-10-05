@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: NamedValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.057Z
+ * TimeStamp: 2021-10-27T20:17:20.598Z
  */
 public class NamedValueWrapper
 {
-	protected String local_name;
-	protected String local_value;
+    protected String local_name;
+    protected String local_value;
 
-	public NamedValueWrapper() {}
+    public NamedValueWrapper() {}
 
-	public NamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue namedvalue)
-	{
-		copy( namedvalue );
-	}
-	public NamedValueWrapper( String _name, String _value )
-	{
-		this.local_name = _name;
-		this.local_value = _value;
+    public NamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue namedvalue)
+    {
+        copy( namedvalue );
+    }
+    public NamedValueWrapper( String _name, String _value )
+    {
+        this.local_name = _name;
+        this.local_value = _value;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_value = raw.getValue();
+        this.local_name = raw.getName();
+        this.local_value = raw.getValue();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "NamedValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue();
-		raw.setName( local_name);
-		raw.setValue( local_value);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "NamedValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue();
+        raw.setName( local_name);
+        raw.setValue( local_value);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setValue( String _value )
-	{
-		this.local_value = _value;
-	}
-	public String getValue( )
-	{
-		return this.local_value;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setValue( String _value )
+    {
+        this.local_value = _value;
+    }
+    public String getValue( )
+    {
+        return this.local_value;
+    }
 }

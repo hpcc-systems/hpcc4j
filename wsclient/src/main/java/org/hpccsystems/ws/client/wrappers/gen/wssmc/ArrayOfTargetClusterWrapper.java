@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTargetClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfTargetCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfTargetCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.961Z
+ * TimeStamp: 2021-10-27T20:17:20.571Z
  */
 public class ArrayOfTargetClusterWrapper
 {
-	protected List<TargetClusterWrapper> local_targetCluster = null;
+    protected List<TargetClusterWrapper> local_targetCluster = null;
 
-	public ArrayOfTargetClusterWrapper() {}
+    public ArrayOfTargetClusterWrapper() {}
 
-	public ArrayOfTargetClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfTargetCluster arrayoftargetcluster)
-	{
-		copy( arrayoftargetcluster );
-	}
-	public ArrayOfTargetClusterWrapper( List<TargetClusterWrapper> _targetCluster )
-	{
-		this.local_targetCluster = _targetCluster;
+    public ArrayOfTargetClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfTargetCluster arrayoftargetcluster)
+    {
+        copy( arrayoftargetcluster );
+    }
+    public ArrayOfTargetClusterWrapper( List<TargetClusterWrapper> _targetCluster )
+    {
+        this.local_targetCluster = _targetCluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfTargetCluster raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfTargetCluster raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTargetCluster() != null)
-		{
-			this.local_targetCluster = new ArrayList<TargetClusterWrapper>();
-			for ( int i = 0; i < raw.getTargetCluster().length; i++)
-			{
-				this.local_targetCluster.add(new TargetClusterWrapper(raw.getTargetCluster()[i]));
-			}
-		}
-	}
+        if (raw.getTargetCluster() != null)
+        {
+            this.local_targetCluster = new ArrayList<TargetClusterWrapper>();
+            for ( int i = 0; i < raw.getTargetCluster().length; i++)
+            {
+                this.local_targetCluster.add(new TargetClusterWrapper(raw.getTargetCluster()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTargetClusterWrapper [" + "targetCluster = " + local_targetCluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfTargetCluster getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfTargetCluster raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfTargetCluster();
-		if (this.local_targetCluster!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.TargetCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.TargetCluster[this.local_targetCluster.size()];
-			for ( int i = 0; i < this.local_targetCluster.size(); i++)
-			{
-				arr[i] = this.local_targetCluster.get(i) .getRaw();
-			}
-			raw.setTargetCluster(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTargetClusterWrapper [" + "targetCluster = " + local_targetCluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfTargetCluster getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfTargetCluster raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfTargetCluster();
+        if (this.local_targetCluster!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.TargetCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.TargetCluster[this.local_targetCluster.size()];
+            for ( int i = 0; i < this.local_targetCluster.size(); i++)
+            {
+                arr[i] = this.local_targetCluster.get(i) .getRaw();
+            }
+            raw.setTargetCluster(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTargetCluster( List<TargetClusterWrapper> _targetCluster )
-	{
-		this.local_targetCluster = _targetCluster;
-	}
-	public List<TargetClusterWrapper> getTargetCluster( )
-	{
-		return this.local_targetCluster;
-	}
+    public void setTargetCluster( List<TargetClusterWrapper> _targetCluster )
+    {
+        this.local_targetCluster = _targetCluster;
+    }
+    public List<TargetClusterWrapper> getTargetCluster( )
+    {
+        return this.local_targetCluster;
+    }
 }

@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class EchoResponseWrapper
 {
-	protected String local_response;
+    protected String local_response;
 
-	public EchoResponseWrapper() {}
+    public EchoResponseWrapper() {}
 
-	public EchoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse echoresponse)
-	{
-		copy( echoresponse );
-	}
-	public EchoResponseWrapper( String _response )
-	{
-		this.local_response = _response;
+    public EchoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoResponse echoresponse)
+    {
+        copy( echoresponse );
+    }
+    public EchoResponseWrapper( String _response )
+    {
+        this.local_response = _response;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_response = raw.getResponse();
+        this.local_response = raw.getResponse();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EchoResponseWrapper [" + "response = " + local_response + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoResponse();
-		raw.setResponse( local_response);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EchoResponseWrapper [" + "response = " + local_response + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoResponse();
+        raw.setResponse( local_response);
+        return raw;
+    }
 
 
-	public void setResponse( String _response )
-	{
-		this.local_response = _response;
-	}
-	public String getResponse( )
-	{
-		return this.local_response;
-	}
+    public void setResponse( String _response )
+    {
+        this.local_response = _response;
+    }
+    public String getResponse( )
+    {
+        return this.local_response;
+    }
 }

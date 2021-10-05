@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefListResponseWrapper
 {
-	protected String local_dFUXRefListResult;
+    protected String local_dFUXRefListResult;
 
-	public DFUXRefListResponseWrapper() {}
+    public DFUXRefListResponseWrapper() {}
 
-	public DFUXRefListResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListResponse dfuxreflistresponse)
-	{
-		copy( dfuxreflistresponse );
-	}
-	public DFUXRefListResponseWrapper( String _dFUXRefListResult )
-	{
-		this.local_dFUXRefListResult = _dFUXRefListResult;
+    public DFUXRefListResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListResponse dfuxreflistresponse)
+    {
+        copy( dfuxreflistresponse );
+    }
+    public DFUXRefListResponseWrapper( String _dFUXRefListResult )
+    {
+        this.local_dFUXRefListResult = _dFUXRefListResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUXRefListResult = raw.getDFUXRefListResult();
+        this.local_dFUXRefListResult = raw.getDFUXRefListResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefListResponseWrapper [" + "dFUXRefListResult = " + local_dFUXRefListResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListResponse();
-		raw.setDFUXRefListResult( local_dFUXRefListResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefListResponseWrapper [" + "dFUXRefListResult = " + local_dFUXRefListResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListResponse();
+        raw.setDFUXRefListResult( local_dFUXRefListResult);
+        return raw;
+    }
 
 
-	public void setDFUXRefListResult( String _dFUXRefListResult )
-	{
-		this.local_dFUXRefListResult = _dFUXRefListResult;
-	}
-	public String getDFUXRefListResult( )
-	{
-		return this.local_dFUXRefListResult;
-	}
+    public void setDFUXRefListResult( String _dFUXRefListResult )
+    {
+        this.local_dFUXRefListResult = _dFUXRefListResult;
+    }
+    public String getDFUXRefListResult( )
+    {
+        return this.local_dFUXRefListResult;
+    }
 }

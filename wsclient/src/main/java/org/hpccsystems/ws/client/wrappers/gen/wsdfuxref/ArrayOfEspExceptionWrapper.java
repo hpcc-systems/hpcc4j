@@ -29,74 +29,74 @@ import java.util.ArrayList;
  */
 public class ArrayOfEspExceptionWrapper
 {
-	protected String local_source;
-	protected List<EspExceptionWrapper> local_exception = null;
+    protected String local_source;
+    protected List<EspExceptionWrapper> local_exception = null;
 
-	public ArrayOfEspExceptionWrapper() {}
+    public ArrayOfEspExceptionWrapper() {}
 
-	public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException arrayofespexception)
-	{
-		copy( arrayofespexception );
-	}
-	public ArrayOfEspExceptionWrapper( String _source, List<EspExceptionWrapper> _exception )
-	{
-		this.local_source = _source;
-		this.local_exception = _exception;
+    public ArrayOfEspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException arrayofespexception)
+    {
+        copy( arrayofespexception );
+    }
+    public ArrayOfEspExceptionWrapper( String _source, List<EspExceptionWrapper> _exception )
+    {
+        this.local_source = _source;
+        this.local_exception = _exception;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_source = raw.getSource();
-		if (raw.getException() != null)
-		{
-			this.local_exception = new ArrayList<EspExceptionWrapper>();
-			for ( int i = 0; i < raw.getException().length; i++)
-			{
-				this.local_exception.add(new EspExceptionWrapper(raw.getException()[i]));
-			}
-		}
-	}
+        this.local_source = raw.getSource();
+        if (raw.getException() != null)
+        {
+            this.local_exception = new ArrayList<EspExceptionWrapper>();
+            for ( int i = 0; i < raw.getException().length; i++)
+            {
+                this.local_exception.add(new EspExceptionWrapper(raw.getException()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfEspExceptionWrapper [" + "source = " + local_source + ", " + "exception = " + local_exception + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException();
-		raw.setSource( local_source);
-		if (this.local_exception!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException[this.local_exception.size()];
-			for ( int i = 0; i < this.local_exception.size(); i++)
-			{
-				arr[i] = this.local_exception.get(i) .getRaw();
-			}
-			raw.setException(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfEspExceptionWrapper [" + "source = " + local_source + ", " + "exception = " + local_exception + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException();
+        raw.setSource( local_source);
+        if (this.local_exception!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspException[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspException[this.local_exception.size()];
+            for ( int i = 0; i < this.local_exception.size(); i++)
+            {
+                arr[i] = this.local_exception.get(i) .getRaw();
+            }
+            raw.setException(arr);
+        }
+        return raw;
+    }
 
 
-	public void setSource( String _source )
-	{
-		this.local_source = _source;
-	}
-	public String getSource( )
-	{
-		return this.local_source;
-	}
-	public void setException( List<EspExceptionWrapper> _exception )
-	{
-		this.local_exception = _exception;
-	}
-	public List<EspExceptionWrapper> getException( )
-	{
-		return this.local_exception;
-	}
+    public void setSource( String _source )
+    {
+        this.local_source = _source;
+    }
+    public String getSource( )
+    {
+        return this.local_source;
+    }
+    public void setException( List<EspExceptionWrapper> _exception )
+    {
+        this.local_exception = _exception;
+    }
+    public List<EspExceptionWrapper> getException( )
+    {
+        return this.local_exception;
+    }
 }

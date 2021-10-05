@@ -24,32 +24,32 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefArrayActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefArrayActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefListResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefLostFilesQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefLostFilesQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefOrphanFilesQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefOrphanFilesQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspStringArray;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.WsDFUXRefPingRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.WsDFUXRefStub;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefArrayActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefArrayActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefListResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefLostFilesQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefLostFilesQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefOrphanFilesQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefOrphanFilesQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
@@ -398,7 +398,7 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      * @param cluster a {@link java.lang.String} object.
      * @param action "Attach", "Delete", "DeleteLogical"
      * @param type "Found", "Lost", "Orphan"
-     * @param xrefFilesArray a {@link org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspStringArray} object.
+     * @param xrefFilesArray a {@link org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray} object.
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */

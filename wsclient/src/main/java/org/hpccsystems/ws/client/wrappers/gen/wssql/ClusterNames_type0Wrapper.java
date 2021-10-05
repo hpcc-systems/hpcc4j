@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ClusterNames_type0Wrapper
 {
-	protected List<String> local_clusterName = null;
+    protected List<String> local_clusterName = null;
 
-	public ClusterNames_type0Wrapper() {}
+    public ClusterNames_type0Wrapper() {}
 
-	public ClusterNames_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ClusterNames_type0 clusternames_type0)
-	{
-		copy( clusternames_type0 );
-	}
-	public ClusterNames_type0Wrapper( List<String> _clusterName )
-	{
-		this.local_clusterName = _clusterName;
+    public ClusterNames_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ClusterNames_type0 clusternames_type0)
+    {
+        copy( clusternames_type0 );
+    }
+    public ClusterNames_type0Wrapper( List<String> _clusterName )
+    {
+        this.local_clusterName = _clusterName;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ClusterNames_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ClusterNames_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getClusterName() != null)
-		{
-			this.local_clusterName = new ArrayList<String>();
-			for ( int i = 0; i < raw.getClusterName().length; i++)
-			{
-				this.local_clusterName.add(new String(raw.getClusterName()[i]));
-			}
-		}
-	}
+        if (raw.getClusterName() != null)
+        {
+            this.local_clusterName = new ArrayList<String>();
+            for ( int i = 0; i < raw.getClusterName().length; i++)
+            {
+                this.local_clusterName.add(new String(raw.getClusterName()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ClusterNames_type0Wrapper [" + "clusterName = " + local_clusterName + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ClusterNames_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ClusterNames_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ClusterNames_type0();
-		if (this.local_clusterName!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_clusterName.size()];
-			for ( int i = 0; i < this.local_clusterName.size(); i++)
-			{
-				arr[i] = this.local_clusterName.get(i) ;
-			}
-			raw.setClusterName(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ClusterNames_type0Wrapper [" + "clusterName = " + local_clusterName + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ClusterNames_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ClusterNames_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ClusterNames_type0();
+        if (this.local_clusterName!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_clusterName.size()];
+            for ( int i = 0; i < this.local_clusterName.size(); i++)
+            {
+                arr[i] = this.local_clusterName.get(i) ;
+            }
+            raw.setClusterName(arr);
+        }
+        return raw;
+    }
 
 
-	public void setClusterName( List<String> _clusterName )
-	{
-		this.local_clusterName = _clusterName;
-	}
-	public List<String> getClusterName( )
-	{
-		return this.local_clusterName;
-	}
+    public void setClusterName( List<String> _clusterName )
+    {
+        this.local_clusterName = _clusterName;
+    }
+    public List<String> getClusterName( )
+    {
+        return this.local_clusterName;
+    }
 }

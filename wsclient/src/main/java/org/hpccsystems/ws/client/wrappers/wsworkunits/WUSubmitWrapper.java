@@ -1,7 +1,8 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUSubmit;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmit;
 
+@Deprecated
 public class WUSubmitWrapper
 {
     private String wuid = null;
@@ -134,13 +135,13 @@ public class WUSubmitWrapper
     }
 
     /**
-     * Gets the raw version 1_81.
+     * Gets the latest version.
      *
-     * @return the raw version 1_81
+     * @return the latest version
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUSubmit getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmit getRaw()
     {
-        WUSubmit request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUSubmit();
+        WUSubmit request = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmit();
 
         if (wuid != null) request.setWuid(wuid);
         if (cluster != null) request.setCluster(cluster);

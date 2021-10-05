@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLGraphWrapper
 {
-	protected List<ECLGraphWrapper> local_eCLGraph = null;
+    protected List<ECLGraphWrapper> local_eCLGraph = null;
 
-	public ArrayOfECLGraphWrapper() {}
+    public ArrayOfECLGraphWrapper() {}
 
-	public ArrayOfECLGraphWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph arrayofeclgraph)
-	{
-		copy( arrayofeclgraph );
-	}
-	public ArrayOfECLGraphWrapper( List<ECLGraphWrapper> _eCLGraph )
-	{
-		this.local_eCLGraph = _eCLGraph;
+    public ArrayOfECLGraphWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLGraph arrayofeclgraph)
+    {
+        copy( arrayofeclgraph );
+    }
+    public ArrayOfECLGraphWrapper( List<ECLGraphWrapper> _eCLGraph )
+    {
+        this.local_eCLGraph = _eCLGraph;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLGraph raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLGraph() != null)
-		{
-			this.local_eCLGraph = new ArrayList<ECLGraphWrapper>();
-			for ( int i = 0; i < raw.getECLGraph().length; i++)
-			{
-				this.local_eCLGraph.add(new ECLGraphWrapper(raw.getECLGraph()[i]));
-			}
-		}
-	}
+        if (raw.getECLGraph() != null)
+        {
+            this.local_eCLGraph = new ArrayList<ECLGraphWrapper>();
+            for ( int i = 0; i < raw.getECLGraph().length; i++)
+            {
+                this.local_eCLGraph.add(new ECLGraphWrapper(raw.getECLGraph()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLGraphWrapper [" + "eCLGraph = " + local_eCLGraph + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLGraph();
-		if (this.local_eCLGraph!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLGraph[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLGraph[this.local_eCLGraph.size()];
-			for ( int i = 0; i < this.local_eCLGraph.size(); i++)
-			{
-				arr[i] = this.local_eCLGraph.get(i) .getRaw();
-			}
-			raw.setECLGraph(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLGraphWrapper [" + "eCLGraph = " + local_eCLGraph + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLGraph getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLGraph raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLGraph();
+        if (this.local_eCLGraph!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLGraph[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLGraph[this.local_eCLGraph.size()];
+            for ( int i = 0; i < this.local_eCLGraph.size(); i++)
+            {
+                arr[i] = this.local_eCLGraph.get(i) .getRaw();
+            }
+            raw.setECLGraph(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLGraph( List<ECLGraphWrapper> _eCLGraph )
-	{
-		this.local_eCLGraph = _eCLGraph;
-	}
-	public List<ECLGraphWrapper> getECLGraph( )
-	{
-		return this.local_eCLGraph;
-	}
+    public void setECLGraph( List<ECLGraphWrapper> _eCLGraph )
+    {
+        this.local_eCLGraph = _eCLGraph;
+    }
+    public List<ECLGraphWrapper> getECLGraph( )
+    {
+        return this.local_eCLGraph;
+    }
 }

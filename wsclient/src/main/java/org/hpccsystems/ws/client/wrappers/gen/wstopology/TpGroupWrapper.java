@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGroupWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.960Z
+ * TimeStamp: 2021-10-27T23:40:06.350Z
  */
 public class TpGroupWrapper
 {
-	protected String local_name;
-	protected String local_kind;
-	protected boolean local_replicateOutputs;
+    protected String local_name;
+    protected String local_kind;
+    protected boolean local_replicateOutputs;
 
-	public TpGroupWrapper() {}
+    public TpGroupWrapper() {}
 
-	public TpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup tpgroup)
-	{
-		copy( tpgroup );
-	}
-	public TpGroupWrapper( String _name, String _kind, boolean _replicateOutputs )
-	{
-		this.local_name = _name;
-		this.local_kind = _kind;
-		this.local_replicateOutputs = _replicateOutputs;
+    public TpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup tpgroup)
+    {
+        copy( tpgroup );
+    }
+    public TpGroupWrapper( String _name, String _kind, boolean _replicateOutputs )
+    {
+        this.local_name = _name;
+        this.local_kind = _kind;
+        this.local_replicateOutputs = _replicateOutputs;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_kind = raw.getKind();
-		this.local_replicateOutputs = raw.getReplicateOutputs();
+        this.local_name = raw.getName();
+        this.local_kind = raw.getKind();
+        this.local_replicateOutputs = raw.getReplicateOutputs();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpGroupWrapper [" + "name = " + local_name + ", " + "kind = " + local_kind + ", " + "replicateOutputs = " + local_replicateOutputs + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup();
-		raw.setName( local_name);
-		raw.setKind( local_kind);
-		raw.setReplicateOutputs( local_replicateOutputs);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpGroupWrapper [" + "name = " + local_name + ", " + "kind = " + local_kind + ", " + "replicateOutputs = " + local_replicateOutputs + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup();
+        raw.setName( local_name);
+        raw.setKind( local_kind);
+        raw.setReplicateOutputs( local_replicateOutputs);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setKind( String _kind )
-	{
-		this.local_kind = _kind;
-	}
-	public String getKind( )
-	{
-		return this.local_kind;
-	}
-	public void setReplicateOutputs( boolean _replicateOutputs )
-	{
-		this.local_replicateOutputs = _replicateOutputs;
-	}
-	public boolean getReplicateOutputs( )
-	{
-		return this.local_replicateOutputs;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setKind( String _kind )
+    {
+        this.local_kind = _kind;
+    }
+    public String getKind( )
+    {
+        return this.local_kind;
+    }
+    public void setReplicateOutputs( boolean _replicateOutputs )
+    {
+        this.local_replicateOutputs = _replicateOutputs;
+    }
+    public boolean getReplicateOutputs( )
+    {
+        return this.local_replicateOutputs;
+    }
 }

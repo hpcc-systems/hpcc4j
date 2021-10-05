@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wsresources" targetNamespace="urn:hpccsystems:ws:wsresources"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsresources" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="WsResourcesPingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="WsResourcesPingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="ServiceQueryRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="ServiceQueryResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="Services">
+<xsd:complexType><xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="Service" type="tns:HPCCService"/></xsd:sequence></xsd:complexType></xsd:element></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="HPCCService">
+<xsd:all><xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Port" type="xsd:unsignedInt"/>
+<xsd:element minOccurs="0" name="TLSSecure" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="PingSoapIn"><part name="parameters" element="tns:WsResourcesPingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:WsResourcesPingResponse"/></message><message name="ServiceQuerySoapIn"><part name="parameters" element="tns:ServiceQueryRequest"/></message><message name="ServiceQuerySoapOut"><part name="parameters" element="tns:ServiceQueryResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="WsResourcesServiceSoap"><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="ServiceQuery"><input message="tns:ServiceQuerySoapIn"/><output message="tns:ServiceQuerySoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="WsResourcesServiceSoap" type="tns:WsResourcesServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="Ping"><soap:operation soapAction="WsResources/Ping?ver_=1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="ServiceQuery"><soap:operation soapAction="WsResources/ServiceQuery?ver_=1" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="WsResources"><port name="WsResourcesServiceSoap" binding="tns:WsResourcesServiceSoap"><soap:address location="http://10.1.2.182:8888/WsResources?ver_=1"/></port></service></definitions>

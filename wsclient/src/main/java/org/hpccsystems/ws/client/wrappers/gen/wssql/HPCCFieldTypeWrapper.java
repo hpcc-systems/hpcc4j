@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class HPCCFieldTypeWrapper
 {
-	protected String local_hPCCFieldType;
+    protected String local_hPCCFieldType;
 
-	public HPCCFieldTypeWrapper() {}
+    public HPCCFieldTypeWrapper() {}
 
-	public HPCCFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType hpccfieldtype)
-	{
-		copy( hpccfieldtype );
-	}
-	public HPCCFieldTypeWrapper( String _hPCCFieldType )
-	{
-		this.local_hPCCFieldType = _hPCCFieldType;
+    public HPCCFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFieldType hpccfieldtype)
+    {
+        copy( hpccfieldtype );
+    }
+    public HPCCFieldTypeWrapper( String _hPCCFieldType )
+    {
+        this.local_hPCCFieldType = _hPCCFieldType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFieldType raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getHPCCFieldType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "HPCCFieldTypeWrapper [" + "hPCCFieldType = " + local_hPCCFieldType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFieldType raw = null;
+    @Override
+    public String toString()
+    {
+        return "HPCCFieldTypeWrapper [" + "hPCCFieldType = " + local_hPCCFieldType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFieldType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFieldType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setHPCCFieldType(hPCCFieldType);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setHPCCFieldType( String _hPCCFieldType )
-	{
-		this.local_hPCCFieldType = _hPCCFieldType;
-	}
-	public String getHPCCFieldType( )
-	{
-		return this.local_hPCCFieldType;
-	}
+    public void setHPCCFieldType( String _hPCCFieldType )
+    {
+        this.local_hPCCFieldType = _hPCCFieldType;
+    }
+    public String getHPCCFieldType( )
+    {
+        return this.local_hPCCFieldType;
+    }
 }

@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Params_type0Wrapper
 {
-	protected List<DataTypeParamWrapper> local_param = null;
+    protected List<DataTypeParamWrapper> local_param = null;
 
-	public Params_type0Wrapper() {}
+    public Params_type0Wrapper() {}
 
-	public Params_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 params_type0)
-	{
-		copy( params_type0 );
-	}
-	public Params_type0Wrapper( List<DataTypeParamWrapper> _param )
-	{
-		this.local_param = _param;
+    public Params_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Params_type0 params_type0)
+    {
+        copy( params_type0 );
+    }
+    public Params_type0Wrapper( List<DataTypeParamWrapper> _param )
+    {
+        this.local_param = _param;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Params_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getParam() != null)
-		{
-			this.local_param = new ArrayList<DataTypeParamWrapper>();
-			for ( int i = 0; i < raw.getParam().length; i++)
-			{
-				this.local_param.add(new DataTypeParamWrapper(raw.getParam()[i]));
-			}
-		}
-	}
+        if (raw.getParam() != null)
+        {
+            this.local_param = new ArrayList<DataTypeParamWrapper>();
+            for ( int i = 0; i < raw.getParam().length; i++)
+            {
+                this.local_param.add(new DataTypeParamWrapper(raw.getParam()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Params_type0Wrapper [" + "param = " + local_param + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Params_type0();
-		if (this.local_param!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataTypeParam[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataTypeParam[this.local_param.size()];
-			for ( int i = 0; i < this.local_param.size(); i++)
-			{
-				arr[i] = this.local_param.get(i) .getRaw();
-			}
-			raw.setParam(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Params_type0Wrapper [" + "param = " + local_param + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.Params_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.Params_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.Params_type0();
+        if (this.local_param!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataTypeParam[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataTypeParam[this.local_param.size()];
+            for ( int i = 0; i < this.local_param.size(); i++)
+            {
+                arr[i] = this.local_param.get(i) .getRaw();
+            }
+            raw.setParam(arr);
+        }
+        return raw;
+    }
 
 
-	public void setParam( List<DataTypeParamWrapper> _param )
-	{
-		this.local_param = _param;
-	}
-	public List<DataTypeParamWrapper> getParam( )
-	{
-		return this.local_param;
-	}
+    public void setParam( List<DataTypeParamWrapper> _param )
+    {
+        this.local_param = _param;
+    }
+    public List<DataTypeParamWrapper> getParam( )
+    {
+        return this.local_param;
+    }
 }

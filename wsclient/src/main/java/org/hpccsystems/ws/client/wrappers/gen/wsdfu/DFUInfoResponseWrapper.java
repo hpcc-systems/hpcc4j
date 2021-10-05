@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.813Z
+ * TimeStamp: 2021-10-27T14:48:55.292Z
  */
 public class DFUInfoResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected DFUFileDetailWrapper local_fileDetail;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected DFUFileDetailWrapper local_fileDetail;
 
-	public DFUInfoResponseWrapper() {}
+    public DFUInfoResponseWrapper() {}
 
-	public DFUInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse dfuinforesponse)
-	{
-		copy( dfuinforesponse );
-	}
-	public DFUInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, DFUFileDetailWrapper _fileDetail )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_fileDetail = _fileDetail;
+    public DFUInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse dfuinforesponse)
+    {
+        copy( dfuinforesponse );
+    }
+    public DFUInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, DFUFileDetailWrapper _fileDetail )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_fileDetail = _fileDetail;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getFileDetail() != null)
-			this.local_fileDetail = new DFUFileDetailWrapper( raw.getFileDetail());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getFileDetail() != null)
+            this.local_fileDetail = new DFUFileDetailWrapper( raw.getFileDetail());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "fileDetail = " + local_fileDetail + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "fileDetail = " + local_fileDetail + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setFileDetail( DFUFileDetailWrapper _fileDetail )
-	{
-		this.local_fileDetail = _fileDetail;
-	}
-	public DFUFileDetailWrapper getFileDetail( )
-	{
-		return this.local_fileDetail;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setFileDetail( DFUFileDetailWrapper _fileDetail )
+    {
+        this.local_fileDetail = _fileDetail;
+    }
+    public DFUFileDetailWrapper getFileDetail( )
+    {
+        return this.local_fileDetail;
+    }
 }

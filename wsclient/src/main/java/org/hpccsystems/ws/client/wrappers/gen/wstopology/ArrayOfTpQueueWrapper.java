@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpQueueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.919Z
+ * TimeStamp: 2021-10-27T23:40:06.320Z
  */
 public class ArrayOfTpQueueWrapper
 {
-	protected List<TpQueueWrapper> local_tpQueue = null;
+    protected List<TpQueueWrapper> local_tpQueue = null;
 
-	public ArrayOfTpQueueWrapper() {}
+    public ArrayOfTpQueueWrapper() {}
 
-	public ArrayOfTpQueueWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue arrayoftpqueue)
-	{
-		copy( arrayoftpqueue );
-	}
-	public ArrayOfTpQueueWrapper( List<TpQueueWrapper> _tpQueue )
-	{
-		this.local_tpQueue = _tpQueue;
+    public ArrayOfTpQueueWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue arrayoftpqueue)
+    {
+        copy( arrayoftpqueue );
+    }
+    public ArrayOfTpQueueWrapper( List<TpQueueWrapper> _tpQueue )
+    {
+        this.local_tpQueue = _tpQueue;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpQueue() != null)
-		{
-			this.local_tpQueue = new ArrayList<TpQueueWrapper>();
-			for ( int i = 0; i < raw.getTpQueue().length; i++)
-			{
-				this.local_tpQueue.add(new TpQueueWrapper(raw.getTpQueue()[i]));
-			}
-		}
-	}
+        if (raw.getTpQueue() != null)
+        {
+            this.local_tpQueue = new ArrayList<TpQueueWrapper>();
+            for ( int i = 0; i < raw.getTpQueue().length; i++)
+            {
+                this.local_tpQueue.add(new TpQueueWrapper(raw.getTpQueue()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpQueueWrapper [" + "tpQueue = " + local_tpQueue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpQueue();
-		if (this.local_tpQueue!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpQueue[this.local_tpQueue.size()];
-			for ( int i = 0; i < this.local_tpQueue.size(); i++)
-			{
-				arr[i] = this.local_tpQueue.get(i) .getRaw();
-			}
-			raw.setTpQueue(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpQueueWrapper [" + "tpQueue = " + local_tpQueue + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue();
+        if (this.local_tpQueue!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpQueue[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpQueue[this.local_tpQueue.size()];
+            for ( int i = 0; i < this.local_tpQueue.size(); i++)
+            {
+                arr[i] = this.local_tpQueue.get(i) .getRaw();
+            }
+            raw.setTpQueue(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpQueue( List<TpQueueWrapper> _tpQueue )
-	{
-		this.local_tpQueue = _tpQueue;
-	}
-	public List<TpQueueWrapper> getTpQueue( )
-	{
-		return this.local_tpQueue;
-	}
+    public void setTpQueue( List<TpQueueWrapper> _tpQueue )
+    {
+        this.local_tpQueue = _tpQueue;
+    }
+    public List<TpQueueWrapper> getTpQueue( )
+    {
+        return this.local_tpQueue;
+    }
 }

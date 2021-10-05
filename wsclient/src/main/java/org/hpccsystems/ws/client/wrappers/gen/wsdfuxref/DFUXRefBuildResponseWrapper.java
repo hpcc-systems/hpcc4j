@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefBuildResponseWrapper
 {
-	protected String local_dFUXRefActionResult;
+    protected String local_dFUXRefActionResult;
 
-	public DFUXRefBuildResponseWrapper() {}
+    public DFUXRefBuildResponseWrapper() {}
 
-	public DFUXRefBuildResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildResponse dfuxrefbuildresponse)
-	{
-		copy( dfuxrefbuildresponse );
-	}
-	public DFUXRefBuildResponseWrapper( String _dFUXRefActionResult )
-	{
-		this.local_dFUXRefActionResult = _dFUXRefActionResult;
+    public DFUXRefBuildResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildResponse dfuxrefbuildresponse)
+    {
+        copy( dfuxrefbuildresponse );
+    }
+    public DFUXRefBuildResponseWrapper( String _dFUXRefActionResult )
+    {
+        this.local_dFUXRefActionResult = _dFUXRefActionResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUXRefActionResult = raw.getDFUXRefActionResult();
+        this.local_dFUXRefActionResult = raw.getDFUXRefActionResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefBuildResponseWrapper [" + "dFUXRefActionResult = " + local_dFUXRefActionResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildResponse();
-		raw.setDFUXRefActionResult( local_dFUXRefActionResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefBuildResponseWrapper [" + "dFUXRefActionResult = " + local_dFUXRefActionResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildResponse();
+        raw.setDFUXRefActionResult( local_dFUXRefActionResult);
+        return raw;
+    }
 
 
-	public void setDFUXRefActionResult( String _dFUXRefActionResult )
-	{
-		this.local_dFUXRefActionResult = _dFUXRefActionResult;
-	}
-	public String getDFUXRefActionResult( )
-	{
-		return this.local_dFUXRefActionResult;
-	}
+    public void setDFUXRefActionResult( String _dFUXRefActionResult )
+    {
+        this.local_dFUXRefActionResult = _dFUXRefActionResult;
+    }
+    public String getDFUXRefActionResult( )
+    {
+        return this.local_dFUXRefActionResult;
+    }
 }

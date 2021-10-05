@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class GetRelatedIndexesRequestWrapper
 {
-	protected FileNames_type0Wrapper local_fileNames;
+    protected FileNames_type0Wrapper local_fileNames;
 
-	public GetRelatedIndexesRequestWrapper() {}
+    public GetRelatedIndexesRequestWrapper() {}
 
-	public GetRelatedIndexesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest getrelatedindexesrequest)
-	{
-		copy( getrelatedindexesrequest );
-	}
-	public GetRelatedIndexesRequestWrapper( FileNames_type0Wrapper _fileNames )
-	{
-		this.local_fileNames = _fileNames;
+    public GetRelatedIndexesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesRequest getrelatedindexesrequest)
+    {
+        copy( getrelatedindexesrequest );
+    }
+    public GetRelatedIndexesRequestWrapper( FileNames_type0Wrapper _fileNames )
+    {
+        this.local_fileNames = _fileNames;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getFileNames() != null)
-			this.local_fileNames = new FileNames_type0Wrapper( raw.getFileNames());
+        if (raw.getFileNames() != null)
+            this.local_fileNames = new FileNames_type0Wrapper( raw.getFileNames());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetRelatedIndexesRequestWrapper [" + "fileNames = " + local_fileNames + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesRequest();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetRelatedIndexesRequestWrapper [" + "fileNames = " + local_fileNames + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesRequest();
+        return raw;
+    }
 
 
-	public void setFileNames( FileNames_type0Wrapper _fileNames )
-	{
-		this.local_fileNames = _fileNames;
-	}
-	public FileNames_type0Wrapper getFileNames( )
-	{
-		return this.local_fileNames;
-	}
+    public void setFileNames( FileNames_type0Wrapper _fileNames )
+    {
+        this.local_fileNames = _fileNames;
+    }
+    public FileNames_type0Wrapper getFileNames( )
+    {
+        return this.local_fileNames;
+    }
 }

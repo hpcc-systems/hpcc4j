@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfSuperFileWrapper
 {
-	protected List<SuperFileWrapper> local_superFile = null;
+    protected List<SuperFileWrapper> local_superFile = null;
 
-	public ArrayOfSuperFileWrapper() {}
+    public ArrayOfSuperFileWrapper() {}
 
-	public ArrayOfSuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile arrayofsuperfile)
-	{
-		copy( arrayofsuperfile );
-	}
-	public ArrayOfSuperFileWrapper( List<SuperFileWrapper> _superFile )
-	{
-		this.local_superFile = _superFile;
+    public ArrayOfSuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfSuperFile arrayofsuperfile)
+    {
+        copy( arrayofsuperfile );
+    }
+    public ArrayOfSuperFileWrapper( List<SuperFileWrapper> _superFile )
+    {
+        this.local_superFile = _superFile;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfSuperFile raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getSuperFile() != null)
-		{
-			this.local_superFile = new ArrayList<SuperFileWrapper>();
-			for ( int i = 0; i < raw.getSuperFile().length; i++)
-			{
-				this.local_superFile.add(new SuperFileWrapper(raw.getSuperFile()[i]));
-			}
-		}
-	}
+        if (raw.getSuperFile() != null)
+        {
+            this.local_superFile = new ArrayList<SuperFileWrapper>();
+            for ( int i = 0; i < raw.getSuperFile().length; i++)
+            {
+                this.local_superFile.add(new SuperFileWrapper(raw.getSuperFile()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfSuperFileWrapper [" + "superFile = " + local_superFile + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfSuperFile();
-		if (this.local_superFile!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile[this.local_superFile.size()];
-			for ( int i = 0; i < this.local_superFile.size(); i++)
-			{
-				arr[i] = this.local_superFile.get(i) .getRaw();
-			}
-			raw.setSuperFile(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfSuperFileWrapper [" + "superFile = " + local_superFile + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfSuperFile getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfSuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfSuperFile();
+        if (this.local_superFile!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile[this.local_superFile.size()];
+            for ( int i = 0; i < this.local_superFile.size(); i++)
+            {
+                arr[i] = this.local_superFile.get(i) .getRaw();
+            }
+            raw.setSuperFile(arr);
+        }
+        return raw;
+    }
 
 
-	public void setSuperFile( List<SuperFileWrapper> _superFile )
-	{
-		this.local_superFile = _superFile;
-	}
-	public List<SuperFileWrapper> getSuperFile( )
-	{
-		return this.local_superFile;
-	}
+    public void setSuperFile( List<SuperFileWrapper> _superFile )
+    {
+        this.local_superFile = _superFile;
+    }
+    public List<SuperFileWrapper> getSuperFile( )
+    {
+        return this.local_superFile;
+    }
 }

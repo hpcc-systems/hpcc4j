@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wsdfuxref" targetNamespace="urn:hpccsystems:ws:wsdfuxref"><types><xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsdfuxref" >
+<xsd:complexType name="EspException"><xsd:all><xsd:element name="Code" type="xsd:string"  minOccurs="0"/><xsd:element name="Audience" type="xsd:string" minOccurs="0"/><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Message" type="xsd:string" minOccurs="0"/></xsd:all></xsd:complexType>
+<xsd:complexType name="ArrayOfEspException"><xsd:sequence><xsd:element name="Source" type="xsd:string"  minOccurs="0"/><xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/></xsd:sequence></xsd:complexType>
+<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+<xsd:element name="DFUXRefArrayActionRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Action" type="xsd:string"/>
+<xsd:element minOccurs="0" name="XRefFiles" type="tns:EspStringArray"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="EspStringArray"><xsd:sequence><xsd:element name="Item" type="xsd:string"  minOccurs="0" maxOccurs="unbounded" /></xsd:sequence></xsd:complexType>
+<xsd:element name="DFUXRefArrayActionResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefArrayActionResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefBuildRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefBuildResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefActionResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefBuildCancelRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefBuildCancelResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefBuildCancelResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefCleanDirectoriesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefCleanDirectoriesResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/></xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefDirectoriesQueryRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefDirectoriesQueryResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefDirectoriesQueryResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefFoundFilesQueryRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefFoundFilesQueryResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefFoundFilesQueryResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefListRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefListResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefListResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefLostFilesQueryRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefLostFilesQueryResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefLostFilesQueryResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefMessagesQueryRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefMessagesQueryResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefMessagesQueryResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefOrphanFilesQueryRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefOrphanFilesQueryResponse"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="DFUXRefOrphanFilesQueryResult" type="xsd:string"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefUnusedFilesRequest"><xsd:complexType>
+<xsd:all><xsd:element minOccurs="0" name="ProcessCluster" type="xsd:string"/>
+<xsd:element minOccurs="0" name="CheckPackageMaps" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="GetFileDetails" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:element name="DFUXRefUnusedFilesResponse"><xsd:complexType>
+<xsd:all><xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/><xsd:element minOccurs="0" name="UnusedFileCount" type="xsd:unsignedInt"/>
+<xsd:element minOccurs="0" name="UnusedFiles"><xsd:complexType><xsd:sequence><xsd:element name="File" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence></xsd:complexType>
+</xsd:element>
+<xsd:element minOccurs="0" name="UnusedFilesWithDetails" type="tns:ArrayOfDFULogicalFile"/>
+</xsd:all>
+</xsd:complexType></xsd:element>
+<xsd:complexType name="DFULogicalFile">
+<xsd:all><xsd:element minOccurs="0" name="Prefix" type="xsd:string"/>
+<xsd:element minOccurs="0" name="ClusterName" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Directory" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Parts" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Totalsize" type="xsd:string"/>
+<xsd:element minOccurs="0" name="RecordCount" type="xsd:string"/>
+<xsd:element minOccurs="0" name="Modified" type="xsd:string"/>
+<xsd:element minOccurs="0" name="LongSize" type="xsd:string"/>
+<xsd:element minOccurs="0" name="LongRecordCount" type="xsd:string"/>
+<xsd:element minOccurs="0" name="isSuperfile" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="isZipfile" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="isDirectory" type="xsd:boolean"/>
+<xsd:element minOccurs="0" default="false" name="Replicate" type="xsd:boolean"/>
+<xsd:element minOccurs="0" name="IntSize" type="xsd:long"/>
+<xsd:element minOccurs="0" name="IntRecordCount" type="xsd:long"/>
+<xsd:element minOccurs="0" name="FromRoxieCluster" type="xsd:boolean"/>
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="ArrayOfDFULogicalFile">
+<xsd:sequence>
+<xsd:element minOccurs="0" maxOccurs="unbounded" name="DFULogicalFile" type="tns:DFULogicalFile"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="WsDFUXRefPingRequest"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="WsDFUXRefPingResponse"><xsd:complexType><xsd:all/></xsd:complexType></xsd:element>
+<xsd:element name="string" nillable="true" type="xsd:string" />
+</xsd:schema></types><message name="DFUXRefArrayActionSoapIn"><part name="parameters" element="tns:DFUXRefArrayActionRequest"/></message><message name="DFUXRefArrayActionSoapOut"><part name="parameters" element="tns:DFUXRefArrayActionResponse"/></message><message name="DFUXRefBuildSoapIn"><part name="parameters" element="tns:DFUXRefBuildRequest"/></message><message name="DFUXRefBuildSoapOut"><part name="parameters" element="tns:DFUXRefBuildResponse"/></message><message name="DFUXRefBuildCancelSoapIn"><part name="parameters" element="tns:DFUXRefBuildCancelRequest"/></message><message name="DFUXRefBuildCancelSoapOut"><part name="parameters" element="tns:DFUXRefBuildCancelResponse"/></message><message name="DFUXRefCleanDirectoriesSoapIn"><part name="parameters" element="tns:DFUXRefCleanDirectoriesRequest"/></message><message name="DFUXRefCleanDirectoriesSoapOut"><part name="parameters" element="tns:DFUXRefCleanDirectoriesResponse"/></message><message name="DFUXRefDirectoriesSoapIn"><part name="parameters" element="tns:DFUXRefDirectoriesQueryRequest"/></message><message name="DFUXRefDirectoriesSoapOut"><part name="parameters" element="tns:DFUXRefDirectoriesQueryResponse"/></message><message name="DFUXRefFoundFilesSoapIn"><part name="parameters" element="tns:DFUXRefFoundFilesQueryRequest"/></message><message name="DFUXRefFoundFilesSoapOut"><part name="parameters" element="tns:DFUXRefFoundFilesQueryResponse"/></message><message name="DFUXRefListSoapIn"><part name="parameters" element="tns:DFUXRefListRequest"/></message><message name="DFUXRefListSoapOut"><part name="parameters" element="tns:DFUXRefListResponse"/></message><message name="DFUXRefLostFilesSoapIn"><part name="parameters" element="tns:DFUXRefLostFilesQueryRequest"/></message><message name="DFUXRefLostFilesSoapOut"><part name="parameters" element="tns:DFUXRefLostFilesQueryResponse"/></message><message name="DFUXRefMessagesSoapIn"><part name="parameters" element="tns:DFUXRefMessagesQueryRequest"/></message><message name="DFUXRefMessagesSoapOut"><part name="parameters" element="tns:DFUXRefMessagesQueryResponse"/></message><message name="DFUXRefOrphanFilesSoapIn"><part name="parameters" element="tns:DFUXRefOrphanFilesQueryRequest"/></message><message name="DFUXRefOrphanFilesSoapOut"><part name="parameters" element="tns:DFUXRefOrphanFilesQueryResponse"/></message><message name="DFUXRefUnusedFilesSoapIn"><part name="parameters" element="tns:DFUXRefUnusedFilesRequest"/></message><message name="DFUXRefUnusedFilesSoapOut"><part name="parameters" element="tns:DFUXRefUnusedFilesResponse"/></message><message name="PingSoapIn"><part name="parameters" element="tns:WsDFUXRefPingRequest"/></message><message name="PingSoapOut"><part name="parameters" element="tns:WsDFUXRefPingResponse"/></message><message name="EspSoapFault"><part name="parameters" element="tns:Exceptions"/></message><portType name="WsDFUXRefServiceSoap"><operation name="DFUXRefArrayAction"><input message="tns:DFUXRefArrayActionSoapIn"/><output message="tns:DFUXRefArrayActionSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefBuild"><input message="tns:DFUXRefBuildSoapIn"/><output message="tns:DFUXRefBuildSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefBuildCancel"><input message="tns:DFUXRefBuildCancelSoapIn"/><output message="tns:DFUXRefBuildCancelSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefCleanDirectories"><input message="tns:DFUXRefCleanDirectoriesSoapIn"/><output message="tns:DFUXRefCleanDirectoriesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefDirectories"><input message="tns:DFUXRefDirectoriesSoapIn"/><output message="tns:DFUXRefDirectoriesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefFoundFiles"><input message="tns:DFUXRefFoundFilesSoapIn"/><output message="tns:DFUXRefFoundFilesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefList"><input message="tns:DFUXRefListSoapIn"/><output message="tns:DFUXRefListSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefLostFiles"><input message="tns:DFUXRefLostFilesSoapIn"/><output message="tns:DFUXRefLostFilesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefMessages"><input message="tns:DFUXRefMessagesSoapIn"/><output message="tns:DFUXRefMessagesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefOrphanFiles"><input message="tns:DFUXRefOrphanFilesSoapIn"/><output message="tns:DFUXRefOrphanFilesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="DFUXRefUnusedFiles"><input message="tns:DFUXRefUnusedFilesSoapIn"/><output message="tns:DFUXRefUnusedFilesSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation><operation name="Ping"><input message="tns:PingSoapIn"/><output message="tns:PingSoapOut"/><fault name="excfault" message="tns:EspSoapFault"/></operation></portType><binding name="WsDFUXRefServiceSoap" type="tns:WsDFUXRefServiceSoap"><soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/><operation name="DFUXRefArrayAction"><soap:operation soapAction="WsDFUXRef/DFUXRefArrayAction?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefBuild"><soap:operation soapAction="WsDFUXRef/DFUXRefBuild?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefBuildCancel"><soap:operation soapAction="WsDFUXRef/DFUXRefBuildCancel?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefCleanDirectories"><soap:operation soapAction="WsDFUXRef/DFUXRefCleanDirectories?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefDirectories"><soap:operation soapAction="WsDFUXRef/DFUXRefDirectories?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefFoundFiles"><soap:operation soapAction="WsDFUXRef/DFUXRefFoundFiles?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefList"><soap:operation soapAction="WsDFUXRef/DFUXRefList?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefLostFiles"><soap:operation soapAction="WsDFUXRef/DFUXRefLostFiles?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefMessages"><soap:operation soapAction="WsDFUXRef/DFUXRefMessages?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefOrphanFiles"><soap:operation soapAction="WsDFUXRef/DFUXRefOrphanFiles?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="DFUXRefUnusedFiles"><soap:operation soapAction="WsDFUXRef/DFUXRefUnusedFiles?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation><operation name="Ping"><soap:operation soapAction="WsDFUXRef/Ping?ver_=1.02" style="document"/><input><soap:body use="literal"/></input><output><soap:body use="literal"/></output><fault  name="excfault"><soap:fault name="excfault" use="literal"/></fault></operation></binding><service name="WsDFUXRef"><port name="WsDFUXRefServiceSoap" binding="tns:WsDFUXRefServiceSoap"><soap:address location="http://10.173.160.101:8010/WsDFUXRef?ver_=1.02"/></port></service></definitions>
+

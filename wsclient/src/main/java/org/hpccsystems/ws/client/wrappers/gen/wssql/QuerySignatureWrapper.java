@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class QuerySignatureWrapper
 {
-	protected InParams_type0Wrapper local_inParams;
-	protected ResultSets_type0Wrapper local_resultSets;
+    protected InParams_type0Wrapper local_inParams;
+    protected ResultSets_type0Wrapper local_resultSets;
 
-	public QuerySignatureWrapper() {}
+    public QuerySignatureWrapper() {}
 
-	public QuerySignatureWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature querysignature)
-	{
-		copy( querysignature );
-	}
-	public QuerySignatureWrapper( InParams_type0Wrapper _inParams, ResultSets_type0Wrapper _resultSets )
-	{
-		this.local_inParams = _inParams;
-		this.local_resultSets = _resultSets;
+    public QuerySignatureWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature querysignature)
+    {
+        copy( querysignature );
+    }
+    public QuerySignatureWrapper( InParams_type0Wrapper _inParams, ResultSets_type0Wrapper _resultSets )
+    {
+        this.local_inParams = _inParams;
+        this.local_resultSets = _resultSets;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getInParams() != null)
-			this.local_inParams = new InParams_type0Wrapper( raw.getInParams());
-		if (raw.getResultSets() != null)
-			this.local_resultSets = new ResultSets_type0Wrapper( raw.getResultSets());
+        if (raw.getInParams() != null)
+            this.local_inParams = new InParams_type0Wrapper( raw.getInParams());
+        if (raw.getResultSets() != null)
+            this.local_resultSets = new ResultSets_type0Wrapper( raw.getResultSets());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "QuerySignatureWrapper [" + "inParams = " + local_inParams + ", " + "resultSets = " + local_resultSets + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "QuerySignatureWrapper [" + "inParams = " + local_inParams + ", " + "resultSets = " + local_resultSets + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature();
+        return raw;
+    }
 
 
-	public void setInParams( InParams_type0Wrapper _inParams )
-	{
-		this.local_inParams = _inParams;
-	}
-	public InParams_type0Wrapper getInParams( )
-	{
-		return this.local_inParams;
-	}
-	public void setResultSets( ResultSets_type0Wrapper _resultSets )
-	{
-		this.local_resultSets = _resultSets;
-	}
-	public ResultSets_type0Wrapper getResultSets( )
-	{
-		return this.local_resultSets;
-	}
+    public void setInParams( InParams_type0Wrapper _inParams )
+    {
+        this.local_inParams = _inParams;
+    }
+    public InParams_type0Wrapper getInParams( )
+    {
+        return this.local_inParams;
+    }
+    public void setResultSets( ResultSets_type0Wrapper _resultSets )
+    {
+        this.local_resultSets = _resultSets;
+    }
+    public ResultSets_type0Wrapper getResultSets( )
+    {
+        return this.local_resultSets;
+    }
 }

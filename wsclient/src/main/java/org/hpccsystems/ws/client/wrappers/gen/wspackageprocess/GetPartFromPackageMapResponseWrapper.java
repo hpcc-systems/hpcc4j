@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class GetPartFromPackageMapResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
-	protected String local_content;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
+    protected String local_content;
 
-	public GetPartFromPackageMapResponseWrapper() {}
+    public GetPartFromPackageMapResponseWrapper() {}
 
-	public GetPartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse getpartfrompackagemapresponse)
-	{
-		copy( getpartfrompackagemapresponse );
-	}
-	public GetPartFromPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, String _content )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
-		this.local_content = _content;
+    public GetPartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse getpartfrompackagemapresponse)
+    {
+        copy( getpartfrompackagemapresponse );
+    }
+    public GetPartFromPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, String _content )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
+        this.local_content = _content;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		this.local_content = raw.getContent();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        this.local_content = raw.getContent();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetPartFromPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "content = " + local_content + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapResponse();
-		raw.setContent( local_content);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetPartFromPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "content = " + local_content + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse();
+        raw.setContent( local_content);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
-	public void setContent( String _content )
-	{
-		this.local_content = _content;
-	}
-	public String getContent( )
-	{
-		return this.local_content;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
+    public void setContent( String _content )
+    {
+        this.local_content = _content;
+    }
+    public String getContent( )
+    {
+        return this.local_content;
+    }
 }

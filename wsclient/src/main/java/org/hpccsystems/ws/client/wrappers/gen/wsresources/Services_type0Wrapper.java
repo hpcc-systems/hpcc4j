@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Services_type0Wrapper
 {
-	protected List<HPCCServiceWrapper> local_service = null;
+    protected List<HPCCServiceWrapper> local_service = null;
 
-	public Services_type0Wrapper() {}
+    public Services_type0Wrapper() {}
 
-	public Services_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Services_type0 services_type0)
-	{
-		copy( services_type0 );
-	}
-	public Services_type0Wrapper( List<HPCCServiceWrapper> _service )
-	{
-		this.local_service = _service;
+    public Services_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0 services_type0)
+    {
+        copy( services_type0 );
+    }
+    public Services_type0Wrapper( List<HPCCServiceWrapper> _service )
+    {
+        this.local_service = _service;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Services_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getService() != null)
-		{
-			this.local_service = new ArrayList<HPCCServiceWrapper>();
-			for ( int i = 0; i < raw.getService().length; i++)
-			{
-				this.local_service.add(new HPCCServiceWrapper(raw.getService()[i]));
-			}
-		}
-	}
+        if (raw.getService() != null)
+        {
+            this.local_service = new ArrayList<HPCCServiceWrapper>();
+            for ( int i = 0; i < raw.getService().length; i++)
+            {
+                this.local_service.add(new HPCCServiceWrapper(raw.getService()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Services_type0Wrapper [" + "service = " + local_service + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Services_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Services_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Services_type0();
-		if (this.local_service!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.HPCCService[] arr = new org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.HPCCService[this.local_service.size()];
-			for ( int i = 0; i < this.local_service.size(); i++)
-			{
-				arr[i] = this.local_service.get(i) .getRaw();
-			}
-			raw.setService(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Services_type0Wrapper [" + "service = " + local_service + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0();
+        if (this.local_service!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService[] arr = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService[this.local_service.size()];
+            for ( int i = 0; i < this.local_service.size(); i++)
+            {
+                arr[i] = this.local_service.get(i) .getRaw();
+            }
+            raw.setService(arr);
+        }
+        return raw;
+    }
 
 
-	public void setService( List<HPCCServiceWrapper> _service )
-	{
-		this.local_service = _service;
-	}
-	public List<HPCCServiceWrapper> getService( )
-	{
-		return this.local_service;
-	}
+    public void setService( List<HPCCServiceWrapper> _service )
+    {
+        this.local_service = _service;
+    }
+    public List<HPCCServiceWrapper> getService( )
+    {
+        return this.local_service;
+    }
 }

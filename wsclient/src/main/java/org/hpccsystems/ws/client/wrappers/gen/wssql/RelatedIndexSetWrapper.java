@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class RelatedIndexSetWrapper
 {
-	protected String local_fileName;
-	protected Indexes_type0Wrapper local_indexes;
+    protected String local_fileName;
+    protected Indexes_type0Wrapper local_indexes;
 
-	public RelatedIndexSetWrapper() {}
+    public RelatedIndexSetWrapper() {}
 
-	public RelatedIndexSetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet relatedindexset)
-	{
-		copy( relatedindexset );
-	}
-	public RelatedIndexSetWrapper( String _fileName, Indexes_type0Wrapper _indexes )
-	{
-		this.local_fileName = _fileName;
-		this.local_indexes = _indexes;
+    public RelatedIndexSetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet relatedindexset)
+    {
+        copy( relatedindexset );
+    }
+    public RelatedIndexSetWrapper( String _fileName, Indexes_type0Wrapper _indexes )
+    {
+        this.local_fileName = _fileName;
+        this.local_indexes = _indexes;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_fileName = raw.getFileName();
-		if (raw.getIndexes() != null)
-			this.local_indexes = new Indexes_type0Wrapper( raw.getIndexes());
+        this.local_fileName = raw.getFileName();
+        if (raw.getIndexes() != null)
+            this.local_indexes = new Indexes_type0Wrapper( raw.getIndexes());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "RelatedIndexSetWrapper [" + "fileName = " + local_fileName + ", " + "indexes = " + local_indexes + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet();
-		raw.setFileName( local_fileName);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "RelatedIndexSetWrapper [" + "fileName = " + local_fileName + ", " + "indexes = " + local_indexes + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet();
+        raw.setFileName( local_fileName);
+        return raw;
+    }
 
 
-	public void setFileName( String _fileName )
-	{
-		this.local_fileName = _fileName;
-	}
-	public String getFileName( )
-	{
-		return this.local_fileName;
-	}
-	public void setIndexes( Indexes_type0Wrapper _indexes )
-	{
-		this.local_indexes = _indexes;
-	}
-	public Indexes_type0Wrapper getIndexes( )
-	{
-		return this.local_indexes;
-	}
+    public void setFileName( String _fileName )
+    {
+        this.local_fileName = _fileName;
+    }
+    public String getFileName( )
+    {
+        return this.local_fileName;
+    }
+    public void setIndexes( Indexes_type0Wrapper _indexes )
+    {
+        this.local_indexes = _indexes;
+    }
+    public Indexes_type0Wrapper getIndexes( )
+    {
+        return this.local_indexes;
+    }
 }

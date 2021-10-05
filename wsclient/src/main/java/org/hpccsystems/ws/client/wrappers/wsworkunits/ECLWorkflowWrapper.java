@@ -1,7 +1,8 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkflow;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow;
 
+@Deprecated
 public class ECLWorkflowWrapper
 {
     private String WFID;
@@ -124,7 +125,7 @@ public class ECLWorkflowWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkflow getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow getRaw()
     {
         return this.getRawLatestVersion();
     }
@@ -134,10 +135,10 @@ public class ECLWorkflowWrapper
      *
      * @return the raw version 1 79
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkflow getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkflow raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLWorkflow();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow();
 
         raw.setCount(this.getCount());
         raw.setCountRemaining(this.getCountRemaining());

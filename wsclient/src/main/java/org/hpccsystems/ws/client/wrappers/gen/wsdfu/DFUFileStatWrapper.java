@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,114 +21,114 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUFileStatWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileStat
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileStat
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.784Z
+ * TimeStamp: 2021-10-27T14:48:55.279Z
  */
 public class DFUFileStatWrapper
 {
-	protected String local_minSkew;
-	protected String local_maxSkew;
-	protected long local_minSkewInt64;
-	protected long local_maxSkewInt64;
-	protected long local_minSkewPart;
-	protected long local_maxSkewPart;
+    protected String local_minSkew;
+    protected String local_maxSkew;
+    protected long local_minSkewInt64;
+    protected long local_maxSkewInt64;
+    protected long local_minSkewPart;
+    protected long local_maxSkewPart;
 
-	public DFUFileStatWrapper() {}
+    public DFUFileStatWrapper() {}
 
-	public DFUFileStatWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileStat dfufilestat)
-	{
-		copy( dfufilestat );
-	}
-	public DFUFileStatWrapper( String _minSkew, String _maxSkew, long _minSkewInt64, long _maxSkewInt64, long _minSkewPart, long _maxSkewPart )
-	{
-		this.local_minSkew = _minSkew;
-		this.local_maxSkew = _maxSkew;
-		this.local_minSkewInt64 = _minSkewInt64;
-		this.local_maxSkewInt64 = _maxSkewInt64;
-		this.local_minSkewPart = _minSkewPart;
-		this.local_maxSkewPart = _maxSkewPart;
+    public DFUFileStatWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileStat dfufilestat)
+    {
+        copy( dfufilestat );
+    }
+    public DFUFileStatWrapper( String _minSkew, String _maxSkew, long _minSkewInt64, long _maxSkewInt64, long _minSkewPart, long _maxSkewPart )
+    {
+        this.local_minSkew = _minSkew;
+        this.local_maxSkew = _maxSkew;
+        this.local_minSkewInt64 = _minSkewInt64;
+        this.local_maxSkewInt64 = _maxSkewInt64;
+        this.local_minSkewPart = _minSkewPart;
+        this.local_maxSkewPart = _maxSkewPart;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileStat raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileStat raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_minSkew = raw.getMinSkew();
-		this.local_maxSkew = raw.getMaxSkew();
-		this.local_minSkewInt64 = raw.getMinSkewInt64();
-		this.local_maxSkewInt64 = raw.getMaxSkewInt64();
-		this.local_minSkewPart = raw.getMinSkewPart();
-		this.local_maxSkewPart = raw.getMaxSkewPart();
+        this.local_minSkew = raw.getMinSkew();
+        this.local_maxSkew = raw.getMaxSkew();
+        this.local_minSkewInt64 = raw.getMinSkewInt64();
+        this.local_maxSkewInt64 = raw.getMaxSkewInt64();
+        this.local_minSkewPart = raw.getMinSkewPart();
+        this.local_maxSkewPart = raw.getMaxSkewPart();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUFileStatWrapper [" + "minSkew = " + local_minSkew + ", " + "maxSkew = " + local_maxSkew + ", " + "minSkewInt64 = " + local_minSkewInt64 + ", " + "maxSkewInt64 = " + local_maxSkewInt64 + ", " + "minSkewPart = " + local_minSkewPart + ", " + "maxSkewPart = " + local_maxSkewPart + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileStat getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileStat raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileStat();
-		raw.setMinSkew( local_minSkew);
-		raw.setMaxSkew( local_maxSkew);
-		raw.setMinSkewInt64( local_minSkewInt64);
-		raw.setMaxSkewInt64( local_maxSkewInt64);
-		raw.setMinSkewPart( local_minSkewPart);
-		raw.setMaxSkewPart( local_maxSkewPart);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUFileStatWrapper [" + "minSkew = " + local_minSkew + ", " + "maxSkew = " + local_maxSkew + ", " + "minSkewInt64 = " + local_minSkewInt64 + ", " + "maxSkewInt64 = " + local_maxSkewInt64 + ", " + "minSkewPart = " + local_minSkewPart + ", " + "maxSkewPart = " + local_maxSkewPart + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileStat getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileStat raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileStat();
+        raw.setMinSkew( local_minSkew);
+        raw.setMaxSkew( local_maxSkew);
+        raw.setMinSkewInt64( local_minSkewInt64);
+        raw.setMaxSkewInt64( local_maxSkewInt64);
+        raw.setMinSkewPart( local_minSkewPart);
+        raw.setMaxSkewPart( local_maxSkewPart);
+        return raw;
+    }
 
 
-	public void setMinSkew( String _minSkew )
-	{
-		this.local_minSkew = _minSkew;
-	}
-	public String getMinSkew( )
-	{
-		return this.local_minSkew;
-	}
-	public void setMaxSkew( String _maxSkew )
-	{
-		this.local_maxSkew = _maxSkew;
-	}
-	public String getMaxSkew( )
-	{
-		return this.local_maxSkew;
-	}
-	public void setMinSkewInt64( long _minSkewInt64 )
-	{
-		this.local_minSkewInt64 = _minSkewInt64;
-	}
-	public long getMinSkewInt64( )
-	{
-		return this.local_minSkewInt64;
-	}
-	public void setMaxSkewInt64( long _maxSkewInt64 )
-	{
-		this.local_maxSkewInt64 = _maxSkewInt64;
-	}
-	public long getMaxSkewInt64( )
-	{
-		return this.local_maxSkewInt64;
-	}
-	public void setMinSkewPart( long _minSkewPart )
-	{
-		this.local_minSkewPart = _minSkewPart;
-	}
-	public long getMinSkewPart( )
-	{
-		return this.local_minSkewPart;
-	}
-	public void setMaxSkewPart( long _maxSkewPart )
-	{
-		this.local_maxSkewPart = _maxSkewPart;
-	}
-	public long getMaxSkewPart( )
-	{
-		return this.local_maxSkewPart;
-	}
+    public void setMinSkew( String _minSkew )
+    {
+        this.local_minSkew = _minSkew;
+    }
+    public String getMinSkew( )
+    {
+        return this.local_minSkew;
+    }
+    public void setMaxSkew( String _maxSkew )
+    {
+        this.local_maxSkew = _maxSkew;
+    }
+    public String getMaxSkew( )
+    {
+        return this.local_maxSkew;
+    }
+    public void setMinSkewInt64( long _minSkewInt64 )
+    {
+        this.local_minSkewInt64 = _minSkewInt64;
+    }
+    public long getMinSkewInt64( )
+    {
+        return this.local_minSkewInt64;
+    }
+    public void setMaxSkewInt64( long _maxSkewInt64 )
+    {
+        this.local_maxSkewInt64 = _maxSkewInt64;
+    }
+    public long getMaxSkewInt64( )
+    {
+        return this.local_maxSkewInt64;
+    }
+    public void setMinSkewPart( long _minSkewPart )
+    {
+        this.local_minSkewPart = _minSkewPart;
+    }
+    public long getMinSkewPart( )
+    {
+        return this.local_minSkewPart;
+    }
+    public void setMaxSkewPart( long _maxSkewPart )
+    {
+        this.local_maxSkewPart = _maxSkewPart;
+    }
+    public long getMaxSkewPart( )
+    {
+        return this.local_maxSkewPart;
+    }
 }

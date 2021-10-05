@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RenameResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.631Z
+ * TimeStamp: 2021-10-27T18:52:06.497Z
  */
 public class RenameResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected String local_wuid;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected String local_wuid;
 
-	public RenameResponseWrapper() {}
+    public RenameResponseWrapper() {}
 
-	public RenameResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse renameresponse)
-	{
-		copy( renameresponse );
-	}
-	public RenameResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wuid )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_wuid = _wuid;
+    public RenameResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse renameresponse)
+    {
+        copy( renameresponse );
+    }
+    public RenameResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wuid )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_wuid = _wuid;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_wuid = raw.getWuid();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_wuid = raw.getWuid();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "RenameResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.RenameResponse();
-		raw.setWuid( local_wuid);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "RenameResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse();
+        raw.setWuid( local_wuid);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setWuid( String _wuid )
-	{
-		this.local_wuid = _wuid;
-	}
-	public String getWuid( )
-	{
-		return this.local_wuid;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setWuid( String _wuid )
+    {
+        this.local_wuid = _wuid;
+    }
+    public String getWuid( )
+    {
+        return this.local_wuid;
+    }
 }

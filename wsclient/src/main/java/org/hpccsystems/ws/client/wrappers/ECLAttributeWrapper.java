@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckinAttributeRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CheckoutAttributeRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.CreateAttribute;
-import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.SaveAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.CheckinAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.CheckoutAttributeRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.CreateAttribute;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.SaveAttributeRequest;
 
 public class ECLAttributeWrapper
 {
@@ -65,7 +65,7 @@ public class ECLAttributeWrapper
      * @param raw
      *            the raw
      */
-    public ECLAttributeWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute raw)
+    public ECLAttributeWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ECLAttribute raw)
     {
         access = raw.getAccess();
         checksum = raw.getChecksum();
@@ -648,9 +648,9 @@ public class ECLAttributeWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ECLAttribute getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute();
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ECLAttribute();
         raw.setModuleName(moduleName);
         raw.setName(name);
         raw.setType(type);

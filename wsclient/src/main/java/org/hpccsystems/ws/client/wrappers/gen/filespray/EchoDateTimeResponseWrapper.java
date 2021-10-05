@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,54 +22,54 @@ import java.util.Calendar;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoDateTimeResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.602Z
+ * TimeStamp: 2021-10-27T18:52:06.464Z
  */
 public class EchoDateTimeResponseWrapper
 {
-	protected Calendar local_result;
+    protected Calendar local_result;
 
-	public EchoDateTimeResponseWrapper() {}
+    public EchoDateTimeResponseWrapper() {}
 
-	public EchoDateTimeResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse echodatetimeresponse)
-	{
-		copy( echodatetimeresponse );
-	}
-	public EchoDateTimeResponseWrapper( Calendar _result )
-	{
-		this.local_result = _result;
+    public EchoDateTimeResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse echodatetimeresponse)
+    {
+        copy( echodatetimeresponse );
+    }
+    public EchoDateTimeResponseWrapper( Calendar _result )
+    {
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_result = raw.getResult();
+        this.local_result = raw.getResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EchoDateTimeResponseWrapper [" + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTimeResponse();
-		raw.setResult( local_result);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EchoDateTimeResponseWrapper [" + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse();
+        raw.setResult( local_result);
+        return raw;
+    }
 
 
-	public void setResult( Calendar _result )
-	{
-		this.local_result = _result;
-	}
-	public Calendar getResult( )
-	{
-		return this.local_result;
-	}
+    public void setResult( Calendar _result )
+    {
+        this.local_result = _result;
+    }
+    public Calendar getResult( )
+    {
+        return this.local_result;
+    }
 }

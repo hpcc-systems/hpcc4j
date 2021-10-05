@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpEspServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEspServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.911Z
+ * TimeStamp: 2021-10-27T23:40:06.312Z
  */
 public class ArrayOfTpEspServerWrapper
 {
-	protected List<TpEspServerWrapper> local_tpEspServer = null;
+    protected List<TpEspServerWrapper> local_tpEspServer = null;
 
-	public ArrayOfTpEspServerWrapper() {}
+    public ArrayOfTpEspServerWrapper() {}
 
-	public ArrayOfTpEspServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEspServer arrayoftpespserver)
-	{
-		copy( arrayoftpespserver );
-	}
-	public ArrayOfTpEspServerWrapper( List<TpEspServerWrapper> _tpEspServer )
-	{
-		this.local_tpEspServer = _tpEspServer;
+    public ArrayOfTpEspServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer arrayoftpespserver)
+    {
+        copy( arrayoftpespserver );
+    }
+    public ArrayOfTpEspServerWrapper( List<TpEspServerWrapper> _tpEspServer )
+    {
+        this.local_tpEspServer = _tpEspServer;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEspServer raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpEspServer() != null)
-		{
-			this.local_tpEspServer = new ArrayList<TpEspServerWrapper>();
-			for ( int i = 0; i < raw.getTpEspServer().length; i++)
-			{
-				this.local_tpEspServer.add(new TpEspServerWrapper(raw.getTpEspServer()[i]));
-			}
-		}
-	}
+        if (raw.getTpEspServer() != null)
+        {
+            this.local_tpEspServer = new ArrayList<TpEspServerWrapper>();
+            for ( int i = 0; i < raw.getTpEspServer().length; i++)
+            {
+                this.local_tpEspServer.add(new TpEspServerWrapper(raw.getTpEspServer()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpEspServerWrapper [" + "tpEspServer = " + local_tpEspServer + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEspServer getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEspServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEspServer();
-		if (this.local_tpEspServer!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEspServer[this.local_tpEspServer.size()];
-			for ( int i = 0; i < this.local_tpEspServer.size(); i++)
-			{
-				arr[i] = this.local_tpEspServer.get(i) .getRaw();
-			}
-			raw.setTpEspServer(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpEspServerWrapper [" + "tpEspServer = " + local_tpEspServer + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer();
+        if (this.local_tpEspServer!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServer[this.local_tpEspServer.size()];
+            for ( int i = 0; i < this.local_tpEspServer.size(); i++)
+            {
+                arr[i] = this.local_tpEspServer.get(i) .getRaw();
+            }
+            raw.setTpEspServer(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpEspServer( List<TpEspServerWrapper> _tpEspServer )
-	{
-		this.local_tpEspServer = _tpEspServer;
-	}
-	public List<TpEspServerWrapper> getTpEspServer( )
-	{
-		return this.local_tpEspServer;
-	}
+    public void setTpEspServer( List<TpEspServerWrapper> _tpEspServer )
+    {
+        this.local_tpEspServer = _tpEspServer;
+    }
+    public List<TpEspServerWrapper> getTpEspServer( )
+    {
+        return this.local_tpEspServer;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUServerQueuesRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.613Z
+ * TimeStamp: 2021-10-27T18:52:06.475Z
  */
 public class GetDFUServerQueuesRequestWrapper
 {
-	protected String local_dFUServerName;
+    protected String local_dFUServerName;
 
-	public GetDFUServerQueuesRequestWrapper() {}
+    public GetDFUServerQueuesRequestWrapper() {}
 
-	public GetDFUServerQueuesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest getdfuserverqueuesrequest)
-	{
-		copy( getdfuserverqueuesrequest );
-	}
-	public GetDFUServerQueuesRequestWrapper( String _dFUServerName )
-	{
-		this.local_dFUServerName = _dFUServerName;
+    public GetDFUServerQueuesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest getdfuserverqueuesrequest)
+    {
+        copy( getdfuserverqueuesrequest );
+    }
+    public GetDFUServerQueuesRequestWrapper( String _dFUServerName )
+    {
+        this.local_dFUServerName = _dFUServerName;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUServerName = raw.getDFUServerName();
+        this.local_dFUServerName = raw.getDFUServerName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetDFUServerQueuesRequestWrapper [" + "dFUServerName = " + local_dFUServerName + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUServerQueuesRequest();
-		raw.setDFUServerName( local_dFUServerName);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetDFUServerQueuesRequestWrapper [" + "dFUServerName = " + local_dFUServerName + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest();
+        raw.setDFUServerName( local_dFUServerName);
+        return raw;
+    }
 
 
-	public void setDFUServerName( String _dFUServerName )
-	{
-		this.local_dFUServerName = _dFUServerName;
-	}
-	public String getDFUServerName( )
-	{
-		return this.local_dFUServerName;
-	}
+    public void setDFUServerName( String _dFUServerName )
+    {
+        this.local_dFUServerName = _dFUServerName;
+    }
+    public String getDFUServerName( )
+    {
+        return this.local_dFUServerName;
+    }
 }

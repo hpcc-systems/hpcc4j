@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class EclFieldDeclarationWrapper
 {
-	protected String local_fieldName;
-	protected EclFieldTypeWrapper local_eclFieldType;
+    protected String local_fieldName;
+    protected EclFieldTypeWrapper local_eclFieldType;
 
-	public EclFieldDeclarationWrapper() {}
+    public EclFieldDeclarationWrapper() {}
 
-	public EclFieldDeclarationWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration eclfielddeclaration)
-	{
-		copy( eclfielddeclaration );
-	}
-	public EclFieldDeclarationWrapper( String _fieldName, EclFieldTypeWrapper _eclFieldType )
-	{
-		this.local_fieldName = _fieldName;
-		this.local_eclFieldType = _eclFieldType;
+    public EclFieldDeclarationWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration eclfielddeclaration)
+    {
+        copy( eclfielddeclaration );
+    }
+    public EclFieldDeclarationWrapper( String _fieldName, EclFieldTypeWrapper _eclFieldType )
+    {
+        this.local_fieldName = _fieldName;
+        this.local_eclFieldType = _eclFieldType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_fieldName = raw.getFieldName();
-		if (raw.getEclFieldType() != null)
-			this.local_eclFieldType = new EclFieldTypeWrapper( raw.getEclFieldType());
+        this.local_fieldName = raw.getFieldName();
+        if (raw.getEclFieldType() != null)
+            this.local_eclFieldType = new EclFieldTypeWrapper( raw.getEclFieldType());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EclFieldDeclarationWrapper [" + "fieldName = " + local_fieldName + ", " + "eclFieldType = " + local_eclFieldType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration();
-		raw.setFieldName( local_fieldName);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EclFieldDeclarationWrapper [" + "fieldName = " + local_fieldName + ", " + "eclFieldType = " + local_eclFieldType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration();
+        raw.setFieldName( local_fieldName);
+        return raw;
+    }
 
 
-	public void setFieldName( String _fieldName )
-	{
-		this.local_fieldName = _fieldName;
-	}
-	public String getFieldName( )
-	{
-		return this.local_fieldName;
-	}
-	public void setEclFieldType( EclFieldTypeWrapper _eclFieldType )
-	{
-		this.local_eclFieldType = _eclFieldType;
-	}
-	public EclFieldTypeWrapper getEclFieldType( )
-	{
-		return this.local_eclFieldType;
-	}
+    public void setFieldName( String _fieldName )
+    {
+        this.local_fieldName = _fieldName;
+    }
+    public String getFieldName( )
+    {
+        return this.local_fieldName;
+    }
+    public void setEclFieldType( EclFieldTypeWrapper _eclFieldType )
+    {
+        this.local_eclFieldType = _eclFieldType;
+    }
+    public EclFieldTypeWrapper getEclFieldType( )
+    {
+        return this.local_eclFieldType;
+    }
 }

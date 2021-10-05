@@ -28,108 +28,108 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  */
 public class ExecutePreparedSQLResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected String local_parentWuId;
-	protected String local_result;
-	protected UnsignedInt local_resultWindowStart;
-	protected UnsignedInt local_resultWindowCount;
-	protected ECLWorkunitWrapper local_workunit;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected String local_parentWuId;
+    protected String local_result;
+    protected UnsignedInt local_resultWindowStart;
+    protected UnsignedInt local_resultWindowCount;
+    protected ECLWorkunitWrapper local_workunit;
 
-	public ExecutePreparedSQLResponseWrapper() {}
+    public ExecutePreparedSQLResponseWrapper() {}
 
-	public ExecutePreparedSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse executepreparedsqlresponse)
-	{
-		copy( executepreparedsqlresponse );
-	}
-	public ExecutePreparedSQLResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _parentWuId, String _result, UnsignedInt _resultWindowStart, UnsignedInt _resultWindowCount, ECLWorkunitWrapper _workunit )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_parentWuId = _parentWuId;
-		this.local_result = _result;
-		this.local_resultWindowStart = _resultWindowStart;
-		this.local_resultWindowCount = _resultWindowCount;
-		this.local_workunit = _workunit;
+    public ExecutePreparedSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLResponse executepreparedsqlresponse)
+    {
+        copy( executepreparedsqlresponse );
+    }
+    public ExecutePreparedSQLResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _parentWuId, String _result, UnsignedInt _resultWindowStart, UnsignedInt _resultWindowCount, ECLWorkunitWrapper _workunit )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_parentWuId = _parentWuId;
+        this.local_result = _result;
+        this.local_resultWindowStart = _resultWindowStart;
+        this.local_resultWindowCount = _resultWindowCount;
+        this.local_workunit = _workunit;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_parentWuId = raw.getParentWuId();
-		this.local_result = raw.getResult();
-		this.local_resultWindowStart = raw.getResultWindowStart();
-		this.local_resultWindowCount = raw.getResultWindowCount();
-		if (raw.getWorkunit() != null)
-			this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_parentWuId = raw.getParentWuId();
+        this.local_result = raw.getResult();
+        this.local_resultWindowStart = raw.getResultWindowStart();
+        this.local_resultWindowCount = raw.getResultWindowCount();
+        if (raw.getWorkunit() != null)
+            this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ExecutePreparedSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "parentWuId = " + local_parentWuId + ", " + "result = " + local_result + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "workunit = " + local_workunit + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLResponse();
-		raw.setParentWuId( local_parentWuId);
-		raw.setResult( local_result);
-		raw.setResultWindowStart( local_resultWindowStart);
-		raw.setResultWindowCount( local_resultWindowCount);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ExecutePreparedSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "parentWuId = " + local_parentWuId + ", " + "result = " + local_result + ", " + "resultWindowStart = " + local_resultWindowStart + ", " + "resultWindowCount = " + local_resultWindowCount + ", " + "workunit = " + local_workunit + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLResponse();
+        raw.setParentWuId( local_parentWuId);
+        raw.setResult( local_result);
+        raw.setResultWindowStart( local_resultWindowStart);
+        raw.setResultWindowCount( local_resultWindowCount);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setParentWuId( String _parentWuId )
-	{
-		this.local_parentWuId = _parentWuId;
-	}
-	public String getParentWuId( )
-	{
-		return this.local_parentWuId;
-	}
-	public void setResult( String _result )
-	{
-		this.local_result = _result;
-	}
-	public String getResult( )
-	{
-		return this.local_result;
-	}
-	public void setResultWindowStart( UnsignedInt _resultWindowStart )
-	{
-		this.local_resultWindowStart = _resultWindowStart;
-	}
-	public UnsignedInt getResultWindowStart( )
-	{
-		return this.local_resultWindowStart;
-	}
-	public void setResultWindowCount( UnsignedInt _resultWindowCount )
-	{
-		this.local_resultWindowCount = _resultWindowCount;
-	}
-	public UnsignedInt getResultWindowCount( )
-	{
-		return this.local_resultWindowCount;
-	}
-	public void setWorkunit( ECLWorkunitWrapper _workunit )
-	{
-		this.local_workunit = _workunit;
-	}
-	public ECLWorkunitWrapper getWorkunit( )
-	{
-		return this.local_workunit;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setParentWuId( String _parentWuId )
+    {
+        this.local_parentWuId = _parentWuId;
+    }
+    public String getParentWuId( )
+    {
+        return this.local_parentWuId;
+    }
+    public void setResult( String _result )
+    {
+        this.local_result = _result;
+    }
+    public String getResult( )
+    {
+        return this.local_result;
+    }
+    public void setResultWindowStart( UnsignedInt _resultWindowStart )
+    {
+        this.local_resultWindowStart = _resultWindowStart;
+    }
+    public UnsignedInt getResultWindowStart( )
+    {
+        return this.local_resultWindowStart;
+    }
+    public void setResultWindowCount( UnsignedInt _resultWindowCount )
+    {
+        this.local_resultWindowCount = _resultWindowCount;
+    }
+    public UnsignedInt getResultWindowCount( )
+    {
+        return this.local_resultWindowCount;
+    }
+    public void setWorkunit( ECLWorkunitWrapper _workunit )
+    {
+        this.local_workunit = _workunit;
+    }
+    public ECLWorkunitWrapper getWorkunit( )
+    {
+        return this.local_workunit;
+    }
 }

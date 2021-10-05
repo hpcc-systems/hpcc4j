@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EraseHistoryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.872Z
+ * TimeStamp: 2021-10-27T14:48:55.320Z
  */
 public class EraseHistoryResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected History_type1Wrapper local_history;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected History_type1Wrapper local_history;
 
-	public EraseHistoryResponseWrapper() {}
+    public EraseHistoryResponseWrapper() {}
 
-	public EraseHistoryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryResponse erasehistoryresponse)
-	{
-		copy( erasehistoryresponse );
-	}
-	public EraseHistoryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, History_type1Wrapper _history )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_history = _history;
+    public EraseHistoryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse erasehistoryresponse)
+    {
+        copy( erasehistoryresponse );
+    }
+    public EraseHistoryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, History_type1Wrapper _history )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_history = _history;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getHistory() != null)
-			this.local_history = new History_type1Wrapper( raw.getHistory());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getHistory() != null)
+            this.local_history = new History_type1Wrapper( raw.getHistory());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EraseHistoryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "history = " + local_history + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EraseHistoryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "history = " + local_history + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setHistory( History_type1Wrapper _history )
-	{
-		this.local_history = _history;
-	}
-	public History_type1Wrapper getHistory( )
-	{
-		return this.local_history;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setHistory( History_type1Wrapper _history )
+    {
+        this.local_history = _history;
+    }
+    public History_type1Wrapper getHistory( )
+    {
+        return this.local_history;
+    }
 }

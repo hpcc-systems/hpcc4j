@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class GetPackageMapByIdRequestWrapper
 {
-	protected String local_packageMapId;
+    protected String local_packageMapId;
 
-	public GetPackageMapByIdRequestWrapper() {}
+    public GetPackageMapByIdRequestWrapper() {}
 
-	public GetPackageMapByIdRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest getpackagemapbyidrequest)
-	{
-		copy( getpackagemapbyidrequest );
-	}
-	public GetPackageMapByIdRequestWrapper( String _packageMapId )
-	{
-		this.local_packageMapId = _packageMapId;
+    public GetPackageMapByIdRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdRequest getpackagemapbyidrequest)
+    {
+        copy( getpackagemapbyidrequest );
+    }
+    public GetPackageMapByIdRequestWrapper( String _packageMapId )
+    {
+        this.local_packageMapId = _packageMapId;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_packageMapId = raw.getPackageMapId();
+        this.local_packageMapId = raw.getPackageMapId();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetPackageMapByIdRequestWrapper [" + "packageMapId = " + local_packageMapId + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest();
-		raw.setPackageMapId( local_packageMapId);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetPackageMapByIdRequestWrapper [" + "packageMapId = " + local_packageMapId + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdRequest();
+        raw.setPackageMapId( local_packageMapId);
+        return raw;
+    }
 
 
-	public void setPackageMapId( String _packageMapId )
-	{
-		this.local_packageMapId = _packageMapId;
-	}
-	public String getPackageMapId( )
-	{
-		return this.local_packageMapId;
-	}
+    public void setPackageMapId( String _packageMapId )
+    {
+        this.local_packageMapId = _packageMapId;
+    }
+    public String getPackageMapId( )
+    {
+        return this.local_packageMapId;
+    }
 }

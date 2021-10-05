@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.977Z
+ * TimeStamp: 2021-10-27T23:40:06.367Z
  */
 public class TpMachineInfoResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected TpMachineWrapper local_machineInfo;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected TpMachineWrapper local_machineInfo;
 
-	public TpMachineInfoResponseWrapper() {}
+    public TpMachineInfoResponseWrapper() {}
 
-	public TpMachineInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse tpmachineinforesponse)
-	{
-		copy( tpmachineinforesponse );
-	}
-	public TpMachineInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, TpMachineWrapper _machineInfo )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_machineInfo = _machineInfo;
+    public TpMachineInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse tpmachineinforesponse)
+    {
+        copy( tpmachineinforesponse );
+    }
+    public TpMachineInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, TpMachineWrapper _machineInfo )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_machineInfo = _machineInfo;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getMachineInfo() != null)
-			this.local_machineInfo = new TpMachineWrapper( raw.getMachineInfo());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getMachineInfo() != null)
+            this.local_machineInfo = new TpMachineWrapper( raw.getMachineInfo());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpMachineInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "machineInfo = " + local_machineInfo + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpMachineInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "machineInfo = " + local_machineInfo + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setMachineInfo( TpMachineWrapper _machineInfo )
-	{
-		this.local_machineInfo = _machineInfo;
-	}
-	public TpMachineWrapper getMachineInfo( )
-	{
-		return this.local_machineInfo;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setMachineInfo( TpMachineWrapper _machineInfo )
+    {
+        this.local_machineInfo = _machineInfo;
+    }
+    public TpMachineWrapper getMachineInfo( )
+    {
+        return this.local_machineInfo;
+    }
 }

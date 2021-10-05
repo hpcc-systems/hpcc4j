@@ -28,13 +28,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 public class DFUXRefBuildCancelRequestWrapper
 {
 
-	public DFUXRefBuildCancelRequestWrapper() {}
+    public DFUXRefBuildCancelRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelRequest();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelRequest();
+        return raw;
+    }
 
 
 }

@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
  */
 public class EspSoapFaultWrapper
 {
-	protected ExceptionsWrapper local_faultMessage;
+    protected ExceptionsWrapper local_faultMessage;
 
-	public EspSoapFaultWrapper() {}
+    public EspSoapFaultWrapper() {}
 
-	public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspSoapFault espsoapfault)
-	{
-		copy( espsoapfault );
-	}
-	public EspSoapFaultWrapper( ExceptionsWrapper _faultMessage )
-	{
-		this.local_faultMessage = _faultMessage;
+    public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspSoapFault espsoapfault)
+    {
+        copy( espsoapfault );
+    }
+    public EspSoapFaultWrapper( ExceptionsWrapper _faultMessage )
+    {
+        this.local_faultMessage = _faultMessage;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspSoapFault raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspSoapFault raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getFaultMessage() != null)
-			this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
+        if (raw.getFaultMessage() != null)
+            this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EspSoapFaultWrapper [" + "faultMessage = " + local_faultMessage + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspSoapFault getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspSoapFault();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EspSoapFaultWrapper [" + "faultMessage = " + local_faultMessage + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspSoapFault getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspSoapFault();
+        return raw;
+    }
 
 
-	public void setFaultMessage( ExceptionsWrapper _faultMessage )
-	{
-		this.local_faultMessage = _faultMessage;
-	}
-	public ExceptionsWrapper getFaultMessage( )
-	{
-		return this.local_faultMessage;
-	}
+    public void setFaultMessage( ExceptionsWrapper _faultMessage )
+    {
+        this.local_faultMessage = _faultMessage;
+    }
+    public ExceptionsWrapper getFaultMessage( )
+    {
+        return this.local_faultMessage;
+    }
 }

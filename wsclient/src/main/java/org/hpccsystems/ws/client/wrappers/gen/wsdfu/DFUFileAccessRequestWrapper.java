@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUFileAccessRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.723Z
+ * TimeStamp: 2021-10-27T14:48:55.254Z
  */
 public class DFUFileAccessRequestWrapper
 {
-	protected DFUFileAccessRequestBaseWrapper local_requestBase;
+    protected DFUFileAccessRequestBaseWrapper local_requestBase;
 
-	public DFUFileAccessRequestWrapper() {}
+    public DFUFileAccessRequestWrapper() {}
 
-	public DFUFileAccessRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessRequest dfufileaccessrequest)
-	{
-		copy( dfufileaccessrequest );
-	}
-	public DFUFileAccessRequestWrapper( DFUFileAccessRequestBaseWrapper _requestBase )
-	{
-		this.local_requestBase = _requestBase;
+    public DFUFileAccessRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest dfufileaccessrequest)
+    {
+        copy( dfufileaccessrequest );
+    }
+    public DFUFileAccessRequestWrapper( DFUFileAccessRequestBaseWrapper _requestBase )
+    {
+        this.local_requestBase = _requestBase;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getRequestBase() != null)
-			this.local_requestBase = new DFUFileAccessRequestBaseWrapper( raw.getRequestBase());
+        if (raw.getRequestBase() != null)
+            this.local_requestBase = new DFUFileAccessRequestBaseWrapper( raw.getRequestBase());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUFileAccessRequestWrapper [" + "requestBase = " + local_requestBase + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessRequest();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUFileAccessRequestWrapper [" + "requestBase = " + local_requestBase + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest();
+        return raw;
+    }
 
 
-	public void setRequestBase( DFUFileAccessRequestBaseWrapper _requestBase )
-	{
-		this.local_requestBase = _requestBase;
-	}
-	public DFUFileAccessRequestBaseWrapper getRequestBase( )
-	{
-		return this.local_requestBase;
-	}
+    public void setRequestBase( DFUFileAccessRequestBaseWrapper _requestBase )
+    {
+        this.local_requestBase = _requestBase;
+    }
+    public DFUFileAccessRequestBaseWrapper getRequestBase( )
+    {
+        return this.local_requestBase;
+    }
 }

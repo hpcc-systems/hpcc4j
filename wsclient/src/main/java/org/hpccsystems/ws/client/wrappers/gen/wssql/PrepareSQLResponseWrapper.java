@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class PrepareSQLResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ECLWorkunitWrapper local_workunit;
-	protected String local_result;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ECLWorkunitWrapper local_workunit;
+    protected String local_result;
 
-	public PrepareSQLResponseWrapper() {}
+    public PrepareSQLResponseWrapper() {}
 
-	public PrepareSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PrepareSQLResponse preparesqlresponse)
-	{
-		copy( preparesqlresponse );
-	}
-	public PrepareSQLResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ECLWorkunitWrapper _workunit, String _result )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_workunit = _workunit;
-		this.local_result = _result;
+    public PrepareSQLResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse preparesqlresponse)
+    {
+        copy( preparesqlresponse );
+    }
+    public PrepareSQLResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ECLWorkunitWrapper _workunit, String _result )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_workunit = _workunit;
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PrepareSQLResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getWorkunit() != null)
-			this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
-		this.local_result = raw.getResult();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getWorkunit() != null)
+            this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
+        this.local_result = raw.getResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "PrepareSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "workunit = " + local_workunit + ", " + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PrepareSQLResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PrepareSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PrepareSQLResponse();
-		raw.setResult( local_result);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "PrepareSQLResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "workunit = " + local_workunit + ", " + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse();
+        raw.setResult( local_result);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setWorkunit( ECLWorkunitWrapper _workunit )
-	{
-		this.local_workunit = _workunit;
-	}
-	public ECLWorkunitWrapper getWorkunit( )
-	{
-		return this.local_workunit;
-	}
-	public void setResult( String _result )
-	{
-		this.local_result = _result;
-	}
-	public String getResult( )
-	{
-		return this.local_result;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setWorkunit( ECLWorkunitWrapper _workunit )
+    {
+        this.local_workunit = _workunit;
+    }
+    public ECLWorkunitWrapper getWorkunit( )
+    {
+        return this.local_workunit;
+    }
+    public void setResult( String _result )
+    {
+        this.local_result = _result;
+    }
+    public String getResult( )
+    {
+        return this.local_result;
+    }
 }

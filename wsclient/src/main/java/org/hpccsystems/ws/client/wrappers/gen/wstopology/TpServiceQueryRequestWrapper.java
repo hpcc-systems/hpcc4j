@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpServiceQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.988Z
+ * TimeStamp: 2021-10-27T23:40:06.374Z
  */
 public class TpServiceQueryRequestWrapper
 {
-	protected String local_type;
+    protected String local_type;
 
-	public TpServiceQueryRequestWrapper() {}
+    public TpServiceQueryRequestWrapper() {}
 
-	public TpServiceQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest tpservicequeryrequest)
-	{
-		copy( tpservicequeryrequest );
-	}
-	public TpServiceQueryRequestWrapper( String _type )
-	{
-		this.local_type = _type;
+    public TpServiceQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest tpservicequeryrequest)
+    {
+        copy( tpservicequeryrequest );
+    }
+    public TpServiceQueryRequestWrapper( String _type )
+    {
+        this.local_type = _type;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_type = raw.getType();
+        this.local_type = raw.getType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpServiceQueryRequestWrapper [" + "type = " + local_type + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpServiceQueryRequest();
-		raw.setType( local_type);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpServiceQueryRequestWrapper [" + "type = " + local_type + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest();
+        raw.setType( local_type);
+        return raw;
+    }
 
 
-	public void setType( String _type )
-	{
-		this.local_type = _type;
-	}
-	public String getType( )
-	{
-		return this.local_type;
-	}
+    public void setType( String _type )
+    {
+        this.local_type = _type;
+    }
+    public String getType( )
+    {
+        return this.local_type;
+    }
 }

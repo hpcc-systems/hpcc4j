@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *******************************************************************************/
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -46,7 +46,7 @@ public class GetAttributesWrapper
      * @param getattributes
      *            the getattributes
      */
-    public GetAttributesWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributes getattributes)
+    public GetAttributesWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributes getattributes)
     {
         copy(getattributes);
     }
@@ -75,7 +75,7 @@ public class GetAttributesWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributes raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributes raw)
     {
         if (raw == null) return;
 
@@ -108,9 +108,9 @@ public class GetAttributesWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributes getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributes getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributes raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.GetAttributes();
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributes raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.GetAttributes();
         raw.setModuleName(local_moduleName);
         if (this.local_typeList != null)
         {

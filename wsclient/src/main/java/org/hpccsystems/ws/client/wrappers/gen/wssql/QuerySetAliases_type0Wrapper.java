@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class QuerySetAliases_type0Wrapper
 {
-	protected List<QuerySetAliasMapWrapper> local_querySetAlias = null;
+    protected List<QuerySetAliasMapWrapper> local_querySetAlias = null;
 
-	public QuerySetAliases_type0Wrapper() {}
+    public QuerySetAliases_type0Wrapper() {}
 
-	public QuerySetAliases_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 querysetaliases_type0)
-	{
-		copy( querysetaliases_type0 );
-	}
-	public QuerySetAliases_type0Wrapper( List<QuerySetAliasMapWrapper> _querySetAlias )
-	{
-		this.local_querySetAlias = _querySetAlias;
+    public QuerySetAliases_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliases_type0 querysetaliases_type0)
+    {
+        copy( querysetaliases_type0 );
+    }
+    public QuerySetAliases_type0Wrapper( List<QuerySetAliasMapWrapper> _querySetAlias )
+    {
+        this.local_querySetAlias = _querySetAlias;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliases_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getQuerySetAlias() != null)
-		{
-			this.local_querySetAlias = new ArrayList<QuerySetAliasMapWrapper>();
-			for ( int i = 0; i < raw.getQuerySetAlias().length; i++)
-			{
-				this.local_querySetAlias.add(new QuerySetAliasMapWrapper(raw.getQuerySetAlias()[i]));
-			}
-		}
-	}
+        if (raw.getQuerySetAlias() != null)
+        {
+            this.local_querySetAlias = new ArrayList<QuerySetAliasMapWrapper>();
+            for ( int i = 0; i < raw.getQuerySetAlias().length; i++)
+            {
+                this.local_querySetAlias.add(new QuerySetAliasMapWrapper(raw.getQuerySetAlias()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "QuerySetAliases_type0Wrapper [" + "querySetAlias = " + local_querySetAlias + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0();
-		if (this.local_querySetAlias!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap[this.local_querySetAlias.size()];
-			for ( int i = 0; i < this.local_querySetAlias.size(); i++)
-			{
-				arr[i] = this.local_querySetAlias.get(i) .getRaw();
-			}
-			raw.setQuerySetAlias(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "QuerySetAliases_type0Wrapper [" + "querySetAlias = " + local_querySetAlias + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliases_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliases_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliases_type0();
+        if (this.local_querySetAlias!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap[this.local_querySetAlias.size()];
+            for ( int i = 0; i < this.local_querySetAlias.size(); i++)
+            {
+                arr[i] = this.local_querySetAlias.get(i) .getRaw();
+            }
+            raw.setQuerySetAlias(arr);
+        }
+        return raw;
+    }
 
 
-	public void setQuerySetAlias( List<QuerySetAliasMapWrapper> _querySetAlias )
-	{
-		this.local_querySetAlias = _querySetAlias;
-	}
-	public List<QuerySetAliasMapWrapper> getQuerySetAlias( )
-	{
-		return this.local_querySetAlias;
-	}
+    public void setQuerySetAlias( List<QuerySetAliasMapWrapper> _querySetAlias )
+    {
+        this.local_querySetAlias = _querySetAlias;
+    }
+    public List<QuerySetAliasMapWrapper> getQuerySetAlias( )
+    {
+        return this.local_querySetAlias;
+    }
 }

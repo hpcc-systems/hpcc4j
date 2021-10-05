@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.582Z
+ * TimeStamp: 2021-10-27T18:52:06.453Z
  */
 public class DFUWUFileRequestWrapper
 {
-	protected String local_wuid;
-	protected String local_type;
-	protected String local_plainText;
+    protected String local_wuid;
+    protected String local_type;
+    protected String local_plainText;
 
-	public DFUWUFileRequestWrapper() {}
+    public DFUWUFileRequestWrapper() {}
 
-	public DFUWUFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest dfuwufilerequest)
-	{
-		copy( dfuwufilerequest );
-	}
-	public DFUWUFileRequestWrapper( String _wuid, String _type, String _plainText )
-	{
-		this.local_wuid = _wuid;
-		this.local_type = _type;
-		this.local_plainText = _plainText;
+    public DFUWUFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileRequest dfuwufilerequest)
+    {
+        copy( dfuwufilerequest );
+    }
+    public DFUWUFileRequestWrapper( String _wuid, String _type, String _plainText )
+    {
+        this.local_wuid = _wuid;
+        this.local_type = _type;
+        this.local_plainText = _plainText;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_wuid = raw.getWuid();
-		this.local_type = raw.getType();
-		this.local_plainText = raw.getPlainText();
+        this.local_wuid = raw.getWuid();
+        this.local_type = raw.getType();
+        this.local_plainText = raw.getPlainText();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUWUFileRequestWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "plainText = " + local_plainText + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileRequest();
-		raw.setWuid( local_wuid);
-		raw.setType( local_type);
-		raw.setPlainText( local_plainText);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUWUFileRequestWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "plainText = " + local_plainText + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileRequest();
+        raw.setWuid( local_wuid);
+        raw.setType( local_type);
+        raw.setPlainText( local_plainText);
+        return raw;
+    }
 
 
-	public void setWuid( String _wuid )
-	{
-		this.local_wuid = _wuid;
-	}
-	public String getWuid( )
-	{
-		return this.local_wuid;
-	}
-	public void setType( String _type )
-	{
-		this.local_type = _type;
-	}
-	public String getType( )
-	{
-		return this.local_type;
-	}
-	public void setPlainText( String _plainText )
-	{
-		this.local_plainText = _plainText;
-	}
-	public String getPlainText( )
-	{
-		return this.local_plainText;
-	}
+    public void setWuid( String _wuid )
+    {
+        this.local_wuid = _wuid;
+    }
+    public String getWuid( )
+    {
+        return this.local_wuid;
+    }
+    public void setType( String _type )
+    {
+        this.local_type = _type;
+    }
+    public String getType( )
+    {
+        return this.local_type;
+    }
+    public void setPlainText( String _plainText )
+    {
+        this.local_plainText = _plainText;
+    }
+    public String getPlainText( )
+    {
+        return this.local_plainText;
+    }
 }

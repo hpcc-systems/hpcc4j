@@ -28,84 +28,84 @@ import java.math.BigInteger;
  */
 public class EclFieldTypeWrapper
 {
-	protected HPCCFieldTypeWrapper local_type;
-	protected String local_locale;
-	protected BigInteger local_length;
-	protected BigInteger local_precision;
+    protected HPCCFieldTypeWrapper local_type;
+    protected String local_locale;
+    protected BigInteger local_length;
+    protected BigInteger local_precision;
 
-	public EclFieldTypeWrapper() {}
+    public EclFieldTypeWrapper() {}
 
-	public EclFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldType eclfieldtype)
-	{
-		copy( eclfieldtype );
-	}
-	public EclFieldTypeWrapper( HPCCFieldTypeWrapper _type, String _locale, BigInteger _length, BigInteger _precision )
-	{
-		this.local_type = _type;
-		this.local_locale = _locale;
-		this.local_length = _length;
-		this.local_precision = _precision;
+    public EclFieldTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType eclfieldtype)
+    {
+        copy( eclfieldtype );
+    }
+    public EclFieldTypeWrapper( HPCCFieldTypeWrapper _type, String _locale, BigInteger _length, BigInteger _precision )
+    {
+        this.local_type = _type;
+        this.local_locale = _locale;
+        this.local_length = _length;
+        this.local_precision = _precision;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getType() != null)
-			this.local_type = new HPCCFieldTypeWrapper( raw.getType());
-		this.local_locale = raw.getLocale();
-		this.local_length = raw.getLength();
-		this.local_precision = raw.getPrecision();
+        if (raw.getType() != null)
+            this.local_type = new HPCCFieldTypeWrapper( raw.getType());
+        this.local_locale = raw.getLocale();
+        this.local_length = raw.getLength();
+        this.local_precision = raw.getPrecision();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EclFieldTypeWrapper [" + "type = " + local_type + ", " + "locale = " + local_locale + ", " + "length = " + local_length + ", " + "precision = " + local_precision + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldType();
-		raw.setLocale( local_locale);
-		raw.setLength( local_length);
-		raw.setPrecision( local_precision);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EclFieldTypeWrapper [" + "type = " + local_type + ", " + "locale = " + local_locale + ", " + "length = " + local_length + ", " + "precision = " + local_precision + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType();
+        raw.setLocale( local_locale);
+        raw.setLength( local_length);
+        raw.setPrecision( local_precision);
+        return raw;
+    }
 
 
-	public void setType( HPCCFieldTypeWrapper _type )
-	{
-		this.local_type = _type;
-	}
-	public HPCCFieldTypeWrapper getType( )
-	{
-		return this.local_type;
-	}
-	public void setLocale( String _locale )
-	{
-		this.local_locale = _locale;
-	}
-	public String getLocale( )
-	{
-		return this.local_locale;
-	}
-	public void setLength( BigInteger _length )
-	{
-		this.local_length = _length;
-	}
-	public BigInteger getLength( )
-	{
-		return this.local_length;
-	}
-	public void setPrecision( BigInteger _precision )
-	{
-		this.local_precision = _precision;
-	}
-	public BigInteger getPrecision( )
-	{
-		return this.local_precision;
-	}
+    public void setType( HPCCFieldTypeWrapper _type )
+    {
+        this.local_type = _type;
+    }
+    public HPCCFieldTypeWrapper getType( )
+    {
+        return this.local_type;
+    }
+    public void setLocale( String _locale )
+    {
+        this.local_locale = _locale;
+    }
+    public String getLocale( )
+    {
+        return this.local_locale;
+    }
+    public void setLength( BigInteger _length )
+    {
+        this.local_length = _length;
+    }
+    public BigInteger getLength( )
+    {
+        return this.local_length;
+    }
+    public void setPrecision( BigInteger _precision )
+    {
+        this.local_precision = _precision;
+    }
+    public BigInteger getPrecision( )
+    {
+        return this.local_precision;
+    }
 }

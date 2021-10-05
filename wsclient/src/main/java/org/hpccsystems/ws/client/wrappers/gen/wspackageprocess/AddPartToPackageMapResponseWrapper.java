@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class AddPartToPackageMapResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
-	protected FilesNotFound_type1Wrapper local_filesNotFound;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
+    protected FilesNotFound_type1Wrapper local_filesNotFound;
 
-	public AddPartToPackageMapResponseWrapper() {}
+    public AddPartToPackageMapResponseWrapper() {}
 
-	public AddPartToPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse addparttopackagemapresponse)
-	{
-		copy( addparttopackagemapresponse );
-	}
-	public AddPartToPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, FilesNotFound_type1Wrapper _filesNotFound )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
-		this.local_filesNotFound = _filesNotFound;
+    public AddPartToPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPartToPackageMapResponse addparttopackagemapresponse)
+    {
+        copy( addparttopackagemapresponse );
+    }
+    public AddPartToPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, FilesNotFound_type1Wrapper _filesNotFound )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
+        this.local_filesNotFound = _filesNotFound;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPartToPackageMapResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		if (raw.getFilesNotFound() != null)
-			this.local_filesNotFound = new FilesNotFound_type1Wrapper( raw.getFilesNotFound());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        if (raw.getFilesNotFound() != null)
+            this.local_filesNotFound = new FilesNotFound_type1Wrapper( raw.getFilesNotFound());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "AddPartToPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPartToPackageMapResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "AddPartToPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPartToPackageMapResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPartToPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPartToPackageMapResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
-	public void setFilesNotFound( FilesNotFound_type1Wrapper _filesNotFound )
-	{
-		this.local_filesNotFound = _filesNotFound;
-	}
-	public FilesNotFound_type1Wrapper getFilesNotFound( )
-	{
-		return this.local_filesNotFound;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
+    public void setFilesNotFound( FilesNotFound_type1Wrapper _filesNotFound )
+    {
+        this.local_filesNotFound = _filesNotFound;
+    }
+    public FilesNotFound_type1Wrapper getFilesNotFound( )
+    {
+        return this.local_filesNotFound;
+    }
 }

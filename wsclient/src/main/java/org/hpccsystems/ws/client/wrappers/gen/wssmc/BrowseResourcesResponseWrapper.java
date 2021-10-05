@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,114 +21,114 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: BrowseResourcesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.BrowseResourcesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.972Z
+ * TimeStamp: 2021-10-27T20:17:20.574Z
  */
 public class BrowseResourcesResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected String local_portalURL;
-	protected String local_netAddress;
-	protected int local_oS;
-	protected boolean local_useResource;
-	protected ArrayOfHPCCResourceRepositoryWrapper local_hPCCResourceRepositories;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected String local_portalURL;
+    protected String local_netAddress;
+    protected int local_oS;
+    protected boolean local_useResource;
+    protected ArrayOfHPCCResourceRepositoryWrapper local_hPCCResourceRepositories;
 
-	public BrowseResourcesResponseWrapper() {}
+    public BrowseResourcesResponseWrapper() {}
 
-	public BrowseResourcesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.BrowseResourcesResponse browseresourcesresponse)
-	{
-		copy( browseresourcesresponse );
-	}
-	public BrowseResourcesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _portalURL, String _netAddress, int _oS, boolean _useResource, ArrayOfHPCCResourceRepositoryWrapper _hPCCResourceRepositories )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_portalURL = _portalURL;
-		this.local_netAddress = _netAddress;
-		this.local_oS = _oS;
-		this.local_useResource = _useResource;
-		this.local_hPCCResourceRepositories = _hPCCResourceRepositories;
+    public BrowseResourcesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse browseresourcesresponse)
+    {
+        copy( browseresourcesresponse );
+    }
+    public BrowseResourcesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _portalURL, String _netAddress, int _oS, boolean _useResource, ArrayOfHPCCResourceRepositoryWrapper _hPCCResourceRepositories )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_portalURL = _portalURL;
+        this.local_netAddress = _netAddress;
+        this.local_oS = _oS;
+        this.local_useResource = _useResource;
+        this.local_hPCCResourceRepositories = _hPCCResourceRepositories;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.BrowseResourcesResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_portalURL = raw.getPortalURL();
-		this.local_netAddress = raw.getNetAddress();
-		this.local_oS = raw.getOS();
-		this.local_useResource = raw.getUseResource();
-		if (raw.getHPCCResourceRepositories() != null)
-			this.local_hPCCResourceRepositories = new ArrayOfHPCCResourceRepositoryWrapper( raw.getHPCCResourceRepositories());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_portalURL = raw.getPortalURL();
+        this.local_netAddress = raw.getNetAddress();
+        this.local_oS = raw.getOS();
+        this.local_useResource = raw.getUseResource();
+        if (raw.getHPCCResourceRepositories() != null)
+            this.local_hPCCResourceRepositories = new ArrayOfHPCCResourceRepositoryWrapper( raw.getHPCCResourceRepositories());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "BrowseResourcesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "portalURL = " + local_portalURL + ", " + "netAddress = " + local_netAddress + ", " + "oS = " + local_oS + ", " + "useResource = " + local_useResource + ", " + "hPCCResourceRepositories = " + local_hPCCResourceRepositories + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.BrowseResourcesResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.BrowseResourcesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.BrowseResourcesResponse();
-		raw.setPortalURL( local_portalURL);
-		raw.setNetAddress( local_netAddress);
-		raw.setOS( local_oS);
-		raw.setUseResource( local_useResource);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "BrowseResourcesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "portalURL = " + local_portalURL + ", " + "netAddress = " + local_netAddress + ", " + "oS = " + local_oS + ", " + "useResource = " + local_useResource + ", " + "hPCCResourceRepositories = " + local_hPCCResourceRepositories + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse();
+        raw.setPortalURL( local_portalURL);
+        raw.setNetAddress( local_netAddress);
+        raw.setOS( local_oS);
+        raw.setUseResource( local_useResource);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setPortalURL( String _portalURL )
-	{
-		this.local_portalURL = _portalURL;
-	}
-	public String getPortalURL( )
-	{
-		return this.local_portalURL;
-	}
-	public void setNetAddress( String _netAddress )
-	{
-		this.local_netAddress = _netAddress;
-	}
-	public String getNetAddress( )
-	{
-		return this.local_netAddress;
-	}
-	public void setOS( int _oS )
-	{
-		this.local_oS = _oS;
-	}
-	public int getOS( )
-	{
-		return this.local_oS;
-	}
-	public void setUseResource( boolean _useResource )
-	{
-		this.local_useResource = _useResource;
-	}
-	public boolean getUseResource( )
-	{
-		return this.local_useResource;
-	}
-	public void setHPCCResourceRepositories( ArrayOfHPCCResourceRepositoryWrapper _hPCCResourceRepositories )
-	{
-		this.local_hPCCResourceRepositories = _hPCCResourceRepositories;
-	}
-	public ArrayOfHPCCResourceRepositoryWrapper getHPCCResourceRepositories( )
-	{
-		return this.local_hPCCResourceRepositories;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setPortalURL( String _portalURL )
+    {
+        this.local_portalURL = _portalURL;
+    }
+    public String getPortalURL( )
+    {
+        return this.local_portalURL;
+    }
+    public void setNetAddress( String _netAddress )
+    {
+        this.local_netAddress = _netAddress;
+    }
+    public String getNetAddress( )
+    {
+        return this.local_netAddress;
+    }
+    public void setOS( int _oS )
+    {
+        this.local_oS = _oS;
+    }
+    public int getOS( )
+    {
+        return this.local_oS;
+    }
+    public void setUseResource( boolean _useResource )
+    {
+        this.local_useResource = _useResource;
+    }
+    public boolean getUseResource( )
+    {
+        return this.local_useResource;
+    }
+    public void setHPCCResourceRepositories( ArrayOfHPCCResourceRepositoryWrapper _hPCCResourceRepositories )
+    {
+        this.local_hPCCResourceRepositories = _hPCCResourceRepositories;
+    }
+    public ArrayOfHPCCResourceRepositoryWrapper getHPCCResourceRepositories( )
+    {
+        return this.local_hPCCResourceRepositories;
+    }
 }

@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class QuerySetAliasMapWrapper
 {
-	protected String local_id;
-	protected String local_name;
+    protected String local_id;
+    protected String local_name;
 
-	public QuerySetAliasMapWrapper() {}
+    public QuerySetAliasMapWrapper() {}
 
-	public QuerySetAliasMapWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap querysetaliasmap)
-	{
-		copy( querysetaliasmap );
-	}
-	public QuerySetAliasMapWrapper( String _id, String _name )
-	{
-		this.local_id = _id;
-		this.local_name = _name;
+    public QuerySetAliasMapWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap querysetaliasmap)
+    {
+        copy( querysetaliasmap );
+    }
+    public QuerySetAliasMapWrapper( String _id, String _name )
+    {
+        this.local_id = _id;
+        this.local_name = _name;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_id = raw.getId();
-		this.local_name = raw.getName();
+        this.local_id = raw.getId();
+        this.local_name = raw.getName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "QuerySetAliasMapWrapper [" + "id = " + local_id + ", " + "name = " + local_name + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliasMap();
-		raw.setId( local_id);
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "QuerySetAliasMapWrapper [" + "id = " + local_id + ", " + "name = " + local_name + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliasMap();
+        raw.setId( local_id);
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setId( String _id )
-	{
-		this.local_id = _id;
-	}
-	public String getId( )
-	{
-		return this.local_id;
-	}
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
+    public void setId( String _id )
+    {
+        this.local_id = _id;
+    }
+    public String getId( )
+    {
+        return this.local_id;
+    }
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
 }

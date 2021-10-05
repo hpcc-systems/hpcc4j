@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
  */
 public class ExceptionsWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
 
-	public ExceptionsWrapper() {}
+    public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Exceptions exceptions)
-	{
-		copy( exceptions );
-	}
-	public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
+    public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Exceptions exceptions)
+    {
+        copy( exceptions );
+    }
+    public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Exceptions raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Exceptions raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Exceptions getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.Exceptions();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Exceptions getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Exceptions();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
 }

@@ -11,24 +11,24 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ActivatePackageResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspSoapFault;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapByIdResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessPingRequest;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.WsPackageProcessStub;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListMapData;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.WsPackageProcessPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.WsPackageProcessStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
@@ -236,7 +236,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *
      * All other request values are defaulted
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip) throws Exception
     {
@@ -254,7 +254,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *
      * All other request values are defaulted
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite) throws Exception
     {
@@ -271,7 +271,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param overwrite         - Option to overwrite package map is pre-existing
      * @throws Exception a {@link java.lang.Exception} object.
      * @param active a {@link java.lang.Boolean} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite, Boolean active) throws Exception
     {
@@ -297,7 +297,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param updateclonefrom    - Option to update clone from
      * @param updatesuperfiles   - Option to update superfiles
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
     public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, Boolean active, Boolean allowforeignfiles, Boolean appendcluster,
                                          String daliip, Boolean globalscope, Boolean overwrite, Boolean preloadallpackages, String process, Boolean replacepackagemap, String sourceprocess,
@@ -407,7 +407,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param packageMapID  - The packagemap to delete
      * @param targetcluster - The packagemap cluster
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageResponse} object.
      */
     public DeletePackageResponse deletePackage(String packageMapID, String targetcluster) throws Exception
     {
@@ -421,7 +421,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param targetcluster - The packagemap cluster
      * @param process       - The process
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageResponse} object.
      */
     public DeletePackageResponse deletePackage(String packageMapID, String targetcluster, String process) throws Exception
     {
@@ -436,7 +436,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param process       - The process
      * @param globalscope   - Is the target packagemap global scoped
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageResponse} object.
+     * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageResponse} object.
      */
     public DeletePackageResponse deletePackage(String packageMapID, String targetcluster, String process, Boolean globalscope) throws Exception
     {

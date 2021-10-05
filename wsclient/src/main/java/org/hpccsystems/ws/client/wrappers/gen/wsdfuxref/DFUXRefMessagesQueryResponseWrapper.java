@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefMessagesQueryResponseWrapper
 {
-	protected String local_dFUXRefMessagesQueryResult;
+    protected String local_dFUXRefMessagesQueryResult;
 
-	public DFUXRefMessagesQueryResponseWrapper() {}
+    public DFUXRefMessagesQueryResponseWrapper() {}
 
-	public DFUXRefMessagesQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryResponse dfuxrefmessagesqueryresponse)
-	{
-		copy( dfuxrefmessagesqueryresponse );
-	}
-	public DFUXRefMessagesQueryResponseWrapper( String _dFUXRefMessagesQueryResult )
-	{
-		this.local_dFUXRefMessagesQueryResult = _dFUXRefMessagesQueryResult;
+    public DFUXRefMessagesQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryResponse dfuxrefmessagesqueryresponse)
+    {
+        copy( dfuxrefmessagesqueryresponse );
+    }
+    public DFUXRefMessagesQueryResponseWrapper( String _dFUXRefMessagesQueryResult )
+    {
+        this.local_dFUXRefMessagesQueryResult = _dFUXRefMessagesQueryResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUXRefMessagesQueryResult = raw.getDFUXRefMessagesQueryResult();
+        this.local_dFUXRefMessagesQueryResult = raw.getDFUXRefMessagesQueryResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefMessagesQueryResponseWrapper [" + "dFUXRefMessagesQueryResult = " + local_dFUXRefMessagesQueryResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryResponse();
-		raw.setDFUXRefMessagesQueryResult( local_dFUXRefMessagesQueryResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefMessagesQueryResponseWrapper [" + "dFUXRefMessagesQueryResult = " + local_dFUXRefMessagesQueryResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryResponse();
+        raw.setDFUXRefMessagesQueryResult( local_dFUXRefMessagesQueryResult);
+        return raw;
+    }
 
 
-	public void setDFUXRefMessagesQueryResult( String _dFUXRefMessagesQueryResult )
-	{
-		this.local_dFUXRefMessagesQueryResult = _dFUXRefMessagesQueryResult;
-	}
-	public String getDFUXRefMessagesQueryResult( )
-	{
-		return this.local_dFUXRefMessagesQueryResult;
-	}
+    public void setDFUXRefMessagesQueryResult( String _dFUXRefMessagesQueryResult )
+    {
+        this.local_dFUXRefMessagesQueryResult = _dFUXRefMessagesQueryResult;
+    }
+    public String getDFUXRefMessagesQueryResult( )
+    {
+        return this.local_dFUXRefMessagesQueryResult;
+    }
 }

@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefMessagesQueryRequestWrapper
 {
-	protected String local_cluster;
+    protected String local_cluster;
 
-	public DFUXRefMessagesQueryRequestWrapper() {}
+    public DFUXRefMessagesQueryRequestWrapper() {}
 
-	public DFUXRefMessagesQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryRequest dfuxrefmessagesqueryrequest)
-	{
-		copy( dfuxrefmessagesqueryrequest );
-	}
-	public DFUXRefMessagesQueryRequestWrapper( String _cluster )
-	{
-		this.local_cluster = _cluster;
+    public DFUXRefMessagesQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryRequest dfuxrefmessagesqueryrequest)
+    {
+        copy( dfuxrefmessagesqueryrequest );
+    }
+    public DFUXRefMessagesQueryRequestWrapper( String _cluster )
+    {
+        this.local_cluster = _cluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_cluster = raw.getCluster();
+        this.local_cluster = raw.getCluster();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefMessagesQueryRequestWrapper [" + "cluster = " + local_cluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefMessagesQueryRequest();
-		raw.setCluster( local_cluster);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefMessagesQueryRequestWrapper [" + "cluster = " + local_cluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefMessagesQueryRequest();
+        raw.setCluster( local_cluster);
+        return raw;
+    }
 
 
-	public void setCluster( String _cluster )
-	{
-		this.local_cluster = _cluster;
-	}
-	public String getCluster( )
-	{
-		return this.local_cluster;
-	}
+    public void setCluster( String _cluster )
+    {
+        this.local_cluster = _cluster;
+    }
+    public String getCluster( )
+    {
+        return this.local_cluster;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUFileViewRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.790Z
+ * TimeStamp: 2021-10-27T14:48:55.281Z
  */
 public class DFUFileViewRequestWrapper
 {
-	protected String local_scope;
-	protected boolean local_includeSuperOwner;
+    protected String local_scope;
+    protected boolean local_includeSuperOwner;
 
-	public DFUFileViewRequestWrapper() {}
+    public DFUFileViewRequestWrapper() {}
 
-	public DFUFileViewRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest dfufileviewrequest)
-	{
-		copy( dfufileviewrequest );
-	}
-	public DFUFileViewRequestWrapper( String _scope, boolean _includeSuperOwner )
-	{
-		this.local_scope = _scope;
-		this.local_includeSuperOwner = _includeSuperOwner;
+    public DFUFileViewRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest dfufileviewrequest)
+    {
+        copy( dfufileviewrequest );
+    }
+    public DFUFileViewRequestWrapper( String _scope, boolean _includeSuperOwner )
+    {
+        this.local_scope = _scope;
+        this.local_includeSuperOwner = _includeSuperOwner;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_scope = raw.getScope();
-		this.local_includeSuperOwner = raw.getIncludeSuperOwner();
+        this.local_scope = raw.getScope();
+        this.local_includeSuperOwner = raw.getIncludeSuperOwner();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUFileViewRequestWrapper [" + "scope = " + local_scope + ", " + "includeSuperOwner = " + local_includeSuperOwner + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest();
-		raw.setScope( local_scope);
-		raw.setIncludeSuperOwner( local_includeSuperOwner);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUFileViewRequestWrapper [" + "scope = " + local_scope + ", " + "includeSuperOwner = " + local_includeSuperOwner + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest();
+        raw.setScope( local_scope);
+        raw.setIncludeSuperOwner( local_includeSuperOwner);
+        return raw;
+    }
 
 
-	public void setScope( String _scope )
-	{
-		this.local_scope = _scope;
-	}
-	public String getScope( )
-	{
-		return this.local_scope;
-	}
-	public void setIncludeSuperOwner( boolean _includeSuperOwner )
-	{
-		this.local_includeSuperOwner = _includeSuperOwner;
-	}
-	public boolean getIncludeSuperOwner( )
-	{
-		return this.local_includeSuperOwner;
-	}
+    public void setScope( String _scope )
+    {
+        this.local_scope = _scope;
+    }
+    public String getScope( )
+    {
+        return this.local_scope;
+    }
+    public void setIncludeSuperOwner( boolean _includeSuperOwner )
+    {
+        this.local_includeSuperOwner = _includeSuperOwner;
+    }
+    public boolean getIncludeSuperOwner( )
+    {
+        return this.local_includeSuperOwner;
+    }
 }

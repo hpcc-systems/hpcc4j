@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLSchemaItemWrapper
 {
-	protected List<ECLSchemaItemWrapper> local_eCLSchemaItem = null;
+    protected List<ECLSchemaItemWrapper> local_eCLSchemaItem = null;
 
-	public ArrayOfECLSchemaItemWrapper() {}
+    public ArrayOfECLSchemaItemWrapper() {}
 
-	public ArrayOfECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem arrayofeclschemaitem)
-	{
-		copy( arrayofeclschemaitem );
-	}
-	public ArrayOfECLSchemaItemWrapper( List<ECLSchemaItemWrapper> _eCLSchemaItem )
-	{
-		this.local_eCLSchemaItem = _eCLSchemaItem;
+    public ArrayOfECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSchemaItem arrayofeclschemaitem)
+    {
+        copy( arrayofeclschemaitem );
+    }
+    public ArrayOfECLSchemaItemWrapper( List<ECLSchemaItemWrapper> _eCLSchemaItem )
+    {
+        this.local_eCLSchemaItem = _eCLSchemaItem;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSchemaItem raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLSchemaItem() != null)
-		{
-			this.local_eCLSchemaItem = new ArrayList<ECLSchemaItemWrapper>();
-			for ( int i = 0; i < raw.getECLSchemaItem().length; i++)
-			{
-				this.local_eCLSchemaItem.add(new ECLSchemaItemWrapper(raw.getECLSchemaItem()[i]));
-			}
-		}
-	}
+        if (raw.getECLSchemaItem() != null)
+        {
+            this.local_eCLSchemaItem = new ArrayList<ECLSchemaItemWrapper>();
+            for ( int i = 0; i < raw.getECLSchemaItem().length; i++)
+            {
+                this.local_eCLSchemaItem.add(new ECLSchemaItemWrapper(raw.getECLSchemaItem()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLSchemaItemWrapper [" + "eCLSchemaItem = " + local_eCLSchemaItem + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSchemaItem();
-		if (this.local_eCLSchemaItem!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem[this.local_eCLSchemaItem.size()];
-			for ( int i = 0; i < this.local_eCLSchemaItem.size(); i++)
-			{
-				arr[i] = this.local_eCLSchemaItem.get(i) .getRaw();
-			}
-			raw.setECLSchemaItem(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLSchemaItemWrapper [" + "eCLSchemaItem = " + local_eCLSchemaItem + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSchemaItem getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSchemaItem();
+        if (this.local_eCLSchemaItem!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem[this.local_eCLSchemaItem.size()];
+            for ( int i = 0; i < this.local_eCLSchemaItem.size(); i++)
+            {
+                arr[i] = this.local_eCLSchemaItem.get(i) .getRaw();
+            }
+            raw.setECLSchemaItem(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLSchemaItem( List<ECLSchemaItemWrapper> _eCLSchemaItem )
-	{
-		this.local_eCLSchemaItem = _eCLSchemaItem;
-	}
-	public List<ECLSchemaItemWrapper> getECLSchemaItem( )
-	{
-		return this.local_eCLSchemaItem;
-	}
+    public void setECLSchemaItem( List<ECLSchemaItemWrapper> _eCLSchemaItem )
+    {
+        this.local_eCLSchemaItem = _eCLSchemaItem;
+    }
+    public List<ECLSchemaItemWrapper> getECLSchemaItem( )
+    {
+        return this.local_eCLSchemaItem;
+    }
 }

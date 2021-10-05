@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WsDfuPingRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuPingRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.923Z
+ * TimeStamp: 2021-10-27T14:48:55.344Z
  */
 public class WsDfuPingRequestWrapper
 {
 
-	public WsDfuPingRequestWrapper() {}
+    public WsDfuPingRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuPingRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuPingRequest();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingRequest();
+        return raw;
+    }
 
 
 }

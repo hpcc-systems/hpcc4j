@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefFoundFilesQueryRequestWrapper
 {
-	protected String local_cluster;
+    protected String local_cluster;
 
-	public DFUXRefFoundFilesQueryRequestWrapper() {}
+    public DFUXRefFoundFilesQueryRequestWrapper() {}
 
-	public DFUXRefFoundFilesQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryRequest dfuxreffoundfilesqueryrequest)
-	{
-		copy( dfuxreffoundfilesqueryrequest );
-	}
-	public DFUXRefFoundFilesQueryRequestWrapper( String _cluster )
-	{
-		this.local_cluster = _cluster;
+    public DFUXRefFoundFilesQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest dfuxreffoundfilesqueryrequest)
+    {
+        copy( dfuxreffoundfilesqueryrequest );
+    }
+    public DFUXRefFoundFilesQueryRequestWrapper( String _cluster )
+    {
+        this.local_cluster = _cluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_cluster = raw.getCluster();
+        this.local_cluster = raw.getCluster();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefFoundFilesQueryRequestWrapper [" + "cluster = " + local_cluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryRequest();
-		raw.setCluster( local_cluster);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefFoundFilesQueryRequestWrapper [" + "cluster = " + local_cluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest();
+        raw.setCluster( local_cluster);
+        return raw;
+    }
 
 
-	public void setCluster( String _cluster )
-	{
-		this.local_cluster = _cluster;
-	}
-	public String getCluster( )
-	{
-		return this.local_cluster;
-	}
+    public void setCluster( String _cluster )
+    {
+        this.local_cluster = _cluster;
+    }
+    public String getCluster( )
+    {
+        return this.local_cluster;
+    }
 }

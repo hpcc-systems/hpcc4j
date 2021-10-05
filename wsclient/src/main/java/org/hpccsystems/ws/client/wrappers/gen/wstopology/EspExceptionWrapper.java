@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,90 +21,90 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspExceptionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.923Z
+ * TimeStamp: 2021-10-27T23:40:06.324Z
  */
 public class EspExceptionWrapper
 {
-	protected String local_code;
-	protected String local_audience;
-	protected String local_source;
-	protected String local_message;
+    protected String local_code;
+    protected String local_audience;
+    protected String local_source;
+    protected String local_message;
 
-	public EspExceptionWrapper() {}
+    public EspExceptionWrapper() {}
 
-	public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException espexception)
-	{
-		copy( espexception );
-	}
-	public EspExceptionWrapper( String _code, String _audience, String _source, String _message )
-	{
-		this.local_code = _code;
-		this.local_audience = _audience;
-		this.local_source = _source;
-		this.local_message = _message;
+    public EspExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException espexception)
+    {
+        copy( espexception );
+    }
+    public EspExceptionWrapper( String _code, String _audience, String _source, String _message )
+    {
+        this.local_code = _code;
+        this.local_audience = _audience;
+        this.local_source = _source;
+        this.local_message = _message;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_code = raw.getCode();
-		this.local_audience = raw.getAudience();
-		this.local_source = raw.getSource();
-		this.local_message = raw.getMessage();
+        this.local_code = raw.getCode();
+        this.local_audience = raw.getAudience();
+        this.local_source = raw.getSource();
+        this.local_message = raw.getMessage();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException();
-		raw.setCode( local_code);
-		raw.setAudience( local_audience);
-		raw.setSource( local_source);
-		raw.setMessage( local_message);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EspExceptionWrapper [" + "code = " + local_code + ", " + "audience = " + local_audience + ", " + "source = " + local_source + ", " + "message = " + local_message + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException();
+        raw.setCode( local_code);
+        raw.setAudience( local_audience);
+        raw.setSource( local_source);
+        raw.setMessage( local_message);
+        return raw;
+    }
 
 
-	public void setCode( String _code )
-	{
-		this.local_code = _code;
-	}
-	public String getCode( )
-	{
-		return this.local_code;
-	}
-	public void setAudience( String _audience )
-	{
-		this.local_audience = _audience;
-	}
-	public String getAudience( )
-	{
-		return this.local_audience;
-	}
-	public void setSource( String _source )
-	{
-		this.local_source = _source;
-	}
-	public String getSource( )
-	{
-		return this.local_source;
-	}
-	public void setMessage( String _message )
-	{
-		this.local_message = _message;
-	}
-	public String getMessage( )
-	{
-		return this.local_message;
-	}
+    public void setCode( String _code )
+    {
+        this.local_code = _code;
+    }
+    public String getCode( )
+    {
+        return this.local_code;
+    }
+    public void setAudience( String _audience )
+    {
+        this.local_audience = _audience;
+    }
+    public String getAudience( )
+    {
+        return this.local_audience;
+    }
+    public void setSource( String _source )
+    {
+        this.local_source = _source;
+    }
+    public String getSource( )
+    {
+        return this.local_source;
+    }
+    public void setMessage( String _message )
+    {
+        this.local_message = _message;
+    }
+    public String getMessage( )
+    {
+        return this.local_message;
+    }
 }

@@ -1,14 +1,14 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+@Deprecated
 public class WUCreateRequestWrapper
 {
-    
     /**
      * Gets the raw.
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreate getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreate getRaw()
     {
         return getRawLatestVersion();
     }
@@ -18,9 +18,9 @@ public class WUCreateRequestWrapper
      *
      * @return the raw version 1 81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreate getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreate getRawLatestVersion()
     {
-        return new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUCreate();
+        return new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreate();
     }
     
     /**

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FileAccessRoleWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.FileAccessRole
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.FileAccessRole
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.878Z
+ * TimeStamp: 2021-10-27T14:48:55.323Z
  */
 public class FileAccessRoleWrapper
 {
-	protected String local_fileAccessRole;
+    protected String local_fileAccessRole;
 
-	public FileAccessRoleWrapper() {}
+    public FileAccessRoleWrapper() {}
 
-	public FileAccessRoleWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.FileAccessRole fileaccessrole)
-	{
-		copy( fileaccessrole );
-	}
-	public FileAccessRoleWrapper( String _fileAccessRole )
-	{
-		this.local_fileAccessRole = _fileAccessRole;
+    public FileAccessRoleWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.FileAccessRole fileaccessrole)
+    {
+        copy( fileaccessrole );
+    }
+    public FileAccessRoleWrapper( String _fileAccessRole )
+    {
+        this.local_fileAccessRole = _fileAccessRole;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.FileAccessRole raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.FileAccessRole raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getFileAccessRole();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "FileAccessRoleWrapper [" + "fileAccessRole = " + local_fileAccessRole + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.FileAccessRole getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.FileAccessRole raw = null;
+    @Override
+    public String toString()
+    {
+        return "FileAccessRoleWrapper [" + "fileAccessRole = " + local_fileAccessRole + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.FileAccessRole getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.FileAccessRole raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setFileAccessRole(fileAccessRole);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setFileAccessRole( String _fileAccessRole )
-	{
-		this.local_fileAccessRole = _fileAccessRole;
-	}
-	public String getFileAccessRole( )
-	{
-		return this.local_fileAccessRole;
-	}
+    public void setFileAccessRole( String _fileAccessRole )
+    {
+        this.local_fileAccessRole = _fileAccessRole;
+    }
+    public String getFileAccessRole( )
+    {
+        return this.local_fileAccessRole;
+    }
 }

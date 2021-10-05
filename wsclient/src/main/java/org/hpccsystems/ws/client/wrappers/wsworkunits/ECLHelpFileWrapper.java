@@ -1,7 +1,8 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLHelpFile;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLHelpFile;
 
+@Deprecated
 public class ECLHelpFileWrapper
 {
     private String name;
@@ -301,19 +302,19 @@ public class ECLHelpFileWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLHelpFile getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLHelpFile getRaw()
     {
         return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the latest version of ECLHelpFile.
      *
-     * @return the raw version 1 79
+     * @return the latest version of ECLHelpFile
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLHelpFile getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLHelpFile getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLHelpFile();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLHelpFile();
 
         raw.setDescription(this.getDescription());
         raw.setFileSize(this.getFileSize());

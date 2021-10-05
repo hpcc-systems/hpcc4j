@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfNamedValueWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfNamedValue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.951Z
+ * TimeStamp: 2021-10-27T20:17:20.568Z
  */
 public class ArrayOfNamedValueWrapper
 {
-	protected List<NamedValueWrapper> local_namedValue = null;
+    protected List<NamedValueWrapper> local_namedValue = null;
 
-	public ArrayOfNamedValueWrapper() {}
+    public ArrayOfNamedValueWrapper() {}
 
-	public ArrayOfNamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue arrayofnamedvalue)
-	{
-		copy( arrayofnamedvalue );
-	}
-	public ArrayOfNamedValueWrapper( List<NamedValueWrapper> _namedValue )
-	{
-		this.local_namedValue = _namedValue;
+    public ArrayOfNamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfNamedValue arrayofnamedvalue)
+    {
+        copy( arrayofnamedvalue );
+    }
+    public ArrayOfNamedValueWrapper( List<NamedValueWrapper> _namedValue )
+    {
+        this.local_namedValue = _namedValue;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfNamedValue raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getNamedValue() != null)
-		{
-			this.local_namedValue = new ArrayList<NamedValueWrapper>();
-			for ( int i = 0; i < raw.getNamedValue().length; i++)
-			{
-				this.local_namedValue.add(new NamedValueWrapper(raw.getNamedValue()[i]));
-			}
-		}
-	}
+        if (raw.getNamedValue() != null)
+        {
+            this.local_namedValue = new ArrayList<NamedValueWrapper>();
+            for ( int i = 0; i < raw.getNamedValue().length; i++)
+            {
+                this.local_namedValue.add(new NamedValueWrapper(raw.getNamedValue()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfNamedValueWrapper [" + "namedValue = " + local_namedValue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfNamedValue();
-		if (this.local_namedValue!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NamedValue[this.local_namedValue.size()];
-			for ( int i = 0; i < this.local_namedValue.size(); i++)
-			{
-				arr[i] = this.local_namedValue.get(i) .getRaw();
-			}
-			raw.setNamedValue(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfNamedValueWrapper [" + "namedValue = " + local_namedValue + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfNamedValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfNamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfNamedValue();
+        if (this.local_namedValue!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NamedValue[this.local_namedValue.size()];
+            for ( int i = 0; i < this.local_namedValue.size(); i++)
+            {
+                arr[i] = this.local_namedValue.get(i) .getRaw();
+            }
+            raw.setNamedValue(arr);
+        }
+        return raw;
+    }
 
 
-	public void setNamedValue( List<NamedValueWrapper> _namedValue )
-	{
-		this.local_namedValue = _namedValue;
-	}
-	public List<NamedValueWrapper> getNamedValue( )
-	{
-		return this.local_namedValue;
-	}
+    public void setNamedValue( List<NamedValueWrapper> _namedValue )
+    {
+        this.local_namedValue = _namedValue;
+    }
+    public List<NamedValueWrapper> getNamedValue( )
+    {
+        return this.local_namedValue;
+    }
 }

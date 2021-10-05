@@ -27,84 +27,84 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class ThorLogInfoWrapper
 {
-	protected String local_processName;
-	protected String local_clusterGroup;
-	protected String local_logDate;
-	protected int local_numberSlaves;
+    protected String local_processName;
+    protected String local_clusterGroup;
+    protected String local_logDate;
+    protected int local_numberSlaves;
 
-	public ThorLogInfoWrapper() {}
+    public ThorLogInfoWrapper() {}
 
-	public ThorLogInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ThorLogInfo thorloginfo)
-	{
-		copy( thorloginfo );
-	}
-	public ThorLogInfoWrapper( String _processName, String _clusterGroup, String _logDate, int _numberSlaves )
-	{
-		this.local_processName = _processName;
-		this.local_clusterGroup = _clusterGroup;
-		this.local_logDate = _logDate;
-		this.local_numberSlaves = _numberSlaves;
+    public ThorLogInfoWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ThorLogInfo thorloginfo)
+    {
+        copy( thorloginfo );
+    }
+    public ThorLogInfoWrapper( String _processName, String _clusterGroup, String _logDate, int _numberSlaves )
+    {
+        this.local_processName = _processName;
+        this.local_clusterGroup = _clusterGroup;
+        this.local_logDate = _logDate;
+        this.local_numberSlaves = _numberSlaves;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ThorLogInfo raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ThorLogInfo raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_processName = raw.getProcessName();
-		this.local_clusterGroup = raw.getClusterGroup();
-		this.local_logDate = raw.getLogDate();
-		this.local_numberSlaves = raw.getNumberSlaves();
+        this.local_processName = raw.getProcessName();
+        this.local_clusterGroup = raw.getClusterGroup();
+        this.local_logDate = raw.getLogDate();
+        this.local_numberSlaves = raw.getNumberSlaves();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ThorLogInfoWrapper [" + "processName = " + local_processName + ", " + "clusterGroup = " + local_clusterGroup + ", " + "logDate = " + local_logDate + ", " + "numberSlaves = " + local_numberSlaves + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ThorLogInfo getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ThorLogInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ThorLogInfo();
-		raw.setProcessName( local_processName);
-		raw.setClusterGroup( local_clusterGroup);
-		raw.setLogDate( local_logDate);
-		raw.setNumberSlaves( local_numberSlaves);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ThorLogInfoWrapper [" + "processName = " + local_processName + ", " + "clusterGroup = " + local_clusterGroup + ", " + "logDate = " + local_logDate + ", " + "numberSlaves = " + local_numberSlaves + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ThorLogInfo getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ThorLogInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ThorLogInfo();
+        raw.setProcessName( local_processName);
+        raw.setClusterGroup( local_clusterGroup);
+        raw.setLogDate( local_logDate);
+        raw.setNumberSlaves( local_numberSlaves);
+        return raw;
+    }
 
 
-	public void setProcessName( String _processName )
-	{
-		this.local_processName = _processName;
-	}
-	public String getProcessName( )
-	{
-		return this.local_processName;
-	}
-	public void setClusterGroup( String _clusterGroup )
-	{
-		this.local_clusterGroup = _clusterGroup;
-	}
-	public String getClusterGroup( )
-	{
-		return this.local_clusterGroup;
-	}
-	public void setLogDate( String _logDate )
-	{
-		this.local_logDate = _logDate;
-	}
-	public String getLogDate( )
-	{
-		return this.local_logDate;
-	}
-	public void setNumberSlaves( int _numberSlaves )
-	{
-		this.local_numberSlaves = _numberSlaves;
-	}
-	public int getNumberSlaves( )
-	{
-		return this.local_numberSlaves;
-	}
+    public void setProcessName( String _processName )
+    {
+        this.local_processName = _processName;
+    }
+    public String getProcessName( )
+    {
+        return this.local_processName;
+    }
+    public void setClusterGroup( String _clusterGroup )
+    {
+        this.local_clusterGroup = _clusterGroup;
+    }
+    public String getClusterGroup( )
+    {
+        return this.local_clusterGroup;
+    }
+    public void setLogDate( String _logDate )
+    {
+        this.local_logDate = _logDate;
+    }
+    public String getLogDate( )
+    {
+        return this.local_logDate;
+    }
+    public void setNumberSlaves( int _numberSlaves )
+    {
+        this.local_numberSlaves = _numberSlaves;
+    }
+    public int getNumberSlaves( )
+    {
+        return this.local_numberSlaves;
+    }
 }

@@ -1,7 +1,8 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.FileUsedByQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.FileUsedByQuery;
 
+@Deprecated
 public class QueryFileWrapper
 {
     private String fileName;

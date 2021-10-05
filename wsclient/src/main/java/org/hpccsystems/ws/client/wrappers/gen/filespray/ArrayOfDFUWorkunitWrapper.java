@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.541Z
+ * TimeStamp: 2021-10-27T18:52:06.410Z
  */
 public class ArrayOfDFUWorkunitWrapper
 {
-	protected List<DFUWorkunitWrapper> local_dFUWorkunit = null;
+    protected List<DFUWorkunitWrapper> local_dFUWorkunit = null;
 
-	public ArrayOfDFUWorkunitWrapper() {}
+    public ArrayOfDFUWorkunitWrapper() {}
 
-	public ArrayOfDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit arrayofdfuworkunit)
-	{
-		copy( arrayofdfuworkunit );
-	}
-	public ArrayOfDFUWorkunitWrapper( List<DFUWorkunitWrapper> _dFUWorkunit )
-	{
-		this.local_dFUWorkunit = _dFUWorkunit;
+    public ArrayOfDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUWorkunit arrayofdfuworkunit)
+    {
+        copy( arrayofdfuworkunit );
+    }
+    public ArrayOfDFUWorkunitWrapper( List<DFUWorkunitWrapper> _dFUWorkunit )
+    {
+        this.local_dFUWorkunit = _dFUWorkunit;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUWorkunit raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDFUWorkunit() != null)
-		{
-			this.local_dFUWorkunit = new ArrayList<DFUWorkunitWrapper>();
-			for ( int i = 0; i < raw.getDFUWorkunit().length; i++)
-			{
-				this.local_dFUWorkunit.add(new DFUWorkunitWrapper(raw.getDFUWorkunit()[i]));
-			}
-		}
-	}
+        if (raw.getDFUWorkunit() != null)
+        {
+            this.local_dFUWorkunit = new ArrayList<DFUWorkunitWrapper>();
+            for ( int i = 0; i < raw.getDFUWorkunit().length; i++)
+            {
+                this.local_dFUWorkunit.add(new DFUWorkunitWrapper(raw.getDFUWorkunit()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFUWorkunitWrapper [" + "dFUWorkunit = " + local_dFUWorkunit + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfDFUWorkunit();
-		if (this.local_dFUWorkunit!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWorkunit[this.local_dFUWorkunit.size()];
-			for ( int i = 0; i < this.local_dFUWorkunit.size(); i++)
-			{
-				arr[i] = this.local_dFUWorkunit.get(i) .getRaw();
-			}
-			raw.setDFUWorkunit(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFUWorkunitWrapper [" + "dFUWorkunit = " + local_dFUWorkunit + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUWorkunit getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUWorkunit();
+        if (this.local_dFUWorkunit!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit[this.local_dFUWorkunit.size()];
+            for ( int i = 0; i < this.local_dFUWorkunit.size(); i++)
+            {
+                arr[i] = this.local_dFUWorkunit.get(i) .getRaw();
+            }
+            raw.setDFUWorkunit(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDFUWorkunit( List<DFUWorkunitWrapper> _dFUWorkunit )
-	{
-		this.local_dFUWorkunit = _dFUWorkunit;
-	}
-	public List<DFUWorkunitWrapper> getDFUWorkunit( )
-	{
-		return this.local_dFUWorkunit;
-	}
+    public void setDFUWorkunit( List<DFUWorkunitWrapper> _dFUWorkunit )
+    {
+        this.local_dFUWorkunit = _dFUWorkunit;
+    }
+    public List<DFUWorkunitWrapper> getDFUWorkunit( )
+    {
+        return this.local_dFUWorkunit;
+    }
 }

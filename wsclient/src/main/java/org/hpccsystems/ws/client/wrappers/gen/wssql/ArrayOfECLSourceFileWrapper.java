@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLSourceFileWrapper
 {
-	protected List<ECLSourceFileWrapper> local_eCLSourceFile = null;
+    protected List<ECLSourceFileWrapper> local_eCLSourceFile = null;
 
-	public ArrayOfECLSourceFileWrapper() {}
+    public ArrayOfECLSourceFileWrapper() {}
 
-	public ArrayOfECLSourceFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSourceFile arrayofeclsourcefile)
-	{
-		copy( arrayofeclsourcefile );
-	}
-	public ArrayOfECLSourceFileWrapper( List<ECLSourceFileWrapper> _eCLSourceFile )
-	{
-		this.local_eCLSourceFile = _eCLSourceFile;
+    public ArrayOfECLSourceFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSourceFile arrayofeclsourcefile)
+    {
+        copy( arrayofeclsourcefile );
+    }
+    public ArrayOfECLSourceFileWrapper( List<ECLSourceFileWrapper> _eCLSourceFile )
+    {
+        this.local_eCLSourceFile = _eCLSourceFile;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSourceFile raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSourceFile raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLSourceFile() != null)
-		{
-			this.local_eCLSourceFile = new ArrayList<ECLSourceFileWrapper>();
-			for ( int i = 0; i < raw.getECLSourceFile().length; i++)
-			{
-				this.local_eCLSourceFile.add(new ECLSourceFileWrapper(raw.getECLSourceFile()[i]));
-			}
-		}
-	}
+        if (raw.getECLSourceFile() != null)
+        {
+            this.local_eCLSourceFile = new ArrayList<ECLSourceFileWrapper>();
+            for ( int i = 0; i < raw.getECLSourceFile().length; i++)
+            {
+                this.local_eCLSourceFile.add(new ECLSourceFileWrapper(raw.getECLSourceFile()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLSourceFileWrapper [" + "eCLSourceFile = " + local_eCLSourceFile + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSourceFile getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLSourceFile();
-		if (this.local_eCLSourceFile!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSourceFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSourceFile[this.local_eCLSourceFile.size()];
-			for ( int i = 0; i < this.local_eCLSourceFile.size(); i++)
-			{
-				arr[i] = this.local_eCLSourceFile.get(i) .getRaw();
-			}
-			raw.setECLSourceFile(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLSourceFileWrapper [" + "eCLSourceFile = " + local_eCLSourceFile + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSourceFile getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLSourceFile();
+        if (this.local_eCLSourceFile!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSourceFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSourceFile[this.local_eCLSourceFile.size()];
+            for ( int i = 0; i < this.local_eCLSourceFile.size(); i++)
+            {
+                arr[i] = this.local_eCLSourceFile.get(i) .getRaw();
+            }
+            raw.setECLSourceFile(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLSourceFile( List<ECLSourceFileWrapper> _eCLSourceFile )
-	{
-		this.local_eCLSourceFile = _eCLSourceFile;
-	}
-	public List<ECLSourceFileWrapper> getECLSourceFile( )
-	{
-		return this.local_eCLSourceFile;
-	}
+    public void setECLSourceFile( List<ECLSourceFileWrapper> _eCLSourceFile )
+    {
+        this.local_eCLSourceFile = _eCLSourceFile;
+    }
+    public List<ECLSourceFileWrapper> getECLSourceFile( )
+    {
+        return this.local_eCLSourceFile;
+    }
 }

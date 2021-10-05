@@ -28,13 +28,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 public class WsDFUXRefPingResponseWrapper
 {
 
-	public WsDFUXRefPingResponseWrapper() {}
+    public WsDFUXRefPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.WsDFUXRefPingResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.WsDFUXRefPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.WsDFUXRefPingResponse();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefPingResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefPingResponse();
+        return raw;
+    }
 
 
 }

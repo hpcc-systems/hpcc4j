@@ -18,8 +18,6 @@ import java.util.ArrayList;
  *******************************************************************************/
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfEspException;
-
 public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
 {
     private static final long serialVersionUID = 1L;
@@ -65,7 +63,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         copy(arrayofespexception);
@@ -89,7 +87,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         copy(arrayofespexception);
@@ -101,13 +99,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -125,13 +123,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -149,13 +147,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.v1_02.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsstore.v1_02.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsstore.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -173,13 +171,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -197,13 +195,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -221,13 +219,13 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ArrayOfEspException arrayofespexception)
     {
         super();
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -320,12 +318,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -337,12 +335,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -354,12 +352,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -371,12 +369,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -388,12 +386,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         }
     }
 
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfEspException arrayofespexception)
+    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -411,7 +409,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    private void copy(ArrayOfEspException arrayofespexception)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
@@ -434,12 +432,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.ArrayOfEspException arrayofespexception)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsfileio.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsfileio.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -480,12 +478,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfEspException arrayofespexception)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();
@@ -503,12 +501,12 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfEspException arrayofespexception)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException arrayofespexception)
     {
         if (arrayofespexception != null)
         {
             this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException[] exceptionarray = arrayofespexception.getException();
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspException[] exceptionarray = arrayofespexception.getException();
             if (exceptionarray != null)
             {
                 this.exceptions = new ArrayList<BaseExceptionWrapper>();

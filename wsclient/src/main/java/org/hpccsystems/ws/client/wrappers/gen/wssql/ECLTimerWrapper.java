@@ -27,120 +27,120 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class ECLTimerWrapper
 {
-	protected String local_name;
-	protected String local_value;
-	protected int local_count;
-	protected String local_graphName;
-	protected int local_subGraphId;
-	protected long local_timestamp;
-	protected String local_when;
+    protected String local_name;
+    protected String local_value;
+    protected int local_count;
+    protected String local_graphName;
+    protected int local_subGraphId;
+    protected long local_timestamp;
+    protected String local_when;
 
-	public ECLTimerWrapper() {}
+    public ECLTimerWrapper() {}
 
-	public ECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer ecltimer)
-	{
-		copy( ecltimer );
-	}
-	public ECLTimerWrapper( String _name, String _value, int _count, String _graphName, int _subGraphId, long _timestamp, String _when )
-	{
-		this.local_name = _name;
-		this.local_value = _value;
-		this.local_count = _count;
-		this.local_graphName = _graphName;
-		this.local_subGraphId = _subGraphId;
-		this.local_timestamp = _timestamp;
-		this.local_when = _when;
+    public ECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer ecltimer)
+    {
+        copy( ecltimer );
+    }
+    public ECLTimerWrapper( String _name, String _value, int _count, String _graphName, int _subGraphId, long _timestamp, String _when )
+    {
+        this.local_name = _name;
+        this.local_value = _value;
+        this.local_count = _count;
+        this.local_graphName = _graphName;
+        this.local_subGraphId = _subGraphId;
+        this.local_timestamp = _timestamp;
+        this.local_when = _when;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_value = raw.getValue();
-		this.local_count = raw.getCount();
-		this.local_graphName = raw.getGraphName();
-		this.local_subGraphId = raw.getSubGraphId();
-		this.local_timestamp = raw.getTimestamp();
-		this.local_when = raw.getWhen();
+        this.local_name = raw.getName();
+        this.local_value = raw.getValue();
+        this.local_count = raw.getCount();
+        this.local_graphName = raw.getGraphName();
+        this.local_subGraphId = raw.getSubGraphId();
+        this.local_timestamp = raw.getTimestamp();
+        this.local_when = raw.getWhen();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ECLTimerWrapper [" + "name = " + local_name + ", " + "value = " + local_value + ", " + "count = " + local_count + ", " + "graphName = " + local_graphName + ", " + "subGraphId = " + local_subGraphId + ", " + "timestamp = " + local_timestamp + ", " + "when = " + local_when + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer();
-		raw.setName( local_name);
-		raw.setValue( local_value);
-		raw.setCount( local_count);
-		raw.setGraphName( local_graphName);
-		raw.setSubGraphId( local_subGraphId);
-		raw.setTimestamp( local_timestamp);
-		raw.setWhen( local_when);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ECLTimerWrapper [" + "name = " + local_name + ", " + "value = " + local_value + ", " + "count = " + local_count + ", " + "graphName = " + local_graphName + ", " + "subGraphId = " + local_subGraphId + ", " + "timestamp = " + local_timestamp + ", " + "when = " + local_when + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer();
+        raw.setName( local_name);
+        raw.setValue( local_value);
+        raw.setCount( local_count);
+        raw.setGraphName( local_graphName);
+        raw.setSubGraphId( local_subGraphId);
+        raw.setTimestamp( local_timestamp);
+        raw.setWhen( local_when);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setValue( String _value )
-	{
-		this.local_value = _value;
-	}
-	public String getValue( )
-	{
-		return this.local_value;
-	}
-	public void setCount( int _count )
-	{
-		this.local_count = _count;
-	}
-	public int getCount( )
-	{
-		return this.local_count;
-	}
-	public void setGraphName( String _graphName )
-	{
-		this.local_graphName = _graphName;
-	}
-	public String getGraphName( )
-	{
-		return this.local_graphName;
-	}
-	public void setSubGraphId( int _subGraphId )
-	{
-		this.local_subGraphId = _subGraphId;
-	}
-	public int getSubGraphId( )
-	{
-		return this.local_subGraphId;
-	}
-	public void setTimestamp( long _timestamp )
-	{
-		this.local_timestamp = _timestamp;
-	}
-	public long getTimestamp( )
-	{
-		return this.local_timestamp;
-	}
-	public void setWhen( String _when )
-	{
-		this.local_when = _when;
-	}
-	public String getWhen( )
-	{
-		return this.local_when;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setValue( String _value )
+    {
+        this.local_value = _value;
+    }
+    public String getValue( )
+    {
+        return this.local_value;
+    }
+    public void setCount( int _count )
+    {
+        this.local_count = _count;
+    }
+    public int getCount( )
+    {
+        return this.local_count;
+    }
+    public void setGraphName( String _graphName )
+    {
+        this.local_graphName = _graphName;
+    }
+    public String getGraphName( )
+    {
+        return this.local_graphName;
+    }
+    public void setSubGraphId( int _subGraphId )
+    {
+        this.local_subGraphId = _subGraphId;
+    }
+    public int getSubGraphId( )
+    {
+        return this.local_subGraphId;
+    }
+    public void setTimestamp( long _timestamp )
+    {
+        this.local_timestamp = _timestamp;
+    }
+    public long getTimestamp( )
+    {
+        return this.local_timestamp;
+    }
+    public void setWhen( String _when )
+    {
+        this.local_when = _when;
+    }
+    public String getWhen( )
+    {
+        return this.local_when;
+    }
 }

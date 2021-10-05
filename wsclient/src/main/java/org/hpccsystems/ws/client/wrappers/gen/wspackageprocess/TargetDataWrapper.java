@@ -18,8 +18,10 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
+
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArray;
+
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -30,86 +32,86 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray
  */
 public class TargetDataWrapper
 {
-	protected String local_name;
-	protected String local_type;
-	protected List<String> local_processes = null;
+    protected String local_name;
+    protected String local_type;
+    protected List<String> local_processes = null;
 
-	public TargetDataWrapper() {}
+    public TargetDataWrapper() {}
 
-	public TargetDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData targetdata)
-	{
-		copy( targetdata );
-	}
-	public TargetDataWrapper( String _name, String _type, List<String> _processes )
-	{
-		this.local_name = _name;
-		this.local_type = _type;
-		this.local_processes = _processes;
+    public TargetDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData targetdata)
+    {
+        copy( targetdata );
+    }
+    public TargetDataWrapper( String _name, String _type, List<String> _processes )
+    {
+        this.local_name = _name;
+        this.local_type = _type;
+        this.local_processes = _processes;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_type = raw.getType();
-		if (raw.getProcesses() != null)
-		{
-			this.local_processes = new ArrayList<String>();
-			for ( int i = 0; i < raw.getProcesses().getItem().length; i++)
-			{
-				this.local_processes.add(new String(raw.getProcesses().getItem()[i]));
-			}
-		}
-	}
+        this.local_name = raw.getName();
+        this.local_type = raw.getType();
+        if (raw.getProcesses() != null)
+        {
+            this.local_processes = new ArrayList<String>();
+            for ( int i = 0; i < raw.getProcesses().getItem().length; i++)
+            {
+                this.local_processes.add(new String(raw.getProcesses().getItem()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TargetDataWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "processes = " + local_processes + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData();
-		raw.setName( local_name);
-		raw.setType( local_type);
-		if (this.local_processes!= null)
-		{
-			EspStringArray arr = new EspStringArray();
-			for ( int i = 0; i < this.local_processes.size(); i++)
-			{
-				arr.addItem(this.local_processes.get(i));
-			}
-			raw.setProcesses(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TargetDataWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "processes = " + local_processes + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData();
+        raw.setName( local_name);
+        raw.setType( local_type);
+        if (this.local_processes!= null)
+        {
+            EspStringArray arr = new EspStringArray();
+            for ( int i = 0; i < this.local_processes.size(); i++)
+            {
+                arr.addItem(this.local_processes.get(i));
+            }
+            raw.setProcesses(arr);
+        }
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setType( String _type )
-	{
-		this.local_type = _type;
-	}
-	public String getType( )
-	{
-		return this.local_type;
-	}
-	public void setProcesses( List<String> _processes )
-	{
-		this.local_processes = _processes;
-	}
-	public List<String> getProcesses( )
-	{
-		return this.local_processes;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setType( String _type )
+    {
+        this.local_type = _type;
+    }
+    public String getType( )
+    {
+        return this.local_type;
+    }
+    public void setProcesses( List<String> _processes )
+    {
+        this.local_processes = _processes;
+    }
+    public List<String> getProcesses( )
+    {
+        return this.local_processes;
+    }
 }

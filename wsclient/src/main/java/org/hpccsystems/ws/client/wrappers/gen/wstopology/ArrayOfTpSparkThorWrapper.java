@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpSparkThorWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.921Z
+ * TimeStamp: 2021-10-27T23:40:06.322Z
  */
 public class ArrayOfTpSparkThorWrapper
 {
-	protected List<TpSparkThorWrapper> local_tpSparkThor = null;
+    protected List<TpSparkThorWrapper> local_tpSparkThor = null;
 
-	public ArrayOfTpSparkThorWrapper() {}
+    public ArrayOfTpSparkThorWrapper() {}
 
-	public ArrayOfTpSparkThorWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor arrayoftpsparkthor)
-	{
-		copy( arrayoftpsparkthor );
-	}
-	public ArrayOfTpSparkThorWrapper( List<TpSparkThorWrapper> _tpSparkThor )
-	{
-		this.local_tpSparkThor = _tpSparkThor;
+    public ArrayOfTpSparkThorWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor arrayoftpsparkthor)
+    {
+        copy( arrayoftpsparkthor );
+    }
+    public ArrayOfTpSparkThorWrapper( List<TpSparkThorWrapper> _tpSparkThor )
+    {
+        this.local_tpSparkThor = _tpSparkThor;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpSparkThor() != null)
-		{
-			this.local_tpSparkThor = new ArrayList<TpSparkThorWrapper>();
-			for ( int i = 0; i < raw.getTpSparkThor().length; i++)
-			{
-				this.local_tpSparkThor.add(new TpSparkThorWrapper(raw.getTpSparkThor()[i]));
-			}
-		}
-	}
+        if (raw.getTpSparkThor() != null)
+        {
+            this.local_tpSparkThor = new ArrayList<TpSparkThorWrapper>();
+            for ( int i = 0; i < raw.getTpSparkThor().length; i++)
+            {
+                this.local_tpSparkThor.add(new TpSparkThorWrapper(raw.getTpSparkThor()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpSparkThorWrapper [" + "tpSparkThor = " + local_tpSparkThor + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSparkThor();
-		if (this.local_tpSparkThor!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSparkThor[this.local_tpSparkThor.size()];
-			for ( int i = 0; i < this.local_tpSparkThor.size(); i++)
-			{
-				arr[i] = this.local_tpSparkThor.get(i) .getRaw();
-			}
-			raw.setTpSparkThor(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpSparkThorWrapper [" + "tpSparkThor = " + local_tpSparkThor + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor();
+        if (this.local_tpSparkThor!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSparkThor[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSparkThor[this.local_tpSparkThor.size()];
+            for ( int i = 0; i < this.local_tpSparkThor.size(); i++)
+            {
+                arr[i] = this.local_tpSparkThor.get(i) .getRaw();
+            }
+            raw.setTpSparkThor(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpSparkThor( List<TpSparkThorWrapper> _tpSparkThor )
-	{
-		this.local_tpSparkThor = _tpSparkThor;
-	}
-	public List<TpSparkThorWrapper> getTpSparkThor( )
-	{
-		return this.local_tpSparkThor;
-	}
+    public void setTpSparkThor( List<TpSparkThorWrapper> _tpSparkThor )
+    {
+        this.local_tpSparkThor = _tpSparkThor;
+    }
+    public List<TpSparkThorWrapper> getTpSparkThor( )
+    {
+        return this.local_tpSparkThor;
+    }
 }

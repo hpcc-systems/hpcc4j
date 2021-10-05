@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class OutputDatasetWrapper
 {
-	protected String local_name;
-	protected OutParams_type0Wrapper local_outParams;
+    protected String local_name;
+    protected OutParams_type0Wrapper local_outParams;
 
-	public OutputDatasetWrapper() {}
+    public OutputDatasetWrapper() {}
 
-	public OutputDatasetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset outputdataset)
-	{
-		copy( outputdataset );
-	}
-	public OutputDatasetWrapper( String _name, OutParams_type0Wrapper _outParams )
-	{
-		this.local_name = _name;
-		this.local_outParams = _outParams;
+    public OutputDatasetWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset outputdataset)
+    {
+        copy( outputdataset );
+    }
+    public OutputDatasetWrapper( String _name, OutParams_type0Wrapper _outParams )
+    {
+        this.local_name = _name;
+        this.local_outParams = _outParams;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		if (raw.getOutParams() != null)
-			this.local_outParams = new OutParams_type0Wrapper( raw.getOutParams());
+        this.local_name = raw.getName();
+        if (raw.getOutParams() != null)
+            this.local_outParams = new OutParams_type0Wrapper( raw.getOutParams());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "OutputDatasetWrapper [" + "name = " + local_name + ", " + "outParams = " + local_outParams + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset();
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "OutputDatasetWrapper [" + "name = " + local_name + ", " + "outParams = " + local_outParams + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset();
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setOutParams( OutParams_type0Wrapper _outParams )
-	{
-		this.local_outParams = _outParams;
-	}
-	public OutParams_type0Wrapper getOutParams( )
-	{
-		return this.local_outParams;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setOutParams( OutParams_type0Wrapper _outParams )
+    {
+        this.local_outParams = _outParams;
+    }
+    public OutParams_type0Wrapper getOutParams( )
+    {
+        return this.local_outParams;
+    }
 }

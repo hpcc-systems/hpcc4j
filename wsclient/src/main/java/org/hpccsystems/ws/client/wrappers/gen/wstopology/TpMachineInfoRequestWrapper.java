@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpMachineInfoRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.976Z
+ * TimeStamp: 2021-10-27T23:40:06.366Z
  */
 public class TpMachineInfoRequestWrapper
 {
-	protected String local_name;
-	protected String local_netAddress;
+    protected String local_name;
+    protected String local_netAddress;
 
-	public TpMachineInfoRequestWrapper() {}
+    public TpMachineInfoRequestWrapper() {}
 
-	public TpMachineInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest tpmachineinforequest)
-	{
-		copy( tpmachineinforequest );
-	}
-	public TpMachineInfoRequestWrapper( String _name, String _netAddress )
-	{
-		this.local_name = _name;
-		this.local_netAddress = _netAddress;
+    public TpMachineInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest tpmachineinforequest)
+    {
+        copy( tpmachineinforequest );
+    }
+    public TpMachineInfoRequestWrapper( String _name, String _netAddress )
+    {
+        this.local_name = _name;
+        this.local_netAddress = _netAddress;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_netAddress = raw.getNetAddress();
+        this.local_name = raw.getName();
+        this.local_netAddress = raw.getNetAddress();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpMachineInfoRequestWrapper [" + "name = " + local_name + ", " + "netAddress = " + local_netAddress + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachineInfoRequest();
-		raw.setName( local_name);
-		raw.setNetAddress( local_netAddress);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpMachineInfoRequestWrapper [" + "name = " + local_name + ", " + "netAddress = " + local_netAddress + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest();
+        raw.setName( local_name);
+        raw.setNetAddress( local_netAddress);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setNetAddress( String _netAddress )
-	{
-		this.local_netAddress = _netAddress;
-	}
-	public String getNetAddress( )
-	{
-		return this.local_netAddress;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setNetAddress( String _netAddress )
+    {
+        this.local_netAddress = _netAddress;
+    }
+    public String getNetAddress( )
+    {
+        return this.local_netAddress;
+    }
 }

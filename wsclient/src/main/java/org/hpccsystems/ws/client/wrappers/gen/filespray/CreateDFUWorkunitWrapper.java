@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.553Z
+ * TimeStamp: 2021-10-27T18:52:06.421Z
  */
 public class CreateDFUWorkunitWrapper
 {
-	protected String local_dFUServerQueue;
+    protected String local_dFUServerQueue;
 
-	public CreateDFUWorkunitWrapper() {}
+    public CreateDFUWorkunitWrapper() {}
 
-	public CreateDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit createdfuworkunit)
-	{
-		copy( createdfuworkunit );
-	}
-	public CreateDFUWorkunitWrapper( String _dFUServerQueue )
-	{
-		this.local_dFUServerQueue = _dFUServerQueue;
+    public CreateDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunit createdfuworkunit)
+    {
+        copy( createdfuworkunit );
+    }
+    public CreateDFUWorkunitWrapper( String _dFUServerQueue )
+    {
+        this.local_dFUServerQueue = _dFUServerQueue;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunit raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUServerQueue = raw.getDFUServerQueue();
+        this.local_dFUServerQueue = raw.getDFUServerQueue();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "CreateDFUWorkunitWrapper [" + "dFUServerQueue = " + local_dFUServerQueue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.CreateDFUWorkunit();
-		raw.setDFUServerQueue( local_dFUServerQueue);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "CreateDFUWorkunitWrapper [" + "dFUServerQueue = " + local_dFUServerQueue + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunit getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunit();
+        raw.setDFUServerQueue( local_dFUServerQueue);
+        return raw;
+    }
 
 
-	public void setDFUServerQueue( String _dFUServerQueue )
-	{
-		this.local_dFUServerQueue = _dFUServerQueue;
-	}
-	public String getDFUServerQueue( )
-	{
-		return this.local_dFUServerQueue;
-	}
+    public void setDFUServerQueue( String _dFUServerQueue )
+    {
+        this.local_dFUServerQueue = _dFUServerQueue;
+    }
+    public String getDFUServerQueue( )
+    {
+        return this.local_dFUServerQueue;
+    }
 }

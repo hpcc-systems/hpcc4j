@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfHPCCResourceRepositoryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfHPCCResourceRepository
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.943Z
+ * TimeStamp: 2021-10-27T20:17:20.566Z
  */
 public class ArrayOfHPCCResourceRepositoryWrapper
 {
-	protected List<HPCCResourceRepositoryWrapper> local_hPCCResourceRepository = null;
+    protected List<HPCCResourceRepositoryWrapper> local_hPCCResourceRepository = null;
 
-	public ArrayOfHPCCResourceRepositoryWrapper() {}
+    public ArrayOfHPCCResourceRepositoryWrapper() {}
 
-	public ArrayOfHPCCResourceRepositoryWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfHPCCResourceRepository arrayofhpccresourcerepository)
-	{
-		copy( arrayofhpccresourcerepository );
-	}
-	public ArrayOfHPCCResourceRepositoryWrapper( List<HPCCResourceRepositoryWrapper> _hPCCResourceRepository )
-	{
-		this.local_hPCCResourceRepository = _hPCCResourceRepository;
+    public ArrayOfHPCCResourceRepositoryWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository arrayofhpccresourcerepository)
+    {
+        copy( arrayofhpccresourcerepository );
+    }
+    public ArrayOfHPCCResourceRepositoryWrapper( List<HPCCResourceRepositoryWrapper> _hPCCResourceRepository )
+    {
+        this.local_hPCCResourceRepository = _hPCCResourceRepository;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfHPCCResourceRepository raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getHPCCResourceRepository() != null)
-		{
-			this.local_hPCCResourceRepository = new ArrayList<HPCCResourceRepositoryWrapper>();
-			for ( int i = 0; i < raw.getHPCCResourceRepository().length; i++)
-			{
-				this.local_hPCCResourceRepository.add(new HPCCResourceRepositoryWrapper(raw.getHPCCResourceRepository()[i]));
-			}
-		}
-	}
+        if (raw.getHPCCResourceRepository() != null)
+        {
+            this.local_hPCCResourceRepository = new ArrayList<HPCCResourceRepositoryWrapper>();
+            for ( int i = 0; i < raw.getHPCCResourceRepository().length; i++)
+            {
+                this.local_hPCCResourceRepository.add(new HPCCResourceRepositoryWrapper(raw.getHPCCResourceRepository()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfHPCCResourceRepositoryWrapper [" + "hPCCResourceRepository = " + local_hPCCResourceRepository + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfHPCCResourceRepository getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfHPCCResourceRepository raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfHPCCResourceRepository();
-		if (this.local_hPCCResourceRepository!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.HPCCResourceRepository[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.HPCCResourceRepository[this.local_hPCCResourceRepository.size()];
-			for ( int i = 0; i < this.local_hPCCResourceRepository.size(); i++)
-			{
-				arr[i] = this.local_hPCCResourceRepository.get(i) .getRaw();
-			}
-			raw.setHPCCResourceRepository(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfHPCCResourceRepositoryWrapper [" + "hPCCResourceRepository = " + local_hPCCResourceRepository + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository();
+        if (this.local_hPCCResourceRepository!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResourceRepository[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResourceRepository[this.local_hPCCResourceRepository.size()];
+            for ( int i = 0; i < this.local_hPCCResourceRepository.size(); i++)
+            {
+                arr[i] = this.local_hPCCResourceRepository.get(i) .getRaw();
+            }
+            raw.setHPCCResourceRepository(arr);
+        }
+        return raw;
+    }
 
 
-	public void setHPCCResourceRepository( List<HPCCResourceRepositoryWrapper> _hPCCResourceRepository )
-	{
-		this.local_hPCCResourceRepository = _hPCCResourceRepository;
-	}
-	public List<HPCCResourceRepositoryWrapper> getHPCCResourceRepository( )
-	{
-		return this.local_hPCCResourceRepository;
-	}
+    public void setHPCCResourceRepository( List<HPCCResourceRepositoryWrapper> _hPCCResourceRepository )
+    {
+        this.local_hPCCResourceRepository = _hPCCResourceRepository;
+    }
+    public List<HPCCResourceRepositoryWrapper> getHPCCResourceRepository( )
+    {
+        return this.local_hPCCResourceRepository;
+    }
 }

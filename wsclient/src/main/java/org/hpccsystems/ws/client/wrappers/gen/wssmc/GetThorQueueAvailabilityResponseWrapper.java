@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetThorQueueAvailabilityResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetThorQueueAvailabilityResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.015Z
+ * TimeStamp: 2021-10-27T20:17:20.585Z
  */
 public class GetThorQueueAvailabilityResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ArrayOfThorClusterWrapper local_thorClusters;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfThorClusterWrapper local_thorClusters;
 
-	public GetThorQueueAvailabilityResponseWrapper() {}
+    public GetThorQueueAvailabilityResponseWrapper() {}
 
-	public GetThorQueueAvailabilityResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetThorQueueAvailabilityResponse getthorqueueavailabilityresponse)
-	{
-		copy( getthorqueueavailabilityresponse );
-	}
-	public GetThorQueueAvailabilityResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfThorClusterWrapper _thorClusters )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_thorClusters = _thorClusters;
+    public GetThorQueueAvailabilityResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse getthorqueueavailabilityresponse)
+    {
+        copy( getthorqueueavailabilityresponse );
+    }
+    public GetThorQueueAvailabilityResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfThorClusterWrapper _thorClusters )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_thorClusters = _thorClusters;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetThorQueueAvailabilityResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getThorClusters() != null)
-			this.local_thorClusters = new ArrayOfThorClusterWrapper( raw.getThorClusters());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getThorClusters() != null)
+            this.local_thorClusters = new ArrayOfThorClusterWrapper( raw.getThorClusters());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetThorQueueAvailabilityResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "thorClusters = " + local_thorClusters + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetThorQueueAvailabilityResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetThorQueueAvailabilityResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetThorQueueAvailabilityResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetThorQueueAvailabilityResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "thorClusters = " + local_thorClusters + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setThorClusters( ArrayOfThorClusterWrapper _thorClusters )
-	{
-		this.local_thorClusters = _thorClusters;
-	}
-	public ArrayOfThorClusterWrapper getThorClusters( )
-	{
-		return this.local_thorClusters;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setThorClusters( ArrayOfThorClusterWrapper _thorClusters )
+    {
+        this.local_thorClusters = _thorClusters;
+    }
+    public ArrayOfThorClusterWrapper getThorClusters( )
+    {
+        return this.local_thorClusters;
+    }
 }

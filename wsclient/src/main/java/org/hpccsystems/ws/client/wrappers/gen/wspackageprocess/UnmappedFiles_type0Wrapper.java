@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class UnmappedFiles_type0Wrapper
 {
-	protected List<String> local_file = null;
+    protected List<String> local_file = null;
 
-	public UnmappedFiles_type0Wrapper() {}
+    public UnmappedFiles_type0Wrapper() {}
 
-	public UnmappedFiles_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.UnmappedFiles_type0 unmappedfiles_type0)
-	{
-		copy( unmappedfiles_type0 );
-	}
-	public UnmappedFiles_type0Wrapper( List<String> _file )
-	{
-		this.local_file = _file;
+    public UnmappedFiles_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.UnmappedFiles_type0 unmappedfiles_type0)
+    {
+        copy( unmappedfiles_type0 );
+    }
+    public UnmappedFiles_type0Wrapper( List<String> _file )
+    {
+        this.local_file = _file;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.UnmappedFiles_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.UnmappedFiles_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getFile() != null)
-		{
-			this.local_file = new ArrayList<String>();
-			for ( int i = 0; i < raw.getFile().length; i++)
-			{
-				this.local_file.add(new String(raw.getFile()[i]));
-			}
-		}
-	}
+        if (raw.getFile() != null)
+        {
+            this.local_file = new ArrayList<String>();
+            for ( int i = 0; i < raw.getFile().length; i++)
+            {
+                this.local_file.add(new String(raw.getFile()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "UnmappedFiles_type0Wrapper [" + "file = " + local_file + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.UnmappedFiles_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.UnmappedFiles_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.UnmappedFiles_type0();
-		if (this.local_file!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_file.size()];
-			for ( int i = 0; i < this.local_file.size(); i++)
-			{
-				arr[i] = this.local_file.get(i) ;
-			}
-			raw.setFile(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "UnmappedFiles_type0Wrapper [" + "file = " + local_file + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.UnmappedFiles_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.UnmappedFiles_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.UnmappedFiles_type0();
+        if (this.local_file!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_file.size()];
+            for ( int i = 0; i < this.local_file.size(); i++)
+            {
+                arr[i] = this.local_file.get(i) ;
+            }
+            raw.setFile(arr);
+        }
+        return raw;
+    }
 
 
-	public void setFile( List<String> _file )
-	{
-		this.local_file = _file;
-	}
-	public List<String> getFile( )
-	{
-		return this.local_file;
-	}
+    public void setFile( List<String> _file )
+    {
+        this.local_file = _file;
+    }
+    public List<String> getFile( )
+    {
+        return this.local_file;
+    }
 }

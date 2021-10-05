@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GroupNodes_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.624Z
+ * TimeStamp: 2021-10-27T18:52:06.487Z
  */
 public class GroupNodes_type0Wrapper
 {
-	protected List<GroupNodeWrapper> local_groupNode = null;
+    protected List<GroupNodeWrapper> local_groupNode = null;
 
-	public GroupNodes_type0Wrapper() {}
+    public GroupNodes_type0Wrapper() {}
 
-	public GroupNodes_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 groupnodes_type0)
-	{
-		copy( groupnodes_type0 );
-	}
-	public GroupNodes_type0Wrapper( List<GroupNodeWrapper> _groupNode )
-	{
-		this.local_groupNode = _groupNode;
+    public GroupNodes_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0 groupnodes_type0)
+    {
+        copy( groupnodes_type0 );
+    }
+    public GroupNodes_type0Wrapper( List<GroupNodeWrapper> _groupNode )
+    {
+        this.local_groupNode = _groupNode;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getGroupNode() != null)
-		{
-			this.local_groupNode = new ArrayList<GroupNodeWrapper>();
-			for ( int i = 0; i < raw.getGroupNode().length; i++)
-			{
-				this.local_groupNode.add(new GroupNodeWrapper(raw.getGroupNode()[i]));
-			}
-		}
-	}
+        if (raw.getGroupNode() != null)
+        {
+            this.local_groupNode = new ArrayList<GroupNodeWrapper>();
+            for ( int i = 0; i < raw.getGroupNode().length; i++)
+            {
+                this.local_groupNode.add(new GroupNodeWrapper(raw.getGroupNode()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GroupNodes_type0Wrapper [" + "groupNode = " + local_groupNode + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0 raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNodes_type0();
-		if (this.local_groupNode!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GroupNode[this.local_groupNode.size()];
-			for ( int i = 0; i < this.local_groupNode.size(); i++)
-			{
-				arr[i] = this.local_groupNode.get(i) .getRaw();
-			}
-			raw.setGroupNode(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GroupNodes_type0Wrapper [" + "groupNode = " + local_groupNode + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0 raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0();
+        if (this.local_groupNode!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNode[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNode[this.local_groupNode.size()];
+            for ( int i = 0; i < this.local_groupNode.size(); i++)
+            {
+                arr[i] = this.local_groupNode.get(i) .getRaw();
+            }
+            raw.setGroupNode(arr);
+        }
+        return raw;
+    }
 
 
-	public void setGroupNode( List<GroupNodeWrapper> _groupNode )
-	{
-		this.local_groupNode = _groupNode;
-	}
-	public List<GroupNodeWrapper> getGroupNode( )
-	{
-		return this.local_groupNode;
-	}
+    public void setGroupNode( List<GroupNodeWrapper> _groupNode )
+    {
+        this.local_groupNode = _groupNode;
+    }
+    public List<GroupNodeWrapper> getGroupNode( )
+    {
+        return this.local_groupNode;
+    }
 }

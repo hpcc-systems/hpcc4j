@@ -1,8 +1,9 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUQuerySetFilterType;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetFilterType;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 
+@Deprecated
 public class QuerySetFilterTypeWrapper
 {
     
