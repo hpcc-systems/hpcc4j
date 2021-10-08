@@ -11,19 +11,19 @@ Feature and change requests are tracked via [JIRA](https://track.hpccsystems.com
 Everybody is encouraged to report issues and contribute to the project. When opening JIRA tickets, make sure to set the project as "hpcc4j".
 
 #### Projects contained within:
-- [WsClient](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/README.md) [![wsclient](https://javadoc-badge.appspot.com/org.hpccsystems/wsclient.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/wsclient)
+- [WsClient](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/README.md)
   - Set of APIs which Standardize and facilitate interaction with HPCC Web based Services.
   - The project is based on stub code generated from WSDLs using Eclipse tools based on Apache Axis and JSch(Java Secure Channel) for secure ftp transfers
   - [Open Issues](https://track.hpccsystems.com/issues/?jql=project%20%3D%20JAPI%20AND%20status%20%3D%20Open)
   - [Sample code](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/src/test/java/org/hpccsystems/ws/client/platform/test/PlatformTester.java)
 
-- [DFS Client](https://github.com/hpcc-systems/hpcc4j/tree/master/dfsclient/README.md) [![dfsclient](https://javadoc-badge.appspot.com/org.hpccsystems/dfsclient.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/dfsclient)
+- [DFS Client](https://github.com/hpcc-systems/hpcc4j/tree/master/dfsclient/README.md)
   - Java based interface into HPCC's dfs backend
 
-- [HPCC Commons](https://github.com/hpcc-systems/hpcc4j/blob/master/commons-hpcc/README.md) [![commons-hpcc](https://javadoc-badge.appspot.com/org.hpccsystems/commons-hpcc.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/commons-hpcc)
+- [HPCC Commons](https://github.com/hpcc-systems/hpcc4j/blob/master/commons-hpcc/README.md)
   - HPCC Systems Java API common classes
 
-- [clienttools](https://github.com/hpcc-systems/hpcc4j/blob/master/clienttools/README.md) [![javadoc](https://javadoc-badge.appspot.com/org.hpccsystems/clienttools.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/clienttools)
+- [clienttools](https://github.com/hpcc-systems/hpcc4j/blob/master/clienttools/README.md)
   - Java based interface to HPCC client tools
   - Currently only interfaces with eclcc
 
