@@ -1,4 +1,4 @@
-HPCC Systems JAVA API Commons project [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc) [![javadoc](https://javadoc-badge.appspot.com/org.hpccsystems/commons-hpcc.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/commons-hpcc)
+HPCC Systems JAVA API Commons project [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc)
 =======================
 
 #### Description

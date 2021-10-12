@@ -1,4 +1,4 @@
-wsclient Project [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient) [![javadoc](https://javadoc-badge.appspot.com/org.hpccsystems/wsclient.svg?label=javadoc)](https://javadoc-badge.appspot.com/org.hpccsystems/wsclient)
+wsclient Project [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient)
 =======================
 
 #### Description
