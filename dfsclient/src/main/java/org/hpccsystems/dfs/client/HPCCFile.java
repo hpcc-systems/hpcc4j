@@ -485,6 +485,18 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Whether the file is an index with a tlk partition
+     *
+     * @return true if the file is an index and has a tlk partition, false otherwise
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
+    public final boolean isTlkIndex() throws HpccFileException
+    {
+        createDataParts();
+        return this.tlkPartition != null;
+    }
+    /**
      * The record definition for a file on an HPCC cluster.
      *
      * @return the projected record definition
