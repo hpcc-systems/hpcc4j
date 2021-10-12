@@ -51,6 +51,8 @@ import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.FieldFilterRange;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 
+import static org.junit.Assert.assertTrue;
+
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class DFSIndexTest extends BaseRemoteTest
 {
@@ -179,7 +181,7 @@ public class DFSIndexTest extends BaseRemoteTest
         FileFilter filter = new FileFilter("key = " + searchValue);
         List<DataPartition> filteredPartitions = file.findMatchingPartitions(filter);
         
-        Assert.assertTrue("Unexpected number of partitions", filteredPartitions.size() == 1);
+        assertTrue("Unexpected number of partitions", filteredPartitions.size() == 1);
 
         DataPartition matchedPart = filteredPartitions.get(0);
         HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
@@ -301,6 +303,13 @@ public class DFSIndexTest extends BaseRemoteTest
         return indexName;
     }
 
+    @Test
+    public void testTlkIndexFlag() throws Exception
+    {
+        HPCCFile file = new HPCCFile("~test::index::integer", connString , hpccUser, hpccPass);
+        assertTrue(file.isTlkIndex());
+
+    }
     @Test
     public void testBatchRandomAccess() throws Exception
     {

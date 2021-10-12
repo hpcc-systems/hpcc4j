@@ -18,11 +18,6 @@ package org.hpccsystems.dfs.client;
 import java.util.List;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -53,6 +48,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.junit.experimental.categories.Category;
 
+import static org.junit.Assert.*;
+
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
@@ -65,7 +62,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     {
         //this file only has data on two nodes
         HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
-
+        assertFalse(file.isTlkIndex());
         List<HPCCRecord> records = readFile(file, connTO, false);
         assertEquals("Not all records loaded",expectedCounts[1], records.size());
     }
