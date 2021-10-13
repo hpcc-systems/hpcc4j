@@ -112,6 +112,8 @@ public class DFSIndexTest extends BaseRemoteTest
             
             HPCCFile file = new HPCCFile(indexName, connString , hpccUser, hpccPass);
 
+            assertTrue(file.isTlkIndex());
+
             DataPartition[] fileParts = file.getFileParts();
 
             // Last two partitions have the same range so only check up length-2
@@ -285,31 +287,23 @@ public class DFSIndexTest extends BaseRemoteTest
         }
     }
 
-    String createIndexOnDataset(String datasetName, FieldDef recordDef) throws Exception
-    {
+    String createIndexOnDataset(String datasetName, FieldDef recordDef) throws Exception {
         String indexName = datasetName + "::key";
         String ecl = "rec := " + RecordDefinitionTranslator.toECLRecord(recordDef);
         ecl += "ds := DATASET('" + datasetName + "', rec, THOR);";
         ecl += "idx := INDEX(ds, {key}, {payload},'" + indexName + "');";
         ecl += "BUILDINDEX(idx, OVERWRITE);";
-        
+
         WorkunitWrapper wu = new WorkunitWrapper();
         wu.setECL(ecl);
         wu.setJobname("IndexCreation" + datasetName);
         wu.setCluster(thorclustername);
-        
+
         HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
         String result = client.createAndRunWUFromECLAndGetResults(wu);
         return indexName;
     }
 
-    @Test
-    public void testTlkIndexFlag() throws Exception
-    {
-        HPCCFile file = new HPCCFile("~test::index::integer", connString , hpccUser, hpccPass);
-        assertTrue(file.isTlkIndex());
-
-    }
     @Test
     public void testBatchRandomAccess() throws Exception
     {
