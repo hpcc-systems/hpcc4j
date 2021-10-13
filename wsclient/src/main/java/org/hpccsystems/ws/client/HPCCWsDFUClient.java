@@ -1814,7 +1814,14 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
             }
 
-            return new DFUCreateFileWrapper(resp);
+            try
+            {
+                return new DFUCreateFileWrapper(resp);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("createFileAndAcquireAccess('" + fileName +"', '"+cluster+"'): Could not wrap response from server", e);
+            }
         }
         else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
