@@ -422,8 +422,17 @@ public class HPCCFile implements Serializable
                 }
 
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
-                
-                this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
+
+                try
+                {
+                    this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
+                }
+                catch (Exception e)
+                {
+                    log.error("Error while constructing partition processor, reading will continue without partition filtering: " + e.getMessage());
+                    this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
+                }
+
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }
             else
