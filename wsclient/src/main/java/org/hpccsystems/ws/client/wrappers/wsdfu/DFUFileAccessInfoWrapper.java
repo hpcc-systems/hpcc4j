@@ -77,7 +77,10 @@ public class DFUFileAccessInfoWrapper
                 allFilePartCopyHosts = new String[dfufileLocations.length];
                 for (int i = 0; i < dfufileLocations.length; i++)
                 {
-                    allFilePartCopyHosts[i] = dfufileLocations[i].getHost();
+                    String host = dfufileLocations[i].getHost();
+                    if (host.trim().isEmpty())
+                        throw new Exception("Error: DFUPartLocation contains empty 'host'");
+                    allFilePartCopyHosts[i] = host;
                 }
             }
             else
