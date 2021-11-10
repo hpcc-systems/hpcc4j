@@ -190,6 +190,37 @@ public class Utils
         return true;
     }
 
+    /**
+     * Determines if entry represented by obj does not require single quote encapsulation.
+     *
+     * @param obj
+     *            the entry
+     * @return true, if single quotes not required
+     */
+    public static boolean doesNotRequireQuotes(Object obj)
+    {
+        try
+        {
+            if (obj == null)
+                return false;
+            if (obj instanceof Number)
+                return true;
+            if (obj instanceof String)
+            {
+                if(QUOTEDSQLSTRPATTERN.matcher((String)obj).matches())
+                    return true;
+
+                USNumberFormat.parse((String)obj);
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private final static Pattern PARENSTRPATTERN = Pattern.compile("\\s*(\\()(.*?)(\\))\\s*", Pattern.DOTALL);
 
     /**

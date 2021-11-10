@@ -17,21 +17,18 @@ package org.hpccsystems.dfs.client;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import org.hpccsystems.dfs.client.HPCCFile;
-import org.hpccsystems.dfs.client.HPCCRecord;
-import org.hpccsystems.dfs.client.HPCCRecordBuilder;
-import org.hpccsystems.dfs.client.HPCCRecordAccessor;
-import org.hpccsystems.dfs.client.HpccRemoteFileReader;
-import org.hpccsystems.dfs.client.DataPartition;
-
 import org.hpccsystems.dfs.cluster.*;
 import org.hpccsystems.commons.ecl.FieldDef;
+import org.hpccsystems.commons.ecl.FieldFilter;
+import org.hpccsystems.commons.ecl.FieldFilterRange;
 import org.hpccsystems.commons.ecl.FieldType;
+import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
@@ -103,20 +100,20 @@ public class DFSReadWriteTest extends BaseRemoteTest
             {
                 Assert.fail("Written dataset does not match original dataset: " + copyFileName);
             }
-            
+
             //read out a projected layout, confirm that this works
             List<String> projectedfields=new ArrayList<String>();
-            for (int j=0; j < file.getRecordDefinition().getNumDefs()-1;j++) 
+            for (int j=0; j < file.getRecordDefinition().getNumDefs()-1;j++)
             {
                 projectedfields.add(file.getRecordDefinition().getDef(j).getFieldName());
-            }            
-            
+            }
+
             file=new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
             FieldDef recdef=file.getRecordDefinition();
             file.setProjectList(String.join(",", projectedfields));
             List<HPCCRecord> recs=readFile(file, connTO, false);
-            if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1) 
+            if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1)
             {
                 fail("recs did not project correctly");
             }
@@ -147,7 +144,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
             HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
-            
+
             while (fileReader.hasNext())
             {
                 resumeInfo.add(fileReader.getFileReadResumeInfo());
@@ -197,7 +194,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void nullWriteTest() throws Exception
     {
-        String fname = datasets[1]; 
+        String fname = datasets[1];
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         file.setProjectList("");
 
@@ -254,7 +251,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void getMetadataTest() throws Exception
     {
-        String fname = datasets[0]; 
+        String fname = datasets[0];
         HPCCFile file = new HPCCFile(fname, connString, hpccUser, hpccPass);
         DFUFileDetailWrapper meta=file.getOriginalFileMetadata();
         assertNotNull("Meta was null for this file",meta);
@@ -270,7 +267,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         assertNull("Meta should be null for nonexistent file",meta);
     }
 
-    
+
     private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
     private static final SecureRandom RANDOM   = new SecureRandom();
 
@@ -353,9 +350,9 @@ public class DFSReadWriteTest extends BaseRemoteTest
         fieldDefs[14].setPrecision(24);
         fieldDefs[14].setScale(12);
         fieldDefs[15] = new FieldDef("uint8", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
-        
+
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
-        
+
         BigInteger intDigits = BigInteger.valueOf(1234567890000000L);
         List<HPCCRecord> records = new ArrayList<HPCCRecord>();
         for (int i = 0; i < 10; i++)
@@ -364,23 +361,23 @@ public class DFSReadWriteTest extends BaseRemoteTest
             // 1 Byte ints
             fields[0] = Long.valueOf(128);
             fields[1] = Long.valueOf(256);
-            
+
             // 2 Byte ints
             fields[2] = Long.valueOf(32768);
             fields[3] = Long.valueOf(65536);
-            
+
             // 3 Byte ints
             fields[4] = Long.valueOf(8388608);
             fields[5] = Long.valueOf(16777216);
-            
+
             // 4 Byte ints
             fields[6] = Long.valueOf(2147483648L);
             fields[7] = Long.valueOf(4294967296L);
-            
+
             // 5 Byte ints
             fields[8] = Long.valueOf(549755813888L);
             fields[9] = Long.valueOf(1099511627776L);
-            
+
             // 6 Byte ints
             fields[10] = Long.valueOf(140737488355328L);
             fields[11] = Long.valueOf(281474976710656L);
@@ -390,9 +387,9 @@ public class DFSReadWriteTest extends BaseRemoteTest
             fields[13] = Long.valueOf(72057594037927936L);
 
             fields[14] = new BigDecimal(intDigits,0);
-            
+
             fields[15]=  new BigDecimal("9223372036854775807");
-            
+
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
@@ -405,10 +402,10 @@ public class DFSReadWriteTest extends BaseRemoteTest
         Object[] expectedFields = new Object[16];
         expectedFields[0] = Long.valueOf(-128);
         expectedFields[1] = Long.valueOf(0);
-        
+
         expectedFields[2] = Long.valueOf(-32768);
         expectedFields[3] = Long.valueOf(0);
-       
+
         expectedFields[4] = Long.valueOf(-8388608);
         expectedFields[5] = Long.valueOf(0);
 
@@ -417,7 +414,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         expectedFields[8] = Long.valueOf(-549755813888L);
         expectedFields[9] = Long.valueOf(0);
-        
+
         expectedFields[10] = Long.valueOf(-140737488355328L);
         expectedFields[11] = Long.valueOf(0);
 
@@ -428,7 +425,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         expectedFields[14] = expectedDecimal.setScale(12);
 
         expectedFields[15]=  new BigDecimal("9223372036854775807");
-        
+
         HPCCRecord expectedRecord = new HPCCRecord(expectedFields, recordDef);
         records = readFile(file, connTO, false);
 
@@ -438,7 +435,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCRecord record = records.get(i);
             BigDecimal actDecimal = (BigDecimal) record.getField(14);
             record.setField(14,actDecimal.setScale(12));
-            
+
             record.setField(15,new BigDecimal(BigInteger.valueOf(((Long)record.getField(15)).longValue())
                     .and(UNSIGNED_LONG_MASK)));
 
@@ -448,6 +445,59 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 System.out.println("Actual: " + record);
                 Assert.fail("Records did not match.");
             }
+        }
+    }
+
+    final static String dimdatefilename = "dfsclient::junit::dim_date";
+    @Test
+    public void filteredDIMDATEJAPI445Test() throws Exception
+    {
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        FieldDef[] fieldDefs = new FieldDef[2];
+        fieldDefs[0] = new FieldDef("date_sk", FieldType.INTEGER, "unsigned8", 8, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("day_of_wk_num", FieldType.INTEGER, "unsigned8", 8, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        for (int i = 0; i < 10; i++)
+        {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, 2021);
+            cal.set(Calendar.DAY_OF_YEAR, RANDOM.nextInt(365));
+
+            Object[] fields = new Object[2];
+            fields[0] = cal.get(Calendar.YEAR)*10000 + cal.get(Calendar.MONTH)*100 + cal.get(Calendar.DAY_OF_MONTH);
+            fields[1] = cal.get(Calendar.DAY_OF_YEAR);
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, dimdatefilename, recordDef, connTO);
+
+        HPCCFile file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        file.setFilter("date_sk >= 20200701 and date_sk <= 20211231");
+
+        records = readFile(file, connTO, false);
+        if (records.size() == 0)
+        {
+            Assert.fail("Date file filter unexpectedly returned more than 0 records");
+        }
+
+        file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        FileFilter ffilter = new FileFilter(new FieldFilter("date_sk", FieldFilterRange.makeGT(20210101)));
+        file.setFilter(ffilter);
+
+        records = readFile(file, connTO, false);
+        if (records.size() == 0)
+        {
+            Assert.fail("Date file filter unexpectedly returned 0 records");
+        }
+
+        file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        ffilter = new FileFilter(new FieldFilter("date_sk", FieldFilterRange.makeGT("'20211231'")));
+        file.setFilter(ffilter);
+        records = readFile(file, connTO, false);
+        if (records.size() != 0)
+        {
+            Assert.fail("Date file filter unexpectedly returned more than 0 records");
         }
     }
 
@@ -485,7 +535,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void resumeFileReadTest() throws Exception
     {
         HPCCFile file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
-        
+
         DataPartition[] fileParts = file.getFileParts();
         FieldDef originalRD = file.getRecordDefinition();
 
@@ -494,7 +544,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         for (int i = 0; i < fileParts.length; i++)
         {
             ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
-            
+
             HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
             HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
             while (fileReader.hasNext())
@@ -514,7 +564,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         // Read have the records in each partition and then grab the resume info for the file reader
         file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
-        
+
         fileParts = file.getFileParts();
         originalRD = file.getRecordDefinition();
 
@@ -525,7 +575,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         for (int i = 0; i < fileParts.length; i++)
         {
             ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
-            
+
             HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
             HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
 
@@ -549,14 +599,14 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
         // Resume reads
         file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
-        
+
         fileParts = file.getFileParts();
         originalRD = file.getRecordDefinition();
 
         for (int i = 0; i < fileParts.length; i++)
         {
             ArrayList<HPCCRecord> records = resumedRecordPartitions.get(i);
-            
+
             HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
 
             // Create a new file reader with the resume info from above
@@ -594,7 +644,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 {
                     System.out.println("Original Record " + j + ":");
                     System.out.println(records.get(j));
-                    
+
                     System.out.println("\nResumed Record " + j + ":");
                     System.out.println(resumedRecords.get(j));
 
@@ -610,7 +660,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             Assert.fail("HPCCFile construction failed.");
         }
-        if (connectTimeoutMillis != null) 
+        if (connectTimeoutMillis != null)
         {
             file.setFileAccessExpirySecs(connectTimeoutMillis/1000);
         }
@@ -718,14 +768,14 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
                 HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
                 HPCCRemoteFileWriter<HPCCRecord> fileWriter = null;
-                if (connectTimeoutMs != null) 
+                if (connectTimeoutMs != null)
                 {
                     fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
                             recordAccessor, CompressionAlgorithm.NONE,connectTimeoutMs);
                     //wait a bit longer than the default timeout to ensure the override connect timeout
                     //is being honoured
-                    if (connectTimeoutMs != null 
-                            && connectTimeoutMs > RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1) 
+                    if (connectTimeoutMs != null
+                            && connectTimeoutMs > RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1)
                     {
                         Thread.sleep(RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1);
                     }
@@ -775,21 +825,21 @@ public class DFSReadWriteTest extends BaseRemoteTest
     {
         /*
          * if (this.file == null) { Assert.fail("HPCCFile construction failed."); }
-         * 
+         *
          * DataPartition[] fileParts = this.file.getFileParts(); if (fileParts == null || fileParts.length == 0) {
          * Assert.fail("No file parts found"); }
-         * 
+         *
          * FieldDef recordDefinition = this.file.getRecordDefinition(); if (recordDefinition == null ||
          * recordDefinition.getNumDefs() != 2) { Assert.fail("Invalid or null record definition"); }
-         * 
+         *
          * int totalRecords = 0; for (int i = 0; i < fileParts.length; i++) { ReflectionRecordBuilder recordBuilder =
          * new ReflectionRecordBuilder<LongKVData>(LongKVData.class); HpccRemoteFileReader<LongKVData> fileReader = new
          * HpccRemoteFileReader<LongKVData>(fileParts[i], recordDefinition, recordBuilder); while (fileReader.hasNext())
          * { LongKVData record = fileReader.next(); if (record == null) {
          * Assert.fail("Received null record during read"); }
-         * 
+         *
          * totalRecords++; } }
-         * 
+         *
          * if (totalRecords != testDatasetRecordCount) {
          * Assert.fail("Record count does not match expected record count"); }
          */
