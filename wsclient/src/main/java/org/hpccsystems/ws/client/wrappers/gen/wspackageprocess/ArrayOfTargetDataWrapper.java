@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfTargetDataWrapper
 {
-	protected List<TargetDataWrapper> local_targetData = null;
+    protected List<TargetDataWrapper> local_targetData = null;
 
-	public ArrayOfTargetDataWrapper() {}
+    public ArrayOfTargetDataWrapper() {}
 
-	public ArrayOfTargetDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfTargetData arrayoftargetdata)
-	{
-		copy( arrayoftargetdata );
-	}
-	public ArrayOfTargetDataWrapper( List<TargetDataWrapper> _targetData )
-	{
-		this.local_targetData = _targetData;
+    public ArrayOfTargetDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfTargetData arrayoftargetdata)
+    {
+        copy( arrayoftargetdata );
+    }
+    public ArrayOfTargetDataWrapper( List<TargetDataWrapper> _targetData )
+    {
+        this.local_targetData = _targetData;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfTargetData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfTargetData raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTargetData() != null)
-		{
-			this.local_targetData = new ArrayList<TargetDataWrapper>();
-			for ( int i = 0; i < raw.getTargetData().length; i++)
-			{
-				this.local_targetData.add(new TargetDataWrapper(raw.getTargetData()[i]));
-			}
-		}
-	}
+        if (raw.getTargetData() != null)
+        {
+            this.local_targetData = new ArrayList<TargetDataWrapper>();
+            for ( int i = 0; i < raw.getTargetData().length; i++)
+            {
+                this.local_targetData.add(new TargetDataWrapper(raw.getTargetData()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTargetDataWrapper [" + "targetData = " + local_targetData + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfTargetData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfTargetData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfTargetData();
-		if (this.local_targetData!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.TargetData[this.local_targetData.size()];
-			for ( int i = 0; i < this.local_targetData.size(); i++)
-			{
-				arr[i] = this.local_targetData.get(i) .getRaw();
-			}
-			raw.setTargetData(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTargetDataWrapper [" + "targetData = " + local_targetData + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfTargetData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfTargetData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfTargetData();
+        if (this.local_targetData!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData[this.local_targetData.size()];
+            for ( int i = 0; i < this.local_targetData.size(); i++)
+            {
+                arr[i] = this.local_targetData.get(i) .getRaw();
+            }
+            raw.setTargetData(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTargetData( List<TargetDataWrapper> _targetData )
-	{
-		this.local_targetData = _targetData;
-	}
-	public List<TargetDataWrapper> getTargetData( )
-	{
-		return this.local_targetData;
-	}
+    public void setTargetData( List<TargetDataWrapper> _targetData )
+    {
+        this.local_targetData = _targetData;
+    }
+    public List<TargetDataWrapper> getTargetData( )
+    {
+        return this.local_targetData;
+    }
 }

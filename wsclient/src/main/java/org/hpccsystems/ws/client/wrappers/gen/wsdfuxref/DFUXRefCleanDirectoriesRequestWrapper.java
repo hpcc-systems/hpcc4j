@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefCleanDirectoriesRequestWrapper
 {
-	protected String local_cluster;
+    protected String local_cluster;
 
-	public DFUXRefCleanDirectoriesRequestWrapper() {}
+    public DFUXRefCleanDirectoriesRequestWrapper() {}
 
-	public DFUXRefCleanDirectoriesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesRequest dfuxrefcleandirectoriesrequest)
-	{
-		copy( dfuxrefcleandirectoriesrequest );
-	}
-	public DFUXRefCleanDirectoriesRequestWrapper( String _cluster )
-	{
-		this.local_cluster = _cluster;
+    public DFUXRefCleanDirectoriesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesRequest dfuxrefcleandirectoriesrequest)
+    {
+        copy( dfuxrefcleandirectoriesrequest );
+    }
+    public DFUXRefCleanDirectoriesRequestWrapper( String _cluster )
+    {
+        this.local_cluster = _cluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_cluster = raw.getCluster();
+        this.local_cluster = raw.getCluster();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefCleanDirectoriesRequestWrapper [" + "cluster = " + local_cluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefCleanDirectoriesRequest();
-		raw.setCluster( local_cluster);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefCleanDirectoriesRequestWrapper [" + "cluster = " + local_cluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesRequest();
+        raw.setCluster( local_cluster);
+        return raw;
+    }
 
 
-	public void setCluster( String _cluster )
-	{
-		this.local_cluster = _cluster;
-	}
-	public String getCluster( )
-	{
-		return this.local_cluster;
-	}
+    public void setCluster( String _cluster )
+    {
+        this.local_cluster = _cluster;
+    }
+    public String getCluster( )
+    {
+        return this.local_cluster;
+    }
 }

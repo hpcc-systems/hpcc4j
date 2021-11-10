@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Columns_type0Wrapper
 {
-	protected List<HPCCColumnWrapper> local_column = null;
+    protected List<HPCCColumnWrapper> local_column = null;
 
-	public Columns_type0Wrapper() {}
+    public Columns_type0Wrapper() {}
 
-	public Columns_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Columns_type0 columns_type0)
-	{
-		copy( columns_type0 );
-	}
-	public Columns_type0Wrapper( List<HPCCColumnWrapper> _column )
-	{
-		this.local_column = _column;
+    public Columns_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Columns_type0 columns_type0)
+    {
+        copy( columns_type0 );
+    }
+    public Columns_type0Wrapper( List<HPCCColumnWrapper> _column )
+    {
+        this.local_column = _column;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Columns_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Columns_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getColumn() != null)
-		{
-			this.local_column = new ArrayList<HPCCColumnWrapper>();
-			for ( int i = 0; i < raw.getColumn().length; i++)
-			{
-				this.local_column.add(new HPCCColumnWrapper(raw.getColumn()[i]));
-			}
-		}
-	}
+        if (raw.getColumn() != null)
+        {
+            this.local_column = new ArrayList<HPCCColumnWrapper>();
+            for ( int i = 0; i < raw.getColumn().length; i++)
+            {
+                this.local_column.add(new HPCCColumnWrapper(raw.getColumn()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Columns_type0Wrapper [" + "column = " + local_column + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Columns_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Columns_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Columns_type0();
-		if (this.local_column!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn[this.local_column.size()];
-			for ( int i = 0; i < this.local_column.size(); i++)
-			{
-				arr[i] = this.local_column.get(i) .getRaw();
-			}
-			raw.setColumn(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Columns_type0Wrapper [" + "column = " + local_column + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.Columns_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.Columns_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.Columns_type0();
+        if (this.local_column!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn[this.local_column.size()];
+            for ( int i = 0; i < this.local_column.size(); i++)
+            {
+                arr[i] = this.local_column.get(i) .getRaw();
+            }
+            raw.setColumn(arr);
+        }
+        return raw;
+    }
 
 
-	public void setColumn( List<HPCCColumnWrapper> _column )
-	{
-		this.local_column = _column;
-	}
-	public List<HPCCColumnWrapper> getColumn( )
-	{
-		return this.local_column;
-	}
+    public void setColumn( List<HPCCColumnWrapper> _column )
+    {
+        this.local_column = _column;
+    }
+    public List<HPCCColumnWrapper> getColumn( )
+    {
+        return this.local_column;
+    }
 }

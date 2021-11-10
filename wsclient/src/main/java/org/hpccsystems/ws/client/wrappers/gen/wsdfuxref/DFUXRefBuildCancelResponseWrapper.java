@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefBuildCancelResponseWrapper
 {
-	protected String local_dFUXRefBuildCancelResult;
+    protected String local_dFUXRefBuildCancelResult;
 
-	public DFUXRefBuildCancelResponseWrapper() {}
+    public DFUXRefBuildCancelResponseWrapper() {}
 
-	public DFUXRefBuildCancelResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelResponse dfuxrefbuildcancelresponse)
-	{
-		copy( dfuxrefbuildcancelresponse );
-	}
-	public DFUXRefBuildCancelResponseWrapper( String _dFUXRefBuildCancelResult )
-	{
-		this.local_dFUXRefBuildCancelResult = _dFUXRefBuildCancelResult;
+    public DFUXRefBuildCancelResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelResponse dfuxrefbuildcancelresponse)
+    {
+        copy( dfuxrefbuildcancelresponse );
+    }
+    public DFUXRefBuildCancelResponseWrapper( String _dFUXRefBuildCancelResult )
+    {
+        this.local_dFUXRefBuildCancelResult = _dFUXRefBuildCancelResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUXRefBuildCancelResult = raw.getDFUXRefBuildCancelResult();
+        this.local_dFUXRefBuildCancelResult = raw.getDFUXRefBuildCancelResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefBuildCancelResponseWrapper [" + "dFUXRefBuildCancelResult = " + local_dFUXRefBuildCancelResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildCancelResponse();
-		raw.setDFUXRefBuildCancelResult( local_dFUXRefBuildCancelResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefBuildCancelResponseWrapper [" + "dFUXRefBuildCancelResult = " + local_dFUXRefBuildCancelResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildCancelResponse();
+        raw.setDFUXRefBuildCancelResult( local_dFUXRefBuildCancelResult);
+        return raw;
+    }
 
 
-	public void setDFUXRefBuildCancelResult( String _dFUXRefBuildCancelResult )
-	{
-		this.local_dFUXRefBuildCancelResult = _dFUXRefBuildCancelResult;
-	}
-	public String getDFUXRefBuildCancelResult( )
-	{
-		return this.local_dFUXRefBuildCancelResult;
-	}
+    public void setDFUXRefBuildCancelResult( String _dFUXRefBuildCancelResult )
+    {
+        this.local_dFUXRefBuildCancelResult = _dFUXRefBuildCancelResult;
+    }
+    public String getDFUXRefBuildCancelResult( )
+    {
+        return this.local_dFUXRefBuildCancelResult;
+    }
 }

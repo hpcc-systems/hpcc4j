@@ -34,7 +34,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param espexception
      *            the espexception
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException espexception)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspException espexception)
     {
         copy(espexception);
     }
@@ -80,7 +80,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -94,7 +94,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsfileio.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -122,7 +122,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -136,7 +136,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -150,7 +150,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.v1_02.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsstore.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -164,7 +164,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -178,7 +178,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -192,7 +192,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -242,7 +242,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
         this.message = raw.getMessage();
     }
 
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -250,7 +250,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
         this.message = raw.getMessage();
     }
 
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspException raw)
     {
          this.code = raw.getCode();
          this.audience = raw.getAudience();
@@ -266,7 +266,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
         this.message = raw.getMessage();
     }
 
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -274,7 +274,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
         this.message = raw.getMessage();
     }
 
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspException raw)
+    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -288,7 +288,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspException raw)
     {
         this.code = raw.getCode();
         this.audience = raw.getAudience();
@@ -312,9 +312,9 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspException getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EspException();
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspException raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspException();
         raw.setCode(code);
         raw.setAudience(audience);
         raw.setSource(source);

@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+@Deprecated
 public class WUInfoRequestWrapper
 {
     private String wuid;
@@ -30,7 +31,7 @@ public class WUInfoRequestWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUInfo getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo getRaw()
     {
         return getRawLatestVersion();
     }
@@ -40,10 +41,10 @@ public class WUInfoRequestWrapper
      *
      * @return the raw version 1 81
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUInfo getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUInfo request = 
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WUInfo();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo request = 
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo();
 
         if (getIncludeAllowedClusters() != null)
             request.setIncludeAllowedClusters(this.getIncludeAllowedClusters());

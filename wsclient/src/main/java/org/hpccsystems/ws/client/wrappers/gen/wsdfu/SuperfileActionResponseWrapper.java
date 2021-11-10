@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SuperfileActionResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.915Z
+ * TimeStamp: 2021-10-27T14:48:55.341Z
  */
 public class SuperfileActionResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected String local_superfile;
-	protected int local_retcode;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected String local_superfile;
+    protected int local_retcode;
 
-	public SuperfileActionResponseWrapper() {}
+    public SuperfileActionResponseWrapper() {}
 
-	public SuperfileActionResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse superfileactionresponse)
-	{
-		copy( superfileactionresponse );
-	}
-	public SuperfileActionResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _superfile, int _retcode )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_superfile = _superfile;
-		this.local_retcode = _retcode;
+    public SuperfileActionResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse superfileactionresponse)
+    {
+        copy( superfileactionresponse );
+    }
+    public SuperfileActionResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _superfile, int _retcode )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_superfile = _superfile;
+        this.local_retcode = _retcode;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_superfile = raw.getSuperfile();
-		this.local_retcode = raw.getRetcode();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_superfile = raw.getSuperfile();
+        this.local_retcode = raw.getRetcode();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SuperfileActionResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "superfile = " + local_superfile + ", " + "retcode = " + local_retcode + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse();
-		raw.setSuperfile( local_superfile);
-		raw.setRetcode( local_retcode);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "SuperfileActionResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "superfile = " + local_superfile + ", " + "retcode = " + local_retcode + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse();
+        raw.setSuperfile( local_superfile);
+        raw.setRetcode( local_retcode);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setSuperfile( String _superfile )
-	{
-		this.local_superfile = _superfile;
-	}
-	public String getSuperfile( )
-	{
-		return this.local_superfile;
-	}
-	public void setRetcode( int _retcode )
-	{
-		this.local_retcode = _retcode;
-	}
-	public int getRetcode( )
-	{
-		return this.local_retcode;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setSuperfile( String _superfile )
+    {
+        this.local_superfile = _superfile;
+    }
+    public String getSuperfile( )
+    {
+        return this.local_superfile;
+    }
+    public void setRetcode( int _retcode )
+    {
+        this.local_retcode = _retcode;
+    }
+    public int getRetcode( )
+    {
+        return this.local_retcode;
+    }
 }

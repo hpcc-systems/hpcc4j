@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefDirectoriesQueryResponseWrapper
 {
-	protected String local_dFUXRefDirectoriesQueryResult;
+    protected String local_dFUXRefDirectoriesQueryResult;
 
-	public DFUXRefDirectoriesQueryResponseWrapper() {}
+    public DFUXRefDirectoriesQueryResponseWrapper() {}
 
-	public DFUXRefDirectoriesQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryResponse dfuxrefdirectoriesqueryresponse)
-	{
-		copy( dfuxrefdirectoriesqueryresponse );
-	}
-	public DFUXRefDirectoriesQueryResponseWrapper( String _dFUXRefDirectoriesQueryResult )
-	{
-		this.local_dFUXRefDirectoriesQueryResult = _dFUXRefDirectoriesQueryResult;
+    public DFUXRefDirectoriesQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryResponse dfuxrefdirectoriesqueryresponse)
+    {
+        copy( dfuxrefdirectoriesqueryresponse );
+    }
+    public DFUXRefDirectoriesQueryResponseWrapper( String _dFUXRefDirectoriesQueryResult )
+    {
+        this.local_dFUXRefDirectoriesQueryResult = _dFUXRefDirectoriesQueryResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUXRefDirectoriesQueryResult = raw.getDFUXRefDirectoriesQueryResult();
+        this.local_dFUXRefDirectoriesQueryResult = raw.getDFUXRefDirectoriesQueryResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefDirectoriesQueryResponseWrapper [" + "dFUXRefDirectoriesQueryResult = " + local_dFUXRefDirectoriesQueryResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefDirectoriesQueryResponse();
-		raw.setDFUXRefDirectoriesQueryResult( local_dFUXRefDirectoriesQueryResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefDirectoriesQueryResponseWrapper [" + "dFUXRefDirectoriesQueryResult = " + local_dFUXRefDirectoriesQueryResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefDirectoriesQueryResponse();
+        raw.setDFUXRefDirectoriesQueryResult( local_dFUXRefDirectoriesQueryResult);
+        return raw;
+    }
 
 
-	public void setDFUXRefDirectoriesQueryResult( String _dFUXRefDirectoriesQueryResult )
-	{
-		this.local_dFUXRefDirectoriesQueryResult = _dFUXRefDirectoriesQueryResult;
-	}
-	public String getDFUXRefDirectoriesQueryResult( )
-	{
-		return this.local_dFUXRefDirectoriesQueryResult;
-	}
+    public void setDFUXRefDirectoriesQueryResult( String _dFUXRefDirectoriesQueryResult )
+    {
+        this.local_dFUXRefDirectoriesQueryResult = _dFUXRefDirectoriesQueryResult;
+    }
+    public String getDFUXRefDirectoriesQueryResult( )
+    {
+        return this.local_dFUXRefDirectoriesQueryResult;
+    }
 }

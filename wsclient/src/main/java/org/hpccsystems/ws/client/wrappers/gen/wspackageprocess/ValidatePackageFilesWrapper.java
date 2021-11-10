@@ -18,8 +18,10 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
+
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArray;
+
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -30,74 +32,74 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray
  */
 public class ValidatePackageFilesWrapper
 {
-	protected List<String> local_unmatched = null;
-	protected NotInDFS_type0Wrapper local_notInDFS;
+    protected List<String> local_unmatched = null;
+    protected NotInDFS_type0Wrapper local_notInDFS;
 
-	public ValidatePackageFilesWrapper() {}
+    public ValidatePackageFilesWrapper() {}
 
-	public ValidatePackageFilesWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageFiles validatepackagefiles)
-	{
-		copy( validatepackagefiles );
-	}
-	public ValidatePackageFilesWrapper( List<String> _unmatched, NotInDFS_type0Wrapper _notInDFS )
-	{
-		this.local_unmatched = _unmatched;
-		this.local_notInDFS = _notInDFS;
+    public ValidatePackageFilesWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles validatepackagefiles)
+    {
+        copy( validatepackagefiles );
+    }
+    public ValidatePackageFilesWrapper( List<String> _unmatched, NotInDFS_type0Wrapper _notInDFS )
+    {
+        this.local_unmatched = _unmatched;
+        this.local_notInDFS = _notInDFS;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageFiles raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getUnmatched() != null)
-		{
-			this.local_unmatched = new ArrayList<String>();
-			for ( int i = 0; i < raw.getUnmatched().getItem().length; i++)
-			{
-				this.local_unmatched.add(new String(raw.getUnmatched().getItem()[i]));
-			}
-		}		if (raw.getNotInDFS() != null)
-			this.local_notInDFS = new NotInDFS_type0Wrapper( raw.getNotInDFS());
+        if (raw.getUnmatched() != null)
+        {
+            this.local_unmatched = new ArrayList<String>();
+            for ( int i = 0; i < raw.getUnmatched().getItem().length; i++)
+            {
+                this.local_unmatched.add(new String(raw.getUnmatched().getItem()[i]));
+            }
+        }        if (raw.getNotInDFS() != null)
+            this.local_notInDFS = new NotInDFS_type0Wrapper( raw.getNotInDFS());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ValidatePackageFilesWrapper [" + "unmatched = " + local_unmatched + ", " + "notInDFS = " + local_notInDFS + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageFiles getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageFiles raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageFiles();
-		if (this.local_unmatched!= null)
-		{
-			EspStringArray arr = new EspStringArray();
-			for ( int i = 0; i < this.local_unmatched.size(); i++)
-			{
-				arr.addItem(this.local_unmatched.get(i));
-			}
-			raw.setUnmatched(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ValidatePackageFilesWrapper [" + "unmatched = " + local_unmatched + ", " + "notInDFS = " + local_notInDFS + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles();
+        if (this.local_unmatched!= null)
+        {
+            EspStringArray arr = new EspStringArray();
+            for ( int i = 0; i < this.local_unmatched.size(); i++)
+            {
+                arr.addItem(this.local_unmatched.get(i));
+            }
+            raw.setUnmatched(arr);
+        }
+        return raw;
+    }
 
 
-	public void setUnmatched( List<String> _unmatched )
-	{
-		this.local_unmatched = _unmatched;
-	}
-	public List<String> getUnmatched( )
-	{
-		return this.local_unmatched;
-	}
-	public void setNotInDFS( NotInDFS_type0Wrapper _notInDFS )
-	{
-		this.local_notInDFS = _notInDFS;
-	}
-	public NotInDFS_type0Wrapper getNotInDFS( )
-	{
-		return this.local_notInDFS;
-	}
+    public void setUnmatched( List<String> _unmatched )
+    {
+        this.local_unmatched = _unmatched;
+    }
+    public List<String> getUnmatched( )
+    {
+        return this.local_unmatched;
+    }
+    public void setNotInDFS( NotInDFS_type0Wrapper _notInDFS )
+    {
+        this.local_notInDFS = _notInDFS;
+    }
+    public NotInDFS_type0Wrapper getNotInDFS( )
+    {
+        return this.local_notInDFS;
+    }
 }

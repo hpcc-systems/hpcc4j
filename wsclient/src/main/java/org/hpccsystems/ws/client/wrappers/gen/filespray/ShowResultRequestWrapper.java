@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ShowResultRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.634Z
+ * TimeStamp: 2021-10-27T18:52:06.501Z
  */
 public class ShowResultRequestWrapper
 {
-	protected String local_result;
+    protected String local_result;
 
-	public ShowResultRequestWrapper() {}
+    public ShowResultRequestWrapper() {}
 
-	public ShowResultRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultRequest showresultrequest)
-	{
-		copy( showresultrequest );
-	}
-	public ShowResultRequestWrapper( String _result )
-	{
-		this.local_result = _result;
+    public ShowResultRequestWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultRequest showresultrequest)
+    {
+        copy( showresultrequest );
+    }
+    public ShowResultRequestWrapper( String _result )
+    {
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_result = raw.getResult();
+        this.local_result = raw.getResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ShowResultRequestWrapper [" + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ShowResultRequest();
-		raw.setResult( local_result);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ShowResultRequestWrapper [" + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultRequest();
+        raw.setResult( local_result);
+        return raw;
+    }
 
 
-	public void setResult( String _result )
-	{
-		this.local_result = _result;
-	}
-	public String getResult( )
-	{
-		return this.local_result;
-	}
+    public void setResult( String _result )
+    {
+        this.local_result = _result;
+    }
+    public String getResult( )
+    {
+        return this.local_result;
+    }
 }

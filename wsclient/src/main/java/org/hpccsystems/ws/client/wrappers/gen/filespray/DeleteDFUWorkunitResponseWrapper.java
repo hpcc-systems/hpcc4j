@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DeleteDFUWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.556Z
+ * TimeStamp: 2021-10-27T18:52:06.425Z
  */
 public class DeleteDFUWorkunitResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected boolean local_result;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected boolean local_result;
 
-	public DeleteDFUWorkunitResponseWrapper() {}
+    public DeleteDFUWorkunitResponseWrapper() {}
 
-	public DeleteDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse deletedfuworkunitresponse)
-	{
-		copy( deletedfuworkunitresponse );
-	}
-	public DeleteDFUWorkunitResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, boolean _result )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_result = _result;
+    public DeleteDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse deletedfuworkunitresponse)
+    {
+        copy( deletedfuworkunitresponse );
+    }
+    public DeleteDFUWorkunitResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, boolean _result )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_result = raw.getResult();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_result = raw.getResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DeleteDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DeleteDFUWorkunitResponse();
-		raw.setResult( local_result);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DeleteDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse();
+        raw.setResult( local_result);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setResult( boolean _result )
-	{
-		this.local_result = _result;
-	}
-	public boolean getResult( )
-	{
-		return this.local_result;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setResult( boolean _result )
+    {
+        this.local_result = _result;
+    }
+    public boolean getResult( )
+    {
+        return this.local_result;
+    }
 }

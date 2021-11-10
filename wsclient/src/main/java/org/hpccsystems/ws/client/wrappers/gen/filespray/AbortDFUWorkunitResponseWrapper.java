@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AbortDFUWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.537Z
+ * TimeStamp: 2021-10-27T18:52:06.406Z
  */
 public class AbortDFUWorkunitResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
 
-	public AbortDFUWorkunitResponseWrapper() {}
+    public AbortDFUWorkunitResponseWrapper() {}
 
-	public AbortDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse abortdfuworkunitresponse)
-	{
-		copy( abortdfuworkunitresponse );
-	}
-	public AbortDFUWorkunitResponseWrapper( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
+    public AbortDFUWorkunitResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse abortdfuworkunitresponse)
+    {
+        copy( abortdfuworkunitresponse );
+    }
+    public AbortDFUWorkunitResponseWrapper( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "AbortDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunitResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "AbortDFUWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
 }

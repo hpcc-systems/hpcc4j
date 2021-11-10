@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AbortDFUWorkunitWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunit
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.517Z
+ * TimeStamp: 2021-10-27T18:52:06.389Z
  */
 public class AbortDFUWorkunitWrapper
 {
-	protected String local_wuid;
+    protected String local_wuid;
 
-	public AbortDFUWorkunitWrapper() {}
+    public AbortDFUWorkunitWrapper() {}
 
-	public AbortDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunit abortdfuworkunit)
-	{
-		copy( abortdfuworkunit );
-	}
-	public AbortDFUWorkunitWrapper( String _wuid )
-	{
-		this.local_wuid = _wuid;
+    public AbortDFUWorkunitWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunit abortdfuworkunit)
+    {
+        copy( abortdfuworkunit );
+    }
+    public AbortDFUWorkunitWrapper( String _wuid )
+    {
+        this.local_wuid = _wuid;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunit raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunit raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_wuid = raw.getWuid();
+        this.local_wuid = raw.getWuid();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "AbortDFUWorkunitWrapper [" + "wuid = " + local_wuid + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunit getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.AbortDFUWorkunit();
-		raw.setWuid( local_wuid);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "AbortDFUWorkunitWrapper [" + "wuid = " + local_wuid + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunit getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunit();
+        raw.setWuid( local_wuid);
+        return raw;
+    }
 
 
-	public void setWuid( String _wuid )
-	{
-		this.local_wuid = _wuid;
-	}
-	public String getWuid( )
-	{
-		return this.local_wuid;
-	}
+    public void setWuid( String _wuid )
+    {
+        this.local_wuid = _wuid;
+    }
+    public String getWuid( )
+    {
+        return this.local_wuid;
+    }
 }

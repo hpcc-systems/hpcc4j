@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,66 +22,66 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetComponentFileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.957Z
+ * TimeStamp: 2021-10-27T23:40:06.348Z
  */
 public class TpGetComponentFileResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected DataHandler local_fileContents;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected DataHandler local_fileContents;
 
-	public TpGetComponentFileResponseWrapper() {}
+    public TpGetComponentFileResponseWrapper() {}
 
-	public TpGetComponentFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse tpgetcomponentfileresponse)
-	{
-		copy( tpgetcomponentfileresponse );
-	}
-	public TpGetComponentFileResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, DataHandler _fileContents )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_fileContents = _fileContents;
+    public TpGetComponentFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse tpgetcomponentfileresponse)
+    {
+        copy( tpgetcomponentfileresponse );
+    }
+    public TpGetComponentFileResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, DataHandler _fileContents )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_fileContents = _fileContents;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_fileContents = raw.getFileContents();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_fileContents = raw.getFileContents();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpGetComponentFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "fileContents = " + local_fileContents + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetComponentFileResponse();
-		raw.setFileContents( local_fileContents);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpGetComponentFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "fileContents = " + local_fileContents + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse();
+        raw.setFileContents( local_fileContents);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setFileContents( DataHandler _fileContents )
-	{
-		this.local_fileContents = _fileContents;
-	}
-	public DataHandler getFileContents( )
-	{
-		return this.local_fileContents;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setFileContents( DataHandler _fileContents )
+    {
+        this.local_fileContents = _fileContents;
+    }
+    public DataHandler getFileContents( )
+    {
+        return this.local_fileContents;
+    }
 }

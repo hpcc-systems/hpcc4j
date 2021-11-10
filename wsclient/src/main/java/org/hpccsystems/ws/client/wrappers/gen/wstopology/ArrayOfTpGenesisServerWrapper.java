@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpGenesisServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.913Z
+ * TimeStamp: 2021-10-27T23:40:06.314Z
  */
 public class ArrayOfTpGenesisServerWrapper
 {
-	protected List<TpGenesisServerWrapper> local_tpGenesisServer = null;
+    protected List<TpGenesisServerWrapper> local_tpGenesisServer = null;
 
-	public ArrayOfTpGenesisServerWrapper() {}
+    public ArrayOfTpGenesisServerWrapper() {}
 
-	public ArrayOfTpGenesisServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer arrayoftpgenesisserver)
-	{
-		copy( arrayoftpgenesisserver );
-	}
-	public ArrayOfTpGenesisServerWrapper( List<TpGenesisServerWrapper> _tpGenesisServer )
-	{
-		this.local_tpGenesisServer = _tpGenesisServer;
+    public ArrayOfTpGenesisServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer arrayoftpgenesisserver)
+    {
+        copy( arrayoftpgenesisserver );
+    }
+    public ArrayOfTpGenesisServerWrapper( List<TpGenesisServerWrapper> _tpGenesisServer )
+    {
+        this.local_tpGenesisServer = _tpGenesisServer;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpGenesisServer() != null)
-		{
-			this.local_tpGenesisServer = new ArrayList<TpGenesisServerWrapper>();
-			for ( int i = 0; i < raw.getTpGenesisServer().length; i++)
-			{
-				this.local_tpGenesisServer.add(new TpGenesisServerWrapper(raw.getTpGenesisServer()[i]));
-			}
-		}
-	}
+        if (raw.getTpGenesisServer() != null)
+        {
+            this.local_tpGenesisServer = new ArrayList<TpGenesisServerWrapper>();
+            for ( int i = 0; i < raw.getTpGenesisServer().length; i++)
+            {
+                this.local_tpGenesisServer.add(new TpGenesisServerWrapper(raw.getTpGenesisServer()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpGenesisServerWrapper [" + "tpGenesisServer = " + local_tpGenesisServer + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGenesisServer();
-		if (this.local_tpGenesisServer!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGenesisServer[this.local_tpGenesisServer.size()];
-			for ( int i = 0; i < this.local_tpGenesisServer.size(); i++)
-			{
-				arr[i] = this.local_tpGenesisServer.get(i) .getRaw();
-			}
-			raw.setTpGenesisServer(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpGenesisServerWrapper [" + "tpGenesisServer = " + local_tpGenesisServer + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer();
+        if (this.local_tpGenesisServer!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGenesisServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGenesisServer[this.local_tpGenesisServer.size()];
+            for ( int i = 0; i < this.local_tpGenesisServer.size(); i++)
+            {
+                arr[i] = this.local_tpGenesisServer.get(i) .getRaw();
+            }
+            raw.setTpGenesisServer(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpGenesisServer( List<TpGenesisServerWrapper> _tpGenesisServer )
-	{
-		this.local_tpGenesisServer = _tpGenesisServer;
-	}
-	public List<TpGenesisServerWrapper> getTpGenesisServer( )
-	{
-		return this.local_tpGenesisServer;
-	}
+    public void setTpGenesisServer( List<TpGenesisServerWrapper> _tpGenesisServer )
+    {
+        this.local_tpGenesisServer = _tpGenesisServer;
+    }
+    public List<TpGenesisServerWrapper> getTpGenesisServer( )
+    {
+        return this.local_tpGenesisServer;
+    }
 }

@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefUnusedFilesRequestWrapper
 {
-	protected String local_processCluster;
-	protected boolean local_checkPackageMaps;
-	protected boolean local_getFileDetails;
+    protected String local_processCluster;
+    protected boolean local_checkPackageMaps;
+    protected boolean local_getFileDetails;
 
-	public DFUXRefUnusedFilesRequestWrapper() {}
+    public DFUXRefUnusedFilesRequestWrapper() {}
 
-	public DFUXRefUnusedFilesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesRequest dfuxrefunusedfilesrequest)
-	{
-		copy( dfuxrefunusedfilesrequest );
-	}
-	public DFUXRefUnusedFilesRequestWrapper( String _processCluster, boolean _checkPackageMaps, boolean _getFileDetails )
-	{
-		this.local_processCluster = _processCluster;
-		this.local_checkPackageMaps = _checkPackageMaps;
-		this.local_getFileDetails = _getFileDetails;
+    public DFUXRefUnusedFilesRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesRequest dfuxrefunusedfilesrequest)
+    {
+        copy( dfuxrefunusedfilesrequest );
+    }
+    public DFUXRefUnusedFilesRequestWrapper( String _processCluster, boolean _checkPackageMaps, boolean _getFileDetails )
+    {
+        this.local_processCluster = _processCluster;
+        this.local_checkPackageMaps = _checkPackageMaps;
+        this.local_getFileDetails = _getFileDetails;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_processCluster = raw.getProcessCluster();
-		this.local_checkPackageMaps = raw.getCheckPackageMaps();
-		this.local_getFileDetails = raw.getGetFileDetails();
+        this.local_processCluster = raw.getProcessCluster();
+        this.local_checkPackageMaps = raw.getCheckPackageMaps();
+        this.local_getFileDetails = raw.getGetFileDetails();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefUnusedFilesRequestWrapper [" + "processCluster = " + local_processCluster + ", " + "checkPackageMaps = " + local_checkPackageMaps + ", " + "getFileDetails = " + local_getFileDetails + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesRequest();
-		raw.setProcessCluster( local_processCluster);
-		raw.setCheckPackageMaps( local_checkPackageMaps);
-		raw.setGetFileDetails( local_getFileDetails);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefUnusedFilesRequestWrapper [" + "processCluster = " + local_processCluster + ", " + "checkPackageMaps = " + local_checkPackageMaps + ", " + "getFileDetails = " + local_getFileDetails + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesRequest();
+        raw.setProcessCluster( local_processCluster);
+        raw.setCheckPackageMaps( local_checkPackageMaps);
+        raw.setGetFileDetails( local_getFileDetails);
+        return raw;
+    }
 
 
-	public void setProcessCluster( String _processCluster )
-	{
-		this.local_processCluster = _processCluster;
-	}
-	public String getProcessCluster( )
-	{
-		return this.local_processCluster;
-	}
-	public void setCheckPackageMaps( boolean _checkPackageMaps )
-	{
-		this.local_checkPackageMaps = _checkPackageMaps;
-	}
-	public boolean getCheckPackageMaps( )
-	{
-		return this.local_checkPackageMaps;
-	}
-	public void setGetFileDetails( boolean _getFileDetails )
-	{
-		this.local_getFileDetails = _getFileDetails;
-	}
-	public boolean getGetFileDetails( )
-	{
-		return this.local_getFileDetails;
-	}
+    public void setProcessCluster( String _processCluster )
+    {
+        this.local_processCluster = _processCluster;
+    }
+    public String getProcessCluster( )
+    {
+        return this.local_processCluster;
+    }
+    public void setCheckPackageMaps( boolean _checkPackageMaps )
+    {
+        this.local_checkPackageMaps = _checkPackageMaps;
+    }
+    public boolean getCheckPackageMaps( )
+    {
+        return this.local_checkPackageMaps;
+    }
+    public void setGetFileDetails( boolean _getFileDetails )
+    {
+        this.local_getFileDetails = _getFileDetails;
+    }
+    public boolean getGetFileDetails( )
+    {
+        return this.local_getFileDetails;
+    }
 }

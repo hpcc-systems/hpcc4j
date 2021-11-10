@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfNamedValueWrapper
 {
-	protected List<NamedValueWrapper> local_namedValue = null;
+    protected List<NamedValueWrapper> local_namedValue = null;
 
-	public ArrayOfNamedValueWrapper() {}
+    public ArrayOfNamedValueWrapper() {}
 
-	public ArrayOfNamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue arrayofnamedvalue)
-	{
-		copy( arrayofnamedvalue );
-	}
-	public ArrayOfNamedValueWrapper( List<NamedValueWrapper> _namedValue )
-	{
-		this.local_namedValue = _namedValue;
+    public ArrayOfNamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfNamedValue arrayofnamedvalue)
+    {
+        copy( arrayofnamedvalue );
+    }
+    public ArrayOfNamedValueWrapper( List<NamedValueWrapper> _namedValue )
+    {
+        this.local_namedValue = _namedValue;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfNamedValue raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getNamedValue() != null)
-		{
-			this.local_namedValue = new ArrayList<NamedValueWrapper>();
-			for ( int i = 0; i < raw.getNamedValue().length; i++)
-			{
-				this.local_namedValue.add(new NamedValueWrapper(raw.getNamedValue()[i]));
-			}
-		}
-	}
+        if (raw.getNamedValue() != null)
+        {
+            this.local_namedValue = new ArrayList<NamedValueWrapper>();
+            for ( int i = 0; i < raw.getNamedValue().length; i++)
+            {
+                this.local_namedValue.add(new NamedValueWrapper(raw.getNamedValue()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfNamedValueWrapper [" + "namedValue = " + local_namedValue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfNamedValue();
-		if (this.local_namedValue!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue[this.local_namedValue.size()];
-			for ( int i = 0; i < this.local_namedValue.size(); i++)
-			{
-				arr[i] = this.local_namedValue.get(i) .getRaw();
-			}
-			raw.setNamedValue(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfNamedValueWrapper [" + "namedValue = " + local_namedValue + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfNamedValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfNamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfNamedValue();
+        if (this.local_namedValue!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue[this.local_namedValue.size()];
+            for ( int i = 0; i < this.local_namedValue.size(); i++)
+            {
+                arr[i] = this.local_namedValue.get(i) .getRaw();
+            }
+            raw.setNamedValue(arr);
+        }
+        return raw;
+    }
 
 
-	public void setNamedValue( List<NamedValueWrapper> _namedValue )
-	{
-		this.local_namedValue = _namedValue;
-	}
-	public List<NamedValueWrapper> getNamedValue( )
-	{
-		return this.local_namedValue;
-	}
+    public void setNamedValue( List<NamedValueWrapper> _namedValue )
+    {
+        this.local_namedValue = _namedValue;
+    }
+    public List<NamedValueWrapper> getNamedValue( )
+    {
+        return this.local_namedValue;
+    }
 }

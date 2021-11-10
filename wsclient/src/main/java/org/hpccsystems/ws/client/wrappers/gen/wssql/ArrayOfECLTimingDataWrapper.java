@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLTimingDataWrapper
 {
-	protected List<ECLTimingDataWrapper> local_eCLTimingData = null;
+    protected List<ECLTimingDataWrapper> local_eCLTimingData = null;
 
-	public ArrayOfECLTimingDataWrapper() {}
+    public ArrayOfECLTimingDataWrapper() {}
 
-	public ArrayOfECLTimingDataWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData arrayofecltimingdata)
-	{
-		copy( arrayofecltimingdata );
-	}
-	public ArrayOfECLTimingDataWrapper( List<ECLTimingDataWrapper> _eCLTimingData )
-	{
-		this.local_eCLTimingData = _eCLTimingData;
+    public ArrayOfECLTimingDataWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimingData arrayofecltimingdata)
+    {
+        copy( arrayofecltimingdata );
+    }
+    public ArrayOfECLTimingDataWrapper( List<ECLTimingDataWrapper> _eCLTimingData )
+    {
+        this.local_eCLTimingData = _eCLTimingData;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimingData raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLTimingData() != null)
-		{
-			this.local_eCLTimingData = new ArrayList<ECLTimingDataWrapper>();
-			for ( int i = 0; i < raw.getECLTimingData().length; i++)
-			{
-				this.local_eCLTimingData.add(new ECLTimingDataWrapper(raw.getECLTimingData()[i]));
-			}
-		}
-	}
+        if (raw.getECLTimingData() != null)
+        {
+            this.local_eCLTimingData = new ArrayList<ECLTimingDataWrapper>();
+            for ( int i = 0; i < raw.getECLTimingData().length; i++)
+            {
+                this.local_eCLTimingData.add(new ECLTimingDataWrapper(raw.getECLTimingData()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLTimingDataWrapper [" + "eCLTimingData = " + local_eCLTimingData + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimingData();
-		if (this.local_eCLTimingData!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimingData[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimingData[this.local_eCLTimingData.size()];
-			for ( int i = 0; i < this.local_eCLTimingData.size(); i++)
-			{
-				arr[i] = this.local_eCLTimingData.get(i) .getRaw();
-			}
-			raw.setECLTimingData(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLTimingDataWrapper [" + "eCLTimingData = " + local_eCLTimingData + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimingData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimingData();
+        if (this.local_eCLTimingData!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimingData[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimingData[this.local_eCLTimingData.size()];
+            for ( int i = 0; i < this.local_eCLTimingData.size(); i++)
+            {
+                arr[i] = this.local_eCLTimingData.get(i) .getRaw();
+            }
+            raw.setECLTimingData(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLTimingData( List<ECLTimingDataWrapper> _eCLTimingData )
-	{
-		this.local_eCLTimingData = _eCLTimingData;
-	}
-	public List<ECLTimingDataWrapper> getECLTimingData( )
-	{
-		return this.local_eCLTimingData;
-	}
+    public void setECLTimingData( List<ECLTimingDataWrapper> _eCLTimingData )
+    {
+        this.local_eCLTimingData = _eCLTimingData;
+    }
+    public List<ECLTimingDataWrapper> getECLTimingData( )
+    {
+        return this.local_eCLTimingData;
+    }
 }

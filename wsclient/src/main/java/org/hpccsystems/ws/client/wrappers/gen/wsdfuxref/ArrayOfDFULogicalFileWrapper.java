@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfDFULogicalFileWrapper
 {
-	protected List<DFULogicalFileWrapper> local_dFULogicalFile = null;
+    protected List<DFULogicalFileWrapper> local_dFULogicalFile = null;
 
-	public ArrayOfDFULogicalFileWrapper() {}
+    public ArrayOfDFULogicalFileWrapper() {}
 
-	public ArrayOfDFULogicalFileWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfDFULogicalFile arrayofdfulogicalfile)
-	{
-		copy( arrayofdfulogicalfile );
-	}
-	public ArrayOfDFULogicalFileWrapper( List<DFULogicalFileWrapper> _dFULogicalFile )
-	{
-		this.local_dFULogicalFile = _dFULogicalFile;
+    public ArrayOfDFULogicalFileWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfDFULogicalFile arrayofdfulogicalfile)
+    {
+        copy( arrayofdfulogicalfile );
+    }
+    public ArrayOfDFULogicalFileWrapper( List<DFULogicalFileWrapper> _dFULogicalFile )
+    {
+        this.local_dFULogicalFile = _dFULogicalFile;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfDFULogicalFile raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfDFULogicalFile raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDFULogicalFile() != null)
-		{
-			this.local_dFULogicalFile = new ArrayList<DFULogicalFileWrapper>();
-			for ( int i = 0; i < raw.getDFULogicalFile().length; i++)
-			{
-				this.local_dFULogicalFile.add(new DFULogicalFileWrapper(raw.getDFULogicalFile()[i]));
-			}
-		}
-	}
+        if (raw.getDFULogicalFile() != null)
+        {
+            this.local_dFULogicalFile = new ArrayList<DFULogicalFileWrapper>();
+            for ( int i = 0; i < raw.getDFULogicalFile().length; i++)
+            {
+                this.local_dFULogicalFile.add(new DFULogicalFileWrapper(raw.getDFULogicalFile()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFULogicalFileWrapper [" + "dFULogicalFile = " + local_dFULogicalFile + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfDFULogicalFile getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfDFULogicalFile raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfDFULogicalFile();
-		if (this.local_dFULogicalFile!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFULogicalFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFULogicalFile[this.local_dFULogicalFile.size()];
-			for ( int i = 0; i < this.local_dFULogicalFile.size(); i++)
-			{
-				arr[i] = this.local_dFULogicalFile.get(i) .getRaw();
-			}
-			raw.setDFULogicalFile(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFULogicalFileWrapper [" + "dFULogicalFile = " + local_dFULogicalFile + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfDFULogicalFile getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfDFULogicalFile raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfDFULogicalFile();
+        if (this.local_dFULogicalFile!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFULogicalFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFULogicalFile[this.local_dFULogicalFile.size()];
+            for ( int i = 0; i < this.local_dFULogicalFile.size(); i++)
+            {
+                arr[i] = this.local_dFULogicalFile.get(i) .getRaw();
+            }
+            raw.setDFULogicalFile(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDFULogicalFile( List<DFULogicalFileWrapper> _dFULogicalFile )
-	{
-		this.local_dFULogicalFile = _dFULogicalFile;
-	}
-	public List<DFULogicalFileWrapper> getDFULogicalFile( )
-	{
-		return this.local_dFULogicalFile;
-	}
+    public void setDFULogicalFile( List<DFULogicalFileWrapper> _dFULogicalFile )
+    {
+        this.local_dFULogicalFile = _dFULogicalFile;
+    }
+    public List<DFULogicalFileWrapper> getDFULogicalFile( )
+    {
+        return this.local_dFULogicalFile;
+    }
 }

@@ -28,28 +28,28 @@ import org.hpccsystems.ws.client.platform.Version;
  */
 public class WsDFUClientStubWrapper
 {
-    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub stub1_57                     = null;
-    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39                     = null;
+    private org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuStub stubLatest = null;
+    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39    = null;
     private String baseURL;
 
     /**
-     * Gets the 1_57 stub.
+     * Gets the latest stub.
      *
      * @param opts
      *            the opts
-     * @return a lazy-loaded 1_57 soap proxy
+     * @return a lazy-loaded latest soap proxy
      * @throws AxisFault
      *             the axis fault
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub get1_57Stub(Options opts) throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuStub getLatestStub(Options opts) throws AxisFault
     {
-        if (stub1_57 == null)
+        if (stubLatest == null)
         {
-            stub1_57 = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub(baseURL);
+            stubLatest = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuStub(baseURL);
             if (opts != null)
-                stub1_57._getServiceClient().setOptions(opts);
+                stubLatest._getServiceClient().setOptions(opts);
         }
-        return stub1_57;
+        return stubLatest;
     }
 
     /**

@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ResourceURLs_type0Wrapper
 {
-	protected List<String> local_uRL = null;
+    protected List<String> local_uRL = null;
 
-	public ResourceURLs_type0Wrapper() {}
+    public ResourceURLs_type0Wrapper() {}
 
-	public ResourceURLs_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResourceURLs_type0 resourceurls_type0)
-	{
-		copy( resourceurls_type0 );
-	}
-	public ResourceURLs_type0Wrapper( List<String> _uRL )
-	{
-		this.local_uRL = _uRL;
+    public ResourceURLs_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResourceURLs_type0 resourceurls_type0)
+    {
+        copy( resourceurls_type0 );
+    }
+    public ResourceURLs_type0Wrapper( List<String> _uRL )
+    {
+        this.local_uRL = _uRL;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResourceURLs_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResourceURLs_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getURL() != null)
-		{
-			this.local_uRL = new ArrayList<String>();
-			for ( int i = 0; i < raw.getURL().length; i++)
-			{
-				this.local_uRL.add(new String(raw.getURL()[i]));
-			}
-		}
-	}
+        if (raw.getURL() != null)
+        {
+            this.local_uRL = new ArrayList<String>();
+            for ( int i = 0; i < raw.getURL().length; i++)
+            {
+                this.local_uRL.add(new String(raw.getURL()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ResourceURLs_type0Wrapper [" + "uRL = " + local_uRL + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResourceURLs_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResourceURLs_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResourceURLs_type0();
-		if (this.local_uRL!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_uRL.size()];
-			for ( int i = 0; i < this.local_uRL.size(); i++)
-			{
-				arr[i] = this.local_uRL.get(i) ;
-			}
-			raw.setURL(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ResourceURLs_type0Wrapper [" + "uRL = " + local_uRL + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResourceURLs_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResourceURLs_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResourceURLs_type0();
+        if (this.local_uRL!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_uRL.size()];
+            for ( int i = 0; i < this.local_uRL.size(); i++)
+            {
+                arr[i] = this.local_uRL.get(i) ;
+            }
+            raw.setURL(arr);
+        }
+        return raw;
+    }
 
 
-	public void setURL( List<String> _uRL )
-	{
-		this.local_uRL = _uRL;
-	}
-	public List<String> getURL( )
-	{
-		return this.local_uRL;
-	}
+    public void setURL( List<String> _uRL )
+    {
+        this.local_uRL = _uRL;
+    }
+    public List<String> getURL( )
+    {
+        return this.local_uRL;
+    }
 }

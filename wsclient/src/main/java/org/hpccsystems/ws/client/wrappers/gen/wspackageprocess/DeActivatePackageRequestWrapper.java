@@ -27,84 +27,84 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class DeActivatePackageRequestWrapper
 {
-	protected String local_target;
-	protected String local_packageMap;
-	protected String local_process;
-	protected boolean local_globalScope;
+    protected String local_target;
+    protected String local_packageMap;
+    protected String local_process;
+    protected boolean local_globalScope;
 
-	public DeActivatePackageRequestWrapper() {}
+    public DeActivatePackageRequestWrapper() {}
 
-	public DeActivatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest deactivatepackagerequest)
-	{
-		copy( deactivatepackagerequest );
-	}
-	public DeActivatePackageRequestWrapper( String _target, String _packageMap, String _process, boolean _globalScope )
-	{
-		this.local_target = _target;
-		this.local_packageMap = _packageMap;
-		this.local_process = _process;
-		this.local_globalScope = _globalScope;
+    public DeActivatePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeActivatePackageRequest deactivatepackagerequest)
+    {
+        copy( deactivatepackagerequest );
+    }
+    public DeActivatePackageRequestWrapper( String _target, String _packageMap, String _process, boolean _globalScope )
+    {
+        this.local_target = _target;
+        this.local_packageMap = _packageMap;
+        this.local_process = _process;
+        this.local_globalScope = _globalScope;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeActivatePackageRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_target = raw.getTarget();
-		this.local_packageMap = raw.getPackageMap();
-		this.local_process = raw.getProcess();
-		this.local_globalScope = raw.getGlobalScope();
+        this.local_target = raw.getTarget();
+        this.local_packageMap = raw.getPackageMap();
+        this.local_process = raw.getProcess();
+        this.local_globalScope = raw.getGlobalScope();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DeActivatePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeActivatePackageRequest();
-		raw.setTarget( local_target);
-		raw.setPackageMap( local_packageMap);
-		raw.setProcess( local_process);
-		raw.setGlobalScope( local_globalScope);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DeActivatePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeActivatePackageRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeActivatePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeActivatePackageRequest();
+        raw.setTarget( local_target);
+        raw.setPackageMap( local_packageMap);
+        raw.setProcess( local_process);
+        raw.setGlobalScope( local_globalScope);
+        return raw;
+    }
 
 
-	public void setTarget( String _target )
-	{
-		this.local_target = _target;
-	}
-	public String getTarget( )
-	{
-		return this.local_target;
-	}
-	public void setPackageMap( String _packageMap )
-	{
-		this.local_packageMap = _packageMap;
-	}
-	public String getPackageMap( )
-	{
-		return this.local_packageMap;
-	}
-	public void setProcess( String _process )
-	{
-		this.local_process = _process;
-	}
-	public String getProcess( )
-	{
-		return this.local_process;
-	}
-	public void setGlobalScope( boolean _globalScope )
-	{
-		this.local_globalScope = _globalScope;
-	}
-	public boolean getGlobalScope( )
-	{
-		return this.local_globalScope;
-	}
+    public void setTarget( String _target )
+    {
+        this.local_target = _target;
+    }
+    public String getTarget( )
+    {
+        return this.local_target;
+    }
+    public void setPackageMap( String _packageMap )
+    {
+        this.local_packageMap = _packageMap;
+    }
+    public String getPackageMap( )
+    {
+        return this.local_packageMap;
+    }
+    public void setProcess( String _process )
+    {
+        this.local_process = _process;
+    }
+    public String getProcess( )
+    {
+        return this.local_process;
+    }
+    public void setGlobalScope( boolean _globalScope )
+    {
+        this.local_globalScope = _globalScope;
+    }
+    public boolean getGlobalScope( )
+    {
+        return this.local_globalScope;
+    }
 }

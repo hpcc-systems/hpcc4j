@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class InParams_type0Wrapper
 {
-	protected List<HPCCColumnWrapper> local_inParam = null;
+    protected List<HPCCColumnWrapper> local_inParam = null;
 
-	public InParams_type0Wrapper() {}
+    public InParams_type0Wrapper() {}
 
-	public InParams_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.InParams_type0 inparams_type0)
-	{
-		copy( inparams_type0 );
-	}
-	public InParams_type0Wrapper( List<HPCCColumnWrapper> _inParam )
-	{
-		this.local_inParam = _inParam;
+    public InParams_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.InParams_type0 inparams_type0)
+    {
+        copy( inparams_type0 );
+    }
+    public InParams_type0Wrapper( List<HPCCColumnWrapper> _inParam )
+    {
+        this.local_inParam = _inParam;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.InParams_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.InParams_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getInParam() != null)
-		{
-			this.local_inParam = new ArrayList<HPCCColumnWrapper>();
-			for ( int i = 0; i < raw.getInParam().length; i++)
-			{
-				this.local_inParam.add(new HPCCColumnWrapper(raw.getInParam()[i]));
-			}
-		}
-	}
+        if (raw.getInParam() != null)
+        {
+            this.local_inParam = new ArrayList<HPCCColumnWrapper>();
+            for ( int i = 0; i < raw.getInParam().length; i++)
+            {
+                this.local_inParam.add(new HPCCColumnWrapper(raw.getInParam()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "InParams_type0Wrapper [" + "inParam = " + local_inParam + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.InParams_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.InParams_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.InParams_type0();
-		if (this.local_inParam!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn[this.local_inParam.size()];
-			for ( int i = 0; i < this.local_inParam.size(); i++)
-			{
-				arr[i] = this.local_inParam.get(i) .getRaw();
-			}
-			raw.setInParam(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "InParams_type0Wrapper [" + "inParam = " + local_inParam + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.InParams_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.InParams_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.InParams_type0();
+        if (this.local_inParam!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn[this.local_inParam.size()];
+            for ( int i = 0; i < this.local_inParam.size(); i++)
+            {
+                arr[i] = this.local_inParam.get(i) .getRaw();
+            }
+            raw.setInParam(arr);
+        }
+        return raw;
+    }
 
 
-	public void setInParam( List<HPCCColumnWrapper> _inParam )
-	{
-		this.local_inParam = _inParam;
-	}
-	public List<HPCCColumnWrapper> getInParam( )
-	{
-		return this.local_inParam;
-	}
+    public void setInParam( List<HPCCColumnWrapper> _inParam )
+    {
+        this.local_inParam = _inParam;
+    }
+    public List<HPCCColumnWrapper> getInParam( )
+    {
+        return this.local_inParam;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpClusterNameTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.901Z
+ * TimeStamp: 2021-10-27T23:40:06.306Z
  */
 public class ArrayOfTpClusterNameTypeWrapper
 {
-	protected List<TpClusterNameTypeWrapper> local_tpClusterNameType = null;
+    protected List<TpClusterNameTypeWrapper> local_tpClusterNameType = null;
 
-	public ArrayOfTpClusterNameTypeWrapper() {}
+    public ArrayOfTpClusterNameTypeWrapper() {}
 
-	public ArrayOfTpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType arrayoftpclusternametype)
-	{
-		copy( arrayoftpclusternametype );
-	}
-	public ArrayOfTpClusterNameTypeWrapper( List<TpClusterNameTypeWrapper> _tpClusterNameType )
-	{
-		this.local_tpClusterNameType = _tpClusterNameType;
+    public ArrayOfTpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType arrayoftpclusternametype)
+    {
+        copy( arrayoftpclusternametype );
+    }
+    public ArrayOfTpClusterNameTypeWrapper( List<TpClusterNameTypeWrapper> _tpClusterNameType )
+    {
+        this.local_tpClusterNameType = _tpClusterNameType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpClusterNameType() != null)
-		{
-			this.local_tpClusterNameType = new ArrayList<TpClusterNameTypeWrapper>();
-			for ( int i = 0; i < raw.getTpClusterNameType().length; i++)
-			{
-				this.local_tpClusterNameType.add(new TpClusterNameTypeWrapper(raw.getTpClusterNameType()[i]));
-			}
-		}
-	}
+        if (raw.getTpClusterNameType() != null)
+        {
+            this.local_tpClusterNameType = new ArrayList<TpClusterNameTypeWrapper>();
+            for ( int i = 0; i < raw.getTpClusterNameType().length; i++)
+            {
+                this.local_tpClusterNameType.add(new TpClusterNameTypeWrapper(raw.getTpClusterNameType()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpClusterNameTypeWrapper [" + "tpClusterNameType = " + local_tpClusterNameType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpClusterNameType();
-		if (this.local_tpClusterNameType!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType[this.local_tpClusterNameType.size()];
-			for ( int i = 0; i < this.local_tpClusterNameType.size(); i++)
-			{
-				arr[i] = this.local_tpClusterNameType.get(i) .getRaw();
-			}
-			raw.setTpClusterNameType(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpClusterNameTypeWrapper [" + "tpClusterNameType = " + local_tpClusterNameType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType();
+        if (this.local_tpClusterNameType!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType[this.local_tpClusterNameType.size()];
+            for ( int i = 0; i < this.local_tpClusterNameType.size(); i++)
+            {
+                arr[i] = this.local_tpClusterNameType.get(i) .getRaw();
+            }
+            raw.setTpClusterNameType(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpClusterNameType( List<TpClusterNameTypeWrapper> _tpClusterNameType )
-	{
-		this.local_tpClusterNameType = _tpClusterNameType;
-	}
-	public List<TpClusterNameTypeWrapper> getTpClusterNameType( )
-	{
-		return this.local_tpClusterNameType;
-	}
+    public void setTpClusterNameType( List<TpClusterNameTypeWrapper> _tpClusterNameType )
+    {
+        this.local_tpClusterNameType = _tpClusterNameType;
+    }
+    public List<TpClusterNameTypeWrapper> getTpClusterNameType( )
+    {
+        return this.local_tpClusterNameType;
+    }
 }

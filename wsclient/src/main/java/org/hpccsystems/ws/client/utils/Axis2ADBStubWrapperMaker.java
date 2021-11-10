@@ -26,7 +26,7 @@ import java.util.Properties;
  *
  * Sample parameters:
  *
- *  targetpackage=org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23
+ *  targetpackage=org.hpccsystems.ws.client.gen.axis2.wssmc.latest
  *  outputdir=C:\HPCC4J\wsclient\src\main\java
  *  outputpackage=org.hpccsystems.ws.client.wrappers.gen
  *  servicename=wssmc
@@ -670,7 +670,7 @@ public class Axis2ADBStubWrapperMaker
                      + "\noutputdir       - The directory on which the wrapped classes will be written"
                      + "\noutputpackage   - The base package name on which the wrapped classes exist - it is postfixed with the service name"
                      + "\n"
-                     + "\nExample: WrapperMaker parameterstargetpackage=org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00 \\"
+                     + "\nExample: WrapperMaker parameterstargetpackage=org.hpccsystems.ws.client.gen.axis2.wsfileio.latest \\"
                      + "\n                      outputdir=C:\\project\\src\\main\\java outputpackage=org.hpccsystems.ws.client.wrappers servicename=<nameofservicestub>";
 
 
@@ -725,7 +725,7 @@ public class Axis2ADBStubWrapperMaker
             System.out.println("Error: Missing parameter: 'servicename'\n\n");
             printUsage();
         }
-        //String generatedPackageToWrap = "org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00";
+        //String generatedPackageToWrap = "org.hpccsystems.ws.client.gen.axis2.wsfileio.latest";
         String generatedPackageToWrap = argsprops.getProperty("targetpackage");
         if (generatedPackageToWrap == null || generatedPackageToWrap.isEmpty())
         {

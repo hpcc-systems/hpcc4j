@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspSoapFaultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspSoapFault
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.990Z
+ * TimeStamp: 2021-10-27T20:17:20.579Z
  */
 public class EspSoapFaultWrapper
 {
-	protected ExceptionsWrapper local_faultMessage;
+    protected ExceptionsWrapper local_faultMessage;
 
-	public EspSoapFaultWrapper() {}
+    public EspSoapFaultWrapper() {}
 
-	public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspSoapFault espsoapfault)
-	{
-		copy( espsoapfault );
-	}
-	public EspSoapFaultWrapper( ExceptionsWrapper _faultMessage )
-	{
-		this.local_faultMessage = _faultMessage;
+    public EspSoapFaultWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault espsoapfault)
+    {
+        copy( espsoapfault );
+    }
+    public EspSoapFaultWrapper( ExceptionsWrapper _faultMessage )
+    {
+        this.local_faultMessage = _faultMessage;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspSoapFault raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getFaultMessage() != null)
-			this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
+        if (raw.getFaultMessage() != null)
+            this.local_faultMessage = new ExceptionsWrapper( raw.getFaultMessage());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EspSoapFaultWrapper [" + "faultMessage = " + local_faultMessage + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspSoapFault getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.EspSoapFault();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EspSoapFaultWrapper [" + "faultMessage = " + local_faultMessage + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault();
+        return raw;
+    }
 
 
-	public void setFaultMessage( ExceptionsWrapper _faultMessage )
-	{
-		this.local_faultMessage = _faultMessage;
-	}
-	public ExceptionsWrapper getFaultMessage( )
-	{
-		return this.local_faultMessage;
-	}
+    public void setFaultMessage( ExceptionsWrapper _faultMessage )
+    {
+        this.local_faultMessage = _faultMessage;
+    }
+    public ExceptionsWrapper getFaultMessage( )
+    {
+        return this.local_faultMessage;
+    }
 }

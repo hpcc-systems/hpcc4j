@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class ListPackageRequestWrapper
 {
-	protected String local_target;
-	protected String local_process;
+    protected String local_target;
+    protected String local_process;
 
-	public ListPackageRequestWrapper() {}
+    public ListPackageRequestWrapper() {}
 
-	public ListPackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest listpackagerequest)
-	{
-		copy( listpackagerequest );
-	}
-	public ListPackageRequestWrapper( String _target, String _process )
-	{
-		this.local_target = _target;
-		this.local_process = _process;
+    public ListPackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackageRequest listpackagerequest)
+    {
+        copy( listpackagerequest );
+    }
+    public ListPackageRequestWrapper( String _target, String _process )
+    {
+        this.local_target = _target;
+        this.local_process = _process;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackageRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_target = raw.getTarget();
-		this.local_process = raw.getProcess();
+        this.local_target = raw.getTarget();
+        this.local_process = raw.getProcess();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ListPackageRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackageRequest();
-		raw.setTarget( local_target);
-		raw.setProcess( local_process);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ListPackageRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackageRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackageRequest();
+        raw.setTarget( local_target);
+        raw.setProcess( local_process);
+        return raw;
+    }
 
 
-	public void setTarget( String _target )
-	{
-		this.local_target = _target;
-	}
-	public String getTarget( )
-	{
-		return this.local_target;
-	}
-	public void setProcess( String _process )
-	{
-		this.local_process = _process;
-	}
-	public String getProcess( )
-	{
-		return this.local_process;
-	}
+    public void setTarget( String _target )
+    {
+        this.local_target = _target;
+    }
+    public String getTarget( )
+    {
+        return this.local_target;
+    }
+    public void setProcess( String _process )
+    {
+        this.local_process = _process;
+    }
+    public String getProcess( )
+    {
+        return this.local_process;
+    }
 }

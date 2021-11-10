@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetServicePluginsRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.958Z
+ * TimeStamp: 2021-10-27T23:40:06.348Z
  */
 public class TpGetServicePluginsRequestWrapper
 {
 
-	public TpGetServicePluginsRequestWrapper() {}
+    public TpGetServicePluginsRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsRequest();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest();
+        return raw;
+    }
 
 
 }

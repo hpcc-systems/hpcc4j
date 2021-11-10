@@ -15,11 +15,11 @@ import org.hpccsystems.ws.client.antlr.CaseControlStringStream;
 import org.hpccsystems.ws.client.antlr.EclRecordLexer;
 import org.hpccsystems.ws.client.antlr.EclRecordParser;
 import org.hpccsystems.ws.client.antlr.EclRecordParser.ProgramContext;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePartsOnCluster;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.antlr.EclRecordReader;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePartsOnCluster;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileDetail;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePartsOnCluster;
 import org.hpccsystems.ws.client.utils.FileFormat;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGetServicePluginsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.959Z
+ * TimeStamp: 2021-10-27T23:40:06.349Z
  */
 public class TpGetServicePluginsResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected Plugins_type0Wrapper local_plugins;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected Plugins_type0Wrapper local_plugins;
 
-	public TpGetServicePluginsResponseWrapper() {}
+    public TpGetServicePluginsResponseWrapper() {}
 
-	public TpGetServicePluginsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse tpgetservicepluginsresponse)
-	{
-		copy( tpgetservicepluginsresponse );
-	}
-	public TpGetServicePluginsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Plugins_type0Wrapper _plugins )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_plugins = _plugins;
+    public TpGetServicePluginsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse tpgetservicepluginsresponse)
+    {
+        copy( tpgetservicepluginsresponse );
+    }
+    public TpGetServicePluginsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Plugins_type0Wrapper _plugins )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_plugins = _plugins;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getPlugins() != null)
-			this.local_plugins = new Plugins_type0Wrapper( raw.getPlugins());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getPlugins() != null)
+            this.local_plugins = new Plugins_type0Wrapper( raw.getPlugins());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpGetServicePluginsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "plugins = " + local_plugins + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGetServicePluginsResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpGetServicePluginsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "plugins = " + local_plugins + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setPlugins( Plugins_type0Wrapper _plugins )
-	{
-		this.local_plugins = _plugins;
-	}
-	public Plugins_type0Wrapper getPlugins( )
-	{
-		return this.local_plugins;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setPlugins( Plugins_type0Wrapper _plugins )
+    {
+        this.local_plugins = _plugins;
+    }
+    public Plugins_type0Wrapper getPlugins( )
+    {
+        return this.local_plugins;
+    }
 }

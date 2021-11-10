@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUActionResultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.565Z
+ * TimeStamp: 2021-10-27T18:52:06.432Z
  */
 public class DFUActionResultWrapper
 {
-	protected String local_iD;
-	protected String local_action;
-	protected String local_result;
+    protected String local_iD;
+    protected String local_action;
+    protected String local_result;
 
-	public DFUActionResultWrapper() {}
+    public DFUActionResultWrapper() {}
 
-	public DFUActionResultWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult dfuactionresult)
-	{
-		copy( dfuactionresult );
-	}
-	public DFUActionResultWrapper( String _iD, String _action, String _result )
-	{
-		this.local_iD = _iD;
-		this.local_action = _action;
-		this.local_result = _result;
+    public DFUActionResultWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult dfuactionresult)
+    {
+        copy( dfuactionresult );
+    }
+    public DFUActionResultWrapper( String _iD, String _action, String _result )
+    {
+        this.local_iD = _iD;
+        this.local_action = _action;
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_iD = raw.getID();
-		this.local_action = raw.getAction();
-		this.local_result = raw.getResult();
+        this.local_iD = raw.getID();
+        this.local_action = raw.getAction();
+        this.local_result = raw.getResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUActionResultWrapper [" + "iD = " + local_iD + ", " + "action = " + local_action + ", " + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUActionResult();
-		raw.setID( local_iD);
-		raw.setAction( local_action);
-		raw.setResult( local_result);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUActionResultWrapper [" + "iD = " + local_iD + ", " + "action = " + local_action + ", " + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult();
+        raw.setID( local_iD);
+        raw.setAction( local_action);
+        raw.setResult( local_result);
+        return raw;
+    }
 
 
-	public void setID( String _iD )
-	{
-		this.local_iD = _iD;
-	}
-	public String getID( )
-	{
-		return this.local_iD;
-	}
-	public void setAction( String _action )
-	{
-		this.local_action = _action;
-	}
-	public String getAction( )
-	{
-		return this.local_action;
-	}
-	public void setResult( String _result )
-	{
-		this.local_result = _result;
-	}
-	public String getResult( )
-	{
-		return this.local_result;
-	}
+    public void setID( String _iD )
+    {
+        this.local_iD = _iD;
+    }
+    public String getID( )
+    {
+        return this.local_iD;
+    }
+    public void setAction( String _action )
+    {
+        this.local_action = _action;
+    }
+    public String getAction( )
+    {
+        return this.local_action;
+    }
+    public void setResult( String _result )
+    {
+        this.local_result = _result;
+    }
+    public String getResult( )
+    {
+        return this.local_result;
+    }
 }

@@ -26,7 +26,7 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine;
 import org.hpccsystems.ws.client.utils.DataSingleton;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;

@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class PackageListDataWrapper
 {
-	protected String local_id;
-	protected String local_queries;
+    protected String local_id;
+    protected String local_queries;
 
-	public PackageListDataWrapper() {}
+    public PackageListDataWrapper() {}
 
-	public PackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData packagelistdata)
-	{
-		copy( packagelistdata );
-	}
-	public PackageListDataWrapper( String _id, String _queries )
-	{
-		this.local_id = _id;
-		this.local_queries = _queries;
+    public PackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData packagelistdata)
+    {
+        copy( packagelistdata );
+    }
+    public PackageListDataWrapper( String _id, String _queries )
+    {
+        this.local_id = _id;
+        this.local_queries = _queries;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_id = raw.getId();
-		this.local_queries = raw.getQueries();
+        this.local_id = raw.getId();
+        this.local_queries = raw.getQueries();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "PackageListDataWrapper [" + "id = " + local_id + ", " + "queries = " + local_queries + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData();
-		raw.setId( local_id);
-		raw.setQueries( local_queries);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "PackageListDataWrapper [" + "id = " + local_id + ", " + "queries = " + local_queries + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData();
+        raw.setId( local_id);
+        raw.setQueries( local_queries);
+        return raw;
+    }
 
 
-	public void setId( String _id )
-	{
-		this.local_id = _id;
-	}
-	public String getId( )
-	{
-		return this.local_id;
-	}
-	public void setQueries( String _queries )
-	{
-		this.local_queries = _queries;
-	}
-	public String getQueries( )
-	{
-		return this.local_queries;
-	}
+    public void setId( String _id )
+    {
+        this.local_id = _id;
+    }
+    public String getId( )
+    {
+        return this.local_id;
+    }
+    public void setQueries( String _queries )
+    {
+        this.local_queries = _queries;
+    }
+    public String getQueries( )
+    {
+        return this.local_queries;
+    }
 }

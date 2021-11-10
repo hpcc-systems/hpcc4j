@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class GetDBSystemInfoRequestWrapper
 {
-	protected boolean local_includeAll;
+    protected boolean local_includeAll;
 
-	public GetDBSystemInfoRequestWrapper() {}
+    public GetDBSystemInfoRequestWrapper() {}
 
-	public GetDBSystemInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest getdbsysteminforequest)
-	{
-		copy( getdbsysteminforequest );
-	}
-	public GetDBSystemInfoRequestWrapper( boolean _includeAll )
-	{
-		this.local_includeAll = _includeAll;
+    public GetDBSystemInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBSystemInfoRequest getdbsysteminforequest)
+    {
+        copy( getdbsysteminforequest );
+    }
+    public GetDBSystemInfoRequestWrapper( boolean _includeAll )
+    {
+        this.local_includeAll = _includeAll;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBSystemInfoRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_includeAll = raw.getIncludeAll();
+        this.local_includeAll = raw.getIncludeAll();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetDBSystemInfoRequestWrapper [" + "includeAll = " + local_includeAll + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBSystemInfoRequest();
-		raw.setIncludeAll( local_includeAll);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetDBSystemInfoRequestWrapper [" + "includeAll = " + local_includeAll + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBSystemInfoRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBSystemInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBSystemInfoRequest();
+        raw.setIncludeAll( local_includeAll);
+        return raw;
+    }
 
 
-	public void setIncludeAll( boolean _includeAll )
-	{
-		this.local_includeAll = _includeAll;
-	}
-	public boolean getIncludeAll( )
-	{
-		return this.local_includeAll;
-	}
+    public void setIncludeAll( boolean _includeAll )
+    {
+        this.local_includeAll = _includeAll;
+    }
+    public boolean getIncludeAll( )
+    {
+        return this.local_includeAll;
+    }
 }

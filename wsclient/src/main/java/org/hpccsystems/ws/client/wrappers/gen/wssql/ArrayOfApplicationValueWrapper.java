@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfApplicationValueWrapper
 {
-	protected List<ApplicationValueWrapper> local_applicationValue = null;
+    protected List<ApplicationValueWrapper> local_applicationValue = null;
 
-	public ArrayOfApplicationValueWrapper() {}
+    public ArrayOfApplicationValueWrapper() {}
 
-	public ArrayOfApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue arrayofapplicationvalue)
-	{
-		copy( arrayofapplicationvalue );
-	}
-	public ArrayOfApplicationValueWrapper( List<ApplicationValueWrapper> _applicationValue )
-	{
-		this.local_applicationValue = _applicationValue;
+    public ArrayOfApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfApplicationValue arrayofapplicationvalue)
+    {
+        copy( arrayofapplicationvalue );
+    }
+    public ArrayOfApplicationValueWrapper( List<ApplicationValueWrapper> _applicationValue )
+    {
+        this.local_applicationValue = _applicationValue;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfApplicationValue raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getApplicationValue() != null)
-		{
-			this.local_applicationValue = new ArrayList<ApplicationValueWrapper>();
-			for ( int i = 0; i < raw.getApplicationValue().length; i++)
-			{
-				this.local_applicationValue.add(new ApplicationValueWrapper(raw.getApplicationValue()[i]));
-			}
-		}
-	}
+        if (raw.getApplicationValue() != null)
+        {
+            this.local_applicationValue = new ArrayList<ApplicationValueWrapper>();
+            for ( int i = 0; i < raw.getApplicationValue().length; i++)
+            {
+                this.local_applicationValue.add(new ApplicationValueWrapper(raw.getApplicationValue()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfApplicationValueWrapper [" + "applicationValue = " + local_applicationValue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfApplicationValue();
-		if (this.local_applicationValue!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue[this.local_applicationValue.size()];
-			for ( int i = 0; i < this.local_applicationValue.size(); i++)
-			{
-				arr[i] = this.local_applicationValue.get(i) .getRaw();
-			}
-			raw.setApplicationValue(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfApplicationValueWrapper [" + "applicationValue = " + local_applicationValue + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfApplicationValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfApplicationValue();
+        if (this.local_applicationValue!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue[this.local_applicationValue.size()];
+            for ( int i = 0; i < this.local_applicationValue.size(); i++)
+            {
+                arr[i] = this.local_applicationValue.get(i) .getRaw();
+            }
+            raw.setApplicationValue(arr);
+        }
+        return raw;
+    }
 
 
-	public void setApplicationValue( List<ApplicationValueWrapper> _applicationValue )
-	{
-		this.local_applicationValue = _applicationValue;
-	}
-	public List<ApplicationValueWrapper> getApplicationValue( )
-	{
-		return this.local_applicationValue;
-	}
+    public void setApplicationValue( List<ApplicationValueWrapper> _applicationValue )
+    {
+        this.local_applicationValue = _applicationValue;
+    }
+    public List<ApplicationValueWrapper> getApplicationValue( )
+    {
+        return this.local_applicationValue;
+    }
 }

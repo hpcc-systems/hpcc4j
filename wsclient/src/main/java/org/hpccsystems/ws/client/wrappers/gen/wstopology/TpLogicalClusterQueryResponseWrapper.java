@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLogicalClusterQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.973Z
+ * TimeStamp: 2021-10-27T23:40:06.364Z
  */
 public class TpLogicalClusterQueryResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ArrayOfTpLogicalClusterWrapper local_tpLogicalClusters;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfTpLogicalClusterWrapper local_tpLogicalClusters;
 
-	public TpLogicalClusterQueryResponseWrapper() {}
+    public TpLogicalClusterQueryResponseWrapper() {}
 
-	public TpLogicalClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse tplogicalclusterqueryresponse)
-	{
-		copy( tplogicalclusterqueryresponse );
-	}
-	public TpLogicalClusterQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfTpLogicalClusterWrapper _tpLogicalClusters )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_tpLogicalClusters = _tpLogicalClusters;
+    public TpLogicalClusterQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse tplogicalclusterqueryresponse)
+    {
+        copy( tplogicalclusterqueryresponse );
+    }
+    public TpLogicalClusterQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfTpLogicalClusterWrapper _tpLogicalClusters )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_tpLogicalClusters = _tpLogicalClusters;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getTpLogicalClusters() != null)
-			this.local_tpLogicalClusters = new ArrayOfTpLogicalClusterWrapper( raw.getTpLogicalClusters());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getTpLogicalClusters() != null)
+            this.local_tpLogicalClusters = new ArrayOfTpLogicalClusterWrapper( raw.getTpLogicalClusters());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpLogicalClusterQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpLogicalClusters = " + local_tpLogicalClusters + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpLogicalClusterQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpLogicalClusters = " + local_tpLogicalClusters + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setTpLogicalClusters( ArrayOfTpLogicalClusterWrapper _tpLogicalClusters )
-	{
-		this.local_tpLogicalClusters = _tpLogicalClusters;
-	}
-	public ArrayOfTpLogicalClusterWrapper getTpLogicalClusters( )
-	{
-		return this.local_tpLogicalClusters;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setTpLogicalClusters( ArrayOfTpLogicalClusterWrapper _tpLogicalClusters )
+    {
+        this.local_tpLogicalClusters = _tpLogicalClusters;
+    }
+    public ArrayOfTpLogicalClusterWrapper getTpLogicalClusters( )
+    {
+        return this.local_tpLogicalClusters;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUDefFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDefFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.713Z
+ * TimeStamp: 2021-10-27T14:48:55.251Z
  */
 public class DFUDefFileRequestWrapper
 {
-	protected String local_name;
-	protected DFUDefFileFormatWrapper local_format;
+    protected String local_name;
+    protected DFUDefFileFormatWrapper local_format;
 
-	public DFUDefFileRequestWrapper() {}
+    public DFUDefFileRequestWrapper() {}
 
-	public DFUDefFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDefFileRequest dfudeffilerequest)
-	{
-		copy( dfudeffilerequest );
-	}
-	public DFUDefFileRequestWrapper( String _name, DFUDefFileFormatWrapper _format )
-	{
-		this.local_name = _name;
-		this.local_format = _format;
+    public DFUDefFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest dfudeffilerequest)
+    {
+        copy( dfudeffilerequest );
+    }
+    public DFUDefFileRequestWrapper( String _name, DFUDefFileFormatWrapper _format )
+    {
+        this.local_name = _name;
+        this.local_format = _format;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDefFileRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		if (raw.getFormat() != null)
-			this.local_format = new DFUDefFileFormatWrapper( raw.getFormat());
+        this.local_name = raw.getName();
+        if (raw.getFormat() != null)
+            this.local_format = new DFUDefFileFormatWrapper( raw.getFormat());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUDefFileRequestWrapper [" + "name = " + local_name + ", " + "format = " + local_format + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDefFileRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDefFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDefFileRequest();
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUDefFileRequestWrapper [" + "name = " + local_name + ", " + "format = " + local_format + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest();
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setFormat( DFUDefFileFormatWrapper _format )
-	{
-		this.local_format = _format;
-	}
-	public DFUDefFileFormatWrapper getFormat( )
-	{
-		return this.local_format;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setFormat( DFUDefFileFormatWrapper _format )
+    {
+        this.local_format = _format;
+    }
+    public DFUDefFileFormatWrapper getFormat( )
+    {
+        return this.local_format;
+    }
 }

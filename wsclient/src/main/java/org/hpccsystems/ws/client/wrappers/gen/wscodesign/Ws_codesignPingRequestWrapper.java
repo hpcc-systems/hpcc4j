@@ -28,13 +28,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 public class Ws_codesignPingRequestWrapper
 {
 
-	public Ws_codesignPingRequestWrapper() {}
+    public Ws_codesignPingRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.Ws_codesignPingRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.Ws_codesignPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.Ws_codesignPingRequest();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Ws_codesignPingRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Ws_codesignPingRequest raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Ws_codesignPingRequest();
+        return raw;
+    }
 
 
 }

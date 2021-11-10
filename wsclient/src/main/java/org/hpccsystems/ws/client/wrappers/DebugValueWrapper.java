@@ -1,7 +1,8 @@
 package org.hpccsystems.ws.client.wrappers;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.DebugValue;
 
+@Deprecated
 public class DebugValueWrapper
 {
 
@@ -130,13 +131,13 @@ public class DebugValueWrapper
     }
 
     /**
-     * Gets the raw version 1 81.
+     * Gets the latest version.
      *
-     * @return the raw version 1 81
+     * @return the latest version
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue getRawVersion1_81()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.DebugValue getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue val = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.DebugValue();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.DebugValue val = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.DebugValue();
         val.setName(this.getName());
         val.setValue(this.getValue());
         return val;

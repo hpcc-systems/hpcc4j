@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class HPCCFileTypeWrapper
 {
-	protected String local_hPCCFileType;
+    protected String local_hPCCFileType;
 
-	public HPCCFileTypeWrapper() {}
+    public HPCCFileTypeWrapper() {}
 
-	public HPCCFileTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFileType hpccfiletype)
-	{
-		copy( hpccfiletype );
-	}
-	public HPCCFileTypeWrapper( String _hPCCFileType )
-	{
-		this.local_hPCCFileType = _hPCCFileType;
+    public HPCCFileTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFileType hpccfiletype)
+    {
+        copy( hpccfiletype );
+    }
+    public HPCCFileTypeWrapper( String _hPCCFileType )
+    {
+        this.local_hPCCFileType = _hPCCFileType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFileType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFileType raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getHPCCFileType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "HPCCFileTypeWrapper [" + "hPCCFileType = " + local_hPCCFileType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFileType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCFileType raw = null;
+    @Override
+    public String toString()
+    {
+        return "HPCCFileTypeWrapper [" + "hPCCFileType = " + local_hPCCFileType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFileType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCFileType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setHPCCFileType(hPCCFileType);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setHPCCFileType( String _hPCCFileType )
-	{
-		this.local_hPCCFileType = _hPCCFileType;
-	}
-	public String getHPCCFileType( )
-	{
-		return this.local_hPCCFileType;
-	}
+    public void setHPCCFileType( String _hPCCFileType )
+    {
+        this.local_hPCCFileType = _hPCCFileType;
+    }
+    public String getHPCCFileType( )
+    {
+        return this.local_hPCCFileType;
+    }
 }

@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
  */
 public class SigningMethodTypeWrapper
 {
-	protected String local_signingMethodType;
+    protected String local_signingMethodType;
 
-	public SigningMethodTypeWrapper() {}
+    public SigningMethodTypeWrapper() {}
 
-	public SigningMethodTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.SigningMethodType signingmethodtype)
-	{
-		copy( signingmethodtype );
-	}
-	public SigningMethodTypeWrapper( String _signingMethodType )
-	{
-		this.local_signingMethodType = _signingMethodType;
+    public SigningMethodTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.SigningMethodType signingmethodtype)
+    {
+        copy( signingmethodtype );
+    }
+    public SigningMethodTypeWrapper( String _signingMethodType )
+    {
+        this.local_signingMethodType = _signingMethodType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.SigningMethodType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.SigningMethodType raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getSigningMethodType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SigningMethodTypeWrapper [" + "signingMethodType = " + local_signingMethodType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.SigningMethodType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.SigningMethodType raw = null;
+    @Override
+    public String toString()
+    {
+        return "SigningMethodTypeWrapper [" + "signingMethodType = " + local_signingMethodType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.SigningMethodType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.SigningMethodType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setSigningMethodType(signingMethodType);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setSigningMethodType( String _signingMethodType )
-	{
-		this.local_signingMethodType = _signingMethodType;
-	}
-	public String getSigningMethodType( )
-	{
-		return this.local_signingMethodType;
-	}
+    public void setSigningMethodType( String _signingMethodType )
+    {
+        this.local_signingMethodType = _signingMethodType;
+    }
+    public String getSigningMethodType( )
+    {
+        return this.local_signingMethodType;
+    }
 }

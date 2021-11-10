@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
  */
 public class ServiceQueryResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected Services_type0Wrapper local_services;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected Services_type0Wrapper local_services;
 
-	public ServiceQueryResponseWrapper() {}
+    public ServiceQueryResponseWrapper() {}
 
-	public ServiceQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.ServiceQueryResponse servicequeryresponse)
-	{
-		copy( servicequeryresponse );
-	}
-	public ServiceQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Services_type0Wrapper _services )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_services = _services;
+    public ServiceQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse servicequeryresponse)
+    {
+        copy( servicequeryresponse );
+    }
+    public ServiceQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Services_type0Wrapper _services )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_services = _services;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.ServiceQueryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getServices() != null)
-			this.local_services = new Services_type0Wrapper( raw.getServices());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getServices() != null)
+            this.local_services = new Services_type0Wrapper( raw.getServices());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ServiceQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "services = " + local_services + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.ServiceQueryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.ServiceQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.ServiceQueryResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ServiceQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "services = " + local_services + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setServices( Services_type0Wrapper _services )
-	{
-		this.local_services = _services;
-	}
-	public Services_type0Wrapper getServices( )
-	{
-		return this.local_services;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setServices( Services_type0Wrapper _services )
+    {
+        this.local_services = _services;
+    }
+    public Services_type0Wrapper getServices( )
+    {
+        return this.local_services;
+    }
 }

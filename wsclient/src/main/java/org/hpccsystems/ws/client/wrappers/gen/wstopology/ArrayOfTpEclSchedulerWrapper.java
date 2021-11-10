@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpEclSchedulerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclScheduler
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.908Z
+ * TimeStamp: 2021-10-27T23:40:06.311Z
  */
 public class ArrayOfTpEclSchedulerWrapper
 {
-	protected List<TpEclSchedulerWrapper> local_tpEclScheduler = null;
+    protected List<TpEclSchedulerWrapper> local_tpEclScheduler = null;
 
-	public ArrayOfTpEclSchedulerWrapper() {}
+    public ArrayOfTpEclSchedulerWrapper() {}
 
-	public ArrayOfTpEclSchedulerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclScheduler arrayoftpeclscheduler)
-	{
-		copy( arrayoftpeclscheduler );
-	}
-	public ArrayOfTpEclSchedulerWrapper( List<TpEclSchedulerWrapper> _tpEclScheduler )
-	{
-		this.local_tpEclScheduler = _tpEclScheduler;
+    public ArrayOfTpEclSchedulerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler arrayoftpeclscheduler)
+    {
+        copy( arrayoftpeclscheduler );
+    }
+    public ArrayOfTpEclSchedulerWrapper( List<TpEclSchedulerWrapper> _tpEclScheduler )
+    {
+        this.local_tpEclScheduler = _tpEclScheduler;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclScheduler raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpEclScheduler() != null)
-		{
-			this.local_tpEclScheduler = new ArrayList<TpEclSchedulerWrapper>();
-			for ( int i = 0; i < raw.getTpEclScheduler().length; i++)
-			{
-				this.local_tpEclScheduler.add(new TpEclSchedulerWrapper(raw.getTpEclScheduler()[i]));
-			}
-		}
-	}
+        if (raw.getTpEclScheduler() != null)
+        {
+            this.local_tpEclScheduler = new ArrayList<TpEclSchedulerWrapper>();
+            for ( int i = 0; i < raw.getTpEclScheduler().length; i++)
+            {
+                this.local_tpEclScheduler.add(new TpEclSchedulerWrapper(raw.getTpEclScheduler()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpEclSchedulerWrapper [" + "tpEclScheduler = " + local_tpEclScheduler + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclScheduler getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclScheduler raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpEclScheduler();
-		if (this.local_tpEclScheduler!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclScheduler[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpEclScheduler[this.local_tpEclScheduler.size()];
-			for ( int i = 0; i < this.local_tpEclScheduler.size(); i++)
-			{
-				arr[i] = this.local_tpEclScheduler.get(i) .getRaw();
-			}
-			raw.setTpEclScheduler(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpEclSchedulerWrapper [" + "tpEclScheduler = " + local_tpEclScheduler + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler();
+        if (this.local_tpEclScheduler!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclScheduler[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclScheduler[this.local_tpEclScheduler.size()];
+            for ( int i = 0; i < this.local_tpEclScheduler.size(); i++)
+            {
+                arr[i] = this.local_tpEclScheduler.get(i) .getRaw();
+            }
+            raw.setTpEclScheduler(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpEclScheduler( List<TpEclSchedulerWrapper> _tpEclScheduler )
-	{
-		this.local_tpEclScheduler = _tpEclScheduler;
-	}
-	public List<TpEclSchedulerWrapper> getTpEclScheduler( )
-	{
-		return this.local_tpEclScheduler;
-	}
+    public void setTpEclScheduler( List<TpEclSchedulerWrapper> _tpEclScheduler )
+    {
+        this.local_tpEclScheduler = _tpEclScheduler;
+    }
+    public List<TpEclSchedulerWrapper> getTpEclScheduler( )
+    {
+        return this.local_tpEclScheduler;
+    }
 }

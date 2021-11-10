@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpGroupQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.961Z
+ * TimeStamp: 2021-10-27T23:40:06.350Z
  */
 public class TpGroupQueryRequestWrapper
 {
-	protected String local_kind;
+    protected String local_kind;
 
-	public TpGroupQueryRequestWrapper() {}
+    public TpGroupQueryRequestWrapper() {}
 
-	public TpGroupQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest tpgroupqueryrequest)
-	{
-		copy( tpgroupqueryrequest );
-	}
-	public TpGroupQueryRequestWrapper( String _kind )
-	{
-		this.local_kind = _kind;
+    public TpGroupQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest tpgroupqueryrequest)
+    {
+        copy( tpgroupqueryrequest );
+    }
+    public TpGroupQueryRequestWrapper( String _kind )
+    {
+        this.local_kind = _kind;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_kind = raw.getKind();
+        this.local_kind = raw.getKind();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpGroupQueryRequestWrapper [" + "kind = " + local_kind + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroupQueryRequest();
-		raw.setKind( local_kind);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpGroupQueryRequestWrapper [" + "kind = " + local_kind + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest();
+        raw.setKind( local_kind);
+        return raw;
+    }
 
 
-	public void setKind( String _kind )
-	{
-		this.local_kind = _kind;
-	}
-	public String getKind( )
-	{
-		return this.local_kind;
-	}
+    public void setKind( String _kind )
+    {
+        this.local_kind = _kind;
+    }
+    public String getKind( )
+    {
+        return this.local_kind;
+    }
 }

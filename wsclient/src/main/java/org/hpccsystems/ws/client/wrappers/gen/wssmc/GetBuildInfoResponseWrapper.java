@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetBuildInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.001Z
+ * TimeStamp: 2021-10-27T20:17:20.582Z
  */
 public class GetBuildInfoResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ArrayOfNamedValueWrapper local_buildInfo;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfNamedValueWrapper local_buildInfo;
 
-	public GetBuildInfoResponseWrapper() {}
+    public GetBuildInfoResponseWrapper() {}
 
-	public GetBuildInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse getbuildinforesponse)
-	{
-		copy( getbuildinforesponse );
-	}
-	public GetBuildInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfNamedValueWrapper _buildInfo )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_buildInfo = _buildInfo;
+    public GetBuildInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse getbuildinforesponse)
+    {
+        copy( getbuildinforesponse );
+    }
+    public GetBuildInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfNamedValueWrapper _buildInfo )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_buildInfo = _buildInfo;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getBuildInfo() != null)
-			this.local_buildInfo = new ArrayOfNamedValueWrapper( raw.getBuildInfo());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getBuildInfo() != null)
+            this.local_buildInfo = new ArrayOfNamedValueWrapper( raw.getBuildInfo());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetBuildInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "buildInfo = " + local_buildInfo + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.GetBuildInfoResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetBuildInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "buildInfo = " + local_buildInfo + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setBuildInfo( ArrayOfNamedValueWrapper _buildInfo )
-	{
-		this.local_buildInfo = _buildInfo;
-	}
-	public ArrayOfNamedValueWrapper getBuildInfo( )
-	{
-		return this.local_buildInfo;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setBuildInfo( ArrayOfNamedValueWrapper _buildInfo )
+    {
+        this.local_buildInfo = _buildInfo;
+    }
+    public ArrayOfNamedValueWrapper getBuildInfo( )
+    {
+        return this.local_buildInfo;
+    }
 }

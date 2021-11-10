@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterNameTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.936Z
+ * TimeStamp: 2021-10-27T23:40:06.333Z
  */
 public class TpClusterNameTypeWrapper
 {
-	protected String local_name;
-	protected String local_type;
-	protected boolean local_isDefault;
+    protected String local_name;
+    protected String local_type;
+    protected boolean local_isDefault;
 
-	public TpClusterNameTypeWrapper() {}
+    public TpClusterNameTypeWrapper() {}
 
-	public TpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType tpclusternametype)
-	{
-		copy( tpclusternametype );
-	}
-	public TpClusterNameTypeWrapper( String _name, String _type, boolean _isDefault )
-	{
-		this.local_name = _name;
-		this.local_type = _type;
-		this.local_isDefault = _isDefault;
+    public TpClusterNameTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType tpclusternametype)
+    {
+        copy( tpclusternametype );
+    }
+    public TpClusterNameTypeWrapper( String _name, String _type, boolean _isDefault )
+    {
+        this.local_name = _name;
+        this.local_type = _type;
+        this.local_isDefault = _isDefault;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_type = raw.getType();
-		this.local_isDefault = raw.getIsDefault();
+        this.local_name = raw.getName();
+        this.local_type = raw.getType();
+        this.local_isDefault = raw.getIsDefault();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpClusterNameTypeWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "isDefault = " + local_isDefault + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterNameType();
-		raw.setName( local_name);
-		raw.setType( local_type);
-		raw.setIsDefault( local_isDefault);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpClusterNameTypeWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "isDefault = " + local_isDefault + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType();
+        raw.setName( local_name);
+        raw.setType( local_type);
+        raw.setIsDefault( local_isDefault);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setType( String _type )
-	{
-		this.local_type = _type;
-	}
-	public String getType( )
-	{
-		return this.local_type;
-	}
-	public void setIsDefault( boolean _isDefault )
-	{
-		this.local_isDefault = _isDefault;
-	}
-	public boolean getIsDefault( )
-	{
-		return this.local_isDefault;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setType( String _type )
+    {
+        this.local_type = _type;
+    }
+    public String getType( )
+    {
+        return this.local_type;
+    }
+    public void setIsDefault( boolean _isDefault )
+    {
+        this.local_isDefault = _isDefault;
+    }
+    public boolean getIsDefault( )
+    {
+        return this.local_isDefault;
+    }
 }

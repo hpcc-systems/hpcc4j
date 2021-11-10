@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,90 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RoxieControlCmdWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmd
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.083Z
+ * TimeStamp: 2021-10-27T20:17:20.605Z
  */
 public class RoxieControlCmdWrapper
 {
-	protected String local_processCluster;
-	protected RoxieControlCmdTypeWrapper local_command;
-	protected int local_wait;
+    protected String local_processCluster;
+    protected String local_targetCluster;
+    protected RoxieControlCmdTypeWrapper local_command;
+    protected int local_wait;
 
-	public RoxieControlCmdWrapper() {}
+    public RoxieControlCmdWrapper() {}
 
-	public RoxieControlCmdWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmd roxiecontrolcmd)
-	{
-		copy( roxiecontrolcmd );
-	}
-	public RoxieControlCmdWrapper( String _processCluster, RoxieControlCmdTypeWrapper _command, int _wait )
-	{
-		this.local_processCluster = _processCluster;
-		this.local_command = _command;
-		this.local_wait = _wait;
+    public RoxieControlCmdWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd roxiecontrolcmd)
+    {
+        copy( roxiecontrolcmd );
+    }
+    public RoxieControlCmdWrapper( String _processCluster, String _targetCluster, RoxieControlCmdTypeWrapper _command, int _wait )
+    {
+        this.local_processCluster = _processCluster;
+        this.local_targetCluster = _targetCluster;
+        this.local_command = _command;
+        this.local_wait = _wait;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmd raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_processCluster = raw.getProcessCluster();
-		if (raw.getCommand() != null)
-			this.local_command = new RoxieControlCmdTypeWrapper( raw.getCommand());
-		this.local_wait = raw.getWait();
+        this.local_processCluster = raw.getProcessCluster();
+        this.local_targetCluster = raw.getTargetCluster();
+        if (raw.getCommand() != null)
+            this.local_command = new RoxieControlCmdTypeWrapper( raw.getCommand());
+        this.local_wait = raw.getWait();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "RoxieControlCmdWrapper [" + "processCluster = " + local_processCluster + ", " + "command = " + local_command + ", " + "wait = " + local_wait + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmd getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmd raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmd();
-		raw.setProcessCluster( local_processCluster);
-		raw.setWait( local_wait);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "RoxieControlCmdWrapper [" + "processCluster = " + local_processCluster + ", " + "targetCluster = " + local_targetCluster + ", " + "command = " + local_command + ", " + "wait = " + local_wait + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd();
+        raw.setProcessCluster( local_processCluster);
+        raw.setTargetCluster( local_targetCluster);
+        raw.setWait( local_wait);
+        return raw;
+    }
 
 
-	public void setProcessCluster( String _processCluster )
-	{
-		this.local_processCluster = _processCluster;
-	}
-	public String getProcessCluster( )
-	{
-		return this.local_processCluster;
-	}
-	public void setCommand( RoxieControlCmdTypeWrapper _command )
-	{
-		this.local_command = _command;
-	}
-	public RoxieControlCmdTypeWrapper getCommand( )
-	{
-		return this.local_command;
-	}
-	public void setWait( int _wait )
-	{
-		this.local_wait = _wait;
-	}
-	public int getWait( )
-	{
-		return this.local_wait;
-	}
+    public void setProcessCluster( String _processCluster )
+    {
+        this.local_processCluster = _processCluster;
+    }
+    public String getProcessCluster( )
+    {
+        return this.local_processCluster;
+    }
+    public void setTargetCluster( String _targetCluster )
+    {
+        this.local_targetCluster = _targetCluster;
+    }
+    public String getTargetCluster( )
+    {
+        return this.local_targetCluster;
+    }
+    public void setCommand( RoxieControlCmdTypeWrapper _command )
+    {
+        this.local_command = _command;
+    }
+    public RoxieControlCmdTypeWrapper getCommand( )
+    {
+        return this.local_command;
+    }
+    public void setWait( int _wait )
+    {
+        this.local_wait = _wait;
+    }
+    public int getWait( )
+    {
+        return this.local_wait;
+    }
 }

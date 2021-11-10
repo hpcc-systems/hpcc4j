@@ -1,9 +1,9 @@
 package org.hpccsystems.ws.client;
 
-import org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException;
-import org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.EspException;
+import org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException;
+import org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfEspException;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLExceptionWrapper;

@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
  */
 public class VerifyRequestWrapper
 {
-	protected String local_text;
+    protected String local_text;
 
-	public VerifyRequestWrapper() {}
+    public VerifyRequestWrapper() {}
 
-	public VerifyRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyRequest verifyrequest)
-	{
-		copy( verifyrequest );
-	}
-	public VerifyRequestWrapper( String _text )
-	{
-		this.local_text = _text;
+    public VerifyRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyRequest verifyrequest)
+    {
+        copy( verifyrequest );
+    }
+    public VerifyRequestWrapper( String _text )
+    {
+        this.local_text = _text;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_text = raw.getText();
+        this.local_text = raw.getText();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "VerifyRequestWrapper [" + "text = " + local_text + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyRequest raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyRequest();
-		raw.setText( local_text);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "VerifyRequestWrapper [" + "text = " + local_text + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyRequest raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyRequest();
+        raw.setText( local_text);
+        return raw;
+    }
 
 
-	public void setText( String _text )
-	{
-		this.local_text = _text;
-	}
-	public String getText( )
-	{
-		return this.local_text;
-	}
+    public void setText( String _text )
+    {
+        this.local_text = _text;
+    }
+    public String getText( )
+    {
+        return this.local_text;
+    }
 }

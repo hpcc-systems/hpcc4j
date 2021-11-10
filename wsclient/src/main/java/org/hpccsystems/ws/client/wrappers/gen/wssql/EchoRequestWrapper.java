@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class EchoRequestWrapper
 {
-	protected String local_request;
+    protected String local_request;
 
-	public EchoRequestWrapper() {}
+    public EchoRequestWrapper() {}
 
-	public EchoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoRequest echorequest)
-	{
-		copy( echorequest );
-	}
-	public EchoRequestWrapper( String _request )
-	{
-		this.local_request = _request;
+    public EchoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoRequest echorequest)
+    {
+        copy( echorequest );
+    }
+    public EchoRequestWrapper( String _request )
+    {
+        this.local_request = _request;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_request = raw.getRequest();
+        this.local_request = raw.getRequest();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EchoRequestWrapper [" + "request = " + local_request + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoRequest();
-		raw.setRequest( local_request);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EchoRequestWrapper [" + "request = " + local_request + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoRequest();
+        raw.setRequest( local_request);
+        return raw;
+    }
 
 
-	public void setRequest( String _request )
-	{
-		this.local_request = _request;
-	}
-	public String getRequest( )
-	{
-		return this.local_request;
-	}
+    public void setRequest( String _request )
+    {
+        this.local_request = _request;
+    }
+    public String getRequest( )
+    {
+        return this.local_request;
+    }
 }

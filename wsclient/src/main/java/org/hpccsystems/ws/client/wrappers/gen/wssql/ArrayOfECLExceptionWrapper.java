@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLExceptionWrapper
 {
-	protected List<ECLExceptionWrapper> local_eCLException = null;
+    protected List<ECLExceptionWrapper> local_eCLException = null;
 
-	public ArrayOfECLExceptionWrapper() {}
+    public ArrayOfECLExceptionWrapper() {}
 
-	public ArrayOfECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException arrayofeclexception)
-	{
-		copy( arrayofeclexception );
-	}
-	public ArrayOfECLExceptionWrapper( List<ECLExceptionWrapper> _eCLException )
-	{
-		this.local_eCLException = _eCLException;
+    public ArrayOfECLExceptionWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException arrayofeclexception)
+    {
+        copy( arrayofeclexception );
+    }
+    public ArrayOfECLExceptionWrapper( List<ECLExceptionWrapper> _eCLException )
+    {
+        this.local_eCLException = _eCLException;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLException() != null)
-		{
-			this.local_eCLException = new ArrayList<ECLExceptionWrapper>();
-			for ( int i = 0; i < raw.getECLException().length; i++)
-			{
-				this.local_eCLException.add(new ECLExceptionWrapper(raw.getECLException()[i]));
-			}
-		}
-	}
+        if (raw.getECLException() != null)
+        {
+            this.local_eCLException = new ArrayList<ECLExceptionWrapper>();
+            for ( int i = 0; i < raw.getECLException().length; i++)
+            {
+                this.local_eCLException.add(new ECLExceptionWrapper(raw.getECLException()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLExceptionWrapper [" + "eCLException = " + local_eCLException + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException();
-		if (this.local_eCLException!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException[this.local_eCLException.size()];
-			for ( int i = 0; i < this.local_eCLException.size(); i++)
-			{
-				arr[i] = this.local_eCLException.get(i) .getRaw();
-			}
-			raw.setECLException(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLExceptionWrapper [" + "eCLException = " + local_eCLException + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException();
+        if (this.local_eCLException!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException[this.local_eCLException.size()];
+            for ( int i = 0; i < this.local_eCLException.size(); i++)
+            {
+                arr[i] = this.local_eCLException.get(i) .getRaw();
+            }
+            raw.setECLException(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLException( List<ECLExceptionWrapper> _eCLException )
-	{
-		this.local_eCLException = _eCLException;
-	}
-	public List<ECLExceptionWrapper> getECLException( )
-	{
-		return this.local_eCLException;
-	}
+    public void setECLException( List<ECLExceptionWrapper> _eCLException )
+    {
+        this.local_eCLException = _eCLException;
+    }
+    public List<ECLExceptionWrapper> getECLException( )
+    {
+        return this.local_eCLException;
+    }
 }

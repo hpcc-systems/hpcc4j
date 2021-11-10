@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUFileResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.583Z
+ * TimeStamp: 2021-10-27T18:52:06.454Z
  */
 public class DFUWUFileResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected String local_file;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected String local_file;
 
-	public DFUWUFileResponseWrapper() {}
+    public DFUWUFileResponseWrapper() {}
 
-	public DFUWUFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse dfuwufileresponse)
-	{
-		copy( dfuwufileresponse );
-	}
-	public DFUWUFileResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _file )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_file = _file;
+    public DFUWUFileResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileResponse dfuwufileresponse)
+    {
+        copy( dfuwufileresponse );
+    }
+    public DFUWUFileResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _file )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_file = _file;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_file = raw.getFile();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_file = raw.getFile();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUWUFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "file = " + local_file + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUFileResponse();
-		raw.setFile( local_file);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUWUFileResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "file = " + local_file + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUFileResponse();
+        raw.setFile( local_file);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setFile( String _file )
-	{
-		this.local_file = _file;
-	}
-	public String getFile( )
-	{
-		return this.local_file;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setFile( String _file )
+    {
+        this.local_file = _file;
+    }
+    public String getFile( )
+    {
+        return this.local_file;
+    }
 }

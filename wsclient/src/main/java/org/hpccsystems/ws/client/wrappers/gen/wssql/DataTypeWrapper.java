@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class DataTypeWrapper
 {
-	protected HPCCFileTypeWrapper local_type;
-	protected Params_type0Wrapper local_params;
+    protected HPCCFileTypeWrapper local_type;
+    protected Params_type0Wrapper local_params;
 
-	public DataTypeWrapper() {}
+    public DataTypeWrapper() {}
 
-	public DataTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataType datatype)
-	{
-		copy( datatype );
-	}
-	public DataTypeWrapper( HPCCFileTypeWrapper _type, Params_type0Wrapper _params )
-	{
-		this.local_type = _type;
-		this.local_params = _params;
+    public DataTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataType datatype)
+    {
+        copy( datatype );
+    }
+    public DataTypeWrapper( HPCCFileTypeWrapper _type, Params_type0Wrapper _params )
+    {
+        this.local_type = _type;
+        this.local_params = _params;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataType raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getType() != null)
-			this.local_type = new HPCCFileTypeWrapper( raw.getType());
-		if (raw.getParams() != null)
-			this.local_params = new Params_type0Wrapper( raw.getParams());
+        if (raw.getType() != null)
+            this.local_type = new HPCCFileTypeWrapper( raw.getType());
+        if (raw.getParams() != null)
+            this.local_params = new Params_type0Wrapper( raw.getParams());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DataTypeWrapper [" + "type = " + local_type + ", " + "params = " + local_params + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataType();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DataTypeWrapper [" + "type = " + local_type + ", " + "params = " + local_params + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataType();
+        return raw;
+    }
 
 
-	public void setType( HPCCFileTypeWrapper _type )
-	{
-		this.local_type = _type;
-	}
-	public HPCCFileTypeWrapper getType( )
-	{
-		return this.local_type;
-	}
-	public void setParams( Params_type0Wrapper _params )
-	{
-		this.local_params = _params;
-	}
-	public Params_type0Wrapper getParams( )
-	{
-		return this.local_params;
-	}
+    public void setType( HPCCFileTypeWrapper _type )
+    {
+        this.local_type = _type;
+    }
+    public HPCCFileTypeWrapper getType( )
+    {
+        return this.local_type;
+    }
+    public void setParams( Params_type0Wrapper _params )
+    {
+        this.local_params = _params;
+    }
+    public Params_type0Wrapper getParams( )
+    {
+        return this.local_params;
+    }
 }

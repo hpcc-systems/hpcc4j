@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUJobWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfDFUJob
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.932Z
+ * TimeStamp: 2021-10-27T20:17:20.563Z
  */
 public class ArrayOfDFUJobWrapper
 {
-	protected List<DFUJobWrapper> local_dFUJob = null;
+    protected List<DFUJobWrapper> local_dFUJob = null;
 
-	public ArrayOfDFUJobWrapper() {}
+    public ArrayOfDFUJobWrapper() {}
 
-	public ArrayOfDFUJobWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfDFUJob arrayofdfujob)
-	{
-		copy( arrayofdfujob );
-	}
-	public ArrayOfDFUJobWrapper( List<DFUJobWrapper> _dFUJob )
-	{
-		this.local_dFUJob = _dFUJob;
+    public ArrayOfDFUJobWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob arrayofdfujob)
+    {
+        copy( arrayofdfujob );
+    }
+    public ArrayOfDFUJobWrapper( List<DFUJobWrapper> _dFUJob )
+    {
+        this.local_dFUJob = _dFUJob;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfDFUJob raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDFUJob() != null)
-		{
-			this.local_dFUJob = new ArrayList<DFUJobWrapper>();
-			for ( int i = 0; i < raw.getDFUJob().length; i++)
-			{
-				this.local_dFUJob.add(new DFUJobWrapper(raw.getDFUJob()[i]));
-			}
-		}
-	}
+        if (raw.getDFUJob() != null)
+        {
+            this.local_dFUJob = new ArrayList<DFUJobWrapper>();
+            for ( int i = 0; i < raw.getDFUJob().length; i++)
+            {
+                this.local_dFUJob.add(new DFUJobWrapper(raw.getDFUJob()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFUJobWrapper [" + "dFUJob = " + local_dFUJob + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfDFUJob getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfDFUJob raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfDFUJob();
-		if (this.local_dFUJob!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.DFUJob[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.DFUJob[this.local_dFUJob.size()];
-			for ( int i = 0; i < this.local_dFUJob.size(); i++)
-			{
-				arr[i] = this.local_dFUJob.get(i) .getRaw();
-			}
-			raw.setDFUJob(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFUJobWrapper [" + "dFUJob = " + local_dFUJob + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob();
+        if (this.local_dFUJob!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DFUJob[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DFUJob[this.local_dFUJob.size()];
+            for ( int i = 0; i < this.local_dFUJob.size(); i++)
+            {
+                arr[i] = this.local_dFUJob.get(i) .getRaw();
+            }
+            raw.setDFUJob(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDFUJob( List<DFUJobWrapper> _dFUJob )
-	{
-		this.local_dFUJob = _dFUJob;
-	}
-	public List<DFUJobWrapper> getDFUJob( )
-	{
-		return this.local_dFUJob;
-	}
+    public void setDFUJob( List<DFUJobWrapper> _dFUJob )
+    {
+        this.local_dFUJob = _dFUJob;
+    }
+    public List<DFUJobWrapper> getDFUJob( )
+    {
+        return this.local_dFUJob;
+    }
 }

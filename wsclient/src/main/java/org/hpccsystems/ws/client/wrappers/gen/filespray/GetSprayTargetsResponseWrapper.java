@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetSprayTargetsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.622Z
+ * TimeStamp: 2021-10-27T18:52:06.484Z
  */
 public class GetSprayTargetsResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected GroupNodes_type0Wrapper local_groupNodes;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected GroupNodes_type0Wrapper local_groupNodes;
 
-	public GetSprayTargetsResponseWrapper() {}
+    public GetSprayTargetsResponseWrapper() {}
 
-	public GetSprayTargetsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse getspraytargetsresponse)
-	{
-		copy( getspraytargetsresponse );
-	}
-	public GetSprayTargetsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, GroupNodes_type0Wrapper _groupNodes )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_groupNodes = _groupNodes;
+    public GetSprayTargetsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse getspraytargetsresponse)
+    {
+        copy( getspraytargetsresponse );
+    }
+    public GetSprayTargetsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, GroupNodes_type0Wrapper _groupNodes )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_groupNodes = _groupNodes;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getGroupNodes() != null)
-			this.local_groupNodes = new GroupNodes_type0Wrapper( raw.getGroupNodes());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getGroupNodes() != null)
+            this.local_groupNodes = new GroupNodes_type0Wrapper( raw.getGroupNodes());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetSprayTargetsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "groupNodes = " + local_groupNodes + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetSprayTargetsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "groupNodes = " + local_groupNodes + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setGroupNodes( GroupNodes_type0Wrapper _groupNodes )
-	{
-		this.local_groupNodes = _groupNodes;
-	}
-	public GroupNodes_type0Wrapper getGroupNodes( )
-	{
-		return this.local_groupNodes;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setGroupNodes( GroupNodes_type0Wrapper _groupNodes )
+    {
+        this.local_groupNodes = _groupNodes;
+    }
+    public GroupNodes_type0Wrapper getGroupNodes( )
+    {
+        return this.local_groupNodes;
+    }
 }

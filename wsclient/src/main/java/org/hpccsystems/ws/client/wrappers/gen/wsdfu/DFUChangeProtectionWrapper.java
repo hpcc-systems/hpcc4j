@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUChangeProtectionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeProtection
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeProtection
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.700Z
+ * TimeStamp: 2021-10-27T14:48:55.247Z
  */
 public class DFUChangeProtectionWrapper
 {
-	protected int local_dFUChangeProtection;
+    protected int local_dFUChangeProtection;
 
-	public DFUChangeProtectionWrapper() {}
+    public DFUChangeProtectionWrapper() {}
 
-	public DFUChangeProtectionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeProtection dfuchangeprotection)
-	{
-		copy( dfuchangeprotection );
-	}
-	public DFUChangeProtectionWrapper( int _dFUChangeProtection )
-	{
-		this.local_dFUChangeProtection = _dFUChangeProtection;
+    public DFUChangeProtectionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeProtection dfuchangeprotection)
+    {
+        copy( dfuchangeprotection );
+    }
+    public DFUChangeProtectionWrapper( int _dFUChangeProtection )
+    {
+        this.local_dFUChangeProtection = _dFUChangeProtection;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeProtection raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeProtection raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getDFUChangeProtection();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUChangeProtectionWrapper [" + "dFUChangeProtection = " + local_dFUChangeProtection + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeProtection getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeProtection raw = null;
+    @Override
+    public String toString()
+    {
+        return "DFUChangeProtectionWrapper [" + "dFUChangeProtection = " + local_dFUChangeProtection + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeProtection getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeProtection raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setDFUChangeProtection(dFUChangeProtection);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setDFUChangeProtection( int _dFUChangeProtection )
-	{
-		this.local_dFUChangeProtection = _dFUChangeProtection;
-	}
-	public int getDFUChangeProtection( )
-	{
-		return this.local_dFUChangeProtection;
-	}
+    public void setDFUChangeProtection( int _dFUChangeProtection )
+    {
+        this.local_dFUChangeProtection = _dFUChangeProtection;
+    }
+    public int getDFUChangeProtection( )
+    {
+        return this.local_dFUChangeProtection;
+    }
 }

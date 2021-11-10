@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ResultSets_type0Wrapper
 {
-	protected List<OutputDatasetWrapper> local_resultSet = null;
+    protected List<OutputDatasetWrapper> local_resultSet = null;
 
-	public ResultSets_type0Wrapper() {}
+    public ResultSets_type0Wrapper() {}
 
-	public ResultSets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResultSets_type0 resultsets_type0)
-	{
-		copy( resultsets_type0 );
-	}
-	public ResultSets_type0Wrapper( List<OutputDatasetWrapper> _resultSet )
-	{
-		this.local_resultSet = _resultSet;
+    public ResultSets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResultSets_type0 resultsets_type0)
+    {
+        copy( resultsets_type0 );
+    }
+    public ResultSets_type0Wrapper( List<OutputDatasetWrapper> _resultSet )
+    {
+        this.local_resultSet = _resultSet;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResultSets_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResultSets_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getResultSet() != null)
-		{
-			this.local_resultSet = new ArrayList<OutputDatasetWrapper>();
-			for ( int i = 0; i < raw.getResultSet().length; i++)
-			{
-				this.local_resultSet.add(new OutputDatasetWrapper(raw.getResultSet()[i]));
-			}
-		}
-	}
+        if (raw.getResultSet() != null)
+        {
+            this.local_resultSet = new ArrayList<OutputDatasetWrapper>();
+            for ( int i = 0; i < raw.getResultSet().length; i++)
+            {
+                this.local_resultSet.add(new OutputDatasetWrapper(raw.getResultSet()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ResultSets_type0Wrapper [" + "resultSet = " + local_resultSet + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResultSets_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResultSets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ResultSets_type0();
-		if (this.local_resultSet!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset[this.local_resultSet.size()];
-			for ( int i = 0; i < this.local_resultSet.size(); i++)
-			{
-				arr[i] = this.local_resultSet.get(i) .getRaw();
-			}
-			raw.setResultSet(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ResultSets_type0Wrapper [" + "resultSet = " + local_resultSet + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResultSets_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResultSets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ResultSets_type0();
+        if (this.local_resultSet!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset[this.local_resultSet.size()];
+            for ( int i = 0; i < this.local_resultSet.size(); i++)
+            {
+                arr[i] = this.local_resultSet.get(i) .getRaw();
+            }
+            raw.setResultSet(arr);
+        }
+        return raw;
+    }
 
 
-	public void setResultSet( List<OutputDatasetWrapper> _resultSet )
-	{
-		this.local_resultSet = _resultSet;
-	}
-	public List<OutputDatasetWrapper> getResultSet( )
-	{
-		return this.local_resultSet;
-	}
+    public void setResultSet( List<OutputDatasetWrapper> _resultSet )
+    {
+        this.local_resultSet = _resultSet;
+    }
+    public List<OutputDatasetWrapper> getResultSet( )
+    {
+        return this.local_resultSet;
+    }
 }

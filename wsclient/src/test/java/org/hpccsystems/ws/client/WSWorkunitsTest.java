@@ -24,10 +24,11 @@ import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WURunResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsworkunits.WURunResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUInfoRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUSubmitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
@@ -83,7 +84,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
             wu.setJobname("WsClientUTF8_Test");
             wu.setCluster(thorclustername);
 
-            WURunResponse createAndRunWUFromECL = client.createAndRunWUFromECL(wu);
+            WURunResponseWrapper createAndRunWUFromECL = client.createAndRunWUFromECLWrapped(wu);
             testwuid = createAndRunWUFromECL.getWuid();
             createAndRunWUFromECL.getExceptions();
         }

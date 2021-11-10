@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUSearchResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.586Z
+ * TimeStamp: 2021-10-27T18:52:06.457Z
  */
 public class DFUWUSearchResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ClusterNames_type0Wrapper local_clusterNames;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ClusterNames_type0Wrapper local_clusterNames;
 
-	public DFUWUSearchResponseWrapper() {}
+    public DFUWUSearchResponseWrapper() {}
 
-	public DFUWUSearchResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse dfuwusearchresponse)
-	{
-		copy( dfuwusearchresponse );
-	}
-	public DFUWUSearchResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ClusterNames_type0Wrapper _clusterNames )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_clusterNames = _clusterNames;
+    public DFUWUSearchResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse dfuwusearchresponse)
+    {
+        copy( dfuwusearchresponse );
+    }
+    public DFUWUSearchResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ClusterNames_type0Wrapper _clusterNames )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_clusterNames = _clusterNames;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getClusterNames() != null)
-			this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getClusterNames() != null)
+            this.local_clusterNames = new ClusterNames_type0Wrapper( raw.getClusterNames());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUWUSearchResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "clusterNames = " + local_clusterNames + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUSearchResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUWUSearchResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "clusterNames = " + local_clusterNames + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setClusterNames( ClusterNames_type0Wrapper _clusterNames )
-	{
-		this.local_clusterNames = _clusterNames;
-	}
-	public ClusterNames_type0Wrapper getClusterNames( )
-	{
-		return this.local_clusterNames;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setClusterNames( ClusterNames_type0Wrapper _clusterNames )
+    {
+        this.local_clusterNames = _clusterNames;
+    }
+    public ClusterNames_type0Wrapper getClusterNames( )
+    {
+        return this.local_clusterNames;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpLogicalClusterQueryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.972Z
+ * TimeStamp: 2021-10-27T23:40:06.364Z
  */
 public class TpLogicalClusterQueryRequestWrapper
 {
-	protected String local_eclServerQueue;
+    protected String local_eclServerQueue;
+    protected RoxieQueueFilterWrapper local_roxieQueueFilter;
 
-	public TpLogicalClusterQueryRequestWrapper() {}
+    public TpLogicalClusterQueryRequestWrapper() {}
 
-	public TpLogicalClusterQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryRequest tplogicalclusterqueryrequest)
-	{
-		copy( tplogicalclusterqueryrequest );
-	}
-	public TpLogicalClusterQueryRequestWrapper( String _eclServerQueue )
-	{
-		this.local_eclServerQueue = _eclServerQueue;
+    public TpLogicalClusterQueryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest tplogicalclusterqueryrequest)
+    {
+        copy( tplogicalclusterqueryrequest );
+    }
+    public TpLogicalClusterQueryRequestWrapper( String _eclServerQueue, RoxieQueueFilterWrapper _roxieQueueFilter )
+    {
+        this.local_eclServerQueue = _eclServerQueue;
+        this.local_roxieQueueFilter = _roxieQueueFilter;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_eclServerQueue = raw.getEclServerQueue();
+        this.local_eclServerQueue = raw.getEclServerQueue();
+        if (raw.getRoxieQueueFilter() != null)
+            this.local_roxieQueueFilter = new RoxieQueueFilterWrapper( raw.getRoxieQueueFilter());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpLogicalClusterQueryRequestWrapper [" + "eclServerQueue = " + local_eclServerQueue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalClusterQueryRequest();
-		raw.setEclServerQueue( local_eclServerQueue);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpLogicalClusterQueryRequestWrapper [" + "eclServerQueue = " + local_eclServerQueue + ", " + "roxieQueueFilter = " + local_roxieQueueFilter + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest();
+        raw.setEclServerQueue( local_eclServerQueue);
+        return raw;
+    }
 
 
-	public void setEclServerQueue( String _eclServerQueue )
-	{
-		this.local_eclServerQueue = _eclServerQueue;
-	}
-	public String getEclServerQueue( )
-	{
-		return this.local_eclServerQueue;
-	}
+    public void setEclServerQueue( String _eclServerQueue )
+    {
+        this.local_eclServerQueue = _eclServerQueue;
+    }
+    public String getEclServerQueue( )
+    {
+        return this.local_eclServerQueue;
+    }
+    public void setRoxieQueueFilter( RoxieQueueFilterWrapper _roxieQueueFilter )
+    {
+        this.local_roxieQueueFilter = _roxieQueueFilter;
+    }
+    public RoxieQueueFilterWrapper getRoxieQueueFilter( )
+    {
+        return this.local_roxieQueueFilter;
+    }
 }

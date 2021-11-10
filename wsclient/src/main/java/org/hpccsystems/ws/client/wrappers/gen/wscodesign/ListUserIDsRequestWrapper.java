@@ -28,13 +28,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 public class ListUserIDsRequestWrapper
 {
 
-	public ListUserIDsRequestWrapper() {}
+    public ListUserIDsRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsRequest();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsRequest();
+        return raw;
+    }
 
 
 }

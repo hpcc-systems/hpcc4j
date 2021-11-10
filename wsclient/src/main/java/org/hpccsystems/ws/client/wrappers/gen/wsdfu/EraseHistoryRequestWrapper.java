@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EraseHistoryRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.869Z
+ * TimeStamp: 2021-10-27T14:48:55.319Z
  */
 public class EraseHistoryRequestWrapper
 {
-	protected String local_name;
+    protected String local_name;
 
-	public EraseHistoryRequestWrapper() {}
+    public EraseHistoryRequestWrapper() {}
 
-	public EraseHistoryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryRequest erasehistoryrequest)
-	{
-		copy( erasehistoryrequest );
-	}
-	public EraseHistoryRequestWrapper( String _name )
-	{
-		this.local_name = _name;
+    public EraseHistoryRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryRequest erasehistoryrequest)
+    {
+        copy( erasehistoryrequest );
+    }
+    public EraseHistoryRequestWrapper( String _name )
+    {
+        this.local_name = _name;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
+        this.local_name = raw.getName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EraseHistoryRequestWrapper [" + "name = " + local_name + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EraseHistoryRequest();
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EraseHistoryRequestWrapper [" + "name = " + local_name + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryRequest();
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
 }

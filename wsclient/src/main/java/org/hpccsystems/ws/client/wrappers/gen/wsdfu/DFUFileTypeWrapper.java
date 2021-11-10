@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUFileTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.787Z
+ * TimeStamp: 2021-10-27T14:48:55.280Z
  */
 public class DFUFileTypeWrapper
 {
-	protected String local_dFUFileType;
+    protected String local_dFUFileType;
 
-	public DFUFileTypeWrapper() {}
+    public DFUFileTypeWrapper() {}
 
-	public DFUFileTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType dfufiletype)
-	{
-		copy( dfufiletype );
-	}
-	public DFUFileTypeWrapper( String _dFUFileType )
-	{
-		this.local_dFUFileType = _dFUFileType;
+    public DFUFileTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType dfufiletype)
+    {
+        copy( dfufiletype );
+    }
+    public DFUFileTypeWrapper( String _dFUFileType )
+    {
+        this.local_dFUFileType = _dFUFileType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getDFUFileType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUFileTypeWrapper [" + "dFUFileType = " + local_dFUFileType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType raw = null;
+    @Override
+    public String toString()
+    {
+        return "DFUFileTypeWrapper [" + "dFUFileType = " + local_dFUFileType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setDFUFileType(dFUFileType);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setDFUFileType( String _dFUFileType )
-	{
-		this.local_dFUFileType = _dFUFileType;
-	}
-	public String getDFUFileType( )
-	{
-		return this.local_dFUFileType;
-	}
+    public void setDFUFileType( String _dFUFileType )
+    {
+        this.local_dFUFileType = _dFUFileType;
+    }
+    public String getDFUFileType( )
+    {
+        return this.local_dFUFileType;
+    }
 }

@@ -3,8 +3,8 @@ package org.hpccsystems.ws.client.wrappers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ArrayOfECLException;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLException;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException;
 
 public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
 {
@@ -24,7 +24,7 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofeclexception
      *            the arrayofeclexception
      */
-    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException arrayofeclexception)
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException arrayofeclexception)
     {
         super();
         copy(arrayofeclexception);
@@ -48,7 +48,7 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param eclExceptions
      *            the ecl exceptions
      */
-    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException[] eclExceptions)
+    public ArrayOfECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException[] eclExceptions)
     {
         super();
         copy(eclExceptions);
@@ -198,7 +198,7 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLException raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLException raw)
     {
         if (raw.getECLException() != null)
         {
@@ -270,7 +270,7 @@ public class ArrayOfECLExceptionWrapper extends ArrayOfBaseExceptionWrapper
         ArrayOfECLException eclexceptions = new ArrayOfECLException();
         for (BaseExceptionWrapper ew : exceptions)
         {
-            eclexceptions.addECLException(((ECLExceptionWrapper) ew).getRawVersion1_81());
+            eclexceptions.addECLException(((ECLExceptionWrapper) ew).getRaw());
         }
 
         return eclexceptions;

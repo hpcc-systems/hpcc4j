@@ -27,96 +27,96 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class DeletePackageRequestWrapper
 {
-	protected String local_target;
-	protected String local_packageMap;
-	protected String local_process;
-	protected boolean local_globalScope;
-	protected PackageMaps_type0Wrapper local_packageMaps;
+    protected String local_target;
+    protected String local_packageMap;
+    protected String local_process;
+    protected boolean local_globalScope;
+    protected PackageMaps_type0Wrapper local_packageMaps;
 
-	public DeletePackageRequestWrapper() {}
+    public DeletePackageRequestWrapper() {}
 
-	public DeletePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest deletepackagerequest)
-	{
-		copy( deletepackagerequest );
-	}
-	public DeletePackageRequestWrapper( String _target, String _packageMap, String _process, boolean _globalScope, PackageMaps_type0Wrapper _packageMaps )
-	{
-		this.local_target = _target;
-		this.local_packageMap = _packageMap;
-		this.local_process = _process;
-		this.local_globalScope = _globalScope;
-		this.local_packageMaps = _packageMaps;
+    public DeletePackageRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest deletepackagerequest)
+    {
+        copy( deletepackagerequest );
+    }
+    public DeletePackageRequestWrapper( String _target, String _packageMap, String _process, boolean _globalScope, PackageMaps_type0Wrapper _packageMaps )
+    {
+        this.local_target = _target;
+        this.local_packageMap = _packageMap;
+        this.local_process = _process;
+        this.local_globalScope = _globalScope;
+        this.local_packageMaps = _packageMaps;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_target = raw.getTarget();
-		this.local_packageMap = raw.getPackageMap();
-		this.local_process = raw.getProcess();
-		this.local_globalScope = raw.getGlobalScope();
-		if (raw.getPackageMaps() != null)
-			this.local_packageMaps = new PackageMaps_type0Wrapper( raw.getPackageMaps());
+        this.local_target = raw.getTarget();
+        this.local_packageMap = raw.getPackageMap();
+        this.local_process = raw.getProcess();
+        this.local_globalScope = raw.getGlobalScope();
+        if (raw.getPackageMaps() != null)
+            this.local_packageMaps = new PackageMaps_type0Wrapper( raw.getPackageMaps());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DeletePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + ", " + "packageMaps = " + local_packageMaps + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.DeletePackageRequest();
-		raw.setTarget( local_target);
-		raw.setPackageMap( local_packageMap);
-		raw.setProcess( local_process);
-		raw.setGlobalScope( local_globalScope);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DeletePackageRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "globalScope = " + local_globalScope + ", " + "packageMaps = " + local_packageMaps + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest();
+        raw.setTarget( local_target);
+        raw.setPackageMap( local_packageMap);
+        raw.setProcess( local_process);
+        raw.setGlobalScope( local_globalScope);
+        return raw;
+    }
 
 
-	public void setTarget( String _target )
-	{
-		this.local_target = _target;
-	}
-	public String getTarget( )
-	{
-		return this.local_target;
-	}
-	public void setPackageMap( String _packageMap )
-	{
-		this.local_packageMap = _packageMap;
-	}
-	public String getPackageMap( )
-	{
-		return this.local_packageMap;
-	}
-	public void setProcess( String _process )
-	{
-		this.local_process = _process;
-	}
-	public String getProcess( )
-	{
-		return this.local_process;
-	}
-	public void setGlobalScope( boolean _globalScope )
-	{
-		this.local_globalScope = _globalScope;
-	}
-	public boolean getGlobalScope( )
-	{
-		return this.local_globalScope;
-	}
-	public void setPackageMaps( PackageMaps_type0Wrapper _packageMaps )
-	{
-		this.local_packageMaps = _packageMaps;
-	}
-	public PackageMaps_type0Wrapper getPackageMaps( )
-	{
-		return this.local_packageMaps;
-	}
+    public void setTarget( String _target )
+    {
+        this.local_target = _target;
+    }
+    public String getTarget( )
+    {
+        return this.local_target;
+    }
+    public void setPackageMap( String _packageMap )
+    {
+        this.local_packageMap = _packageMap;
+    }
+    public String getPackageMap( )
+    {
+        return this.local_packageMap;
+    }
+    public void setProcess( String _process )
+    {
+        this.local_process = _process;
+    }
+    public String getProcess( )
+    {
+        return this.local_process;
+    }
+    public void setGlobalScope( boolean _globalScope )
+    {
+        this.local_globalScope = _globalScope;
+    }
+    public boolean getGlobalScope( )
+    {
+        return this.local_globalScope;
+    }
+    public void setPackageMaps( PackageMaps_type0Wrapper _packageMaps )
+    {
+        this.local_packageMaps = _packageMaps;
+    }
+    public PackageMaps_type0Wrapper getPackageMaps( )
+    {
+        return this.local_packageMaps;
+    }
 }

@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class ValidatePackageResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected Results_type0Wrapper local_results;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected Results_type0Wrapper local_results;
 
-	public ValidatePackageResponseWrapper() {}
+    public ValidatePackageResponseWrapper() {}
 
-	public ValidatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageResponse validatepackageresponse)
-	{
-		copy( validatepackageresponse );
-	}
-	public ValidatePackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Results_type0Wrapper _results )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_results = _results;
+    public ValidatePackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageResponse validatepackageresponse)
+    {
+        copy( validatepackageresponse );
+    }
+    public ValidatePackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Results_type0Wrapper _results )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_results = _results;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getResults() != null)
-			this.local_results = new Results_type0Wrapper( raw.getResults());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getResults() != null)
+            this.local_results = new Results_type0Wrapper( raw.getResults());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ValidatePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "results = " + local_results + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ValidatePackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "results = " + local_results + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setResults( Results_type0Wrapper _results )
-	{
-		this.local_results = _results;
-	}
-	public Results_type0Wrapper getResults( )
-	{
-		return this.local_results;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setResults( Results_type0Wrapper _results )
+    {
+        this.local_results = _results;
+    }
+    public Results_type0Wrapper getResults( )
+    {
+        return this.local_results;
+    }
 }

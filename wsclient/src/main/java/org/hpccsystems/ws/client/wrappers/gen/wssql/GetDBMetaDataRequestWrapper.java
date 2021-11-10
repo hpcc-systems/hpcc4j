@@ -27,108 +27,108 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class GetDBMetaDataRequestWrapper
 {
-	protected boolean local_includeTables;
-	protected String local_tableFilter;
-	protected boolean local_includeStoredProcedures;
-	protected String local_querySet;
-	protected boolean local_includeTargetClusters;
-	protected String local_clusterType;
+    protected boolean local_includeTables;
+    protected String local_tableFilter;
+    protected boolean local_includeStoredProcedures;
+    protected String local_querySet;
+    protected boolean local_includeTargetClusters;
+    protected String local_clusterType;
 
-	public GetDBMetaDataRequestWrapper() {}
+    public GetDBMetaDataRequestWrapper() {}
 
-	public GetDBMetaDataRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataRequest getdbmetadatarequest)
-	{
-		copy( getdbmetadatarequest );
-	}
-	public GetDBMetaDataRequestWrapper( boolean _includeTables, String _tableFilter, boolean _includeStoredProcedures, String _querySet, boolean _includeTargetClusters, String _clusterType )
-	{
-		this.local_includeTables = _includeTables;
-		this.local_tableFilter = _tableFilter;
-		this.local_includeStoredProcedures = _includeStoredProcedures;
-		this.local_querySet = _querySet;
-		this.local_includeTargetClusters = _includeTargetClusters;
-		this.local_clusterType = _clusterType;
+    public GetDBMetaDataRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataRequest getdbmetadatarequest)
+    {
+        copy( getdbmetadatarequest );
+    }
+    public GetDBMetaDataRequestWrapper( boolean _includeTables, String _tableFilter, boolean _includeStoredProcedures, String _querySet, boolean _includeTargetClusters, String _clusterType )
+    {
+        this.local_includeTables = _includeTables;
+        this.local_tableFilter = _tableFilter;
+        this.local_includeStoredProcedures = _includeStoredProcedures;
+        this.local_querySet = _querySet;
+        this.local_includeTargetClusters = _includeTargetClusters;
+        this.local_clusterType = _clusterType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_includeTables = raw.getIncludeTables();
-		this.local_tableFilter = raw.getTableFilter();
-		this.local_includeStoredProcedures = raw.getIncludeStoredProcedures();
-		this.local_querySet = raw.getQuerySet();
-		this.local_includeTargetClusters = raw.getIncludeTargetClusters();
-		this.local_clusterType = raw.getClusterType();
+        this.local_includeTables = raw.getIncludeTables();
+        this.local_tableFilter = raw.getTableFilter();
+        this.local_includeStoredProcedures = raw.getIncludeStoredProcedures();
+        this.local_querySet = raw.getQuerySet();
+        this.local_includeTargetClusters = raw.getIncludeTargetClusters();
+        this.local_clusterType = raw.getClusterType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetDBMetaDataRequestWrapper [" + "includeTables = " + local_includeTables + ", " + "tableFilter = " + local_tableFilter + ", " + "includeStoredProcedures = " + local_includeStoredProcedures + ", " + "querySet = " + local_querySet + ", " + "includeTargetClusters = " + local_includeTargetClusters + ", " + "clusterType = " + local_clusterType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataRequest();
-		raw.setIncludeTables( local_includeTables);
-		raw.setTableFilter( local_tableFilter);
-		raw.setIncludeStoredProcedures( local_includeStoredProcedures);
-		raw.setQuerySet( local_querySet);
-		raw.setIncludeTargetClusters( local_includeTargetClusters);
-		raw.setClusterType( local_clusterType);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetDBMetaDataRequestWrapper [" + "includeTables = " + local_includeTables + ", " + "tableFilter = " + local_tableFilter + ", " + "includeStoredProcedures = " + local_includeStoredProcedures + ", " + "querySet = " + local_querySet + ", " + "includeTargetClusters = " + local_includeTargetClusters + ", " + "clusterType = " + local_clusterType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataRequest raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataRequest();
+        raw.setIncludeTables( local_includeTables);
+        raw.setTableFilter( local_tableFilter);
+        raw.setIncludeStoredProcedures( local_includeStoredProcedures);
+        raw.setQuerySet( local_querySet);
+        raw.setIncludeTargetClusters( local_includeTargetClusters);
+        raw.setClusterType( local_clusterType);
+        return raw;
+    }
 
 
-	public void setIncludeTables( boolean _includeTables )
-	{
-		this.local_includeTables = _includeTables;
-	}
-	public boolean getIncludeTables( )
-	{
-		return this.local_includeTables;
-	}
-	public void setTableFilter( String _tableFilter )
-	{
-		this.local_tableFilter = _tableFilter;
-	}
-	public String getTableFilter( )
-	{
-		return this.local_tableFilter;
-	}
-	public void setIncludeStoredProcedures( boolean _includeStoredProcedures )
-	{
-		this.local_includeStoredProcedures = _includeStoredProcedures;
-	}
-	public boolean getIncludeStoredProcedures( )
-	{
-		return this.local_includeStoredProcedures;
-	}
-	public void setQuerySet( String _querySet )
-	{
-		this.local_querySet = _querySet;
-	}
-	public String getQuerySet( )
-	{
-		return this.local_querySet;
-	}
-	public void setIncludeTargetClusters( boolean _includeTargetClusters )
-	{
-		this.local_includeTargetClusters = _includeTargetClusters;
-	}
-	public boolean getIncludeTargetClusters( )
-	{
-		return this.local_includeTargetClusters;
-	}
-	public void setClusterType( String _clusterType )
-	{
-		this.local_clusterType = _clusterType;
-	}
-	public String getClusterType( )
-	{
-		return this.local_clusterType;
-	}
+    public void setIncludeTables( boolean _includeTables )
+    {
+        this.local_includeTables = _includeTables;
+    }
+    public boolean getIncludeTables( )
+    {
+        return this.local_includeTables;
+    }
+    public void setTableFilter( String _tableFilter )
+    {
+        this.local_tableFilter = _tableFilter;
+    }
+    public String getTableFilter( )
+    {
+        return this.local_tableFilter;
+    }
+    public void setIncludeStoredProcedures( boolean _includeStoredProcedures )
+    {
+        this.local_includeStoredProcedures = _includeStoredProcedures;
+    }
+    public boolean getIncludeStoredProcedures( )
+    {
+        return this.local_includeStoredProcedures;
+    }
+    public void setQuerySet( String _querySet )
+    {
+        this.local_querySet = _querySet;
+    }
+    public String getQuerySet( )
+    {
+        return this.local_querySet;
+    }
+    public void setIncludeTargetClusters( boolean _includeTargetClusters )
+    {
+        this.local_includeTargetClusters = _includeTargetClusters;
+    }
+    public boolean getIncludeTargetClusters( )
+    {
+        return this.local_includeTargetClusters;
+    }
+    public void setClusterType( String _clusterType )
+    {
+        this.local_clusterType = _clusterType;
+    }
+    public String getClusterType( )
+    {
+        return this.local_clusterType;
+    }
 }

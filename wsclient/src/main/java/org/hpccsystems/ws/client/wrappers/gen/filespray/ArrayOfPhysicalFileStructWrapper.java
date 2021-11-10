@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfPhysicalFileStructWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfPhysicalFileStruct
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.544Z
+ * TimeStamp: 2021-10-27T18:52:06.412Z
  */
 public class ArrayOfPhysicalFileStructWrapper
 {
-	protected List<PhysicalFileStructWrapper> local_physicalFileStruct = null;
+    protected List<PhysicalFileStructWrapper> local_physicalFileStruct = null;
 
-	public ArrayOfPhysicalFileStructWrapper() {}
+    public ArrayOfPhysicalFileStructWrapper() {}
 
-	public ArrayOfPhysicalFileStructWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct arrayofphysicalfilestruct)
-	{
-		copy( arrayofphysicalfilestruct );
-	}
-	public ArrayOfPhysicalFileStructWrapper( List<PhysicalFileStructWrapper> _physicalFileStruct )
-	{
-		this.local_physicalFileStruct = _physicalFileStruct;
+    public ArrayOfPhysicalFileStructWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfPhysicalFileStruct arrayofphysicalfilestruct)
+    {
+        copy( arrayofphysicalfilestruct );
+    }
+    public ArrayOfPhysicalFileStructWrapper( List<PhysicalFileStructWrapper> _physicalFileStruct )
+    {
+        this.local_physicalFileStruct = _physicalFileStruct;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfPhysicalFileStruct raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getPhysicalFileStruct() != null)
-		{
-			this.local_physicalFileStruct = new ArrayList<PhysicalFileStructWrapper>();
-			for ( int i = 0; i < raw.getPhysicalFileStruct().length; i++)
-			{
-				this.local_physicalFileStruct.add(new PhysicalFileStructWrapper(raw.getPhysicalFileStruct()[i]));
-			}
-		}
-	}
+        if (raw.getPhysicalFileStruct() != null)
+        {
+            this.local_physicalFileStruct = new ArrayList<PhysicalFileStructWrapper>();
+            for ( int i = 0; i < raw.getPhysicalFileStruct().length; i++)
+            {
+                this.local_physicalFileStruct.add(new PhysicalFileStructWrapper(raw.getPhysicalFileStruct()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfPhysicalFileStructWrapper [" + "physicalFileStruct = " + local_physicalFileStruct + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.ArrayOfPhysicalFileStruct();
-		if (this.local_physicalFileStruct!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.PhysicalFileStruct[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.PhysicalFileStruct[this.local_physicalFileStruct.size()];
-			for ( int i = 0; i < this.local_physicalFileStruct.size(); i++)
-			{
-				arr[i] = this.local_physicalFileStruct.get(i) .getRaw();
-			}
-			raw.setPhysicalFileStruct(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfPhysicalFileStructWrapper [" + "physicalFileStruct = " + local_physicalFileStruct + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfPhysicalFileStruct getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfPhysicalFileStruct raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfPhysicalFileStruct();
+        if (this.local_physicalFileStruct!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct[] arr = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct[this.local_physicalFileStruct.size()];
+            for ( int i = 0; i < this.local_physicalFileStruct.size(); i++)
+            {
+                arr[i] = this.local_physicalFileStruct.get(i) .getRaw();
+            }
+            raw.setPhysicalFileStruct(arr);
+        }
+        return raw;
+    }
 
 
-	public void setPhysicalFileStruct( List<PhysicalFileStructWrapper> _physicalFileStruct )
-	{
-		this.local_physicalFileStruct = _physicalFileStruct;
-	}
-	public List<PhysicalFileStructWrapper> getPhysicalFileStruct( )
-	{
-		return this.local_physicalFileStruct;
-	}
+    public void setPhysicalFileStruct( List<PhysicalFileStructWrapper> _physicalFileStruct )
+    {
+        this.local_physicalFileStruct = _physicalFileStruct;
+    }
+    public List<PhysicalFileStructWrapper> getPhysicalFileStruct( )
+    {
+        return this.local_physicalFileStruct;
+    }
 }

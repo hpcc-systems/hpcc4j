@@ -27,84 +27,84 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class GetPartFromPackageMapRequestWrapper
 {
-	protected String local_target;
-	protected String local_packageMap;
-	protected boolean local_globalScope;
-	protected String local_partName;
+    protected String local_target;
+    protected String local_packageMap;
+    protected boolean local_globalScope;
+    protected String local_partName;
 
-	public GetPartFromPackageMapRequestWrapper() {}
+    public GetPartFromPackageMapRequestWrapper() {}
 
-	public GetPartFromPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest getpartfrompackagemaprequest)
-	{
-		copy( getpartfrompackagemaprequest );
-	}
-	public GetPartFromPackageMapRequestWrapper( String _target, String _packageMap, boolean _globalScope, String _partName )
-	{
-		this.local_target = _target;
-		this.local_packageMap = _packageMap;
-		this.local_globalScope = _globalScope;
-		this.local_partName = _partName;
+    public GetPartFromPackageMapRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapRequest getpartfrompackagemaprequest)
+    {
+        copy( getpartfrompackagemaprequest );
+    }
+    public GetPartFromPackageMapRequestWrapper( String _target, String _packageMap, boolean _globalScope, String _partName )
+    {
+        this.local_target = _target;
+        this.local_packageMap = _packageMap;
+        this.local_globalScope = _globalScope;
+        this.local_partName = _partName;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_target = raw.getTarget();
-		this.local_packageMap = raw.getPackageMap();
-		this.local_globalScope = raw.getGlobalScope();
-		this.local_partName = raw.getPartName();
+        this.local_target = raw.getTarget();
+        this.local_packageMap = raw.getPackageMap();
+        this.local_globalScope = raw.getGlobalScope();
+        this.local_partName = raw.getPartName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetPartFromPackageMapRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPartFromPackageMapRequest();
-		raw.setTarget( local_target);
-		raw.setPackageMap( local_packageMap);
-		raw.setGlobalScope( local_globalScope);
-		raw.setPartName( local_partName);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetPartFromPackageMapRequestWrapper [" + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapRequest();
+        raw.setTarget( local_target);
+        raw.setPackageMap( local_packageMap);
+        raw.setGlobalScope( local_globalScope);
+        raw.setPartName( local_partName);
+        return raw;
+    }
 
 
-	public void setTarget( String _target )
-	{
-		this.local_target = _target;
-	}
-	public String getTarget( )
-	{
-		return this.local_target;
-	}
-	public void setPackageMap( String _packageMap )
-	{
-		this.local_packageMap = _packageMap;
-	}
-	public String getPackageMap( )
-	{
-		return this.local_packageMap;
-	}
-	public void setGlobalScope( boolean _globalScope )
-	{
-		this.local_globalScope = _globalScope;
-	}
-	public boolean getGlobalScope( )
-	{
-		return this.local_globalScope;
-	}
-	public void setPartName( String _partName )
-	{
-		this.local_partName = _partName;
-	}
-	public String getPartName( )
-	{
-		return this.local_partName;
-	}
+    public void setTarget( String _target )
+    {
+        this.local_target = _target;
+    }
+    public String getTarget( )
+    {
+        return this.local_target;
+    }
+    public void setPackageMap( String _packageMap )
+    {
+        this.local_packageMap = _packageMap;
+    }
+    public String getPackageMap( )
+    {
+        return this.local_packageMap;
+    }
+    public void setGlobalScope( boolean _globalScope )
+    {
+        this.local_globalScope = _globalScope;
+    }
+    public boolean getGlobalScope( )
+    {
+        return this.local_globalScope;
+    }
+    public void setPartName( String _partName )
+    {
+        this.local_partName = _partName;
+    }
+    public String getPartName( )
+    {
+        return this.local_partName;
+    }
 }

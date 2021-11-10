@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.wrappers;
 
+@Deprecated
 public class ClusterQueryWrapper
 {
 
@@ -19,7 +20,7 @@ public class ClusterQueryWrapper
      * @param raw
      *            the raw
      */
-    public ClusterQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ClusterQueryState raw)
+    public ClusterQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ClusterQueryState raw)
     {
         this.name = raw.getCluster();
         this.state = raw.getState();

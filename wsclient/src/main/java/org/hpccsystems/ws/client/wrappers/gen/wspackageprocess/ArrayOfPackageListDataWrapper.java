@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfPackageListDataWrapper
 {
-	protected List<PackageListDataWrapper> local_packageListData = null;
+    protected List<PackageListDataWrapper> local_packageListData = null;
 
-	public ArrayOfPackageListDataWrapper() {}
+    public ArrayOfPackageListDataWrapper() {}
 
-	public ArrayOfPackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData arrayofpackagelistdata)
-	{
-		copy( arrayofpackagelistdata );
-	}
-	public ArrayOfPackageListDataWrapper( List<PackageListDataWrapper> _packageListData )
-	{
-		this.local_packageListData = _packageListData;
+    public ArrayOfPackageListDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListData arrayofpackagelistdata)
+    {
+        copy( arrayofpackagelistdata );
+    }
+    public ArrayOfPackageListDataWrapper( List<PackageListDataWrapper> _packageListData )
+    {
+        this.local_packageListData = _packageListData;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListData raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getPackageListData() != null)
-		{
-			this.local_packageListData = new ArrayList<PackageListDataWrapper>();
-			for ( int i = 0; i < raw.getPackageListData().length; i++)
-			{
-				this.local_packageListData.add(new PackageListDataWrapper(raw.getPackageListData()[i]));
-			}
-		}
-	}
+        if (raw.getPackageListData() != null)
+        {
+            this.local_packageListData = new ArrayList<PackageListDataWrapper>();
+            for ( int i = 0; i < raw.getPackageListData().length; i++)
+            {
+                this.local_packageListData.add(new PackageListDataWrapper(raw.getPackageListData()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfPackageListDataWrapper [" + "packageListData = " + local_packageListData + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListData();
-		if (this.local_packageListData!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListData[this.local_packageListData.size()];
-			for ( int i = 0; i < this.local_packageListData.size(); i++)
-			{
-				arr[i] = this.local_packageListData.get(i) .getRaw();
-			}
-			raw.setPackageListData(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfPackageListDataWrapper [" + "packageListData = " + local_packageListData + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListData();
+        if (this.local_packageListData!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListData[this.local_packageListData.size()];
+            for ( int i = 0; i < this.local_packageListData.size(); i++)
+            {
+                arr[i] = this.local_packageListData.get(i) .getRaw();
+            }
+            raw.setPackageListData(arr);
+        }
+        return raw;
+    }
 
 
-	public void setPackageListData( List<PackageListDataWrapper> _packageListData )
-	{
-		this.local_packageListData = _packageListData;
-	}
-	public List<PackageListDataWrapper> getPackageListData( )
-	{
-		return this.local_packageListData;
-	}
+    public void setPackageListData( List<PackageListDataWrapper> _packageListData )
+    {
+        this.local_packageListData = _packageListData;
+    }
+    public List<PackageListDataWrapper> getPackageListData( )
+    {
+        return this.local_packageListData;
+    }
 }

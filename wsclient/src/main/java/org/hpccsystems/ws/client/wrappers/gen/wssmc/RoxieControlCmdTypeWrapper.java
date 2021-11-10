@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RoxieControlCmdTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmdType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.088Z
+ * TimeStamp: 2021-10-27T20:17:20.606Z
  */
 public class RoxieControlCmdTypeWrapper
 {
-	protected String local_roxieControlCmdType;
+    protected String local_roxieControlCmdType;
 
-	public RoxieControlCmdTypeWrapper() {}
+    public RoxieControlCmdTypeWrapper() {}
 
-	public RoxieControlCmdTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmdType roxiecontrolcmdtype)
-	{
-		copy( roxiecontrolcmdtype );
-	}
-	public RoxieControlCmdTypeWrapper( String _roxieControlCmdType )
-	{
-		this.local_roxieControlCmdType = _roxieControlCmdType;
+    public RoxieControlCmdTypeWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdType roxiecontrolcmdtype)
+    {
+        copy( roxiecontrolcmdtype );
+    }
+    public RoxieControlCmdTypeWrapper( String _roxieControlCmdType )
+    {
+        this.local_roxieControlCmdType = _roxieControlCmdType;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmdType raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdType raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getRoxieControlCmdType();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "RoxieControlCmdTypeWrapper [" + "roxieControlCmdType = " + local_roxieControlCmdType + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmdType getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.RoxieControlCmdType raw = null;
+    @Override
+    public String toString()
+    {
+        return "RoxieControlCmdTypeWrapper [" + "roxieControlCmdType = " + local_roxieControlCmdType + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdType getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdType raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setRoxieControlCmdType(roxieControlCmdType);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setRoxieControlCmdType( String _roxieControlCmdType )
-	{
-		this.local_roxieControlCmdType = _roxieControlCmdType;
-	}
-	public String getRoxieControlCmdType( )
-	{
-		return this.local_roxieControlCmdType;
-	}
+    public void setRoxieControlCmdType( String _roxieControlCmdType )
+    {
+        this.local_roxieControlCmdType = _roxieControlCmdType;
+    }
+    public String getRoxieControlCmdType( )
+    {
+        return this.local_roxieControlCmdType;
+    }
 }

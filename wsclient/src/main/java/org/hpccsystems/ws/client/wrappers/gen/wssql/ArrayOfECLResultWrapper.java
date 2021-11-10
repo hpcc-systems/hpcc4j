@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLResultWrapper
 {
-	protected List<ECLResultWrapper> local_eCLResult = null;
+    protected List<ECLResultWrapper> local_eCLResult = null;
 
-	public ArrayOfECLResultWrapper() {}
+    public ArrayOfECLResultWrapper() {}
 
-	public ArrayOfECLResultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLResult arrayofeclresult)
-	{
-		copy( arrayofeclresult );
-	}
-	public ArrayOfECLResultWrapper( List<ECLResultWrapper> _eCLResult )
-	{
-		this.local_eCLResult = _eCLResult;
+    public ArrayOfECLResultWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLResult arrayofeclresult)
+    {
+        copy( arrayofeclresult );
+    }
+    public ArrayOfECLResultWrapper( List<ECLResultWrapper> _eCLResult )
+    {
+        this.local_eCLResult = _eCLResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLResult raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLResult raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLResult() != null)
-		{
-			this.local_eCLResult = new ArrayList<ECLResultWrapper>();
-			for ( int i = 0; i < raw.getECLResult().length; i++)
-			{
-				this.local_eCLResult.add(new ECLResultWrapper(raw.getECLResult()[i]));
-			}
-		}
-	}
+        if (raw.getECLResult() != null)
+        {
+            this.local_eCLResult = new ArrayList<ECLResultWrapper>();
+            for ( int i = 0; i < raw.getECLResult().length; i++)
+            {
+                this.local_eCLResult.add(new ECLResultWrapper(raw.getECLResult()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLResultWrapper [" + "eCLResult = " + local_eCLResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLResult getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLResult();
-		if (this.local_eCLResult!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLResult[this.local_eCLResult.size()];
-			for ( int i = 0; i < this.local_eCLResult.size(); i++)
-			{
-				arr[i] = this.local_eCLResult.get(i) .getRaw();
-			}
-			raw.setECLResult(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLResultWrapper [" + "eCLResult = " + local_eCLResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLResult getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLResult();
+        if (this.local_eCLResult!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLResult[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLResult[this.local_eCLResult.size()];
+            for ( int i = 0; i < this.local_eCLResult.size(); i++)
+            {
+                arr[i] = this.local_eCLResult.get(i) .getRaw();
+            }
+            raw.setECLResult(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLResult( List<ECLResultWrapper> _eCLResult )
-	{
-		this.local_eCLResult = _eCLResult;
-	}
-	public List<ECLResultWrapper> getECLResult( )
-	{
-		return this.local_eCLResult;
-	}
+    public void setECLResult( List<ECLResultWrapper> _eCLResult )
+    {
+        this.local_eCLResult = _eCLResult;
+    }
+    public List<ECLResultWrapper> getECLResult( )
+    {
+        return this.local_eCLResult;
+    }
 }

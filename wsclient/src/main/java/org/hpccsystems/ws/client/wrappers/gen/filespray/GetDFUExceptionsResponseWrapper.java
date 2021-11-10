@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetDFUExceptionsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.612Z
+ * TimeStamp: 2021-10-27T18:52:06.474Z
  */
 public class GetDFUExceptionsResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ArrayOfDFUExceptionWrapper local_result;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfDFUExceptionWrapper local_result;
 
-	public GetDFUExceptionsResponseWrapper() {}
+    public GetDFUExceptionsResponseWrapper() {}
 
-	public GetDFUExceptionsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse getdfuexceptionsresponse)
-	{
-		copy( getdfuexceptionsresponse );
-	}
-	public GetDFUExceptionsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfDFUExceptionWrapper _result )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_result = _result;
+    public GetDFUExceptionsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse getdfuexceptionsresponse)
+    {
+        copy( getdfuexceptionsresponse );
+    }
+    public GetDFUExceptionsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfDFUExceptionWrapper _result )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getResult() != null)
-			this.local_result = new ArrayOfDFUExceptionWrapper( raw.getResult());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getResult() != null)
+            this.local_result = new ArrayOfDFUExceptionWrapper( raw.getResult());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetDFUExceptionsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetDFUExceptionsResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetDFUExceptionsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setResult( ArrayOfDFUExceptionWrapper _result )
-	{
-		this.local_result = _result;
-	}
-	public ArrayOfDFUExceptionWrapper getResult( )
-	{
-		return this.local_result;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setResult( ArrayOfDFUExceptionWrapper _result )
+    {
+        this.local_result = _result;
+    }
+    public ArrayOfDFUExceptionWrapper getResult( )
+    {
+        return this.local_result;
+    }
 }

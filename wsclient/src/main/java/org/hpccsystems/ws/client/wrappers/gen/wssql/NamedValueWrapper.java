@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class NamedValueWrapper
 {
-	protected String local_name;
-	protected String local_value;
+    protected String local_name;
+    protected String local_value;
 
-	public NamedValueWrapper() {}
+    public NamedValueWrapper() {}
 
-	public NamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue namedvalue)
-	{
-		copy( namedvalue );
-	}
-	public NamedValueWrapper( String _name, String _value )
-	{
-		this.local_name = _name;
-		this.local_value = _value;
+    public NamedValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue namedvalue)
+    {
+        copy( namedvalue );
+    }
+    public NamedValueWrapper( String _name, String _value )
+    {
+        this.local_name = _name;
+        this.local_value = _value;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_value = raw.getValue();
+        this.local_name = raw.getName();
+        this.local_value = raw.getValue();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "NamedValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.NamedValue();
-		raw.setName( local_name);
-		raw.setValue( local_value);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "NamedValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue();
+        raw.setName( local_name);
+        raw.setValue( local_value);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setValue( String _value )
-	{
-		this.local_value = _value;
-	}
-	public String getValue( )
-	{
-		return this.local_value;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setValue( String _value )
+    {
+        this.local_value = _value;
+    }
+    public String getValue( )
+    {
+        return this.local_value;
+    }
 }

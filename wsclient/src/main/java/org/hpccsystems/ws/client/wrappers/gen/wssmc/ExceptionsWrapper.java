@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.994Z
+ * TimeStamp: 2021-10-27T20:17:20.580Z
  */
 public class ExceptionsWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
 
-	public ExceptionsWrapper() {}
+    public ExceptionsWrapper() {}
 
-	public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Exceptions exceptions)
-	{
-		copy( exceptions );
-	}
-	public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
+    public ExceptionsWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions exceptions)
+    {
+        copy( exceptions );
+    }
+    public ExceptionsWrapper( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Exceptions raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Exceptions getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Exceptions();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ExceptionsWrapper [" + "exceptions = " + local_exceptions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
 }

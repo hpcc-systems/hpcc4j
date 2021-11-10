@@ -27,84 +27,84 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class ECLSchemaItemWrapper
 {
-	protected String local_columnName;
-	protected String local_columnType;
-	protected int local_columnTypeCode;
-	protected boolean local_isConditional;
+    protected String local_columnName;
+    protected String local_columnType;
+    protected int local_columnTypeCode;
+    protected boolean local_isConditional;
 
-	public ECLSchemaItemWrapper() {}
+    public ECLSchemaItemWrapper() {}
 
-	public ECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem eclschemaitem)
-	{
-		copy( eclschemaitem );
-	}
-	public ECLSchemaItemWrapper( String _columnName, String _columnType, int _columnTypeCode, boolean _isConditional )
-	{
-		this.local_columnName = _columnName;
-		this.local_columnType = _columnType;
-		this.local_columnTypeCode = _columnTypeCode;
-		this.local_isConditional = _isConditional;
+    public ECLSchemaItemWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem eclschemaitem)
+    {
+        copy( eclschemaitem );
+    }
+    public ECLSchemaItemWrapper( String _columnName, String _columnType, int _columnTypeCode, boolean _isConditional )
+    {
+        this.local_columnName = _columnName;
+        this.local_columnType = _columnType;
+        this.local_columnTypeCode = _columnTypeCode;
+        this.local_isConditional = _isConditional;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_columnName = raw.getColumnName();
-		this.local_columnType = raw.getColumnType();
-		this.local_columnTypeCode = raw.getColumnTypeCode();
-		this.local_isConditional = raw.getIsConditional();
+        this.local_columnName = raw.getColumnName();
+        this.local_columnType = raw.getColumnType();
+        this.local_columnTypeCode = raw.getColumnTypeCode();
+        this.local_isConditional = raw.getIsConditional();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ECLSchemaItemWrapper [" + "columnName = " + local_columnName + ", " + "columnType = " + local_columnType + ", " + "columnTypeCode = " + local_columnTypeCode + ", " + "isConditional = " + local_isConditional + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSchemaItem();
-		raw.setColumnName( local_columnName);
-		raw.setColumnType( local_columnType);
-		raw.setColumnTypeCode( local_columnTypeCode);
-		raw.setIsConditional( local_isConditional);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ECLSchemaItemWrapper [" + "columnName = " + local_columnName + ", " + "columnType = " + local_columnType + ", " + "columnTypeCode = " + local_columnTypeCode + ", " + "isConditional = " + local_isConditional + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem();
+        raw.setColumnName( local_columnName);
+        raw.setColumnType( local_columnType);
+        raw.setColumnTypeCode( local_columnTypeCode);
+        raw.setIsConditional( local_isConditional);
+        return raw;
+    }
 
 
-	public void setColumnName( String _columnName )
-	{
-		this.local_columnName = _columnName;
-	}
-	public String getColumnName( )
-	{
-		return this.local_columnName;
-	}
-	public void setColumnType( String _columnType )
-	{
-		this.local_columnType = _columnType;
-	}
-	public String getColumnType( )
-	{
-		return this.local_columnType;
-	}
-	public void setColumnTypeCode( int _columnTypeCode )
-	{
-		this.local_columnTypeCode = _columnTypeCode;
-	}
-	public int getColumnTypeCode( )
-	{
-		return this.local_columnTypeCode;
-	}
-	public void setIsConditional( boolean _isConditional )
-	{
-		this.local_isConditional = _isConditional;
-	}
-	public boolean getIsConditional( )
-	{
-		return this.local_isConditional;
-	}
+    public void setColumnName( String _columnName )
+    {
+        this.local_columnName = _columnName;
+    }
+    public String getColumnName( )
+    {
+        return this.local_columnName;
+    }
+    public void setColumnType( String _columnType )
+    {
+        this.local_columnType = _columnType;
+    }
+    public String getColumnType( )
+    {
+        return this.local_columnType;
+    }
+    public void setColumnTypeCode( int _columnTypeCode )
+    {
+        this.local_columnTypeCode = _columnTypeCode;
+    }
+    public int getColumnTypeCode( )
+    {
+        return this.local_columnTypeCode;
+    }
+    public void setIsConditional( boolean _isConditional )
+    {
+        this.local_isConditional = _isConditional;
+    }
+    public boolean getIsConditional( )
+    {
+        return this.local_isConditional;
+    }
 }

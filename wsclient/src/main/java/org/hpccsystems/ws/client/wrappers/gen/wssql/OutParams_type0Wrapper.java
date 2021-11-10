@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class OutParams_type0Wrapper
 {
-	protected List<HPCCColumnWrapper> local_outParam = null;
+    protected List<HPCCColumnWrapper> local_outParam = null;
 
-	public OutParams_type0Wrapper() {}
+    public OutParams_type0Wrapper() {}
 
-	public OutParams_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutParams_type0 outparams_type0)
-	{
-		copy( outparams_type0 );
-	}
-	public OutParams_type0Wrapper( List<HPCCColumnWrapper> _outParam )
-	{
-		this.local_outParam = _outParam;
+    public OutParams_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutParams_type0 outparams_type0)
+    {
+        copy( outparams_type0 );
+    }
+    public OutParams_type0Wrapper( List<HPCCColumnWrapper> _outParam )
+    {
+        this.local_outParam = _outParam;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutParams_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutParams_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getOutParam() != null)
-		{
-			this.local_outParam = new ArrayList<HPCCColumnWrapper>();
-			for ( int i = 0; i < raw.getOutParam().length; i++)
-			{
-				this.local_outParam.add(new HPCCColumnWrapper(raw.getOutParam()[i]));
-			}
-		}
-	}
+        if (raw.getOutParam() != null)
+        {
+            this.local_outParam = new ArrayList<HPCCColumnWrapper>();
+            for ( int i = 0; i < raw.getOutParam().length; i++)
+            {
+                this.local_outParam.add(new HPCCColumnWrapper(raw.getOutParam()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "OutParams_type0Wrapper [" + "outParam = " + local_outParam + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutParams_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutParams_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutParams_type0();
-		if (this.local_outParam!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn[this.local_outParam.size()];
-			for ( int i = 0; i < this.local_outParam.size(); i++)
-			{
-				arr[i] = this.local_outParam.get(i) .getRaw();
-			}
-			raw.setOutParam(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "OutParams_type0Wrapper [" + "outParam = " + local_outParam + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutParams_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutParams_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutParams_type0();
+        if (this.local_outParam!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn[this.local_outParam.size()];
+            for ( int i = 0; i < this.local_outParam.size(); i++)
+            {
+                arr[i] = this.local_outParam.get(i) .getRaw();
+            }
+            raw.setOutParam(arr);
+        }
+        return raw;
+    }
 
 
-	public void setOutParam( List<HPCCColumnWrapper> _outParam )
-	{
-		this.local_outParam = _outParam;
-	}
-	public List<HPCCColumnWrapper> getOutParam( )
-	{
-		return this.local_outParam;
-	}
+    public void setOutParam( List<HPCCColumnWrapper> _outParam )
+    {
+        this.local_outParam = _outParam;
+    }
+    public List<HPCCColumnWrapper> getOutParam( )
+    {
+        return this.local_outParam;
+    }
 }

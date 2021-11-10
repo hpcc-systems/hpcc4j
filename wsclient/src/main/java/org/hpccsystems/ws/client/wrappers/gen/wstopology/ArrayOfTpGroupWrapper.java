@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpGroupWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.914Z
+ * TimeStamp: 2021-10-27T23:40:06.315Z
  */
 public class ArrayOfTpGroupWrapper
 {
-	protected List<TpGroupWrapper> local_tpGroup = null;
+    protected List<TpGroupWrapper> local_tpGroup = null;
 
-	public ArrayOfTpGroupWrapper() {}
+    public ArrayOfTpGroupWrapper() {}
 
-	public ArrayOfTpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup arrayoftpgroup)
-	{
-		copy( arrayoftpgroup );
-	}
-	public ArrayOfTpGroupWrapper( List<TpGroupWrapper> _tpGroup )
-	{
-		this.local_tpGroup = _tpGroup;
+    public ArrayOfTpGroupWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup arrayoftpgroup)
+    {
+        copy( arrayoftpgroup );
+    }
+    public ArrayOfTpGroupWrapper( List<TpGroupWrapper> _tpGroup )
+    {
+        this.local_tpGroup = _tpGroup;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpGroup() != null)
-		{
-			this.local_tpGroup = new ArrayList<TpGroupWrapper>();
-			for ( int i = 0; i < raw.getTpGroup().length; i++)
-			{
-				this.local_tpGroup.add(new TpGroupWrapper(raw.getTpGroup()[i]));
-			}
-		}
-	}
+        if (raw.getTpGroup() != null)
+        {
+            this.local_tpGroup = new ArrayList<TpGroupWrapper>();
+            for ( int i = 0; i < raw.getTpGroup().length; i++)
+            {
+                this.local_tpGroup.add(new TpGroupWrapper(raw.getTpGroup()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpGroupWrapper [" + "tpGroup = " + local_tpGroup + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpGroup();
-		if (this.local_tpGroup!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpGroup[this.local_tpGroup.size()];
-			for ( int i = 0; i < this.local_tpGroup.size(); i++)
-			{
-				arr[i] = this.local_tpGroup.get(i) .getRaw();
-			}
-			raw.setTpGroup(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpGroupWrapper [" + "tpGroup = " + local_tpGroup + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup();
+        if (this.local_tpGroup!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup[this.local_tpGroup.size()];
+            for ( int i = 0; i < this.local_tpGroup.size(); i++)
+            {
+                arr[i] = this.local_tpGroup.get(i) .getRaw();
+            }
+            raw.setTpGroup(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpGroup( List<TpGroupWrapper> _tpGroup )
-	{
-		this.local_tpGroup = _tpGroup;
-	}
-	public List<TpGroupWrapper> getTpGroup( )
-	{
-		return this.local_tpGroup;
-	}
+    public void setTpGroup( List<TpGroupWrapper> _tpGroup )
+    {
+        this.local_tpGroup = _tpGroup;
+    }
+    public List<TpGroupWrapper> getTpGroup( )
+    {
+        return this.local_tpGroup;
+    }
 }

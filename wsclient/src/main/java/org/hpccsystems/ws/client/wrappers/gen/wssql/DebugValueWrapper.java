@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class DebugValueWrapper
 {
-	protected String local_name;
-	protected String local_value;
+    protected String local_name;
+    protected String local_value;
 
-	public DebugValueWrapper() {}
+    public DebugValueWrapper() {}
 
-	public DebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue debugvalue)
-	{
-		copy( debugvalue );
-	}
-	public DebugValueWrapper( String _name, String _value )
-	{
-		this.local_name = _name;
-		this.local_value = _value;
+    public DebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue debugvalue)
+    {
+        copy( debugvalue );
+    }
+    public DebugValueWrapper( String _name, String _value )
+    {
+        this.local_name = _name;
+        this.local_value = _value;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_value = raw.getValue();
+        this.local_name = raw.getName();
+        this.local_value = raw.getValue();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DebugValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue();
-		raw.setName( local_name);
-		raw.setValue( local_value);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DebugValueWrapper [" + "name = " + local_name + ", " + "value = " + local_value + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue();
+        raw.setName( local_name);
+        raw.setValue( local_value);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setValue( String _value )
-	{
-		this.local_value = _value;
-	}
-	public String getValue( )
-	{
-		return this.local_value;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setValue( String _value )
+    {
+        this.local_value = _value;
+    }
+    public String getValue( )
+    {
+        return this.local_value;
+    }
 }

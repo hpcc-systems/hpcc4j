@@ -150,6 +150,7 @@ public class AddrRemapper extends ClusterRemapper
      * @see org.hpccsystems.spark.thor.ClusterRemapper#reviseIPs(org.hpccsystems.ws.client.platform.DFUFilePartInfo[])
      */
     @Override
+    @Deprecated
     public String[] reviseIPs(DFUFileCopyWrapper[] dfuFileCopies) throws HpccFileException
     {
         String[] revisedips = new String[dfuFileCopies.length];
