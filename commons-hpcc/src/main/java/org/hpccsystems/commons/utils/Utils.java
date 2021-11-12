@@ -15,11 +15,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ############################################################################## */
 
 import java.math.BigInteger;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Utils
 {
@@ -170,24 +172,23 @@ public class Utils
     }
 
     /**
-     * Checks if is numeric.
+     * Checks if value represented in string is numeric.
      *
      * @param str
-     *            the str
+     *            the value to test
      * @return true, if is numeric
      */
     public static boolean isNumeric(String str)
     {
         try
         {
-            USNumberFormat.parse(str);
+            Double.parseDouble(str);
+            return true;
         }
-        catch (Exception e)
+        catch (NumberFormatException e)
         {
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -199,26 +200,19 @@ public class Utils
      */
     public static boolean doesNotRequireQuotes(Object obj)
     {
-        try
-        {
-            if (obj == null)
-                return false;
-            if (obj instanceof Number)
-                return true;
-            if (obj instanceof String)
-            {
-                if(QUOTEDSQLSTRPATTERN.matcher((String)obj).matches())
-                    return true;
-
-                USNumberFormat.parse((String)obj);
-            }
-        }
-        catch (Exception e)
-        {
+        if (obj == null)
             return false;
+        if (obj instanceof Number)
+            return true;
+        if (obj instanceof String)
+        {
+            if(QUOTEDSQLSTRPATTERN.matcher((String)obj).matches())
+                return true; //Already quoted
+
+            return isNumeric((String)obj);
         }
 
-        return true;
+        return false;
     }
 
     private final static Pattern PARENSTRPATTERN = Pattern.compile("\\s*(\\()(.*?)(\\))\\s*", Pattern.DOTALL);

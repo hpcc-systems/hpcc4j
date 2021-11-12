@@ -458,16 +458,20 @@ public class DFSReadWriteTest extends BaseRemoteTest
         fieldDefs[1] = new FieldDef("day_of_wk_num", FieldType.INTEGER, "unsigned8", 8, false, false, HpccSrcType.UTF8, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
+        Calendar cal = Calendar.getInstance();
+        Object[] fields = {20200401,91};
+        HPCCRecord record = new HPCCRecord(fields, recordDef);
+        records.add(record);
+
         for (int i = 0; i < 10; i++)
         {
-            Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, 2021);
             cal.set(Calendar.DAY_OF_YEAR, RANDOM.nextInt(365));
 
-            Object[] fields = new Object[2];
+            fields = new Object[2];
             fields[0] = cal.get(Calendar.YEAR)*10000 + cal.get(Calendar.MONTH)*100 + cal.get(Calendar.DAY_OF_MONTH);
             fields[1] = cal.get(Calendar.DAY_OF_YEAR);
-            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
         writeFile(records, dimdatefilename, recordDef, connTO);
@@ -498,6 +502,15 @@ public class DFSReadWriteTest extends BaseRemoteTest
         if (records.size() != 0)
         {
             Assert.fail("Date file filter unexpectedly returned more than 0 records");
+        }
+
+        file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        ffilter = new FileFilter(new FieldFilter("date_sk", FieldFilterRange.makeEq("20200401")));
+        file.setFilter(ffilter);
+        records = readFile(file, connTO, false);
+        if (records.size() != 1)
+        {
+            Assert.fail("Date file filter was expected to return 1 record, records returned: " + records.size());
         }
     }
 
