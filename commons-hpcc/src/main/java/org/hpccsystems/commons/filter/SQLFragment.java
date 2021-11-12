@@ -307,7 +307,7 @@ public class SQLFragment
         {
             return FragmentType.NUMERIC_FRAGMENT;
         }
-        else if (Utils.isInParenthesis(fragStr))
+        else if (Utils.isInParenthesis(fragStr) || Utils.isCommaList(fragStr))
         {
             return FragmentType.LIST;
         }

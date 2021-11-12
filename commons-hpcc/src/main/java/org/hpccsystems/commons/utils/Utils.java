@@ -15,13 +15,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ############################################################################## */
 
 import java.math.BigInteger;
-import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class Utils
 {
@@ -226,11 +224,22 @@ public class Utils
      */
     public static boolean isInParenthesis(String parenstring)
     {
-        if (parenstring == null) return false;
+        if (parenstring == null)
+            return false;
 
         Matcher matcher = PARENSTRPATTERN.matcher(parenstring);
 
         return matcher.matches();
+    }
+
+    public static boolean isCommaList(String commastring)
+    {
+        if (commastring == null)
+            return false;
+
+        String[] list = commastring.split("\\s*,\\s*");
+
+        return list.length > 1;
     }
 
     public final static Pattern AGGFUNCPATTERN = Pattern.compile("\\s*(.*?)(\\()(.*?)(\\))\\s*", Pattern.DOTALL);

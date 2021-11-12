@@ -1,7 +1,5 @@
 package org.hpccsystems.commons;
 
-import static org.junit.Assert.fail;
-
 import java.math.BigInteger;
 
 import org.hpccsystems.commons.utils.Utils;

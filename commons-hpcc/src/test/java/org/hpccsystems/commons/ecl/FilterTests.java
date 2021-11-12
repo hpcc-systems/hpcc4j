@@ -16,7 +16,6 @@ package org.hpccsystems.commons.ecl;
 import static org.junit.Assert.*;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -143,20 +142,11 @@ public class FilterTests
 
         try
         {
-            filter = new FileFilter(" Field1 NOT IN 1234, 212,12 ");
-        }
-        catch (Exception e1)
-        {
-            Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  1234, 212,12'",  e1.getLocalizedMessage());
-        }
-
-        try
-        {
             filter = new FileFilter(" \"Field1\" NOT IN 1234, 212,12 ");
         }
         catch (Exception e1)
         {
-            Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  1234, 212,12'",  e1.getLocalizedMessage());
+            Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  [1234, 212,12]'",  e1.getLocalizedMessage());
         }
 
         try
@@ -319,14 +309,44 @@ public class FilterTests
             Assert.assertEquals("\"keyFilter\": [\"Field1=[1234,)\"]", filter.toJson());
             System.out.println("Field1 >= 1234 -> " + filter.toJson());
 
-            //filter = new FileFilter(" Fild1 =< 1234 "); //this is erroneously parsed as f1 = "< 1234"
+            try
+            {
+                filter = new FileFilter(" Fild1 =< 1234 ");
+            }
+            catch (Exception e1)
+            {
+                Assert.assertEquals("Invalid logical operator found: Fild1 =< 1234",  e1.getLocalizedMessage());
+            }
+
+            try
+            {
+                filter = new FileFilter(" Fild1 => 1234 ");
+            }
+            catch (Exception e1)
+            {
+                Assert.assertEquals("Invalid logical operator found: Fild1 => 1234",  e1.getLocalizedMessage());
+            }
+
             filter = new FileFilter(" Field1 IN 1234, 212,12 ");
             Assert.assertEquals("\"keyFilter\": [\"Field1=[1234],[212],[12]\"]", filter.toJson());
             System.out.println("Field1 IN 1234, 212,12  -> " + filter.toJson());
 
-            //filter = new FileFilter(" Field1 NOT IN 1234, 212,12 ");
-            //Assert.assertEquals("\"keyFilter\": [\"Field1 NOT=[1234],[212],[12]\"]", filter.toJson());
-            //System.out.println("Field1 NOT IN 1234, 212,12  -> " + filter.toJson());
+            filter = new FileFilter(" Field1 IN 1234");
+            Assert.assertEquals("\"keyFilter\": [\"Field1=[1234]\"]", filter.toJson());
+            System.out.println("Field1 IN 1234 -> " + filter.toJson());
+
+            filter = new FileFilter(" Field1 IN '1234', '212','12' ");
+            Assert.assertEquals("\"keyFilter\": [\"Field1=['1234'],['212'],['12']\"]", filter.toJson());
+            System.out.println("Field1 IN '1234', '212','12'  -> " + filter.toJson());
+
+            try
+            {
+                filter = new FileFilter(" Field1 NOT IN 1234, 212,12 ");
+            }
+            catch (Exception e1)
+            {
+                Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  [1234, 212,12]'",  e1.getLocalizedMessage());
+            }
 
             filter = new FileFilter(" Field1 > 12 OR Field1 = 5 ");
             Assert.assertEquals("\"keyFilter\": [\"Field1=(12,),[5]\"]", filter.toJson());

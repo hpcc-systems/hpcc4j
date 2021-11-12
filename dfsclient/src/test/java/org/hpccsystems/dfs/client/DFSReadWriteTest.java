@@ -512,6 +512,33 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             Assert.fail("Date file filter was expected to return 1 record, records returned: " + records.size());
         }
+
+        file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        ffilter = new FileFilter(" \"date_sk\" IN 20200401, 19990101, 20101231 ");
+        file.setFilter(ffilter);
+        records = readFile(file, connTO, false);
+        if (records.size() != 1)
+        {
+            Assert.fail("Date file filter was expected to return 1 record, records returned: " + records.size());
+        }
+
+        file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        ffilter = new FileFilter(" \"date_sk\" IN '20200401', '19990101', '20101231' ");
+        file.setFilter(ffilter);
+        records = readFile(file, connTO, false);
+        if (records.size() != 1)
+        {
+            Assert.fail("Date file filter was expected to return 1 record, records returned: " + records.size());
+        }
+
+        file = new HPCCFile(dimdatefilename, connString , hpccUser, hpccPass);
+        ffilter = new FileFilter(" \"date_sk\" IN 20200401");
+        file.setFilter(ffilter);
+        records = readFile(file, connTO, false);
+        if (records.size() != 1)
+        {
+            Assert.fail("Date file filter was expected to return 1 record, records returned: " + records.size());
+        }
     }
 
     @Test
