@@ -35,7 +35,7 @@ public class DFUCreateFileWrapper
      * @throws Exception
      *             the exception
      */
-    public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileCreateResponse resp) throws Exception
+    public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse resp) throws Exception
     {
         if (resp != null && resp.getAccessInfo() != null)
         {

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: NotInCommunityEditionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NotInCommunityEdition
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.061Z
+ * TimeStamp: 2021-10-27T20:17:20.599Z
  */
 public class NotInCommunityEditionWrapper
 {
-	protected String local_eEPortal;
+    protected String local_eEPortal;
 
-	public NotInCommunityEditionWrapper() {}
+    public NotInCommunityEditionWrapper() {}
 
-	public NotInCommunityEditionWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NotInCommunityEdition notincommunityedition)
-	{
-		copy( notincommunityedition );
-	}
-	public NotInCommunityEditionWrapper( String _eEPortal )
-	{
-		this.local_eEPortal = _eEPortal;
+    public NotInCommunityEditionWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition notincommunityedition)
+    {
+        copy( notincommunityedition );
+    }
+    public NotInCommunityEditionWrapper( String _eEPortal )
+    {
+        this.local_eEPortal = _eEPortal;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NotInCommunityEdition raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_eEPortal = raw.getEEPortal();
+        this.local_eEPortal = raw.getEEPortal();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "NotInCommunityEditionWrapper [" + "eEPortal = " + local_eEPortal + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NotInCommunityEdition getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NotInCommunityEdition raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.NotInCommunityEdition();
-		raw.setEEPortal( local_eEPortal);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "NotInCommunityEditionWrapper [" + "eEPortal = " + local_eEPortal + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition();
+        raw.setEEPortal( local_eEPortal);
+        return raw;
+    }
 
 
-	public void setEEPortal( String _eEPortal )
-	{
-		this.local_eEPortal = _eEPortal;
-	}
-	public String getEEPortal( )
-	{
-		return this.local_eEPortal;
-	}
+    public void setEEPortal( String _eEPortal )
+    {
+        this.local_eEPortal = _eEPortal;
+    }
+    public String getEEPortal( )
+    {
+        return this.local_eEPortal;
+    }
 }

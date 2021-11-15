@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUWUActionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUActions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.581Z
+ * TimeStamp: 2021-10-27T18:52:06.452Z
  */
 public class DFUWUActionsWrapper
 {
-	protected String local_dFUWUActions;
+    protected String local_dFUWUActions;
 
-	public DFUWUActionsWrapper() {}
+    public DFUWUActionsWrapper() {}
 
-	public DFUWUActionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions dfuwuactions)
-	{
-		copy( dfuwuactions );
-	}
-	public DFUWUActionsWrapper( String _dFUWUActions )
-	{
-		this.local_dFUWUActions = _dFUWUActions;
+    public DFUWUActionsWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUActions dfuwuactions)
+    {
+        copy( dfuwuactions );
+    }
+    public DFUWUActionsWrapper( String _dFUWUActions )
+    {
+        this.local_dFUWUActions = _dFUWUActions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUActions raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getDFUWUActions();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUWUActionsWrapper [" + "dFUWUActions = " + local_dFUWUActions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.DFUWUActions raw = null;
+    @Override
+    public String toString()
+    {
+        return "DFUWUActionsWrapper [" + "dFUWUActions = " + local_dFUWUActions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUActions getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUActions raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setDFUWUActions(dFUWUActions);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setDFUWUActions( String _dFUWUActions )
-	{
-		this.local_dFUWUActions = _dFUWUActions;
-	}
-	public String getDFUWUActions( )
-	{
-		return this.local_dFUWUActions;
-	}
+    public void setDFUWUActions( String _dFUWUActions )
+    {
+        this.local_dFUWUActions = _dFUWUActions;
+    }
+    public String getDFUWUActions( )
+    {
+        return this.local_dFUWUActions;
+    }
 }

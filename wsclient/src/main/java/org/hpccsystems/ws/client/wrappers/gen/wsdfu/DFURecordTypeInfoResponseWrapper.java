@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,66 +22,66 @@ import javax.activation.DataHandler;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFURecordTypeInfoResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFURecordTypeInfoResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.834Z
+ * TimeStamp: 2021-10-27T14:48:55.303Z
  */
 public class DFURecordTypeInfoResponseWrapper
 {
-	protected String local_jsonInfo;
-	protected DataHandler local_binInfo;
+    protected String local_jsonInfo;
+    protected DataHandler local_binInfo;
 
-	public DFURecordTypeInfoResponseWrapper() {}
+    public DFURecordTypeInfoResponseWrapper() {}
 
-	public DFURecordTypeInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFURecordTypeInfoResponse dfurecordtypeinforesponse)
-	{
-		copy( dfurecordtypeinforesponse );
-	}
-	public DFURecordTypeInfoResponseWrapper( String _jsonInfo, DataHandler _binInfo )
-	{
-		this.local_jsonInfo = _jsonInfo;
-		this.local_binInfo = _binInfo;
+    public DFURecordTypeInfoResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse dfurecordtypeinforesponse)
+    {
+        copy( dfurecordtypeinforesponse );
+    }
+    public DFURecordTypeInfoResponseWrapper( String _jsonInfo, DataHandler _binInfo )
+    {
+        this.local_jsonInfo = _jsonInfo;
+        this.local_binInfo = _binInfo;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFURecordTypeInfoResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_jsonInfo = raw.getJsonInfo();
-		this.local_binInfo = raw.getBinInfo();
+        this.local_jsonInfo = raw.getJsonInfo();
+        this.local_binInfo = raw.getBinInfo();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFURecordTypeInfoResponseWrapper [" + "jsonInfo = " + local_jsonInfo + ", " + "binInfo = " + local_binInfo + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFURecordTypeInfoResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFURecordTypeInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFURecordTypeInfoResponse();
-		raw.setJsonInfo( local_jsonInfo);
-		raw.setBinInfo( local_binInfo);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFURecordTypeInfoResponseWrapper [" + "jsonInfo = " + local_jsonInfo + ", " + "binInfo = " + local_binInfo + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse();
+        raw.setJsonInfo( local_jsonInfo);
+        raw.setBinInfo( local_binInfo);
+        return raw;
+    }
 
 
-	public void setJsonInfo( String _jsonInfo )
-	{
-		this.local_jsonInfo = _jsonInfo;
-	}
-	public String getJsonInfo( )
-	{
-		return this.local_jsonInfo;
-	}
-	public void setBinInfo( DataHandler _binInfo )
-	{
-		this.local_binInfo = _binInfo;
-	}
-	public DataHandler getBinInfo( )
-	{
-		return this.local_binInfo;
-	}
+    public void setJsonInfo( String _jsonInfo )
+    {
+        this.local_jsonInfo = _jsonInfo;
+    }
+    public String getJsonInfo( )
+    {
+        return this.local_jsonInfo;
+    }
+    public void setBinInfo( DataHandler _binInfo )
+    {
+        this.local_binInfo = _binInfo;
+    }
+    public DataHandler getBinInfo( )
+    {
+        return this.local_binInfo;
+    }
 }

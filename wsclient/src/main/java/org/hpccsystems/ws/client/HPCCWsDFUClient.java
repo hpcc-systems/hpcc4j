@@ -19,45 +19,43 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.AddtoSuperfileResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUActionInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUActionInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUBrowseDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUBrowseDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDataColumn;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessV2Request;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileCreateResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileCreateV2Request;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePublishRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePublishResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileViewResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetDataColumnsRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetDataColumnsResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetFileMetaDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUGetFileMetaDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFULogicalFile;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUQueryRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchDataRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchDataResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspSoapFault;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.EspStringArray;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileActionResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuPingRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.WsDfuStub;
-
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUActionInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessV2Request;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePublishRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePublishResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFULogicalFile;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchDataRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuStub;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
@@ -263,7 +261,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             if (targetHPCCBuildVersion != null)
             {
                 stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetHPCCBuildVersion);
-                stub = stubwrapper.get1_57Stub(null);
+                stub = stubwrapper.getLatestStub(null);
             }
             else
                 throw new Exception("Cannot initialize HPCCWsDFUStub without valid HPCC version object");
@@ -1814,7 +1812,14 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
             }
 
-            return new DFUCreateFileWrapper(resp);
+            try
+            {
+                return new DFUCreateFileWrapper(resp);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("createFileAndAcquireAccess('" + fileName +"', '"+cluster+"'): Could not wrap response from server", e);
+            }
         }
         else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {

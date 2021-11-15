@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpSashaServerWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSashaServer
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.920Z
+ * TimeStamp: 2021-10-27T23:40:06.321Z
  */
 public class ArrayOfTpSashaServerWrapper
 {
-	protected List<TpSashaServerWrapper> local_tpSashaServer = null;
+    protected List<TpSashaServerWrapper> local_tpSashaServer = null;
 
-	public ArrayOfTpSashaServerWrapper() {}
+    public ArrayOfTpSashaServerWrapper() {}
 
-	public ArrayOfTpSashaServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSashaServer arrayoftpsashaserver)
-	{
-		copy( arrayoftpsashaserver );
-	}
-	public ArrayOfTpSashaServerWrapper( List<TpSashaServerWrapper> _tpSashaServer )
-	{
-		this.local_tpSashaServer = _tpSashaServer;
+    public ArrayOfTpSashaServerWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer arrayoftpsashaserver)
+    {
+        copy( arrayoftpsashaserver );
+    }
+    public ArrayOfTpSashaServerWrapper( List<TpSashaServerWrapper> _tpSashaServer )
+    {
+        this.local_tpSashaServer = _tpSashaServer;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSashaServer raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpSashaServer() != null)
-		{
-			this.local_tpSashaServer = new ArrayList<TpSashaServerWrapper>();
-			for ( int i = 0; i < raw.getTpSashaServer().length; i++)
-			{
-				this.local_tpSashaServer.add(new TpSashaServerWrapper(raw.getTpSashaServer()[i]));
-			}
-		}
-	}
+        if (raw.getTpSashaServer() != null)
+        {
+            this.local_tpSashaServer = new ArrayList<TpSashaServerWrapper>();
+            for ( int i = 0; i < raw.getTpSashaServer().length; i++)
+            {
+                this.local_tpSashaServer.add(new TpSashaServerWrapper(raw.getTpSashaServer()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpSashaServerWrapper [" + "tpSashaServer = " + local_tpSashaServer + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSashaServer getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSashaServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpSashaServer();
-		if (this.local_tpSashaServer!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSashaServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSashaServer[this.local_tpSashaServer.size()];
-			for ( int i = 0; i < this.local_tpSashaServer.size(); i++)
-			{
-				arr[i] = this.local_tpSashaServer.get(i) .getRaw();
-			}
-			raw.setTpSashaServer(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpSashaServerWrapper [" + "tpSashaServer = " + local_tpSashaServer + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer();
+        if (this.local_tpSashaServer!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSashaServer[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSashaServer[this.local_tpSashaServer.size()];
+            for ( int i = 0; i < this.local_tpSashaServer.size(); i++)
+            {
+                arr[i] = this.local_tpSashaServer.get(i) .getRaw();
+            }
+            raw.setTpSashaServer(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpSashaServer( List<TpSashaServerWrapper> _tpSashaServer )
-	{
-		this.local_tpSashaServer = _tpSashaServer;
-	}
-	public List<TpSashaServerWrapper> getTpSashaServer( )
-	{
-		return this.local_tpSashaServer;
-	}
+    public void setTpSashaServer( List<TpSashaServerWrapper> _tpSashaServer )
+    {
+        this.local_tpSashaServer = _tpSashaServer;
+    }
+    public List<TpSashaServerWrapper> getTpSashaServer( )
+    {
+        return this.local_tpSashaServer;
+    }
 }

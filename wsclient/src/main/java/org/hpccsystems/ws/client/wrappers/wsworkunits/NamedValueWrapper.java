@@ -1,10 +1,10 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.NamedValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.NamedValue;
 
+@Deprecated
 public class NamedValueWrapper
 {
-
     private String name;
     private String value;
 
@@ -91,19 +91,6 @@ public class NamedValueWrapper
     public NamedValue getRaw()
     {
         NamedValue nv = new NamedValue();
-        nv.setName(name);
-        nv.setValue(value);
-        return nv;
-    }
-
-    /**
-     * Gets the 1 79.
-     *
-     * @return the 1 79
-     */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.NamedValue get1_81()
-    {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.NamedValue nv = new NamedValue();
         nv.setName(name);
         nv.setValue(value);
         return nv;

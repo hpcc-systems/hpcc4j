@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpClusterInfoRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.934Z
+ * TimeStamp: 2021-10-27T23:40:06.331Z
  */
 public class TpClusterInfoRequestWrapper
 {
-	protected String local_name;
+    protected String local_name;
 
-	public TpClusterInfoRequestWrapper() {}
+    public TpClusterInfoRequestWrapper() {}
 
-	public TpClusterInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoRequest tpclusterinforequest)
-	{
-		copy( tpclusterinforequest );
-	}
-	public TpClusterInfoRequestWrapper( String _name )
-	{
-		this.local_name = _name;
+    public TpClusterInfoRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest tpclusterinforequest)
+    {
+        copy( tpclusterinforequest );
+    }
+    public TpClusterInfoRequestWrapper( String _name )
+    {
+        this.local_name = _name;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
+        this.local_name = raw.getName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpClusterInfoRequestWrapper [" + "name = " + local_name + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpClusterInfoRequest();
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpClusterInfoRequestWrapper [" + "name = " + local_name + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest();
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
 }

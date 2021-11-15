@@ -422,8 +422,17 @@ public class HPCCFile implements Serializable
                 }
 
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
-                
-                this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
+
+                try
+                {
+                    this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
+                }
+                catch (Exception e)
+                {
+                    log.error("Error while constructing partition processor, reading will continue without partition filtering: " + e.getMessage());
+                    this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
+                }
+
                 this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
             }
             else
@@ -484,6 +493,18 @@ public class HPCCFile implements Serializable
         return recordDefinition;
     }
 
+    /**
+     * Whether the file is an index with a tlk partition
+     *
+     * @return true if the file is an index and has a tlk partition, false otherwise
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
+    public final boolean isTlkIndex() throws HpccFileException
+    {
+        createDataParts();
+        return this.tlkPartition != null;
+    }
     /**
      * The record definition for a file on an HPCC cluster.
      *

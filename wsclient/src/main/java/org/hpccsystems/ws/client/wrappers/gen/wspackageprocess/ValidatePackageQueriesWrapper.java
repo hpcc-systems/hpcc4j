@@ -18,8 +18,10 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
+
+import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArray;
+
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -30,62 +32,62 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.EspStringArray
  */
 public class ValidatePackageQueriesWrapper
 {
-	protected List<String> local_unmatched = null;
+    protected List<String> local_unmatched = null;
 
-	public ValidatePackageQueriesWrapper() {}
+    public ValidatePackageQueriesWrapper() {}
 
-	public ValidatePackageQueriesWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageQueries validatepackagequeries)
-	{
-		copy( validatepackagequeries );
-	}
-	public ValidatePackageQueriesWrapper( List<String> _unmatched )
-	{
-		this.local_unmatched = _unmatched;
+    public ValidatePackageQueriesWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageQueries validatepackagequeries)
+    {
+        copy( validatepackagequeries );
+    }
+    public ValidatePackageQueriesWrapper( List<String> _unmatched )
+    {
+        this.local_unmatched = _unmatched;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageQueries raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageQueries raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getUnmatched() != null)
-		{
-			this.local_unmatched = new ArrayList<String>();
-			for ( int i = 0; i < raw.getUnmatched().getItem().length; i++)
-			{
-				this.local_unmatched.add(new String(raw.getUnmatched().getItem()[i]));
-			}
-		}
-	}
+        if (raw.getUnmatched() != null)
+        {
+            this.local_unmatched = new ArrayList<String>();
+            for ( int i = 0; i < raw.getUnmatched().getItem().length; i++)
+            {
+                this.local_unmatched.add(new String(raw.getUnmatched().getItem()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ValidatePackageQueriesWrapper [" + "unmatched = " + local_unmatched + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageQueries getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageQueries raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidatePackageQueries();
-		if (this.local_unmatched!= null)
-		{
-			EspStringArray arr = new EspStringArray();
-			for ( int i = 0; i < this.local_unmatched.size(); i++)
-			{
-				arr.addItem(this.local_unmatched.get(i));
-			}
-			raw.setUnmatched(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ValidatePackageQueriesWrapper [" + "unmatched = " + local_unmatched + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageQueries getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageQueries raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageQueries();
+        if (this.local_unmatched!= null)
+        {
+            EspStringArray arr = new EspStringArray();
+            for ( int i = 0; i < this.local_unmatched.size(); i++)
+            {
+                arr.addItem(this.local_unmatched.get(i));
+            }
+            raw.setUnmatched(arr);
+        }
+        return raw;
+    }
 
 
-	public void setUnmatched( List<String> _unmatched )
-	{
-		this.local_unmatched = _unmatched;
-	}
-	public List<String> getUnmatched( )
-	{
-		return this.local_unmatched;
-	}
+    public void setUnmatched( List<String> _unmatched )
+    {
+        this.local_unmatched = _unmatched;
+    }
+    public List<String> getUnmatched( )
+    {
+        return this.local_unmatched;
+    }
 }

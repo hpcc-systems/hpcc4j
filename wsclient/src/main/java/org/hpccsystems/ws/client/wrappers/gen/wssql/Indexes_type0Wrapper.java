@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Indexes_type0Wrapper
 {
-	protected List<String> local_index = null;
+    protected List<String> local_index = null;
 
-	public Indexes_type0Wrapper() {}
+    public Indexes_type0Wrapper() {}
 
-	public Indexes_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Indexes_type0 indexes_type0)
-	{
-		copy( indexes_type0 );
-	}
-	public Indexes_type0Wrapper( List<String> _index )
-	{
-		this.local_index = _index;
+    public Indexes_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Indexes_type0 indexes_type0)
+    {
+        copy( indexes_type0 );
+    }
+    public Indexes_type0Wrapper( List<String> _index )
+    {
+        this.local_index = _index;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Indexes_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Indexes_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getIndex() != null)
-		{
-			this.local_index = new ArrayList<String>();
-			for ( int i = 0; i < raw.getIndex().length; i++)
-			{
-				this.local_index.add(new String(raw.getIndex()[i]));
-			}
-		}
-	}
+        if (raw.getIndex() != null)
+        {
+            this.local_index = new ArrayList<String>();
+            for ( int i = 0; i < raw.getIndex().length; i++)
+            {
+                this.local_index.add(new String(raw.getIndex()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Indexes_type0Wrapper [" + "index = " + local_index + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Indexes_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Indexes_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Indexes_type0();
-		if (this.local_index!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_index.size()];
-			for ( int i = 0; i < this.local_index.size(); i++)
-			{
-				arr[i] = this.local_index.get(i) ;
-			}
-			raw.setIndex(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Indexes_type0Wrapper [" + "index = " + local_index + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.Indexes_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.Indexes_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.Indexes_type0();
+        if (this.local_index!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_index.size()];
+            for ( int i = 0; i < this.local_index.size(); i++)
+            {
+                arr[i] = this.local_index.get(i) ;
+            }
+            raw.setIndex(arr);
+        }
+        return raw;
+    }
 
 
-	public void setIndex( List<String> _index )
-	{
-		this.local_index = _index;
-	}
-	public List<String> getIndex( )
-	{
-		return this.local_index;
-	}
+    public void setIndex( List<String> _index )
+    {
+        this.local_index = _index;
+    }
+    public List<String> getIndex( )
+    {
+        return this.local_index;
+    }
 }

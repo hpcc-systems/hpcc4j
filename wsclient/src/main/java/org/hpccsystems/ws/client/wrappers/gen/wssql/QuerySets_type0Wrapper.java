@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class QuerySets_type0Wrapper
 {
-	protected List<HPCCQuerySetWrapper> local_querySet = null;
+    protected List<HPCCQuerySetWrapper> local_querySet = null;
 
-	public QuerySets_type0Wrapper() {}
+    public QuerySets_type0Wrapper() {}
 
-	public QuerySets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySets_type0 querysets_type0)
-	{
-		copy( querysets_type0 );
-	}
-	public QuerySets_type0Wrapper( List<HPCCQuerySetWrapper> _querySet )
-	{
-		this.local_querySet = _querySet;
+    public QuerySets_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySets_type0 querysets_type0)
+    {
+        copy( querysets_type0 );
+    }
+    public QuerySets_type0Wrapper( List<HPCCQuerySetWrapper> _querySet )
+    {
+        this.local_querySet = _querySet;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySets_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySets_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getQuerySet() != null)
-		{
-			this.local_querySet = new ArrayList<HPCCQuerySetWrapper>();
-			for ( int i = 0; i < raw.getQuerySet().length; i++)
-			{
-				this.local_querySet.add(new HPCCQuerySetWrapper(raw.getQuerySet()[i]));
-			}
-		}
-	}
+        if (raw.getQuerySet() != null)
+        {
+            this.local_querySet = new ArrayList<HPCCQuerySetWrapper>();
+            for ( int i = 0; i < raw.getQuerySet().length; i++)
+            {
+                this.local_querySet.add(new HPCCQuerySetWrapper(raw.getQuerySet()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "QuerySets_type0Wrapper [" + "querySet = " + local_querySet + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySets_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySets_type0();
-		if (this.local_querySet!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCQuerySet[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCQuerySet[this.local_querySet.size()];
-			for ( int i = 0; i < this.local_querySet.size(); i++)
-			{
-				arr[i] = this.local_querySet.get(i) .getRaw();
-			}
-			raw.setQuerySet(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "QuerySets_type0Wrapper [" + "querySet = " + local_querySet + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySets_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySets_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySets_type0();
+        if (this.local_querySet!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCQuerySet[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCQuerySet[this.local_querySet.size()];
+            for ( int i = 0; i < this.local_querySet.size(); i++)
+            {
+                arr[i] = this.local_querySet.get(i) .getRaw();
+            }
+            raw.setQuerySet(arr);
+        }
+        return raw;
+    }
 
 
-	public void setQuerySet( List<HPCCQuerySetWrapper> _querySet )
-	{
-		this.local_querySet = _querySet;
-	}
-	public List<HPCCQuerySetWrapper> getQuerySet( )
-	{
-		return this.local_querySet;
-	}
+    public void setQuerySet( List<HPCCQuerySetWrapper> _querySet )
+    {
+        this.local_querySet = _querySet;
+    }
+    public List<HPCCQuerySetWrapper> getQuerySet( )
+    {
+        return this.local_querySet;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetSprayTargetsRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.620Z
+ * TimeStamp: 2021-10-27T18:52:06.483Z
  */
 public class GetSprayTargetsRequestWrapper
 {
 
-	public GetSprayTargetsRequestWrapper() {}
+    public GetSprayTargetsRequestWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.GetSprayTargetsRequest();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsRequest();
+        return raw;
+    }
 
 
 }

@@ -3,6 +3,7 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 /**
  * The Interface IWsWorkunitsClientStubWrapper.
  */
+@Deprecated
 public interface IWsWorkunitsClientStubWrapper
 {
     public WUInfoResponseWrapper WUInfo(WUInfoRequestWrapper params) throws Exception;

@@ -30,6 +30,7 @@ import org.hpccsystems.ws.client.utils.Connection;
  * versions of the platform.
  *
  */
+@Deprecated
 public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapper
 {
 
@@ -50,9 +51,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         this.connection = conn;
         this.platformVersion = targetVersion;
 
-        if (useVersion1_81())
+        if (useVersion_latest())
         {
-            versionedStub = new WsWorkunitsClientStub1_81(connection);
+            versionedStub = new WsWorkunitsClientStub_latest(connection);
         }
         else if (useVersion1_69())
         {
@@ -103,11 +104,11 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
     }
     /**
-     * Use version 1_81.
+     * Use latest version.
      *
      * @return true, if successful
      */
-    private boolean useVersion1_81()
+    private boolean useVersion_latest()
     {
         return platformVersion.getMajor() >= 7;
     }
@@ -177,9 +178,9 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
      * @return the latest
      * @throws AxisFault axis fault exception
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WsWorkunitsStub getLatestStub() throws AxisFault
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunitsStub getLatestStub() throws AxisFault
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.WsWorkunitsStub(
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunitsStub stub = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunitsStub(
                 connection.getBaseUrl() + HPCCWsWorkUnitsClient.WSWORKUNITSWSDLURI);
 
         return stub;

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUSearchRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.850Z
+ * TimeStamp: 2021-10-27T14:48:55.313Z
  */
 public class DFUSearchRequestWrapper
 {
-	protected String local_showExample;
+    protected String local_showExample;
 
-	public DFUSearchRequestWrapper() {}
+    public DFUSearchRequestWrapper() {}
 
-	public DFUSearchRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchRequest dfusearchrequest)
-	{
-		copy( dfusearchrequest );
-	}
-	public DFUSearchRequestWrapper( String _showExample )
-	{
-		this.local_showExample = _showExample;
+    public DFUSearchRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest dfusearchrequest)
+    {
+        copy( dfusearchrequest );
+    }
+    public DFUSearchRequestWrapper( String _showExample )
+    {
+        this.local_showExample = _showExample;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_showExample = raw.getShowExample();
+        this.local_showExample = raw.getShowExample();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUSearchRequestWrapper [" + "showExample = " + local_showExample + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUSearchRequest();
-		raw.setShowExample( local_showExample);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUSearchRequestWrapper [" + "showExample = " + local_showExample + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest();
+        raw.setShowExample( local_showExample);
+        return raw;
+    }
 
 
-	public void setShowExample( String _showExample )
-	{
-		this.local_showExample = _showExample;
-	}
-	public String getShowExample( )
-	{
-		return this.local_showExample;
-	}
+    public void setShowExample( String _showExample )
+    {
+        this.local_showExample = _showExample;
+    }
+    public String getShowExample( )
+    {
+        return this.local_showExample;
+    }
 }

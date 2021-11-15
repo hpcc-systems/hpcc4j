@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefFoundFilesQueryResponseWrapper
 {
-	protected String local_dFUXRefFoundFilesQueryResult;
+    protected String local_dFUXRefFoundFilesQueryResult;
 
-	public DFUXRefFoundFilesQueryResponseWrapper() {}
+    public DFUXRefFoundFilesQueryResponseWrapper() {}
 
-	public DFUXRefFoundFilesQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryResponse dfuxreffoundfilesqueryresponse)
-	{
-		copy( dfuxreffoundfilesqueryresponse );
-	}
-	public DFUXRefFoundFilesQueryResponseWrapper( String _dFUXRefFoundFilesQueryResult )
-	{
-		this.local_dFUXRefFoundFilesQueryResult = _dFUXRefFoundFilesQueryResult;
+    public DFUXRefFoundFilesQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse dfuxreffoundfilesqueryresponse)
+    {
+        copy( dfuxreffoundfilesqueryresponse );
+    }
+    public DFUXRefFoundFilesQueryResponseWrapper( String _dFUXRefFoundFilesQueryResult )
+    {
+        this.local_dFUXRefFoundFilesQueryResult = _dFUXRefFoundFilesQueryResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dFUXRefFoundFilesQueryResult = raw.getDFUXRefFoundFilesQueryResult();
+        this.local_dFUXRefFoundFilesQueryResult = raw.getDFUXRefFoundFilesQueryResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefFoundFilesQueryResponseWrapper [" + "dFUXRefFoundFilesQueryResult = " + local_dFUXRefFoundFilesQueryResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefFoundFilesQueryResponse();
-		raw.setDFUXRefFoundFilesQueryResult( local_dFUXRefFoundFilesQueryResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefFoundFilesQueryResponseWrapper [" + "dFUXRefFoundFilesQueryResult = " + local_dFUXRefFoundFilesQueryResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse();
+        raw.setDFUXRefFoundFilesQueryResult( local_dFUXRefFoundFilesQueryResult);
+        return raw;
+    }
 
 
-	public void setDFUXRefFoundFilesQueryResult( String _dFUXRefFoundFilesQueryResult )
-	{
-		this.local_dFUXRefFoundFilesQueryResult = _dFUXRefFoundFilesQueryResult;
-	}
-	public String getDFUXRefFoundFilesQueryResult( )
-	{
-		return this.local_dFUXRefFoundFilesQueryResult;
-	}
+    public void setDFUXRefFoundFilesQueryResult( String _dFUXRefFoundFilesQueryResult )
+    {
+        this.local_dFUXRefFoundFilesQueryResult = _dFUXRefFoundFilesQueryResult;
+    }
+    public String getDFUXRefFoundFilesQueryResult( )
+    {
+        return this.local_dFUXRefFoundFilesQueryResult;
+    }
 }

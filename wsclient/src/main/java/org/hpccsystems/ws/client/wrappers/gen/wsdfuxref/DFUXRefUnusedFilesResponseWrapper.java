@@ -35,7 +35,7 @@ public class DFUXRefUnusedFilesResponseWrapper
 
     public DFUXRefUnusedFilesResponseWrapper() {}
 
-    public DFUXRefUnusedFilesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesResponse dfuxrefunusedfilesresponse)
+    public DFUXRefUnusedFilesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse dfuxrefunusedfilesresponse)
     {
         copy( dfuxrefunusedfilesresponse );
     }
@@ -48,7 +48,7 @@ public class DFUXRefUnusedFilesResponseWrapper
 
     }
 
-    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesResponse raw )
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse raw )
     {
         if (raw == null)
             return;
@@ -68,9 +68,9 @@ public class DFUXRefUnusedFilesResponseWrapper
     {
         return "DFUXRefUnusedFilesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "unusedFileCount = " + local_unusedFileCount + ", " + "unusedFiles = " + local_unusedFiles + ", " + "unusedFilesWithDetails = " + local_unusedFilesWithDetails + "]";
     }
-    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesResponse getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefUnusedFilesResponse();
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse();
         raw.setUnusedFileCount( local_unusedFileCount);
         return raw;
     }

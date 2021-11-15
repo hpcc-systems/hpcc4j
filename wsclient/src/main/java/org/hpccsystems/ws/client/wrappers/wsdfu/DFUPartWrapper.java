@@ -1,6 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsdfu;
 
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPart;
 
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
@@ -25,7 +25,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart;
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
  * TimeStamp: 2019-08-20T13:59:09.378Z
  */
-
+@Deprecated
 public class DFUPartWrapper
 {
     protected int local_id;
@@ -45,7 +45,7 @@ public class DFUPartWrapper
      * @param dfupart
      *            the dfupart
      */
-    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPart dfupart)
+    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPart dfupart)
     {
         copy( dfupart );
     }

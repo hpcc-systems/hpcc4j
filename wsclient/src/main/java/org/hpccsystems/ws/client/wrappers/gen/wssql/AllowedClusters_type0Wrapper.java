@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class AllowedClusters_type0Wrapper
 {
-	protected List<String> local_allowedCluster = null;
+    protected List<String> local_allowedCluster = null;
 
-	public AllowedClusters_type0Wrapper() {}
+    public AllowedClusters_type0Wrapper() {}
 
-	public AllowedClusters_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 allowedclusters_type0)
-	{
-		copy( allowedclusters_type0 );
-	}
-	public AllowedClusters_type0Wrapper( List<String> _allowedCluster )
-	{
-		this.local_allowedCluster = _allowedCluster;
+    public AllowedClusters_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.AllowedClusters_type0 allowedclusters_type0)
+    {
+        copy( allowedclusters_type0 );
+    }
+    public AllowedClusters_type0Wrapper( List<String> _allowedCluster )
+    {
+        this.local_allowedCluster = _allowedCluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.AllowedClusters_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getAllowedCluster() != null)
-		{
-			this.local_allowedCluster = new ArrayList<String>();
-			for ( int i = 0; i < raw.getAllowedCluster().length; i++)
-			{
-				this.local_allowedCluster.add(new String(raw.getAllowedCluster()[i]));
-			}
-		}
-	}
+        if (raw.getAllowedCluster() != null)
+        {
+            this.local_allowedCluster = new ArrayList<String>();
+            for ( int i = 0; i < raw.getAllowedCluster().length; i++)
+            {
+                this.local_allowedCluster.add(new String(raw.getAllowedCluster()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "AllowedClusters_type0Wrapper [" + "allowedCluster = " + local_allowedCluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AllowedClusters_type0();
-		if (this.local_allowedCluster!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_allowedCluster.size()];
-			for ( int i = 0; i < this.local_allowedCluster.size(); i++)
-			{
-				arr[i] = this.local_allowedCluster.get(i) ;
-			}
-			raw.setAllowedCluster(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "AllowedClusters_type0Wrapper [" + "allowedCluster = " + local_allowedCluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.AllowedClusters_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.AllowedClusters_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.AllowedClusters_type0();
+        if (this.local_allowedCluster!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_allowedCluster.size()];
+            for ( int i = 0; i < this.local_allowedCluster.size(); i++)
+            {
+                arr[i] = this.local_allowedCluster.get(i) ;
+            }
+            raw.setAllowedCluster(arr);
+        }
+        return raw;
+    }
 
 
-	public void setAllowedCluster( List<String> _allowedCluster )
-	{
-		this.local_allowedCluster = _allowedCluster;
-	}
-	public List<String> getAllowedCluster( )
-	{
-		return this.local_allowedCluster;
-	}
+    public void setAllowedCluster( List<String> _allowedCluster )
+    {
+        this.local_allowedCluster = _allowedCluster;
+    }
+    public List<String> getAllowedCluster( )
+    {
+        return this.local_allowedCluster;
+    }
 }

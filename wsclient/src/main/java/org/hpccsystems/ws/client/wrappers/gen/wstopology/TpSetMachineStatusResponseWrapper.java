@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpSetMachineStatusResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.995Z
+ * TimeStamp: 2021-10-27T23:40:06.377Z
  */
 public class TpSetMachineStatusResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected boolean local_tpSetMachineStatusResult;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected boolean local_tpSetMachineStatusResult;
 
-	public TpSetMachineStatusResponseWrapper() {}
+    public TpSetMachineStatusResponseWrapper() {}
 
-	public TpSetMachineStatusResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse tpsetmachinestatusresponse)
-	{
-		copy( tpsetmachinestatusresponse );
-	}
-	public TpSetMachineStatusResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, boolean _tpSetMachineStatusResult )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_tpSetMachineStatusResult = _tpSetMachineStatusResult;
+    public TpSetMachineStatusResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse tpsetmachinestatusresponse)
+    {
+        copy( tpsetmachinestatusresponse );
+    }
+    public TpSetMachineStatusResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, boolean _tpSetMachineStatusResult )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_tpSetMachineStatusResult = _tpSetMachineStatusResult;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_tpSetMachineStatusResult = raw.getTpSetMachineStatusResult();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_tpSetMachineStatusResult = raw.getTpSetMachineStatusResult();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpSetMachineStatusResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpSetMachineStatusResult = " + local_tpSetMachineStatusResult + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpSetMachineStatusResponse();
-		raw.setTpSetMachineStatusResult( local_tpSetMachineStatusResult);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpSetMachineStatusResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpSetMachineStatusResult = " + local_tpSetMachineStatusResult + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse();
+        raw.setTpSetMachineStatusResult( local_tpSetMachineStatusResult);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setTpSetMachineStatusResult( boolean _tpSetMachineStatusResult )
-	{
-		this.local_tpSetMachineStatusResult = _tpSetMachineStatusResult;
-	}
-	public boolean getTpSetMachineStatusResult( )
-	{
-		return this.local_tpSetMachineStatusResult;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setTpSetMachineStatusResult( boolean _tpSetMachineStatusResult )
+    {
+        this.local_tpSetMachineStatusResult = _tpSetMachineStatusResult;
+    }
+    public boolean getTpSetMachineStatusResult( )
+    {
+        return this.local_tpSetMachineStatusResult;
+    }
 }

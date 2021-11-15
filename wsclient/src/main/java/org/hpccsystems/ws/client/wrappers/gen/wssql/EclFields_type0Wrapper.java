@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class EclFields_type0Wrapper
 {
-	protected List<EclFieldDeclarationWrapper> local_eclField = null;
+    protected List<EclFieldDeclarationWrapper> local_eclField = null;
 
-	public EclFields_type0Wrapper() {}
+    public EclFields_type0Wrapper() {}
 
-	public EclFields_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFields_type0 eclfields_type0)
-	{
-		copy( eclfields_type0 );
-	}
-	public EclFields_type0Wrapper( List<EclFieldDeclarationWrapper> _eclField )
-	{
-		this.local_eclField = _eclField;
+    public EclFields_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFields_type0 eclfields_type0)
+    {
+        copy( eclfields_type0 );
+    }
+    public EclFields_type0Wrapper( List<EclFieldDeclarationWrapper> _eclField )
+    {
+        this.local_eclField = _eclField;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFields_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFields_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getEclField() != null)
-		{
-			this.local_eclField = new ArrayList<EclFieldDeclarationWrapper>();
-			for ( int i = 0; i < raw.getEclField().length; i++)
-			{
-				this.local_eclField.add(new EclFieldDeclarationWrapper(raw.getEclField()[i]));
-			}
-		}
-	}
+        if (raw.getEclField() != null)
+        {
+            this.local_eclField = new ArrayList<EclFieldDeclarationWrapper>();
+            for ( int i = 0; i < raw.getEclField().length; i++)
+            {
+                this.local_eclField.add(new EclFieldDeclarationWrapper(raw.getEclField()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EclFields_type0Wrapper [" + "eclField = " + local_eclField + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFields_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFields_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFields_type0();
-		if (this.local_eclField!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration[this.local_eclField.size()];
-			for ( int i = 0; i < this.local_eclField.size(); i++)
-			{
-				arr[i] = this.local_eclField.get(i) .getRaw();
-			}
-			raw.setEclField(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EclFields_type0Wrapper [" + "eclField = " + local_eclField + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFields_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFields_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFields_type0();
+        if (this.local_eclField!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration[this.local_eclField.size()];
+            for ( int i = 0; i < this.local_eclField.size(); i++)
+            {
+                arr[i] = this.local_eclField.get(i) .getRaw();
+            }
+            raw.setEclField(arr);
+        }
+        return raw;
+    }
 
 
-	public void setEclField( List<EclFieldDeclarationWrapper> _eclField )
-	{
-		this.local_eclField = _eclField;
-	}
-	public List<EclFieldDeclarationWrapper> getEclField( )
-	{
-		return this.local_eclField;
-	}
+    public void setEclField( List<EclFieldDeclarationWrapper> _eclField )
+    {
+        this.local_eclField = _eclField;
+    }
+    public List<EclFieldDeclarationWrapper> getEclField( )
+    {
+        return this.local_eclField;
+    }
 }

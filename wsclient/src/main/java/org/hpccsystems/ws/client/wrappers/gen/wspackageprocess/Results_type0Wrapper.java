@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Results_type0Wrapper
 {
-	protected List<ValidateResultWrapper> local_result = null;
+    protected List<ValidateResultWrapper> local_result = null;
 
-	public Results_type0Wrapper() {}
+    public Results_type0Wrapper() {}
 
-	public Results_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.Results_type0 results_type0)
-	{
-		copy( results_type0 );
-	}
-	public Results_type0Wrapper( List<ValidateResultWrapper> _result )
-	{
-		this.local_result = _result;
+    public Results_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Results_type0 results_type0)
+    {
+        copy( results_type0 );
+    }
+    public Results_type0Wrapper( List<ValidateResultWrapper> _result )
+    {
+        this.local_result = _result;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.Results_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Results_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getResult() != null)
-		{
-			this.local_result = new ArrayList<ValidateResultWrapper>();
-			for ( int i = 0; i < raw.getResult().length; i++)
-			{
-				this.local_result.add(new ValidateResultWrapper(raw.getResult()[i]));
-			}
-		}
-	}
+        if (raw.getResult() != null)
+        {
+            this.local_result = new ArrayList<ValidateResultWrapper>();
+            for ( int i = 0; i < raw.getResult().length; i++)
+            {
+                this.local_result.add(new ValidateResultWrapper(raw.getResult()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Results_type0Wrapper [" + "result = " + local_result + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.Results_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.Results_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.Results_type0();
-		if (this.local_result!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidateResult[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ValidateResult[this.local_result.size()];
-			for ( int i = 0; i < this.local_result.size(); i++)
-			{
-				arr[i] = this.local_result.get(i) .getRaw();
-			}
-			raw.setResult(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Results_type0Wrapper [" + "result = " + local_result + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Results_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Results_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Results_type0();
+        if (this.local_result!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidateResult[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidateResult[this.local_result.size()];
+            for ( int i = 0; i < this.local_result.size(); i++)
+            {
+                arr[i] = this.local_result.get(i) .getRaw();
+            }
+            raw.setResult(arr);
+        }
+        return raw;
+    }
 
 
-	public void setResult( List<ValidateResultWrapper> _result )
-	{
-		this.local_result = _result;
-	}
-	public List<ValidateResultWrapper> getResult( )
-	{
-		return this.local_result;
-	}
+    public void setResult( List<ValidateResultWrapper> _result )
+    {
+        this.local_result = _result;
+    }
+    public List<ValidateResultWrapper> getResult( )
+    {
+        return this.local_result;
+    }
 }

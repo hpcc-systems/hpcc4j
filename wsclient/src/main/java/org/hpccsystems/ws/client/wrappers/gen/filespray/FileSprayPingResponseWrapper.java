@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: FileSprayPingResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSprayPingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.610Z
+ * TimeStamp: 2021-10-27T18:52:06.471Z
  */
 public class FileSprayPingResponseWrapper
 {
 
-	public FileSprayPingResponseWrapper() {}
+    public FileSprayPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.FileSprayPingResponse();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSprayPingResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSprayPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSprayPingResponse();
+        return raw;
+    }
 
 
 }

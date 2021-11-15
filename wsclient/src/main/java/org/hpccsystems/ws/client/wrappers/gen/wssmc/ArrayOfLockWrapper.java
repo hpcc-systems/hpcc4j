@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfLockWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfLock
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfLock
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:28.947Z
+ * TimeStamp: 2021-10-27T20:17:20.567Z
  */
 public class ArrayOfLockWrapper
 {
-	protected List<LockWrapper> local_lock = null;
+    protected List<LockWrapper> local_lock = null;
 
-	public ArrayOfLockWrapper() {}
+    public ArrayOfLockWrapper() {}
 
-	public ArrayOfLockWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfLock arrayoflock)
-	{
-		copy( arrayoflock );
-	}
-	public ArrayOfLockWrapper( List<LockWrapper> _lock )
-	{
-		this.local_lock = _lock;
+    public ArrayOfLockWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfLock arrayoflock)
+    {
+        copy( arrayoflock );
+    }
+    public ArrayOfLockWrapper( List<LockWrapper> _lock )
+    {
+        this.local_lock = _lock;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfLock raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfLock raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getLock() != null)
-		{
-			this.local_lock = new ArrayList<LockWrapper>();
-			for ( int i = 0; i < raw.getLock().length; i++)
-			{
-				this.local_lock.add(new LockWrapper(raw.getLock()[i]));
-			}
-		}
-	}
+        if (raw.getLock() != null)
+        {
+            this.local_lock = new ArrayList<LockWrapper>();
+            for ( int i = 0; i < raw.getLock().length; i++)
+            {
+                this.local_lock.add(new LockWrapper(raw.getLock()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfLockWrapper [" + "lock = " + local_lock + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfLock getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfLock raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.ArrayOfLock();
-		if (this.local_lock!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Lock[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.Lock[this.local_lock.size()];
-			for ( int i = 0; i < this.local_lock.size(); i++)
-			{
-				arr[i] = this.local_lock.get(i) .getRaw();
-			}
-			raw.setLock(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfLockWrapper [" + "lock = " + local_lock + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfLock getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfLock raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfLock();
+        if (this.local_lock!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Lock[] arr = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Lock[this.local_lock.size()];
+            for ( int i = 0; i < this.local_lock.size(); i++)
+            {
+                arr[i] = this.local_lock.get(i) .getRaw();
+            }
+            raw.setLock(arr);
+        }
+        return raw;
+    }
 
 
-	public void setLock( List<LockWrapper> _lock )
-	{
-		this.local_lock = _lock;
-	}
-	public List<LockWrapper> getLock( )
-	{
-		return this.local_lock;
-	}
+    public void setLock( List<LockWrapper> _lock )
+    {
+        this.local_lock = _lock;
+    }
+    public List<LockWrapper> getLock( )
+    {
+        return this.local_lock;
+    }
 }

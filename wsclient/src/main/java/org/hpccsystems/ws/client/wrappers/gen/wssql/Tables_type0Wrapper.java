@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Tables_type0Wrapper
 {
-	protected List<HPCCTableWrapper> local_table = null;
+    protected List<HPCCTableWrapper> local_table = null;
 
-	public Tables_type0Wrapper() {}
+    public Tables_type0Wrapper() {}
 
-	public Tables_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Tables_type0 tables_type0)
-	{
-		copy( tables_type0 );
-	}
-	public Tables_type0Wrapper( List<HPCCTableWrapper> _table )
-	{
-		this.local_table = _table;
+    public Tables_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Tables_type0 tables_type0)
+    {
+        copy( tables_type0 );
+    }
+    public Tables_type0Wrapper( List<HPCCTableWrapper> _table )
+    {
+        this.local_table = _table;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Tables_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Tables_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTable() != null)
-		{
-			this.local_table = new ArrayList<HPCCTableWrapper>();
-			for ( int i = 0; i < raw.getTable().length; i++)
-			{
-				this.local_table.add(new HPCCTableWrapper(raw.getTable()[i]));
-			}
-		}
-	}
+        if (raw.getTable() != null)
+        {
+            this.local_table = new ArrayList<HPCCTableWrapper>();
+            for ( int i = 0; i < raw.getTable().length; i++)
+            {
+                this.local_table.add(new HPCCTableWrapper(raw.getTable()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Tables_type0Wrapper [" + "table = " + local_table + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Tables_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Tables_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Tables_type0();
-		if (this.local_table!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable[this.local_table.size()];
-			for ( int i = 0; i < this.local_table.size(); i++)
-			{
-				arr[i] = this.local_table.get(i) .getRaw();
-			}
-			raw.setTable(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Tables_type0Wrapper [" + "table = " + local_table + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.Tables_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.Tables_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.Tables_type0();
+        if (this.local_table!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCTable[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCTable[this.local_table.size()];
+            for ( int i = 0; i < this.local_table.size(); i++)
+            {
+                arr[i] = this.local_table.get(i) .getRaw();
+            }
+            raw.setTable(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTable( List<HPCCTableWrapper> _table )
-	{
-		this.local_table = _table;
-	}
-	public List<HPCCTableWrapper> getTable( )
-	{
-		return this.local_table;
-	}
+    public void setTable( List<HPCCTableWrapper> _table )
+    {
+        this.local_table = _table;
+    }
+    public List<HPCCTableWrapper> getTable( )
+    {
+        return this.local_table;
+    }
 }

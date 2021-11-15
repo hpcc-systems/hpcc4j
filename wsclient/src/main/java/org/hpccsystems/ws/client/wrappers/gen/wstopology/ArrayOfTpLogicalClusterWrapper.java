@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpLogicalClusterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.916Z
+ * TimeStamp: 2021-10-27T23:40:06.317Z
  */
 public class ArrayOfTpLogicalClusterWrapper
 {
-	protected List<TpLogicalClusterWrapper> local_tpLogicalCluster = null;
+    protected List<TpLogicalClusterWrapper> local_tpLogicalCluster = null;
 
-	public ArrayOfTpLogicalClusterWrapper() {}
+    public ArrayOfTpLogicalClusterWrapper() {}
 
-	public ArrayOfTpLogicalClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster arrayoftplogicalcluster)
-	{
-		copy( arrayoftplogicalcluster );
-	}
-	public ArrayOfTpLogicalClusterWrapper( List<TpLogicalClusterWrapper> _tpLogicalCluster )
-	{
-		this.local_tpLogicalCluster = _tpLogicalCluster;
+    public ArrayOfTpLogicalClusterWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster arrayoftplogicalcluster)
+    {
+        copy( arrayoftplogicalcluster );
+    }
+    public ArrayOfTpLogicalClusterWrapper( List<TpLogicalClusterWrapper> _tpLogicalCluster )
+    {
+        this.local_tpLogicalCluster = _tpLogicalCluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpLogicalCluster() != null)
-		{
-			this.local_tpLogicalCluster = new ArrayList<TpLogicalClusterWrapper>();
-			for ( int i = 0; i < raw.getTpLogicalCluster().length; i++)
-			{
-				this.local_tpLogicalCluster.add(new TpLogicalClusterWrapper(raw.getTpLogicalCluster()[i]));
-			}
-		}
-	}
+        if (raw.getTpLogicalCluster() != null)
+        {
+            this.local_tpLogicalCluster = new ArrayList<TpLogicalClusterWrapper>();
+            for ( int i = 0; i < raw.getTpLogicalCluster().length; i++)
+            {
+                this.local_tpLogicalCluster.add(new TpLogicalClusterWrapper(raw.getTpLogicalCluster()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpLogicalClusterWrapper [" + "tpLogicalCluster = " + local_tpLogicalCluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpLogicalCluster();
-		if (this.local_tpLogicalCluster!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpLogicalCluster[this.local_tpLogicalCluster.size()];
-			for ( int i = 0; i < this.local_tpLogicalCluster.size(); i++)
-			{
-				arr[i] = this.local_tpLogicalCluster.get(i) .getRaw();
-			}
-			raw.setTpLogicalCluster(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpLogicalClusterWrapper [" + "tpLogicalCluster = " + local_tpLogicalCluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster();
+        if (this.local_tpLogicalCluster!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalCluster[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalCluster[this.local_tpLogicalCluster.size()];
+            for ( int i = 0; i < this.local_tpLogicalCluster.size(); i++)
+            {
+                arr[i] = this.local_tpLogicalCluster.get(i) .getRaw();
+            }
+            raw.setTpLogicalCluster(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpLogicalCluster( List<TpLogicalClusterWrapper> _tpLogicalCluster )
-	{
-		this.local_tpLogicalCluster = _tpLogicalCluster;
-	}
-	public List<TpLogicalClusterWrapper> getTpLogicalCluster( )
-	{
-		return this.local_tpLogicalCluster;
-	}
+    public void setTpLogicalCluster( List<TpLogicalClusterWrapper> _tpLogicalCluster )
+    {
+        this.local_tpLogicalCluster = _tpLogicalCluster;
+    }
+    public List<TpLogicalClusterWrapper> getTpLogicalCluster( )
+    {
+        return this.local_tpLogicalCluster;
+    }
 }

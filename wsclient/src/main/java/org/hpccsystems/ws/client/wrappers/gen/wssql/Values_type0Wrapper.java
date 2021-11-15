@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class Values_type0Wrapper
 {
-	protected List<String> local_value = null;
+    protected List<String> local_value = null;
 
-	public Values_type0Wrapper() {}
+    public Values_type0Wrapper() {}
 
-	public Values_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Values_type0 values_type0)
-	{
-		copy( values_type0 );
-	}
-	public Values_type0Wrapper( List<String> _value )
-	{
-		this.local_value = _value;
+    public Values_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Values_type0 values_type0)
+    {
+        copy( values_type0 );
+    }
+    public Values_type0Wrapper( List<String> _value )
+    {
+        this.local_value = _value;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Values_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.Values_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getValue() != null)
-		{
-			this.local_value = new ArrayList<String>();
-			for ( int i = 0; i < raw.getValue().length; i++)
-			{
-				this.local_value.add(new String(raw.getValue()[i]));
-			}
-		}
-	}
+        if (raw.getValue() != null)
+        {
+            this.local_value = new ArrayList<String>();
+            for ( int i = 0; i < raw.getValue().length; i++)
+            {
+                this.local_value.add(new String(raw.getValue()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Values_type0Wrapper [" + "value = " + local_value + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Values_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Values_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Values_type0();
-		if (this.local_value!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_value.size()];
-			for ( int i = 0; i < this.local_value.size(); i++)
-			{
-				arr[i] = this.local_value.get(i) ;
-			}
-			raw.setValue(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "Values_type0Wrapper [" + "value = " + local_value + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.Values_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.Values_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.Values_type0();
+        if (this.local_value!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_value.size()];
+            for ( int i = 0; i < this.local_value.size(); i++)
+            {
+                arr[i] = this.local_value.get(i) ;
+            }
+            raw.setValue(arr);
+        }
+        return raw;
+    }
 
 
-	public void setValue( List<String> _value )
-	{
-		this.local_value = _value;
-	}
-	public List<String> getValue( )
-	{
-		return this.local_value;
-	}
+    public void setValue( List<String> _value )
+    {
+        this.local_value = _value;
+    }
+    public List<String> getValue( )
+    {
+        return this.local_value;
+    }
 }

@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class RemovePartFromPackageMapResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
 
-	public RemovePartFromPackageMapResponseWrapper() {}
+    public RemovePartFromPackageMapResponseWrapper() {}
 
-	public RemovePartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse removepartfrompackagemapresponse)
-	{
-		copy( removepartfrompackagemapresponse );
-	}
-	public RemovePartFromPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
+    public RemovePartFromPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse removepartfrompackagemapresponse)
+    {
+        copy( removepartfrompackagemapresponse );
+    }
+    public RemovePartFromPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "RemovePartFromPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.RemovePartFromPackageMapResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "RemovePartFromPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
 }

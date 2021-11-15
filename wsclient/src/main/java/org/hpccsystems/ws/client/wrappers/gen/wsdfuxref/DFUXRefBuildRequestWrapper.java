@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  */
 public class DFUXRefBuildRequestWrapper
 {
-	protected String local_cluster;
+    protected String local_cluster;
 
-	public DFUXRefBuildRequestWrapper() {}
+    public DFUXRefBuildRequestWrapper() {}
 
-	public DFUXRefBuildRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildRequest dfuxrefbuildrequest)
-	{
-		copy( dfuxrefbuildrequest );
-	}
-	public DFUXRefBuildRequestWrapper( String _cluster )
-	{
-		this.local_cluster = _cluster;
+    public DFUXRefBuildRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildRequest dfuxrefbuildrequest)
+    {
+        copy( dfuxrefbuildrequest );
+    }
+    public DFUXRefBuildRequestWrapper( String _cluster )
+    {
+        this.local_cluster = _cluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_cluster = raw.getCluster();
+        this.local_cluster = raw.getCluster();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUXRefBuildRequestWrapper [" + "cluster = " + local_cluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefBuildRequest();
-		raw.setCluster( local_cluster);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUXRefBuildRequestWrapper [" + "cluster = " + local_cluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefBuildRequest();
+        raw.setCluster( local_cluster);
+        return raw;
+    }
 
 
-	public void setCluster( String _cluster )
-	{
-		this.local_cluster = _cluster;
-	}
-	public String getCluster( )
-	{
-		return this.local_cluster;
-	}
+    public void setCluster( String _cluster )
+    {
+        this.local_cluster = _cluster;
+    }
+    public String getCluster( )
+    {
+        return this.local_cluster;
+    }
 }

@@ -24,13 +24,12 @@ import java.util.Hashtable;
 import javax.activation.DataHandler;
 
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUPartLocation;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPartLocation;
 import org.apache.logging.log4j.LogManager;
-
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUPartLocation;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileAccessInfo;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileType;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUPartLocation;
 
 public class DFUFileAccessInfoWrapper
 {
@@ -77,7 +76,10 @@ public class DFUFileAccessInfoWrapper
                 allFilePartCopyHosts = new String[dfufileLocations.length];
                 for (int i = 0; i < dfufileLocations.length; i++)
                 {
-                    allFilePartCopyHosts[i] = dfufileLocations[i].getHost();
+                    String host = dfufileLocations[i].getHost();
+                    if (host.trim().isEmpty())
+                        throw new Exception("Error: DFUPartLocation contains empty 'host'");
+                    allFilePartCopyHosts[i] = host;
                 }
             }
             else

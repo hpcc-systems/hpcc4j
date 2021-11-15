@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+@Deprecated
 public class WUInfoDetailsRequestWrapper
 {
 

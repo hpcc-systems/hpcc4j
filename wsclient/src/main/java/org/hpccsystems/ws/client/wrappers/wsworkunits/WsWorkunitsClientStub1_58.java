@@ -7,6 +7,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfoResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WsWorkunitsStub;
 import org.hpccsystems.ws.client.utils.Connection;
 
+@Deprecated
 public class WsWorkunitsClientStub1_58 implements IWsWorkunitsClientStubWrapper
 {
     final private Connection connection;

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpDropZoneQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.946Z
+ * TimeStamp: 2021-10-27T23:40:06.340Z
  */
 public class TpDropZoneQueryResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected ArrayOfTpDropZoneWrapper local_tpDropZones;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfTpDropZoneWrapper local_tpDropZones;
 
-	public TpDropZoneQueryResponseWrapper() {}
+    public TpDropZoneQueryResponseWrapper() {}
 
-	public TpDropZoneQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse tpdropzonequeryresponse)
-	{
-		copy( tpdropzonequeryresponse );
-	}
-	public TpDropZoneQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfTpDropZoneWrapper _tpDropZones )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_tpDropZones = _tpDropZones;
+    public TpDropZoneQueryResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse tpdropzonequeryresponse)
+    {
+        copy( tpdropzonequeryresponse );
+    }
+    public TpDropZoneQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfTpDropZoneWrapper _tpDropZones )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_tpDropZones = _tpDropZones;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getTpDropZones() != null)
-			this.local_tpDropZones = new ArrayOfTpDropZoneWrapper( raw.getTpDropZones());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getTpDropZones() != null)
+            this.local_tpDropZones = new ArrayOfTpDropZoneWrapper( raw.getTpDropZones());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpDropZoneQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpDropZones = " + local_tpDropZones + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDropZoneQueryResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpDropZoneQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "tpDropZones = " + local_tpDropZones + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setTpDropZones( ArrayOfTpDropZoneWrapper _tpDropZones )
-	{
-		this.local_tpDropZones = _tpDropZones;
-	}
-	public ArrayOfTpDropZoneWrapper getTpDropZones( )
-	{
-		return this.local_tpDropZones;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setTpDropZones( ArrayOfTpDropZoneWrapper _tpDropZones )
+    {
+        this.local_tpDropZones = _tpDropZones;
+    }
+    public ArrayOfTpDropZoneWrapper getTpDropZones( )
+    {
+        return this.local_tpDropZones;
+    }
 }

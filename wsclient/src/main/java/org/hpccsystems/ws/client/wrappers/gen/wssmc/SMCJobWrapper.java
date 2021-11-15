@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SMCJobWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCJob
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.112Z
+ * TimeStamp: 2021-10-27T20:17:20.613Z
  */
 public class SMCJobWrapper
 {
-	protected String local_wuid;
-	protected String local_queueName;
+    protected String local_wuid;
+    protected String local_queueName;
 
-	public SMCJobWrapper() {}
+    public SMCJobWrapper() {}
 
-	public SMCJobWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCJob smcjob)
-	{
-		copy( smcjob );
-	}
-	public SMCJobWrapper( String _wuid, String _queueName )
-	{
-		this.local_wuid = _wuid;
-		this.local_queueName = _queueName;
+    public SMCJobWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob smcjob)
+    {
+        copy( smcjob );
+    }
+    public SMCJobWrapper( String _wuid, String _queueName )
+    {
+        this.local_wuid = _wuid;
+        this.local_queueName = _queueName;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCJob raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_wuid = raw.getWuid();
-		this.local_queueName = raw.getQueueName();
+        this.local_wuid = raw.getWuid();
+        this.local_queueName = raw.getQueueName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SMCJobWrapper [" + "wuid = " + local_wuid + ", " + "queueName = " + local_queueName + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCJob getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCJob raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCJob();
-		raw.setWuid( local_wuid);
-		raw.setQueueName( local_queueName);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "SMCJobWrapper [" + "wuid = " + local_wuid + ", " + "queueName = " + local_queueName + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob();
+        raw.setWuid( local_wuid);
+        raw.setQueueName( local_queueName);
+        return raw;
+    }
 
 
-	public void setWuid( String _wuid )
-	{
-		this.local_wuid = _wuid;
-	}
-	public String getWuid( )
-	{
-		return this.local_wuid;
-	}
-	public void setQueueName( String _queueName )
-	{
-		this.local_queueName = _queueName;
-	}
-	public String getQueueName( )
-	{
-		return this.local_queueName;
-	}
+    public void setWuid( String _wuid )
+    {
+        this.local_wuid = _wuid;
+    }
+    public String getWuid( )
+    {
+        return this.local_wuid;
+    }
+    public void setQueueName( String _queueName )
+    {
+        this.local_queueName = _queueName;
+    }
+    public String getQueueName( )
+    {
+        return this.local_queueName;
+    }
 }

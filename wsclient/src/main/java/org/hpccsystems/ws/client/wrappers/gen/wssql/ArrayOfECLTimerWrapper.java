@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLTimerWrapper
 {
-	protected List<ECLTimerWrapper> local_eCLTimer = null;
+    protected List<ECLTimerWrapper> local_eCLTimer = null;
 
-	public ArrayOfECLTimerWrapper() {}
+    public ArrayOfECLTimerWrapper() {}
 
-	public ArrayOfECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer arrayofecltimer)
-	{
-		copy( arrayofecltimer );
-	}
-	public ArrayOfECLTimerWrapper( List<ECLTimerWrapper> _eCLTimer )
-	{
-		this.local_eCLTimer = _eCLTimer;
+    public ArrayOfECLTimerWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimer arrayofecltimer)
+    {
+        copy( arrayofecltimer );
+    }
+    public ArrayOfECLTimerWrapper( List<ECLTimerWrapper> _eCLTimer )
+    {
+        this.local_eCLTimer = _eCLTimer;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimer raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLTimer() != null)
-		{
-			this.local_eCLTimer = new ArrayList<ECLTimerWrapper>();
-			for ( int i = 0; i < raw.getECLTimer().length; i++)
-			{
-				this.local_eCLTimer.add(new ECLTimerWrapper(raw.getECLTimer()[i]));
-			}
-		}
-	}
+        if (raw.getECLTimer() != null)
+        {
+            this.local_eCLTimer = new ArrayList<ECLTimerWrapper>();
+            for ( int i = 0; i < raw.getECLTimer().length; i++)
+            {
+                this.local_eCLTimer.add(new ECLTimerWrapper(raw.getECLTimer()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLTimerWrapper [" + "eCLTimer = " + local_eCLTimer + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLTimer();
-		if (this.local_eCLTimer!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimer[this.local_eCLTimer.size()];
-			for ( int i = 0; i < this.local_eCLTimer.size(); i++)
-			{
-				arr[i] = this.local_eCLTimer.get(i) .getRaw();
-			}
-			raw.setECLTimer(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLTimerWrapper [" + "eCLTimer = " + local_eCLTimer + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimer getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimer raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLTimer();
+        if (this.local_eCLTimer!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer[this.local_eCLTimer.size()];
+            for ( int i = 0; i < this.local_eCLTimer.size(); i++)
+            {
+                arr[i] = this.local_eCLTimer.get(i) .getRaw();
+            }
+            raw.setECLTimer(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLTimer( List<ECLTimerWrapper> _eCLTimer )
-	{
-		this.local_eCLTimer = _eCLTimer;
-	}
-	public List<ECLTimerWrapper> getECLTimer( )
-	{
-		return this.local_eCLTimer;
-	}
+    public void setECLTimer( List<ECLTimerWrapper> _eCLTimer )
+    {
+        this.local_eCLTimer = _eCLTimer;
+    }
+    public List<ECLTimerWrapper> getECLTimer( )
+    {
+        return this.local_eCLTimer;
+    }
 }

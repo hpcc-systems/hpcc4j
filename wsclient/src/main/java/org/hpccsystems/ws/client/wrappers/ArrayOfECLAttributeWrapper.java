@@ -42,7 +42,7 @@ public class ArrayOfECLAttributeWrapper
      * @param arrayofeclattribute
      *            the arrayofeclattribute
      */
-    public ArrayOfECLAttributeWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute arrayofeclattribute)
+    public ArrayOfECLAttributeWrapper(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ArrayOfECLAttribute arrayofeclattribute)
     {
         copy(arrayofeclattribute);
     }
@@ -65,7 +65,7 @@ public class ArrayOfECLAttributeWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ArrayOfECLAttribute raw)
     {
         if (raw == null) return;
 
@@ -95,12 +95,12 @@ public class ArrayOfECLAttributeWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ArrayOfECLAttribute getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ArrayOfECLAttribute();
+        org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ArrayOfECLAttribute raw = new org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ArrayOfECLAttribute();
         if (this.local_eCLAttribute != null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[] arr = new org.hpccsystems.ws.client.gen.axis2.wsattributes.v1_21.ECLAttribute[this.local_eCLAttribute
+            org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ECLAttribute[] arr = new org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.ECLAttribute[this.local_eCLAttribute
                     .size()];
             for (int i = 0; i < this.local_eCLAttribute.size(); i++)
             {

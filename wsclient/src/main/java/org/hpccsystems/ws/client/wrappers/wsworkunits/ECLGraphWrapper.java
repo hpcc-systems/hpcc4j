@@ -1,5 +1,6 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
+@Deprecated
 public class ECLGraphWrapper
 {
     private String name;
@@ -23,7 +24,7 @@ public class ECLGraphWrapper
      * @param raw
      *            the raw
      */
-    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph raw)
+    public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph raw)
     {
         if (raw==null)
         {
@@ -141,20 +142,20 @@ public class ECLGraphWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph getRaw()
     {
         return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the latest version of ECLGraph.
      *
-     * @return the raw version 1 79
+     * @return the latest version of ECLGraph
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph result =
-                        new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLGraph();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph result =
+                        new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph();
 
         result.setComplete(this.getComplete());
         result.setFailed(this.getFailed());

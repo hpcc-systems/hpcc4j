@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: LockModesWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.LockModes
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.035Z
+ * TimeStamp: 2021-10-27T20:17:20.590Z
  */
 public class LockModesWrapper
 {
-	protected String local_lockModes;
+    protected String local_lockModes;
 
-	public LockModesWrapper() {}
+    public LockModesWrapper() {}
 
-	public LockModesWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.LockModes lockmodes)
-	{
-		copy( lockmodes );
-	}
-	public LockModesWrapper( String _lockModes )
-	{
-		this.local_lockModes = _lockModes;
+    public LockModesWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes lockmodes)
+    {
+        copy( lockmodes );
+    }
+    public LockModesWrapper( String _lockModes )
+    {
+        this.local_lockModes = _lockModes;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.LockModes raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getLockModes();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "LockModesWrapper [" + "lockModes = " + local_lockModes + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.LockModes getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.LockModes raw = null;
+    @Override
+    public String toString()
+    {
+        return "LockModesWrapper [" + "lockModes = " + local_lockModes + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setLockModes(lockModes);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setLockModes( String _lockModes )
-	{
-		this.local_lockModes = _lockModes;
-	}
-	public String getLockModes( )
-	{
-		return this.local_lockModes;
-	}
+    public void setLockModes( String _lockModes )
+    {
+        this.local_lockModes = _lockModes;
+    }
+    public String getLockModes( )
+    {
+        return this.local_lockModes;
+    }
 }

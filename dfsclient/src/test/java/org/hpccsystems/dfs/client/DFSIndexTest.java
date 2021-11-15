@@ -51,6 +51,8 @@ import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.FieldFilterRange;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 
+import static org.junit.Assert.assertTrue;
+
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class DFSIndexTest extends BaseRemoteTest
 {
@@ -109,6 +111,8 @@ public class DFSIndexTest extends BaseRemoteTest
             //------------------------------------------------------------------------------
             
             HPCCFile file = new HPCCFile(indexName, connString , hpccUser, hpccPass);
+
+            assertTrue(file.isTlkIndex());
 
             DataPartition[] fileParts = file.getFileParts();
 
@@ -179,7 +183,7 @@ public class DFSIndexTest extends BaseRemoteTest
         FileFilter filter = new FileFilter("key = " + searchValue);
         List<DataPartition> filteredPartitions = file.findMatchingPartitions(filter);
         
-        Assert.assertTrue("Unexpected number of partitions", filteredPartitions.size() == 1);
+        assertTrue("Unexpected number of partitions", filteredPartitions.size() == 1);
 
         DataPartition matchedPart = filteredPartitions.get(0);
         HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
@@ -283,19 +287,18 @@ public class DFSIndexTest extends BaseRemoteTest
         }
     }
 
-    String createIndexOnDataset(String datasetName, FieldDef recordDef) throws Exception
-    {
+    String createIndexOnDataset(String datasetName, FieldDef recordDef) throws Exception {
         String indexName = datasetName + "::key";
         String ecl = "rec := " + RecordDefinitionTranslator.toECLRecord(recordDef);
         ecl += "ds := DATASET('" + datasetName + "', rec, THOR);";
         ecl += "idx := INDEX(ds, {key}, {payload},'" + indexName + "');";
         ecl += "BUILDINDEX(idx, OVERWRITE);";
-        
+
         WorkunitWrapper wu = new WorkunitWrapper();
         wu.setECL(ecl);
         wu.setJobname("IndexCreation" + datasetName);
         wu.setCluster(thorclustername);
-        
+
         HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
         String result = client.createAndRunWUFromECLAndGetResults(wu);
         return indexName;

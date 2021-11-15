@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class SuperFileWrapper
 {
-	protected String local_name;
-	protected SubFiles_type0Wrapper local_subFiles;
+    protected String local_name;
+    protected SubFiles_type0Wrapper local_subFiles;
 
-	public SuperFileWrapper() {}
+    public SuperFileWrapper() {}
 
-	public SuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile superfile)
-	{
-		copy( superfile );
-	}
-	public SuperFileWrapper( String _name, SubFiles_type0Wrapper _subFiles )
-	{
-		this.local_name = _name;
-		this.local_subFiles = _subFiles;
+    public SuperFileWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile superfile)
+    {
+        copy( superfile );
+    }
+    public SuperFileWrapper( String _name, SubFiles_type0Wrapper _subFiles )
+    {
+        this.local_name = _name;
+        this.local_subFiles = _subFiles;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		if (raw.getSubFiles() != null)
-			this.local_subFiles = new SubFiles_type0Wrapper( raw.getSubFiles());
+        this.local_name = raw.getName();
+        if (raw.getSubFiles() != null)
+            this.local_subFiles = new SubFiles_type0Wrapper( raw.getSubFiles());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SuperFileWrapper [" + "name = " + local_name + ", " + "subFiles = " + local_subFiles + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.SuperFile();
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "SuperFileWrapper [" + "name = " + local_name + ", " + "subFiles = " + local_subFiles + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile();
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setSubFiles( SubFiles_type0Wrapper _subFiles )
-	{
-		this.local_subFiles = _subFiles;
-	}
-	public SubFiles_type0Wrapper getSubFiles( )
-	{
-		return this.local_subFiles;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setSubFiles( SubFiles_type0Wrapper _subFiles )
+    {
+        this.local_subFiles = _subFiles;
+    }
+    public SubFiles_type0Wrapper getSubFiles( )
+    {
+        return this.local_subFiles;
+    }
 }

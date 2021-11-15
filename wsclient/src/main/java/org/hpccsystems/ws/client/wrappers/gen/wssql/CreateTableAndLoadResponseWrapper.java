@@ -27,84 +27,84 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class CreateTableAndLoadResponseWrapper
 {
-	protected String local_tableName;
-	protected boolean local_success;
-	protected String local_eclRecordDefinition;
-	protected ECLWorkunitWrapper local_workunit;
+    protected String local_tableName;
+    protected boolean local_success;
+    protected String local_eclRecordDefinition;
+    protected ECLWorkunitWrapper local_workunit;
 
-	public CreateTableAndLoadResponseWrapper() {}
+    public CreateTableAndLoadResponseWrapper() {}
 
-	public CreateTableAndLoadResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse createtableandloadresponse)
-	{
-		copy( createtableandloadresponse );
-	}
-	public CreateTableAndLoadResponseWrapper( String _tableName, boolean _success, String _eclRecordDefinition, ECLWorkunitWrapper _workunit )
-	{
-		this.local_tableName = _tableName;
-		this.local_success = _success;
-		this.local_eclRecordDefinition = _eclRecordDefinition;
-		this.local_workunit = _workunit;
+    public CreateTableAndLoadResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadResponse createtableandloadresponse)
+    {
+        copy( createtableandloadresponse );
+    }
+    public CreateTableAndLoadResponseWrapper( String _tableName, boolean _success, String _eclRecordDefinition, ECLWorkunitWrapper _workunit )
+    {
+        this.local_tableName = _tableName;
+        this.local_success = _success;
+        this.local_eclRecordDefinition = _eclRecordDefinition;
+        this.local_workunit = _workunit;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_tableName = raw.getTableName();
-		this.local_success = raw.getSuccess();
-		this.local_eclRecordDefinition = raw.getEclRecordDefinition();
-		if (raw.getWorkunit() != null)
-			this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
+        this.local_tableName = raw.getTableName();
+        this.local_success = raw.getSuccess();
+        this.local_eclRecordDefinition = raw.getEclRecordDefinition();
+        if (raw.getWorkunit() != null)
+            this.local_workunit = new ECLWorkunitWrapper( raw.getWorkunit());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "CreateTableAndLoadResponseWrapper [" + "tableName = " + local_tableName + ", " + "success = " + local_success + ", " + "eclRecordDefinition = " + local_eclRecordDefinition + ", " + "workunit = " + local_workunit + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadResponse();
-		raw.setTableName( local_tableName);
-		raw.setSuccess( local_success);
-		raw.setEclRecordDefinition( local_eclRecordDefinition);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "CreateTableAndLoadResponseWrapper [" + "tableName = " + local_tableName + ", " + "success = " + local_success + ", " + "eclRecordDefinition = " + local_eclRecordDefinition + ", " + "workunit = " + local_workunit + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadResponse();
+        raw.setTableName( local_tableName);
+        raw.setSuccess( local_success);
+        raw.setEclRecordDefinition( local_eclRecordDefinition);
+        return raw;
+    }
 
 
-	public void setTableName( String _tableName )
-	{
-		this.local_tableName = _tableName;
-	}
-	public String getTableName( )
-	{
-		return this.local_tableName;
-	}
-	public void setSuccess( boolean _success )
-	{
-		this.local_success = _success;
-	}
-	public boolean getSuccess( )
-	{
-		return this.local_success;
-	}
-	public void setEclRecordDefinition( String _eclRecordDefinition )
-	{
-		this.local_eclRecordDefinition = _eclRecordDefinition;
-	}
-	public String getEclRecordDefinition( )
-	{
-		return this.local_eclRecordDefinition;
-	}
-	public void setWorkunit( ECLWorkunitWrapper _workunit )
-	{
-		this.local_workunit = _workunit;
-	}
-	public ECLWorkunitWrapper getWorkunit( )
-	{
-		return this.local_workunit;
-	}
+    public void setTableName( String _tableName )
+    {
+        this.local_tableName = _tableName;
+    }
+    public String getTableName( )
+    {
+        return this.local_tableName;
+    }
+    public void setSuccess( boolean _success )
+    {
+        this.local_success = _success;
+    }
+    public boolean getSuccess( )
+    {
+        return this.local_success;
+    }
+    public void setEclRecordDefinition( String _eclRecordDefinition )
+    {
+        this.local_eclRecordDefinition = _eclRecordDefinition;
+    }
+    public String getEclRecordDefinition( )
+    {
+        return this.local_eclRecordDefinition;
+    }
+    public void setWorkunit( ECLWorkunitWrapper _workunit )
+    {
+        this.local_workunit = _workunit;
+    }
+    public ECLWorkunitWrapper getWorkunit( )
+    {
+        return this.local_workunit;
+    }
 }

@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLWorkflowWrapper
 {
-	protected List<ECLWorkflowWrapper> local_eCLWorkflow = null;
+    protected List<ECLWorkflowWrapper> local_eCLWorkflow = null;
 
-	public ArrayOfECLWorkflowWrapper() {}
+    public ArrayOfECLWorkflowWrapper() {}
 
-	public ArrayOfECLWorkflowWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow arrayofeclworkflow)
-	{
-		copy( arrayofeclworkflow );
-	}
-	public ArrayOfECLWorkflowWrapper( List<ECLWorkflowWrapper> _eCLWorkflow )
-	{
-		this.local_eCLWorkflow = _eCLWorkflow;
+    public ArrayOfECLWorkflowWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWorkflow arrayofeclworkflow)
+    {
+        copy( arrayofeclworkflow );
+    }
+    public ArrayOfECLWorkflowWrapper( List<ECLWorkflowWrapper> _eCLWorkflow )
+    {
+        this.local_eCLWorkflow = _eCLWorkflow;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWorkflow raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLWorkflow() != null)
-		{
-			this.local_eCLWorkflow = new ArrayList<ECLWorkflowWrapper>();
-			for ( int i = 0; i < raw.getECLWorkflow().length; i++)
-			{
-				this.local_eCLWorkflow.add(new ECLWorkflowWrapper(raw.getECLWorkflow()[i]));
-			}
-		}
-	}
+        if (raw.getECLWorkflow() != null)
+        {
+            this.local_eCLWorkflow = new ArrayList<ECLWorkflowWrapper>();
+            for ( int i = 0; i < raw.getECLWorkflow().length; i++)
+            {
+                this.local_eCLWorkflow.add(new ECLWorkflowWrapper(raw.getECLWorkflow()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLWorkflowWrapper [" + "eCLWorkflow = " + local_eCLWorkflow + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLWorkflow();
-		if (this.local_eCLWorkflow!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkflow[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLWorkflow[this.local_eCLWorkflow.size()];
-			for ( int i = 0; i < this.local_eCLWorkflow.size(); i++)
-			{
-				arr[i] = this.local_eCLWorkflow.get(i) .getRaw();
-			}
-			raw.setECLWorkflow(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLWorkflowWrapper [" + "eCLWorkflow = " + local_eCLWorkflow + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWorkflow getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWorkflow();
+        if (this.local_eCLWorkflow!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLWorkflow[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLWorkflow[this.local_eCLWorkflow.size()];
+            for ( int i = 0; i < this.local_eCLWorkflow.size(); i++)
+            {
+                arr[i] = this.local_eCLWorkflow.get(i) .getRaw();
+            }
+            raw.setECLWorkflow(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLWorkflow( List<ECLWorkflowWrapper> _eCLWorkflow )
-	{
-		this.local_eCLWorkflow = _eCLWorkflow;
-	}
-	public List<ECLWorkflowWrapper> getECLWorkflow( )
-	{
-		return this.local_eCLWorkflow;
-	}
+    public void setECLWorkflow( List<ECLWorkflowWrapper> _eCLWorkflow )
+    {
+        this.local_eCLWorkflow = _eCLWorkflow;
+    }
+    public List<ECLWorkflowWrapper> getECLWorkflow( )
+    {
+        return this.local_eCLWorkflow;
+    }
 }

@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class ApplicationValueWrapper
 {
-	protected String local_application;
-	protected String local_name;
-	protected String local_value;
+    protected String local_application;
+    protected String local_name;
+    protected String local_value;
 
-	public ApplicationValueWrapper() {}
+    public ApplicationValueWrapper() {}
 
-	public ApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue applicationvalue)
-	{
-		copy( applicationvalue );
-	}
-	public ApplicationValueWrapper( String _application, String _name, String _value )
-	{
-		this.local_application = _application;
-		this.local_name = _name;
-		this.local_value = _value;
+    public ApplicationValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue applicationvalue)
+    {
+        copy( applicationvalue );
+    }
+    public ApplicationValueWrapper( String _application, String _name, String _value )
+    {
+        this.local_application = _application;
+        this.local_name = _name;
+        this.local_value = _value;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_application = raw.getApplication();
-		this.local_name = raw.getName();
-		this.local_value = raw.getValue();
+        this.local_application = raw.getApplication();
+        this.local_name = raw.getName();
+        this.local_value = raw.getValue();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ApplicationValueWrapper [" + "application = " + local_application + ", " + "name = " + local_name + ", " + "value = " + local_value + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ApplicationValue();
-		raw.setApplication( local_application);
-		raw.setName( local_name);
-		raw.setValue( local_value);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ApplicationValueWrapper [" + "application = " + local_application + ", " + "name = " + local_name + ", " + "value = " + local_value + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ApplicationValue();
+        raw.setApplication( local_application);
+        raw.setName( local_name);
+        raw.setValue( local_value);
+        return raw;
+    }
 
 
-	public void setApplication( String _application )
-	{
-		this.local_application = _application;
-	}
-	public String getApplication( )
-	{
-		return this.local_application;
-	}
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setValue( String _value )
-	{
-		this.local_value = _value;
-	}
-	public String getValue( )
-	{
-		return this.local_value;
-	}
+    public void setApplication( String _application )
+    {
+        this.local_application = _application;
+    }
+    public String getApplication( )
+    {
+        return this.local_application;
+    }
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setValue( String _value )
+    {
+        this.local_value = _value;
+    }
+    public String getValue( )
+    {
+        return this.local_value;
+    }
 }

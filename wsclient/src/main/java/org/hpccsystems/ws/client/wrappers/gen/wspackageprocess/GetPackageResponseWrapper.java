@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class GetPackageResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
-	protected String local_info;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
+    protected String local_info;
 
-	public GetPackageResponseWrapper() {}
+    public GetPackageResponseWrapper() {}
 
-	public GetPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse getpackageresponse)
-	{
-		copy( getpackageresponse );
-	}
-	public GetPackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, String _info )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
-		this.local_info = _info;
+    public GetPackageResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageResponse getpackageresponse)
+    {
+        copy( getpackageresponse );
+    }
+    public GetPackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, String _info )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
+        this.local_info = _info;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		this.local_info = raw.getInfo();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        this.local_info = raw.getInfo();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "info = " + local_info + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageResponse();
-		raw.setInfo( local_info);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "info = " + local_info + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageResponse();
+        raw.setInfo( local_info);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
-	public void setInfo( String _info )
-	{
-		this.local_info = _info;
-	}
-	public String getInfo( )
-	{
-		return this.local_info;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
+    public void setInfo( String _info )
+    {
+        this.local_info = _info;
+    }
+    public String getInfo( )
+    {
+        return this.local_info;
+    }
 }

@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class AlternateClusters_type0Wrapper
 {
-	protected List<String> local_alternateCluster = null;
+    protected List<String> local_alternateCluster = null;
 
-	public AlternateClusters_type0Wrapper() {}
+    public AlternateClusters_type0Wrapper() {}
 
-	public AlternateClusters_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AlternateClusters_type0 alternateclusters_type0)
-	{
-		copy( alternateclusters_type0 );
-	}
-	public AlternateClusters_type0Wrapper( List<String> _alternateCluster )
-	{
-		this.local_alternateCluster = _alternateCluster;
+    public AlternateClusters_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.AlternateClusters_type0 alternateclusters_type0)
+    {
+        copy( alternateclusters_type0 );
+    }
+    public AlternateClusters_type0Wrapper( List<String> _alternateCluster )
+    {
+        this.local_alternateCluster = _alternateCluster;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AlternateClusters_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.AlternateClusters_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getAlternateCluster() != null)
-		{
-			this.local_alternateCluster = new ArrayList<String>();
-			for ( int i = 0; i < raw.getAlternateCluster().length; i++)
-			{
-				this.local_alternateCluster.add(new String(raw.getAlternateCluster()[i]));
-			}
-		}
-	}
+        if (raw.getAlternateCluster() != null)
+        {
+            this.local_alternateCluster = new ArrayList<String>();
+            for ( int i = 0; i < raw.getAlternateCluster().length; i++)
+            {
+                this.local_alternateCluster.add(new String(raw.getAlternateCluster()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "AlternateClusters_type0Wrapper [" + "alternateCluster = " + local_alternateCluster + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AlternateClusters_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AlternateClusters_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.AlternateClusters_type0();
-		if (this.local_alternateCluster!= null)
-		{
-			java.lang.String[] arr = new java.lang.String[this.local_alternateCluster.size()];
-			for ( int i = 0; i < this.local_alternateCluster.size(); i++)
-			{
-				arr[i] = this.local_alternateCluster.get(i) ;
-			}
-			raw.setAlternateCluster(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "AlternateClusters_type0Wrapper [" + "alternateCluster = " + local_alternateCluster + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.AlternateClusters_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.AlternateClusters_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.AlternateClusters_type0();
+        if (this.local_alternateCluster!= null)
+        {
+            java.lang.String[] arr = new java.lang.String[this.local_alternateCluster.size()];
+            for ( int i = 0; i < this.local_alternateCluster.size(); i++)
+            {
+                arr[i] = this.local_alternateCluster.get(i) ;
+            }
+            raw.setAlternateCluster(arr);
+        }
+        return raw;
+    }
 
 
-	public void setAlternateCluster( List<String> _alternateCluster )
-	{
-		this.local_alternateCluster = _alternateCluster;
-	}
-	public List<String> getAlternateCluster( )
-	{
-		return this.local_alternateCluster;
-	}
+    public void setAlternateCluster( List<String> _alternateCluster )
+    {
+        this.local_alternateCluster = _alternateCluster;
+    }
+    public List<String> getAlternateCluster( )
+    {
+        return this.local_alternateCluster;
+    }
 }

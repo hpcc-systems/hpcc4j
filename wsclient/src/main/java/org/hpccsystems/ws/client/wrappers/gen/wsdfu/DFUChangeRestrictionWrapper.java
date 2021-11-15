@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUChangeRestrictionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeRestriction
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.703Z
+ * TimeStamp: 2021-10-27T14:48:55.248Z
  */
 public class DFUChangeRestrictionWrapper
 {
-	protected int local_dFUChangeRestriction;
+    protected int local_dFUChangeRestriction;
 
-	public DFUChangeRestrictionWrapper() {}
+    public DFUChangeRestrictionWrapper() {}
 
-	public DFUChangeRestrictionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeRestriction dfuchangerestriction)
-	{
-		copy( dfuchangerestriction );
-	}
-	public DFUChangeRestrictionWrapper( int _dFUChangeRestriction )
-	{
-		this.local_dFUChangeRestriction = _dFUChangeRestriction;
+    public DFUChangeRestrictionWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction dfuchangerestriction)
+    {
+        copy( dfuchangerestriction );
+    }
+    public DFUChangeRestrictionWrapper( int _dFUChangeRestriction )
+    {
+        this.local_dFUChangeRestriction = _dFUChangeRestriction;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeRestriction raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getDFUChangeRestriction();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUChangeRestrictionWrapper [" + "dFUChangeRestriction = " + local_dFUChangeRestriction + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeRestriction getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUChangeRestriction raw = null;
+    @Override
+    public String toString()
+    {
+        return "DFUChangeRestrictionWrapper [" + "dFUChangeRestriction = " + local_dFUChangeRestriction + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setDFUChangeRestriction(dFUChangeRestriction);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setDFUChangeRestriction( int _dFUChangeRestriction )
-	{
-		this.local_dFUChangeRestriction = _dFUChangeRestriction;
-	}
-	public int getDFUChangeRestriction( )
-	{
-		return this.local_dFUChangeRestriction;
-	}
+    public void setDFUChangeRestriction( int _dFUChangeRestriction )
+    {
+        this.local_dFUChangeRestriction = _dFUChangeRestriction;
+    }
+    public int getDFUChangeRestriction( )
+    {
+        return this.local_dFUChangeRestriction;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SMCIndexResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCIndexResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.109Z
+ * TimeStamp: 2021-10-27T20:17:20.612Z
  */
 public class SMCIndexResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
 
-	public SMCIndexResponseWrapper() {}
+    public SMCIndexResponseWrapper() {}
 
-	public SMCIndexResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCIndexResponse smcindexresponse)
-	{
-		copy( smcindexresponse );
-	}
-	public SMCIndexResponseWrapper( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
+    public SMCIndexResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse smcindexresponse)
+    {
+        copy( smcindexresponse );
+    }
+    public SMCIndexResponseWrapper( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCIndexResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SMCIndexResponseWrapper [" + "exceptions = " + local_exceptions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCIndexResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCIndexResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCIndexResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "SMCIndexResponseWrapper [" + "exceptions = " + local_exceptions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
 }

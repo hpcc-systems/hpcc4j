@@ -259,10 +259,21 @@ public class PartitionProcessor
         //------------------------------------------------------------------------------
         // Construct data partition ranges
         //------------------------------------------------------------------------------
-
-        if ((tlkRecords.size()-1) != this.dataPartitions.length)
+        
+        int numTLKRanges = (tlkRecords.size()-1);
+        if (numTLKRanges != this.dataPartitions.length)
         {
-            throw new Exception("Mismatch between # of data partitions and records in TLK: " + (tlkRecords.size()-1) + " # partitions: " + this.dataPartitions.length);
+            if (numTLKRanges == 1)
+            {
+                // We cannot currently process this type of TLK. Treat it as non-existent TLK 
+                log.warn("No TLK partition provided to partition processor; all partitions will be returned for all filters.");
+                return;
+            }
+            else
+            {
+                // This would represent some form of corruption or an issue during the read
+                throw new Exception("Mismatch between # of data partitions and records in TLK: " + numTLKRanges + " # partitions: " + this.dataPartitions.length);
+            }
         }
 
         // Construct ranges

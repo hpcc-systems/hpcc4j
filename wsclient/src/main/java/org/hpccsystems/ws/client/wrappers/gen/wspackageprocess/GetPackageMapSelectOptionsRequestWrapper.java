@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class GetPackageMapSelectOptionsRequestWrapper
 {
-	protected boolean local_includeTargets;
-	protected boolean local_includeProcesses;
-	protected boolean local_includeProcessFilters;
+    protected boolean local_includeTargets;
+    protected boolean local_includeProcesses;
+    protected boolean local_includeProcessFilters;
 
-	public GetPackageMapSelectOptionsRequestWrapper() {}
+    public GetPackageMapSelectOptionsRequestWrapper() {}
 
-	public GetPackageMapSelectOptionsRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest getpackagemapselectoptionsrequest)
-	{
-		copy( getpackagemapselectoptionsrequest );
-	}
-	public GetPackageMapSelectOptionsRequestWrapper( boolean _includeTargets, boolean _includeProcesses, boolean _includeProcessFilters )
-	{
-		this.local_includeTargets = _includeTargets;
-		this.local_includeProcesses = _includeProcesses;
-		this.local_includeProcessFilters = _includeProcessFilters;
+    public GetPackageMapSelectOptionsRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsRequest getpackagemapselectoptionsrequest)
+    {
+        copy( getpackagemapselectoptionsrequest );
+    }
+    public GetPackageMapSelectOptionsRequestWrapper( boolean _includeTargets, boolean _includeProcesses, boolean _includeProcessFilters )
+    {
+        this.local_includeTargets = _includeTargets;
+        this.local_includeProcesses = _includeProcesses;
+        this.local_includeProcessFilters = _includeProcessFilters;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_includeTargets = raw.getIncludeTargets();
-		this.local_includeProcesses = raw.getIncludeProcesses();
-		this.local_includeProcessFilters = raw.getIncludeProcessFilters();
+        this.local_includeTargets = raw.getIncludeTargets();
+        this.local_includeProcesses = raw.getIncludeProcesses();
+        this.local_includeProcessFilters = raw.getIncludeProcessFilters();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetPackageMapSelectOptionsRequestWrapper [" + "includeTargets = " + local_includeTargets + ", " + "includeProcesses = " + local_includeProcesses + ", " + "includeProcessFilters = " + local_includeProcessFilters + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.GetPackageMapSelectOptionsRequest();
-		raw.setIncludeTargets( local_includeTargets);
-		raw.setIncludeProcesses( local_includeProcesses);
-		raw.setIncludeProcessFilters( local_includeProcessFilters);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetPackageMapSelectOptionsRequestWrapper [" + "includeTargets = " + local_includeTargets + ", " + "includeProcesses = " + local_includeProcesses + ", " + "includeProcessFilters = " + local_includeProcessFilters + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsRequest raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsRequest();
+        raw.setIncludeTargets( local_includeTargets);
+        raw.setIncludeProcesses( local_includeProcesses);
+        raw.setIncludeProcessFilters( local_includeProcessFilters);
+        return raw;
+    }
 
 
-	public void setIncludeTargets( boolean _includeTargets )
-	{
-		this.local_includeTargets = _includeTargets;
-	}
-	public boolean getIncludeTargets( )
-	{
-		return this.local_includeTargets;
-	}
-	public void setIncludeProcesses( boolean _includeProcesses )
-	{
-		this.local_includeProcesses = _includeProcesses;
-	}
-	public boolean getIncludeProcesses( )
-	{
-		return this.local_includeProcesses;
-	}
-	public void setIncludeProcessFilters( boolean _includeProcessFilters )
-	{
-		this.local_includeProcessFilters = _includeProcessFilters;
-	}
-	public boolean getIncludeProcessFilters( )
-	{
-		return this.local_includeProcessFilters;
-	}
+    public void setIncludeTargets( boolean _includeTargets )
+    {
+        this.local_includeTargets = _includeTargets;
+    }
+    public boolean getIncludeTargets( )
+    {
+        return this.local_includeTargets;
+    }
+    public void setIncludeProcesses( boolean _includeProcesses )
+    {
+        this.local_includeProcesses = _includeProcesses;
+    }
+    public boolean getIncludeProcesses( )
+    {
+        return this.local_includeProcesses;
+    }
+    public void setIncludeProcessFilters( boolean _includeProcessFilters )
+    {
+        this.local_includeProcessFilters = _includeProcessFilters;
+    }
+    public boolean getIncludeProcessFilters( )
+    {
+        return this.local_includeProcessFilters;
+    }
 }

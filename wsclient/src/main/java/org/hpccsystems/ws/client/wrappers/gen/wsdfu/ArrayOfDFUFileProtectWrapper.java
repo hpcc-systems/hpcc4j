@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUFileProtectWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFileProtect
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFileProtect
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.656Z
+ * TimeStamp: 2021-10-27T14:48:55.229Z
  */
 public class ArrayOfDFUFileProtectWrapper
 {
-	protected List<DFUFileProtectWrapper> local_dFUFileProtect = null;
+    protected List<DFUFileProtectWrapper> local_dFUFileProtect = null;
 
-	public ArrayOfDFUFileProtectWrapper() {}
+    public ArrayOfDFUFileProtectWrapper() {}
 
-	public ArrayOfDFUFileProtectWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFileProtect arrayofdfufileprotect)
-	{
-		copy( arrayofdfufileprotect );
-	}
-	public ArrayOfDFUFileProtectWrapper( List<DFUFileProtectWrapper> _dFUFileProtect )
-	{
-		this.local_dFUFileProtect = _dFUFileProtect;
+    public ArrayOfDFUFileProtectWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFileProtect arrayofdfufileprotect)
+    {
+        copy( arrayofdfufileprotect );
+    }
+    public ArrayOfDFUFileProtectWrapper( List<DFUFileProtectWrapper> _dFUFileProtect )
+    {
+        this.local_dFUFileProtect = _dFUFileProtect;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFileProtect raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFileProtect raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDFUFileProtect() != null)
-		{
-			this.local_dFUFileProtect = new ArrayList<DFUFileProtectWrapper>();
-			for ( int i = 0; i < raw.getDFUFileProtect().length; i++)
-			{
-				this.local_dFUFileProtect.add(new DFUFileProtectWrapper(raw.getDFUFileProtect()[i]));
-			}
-		}
-	}
+        if (raw.getDFUFileProtect() != null)
+        {
+            this.local_dFUFileProtect = new ArrayList<DFUFileProtectWrapper>();
+            for ( int i = 0; i < raw.getDFUFileProtect().length; i++)
+            {
+                this.local_dFUFileProtect.add(new DFUFileProtectWrapper(raw.getDFUFileProtect()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFUFileProtectWrapper [" + "dFUFileProtect = " + local_dFUFileProtect + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFileProtect getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFileProtect raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFileProtect();
-		if (this.local_dFUFileProtect!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileProtect[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFileProtect[this.local_dFUFileProtect.size()];
-			for ( int i = 0; i < this.local_dFUFileProtect.size(); i++)
-			{
-				arr[i] = this.local_dFUFileProtect.get(i) .getRaw();
-			}
-			raw.setDFUFileProtect(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFUFileProtectWrapper [" + "dFUFileProtect = " + local_dFUFileProtect + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFileProtect getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFileProtect raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFileProtect();
+        if (this.local_dFUFileProtect!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileProtect[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileProtect[this.local_dFUFileProtect.size()];
+            for ( int i = 0; i < this.local_dFUFileProtect.size(); i++)
+            {
+                arr[i] = this.local_dFUFileProtect.get(i) .getRaw();
+            }
+            raw.setDFUFileProtect(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDFUFileProtect( List<DFUFileProtectWrapper> _dFUFileProtect )
-	{
-		this.local_dFUFileProtect = _dFUFileProtect;
-	}
-	public List<DFUFileProtectWrapper> getDFUFileProtect( )
-	{
-		return this.local_dFUFileProtect;
-	}
+    public void setDFUFileProtect( List<DFUFileProtectWrapper> _dFUFileProtect )
+    {
+        this.local_dFUFileProtect = _dFUFileProtect;
+    }
+    public List<DFUFileProtectWrapper> getDFUFileProtect( )
+    {
+        return this.local_dFUFileProtect;
+    }
 }

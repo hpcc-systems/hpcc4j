@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfECLHelpFileWrapper
 {
-	protected List<ECLHelpFileWrapper> local_eCLHelpFile = null;
+    protected List<ECLHelpFileWrapper> local_eCLHelpFile = null;
 
-	public ArrayOfECLHelpFileWrapper() {}
+    public ArrayOfECLHelpFileWrapper() {}
 
-	public ArrayOfECLHelpFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLHelpFile arrayofeclhelpfile)
-	{
-		copy( arrayofeclhelpfile );
-	}
-	public ArrayOfECLHelpFileWrapper( List<ECLHelpFileWrapper> _eCLHelpFile )
-	{
-		this.local_eCLHelpFile = _eCLHelpFile;
+    public ArrayOfECLHelpFileWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLHelpFile arrayofeclhelpfile)
+    {
+        copy( arrayofeclhelpfile );
+    }
+    public ArrayOfECLHelpFileWrapper( List<ECLHelpFileWrapper> _eCLHelpFile )
+    {
+        this.local_eCLHelpFile = _eCLHelpFile;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLHelpFile raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLHelpFile raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getECLHelpFile() != null)
-		{
-			this.local_eCLHelpFile = new ArrayList<ECLHelpFileWrapper>();
-			for ( int i = 0; i < raw.getECLHelpFile().length; i++)
-			{
-				this.local_eCLHelpFile.add(new ECLHelpFileWrapper(raw.getECLHelpFile()[i]));
-			}
-		}
-	}
+        if (raw.getECLHelpFile() != null)
+        {
+            this.local_eCLHelpFile = new ArrayList<ECLHelpFileWrapper>();
+            for ( int i = 0; i < raw.getECLHelpFile().length; i++)
+            {
+                this.local_eCLHelpFile.add(new ECLHelpFileWrapper(raw.getECLHelpFile()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfECLHelpFileWrapper [" + "eCLHelpFile = " + local_eCLHelpFile + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLHelpFile getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfECLHelpFile();
-		if (this.local_eCLHelpFile!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLHelpFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLHelpFile[this.local_eCLHelpFile.size()];
-			for ( int i = 0; i < this.local_eCLHelpFile.size(); i++)
-			{
-				arr[i] = this.local_eCLHelpFile.get(i) .getRaw();
-			}
-			raw.setECLHelpFile(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfECLHelpFileWrapper [" + "eCLHelpFile = " + local_eCLHelpFile + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLHelpFile getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLHelpFile raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLHelpFile();
+        if (this.local_eCLHelpFile!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLHelpFile[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLHelpFile[this.local_eCLHelpFile.size()];
+            for ( int i = 0; i < this.local_eCLHelpFile.size(); i++)
+            {
+                arr[i] = this.local_eCLHelpFile.get(i) .getRaw();
+            }
+            raw.setECLHelpFile(arr);
+        }
+        return raw;
+    }
 
 
-	public void setECLHelpFile( List<ECLHelpFileWrapper> _eCLHelpFile )
-	{
-		this.local_eCLHelpFile = _eCLHelpFile;
-	}
-	public List<ECLHelpFileWrapper> getECLHelpFile( )
-	{
-		return this.local_eCLHelpFile;
-	}
+    public void setECLHelpFile( List<ECLHelpFileWrapper> _eCLHelpFile )
+    {
+        this.local_eCLHelpFile = _eCLHelpFile;
+    }
+    public List<ECLHelpFileWrapper> getECLHelpFile( )
+    {
+        return this.local_eCLHelpFile;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: TpXMLFileRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:53.016Z
+ * TimeStamp: 2021-10-27T23:40:06.386Z
  */
 public class TpXMLFileRequestWrapper
 {
-	protected String local_name;
+    protected String local_name;
 
-	public TpXMLFileRequestWrapper() {}
+    public TpXMLFileRequestWrapper() {}
 
-	public TpXMLFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest tpxmlfilerequest)
-	{
-		copy( tpxmlfilerequest );
-	}
-	public TpXMLFileRequestWrapper( String _name )
-	{
-		this.local_name = _name;
+    public TpXMLFileRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest tpxmlfilerequest)
+    {
+        copy( tpxmlfilerequest );
+    }
+    public TpXMLFileRequestWrapper( String _name )
+    {
+        this.local_name = _name;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
+        this.local_name = raw.getName();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "TpXMLFileRequestWrapper [" + "name = " + local_name + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpXMLFileRequest();
-		raw.setName( local_name);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "TpXMLFileRequestWrapper [" + "name = " + local_name + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest();
+        raw.setName( local_name);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
 }

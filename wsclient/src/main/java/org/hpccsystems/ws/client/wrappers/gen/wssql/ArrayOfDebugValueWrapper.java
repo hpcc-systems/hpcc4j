@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfDebugValueWrapper
 {
-	protected List<DebugValueWrapper> local_debugValue = null;
+    protected List<DebugValueWrapper> local_debugValue = null;
 
-	public ArrayOfDebugValueWrapper() {}
+    public ArrayOfDebugValueWrapper() {}
 
-	public ArrayOfDebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfDebugValue arrayofdebugvalue)
-	{
-		copy( arrayofdebugvalue );
-	}
-	public ArrayOfDebugValueWrapper( List<DebugValueWrapper> _debugValue )
-	{
-		this.local_debugValue = _debugValue;
+    public ArrayOfDebugValueWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfDebugValue arrayofdebugvalue)
+    {
+        copy( arrayofdebugvalue );
+    }
+    public ArrayOfDebugValueWrapper( List<DebugValueWrapper> _debugValue )
+    {
+        this.local_debugValue = _debugValue;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfDebugValue raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfDebugValue raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDebugValue() != null)
-		{
-			this.local_debugValue = new ArrayList<DebugValueWrapper>();
-			for ( int i = 0; i < raw.getDebugValue().length; i++)
-			{
-				this.local_debugValue.add(new DebugValueWrapper(raw.getDebugValue()[i]));
-			}
-		}
-	}
+        if (raw.getDebugValue() != null)
+        {
+            this.local_debugValue = new ArrayList<DebugValueWrapper>();
+            for ( int i = 0; i < raw.getDebugValue().length; i++)
+            {
+                this.local_debugValue.add(new DebugValueWrapper(raw.getDebugValue()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDebugValueWrapper [" + "debugValue = " + local_debugValue + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfDebugValue getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfDebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ArrayOfDebugValue();
-		if (this.local_debugValue!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DebugValue[this.local_debugValue.size()];
-			for ( int i = 0; i < this.local_debugValue.size(); i++)
-			{
-				arr[i] = this.local_debugValue.get(i) .getRaw();
-			}
-			raw.setDebugValue(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDebugValueWrapper [" + "debugValue = " + local_debugValue + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfDebugValue getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfDebugValue raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfDebugValue();
+        if (this.local_debugValue!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.DebugValue[this.local_debugValue.size()];
+            for ( int i = 0; i < this.local_debugValue.size(); i++)
+            {
+                arr[i] = this.local_debugValue.get(i) .getRaw();
+            }
+            raw.setDebugValue(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDebugValue( List<DebugValueWrapper> _debugValue )
-	{
-		this.local_debugValue = _debugValue;
-	}
-	public List<DebugValueWrapper> getDebugValue( )
-	{
-		return this.local_debugValue;
-	}
+    public void setDebugValue( List<DebugValueWrapper> _debugValue )
+    {
+        this.local_debugValue = _debugValue;
+    }
+    public List<DebugValueWrapper> getDebugValue( )
+    {
+        return this.local_debugValue;
+    }
 }

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SuperfileListRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.917Z
+ * TimeStamp: 2021-10-27T14:48:55.342Z
  */
 public class SuperfileListRequestWrapper
 {
-	protected String local_superfile;
+    protected String local_superfile;
 
-	public SuperfileListRequestWrapper() {}
+    public SuperfileListRequestWrapper() {}
 
-	public SuperfileListRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest superfilelistrequest)
-	{
-		copy( superfilelistrequest );
-	}
-	public SuperfileListRequestWrapper( String _superfile )
-	{
-		this.local_superfile = _superfile;
+    public SuperfileListRequestWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest superfilelistrequest)
+    {
+        copy( superfilelistrequest );
+    }
+    public SuperfileListRequestWrapper( String _superfile )
+    {
+        this.local_superfile = _superfile;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_superfile = raw.getSuperfile();
+        this.local_superfile = raw.getSuperfile();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SuperfileListRequestWrapper [" + "superfile = " + local_superfile + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.SuperfileListRequest();
-		raw.setSuperfile( local_superfile);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "SuperfileListRequestWrapper [" + "superfile = " + local_superfile + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest();
+        raw.setSuperfile( local_superfile);
+        return raw;
+    }
 
 
-	public void setSuperfile( String _superfile )
-	{
-		this.local_superfile = _superfile;
-	}
-	public String getSuperfile( )
-	{
-		return this.local_superfile;
-	}
+    public void setSuperfile( String _superfile )
+    {
+        this.local_superfile = _superfile;
+    }
+    public String getSuperfile( )
+    {
+        return this.local_superfile;
+    }
 }

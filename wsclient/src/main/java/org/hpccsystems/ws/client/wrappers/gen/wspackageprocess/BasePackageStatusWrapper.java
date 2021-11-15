@@ -27,60 +27,60 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class BasePackageStatusWrapper
 {
-	protected int local_code;
-	protected String local_description;
+    protected int local_code;
+    protected String local_description;
 
-	public BasePackageStatusWrapper() {}
+    public BasePackageStatusWrapper() {}
 
-	public BasePackageStatusWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus basepackagestatus)
-	{
-		copy( basepackagestatus );
-	}
-	public BasePackageStatusWrapper( int _code, String _description )
-	{
-		this.local_code = _code;
-		this.local_description = _description;
+    public BasePackageStatusWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.BasePackageStatus basepackagestatus)
+    {
+        copy( basepackagestatus );
+    }
+    public BasePackageStatusWrapper( int _code, String _description )
+    {
+        this.local_code = _code;
+        this.local_description = _description;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.BasePackageStatus raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_code = raw.getCode();
-		this.local_description = raw.getDescription();
+        this.local_code = raw.getCode();
+        this.local_description = raw.getDescription();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "BasePackageStatusWrapper [" + "code = " + local_code + ", " + "description = " + local_description + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.BasePackageStatus();
-		raw.setCode( local_code);
-		raw.setDescription( local_description);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "BasePackageStatusWrapper [" + "code = " + local_code + ", " + "description = " + local_description + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.BasePackageStatus getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.BasePackageStatus raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.BasePackageStatus();
+        raw.setCode( local_code);
+        raw.setDescription( local_description);
+        return raw;
+    }
 
 
-	public void setCode( int _code )
-	{
-		this.local_code = _code;
-	}
-	public int getCode( )
-	{
-		return this.local_code;
-	}
-	public void setDescription( String _description )
-	{
-		this.local_description = _description;
-	}
-	public String getDescription( )
-	{
-		return this.local_description;
-	}
+    public void setCode( int _code )
+    {
+        this.local_code = _code;
+    }
+    public int getCode( )
+    {
+        return this.local_code;
+    }
+    public void setDescription( String _description )
+    {
+        this.local_description = _description;
+    }
+    public String getDescription( )
+    {
+        return this.local_description;
+    }
 }

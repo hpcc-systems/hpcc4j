@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,78 +21,78 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUFilePartWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.765Z
+ * TimeStamp: 2021-10-27T14:48:55.274Z
  */
 public class DFUFilePartWrapper
 {
-	protected int local_partIndex;
-	protected ArrayOfDFUFileCopyWrapper local_copies;
-	protected boolean local_topLevelKey;
+    protected int local_partIndex;
+    protected ArrayOfDFUFileCopyWrapper local_copies;
+    protected boolean local_topLevelKey;
 
-	public DFUFilePartWrapper() {}
+    public DFUFilePartWrapper() {}
 
-	public DFUFilePartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart dfufilepart)
-	{
-		copy( dfufilepart );
-	}
-	public DFUFilePartWrapper( int _partIndex, ArrayOfDFUFileCopyWrapper _copies, boolean _topLevelKey )
-	{
-		this.local_partIndex = _partIndex;
-		this.local_copies = _copies;
-		this.local_topLevelKey = _topLevelKey;
+    public DFUFilePartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart dfufilepart)
+    {
+        copy( dfufilepart );
+    }
+    public DFUFilePartWrapper( int _partIndex, ArrayOfDFUFileCopyWrapper _copies, boolean _topLevelKey )
+    {
+        this.local_partIndex = _partIndex;
+        this.local_copies = _copies;
+        this.local_topLevelKey = _topLevelKey;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_partIndex = raw.getPartIndex();
-		if (raw.getCopies() != null)
-			this.local_copies = new ArrayOfDFUFileCopyWrapper( raw.getCopies());
-		this.local_topLevelKey = raw.getTopLevelKey();
+        this.local_partIndex = raw.getPartIndex();
+        if (raw.getCopies() != null)
+            this.local_copies = new ArrayOfDFUFileCopyWrapper( raw.getCopies());
+        this.local_topLevelKey = raw.getTopLevelKey();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUFilePartWrapper [" + "partIndex = " + local_partIndex + ", " + "copies = " + local_copies + ", " + "topLevelKey = " + local_topLevelKey + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart();
-		raw.setPartIndex( local_partIndex);
-		raw.setTopLevelKey( local_topLevelKey);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "DFUFilePartWrapper [" + "partIndex = " + local_partIndex + ", " + "copies = " + local_copies + ", " + "topLevelKey = " + local_topLevelKey + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart();
+        raw.setPartIndex( local_partIndex);
+        raw.setTopLevelKey( local_topLevelKey);
+        return raw;
+    }
 
 
-	public void setPartIndex( int _partIndex )
-	{
-		this.local_partIndex = _partIndex;
-	}
-	public int getPartIndex( )
-	{
-		return this.local_partIndex;
-	}
-	public void setCopies( ArrayOfDFUFileCopyWrapper _copies )
-	{
-		this.local_copies = _copies;
-	}
-	public ArrayOfDFUFileCopyWrapper getCopies( )
-	{
-		return this.local_copies;
-	}
-	public void setTopLevelKey( boolean _topLevelKey )
-	{
-		this.local_topLevelKey = _topLevelKey;
-	}
-	public boolean getTopLevelKey( )
-	{
-		return this.local_topLevelKey;
-	}
+    public void setPartIndex( int _partIndex )
+    {
+        this.local_partIndex = _partIndex;
+    }
+    public int getPartIndex( )
+    {
+        return this.local_partIndex;
+    }
+    public void setCopies( ArrayOfDFUFileCopyWrapper _copies )
+    {
+        this.local_copies = _copies;
+    }
+    public ArrayOfDFUFileCopyWrapper getCopies( )
+    {
+        return this.local_copies;
+    }
+    public void setTopLevelKey( boolean _topLevelKey )
+    {
+        this.local_topLevelKey = _topLevelKey;
+    }
+    public boolean getTopLevelKey( )
+    {
+        return this.local_topLevelKey;
+    }
 }

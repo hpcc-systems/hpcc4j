@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ColumnsHidden_type1Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ColumnsHidden_type1
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type1
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.676Z
+ * TimeStamp: 2021-10-27T14:48:55.237Z
  */
 public class ColumnsHidden_type1Wrapper
 {
-	protected List<DFUDataColumnWrapper> local_columnHidden = null;
+    protected List<DFUDataColumnWrapper> local_columnHidden = null;
 
-	public ColumnsHidden_type1Wrapper() {}
+    public ColumnsHidden_type1Wrapper() {}
 
-	public ColumnsHidden_type1Wrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ColumnsHidden_type1 columnshidden_type1)
-	{
-		copy( columnshidden_type1 );
-	}
-	public ColumnsHidden_type1Wrapper( List<DFUDataColumnWrapper> _columnHidden )
-	{
-		this.local_columnHidden = _columnHidden;
+    public ColumnsHidden_type1Wrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type1 columnshidden_type1)
+    {
+        copy( columnshidden_type1 );
+    }
+    public ColumnsHidden_type1Wrapper( List<DFUDataColumnWrapper> _columnHidden )
+    {
+        this.local_columnHidden = _columnHidden;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ColumnsHidden_type1 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type1 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getColumnHidden() != null)
-		{
-			this.local_columnHidden = new ArrayList<DFUDataColumnWrapper>();
-			for ( int i = 0; i < raw.getColumnHidden().length; i++)
-			{
-				this.local_columnHidden.add(new DFUDataColumnWrapper(raw.getColumnHidden()[i]));
-			}
-		}
-	}
+        if (raw.getColumnHidden() != null)
+        {
+            this.local_columnHidden = new ArrayList<DFUDataColumnWrapper>();
+            for ( int i = 0; i < raw.getColumnHidden().length; i++)
+            {
+                this.local_columnHidden.add(new DFUDataColumnWrapper(raw.getColumnHidden()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ColumnsHidden_type1Wrapper [" + "columnHidden = " + local_columnHidden + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ColumnsHidden_type1 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ColumnsHidden_type1 raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ColumnsHidden_type1();
-		if (this.local_columnHidden!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDataColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUDataColumn[this.local_columnHidden.size()];
-			for ( int i = 0; i < this.local_columnHidden.size(); i++)
-			{
-				arr[i] = this.local_columnHidden.get(i) .getRaw();
-			}
-			raw.setColumnHidden(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ColumnsHidden_type1Wrapper [" + "columnHidden = " + local_columnHidden + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type1 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type1 raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type1();
+        if (this.local_columnHidden!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn[this.local_columnHidden.size()];
+            for ( int i = 0; i < this.local_columnHidden.size(); i++)
+            {
+                arr[i] = this.local_columnHidden.get(i) .getRaw();
+            }
+            raw.setColumnHidden(arr);
+        }
+        return raw;
+    }
 
 
-	public void setColumnHidden( List<DFUDataColumnWrapper> _columnHidden )
-	{
-		this.local_columnHidden = _columnHidden;
-	}
-	public List<DFUDataColumnWrapper> getColumnHidden( )
-	{
-		return this.local_columnHidden;
-	}
+    public void setColumnHidden( List<DFUDataColumnWrapper> _columnHidden )
+    {
+        this.local_columnHidden = _columnHidden;
+    }
+    public List<DFUDataColumnWrapper> getColumnHidden( )
+    {
+        return this.local_columnHidden;
+    }
 }

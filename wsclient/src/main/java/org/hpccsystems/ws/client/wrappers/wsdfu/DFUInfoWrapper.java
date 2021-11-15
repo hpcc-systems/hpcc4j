@@ -29,7 +29,7 @@ public class DFUInfoWrapper
      * @param resp
      *            the resp
      */
-    public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUInfoResponse resp)
+    public DFUInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse resp)
     {
         this.detailInfo = new DFUFileDetailWrapper(resp.getFileDetail());
         if (resp.getExceptions() != null && resp.getExceptions().getException() != null)

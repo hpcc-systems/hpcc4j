@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class ArrayOfPackageListMapDataWrapper
 {
-	protected List<PackageListMapDataWrapper> local_packageListMapData = null;
+    protected List<PackageListMapDataWrapper> local_packageListMapData = null;
 
-	public ArrayOfPackageListMapDataWrapper() {}
+    public ArrayOfPackageListMapDataWrapper() {}
 
-	public ArrayOfPackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData arrayofpackagelistmapdata)
-	{
-		copy( arrayofpackagelistmapdata );
-	}
-	public ArrayOfPackageListMapDataWrapper( List<PackageListMapDataWrapper> _packageListMapData )
-	{
-		this.local_packageListMapData = _packageListMapData;
+    public ArrayOfPackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListMapData arrayofpackagelistmapdata)
+    {
+        copy( arrayofpackagelistmapdata );
+    }
+    public ArrayOfPackageListMapDataWrapper( List<PackageListMapDataWrapper> _packageListMapData )
+    {
+        this.local_packageListMapData = _packageListMapData;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListMapData raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getPackageListMapData() != null)
-		{
-			this.local_packageListMapData = new ArrayList<PackageListMapDataWrapper>();
-			for ( int i = 0; i < raw.getPackageListMapData().length; i++)
-			{
-				this.local_packageListMapData.add(new PackageListMapDataWrapper(raw.getPackageListMapData()[i]));
-			}
-		}
-	}
+        if (raw.getPackageListMapData() != null)
+        {
+            this.local_packageListMapData = new ArrayList<PackageListMapDataWrapper>();
+            for ( int i = 0; i < raw.getPackageListMapData().length; i++)
+            {
+                this.local_packageListMapData.add(new PackageListMapDataWrapper(raw.getPackageListMapData()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfPackageListMapDataWrapper [" + "packageListMapData = " + local_packageListMapData + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ArrayOfPackageListMapData();
-		if (this.local_packageListMapData!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData[this.local_packageListMapData.size()];
-			for ( int i = 0; i < this.local_packageListMapData.size(); i++)
-			{
-				arr[i] = this.local_packageListMapData.get(i) .getRaw();
-			}
-			raw.setPackageListMapData(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfPackageListMapDataWrapper [" + "packageListMapData = " + local_packageListMapData + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListMapData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListMapData();
+        if (this.local_packageListMapData!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData[this.local_packageListMapData.size()];
+            for ( int i = 0; i < this.local_packageListMapData.size(); i++)
+            {
+                arr[i] = this.local_packageListMapData.get(i) .getRaw();
+            }
+            raw.setPackageListMapData(arr);
+        }
+        return raw;
+    }
 
 
-	public void setPackageListMapData( List<PackageListMapDataWrapper> _packageListMapData )
-	{
-		this.local_packageListMapData = _packageListMapData;
-	}
-	public List<PackageListMapDataWrapper> getPackageListMapData( )
-	{
-		return this.local_packageListMapData;
-	}
+    public void setPackageListMapData( List<PackageListMapDataWrapper> _packageListMapData )
+    {
+        this.local_packageListMapData = _packageListMapData;
+    }
+    public List<PackageListMapDataWrapper> getPackageListMapData( )
+    {
+        return this.local_packageListMapData;
+    }
 }

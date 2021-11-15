@@ -27,108 +27,108 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class PackageListMapDataWrapper
 {
-	protected String local_id;
-	protected String local_target;
-	protected String local_process;
-	protected ArrayOfPackageListDataWrapper local_pkgListData;
-	protected boolean local_active;
-	protected String local_description;
+    protected String local_id;
+    protected String local_target;
+    protected String local_process;
+    protected ArrayOfPackageListDataWrapper local_pkgListData;
+    protected boolean local_active;
+    protected String local_description;
 
-	public PackageListMapDataWrapper() {}
+    public PackageListMapDataWrapper() {}
 
-	public PackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData packagelistmapdata)
-	{
-		copy( packagelistmapdata );
-	}
-	public PackageListMapDataWrapper( String _id, String _target, String _process, ArrayOfPackageListDataWrapper _pkgListData, boolean _active, String _description )
-	{
-		this.local_id = _id;
-		this.local_target = _target;
-		this.local_process = _process;
-		this.local_pkgListData = _pkgListData;
-		this.local_active = _active;
-		this.local_description = _description;
+    public PackageListMapDataWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData packagelistmapdata)
+    {
+        copy( packagelistmapdata );
+    }
+    public PackageListMapDataWrapper( String _id, String _target, String _process, ArrayOfPackageListDataWrapper _pkgListData, boolean _active, String _description )
+    {
+        this.local_id = _id;
+        this.local_target = _target;
+        this.local_process = _process;
+        this.local_pkgListData = _pkgListData;
+        this.local_active = _active;
+        this.local_description = _description;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_id = raw.getId();
-		this.local_target = raw.getTarget();
-		this.local_process = raw.getProcess();
-		if (raw.getPkgListData() != null)
-			this.local_pkgListData = new ArrayOfPackageListDataWrapper( raw.getPkgListData());
-		this.local_active = raw.getActive();
-		this.local_description = raw.getDescription();
+        this.local_id = raw.getId();
+        this.local_target = raw.getTarget();
+        this.local_process = raw.getProcess();
+        if (raw.getPkgListData() != null)
+            this.local_pkgListData = new ArrayOfPackageListDataWrapper( raw.getPkgListData());
+        this.local_active = raw.getActive();
+        this.local_description = raw.getDescription();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "PackageListMapDataWrapper [" + "id = " + local_id + ", " + "target = " + local_target + ", " + "process = " + local_process + ", " + "pkgListData = " + local_pkgListData + ", " + "active = " + local_active + ", " + "description = " + local_description + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageListMapData();
-		raw.setId( local_id);
-		raw.setTarget( local_target);
-		raw.setProcess( local_process);
-		raw.setActive( local_active);
-		raw.setDescription( local_description);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "PackageListMapDataWrapper [" + "id = " + local_id + ", " + "target = " + local_target + ", " + "process = " + local_process + ", " + "pkgListData = " + local_pkgListData + ", " + "active = " + local_active + ", " + "description = " + local_description + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData();
+        raw.setId( local_id);
+        raw.setTarget( local_target);
+        raw.setProcess( local_process);
+        raw.setActive( local_active);
+        raw.setDescription( local_description);
+        return raw;
+    }
 
 
-	public void setId( String _id )
-	{
-		this.local_id = _id;
-	}
-	public String getId( )
-	{
-		return this.local_id;
-	}
-	public void setTarget( String _target )
-	{
-		this.local_target = _target;
-	}
-	public String getTarget( )
-	{
-		return this.local_target;
-	}
-	public void setProcess( String _process )
-	{
-		this.local_process = _process;
-	}
-	public String getProcess( )
-	{
-		return this.local_process;
-	}
-	public void setPkgListData( ArrayOfPackageListDataWrapper _pkgListData )
-	{
-		this.local_pkgListData = _pkgListData;
-	}
-	public ArrayOfPackageListDataWrapper getPkgListData( )
-	{
-		return this.local_pkgListData;
-	}
-	public void setActive( boolean _active )
-	{
-		this.local_active = _active;
-	}
-	public boolean getActive( )
-	{
-		return this.local_active;
-	}
-	public void setDescription( String _description )
-	{
-		this.local_description = _description;
-	}
-	public String getDescription( )
-	{
-		return this.local_description;
-	}
+    public void setId( String _id )
+    {
+        this.local_id = _id;
+    }
+    public String getId( )
+    {
+        return this.local_id;
+    }
+    public void setTarget( String _target )
+    {
+        this.local_target = _target;
+    }
+    public String getTarget( )
+    {
+        return this.local_target;
+    }
+    public void setProcess( String _process )
+    {
+        this.local_process = _process;
+    }
+    public String getProcess( )
+    {
+        return this.local_process;
+    }
+    public void setPkgListData( ArrayOfPackageListDataWrapper _pkgListData )
+    {
+        this.local_pkgListData = _pkgListData;
+    }
+    public ArrayOfPackageListDataWrapper getPkgListData( )
+    {
+        return this.local_pkgListData;
+    }
+    public void setActive( boolean _active )
+    {
+        this.local_active = _active;
+    }
+    public boolean getActive( )
+    {
+        return this.local_active;
+    }
+    public void setDescription( String _description )
+    {
+        this.local_description = _description;
+    }
+    public String getDescription( )
+    {
+        return this.local_description;
+    }
 }

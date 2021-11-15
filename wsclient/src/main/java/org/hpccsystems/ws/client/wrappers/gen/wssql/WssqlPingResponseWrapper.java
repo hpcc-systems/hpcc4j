@@ -28,13 +28,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 public class WssqlPingResponseWrapper
 {
 
-	public WssqlPingResponseWrapper() {}
+    public WssqlPingResponseWrapper() {}
 
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.WssqlPingResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.WssqlPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.WssqlPingResponse();
-		return raw;
-	}
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.WssqlPingResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.WssqlPingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.WssqlPingResponse();
+        return raw;
+    }
 
 
 }

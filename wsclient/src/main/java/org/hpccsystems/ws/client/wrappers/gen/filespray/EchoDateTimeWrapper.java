@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,54 +22,54 @@ import java.util.Calendar;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EchoDateTimeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2020-09-23T03:42:02.601Z
+ * TimeStamp: 2021-10-27T18:52:06.463Z
  */
 public class EchoDateTimeWrapper
 {
-	protected Calendar local_dt;
+    protected Calendar local_dt;
 
-	public EchoDateTimeWrapper() {}
+    public EchoDateTimeWrapper() {}
 
-	public EchoDateTimeWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime echodatetime)
-	{
-		copy( echodatetime );
-	}
-	public EchoDateTimeWrapper( Calendar _dt )
-	{
-		this.local_dt = _dt;
+    public EchoDateTimeWrapper( org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime echodatetime)
+    {
+        copy( echodatetime );
+    }
+    public EchoDateTimeWrapper( Calendar _dt )
+    {
+        this.local_dt = _dt;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_dt = raw.getDt();
+        this.local_dt = raw.getDt();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "EchoDateTimeWrapper [" + "dt = " + local_dt + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime raw = new org.hpccsystems.ws.client.gen.axis2.filespray.v1_20.EchoDateTime();
-		raw.setDt( local_dt);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "EchoDateTimeWrapper [" + "dt = " + local_dt + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime();
+        raw.setDt( local_dt);
+        return raw;
+    }
 
 
-	public void setDt( Calendar _dt )
-	{
-		this.local_dt = _dt;
-	}
-	public Calendar getDt( )
-	{
-		return this.local_dt;
-	}
+    public void setDt( Calendar _dt )
+    {
+        this.local_dt = _dt;
+    }
+    public Calendar getDt( )
+    {
+        return this.local_dt;
+    }
 }

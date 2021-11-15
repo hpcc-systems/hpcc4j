@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class ListPackagesResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
-	protected ArrayOfPackageListMapDataWrapper local_packageMapList;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
+    protected ArrayOfPackageListMapDataWrapper local_packageMapList;
 
-	public ListPackagesResponseWrapper() {}
+    public ListPackagesResponseWrapper() {}
 
-	public ListPackagesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse listpackagesresponse)
-	{
-		copy( listpackagesresponse );
-	}
-	public ListPackagesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, ArrayOfPackageListMapDataWrapper _packageMapList )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
-		this.local_packageMapList = _packageMapList;
+    public ListPackagesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesResponse listpackagesresponse)
+    {
+        copy( listpackagesresponse );
+    }
+    public ListPackagesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, ArrayOfPackageListMapDataWrapper _packageMapList )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
+        this.local_packageMapList = _packageMapList;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		if (raw.getPackageMapList() != null)
-			this.local_packageMapList = new ArrayOfPackageListMapDataWrapper( raw.getPackageMapList());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        if (raw.getPackageMapList() != null)
+            this.local_packageMapList = new ArrayOfPackageListMapDataWrapper( raw.getPackageMapList());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ListPackagesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "packageMapList = " + local_packageMapList + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.ListPackagesResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ListPackagesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "packageMapList = " + local_packageMapList + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ListPackagesResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
-	public void setPackageMapList( ArrayOfPackageListMapDataWrapper _packageMapList )
-	{
-		this.local_packageMapList = _packageMapList;
-	}
-	public ArrayOfPackageListMapDataWrapper getPackageMapList( )
-	{
-		return this.local_packageMapList;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
+    public void setPackageMapList( ArrayOfPackageListMapDataWrapper _packageMapList )
+    {
+        this.local_packageMapList = _packageMapList;
+    }
+    public ArrayOfPackageListMapDataWrapper getPackageMapList( )
+    {
+        return this.local_packageMapList;
+    }
 }

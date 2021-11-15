@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,54 +21,54 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: DFUArrayActionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.688Z
+ * TimeStamp: 2021-10-27T14:48:55.242Z
  */
 public class DFUArrayActionsWrapper
 {
-	protected String local_dFUArrayActions;
+    protected String local_dFUArrayActions;
 
-	public DFUArrayActionsWrapper() {}
+    public DFUArrayActionsWrapper() {}
 
-	public DFUArrayActionsWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions dfuarrayactions)
-	{
-		copy( dfuarrayactions );
-	}
-	public DFUArrayActionsWrapper( String _dFUArrayActions )
-	{
-		this.local_dFUArrayActions = _dFUArrayActions;
+    public DFUArrayActionsWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions dfuarrayactions)
+    {
+        copy( dfuarrayactions );
+    }
+    public DFUArrayActionsWrapper( String _dFUArrayActions )
+    {
+        this.local_dFUArrayActions = _dFUArrayActions;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions raw )
+    {
+        if (raw == null)
+            return;
 
 //Warning raw class does not provide expected method: getDFUArrayActions();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "DFUArrayActionsWrapper [" + "dFUArrayActions = " + local_dFUArrayActions + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUArrayActions raw = null;
+    @Override
+    public String toString()
+    {
+        return "DFUArrayActionsWrapper [" + "dFUArrayActions = " + local_dFUArrayActions + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions raw = null;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setDFUArrayActions(dFUArrayActions);
-		return raw;
-	}
+        return raw;
+    }
 
 
-	public void setDFUArrayActions( String _dFUArrayActions )
-	{
-		this.local_dFUArrayActions = _dFUArrayActions;
-	}
-	public String getDFUArrayActions( )
-	{
-		return this.local_dFUArrayActions;
-	}
+    public void setDFUArrayActions( String _dFUArrayActions )
+    {
+        this.local_dFUArrayActions = _dFUArrayActions;
+    }
+    public String getDFUArrayActions( )
+    {
+        return this.local_dFUArrayActions;
+    }
 }

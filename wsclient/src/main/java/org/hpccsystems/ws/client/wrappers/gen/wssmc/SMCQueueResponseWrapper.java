@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,66 +21,66 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: SMCQueueResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCQueueResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-03-30T22:27:29.121Z
+ * TimeStamp: 2021-10-27T20:17:20.616Z
  */
 public class SMCQueueResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected StatusServerInfoWrapper local_statusServerInfo;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected StatusServerInfoWrapper local_statusServerInfo;
 
-	public SMCQueueResponseWrapper() {}
+    public SMCQueueResponseWrapper() {}
 
-	public SMCQueueResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCQueueResponse smcqueueresponse)
-	{
-		copy( smcqueueresponse );
-	}
-	public SMCQueueResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, StatusServerInfoWrapper _statusServerInfo )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_statusServerInfo = _statusServerInfo;
+    public SMCQueueResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse smcqueueresponse)
+    {
+        copy( smcqueueresponse );
+    }
+    public SMCQueueResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, StatusServerInfoWrapper _statusServerInfo )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_statusServerInfo = _statusServerInfo;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCQueueResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatusServerInfo() != null)
-			this.local_statusServerInfo = new StatusServerInfoWrapper( raw.getStatusServerInfo());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatusServerInfo() != null)
+            this.local_statusServerInfo = new StatusServerInfoWrapper( raw.getStatusServerInfo());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "SMCQueueResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "statusServerInfo = " + local_statusServerInfo + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCQueueResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCQueueResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23.SMCQueueResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "SMCQueueResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "statusServerInfo = " + local_statusServerInfo + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatusServerInfo( StatusServerInfoWrapper _statusServerInfo )
-	{
-		this.local_statusServerInfo = _statusServerInfo;
-	}
-	public StatusServerInfoWrapper getStatusServerInfo( )
-	{
-		return this.local_statusServerInfo;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatusServerInfo( StatusServerInfoWrapper _statusServerInfo )
+    {
+        this.local_statusServerInfo = _statusServerInfo;
+    }
+    public StatusServerInfoWrapper getStatusServerInfo( )
+    {
+        return this.local_statusServerInfo;
+    }
 }

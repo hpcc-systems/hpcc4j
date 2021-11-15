@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class PackageMaps_type0Wrapper
 {
-	protected List<PackageMapEntryWrapper> local_packageMap = null;
+    protected List<PackageMapEntryWrapper> local_packageMap = null;
 
-	public PackageMaps_type0Wrapper() {}
+    public PackageMaps_type0Wrapper() {}
 
-	public PackageMaps_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMaps_type0 packagemaps_type0)
-	{
-		copy( packagemaps_type0 );
-	}
-	public PackageMaps_type0Wrapper( List<PackageMapEntryWrapper> _packageMap )
-	{
-		this.local_packageMap = _packageMap;
+    public PackageMaps_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMaps_type0 packagemaps_type0)
+    {
+        copy( packagemaps_type0 );
+    }
+    public PackageMaps_type0Wrapper( List<PackageMapEntryWrapper> _packageMap )
+    {
+        this.local_packageMap = _packageMap;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMaps_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMaps_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getPackageMap() != null)
-		{
-			this.local_packageMap = new ArrayList<PackageMapEntryWrapper>();
-			for ( int i = 0; i < raw.getPackageMap().length; i++)
-			{
-				this.local_packageMap.add(new PackageMapEntryWrapper(raw.getPackageMap()[i]));
-			}
-		}
-	}
+        if (raw.getPackageMap() != null)
+        {
+            this.local_packageMap = new ArrayList<PackageMapEntryWrapper>();
+            for ( int i = 0; i < raw.getPackageMap().length; i++)
+            {
+                this.local_packageMap.add(new PackageMapEntryWrapper(raw.getPackageMap()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "PackageMaps_type0Wrapper [" + "packageMap = " + local_packageMap + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMaps_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMaps_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMaps_type0();
-		if (this.local_packageMap!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.PackageMapEntry[this.local_packageMap.size()];
-			for ( int i = 0; i < this.local_packageMap.size(); i++)
-			{
-				arr[i] = this.local_packageMap.get(i) .getRaw();
-			}
-			raw.setPackageMap(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "PackageMaps_type0Wrapper [" + "packageMap = " + local_packageMap + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMaps_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMaps_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMaps_type0();
+        if (this.local_packageMap!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMapEntry[] arr = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMapEntry[this.local_packageMap.size()];
+            for ( int i = 0; i < this.local_packageMap.size(); i++)
+            {
+                arr[i] = this.local_packageMap.get(i) .getRaw();
+            }
+            raw.setPackageMap(arr);
+        }
+        return raw;
+    }
 
 
-	public void setPackageMap( List<PackageMapEntryWrapper> _packageMap )
-	{
-		this.local_packageMap = _packageMap;
-	}
-	public List<PackageMapEntryWrapper> getPackageMap( )
-	{
-		return this.local_packageMap;
-	}
+    public void setPackageMap( List<PackageMapEntryWrapper> _packageMap )
+    {
+        this.local_packageMap = _packageMap;
+    }
+    public List<PackageMapEntryWrapper> getPackageMap( )
+    {
+        return this.local_packageMap;
+    }
 }

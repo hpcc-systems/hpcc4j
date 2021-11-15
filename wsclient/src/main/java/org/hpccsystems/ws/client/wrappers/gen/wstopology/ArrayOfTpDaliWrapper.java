@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpDaliWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.903Z
+ * TimeStamp: 2021-10-27T23:40:06.307Z
  */
 public class ArrayOfTpDaliWrapper
 {
-	protected List<TpDaliWrapper> local_tpDali = null;
+    protected List<TpDaliWrapper> local_tpDali = null;
 
-	public ArrayOfTpDaliWrapper() {}
+    public ArrayOfTpDaliWrapper() {}
 
-	public ArrayOfTpDaliWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali arrayoftpdali)
-	{
-		copy( arrayoftpdali );
-	}
-	public ArrayOfTpDaliWrapper( List<TpDaliWrapper> _tpDali )
-	{
-		this.local_tpDali = _tpDali;
+    public ArrayOfTpDaliWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali arrayoftpdali)
+    {
+        copy( arrayoftpdali );
+    }
+    public ArrayOfTpDaliWrapper( List<TpDaliWrapper> _tpDali )
+    {
+        this.local_tpDali = _tpDali;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpDali() != null)
-		{
-			this.local_tpDali = new ArrayList<TpDaliWrapper>();
-			for ( int i = 0; i < raw.getTpDali().length; i++)
-			{
-				this.local_tpDali.add(new TpDaliWrapper(raw.getTpDali()[i]));
-			}
-		}
-	}
+        if (raw.getTpDali() != null)
+        {
+            this.local_tpDali = new ArrayList<TpDaliWrapper>();
+            for ( int i = 0; i < raw.getTpDali().length; i++)
+            {
+                this.local_tpDali.add(new TpDaliWrapper(raw.getTpDali()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpDaliWrapper [" + "tpDali = " + local_tpDali + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpDali();
-		if (this.local_tpDali!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpDali[this.local_tpDali.size()];
-			for ( int i = 0; i < this.local_tpDali.size(); i++)
-			{
-				arr[i] = this.local_tpDali.get(i) .getRaw();
-			}
-			raw.setTpDali(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpDaliWrapper [" + "tpDali = " + local_tpDali + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali();
+        if (this.local_tpDali!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDali[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDali[this.local_tpDali.size()];
+            for ( int i = 0; i < this.local_tpDali.size(); i++)
+            {
+                arr[i] = this.local_tpDali.get(i) .getRaw();
+            }
+            raw.setTpDali(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpDali( List<TpDaliWrapper> _tpDali )
-	{
-		this.local_tpDali = _tpDali;
-	}
-	public List<TpDaliWrapper> getTpDali( )
-	{
-		return this.local_tpDali;
-	}
+    public void setTpDali( List<TpDaliWrapper> _tpDali )
+    {
+        this.local_tpDali = _tpDali;
+    }
+    public List<TpDaliWrapper> getTpDali( )
+    {
+        return this.local_tpDali;
+    }
 }

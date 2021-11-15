@@ -43,7 +43,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
      * @param eclexception
      *            the eclexception
      */
-    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException eclexception)
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException eclexception)
     {
         copy(eclexception);
     }
@@ -93,7 +93,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
      * @param eclException
      *            the ecl exception
      */
-    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException eclException)
+    public ECLExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException eclException)
     {
         copy(eclException);
     }
@@ -205,7 +205,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException raw)
     {
         this.source = raw.getSource();
         this.severity = raw.getSeverity();
@@ -225,7 +225,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
      * @param raw
      *            the raw
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException raw)
+    private void copy(org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException raw)
     {
         this.source = raw.getSource();
         this.severity = raw.getSeverity();
@@ -264,9 +264,9 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException getRawWsSQL()
     {
-        org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLException();
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLException();
         raw.setSource(source);
         raw.setSeverity(severity);
         raw.setCode(code);
@@ -471,13 +471,13 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
     }
 
     /**
-     * Gets the raw version 1 81.
+     * Gets the raw version.
      *
-     * @return the raw version 1 81
+     * @return the raw version
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException getRawVersion1_81()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException ex = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLException();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException ex = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException();
         ex.setActivity(activity);
         ex.setCode(code);
         ex.setColumn(column);

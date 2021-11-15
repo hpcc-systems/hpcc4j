@@ -27,96 +27,96 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
  */
 public class VerifyResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected int local_retCode;
-	protected String local_errMsg;
-	protected boolean local_isVerified;
-	protected String local_signedBy;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected int local_retCode;
+    protected String local_errMsg;
+    protected boolean local_isVerified;
+    protected String local_signedBy;
 
-	public VerifyResponseWrapper() {}
+    public VerifyResponseWrapper() {}
 
-	public VerifyResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyResponse verifyresponse)
-	{
-		copy( verifyresponse );
-	}
-	public VerifyResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, int _retCode, String _errMsg, boolean _isVerified, String _signedBy )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_retCode = _retCode;
-		this.local_errMsg = _errMsg;
-		this.local_isVerified = _isVerified;
-		this.local_signedBy = _signedBy;
+    public VerifyResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse verifyresponse)
+    {
+        copy( verifyresponse );
+    }
+    public VerifyResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, int _retCode, String _errMsg, boolean _isVerified, String _signedBy )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_retCode = _retCode;
+        this.local_errMsg = _errMsg;
+        this.local_isVerified = _isVerified;
+        this.local_signedBy = _signedBy;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		this.local_retCode = raw.getRetCode();
-		this.local_errMsg = raw.getErrMsg();
-		this.local_isVerified = raw.getIsVerified();
-		this.local_signedBy = raw.getSignedBy();
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        this.local_retCode = raw.getRetCode();
+        this.local_errMsg = raw.getErrMsg();
+        this.local_isVerified = raw.getIsVerified();
+        this.local_signedBy = raw.getSignedBy();
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "VerifyResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "retCode = " + local_retCode + ", " + "errMsg = " + local_errMsg + ", " + "isVerified = " + local_isVerified + ", " + "signedBy = " + local_signedBy + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyResponse();
-		raw.setRetCode( local_retCode);
-		raw.setErrMsg( local_errMsg);
-		raw.setIsVerified( local_isVerified);
-		raw.setSignedBy( local_signedBy);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "VerifyResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "retCode = " + local_retCode + ", " + "errMsg = " + local_errMsg + ", " + "isVerified = " + local_isVerified + ", " + "signedBy = " + local_signedBy + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse();
+        raw.setRetCode( local_retCode);
+        raw.setErrMsg( local_errMsg);
+        raw.setIsVerified( local_isVerified);
+        raw.setSignedBy( local_signedBy);
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setRetCode( int _retCode )
-	{
-		this.local_retCode = _retCode;
-	}
-	public int getRetCode( )
-	{
-		return this.local_retCode;
-	}
-	public void setErrMsg( String _errMsg )
-	{
-		this.local_errMsg = _errMsg;
-	}
-	public String getErrMsg( )
-	{
-		return this.local_errMsg;
-	}
-	public void setIsVerified( boolean _isVerified )
-	{
-		this.local_isVerified = _isVerified;
-	}
-	public boolean getIsVerified( )
-	{
-		return this.local_isVerified;
-	}
-	public void setSignedBy( String _signedBy )
-	{
-		this.local_signedBy = _signedBy;
-	}
-	public String getSignedBy( )
-	{
-		return this.local_signedBy;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setRetCode( int _retCode )
+    {
+        this.local_retCode = _retCode;
+    }
+    public int getRetCode( )
+    {
+        return this.local_retCode;
+    }
+    public void setErrMsg( String _errMsg )
+    {
+        this.local_errMsg = _errMsg;
+    }
+    public String getErrMsg( )
+    {
+        return this.local_errMsg;
+    }
+    public void setIsVerified( boolean _isVerified )
+    {
+        this.local_isVerified = _isVerified;
+    }
+    public boolean getIsVerified( )
+    {
+        return this.local_isVerified;
+    }
+    public void setSignedBy( String _signedBy )
+    {
+        this.local_signedBy = _signedBy;
+    }
+    public String getSignedBy( )
+    {
+        return this.local_signedBy;
+    }
 }

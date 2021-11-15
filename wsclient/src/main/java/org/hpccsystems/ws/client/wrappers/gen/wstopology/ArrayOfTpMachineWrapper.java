@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfTpMachineWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2020-09-23T21:40:52.917Z
+ * TimeStamp: 2021-10-27T23:40:06.318Z
  */
 public class ArrayOfTpMachineWrapper
 {
-	protected List<TpMachineWrapper> local_tpMachine = null;
+    protected List<TpMachineWrapper> local_tpMachine = null;
 
-	public ArrayOfTpMachineWrapper() {}
+    public ArrayOfTpMachineWrapper() {}
 
-	public ArrayOfTpMachineWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine arrayoftpmachine)
-	{
-		copy( arrayoftpmachine );
-	}
-	public ArrayOfTpMachineWrapper( List<TpMachineWrapper> _tpMachine )
-	{
-		this.local_tpMachine = _tpMachine;
+    public ArrayOfTpMachineWrapper( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine arrayoftpmachine)
+    {
+        copy( arrayoftpmachine );
+    }
+    public ArrayOfTpMachineWrapper( List<TpMachineWrapper> _tpMachine )
+    {
+        this.local_tpMachine = _tpMachine;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getTpMachine() != null)
-		{
-			this.local_tpMachine = new ArrayList<TpMachineWrapper>();
-			for ( int i = 0; i < raw.getTpMachine().length; i++)
-			{
-				this.local_tpMachine.add(new TpMachineWrapper(raw.getTpMachine()[i]));
-			}
-		}
-	}
+        if (raw.getTpMachine() != null)
+        {
+            this.local_tpMachine = new ArrayList<TpMachineWrapper>();
+            for ( int i = 0; i < raw.getTpMachine().length; i++)
+            {
+                this.local_tpMachine.add(new TpMachineWrapper(raw.getTpMachine()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfTpMachineWrapper [" + "tpMachine = " + local_tpMachine + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.ArrayOfTpMachine();
-		if (this.local_tpMachine!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.v1_30.TpMachine[this.local_tpMachine.size()];
-			for ( int i = 0; i < this.local_tpMachine.size(); i++)
-			{
-				arr[i] = this.local_tpMachine.get(i) .getRaw();
-			}
-			raw.setTpMachine(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfTpMachineWrapper [" + "tpMachine = " + local_tpMachine + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine();
+        if (this.local_tpMachine!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine[] arr = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine[this.local_tpMachine.size()];
+            for ( int i = 0; i < this.local_tpMachine.size(); i++)
+            {
+                arr[i] = this.local_tpMachine.get(i) .getRaw();
+            }
+            raw.setTpMachine(arr);
+        }
+        return raw;
+    }
 
 
-	public void setTpMachine( List<TpMachineWrapper> _tpMachine )
-	{
-		this.local_tpMachine = _tpMachine;
-	}
-	public List<TpMachineWrapper> getTpMachine( )
-	{
-		return this.local_tpMachine;
-	}
+    public void setTpMachine( List<TpMachineWrapper> _tpMachine )
+    {
+        this.local_tpMachine = _tpMachine;
+    }
+    public List<TpMachineWrapper> getTpMachine( )
+    {
+        return this.local_tpMachine;
+    }
 }

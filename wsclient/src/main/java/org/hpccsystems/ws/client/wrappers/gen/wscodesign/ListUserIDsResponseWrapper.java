@@ -18,8 +18,10 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
+
+import org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspStringArray;
+
 import java.util.ArrayList;
-import org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -30,74 +32,74 @@ import org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.EspStringArray;
  */
 public class ListUserIDsResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected List<String> local_userIDs = null;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected List<String> local_userIDs = null;
 
-	public ListUserIDsResponseWrapper() {}
+    public ListUserIDsResponseWrapper() {}
 
-	public ListUserIDsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsResponse listuseridsresponse)
-	{
-		copy( listuseridsresponse );
-	}
-	public ListUserIDsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, List<String> _userIDs )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_userIDs = _userIDs;
+    public ListUserIDsResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse listuseridsresponse)
+    {
+        copy( listuseridsresponse );
+    }
+    public ListUserIDsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, List<String> _userIDs )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_userIDs = _userIDs;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getUserIDs() != null && raw.getUserIDs().getItem() != null)//hand edited
-		{
-			this.local_userIDs = new ArrayList<String>();
-			for ( int i = 0; i < raw.getUserIDs().getItem().length; i++)
-			{
-				this.local_userIDs.add(new String(raw.getUserIDs().getItem()[i]));
-			}
-		}
-	}
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getUserIDs() != null && raw.getUserIDs().getItem() != null)//hand edited
+        {
+            this.local_userIDs = new ArrayList<String>();
+            for ( int i = 0; i < raw.getUserIDs().getItem().length; i++)
+            {
+                this.local_userIDs.add(new String(raw.getUserIDs().getItem()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ListUserIDsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "userIDs = " + local_userIDs + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsResponse();
-		if (this.local_userIDs!= null)
-		{
-			EspStringArray arr = new EspStringArray();
-			for ( int i = 0; i < this.local_userIDs.size(); i++)
-			{
-				arr.addItem(this.local_userIDs.get(i));
-			}
-			raw.setUserIDs(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ListUserIDsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "userIDs = " + local_userIDs + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse();
+        if (this.local_userIDs!= null)
+        {
+            EspStringArray arr = new EspStringArray();
+            for ( int i = 0; i < this.local_userIDs.size(); i++)
+            {
+                arr.addItem(this.local_userIDs.get(i));
+            }
+            raw.setUserIDs(arr);
+        }
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setUserIDs( List<String> _userIDs )
-	{
-		this.local_userIDs = _userIDs;
-	}
-	public List<String> getUserIDs( )
-	{
-		return this.local_userIDs;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setUserIDs( List<String> _userIDs )
+    {
+        this.local_userIDs = _userIDs;
+    }
+    public List<String> getUserIDs( )
+    {
+        return this.local_userIDs;
+    }
 }

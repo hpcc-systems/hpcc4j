@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfDFUFilePartWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePart
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-03-26T20:56:01.650Z
+ * TimeStamp: 2021-10-27T14:48:55.228Z
  */
 public class ArrayOfDFUFilePartWrapper
 {
-	protected List<DFUFilePartWrapper> local_dFUFilePart = null;
+    protected List<DFUFilePartWrapper> local_dFUFilePart = null;
 
-	public ArrayOfDFUFilePartWrapper() {}
+    public ArrayOfDFUFilePartWrapper() {}
 
-	public ArrayOfDFUFilePartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePart arrayofdfufilepart)
-	{
-		copy( arrayofdfufilepart );
-	}
-	public ArrayOfDFUFilePartWrapper( List<DFUFilePartWrapper> _dFUFilePart )
-	{
-		this.local_dFUFilePart = _dFUFilePart;
+    public ArrayOfDFUFilePartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePart arrayofdfufilepart)
+    {
+        copy( arrayofdfufilepart );
+    }
+    public ArrayOfDFUFilePartWrapper( List<DFUFilePartWrapper> _dFUFilePart )
+    {
+        this.local_dFUFilePart = _dFUFilePart;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePart raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePart raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getDFUFilePart() != null)
-		{
-			this.local_dFUFilePart = new ArrayList<DFUFilePartWrapper>();
-			for ( int i = 0; i < raw.getDFUFilePart().length; i++)
-			{
-				this.local_dFUFilePart.add(new DFUFilePartWrapper(raw.getDFUFilePart()[i]));
-			}
-		}
-	}
+        if (raw.getDFUFilePart() != null)
+        {
+            this.local_dFUFilePart = new ArrayList<DFUFilePartWrapper>();
+            for ( int i = 0; i < raw.getDFUFilePart().length; i++)
+            {
+                this.local_dFUFilePart.add(new DFUFilePartWrapper(raw.getDFUFilePart()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ArrayOfDFUFilePartWrapper [" + "dFUFilePart = " + local_dFUFilePart + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePart getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.ArrayOfDFUFilePart();
-		if (this.local_dFUFilePart!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_57.DFUFilePart[this.local_dFUFilePart.size()];
-			for ( int i = 0; i < this.local_dFUFilePart.size(); i++)
-			{
-				arr[i] = this.local_dFUFilePart.get(i) .getRaw();
-			}
-			raw.setDFUFilePart(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "ArrayOfDFUFilePartWrapper [" + "dFUFilePart = " + local_dFUFilePart + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePart getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePart raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUFilePart();
+        if (this.local_dFUFilePart!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart[] arr = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart[this.local_dFUFilePart.size()];
+            for ( int i = 0; i < this.local_dFUFilePart.size(); i++)
+            {
+                arr[i] = this.local_dFUFilePart.get(i) .getRaw();
+            }
+            raw.setDFUFilePart(arr);
+        }
+        return raw;
+    }
 
 
-	public void setDFUFilePart( List<DFUFilePartWrapper> _dFUFilePart )
-	{
-		this.local_dFUFilePart = _dFUFilePart;
-	}
-	public List<DFUFilePartWrapper> getDFUFilePart( )
-	{
-		return this.local_dFUFilePart;
-	}
+    public void setDFUFilePart( List<DFUFilePartWrapper> _dFUFilePart )
+    {
+        this.local_dFUFilePart = _dFUFilePart;
+    }
+    public List<DFUFilePartWrapper> getDFUFilePart( )
+    {
+        return this.local_dFUFilePart;
+    }
 }

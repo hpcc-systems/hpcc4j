@@ -26,7 +26,7 @@ import java.util.Properties;
  *
  * Sample parameters:
  *
- *  targetpackage=org.hpccsystems.ws.client.gen.axis2.wssmc.v1_23
+ *  targetpackage=org.hpccsystems.ws.client.gen.axis2.wssmc.latest
  *  outputdir=C:\HPCC4J\wsclient\src\main\java
  *  outputpackage=org.hpccsystems.ws.client.wrappers.gen
  *  servicename=wssmc
@@ -323,20 +323,20 @@ public class Axis2ADBStubWrapperMaker
     {
         String wrappedname = baseclass.getSimpleName() + "Wrapper";
 
-        String constructors = "\tpublic " + wrappedname + "() {}\n\n";
+        String constructors = "    public " + wrappedname + "() {}\n\n";
 
         String rawmethobody = "";
 
         if (fields.size() > 0)
         {
-            constructors += "\tpublic " + wrappedname + "( " + baseclass.getTypeName() + " " + baseclass.getSimpleName().toLowerCase() + ")\n\t{\n\t\tcopy( " + baseclass.getSimpleName().toLowerCase() +" );\n\t}\n";
+            constructors += "    public " + wrappedname + "( " + baseclass.getTypeName() + " " + baseclass.getSimpleName().toLowerCase() + ")\n    {\n        copy( " + baseclass.getSimpleName().toLowerCase() +" );\n    }\n";
 
             String copymethobody = "";
             String fullctrbody = "";
             String paramlist = "";
-            String tostringstr = "\n\t@Override\n\tpublic String toString()\n\t{\n\t\treturn \"" + wrappedname + " [\" + ";
+            String tostringstr = "\n    @Override\n    public String toString()\n    {\n        return \"" + wrappedname + " [\" + ";
 
-            constructors += "\tpublic " + wrappedname + "( ";
+            constructors += "    public " + wrappedname + "( ";
 
             for (Iterator<SimpleField> iterator = fields.iterator(); iterator.hasNext();)
             {
@@ -352,45 +352,45 @@ public class Axis2ADBStubWrapperMaker
                 if (iterator.hasNext())
                     tostringstr += " + \", \" + ";
 
-                fullctrbody += "\t\tthis." + simpleField.getSafeName() + " = _" + simplename + ";\n";
+                fullctrbody += "        this." + simpleField.getSafeName() + " = _" + simplename + ";\n";
                 if (simpleField.isContainer)
                 {
-                    copymethobody += "\t\tif (raw.get" + capitalized + "() != null)\n\t\t{\n";
-                    copymethobody += "\t\t\tthis." + simpleField.getSafeName() + " = new Array" + simpleField.getActualType() + "();\n";
+                    copymethobody += "        if (raw.get" + capitalized + "() != null)\n        {\n";
+                    copymethobody += "            this." + simpleField.getSafeName() + " = new Array" + simpleField.getActualType() + "();\n";
 
                     if (simpleField.isESPStringArray())
-                        copymethobody += "\t\t\tfor ( int i = 0; i < raw.get" + capitalized + "().getItem().length; i++)\n"; //converted espstringarray to list<String>
+                        copymethobody += "            for ( int i = 0; i < raw.get" + capitalized + "().getItem().length; i++)\n"; //converted espstringarray to list<String>
                     else
-                        copymethobody += "\t\t\tfor ( int i = 0; i < raw.get" + capitalized + "().length; i++)\n";
-                    copymethobody += "\t\t\t{\n\t\t\t\tthis." + simpleField.getSafeName() + ".add(new " + simpleField.getBaseType();
+                        copymethobody += "            for ( int i = 0; i < raw.get" + capitalized + "().length; i++)\n";
+                    copymethobody += "            {\n                this." + simpleField.getSafeName() + ".add(new " + simpleField.getBaseType();
                     if (simpleField.isWrapped())
                         copymethobody += "Wrapper";
 
                     if (simpleField.isESPStringArray())
-                        copymethobody += "(raw.get" + capitalized + "().getItem()[i]));\n\t\t\t}\n\t\t}";  //converted espstringarray to list<String>
+                        copymethobody += "(raw.get" + capitalized + "().getItem()[i]));\n            }\n        }";  //converted espstringarray to list<String>
                     else
-                        copymethobody += "(raw.get" + capitalized + "()[i]));\n\t\t\t}\n\t\t}";
+                        copymethobody += "(raw.get" + capitalized + "()[i]));\n            }\n        }";
 
-                    rawmethobody += "\t\tif (this." + simpleField.getSafeName() + "!= null)\n\t\t{\n";
+                    rawmethobody += "        if (this." + simpleField.getSafeName() + "!= null)\n        {\n";
                     if (simpleField.isWrapped())
-                        rawmethobody += "\t\t\t" + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[] arr = new " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                        rawmethobody += "            " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[] arr = new " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
                     else if (simpleField.isESPStringArray())
-                        rawmethobody += "\t\t\t" + "EspStringArray arr = new EspStringArray();\n";
+                        rawmethobody += "            " + "EspStringArray arr = new EspStringArray();\n";
                     else
-                        rawmethobody += "\t\t\t" + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[] arr = new " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                        rawmethobody += "            " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[] arr = new " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
 
-                    rawmethobody += "\t\t\tfor ( int i = 0; i < this." + simpleField.getSafeName() + ".size(); i++)\n";
+                    rawmethobody += "            for ( int i = 0; i < this." + simpleField.getSafeName() + ".size(); i++)\n";
 
                     //esparray.addItem(this.local_wuids.get(i));
                     //if (simpleField.getActualType().equals("List<String>")) //is it safe to assume List<String> : EspStringArray
                     if (simpleField.isESPStringArray())
-                        rawmethobody += "\t\t\t{\n\t\t\t\tarr.addItem(this." + simpleField.getSafeName() + ".get(i));\n\t\t\t}";
+                        rawmethobody += "            {\n                arr.addItem(this." + simpleField.getSafeName() + ".get(i));\n            }";
                     else
-                        rawmethobody += "\t\t\t{\n\t\t\t\tarr[i] = this." + simpleField.getSafeName() + ".get(i) " + (simpleField.isWrapped() ? ".getRaw()" : "") + ";\n\t\t\t}";
-                    rawmethobody += "\n\t\t\traw.set" + capitalized + "(arr);\n\t\t}\n";
+                        rawmethobody += "            {\n                arr[i] = this." + simpleField.getSafeName() + ".get(i) " + (simpleField.isWrapped() ? ".getRaw()" : "") + ";\n            }";
+                    rawmethobody += "\n            raw.set" + capitalized + "(arr);\n        }\n";
                 }
                 else if (simpleField.isWrapped)
-                    copymethobody += "\t\tif (raw.get" + capitalized + "() != null)\n\t\t\tthis." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
+                    copymethobody += "        if (raw.get" + capitalized + "() != null)\n            this." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
                 else
                 {
                     boolean foundget = false;
@@ -404,23 +404,23 @@ public class Axis2ADBStubWrapperMaker
                             foundset = true;
                     }
                     if (foundget)
-                        copymethobody += "\t\tthis." + simpleField.getSafeName() + " = raw.get" + capitalized + "();\n";
+                        copymethobody += "        this." + simpleField.getSafeName() + " = raw.get" + capitalized + "();\n";
                     else
                         copymethobody += "//Warning raw class does not provide expected method: get" + capitalized + "();\n";
 
                     if (foundset)
-                        rawmethobody += "\t\traw.set" + capitalized + "( " + simpleField.getSafeName() + ");\n";
+                        rawmethobody += "        raw.set" + capitalized + "( " + simpleField.getSafeName() + ");\n";
                     else
                         rawmethobody += "//Warning raw class doe not provide expected method: set" + capitalized + "(" + simpleField.getName() + ");\n";
                 }
             }
 
-            constructors += paramlist + " )\n\t{\n" + fullctrbody + "\n\t}\n\n";
+            constructors += paramlist + " )\n    {\n" + fullctrbody + "\n    }\n\n";
 
-            constructors += "\tprivate void copy( " + baseclass.getTypeName() + " raw )\n\t{\n";
-            constructors += "\t\tif (raw == null)\n\t\t\treturn;\n\n";
-            constructors += copymethobody + "\n\t}\n";
-            constructors += tostringstr + " + \"]\";\n\t}\n";
+            constructors += "    private void copy( " + baseclass.getTypeName() + " raw )\n    {\n";
+            constructors += "        if (raw == null)\n            return;\n\n";
+            constructors += copymethobody + "\n    }\n";
+            constructors += tostringstr + " + \"]\";\n    }\n";
         }
 
         boolean empyconstructorfound = false;
@@ -434,13 +434,13 @@ public class Axis2ADBStubWrapperMaker
             }
         }
 
-        constructors += "\tpublic " + baseclass.getTypeName() + " getRaw()\n\t{\n\t\t" + baseclass.getTypeName() + " raw = ";
+        constructors += "    public " + baseclass.getTypeName() + " getRaw()\n    {\n        " + baseclass.getTypeName() + " raw = ";
         if (empyconstructorfound)
             constructors += "new " + baseclass.getTypeName() + "();\n";
         else
             constructors += "null;\n //WARNING base class does not provide expected default constructor";
 
-        constructors += rawmethobody + "\t\treturn raw;\n\t}\n";
+        constructors += rawmethobody + "        return raw;\n    }\n";
 
         return constructors;
     }
@@ -451,7 +451,7 @@ public class Axis2ADBStubWrapperMaker
         for (Iterator<SimpleField> iterator = fields.iterator(); iterator.hasNext();)
         {
             SimpleField simpleField = (SimpleField) iterator.next();
-            fielddeclarations += "\t" + simpleField.getActualDeclaration();
+            fielddeclarations += "    " + simpleField.getActualDeclaration();
         }
         return fielddeclarations;
     }
@@ -516,8 +516,8 @@ public class Axis2ADBStubWrapperMaker
                 String simplename = simpleField.getName();
                 String capitalized = Character.toUpperCase(simplename.charAt(0)) + simplename.substring(1);
 
-                settergetter +=  "\n\tpublic void set" + capitalized + "( " + simpleField.getActualType() + " _" + simplename + " )\n\t{\n\t\tthis." + simpleField.getSafeName() + " = _" + simplename + ";\n\t}";
-                settergetter += "\n\tpublic " + simpleField.getActualType() + " get" + capitalized + "( )\n\t{\n\t\treturn this." + simpleField.getSafeName() + ";\n\t}";
+                settergetter +=  "\n    public void set" + capitalized + "( " + simpleField.getActualType() + " _" + simplename + " )\n    {\n        this." + simpleField.getSafeName() + " = _" + simplename + ";\n    }";
+                settergetter += "\n    public " + simpleField.getActualType() + " get" + capitalized + "( )\n    {\n        return this." + simpleField.getSafeName() + ";\n    }";
             }
         }
         return settergetter;
@@ -670,7 +670,7 @@ public class Axis2ADBStubWrapperMaker
                      + "\noutputdir       - The directory on which the wrapped classes will be written"
                      + "\noutputpackage   - The base package name on which the wrapped classes exist - it is postfixed with the service name"
                      + "\n"
-                     + "\nExample: WrapperMaker parameterstargetpackage=org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00 \\"
+                     + "\nExample: WrapperMaker parameterstargetpackage=org.hpccsystems.ws.client.gen.axis2.wsfileio.latest \\"
                      + "\n                      outputdir=C:\\project\\src\\main\\java outputpackage=org.hpccsystems.ws.client.wrappers servicename=<nameofservicestub>";
 
 
@@ -725,7 +725,7 @@ public class Axis2ADBStubWrapperMaker
             System.out.println("Error: Missing parameter: 'servicename'\n\n");
             printUsage();
         }
-        //String generatedPackageToWrap = "org.hpccsystems.ws.client.gen.axis2.wsfileio.v1_00";
+        //String generatedPackageToWrap = "org.hpccsystems.ws.client.gen.axis2.wsfileio.latest";
         String generatedPackageToWrap = argsprops.getProperty("targetpackage");
         if (generatedPackageToWrap == null || generatedPackageToWrap.isEmpty())
         {

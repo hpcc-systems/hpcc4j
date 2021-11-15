@@ -27,48 +27,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class GetRelatedIndexesResponseWrapper
 {
-	protected RelatedIndexSets_type2Wrapper local_relatedIndexSets;
+    protected RelatedIndexSets_type2Wrapper local_relatedIndexSets;
 
-	public GetRelatedIndexesResponseWrapper() {}
+    public GetRelatedIndexesResponseWrapper() {}
 
-	public GetRelatedIndexesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesResponse getrelatedindexesresponse)
-	{
-		copy( getrelatedindexesresponse );
-	}
-	public GetRelatedIndexesResponseWrapper( RelatedIndexSets_type2Wrapper _relatedIndexSets )
-	{
-		this.local_relatedIndexSets = _relatedIndexSets;
+    public GetRelatedIndexesResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesResponse getrelatedindexesresponse)
+    {
+        copy( getrelatedindexesresponse );
+    }
+    public GetRelatedIndexesResponseWrapper( RelatedIndexSets_type2Wrapper _relatedIndexSets )
+    {
+        this.local_relatedIndexSets = _relatedIndexSets;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getRelatedIndexSets() != null)
-			this.local_relatedIndexSets = new RelatedIndexSets_type2Wrapper( raw.getRelatedIndexSets());
+        if (raw.getRelatedIndexSets() != null)
+            this.local_relatedIndexSets = new RelatedIndexSets_type2Wrapper( raw.getRelatedIndexSets());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "GetRelatedIndexesResponseWrapper [" + "relatedIndexSets = " + local_relatedIndexSets + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetRelatedIndexesResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "GetRelatedIndexesResponseWrapper [" + "relatedIndexSets = " + local_relatedIndexSets + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetRelatedIndexesResponse();
+        return raw;
+    }
 
 
-	public void setRelatedIndexSets( RelatedIndexSets_type2Wrapper _relatedIndexSets )
-	{
-		this.local_relatedIndexSets = _relatedIndexSets;
-	}
-	public RelatedIndexSets_type2Wrapper getRelatedIndexSets( )
-	{
-		return this.local_relatedIndexSets;
-	}
+    public void setRelatedIndexSets( RelatedIndexSets_type2Wrapper _relatedIndexSets )
+    {
+        this.local_relatedIndexSets = _relatedIndexSets;
+    }
+    public RelatedIndexSets_type2Wrapper getRelatedIndexSets( )
+    {
+        return this.local_relatedIndexSets;
+    }
 }

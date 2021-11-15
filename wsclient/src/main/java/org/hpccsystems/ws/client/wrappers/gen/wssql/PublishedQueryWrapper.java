@@ -27,96 +27,96 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  */
 public class PublishedQueryWrapper
 {
-	protected String local_name;
-	protected String local_id;
-	protected String local_wuid;
-	protected boolean local_suspended;
-	protected QuerySignatureWrapper local_signature;
+    protected String local_name;
+    protected String local_id;
+    protected String local_wuid;
+    protected boolean local_suspended;
+    protected QuerySignatureWrapper local_signature;
 
-	public PublishedQueryWrapper() {}
+    public PublishedQueryWrapper() {}
 
-	public PublishedQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery publishedquery)
-	{
-		copy( publishedquery );
-	}
-	public PublishedQueryWrapper( String _name, String _id, String _wuid, boolean _suspended, QuerySignatureWrapper _signature )
-	{
-		this.local_name = _name;
-		this.local_id = _id;
-		this.local_wuid = _wuid;
-		this.local_suspended = _suspended;
-		this.local_signature = _signature;
+    public PublishedQueryWrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery publishedquery)
+    {
+        copy( publishedquery );
+    }
+    public PublishedQueryWrapper( String _name, String _id, String _wuid, boolean _suspended, QuerySignatureWrapper _signature )
+    {
+        this.local_name = _name;
+        this.local_id = _id;
+        this.local_wuid = _wuid;
+        this.local_suspended = _suspended;
+        this.local_signature = _signature;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery raw )
+    {
+        if (raw == null)
+            return;
 
-		this.local_name = raw.getName();
-		this.local_id = raw.getId();
-		this.local_wuid = raw.getWuid();
-		this.local_suspended = raw.getSuspended();
-		if (raw.getSignature() != null)
-			this.local_signature = new QuerySignatureWrapper( raw.getSignature());
+        this.local_name = raw.getName();
+        this.local_id = raw.getId();
+        this.local_wuid = raw.getWuid();
+        this.local_suspended = raw.getSuspended();
+        if (raw.getSignature() != null)
+            this.local_signature = new QuerySignatureWrapper( raw.getSignature());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "PublishedQueryWrapper [" + "name = " + local_name + ", " + "id = " + local_id + ", " + "wuid = " + local_wuid + ", " + "suspended = " + local_suspended + ", " + "signature = " + local_signature + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery();
-		raw.setName( local_name);
-		raw.setId( local_id);
-		raw.setWuid( local_wuid);
-		raw.setSuspended( local_suspended);
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "PublishedQueryWrapper [" + "name = " + local_name + ", " + "id = " + local_id + ", " + "wuid = " + local_wuid + ", " + "suspended = " + local_suspended + ", " + "signature = " + local_signature + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery();
+        raw.setName( local_name);
+        raw.setId( local_id);
+        raw.setWuid( local_wuid);
+        raw.setSuspended( local_suspended);
+        return raw;
+    }
 
 
-	public void setName( String _name )
-	{
-		this.local_name = _name;
-	}
-	public String getName( )
-	{
-		return this.local_name;
-	}
-	public void setId( String _id )
-	{
-		this.local_id = _id;
-	}
-	public String getId( )
-	{
-		return this.local_id;
-	}
-	public void setWuid( String _wuid )
-	{
-		this.local_wuid = _wuid;
-	}
-	public String getWuid( )
-	{
-		return this.local_wuid;
-	}
-	public void setSuspended( boolean _suspended )
-	{
-		this.local_suspended = _suspended;
-	}
-	public boolean getSuspended( )
-	{
-		return this.local_suspended;
-	}
-	public void setSignature( QuerySignatureWrapper _signature )
-	{
-		this.local_signature = _signature;
-	}
-	public QuerySignatureWrapper getSignature( )
-	{
-		return this.local_signature;
-	}
+    public void setName( String _name )
+    {
+        this.local_name = _name;
+    }
+    public String getName( )
+    {
+        return this.local_name;
+    }
+    public void setId( String _id )
+    {
+        this.local_id = _id;
+    }
+    public String getId( )
+    {
+        return this.local_id;
+    }
+    public void setWuid( String _wuid )
+    {
+        this.local_wuid = _wuid;
+    }
+    public String getWuid( )
+    {
+        return this.local_wuid;
+    }
+    public void setSuspended( boolean _suspended )
+    {
+        this.local_suspended = _suspended;
+    }
+    public boolean getSuspended( )
+    {
+        return this.local_suspended;
+    }
+    public void setSignature( QuerySignatureWrapper _signature )
+    {
+        this.local_signature = _signature;
+    }
+    public QuerySignatureWrapper getSignature( )
+    {
+        return this.local_signature;
+    }
 }

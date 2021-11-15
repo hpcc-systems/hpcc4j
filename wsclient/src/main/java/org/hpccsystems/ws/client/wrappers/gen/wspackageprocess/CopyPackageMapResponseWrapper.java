@@ -27,72 +27,72 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  */
 public class CopyPackageMapResponseWrapper
 {
-	protected ArrayOfEspExceptionWrapper local_exceptions;
-	protected BasePackageStatusWrapper local_status;
-	protected FilesNotFound_type0Wrapper local_filesNotFound;
+    protected ArrayOfEspExceptionWrapper local_exceptions;
+    protected BasePackageStatusWrapper local_status;
+    protected FilesNotFound_type0Wrapper local_filesNotFound;
 
-	public CopyPackageMapResponseWrapper() {}
+    public CopyPackageMapResponseWrapper() {}
 
-	public CopyPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse copypackagemapresponse)
-	{
-		copy( copypackagemapresponse );
-	}
-	public CopyPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, FilesNotFound_type0Wrapper _filesNotFound )
-	{
-		this.local_exceptions = _exceptions;
-		this.local_status = _status;
-		this.local_filesNotFound = _filesNotFound;
+    public CopyPackageMapResponseWrapper( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse copypackagemapresponse)
+    {
+        copy( copypackagemapresponse );
+    }
+    public CopyPackageMapResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, FilesNotFound_type0Wrapper _filesNotFound )
+    {
+        this.local_exceptions = _exceptions;
+        this.local_status = _status;
+        this.local_filesNotFound = _filesNotFound;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getExceptions() != null)
-			this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-		if (raw.getStatus() != null)
-			this.local_status = new BasePackageStatusWrapper( raw.getStatus());
-		if (raw.getFilesNotFound() != null)
-			this.local_filesNotFound = new FilesNotFound_type0Wrapper( raw.getFilesNotFound());
+        if (raw.getExceptions() != null)
+            this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
+        if (raw.getStatus() != null)
+            this.local_status = new BasePackageStatusWrapper( raw.getStatus());
+        if (raw.getFilesNotFound() != null)
+            this.local_filesNotFound = new FilesNotFound_type0Wrapper( raw.getFilesNotFound());
 
-	}
+    }
 
-	@Override
-	public String toString()
-	{
-		return "CopyPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.CopyPackageMapResponse();
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "CopyPackageMapResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse();
+        return raw;
+    }
 
 
-	public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
-	{
-		this.local_exceptions = _exceptions;
-	}
-	public ArrayOfEspExceptionWrapper getExceptions( )
-	{
-		return this.local_exceptions;
-	}
-	public void setStatus( BasePackageStatusWrapper _status )
-	{
-		this.local_status = _status;
-	}
-	public BasePackageStatusWrapper getStatus( )
-	{
-		return this.local_status;
-	}
-	public void setFilesNotFound( FilesNotFound_type0Wrapper _filesNotFound )
-	{
-		this.local_filesNotFound = _filesNotFound;
-	}
-	public FilesNotFound_type0Wrapper getFilesNotFound( )
-	{
-		return this.local_filesNotFound;
-	}
+    public void setExceptions( ArrayOfEspExceptionWrapper _exceptions )
+    {
+        this.local_exceptions = _exceptions;
+    }
+    public ArrayOfEspExceptionWrapper getExceptions( )
+    {
+        return this.local_exceptions;
+    }
+    public void setStatus( BasePackageStatusWrapper _status )
+    {
+        this.local_status = _status;
+    }
+    public BasePackageStatusWrapper getStatus( )
+    {
+        return this.local_status;
+    }
+    public void setFilesNotFound( FilesNotFound_type0Wrapper _filesNotFound )
+    {
+        this.local_filesNotFound = _filesNotFound;
+    }
+    public FilesNotFound_type0Wrapper getFilesNotFound( )
+    {
+        return this.local_filesNotFound;
+    }
 }

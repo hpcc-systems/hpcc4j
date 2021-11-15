@@ -29,62 +29,62 @@ import java.util.ArrayList;
  */
 public class QuerySetQueries_type0Wrapper
 {
-	protected List<PublishedQueryWrapper> local_querySetQuery = null;
+    protected List<PublishedQueryWrapper> local_querySetQuery = null;
 
-	public QuerySetQueries_type0Wrapper() {}
+    public QuerySetQueries_type0Wrapper() {}
 
-	public QuerySetQueries_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetQueries_type0 querysetqueries_type0)
-	{
-		copy( querysetqueries_type0 );
-	}
-	public QuerySetQueries_type0Wrapper( List<PublishedQueryWrapper> _querySetQuery )
-	{
-		this.local_querySetQuery = _querySetQuery;
+    public QuerySetQueries_type0Wrapper( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetQueries_type0 querysetqueries_type0)
+    {
+        copy( querysetqueries_type0 );
+    }
+    public QuerySetQueries_type0Wrapper( List<PublishedQueryWrapper> _querySetQuery )
+    {
+        this.local_querySetQuery = _querySetQuery;
 
-	}
+    }
 
-	private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetQueries_type0 raw )
-	{
-		if (raw == null)
-			return;
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetQueries_type0 raw )
+    {
+        if (raw == null)
+            return;
 
-		if (raw.getQuerySetQuery() != null)
-		{
-			this.local_querySetQuery = new ArrayList<PublishedQueryWrapper>();
-			for ( int i = 0; i < raw.getQuerySetQuery().length; i++)
-			{
-				this.local_querySetQuery.add(new PublishedQueryWrapper(raw.getQuerySetQuery()[i]));
-			}
-		}
-	}
+        if (raw.getQuerySetQuery() != null)
+        {
+            this.local_querySetQuery = new ArrayList<PublishedQueryWrapper>();
+            for ( int i = 0; i < raw.getQuerySetQuery().length; i++)
+            {
+                this.local_querySetQuery.add(new PublishedQueryWrapper(raw.getQuerySetQuery()[i]));
+            }
+        }
+    }
 
-	@Override
-	public String toString()
-	{
-		return "QuerySetQueries_type0Wrapper [" + "querySetQuery = " + local_querySetQuery + "]";
-	}
-	public org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetQueries_type0 getRaw()
-	{
-		org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetQueries_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetQueries_type0();
-		if (this.local_querySetQuery!= null)
-		{
-			org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PublishedQuery[this.local_querySetQuery.size()];
-			for ( int i = 0; i < this.local_querySetQuery.size(); i++)
-			{
-				arr[i] = this.local_querySetQuery.get(i) .getRaw();
-			}
-			raw.setQuerySetQuery(arr);
-		}
-		return raw;
-	}
+    @Override
+    public String toString()
+    {
+        return "QuerySetQueries_type0Wrapper [" + "querySetQuery = " + local_querySetQuery + "]";
+    }
+    public org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetQueries_type0 getRaw()
+    {
+        org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetQueries_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetQueries_type0();
+        if (this.local_querySetQuery!= null)
+        {
+            org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery[] arr = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery[this.local_querySetQuery.size()];
+            for ( int i = 0; i < this.local_querySetQuery.size(); i++)
+            {
+                arr[i] = this.local_querySetQuery.get(i) .getRaw();
+            }
+            raw.setQuerySetQuery(arr);
+        }
+        return raw;
+    }
 
 
-	public void setQuerySetQuery( List<PublishedQueryWrapper> _querySetQuery )
-	{
-		this.local_querySetQuery = _querySetQuery;
-	}
-	public List<PublishedQueryWrapper> getQuerySetQuery( )
-	{
-		return this.local_querySetQuery;
-	}
+    public void setQuerySetQuery( List<PublishedQueryWrapper> _querySetQuery )
+    {
+        this.local_querySetQuery = _querySetQuery;
+    }
+    public List<PublishedQueryWrapper> getQuerySetQuery( )
+    {
+        return this.local_querySetQuery;
+    }
 }

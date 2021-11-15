@@ -1,7 +1,8 @@
 package org.hpccsystems.ws.client.wrappers.wsworkunits;
 
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLQuery;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery;
 
+@Deprecated
 public class ECLQueryWrapper
 {
     private String text;
@@ -121,20 +122,20 @@ public class ECLQueryWrapper
      *
      * @return the raw
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLQuery getRaw()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery getRaw()
     {
         return getRawLatestVersion();
     }
 
     /**
-     * Gets the raw version 1 79.
+     * Gets the latest version of ECLQuery.
      *
-     * @return the raw version 1 79
+     * @return the the latest version of ECLQuery
      */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLQuery getRawLatestVersion()
+    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLQuery raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_81.ECLQuery();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery raw =
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery();
 
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());
