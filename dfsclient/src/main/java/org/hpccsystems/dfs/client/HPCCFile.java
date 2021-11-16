@@ -306,15 +306,7 @@ public class HPCCFile implements Serializable
      */
     public HPCCFile setFilter(String filterexpression) throws Exception
     {
-        this.filter = new FileFilter(filterexpression);
-
-        if (this.dataParts != null)
-        {
-            for (int i = 0; i < this.dataParts.length; i++)
-            {
-                this.dataParts[i].setFilter(this.filter);
-            }
-        }
+        setFilter(new FileFilter(filterexpression));
 
         return this;
     }
@@ -329,7 +321,16 @@ public class HPCCFile implements Serializable
      */
     public HPCCFile setFilter(FileFilter filefilter) throws Exception
     {
-        this.filter = filefilter;
+        filter = filefilter;
+
+        if (this.dataParts != null)
+        {
+            for (int i = 0; i < this.dataParts.length; i++)
+            {
+                this.dataParts[i].setFilter(filter);
+            }
+        }
+
         return this;
     }
 
