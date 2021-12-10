@@ -10,6 +10,28 @@ This repository contains multiple Java-based libraries/tools which can be utiliz
 Feature and change requests are tracked via [JIRA](https://track.hpccsystems.com/secure/Dashboard.jspa).
 Everybody is encouraged to report issues and contribute to the project. When opening JIRA tickets, make sure to set the project as "hpcc4j".
 
+<table>
+  <thead>
+    <tr>
+      <td align="left">
+        :zap: <b>Note:</b> This project references log4j which has been reported to include security vulnerabilitie(s) in versions prior to v2.15.0
+      </td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <ul>
+          <li>The HPCC4J projects no longer reference the offending log4j versions</li>
+          <li>Users of HPCC4J are strongly encouraged to update to the latest version</li>
+          <li>Learn more about the vulnerabiltiy: https://github.com/advisories/GHSA-jfh8-c2jp-5v3q</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 #### Projects contained within:
 - [WsClient](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/README.md)
   - Set of APIs which Standardize and facilitate interaction with HPCC Web based Services.
@@ -30,6 +52,7 @@ Everybody is encouraged to report issues and contribute to the project. When ope
 - [rdf2hpcc](https://github.com/hpcc-systems/hpcc4j/blob/master/rdf2hpcc/README.md)
   - RDF data ingestion tool to HPCC
   - Based on Apache Jena and dependent on org.hpccsystems.ws.client
+
 
 #### Build
 These projects are configured to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:
