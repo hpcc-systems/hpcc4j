@@ -18,6 +18,12 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.platform.Version;
@@ -393,12 +399,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     }
 
     /**
-     * Sets the stub options.
+     * Sets the stub options defaults preemptiveauth to 'true;
      *
      * @param thestub
-     *            the thestub
+     *            The Axis generated service stub
      * @param connection
-     *            the connection
+     *            The connection
      * @return the stub
      * @throws org.apache.axis2.AxisFault
      *             the axis fault
@@ -414,7 +420,21 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         opt.setProperty(org.apache.axis2.transport.http.HTTPConstants.CHUNKED, Boolean.FALSE);
 
+        if (connection.getPreemptiveHTTPAuthenticate())
+        {
+            CredentialsProvider credsProvider = new BasicCredentialsProvider();
+            credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connection.getUserName(), connection.getPassword()));
+
+            HttpClientBuilder builder = HttpClientBuilder.create();
+            builder.addInterceptorFirst(new HPCCPreemptiveAuthInterceptor());
+            builder.setDefaultCredentialsProvider(credsProvider);
+
+            CloseableHttpClient httpClient = builder.build();
+            opt.setProperty(HTTPConstants.CACHED_HTTP_CLIENT, httpClient);
+        }
+
         thestub._getServiceClient().setOptions(opt);
+
         return thestub;
     }
 
