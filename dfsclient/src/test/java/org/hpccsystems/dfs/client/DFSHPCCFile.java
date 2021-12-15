@@ -141,6 +141,21 @@ public class DFSHPCCFile extends BaseRemoteTest
         Assert.assertFalse(firstfilter.toString().equals(secondfilter.toString()));
     }
 
+    @Test
+    public final void testSetFiltermethods() throws Exception
+    {
+        DataPartition[] fileparts = mockHPCCFile.getFileParts();
+        mockHPCCFile.setFilter(new FileFilter("somefield = 100"));
+        FileFilter filepartfilter = fileparts[0].getFilter();
+        System.out.println(filepartfilter.toJson());
+        Assert.assertTrue(filepartfilter.toJson().equals("\"keyFilter\": [\"somefield=[100]\"]"));
+
+        mockHPCCFile.setFilter("anotherfield != 'xyz'");
+        filepartfilter = fileparts[0].getFilter();
+        System.out.println(filepartfilter.toJson());
+        Assert.assertTrue(filepartfilter.toJson().equals("\"keyFilter\": [\"anotherfield=(,'xyz'),('xyz',)\"]"));
+    }
+
     @Test(expected = Exception.class)
     public final void testSetFilterInvalid() throws Exception
     {

@@ -17,6 +17,8 @@ package org.hpccsystems.commons.ecl;
 
 import java.io.Serializable;
 
+import org.hpccsystems.commons.utils.Utils;
+
 /**
  * A filter value range. Used to construct a range (open or closed on either end)
  * of values for filtering records. The value range can be a single value for
@@ -37,7 +39,7 @@ public class FieldFilterRange implements Serializable
     private String[]         values;
     private boolean          leftOpen;
     private boolean          rightOpen;
-    private boolean          number;
+    private boolean          donotquote;
     private boolean          set;
     private Bound            bound;
     private short            prefix;
@@ -53,12 +55,12 @@ public class FieldFilterRange implements Serializable
      *            the left range open
      * @param rightRangeOpen
      *            the right range open
-     * @param numeric_target
-     *            the field under compare is numeric
+     * @param donotquote
+     *            entry should not be quoted
      * @param prefixMatchLength
      *            the prefix match length
      */
-    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean numeric_target,
+    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean donotquote,
             short prefixMatchLength)
     {
         this.values = new String[1];
@@ -66,7 +68,7 @@ public class FieldFilterRange implements Serializable
         this.bound = rangeBound;
         this.leftOpen = leftRangeOpen;
         this.rightOpen = rightRangeOpen;
-        this.number = numeric_target;
+        this.donotquote = donotquote;
         this.set = false;
         prefix = prefixMatchLength;
     }
@@ -82,12 +84,12 @@ public class FieldFilterRange implements Serializable
      *            the left range open
      * @param rightRangeOpen
      *            the right range open
-     * @param numeric_target
-     *            the field under compare is numeric
+     * @param donotquote
+     *            entry should not be quoted
      */
-    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean numeric_target)
+    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean donotquote)
     {
-        this(v, rangeBound, leftRangeOpen, rightRangeOpen, numeric_target, (short) 0);
+        this(v, rangeBound, leftRangeOpen, rightRangeOpen, donotquote, (short) 0);
     }
 
     /**
@@ -101,10 +103,10 @@ public class FieldFilterRange implements Serializable
      *            the left range open
      * @param rightRangeOpen
      *            the right range open
-     * @param numeric_target
-     *            the numeric target
+     * @param donotquote
+     *            entry should not be quoted
      */
-    public FieldFilterRange(String low, String high, boolean leftRangeOpen, boolean rightRangeOpen, boolean numeric_target)
+    public FieldFilterRange(String low, String high, boolean leftRangeOpen, boolean rightRangeOpen, boolean donotquote)
     {
         this.bound = Bound.BOTH;
         this.values = new String[2];
@@ -113,7 +115,7 @@ public class FieldFilterRange implements Serializable
         this.leftOpen = leftRangeOpen;
         this.rightOpen = rightRangeOpen;
         this.set = false;
-        this.number = numeric_target;
+        this.donotquote = donotquote;
         prefix = (short) 0;
     }
 
@@ -122,14 +124,14 @@ public class FieldFilterRange implements Serializable
      *
      * @param valueList
      *            the value list
-     * @param numeric_target
-     *            the numeric target
+     * @param donotquote
+     *            entry should not be quoted
      */
-    public FieldFilterRange(Object[] valueList, boolean numeric_target)
+    public FieldFilterRange(Object[] valueList, boolean donotquote)
     {
         this.leftOpen = false;
         this.rightOpen = false;
-        this.number = numeric_target;
+        this.donotquote = donotquote;
         this.values = new String[valueList.length];
         for (int i = 0; i < this.values.length; i++)
         {
@@ -137,7 +139,7 @@ public class FieldFilterRange implements Serializable
         }
         this.bound = Bound.BOTH;
         this.set = true;
-        this.number = numeric_target;
+
         prefix = (short) 0;
     }
     
@@ -170,7 +172,7 @@ public class FieldFilterRange implements Serializable
      */
     static public FieldFilterRange makeEq(Object v)
     {
-        return new FieldFilterRange(v.toString(), Bound.BOTH, false, false, (v instanceof Number));
+        return new FieldFilterRange(v.toString(), Bound.BOTH, false, false, Utils.doesNotRequireQuotes(v));
     }
 
     /**
@@ -182,7 +184,7 @@ public class FieldFilterRange implements Serializable
      */
     static public FieldFilterRange makeNE(Object v)
     {
-        return new FieldFilterRange(v.toString(), Bound.NONE, true, true, (v instanceof Number));
+        return new FieldFilterRange(v.toString(), Bound.NONE, true, true, Utils.doesNotRequireQuotes(v));
     }
 
     /**
@@ -194,7 +196,7 @@ public class FieldFilterRange implements Serializable
      */
     static public FieldFilterRange makeLT(Object v)
     {
-        return new FieldFilterRange(v.toString(), Bound.UPPER, true, true, (v instanceof Number));
+        return new FieldFilterRange(v.toString(), Bound.UPPER, true, true, Utils.doesNotRequireQuotes(v));
     }
 
     /**
@@ -206,7 +208,7 @@ public class FieldFilterRange implements Serializable
      */
     static public FieldFilterRange makeLE(Object v)
     {
-        return new FieldFilterRange(v.toString(), Bound.UPPER, true, false, (v instanceof Number));
+        return new FieldFilterRange(v.toString(), Bound.UPPER, true, false, Utils.doesNotRequireQuotes(v));
     }
 
     /**
@@ -218,7 +220,7 @@ public class FieldFilterRange implements Serializable
      */
     static public FieldFilterRange makeGT(Object v)
     {
-        return new FieldFilterRange(v.toString(), Bound.LOWER, true, true, (v instanceof Number));
+        return new FieldFilterRange(v.toString(), Bound.LOWER, true, true, Utils.doesNotRequireQuotes(v));
     }
 
     /**
@@ -230,7 +232,7 @@ public class FieldFilterRange implements Serializable
      */
     static public FieldFilterRange makeGE(Object v)
     {
-        return new FieldFilterRange(v.toString(), Bound.LOWER, false, true, (v instanceof Number));
+        return new FieldFilterRange(v.toString(), Bound.LOWER, false, true, Utils.doesNotRequireQuotes(v));
     }
 
     /**
@@ -286,7 +288,7 @@ public class FieldFilterRange implements Serializable
     {
         if (len <= 0) throw new Exception("StartsWith Filter must contain positive len value");
 
-        return new FieldFilterRange(v.toString(), Bound.BOTH, false, false, (v instanceof Number), len);
+        return new FieldFilterRange(v.toString(), Bound.BOTH, false, false, Utils.doesNotRequireQuotes(v), len);
     }
 
     /**
@@ -299,14 +301,14 @@ public class FieldFilterRange implements Serializable
         StringBuilder sb = new StringBuilder(this.values.length * 20);
         if (this.set)
         { // multiple range entries
-            sb.append((this.number) ? "[" : "['");
+            sb.append((this.donotquote) ? "[" : "['");
             sb.append(this.values[0]);
-            sb.append((this.number) ? "]" : "']");
+            sb.append((this.donotquote) ? "]" : "']");
             for (int i = 1; i < this.values.length; i++)
             {
-                sb.append((this.number) ? ",[" : ",['");
+                sb.append((this.donotquote) ? ",[" : ",['");
                 sb.append(this.values[i]);
-                sb.append((this.number) ? "]" : "']");
+                sb.append((this.donotquote) ? "]" : "']");
             }
         }
         else
@@ -315,41 +317,41 @@ public class FieldFilterRange implements Serializable
             switch (this.bound)
             {
                 case BOTH:
-                    sb.append((this.number) ? "" : "'");
+                    sb.append((this.donotquote) ? "" : "'");
                     sb.append(this.values[0]);
                     if (this.prefix > 0)
                     {
                         sb.append(":");
                         sb.append(Short.toString(this.prefix));
                     }
-                    sb.append((this.number) ? "" : "'");
+                    sb.append((this.donotquote) ? "" : "'");
                     break;
                 case LOWER:
-                    sb.append((this.number) ? "" : "'");
+                    sb.append((this.donotquote) ? "" : "'");
                     sb.append(this.values[0]);
                     if (this.prefix > 0)
                     {
                         sb.append(":");
                         sb.append(Short.toString(this.prefix));
                     }
-                    sb.append((this.number) ? "," : "',");
+                    sb.append((this.donotquote) ? "," : "',");
                     break;
                 case UPPER:
-                    sb.append((this.number) ? "," : ",'");
+                    sb.append((this.donotquote) ? "," : ",'");
                     sb.append(this.values[0]);
                     if (this.prefix > 0)
                     {
                         sb.append(":");
                         sb.append(Short.toString(this.prefix));
                     }
-                    sb.append((this.number) ? "" : "'");
+                    sb.append((this.donotquote) ? "" : "'");
                     break;
                 default:
-                    sb.append((this.number) ? "," : ",'");
+                    sb.append((this.donotquote) ? "," : ",'");
                     sb.append(this.values[0]);
-                    sb.append((this.number) ? "),(" : "'),('");
+                    sb.append((this.donotquote) ? "),(" : "'),('");
                     sb.append(this.values[0]);
-                    sb.append((this.number) ? "," : "',");
+                    sb.append((this.donotquote) ? "," : "',");
             }
             sb.append((this.rightOpen) ? ")" : "]");
         }

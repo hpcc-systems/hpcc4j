@@ -170,24 +170,47 @@ public class Utils
     }
 
     /**
-     * Checks if is numeric.
+     * Checks if value represented in string is numeric.
      *
      * @param str
-     *            the str
+     *            the value to test
      * @return true, if is numeric
      */
     public static boolean isNumeric(String str)
     {
         try
         {
-            USNumberFormat.parse(str);
+            Double.parseDouble(str);
+            return true;
         }
-        catch (Exception e)
+        catch (NumberFormatException e)
         {
             return false;
         }
+    }
 
-        return true;
+    /**
+     * Determines if entry represented by obj does not require single quote encapsulation.
+     *
+     * @param obj
+     *            the entry
+     * @return true, if single quotes not required
+     */
+    public static boolean doesNotRequireQuotes(Object obj)
+    {
+        if (obj == null)
+            return false;
+        if (obj instanceof Number)
+            return true;
+        if (obj instanceof String)
+        {
+            if(QUOTEDSQLSTRPATTERN.matcher((String)obj).matches())
+                return true; //Already quoted
+
+            return isNumeric((String)obj);
+        }
+
+        return false;
     }
 
     private final static Pattern PARENSTRPATTERN = Pattern.compile("\\s*(\\()(.*?)(\\))\\s*", Pattern.DOTALL);
@@ -201,11 +224,22 @@ public class Utils
      */
     public static boolean isInParenthesis(String parenstring)
     {
-        if (parenstring == null) return false;
+        if (parenstring == null)
+            return false;
 
         Matcher matcher = PARENSTRPATTERN.matcher(parenstring);
 
         return matcher.matches();
+    }
+
+    public static boolean isCommaList(String commastring)
+    {
+        if (commastring == null)
+            return false;
+
+        String[] list = commastring.split("\\s*,\\s*");
+
+        return list.length > 1;
     }
 
     public final static Pattern AGGFUNCPATTERN = Pattern.compile("\\s*(.*?)(\\()(.*?)(\\))\\s*", Pattern.DOTALL);

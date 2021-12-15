@@ -123,7 +123,9 @@ public class SQLOperator
         }
         else
         {
-            if (upperFragment.indexOf(SQLOperator.gte) != -1)
+            if (upperFragment.indexOf("=<") != -1 || upperFragment.indexOf("=>") != -1)
+                value = null;
+            else if (upperFragment.indexOf(SQLOperator.gte) != -1)
                 value = SQLOperator.gte;
             else if (upperFragment.indexOf(SQLOperator.lte) != -1)
                 value = SQLOperator.lte;
@@ -167,12 +169,12 @@ public class SQLOperator
                 splitPattern = INSPLITPATTERN;
                 value = SQLOperator.in;
             }
-
             else
                 value = null;
         }
 
-        if (value != null) type = validOps.get(value);
+        if (value != null)
+            type = validOps.get(value);
     }
 
     /**
@@ -229,7 +231,7 @@ public class SQLOperator
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

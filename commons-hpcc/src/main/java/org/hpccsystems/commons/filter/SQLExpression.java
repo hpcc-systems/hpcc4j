@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hpccsystems.commons.filter.SQLFragment;
 import org.hpccsystems.commons.filter.SQLFragment.FragmentType;
 
 public class SQLExpression
