@@ -274,18 +274,18 @@ public class CompiledFieldFilter
     /**
      * Checks the filter against the provided value range.
      * @param inclusiveBegin the start of the field range
-     * @param exclusiveEnd the end of the field range
+     * @param inclusiveEnd the end of the field range
      * @return true if the filter would match a value in the range, false otherwise.
      */
-    public boolean matchesRange(Object inclusiveBegin, Object exclusiveEnd)
+    public boolean matchesRange(Object inclusiveBegin, Object inclusiveEnd)
     {
         // 1 if inclusive begin is less than lowerValue, 0 if equal
         int beginCompare = compareValues(lowerValue, inclusiveBegin);
         
         // 1 if exclusive end is greater than lowerValue, 0 if equal
-        int endCompare = compareValues(exclusiveEnd, lowerValue);
+        int endCompare = compareValues(inclusiveEnd, lowerValue);
 
-        if (beginCompare >= lowerComparisonType && endCompare > 0)
+        if (beginCompare >= lowerComparisonType && endCompare >= 0)
         {
             return true;
         }
@@ -294,9 +294,9 @@ public class CompiledFieldFilter
         beginCompare = compareValues(upperValue, inclusiveBegin);
         
         // 1 if exclusive end is greater than upperValue, 0 if equal
-        endCompare = compareValues(exclusiveEnd, upperValue);
+        endCompare = compareValues(inclusiveEnd, upperValue);
 
-        if (beginCompare >= upperComparisonType && endCompare > 0)
+        if (beginCompare >= upperComparisonType && endCompare >= 0)
         {
             return true;
         }
