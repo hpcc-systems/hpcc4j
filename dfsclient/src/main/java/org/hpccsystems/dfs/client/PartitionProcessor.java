@@ -277,25 +277,14 @@ public class PartitionProcessor
         }
 
         // Construct ranges
-        for (int i = 1; i < tlkRecords.size()-1; i++)
+        for (int i = 0; i < tlkRecords.size()-1; i++)
         {
             DataPartitionRecordRange range = new DataPartitionRecordRange();
             range.begin = tlkRecords.get(i);
             range.end = tlkRecords.get(i+1);
-            range.dataPartition = this.dataPartitions[i-1];
+            range.dataPartition = this.dataPartitions[i];
             dataPartitionRanges.add(range);
         }
-
-        // Last record in TLK encompasses the last two partitions range for some reason.
-        // So duplicate its range to cover the last partition
-        DataPartitionRecordRange lastRange = new DataPartitionRecordRange();
-
-        int lastTlkRecordIndex = tlkRecords.size()-1;
-        lastRange.begin = tlkRecords.get(lastTlkRecordIndex-1);
-        lastRange.end = tlkRecords.get(lastTlkRecordIndex);
-        lastRange.dataPartition = this.dataPartitions[this.dataPartitions.length-1];
-
-        dataPartitionRanges.add(lastRange);
     }
 
     public List<DataPartition> findMatchingPartitions(FileFilter filter)
@@ -314,6 +303,7 @@ public class PartitionProcessor
         }
         catch (Exception e)
         {
+            log.error("Invalid filter, returning all partitions: " + e.getMessage());
             return Arrays.asList(dataPartitions);
         }
 

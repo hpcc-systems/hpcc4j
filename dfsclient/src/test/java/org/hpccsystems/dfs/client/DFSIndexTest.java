@@ -109,60 +109,58 @@ public class DFSIndexTest extends BaseRemoteTest
             //------------------------------------------------------------------------------
             // Read index and check TLK against known partition ranges
             //------------------------------------------------------------------------------
-            
-            HPCCFile file = new HPCCFile(indexName, connString , hpccUser, hpccPass);
 
+            HPCCFile file = new HPCCFile(indexName, connString , hpccUser, hpccPass);
             assertTrue(file.isTlkIndex());
 
             DataPartition[] fileParts = file.getFileParts();
 
-            // Last two partitions have the same range so only check up length-2
-            for (int j = 0; j < fileParts.length-2; j++)
+            FieldDef originalRD = file.getRecordDefinition();
+            for (int j = 0; j < fileParts.length-1; j++)
             {
-                // Check starting range
-                HPCCRecord rangeStart = partitionRangeStart.get(j);
-                
-                String filterStr = null;
-                if (rangeStart.getField(0) instanceof String)
+                HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[j], originalRD, recordBuilder);
+                while (fileReader.hasNext())
                 {
-                    filterStr = "key = \'" + rangeStart.getField(0).toString() + "\'";
-                }
-                else
-                {
-                    filterStr = "key = " + rangeStart.getField(0).toString();
-                }
+                    HPCCRecord record = fileReader.next();
+                    if (record == null)
+                    {
+                        Assert.fail("PartitionProcessor: " + j + " failed to read record.");
+                    }
 
-                FileFilter filter = new FileFilter(filterStr);
-                List<DataPartition> matchedPartitions = file.findMatchingPartitions(filter);
-                if (matchedPartitions.size() != 1 || matchedPartitions.get(0).index() != j)
-                {
-                    System.out.println("" + j + " Filter: " + filterStr);
-                    System.out.println("Partition range: " + file.getPartitionProcessor().getPartitionRangeAsString(j));
-                    Assert.fail("PartitionProcessor: " + j 
-                              + " not return expected partitions"
-                              + partitionListToString(matchedPartitions));
-                }
+                    // Check starting range
+                    String filterStr = null;
+                    if (record.getField(0) instanceof String)
+                    {
+                        filterStr = "key = \'" + record.getField(0).toString() + "\'";
+                    }
+                    else
+                    {
+                        filterStr = "key = " + record.getField(0).toString();
+                    }
 
-                // Check ending range
-                HPCCRecord rangeEnd = partitionRangeEnd.get(j);
-                if (rangeStart.getField(0) instanceof String)
-                {
-                    filterStr = "key = \'" + rangeEnd.getField(0).toString() + "\'";
-                }
-                else
-                {
-                    filterStr = "key = " + rangeEnd.getField(0).toString();
-                }
+                    FileFilter filter = new FileFilter(filterStr);
+                    List<DataPartition> matchedPartitions = file.findMatchingPartitions(filter);
 
-                filter = new FileFilter(filterStr);
-                matchedPartitions = file.findMatchingPartitions(filter);
-                if (matchedPartitions.size() != 1 || matchedPartitions.get(0).index() != j)
-                {
-                    System.out.println("" + j + " Filter: " + filterStr);
-                    System.out.println("Partition range: " + file.getPartitionProcessor().getPartitionRangeAsString(j));
-                    Assert.fail("PartitionProcessor: " + j 
-                              + " not return expected partitions"
-                              + partitionListToString(matchedPartitions));
+                    // Due to how TLK works we can get more that one partition
+                    boolean hadExpectedPartition = false;
+                    for (int k = 0; k < matchedPartitions.size(); k++)
+                    {
+                        if (matchedPartitions.get(k).index() == j)
+                        {
+                            hadExpectedPartition = true;
+                            break;
+                        }
+                    }
+
+                    if (hadExpectedPartition == false)
+                    {
+                        System.out.println("Partition: " + j + " Filter: " + filterStr);
+                        System.out.println("Partition range: " + file.getPartitionProcessor().getPartitionRangeAsString(j));
+                        Assert.fail("PartitionProcessor: " + j 
+                                + " filtering result did not contain partition"
+                                + partitionListToString(matchedPartitions));
+                    }
                 }
             }
         }
