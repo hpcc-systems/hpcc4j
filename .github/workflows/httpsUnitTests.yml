@@ -39,7 +39,7 @@ jobs:
     
     - name: HPCCSystems Certificate Setup
       run: |
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /opt/HPCCSystems/etc/init.d/distributePKI
+        docker exec -e DOMAINNAME='local/subjectAltName=DNS:localhost,IP:127.0.0.1'  ${{ env.PLATFORM_CONTAINER_NAME }} /opt/HPCCSystems/etc/init.d/distributePKI
 
     - name: HPCCSystems Datafile Setup
       run: |
