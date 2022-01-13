@@ -38,6 +38,8 @@ import org.hpccsystems.commons.ecl.FieldFilterRange;
 public class CompiledFieldFilter
 {
     private static final Logger log = LogManager.getLogger(CompiledFieldFilter.class);
+    
+    private static final int USE_DEFAULT_MAX_STRING = -1;
 
     private static final String minStringValue = "";
 
@@ -193,10 +195,32 @@ public class CompiledFieldFilter
         }
     }
 
+    /**
+     * Creates an object that represents that maximum possible value found in an index for the given type.
+     * String values will use a fixed length string of 32 char of the last lexographical character ÿ.
+     *
+     * @param type the field type
+     * @return the object representing the maximum value 
+     * @throws Exception if the FieldType is invalid in an index key
+     */
     public static Object getMaxValueForType(FieldType type) throws Exception
+    {
+        return getMaxValueForType(type, USE_DEFAULT_MAX_STRING);
+    }
+
+    /**
+     * Creates an object that represents that maximum possible value found in an index for the given type.
+     *
+     * @param type the field type
+     * @param numStringCodePoints the number of code points required for a given string
+     * @return the object representing the maximum value 
+     * @throws Exception if the FieldType is invalid in an index key
+     */
+    public static Object getMaxValueForType(FieldType type, int numStringCodePoints) throws Exception
     {
         switch (type)
         {
+            case FILEPOS:
             case INTEGER:
                 {
                     return Long.MAX_VALUE;
@@ -213,9 +237,25 @@ public class CompiledFieldFilter
                 {
                     return BigDecimal.valueOf(Double.MAX_VALUE);
                 }
+            case CHAR:
             case STRING:
+            case VAR_STRING:
                 {
-                    return maxStringValue;
+                    if (numStringCodePoints > maxStringValue.length())
+                    {
+                        // Create a string that is at least numCodePoints long
+                        String maxVal = new String(maxStringValue);
+                        for (int i = numStringCodePoints; i > 0;)
+                        {
+                            maxVal.concat(maxStringValue);
+                            i -= maxStringValue.length();
+                        }
+                        return maxVal;
+                    }
+                    else
+                    {
+                        return maxStringValue;
+                    }
                 }
             default:
                 throw new Exception("Invalid field type for index field.");

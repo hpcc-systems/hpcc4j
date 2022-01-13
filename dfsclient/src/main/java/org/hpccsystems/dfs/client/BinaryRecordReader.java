@@ -1017,7 +1017,6 @@ public class BinaryRecordReader implements IRecordReader
      */
     private String getString(HpccSrcType styp, int codePoints) throws IOException
     {
-
         Charset charset = utf8Set;
         switch (styp)
         {
@@ -1038,6 +1037,11 @@ public class BinaryRecordReader implements IRecordReader
                 break;
             default:
                 throw new IOException("Unknown source type");
+        }
+
+        if (codePoints <= 0)
+        {
+            return new String(this.scratchBuffer, 0, 0, charset);
         }
 
         int strByteLen = 0;
