@@ -229,6 +229,30 @@ public class Connection
     protected int               writeTimeoutMilli             = DEFAULT_WRITE_TIMEOUT_MILLI;
     protected int               socketTimeoutMilli            = DEFAULT_SO_TIMEOUT_MILLI;
 
+    private boolean             preemptiveHTTPAuthenticate    = true;
+
+
+    /**
+     * Sets option to pre-emptively process HTTP authentication
+     *
+     * @param preemtiveauth
+     *               Flag determining if pre-emptive HTTP authentication should be processed before connection is challenged
+     */
+    public void setPreemptiveHTTPAuthenticate(boolean preemtiveauth)
+    {
+        preemptiveHTTPAuthenticate = preemtiveauth;
+    }
+
+    /**
+     * Returns option to pre-emptively process HTTP Authentication
+     * @return
+     *       Flag determining if pre-emptive HTTP authentication should be processed before connection is challenged
+     */
+    public boolean getPreemptiveHTTPAuthenticate()
+    {
+        return preemptiveHTTPAuthenticate;
+    }
+
     /**
      * Gets the protocol.
      *

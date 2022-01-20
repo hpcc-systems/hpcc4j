@@ -41,6 +41,16 @@ public class HPCCRecord
     }
 
     /**
+     * Gets the record definition.
+     *
+     * @return the record definition
+     */
+    FieldDef getRecordDefinition()
+    {
+        return this.rootFieldDef;
+    }
+    
+    /**
      * Gets the field defintion.
      *
      * @param index
