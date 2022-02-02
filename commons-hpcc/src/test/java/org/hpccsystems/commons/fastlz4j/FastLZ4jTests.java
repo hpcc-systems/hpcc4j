@@ -84,7 +84,7 @@ public class FastLZ4jTests
 
         byte[] decompressed = new byte[longInput.length];
 
-        FastLZ4j.DecompressionState state = new FastLZ4j.DecompressionState(compressedLen,longInput.length);
+        FastLZ4j.DecompressionState state = new FastLZ4j.DecompressionState(compressedLen,longInput.length, -1);
 
         boolean finished = false;
         int availLen = 100;
