@@ -28,6 +28,7 @@ import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.hpccsystems.commons.fastlz4j.FastLZ4j;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
@@ -51,6 +52,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private boolean                  simulateFail = false;
     private boolean                  forceTokenUse = false;
     private boolean                  inFetchingMode = false;
+    private boolean                  useCommCompression = true;
     private byte[]                   tokenBin;
     private int                      handle;
     private DataPartition            dataPart;
@@ -60,6 +62,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private String                   projectedJsonRecordDefinition = null;
     private java.io.DataInputStream  dis;
     private java.io.DataOutputStream dos;
+    private FastLZ4j.DecompressionState decompressionState = null;
 
     private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
     private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
@@ -69,6 +72,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     // This Semaphore only has one permit. Calling it a mutex for clarity
     private final Semaphore          bufferWriteMutex = new Semaphore(1);
+
+    private byte[]                   compressedBuffer;
+    private int                      compressedBufferLen = 0;
 
     private byte[]                   readBuffer;
     private AtomicInteger            readBufferCapacity = new AtomicInteger(0);
@@ -319,6 +325,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
         this.readBuffer = new byte[this.readBufferCapacity.get()];
+        this.compressedBuffer = new byte[this.readBufferCapacity.get()];
 
         if (restartInfo != null)
         {
@@ -606,6 +613,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             throw new Exception("Error: attempted to start a fetch request for an input stream in sequential read mode.");
         }
 
+        // TODO: implement comm compression
+        if (useCommCompression)
+        {
+            throw new Exception("Error: attempted to start a fetch request for an input stream using comm compression.");
+        }
+
         // Clear stream information, but keep streamPos & markPos as they are due to potential wrapping counting streams
         readPos = 0;
         totalDataInCurrentRequest = 0;
@@ -741,6 +754,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         // Read the response length from the request
         //------------------------------------------------------------------------------
 
+        this.compressedBufferLen = 0;
         int len = 0;
         try
         {
@@ -847,6 +861,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             catch(Exception ie){}
         }
 
+        // TODO: Remove hack
+        // First 32 bytes should always be copied with no compression, can skip attempting to treat 
+        // status & handle as compressed but need to copy into compressed buffer
+        if (useCommCompression)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                this.compressedBuffer[this.compressedBufferLen + i] = (byte) ((this.handle >> ((3-i)*8)) & 0xFF);
+            }
+            this.compressedBufferLen += 4;
+        }
+
         //------------------------------------------------------------------------------
         // Read / return the length of the record data in this request
         //------------------------------------------------------------------------------
@@ -913,14 +939,46 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToRead = 0;
             try
             {
-                bytesToRead = this.dis.available();
-                
-                // Limit bytes to read based on remaining data in request and buffer capacity
-                bytesToRead = Math.min(remainingBufferCapacity,
-                              Math.min(bytesToRead,remainingDataInCurrentRequest));
-                dis.readFully(this.readBuffer, currentBufferLen, bytesToRead);
+                if (useCommCompression)
+                {
+                    bytesToRead = this.dis.available();
+                    int requiredBufferCapacity = compressedBufferLen + bytesToRead;
+                    if (requiredBufferCapacity > compressedBuffer.length) {
+                        byte[] newBuffer = new byte[requiredBufferCapacity*2];
+                        System.arraycopy(this.compressedBuffer,0,newBuffer,0,compressedBufferLen);
+                        this.compressedBuffer = newBuffer;
+                    }
+
+                    dis.readFully(this.compressedBuffer, compressedBufferLen, bytesToRead);
+                    compressedBufferLen += bytesToRead;
+                    
+                    int startingDecompressedLen = decompressionState.getDecompressedDataLen();
+                    if (startingDecompressedLen < 0)
+                    {
+                        startingDecompressedLen = 0;
+                    }
+
+                    FastLZ4j.decompress_streaming(this.decompressionState, this.compressedBuffer, compressedBufferLen, this.readBuffer);
+
+                    int bytesDecompressed = decompressionState.getDecompressedDataLen() - startingDecompressedLen;
+                    this.readBufferDataLen.addAndGet(bytesDecompressed);
+                    remainingDataInCurrentRequest -= bytesDecompressed;
+                }
+                else
+                {
+                    bytesToRead = this.dis.available();
+
+                    // Limit bytes to read based on remaining data in request and buffer capacity
+                    bytesToRead = Math.min(remainingBufferCapacity,
+                                Math.min(bytesToRead,remainingDataInCurrentRequest));
+                    dis.readFully(this.readBuffer, currentBufferLen, bytesToRead);
+
+                    // readBufferDataLen should only ever be updated within the mutex so no need to do compare exchange
+                    this.readBufferDataLen.addAndGet(bytesToRead);
+                    remainingDataInCurrentRequest -= bytesToRead;
+                }
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 prefetchException = new HpccFileException("Error during read block", e);
                 try
@@ -930,9 +988,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 catch(Exception ie){}
             }
 
-            // readBufferDataLen should only ever be updated within the mutex so no need to do compare exchange
-            this.readBufferDataLen.addAndGet(bytesToRead);
-            remainingDataInCurrentRequest -= bytesToRead;
 
             bufferWriteMutex.release();
 
@@ -954,6 +1009,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         //------------------------------------------------------------------------------
         // Read token that represents the cursor for the end of this request
         //------------------------------------------------------------------------------
+
+        // TODO: Token Len & Token should be compressed implement decompression here
 
         try
         {
@@ -1068,6 +1125,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 remainingDataInCurrentRequest = totalDataInCurrentRequest;
             }
 
+            try
+            {
+                decompressionState = new FastLZ4j.DecompressionState(0, remainingDataInCurrentRequest, 2);
+            }
+            catch(Exception e)
+            {}
+
             if (CompileTimeConstants.PROFILE_CODE)
             {
                 long nsFetching = System.nanoTime();
@@ -1126,28 +1190,50 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.bufferWriteMutex.acquireUninterruptibly();
         }
 
-        if (this.readPos >= this.bufferCompactThresholdKB * 1024)
+        boolean shouldCompact = this.readPos >= this.bufferCompactThresholdKB * 1024;
+        if (shouldCompact)
         {
-            // Don't loose the markPos during compaction
-            int compactStartLoc = this.readPos;
-            if (this.markPos >= 0)
-            {
-                int markOffset = this.readPos - this.markPos;
-                if (markOffset <= readLimit)
-                {
-                    compactStartLoc = this.markPos;
-                    this.markPos = 0;
-                }
-                else
-                {
-                    // We have gone past our read limit so go ahead reset the markPos
-                    this.markPos = -1;
-                }
-            }
+            // Can't compact buffer when doing commCompression, decompression algo. needs
+            // to be able to reference past data, but there should be a limit to how far it looks back.
+            // TODO: Double check look back limit (8192?) and allow compression back to that point.
+            // May require changes to FastLZ4j decompression code to correct for buffer start offset
 
-            int remainingBytesInBuffer = this.readBufferDataLen.addAndGet(-compactStartLoc);
-            System.arraycopy(this.readBuffer,compactStartLoc,this.readBuffer,0,remainingBytesInBuffer);
-            this.readPos -= compactStartLoc;
+            if (!useCommCompression)
+            {
+                // Don't loose the markPos during compaction
+                int compactStartLoc = this.readPos;
+                if (this.markPos >= 0)
+                {
+                    int markOffset = this.readPos - this.markPos;
+                    if (markOffset <= readLimit)
+                    {
+                        compactStartLoc = this.markPos;
+                        this.markPos = 0;
+                    }
+                    else
+                    {
+                        // We have gone past our read limit so go ahead reset the markPos
+                        this.markPos = -1;
+                    }
+                }
+
+                int remainingBytesInBuffer = this.readBufferDataLen.addAndGet(-compactStartLoc);
+                System.arraycopy(this.readBuffer,compactStartLoc,this.readBuffer,0,remainingBytesInBuffer);
+                this.readPos -= compactStartLoc;
+            }
+            else
+            {
+                // Cannot compact need to grow buffer
+                int newCapacity = this.readBufferCapacity.get()*2;
+                byte[] newBuffer = new byte[newCapacity];
+
+                System.arraycopy(this.readBuffer,0,newBuffer,0,readBufferDataLen.get());
+                this.readBuffer = newBuffer;
+                this.readBufferCapacity.set(newCapacity);
+
+                this.bufferPrefetchThresholdKB *= 2;
+                this.bufferCompactThresholdKB *= 2;
+            }
         }
         this.bufferWriteMutex.release();
     }
@@ -1860,6 +1946,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append("{ \"format\" : \"binary\", \n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
 
+        if (useCommCompression) {
+            sb.append("\"commCompression\" : \"FLZ\",\n");
+        }
+
         if (inFetchingMode)
         {
             makeFetchObject(sb);
@@ -1884,7 +1974,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         DataPartition.FileType fileType = this.dataPart.getFileType();
         sb.append("\"kind\" : \"");
         sb.append(fileType.toString() + "read\",\n");
-
         sb.append("\"metaInfo\" : \"");
         sb.append(this.dataPart.getFileAccessBlob());
         sb.append("\",\n \"filePart\" : \"");
@@ -1976,6 +2065,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         try
         {
             len = dis.readInt();
+
             if (len < 0)
             {
                 hi_flag = true;
@@ -1984,7 +2074,21 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
             if (len == 0) return 0;
 
+
             int status = dis.readInt();
+
+            // TODO: Remove hack
+            // First 32 bytes should always be copied with no compression, can skip attempting to treat 
+            // status & handle as compressed but need to copy into compressed buffer
+            if (useCommCompression)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    this.compressedBuffer[this.compressedBufferLen + i] = (byte) ((this.handle >> ((3-i)*8)) & 0xFF);
+                }
+                this.compressedBufferLen += 4;
+            }
+
             len -= 4; // account for the status int 4-byte
             if (status != RFCCodes.RFCStreamNoError)
             {
@@ -2047,6 +2151,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         {
             throw new HpccFileException("Failed on remote read read retry", e);
         }
+
+        this.compressedBufferLen = 0;
         return readReplyLen();
     }
 }
