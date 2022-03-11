@@ -102,7 +102,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private int                      numFetches = 0;
     private long                     numPartialBlockReads = 0;
     private long                     numBlockReads = 0;
-
     private Socket                   sock;
     public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
