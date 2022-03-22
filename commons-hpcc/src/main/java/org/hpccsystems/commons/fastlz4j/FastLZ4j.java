@@ -607,10 +607,11 @@ public class FastLZ4j
         private int totalCompressedLen = -1;
         private int expectedDecompressionLen = -1;
 
-        DecompressionState(int totalCompressedLen, int expectedDecompressionLen) throws Exception
+        public DecompressionState(int totalCompressedLen, int expectedDecompressionLen, int compressionLevel) throws Exception
         {
             this.totalCompressedLen = totalCompressedLen;
             this.expectedDecompressionLen = expectedDecompressionLen;
+            this.compressionLevel = compressionLevel;
 
             if (this.totalCompressedLen <= 0 && this.expectedDecompressionLen <= 0)
             {
