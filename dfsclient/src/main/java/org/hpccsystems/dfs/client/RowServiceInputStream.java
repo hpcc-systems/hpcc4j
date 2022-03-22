@@ -52,7 +52,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private boolean                  simulateFail = false;
     private boolean                  forceTokenUse = false;
     private boolean                  inFetchingMode = false;
-    private boolean                  useCommCompression = true;
+    private boolean                  useCommCompression = false;
     private byte[]                   tokenBin;
     private int                      handle;
     private DataPartition            dataPart;
