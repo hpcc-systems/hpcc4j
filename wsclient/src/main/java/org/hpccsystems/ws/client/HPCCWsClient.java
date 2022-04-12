@@ -101,6 +101,7 @@ public class HPCCWsClient extends DataSingleton
     protected boolean          verbosemode                 = false;
     protected Connection       connection                  = null;
     protected Object           connectionLock              = new Object();
+    protected Useless          uselessVariable             = null;
 
     /**
      * Checks if is verbosemode.
