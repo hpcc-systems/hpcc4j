@@ -30,7 +30,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Check repository
-      run: git log --oneline -n 10
+      run: echo $(pwd) && echo $(git log --oneline -n 10)
 
 
 
