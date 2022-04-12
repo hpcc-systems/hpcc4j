@@ -79,6 +79,7 @@ public class Utils
         char one;
         char two;
         char three;
+        char useless;
 
         int i;
         for (i = 0; i < length && length - i >= 3;)
