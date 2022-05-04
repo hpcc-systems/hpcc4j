@@ -411,23 +411,39 @@ public class Connection
         }
     }
 
+    private void setHTTPProtocol(boolean https)
+    {
+        if (https)
+        {
+            isHttps = true;
+            protocol = protHttps;
+        }
+        else
+        {
+            isHttps = false;
+            protocol = protHttp;
+        }
+
+    }
+
     /**
-     * Sets the protocol.
+     * Sets the protocol. If invalid protocol detected, defaults to http
      *
      * @param protocol_
-     *            the new protocol
+     *            the new protocol ("http" || "https")
      */
     private void setProtocol(String protocol_)
     {
         if (protocol_ != null && protocol_.length() > 0)
         {
-            protocol = protocol_;
+            if (protocol_.equalsIgnoreCase(protHttps))
+            {
+                setHTTPProtocol(true);
+                return;
+            }
         }
-        else
-        {
-            isHttps = true;
-            protocol = protHttp;
-        }
+
+        setHTTPProtocol(false);
     }
 
     /**
