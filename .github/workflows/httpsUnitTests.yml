@@ -44,7 +44,7 @@ jobs:
     - name: HPCCSystems Datafile Setup
       run: |
         docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init start
-        wget -q https://raw.githubusercontent.com/Michael-Gardner/hpccsystems-java-project-testbed/main/generatedata.sh
+        wget -q https://raw.githubusercontent.com/hpcc-systems/hpcc4j/master/wsclient/src/test/resources/generatedata.sh
 
         #wget http://localhost:8010/WsDFUXRef/version_
         #wget http://localhost:8510/WsSQL/version_

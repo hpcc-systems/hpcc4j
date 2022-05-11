@@ -44,7 +44,7 @@ jobs:
 
     - name: HPCCSystems Datafile Setup
       run: |
-        wget -q https://raw.githubusercontent.com/Michael-Gardner/hpccsystems-java-project-testbed/main/generatedata.sh
+        wget -q https://raw.githubusercontent.com/hpcc-systems/hpcc4j/master/wsclient/src/test/resources/generatedata.sh
         chmod +x generatedata.sh
         docker cp generatedata.sh ${{ env.PLATFORM_CONTAINER_NAME }}:/home/hpcc/generatedata.sh
         docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /home/hpcc/generatedata.sh
