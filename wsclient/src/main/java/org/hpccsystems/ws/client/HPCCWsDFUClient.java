@@ -1331,7 +1331,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         ArrayOfDFULogicalFile logicalfilearray = resp.getDFULogicalFiles();
         if (logicalfilearray != null)
         {
-            DFULogicalFile[] dfulogicalfilearray = resp.getDFULogicalFiles().getDFULogicalFile();
+            DFULogicalFile[] dfulogicalfilearray = logicalfilearray.getDFULogicalFile();
 
             for (int i = 0; i < dfulogicalfilearray.length; i++)
             {
