@@ -61,10 +61,7 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataRequestWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.*;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileAccessInfoWrapper;
@@ -1297,6 +1294,52 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         return result;
     }
 
+
+    /**
+     * searchFiles
+     *
+     * @param request - the search request
+     * @return - collection of files matching the request passed in
+     * @throws java.lang.Exception general exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
+     */
+    public List<DFULogicalFileWrapper> searchFiles(DFUQueryRequestWrapper request) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        if (request.getLogicalName() != null && request.getLogicalName().startsWith("~"))
+            request.setLogicalName(request.getLogicalName().substring(1));
+
+        DFUQueryResponse resp = null;
+
+        try
+        {
+            resp = ((WsDfuStub) stub).dFUQuery(request.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWsDFUClient.searchFiles encountered RemoteException.", e);
+        }
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not SearchFiles");
+        }
+
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not SearchFiles");
+
+        List<DFULogicalFileWrapper> result = new ArrayList<DFULogicalFileWrapper>();
+        ArrayOfDFULogicalFile logicalfilearray = resp.getDFULogicalFiles();
+        if (logicalfilearray != null)
+        {
+            DFULogicalFile[] dfulogicalfilearray = logicalfilearray.getDFULogicalFile();
+
+            for (int i = 0; i < dfulogicalfilearray.length; i++)
+            {
+                result.add(new DFULogicalFileWrapper(dfulogicalfilearray[i]));
+            }
+        }
+        return result;
+    }
     /**
      * getFileAccessBlob - HPCC 7.0.x version
      * The response is to be used in conjunction with DAFILESRV's rowservice distributed file read stream.
