@@ -63,6 +63,7 @@ import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUQueryRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUSearchDataResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
@@ -85,6 +86,30 @@ import org.w3c.dom.NodeList;
  */
 public class HPCCWsDFUClient extends BaseHPCCWsClient
 {
+    /*
+     * Input values for DFUQuery FileType
+     */
+    public enum DFUQueryFileType
+    {
+        DFUQFT_SUPER_FILES_ONLY,
+        DFUQFT_LOGICAL_FILES_ONLY,
+        DFUQFT_NOT_IN_SUPERFILES;
+
+        public String getText()
+        {
+            switch (this)
+            {
+            case DFUQFT_SUPER_FILES_ONLY:
+                return "Superfiles Only";
+            case DFUQFT_LOGICAL_FILES_ONLY:
+                return "Logical Files Only";
+            case DFUQFT_NOT_IN_SUPERFILES:
+                return "Not in Superfiles";
+            default:
+                return "";
+            }
+        }
+    }
     private static final Logger    log                = LogManager.getLogger(HPCCWsDFUClient.class);
 
     /** Constant <code>WSDFUURI="/WsDFU/"</code> */
@@ -251,7 +276,6 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     protected void initWsDFUClientStub(Connection conn)
     {
         initErrMessage = "";
-
         try
         {
             setActiveConnectionInfo(conn);
@@ -1249,32 +1273,70 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom) throws Exception, ArrayOfEspExceptionWrapper
     {
-        verifyStub(); // Throws exception if stub failed
+        return searchFiles(logicalFilename, cluster, pagesize, pageStartFrom, null);
+    }
 
-        if (logicalFilename != null && logicalFilename.startsWith("~")) logicalFilename = logicalFilename.substring(1);
-
-        DFUQueryRequest request = new DFUQueryRequest();
+    /**
+     * searchFiles
+     *
+     * @param logicalFilename
+     *            - the filename to search for
+     * @param cluster
+     *            - the cluster to search on
+     * @param pagesize
+     *            - the size of the page
+     * @param pageStartFrom
+     *            - the location to search from
+     * @param queryfiletype
+     *            - the file type to query
+     * @return - collection of files matching the logicalfilename passed in
+     * @throws java.lang.Exception general exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
+     */
+    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom, DFUQueryFileType queryfiletype) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        DFUQueryRequestWrapper request = new DFUQueryRequestWrapper();
 
         request.setNodeGroup(cluster);
         request.setLogicalName(logicalFilename);
+
         if (pagesize != null)
-        {
             request.setPageSize(pagesize);
-        }
+
         if (pageStartFrom != null)
-        {
             request.setPageStartFrom(pageStartFrom);
-        }
+
+        if (queryfiletype != null)
+            request.setFileType(queryfiletype.getText());
+
+        return searchFiles(request);
+    }
+
+    /**
+     * searchFiles
+     *
+     * Note, DFUQueryFileType.getText() can be used to populate DFUQueryRequestWrapper.setFileType
+     * @param request - the search request
+     * @return - collection of files matching the request passed in
+     * @throws java.lang.Exception general exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
+     */
+    public List<DFULogicalFileWrapper> searchFiles(DFUQueryRequestWrapper request) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        verifyStub(); // Throws exception if stub failed
+
+        if (request.getLogicalName() != null && request.getLogicalName().startsWith("~"))
+            request.setLogicalName(request.getLogicalName().substring(1));
 
         DFUQueryResponse resp = null;
 
         try
         {
-            resp = ((WsDfuStub) stub).dFUQuery(request);
+            resp = ((WsDfuStub) stub).dFUQuery(request.getRaw());
         }
         catch (RemoteException e)
         {
-            throw new Exception("HPCCWsDFUClient.searchFiles(" + logicalFilename + "," + cluster + ") encountered RemoteException.", e);
+            throw new Exception("HPCCWsDFUClient.searchFiles encountered RemoteException.", e);
         }
         catch (EspSoapFault e)
         {
@@ -1287,7 +1349,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         ArrayOfDFULogicalFile logicalfilearray = resp.getDFULogicalFiles();
         if (logicalfilearray != null)
         {
-            DFULogicalFile[] dfulogicalfilearray = resp.getDFULogicalFiles().getDFULogicalFile();
+            DFULogicalFile[] dfulogicalfilearray = logicalfilearray.getDFULogicalFile();
 
             for (int i = 0; i < dfulogicalfilearray.length; i++)
             {
@@ -1296,7 +1358,6 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         return result;
     }
-
     /**
      * getFileAccessBlob - HPCC 7.0.x version
      * The response is to be used in conjunction with DAFILESRV's rowservice distributed file read stream.

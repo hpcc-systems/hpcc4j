@@ -22,7 +22,14 @@ jobs:
 
     steps:
       
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+    - name: Rebase
+      run: |
+        git rebase origin/${{ github.event.pull_request.base.ref }}
+        git log --pretty=one -n 15
 
     - name: Setup JDK 1.8
       uses: actions/setup-java@v1
@@ -44,7 +51,7 @@ jobs:
     - name: HPCCSystems Datafile Setup
       run: |
         docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init start
-        wget -q https://raw.githubusercontent.com/Michael-Gardner/hpccsystems-java-project-testbed/main/generatedata.sh
+        wget -q https://raw.githubusercontent.com/hpcc-systems/hpcc4j/master/wsclient/src/test/resources/generatedata.sh
 
         #wget http://localhost:8010/WsDFUXRef/version_
         #wget http://localhost:8510/WsSQL/version_
