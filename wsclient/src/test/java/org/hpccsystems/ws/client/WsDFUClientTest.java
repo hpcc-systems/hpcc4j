@@ -12,11 +12,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.axis2.AxisFault;
+import org.hpccsystems.ws.client.HPCCWsDFUClient.DFUQueryFileType;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsdfu.DFUQueryRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
@@ -360,6 +362,15 @@ public class WsDFUClientTest extends BaseRemoteTest
     public void searchFileTest() throws Exception
     {
         String searchStr="hipie::keys::*";
+
+        DFUQueryRequestWrapper request = new DFUQueryRequestWrapper();
+        request.setFileType(DFUQueryFileType.DFUQFT_SUPER_FILES_ONLY.getText());
+        List<DFULogicalFileWrapper> matches=wsdfuclient.searchFiles(request);
+        assertEquals(100,matches.size());
+        request.setLogicalName(searchStr);
+        matches=wsdfuclient.searchFiles(request);
+        assertEquals(100,matches.size());
+
         assertNotNull(thorClusterFileGroup);
         List<DFULogicalFileWrapper> results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup);
         assertEquals(100,results.size());
@@ -374,6 +385,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,2,2);
         assertEquals(2,results.size());
         assertEquals(fname2, results.get(0).getFileName());
+
     }
 
     @Test
