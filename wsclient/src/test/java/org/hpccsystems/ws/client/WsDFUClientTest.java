@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.axis2.AxisFault;
+import org.hpccsystems.ws.client.HPCCWsDFUClient.DFUQueryFileType;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
@@ -362,9 +363,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         String searchStr="hipie::keys::*";
 
-
-        DFUQueryRequestWrapper request=new DFUQueryRequestWrapper();
-        request.setFileType("Superfiles Only");
+        DFUQueryRequestWrapper request = new DFUQueryRequestWrapper();
+        request.setFileType(DFUQueryFileType.DFUQFT_SUPER_FILES_ONLY.getText());
         List<DFULogicalFileWrapper> matches=wsdfuclient.searchFiles(request);
         assertEquals(100,matches.size());
         request.setLogicalName(searchStr);
