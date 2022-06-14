@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -36,6 +37,8 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 
 /**
  * Defines functionality common to all HPCC Systmes web service clients.
@@ -600,6 +603,23 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     public abstract String getServiceURI();
 
+ // an EntityResolver for our builder.
+    class Resolver implements EntityResolver
+    {
+       public InputSource resolveEntity(String publicId, String systemId)
+       {
+           if (systemId.equals(""))
+           {
+               System.out.println("Resolving Entity...");
+               return null;
+           }
+           else
+           {
+             return null;
+           }
+       }
+    }
+
     /**
      * Attempts to retrieve the default WSDL version of the target runtime ESP service
      * Appends the target ESP service path and the "version_" literal to the connection's base URL
@@ -632,6 +652,19 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                     try
                     {
                         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                        factory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
+                        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+                        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                        // Disable external DTDs as well
+                        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                        // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
+                        factory.setXIncludeAware(false);
+                        factory.setExpandEntityReferences(false);
+
                         DocumentBuilder parser = factory.newDocumentBuilder();
                         Document document = parser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
 
