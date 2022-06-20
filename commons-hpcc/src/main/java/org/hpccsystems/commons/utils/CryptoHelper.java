@@ -36,7 +36,8 @@ public class CryptoHelper
     public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM    = DigestAlgorithmType.SHA512;
     public final static String              DEFAULT_SECRETKEY_ALGORITHM = "AES";
     public final static int                 DEFAULT_AES_SECRETKEY_LEN   = 16;
-    public final static String              DEFAULT_CIPHER_MODE         = "AES/ECB/PKCS5PADDING";
+    //public final static String              DEFAULT_CIPHER_MODE         = "AES/ECB/PKCS5PADDING";
+    public final static String              DEFAULT_CIPHER_MODE         = "AES";
 
     /**
      * Creates the SHA 512 AES secret key.
@@ -177,7 +178,7 @@ public class CryptoHelper
      * @param secretKey
      *            The key to use for encrypting/decrypting
      * @param cipherAlgorithm
-     *            AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
+     *            AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provider
      * @param encryptMode
      *            true=encrypt, false=decrypt
      * @return the cipher
