@@ -5,11 +5,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis2.AxisFault;
@@ -60,6 +63,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected Double              targetESPInterfaceVer  = null;
 
     protected Stub                stub;
+
+    static private DocumentBuilder m_versionParser = null;
+    static private XPathExpression m_versionXpathExpression = null;
 
     /**
      * Gets the default stub.
@@ -398,6 +404,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return to;
     }
 
+    final static UsernamePasswordCredentials emptyCreds = new UsernamePasswordCredentials("", null);
+
     /**
      * Sets the stub options defaults preemptiveauth to 'true;
      *
@@ -422,8 +430,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         if (connection.getPreemptiveHTTPAuthenticate())
         {
+            //Axis2 now forces connection authenticate, even if target is not secure
             CredentialsProvider credsProvider = new BasicCredentialsProvider();
-            credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connection.getUserName(), connection.getPassword()));
+            if (connection.hasCredentials())
+                credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connection.getUserName(), connection.getPassword()));
+            else
+                credsProvider.setCredentials(AuthScope.ANY, emptyCreds);//if no credentials provided, allow empty user/null pass
 
             HttpClientBuilder builder = HttpClientBuilder.create();
             builder.addInterceptorFirst(new HPCCPreemptiveAuthInterceptor());
@@ -600,6 +612,35 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     public abstract String getServiceURI();
 
+    protected void setUpversionParser() throws ParserConfigurationException, XPathExpressionException
+    {
+        if(m_versionParser != null && m_versionXpathExpression != null)
+            return;
+
+	    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+	    // Settings for secure XML parsing
+        docBuilderFactory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
+        docBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        docBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        docBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        // Disable external DTDs as well
+        docBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
+        docBuilderFactory.setXIncludeAware(false);
+        docBuilderFactory.setExpandEntityReferences(false);
+
+        XPath versionXpath = XPathFactory.newInstance().newXPath();
+        m_versionXpathExpression = versionXpath.compile("string(/VersionInfo/Version)");
+        if (m_versionXpathExpression == null)
+            throw new XPathExpressionException ("Could not Compile versionXpathExpression");
+
+        m_versionParser = docBuilderFactory.newDocumentBuilder();
+        if (m_versionParser == null)
+            throw new XPathExpressionException ("Could not create new version parser");
+    }
     /**
      * Attempts to retrieve the default WSDL version of the target runtime ESP service
      * Appends the target ESP service path and the "version_" literal to the connection's base URL
@@ -631,14 +672,10 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                 {
                     try
                     {
-                        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                        DocumentBuilder parser = factory.newDocumentBuilder();
-                        Document document = parser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+                        setUpversionParser();
+                        Document document = m_versionParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
 
-                        XPath xpath = XPathFactory.newInstance().newXPath();
-                        XPathExpression expr = xpath.compile("string(/VersionInfo/Version)");
-
-                        targetESPInterfaceVer = (double)expr.evaluate(document, XPathConstants.NUMBER);
+                        targetESPInterfaceVer = (double)m_versionXpathExpression.evaluate(document, XPathConstants.NUMBER);
                         log.info(wsconn.getBaseUrl() + getServiceURI() + " version: " + targetESPInterfaceVer);
                     }
                     catch (Exception e)
