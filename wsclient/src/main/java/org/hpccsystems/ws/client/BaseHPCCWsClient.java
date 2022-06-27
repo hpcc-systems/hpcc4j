@@ -404,6 +404,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return to;
     }
 
+    final static UsernamePasswordCredentials emptyCreds = new UsernamePasswordCredentials("", null);
+
     /**
      * Sets the stub options defaults preemptiveauth to 'true;
      *
@@ -428,8 +430,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         if (connection.getPreemptiveHTTPAuthenticate())
         {
+            //Axis2 now forces connection authenticate, even if target is not secure
             CredentialsProvider credsProvider = new BasicCredentialsProvider();
-            credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connection.getUserName(), connection.getPassword()));
+            if (connection.hasCredentials())
+                credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connection.getUserName(), connection.getPassword()));
+            else
+                credsProvider.setCredentials(AuthScope.ANY, emptyCreds);//if no credentials provided, allow empty user/null pass
 
             HttpClientBuilder builder = HttpClientBuilder.create();
             builder.addInterceptorFirst(new HPCCPreemptiveAuthInterceptor());
