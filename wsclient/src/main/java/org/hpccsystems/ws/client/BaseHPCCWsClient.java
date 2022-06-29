@@ -5,9 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -617,29 +615,15 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         if(m_versionParser != null && m_versionXpathExpression != null)
             return;
 
-	    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-	    // Settings for secure XML parsing
-        docBuilderFactory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-
-        docBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-        docBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-        docBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        // Disable external DTDs as well
-        docBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
-        docBuilderFactory.setXIncludeAware(false);
-        docBuilderFactory.setExpandEntityReferences(false);
+        m_versionParser = Utils.newSafeXMLDocBuilder();
+        if (m_versionParser == null)
+            throw new XPathExpressionException ("Could not create new version parser");
 
         XPath versionXpath = XPathFactory.newInstance().newXPath();
         m_versionXpathExpression = versionXpath.compile("string(/VersionInfo/Version)");
         if (m_versionXpathExpression == null)
             throw new XPathExpressionException ("Could not Compile versionXpathExpression");
 
-        m_versionParser = docBuilderFactory.newDocumentBuilder();
-        if (m_versionParser == null)
-            throw new XPathExpressionException ("Could not create new version parser");
     }
     /**
      * Attempts to retrieve the default WSDL version of the target runtime ESP service
