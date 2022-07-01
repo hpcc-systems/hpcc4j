@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,6 +28,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1029,4 +1031,33 @@ public class Utils
         return df.parse(utc);
     }
 
+    public static DocumentBuilderFactory newSafeXMLDocBuilderFactory() throws ParserConfigurationException
+    {
+	    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+	    // Settings for secure XML parsing
+        docBuilderFactory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
+        docBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        docBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        docBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        // Disable external DTDs as well
+        docBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
+        docBuilderFactory.setXIncludeAware(false);
+        docBuilderFactory.setExpandEntityReferences(false);
+
+        return docBuilderFactory;
+    }
+
+    public static DocumentBuilder newSafeXMLDocBuilder() throws ParserConfigurationException, XPathExpressionException
+    {
+        DocumentBuilderFactory docBuilderFactory = newSafeXMLDocBuilderFactory();
+        DocumentBuilder safeXMLDocBuilder = docBuilderFactory.newDocumentBuilder();
+        if (safeXMLDocBuilder == null)
+            throw new XPathExpressionException ("Could not create new safe XML doc builder");
+
+        return safeXMLDocBuilder;
+    }
 }

@@ -27,8 +27,10 @@ import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis2.AxisFault;
@@ -1438,6 +1440,26 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return uploadFile(file, fetchLocalDropZones.get(0));
     }
 
+    static DocumentBuilder m_safeXMLDocBuilder = null;
+    static XPathExpression m_uploadResultExpression = null;
+
+    static protected void setupUploadResultParser() throws XPathExpressionException, ParserConfigurationException
+    {
+        if(m_uploadResultExpression != null && m_safeXMLDocBuilder != null)
+            return;
+
+        m_safeXMLDocBuilder = Utils.newSafeXMLDocBuilder();
+
+        if (m_safeXMLDocBuilder == null)
+            throw new XPathExpressionException ("Could not create new result XML parser");
+
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        m_uploadResultExpression= xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
+
+        if (m_uploadResultExpression == null)
+            throw new XPathExpressionException ("Could not Compile versionXpathExpression");
+    }
+
     /**
      * UPLOADS A FILE( UP TO 2GB FILE SIZES) TO THE SPECIFIED LANDING ZONE.
      *
@@ -1553,14 +1575,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         {
             try
             {
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder parser = factory.newDocumentBuilder();
-                Document document = parser.parse(new ByteArrayInputStream(response.toString().getBytes(StandardCharsets.UTF_8)));
+                setupUploadResultParser(); // throws if expression or docbuilder == null
 
-                XPath xpath = XPathFactory.newInstance().newXPath();
-                XPathExpression expr = xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
+                Document document = m_safeXMLDocBuilder.parse(new ByteArrayInputStream(response.toString().getBytes(StandardCharsets.UTF_8)));
 
-                String result = expr.evaluate(document);
+                String result = m_uploadResultExpression.evaluate(document);
                 log.info("uploadLargeFile ( " + uploadFile + ") result: '" + result + "'");
 
                 if (result.isEmpty() || !result.equalsIgnoreCase("Success"))
