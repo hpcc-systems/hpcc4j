@@ -1,0 +1,7 @@
+<!DOCTYPE foo [ <!ENTITY myentity "my entity value" > ]>
+<root>
+	<name>test</name>
+	<tel>082</tel>
+	<email>&myentity;</email>
+	<password>pwd</password>
+</root>
