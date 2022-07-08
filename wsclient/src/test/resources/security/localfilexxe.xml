@@ -1,0 +1,6 @@
+<?xml version="1.0" standalone="yes" ?>
+<!DOCTYPE user [
+<!ENTITY % ext-dtd SYSTEM "localfilex.xml">
+%ext-dtd;
+]>
+<user>&name; &email;</user>
