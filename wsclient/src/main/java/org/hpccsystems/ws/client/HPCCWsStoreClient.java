@@ -643,7 +643,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AESPKCS5Pad(value, secretKey), global);
+        return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AES(value, secretKey), global);
     }
 
     /**
