@@ -17,7 +17,7 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
-import org.apache.axis2.transport.http.HTTPConstants;
+import org.apache.axis2.kernel.http.HTTPConstants;
 import org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -293,8 +293,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                 && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.SO_TIMEOUT), thatopt.getProperty(HTTPConstants.SO_TIMEOUT))
                 && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.CONNECTION_TIMEOUT),
                         thatopt.getProperty(HTTPConstants.CONNECTION_TIMEOUT))
-                && EqualsUtil.areEqual(thisoptions.getProperty(org.apache.axis2.transport.http.HTTPConstants.CHUNKED),
-                        thatopt.getProperty(org.apache.axis2.transport.http.HTTPConstants.CHUNKED))
+                && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.CHUNKED),
+                        thatopt.getProperty(HTTPConstants.CHUNKED))
                 && (thisauth != null
                         ? (EqualsUtil.areEqual(thisauth.getUsername(), thatauth.getUsername())
                                 && EqualsUtil.areEqual(thisauth.getPassword(), thatauth.getPassword()))
@@ -424,7 +424,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         opt = setClientAuth(connection.getUserName(), connection.getPassword(), opt);
 
-        opt.setProperty(org.apache.axis2.transport.http.HTTPConstants.CHUNKED, Boolean.FALSE);
+        opt.setProperty(HTTPConstants.CHUNKED, Boolean.FALSE);
 
         if (connection.getPreemptiveHTTPAuthenticate())
         {
