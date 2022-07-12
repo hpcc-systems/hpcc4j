@@ -36,7 +36,7 @@ public class CryptoHelper
     public final static DigestAlgorithmType DEFAULT_DIGEST_ALGORITHM    = DigestAlgorithmType.SHA512;
     public final static String              DEFAULT_SECRETKEY_ALGORITHM = "AES";
     public final static int                 DEFAULT_AES_SECRETKEY_LEN   = 16;
-    public final static String              DEFAULT_CIPHER_MODE         = "AES/ECB/PKCS5PADDING";
+    public final static String              DEFAULT_CIPHER_MODE         = "AES";
 
     /**
      * Creates the SHA 512 AES secret key.
@@ -177,7 +177,7 @@ public class CryptoHelper
      * @param secretKey
      *            The key to use for encrypting/decrypting
      * @param cipherAlgorithm
-     *            AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provder
+     *            AES | AES/CBC/NoPadding | AES/ECB/PKCS5PADDING | etc. There must be an available provider
      * @param encryptMode
      *            true=encrypt, false=decrypt
      * @return the cipher
@@ -215,27 +215,52 @@ public class CryptoHelper
     /**
      * Encrypt SHA 512 AESPKCS 5 pad.
      *
+     * @deprecated Due to weak crypto algorithm use encryptSHA512AES instead
      * @param utf8StrToEncrypt
      *            the utf 8 str to encrypt
      * @param digestInput
      *            the digest input
      * @return the string
      */
-    public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, String digestInput)
+    /*public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, String digestInput)*/
+
+    /**
+     * Encrypt SHA 512 AES.
+     *
+     * Replaces public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, String digestInput)
+     * @param utf8StrToEncrypt
+     *            the utf 8 str to encrypt
+     * @param digestInput
+     *            the digest input
+     * @return the string
+     */
+    public static String encryptSHA512AES(String utf8StrToEncrypt, String digestInput)
     {
-        return encryptSHA512AESPKCS5Pad(utf8StrToEncrypt, createSHA512AESSecretKey(digestInput));
+        return encryptSHA512AES(utf8StrToEncrypt, createSHA512AESSecretKey(digestInput));
     }
 
     /**
      * Encrypt SHA 512 AESPKCS 5 pad.
      *
+     * @deprecated Due to weak crypto algorithm use encryptSHA512AES instead
      * @param utf8StrToEncrypt
      *            the utf 8 str to encrypt
      * @param secretKey
      *            the secret key
      * @return the string
      */
-    public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, SecretKeySpec secretKey)
+    /*public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, SecretKeySpec secretKey)*/
+
+    /**
+     * Encrypt SHA 512 AES.
+     * Replaces public static String encryptSHA512AESPKCS5Pad(String utf8StrToEncrypt, SecretKeySpec secretKey)
+     * @param utf8StrToEncrypt
+     *            the utf 8 str to encrypt
+     * @param secretKey
+     *            the secret key
+     * @return the string
+     */
+    public static String encryptSHA512AES(String utf8StrToEncrypt, SecretKeySpec secretKey)
     {
         try
         {
