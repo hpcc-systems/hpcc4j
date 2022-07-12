@@ -797,7 +797,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             int residualRecords = records.size() % dfuFileParts.length;
 
             int currentRecord = 0;
-            int bytesWritten = 0;
+            long bytesWritten = 0;
             for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
             {
                 int numRecordsInPartition = recordsPerPartition;

@@ -244,7 +244,7 @@ public class DFSIndexTest extends BaseRemoteTest
             partitionRangeStart.clear();
             partitionRangeEnd.clear();
 
-            int bytesWritten = 0;
+            long bytesWritten = 0;
             int numRecords = 0;
             for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
             {
