@@ -25,6 +25,8 @@ jobs:
         fetch-depth: 0
     - name: Rebase
       run: |
+        git config user.email 'hpccsystems@lexisnexisrisk.com'
+        git config user.name 'hpccsystems development'
         git rebase origin/${{ github.event.pull_request.base.ref }}
         git log --pretty=one -n 15
 
