@@ -78,28 +78,7 @@
           </excludes>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
-        <executions>
-          <execution>
-            <id>build-latest</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-            <configuration>
-              <sourceDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr</sourceDirectory>
-              <outputDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr</outputDirectory>
-              <arguments>
-                <argument>-package</argument>
-                <argument>org.hpccsystems.ws.client.antlr</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
+            <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
       </plugin>
@@ -115,6 +94,37 @@
   </dependencies>
 
  <profiles>
+   <profile>
+     <id>generate-antlr-eclrecparser</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.antlr</groupId>
+           <artifactId>antlr4-maven-plugin</artifactId>
+           <version>${antlr.version}</version>
+           <executions>
+             <execution>
+               <id>build-latest</id>
+               <goals>
+                 <goal>antlr4</goal>
+               </goals>
+               <configuration>
+                 <sourceDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr</sourceDirectory>
+                 <outputDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr/gen</outputDirectory>
+                 <arguments>
+                   <argument>-package</argument>
+                   <argument>org.hpccsystems.ws.client.antlr.gen</argument>
+                 </arguments>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
    <profile>
      <id>generate-wsclient-stub</id>
      <properties>
