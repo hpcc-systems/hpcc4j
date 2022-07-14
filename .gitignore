@@ -5,6 +5,6 @@ bin/
 dfsclient/.classpath
 
 # ANTLR-generated files (which we build on the fly via antlr4-maven-plugin)
-EclRecord*.*
-!EclRecord.g4
-!EclRecordReader.java
+#EclRecord*.*
+#!EclRecord.g4
+#!EclRecordReader.java
