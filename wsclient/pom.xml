@@ -90,10 +90,10 @@
             </goals>
             <configuration>
               <sourceDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr</sourceDirectory>
-              <outputDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr</outputDirectory>
+              <outputDirectory>${project.basedir}/src/main/java/org/hpccsystems/ws/client/antlr/gen</outputDirectory>
               <arguments>
                 <argument>-package</argument>
-                <argument>org.hpccsystems.ws.client.antlr</argument>
+                <argument>org.hpccsystems.ws.client.antlr.gen</argument>
               </arguments>
             </configuration>
           </execution>

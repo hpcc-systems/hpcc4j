@@ -2,10 +2,9 @@
 bin/
 .project
 .settings/
-EclRecord.tokens
-EclRecordBaseListener.java
-EclRecordLexer.java
-EclRecordLexer.tokens
-EclRecordListener.java
-EclRecordParser.java
 dfsclient/.classpath
+
+# ANTLR-generated files (which we build on the fly via antlr4-maven-plugin)
+EclRecord*.*
+!EclRecord.g4
+!EclRecordReader.java
