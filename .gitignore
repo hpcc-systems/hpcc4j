@@ -2,10 +2,5 @@
 bin/
 .project
 .settings/
-EclRecord.tokens
-EclRecordBaseListener.java
-EclRecordLexer.java
-EclRecordLexer.tokens
-EclRecordListener.java
-EclRecordParser.java
 dfsclient/.classpath
+

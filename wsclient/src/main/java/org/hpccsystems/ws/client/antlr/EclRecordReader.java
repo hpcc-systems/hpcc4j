@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.hpccsystems.ws.client.antlr.gen.EclRecordBaseListener;
+import org.hpccsystems.ws.client.antlr.gen.EclRecordParser;
 import org.hpccsystems.ws.client.platform.DFUDataColumnAnnotation;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
