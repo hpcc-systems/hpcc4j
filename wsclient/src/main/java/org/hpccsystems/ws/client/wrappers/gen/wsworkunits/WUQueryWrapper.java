@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQueryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQuery
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.547Z
+ * TimeStamp: 2022-07-22T20:33:16.959Z
  */
 public class WUQueryWrapper
 {
@@ -48,6 +48,7 @@ public class WUQueryWrapper
     protected long local_pageSize;
     protected long local_pageStartFrom;
     protected long local_pageEndAt;
+    protected WUProtectFilterWrapper local_protected;
     protected String local_sortby;
     protected boolean local_descending;
     protected long local_cacheHint;
@@ -58,7 +59,7 @@ public class WUQueryWrapper
     {
         copy( wuquery );
     }
-    public WUQueryWrapper( String _wuid, String _type, String _cluster, String _roxieCluster, String _owner, String _state, String _startDate, String _endDate, String _eCL, String _jobname, String _logicalFile, String _logicalFileSearchType, ArrayOfApplicationValueWrapper _applicationValues, String _beforeWU, String _afterWU, UnsignedInt _totalClusterTimeThresholdMilliSec, int _count, long _pageSize, long _pageStartFrom, long _pageEndAt, String _sortby, boolean _descending, long _cacheHint )
+    public WUQueryWrapper( String _wuid, String _type, String _cluster, String _roxieCluster, String _owner, String _state, String _startDate, String _endDate, String _eCL, String _jobname, String _logicalFile, String _logicalFileSearchType, ArrayOfApplicationValueWrapper _applicationValues, String _beforeWU, String _afterWU, UnsignedInt _totalClusterTimeThresholdMilliSec, int _count, long _pageSize, long _pageStartFrom, long _pageEndAt, WUProtectFilterWrapper _protected, String _sortby, boolean _descending, long _cacheHint )
     {
         this.local_wuid = _wuid;
         this.local_type = _type;
@@ -80,6 +81,7 @@ public class WUQueryWrapper
         this.local_pageSize = _pageSize;
         this.local_pageStartFrom = _pageStartFrom;
         this.local_pageEndAt = _pageEndAt;
+        this.local_protected = _protected;
         this.local_sortby = _sortby;
         this.local_descending = _descending;
         this.local_cacheHint = _cacheHint;
@@ -112,6 +114,8 @@ public class WUQueryWrapper
         this.local_pageSize = raw.getPageSize();
         this.local_pageStartFrom = raw.getPageStartFrom();
         this.local_pageEndAt = raw.getPageEndAt();
+        if (raw.getProtected() != null)
+            this.local_protected = new WUProtectFilterWrapper( raw.getProtected());
         this.local_sortby = raw.getSortby();
         this.local_descending = raw.getDescending();
         this.local_cacheHint = raw.getCacheHint();
@@ -121,7 +125,7 @@ public class WUQueryWrapper
     @Override
     public String toString()
     {
-        return "WUQueryWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "owner = " + local_owner + ", " + "state = " + local_state + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "eCL = " + local_eCL + ", " + "jobname = " + local_jobname + ", " + "logicalFile = " + local_logicalFile + ", " + "logicalFileSearchType = " + local_logicalFileSearchType + ", " + "applicationValues = " + local_applicationValues + ", " + "beforeWU = " + local_beforeWU + ", " + "afterWU = " + local_afterWU + ", " + "totalClusterTimeThresholdMilliSec = " + local_totalClusterTimeThresholdMilliSec + ", " + "count = " + local_count + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + "]";
+        return "WUQueryWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "owner = " + local_owner + ", " + "state = " + local_state + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "eCL = " + local_eCL + ", " + "jobname = " + local_jobname + ", " + "logicalFile = " + local_logicalFile + ", " + "logicalFileSearchType = " + local_logicalFileSearchType + ", " + "applicationValues = " + local_applicationValues + ", " + "beforeWU = " + local_beforeWU + ", " + "afterWU = " + local_afterWU + ", " + "totalClusterTimeThresholdMilliSec = " + local_totalClusterTimeThresholdMilliSec + ", " + "count = " + local_count + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "protected = " + local_protected + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery getRaw()
     {
@@ -311,6 +315,14 @@ public class WUQueryWrapper
     public long getPageEndAt( )
     {
         return this.local_pageEndAt;
+    }
+    public void setProtected( WUProtectFilterWrapper _protected )
+    {
+        this.local_protected = _protected;
+    }
+    public WUProtectFilterWrapper getProtected( )
+    {
+        return this.local_protected;
     }
     public void setSortby( String _sortby )
     {

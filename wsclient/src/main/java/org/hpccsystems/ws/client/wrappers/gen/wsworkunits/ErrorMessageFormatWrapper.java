@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ErrorMessageFormatWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.ErrorMessageFormat
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ErrorMessageFormat
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.395Z
+ * TimeStamp: 2022-07-22T20:33:16.825Z
  */
 public class ErrorMessageFormatWrapper
 {

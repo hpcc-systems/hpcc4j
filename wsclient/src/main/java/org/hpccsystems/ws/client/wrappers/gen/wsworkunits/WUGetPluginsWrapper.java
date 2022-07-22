@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUGetPluginsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUGetPlugins
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetPlugins
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.503Z
+ * TimeStamp: 2022-07-22T20:33:16.920Z
  */
 public class WUGetPluginsWrapper
 {

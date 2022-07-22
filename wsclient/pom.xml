@@ -126,7 +126,89 @@
      </build>
    </profile>
    <profile>
-     <id>generate-wsclient-stub</id>
+     <id>generate-wsworkunits-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wswu</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsWorkunits.wsdl</wsdlFile>
+                 <wsdlVersion>1.92</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wsworkunits</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wsdfu-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wsdfu</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <!-- Forced to ignore unexpected elements due to Cost field removed in wsDFU in v1.62-->
+                 <options><property><name>iu</name><value>true</value></property></options>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsDFU.wsdl</wsdlFile>
+                 <wsdlVersion>1.64</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wsdfu</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-filespray-stub</id>
      <properties>
        <maven.test.skip>true</maven.test.skip>
      </properties>
@@ -150,6 +232,7 @@
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.latest</packageName>
                  <wsdlFile>src/main/resources/WSDLs/WsFileSpray.wsdl</wsdlFile>
+                 <wsdlVersion>1.23</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
@@ -159,6 +242,143 @@
                  </namespaceURIs>
                </configuration>
              </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wspackageprocess-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wspackageprocess</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsPackageProcess.wsdl</wsdlFile>
+                 <wsdlVersion>1.05</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wspackageprocess</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wsresources-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wsresources</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsresources.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsResources.wsdl</wsdlFile>
+                 <wsdlVersion>1.01</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wsresources</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsresources.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wssmc-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wssmc</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsSMC.wsdl</wsdlFile>
+                 <wsdlVersion>1.26</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wssmc</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wsdfuxref-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
              <execution>
                <id>wsdfuxref</id>
                <phase>process-resources</phase>
@@ -172,6 +392,7 @@
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest</packageName>
                  <wsdlFile>src/main/resources/WSDLs/WsDFUXRef.wsdl</wsdlFile>
+                 <wsdlVersion>1.02</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
@@ -181,8 +402,25 @@
                  </namespaceURIs>
                </configuration>
              </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wstopology-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
              <execution>
-               <id>wscodesign</id>
+               <id>wstopology</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
@@ -192,61 +430,35 @@
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wscodesign.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsCodeSign.wsdl</wsdlFile>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsTopology.wsdl</wsdlFile>
+                 <wsdlVersion>1.31</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
-                     <uri>urn:hpccsystems:ws:ws_codesign</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wscodesign.latest</packageName>
+                     <uri>urn:hpccsystems:ws:wstopology</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.latest</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
-             <execution>
-               <id>wsattributes</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-                 <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsattributes.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsAttributes.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wsattributes</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsattributes.latest</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
-               <id>wsdfu</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsDFU.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wsdfu</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsdfu.latest</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wsfileio-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
              <execution>
                <id>wsfileio</id>
                <phase>process-resources</phase>
@@ -260,6 +472,7 @@
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsfileio.latest</packageName>
                  <wsdlFile>src/main/resources/WSDLs/WsFileIO.wsdl</wsdlFile>
+                 <wsdlVersion>1.01</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
@@ -269,138 +482,103 @@
                  </namespaceURIs>
                </configuration>
              </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wsattributes-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
              <execution>
-               <id>wstopology</id>
+               <id>wsattributes</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
+                 <outputDirectory>src/main/java</outputDirectory>
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsTopology.wsdl</wsdlFile>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsattributes.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsAttributes.wsdl</wsdlFile>
+                 <wsdlVersion>1.21</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wstopology</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wstopology.latest</packageName>
+                     <uri>urn:hpccsystems:ws:wsattributes</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsattributes.latest</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wscodesign-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
              <execution>
-               <id>wssmc</id>
+               <id>wscodesign</id>
                <phase>process-resources</phase>
                <goals>
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
+                 <outputDirectory>src/main/java</outputDirectory>
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsSMC.wsdl</wsdlFile>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wscodesign.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsCodeSign.wsdl</wsdlFile>
+                 <wsdlVersion>1.1</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wssmc</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssmc.latest</packageName>
+                     <uri>urn:hpccsystems:ws:ws_codesign</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wscodesign.latest</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>
              </execution>
-             <execution>
-               <id>wspp</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsPackageProcess.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wspackageprocess</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
-               <id>wsresources</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsresources.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsResources.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wsresources</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsresources.latest</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
-               <id>wswu</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsWorkunits.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wsworkunits</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
-             <execution>
-               <id>wssql</id>
-               <phase>process-resources</phase>
-               <goals>
-                 <goal>wsdl2code</goal>
-               </goals>
-               <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
-                 <flattenFiles>true</flattenFiles>
-                 <unpackClasses>true</unpackClasses>
-                 <databindingName>adb</databindingName>
-                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsSQL.wsdl</wsdlFile>
-                 <syncMode>sync</syncMode>
-                 <namespaceURIs>
-                   <namespaceURI>
-                     <uri>urn:hpccsystems:ws:wssql</uri>
-                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.latest</packageName>
-                   </namespaceURI>
-                 </namespaceURIs>
-               </configuration>
-             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wsstore-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
              <execution>
                <id>wsstore</id>
                <phase>process-resources</phase>
@@ -408,17 +586,58 @@
                  <goal>wsdl2code</goal>
                </goals>
                <configuration>
-               <outputDirectory>src/main/java</outputDirectory>
+                 <outputDirectory>src/main/java</outputDirectory>
                  <flattenFiles>true</flattenFiles>
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.latest</packageName>
                  <wsdlFile>src/main/resources/WSDLs/WsStore.wsdl</wsdlFile>
+                 <wsdlVersion>1.01</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
                      <uri>urn:hpccsystems:ws:wsstore</uri>
                      <packageName>org.hpccsystems.ws.client.gen.axis2.wsstore.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
+     <id>generate-wssql-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wssql</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsSQL.wsdl</wsdlFile>
+                 <wsdlVersion>3.06</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wssql</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wssql.latest</packageName>
                    </namespaceURI>
                  </namespaceURIs>
                </configuration>

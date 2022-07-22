@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: EspExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.578Z
+ * TimeStamp: 2022-07-25T18:14:46.533Z
  */
 public class EspExceptionWrapper
 {

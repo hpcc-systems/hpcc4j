@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUResultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUResult
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.582Z
+ * TimeStamp: 2022-07-22T20:33:16.985Z
  */
 public class WUResultWrapper
 {

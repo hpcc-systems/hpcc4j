@@ -1,913 +1,854 @@
 /**
  * LockQuery.java
  *
- * This file was auto-generated from WSDL
- * by the Apache Axis2 version: 1.7.9  Built on : Nov 16, 2018 (12:06:07 GMT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
+ * 2022 (03:47:13 EDT)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
 
-
-/**
- *  LockQuery bean class
- */
-@SuppressWarnings({"unchecked",
-    "unused"
-})
+/** LockQuery bean class */
+@SuppressWarnings({"unchecked", "unused"})
 public class LockQuery implements org.apache.axis2.databinding.ADBBean {
-    public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc",
-            "LockQuery", "ns4");
 
-    /**
-     * field for EPIP
-     */
-    protected java.lang.String localEPIP;
+  public static final javax.xml.namespace.QName MY_QNAME =
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "LockQuery", "ns1");
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localEPIPTracker = false;
+  /** field for EPIP */
+  protected java.lang.String localEPIP;
 
-    /**
-     * field for XPath
-     */
-    protected java.lang.String localXPath;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localEPIPTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localXPathTracker = false;
+  public boolean isEPIPSpecified() {
+    return localEPIPTracker;
+  }
 
-    /**
-     * field for DurationMSLow
-     */
-    protected org.apache.axis2.databinding.types.UnsignedInt localDurationMSLow;
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getEPIP() {
+    return localEPIP;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localDurationMSLowTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param EPIP
+   */
+  public void setEPIP(java.lang.String param) {
+    localEPIPTracker = param != null;
 
-    /**
-     * field for DurationMSHigh
-     */
-    protected org.apache.axis2.databinding.types.UnsignedInt localDurationMSHigh;
+    this.localEPIP = param;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localDurationMSHighTracker = false;
+  /** field for XPath */
+  protected java.lang.String localXPath;
 
-    /**
-     * field for TimeLockedLow
-     */
-    protected java.lang.String localTimeLockedLow;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localXPathTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localTimeLockedLowTracker = false;
+  public boolean isXPathSpecified() {
+    return localXPathTracker;
+  }
 
-    /**
-     * field for TimeLockedHigh
-     */
-    protected java.lang.String localTimeLockedHigh;
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getXPath() {
+    return localXPath;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localTimeLockedHighTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param XPath
+   */
+  public void setXPath(java.lang.String param) {
+    localXPathTracker = param != null;
 
-    /**
-     * field for Mode
-     */
-    protected org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes localMode;
+    this.localXPath = param;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localModeTracker = false;
+  /** field for DurationMSLow */
+  protected org.apache.axis2.databinding.types.UnsignedInt localDurationMSLow;
 
-    /**
-     * field for AllFileLocks
-     */
-    protected boolean localAllFileLocks = org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-            "false");
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDurationMSLowTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localAllFileLocksTracker = false;
+  public boolean isDurationMSLowSpecified() {
+    return localDurationMSLowTracker;
+  }
 
-    public boolean isEPIPSpecified() {
-        return localEPIPTracker;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return org.apache.axis2.databinding.types.UnsignedInt
+   */
+  public org.apache.axis2.databinding.types.UnsignedInt getDurationMSLow() {
+    return localDurationMSLow;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getEPIP() {
-        return localEPIP;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param DurationMSLow
+   */
+  public void setDurationMSLow(org.apache.axis2.databinding.types.UnsignedInt param) {
+    localDurationMSLowTracker = param != null;
 
-    /**
-     * Auto generated setter method
-     * @param param EPIP
-     */
-    public void setEPIP(java.lang.String param) {
-        localEPIPTracker = param != null;
+    this.localDurationMSLow = param;
+  }
 
-        this.localEPIP = param;
-    }
+  /** field for DurationMSHigh */
+  protected org.apache.axis2.databinding.types.UnsignedInt localDurationMSHigh;
 
-    public boolean isXPathSpecified() {
-        return localXPathTracker;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDurationMSHighTracker = false;
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getXPath() {
-        return localXPath;
-    }
+  public boolean isDurationMSHighSpecified() {
+    return localDurationMSHighTracker;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param XPath
-     */
-    public void setXPath(java.lang.String param) {
-        localXPathTracker = param != null;
+  /**
+   * Auto generated getter method
+   *
+   * @return org.apache.axis2.databinding.types.UnsignedInt
+   */
+  public org.apache.axis2.databinding.types.UnsignedInt getDurationMSHigh() {
+    return localDurationMSHigh;
+  }
 
-        this.localXPath = param;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param DurationMSHigh
+   */
+  public void setDurationMSHigh(org.apache.axis2.databinding.types.UnsignedInt param) {
+    localDurationMSHighTracker = param != null;
 
-    public boolean isDurationMSLowSpecified() {
-        return localDurationMSLowTracker;
-    }
+    this.localDurationMSHigh = param;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return org.apache.axis2.databinding.types.UnsignedInt
-     */
-    public org.apache.axis2.databinding.types.UnsignedInt getDurationMSLow() {
-        return localDurationMSLow;
-    }
+  /** field for TimeLockedLow */
+  protected java.lang.String localTimeLockedLow;
 
-    /**
-     * Auto generated setter method
-     * @param param DurationMSLow
-     */
-    public void setDurationMSLow(
-        org.apache.axis2.databinding.types.UnsignedInt param) {
-        localDurationMSLowTracker = param != null;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localTimeLockedLowTracker = false;
 
-        this.localDurationMSLow = param;
-    }
+  public boolean isTimeLockedLowSpecified() {
+    return localTimeLockedLowTracker;
+  }
 
-    public boolean isDurationMSHighSpecified() {
-        return localDurationMSHighTracker;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getTimeLockedLow() {
+    return localTimeLockedLow;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return org.apache.axis2.databinding.types.UnsignedInt
-     */
-    public org.apache.axis2.databinding.types.UnsignedInt getDurationMSHigh() {
-        return localDurationMSHigh;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param TimeLockedLow
+   */
+  public void setTimeLockedLow(java.lang.String param) {
+    localTimeLockedLowTracker = param != null;
 
-    /**
-     * Auto generated setter method
-     * @param param DurationMSHigh
-     */
-    public void setDurationMSHigh(
-        org.apache.axis2.databinding.types.UnsignedInt param) {
-        localDurationMSHighTracker = param != null;
+    this.localTimeLockedLow = param;
+  }
 
-        this.localDurationMSHigh = param;
-    }
+  /** field for TimeLockedHigh */
+  protected java.lang.String localTimeLockedHigh;
 
-    public boolean isTimeLockedLowSpecified() {
-        return localTimeLockedLowTracker;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localTimeLockedHighTracker = false;
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getTimeLockedLow() {
-        return localTimeLockedLow;
-    }
+  public boolean isTimeLockedHighSpecified() {
+    return localTimeLockedHighTracker;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param TimeLockedLow
-     */
-    public void setTimeLockedLow(java.lang.String param) {
-        localTimeLockedLowTracker = param != null;
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getTimeLockedHigh() {
+    return localTimeLockedHigh;
+  }
 
-        this.localTimeLockedLow = param;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param TimeLockedHigh
+   */
+  public void setTimeLockedHigh(java.lang.String param) {
+    localTimeLockedHighTracker = param != null;
 
-    public boolean isTimeLockedHighSpecified() {
-        return localTimeLockedHighTracker;
-    }
+    this.localTimeLockedHigh = param;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getTimeLockedHigh() {
-        return localTimeLockedHigh;
-    }
+  /** field for Mode */
+  protected org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes localMode;
 
-    /**
-     * Auto generated setter method
-     * @param param TimeLockedHigh
-     */
-    public void setTimeLockedHigh(java.lang.String param) {
-        localTimeLockedHighTracker = param != null;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localModeTracker = false;
 
-        this.localTimeLockedHigh = param;
-    }
+  public boolean isModeSpecified() {
+    return localModeTracker;
+  }
 
-    public boolean isModeSpecified() {
-        return localModeTracker;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes getMode() {
+    return localMode;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes
-     */
-    public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes getMode() {
-        return localMode;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param Mode
+   */
+  public void setMode(org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes param) {
+    localModeTracker = param != null;
 
-    /**
-     * Auto generated setter method
-     * @param param Mode
-     */
-    public void setMode(
-        org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes param) {
-        localModeTracker = param != null;
+    this.localMode = param;
+  }
 
-        this.localMode = param;
-    }
+  /** field for AllFileLocks */
+  protected boolean localAllFileLocks =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
 
-    public boolean isAllFileLocksSpecified() {
-        return localAllFileLocksTracker;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localAllFileLocksTracker = false;
 
-    /**
-     * Auto generated getter method
-     * @return boolean
-     */
-    public boolean getAllFileLocks() {
-        return localAllFileLocks;
-    }
+  public boolean isAllFileLocksSpecified() {
+    return localAllFileLocksTracker;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param AllFileLocks
-     */
-    public void setAllFileLocks(boolean param) {
-        // setting primitive attribute tracker to true
-        localAllFileLocksTracker = true;
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getAllFileLocks() {
+    return localAllFileLocks;
+  }
 
-        this.localAllFileLocks = param;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param AllFileLocks
+   */
+  public void setAllFileLocks(boolean param) {
 
-    /**
-     *
-     * @param parentQName
-     * @param factory
-     * @return org.apache.axiom.om.OMElement
-     */
-    public org.apache.axiom.om.OMElement getOMElement(
-        final javax.xml.namespace.QName parentQName,
-        final org.apache.axiom.om.OMFactory factory)
-        throws org.apache.axis2.databinding.ADBException {
-        return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(
-                this, MY_QNAME));
-    }
+    // setting primitive attribute tracker to true
+    localAllFileLocksTracker = true;
 
-    public void serialize(final javax.xml.namespace.QName parentQName,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException,
-            org.apache.axis2.databinding.ADBException {
-        serialize(parentQName, xmlWriter, false);
-    }
+    this.localAllFileLocks = param;
+  }
 
-    public void serialize(final javax.xml.namespace.QName parentQName,
-        javax.xml.stream.XMLStreamWriter xmlWriter, boolean serializeType)
-        throws javax.xml.stream.XMLStreamException,
-            org.apache.axis2.databinding.ADBException {
-        java.lang.String prefix = null;
-        java.lang.String namespace = null;
+  /**
+   * @param parentQName
+   * @param factory
+   * @return org.apache.axiom.om.OMElement
+   */
+  public org.apache.axiom.om.OMElement getOMElement(
+      final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
+      throws org.apache.axis2.databinding.ADBException {
 
-        prefix = parentQName.getPrefix();
-        namespace = parentQName.getNamespaceURI();
-        writeStartElement(prefix, namespace, parentQName.getLocalPart(),
+    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+  }
+
+  public void serialize(
+      final javax.xml.namespace.QName parentQName, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
+    serialize(parentQName, xmlWriter, false);
+  }
+
+  public void serialize(
+      final javax.xml.namespace.QName parentQName,
+      javax.xml.stream.XMLStreamWriter xmlWriter,
+      boolean serializeType)
+      throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
+
+    java.lang.String prefix = null;
+    java.lang.String namespace = null;
+
+    prefix = parentQName.getPrefix();
+    namespace = parentQName.getNamespaceURI();
+    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
+
+    if (serializeType) {
+
+      java.lang.String namespacePrefix = registerPrefix(xmlWriter, "urn:hpccsystems:ws:wssmc");
+      if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
+        writeAttribute(
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance",
+            "type",
+            namespacePrefix + ":LockQuery",
             xmlWriter);
+      } else {
+        writeAttribute(
+            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "LockQuery", xmlWriter);
+      }
+    }
+    if (localEPIPTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "EPIP", xmlWriter);
 
-        if (serializeType) {
-            java.lang.String namespacePrefix = registerPrefix(xmlWriter,
-                    "urn:hpccsystems:ws:wssmc");
+      if (localEPIP == null) {
+        // write the nil attribute
 
-            if ((namespacePrefix != null) &&
-                    (namespacePrefix.trim().length() > 0)) {
-                writeAttribute("xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance", "type",
-                    namespacePrefix + ":LockQuery", xmlWriter);
-            } else {
-                writeAttribute("xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance", "type",
-                    "LockQuery", xmlWriter);
-            }
-        }
+        throw new org.apache.axis2.databinding.ADBException("EPIP cannot be null!!");
 
-        if (localEPIPTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "EPIP", xmlWriter);
+      } else {
 
-            if (localEPIP == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "EPIP cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localEPIP);
-            }
+        xmlWriter.writeCharacters(localEPIP);
+      }
 
-            xmlWriter.writeEndElement();
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localXPathTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "XPath", xmlWriter);
 
-        if (localXPathTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "XPath", xmlWriter);
+      if (localXPath == null) {
+        // write the nil attribute
 
-            if (localXPath == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "XPath cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localXPath);
-            }
+        throw new org.apache.axis2.databinding.ADBException("XPath cannot be null!!");
 
-            xmlWriter.writeEndElement();
-        }
+      } else {
 
-        if (localDurationMSLowTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "DurationMSLow", xmlWriter);
+        xmlWriter.writeCharacters(localXPath);
+      }
 
-            if (localDurationMSLow == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "DurationMSLow cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localDurationMSLow));
-            }
+      xmlWriter.writeEndElement();
+    }
+    if (localDurationMSLowTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "DurationMSLow", xmlWriter);
 
-            xmlWriter.writeEndElement();
-        }
+      if (localDurationMSLow == null) {
+        // write the nil attribute
 
-        if (localDurationMSHighTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "DurationMSHigh", xmlWriter);
+        throw new org.apache.axis2.databinding.ADBException("DurationMSLow cannot be null!!");
 
-            if (localDurationMSHigh == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "DurationMSHigh cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localDurationMSHigh));
-            }
+      } else {
 
-            xmlWriter.writeEndElement();
-        }
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDurationMSLow));
+      }
 
-        if (localTimeLockedLowTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "TimeLockedLow", xmlWriter);
+      xmlWriter.writeEndElement();
+    }
+    if (localDurationMSHighTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "DurationMSHigh", xmlWriter);
 
-            if (localTimeLockedLow == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "TimeLockedLow cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localTimeLockedLow);
-            }
+      if (localDurationMSHigh == null) {
+        // write the nil attribute
 
-            xmlWriter.writeEndElement();
-        }
+        throw new org.apache.axis2.databinding.ADBException("DurationMSHigh cannot be null!!");
 
-        if (localTimeLockedHighTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "TimeLockedHigh", xmlWriter);
+      } else {
 
-            if (localTimeLockedHigh == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "TimeLockedHigh cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localTimeLockedHigh);
-            }
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDurationMSHigh));
+      }
 
-            xmlWriter.writeEndElement();
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localTimeLockedLowTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "TimeLockedLow", xmlWriter);
 
-        if (localModeTracker) {
-            if (localMode == null) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Mode cannot be null!!");
-            }
+      if (localTimeLockedLow == null) {
+        // write the nil attribute
 
-            localMode.serialize(new javax.xml.namespace.QName(
-                    "urn:hpccsystems:ws:wssmc", "Mode"), xmlWriter);
-        }
+        throw new org.apache.axis2.databinding.ADBException("TimeLockedLow cannot be null!!");
 
-        if (localAllFileLocksTracker) {
-            namespace = "urn:hpccsystems:ws:wssmc";
-            writeStartElement(null, namespace, "AllFileLocks", xmlWriter);
+      } else {
 
-            if (false) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "AllFileLocks cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localAllFileLocks));
-            }
+        xmlWriter.writeCharacters(localTimeLockedLow);
+      }
 
-            xmlWriter.writeEndElement();
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localTimeLockedHighTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "TimeLockedHigh", xmlWriter);
 
-        xmlWriter.writeEndElement();
+      if (localTimeLockedHigh == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("TimeLockedHigh cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localTimeLockedHigh);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localModeTracker) {
+      if (localMode == null) {
+        throw new org.apache.axis2.databinding.ADBException("Mode cannot be null!!");
+      }
+      localMode.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Mode"), xmlWriter);
+    }
+    if (localAllFileLocksTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "AllFileLocks", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("AllFileLocks cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAllFileLocks));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    xmlWriter.writeEndElement();
+  }
+
+  private static java.lang.String generatePrefix(java.lang.String namespace) {
+    if (namespace.equals("urn:hpccsystems:ws:wssmc")) {
+      return "ns1";
+    }
+    return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+  }
+
+  /** Utility method to write an element start tag. */
+  private void writeStartElement(
+      java.lang.String prefix,
+      java.lang.String namespace,
+      java.lang.String localPart,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+    if (writerPrefix != null) {
+      xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
+    } else {
+      if (namespace.length() == 0) {
+        prefix = "";
+      } else if (prefix == null) {
+        prefix = generatePrefix(namespace);
+      }
+
+      xmlWriter.writeStartElement(prefix, localPart, namespace);
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
+    }
+  }
+
+  /** Util method to write an attribute with the ns prefix */
+  private void writeAttribute(
+      java.lang.String prefix,
+      java.lang.String namespace,
+      java.lang.String attName,
+      java.lang.String attValue,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+    if (writerPrefix != null) {
+      xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
+    } else {
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
+      xmlWriter.writeAttribute(prefix, namespace, attName, attValue);
+    }
+  }
+
+  /** Util method to write an attribute without the ns prefix */
+  private void writeAttribute(
+      java.lang.String namespace,
+      java.lang.String attName,
+      java.lang.String attValue,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    if (namespace.equals("")) {
+      xmlWriter.writeAttribute(attName, attValue);
+    } else {
+      xmlWriter.writeAttribute(registerPrefix(xmlWriter, namespace), namespace, attName, attValue);
+    }
+  }
+
+  /** Util method to write an attribute without the ns prefix */
+  private void writeQNameAttribute(
+      java.lang.String namespace,
+      java.lang.String attName,
+      javax.xml.namespace.QName qname,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+
+    java.lang.String attributeNamespace = qname.getNamespaceURI();
+    java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+    if (attributePrefix == null) {
+      attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
+    }
+    java.lang.String attributeValue;
+    if (attributePrefix.trim().length() > 0) {
+      attributeValue = attributePrefix + ":" + qname.getLocalPart();
+    } else {
+      attributeValue = qname.getLocalPart();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
-        if (namespace.equals("urn:hpccsystems:ws:wssmc")) {
-            return "ns4";
-        }
-
-        return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+    if (namespace.equals("")) {
+      xmlWriter.writeAttribute(attName, attributeValue);
+    } else {
+      registerPrefix(xmlWriter, namespace);
+      xmlWriter.writeAttribute(attributePrefix, namespace, attName, attributeValue);
     }
+  }
+  /** method to handle Qnames */
+  private void writeQName(
+      javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String namespaceURI = qname.getNamespaceURI();
+    if (namespaceURI != null) {
+      java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+      if (prefix == null) {
+        prefix = generatePrefix(namespaceURI);
+        xmlWriter.writeNamespace(prefix, namespaceURI);
+        xmlWriter.setPrefix(prefix, namespaceURI);
+      }
 
-    /**
-     * Utility method to write an element start tag.
-     */
-    private void writeStartElement(java.lang.String prefix,
-        java.lang.String namespace, java.lang.String localPart,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      if (prefix.trim().length() > 0) {
+        xmlWriter.writeCharacters(
+            prefix + ":" + org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+      } else {
+        // i.e this is the default namespace
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+      }
 
-        if (writerPrefix != null) {
-            xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
-        } else {
-            if (namespace.length() == 0) {
-                prefix = "";
-            } else if (prefix == null) {
-                prefix = generatePrefix(namespace);
-            }
-
-            xmlWriter.writeStartElement(prefix, localPart, namespace);
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
-        }
+    } else {
+      xmlWriter.writeCharacters(
+          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
     }
+  }
 
-    /**
-     * Util method to write an attribute with the ns prefix
-     */
-    private void writeAttribute(java.lang.String prefix,
-        java.lang.String namespace, java.lang.String attName,
-        java.lang.String attValue, javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+  private void writeQNames(
+      javax.xml.namespace.QName[] qnames, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
 
-        if (writerPrefix != null) {
-            xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
-        } else {
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
-            xmlWriter.writeAttribute(prefix, namespace, attName, attValue);
+    if (qnames != null) {
+      // we have to store this data until last moment since it is not possible to write any
+      // namespace data after writing the charactor data
+      java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+      java.lang.String namespaceURI = null;
+      java.lang.String prefix = null;
+
+      for (int i = 0; i < qnames.length; i++) {
+        if (i > 0) {
+          stringToWrite.append(" ");
         }
-    }
-
-    /**
-     * Util method to write an attribute without the ns prefix
-     */
-    private void writeAttribute(java.lang.String namespace,
-        java.lang.String attName, java.lang.String attValue,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        if (namespace.equals("")) {
-            xmlWriter.writeAttribute(attName, attValue);
-        } else {
-            xmlWriter.writeAttribute(registerPrefix(xmlWriter, namespace),
-                namespace, attName, attValue);
-        }
-    }
-
-    /**
-     * Util method to write an attribute without the ns prefix
-     */
-    private void writeQNameAttribute(java.lang.String namespace,
-        java.lang.String attName, javax.xml.namespace.QName qname,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String attributeNamespace = qname.getNamespaceURI();
-        java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
-
-        if (attributePrefix == null) {
-            attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
-        }
-
-        java.lang.String attributeValue;
-
-        if (attributePrefix.trim().length() > 0) {
-            attributeValue = attributePrefix + ":" + qname.getLocalPart();
-        } else {
-            attributeValue = qname.getLocalPart();
-        }
-
-        if (namespace.equals("")) {
-            xmlWriter.writeAttribute(attName, attributeValue);
-        } else {
-            registerPrefix(xmlWriter, namespace);
-            xmlWriter.writeAttribute(attributePrefix, namespace, attName,
-                attributeValue);
-        }
-    }
-
-    /**
-     *  method to handle Qnames
-     */
-    private void writeQName(javax.xml.namespace.QName qname,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String namespaceURI = qname.getNamespaceURI();
-
+        namespaceURI = qnames[i].getNamespaceURI();
         if (namespaceURI != null) {
-            java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+          prefix = xmlWriter.getPrefix(namespaceURI);
+          if ((prefix == null) || (prefix.length() == 0)) {
+            prefix = generatePrefix(namespaceURI);
+            xmlWriter.writeNamespace(prefix, namespaceURI);
+            xmlWriter.setPrefix(prefix, namespaceURI);
+          }
 
-            if (prefix == null) {
-                prefix = generatePrefix(namespaceURI);
-                xmlWriter.writeNamespace(prefix, namespaceURI);
-                xmlWriter.setPrefix(prefix, namespaceURI);
-            }
-
-            if (prefix.trim().length() > 0) {
-                xmlWriter.writeCharacters(prefix + ":" +
-                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        qname));
-            } else {
-                // i.e this is the default namespace
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        qname));
-            }
+          if (prefix.trim().length() > 0) {
+            stringToWrite
+                .append(prefix)
+                .append(":")
+                .append(
+                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+          } else {
+            stringToWrite.append(
+                org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+          }
         } else {
-            xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                    qname));
+          stringToWrite.append(
+              org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
         }
+      }
+      xmlWriter.writeCharacters(stringToWrite.toString());
     }
+  }
 
-    private void writeQNames(javax.xml.namespace.QName[] qnames,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        if (qnames != null) {
-            // we have to store this data until last moment since it is not possible to write any
-            // namespace data after writing the charactor data
-            java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-            java.lang.String namespaceURI = null;
-            java.lang.String prefix = null;
-
-            for (int i = 0; i < qnames.length; i++) {
-                if (i > 0) {
-                    stringToWrite.append(" ");
-                }
-
-                namespaceURI = qnames[i].getNamespaceURI();
-
-                if (namespaceURI != null) {
-                    prefix = xmlWriter.getPrefix(namespaceURI);
-
-                    if ((prefix == null) || (prefix.length() == 0)) {
-                        prefix = generatePrefix(namespaceURI);
-                        xmlWriter.writeNamespace(prefix, namespaceURI);
-                        xmlWriter.setPrefix(prefix, namespaceURI);
-                    }
-
-                    if (prefix.trim().length() > 0) {
-                        stringToWrite.append(prefix).append(":")
-                                     .append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                qnames[i]));
-                    } else {
-                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                qnames[i]));
-                    }
-                } else {
-                    stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                            qnames[i]));
-                }
-            }
-
-            xmlWriter.writeCharacters(stringToWrite.toString());
+  /** Register a namespace prefix */
+  private java.lang.String registerPrefix(
+      javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String prefix = xmlWriter.getPrefix(namespace);
+    if (prefix == null) {
+      prefix = generatePrefix(namespace);
+      javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+      while (true) {
+        java.lang.String uri = nsContext.getNamespaceURI(prefix);
+        if (uri == null || uri.length() == 0) {
+          break;
         }
+        prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+      }
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
     }
+    return prefix;
+  }
+
+  /** Factory class that keeps the parse method */
+  public static class Factory {
+    private static org.apache.commons.logging.Log log =
+        org.apache.commons.logging.LogFactory.getLog(Factory.class);
 
     /**
-     * Register a namespace prefix
+     * static method to create the object Precondition: If this object is an element, the current or
+     * next start element starts this object and any intervening reader events are ignorable If this
+     * object is not an element, it is a complex type and the reader is at the event just after the
+     * outer start element Postcondition: If this object is an element, the reader is positioned at
+     * its end element If this object is a complex type, the reader is positioned at the end element
+     * of its outer element
      */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String prefix = xmlWriter.getPrefix(namespace);
+    public static LockQuery parse(javax.xml.stream.XMLStreamReader reader)
+        throws java.lang.Exception {
+      LockQuery object = new LockQuery();
 
-        if (prefix == null) {
-            prefix = generatePrefix(namespace);
+      int event;
+      javax.xml.namespace.QName currentQName = null;
+      java.lang.String nillableValue = null;
+      java.lang.String prefix = "";
+      java.lang.String namespaceuri = "";
+      try {
 
-            javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
-            while (true) {
-                java.lang.String uri = nsContext.getNamespaceURI(prefix);
+        currentQName = reader.getName();
 
-                if ((uri == null) || (uri.length() == 0)) {
-                    break;
-                }
-
-                prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+        if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type") != null) {
+          java.lang.String fullTypeName =
+              reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
+          if (fullTypeName != null) {
+            java.lang.String nsPrefix = null;
+            if (fullTypeName.indexOf(":") > -1) {
+              nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
             }
+            nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
+            java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+
+            if (!"LockQuery".equals(type)) {
+              // find namespace for the prefix
+              java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+              return (LockQuery)
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ExtensionMapper.getTypeObject(
+                      nsUri, type, reader);
+            }
+          }
         }
 
-        return prefix;
+        // Note all attributes that were handled. Used to differ normal attributes
+        // from anyAttributes.
+        java.util.Vector handledAttributes = new java.util.Vector();
+
+        reader.next();
+
+        while (!reader.isEndElement()) {
+          if (reader.isStartElement()) {
+
+            if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "EPIP")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "EPIP" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setEPIP(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "XPath")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "XPath" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setXPath(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "DurationMSLow")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DurationMSLow" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDurationMSLow(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "DurationMSHigh")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DurationMSHigh" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDurationMSHigh(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "TimeLockedLow")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "TimeLockedLow" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setTimeLockedLow(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "TimeLockedHigh")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "TimeLockedHigh" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setTimeLockedHigh(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Mode")
+                    .equals(reader.getName())) {
+
+              object.setMode(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes.Factory.parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "AllFileLocks")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "AllFileLocks" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setAllFileLocks(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else {
+              // 3 - A start element we are not expecting indicates an invalid parameter was passed
+
+              throw new org.apache.axis2.databinding.ADBException(
+                  "Unexpected subelement " + reader.getName());
+            }
+
+          } else {
+            reader.next();
+          }
+        } // end of while loop
+
+      } catch (javax.xml.stream.XMLStreamException e) {
+        throw new java.lang.Exception(e);
+      }
+
+      return object;
     }
-
-    /**
-     *  Factory class that keeps the parse method
-     */
-    public static class Factory {
-        private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(Factory.class);
-
-        /**
-         * static method to create the object
-         * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
-         *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
-         * Postcondition: If this object is an element, the reader is positioned at its end element
-         *                If this object is a complex type, the reader is positioned at the end element of its outer element
-         */
-        public static LockQuery parse(javax.xml.stream.XMLStreamReader reader)
-            throws java.lang.Exception {
-            LockQuery object = new LockQuery();
-
-            int event;
-            javax.xml.namespace.QName currentQName = null;
-            java.lang.String nillableValue = null;
-            java.lang.String prefix = "";
-            java.lang.String namespaceuri = "";
-
-            try {
-                while (!reader.isStartElement() && !reader.isEndElement())
-                    reader.next();
-
-                currentQName = reader.getName();
-
-                if (reader.getAttributeValue(
-                            "http://www.w3.org/2001/XMLSchema-instance", "type") != null) {
-                    java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                            "type");
-
-                    if (fullTypeName != null) {
-                        java.lang.String nsPrefix = null;
-
-                        if (fullTypeName.indexOf(":") > -1) {
-                            nsPrefix = fullTypeName.substring(0,
-                                    fullTypeName.indexOf(":"));
-                        }
-
-                        nsPrefix = (nsPrefix == null) ? "" : nsPrefix;
-
-                        java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(
-                                    ":") + 1);
-
-                        if (!"LockQuery".equals(type)) {
-                            //find namespace for the prefix
-                            java.lang.String nsUri = reader.getNamespaceContext()
-                                                           .getNamespaceURI(nsPrefix);
-
-                            return (LockQuery) org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ExtensionMapper.getTypeObject(nsUri,
-                                type, reader);
-                        }
-                    }
-                }
-
-                // Note all attributes that were handled. Used to differ normal attributes
-                // from anyAttributes.
-                java.util.Vector handledAttributes = new java.util.Vector();
-
-                reader.next();
-
-                while (!reader.isEndElement()) {
-                    if (reader.isStartElement()) {
-                        if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "EPIP").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "EPIP" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setEPIP(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "XPath").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "XPath" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setXPath(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "DurationMSLow").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "DurationMSLow" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setDurationMSLow(org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "DurationMSHigh").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "DurationMSHigh" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setDurationMSHigh(org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "TimeLockedLow").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "TimeLockedLow" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setTimeLockedLow(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "TimeLockedHigh").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "TimeLockedHigh" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setTimeLockedHigh(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "Mode").equals(
-                                    reader.getName())) {
-                            object.setMode(org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockModes.Factory.parse(
-                                    reader));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wssmc", "AllFileLocks").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "AllFileLocks" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setAllFileLocks(org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else {
-                            // 3 - A start element we are not expecting indicates an invalid parameter was passed
-                            throw new org.apache.axis2.databinding.ADBException(
-                                "Unexpected subelement " + reader.getName());
-                        }
-                    } else {
-                        reader.next();
-                    }
-                } // end of while loop
-            } catch (javax.xml.stream.XMLStreamException e) {
-                throw new java.lang.Exception(e);
-            }
-
-            return object;
-        }
-    } //end of factory class
+  } // end of factory class
 }
