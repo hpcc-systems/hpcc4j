@@ -177,6 +177,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB);
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
             this.binaryRecordReader.initialize(this.recordBuilder);
+
+            if (dp.getFileType() == DataPartition.FileType.INDEX)
+            {
+                this.binaryRecordReader.setIsIndex(true);
+            }
         }
         else
         {
