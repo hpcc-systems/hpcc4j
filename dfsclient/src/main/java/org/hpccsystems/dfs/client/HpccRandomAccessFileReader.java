@@ -82,6 +82,11 @@ public class HpccRandomAccessFileReader<T> implements Iterator<T>
                                                     -1, createPrefetchThread, -1, null, isFetching);
         this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
         this.binaryRecordReader.initialize(this.recordBuilder);
+
+        if (dp.getFileType() == DataPartition.FileType.INDEX)
+        {
+            this.binaryRecordReader.setIsIndex(true);
+        }
     }
 
     /**
