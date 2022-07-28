@@ -33,19 +33,16 @@
   - [ ] Any new interfaces or exported functions are appropriately commented.
 - [ ] I have read the HPCC Systems CONTRIBUTORS document (https://github.com/hpcc-systems/HPCC-Platform/wiki/Guide-for-contributors).
 - [ ] The change has been fully tested:
-  - [ ] I have performed unit tests to cover my changes.
+  - [ ] This change does not cause any existing JUnits to fail.
+  - [ ] I have include JUnit coverage to test this change
   - [ ] I have performed system test and covered possible regressions and side effects.
-  - [ ] I have checked that this change does not introduce memory leaks.
-  - [ ] I have used Valgrind or similar tools to check for potential issues.
 - [ ] I have given due consideration to all of the following potential concerns:
   - [ ] Scalability
   - [ ] Performance
   - [ ] Security
   - [ ] Thread-safety
   - [ ] Premature optimization
-  - [ ] Existing deployed queries will not be broken
   - [ ] This change fixes the problem, not just the symptom
-  - [ ] The target branch of this pull request is appropriate for such a change.
 
 ## Testing:
 <!-- Please describe how this change has been tested.-->
