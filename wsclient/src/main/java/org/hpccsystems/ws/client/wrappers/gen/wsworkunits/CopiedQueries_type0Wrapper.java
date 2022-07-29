@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CopiedQueries_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.CopiedQueries_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.CopiedQueries_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.370Z
+ * TimeStamp: 2022-07-22T20:33:16.799Z
  */
 public class CopiedQueries_type0Wrapper
 {

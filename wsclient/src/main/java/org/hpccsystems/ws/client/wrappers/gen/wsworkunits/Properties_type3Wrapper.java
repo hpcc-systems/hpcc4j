@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Properties_type3Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.Properties_type3
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.418Z
+ * TimeStamp: 2022-07-22T20:33:16.847Z
  */
 public class Properties_type3Wrapper
 {

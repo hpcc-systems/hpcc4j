@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ArrayOfServerInfoWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.ArrayOfServerInfo
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfServerInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.360Z
+ * TimeStamp: 2022-07-22T20:33:16.791Z
  */
 public class ArrayOfServerInfoWrapper
 {

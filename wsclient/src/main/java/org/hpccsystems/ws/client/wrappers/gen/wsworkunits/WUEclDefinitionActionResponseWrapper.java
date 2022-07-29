@@ -21,14 +21,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUEclDefinitionActionResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUEclDefinitionActionResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.489Z
+ * TimeStamp: 2022-07-22T20:33:16.907Z
  */
 public class WUEclDefinitionActionResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected ArrayOfWUEclDefinitionActionResultWrapper local_actionResults;
+    protected String local_dfuPublisherWuid;
+    protected String local_dfuPublisherState;
 
     public WUEclDefinitionActionResponseWrapper() {}
 
@@ -36,10 +38,12 @@ public class WUEclDefinitionActionResponseWrapper
     {
         copy( wuecldefinitionactionresponse );
     }
-    public WUEclDefinitionActionResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfWUEclDefinitionActionResultWrapper _actionResults )
+    public WUEclDefinitionActionResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfWUEclDefinitionActionResultWrapper _actionResults, String _dfuPublisherWuid, String _dfuPublisherState )
     {
         this.local_exceptions = _exceptions;
         this.local_actionResults = _actionResults;
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+        this.local_dfuPublisherState = _dfuPublisherState;
 
     }
 
@@ -52,17 +56,21 @@ public class WUEclDefinitionActionResponseWrapper
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         if (raw.getActionResults() != null)
             this.local_actionResults = new ArrayOfWUEclDefinitionActionResultWrapper( raw.getActionResults());
+        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
+        this.local_dfuPublisherState = raw.getDfuPublisherState();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUEclDefinitionActionResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "actionResults = " + local_actionResults + "]";
+        return "WUEclDefinitionActionResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "actionResults = " + local_actionResults + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "dfuPublisherState = " + local_dfuPublisherState + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse();
+        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
+        raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;
     }
 
@@ -82,5 +90,21 @@ public class WUEclDefinitionActionResponseWrapper
     public ArrayOfWUEclDefinitionActionResultWrapper getActionResults( )
     {
         return this.local_actionResults;
+    }
+    public void setDfuPublisherWuid( String _dfuPublisherWuid )
+    {
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+    }
+    public String getDfuPublisherWuid( )
+    {
+        return this.local_dfuPublisherWuid;
+    }
+    public void setDfuPublisherState( String _dfuPublisherState )
+    {
+        this.local_dfuPublisherState = _dfuPublisherState;
+    }
+    public String getDfuPublisherState( )
+    {
+        return this.local_dfuPublisherState;
     }
 }

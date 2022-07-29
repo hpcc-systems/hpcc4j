@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQuerysetCopyQueryWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQuerysetCopyQuery
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetCopyQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.564Z
+ * TimeStamp: 2022-07-22T20:33:16.972Z
  */
 public class WUQuerysetCopyQueryWrapper
 {
@@ -49,6 +49,13 @@ public class WUQuerysetCopyQueryWrapper
     protected boolean local_updateCloneFrom;
     protected boolean local_appendCluster;
     protected boolean local_includeFileErrors;
+    protected boolean local_sourceSSL;
+    protected boolean local_dfuCopyFiles;
+    protected String local_dfuQueue;
+    protected NonNegativeInteger local_dfuWait;
+    protected boolean local_dfuOverwrite;
+    protected boolean local_onlyCopyFiles;
+    protected boolean local_stopIfFilesCopied;
 
     public WUQuerysetCopyQueryWrapper() {}
 
@@ -56,7 +63,7 @@ public class WUQuerysetCopyQueryWrapper
     {
         copy( wuquerysetcopyquery );
     }
-    public WUQuerysetCopyQueryWrapper( String _source, String _target, String _cluster, String _daliServer, int _activate, boolean _overwrite, boolean _dontCopyFiles, int _wait, boolean _noReload, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, String _sourceProcess, String _destName, boolean _allowForeignFiles, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors )
+    public WUQuerysetCopyQueryWrapper( String _source, String _target, String _cluster, String _daliServer, int _activate, boolean _overwrite, boolean _dontCopyFiles, int _wait, boolean _noReload, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, String _sourceProcess, String _destName, boolean _allowForeignFiles, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _sourceSSL, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
     {
         this.local_source = _source;
         this.local_target = _target;
@@ -79,6 +86,13 @@ public class WUQuerysetCopyQueryWrapper
         this.local_updateCloneFrom = _updateCloneFrom;
         this.local_appendCluster = _appendCluster;
         this.local_includeFileErrors = _includeFileErrors;
+        this.local_sourceSSL = _sourceSSL;
+        this.local_dfuCopyFiles = _dfuCopyFiles;
+        this.local_dfuQueue = _dfuQueue;
+        this.local_dfuWait = _dfuWait;
+        this.local_dfuOverwrite = _dfuOverwrite;
+        this.local_onlyCopyFiles = _onlyCopyFiles;
+        this.local_stopIfFilesCopied = _stopIfFilesCopied;
 
     }
 
@@ -108,13 +122,20 @@ public class WUQuerysetCopyQueryWrapper
         this.local_updateCloneFrom = raw.getUpdateCloneFrom();
         this.local_appendCluster = raw.getAppendCluster();
         this.local_includeFileErrors = raw.getIncludeFileErrors();
+        this.local_sourceSSL = raw.getSourceSSL();
+        this.local_dfuCopyFiles = raw.getDfuCopyFiles();
+        this.local_dfuQueue = raw.getDfuQueue();
+        this.local_dfuWait = raw.getDfuWait();
+        this.local_dfuOverwrite = raw.getDfuOverwrite();
+        this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
+        this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQuerysetCopyQueryWrapper [" + "source = " + local_source + ", " + "target = " + local_target + ", " + "cluster = " + local_cluster + ", " + "daliServer = " + local_daliServer + ", " + "activate = " + local_activate + ", " + "overwrite = " + local_overwrite + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "sourceProcess = " + local_sourceProcess + ", " + "destName = " + local_destName + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + "]";
+        return "WUQuerysetCopyQueryWrapper [" + "source = " + local_source + ", " + "target = " + local_target + ", " + "cluster = " + local_cluster + ", " + "daliServer = " + local_daliServer + ", " + "activate = " + local_activate + ", " + "overwrite = " + local_overwrite + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "sourceProcess = " + local_sourceProcess + ", " + "destName = " + local_destName + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "sourceSSL = " + local_sourceSSL + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetCopyQuery getRaw()
     {
@@ -140,6 +161,13 @@ public class WUQuerysetCopyQueryWrapper
         raw.setUpdateCloneFrom( local_updateCloneFrom);
         raw.setAppendCluster( local_appendCluster);
         raw.setIncludeFileErrors( local_includeFileErrors);
+        raw.setSourceSSL( local_sourceSSL);
+        raw.setDfuCopyFiles( local_dfuCopyFiles);
+        raw.setDfuQueue( local_dfuQueue);
+        raw.setDfuWait( local_dfuWait);
+        raw.setDfuOverwrite( local_dfuOverwrite);
+        raw.setOnlyCopyFiles( local_onlyCopyFiles);
+        raw.setStopIfFilesCopied( local_stopIfFilesCopied);
         return raw;
     }
 
@@ -311,5 +339,61 @@ public class WUQuerysetCopyQueryWrapper
     public boolean getIncludeFileErrors( )
     {
         return this.local_includeFileErrors;
+    }
+    public void setSourceSSL( boolean _sourceSSL )
+    {
+        this.local_sourceSSL = _sourceSSL;
+    }
+    public boolean getSourceSSL( )
+    {
+        return this.local_sourceSSL;
+    }
+    public void setDfuCopyFiles( boolean _dfuCopyFiles )
+    {
+        this.local_dfuCopyFiles = _dfuCopyFiles;
+    }
+    public boolean getDfuCopyFiles( )
+    {
+        return this.local_dfuCopyFiles;
+    }
+    public void setDfuQueue( String _dfuQueue )
+    {
+        this.local_dfuQueue = _dfuQueue;
+    }
+    public String getDfuQueue( )
+    {
+        return this.local_dfuQueue;
+    }
+    public void setDfuWait( NonNegativeInteger _dfuWait )
+    {
+        this.local_dfuWait = _dfuWait;
+    }
+    public NonNegativeInteger getDfuWait( )
+    {
+        return this.local_dfuWait;
+    }
+    public void setDfuOverwrite( boolean _dfuOverwrite )
+    {
+        this.local_dfuOverwrite = _dfuOverwrite;
+    }
+    public boolean getDfuOverwrite( )
+    {
+        return this.local_dfuOverwrite;
+    }
+    public void setOnlyCopyFiles( boolean _onlyCopyFiles )
+    {
+        this.local_onlyCopyFiles = _onlyCopyFiles;
+    }
+    public boolean getOnlyCopyFiles( )
+    {
+        return this.local_onlyCopyFiles;
+    }
+    public void setStopIfFilesCopied( boolean _stopIfFilesCopied )
+    {
+        this.local_stopIfFilesCopied = _stopIfFilesCopied;
+    }
+    public boolean getStopIfFilesCopied( )
+    {
+        return this.local_stopIfFilesCopied;
     }
 }

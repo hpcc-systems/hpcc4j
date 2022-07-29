@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUSpaceItemWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceItem
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.314Z
+ * TimeStamp: 2022-07-27T21:11:36.152Z
  */
 public class DFUSpaceItemWrapper
 {

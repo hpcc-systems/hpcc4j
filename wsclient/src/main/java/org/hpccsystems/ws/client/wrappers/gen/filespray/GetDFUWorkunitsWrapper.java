@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetDFUWorkunitsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2021-10-27T18:52:06.481Z
+ * TimeStamp: 2022-07-25T17:33:52.333Z
  */
 public class GetDFUWorkunitsWrapper
 {
@@ -39,6 +39,8 @@ public class GetDFUWorkunitsWrapper
     protected String local_sortby;
     protected boolean local_descending;
     protected long local_cacheHint;
+    protected String local_parentWuid;
+    protected String local_publisherWuid;
 
     public GetDFUWorkunitsWrapper() {}
 
@@ -46,7 +48,7 @@ public class GetDFUWorkunitsWrapper
     {
         copy( getdfuworkunits );
     }
-    public GetDFUWorkunitsWrapper( String _wuid, String _owner, String _cluster, String _stateReq, String _type, String _jobname, long _pageSize, int _currentPage, long _pageStartFrom, String _sortby, boolean _descending, long _cacheHint )
+    public GetDFUWorkunitsWrapper( String _wuid, String _owner, String _cluster, String _stateReq, String _type, String _jobname, long _pageSize, int _currentPage, long _pageStartFrom, String _sortby, boolean _descending, long _cacheHint, String _parentWuid, String _publisherWuid )
     {
         this.local_wuid = _wuid;
         this.local_owner = _owner;
@@ -60,6 +62,8 @@ public class GetDFUWorkunitsWrapper
         this.local_sortby = _sortby;
         this.local_descending = _descending;
         this.local_cacheHint = _cacheHint;
+        this.local_parentWuid = _parentWuid;
+        this.local_publisherWuid = _publisherWuid;
 
     }
 
@@ -80,13 +84,15 @@ public class GetDFUWorkunitsWrapper
         this.local_sortby = raw.getSortby();
         this.local_descending = raw.getDescending();
         this.local_cacheHint = raw.getCacheHint();
+        this.local_parentWuid = raw.getParentWuid();
+        this.local_publisherWuid = raw.getPublisherWuid();
 
     }
 
     @Override
     public String toString()
     {
-        return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "type = " + local_type + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + "]";
+        return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "type = " + local_type + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + ", " + "parentWuid = " + local_parentWuid + ", " + "publisherWuid = " + local_publisherWuid + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits getRaw()
     {
@@ -103,6 +109,8 @@ public class GetDFUWorkunitsWrapper
         raw.setSortby( local_sortby);
         raw.setDescending( local_descending);
         raw.setCacheHint( local_cacheHint);
+        raw.setParentWuid( local_parentWuid);
+        raw.setPublisherWuid( local_publisherWuid);
         return raw;
     }
 
@@ -202,5 +210,21 @@ public class GetDFUWorkunitsWrapper
     public long getCacheHint( )
     {
         return this.local_cacheHint;
+    }
+    public void setParentWuid( String _parentWuid )
+    {
+        this.local_parentWuid = _parentWuid;
+    }
+    public String getParentWuid( )
+    {
+        return this.local_parentWuid;
+    }
+    public void setPublisherWuid( String _publisherWuid )
+    {
+        this.local_publisherWuid = _publisherWuid;
+    }
+    public String getPublisherWuid( )
+    {
+        return this.local_publisherWuid;
     }
 }

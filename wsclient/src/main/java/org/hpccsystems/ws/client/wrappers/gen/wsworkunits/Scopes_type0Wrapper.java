@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Scopes_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.Scopes_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Scopes_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.438Z
+ * TimeStamp: 2022-07-22T20:33:16.864Z
  */
 public class Scopes_type0Wrapper
 {
