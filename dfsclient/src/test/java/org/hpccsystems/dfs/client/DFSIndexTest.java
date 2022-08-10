@@ -380,7 +380,7 @@ public class DFSIndexTest extends BaseRemoteTest
                     Long keyValue = (Long) record.getField(0);
                     if (keyValue != expectedKeyValue)
                     {
-                        Assert.fail("Error: key values did not match.");
+                        Assert.fail("Error: key values did not match. Actual: " + keyValue + " Expected: " + expectedKeyValue);
                     }
                 }
                 end = System.currentTimeMillis();
