@@ -15,6 +15,7 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
@@ -22,6 +23,7 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWra
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -386,6 +388,31 @@ public class FileSprayClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             Assert.fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void ensuredTrailingSlashDZSince7_12_98()
+    {
+        try
+        {
+            Assume.assumeTrue(filesprayclient.compatibilityCheck(HPCCFileSprayClient.TrailingSlashPathHPCCVer));
+
+            List<DropZoneWrapper> dzs = filesprayclient.fetchDropZones("");
+            Assume.assumeNotNull(dzs);
+            Assume.assumeTrue(dzs.size() > 0);
+
+            for (int i = 0; i < dzs.size(); i++)
+            {
+                DropZoneWrapper thisdz = dzs.get(i);
+                String thisDZsPath = thisdz.getPath();
+                Assert.assertTrue(thisDZsPath.charAt(thisDZsPath.length()-1) == Utils.LINUX_SEP || thisDZsPath.charAt(thisDZsPath.length()-1) == Utils.WIN_SEP);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
         }
     }
 }
