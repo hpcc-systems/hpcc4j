@@ -18,17 +18,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
-
 import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUEclDefinitionActionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUEclDefinitionAction
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionAction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.489Z
+ * TimeStamp: 2022-07-22T20:33:16.907Z
  */
 public class WUEclDefinitionActionWrapper
 {
@@ -53,6 +51,11 @@ public class WUEclDefinitionActionWrapper
     protected int local_msToWait;
     protected int local_timeLimit;
     protected int local_warnTimeLimit;
+    protected boolean local_dfuCopyFiles;
+    protected boolean local_dfuOverwrite;
+    protected String local_dfuQueue;
+    protected boolean local_onlyCopyFiles;
+    protected boolean local_stopIfFilesCopied;
 
     public WUEclDefinitionActionWrapper() {}
 
@@ -60,7 +63,7 @@ public class WUEclDefinitionActionWrapper
     {
         copy( wuecldefinitionaction );
     }
-    public WUEclDefinitionActionWrapper( List<String> _eclDefinitions, EclDefinitionActionsWrapper _actionType, String _target, String _remoteDali, String _sourceProcess, String _priority, String _comment, String _memoryLimit, boolean _deletePrevious, boolean _suspendPrevious, boolean _noActivate, boolean _noReload, boolean _dontCopyFiles, boolean _allowForeign, boolean _updateDfs, boolean _updateSuperfiles, boolean _updateCloneFrom, boolean _dontAppendCluster, int _msToWait, int _timeLimit, int _warnTimeLimit )
+    public WUEclDefinitionActionWrapper( List<String> _eclDefinitions, EclDefinitionActionsWrapper _actionType, String _target, String _remoteDali, String _sourceProcess, String _priority, String _comment, String _memoryLimit, boolean _deletePrevious, boolean _suspendPrevious, boolean _noActivate, boolean _noReload, boolean _dontCopyFiles, boolean _allowForeign, boolean _updateDfs, boolean _updateSuperfiles, boolean _updateCloneFrom, boolean _dontAppendCluster, int _msToWait, int _timeLimit, int _warnTimeLimit, boolean _dfuCopyFiles, boolean _dfuOverwrite, String _dfuQueue, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
     {
         this.local_eclDefinitions = _eclDefinitions;
         this.local_actionType = _actionType;
@@ -83,6 +86,11 @@ public class WUEclDefinitionActionWrapper
         this.local_msToWait = _msToWait;
         this.local_timeLimit = _timeLimit;
         this.local_warnTimeLimit = _warnTimeLimit;
+        this.local_dfuCopyFiles = _dfuCopyFiles;
+        this.local_dfuOverwrite = _dfuOverwrite;
+        this.local_dfuQueue = _dfuQueue;
+        this.local_onlyCopyFiles = _onlyCopyFiles;
+        this.local_stopIfFilesCopied = _stopIfFilesCopied;
 
     }
 
@@ -119,13 +127,18 @@ public class WUEclDefinitionActionWrapper
         this.local_msToWait = raw.getMsToWait();
         this.local_timeLimit = raw.getTimeLimit();
         this.local_warnTimeLimit = raw.getWarnTimeLimit();
+        this.local_dfuCopyFiles = raw.getDfuCopyFiles();
+        this.local_dfuOverwrite = raw.getDfuOverwrite();
+        this.local_dfuQueue = raw.getDfuQueue();
+        this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
+        this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUEclDefinitionActionWrapper [" + "eclDefinitions = " + local_eclDefinitions + ", " + "actionType = " + local_actionType + ", " + "target = " + local_target + ", " + "remoteDali = " + local_remoteDali + ", " + "sourceProcess = " + local_sourceProcess + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "memoryLimit = " + local_memoryLimit + ", " + "deletePrevious = " + local_deletePrevious + ", " + "suspendPrevious = " + local_suspendPrevious + ", " + "noActivate = " + local_noActivate + ", " + "noReload = " + local_noReload + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "allowForeign = " + local_allowForeign + ", " + "updateDfs = " + local_updateDfs + ", " + "updateSuperfiles = " + local_updateSuperfiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "dontAppendCluster = " + local_dontAppendCluster + ", " + "msToWait = " + local_msToWait + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + "]";
+        return "WUEclDefinitionActionWrapper [" + "eclDefinitions = " + local_eclDefinitions + ", " + "actionType = " + local_actionType + ", " + "target = " + local_target + ", " + "remoteDali = " + local_remoteDali + ", " + "sourceProcess = " + local_sourceProcess + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "memoryLimit = " + local_memoryLimit + ", " + "deletePrevious = " + local_deletePrevious + ", " + "suspendPrevious = " + local_suspendPrevious + ", " + "noActivate = " + local_noActivate + ", " + "noReload = " + local_noReload + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "allowForeign = " + local_allowForeign + ", " + "updateDfs = " + local_updateDfs + ", " + "updateSuperfiles = " + local_updateSuperfiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "dontAppendCluster = " + local_dontAppendCluster + ", " + "msToWait = " + local_msToWait + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "dfuQueue = " + local_dfuQueue + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionAction getRaw()
     {
@@ -158,6 +171,11 @@ public class WUEclDefinitionActionWrapper
         raw.setMsToWait( local_msToWait);
         raw.setTimeLimit( local_timeLimit);
         raw.setWarnTimeLimit( local_warnTimeLimit);
+        raw.setDfuCopyFiles( local_dfuCopyFiles);
+        raw.setDfuOverwrite( local_dfuOverwrite);
+        raw.setDfuQueue( local_dfuQueue);
+        raw.setOnlyCopyFiles( local_onlyCopyFiles);
+        raw.setStopIfFilesCopied( local_stopIfFilesCopied);
         return raw;
     }
 
@@ -329,5 +347,45 @@ public class WUEclDefinitionActionWrapper
     public int getWarnTimeLimit( )
     {
         return this.local_warnTimeLimit;
+    }
+    public void setDfuCopyFiles( boolean _dfuCopyFiles )
+    {
+        this.local_dfuCopyFiles = _dfuCopyFiles;
+    }
+    public boolean getDfuCopyFiles( )
+    {
+        return this.local_dfuCopyFiles;
+    }
+    public void setDfuOverwrite( boolean _dfuOverwrite )
+    {
+        this.local_dfuOverwrite = _dfuOverwrite;
+    }
+    public boolean getDfuOverwrite( )
+    {
+        return this.local_dfuOverwrite;
+    }
+    public void setDfuQueue( String _dfuQueue )
+    {
+        this.local_dfuQueue = _dfuQueue;
+    }
+    public String getDfuQueue( )
+    {
+        return this.local_dfuQueue;
+    }
+    public void setOnlyCopyFiles( boolean _onlyCopyFiles )
+    {
+        this.local_onlyCopyFiles = _onlyCopyFiles;
+    }
+    public boolean getOnlyCopyFiles( )
+    {
+        return this.local_onlyCopyFiles;
+    }
+    public void setStopIfFilesCopied( boolean _stopIfFilesCopied )
+    {
+        this.local_stopIfFilesCopied = _stopIfFilesCopied;
+    }
+    public boolean getStopIfFilesCopied( )
+    {
+        return this.local_stopIfFilesCopied;
     }
 }

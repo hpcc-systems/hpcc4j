@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUCheckFeaturesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUCheckFeaturesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.459Z
+ * TimeStamp: 2022-07-22T20:33:16.882Z
  */
 public class WUCheckFeaturesResponseWrapper
 {

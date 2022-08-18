@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFULogicalFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFULogicalFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.294Z
+ * TimeStamp: 2022-07-27T21:11:36.136Z
  */
 public class DFULogicalFileWrapper
 {
@@ -55,6 +55,12 @@ public class DFULogicalFileWrapper
     protected String local_keyType;
     protected int local_numOfSubfiles;
     protected String local_accessed;
+    protected double local_atRestCost;
+    protected double local_accessCost;
+    protected long local_minSkew;
+    protected long local_maxSkew;
+    protected long local_minSkewPart;
+    protected long local_maxSkewPart;
 
     public DFULogicalFileWrapper() {}
 
@@ -62,7 +68,7 @@ public class DFULogicalFileWrapper
     {
         copy( dfulogicalfile );
     }
-    public DFULogicalFileWrapper( String _prefix, String _nodeGroup, String _directory, String _description, String _parts, String _name, String _owner, String _totalsize, String _recordCount, String _modified, String _longSize, String _longRecordCount, boolean _isSuperfile, boolean _isDirectory, boolean _replicate, long _intSize, long _intRecordCount, boolean _fromRoxieCluster, boolean _browseData, boolean _isCompressed, String _contentType, long _compressedFileSize, String _superOwners, boolean _persistent, boolean _isProtected, String _keyType, int _numOfSubfiles, String _accessed )
+    public DFULogicalFileWrapper( String _prefix, String _nodeGroup, String _directory, String _description, String _parts, String _name, String _owner, String _totalsize, String _recordCount, String _modified, String _longSize, String _longRecordCount, boolean _isSuperfile, boolean _isDirectory, boolean _replicate, long _intSize, long _intRecordCount, boolean _fromRoxieCluster, boolean _browseData, boolean _isCompressed, String _contentType, long _compressedFileSize, String _superOwners, boolean _persistent, boolean _isProtected, String _keyType, int _numOfSubfiles, String _accessed, double _atRestCost, double _accessCost, long _minSkew, long _maxSkew, long _minSkewPart, long _maxSkewPart )
     {
         this.local_prefix = _prefix;
         this.local_nodeGroup = _nodeGroup;
@@ -92,6 +98,12 @@ public class DFULogicalFileWrapper
         this.local_keyType = _keyType;
         this.local_numOfSubfiles = _numOfSubfiles;
         this.local_accessed = _accessed;
+        this.local_atRestCost = _atRestCost;
+        this.local_accessCost = _accessCost;
+        this.local_minSkew = _minSkew;
+        this.local_maxSkew = _maxSkew;
+        this.local_minSkewPart = _minSkewPart;
+        this.local_maxSkewPart = _maxSkewPart;
 
     }
 
@@ -128,13 +140,19 @@ public class DFULogicalFileWrapper
         this.local_keyType = raw.getKeyType();
         this.local_numOfSubfiles = raw.getNumOfSubfiles();
         this.local_accessed = raw.getAccessed();
+        this.local_atRestCost = raw.getAtRestCost();
+        this.local_accessCost = raw.getAccessCost();
+        this.local_minSkew = raw.getMinSkew();
+        this.local_maxSkew = raw.getMaxSkew();
+        this.local_minSkewPart = raw.getMinSkewPart();
+        this.local_maxSkewPart = raw.getMaxSkewPart();
 
     }
 
     @Override
     public String toString()
     {
-        return "DFULogicalFileWrapper [" + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "directory = " + local_directory + ", " + "description = " + local_description + ", " + "parts = " + local_parts + ", " + "name = " + local_name + ", " + "owner = " + local_owner + ", " + "totalsize = " + local_totalsize + ", " + "recordCount = " + local_recordCount + ", " + "modified = " + local_modified + ", " + "longSize = " + local_longSize + ", " + "longRecordCount = " + local_longRecordCount + ", " + "isSuperfile = " + local_isSuperfile + ", " + "isDirectory = " + local_isDirectory + ", " + "replicate = " + local_replicate + ", " + "intSize = " + local_intSize + ", " + "intRecordCount = " + local_intRecordCount + ", " + "fromRoxieCluster = " + local_fromRoxieCluster + ", " + "browseData = " + local_browseData + ", " + "isCompressed = " + local_isCompressed + ", " + "contentType = " + local_contentType + ", " + "compressedFileSize = " + local_compressedFileSize + ", " + "superOwners = " + local_superOwners + ", " + "persistent = " + local_persistent + ", " + "isProtected = " + local_isProtected + ", " + "keyType = " + local_keyType + ", " + "numOfSubfiles = " + local_numOfSubfiles + ", " + "accessed = " + local_accessed + "]";
+        return "DFULogicalFileWrapper [" + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "directory = " + local_directory + ", " + "description = " + local_description + ", " + "parts = " + local_parts + ", " + "name = " + local_name + ", " + "owner = " + local_owner + ", " + "totalsize = " + local_totalsize + ", " + "recordCount = " + local_recordCount + ", " + "modified = " + local_modified + ", " + "longSize = " + local_longSize + ", " + "longRecordCount = " + local_longRecordCount + ", " + "isSuperfile = " + local_isSuperfile + ", " + "isDirectory = " + local_isDirectory + ", " + "replicate = " + local_replicate + ", " + "intSize = " + local_intSize + ", " + "intRecordCount = " + local_intRecordCount + ", " + "fromRoxieCluster = " + local_fromRoxieCluster + ", " + "browseData = " + local_browseData + ", " + "isCompressed = " + local_isCompressed + ", " + "contentType = " + local_contentType + ", " + "compressedFileSize = " + local_compressedFileSize + ", " + "superOwners = " + local_superOwners + ", " + "persistent = " + local_persistent + ", " + "isProtected = " + local_isProtected + ", " + "keyType = " + local_keyType + ", " + "numOfSubfiles = " + local_numOfSubfiles + ", " + "accessed = " + local_accessed + ", " + "atRestCost = " + local_atRestCost + ", " + "accessCost = " + local_accessCost + ", " + "minSkew = " + local_minSkew + ", " + "maxSkew = " + local_maxSkew + ", " + "minSkewPart = " + local_minSkewPart + ", " + "maxSkewPart = " + local_maxSkewPart + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFULogicalFile getRaw()
     {
@@ -167,6 +185,12 @@ public class DFULogicalFileWrapper
         raw.setKeyType( local_keyType);
         raw.setNumOfSubfiles( local_numOfSubfiles);
         raw.setAccessed( local_accessed);
+        raw.setAtRestCost( local_atRestCost);
+        raw.setAccessCost( local_accessCost);
+        raw.setMinSkew( local_minSkew);
+        raw.setMaxSkew( local_maxSkew);
+        raw.setMinSkewPart( local_minSkewPart);
+        raw.setMaxSkewPart( local_maxSkewPart);
         return raw;
     }
 
@@ -394,5 +418,53 @@ public class DFULogicalFileWrapper
     public String getAccessed( )
     {
         return this.local_accessed;
+    }
+    public void setAtRestCost( double _atRestCost )
+    {
+        this.local_atRestCost = _atRestCost;
+    }
+    public double getAtRestCost( )
+    {
+        return this.local_atRestCost;
+    }
+    public void setAccessCost( double _accessCost )
+    {
+        this.local_accessCost = _accessCost;
+    }
+    public double getAccessCost( )
+    {
+        return this.local_accessCost;
+    }
+    public void setMinSkew( long _minSkew )
+    {
+        this.local_minSkew = _minSkew;
+    }
+    public long getMinSkew( )
+    {
+        return this.local_minSkew;
+    }
+    public void setMaxSkew( long _maxSkew )
+    {
+        this.local_maxSkew = _maxSkew;
+    }
+    public long getMaxSkew( )
+    {
+        return this.local_maxSkew;
+    }
+    public void setMinSkewPart( long _minSkewPart )
+    {
+        this.local_minSkewPart = _minSkewPart;
+    }
+    public long getMinSkewPart( )
+    {
+        return this.local_minSkewPart;
+    }
+    public void setMaxSkewPart( long _maxSkewPart )
+    {
+        this.local_maxSkewPart = _maxSkewPart;
+    }
+    public long getMaxSkewPart( )
+    {
+        return this.local_maxSkewPart;
     }
 }

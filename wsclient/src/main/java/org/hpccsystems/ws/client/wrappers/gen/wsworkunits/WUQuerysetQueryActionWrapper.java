@@ -21,15 +21,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQuerysetQueryActionWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQuerysetQueryAction
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetQueryAction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.573Z
+ * TimeStamp: 2022-07-22T20:33:16.979Z
  */
 public class WUQuerysetQueryActionWrapper
 {
     protected QuerySetQueryActionTypesWrapper local_action;
     protected String local_querySetName;
-    protected Queries_type0Wrapper local_queries;
+    protected Queries_type1Wrapper local_queries;
 
     public WUQuerysetQueryActionWrapper() {}
 
@@ -37,7 +37,7 @@ public class WUQuerysetQueryActionWrapper
     {
         copy( wuquerysetqueryaction );
     }
-    public WUQuerysetQueryActionWrapper( QuerySetQueryActionTypesWrapper _action, String _querySetName, Queries_type0Wrapper _queries )
+    public WUQuerysetQueryActionWrapper( QuerySetQueryActionTypesWrapper _action, String _querySetName, Queries_type1Wrapper _queries )
     {
         this.local_action = _action;
         this.local_querySetName = _querySetName;
@@ -54,7 +54,7 @@ public class WUQuerysetQueryActionWrapper
             this.local_action = new QuerySetQueryActionTypesWrapper( raw.getAction());
         this.local_querySetName = raw.getQuerySetName();
         if (raw.getQueries() != null)
-            this.local_queries = new Queries_type0Wrapper( raw.getQueries());
+            this.local_queries = new Queries_type1Wrapper( raw.getQueries());
 
     }
 
@@ -87,11 +87,11 @@ public class WUQuerysetQueryActionWrapper
     {
         return this.local_querySetName;
     }
-    public void setQueries( Queries_type0Wrapper _queries )
+    public void setQueries( Queries_type1Wrapper _queries )
     {
         this.local_queries = _queries;
     }
-    public Queries_type0Wrapper getQueries( )
+    public Queries_type1Wrapper getQueries( )
     {
         return this.local_queries;
     }

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: ActiveWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActiveWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.542Z
+ * TimeStamp: 2022-07-25T18:14:46.506Z
  */
 public class ActiveWorkunitWrapper
 {
@@ -47,6 +47,7 @@ public class ActiveWorkunitWrapper
     protected String local_clusterType;
     protected String local_clusterQueueName;
     protected String local_targetClusterName;
+    protected boolean local_noAccess;
 
     public ActiveWorkunitWrapper() {}
 
@@ -54,7 +55,7 @@ public class ActiveWorkunitWrapper
     {
         copy( activeworkunit );
     }
-    public ActiveWorkunitWrapper( String _wuid, String _state, int _stateID, String _owner, String _jobname, String _server, String _instance, String _priority, String _extra, String _graphName, String _duration, String _gID, String _queueName, int _memoryBlocked, boolean _isPausing, String _warning, String _clusterName, String _clusterType, String _clusterQueueName, String _targetClusterName )
+    public ActiveWorkunitWrapper( String _wuid, String _state, int _stateID, String _owner, String _jobname, String _server, String _instance, String _priority, String _extra, String _graphName, String _duration, String _gID, String _queueName, int _memoryBlocked, boolean _isPausing, String _warning, String _clusterName, String _clusterType, String _clusterQueueName, String _targetClusterName, boolean _noAccess )
     {
         this.local_wuid = _wuid;
         this.local_state = _state;
@@ -76,6 +77,7 @@ public class ActiveWorkunitWrapper
         this.local_clusterType = _clusterType;
         this.local_clusterQueueName = _clusterQueueName;
         this.local_targetClusterName = _targetClusterName;
+        this.local_noAccess = _noAccess;
 
     }
 
@@ -104,13 +106,14 @@ public class ActiveWorkunitWrapper
         this.local_clusterType = raw.getClusterType();
         this.local_clusterQueueName = raw.getClusterQueueName();
         this.local_targetClusterName = raw.getTargetClusterName();
+        this.local_noAccess = raw.getNoAccess();
 
     }
 
     @Override
     public String toString()
     {
-        return "ActiveWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "state = " + local_state + ", " + "stateID = " + local_stateID + ", " + "owner = " + local_owner + ", " + "jobname = " + local_jobname + ", " + "server = " + local_server + ", " + "instance = " + local_instance + ", " + "priority = " + local_priority + ", " + "extra = " + local_extra + ", " + "graphName = " + local_graphName + ", " + "duration = " + local_duration + ", " + "gID = " + local_gID + ", " + "queueName = " + local_queueName + ", " + "memoryBlocked = " + local_memoryBlocked + ", " + "isPausing = " + local_isPausing + ", " + "warning = " + local_warning + ", " + "clusterName = " + local_clusterName + ", " + "clusterType = " + local_clusterType + ", " + "clusterQueueName = " + local_clusterQueueName + ", " + "targetClusterName = " + local_targetClusterName + "]";
+        return "ActiveWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "state = " + local_state + ", " + "stateID = " + local_stateID + ", " + "owner = " + local_owner + ", " + "jobname = " + local_jobname + ", " + "server = " + local_server + ", " + "instance = " + local_instance + ", " + "priority = " + local_priority + ", " + "extra = " + local_extra + ", " + "graphName = " + local_graphName + ", " + "duration = " + local_duration + ", " + "gID = " + local_gID + ", " + "queueName = " + local_queueName + ", " + "memoryBlocked = " + local_memoryBlocked + ", " + "isPausing = " + local_isPausing + ", " + "warning = " + local_warning + ", " + "clusterName = " + local_clusterName + ", " + "clusterType = " + local_clusterType + ", " + "clusterQueueName = " + local_clusterQueueName + ", " + "targetClusterName = " + local_targetClusterName + ", " + "noAccess = " + local_noAccess + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActiveWorkunit getRaw()
     {
@@ -135,6 +138,7 @@ public class ActiveWorkunitWrapper
         raw.setClusterType( local_clusterType);
         raw.setClusterQueueName( local_clusterQueueName);
         raw.setTargetClusterName( local_targetClusterName);
+        raw.setNoAccess( local_noAccess);
         return raw;
     }
 
@@ -298,5 +302,13 @@ public class ActiveWorkunitWrapper
     public String getTargetClusterName( )
     {
         return this.local_targetClusterName;
+    }
+    public void setNoAccess( boolean _noAccess )
+    {
+        this.local_noAccess = _noAccess;
+    }
+    public boolean getNoAccess( )
+    {
+        return this.local_noAccess;
     }
 }

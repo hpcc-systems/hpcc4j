@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DFUWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2021-10-27T18:52:06.448Z
+ * TimeStamp: 2022-07-25T17:33:52.311Z
  */
 public class DFUWorkunitWrapper
 {
@@ -82,6 +82,7 @@ public class DFUWorkunitWrapper
     protected boolean local_preserveCompression;
     protected int local_expireDays;
     protected boolean local_preserveFileParts;
+    protected double local_fileAccessCost;
 
     public DFUWorkunitWrapper() {}
 
@@ -89,7 +90,7 @@ public class DFUWorkunitWrapper
     {
         copy( dfuworkunit );
     }
-    public DFUWorkunitWrapper( String _iD, String _dFUServerName, String _clusterName, String _jobName, String _queue, String _user, boolean _isProtected, int _command, String _commandMessage, int _percentDone, int _secsLeft, String _progressMessage, String _summaryMessage, int _state, String _sourceLogicalName, String _sourceIP, String _sourceFilePath, String _sourceDali, int _sourceRecordSize, int _sourceFormat, String _rowTag, int _sourceNumParts, String _sourceDirectory, String _destLogicalName, String _destGroupName, String _destDirectory, String _destIP, String _destFilePath, int _destFormat, int _destNumParts, int _destRecordSize, boolean _replicate, boolean _overwrite, boolean _compress, String _sourceCsvSeparate, String _sourceCsvQuote, String _sourceCsvTerminate, String _sourceCsvEscape, String _timeStarted, String _timeStopped, String _stateMessage, String _monitorEventName, boolean _monitorSub, int _monitorShotLimit, String _sourceDiffKeyName, String _destDiffKeyName, boolean _archived, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, boolean _preserveCompression, int _expireDays, boolean _preserveFileParts )
+    public DFUWorkunitWrapper( String _iD, String _dFUServerName, String _clusterName, String _jobName, String _queue, String _user, boolean _isProtected, int _command, String _commandMessage, int _percentDone, int _secsLeft, String _progressMessage, String _summaryMessage, int _state, String _sourceLogicalName, String _sourceIP, String _sourceFilePath, String _sourceDali, int _sourceRecordSize, int _sourceFormat, String _rowTag, int _sourceNumParts, String _sourceDirectory, String _destLogicalName, String _destGroupName, String _destDirectory, String _destIP, String _destFilePath, int _destFormat, int _destNumParts, int _destRecordSize, boolean _replicate, boolean _overwrite, boolean _compress, String _sourceCsvSeparate, String _sourceCsvQuote, String _sourceCsvTerminate, String _sourceCsvEscape, String _timeStarted, String _timeStopped, String _stateMessage, String _monitorEventName, boolean _monitorSub, int _monitorShotLimit, String _sourceDiffKeyName, String _destDiffKeyName, boolean _archived, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, boolean _preserveCompression, int _expireDays, boolean _preserveFileParts, double _fileAccessCost )
     {
         this.local_iD = _iD;
         this.local_dFUServerName = _dFUServerName;
@@ -146,6 +147,7 @@ public class DFUWorkunitWrapper
         this.local_preserveCompression = _preserveCompression;
         this.local_expireDays = _expireDays;
         this.local_preserveFileParts = _preserveFileParts;
+        this.local_fileAccessCost = _fileAccessCost;
 
     }
 
@@ -209,13 +211,14 @@ public class DFUWorkunitWrapper
         this.local_preserveCompression = raw.getPreserveCompression();
         this.local_expireDays = raw.getExpireDays();
         this.local_preserveFileParts = raw.getPreserveFileParts();
+        this.local_fileAccessCost = raw.getFileAccessCost();
 
     }
 
     @Override
     public String toString()
     {
-        return "DFUWorkunitWrapper [" + "iD = " + local_iD + ", " + "dFUServerName = " + local_dFUServerName + ", " + "clusterName = " + local_clusterName + ", " + "jobName = " + local_jobName + ", " + "queue = " + local_queue + ", " + "user = " + local_user + ", " + "isProtected = " + local_isProtected + ", " + "command = " + local_command + ", " + "commandMessage = " + local_commandMessage + ", " + "percentDone = " + local_percentDone + ", " + "secsLeft = " + local_secsLeft + ", " + "progressMessage = " + local_progressMessage + ", " + "summaryMessage = " + local_summaryMessage + ", " + "state = " + local_state + ", " + "sourceLogicalName = " + local_sourceLogicalName + ", " + "sourceIP = " + local_sourceIP + ", " + "sourceFilePath = " + local_sourceFilePath + ", " + "sourceDali = " + local_sourceDali + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "rowTag = " + local_rowTag + ", " + "sourceNumParts = " + local_sourceNumParts + ", " + "sourceDirectory = " + local_sourceDirectory + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destGroupName = " + local_destGroupName + ", " + "destDirectory = " + local_destDirectory + ", " + "destIP = " + local_destIP + ", " + "destFilePath = " + local_destFilePath + ", " + "destFormat = " + local_destFormat + ", " + "destNumParts = " + local_destNumParts + ", " + "destRecordSize = " + local_destRecordSize + ", " + "replicate = " + local_replicate + ", " + "overwrite = " + local_overwrite + ", " + "compress = " + local_compress + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "timeStarted = " + local_timeStarted + ", " + "timeStopped = " + local_timeStopped + ", " + "stateMessage = " + local_stateMessage + ", " + "monitorEventName = " + local_monitorEventName + ", " + "monitorSub = " + local_monitorSub + ", " + "monitorShotLimit = " + local_monitorShotLimit + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "archived = " + local_archived + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "preserveCompression = " + local_preserveCompression + ", " + "expireDays = " + local_expireDays + ", " + "preserveFileParts = " + local_preserveFileParts + "]";
+        return "DFUWorkunitWrapper [" + "iD = " + local_iD + ", " + "dFUServerName = " + local_dFUServerName + ", " + "clusterName = " + local_clusterName + ", " + "jobName = " + local_jobName + ", " + "queue = " + local_queue + ", " + "user = " + local_user + ", " + "isProtected = " + local_isProtected + ", " + "command = " + local_command + ", " + "commandMessage = " + local_commandMessage + ", " + "percentDone = " + local_percentDone + ", " + "secsLeft = " + local_secsLeft + ", " + "progressMessage = " + local_progressMessage + ", " + "summaryMessage = " + local_summaryMessage + ", " + "state = " + local_state + ", " + "sourceLogicalName = " + local_sourceLogicalName + ", " + "sourceIP = " + local_sourceIP + ", " + "sourceFilePath = " + local_sourceFilePath + ", " + "sourceDali = " + local_sourceDali + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "rowTag = " + local_rowTag + ", " + "sourceNumParts = " + local_sourceNumParts + ", " + "sourceDirectory = " + local_sourceDirectory + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destGroupName = " + local_destGroupName + ", " + "destDirectory = " + local_destDirectory + ", " + "destIP = " + local_destIP + ", " + "destFilePath = " + local_destFilePath + ", " + "destFormat = " + local_destFormat + ", " + "destNumParts = " + local_destNumParts + ", " + "destRecordSize = " + local_destRecordSize + ", " + "replicate = " + local_replicate + ", " + "overwrite = " + local_overwrite + ", " + "compress = " + local_compress + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "timeStarted = " + local_timeStarted + ", " + "timeStopped = " + local_timeStopped + ", " + "stateMessage = " + local_stateMessage + ", " + "monitorEventName = " + local_monitorEventName + ", " + "monitorSub = " + local_monitorSub + ", " + "monitorShotLimit = " + local_monitorShotLimit + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "archived = " + local_archived + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "preserveCompression = " + local_preserveCompression + ", " + "expireDays = " + local_expireDays + ", " + "preserveFileParts = " + local_preserveFileParts + ", " + "fileAccessCost = " + local_fileAccessCost + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit getRaw()
     {
@@ -275,6 +278,7 @@ public class DFUWorkunitWrapper
         raw.setPreserveCompression( local_preserveCompression);
         raw.setExpireDays( local_expireDays);
         raw.setPreserveFileParts( local_preserveFileParts);
+        raw.setFileAccessCost( local_fileAccessCost);
         return raw;
     }
 
@@ -718,5 +722,13 @@ public class DFUWorkunitWrapper
     public boolean getPreserveFileParts( )
     {
         return this.local_preserveFileParts;
+    }
+    public void setFileAccessCost( double _fileAccessCost )
+    {
+        this.local_fileAccessCost = _fileAccessCost;
+    }
+    public double getFileAccessCost( )
+    {
+        return this.local_fileAccessCost;
     }
 }

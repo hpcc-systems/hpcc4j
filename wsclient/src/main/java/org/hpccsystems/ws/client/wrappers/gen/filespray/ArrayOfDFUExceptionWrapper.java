@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfDFUExceptionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDFUException
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2021-10-27T18:52:06.409Z
+ * TimeStamp: 2022-07-25T17:33:52.283Z
  */
 public class ArrayOfDFUExceptionWrapper
 {

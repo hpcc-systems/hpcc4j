@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: RemoveJobWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RemoveJob
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.603Z
+ * TimeStamp: 2022-07-25T18:14:46.550Z
  */
 public class RemoveJobWrapper
 {

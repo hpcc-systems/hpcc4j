@@ -128,6 +128,7 @@ public class BinaryRecordReader implements IRecordReader
     private FieldDef             rootRecordDefinition;
     protected boolean            defaultLE;
     private long                 streamPosAfterLastRecord = 0;
+    private boolean              isIndex = false;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -216,6 +217,16 @@ public class BinaryRecordReader implements IRecordReader
         {
             throw new Exception("Error initializing BinaryRecordReader. IRecordBuilder provided a null record definition.");
         }
+    }
+
+    /**
+     * Should be set if this record reader is reading an index file.
+     * 
+     * @param isIdx Is this an index file?
+     */
+    public void setIsIndex(boolean isIdx)
+    {
+        this.isIndex = isIdx;
     }
 
     /*
@@ -674,6 +685,12 @@ public class BinaryRecordReader implements IRecordReader
             {
                 v |= (0xffL << (i * 8));
             }
+        }
+
+        if (isIndex)
+        {
+            // Roxie indexes are biased to allow for easier comparison. This corrects the bias
+            v += negMask;
         }
 
         return v;

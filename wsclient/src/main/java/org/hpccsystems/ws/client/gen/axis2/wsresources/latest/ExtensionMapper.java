@@ -1,43 +1,89 @@
 /**
  * ExtensionMapper.java
  *
- * This file was auto-generated from WSDL
- * by the Apache Axis2 version: 1.7.9  Built on : Nov 16, 2018 (12:06:07 GMT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
+ * 2022 (03:47:13 EDT)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsresources.latest;
 
-
-/**
- *  ExtensionMapper class
- */
-@SuppressWarnings({"unchecked",
-    "unused"
-})
+/** ExtensionMapper class */
+@SuppressWarnings({"unchecked", "unused"})
 public class ExtensionMapper {
-    public static java.lang.Object getTypeObject(
-        java.lang.String namespaceURI, java.lang.String typeName,
-        javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-        if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) &&
-                "ArrayOfEspException".equals(typeName)) {
-            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfEspException.Factory.parse(reader);
-        }
 
-        if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) &&
-                "HPCCService".equals(typeName)) {
-            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService.Factory.parse(reader);
-        }
+  public static java.lang.Object getTypeObject(
+      java.lang.String namespaceURI,
+      java.lang.String typeName,
+      javax.xml.stream.XMLStreamReader reader)
+      throws java.lang.Exception {
 
-        if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) &&
-                "Services_type0".equals(typeName)) {
-            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0.Factory.parse(reader);
-        }
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ConfiguredWebLink".equals(typeName)) {
 
-        if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) &&
-                "EspException".equals(typeName)) {
-            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspException.Factory.parse(reader);
-        }
-
-        throw new org.apache.axis2.databinding.ADBException("Unsupported type " +
-            namespaceURI + " " + typeName);
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ConfiguredWebLink.Factory.parse(
+          reader);
     }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfConfiguredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfConfiguredWebLink.Factory
+          .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfEspException".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfEspException.Factory
+          .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "HPCCService".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "Services_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.Services_type0.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "DiscoveredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfDiscoveredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfDiscoveredWebLink.Factory
+          .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "NamedValue".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.NamedValue.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "EspException".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspException.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfNamedValue".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfNamedValue.Factory.parse(
+          reader);
+    }
+
+    throw new org.apache.axis2.databinding.ADBException(
+        "Unsupported type " + namespaceURI + " " + typeName);
+  }
 }

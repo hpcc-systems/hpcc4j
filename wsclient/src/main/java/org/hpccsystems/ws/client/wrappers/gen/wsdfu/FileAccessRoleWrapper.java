@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: FileAccessRoleWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.FileAccessRole
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.323Z
+ * TimeStamp: 2022-07-27T21:11:36.159Z
  */
 public class FileAccessRoleWrapper
 {

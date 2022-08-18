@@ -47,9 +47,9 @@ public class Utils
 {
     private final static Logger log            = LogManager.getLogger(Utils.class);
 
-    final static char           LINUX_SEP      = '/';
-    final static char           WIN_SEP        = '\\';
-    final static String         ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
+    public final static char           LINUX_SEP      = '/';
+    public final static char           WIN_SEP        = '\\';
+    public final static String         ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
 
     public enum LogLevel
     {
@@ -1059,5 +1059,23 @@ public class Utils
             throw new XPathExpressionException ("Could not create new safe XML doc builder");
 
         return safeXMLDocBuilder;
+    }
+
+    public static String ensureTrailingPathSlash(String path)
+    {
+        return ensureTrailingPathSlash(path, (path.contains(Character.toString(LINUX_SEP)) || path.length() == 0) ? LINUX_SEP : WIN_SEP);
+    }
+
+    public static String ensureTrailingPathSlash(String path, String useLinuxSep)
+    {
+        return ensureTrailingPathSlash(path, useLinuxSep.equalsIgnoreCase("true") ? LINUX_SEP : WIN_SEP);
+    }
+
+    public static String ensureTrailingPathSlash(String path, char slash)
+    {
+        if (path.length() == 0 || path.charAt(path.length()-1) != slash)
+            path = path + slash;
+
+        return path;
     }
 }

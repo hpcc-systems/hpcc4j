@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
@@ -68,6 +67,7 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayFixed;
 import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayFixedResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayVariable;
+import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -109,6 +109,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     private static String                     WSDLURL                = null;
 
     private static final PhysicalFileStruct[] NO_FILES               = {};
+    public static final Version               TrailingSlashPathHPCCVer = new Version(7, 12, 98); //First known HPCC version in which DZ paths are
+                                                                                                 //expected to contain trailing slash
 
     /**
      * Load WSDLURL.
@@ -346,6 +348,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     {
         try
         {
+            HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(connection);
+            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
+
             setActiveConnectionInfo(connection);
             stub = setStubOptions(new FileSprayStub(connection.getBaseUrl() + FILESPRAYWSDLURI), connection);
         }
@@ -598,7 +603,14 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             DropZone[] dropZone = resp.getDropZones().getDropZone();
             for (int i = 0; i < dropZone.length; i++)
             {
-                dropZonesWrapper.add(new DropZoneWrapper(dropZone[i]));
+                DropZoneWrapper currentDZ = new DropZoneWrapper(dropZone[i]);
+
+                if(compatibilityCheck(TrailingSlashPathHPCCVer))
+                {
+                    currentDZ.setPath(Utils.ensureTrailingPathSlash(currentDZ.getPath(), currentDZ.getLinux()));
+                }
+
+                dropZonesWrapper.add(currentDZ);
             }
         }
 
@@ -1754,6 +1766,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param fileName
      *            - The file to download
      * @return - long, bytes transferred, -1 on error
+     *
      */
     public long downloadFile(FileChannel outputChannel, DropZoneWrapper dropZone, String fileName)
     {
@@ -1792,6 +1805,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
                     fileWasFound = true;
                     fileSize = filesInDropzone.get(i).getFilesize();
+                    break;
                 }
             }
 
@@ -1821,7 +1835,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         long bytesTransferred = -1;
         try
         {
-            ReadableByteChannel sourceChannel = Channels.newChannel(downloadURL.openStream());
+            URLConnection fileDownloadConnection =  Connection.createConnection(downloadURL);
+            fileDownloadConnection.setRequestProperty("Authorization", wsconn.getBasicAuthString());
+
+            ReadableByteChannel sourceChannel = Channels.newChannel(fileDownloadConnection.getInputStream());
             bytesTransferred = outputChannel.transferFrom(sourceChannel, 0, Long.MAX_VALUE);
 
             sourceChannel.close();

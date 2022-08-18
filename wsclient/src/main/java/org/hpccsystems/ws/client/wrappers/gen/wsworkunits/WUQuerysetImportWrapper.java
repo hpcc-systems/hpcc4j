@@ -18,13 +18,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * limitations under the License.
  *******************************************************************************/
 import javax.activation.DataHandler;
+import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQuerysetImportWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQuerysetImport
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImport
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.571Z
+ * TimeStamp: 2022-07-22T20:33:16.977Z
  */
 public class WUQuerysetImportWrapper
 {
@@ -44,6 +45,12 @@ public class WUQuerysetImportWrapper
     protected boolean local_updateCloneFrom;
     protected boolean local_appendCluster;
     protected boolean local_includeFileErrors;
+    protected boolean local_dfuCopyFiles;
+    protected String local_dfuQueue;
+    protected NonNegativeInteger local_dfuWait;
+    protected boolean local_dfuOverwrite;
+    protected boolean local_onlyCopyFiles;
+    protected boolean local_stopIfFilesCopied;
 
     public WUQuerysetImportWrapper() {}
 
@@ -51,7 +58,7 @@ public class WUQuerysetImportWrapper
     {
         copy( wuquerysetimport );
     }
-    public WUQuerysetImportWrapper( String _target, String _queryMask, boolean _replace, boolean _activeOnly, QuerysetImportActivationWrapper _activation, boolean _compressed, DataHandler _data, boolean _allowForeignFiles, String _dfsServer, boolean _copyFiles, boolean _overwriteDfs, String _sourceProcess, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors )
+    public WUQuerysetImportWrapper( String _target, String _queryMask, boolean _replace, boolean _activeOnly, QuerysetImportActivationWrapper _activation, boolean _compressed, DataHandler _data, boolean _allowForeignFiles, String _dfsServer, boolean _copyFiles, boolean _overwriteDfs, String _sourceProcess, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
     {
         this.local_target = _target;
         this.local_queryMask = _queryMask;
@@ -69,6 +76,12 @@ public class WUQuerysetImportWrapper
         this.local_updateCloneFrom = _updateCloneFrom;
         this.local_appendCluster = _appendCluster;
         this.local_includeFileErrors = _includeFileErrors;
+        this.local_dfuCopyFiles = _dfuCopyFiles;
+        this.local_dfuQueue = _dfuQueue;
+        this.local_dfuWait = _dfuWait;
+        this.local_dfuOverwrite = _dfuOverwrite;
+        this.local_onlyCopyFiles = _onlyCopyFiles;
+        this.local_stopIfFilesCopied = _stopIfFilesCopied;
 
     }
 
@@ -94,13 +107,19 @@ public class WUQuerysetImportWrapper
         this.local_updateCloneFrom = raw.getUpdateCloneFrom();
         this.local_appendCluster = raw.getAppendCluster();
         this.local_includeFileErrors = raw.getIncludeFileErrors();
+        this.local_dfuCopyFiles = raw.getDfuCopyFiles();
+        this.local_dfuQueue = raw.getDfuQueue();
+        this.local_dfuWait = raw.getDfuWait();
+        this.local_dfuOverwrite = raw.getDfuOverwrite();
+        this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
+        this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQuerysetImportWrapper [" + "target = " + local_target + ", " + "queryMask = " + local_queryMask + ", " + "replace = " + local_replace + ", " + "activeOnly = " + local_activeOnly + ", " + "activation = " + local_activation + ", " + "compressed = " + local_compressed + ", " + "data = " + local_data + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "dfsServer = " + local_dfsServer + ", " + "copyFiles = " + local_copyFiles + ", " + "overwriteDfs = " + local_overwriteDfs + ", " + "sourceProcess = " + local_sourceProcess + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + "]";
+        return "WUQuerysetImportWrapper [" + "target = " + local_target + ", " + "queryMask = " + local_queryMask + ", " + "replace = " + local_replace + ", " + "activeOnly = " + local_activeOnly + ", " + "activation = " + local_activation + ", " + "compressed = " + local_compressed + ", " + "data = " + local_data + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "dfsServer = " + local_dfsServer + ", " + "copyFiles = " + local_copyFiles + ", " + "overwriteDfs = " + local_overwriteDfs + ", " + "sourceProcess = " + local_sourceProcess + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImport getRaw()
     {
@@ -120,6 +139,12 @@ public class WUQuerysetImportWrapper
         raw.setUpdateCloneFrom( local_updateCloneFrom);
         raw.setAppendCluster( local_appendCluster);
         raw.setIncludeFileErrors( local_includeFileErrors);
+        raw.setDfuCopyFiles( local_dfuCopyFiles);
+        raw.setDfuQueue( local_dfuQueue);
+        raw.setDfuWait( local_dfuWait);
+        raw.setDfuOverwrite( local_dfuOverwrite);
+        raw.setOnlyCopyFiles( local_onlyCopyFiles);
+        raw.setStopIfFilesCopied( local_stopIfFilesCopied);
         return raw;
     }
 
@@ -251,5 +276,53 @@ public class WUQuerysetImportWrapper
     public boolean getIncludeFileErrors( )
     {
         return this.local_includeFileErrors;
+    }
+    public void setDfuCopyFiles( boolean _dfuCopyFiles )
+    {
+        this.local_dfuCopyFiles = _dfuCopyFiles;
+    }
+    public boolean getDfuCopyFiles( )
+    {
+        return this.local_dfuCopyFiles;
+    }
+    public void setDfuQueue( String _dfuQueue )
+    {
+        this.local_dfuQueue = _dfuQueue;
+    }
+    public String getDfuQueue( )
+    {
+        return this.local_dfuQueue;
+    }
+    public void setDfuWait( NonNegativeInteger _dfuWait )
+    {
+        this.local_dfuWait = _dfuWait;
+    }
+    public NonNegativeInteger getDfuWait( )
+    {
+        return this.local_dfuWait;
+    }
+    public void setDfuOverwrite( boolean _dfuOverwrite )
+    {
+        this.local_dfuOverwrite = _dfuOverwrite;
+    }
+    public boolean getDfuOverwrite( )
+    {
+        return this.local_dfuOverwrite;
+    }
+    public void setOnlyCopyFiles( boolean _onlyCopyFiles )
+    {
+        this.local_onlyCopyFiles = _onlyCopyFiles;
+    }
+    public boolean getOnlyCopyFiles( )
+    {
+        return this.local_onlyCopyFiles;
+    }
+    public void setStopIfFilesCopied( boolean _stopIfFilesCopied )
+    {
+        this.local_stopIfFilesCopied = _stopIfFilesCopied;
+    }
+    public boolean getStopIfFilesCopied( )
+    {
+        return this.local_stopIfFilesCopied;
     }
 }
