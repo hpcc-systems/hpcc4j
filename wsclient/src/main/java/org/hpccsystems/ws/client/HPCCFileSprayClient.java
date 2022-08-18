@@ -1766,6 +1766,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param fileName
      *            - The file to download
      * @return - long, bytes transferred, -1 on error
+     *
      */
     public long downloadFile(FileChannel outputChannel, DropZoneWrapper dropZone, String fileName)
     {
@@ -1804,6 +1805,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
                     fileWasFound = true;
                     fileSize = filesInDropzone.get(i).getFilesize();
+                    break;
                 }
             }
 
@@ -1833,7 +1835,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         long bytesTransferred = -1;
         try
         {
-            ReadableByteChannel sourceChannel = Channels.newChannel(downloadURL.openStream());
+            URLConnection fileDownloadConnection =  Connection.createConnection(downloadURL);
+            fileDownloadConnection.setRequestProperty("Authorization", wsconn.getBasicAuthString());
+
+            ReadableByteChannel sourceChannel = Channels.newChannel(fileDownloadConnection.getInputStream());
             bytesTransferred = outputChannel.transferFrom(sourceChannel, 0, Long.MAX_VALUE);
 
             sourceChannel.close();

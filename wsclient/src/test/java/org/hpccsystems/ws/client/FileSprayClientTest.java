@@ -21,6 +21,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -414,5 +415,56 @@ public class FileSprayClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+    }
+
+    @Test
+    public void downLoadFileTest()
+    {
+         if (foundLocalDZ == null)
+             testfetchDropZones();
+
+        assumeNotNull(foundLocalDZ);
+
+        List<PhysicalFileStructWrapper> pfs = null;
+        try
+        {
+            pfs = filesprayclient.listFiles(foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
+        }
+        catch (Exception e) {}
+
+        assumeNotNull(pfs);
+        assumeTrue(pfs.size()>0);
+
+        System.out.println("Download test ...");
+        System.out.println("Searching small file in LocalDZ...");
+        String fileName = null;
+        for (int i = 0; pfs != null && i < pfs.size(); i++)
+        {
+            if (pfs.get(i).getIsDir() == false
+            && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
+            {
+                fileName = pfs.get(i).getName();
+                break;
+            }
+        }
+
+        assumeNotNull(fileName);
+
+        System.out.println("Attempting to download: " + fileName + " from DropZone");
+        String outputFile = System.getProperty("java.io.tmpdir") + File.separator + fileName;
+        System.out.println("Output File: " + outputFile);
+
+        File tmpFile = new File(outputFile);
+
+        long bytesTransferred = filesprayclient.downloadFile(tmpFile,foundLocalDZ,fileName);
+        if (bytesTransferred <= 0)
+        {
+            System.out.println("Download failed.");
+        }
+        else
+        {
+            System.out.println("File Download Test: Bytes transferred: " + bytesTransferred);
+        }
+
     }
 }
