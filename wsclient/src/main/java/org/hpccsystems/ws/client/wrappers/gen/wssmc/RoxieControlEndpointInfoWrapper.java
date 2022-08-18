@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: RoxieControlEndpointInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlEndpointInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.607Z
+ * TimeStamp: 2022-07-25T18:14:46.553Z
  */
 public class RoxieControlEndpointInfoWrapper
 {
@@ -31,6 +31,7 @@ public class RoxieControlEndpointInfoWrapper
     protected boolean local_attached;
     protected String local_stateHash;
     protected String local_status;
+    protected boolean local_memLocked;
 
     public RoxieControlEndpointInfoWrapper() {}
 
@@ -38,12 +39,13 @@ public class RoxieControlEndpointInfoWrapper
     {
         copy( roxiecontrolendpointinfo );
     }
-    public RoxieControlEndpointInfoWrapper( String _address, boolean _attached, String _stateHash, String _status )
+    public RoxieControlEndpointInfoWrapper( String _address, boolean _attached, String _stateHash, String _status, boolean _memLocked )
     {
         this.local_address = _address;
         this.local_attached = _attached;
         this.local_stateHash = _stateHash;
         this.local_status = _status;
+        this.local_memLocked = _memLocked;
 
     }
 
@@ -56,13 +58,14 @@ public class RoxieControlEndpointInfoWrapper
         this.local_attached = raw.getAttached();
         this.local_stateHash = raw.getStateHash();
         this.local_status = raw.getStatus();
+        this.local_memLocked = raw.getMemLocked();
 
     }
 
     @Override
     public String toString()
     {
-        return "RoxieControlEndpointInfoWrapper [" + "address = " + local_address + ", " + "attached = " + local_attached + ", " + "stateHash = " + local_stateHash + ", " + "status = " + local_status + "]";
+        return "RoxieControlEndpointInfoWrapper [" + "address = " + local_address + ", " + "attached = " + local_attached + ", " + "stateHash = " + local_stateHash + ", " + "status = " + local_status + ", " + "memLocked = " + local_memLocked + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlEndpointInfo getRaw()
     {
@@ -71,6 +74,7 @@ public class RoxieControlEndpointInfoWrapper
         raw.setAttached( local_attached);
         raw.setStateHash( local_stateHash);
         raw.setStatus( local_status);
+        raw.setMemLocked( local_memLocked);
         return raw;
     }
 
@@ -106,5 +110,13 @@ public class RoxieControlEndpointInfoWrapper
     public String getStatus( )
     {
         return this.local_status;
+    }
+    public void setMemLocked( boolean _memLocked )
+    {
+        this.local_memLocked = _memLocked;
+    }
+    public boolean getMemLocked( )
+    {
+        return this.local_memLocked;
     }
 }

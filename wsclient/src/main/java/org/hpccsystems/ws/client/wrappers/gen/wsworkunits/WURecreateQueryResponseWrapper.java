@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WURecreateQueryResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WURecreateQueryResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.578Z
+ * TimeStamp: 2022-07-22T20:33:16.982Z
  */
 public class WURecreateQueryResponseWrapper
 {
@@ -42,6 +42,8 @@ public class WURecreateQueryResponseWrapper
     protected boolean local_suspended;
     protected String local_errorMessage;
     protected FileErrors_type4Wrapper local_fileErrors;
+    protected String local_dfuPublisherWuid;
+    protected String local_dfuPublisherState;
 
     public WURecreateQueryResponseWrapper() {}
 
@@ -49,7 +51,7 @@ public class WURecreateQueryResponseWrapper
     {
         copy( wurecreatequeryresponse );
     }
-    public WURecreateQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wuid, String _querySet, String _queryName, String _queryId, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, boolean _reloadFailed, boolean _suspended, String _errorMessage, FileErrors_type4Wrapper _fileErrors )
+    public WURecreateQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wuid, String _querySet, String _queryName, String _queryId, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, boolean _reloadFailed, boolean _suspended, String _errorMessage, FileErrors_type4Wrapper _fileErrors, String _dfuPublisherWuid, String _dfuPublisherState )
     {
         this.local_exceptions = _exceptions;
         this.local_wuid = _wuid;
@@ -65,6 +67,8 @@ public class WURecreateQueryResponseWrapper
         this.local_suspended = _suspended;
         this.local_errorMessage = _errorMessage;
         this.local_fileErrors = _fileErrors;
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+        this.local_dfuPublisherState = _dfuPublisherState;
 
     }
 
@@ -89,13 +93,15 @@ public class WURecreateQueryResponseWrapper
         this.local_errorMessage = raw.getErrorMessage();
         if (raw.getFileErrors() != null)
             this.local_fileErrors = new FileErrors_type4Wrapper( raw.getFileErrors());
+        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
+        this.local_dfuPublisherState = raw.getDfuPublisherState();
 
     }
 
     @Override
     public String toString()
     {
-        return "WURecreateQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + ", " + "querySet = " + local_querySet + ", " + "queryName = " + local_queryName + ", " + "queryId = " + local_queryId + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "reloadFailed = " + local_reloadFailed + ", " + "suspended = " + local_suspended + ", " + "errorMessage = " + local_errorMessage + ", " + "fileErrors = " + local_fileErrors + "]";
+        return "WURecreateQueryResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + ", " + "querySet = " + local_querySet + ", " + "queryName = " + local_queryName + ", " + "queryId = " + local_queryId + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "reloadFailed = " + local_reloadFailed + ", " + "suspended = " + local_suspended + ", " + "errorMessage = " + local_errorMessage + ", " + "fileErrors = " + local_fileErrors + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "dfuPublisherState = " + local_dfuPublisherState + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse getRaw()
     {
@@ -112,6 +118,8 @@ public class WURecreateQueryResponseWrapper
         raw.setReloadFailed( local_reloadFailed);
         raw.setSuspended( local_suspended);
         raw.setErrorMessage( local_errorMessage);
+        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
+        raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;
     }
 
@@ -227,5 +235,21 @@ public class WURecreateQueryResponseWrapper
     public FileErrors_type4Wrapper getFileErrors( )
     {
         return this.local_fileErrors;
+    }
+    public void setDfuPublisherWuid( String _dfuPublisherWuid )
+    {
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+    }
+    public String getDfuPublisherWuid( )
+    {
+        return this.local_dfuPublisherWuid;
+    }
+    public void setDfuPublisherState( String _dfuPublisherState )
+    {
+        this.local_dfuPublisherState = _dfuPublisherState;
+    }
+    public String getDfuPublisherState( )
+    {
+        return this.local_dfuPublisherState;
     }
 }

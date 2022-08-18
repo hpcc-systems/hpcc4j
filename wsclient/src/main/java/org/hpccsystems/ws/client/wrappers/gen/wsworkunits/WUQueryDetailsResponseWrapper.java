@@ -18,17 +18,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
-
 import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQueryDetailsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQueryDetailsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.554Z
+ * TimeStamp: 2022-07-22T20:33:16.965Z
  */
 public class WUQueryDetailsResponseWrapper
 {
@@ -45,7 +43,7 @@ public class WUQueryDetailsResponseWrapper
     protected String local_publishedBy;
     protected String local_comment;
     protected List<String> local_logicalFiles = null;
-    protected SuperFiles_type1Wrapper local_superFiles;
+    protected SuperFiles_type3Wrapper local_superFiles;
     protected boolean local_isLibrary;
     protected String local_priority;
     protected int local_priorityID;
@@ -64,7 +62,7 @@ public class WUQueryDetailsResponseWrapper
     {
         copy( wuquerydetailsresponse );
     }
-    public WUQueryDetailsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _queryId, String _querySet, String _queryName, String _wuid, String _dll, boolean _suspended, boolean _activated, String _suspendedBy, ArrayOfClusterQueryStateWrapper _clusters, String _publishedBy, String _comment, List<String> _logicalFiles, SuperFiles_type1Wrapper _superFiles, boolean _isLibrary, String _priority, int _priorityID, String _wUSnapShot, String _compileTime, List<String> _librariesUsed, int _countGraphs, int _resourceURLCount, WsEclAddresses_type0Wrapper _wsEclAddresses, ArrayOfECLGraphWrapper _wUGraphs, ArrayOfECLTimerWrapper _wUTimers )
+    public WUQueryDetailsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _queryId, String _querySet, String _queryName, String _wuid, String _dll, boolean _suspended, boolean _activated, String _suspendedBy, ArrayOfClusterQueryStateWrapper _clusters, String _publishedBy, String _comment, List<String> _logicalFiles, SuperFiles_type3Wrapper _superFiles, boolean _isLibrary, String _priority, int _priorityID, String _wUSnapShot, String _compileTime, List<String> _librariesUsed, int _countGraphs, int _resourceURLCount, WsEclAddresses_type0Wrapper _wsEclAddresses, ArrayOfECLGraphWrapper _wUGraphs, ArrayOfECLTimerWrapper _wUTimers )
     {
         this.local_exceptions = _exceptions;
         this.local_queryId = _queryId;
@@ -121,7 +119,7 @@ public class WUQueryDetailsResponseWrapper
                 this.local_logicalFiles.add(new String(raw.getLogicalFiles().getItem()[i]));
             }
         }        if (raw.getSuperFiles() != null)
-            this.local_superFiles = new SuperFiles_type1Wrapper( raw.getSuperFiles());
+            this.local_superFiles = new SuperFiles_type3Wrapper( raw.getSuperFiles());
         this.local_isLibrary = raw.getIsLibrary();
         this.local_priority = raw.getPriority();
         this.local_priorityID = raw.getPriorityID();
@@ -296,11 +294,11 @@ public class WUQueryDetailsResponseWrapper
     {
         return this.local_logicalFiles;
     }
-    public void setSuperFiles( SuperFiles_type1Wrapper _superFiles )
+    public void setSuperFiles( SuperFiles_type3Wrapper _superFiles )
     {
         this.local_superFiles = _superFiles;
     }
-    public SuperFiles_type1Wrapper getSuperFiles( )
+    public SuperFiles_type3Wrapper getSuperFiles( )
     {
         return this.local_superFiles;
     }

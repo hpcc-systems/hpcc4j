@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfDFUPartWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUPart
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.231Z
+ * TimeStamp: 2022-07-27T21:11:36.082Z
  */
 public class ArrayOfDFUPartWrapper
 {

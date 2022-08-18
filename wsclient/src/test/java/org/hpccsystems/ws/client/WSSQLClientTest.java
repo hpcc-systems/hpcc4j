@@ -23,8 +23,6 @@ import static org.junit.Assume.assumeNotNull;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfNamedValue;
-import org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue;
 import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -34,6 +32,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCColumnWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCQuerySetWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wssql.NamedValueWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.OutputDatasetWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.PublishedQueryWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetAliasMapWrapper;
@@ -383,16 +382,15 @@ public class WSSQLClientTest extends BaseRemoteTest
         ECLWorkunitWrapper prepareSQLresult = client.prepareSQL(sql, validClusterName, null, null);
         Assert.assertNotNull(prepareSQLresult);
 
-        ArrayOfNamedValue arrayofvariables = new ArrayOfNamedValue();
+        NamedValueWrapper [] arrayofvariables = new NamedValueWrapper[1];
 
-        NamedValue namedValue = new NamedValue();
+        NamedValueWrapper namedValue = new NamedValueWrapper();
         namedValue.setName("var1");
         namedValue.setValue("1");
 
-        NamedValue[] param = new NamedValue[]{namedValue};
-        arrayofvariables.setNamedValue(param);
+        arrayofvariables[0] = namedValue;
 
         System.out.println("Executing prepared sql with param: " + namedValue.getName() + " : " + namedValue.getValue() + " on cluster: " + validClusterName);
-        client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables.getNamedValue(), -1, 10, 0, 10, "WsClient", true, false);
+        client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables, -1, 10, 0, 10, "WsClient", true, false);
     }
 }

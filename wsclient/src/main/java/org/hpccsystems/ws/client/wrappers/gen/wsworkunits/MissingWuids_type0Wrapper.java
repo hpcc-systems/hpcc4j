@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: MissingWuids_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.MissingWuids_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.MissingWuids_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.411Z
+ * TimeStamp: 2022-07-22T20:33:16.840Z
  */
 public class MissingWuids_type0Wrapper
 {

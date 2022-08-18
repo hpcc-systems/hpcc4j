@@ -31,7 +31,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.FileUsedByQuery;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.NamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Ping;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type0;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type1;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySet;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQuery;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem;
@@ -2480,8 +2480,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         item.setQueryId(queryId);
         final QuerySetQueryActionItem[] items = new QuerySetQueryActionItem[] { item };
         queryAction.setQuerySetName(cluster);
-        Queries_type0 queries = new Queries_type0();
-        queries.setQuery(items);
+        Queries_type1 queries = new Queries_type1();
+        queries .setQuery(items);
         queryAction.setQueries(queries);
         final WUQuerySetQueryActionResponse resp = ((WsWorkunitsStub) stub).wUQuerysetQueryAction(queryAction);
 
@@ -2521,13 +2521,13 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUQuerysetQueryAction params = new WUQuerysetQueryAction();
 
-        Queries_type0 queriesarray = new Queries_type0();
+        Queries_type1 queriesarray = new Queries_type1();
         for (String queryname : querynames)
         {
             QuerySetQueryActionItem item = new QuerySetQueryActionItem();
             item.setQueryId(queryname);
 
-            queriesarray.addQuery(item);
+            queriesarray .addQuery(item);
         }
 
         params.setQueries(queriesarray);

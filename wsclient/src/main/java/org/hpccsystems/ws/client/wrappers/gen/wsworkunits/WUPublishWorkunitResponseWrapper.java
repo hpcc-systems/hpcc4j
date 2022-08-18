@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUPublishWorkunitResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUPublishWorkunitResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.543Z
+ * TimeStamp: 2022-07-22T20:33:16.954Z
  */
 public class WUPublishWorkunitResponseWrapper
 {
@@ -38,6 +38,8 @@ public class WUPublishWorkunitResponseWrapper
     protected String local_errorMessage;
     protected ClusterFiles_type0Wrapper local_clusterFiles;
     protected FileErrors_type0Wrapper local_fileErrors;
+    protected String local_dfuPublisherWuid;
+    protected String local_dfuPublisherState;
 
     public WUPublishWorkunitResponseWrapper() {}
 
@@ -45,7 +47,7 @@ public class WUPublishWorkunitResponseWrapper
     {
         copy( wupublishworkunitresponse );
     }
-    public WUPublishWorkunitResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wuid, String _result, String _querySet, String _queryName, String _queryId, boolean _reloadFailed, boolean _suspended, String _errorMessage, ClusterFiles_type0Wrapper _clusterFiles, FileErrors_type0Wrapper _fileErrors )
+    public WUPublishWorkunitResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wuid, String _result, String _querySet, String _queryName, String _queryId, boolean _reloadFailed, boolean _suspended, String _errorMessage, ClusterFiles_type0Wrapper _clusterFiles, FileErrors_type0Wrapper _fileErrors, String _dfuPublisherWuid, String _dfuPublisherState )
     {
         this.local_exceptions = _exceptions;
         this.local_wuid = _wuid;
@@ -58,6 +60,8 @@ public class WUPublishWorkunitResponseWrapper
         this.local_errorMessage = _errorMessage;
         this.local_clusterFiles = _clusterFiles;
         this.local_fileErrors = _fileErrors;
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+        this.local_dfuPublisherState = _dfuPublisherState;
 
     }
 
@@ -80,13 +84,15 @@ public class WUPublishWorkunitResponseWrapper
             this.local_clusterFiles = new ClusterFiles_type0Wrapper( raw.getClusterFiles());
         if (raw.getFileErrors() != null)
             this.local_fileErrors = new FileErrors_type0Wrapper( raw.getFileErrors());
+        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
+        this.local_dfuPublisherState = raw.getDfuPublisherState();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUPublishWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + ", " + "result = " + local_result + ", " + "querySet = " + local_querySet + ", " + "queryName = " + local_queryName + ", " + "queryId = " + local_queryId + ", " + "reloadFailed = " + local_reloadFailed + ", " + "suspended = " + local_suspended + ", " + "errorMessage = " + local_errorMessage + ", " + "clusterFiles = " + local_clusterFiles + ", " + "fileErrors = " + local_fileErrors + "]";
+        return "WUPublishWorkunitResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wuid = " + local_wuid + ", " + "result = " + local_result + ", " + "querySet = " + local_querySet + ", " + "queryName = " + local_queryName + ", " + "queryId = " + local_queryId + ", " + "reloadFailed = " + local_reloadFailed + ", " + "suspended = " + local_suspended + ", " + "errorMessage = " + local_errorMessage + ", " + "clusterFiles = " + local_clusterFiles + ", " + "fileErrors = " + local_fileErrors + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "dfuPublisherState = " + local_dfuPublisherState + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse getRaw()
     {
@@ -99,6 +105,8 @@ public class WUPublishWorkunitResponseWrapper
         raw.setReloadFailed( local_reloadFailed);
         raw.setSuspended( local_suspended);
         raw.setErrorMessage( local_errorMessage);
+        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
+        raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;
     }
 
@@ -190,5 +198,21 @@ public class WUPublishWorkunitResponseWrapper
     public FileErrors_type0Wrapper getFileErrors( )
     {
         return this.local_fileErrors;
+    }
+    public void setDfuPublisherWuid( String _dfuPublisherWuid )
+    {
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+    }
+    public String getDfuPublisherWuid( )
+    {
+        return this.local_dfuPublisherWuid;
+    }
+    public void setDfuPublisherState( String _dfuPublisherState )
+    {
+        this.local_dfuPublisherState = _dfuPublisherState;
+    }
+    public String getDfuPublisherState( )
+    {
+        return this.local_dfuPublisherState;
     }
 }

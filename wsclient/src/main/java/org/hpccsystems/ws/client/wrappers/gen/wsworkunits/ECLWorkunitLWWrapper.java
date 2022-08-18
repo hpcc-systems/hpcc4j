@@ -23,9 +23,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLWorkunitLWWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.ECLWorkunitLW
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkunitLW
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.392Z
+ * TimeStamp: 2022-07-22T20:33:16.823Z
  */
 public class ECLWorkunitLWWrapper
 {
@@ -45,6 +45,7 @@ public class ECLWorkunitLWWrapper
     protected Calendar local_dateTimeScheduled;
     protected UnsignedInt local_totalClusterTime;
     protected ArrayOfApplicationValueWrapper local_applicationValues;
+    protected boolean local_noAccess;
 
     public ECLWorkunitLWWrapper() {}
 
@@ -52,7 +53,7 @@ public class ECLWorkunitLWWrapper
     {
         copy( eclworkunitlw );
     }
-    public ECLWorkunitLWWrapper( String _wuid, String _owner, String _jobName, String _wuScope, String _clusterName, int _state, String _stateDesc, int _action, String _actionDesc, int _priority, String _priorityDesc, int _priorityLevel, boolean _isProtected, Calendar _dateTimeScheduled, UnsignedInt _totalClusterTime, ArrayOfApplicationValueWrapper _applicationValues )
+    public ECLWorkunitLWWrapper( String _wuid, String _owner, String _jobName, String _wuScope, String _clusterName, int _state, String _stateDesc, int _action, String _actionDesc, int _priority, String _priorityDesc, int _priorityLevel, boolean _isProtected, Calendar _dateTimeScheduled, UnsignedInt _totalClusterTime, ArrayOfApplicationValueWrapper _applicationValues, boolean _noAccess )
     {
         this.local_wuid = _wuid;
         this.local_owner = _owner;
@@ -70,6 +71,7 @@ public class ECLWorkunitLWWrapper
         this.local_dateTimeScheduled = _dateTimeScheduled;
         this.local_totalClusterTime = _totalClusterTime;
         this.local_applicationValues = _applicationValues;
+        this.local_noAccess = _noAccess;
 
     }
 
@@ -95,13 +97,14 @@ public class ECLWorkunitLWWrapper
         this.local_totalClusterTime = raw.getTotalClusterTime();
         if (raw.getApplicationValues() != null)
             this.local_applicationValues = new ArrayOfApplicationValueWrapper( raw.getApplicationValues());
+        this.local_noAccess = raw.getNoAccess();
 
     }
 
     @Override
     public String toString()
     {
-        return "ECLWorkunitLWWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "jobName = " + local_jobName + ", " + "wuScope = " + local_wuScope + ", " + "clusterName = " + local_clusterName + ", " + "state = " + local_state + ", " + "stateDesc = " + local_stateDesc + ", " + "action = " + local_action + ", " + "actionDesc = " + local_actionDesc + ", " + "priority = " + local_priority + ", " + "priorityDesc = " + local_priorityDesc + ", " + "priorityLevel = " + local_priorityLevel + ", " + "isProtected = " + local_isProtected + ", " + "dateTimeScheduled = " + local_dateTimeScheduled + ", " + "totalClusterTime = " + local_totalClusterTime + ", " + "applicationValues = " + local_applicationValues + "]";
+        return "ECLWorkunitLWWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "jobName = " + local_jobName + ", " + "wuScope = " + local_wuScope + ", " + "clusterName = " + local_clusterName + ", " + "state = " + local_state + ", " + "stateDesc = " + local_stateDesc + ", " + "action = " + local_action + ", " + "actionDesc = " + local_actionDesc + ", " + "priority = " + local_priority + ", " + "priorityDesc = " + local_priorityDesc + ", " + "priorityLevel = " + local_priorityLevel + ", " + "isProtected = " + local_isProtected + ", " + "dateTimeScheduled = " + local_dateTimeScheduled + ", " + "totalClusterTime = " + local_totalClusterTime + ", " + "applicationValues = " + local_applicationValues + ", " + "noAccess = " + local_noAccess + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkunitLW getRaw()
     {
@@ -121,6 +124,7 @@ public class ECLWorkunitLWWrapper
         raw.setIsProtected( local_isProtected);
         raw.setDateTimeScheduled( local_dateTimeScheduled);
         raw.setTotalClusterTime( local_totalClusterTime);
+        raw.setNoAccess( local_noAccess);
         return raw;
     }
 
@@ -252,5 +256,13 @@ public class ECLWorkunitLWWrapper
     public ArrayOfApplicationValueWrapper getApplicationValues( )
     {
         return this.local_applicationValues;
+    }
+    public void setNoAccess( boolean _noAccess )
+    {
+        this.local_noAccess = _noAccess;
+    }
+    public boolean getNoAccess( )
+    {
+        return this.local_noAccess;
     }
 }

@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQueryConfigWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQueryConfig
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfig
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.549Z
+ * TimeStamp: 2022-07-22T20:33:16.961Z
  */
 public class WUQueryConfigWrapper
 {

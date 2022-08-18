@@ -23,13 +23,13 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Queries_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.Queries_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.419Z
+ * TimeStamp: 2022-07-22T20:33:16.848Z
  */
 public class Queries_type0Wrapper
 {
-    protected List<QuerySetQueryActionItemWrapper> local_query = null;
+    protected List<QueryFilesUsedWrapper> local_query = null;
 
     public Queries_type0Wrapper() {}
 
@@ -37,7 +37,7 @@ public class Queries_type0Wrapper
     {
         copy( queries_type0 );
     }
-    public Queries_type0Wrapper( List<QuerySetQueryActionItemWrapper> _query )
+    public Queries_type0Wrapper( List<QueryFilesUsedWrapper> _query )
     {
         this.local_query = _query;
 
@@ -50,10 +50,10 @@ public class Queries_type0Wrapper
 
         if (raw.getQuery() != null)
         {
-            this.local_query = new ArrayList<QuerySetQueryActionItemWrapper>();
+            this.local_query = new ArrayList<QueryFilesUsedWrapper>();
             for ( int i = 0; i < raw.getQuery().length; i++)
             {
-                this.local_query.add(new QuerySetQueryActionItemWrapper(raw.getQuery()[i]));
+                this.local_query.add(new QueryFilesUsedWrapper(raw.getQuery()[i]));
             }
         }
     }
@@ -68,7 +68,7 @@ public class Queries_type0Wrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type0();
         if (this.local_query!= null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem[] arr = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem[this.local_query.size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed[] arr = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed[this.local_query.size()];
             for ( int i = 0; i < this.local_query.size(); i++)
             {
                 arr[i] = this.local_query.get(i) .getRaw();
@@ -79,11 +79,11 @@ public class Queries_type0Wrapper
     }
 
 
-    public void setQuery( List<QuerySetQueryActionItemWrapper> _query )
+    public void setQuery( List<QueryFilesUsedWrapper> _query )
     {
         this.local_query = _query;
     }
-    public List<QuerySetQueryActionItemWrapper> getQuery( )
+    public List<QueryFilesUsedWrapper> getQuery( )
     {
         return this.local_query;
     }

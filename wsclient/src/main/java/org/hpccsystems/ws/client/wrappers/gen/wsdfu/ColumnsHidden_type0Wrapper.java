@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ColumnsHidden_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ColumnsHidden_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.236Z
+ * TimeStamp: 2022-07-27T21:11:36.092Z
  */
 public class ColumnsHidden_type0Wrapper
 {
