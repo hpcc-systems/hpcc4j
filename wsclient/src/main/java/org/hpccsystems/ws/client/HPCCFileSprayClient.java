@@ -346,28 +346,17 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     private void initWsFileSprayStub(Connection connection)
     {
+        initBaseWsClient(connection, true); //Fetch HPCC build Version and conatinerized mode
+
         try
         {
-            HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(connection);
-            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
-
-            setActiveConnectionInfo(connection);
             stub = setStubOptions(new FileSprayStub(connection.getBaseUrl() + FILESPRAYWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            log.error("Could not initialize FileSprayStub- Review all HPCC connection values");
-            e.printStackTrace();
+            initErrMessage += "\nCould not initialize FileSprayStub - Review all HPCC connection values";
         }
-        catch (Exception e)
-        {
-            log.error("Could not initialize FileSprayStub- Review all HPCC connection values");
-            if (!e.getLocalizedMessage().isEmpty())
-            {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
-            }
-        }
+
     }
 
     /**

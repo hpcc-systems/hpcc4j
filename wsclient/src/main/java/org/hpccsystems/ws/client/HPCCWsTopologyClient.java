@@ -192,25 +192,22 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      */
     private void initWsTopologyStub(Connection connection)
     {
+        initBaseWsClient(connection, true); //Preemptively fetch HPCC build version, Containerized mode
         try
         {
-            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsTopologyStub(connection.getBaseUrl() + WSTOPOLOGYWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            log.error("Could not initialize WsTopologyStub - Review all HPCC connection values");
-            e.printStackTrace();
-        }
-        catch (Exception e)
-        {
-            log.error("Could not initialize WsTopologyStub - Review all HPCC connection values");
+            initErrMessage = "Could not initialize WsTopologyStub - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
+                initErrMessage += "\n" + e.getLocalizedMessage();
             }
         }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
     }
 
     /**

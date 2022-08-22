@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
@@ -49,6 +50,13 @@ public class FileSprayClientTest extends BaseRemoteTest
     static
     {
         fileNames.add(testFile1);
+    }
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(filesprayclient.isTargetHPCCContainerized());
     }
 
     @Test

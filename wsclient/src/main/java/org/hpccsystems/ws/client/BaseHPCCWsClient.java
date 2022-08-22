@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,6 +38,8 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Defines functionality common to all HPCC Systmes web service clients.
@@ -59,11 +62,141 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected String              initErrMessage         = "";
     protected Version             targetHPCCBuildVersion = null;
     protected Double              targetESPInterfaceVer  = null;
+    protected Boolean             targetsContainerizedHPCC = null;
+
+    public boolean isTargetHPCCContainerized() throws Exception
+    {
+        if (targetsContainerizedHPCC == null)
+        {
+            if (wsconn == null)
+                throw new Exception("BaseHPCCWsClient: Cannot get target HPCC containerized mode, client connection has not been initialized.");
+
+            targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
+        }
+        return targetsContainerizedHPCC;
+    }
+
+    private boolean getTargetHPCCIsContainerized(Connection conn) throws Exception
+    {
+        if (wsconn == null)
+            throw new Exception("Cannot get target HPCC containerized mode, client connection has not been initialized.");
+
+        String response = wsconn.sendGetRequest("wssmc/getbuildinfo");//throws
+
+        if (response == null || response.isEmpty())
+            throw new Exception("Cannot get target HPCC containerized mode, received empty " + wsconn.getBaseUrl() + " wssmc/getbuildinfo response");
+
+        setUpContainerizedParser();
+
+        Document document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+
+        NodeList namedValuesList = (NodeList) m_containerizedXpathExpression.evaluate(document,XPathConstants.NODESET);
+        for(int i = 0; i < namedValuesList.getLength(); i++)
+        {
+            Node ithNamedValuePair = namedValuesList.item(i);
+            NodeList nameAndValue = ithNamedValuePair.getChildNodes();
+            if (nameAndValue.getLength() == 2)
+            {
+                String name = null;
+                String value = null;
+                if (nameAndValue.item(0).getNodeName().equalsIgnoreCase("Name"))
+                {
+                     name = nameAndValue.item(0).getFirstChild().getNodeValue();
+                     value = nameAndValue.item(1).getFirstChild().getNodeValue();
+                }
+                else
+                {
+                    name = nameAndValue.item(1).getFirstChild().getNodeValue();
+                    value = nameAndValue.item(0).getFirstChild().getNodeValue();
+                }
+
+                if (name.equalsIgnoreCase("CONTAINERIZED"))
+                {
+                    if (value.equalsIgnoreCase("ON"))
+                        return true;
+                    else
+                        return false;
+                }
+            }
+        }
+
+        return false; //No CONTAINERIZED entry has to be assumed to mean target is not CONTAINERIZED
+    }
+
+    private String getTargetHPCCBuildVersion() throws Exception
+    {
+        if (wsconn == null)
+            throw new Exception("Cannot get target HPCC build version, client connection has not been initialized.");
+
+        String response = wsconn.sendGetRequest("WsSMC/Activity?rawxml_");//throws
+
+        if (response == null || response.isEmpty())
+            throw new Exception("Cannot get target HPCC build version, received empty " + wsconn.getBaseUrl() + " wssmc/activity response");
+
+        setUpBuildVersionParser();
+
+        Document document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+
+        return (String) m_buildVersionXpathExpression.evaluate(document,XPathConstants.STRING);
+
+    }
+
+    /**
+     * All instances of HPCCWsXYZClient should utilize this init function
+     * Attempts to establish the target HPCC build version and its container mode
+     *
+     * Populates initErrMessage if any issues are encountered.
+     * @param connection the WsClient connection
+     * @param fetchVersionAndContainerMode services can choose not to fetch build version/containerized mode
+     * @return true if target HPCC cluster is Containerized, otherwise false
+     */
+    protected boolean initBaseWsClient(Connection connection, boolean fetchVersionAndContainerMode)
+    {
+        boolean success = true;
+        initErrMessage = "";
+        setActiveConnectionInfo(connection);
+
+        if (fetchVersionAndContainerMode)
+        {
+            try
+            {
+                targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersion());
+            }
+            catch (Exception e)
+            {
+                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
+                if (!e.getLocalizedMessage().isEmpty())
+                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+
+                success = false;
+            }
+
+            try
+            {
+                targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
+            }
+            catch (Exception e)
+            {
+                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
+                if (!e.getLocalizedMessage().isEmpty())
+                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+
+                success = false;
+            }
+        }
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
+
+        return success;
+    }
 
     protected Stub                stub;
 
-    static private DocumentBuilder m_versionParser = null;
-    static private XPathExpression m_versionXpathExpression = null;
+    static private XPathExpression m_containerizedXpathExpression = null;
+    static private XPathExpression m_buildVersionXpathExpression = null;
+    static private XPathExpression m_serviceInterfaceVersionXpathExpression = null;
+
+    static private DocumentBuilder m_XMLParser = null;
 
     /**
      * Gets the default stub.
@@ -610,18 +743,50 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     public abstract String getServiceURI();
 
-    protected void setUpversionParser() throws ParserConfigurationException, XPathExpressionException
+
+    protected void setUpBuildVersionParser() throws ParserConfigurationException, XPathExpressionException
     {
-        if(m_versionParser != null && m_versionXpathExpression != null)
+        if(m_XMLParser != null && m_buildVersionXpathExpression != null)
             return;
 
-        m_versionParser = Utils.newSafeXMLDocBuilder();
-        if (m_versionParser == null)
+        m_XMLParser = Utils.newSafeXMLDocBuilder();
+        if (m_XMLParser == null)
             throw new XPathExpressionException ("Could not create new version parser");
 
         XPath versionXpath = XPathFactory.newInstance().newXPath();
-        m_versionXpathExpression = versionXpath.compile("string(/VersionInfo/Version)");
-        if (m_versionXpathExpression == null)
+        m_buildVersionXpathExpression = versionXpath.compile("/ActivityResponse/Build");
+        if (m_buildVersionXpathExpression == null)
+            throw new XPathExpressionException ("Could not Compile m_buildVersionXpathExpression");
+
+    }
+
+    protected void setUpContainerizedParser() throws ParserConfigurationException, XPathExpressionException
+    {
+        if(m_XMLParser != null && m_containerizedXpathExpression != null)
+            return;
+
+        m_XMLParser = Utils.newSafeXMLDocBuilder();
+        if (m_XMLParser == null)
+            throw new XPathExpressionException ("Could not create new version parser");
+
+        XPath versionXpath = XPathFactory.newInstance().newXPath();
+        m_containerizedXpathExpression = versionXpath.compile("/GetBuildInfoResponse/BuildInfo/NamedValue");
+        if (m_containerizedXpathExpression == null)
+            throw new XPathExpressionException ("Could not Compile m_containerizedXpathExpression");
+    }
+
+    protected void setUpversionParser() throws ParserConfigurationException, XPathExpressionException
+    {
+        if(m_XMLParser != null && m_serviceInterfaceVersionXpathExpression != null)
+            return;
+
+        m_XMLParser = Utils.newSafeXMLDocBuilder();
+        if (m_XMLParser == null)
+            throw new XPathExpressionException ("Could not create new version parser");
+
+        XPath versionXpath = XPathFactory.newInstance().newXPath();
+        m_serviceInterfaceVersionXpathExpression = versionXpath.compile("string(/VersionInfo/Version)");
+        if (m_serviceInterfaceVersionXpathExpression == null)
             throw new XPathExpressionException ("Could not Compile versionXpathExpression");
 
     }
@@ -657,9 +822,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                     try
                     {
                         setUpversionParser();
-                        Document document = m_versionParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+                        Document document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
 
-                        targetESPInterfaceVer = (double)m_versionXpathExpression.evaluate(document, XPathConstants.NUMBER);
+                        targetESPInterfaceVer = (double)m_serviceInterfaceVersionXpathExpression.evaluate(document, XPathConstants.NUMBER);
                         log.info(wsconn.getBaseUrl() + getServiceURI() + " version: " + targetESPInterfaceVer);
                     }
                     catch (Exception e)

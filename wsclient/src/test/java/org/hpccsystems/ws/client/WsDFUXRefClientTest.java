@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
@@ -259,4 +261,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(wsdfuxrefclient.isTargetHPCCContainerized());
+    }
 }

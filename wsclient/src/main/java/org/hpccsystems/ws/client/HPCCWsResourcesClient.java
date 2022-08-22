@@ -195,12 +195,13 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      */
     protected void initWsResourcesClientStub(Connection conn)
     {
-        setActiveConnectionInfo(conn);
+        initBaseWsClient(conn, true); //Preemptively fetch HPCC build version, Containerized mode
+
         try
         {
             stub = setStubOptions(new WsResourcesStub(conn.getBaseUrl() + WSRESOURCESURI), conn);
         }
-        catch (Exception e)
+        catch (AxisFault e)
         {
             stub = null;
 
@@ -209,8 +210,10 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
             {
                 initErrMessage += "\n" + e.getLocalizedMessage();
             }
-            log.error(initErrMessage);
         }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
     }
 
     /**
