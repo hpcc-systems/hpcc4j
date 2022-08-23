@@ -193,25 +193,22 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      */
     private void initWSStoreStub(Connection connection)
     {
+        initBaseWsClient(connection, true); //Preemptively fetch HPCC build version, Containerized mode
         try
         {
-            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsstoreStub(connection.getBaseUrl() + WSStoreWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            log.error("Could not initialize WsStoreStub- Review all HPCC connection values");
-            e.printStackTrace();
-        }
-        catch (Exception e)
-        {
-            log.error("Could not initialize WsStoreStub- Review all HPCC connection values");
+            initErrMessage = "Could not initialize WsStoreStub- Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
+                initErrMessage += "\n" + e.getLocalizedMessage();
             }
         }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
     }
 
     /**

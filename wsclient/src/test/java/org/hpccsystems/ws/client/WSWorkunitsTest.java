@@ -239,6 +239,13 @@ public class WSWorkunitsTest extends BaseRemoteTest
     }
 
     @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(client.isTargetHPCCContainerized());
+    }
+
+    @Test
     public void StageB_SubmitECLTest() throws Exception
     {
         assumeNotNull(testwuid);

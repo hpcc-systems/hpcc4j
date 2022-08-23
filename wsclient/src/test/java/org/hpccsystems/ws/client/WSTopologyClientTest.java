@@ -17,6 +17,8 @@
 
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.PrintStream;
 import java.util.List;
 
@@ -36,6 +38,13 @@ import org.junit.runners.MethodSorters;
 public class WSTopologyClientTest extends BaseRemoteTest
 {
     HPCCWsTopologyClient client = wsclient.getWsTopologyClient();
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(client.isTargetHPCCContainerized());
+    }
 
     @Test
     public void printValidTargetClustersTest() throws Exception, ArrayOfEspExceptionWrapper
