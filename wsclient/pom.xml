@@ -126,6 +126,46 @@
      </build>
    </profile>
    <profile>
+     <id>generate-wscloud-stub</id>
+     <properties>
+       <maven.test.skip>true</maven.test.skip>
+     </properties>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.apache.axis2</groupId>
+           <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+           <version>${axis2.version}</version>
+           <executions>
+             <execution>
+               <id>wswu</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>wsdl2code</goal>
+               </goals>
+               <configuration>
+                 <outputDirectory>src/main/java</outputDirectory>
+                 <flattenFiles>true</flattenFiles>
+                 <unpackClasses>true</unpackClasses>
+                 <databindingName>adb</databindingName>
+                 <packageName>org.hpccsystems.ws.client.gen.axis2.wscloud.latest</packageName>
+                 <wsdlFile>src/main/resources/WSDLs/WsCloud.wsdl</wsdlFile>
+                 <wsdlVersion>1.00</wsdlVersion>
+                 <syncMode>sync</syncMode>
+                 <namespaceURIs>
+                   <namespaceURI>
+                     <uri>urn:hpccsystems:ws:wscloud</uri>
+                     <packageName>org.hpccsystems.ws.client.gen.axis2.wscloud.latest</packageName>
+                   </namespaceURI>
+                 </namespaceURIs>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+   <profile>
      <id>generate-wsworkunits-stub</id>
      <properties>
        <maven.test.skip>true</maven.test.skip>
