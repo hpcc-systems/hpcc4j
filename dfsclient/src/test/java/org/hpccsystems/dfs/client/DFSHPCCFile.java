@@ -24,14 +24,14 @@ public class DFSHPCCFile extends BaseRemoteTest
     private static final String mockFilter = "uint8 > 2";
     private static final String mockIP = "10.1.1.1";
     private static Connection mockConnectionObj = null;
-    private static final String mockTargetFileCluster = "thor";
+    private static String mockTargetFileCluster = thorClusterFileGroup;
     private static RemapInfo mockRemapInfo = new RemapInfo(100, mockIP);
     private static final int mockFilePartsMax = 2;
 
     @Before
     public void setup() throws HpccFileException
     {
-        mockHPCCFile = new HPCCFile(DEFAULTHPCCFILENAME, connection, mockProjectList, mockFilter, mockRemapInfo, mockFilePartsMax, thorClusterFileGroup);
+        mockHPCCFile = new HPCCFile(DEFAULTHPCCFILENAME, connection, mockProjectList, mockFilter, mockRemapInfo, mockFilePartsMax, mockTargetFileCluster);
     }
 
     @AfterClass
@@ -96,7 +96,7 @@ public class DFSHPCCFile extends BaseRemoteTest
     @Test
     public final void testGetTargetfilecluster()
     {
-        Assert.assertEquals(thorClusterFileGroup, mockHPCCFile.getTargetfilecluster());
+        Assert.assertEquals(mockTargetFileCluster, mockHPCCFile.getTargetfilecluster());
     }
 
     @Test(expected = HpccFileException.class)

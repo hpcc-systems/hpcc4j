@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefMessageWrapper;
@@ -41,6 +42,92 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
+    public void containerizedInvalidMethodsTest() throws Exception
+    {
+        if (wsdfuxrefclient.isTargetHPCCContainerized())
+        {
+            try
+            {
+                wsdfuxrefclient.build(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.build() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.buildCancel();
+                Assert.fail("HPCCWsDFUXRefClient.buildCancel() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.cleanDirectories(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.cleanDirectories() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.orphanedFiles(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.orphanedFiles() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.lostFiles(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.lostFiles() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.lostFiles(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.lostFiles() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.directories(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.directories() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+
+            try
+            {
+                wsdfuxrefclient.cleanDirectories(WsDFUXRefClientTest.processCluster);
+                Assert.fail("HPCCWsDFUXRefClient.cleanDirectories() not valid in containerized HPCC, expected HpccContainerizedUnsupportedException");
+            }
+            catch (HpccContainerizedUnsupportedException e)
+            {
+                System.out.println("Encountered expected HpccContainerizedUnsupportedException: " + e.getLocalizedMessage());
+            }
+        }
+    }
+    @Test
     public void testDFUPing()
     {
         System.out.println("Testing XREFPING...");
@@ -61,9 +148,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void A1_testXRefBuild()
+    public void A1_testXRefBuild() throws Exception
     {
         System.out.println("Testing XREFBUILD...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
@@ -79,9 +167,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void A2_testXRefList()
+    public void A2_testXRefList() throws Exception
     {
         System.out.println("Testing XREFLIST...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
 
         try
@@ -99,9 +188,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testDirectories()
+    public void testDirectories() throws Exception
     {
         System.out.println("Testing XREFDIRECTORIES...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeTrue("Invalid runtime version detected", wsdfuxrefclient.isRuntimeVersionSupported());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
@@ -118,9 +208,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testFoundFiles()
+    public void testFoundFiles() throws Exception
     {
         System.out.println("Testing XREFFOUNDFILES...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -137,9 +228,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testLostFiles()
+    public void testLostFiles() throws Exception
     {
         System.out.println("Testing XREFLOSTFILES...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -158,9 +250,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testXRefMessages()
+    public void testXRefMessages() throws Exception
     {
         System.out.println("Testing XREFMESSAGES...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -177,9 +270,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testOrphanedFiles()
+    public void testOrphanedFiles() throws Exception
     {
         System.out.println("Testing XREFORPHANEDFILES...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -228,9 +322,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
 //    }
 
     @Test
-    public void Z9_testXRefBuildCancel()
+    public void Z9_testXRefBuildCancel() throws Exception
     {
         System.out.println("Testing XREFBUILDCANCEL...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
@@ -245,9 +340,10 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void testCleanDirectories()
+    public void testCleanDirectories() throws Exception
     {
         System.out.println("Testing XREFCLEANDIRECTORIES...");
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsdfuxrefclient.isTargetHPCCContainerized());
         Assume.assumeNotNull(WsDFUXRefClientTest.processCluster);
 
         try
