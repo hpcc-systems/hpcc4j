@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.HPCCFileSprayClient.SprayVariableFormat;
+import org.hpccsystems.ws.client.HPCCWsTopologyClient.TopologyGroupQueryKind;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DataSingleton;
@@ -14,9 +15,12 @@ import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
 import org.hpccsystems.ws.client.utils.HashCodeUtil;
+import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupQueryResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
 /**
@@ -319,6 +323,28 @@ public class HPCCWsClient extends DataSingleton
         }
 
         return false;
+    }
+
+    /**
+     * Queries WsTopology for HPCC Topology Groups
+     *
+     * @param kind - the kind of topology group desired Plane|hthor|thor|roxie
+     * @return List of wrapped groups
+     * @throws HpccContainerizedUnsupportedException if unsupported HPCC deployment encountered
+     * @throws Exception  a {@link java.lang.Exception} object.
+     */
+    public List<TpGroupWrapper> getTopologyGroups(TopologyGroupQueryKind kind) throws HpccContainerizedUnsupportedException, Exception
+    {
+        HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
+        try
+        {
+            return wsTopologyClient.getTopologyGroups(kind.getText());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
