@@ -866,28 +866,25 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void readIndexTest() throws Exception
     {
         String indexName = "test::index::child_dataset::key";
-
-        String eclFile = "child-index.ecl";
-        URL eclFileURL = getClass().getClassLoader().getResource(eclFile);
-        Path eclFilePath = Paths.get(eclFileURL.toURI());
-
-        byte[] eclData = Files.readAllBytes(eclFilePath);
-        String ecl = new String(eclData, "UTF-8");
-
-        WorkunitWrapper wu = new WorkunitWrapper();
-        wu.setECL(ecl);
-        wu.setJobname("IndexCreation " + indexName);
-        wu.setCluster(thorclustername);
-
-        HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
-        String result = client.createAndRunWUFromECLAndGetResults(wu);
+        executeECLScript("generate-nested-index.ecl");
 
         HPCCFile file = new HPCCFile(indexName, connString, hpccUser, hpccPass);
+
+        int numRecords = 0;
         try
         {
             List<HPCCRecord> records = readFile(file, connTO, false);
+            numRecords = records.size();
         }
-        catch(Exception e) {}
+        catch(Exception e)
+        {
+            Assert.fail("Error reading index: " + e.getMessage());
+        }
+
+        if (numRecords != 125)
+        {
+            Assert.fail("Unexpected record count. Expected: 125, Actual: " + numRecords);
+        }
     }
 
     private class LongKVData

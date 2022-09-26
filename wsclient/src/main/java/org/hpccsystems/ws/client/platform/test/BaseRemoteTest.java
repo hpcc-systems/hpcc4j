@@ -24,6 +24,8 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient.TopologyGroupQueryKind;
 import org.hpccsystems.ws.client.platform.Platform;
@@ -31,6 +33,12 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
 import org.junit.Assert;
 import org.junit.experimental.categories.Category;
+
+import java.net.URL;
+
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
@@ -228,5 +236,22 @@ public abstract class BaseRemoteTest
         }
 
         Assert.assertNotNull("Could not adquire wsclient object", wsclient);
+    }
+
+    public String executeECLScript(String eclFile) throws Exception
+    {
+        URL eclFileURL = getClass().getClassLoader().getResource(eclFile);
+        Path eclFilePath = Paths.get(eclFileURL.toURI());
+
+        byte[] eclData = Files.readAllBytes(eclFilePath);
+        String ecl = new String(eclData, "UTF-8");
+
+        WorkunitWrapper wu = new WorkunitWrapper();
+        wu.setECL(ecl);
+        wu.setJobname("UnitTest ECL Script: " + eclFile);
+        wu.setCluster(thorclustername);
+
+        HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
+        return client.createAndRunWUFromECLAndGetResults(wu);
     }
 }
