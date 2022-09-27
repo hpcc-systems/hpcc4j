@@ -51,6 +51,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray;
 import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefPingRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.WsDFUXRefStub;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper;
@@ -62,8 +63,22 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
  * Facilitates XRef Logical File System actions on target HPCC instance.
  *
  * Actions include building XRef, listing lost/orphaned/unused files, and more.
+ *
+ * NOTE: Many WsDFUXRef methods are not supported on Containerized HPCC deployments.
+ * The following methods are not supported in containerized HPCC:
+ *  DFUXRefList: list all XRefNodes. Each Thor cluster or Roxie cluster in environment xml is an XRefNode. SuperFiles is an XRefNode.
+ *  DFUXRefBuild: add an XRefNode to a job queue where XRef information will be generated for the XRefNode.
+ *  DFUXRefLostFiles: list lost files in an XRefNode.
+ *  DFUXRefFoundFiles: list found files in an XRefNode.
+ *  DFUXRefOrphanFiles: list orphan files in an XRefNode.
+ *  DFUXRefMessages: report messages ** in an XRefNode.
+ *  DFUXRefDirectories: report directories in an XRefNode.
+ *  DFUXRefArrayAction: take an action (attach, delete, etc.) on given XRef files.
+ *  DFUXRefBuildCancel: dequeue all the jobs.
+ *  DFUXRefCleanDirectories: remove empty directories in ** an XRefNode
+ *  DFUXRefUnusedFiles: list unused files in a roxie XRefNode.
  */
-public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
+ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
 {
     private static final Logger    log                = LogManager.getLogger(HPCCWsDFUXRefClient.class);
 
@@ -242,16 +257,16 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     protected void initWsDFUXRefClientStub(Connection conn)
     {
-        setActiveConnectionInfo(conn);
+        initBaseWsClient(conn, false); //No need to preemptively fetch HPCC build version, Containerized mode
+
         try
         {
             stub = setStubOptions(new WsDFUXRefStub(conn.getBaseUrl() + WSDFUXREFURI), conn);
         }
-        catch (Exception e)
+        catch (AxisFault e)
         {
             stub = null;
-
-            initErrMessage = "Could not initialize WsDFUXRefStub - Review all HPCC connection values";
+            initErrMessage += "\nCould not initialize WsDFUXRefStub - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
                 initErrMessage += "\n" + e.getLocalizedMessage();
@@ -280,6 +295,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public DFUXRefUnusedFilesResponseWrapper unusedFiles(String processCluster, Boolean getFileDetails, Boolean checkPackageMaps) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.unusedFiles not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefUnusedFilesRequest request = new DFUXRefUnusedFilesRequest();
@@ -317,6 +335,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public ArrayOfXRefFileWrapper orphanedFiles(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.foundFiles not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefOrphanFilesQueryRequest request = new DFUXRefOrphanFilesQueryRequest();
@@ -345,6 +366,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public ArrayOfXRefFileWrapper lostFiles(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.lostFiles not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefLostFilesQueryRequest request = new DFUXRefLostFilesQueryRequest();
@@ -372,6 +396,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public ArrayOfXRefDirectoryWrapper directories(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.directories not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefDirectoriesQueryRequest request = new DFUXRefDirectoriesQueryRequest();
@@ -404,6 +431,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public String action(String cluster, String action, String type, EspStringArray xrefFilesArray) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.action not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefArrayActionRequest request = new DFUXRefArrayActionRequest();
@@ -435,6 +465,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public void cleanDirectories(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.action not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefCleanDirectoriesRequest request = new DFUXRefCleanDirectoriesRequest();
@@ -466,6 +499,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public String buildCancel() throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.buildCancel not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefBuildCancelRequest request = new DFUXRefBuildCancelRequest();
@@ -492,6 +528,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public String build(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.build not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefBuildRequest request = new DFUXRefBuildRequest();
@@ -519,6 +558,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public ArrayOfXRefFileWrapper foundFiles(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.foundFiles not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefFoundFilesQueryRequest request = new DFUXRefFoundFilesQueryRequest();
@@ -547,6 +589,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public ArrayOfXRefMessageWrapper messages(String cluster) throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.messages not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefMessagesQueryRequest request = new DFUXRefMessagesQueryRequest();
@@ -574,6 +619,9 @@ public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
      */
     public ArrayOfXRefNodeWrapper list() throws Exception
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.buildCancel not supported in CONTAINERIZED mode");
+
         verifyStub();
 
         DFUXRefListRequest request = new DFUXRefListRequest();

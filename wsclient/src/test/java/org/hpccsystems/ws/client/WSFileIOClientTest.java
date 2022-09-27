@@ -17,6 +17,7 @@
 
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashSet;
@@ -167,5 +168,12 @@ public class WSFileIOClientTest extends BaseRemoteTest
             e.printStackTrace();
             Assert.fail();
         }
+    }
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(client.isTargetHPCCContainerized());
     }
 }

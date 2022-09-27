@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.net.MalformedURLException;
 
 import org.apache.axis2.AxisFault;
@@ -12,6 +14,13 @@ import org.junit.Test;
 public class WsSMCClientTest extends BaseRemoteTest
 {
     private static HPCCWsSMCClient client = wsclient.getWsSMCClient();
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(client.isTargetHPCCContainerized());
+    }
 
     @Test
     public void testFSPing()

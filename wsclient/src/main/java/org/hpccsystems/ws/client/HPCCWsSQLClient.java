@@ -201,22 +201,22 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
     @SuppressWarnings("static-access")
     private void initHPCCWsSQLClientStub(Connection connection)
     {
-        initErrMessage = "";
-
+        initBaseWsClient(connection, false); //No need to preemptively fetch HPCC build version, Containerized mode
         try
         {
-            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WssqlStub(connection.getUrl() + this.WSSQLURI), connection);
         }
-        catch (Exception e)
+        catch (AxisFault e)
         {
-            log.error("Could not initialize WssqlStub - Review all HPCC connection values");
+            initErrMessage = "Could not initialize WssqlStub - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
+                initErrMessage += "\n" + e.getLocalizedMessage();
             }
         }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
     }
 
     /**
