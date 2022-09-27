@@ -19,6 +19,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import java.net.URL;
+
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -33,6 +39,8 @@ import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
+import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
@@ -79,7 +87,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     {
         for (int i = 0; i < datasets.length; i++)
         {
-            HPCCFile file = new HPCCFile(datasets[i], connString , hpccUser, hpccPass);
+            HPCCFile file = new HPCCFile(datasets[i], connString, hpccUser, hpccPass);
             file.setProjectList("");
 
             List<HPCCRecord> records = readFile(file, connTO, false);
@@ -854,6 +862,30 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void readIndexTest() throws Exception
+    {
+        String indexName = "test::index::child_dataset::key";
+        executeECLScript("generate-nested-index.ecl");
+
+        HPCCFile file = new HPCCFile(indexName, connString, hpccUser, hpccPass);
+
+        int numRecords = 0;
+        try
+        {
+            List<HPCCRecord> records = readFile(file, connTO, false);
+            numRecords = records.size();
+        }
+        catch(Exception e)
+        {
+            Assert.fail("Error reading index: " + e.getMessage());
+        }
+
+        if (numRecords != 125)
+        {
+            Assert.fail("Unexpected record count. Expected: 125, Actual: " + numRecords);
+        }
+    }
 
     private class LongKVData
     {
