@@ -17,6 +17,8 @@
 
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
@@ -47,6 +49,12 @@ public class WSCodeSignClientTest extends BaseRemoteTest
         Assert.assertNotNull(client);
     }
 
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(client.isTargetHPCCContainerized());
+    }
 
     @Test
     public void listUserIDsTest()

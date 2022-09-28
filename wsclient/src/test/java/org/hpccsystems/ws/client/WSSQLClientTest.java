@@ -17,6 +17,7 @@
 
 package org.hpccsystems.ws.client;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
@@ -67,6 +68,14 @@ public class WSSQLClientTest extends BaseRemoteTest
 
         if (System.getProperty("wssqlport") == null)
             System.out.println("No wssqlport specified - defaulting to 8510");
+    }
+
+    //expected to throw since wssql does not usually bind on wseclwatch port
+    @Test (expected = Exception.class)
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        client.isTargetHPCCContainerized();
     }
 
     @Test

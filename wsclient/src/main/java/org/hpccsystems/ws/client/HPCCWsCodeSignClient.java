@@ -201,21 +201,15 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
      */
     protected void initWsResourcesClientStub(Connection conn)
     {
-        setActiveConnectionInfo(conn);
+        initBaseWsClient(conn, false); //No need to fetch HPCC build version, Containerized mode
+
         try
         {
             stub = setStubOptions(new Ws_codesignStub(conn.getBaseUrl() + WSRESOURCESURI), conn);
         }
-        catch (Exception e)
+        catch (AxisFault e)
         {
-            stub = null;
-
-            initErrMessage = "Could not initialize WsCodeSignClient - Review all HPCC connection values";
-            if (!e.getLocalizedMessage().isEmpty())
-            {
-                initErrMessage += "\n" + e.getLocalizedMessage();
-            }
-            log.error(initErrMessage);
+            initErrMessage += "\nCould not initialize WsCodeSignClient - Review all HPCC connection values";
         }
     }
 
