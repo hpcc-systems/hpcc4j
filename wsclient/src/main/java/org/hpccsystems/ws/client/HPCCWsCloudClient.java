@@ -1,6 +1,6 @@
 /*##############################################################################
 
-    HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems®.
+    HPCC SYSTEMS software Copyright (C) 2022 HPCC Systems®.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -25,24 +25,21 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse;
-import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WsResourcesPingRequest;
-import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WsResourcesStub;
+import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsRequest;
+import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsResponse;
+import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloud;
+import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingRequest;
+import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudStub;
 import org.hpccsystems.ws.client.utils.Connection;
-import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper;
 
 /**
- * Facilitates discovery of containerized HPCC Systems resources.
+ * Provides Containerized HPCC cluster information.
  */
-public class HPCCWsResourcesClient extends BaseHPCCWsClient
+public class HPCCWsCloudClient extends BaseHPCCWsClient
 {
-    private static final Logger    log                = LogManager.getLogger(HPCCWsResourcesClient.class);
+    private static final Logger    log                = LogManager.getLogger(HPCCWsCloudClient.class);
 
-    /** Constant <code>WSRESOURCESURI="/WsResources"</code> */
-    public static final String     WSRESOURCESURI     = "/WsResources";
+    public static final String     WSCLOUDURI     = "/wscloud";
     private static int             DEFAULTSERVICEPORT = -1;
     private static String          WSDLURL            = null;
 
@@ -53,7 +50,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     {
         try
         {
-            WSDLURL = getServiceWSDLURL(new WsResourcesStub());
+            WSDLURL = getServiceWSDLURL(new WsCloudStub());
             DEFAULTSERVICEPORT = (new URL(WSDLURL)).getPort();
         }
         catch (AxisFault | MalformedURLException e)
@@ -70,7 +67,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      */
     public String getServiceURI()
     {
-        return WSRESOURCESURI;
+        return WSCLOUDURI;
     }
 
     /**
@@ -112,23 +109,23 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     @Override
     public Stub getDefaultStub() throws AxisFault
     {
-        return new WsResourcesStub();
+        return new WsCloudStub();
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCWsCloudClient based on user provided connection object.
      *
      * @param connection
      *            the connection
-     * @return the HPCC HPCCWsResources client
+     * @return the HPCC HPCCWsCloud client
      */
-    public static HPCCWsResourcesClient get(Connection connection)
+    public static HPCCWsCloudClient get(Connection connection)
     {
-        return new HPCCWsResourcesClient(connection);
+        return new HPCCWsCloudClient(connection);
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCWsCloudClient based on user provided connection attributes.
      *
      * @param protocol
      *            the protocol
@@ -140,17 +137,17 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      *            the user
      * @param pass
      *            the pass
-     * @return the HPCC HPCCWsResources client
+     * @return the HPCC HPCCWsCloudClient
      */
-    public static HPCCWsResourcesClient get(String protocol, String targetHost, String targetPort, String user, String pass)
+    public static HPCCWsCloudClient get(String protocol, String targetHost, String targetPort, String user, String pass)
     {
         Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
-        return new HPCCWsResourcesClient(conn);
+        return new HPCCWsCloudClient(conn);
     }
 
     /**
-     * Gets the.
+     * Gets a HPCCWsCloudClient based on user provided connection attributes.
      *
      * @param protocol
      *            the protocol
@@ -164,27 +161,27 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      *            the pass
      * @param timeout
      *            the timeout
-     * @return the HPCC WSDFUXREF client
+     * @return the HPCC HPCCWsCloudClient
      */
-    public static HPCCWsResourcesClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
+    public static HPCCWsCloudClient get(String protocol, String targetHost, String targetPort, String user, String pass, int timeout)
     {
         Connection conn = new Connection(protocol, targetHost, targetPort);
         conn.setCredentials(user, pass);
         conn.setConnectTimeoutMilli(timeout);
         conn.setSocketTimeoutMilli(timeout);
 
-        return new HPCCWsResourcesClient(conn);
+        return new HPCCWsCloudClient(conn);
     }
 
     /**
-     * Instantiates a new HPCC WSRESOURCES client.
+     * Instantiates a new HPCC WSCloud client.
      *
      * @param baseConnection
      *            the base connection
      */
-    protected HPCCWsResourcesClient(Connection baseConnection)
+    protected HPCCWsCloudClient(Connection baseConnection)
     {
-        initWsResourcesClientStub(baseConnection);
+        initWsCloudClientStub(baseConnection);
     }
 
     /**
@@ -193,60 +190,58 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      * @param conn
      *            -- All connection settings included
      */
-    protected void initWsResourcesClientStub(Connection conn)
+    protected void initWsCloudClientStub(Connection conn)
     {
-        initBaseWsClient(conn, true); //Preemptively fetch HPCC build version, Containerized mode
-
+        setActiveConnectionInfo(conn);
         try
         {
-            stub = setStubOptions(new WsResourcesStub(conn.getBaseUrl() + WSRESOURCESURI), conn);
+            stub = setStubOptions(new WsCloudStub(conn.getBaseUrl() + WSCLOUDURI), conn);
         }
-        catch (AxisFault e)
+        catch (Exception e)
         {
             stub = null;
 
-            initErrMessage = "Could not initialize WsResources - Review all HPCC connection values";
+            initErrMessage = "Could not initialize WsCloudClient - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
                 initErrMessage += "\n" + e.getLocalizedMessage();
             }
-        }
-
-        if (!initErrMessage.isEmpty())
             log.error(initErrMessage);
+        }
     }
 
     /**
-     * Submit service query request
+     * <p>getPods.</p>
      *
-     * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper} object.
-     * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper} object.
+     * @return a JSON formatted list of available pods - in raw k8s format.
+     * @throws java.lang.Exception if any.
      */
-    public ServiceQueryResponseWrapper serviceQuery(ServiceQueryRequestWrapper req) throws Exception
+    public String getPods() throws Exception
     {
-        if (req == null)
-            throw new Exception("");
         verifyStub();
 
-        ServiceQueryResponse resp = null;
+        GetPODsResponse resp = null;
 
         try
         {
-            resp = ((WsResourcesStub) stub).serviceQuery(req.getRaw());
+            resp = ((WsCloud) stub).getPODs(new GetPODsRequest());
         }
         catch (RemoteException e)
         {
-            throw new Exception("HPCCWSRESOURCESClient.serviceQuery(ServiceQueryRequestWrapper) encountered RemoteException.", e);
+            throw new Exception("HPCCWsCloud.getPods() encountered RemoteException.", e);
         }
 
-        if (resp.getExceptions() != null)
+        if (resp == null || !resp.isResultSpecified())
+            throw new Exception("HPCCWsCloud.getPods() received invalid respose.");
+
+        /*Current version of this method does not return inline exceptions
+         * if (resp.getExceptions() != null)
         {
             ArrayOfEspException exceptions = resp.getExceptions();
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error getting pods");
         }
-
-        return new ServiceQueryResponseWrapper(resp);
+        */
+        return resp.getResult();
     }
 
     /**
@@ -262,7 +257,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
 
         try
         {
-            ((WsResourcesStub) stub).ping(new WsResourcesPingRequest());
+            ((WsCloudStub) stub).ping(new WsCloudPingRequest());
         }
         catch (Exception e)
         {

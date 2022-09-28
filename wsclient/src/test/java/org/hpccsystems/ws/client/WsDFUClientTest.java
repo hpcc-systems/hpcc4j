@@ -521,4 +521,11 @@ public class WsDFUClientTest extends BaseRemoteTest
         }
         Assert.fail("BOGUS subfile name should report failure");
     }
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(wsdfuclient.isTargetHPCCContainerized());
+    }
 }

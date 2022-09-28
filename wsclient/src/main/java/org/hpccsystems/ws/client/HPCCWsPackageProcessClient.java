@@ -184,20 +184,23 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      */
     private void initWSPackageProcessStub(Connection conn)
     {
+        initBaseWsClient(conn, false); //No need to preemptively fetch HPCC build version, Containerized mode
+
         try
         {
-            setActiveConnectionInfo(conn);
             stub = setStubOptions(new WsPackageProcessStub(conn.getBaseUrl() + PACKAGEPROCESSURI), conn);
         }
-        catch (Exception e)
+        catch (AxisFault e)
         {
-            log.error("Could not initialize WsPackageProcessStub - Review all HPCC connection values");
+            initErrMessage = "Could not initialize WsPackageProcessStub - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
-            }
+                initErrMessage += e.getLocalizedMessage();
+           }
         }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
     }
 
     /**

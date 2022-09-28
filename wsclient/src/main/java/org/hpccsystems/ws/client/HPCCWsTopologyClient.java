@@ -11,13 +11,18 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpCluster;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpTargetCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpCluster;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoResponse;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest;
+import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse;
 import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest;
@@ -30,10 +35,13 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpDropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpGroupWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpLogicalClusterWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.ArrayOfTpTargetClusterWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpDropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupQueryResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpLogicalClusterWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpServicesWrapper;
@@ -44,11 +52,27 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
  *
  * This client can be used for fetching topology information regarding the target HPCCSystem
  * of special interest are the cluster groups, and the target clusters within those groups.
+ *
+ * NOTE: Many WsTopology methods are not supported on Containerized HPCC deployments.
+ * The following methods are not supported in containerized HPCC:
+ *  TpServiceQuery: support the System Servers page on ECLWatch.
+ *  TpClusterQuery: support the Cluster Processes page on ECLWatch.
+ *  TpMachineQuery: support the Cluster Details page on ECLWatch Cluster Processes page.
+ *  TpTargetClusterQuery: support the Target Clusters page on ECLWatch. (based on Software/Topology/Cluster in environment xml)
+ *  TpListTargetClusters: report the names and types of the Target Clusters (based on Software/Topology/Cluster in environment xml)
+ *  TpClusterInfo: report thor queues and ecl workunits in the queues. (based on /Status/Servers)
+ *  TpThorStatus: report thor server information and ecl workunits in the queues. (based on /Status/Servers – thorname not in for cloud)
+ *  TpMachineInfo: report computer information from Hardware/Computer in environment xml.
+ *  TpSwapNode: swap nodes
+ *  TpGetComponentFile: support the configuration pages and log pages on ECLWatch Operation pages.
+ *  SystemLog: download component ** log file from ECLWatch Operation pages.
+ *  TpLogFile and TpLogFileDisplay: return a part or whole content of a log file.
+ *  TpXMLFile: report thor data in /Status/Servers/Server (thorname not in for cloud).
  */
 public class HPCCWsTopologyClient extends BaseHPCCWsClient
 {
     private static final Logger log                = LogManager.getLogger(HPCCWsTopologyClient.class);
-    // public static final String WSTOPOLOGYWSDLURI = "/WsTopology/TpTargetClusterQuery";
+
     /** Constant <code>WSTOPOLOGYWSDLURI="/WsTopology"</code> */
     public static final String  WSTOPOLOGYWSDLURI  = "/WsTopology";
 
@@ -192,25 +216,127 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      */
     private void initWsTopologyStub(Connection connection)
     {
+        initBaseWsClient(connection, true); //Preemptively fetch HPCC build version, Containerized mode
         try
         {
-            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsTopologyStub(connection.getBaseUrl() + WSTOPOLOGYWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            log.error("Could not initialize WsTopologyStub - Review all HPCC connection values");
-            e.printStackTrace();
-        }
-        catch (Exception e)
-        {
-            log.error("Could not initialize WsTopologyStub - Review all HPCC connection values");
+            initErrMessage = "Could not initialize WsTopologyStub - Review all HPCC connection values";
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
+                initErrMessage += "\n" + e.getLocalizedMessage();
             }
         }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
+    }
+
+    static public enum TopologyGroupQueryKind
+    {
+        PLANE,
+        HTHOR,
+        THOR,
+        ROXIE;
+
+        public String getText() throws Exception
+        {
+            switch (this)
+            {
+            case PLANE:
+                return "Plane";
+            case HTHOR:
+                return "hthor";
+            case THOR:
+                return "Thor";
+            case ROXIE:
+                return "Roxie";
+            default:
+                throw new Exception("Unknown TopologyGroupQueryKind");
+            }
+        }
+    }
+
+    /**
+     * Fetch HPCC Topology Groups - assumes Containerized Plane filter (data storage planes in containerized mode)
+     *
+     * @return list of wrapped groups object
+     * @throws HpccContainerizedUnsupportedException if targeting baremetal HPCC environment
+     * @throws Exception if error encountered
+     */
+    public List<TpGroupWrapper> getTopologyGroups() throws HpccContainerizedUnsupportedException, Exception
+    {
+        if (!isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("getDataStoragePlanes(): Only supported in CONTAINERIZED mode");
+
+        return getTopologyGroups(TopologyGroupQueryKind.PLANE.getText());
+    }
+
+    /**
+     * Fetch HPCC Topology Groups (data storage planes in containerized mode)
+     *
+     * @param kind enumerated options
+     * @return list of wrapped groups object
+     * @throws HpccContainerizedUnsupportedException if kind not provided while targeting baremetal HPCC environment
+     * @throws Exception if error encountered
+     */
+    public List<TpGroupWrapper> getTopologyGroups(TopologyGroupQueryKind kind) throws HpccContainerizedUnsupportedException, Exception
+    {
+        return getTopologyGroups(kind.getText());
+    }
+
+    /**
+     * Fetch HPCC Topology Groups (data storage planes in containerized mode)
+     *
+     * @param kind - Storage plane kind filter.
+     *               Ignored in Containerized mode 'Plane'.
+     *               Baremetal options: 'hthor', 'Thor', or 'Roxie'.
+     * @return list of wrapped groups object
+     * @throws HpccContainerizedUnsupportedException if kind not provided while targeting baremetal HPCC environment
+     * @throws Exception if error encountered
+     */
+    public List<TpGroupWrapper> getTopologyGroups(String kind) throws HpccContainerizedUnsupportedException, Exception
+    {
+        if (kind == null || kind.isEmpty())
+        {
+            if (!isTargetHPCCContainerized())
+                throw new HpccContainerizedUnsupportedException("getTopologyGroups(kind): 'kind' must be provided when targeting non-containerized HPCC");
+        }
+
+        verifyStub(); // Throws exception if stub failed
+
+        TpGroupQueryRequest request = new TpGroupQueryRequest();
+
+        request.setKind(kind);
+
+        TpGroupQueryResponse response = null;
+
+        try
+        {
+            response = ((WsTopologyStub) stub).tpGroupQuery(request);
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered RemoteException.", e);
+        }
+
+        if (response == null)
+            throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered null response.");
+
+        if (response.getExceptions() != null)
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not fetch Topology Groups.");
+
+        ArrayOfTpGroup arrayOfTpGroup = response.getTpGroups();
+        if (arrayOfTpGroup != null)
+        {
+            ArrayOfTpGroupWrapper arrayOfGroupWrapper = new ArrayOfTpGroupWrapper(arrayOfTpGroup);
+            if (arrayOfGroupWrapper != null)
+                return arrayOfGroupWrapper.getTpGroup();
+        }
+
+        return null;
     }
 
     /**
@@ -227,6 +353,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     public boolean printValidTargetClusters(PrintStream stream) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
+
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("printValidTargetClusters: WsTopology.TpTargetClusterQuery not supported in CONTAINERIZED mode");
 
         verifyStub(); // Throws exception if stub failed
 
@@ -322,6 +451,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      */
     public String[] getValidTargetGroupNames() throws Exception, ArrayOfEspExceptionWrapper
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("getValidTargetGroupNames: WsTopology.TpTargetClusterQuery not supported in CONTAINERIZED mode");
+
         String[] tpTargetClusterNames = null;
 
         verifyStub(); // Throws exception if stub failed
@@ -582,6 +714,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      */
     public TpServicesWrapper getServices() throws Exception, ArrayOfEspExceptionWrapper
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("WsTopology.tpServiceQuery not supported in CONTAINERIZED mode");
+
         verifyStub(); // Throws exception if stub failed
 
         TpServiceQueryRequest request = new TpServiceQueryRequest();
@@ -618,6 +753,9 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      */
     public TpClusterInfoResponseWrapper getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
+        if (isTargetHPCCContainerized())
+            throw new HpccContainerizedUnsupportedException("getClusterInfo: WsTopology.tpClusterInfo() not supported in CONTAINERIZED mode");
+
         verifyStub(); // Throws exception if stub failed
 
         TpClusterInfoRequest request = new TpClusterInfoRequest();

@@ -35,6 +35,7 @@ public class FieldDef implements Serializable
     private long              len                = 0;
     private boolean           fixedLength        = false;
     private boolean           isUnsigned         = false;
+    private boolean           isBiased           = false;
     private int               additionalFlags    = 0;
 
     /**
@@ -53,6 +54,7 @@ public class FieldDef implements Serializable
         this.len = rhs.len;
         this.fixedLength = rhs.fixedLength;
         this.isUnsigned = rhs.isUnsigned;
+        this.isBiased = rhs.isBiased;
         this.additionalFlags = rhs.additionalFlags;
     }
 
@@ -300,6 +302,21 @@ public class FieldDef implements Serializable
     public boolean isUnsigned()
     {
         return this.isUnsigned;
+    }
+
+    /**
+     * Is the underlying value biased?
+     *
+     * @return true when biased 
+     */
+    public boolean isBiased()
+    {
+        return this.isBiased;
+    }
+
+    void setIsBiased(boolean biased)
+    {
+        this.isBiased = biased;
     }
 
     /**

@@ -357,7 +357,7 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 else
                 {
-                    intValue = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
+                    intValue = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN, fd.isBiased());
                 }
                 fieldValue = Long.valueOf(intValue);
                 break;
@@ -390,7 +390,7 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 else
                 {
-                    dataLen = (int) getInt(4, isLittleEndian);
+                    dataLen = (int) getInt(4, isLittleEndian, false);
                 }
 
                 byte[] bytes = new byte[dataLen];
@@ -412,7 +412,7 @@ public class BinaryRecordReader implements IRecordReader
                 break;
             case BOOLEAN:
                 // fixed length for each boolean value specified by type def
-                long value = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
+                long value = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN, fd.isBiased());
                 fieldValue = Boolean.valueOf(value != 0);
                 break;
             case CHAR:
@@ -433,7 +433,7 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 else
                 {
-                    codePoints = ((int) getInt(4, isLittleEndian));
+                    codePoints = ((int) getInt(4, isLittleEndian, false));
                 }
 
                 fieldValue = getString(fd.getSourceType(), codePoints);
@@ -550,7 +550,7 @@ public class BinaryRecordReader implements IRecordReader
                         throw new UnparsableContentException("Set should have a single child type." + fd.getNumDefs() + " child types found.");
                     }
 
-                    int dataLen = (int) getInt(4, isLittleEndian);
+                    int dataLen = (int) getInt(4, isLittleEndian, false);
                     int childCountGuess = 1;
                     if (fd.getDataLen() > 0)
                     {
@@ -669,11 +669,13 @@ public class BinaryRecordReader implements IRecordReader
      *            the length, 1 to 8 bytes
      * @param little_endian
      *            true if the value is little endian
+     * @param shouldCorrectBias 
+     *            true if the value should be corrected for index bias
      * @return the integer extracted as a long
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private long getInt(int len, boolean little_endian) throws IOException
+    private long getInt(int len, boolean little_endian, boolean shouldCorrectBias) throws IOException
     {
         long v = getUnsigned(len, little_endian);
 
@@ -687,7 +689,7 @@ public class BinaryRecordReader implements IRecordReader
             }
         }
 
-        if (isIndex)
+        if (isIndex && shouldCorrectBias)
         {
             // Roxie indexes are biased to allow for easier comparison. This corrects the bias
             v += negMask;
