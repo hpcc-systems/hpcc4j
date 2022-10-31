@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: SetBannerResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.556Z
+ * TimeStamp: 2022-10-31T03:36:23.319Z
  */
 public class SetBannerResponseWrapper
 {
@@ -59,6 +59,8 @@ public class SetBannerResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

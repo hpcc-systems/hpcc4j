@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: SetJobPriorityWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.557Z
+ * TimeStamp: 2022-10-31T03:36:23.319Z
  */
 public class SetJobPriorityWrapper
 {
@@ -71,6 +71,8 @@ public class SetJobPriorityWrapper
         raw.setQueueName( local_queueName);
         raw.setWuid( local_wuid);
         raw.setPriority( local_priority);
+        if (local_sMCJobs != null)
+            raw.setSMCJobs( local_sMCJobs.getRaw());
         return raw;
     }
 

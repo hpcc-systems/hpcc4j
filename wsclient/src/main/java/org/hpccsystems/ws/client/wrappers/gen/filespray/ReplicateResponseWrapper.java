@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: ReplicateResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.ReplicateResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.345Z
+ * TimeStamp: 2022-10-31T03:36:11.845Z
  */
 public class ReplicateResponseWrapper
 {
@@ -62,6 +62,8 @@ public class ReplicateResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ReplicateResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.ReplicateResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.ReplicateResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         return raw;
     }

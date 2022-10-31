@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: EraseHistoryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.154Z
+ * TimeStamp: 2022-10-28T23:07:50.926Z
  */
 public class EraseHistoryResponseWrapper
 {
@@ -63,6 +63,8 @@ public class EraseHistoryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse();
+        raw.setExceptions( local_exceptions.getRaw());
+        raw.setHistory( local_history.getRaw());
         return raw;
     }
 

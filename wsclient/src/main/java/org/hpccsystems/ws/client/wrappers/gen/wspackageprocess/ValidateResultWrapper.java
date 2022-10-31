@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
  * Class name: ValidateResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidateResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.186Z
+ * TimeStamp: 2022-10-31T03:36:33.203Z
  */
 public class ValidateResultWrapper
 {
@@ -114,6 +114,12 @@ public class ValidateResultWrapper
             }
             raw.setErrors(arr);
         }
+        if (local_packages != null)
+            raw.setPackages( local_packages.getRaw());
+        if (local_queries != null)
+            raw.setQueries( local_queries.getRaw());
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         return raw;
     }
 

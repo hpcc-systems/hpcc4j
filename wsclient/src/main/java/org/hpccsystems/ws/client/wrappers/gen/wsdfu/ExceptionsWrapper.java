@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: ExceptionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.159Z
+ * TimeStamp: 2022-10-28T23:07:50.928Z
  */
 public class ExceptionsWrapper
 {
@@ -59,6 +59,7 @@ public class ExceptionsWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions();
+        raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

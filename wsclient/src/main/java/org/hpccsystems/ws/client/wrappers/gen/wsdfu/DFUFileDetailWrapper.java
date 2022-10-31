@@ -27,7 +27,7 @@ import javax.activation.DataHandler;
  * Class name: DFUFileDetailWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.120Z
+ * TimeStamp: 2022-10-28T23:07:50.881Z
  */
 public class DFUFileDetailWrapper
 {
@@ -254,6 +254,8 @@ public class DFUFileDetailWrapper
         raw.setCsvEscape( local_csvEscape);
         raw.setModified( local_modified);
         raw.setEcl( local_ecl);
+        raw.setStat( local_stat.getRaw());
+        raw.setDFUFilePartsOnClusters( local_dFUFilePartsOnClusters.getRaw());
         raw.setIsSuperfile( local_isSuperfile);
         raw.setShowFileContent( local_showFileContent);
         if (this.local_subfiles!= null)
@@ -265,7 +267,10 @@ public class DFUFileDetailWrapper
             }
             raw.setSubfiles(arr);
         }
+        raw.setSuperfiles( local_superfiles.getRaw());
+        raw.setProtectList( local_protectList.getRaw());
         raw.setFromRoxieCluster( local_fromRoxieCluster);
+        raw.setGraphs( local_graphs.getRaw());
         raw.setUserPermission( local_userPermission);
         raw.setContentType( local_contentType);
         raw.setCompressedFileSize( local_compressedFileSize);
@@ -276,6 +281,8 @@ public class DFUFileDetailWrapper
         raw.setJsonInfo( local_jsonInfo);
         raw.setBinInfo( local_binInfo);
         raw.setPackageID( local_packageID);
+        raw.setPartition( local_partition.getRaw());
+        raw.setBlooms( local_blooms.getRaw());
         raw.setExpireDays( local_expireDays);
         raw.setKeyType( local_keyType);
         raw.setAtRestCost( local_atRestCost);

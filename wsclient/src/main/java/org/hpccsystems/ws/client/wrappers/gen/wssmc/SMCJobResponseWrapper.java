@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: SMCJobResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.558Z
+ * TimeStamp: 2022-10-31T03:36:23.320Z
  */
 public class SMCJobResponseWrapper
 {
@@ -59,6 +59,8 @@ public class SMCJobResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

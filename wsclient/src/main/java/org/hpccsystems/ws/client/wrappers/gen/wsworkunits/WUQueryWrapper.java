@@ -24,7 +24,7 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: WUQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.959Z
+ * TimeStamp: 2022-10-31T03:30:27.575Z
  */
 public class WUQueryWrapper
 {
@@ -142,6 +142,8 @@ public class WUQueryWrapper
         raw.setJobname( local_jobname);
         raw.setLogicalFile( local_logicalFile);
         raw.setLogicalFileSearchType( local_logicalFileSearchType);
+        if (local_applicationValues != null)
+            raw.setApplicationValues( local_applicationValues.getRaw());
         raw.setBeforeWU( local_beforeWU);
         raw.setAfterWU( local_afterWU);
         raw.setTotalClusterTimeThresholdMilliSec( local_totalClusterTimeThresholdMilliSec);
@@ -149,6 +151,8 @@ public class WUQueryWrapper
         raw.setPageSize( local_pageSize);
         raw.setPageStartFrom( local_pageStartFrom);
         raw.setPageEndAt( local_pageEndAt);
+        if (local_protected != null)
+            raw.setProtected( local_protected.getRaw());
         raw.setSortby( local_sortby);
         raw.setDescending( local_descending);
         raw.setCacheHint( local_cacheHint);

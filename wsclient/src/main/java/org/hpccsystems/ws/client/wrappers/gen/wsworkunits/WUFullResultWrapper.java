@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUFullResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFullResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.913Z
+ * TimeStamp: 2022-10-31T03:30:27.533Z
  */
 public class WUFullResultWrapper
 {
@@ -67,6 +67,8 @@ public class WUFullResultWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFullResult raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFullResult();
         raw.setWuid( local_wuid);
         raw.setNoRootTag( local_noRootTag);
+        if (local_exceptionSeverity != null)
+            raw.setExceptionSeverity( local_exceptionSeverity.getRaw());
         return raw;
     }
 

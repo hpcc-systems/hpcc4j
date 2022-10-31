@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpLogicalClusterQueryRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.364Z
+ * TimeStamp: 2022-10-31T03:36:16.477Z
  */
 public class TpLogicalClusterQueryRequestWrapper
 {
@@ -63,6 +63,8 @@ public class TpLogicalClusterQueryRequestWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest();
         raw.setEclServerQueue( local_eclServerQueue);
+        if (local_roxieQueueFilter != null)
+            raw.setRoxieQueueFilter( local_roxieQueueFilter.getRaw());
         return raw;
     }
 

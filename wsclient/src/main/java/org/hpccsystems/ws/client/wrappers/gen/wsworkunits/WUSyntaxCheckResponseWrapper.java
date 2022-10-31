@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUSyntaxCheckResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.997Z
+ * TimeStamp: 2022-10-31T03:30:27.611Z
  */
 public class WUSyntaxCheckResponseWrapper
 {
@@ -66,6 +66,10 @@ public class WUSyntaxCheckResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_errors != null)
+            raw.setErrors( local_errors.getRaw());
         raw.setMessage( local_message);
         return raw;
     }

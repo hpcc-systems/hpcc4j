@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUListLocalFileRequiredResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListLocalFileRequiredResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.938Z
+ * TimeStamp: 2022-10-31T03:30:27.555Z
  */
 public class WUListLocalFileRequiredResponseWrapper
 {
@@ -63,6 +63,10 @@ public class WUListLocalFileRequiredResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListLocalFileRequiredResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListLocalFileRequiredResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListLocalFileRequiredResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_localFileUploads != null)
+            raw.setLocalFileUploads( local_localFileUploads.getRaw());
         return raw;
     }
 

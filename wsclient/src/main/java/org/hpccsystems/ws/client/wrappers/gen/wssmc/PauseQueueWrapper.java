@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: PauseQueueWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.PauseQueue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.549Z
+ * TimeStamp: 2022-10-31T03:36:23.309Z
  */
 public class PauseQueueWrapper
 {

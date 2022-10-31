@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpDropZoneWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZone
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.338Z
+ * TimeStamp: 2022-10-31T03:36:16.460Z
  */
 public class TpDropZoneWrapper
 {
@@ -83,6 +83,8 @@ public class TpDropZoneWrapper
         raw.setPath( local_path);
         raw.setECLWatchVisible( local_eCLWatchVisible);
         raw.setUMask( local_uMask);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

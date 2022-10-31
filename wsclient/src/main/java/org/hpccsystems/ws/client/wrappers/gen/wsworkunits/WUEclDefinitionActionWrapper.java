@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
  * Class name: WUEclDefinitionActionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionAction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.907Z
+ * TimeStamp: 2022-10-31T03:30:27.528Z
  */
 public class WUEclDefinitionActionWrapper
 {
@@ -152,6 +152,8 @@ public class WUEclDefinitionActionWrapper
             }
             raw.setEclDefinitions(arr);
         }
+        if (local_actionType != null)
+            raw.setActionType( local_actionType.getRaw());
         raw.setTarget( local_target);
         raw.setRemoteDali( local_remoteDali);
         raw.setSourceProcess( local_sourceProcess);

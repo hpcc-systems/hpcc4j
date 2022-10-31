@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: WUResultBinResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBinResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.987Z
+ * TimeStamp: 2022-10-31T03:30:27.601Z
  */
 public class WUResultBinResponseWrapper
 {
@@ -87,6 +87,8 @@ public class WUResultBinResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBinResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBinResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBinResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         raw.setSequence( local_sequence);
         raw.setName( local_name);

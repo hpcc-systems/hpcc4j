@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspSoapFaultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.EspSoapFault
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * TimeStamp: 2021-03-24T23:14:30.254Z
+ * TimeStamp: 2022-10-28T23:08:36.471Z
  */
 public class EspSoapFaultWrapper
 {
@@ -59,6 +59,7 @@ public class EspSoapFaultWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspSoapFault getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspSoapFault();
+        raw.setFaultMessage( local_faultMessage.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUFileCreateResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.113Z
+ * TimeStamp: 2022-10-28T23:07:50.874Z
  */
 public class DFUFileCreateResponseWrapper
 {
@@ -69,8 +69,10 @@ public class DFUFileCreateResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         raw.setFileId( local_fileId);
         raw.setWarning( local_warning);
+        raw.setAccessInfo( local_accessInfo.getRaw());
         return raw;
     }
 

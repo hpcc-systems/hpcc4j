@@ -24,7 +24,7 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: TpSparkThorWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSparkThor
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.378Z
+ * TimeStamp: 2022-10-31T03:36:16.488Z
  */
 public class TpSparkThorWrapper
 {
@@ -112,6 +112,8 @@ public class TpSparkThorWrapper
         raw.setSparkWorkerPort( local_sparkWorkerPort);
         raw.setLogDirectory( local_logDirectory);
         raw.setPath( local_path);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

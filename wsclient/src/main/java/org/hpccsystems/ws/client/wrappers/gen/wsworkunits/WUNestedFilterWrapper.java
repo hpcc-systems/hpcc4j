@@ -24,7 +24,7 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: WUNestedFilterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUNestedFilter
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.945Z
+ * TimeStamp: 2022-10-31T03:30:27.563Z
  */
 public class WUNestedFilterWrapper
 {
@@ -64,6 +64,8 @@ public class WUNestedFilterWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUNestedFilter raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUNestedFilter();
         raw.setDepth( local_depth);
+        if (local_scopeTypes != null)
+            raw.setScopeTypes( local_scopeTypes.getRaw());
         return raw;
     }
 

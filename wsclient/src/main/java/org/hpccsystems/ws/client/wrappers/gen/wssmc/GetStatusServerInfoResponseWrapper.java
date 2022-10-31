@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: GetStatusServerInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.536Z
+ * TimeStamp: 2022-10-31T03:36:23.294Z
  */
 public class GetStatusServerInfoResponseWrapper
 {
@@ -63,6 +63,10 @@ public class GetStatusServerInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_statusServerInfo != null)
+            raw.setStatusServerInfo( local_statusServerInfo.getRaw());
         return raw;
     }
 

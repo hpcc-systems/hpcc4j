@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCQuerySetWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCQuerySet
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCQuerySet
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.067Z
+ * TimeStamp: 2022-10-31T03:44:01.397Z
  */
 public class HPCCQuerySetWrapper
 {
@@ -67,6 +67,10 @@ public class HPCCQuerySetWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCQuerySet raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCQuerySet();
         raw.setName( local_name);
+        if (local_querySetQueries != null)
+            raw.setQuerySetQueries( local_querySetQueries.getRaw());
+        if (local_querySetAliases != null)
+            raw.setQuerySetAliases( local_querySetAliases.getRaw());
         return raw;
     }
 

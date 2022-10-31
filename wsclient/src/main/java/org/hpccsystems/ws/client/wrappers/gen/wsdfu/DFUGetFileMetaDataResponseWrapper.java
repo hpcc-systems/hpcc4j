@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUGetFileMetaDataResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.129Z
+ * TimeStamp: 2022-10-28T23:07:50.895Z
  */
 public class DFUGetFileMetaDataResponseWrapper
 {
@@ -78,8 +78,10 @@ public class DFUGetFileMetaDataResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         raw.setTotalColumnCount( local_totalColumnCount);
         raw.setKeyedColumnCount( local_keyedColumnCount);
+        raw.setDataColumns( local_dataColumns.getRaw());
         raw.setXmlSchema( local_xmlSchema);
         raw.setXmlXPathSchema( local_xmlXPathSchema);
         raw.setTotalResultRows( local_totalResultRows);

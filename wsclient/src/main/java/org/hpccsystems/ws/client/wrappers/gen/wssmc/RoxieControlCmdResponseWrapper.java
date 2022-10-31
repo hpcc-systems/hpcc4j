@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: RoxieControlCmdResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.552Z
+ * TimeStamp: 2022-10-31T03:36:23.313Z
  */
 public class RoxieControlCmdResponseWrapper
 {
@@ -63,6 +63,10 @@ public class RoxieControlCmdResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_endpoints != null)
+            raw.setEndpoints( local_endpoints.getRaw());
         return raw;
     }
 

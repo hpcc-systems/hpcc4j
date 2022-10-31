@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: DeletePackageRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.152Z
+ * TimeStamp: 2022-10-31T03:36:33.177Z
  */
 public class DeletePackageRequestWrapper
 {
@@ -75,6 +75,8 @@ public class DeletePackageRequestWrapper
         raw.setPackageMap( local_packageMap);
         raw.setProcess( local_process);
         raw.setGlobalScope( local_globalScope);
+        if (local_packageMaps != null)
+            raw.setPackageMaps( local_packageMaps.getRaw());
         return raw;
     }
 

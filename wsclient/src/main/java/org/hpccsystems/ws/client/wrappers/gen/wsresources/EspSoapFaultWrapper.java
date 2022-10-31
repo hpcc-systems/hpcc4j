@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
  * Class name: EspSoapFaultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2022-07-25T18:03:51.513Z
+ * TimeStamp: 2022-10-31T03:36:28.636Z
  */
 public class EspSoapFaultWrapper
 {
@@ -59,6 +59,8 @@ public class EspSoapFaultWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault();
+        if (local_faultMessage != null)
+            raw.setFaultMessage( local_faultMessage.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: ExceptionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.325Z
+ * TimeStamp: 2022-10-31T03:36:11.827Z
  */
 public class ExceptionsWrapper
 {
@@ -59,6 +59,8 @@ public class ExceptionsWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

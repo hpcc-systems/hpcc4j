@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: OutputDatasetWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.OutputDataset
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.055Z
+ * TimeStamp: 2022-10-31T03:44:01.401Z
  */
 public class OutputDatasetWrapper
 {
@@ -63,6 +63,8 @@ public class OutputDatasetWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutputDataset();
         raw.setName( local_name);
+        if (local_outParams != null)
+            raw.setOutParams( local_outParams.getRaw());
         return raw;
     }
 

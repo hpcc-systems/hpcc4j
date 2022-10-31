@@ -24,7 +24,7 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: WUArchiveModuleWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUArchiveModule
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.881Z
+ * TimeStamp: 2022-10-31T03:30:27.507Z
  */
 public class WUArchiveModuleWrapper
 {
@@ -96,6 +96,10 @@ public class WUArchiveModuleWrapper
         raw.setSourcePath( local_sourcePath);
         raw.setVersion( local_version);
         raw.setPath( local_path);
+        if (local_archiveModules != null)
+            raw.setArchiveModules( local_archiveModules.getRaw());
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         return raw;
     }
 

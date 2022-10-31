@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpClusterQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.335Z
+ * TimeStamp: 2022-10-31T03:36:16.455Z
  */
 public class TpClusterQueryResponseWrapper
 {
@@ -69,8 +69,12 @@ public class TpClusterQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setEnableSNMP( local_enableSNMP);
         raw.setAcceptLanguage( local_acceptLanguage);
+        if (local_tpClusters != null)
+            raw.setTpClusters( local_tpClusters.getRaw());
         return raw;
     }
 

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExceptionsWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Exceptions
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.110Z
+ * TimeStamp: 2022-10-31T03:44:01.385Z
  */
 public class ExceptionsWrapper
 {
@@ -59,6 +59,8 @@ public class ExceptionsWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.Exceptions getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.Exceptions();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

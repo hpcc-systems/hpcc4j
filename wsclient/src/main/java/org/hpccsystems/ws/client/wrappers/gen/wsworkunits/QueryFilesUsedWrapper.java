@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: QueryFilesUsedWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.849Z
+ * TimeStamp: 2022-10-31T03:30:27.481Z
  */
 public class QueryFilesUsedWrapper
 {
@@ -67,6 +67,10 @@ public class QueryFilesUsedWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed();
         raw.setQueryId( local_queryId);
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
+        if (local_superFiles != null)
+            raw.setSuperFiles( local_superFiles.getRaw());
         return raw;
     }
 

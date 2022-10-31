@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.970Z
+ * TimeStamp: 2022-10-31T03:30:27.585Z
  */
 public class WUQueryResponseWrapper
 {
@@ -144,6 +144,8 @@ public class WUQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setType( local_type);
         raw.setCluster( local_cluster);
         raw.setRoxieCluster( local_roxieCluster);
@@ -171,6 +173,8 @@ public class WUQueryResponseWrapper
         raw.setBasicQuery( local_basicQuery);
         raw.setFilters( local_filters);
         raw.setCacheHint( local_cacheHint);
+        if (local_workunits != null)
+            raw.setWorkunits( local_workunits.getRaw());
         return raw;
     }
 

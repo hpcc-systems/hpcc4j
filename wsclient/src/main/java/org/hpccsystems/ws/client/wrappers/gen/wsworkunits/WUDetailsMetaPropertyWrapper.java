@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUDetailsMetaPropertyWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.903Z
+ * TimeStamp: 2022-10-31T03:30:27.525Z
  */
 public class WUDetailsMetaPropertyWrapper
 {
@@ -63,6 +63,8 @@ public class WUDetailsMetaPropertyWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty();
         raw.setName( local_name);
+        if (local_valueType != null)
+            raw.setValueType( local_valueType.getRaw());
         return raw;
     }
 

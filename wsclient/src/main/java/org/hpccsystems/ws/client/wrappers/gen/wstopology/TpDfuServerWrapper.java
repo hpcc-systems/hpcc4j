@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpDfuServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDfuServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.337Z
+ * TimeStamp: 2022-10-31T03:36:16.459Z
  */
 public class TpDfuServerWrapper
 {
@@ -87,6 +87,8 @@ public class TpDfuServerWrapper
         raw.setType( local_type);
         raw.setPath( local_path);
         raw.setLogDirectory( local_logDirectory);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

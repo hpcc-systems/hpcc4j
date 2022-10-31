@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: PackageListMapDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageListMapData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.173Z
+ * TimeStamp: 2022-10-31T03:36:33.195Z
  */
 public class PackageListMapDataWrapper
 {
@@ -77,6 +77,8 @@ public class PackageListMapDataWrapper
         raw.setId( local_id);
         raw.setTarget( local_target);
         raw.setProcess( local_process);
+        if (local_pkgListData != null)
+            raw.setPkgListData( local_pkgListData.getRaw());
         raw.setActive( local_active);
         raw.setDescription( local_description);
         return raw;

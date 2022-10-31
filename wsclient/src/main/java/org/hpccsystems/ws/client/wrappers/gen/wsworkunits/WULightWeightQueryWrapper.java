@@ -24,7 +24,7 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: WULightWeightQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.935Z
+ * TimeStamp: 2022-10-31T03:30:27.552Z
  */
 public class WULightWeightQueryWrapper
 {
@@ -115,6 +115,8 @@ public class WULightWeightQueryWrapper
         raw.setBeforeWU( local_beforeWU);
         raw.setAfterWU( local_afterWU);
         raw.setState( local_state);
+        if (local_applicationValues != null)
+            raw.setApplicationValues( local_applicationValues.getRaw());
         raw.setPageStartFrom( local_pageStartFrom);
         raw.setPageSize( local_pageSize);
         raw.setSortBy( local_sortBy);

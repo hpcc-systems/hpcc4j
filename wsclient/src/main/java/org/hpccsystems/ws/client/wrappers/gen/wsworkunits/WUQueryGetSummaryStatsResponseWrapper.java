@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQueryGetSummaryStatsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStatsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.969Z
+ * TimeStamp: 2022-10-31T03:30:27.584Z
  */
 public class WUQueryGetSummaryStatsResponseWrapper
 {
@@ -67,6 +67,12 @@ public class WUQueryGetSummaryStatsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStatsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStatsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStatsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_statsList != null)
+            raw.setStatsList( local_statsList.getRaw());
+        if (local_queryStatsList != null)
+            raw.setQueryStatsList( local_queryStatsList.getRaw());
         return raw;
     }
 

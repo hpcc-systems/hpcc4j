@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpSashaServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSashaServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.373Z
+ * TimeStamp: 2022-10-31T03:36:16.485Z
  */
 public class TpSashaServerWrapper
 {
@@ -79,6 +79,8 @@ public class TpSashaServerWrapper
         raw.setBuild( local_build);
         raw.setPath( local_path);
         raw.setLogDirectory( local_logDirectory);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpDkcSlaveWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDkcSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.338Z
+ * TimeStamp: 2022-10-31T03:36:16.459Z
  */
 public class TpDkcSlaveWrapper
 {
@@ -75,6 +75,8 @@ public class TpDkcSlaveWrapper
         raw.setDescription( local_description);
         raw.setBuild( local_build);
         raw.setPath( local_path);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

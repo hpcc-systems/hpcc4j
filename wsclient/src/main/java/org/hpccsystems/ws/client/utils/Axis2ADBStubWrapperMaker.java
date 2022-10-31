@@ -398,7 +398,7 @@ public class Axis2ADBStubWrapperMaker
                 else if (simpleField.isWrapped)
                 {
                     copymethobody += "        if (raw.get" + capitalized + "() != null)\n            this." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
-                    rawmethobody += "        raw.set" + capitalized + "( " + simpleField.getSafeName() + ".getRaw());\n";
+                    rawmethobody += "        if (" + simpleField.getSafeName() + " != null)\n            raw.set" + capitalized + "( " + simpleField.getSafeName() + ".getRaw());\n";
                 }
                 else
                 {

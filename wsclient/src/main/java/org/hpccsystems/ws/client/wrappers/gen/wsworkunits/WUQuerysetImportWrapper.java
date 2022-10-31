@@ -25,7 +25,7 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
  * Class name: WUQuerysetImportWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImport
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.977Z
+ * TimeStamp: 2022-10-31T03:30:27.592Z
  */
 public class WUQuerysetImportWrapper
 {
@@ -128,6 +128,8 @@ public class WUQuerysetImportWrapper
         raw.setQueryMask( local_queryMask);
         raw.setReplace( local_replace);
         raw.setActiveOnly( local_activeOnly);
+        if (local_activation != null)
+            raw.setActivation( local_activation.getRaw());
         raw.setCompressed( local_compressed);
         raw.setData( local_data);
         raw.setAllowForeignFiles( local_allowForeignFiles);

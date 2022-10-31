@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
  * Class name: WUQuerySetDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.975Z
+ * TimeStamp: 2022-10-31T03:30:27.589Z
  */
 public class WUQuerySetDetailsResponseWrapper
 {
@@ -92,9 +92,17 @@ public class WUQuerySetDetailsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setQuerySetName( local_querySetName);
+        if (local_querysetQueries != null)
+            raw.setQuerysetQueries( local_querysetQueries.getRaw());
+        if (local_querysetAliases != null)
+            raw.setQuerysetAliases( local_querysetAliases.getRaw());
         raw.setClusterName( local_clusterName);
         raw.setFilter( local_filter);
+        if (local_filterType != null)
+            raw.setFilterType( local_filterType.getRaw());
         if (this.local_clusterNames!= null)
         {
             EspStringArray arr = new EspStringArray();

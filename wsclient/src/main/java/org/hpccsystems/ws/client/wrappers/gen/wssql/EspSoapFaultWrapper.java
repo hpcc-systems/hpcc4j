@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EspSoapFaultWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EspSoapFault
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.097Z
+ * TimeStamp: 2022-10-31T03:44:01.384Z
  */
 public class EspSoapFaultWrapper
 {
@@ -59,6 +59,8 @@ public class EspSoapFaultWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspSoapFault getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspSoapFault();
+        if (local_faultMessage != null)
+            raw.setFaultMessage( local_faultMessage.getRaw());
         return raw;
     }
 

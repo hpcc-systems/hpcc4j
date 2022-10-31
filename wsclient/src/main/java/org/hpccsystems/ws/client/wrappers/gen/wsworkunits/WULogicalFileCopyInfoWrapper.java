@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
  * Class name: WULogicalFileCopyInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULogicalFileCopyInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.943Z
+ * TimeStamp: 2022-10-28T23:25:24.673Z
  */
 public class WULogicalFileCopyInfoWrapper
 {

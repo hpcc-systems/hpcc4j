@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: LockQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.544Z
+ * TimeStamp: 2022-10-31T03:36:23.304Z
  */
 public class LockQueryResponseWrapper
 {
@@ -66,6 +66,10 @@ public class LockQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_locks != null)
+            raw.setLocks( local_locks.getRaw());
         raw.setNumLocks( local_numLocks);
         return raw;
     }

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: EclFieldDeclarationWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldDeclaration
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.104Z
+ * TimeStamp: 2022-10-31T03:44:01.355Z
  */
 public class EclFieldDeclarationWrapper
 {
@@ -63,6 +63,8 @@ public class EclFieldDeclarationWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldDeclaration();
         raw.setFieldName( local_fieldName);
+        if (local_eclFieldType != null)
+            raw.setEclFieldType( local_eclFieldType.getRaw());
         return raw;
     }
 

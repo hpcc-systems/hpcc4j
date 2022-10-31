@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQueryConfigResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfigResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.961Z
+ * TimeStamp: 2022-10-31T03:30:27.577Z
  */
 public class WUQueryConfigResponseWrapper
 {
@@ -66,7 +66,11 @@ public class WUQueryConfigResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfigResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfigResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfigResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setReloadFailed( local_reloadFailed);
+        if (local_results != null)
+            raw.setResults( local_results.getRaw());
         return raw;
     }
 

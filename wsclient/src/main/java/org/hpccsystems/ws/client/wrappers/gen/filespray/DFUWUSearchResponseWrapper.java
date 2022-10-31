@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DFUWUSearchResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.317Z
+ * TimeStamp: 2022-10-31T03:36:11.816Z
  */
 public class DFUWUSearchResponseWrapper
 {
@@ -63,6 +63,10 @@ public class DFUWUSearchResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_clusterNames != null)
+            raw.setClusterNames( local_clusterNames.getRaw());
         return raw;
     }
 

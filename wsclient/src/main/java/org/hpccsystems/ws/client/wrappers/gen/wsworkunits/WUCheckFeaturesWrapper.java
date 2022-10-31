@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUCheckFeaturesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.882Z
+ * TimeStamp: 2022-10-28T23:25:24.618Z
  */
 public class WUCheckFeaturesWrapper
 {

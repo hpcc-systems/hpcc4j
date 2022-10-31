@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: SMCQueueResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.559Z
+ * TimeStamp: 2022-10-31T03:36:23.321Z
  */
 public class SMCQueueResponseWrapper
 {
@@ -63,6 +63,10 @@ public class SMCQueueResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_statusServerInfo != null)
+            raw.setStatusServerInfo( local_statusServerInfo.getRaw());
         return raw;
     }
 

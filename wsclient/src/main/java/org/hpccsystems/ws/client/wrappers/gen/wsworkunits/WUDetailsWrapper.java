@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUDetailsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetails
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.901Z
+ * TimeStamp: 2022-10-31T03:30:27.523Z
  */
 public class WUDetailsWrapper
 {
@@ -82,7 +82,17 @@ public class WUDetailsWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetails raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetails();
         raw.setWUID( local_wUID);
+        if (local_scopeFilter != null)
+            raw.setScopeFilter( local_scopeFilter.getRaw());
+        if (local_nestedFilter != null)
+            raw.setNestedFilter( local_nestedFilter.getRaw());
+        if (local_propertiesToReturn != null)
+            raw.setPropertiesToReturn( local_propertiesToReturn.getRaw());
         raw.setFilter( local_filter);
+        if (local_scopeOptions != null)
+            raw.setScopeOptions( local_scopeOptions.getRaw());
+        if (local_propertyOptions != null)
+            raw.setPropertyOptions( local_propertyOptions.getRaw());
         return raw;
     }
 

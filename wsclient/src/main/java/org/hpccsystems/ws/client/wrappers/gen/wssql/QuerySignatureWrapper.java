@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: QuerySignatureWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySignature
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.107Z
+ * TimeStamp: 2022-10-31T03:44:01.405Z
  */
 public class QuerySignatureWrapper
 {
@@ -63,6 +63,10 @@ public class QuerySignatureWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySignature();
+        if (local_inParams != null)
+            raw.setInParams( local_inParams.getRaw());
+        if (local_resultSets != null)
+            raw.setResultSets( local_resultSets.getRaw());
         return raw;
     }
 

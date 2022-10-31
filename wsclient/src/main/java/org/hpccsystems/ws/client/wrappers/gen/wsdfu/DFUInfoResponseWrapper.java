@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.134Z
+ * TimeStamp: 2022-10-28T23:07:50.896Z
  */
 public class DFUInfoResponseWrapper
 {
@@ -63,6 +63,8 @@ public class DFUInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse();
+        raw.setExceptions( local_exceptions.getRaw());
+        raw.setFileDetail( local_fileDetail.getRaw());
         return raw;
     }
 

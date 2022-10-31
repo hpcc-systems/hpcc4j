@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: AddRemoteResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.072Z
+ * TimeStamp: 2022-10-28T23:07:50.837Z
  */
 public class AddRemoteResponseWrapper
 {
@@ -59,6 +59,7 @@ public class AddRemoteResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

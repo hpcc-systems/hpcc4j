@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUFileCreateV2RequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.113Z
+ * TimeStamp: 2022-10-28T23:07:50.875Z
  */
 public class DFUFileCreateV2RequestWrapper
 {
@@ -88,6 +88,7 @@ public class DFUFileCreateV2RequestWrapper
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request();
         raw.setName( local_name);
         raw.setCluster( local_cluster);
+        raw.setType( local_type.getRaw());
         raw.setECLRecordDefinition( local_eCLRecordDefinition);
         raw.setRequestId( local_requestId);
         raw.setExpirySeconds( local_expirySeconds);

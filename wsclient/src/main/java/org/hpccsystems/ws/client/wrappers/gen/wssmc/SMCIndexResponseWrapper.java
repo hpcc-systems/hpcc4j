@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: SMCIndexResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.557Z
+ * TimeStamp: 2022-10-31T03:36:23.320Z
  */
 public class SMCIndexResponseWrapper
 {
@@ -59,6 +59,8 @@ public class SMCIndexResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

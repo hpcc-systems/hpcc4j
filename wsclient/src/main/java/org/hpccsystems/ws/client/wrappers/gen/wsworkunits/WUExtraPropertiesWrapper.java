@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUExtraPropertiesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUExtraProperties
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.911Z
+ * TimeStamp: 2022-10-31T03:30:27.531Z
  */
 public class WUExtraPropertiesWrapper
 {
@@ -63,6 +63,8 @@ public class WUExtraPropertiesWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUExtraProperties raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUExtraProperties();
         raw.setScopeType( local_scopeType);
+        if (local_properties != null)
+            raw.setProperties( local_properties.getRaw());
         return raw;
     }
 

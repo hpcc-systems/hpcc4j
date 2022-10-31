@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspStringArray;
  * Class name: TpLogFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.361Z
+ * TimeStamp: 2022-10-31T03:36:16.475Z
  */
 public class TpLogFileResponseWrapper
 {
@@ -131,6 +131,8 @@ public class TpLogFileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setName( local_name);
         raw.setType( local_type);
         raw.setStartDate( local_startDate);
