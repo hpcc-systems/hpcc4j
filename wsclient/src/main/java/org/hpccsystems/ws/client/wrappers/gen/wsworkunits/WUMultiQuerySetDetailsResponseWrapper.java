@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUMultiQuerySetDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerySetDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.944Z
+ * TimeStamp: 2022-10-31T03:30:27.562Z
  */
 public class WUMultiQuerySetDetailsResponseWrapper
 {
@@ -66,7 +66,11 @@ public class WUMultiQuerySetDetailsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerySetDetailsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerySetDetailsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerySetDetailsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setClusterName( local_clusterName);
+        if (local_querysets != null)
+            raw.setQuerysets( local_querysets.getRaw());
         return raw;
     }
 

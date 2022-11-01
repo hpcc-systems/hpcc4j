@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: WUCreateZAPInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.897Z
+ * TimeStamp: 2022-10-31T03:30:27.520Z
  */
 public class WUCreateZAPInfoResponseWrapper
 {
@@ -66,6 +66,8 @@ public class WUCreateZAPInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfoResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setThefile( local_thefile);
         raw.setZAPFileName( local_zAPFileName);
         return raw;

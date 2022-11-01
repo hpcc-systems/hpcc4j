@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpEclAgentWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclAgent
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.341Z
+ * TimeStamp: 2022-10-31T03:36:16.463Z
  */
 public class TpEclAgentWrapper
 {
@@ -87,6 +87,8 @@ public class TpEclAgentWrapper
         raw.setPath( local_path);
         raw.setDaliServer( local_daliServer);
         raw.setLogDir( local_logDir);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

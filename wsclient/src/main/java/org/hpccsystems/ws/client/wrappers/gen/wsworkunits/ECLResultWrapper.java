@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: ECLResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.808Z
+ * TimeStamp: 2022-10-31T03:30:27.443Z
  */
 public class ECLResultWrapper
 {
@@ -94,6 +94,8 @@ public class ECLResultWrapper
         raw.setIsSupplied( local_isSupplied);
         raw.setShowFileContent( local_showFileContent);
         raw.setTotal( local_total);
+        if (local_eCLSchemas != null)
+            raw.setECLSchemas( local_eCLSchemas.getRaw());
         raw.setXmlSchema( local_xmlSchema);
         return raw;
     }

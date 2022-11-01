@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUArrayActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.092Z
+ * TimeStamp: 2022-10-28T23:07:50.855Z
  */
 public class DFUArrayActionResponseWrapper
 {
@@ -69,8 +69,10 @@ public class DFUArrayActionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         raw.setBackToPage( local_backToPage);
         raw.setRedirectTo( local_redirectTo);
+        raw.setActionResults( local_actionResults.getRaw());
         return raw;
     }
 

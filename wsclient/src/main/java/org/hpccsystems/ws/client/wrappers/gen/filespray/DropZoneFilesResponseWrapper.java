@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DropZoneFilesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFilesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.322Z
+ * TimeStamp: 2022-10-31T03:36:11.820Z
  */
 public class DropZoneFilesResponseWrapper
 {
@@ -82,11 +82,17 @@ public class DropZoneFilesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFilesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFilesResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFilesResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setDropZoneName( local_dropZoneName);
         raw.setNetAddress( local_netAddress);
         raw.setPath( local_path);
         raw.setOS( local_oS);
         raw.setECLWatchVisibleOnly( local_eCLWatchVisibleOnly);
+        if (local_dropZones != null)
+            raw.setDropZones( local_dropZones.getRaw());
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         return raw;
     }
 

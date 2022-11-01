@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUCopyLogicalClusterFileSectionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyLogicalClusterFileSections
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.889Z
+ * TimeStamp: 2022-10-31T03:30:27.514Z
  */
 public class WUCopyLogicalClusterFileSectionsWrapper
 {
@@ -75,6 +75,14 @@ public class WUCopyLogicalClusterFileSectionsWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyLogicalClusterFileSections raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyLogicalClusterFileSections();
         raw.setClusterName( local_clusterName);
+        if (local_onCluster != null)
+            raw.setOnCluster( local_onCluster.getRaw());
+        if (local_notOnCluster != null)
+            raw.setNotOnCluster( local_notOnCluster.getRaw());
+        if (local_foreign != null)
+            raw.setForeign( local_foreign.getRaw());
+        if (local_notFound != null)
+            raw.setNotFound( local_notFound.getRaw());
         return raw;
     }
 

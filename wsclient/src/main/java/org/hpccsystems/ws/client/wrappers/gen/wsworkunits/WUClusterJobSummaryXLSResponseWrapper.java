@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: WUClusterJobSummaryXLSResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobSummaryXLSResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.886Z
+ * TimeStamp: 2022-10-31T03:30:27.511Z
  */
 public class WUClusterJobSummaryXLSResponseWrapper
 {
@@ -63,6 +63,8 @@ public class WUClusterJobSummaryXLSResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobSummaryXLSResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobSummaryXLSResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobSummaryXLSResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setResult( local_result);
         return raw;
     }

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpGetServicePluginsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.349Z
+ * TimeStamp: 2022-10-31T03:36:16.470Z
  */
 public class TpGetServicePluginsResponseWrapper
 {
@@ -63,6 +63,10 @@ public class TpGetServicePluginsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_plugins != null)
+            raw.setPlugins( local_plugins.getRaw());
         return raw;
     }
 

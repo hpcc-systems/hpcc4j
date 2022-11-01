@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUGetArchiveFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetArchiveFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.914Z
+ * TimeStamp: 2022-10-31T03:30:27.533Z
  */
 public class WUGetArchiveFileResponseWrapper
 {
@@ -65,6 +65,8 @@ public class WUGetArchiveFileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetArchiveFileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetArchiveFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetArchiveFileResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setFile( local_file);
         raw.setMessage( local_message);
         return raw;

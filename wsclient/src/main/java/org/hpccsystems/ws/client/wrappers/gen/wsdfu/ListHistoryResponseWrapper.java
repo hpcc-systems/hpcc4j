@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: ListHistoryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.159Z
+ * TimeStamp: 2022-10-28T23:07:50.933Z
  */
 public class ListHistoryResponseWrapper
 {
@@ -63,6 +63,8 @@ public class ListHistoryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse();
+        raw.setExceptions( local_exceptions.getRaw());
+        raw.setHistory( local_history.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: GetThorQueueAvailabilityResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.537Z
+ * TimeStamp: 2022-10-31T03:36:23.295Z
  */
 public class GetThorQueueAvailabilityResponseWrapper
 {
@@ -63,6 +63,10 @@ public class GetThorQueueAvailabilityResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_thorClusters != null)
+            raw.setThorClusters( local_thorClusters.getRaw());
         return raw;
     }
 

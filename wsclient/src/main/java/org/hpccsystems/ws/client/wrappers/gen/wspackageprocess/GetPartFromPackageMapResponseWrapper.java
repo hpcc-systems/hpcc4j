@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetPartFromPackageMapResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.167Z
+ * TimeStamp: 2022-10-31T03:36:33.190Z
  */
 public class GetPartFromPackageMapResponseWrapper
 {
@@ -66,6 +66,10 @@ public class GetPartFromPackageMapResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPartFromPackageMapResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
         raw.setContent( local_content);
         return raw;
     }

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: GetQueryFileMappingResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetQueryFileMappingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.169Z
+ * TimeStamp: 2022-10-31T03:36:33.192Z
  */
 public class GetQueryFileMappingResponseWrapper
 {
@@ -67,6 +67,12 @@ public class GetQueryFileMappingResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetQueryFileMappingResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetQueryFileMappingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetQueryFileMappingResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_unmappedFiles != null)
+            raw.setUnmappedFiles( local_unmappedFiles.getRaw());
+        if (local_superFiles != null)
+            raw.setSuperFiles( local_superFiles.getRaw());
         return raw;
     }
 

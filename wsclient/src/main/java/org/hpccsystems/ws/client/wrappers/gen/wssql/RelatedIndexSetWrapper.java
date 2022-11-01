@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: RelatedIndexSetWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.RelatedIndexSet
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.096Z
+ * TimeStamp: 2022-10-31T03:44:01.406Z
  */
 public class RelatedIndexSetWrapper
 {
@@ -63,6 +63,8 @@ public class RelatedIndexSetWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSet();
         raw.setFileName( local_fileName);
+        if (local_indexes != null)
+            raw.setIndexes( local_indexes.getRaw());
         return raw;
     }
 

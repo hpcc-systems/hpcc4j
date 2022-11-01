@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLSourceFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLSourceFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSourceFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.050Z
+ * TimeStamp: 2022-10-31T03:44:01.367Z
  */
 public class ECLSourceFileWrapper
 {
@@ -79,6 +79,8 @@ public class ECLSourceFileWrapper
         raw.setIsSuperFile( local_isSuperFile);
         raw.setSubs( local_subs);
         raw.setCount( local_count);
+        if (local_eCLSourceFiles != null)
+            raw.setECLSourceFiles( local_eCLSourceFiles.getRaw());
         return raw;
     }
 

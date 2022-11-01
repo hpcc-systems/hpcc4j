@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUInfoRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.134Z
+ * TimeStamp: 2022-10-28T23:07:50.896Z
  */
 public class DFUInfoRequestWrapper
 {
@@ -95,6 +95,8 @@ public class DFUInfoRequestWrapper
         raw.setFileDesc( local_fileDesc);
         raw.setIncludeJsonTypeInfo( local_includeJsonTypeInfo);
         raw.setIncludeBinTypeInfo( local_includeBinTypeInfo);
+        raw.setProtect( local_protect.getRaw());
+        raw.setRestrict( local_restrict.getRaw());
         return raw;
     }
 

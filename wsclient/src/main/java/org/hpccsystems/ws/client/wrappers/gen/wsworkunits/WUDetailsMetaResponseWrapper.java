@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUDetailsMetaResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.904Z
+ * TimeStamp: 2022-10-31T03:30:27.525Z
  */
 public class WUDetailsMetaResponseWrapper
 {
@@ -75,6 +75,16 @@ public class WUDetailsMetaResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_properties != null)
+            raw.setProperties( local_properties.getRaw());
+        if (local_scopeTypes != null)
+            raw.setScopeTypes( local_scopeTypes.getRaw());
+        if (local_measures != null)
+            raw.setMeasures( local_measures.getRaw());
+        if (local_activities != null)
+            raw.setActivities( local_activities.getRaw());
         return raw;
     }
 

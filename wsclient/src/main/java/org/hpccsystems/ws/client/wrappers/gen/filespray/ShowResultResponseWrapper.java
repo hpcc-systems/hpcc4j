@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: ShowResultResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.347Z
+ * TimeStamp: 2022-10-31T03:36:11.846Z
  */
 public class ShowResultResponseWrapper
 {
@@ -62,6 +62,8 @@ public class ShowResultResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setResult( local_result);
         return raw;
     }

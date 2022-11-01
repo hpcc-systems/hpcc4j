@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUEclDefinitionActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.907Z
+ * TimeStamp: 2022-10-31T03:30:27.528Z
  */
 public class WUEclDefinitionActionResponseWrapper
 {
@@ -69,6 +69,10 @@ public class WUEclDefinitionActionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_actionResults != null)
+            raw.setActionResults( local_actionResults.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

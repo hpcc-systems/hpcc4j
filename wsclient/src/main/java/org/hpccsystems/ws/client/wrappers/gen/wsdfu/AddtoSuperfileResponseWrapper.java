@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: AddtoSuperfileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.082Z
+ * TimeStamp: 2022-10-28T23:07:50.840Z
  */
 public class AddtoSuperfileResponseWrapper
 {
@@ -69,8 +69,10 @@ public class AddtoSuperfileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         raw.setSubfiles( local_subfiles);
         raw.setBackToPage( local_backToPage);
+        raw.setSubfileNames( local_subfileNames.getRaw());
         return raw;
     }
 

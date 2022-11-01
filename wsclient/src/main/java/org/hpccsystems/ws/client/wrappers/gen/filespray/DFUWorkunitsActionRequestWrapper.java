@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray;
  * Class name: DFUWorkunitsActionRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunitsActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.312Z
+ * TimeStamp: 2022-10-31T03:36:11.812Z
  */
 public class DFUWorkunitsActionRequestWrapper
 {
@@ -80,6 +80,8 @@ public class DFUWorkunitsActionRequestWrapper
             }
             raw.setWuids(arr);
         }
+        if (local_type != null)
+            raw.setType( local_type.getRaw());
         return raw;
     }
 

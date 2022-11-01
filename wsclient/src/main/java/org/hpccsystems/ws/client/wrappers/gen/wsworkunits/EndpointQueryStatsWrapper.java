@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: EndpointQueryStatsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EndpointQueryStats
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.824Z
+ * TimeStamp: 2022-10-31T03:30:27.462Z
  */
 public class EndpointQueryStatsWrapper
 {
@@ -67,6 +67,8 @@ public class EndpointQueryStatsWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EndpointQueryStats raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EndpointQueryStats();
         raw.setEndpoint( local_endpoint);
         raw.setStatus( local_status);
+        if (local_queryStatsList != null)
+            raw.setQueryStatsList( local_queryStatsList.getRaw());
         return raw;
     }
 

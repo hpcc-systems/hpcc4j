@@ -24,7 +24,7 @@ import java.math.BigInteger;
  * Class name: WUScopeFilterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUScopeFilter
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.992Z
+ * TimeStamp: 2022-10-31T03:30:27.606Z
  */
 public class WUScopeFilterWrapper
 {
@@ -76,6 +76,14 @@ public class WUScopeFilterWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUScopeFilter raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUScopeFilter();
         raw.setMaxDepth( local_maxDepth);
+        if (local_scopes != null)
+            raw.setScopes( local_scopes.getRaw());
+        if (local_ids != null)
+            raw.setIds( local_ids.getRaw());
+        if (local_scopeTypes != null)
+            raw.setScopeTypes( local_scopeTypes.getRaw());
+        if (local_propertyFilters != null)
+            raw.setPropertyFilters( local_propertyFilters.getRaw());
         return raw;
     }
 

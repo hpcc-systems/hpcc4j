@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DesprayResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DesprayResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.303Z
+ * TimeStamp: 2022-10-31T03:36:11.802Z
  */
 public class DesprayResponseWrapper
 {
@@ -62,6 +62,8 @@ public class DesprayResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DesprayResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.DesprayResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DesprayResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         return raw;
     }

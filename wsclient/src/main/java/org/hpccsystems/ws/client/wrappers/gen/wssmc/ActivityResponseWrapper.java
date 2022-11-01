@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: ActivityResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.522Z
+ * TimeStamp: 2022-10-31T03:36:23.280Z
  */
 public class ActivityResponseWrapper
 {
@@ -125,7 +125,19 @@ public class ActivityResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setBuild( local_build);
+        if (local_thorClusterList != null)
+            raw.setThorClusterList( local_thorClusterList.getRaw());
+        if (local_roxieClusterList != null)
+            raw.setRoxieClusterList( local_roxieClusterList.getRaw());
+        if (local_hThorClusterList != null)
+            raw.setHThorClusterList( local_hThorClusterList.getRaw());
+        if (local_dFUJobs != null)
+            raw.setDFUJobs( local_dFUJobs.getRaw());
+        if (local_running != null)
+            raw.setRunning( local_running.getRaw());
         raw.setBannerContent( local_bannerContent);
         raw.setBannerColor( local_bannerColor);
         raw.setBannerSize( local_bannerSize);
@@ -137,6 +149,8 @@ public class ActivityResponseWrapper
         raw.setDescending( local_descending);
         raw.setSuperUser( local_superUser);
         raw.setAccessRight( local_accessRight);
+        if (local_serverJobQueues != null)
+            raw.setServerJobQueues( local_serverJobQueues.getRaw());
         raw.setActivityTime( local_activityTime);
         raw.setDaliDetached( local_daliDetached);
         return raw;

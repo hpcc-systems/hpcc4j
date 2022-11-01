@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.904Z
+ * TimeStamp: 2022-10-31T03:30:27.525Z
  */
 public class WUDetailsResponseWrapper
 {
@@ -69,8 +69,12 @@ public class WUDetailsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setMaxVersion( local_maxVersion);
         raw.setWUID( local_wUID);
+        if (local_scopes != null)
+            raw.setScopes( local_scopes.getRaw());
         return raw;
     }
 

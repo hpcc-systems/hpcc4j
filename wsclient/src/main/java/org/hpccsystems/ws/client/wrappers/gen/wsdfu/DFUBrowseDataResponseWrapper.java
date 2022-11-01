@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUBrowseDataResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.099Z
+ * TimeStamp: 2022-10-28T23:07:50.860Z
  */
 public class DFUBrowseDataResponseWrapper
 {
@@ -120,10 +120,12 @@ public class DFUBrowseDataResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         raw.setName( local_name);
         raw.setLogicalName( local_logicalName);
         raw.setFilterBy( local_filterBy);
         raw.setFilterForGoBack( local_filterForGoBack);
+        raw.setColumnsHidden( local_columnsHidden.getRaw());
         raw.setColumnCount( local_columnCount);
         raw.setStartForGoback( local_startForGoback);
         raw.setCountForGoback( local_countForGoback);

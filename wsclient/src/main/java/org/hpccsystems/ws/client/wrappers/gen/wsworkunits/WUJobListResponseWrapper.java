@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUJobListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.934Z
+ * TimeStamp: 2022-10-31T03:30:27.551Z
  */
 public class WUJobListResponseWrapper
 {
@@ -69,8 +69,12 @@ public class WUJobListResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobListResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobListResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobListResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setStartDate( local_startDate);
         raw.setEndDate( local_endDate);
+        if (local_jobs != null)
+            raw.setJobs( local_jobs.getRaw());
         return raw;
     }
 

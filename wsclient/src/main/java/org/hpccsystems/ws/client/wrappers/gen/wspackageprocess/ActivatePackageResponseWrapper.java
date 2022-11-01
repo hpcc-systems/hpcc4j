@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: ActivatePackageResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.127Z
+ * TimeStamp: 2022-10-31T03:36:33.158Z
  */
 public class ActivatePackageResponseWrapper
 {
@@ -63,6 +63,10 @@ public class ActivatePackageResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ActivatePackageResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
         return raw;
     }
 

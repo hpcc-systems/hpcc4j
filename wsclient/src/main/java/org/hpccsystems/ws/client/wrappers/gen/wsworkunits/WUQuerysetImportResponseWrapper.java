@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQuerysetImportResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImportResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.978Z
+ * TimeStamp: 2022-10-31T03:30:27.592Z
  */
 public class WUQuerysetImportResponseWrapper
 {
@@ -90,9 +90,19 @@ public class WUQuerysetImportResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImportResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImportResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImportResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setTarget( local_target);
         raw.setClearedExisting( local_clearedExisting);
         raw.setSuccess( local_success);
+        if (local_importedQueries != null)
+            raw.setImportedQueries( local_importedQueries.getRaw());
+        if (local_existingQueries != null)
+            raw.setExistingQueries( local_existingQueries.getRaw());
+        if (local_missingWuids != null)
+            raw.setMissingWuids( local_missingWuids.getRaw());
+        if (local_fileErrors != null)
+            raw.setFileErrors( local_fileErrors.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

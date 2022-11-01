@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUResubmitResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.985Z
+ * TimeStamp: 2022-10-31T03:30:27.600Z
  */
 public class WUResubmitResponseWrapper
 {
@@ -63,6 +63,10 @@ public class WUResubmitResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmitResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmitResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmitResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_wUs != null)
+            raw.setWUs( local_wUs.getRaw());
         return raw;
     }
 

@@ -27,7 +27,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
  * Class name: ECLWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.821Z
+ * TimeStamp: 2022-10-31T03:30:27.458Z
  */
 public class ECLWorkunitWrapper
 {
@@ -335,6 +335,32 @@ public class ECLWorkunitWrapper
         raw.setTotalClusterTime( local_totalClusterTime);
         raw.setAbortBy( local_abortBy);
         raw.setAbortTime( local_abortTime);
+        if (local_query != null)
+            raw.setQuery( local_query.getRaw());
+        if (local_helpers != null)
+            raw.setHelpers( local_helpers.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_graphs != null)
+            raw.setGraphs( local_graphs.getRaw());
+        if (local_sourceFiles != null)
+            raw.setSourceFiles( local_sourceFiles.getRaw());
+        if (local_results != null)
+            raw.setResults( local_results.getRaw());
+        if (local_variables != null)
+            raw.setVariables( local_variables.getRaw());
+        if (local_timers != null)
+            raw.setTimers( local_timers.getRaw());
+        if (local_debugValues != null)
+            raw.setDebugValues( local_debugValues.getRaw());
+        if (local_applicationValues != null)
+            raw.setApplicationValues( local_applicationValues.getRaw());
+        if (local_workflows != null)
+            raw.setWorkflows( local_workflows.getRaw());
+        if (local_timingData != null)
+            raw.setTimingData( local_timingData.getRaw());
+        if (local_allowedClusters != null)
+            raw.setAllowedClusters( local_allowedClusters.getRaw());
         raw.setErrorCount( local_errorCount);
         raw.setWarningCount( local_warningCount);
         raw.setInfoCount( local_infoCount);
@@ -359,6 +385,10 @@ public class ECLWorkunitWrapper
         raw.setApplicationValuesDesc( local_applicationValuesDesc);
         raw.setWorkflowsDesc( local_workflowsDesc);
         raw.setHasArchiveQuery( local_hasArchiveQuery);
+        if (local_thorLogList != null)
+            raw.setThorLogList( local_thorLogList.getRaw());
+        if (local_resourceURLs != null)
+            raw.setResourceURLs( local_resourceURLs.getRaw());
         raw.setResultViewCount( local_resultViewCount);
         raw.setResourceURLCount( local_resourceURLCount);
         raw.setDebugValueCount( local_debugValueCount);

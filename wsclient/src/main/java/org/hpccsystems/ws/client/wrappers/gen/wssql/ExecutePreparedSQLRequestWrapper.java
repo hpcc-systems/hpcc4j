@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ExecutePreparedSQLRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ExecutePreparedSQLRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.053Z
+ * TimeStamp: 2022-10-31T03:44:01.386Z
  */
 public class ExecutePreparedSQLRequestWrapper
 {
@@ -91,6 +91,8 @@ public class ExecutePreparedSQLRequestWrapper
         raw.setWait( local_wait);
         raw.setResultWindowStart( local_resultWindowStart);
         raw.setResultWindowCount( local_resultWindowCount);
+        if (local_variables != null)
+            raw.setVariables( local_variables.getRaw());
         return raw;
     }
 

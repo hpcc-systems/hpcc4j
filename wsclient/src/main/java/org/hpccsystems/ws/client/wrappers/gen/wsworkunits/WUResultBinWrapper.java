@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUResultBinWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBin
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.986Z
+ * TimeStamp: 2022-10-31T03:30:27.601Z
  */
 public class WUResultBinWrapper
 {
@@ -89,6 +89,8 @@ public class WUResultBinWrapper
         raw.setSequence( local_sequence);
         raw.setFormat( local_format);
         raw.setCluster( local_cluster);
+        if (local_filterBy != null)
+            raw.setFilterBy( local_filterBy.getRaw());
         raw.setStart( local_start);
         raw.setCount( local_count);
         return raw;

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpEclSchedulerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclScheduler
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.342Z
+ * TimeStamp: 2022-10-31T03:36:16.463Z
  */
 public class TpEclSchedulerWrapper
 {
@@ -83,6 +83,8 @@ public class TpEclSchedulerWrapper
         raw.setLogDirectory( local_logDirectory);
         raw.setType( local_type);
         raw.setPath( local_path);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

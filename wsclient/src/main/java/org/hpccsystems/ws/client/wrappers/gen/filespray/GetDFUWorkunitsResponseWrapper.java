@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetDFUWorkunitsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.334Z
+ * TimeStamp: 2022-10-31T03:36:11.838Z
  */
 public class GetDFUWorkunitsResponseWrapper
 {
@@ -114,6 +114,10 @@ public class GetDFUWorkunitsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_results != null)
+            raw.setResults( local_results.getRaw());
         raw.setType( local_type);
         raw.setOwner( local_owner);
         raw.setCluster( local_cluster);

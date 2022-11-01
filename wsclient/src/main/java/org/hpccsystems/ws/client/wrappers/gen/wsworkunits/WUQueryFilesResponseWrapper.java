@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQueryFilesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.966Z
+ * TimeStamp: 2022-10-31T03:30:27.582Z
  */
 public class WUQueryFilesResponseWrapper
 {
@@ -71,6 +71,14 @@ public class WUQueryFilesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
+        if (local_superFiles != null)
+            raw.setSuperFiles( local_superFiles.getRaw());
+        if (local_queries != null)
+            raw.setQueries( local_queries.getRaw());
         return raw;
     }
 

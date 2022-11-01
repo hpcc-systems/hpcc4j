@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.877Z
+ * TimeStamp: 2022-10-31T03:30:27.505Z
  */
 public class WUActionResponseWrapper
 {
@@ -63,6 +63,10 @@ public class WUActionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUActionResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_actionResults != null)
+            raw.setActionResults( local_actionResults.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: GetSprayTargetsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.336Z
+ * TimeStamp: 2022-10-31T03:36:11.839Z
  */
 public class GetSprayTargetsResponseWrapper
 {
@@ -63,6 +63,10 @@ public class GetSprayTargetsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_groupNodes != null)
+            raw.setGroupNodes( local_groupNodes.getRaw());
         return raw;
     }
 

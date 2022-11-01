@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUCreateAndUpdateWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateAndUpdate
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.894Z
+ * TimeStamp: 2022-10-31T03:30:27.518Z
  */
 public class WUCreateAndUpdateWrapper
 {
@@ -151,6 +151,10 @@ public class WUCreateAndUpdateWrapper
         raw.setXmlParams( local_xmlParams);
         raw.setThorSlaveIP( local_thorSlaveIP);
         raw.setQueryMainDefinition( local_queryMainDefinition);
+        if (local_debugValues != null)
+            raw.setDebugValues( local_debugValues.getRaw());
+        if (local_applicationValues != null)
+            raw.setApplicationValues( local_applicationValues.getRaw());
         return raw;
     }
 

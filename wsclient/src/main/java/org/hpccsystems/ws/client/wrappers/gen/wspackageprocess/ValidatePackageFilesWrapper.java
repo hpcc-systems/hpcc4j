@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
  * Class name: ValidatePackageFilesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.182Z
+ * TimeStamp: 2022-10-31T03:36:33.200Z
  */
 public class ValidatePackageFilesWrapper
 {
@@ -80,6 +80,8 @@ public class ValidatePackageFilesWrapper
             }
             raw.setUnmatched(arr);
         }
+        if (local_notInDFS != null)
+            raw.setNotInDFS( local_notInDFS.getRaw());
         return raw;
     }
 

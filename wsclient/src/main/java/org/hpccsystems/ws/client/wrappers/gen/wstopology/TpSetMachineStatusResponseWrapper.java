@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpSetMachineStatusResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.377Z
+ * TimeStamp: 2022-10-31T03:36:16.488Z
  */
 public class TpSetMachineStatusResponseWrapper
 {
@@ -62,6 +62,8 @@ public class TpSetMachineStatusResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setTpSetMachineStatusResult( local_tpSetMachineStatusResult);
         return raw;
     }

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUFilePartsOnClusterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePartsOnCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.123Z
+ * TimeStamp: 2022-10-28T23:07:50.883Z
  */
 public class DFUFilePartsOnClusterWrapper
 {
@@ -79,6 +79,7 @@ public class DFUFilePartsOnClusterWrapper
         raw.setReplicateDir( local_replicateDir);
         raw.setReplicate( local_replicate);
         raw.setCanReplicate( local_canReplicate);
+        raw.setDFUFileParts( local_dFUFileParts.getRaw());
         return raw;
     }
 

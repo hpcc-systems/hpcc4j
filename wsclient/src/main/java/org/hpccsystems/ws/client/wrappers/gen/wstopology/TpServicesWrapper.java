@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpServicesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.376Z
+ * TimeStamp: 2022-10-31T03:36:16.487Z
  */
 public class TpServicesWrapper
 {
@@ -115,6 +115,36 @@ public class TpServicesWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices();
+        if (local_tpDalis != null)
+            raw.setTpDalis( local_tpDalis.getRaw());
+        if (local_tpDfuServers != null)
+            raw.setTpDfuServers( local_tpDfuServers.getRaw());
+        if (local_tpDkcSlaves != null)
+            raw.setTpDkcSlaves( local_tpDkcSlaves.getRaw());
+        if (local_tpDropZones != null)
+            raw.setTpDropZones( local_tpDropZones.getRaw());
+        if (local_tpEclAgents != null)
+            raw.setTpEclAgents( local_tpEclAgents.getRaw());
+        if (local_tpEclServers != null)
+            raw.setTpEclServers( local_tpEclServers.getRaw());
+        if (local_tpEclCCServers != null)
+            raw.setTpEclCCServers( local_tpEclCCServers.getRaw());
+        if (local_tpEclSchedulers != null)
+            raw.setTpEclSchedulers( local_tpEclSchedulers.getRaw());
+        if (local_tpEspServers != null)
+            raw.setTpEspServers( local_tpEspServers.getRaw());
+        if (local_tpFTSlaves != null)
+            raw.setTpFTSlaves( local_tpFTSlaves.getRaw());
+        if (local_tpGenesisServers != null)
+            raw.setTpGenesisServers( local_tpGenesisServers.getRaw());
+        if (local_tpLdapServers != null)
+            raw.setTpLdapServers( local_tpLdapServers.getRaw());
+        if (local_tpMySqlServers != null)
+            raw.setTpMySqlServers( local_tpMySqlServers.getRaw());
+        if (local_tpSashaServers != null)
+            raw.setTpSashaServers( local_tpSashaServers.getRaw());
+        if (local_tpSparkThors != null)
+            raw.setTpSparkThors( local_tpSparkThors.getRaw());
         return raw;
     }
 

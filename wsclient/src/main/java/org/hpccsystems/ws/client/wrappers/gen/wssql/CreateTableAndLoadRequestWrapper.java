@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: CreateTableAndLoadRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.CreateTableAndLoadRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.112Z
+ * TimeStamp: 2022-10-31T03:44:01.349Z
  */
 public class CreateTableAndLoadRequestWrapper
 {
@@ -88,8 +88,14 @@ public class CreateTableAndLoadRequestWrapper
         raw.setTableName( local_tableName);
         raw.setTableDescription( local_tableDescription);
         raw.setOverwrite( local_overwrite);
+        if (local_eclFields != null)
+            raw.setEclFields( local_eclFields.getRaw());
         raw.setTargetCluster( local_targetCluster);
         raw.setOwner( local_owner);
+        if (local_dataSource != null)
+            raw.setDataSource( local_dataSource.getRaw());
+        if (local_dataSourceType != null)
+            raw.setDataSourceType( local_dataSourceType.getRaw());
         raw.setWait( local_wait);
         return raw;
     }

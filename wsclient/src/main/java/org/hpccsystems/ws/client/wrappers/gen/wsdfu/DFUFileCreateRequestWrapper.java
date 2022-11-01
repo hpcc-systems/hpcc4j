@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
  * Class name: DFUFileCreateRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.113Z
+ * TimeStamp: 2022-10-28T23:07:50.873Z
  */
 public class DFUFileCreateRequestWrapper
 {
@@ -84,6 +84,7 @@ public class DFUFileCreateRequestWrapper
             }
             raw.setPartLocations(arr);
         }
+        raw.setRequestBase( local_requestBase.getRaw());
         return raw;
     }
 

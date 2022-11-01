@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: CopyPackageMapResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.144Z
+ * TimeStamp: 2022-10-31T03:36:33.172Z
  */
 public class CopyPackageMapResponseWrapper
 {
@@ -73,6 +73,12 @@ public class CopyPackageMapResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.CopyPackageMapResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
+        if (local_filesNotFound != null)
+            raw.setFilesNotFound( local_filesNotFound.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

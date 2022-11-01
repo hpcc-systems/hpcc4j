@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUUpdateQueryEntryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateQueryEntryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:17Z
+ * TimeStamp: 2022-10-31T03:30:27.614Z
  */
 public class WUUpdateQueryEntryResponseWrapper
 {
@@ -59,6 +59,8 @@ public class WUUpdateQueryEntryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateQueryEntryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateQueryEntryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateQueryEntryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: QueryStatsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryStats
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.856Z
+ * TimeStamp: 2022-10-31T03:30:27.488Z
  */
 public class QueryStatsWrapper
 {
@@ -67,6 +67,10 @@ public class QueryStatsWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryStats raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryStats();
         raw.setID( local_iD);
+        if (local_aggregateQueryStatsList != null)
+            raw.setAggregateQueryStatsList( local_aggregateQueryStatsList.getRaw());
+        if (local_queryStatsRecordList != null)
+            raw.setQueryStatsRecordList( local_queryStatsRecordList.getRaw());
         return raw;
     }
 

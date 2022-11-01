@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQuerySetAliasActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetAliasActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.971Z
+ * TimeStamp: 2022-10-31T03:30:27.586Z
  */
 public class WUQuerySetAliasActionResponseWrapper
 {
@@ -70,7 +70,13 @@ public class WUQuerySetAliasActionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetAliasActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetAliasActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetAliasActionResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_action != null)
+            raw.setAction( local_action.getRaw());
         raw.setQuerySetName( local_querySetName);
+        if (local_results != null)
+            raw.setResults( local_results.getRaw());
         return raw;
     }
 

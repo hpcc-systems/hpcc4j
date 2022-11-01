@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: ECLSourceFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.809Z
+ * TimeStamp: 2022-10-31T03:30:27.446Z
  */
 public class ECLSourceFileWrapper
 {
@@ -79,6 +79,8 @@ public class ECLSourceFileWrapper
         raw.setIsSuperFile( local_isSuperFile);
         raw.setSubs( local_subs);
         raw.setCount( local_count);
+        if (local_eCLSourceFiles != null)
+            raw.setECLSourceFiles( local_eCLSourceFiles.getRaw());
         return raw;
     }
 

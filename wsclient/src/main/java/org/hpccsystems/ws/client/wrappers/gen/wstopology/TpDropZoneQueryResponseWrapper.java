@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpDropZoneQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.340Z
+ * TimeStamp: 2022-10-31T03:36:16.461Z
  */
 public class TpDropZoneQueryResponseWrapper
 {
@@ -63,6 +63,10 @@ public class TpDropZoneQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_tpDropZones != null)
+            raw.setTpDropZones( local_tpDropZones.getRaw());
         return raw;
     }
 

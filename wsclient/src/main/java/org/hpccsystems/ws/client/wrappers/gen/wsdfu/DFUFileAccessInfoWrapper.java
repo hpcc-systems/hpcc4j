@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUFileAccessInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.109Z
+ * TimeStamp: 2022-10-28T23:07:50.866Z
  */
 public class DFUFileAccessInfoWrapper
 {
@@ -84,6 +84,8 @@ public class DFUFileAccessInfoWrapper
         raw.setMetaInfoBlob( local_metaInfoBlob);
         raw.setExpiryTime( local_expiryTime);
         raw.setNumParts( local_numParts);
+        raw.setFileLocations( local_fileLocations.getRaw());
+        raw.setFileParts( local_fileParts.getRaw());
         raw.setRecordTypeInfoJson( local_recordTypeInfoJson);
         raw.setFileAccessPort( local_fileAccessPort);
         raw.setFileAccessSSL( local_fileAccessSSL);

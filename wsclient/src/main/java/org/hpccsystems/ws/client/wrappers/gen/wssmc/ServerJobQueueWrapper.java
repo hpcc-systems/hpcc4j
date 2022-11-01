@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: ServerJobQueueWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ServerJobQueue
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.555Z
+ * TimeStamp: 2022-10-31T03:36:23.318Z
  */
 public class ServerJobQueueWrapper
 {
@@ -81,6 +81,8 @@ public class ServerJobQueueWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ServerJobQueue raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ServerJobQueue();
         raw.setQueueName( local_queueName);
+        if (local_queues != null)
+            raw.setQueues( local_queues.getRaw());
         raw.setServerName( local_serverName);
         raw.setServerType( local_serverType);
         raw.setQueueStatus( local_queueStatus);

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: FileListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.327Z
+ * TimeStamp: 2022-10-31T03:36:11.829Z
  */
 public class FileListResponseWrapper
 {
@@ -81,12 +81,16 @@ public class FileListResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setNetaddr( local_netaddr);
         raw.setPath( local_path);
         raw.setMask( local_mask);
         raw.setOS( local_oS);
         raw.setDirectoryOnly( local_directoryOnly);
         raw.setAcceptLanguage( local_acceptLanguage);
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         return raw;
     }
 

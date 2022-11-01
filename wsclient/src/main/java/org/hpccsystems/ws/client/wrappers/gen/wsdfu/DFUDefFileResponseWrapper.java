@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: DFUDefFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.104Z
+ * TimeStamp: 2022-10-28T23:07:50.866Z
  */
 public class DFUDefFileResponseWrapper
 {
@@ -63,6 +63,7 @@ public class DFUDefFileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileResponse();
+        raw.setExceptions( local_exceptions.getRaw());
         raw.setDefFile( local_defFile);
         return raw;
     }

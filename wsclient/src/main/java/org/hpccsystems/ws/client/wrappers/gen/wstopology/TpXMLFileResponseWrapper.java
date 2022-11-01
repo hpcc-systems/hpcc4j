@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: TpXMLFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.387Z
+ * TimeStamp: 2022-10-31T03:36:16.493Z
  */
 public class TpXMLFileResponseWrapper
 {
@@ -63,6 +63,8 @@ public class TpXMLFileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setThefile( local_thefile);
         return raw;
     }

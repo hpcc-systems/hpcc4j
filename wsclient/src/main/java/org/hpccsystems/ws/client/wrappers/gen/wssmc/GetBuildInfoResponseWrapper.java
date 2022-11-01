@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: GetBuildInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.535Z
+ * TimeStamp: 2022-10-31T03:36:23.292Z
  */
 public class GetBuildInfoResponseWrapper
 {
@@ -63,6 +63,10 @@ public class GetBuildInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_buildInfo != null)
+            raw.setBuildInfo( local_buildInfo.getRaw());
         return raw;
     }
 

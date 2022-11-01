@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: RenameResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.344Z
+ * TimeStamp: 2022-10-31T03:36:11.844Z
  */
 public class RenameResponseWrapper
 {
@@ -62,6 +62,8 @@ public class RenameResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         return raw;
     }

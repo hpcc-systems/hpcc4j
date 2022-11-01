@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: SprayResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.350Z
+ * TimeStamp: 2022-10-31T03:36:11.848Z
  */
 public class SprayResponseWrapper
 {
@@ -62,6 +62,8 @@ public class SprayResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         return raw;
     }

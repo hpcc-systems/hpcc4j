@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * Class name: SuperFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.179Z
+ * TimeStamp: 2022-10-31T03:36:33.199Z
  */
 public class SuperFileWrapper
 {
@@ -63,6 +63,8 @@ public class SuperFileWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile();
         raw.setName( local_name);
+        if (local_subFiles != null)
+            raw.setSubFiles( local_subFiles.getRaw());
         return raw;
     }
 

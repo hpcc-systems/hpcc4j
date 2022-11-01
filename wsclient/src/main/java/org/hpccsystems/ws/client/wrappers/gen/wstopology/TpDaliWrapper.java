@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpDaliWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDali
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.336Z
+ * TimeStamp: 2022-10-31T03:36:16.457Z
  */
 public class TpDaliWrapper
 {
@@ -95,6 +95,8 @@ public class TpDaliWrapper
         raw.setPath( local_path);
         raw.setLogDirectory( local_logDirectory);
         raw.setAuditLogDirectory( local_auditLogDirectory);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

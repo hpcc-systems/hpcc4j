@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUPushEventResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.956Z
+ * TimeStamp: 2022-10-31T03:30:27.572Z
  */
 public class WUPushEventResponseWrapper
 {
@@ -59,6 +59,8 @@ public class WUPushEventResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

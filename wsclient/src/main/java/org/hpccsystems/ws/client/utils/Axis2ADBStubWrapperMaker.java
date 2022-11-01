@@ -373,11 +373,17 @@ public class Axis2ADBStubWrapperMaker
 
                     rawmethobody += "        if (this." + simpleField.getSafeName() + "!= null)\n        {\n";
                     if (simpleField.isWrapped())
+                    {
                         rawmethobody += "            " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[] arr = new " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                    }
                     else if (simpleField.isESPStringArray())
+                    {
                         rawmethobody += "            " + "EspStringArray arr = new EspStringArray();\n";
+                    }
                     else
+                    {
                         rawmethobody += "            " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[] arr = new " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                    }
 
                     rawmethobody += "            for ( int i = 0; i < this." + simpleField.getSafeName() + ".size(); i++)\n";
 
@@ -390,7 +396,10 @@ public class Axis2ADBStubWrapperMaker
                     rawmethobody += "\n            raw.set" + capitalized + "(arr);\n        }\n";
                 }
                 else if (simpleField.isWrapped)
+                {
                     copymethobody += "        if (raw.get" + capitalized + "() != null)\n            this." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
+                    rawmethobody += "        if (" + simpleField.getSafeName() + " != null)\n            raw.set" + capitalized + "( " + simpleField.getSafeName() + ".getRaw());\n";
+                }
                 else
                 {
                     boolean foundget = false;

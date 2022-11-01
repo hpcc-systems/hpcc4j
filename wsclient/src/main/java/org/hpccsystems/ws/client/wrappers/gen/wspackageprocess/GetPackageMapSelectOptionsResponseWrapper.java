@@ -26,7 +26,7 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
  * Class name: GetPackageMapSelectOptionsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.163Z
+ * TimeStamp: 2022-10-31T03:36:33.187Z
  */
 public class GetPackageMapSelectOptionsResponseWrapper
 {
@@ -79,6 +79,12 @@ public class GetPackageMapSelectOptionsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapSelectOptionsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
+        if (local_targets != null)
+            raw.setTargets( local_targets.getRaw());
         if (this.local_processFilters!= null)
         {
             EspStringArray arr = new EspStringArray();

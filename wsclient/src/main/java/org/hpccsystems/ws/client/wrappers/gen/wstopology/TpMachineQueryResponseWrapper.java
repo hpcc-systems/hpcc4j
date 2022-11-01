@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpMachineQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.370Z
+ * TimeStamp: 2022-10-31T03:36:16.482Z
  */
 public class TpMachineQueryResponseWrapper
 {
@@ -108,6 +108,8 @@ public class TpMachineQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setEnablePreflightInfo( local_enablePreflightInfo);
         raw.setHasThorSpareProcess( local_hasThorSpareProcess);
         raw.setType( local_type);
@@ -123,6 +125,8 @@ public class TpMachineQueryResponseWrapper
         raw.setPreflightProcessFilter( local_preflightProcessFilter);
         raw.setEnableSNMP( local_enableSNMP);
         raw.setAcceptLanguage( local_acceptLanguage);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

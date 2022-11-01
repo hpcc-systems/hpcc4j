@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: GetResultsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetResultsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetResultsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.106Z
+ * TimeStamp: 2022-10-31T03:44:01.396Z
  */
 public class GetResultsResponseWrapper
 {
@@ -73,9 +73,13 @@ public class GetResultsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetResultsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetResultsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetResultsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setResult( local_result);
         raw.setResultWindowStart( local_resultWindowStart);
         raw.setResultWindowCount( local_resultWindowCount);
+        if (local_workunit != null)
+            raw.setWorkunit( local_workunit.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: NotInCommunityEditionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.548Z
+ * TimeStamp: 2022-10-31T03:36:23.308Z
  */
 public class NotInCommunityEditionResponseWrapper
 {
@@ -59,6 +59,8 @@ public class NotInCommunityEditionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

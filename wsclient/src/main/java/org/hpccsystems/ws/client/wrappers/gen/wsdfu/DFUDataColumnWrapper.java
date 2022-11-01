@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUDataColumnWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.104Z
+ * TimeStamp: 2022-10-28T23:07:50.864Z
  */
 public class DFUDataColumnWrapper
 {
@@ -99,6 +99,7 @@ public class DFUDataColumnWrapper
         raw.setColumnRawSize( local_columnRawSize);
         raw.setIsNaturalColumn( local_isNaturalColumn);
         raw.setIsKeyedColumn( local_isKeyedColumn);
+        raw.setDataColumns( local_dataColumns.getRaw());
         return raw;
     }
 

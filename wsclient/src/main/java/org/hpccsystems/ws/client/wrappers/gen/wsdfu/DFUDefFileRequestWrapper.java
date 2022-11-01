@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUDefFileRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.104Z
+ * TimeStamp: 2022-10-28T23:07:50.865Z
  */
 public class DFUDefFileRequestWrapper
 {
@@ -63,6 +63,7 @@ public class DFUDefFileRequestWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest();
         raw.setName( local_name);
+        raw.setFormat( local_format.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUPublishWorkunitResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.954Z
+ * TimeStamp: 2022-10-31T03:30:27.571Z
  */
 public class WUPublishWorkunitResponseWrapper
 {
@@ -97,6 +97,8 @@ public class WUPublishWorkunitResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         raw.setResult( local_result);
         raw.setQuerySet( local_querySet);
@@ -105,6 +107,10 @@ public class WUPublishWorkunitResponseWrapper
         raw.setReloadFailed( local_reloadFailed);
         raw.setSuspended( local_suspended);
         raw.setErrorMessage( local_errorMessage);
+        if (local_clusterFiles != null)
+            raw.setClusterFiles( local_clusterFiles.getRaw());
+        if (local_fileErrors != null)
+            raw.setFileErrors( local_fileErrors.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

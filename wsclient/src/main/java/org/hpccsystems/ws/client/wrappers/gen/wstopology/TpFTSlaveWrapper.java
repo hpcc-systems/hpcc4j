@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  * Class name: TpFTSlaveWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpFTSlave
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.345Z
+ * TimeStamp: 2022-10-31T03:36:16.467Z
  */
 public class TpFTSlaveWrapper
 {
@@ -75,6 +75,8 @@ public class TpFTSlaveWrapper
         raw.setDescription( local_description);
         raw.setBuild( local_build);
         raw.setPath( local_path);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

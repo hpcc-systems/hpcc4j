@@ -24,7 +24,7 @@ import org.apache.axis2.databinding.types.UnsignedInt;
  * Class name: WUCheckFeaturesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.882Z
+ * TimeStamp: 2022-10-31T03:30:27.508Z
  */
 public class WUCheckFeaturesResponseWrapper
 {
@@ -76,10 +76,14 @@ public class WUCheckFeaturesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setBuildVersionMajor( local_buildVersionMajor);
         raw.setBuildVersionMinor( local_buildVersionMinor);
         raw.setBuildVersionPoint( local_buildVersionPoint);
         raw.setMaxRequestEntityLength( local_maxRequestEntityLength);
+        if (local_deployment != null)
+            raw.setDeployment( local_deployment.getRaw());
         return raw;
     }
 

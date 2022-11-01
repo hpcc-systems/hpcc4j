@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: QuerySetQueryActionItemWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.854Z
+ * TimeStamp: 2022-10-31T03:30:27.486Z
  */
 public class QuerySetQueryActionItemWrapper
 {
@@ -63,6 +63,8 @@ public class QuerySetQueryActionItemWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem();
         raw.setQueryId( local_queryId);
+        if (local_clientState != null)
+            raw.setClientState( local_clientState.getRaw());
         return raw;
     }
 

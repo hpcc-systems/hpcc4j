@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUQuerySetDetailWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetail
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.974Z
+ * TimeStamp: 2022-10-31T03:30:27.588Z
  */
 public class WUQuerySetDetailWrapper
 {
@@ -67,6 +67,10 @@ public class WUQuerySetDetailWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetail raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetail();
         raw.setQuerySetName( local_querySetName);
+        if (local_queries != null)
+            raw.setQueries( local_queries.getRaw());
+        if (local_aliases != null)
+            raw.setAliases( local_aliases.getRaw());
         return raw;
     }
 

@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * Class name: WUGetGraphResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.918Z
+ * TimeStamp: 2022-10-31T03:30:27.536Z
  */
 public class WUGetGraphResponseWrapper
 {
@@ -63,6 +63,10 @@ public class WUGetGraphResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_graphs != null)
+            raw.setGraphs( local_graphs.getRaw());
         return raw;
     }
 
