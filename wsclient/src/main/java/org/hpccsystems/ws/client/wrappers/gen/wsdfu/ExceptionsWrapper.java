@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ExceptionsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.928Z
+ * Service version: 1.64
  */
 public class ExceptionsWrapper
 {
@@ -59,7 +60,8 @@ public class ExceptionsWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

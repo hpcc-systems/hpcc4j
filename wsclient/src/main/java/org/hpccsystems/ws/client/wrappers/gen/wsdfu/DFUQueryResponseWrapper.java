@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.906Z
+ * Service version: 1.64
  */
 public class DFUQueryResponseWrapper
 {
@@ -141,8 +142,10 @@ public class DFUQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse();
-        raw.setExceptions( local_exceptions.getRaw());
-        raw.setDFULogicalFiles( local_dFULogicalFiles.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_dFULogicalFiles != null)
+            raw.setDFULogicalFiles( local_dFULogicalFiles.getRaw());
         raw.setPrefix( local_prefix);
         raw.setNodeGroup( local_nodeGroup);
         raw.setLogicalName( local_logicalName);

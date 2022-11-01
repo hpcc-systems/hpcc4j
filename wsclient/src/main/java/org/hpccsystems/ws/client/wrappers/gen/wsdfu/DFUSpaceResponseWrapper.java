@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUSpaceResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.922Z
+ * Service version: 1.64
  */
 public class DFUSpaceResponseWrapper
 {
@@ -81,14 +82,16 @@ public class DFUSpaceResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setCountBy( local_countBy);
         raw.setScopeUnder( local_scopeUnder);
         raw.setOwnerUnder( local_ownerUnder);
         raw.setInterval( local_interval);
         raw.setStartDate( local_startDate);
         raw.setEndDate( local_endDate);
-        raw.setDFUSpaceItems( local_dFUSpaceItems.getRaw());
+        if (local_dFUSpaceItems != null)
+            raw.setDFUSpaceItems( local_dFUSpaceItems.getRaw());
         return raw;
     }
 

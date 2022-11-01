@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SuperfileListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.939Z
+ * Service version: 1.64
  */
 public class SuperfileListResponseWrapper
 {
@@ -74,7 +75,8 @@ public class SuperfileListResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setSuperfile( local_superfile);
         if (this.local_subfiles!= null)
         {

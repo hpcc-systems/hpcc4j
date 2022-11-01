@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUXRefCleanDirectoriesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * TimeStamp: 2022-10-28T23:08:36.459Z
+ * Service version: 1.02
  */
 public class DFUXRefCleanDirectoriesResponseWrapper
 {
@@ -59,7 +60,8 @@ public class DFUXRefCleanDirectoriesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefCleanDirectoriesResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

@@ -24,10 +24,11 @@ import org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: LockWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Lock
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.542Z
+ * Service version: 1.26
  */
 public class LockWrapper
 {

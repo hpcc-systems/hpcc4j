@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-
-import org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspStringArray;
-
 import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ListUserIDsResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.ListUserIDsResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wscodesign
- * TimeStamp: 2021-03-26T18:27:31.408Z
+ * Service version: 1.1
  */
 public class ListUserIDsResponseWrapper
 {
@@ -73,6 +72,8 @@ public class ListUserIDsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         if (this.local_userIDs!= null)
         {
             EspStringArray arr = new EspStringArray();

@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUXRefUnusedFilesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * TimeStamp: 2022-10-28T23:08:36.470Z
+ * Service version: 1.02
  */
 public class DFUXRefUnusedFilesResponseWrapper
 {
@@ -71,10 +72,13 @@ public class DFUXRefUnusedFilesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefUnusedFilesResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setUnusedFileCount( local_unusedFileCount);
-        raw.setUnusedFiles( local_unusedFiles.getRaw());
-        raw.setUnusedFilesWithDetails( local_unusedFilesWithDetails.getRaw());
+        if (local_unusedFiles != null)
+            raw.setUnusedFiles( local_unusedFiles.getRaw());
+        if (local_unusedFilesWithDetails != null)
+            raw.setUnusedFilesWithDetails( local_unusedFilesWithDetails.getRaw());
         return raw;
     }
 

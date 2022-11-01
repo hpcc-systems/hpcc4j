@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ECLTimingDataWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLTimingData
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimingData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.112Z
+ * Service version: 3.06
  */
 public class ECLTimingDataWrapper
 {

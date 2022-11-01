@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: AddtoSuperfileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.840Z
+ * Service version: 1.64
  */
 public class AddtoSuperfileResponseWrapper
 {
@@ -69,10 +70,12 @@ public class AddtoSuperfileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setSubfiles( local_subfiles);
         raw.setBackToPage( local_backToPage);
-        raw.setSubfileNames( local_subfileNames.getRaw());
+        if (local_subfileNames != null)
+            raw.setSubfileNames( local_subfileNames.getRaw());
         return raw;
     }
 

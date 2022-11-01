@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: VerifyResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wscodesign.v1_01.VerifyResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wscodesign
- * TimeStamp: 2021-03-26T18:27:31.424Z
+ * Service version: 1.1
  */
 public class VerifyResponseWrapper
 {
@@ -71,6 +72,8 @@ public class VerifyResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.VerifyResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setRetCode( local_retCode);
         raw.setErrMsg( local_errMsg);
         raw.setIsVerified( local_isVerified);

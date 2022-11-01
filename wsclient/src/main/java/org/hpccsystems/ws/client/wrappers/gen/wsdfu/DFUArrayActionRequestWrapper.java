@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUArrayActionRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.850Z
+ * Service version: 1.64
  */
 public class DFUArrayActionRequestWrapper
 {
@@ -91,7 +92,8 @@ public class DFUArrayActionRequestWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest();
-        raw.setType( local_type.getRaw());
+        if (local_type != null)
+            raw.setType( local_type.getRaw());
         raw.setNoDelete( local_noDelete);
         raw.setBackToPage( local_backToPage);
         if (this.local_logicalFiles!= null)
@@ -105,8 +107,10 @@ public class DFUArrayActionRequestWrapper
         }
         raw.setRemoveFromSuperfiles( local_removeFromSuperfiles);
         raw.setRemoveRecursively( local_removeRecursively);
-        raw.setProtect( local_protect.getRaw());
-        raw.setRestrict( local_restrict.getRaw());
+        if (local_protect != null)
+            raw.setProtect( local_protect.getRaw());
+        if (local_restrict != null)
+            raw.setRestrict( local_restrict.getRaw());
         return raw;
     }
 

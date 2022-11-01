@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-
-import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray;
-
 import java.util.ArrayList;
+import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUXRefArrayActionRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.DFUXRefArrayActionRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefArrayActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * TimeStamp: 2021-03-24T23:14:30.154Z
+ * Service version: 1.02
  */
 public class DFUXRefArrayActionRequestWrapper
 {
