@@ -38,7 +38,7 @@ import java.util.Properties;
  */
 public class Axis2ADBStubWrapperMaker
 {
-    final public static String version = "1.7";
+    final public static String version = "1.8";
 
     private static String elementcommentstart = "/**\n"
                                               + " * Generated Axis2 ADB stub class wrapper\n"
@@ -361,7 +361,7 @@ public class Axis2ADBStubWrapperMaker
                 fullctrbody += "        this." + simpleField.getSafeName() + " = _" + simplename + ";\n";
                 if (simpleField.isContainer)
                 {
-                    copymethobody += "        if (raw.get" + capitalized + "() != null)\n        {\n";
+                    copymethobody += "        if (raw.get" + capitalized + "() != null" + (simpleField.isESPStringArray() ? " && raw.get" + capitalized + "().getItem() != null" : "") + ")\n        {\n";
                     copymethobody += "            this." + simpleField.getSafeName() + " = new Array" + simpleField.getActualType() + "();\n";
 
                     if (simpleField.isESPStringArray())
