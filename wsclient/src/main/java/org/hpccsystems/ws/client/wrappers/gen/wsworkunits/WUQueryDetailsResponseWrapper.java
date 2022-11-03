@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: WUQueryDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
@@ -112,7 +112,7 @@ public class WUQueryDetailsResponseWrapper
             this.local_clusters = new ArrayOfClusterQueryStateWrapper( raw.getClusters());
         this.local_publishedBy = raw.getPublishedBy();
         this.local_comment = raw.getComment();
-        if (raw.getLogicalFiles() != null)
+        if (raw.getLogicalFiles() != null && raw.getLogicalFiles().getItem() != null)
         {
             this.local_logicalFiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogicalFiles().getItem().length; i++)
@@ -126,7 +126,7 @@ public class WUQueryDetailsResponseWrapper
         this.local_priorityID = raw.getPriorityID();
         this.local_wUSnapShot = raw.getWUSnapShot();
         this.local_compileTime = raw.getCompileTime();
-        if (raw.getLibrariesUsed() != null)
+        if (raw.getLibrariesUsed() != null && raw.getLibrariesUsed().getItem() != null)
         {
             this.local_librariesUsed = new ArrayList<String>();
             for ( int i = 0; i < raw.getLibrariesUsed().getItem().length; i++)

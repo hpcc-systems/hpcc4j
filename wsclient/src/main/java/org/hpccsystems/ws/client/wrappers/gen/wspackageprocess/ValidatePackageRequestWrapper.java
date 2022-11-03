@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: ValidatePackageRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
@@ -78,14 +78,14 @@ public class ValidatePackageRequestWrapper
         this.local_active = raw.getActive();
         this.local_pMID = raw.getPMID();
         this.local_queryIdToVerify = raw.getQueryIdToVerify();
-        if (raw.getQueriesToVerify() != null)
+        if (raw.getQueriesToVerify() != null && raw.getQueriesToVerify().getItem() != null)
         {
             this.local_queriesToVerify = new ArrayList<String>();
             for ( int i = 0; i < raw.getQueriesToVerify().getItem().length; i++)
             {
                 this.local_queriesToVerify.add(new String(raw.getQueriesToVerify().getItem()[i]));
             }
-        }        if (raw.getQueriesToIgnore() != null)
+        }        if (raw.getQueriesToIgnore() != null && raw.getQueriesToIgnore().getItem() != null)
         {
             this.local_queriesToIgnore = new ArrayList<String>();
             for ( int i = 0; i < raw.getQueriesToIgnore().getItem().length; i++)

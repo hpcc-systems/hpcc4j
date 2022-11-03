@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: DFUFileDetailWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
@@ -185,7 +185,7 @@ public class DFUFileDetailWrapper
             this.local_dFUFilePartsOnClusters = new ArrayOfDFUFilePartsOnClusterWrapper( raw.getDFUFilePartsOnClusters());
         this.local_isSuperfile = raw.getIsSuperfile();
         this.local_showFileContent = raw.getShowFileContent();
-        if (raw.getSubfiles() != null)
+        if (raw.getSubfiles() != null && raw.getSubfiles().getItem() != null)
         {
             this.local_subfiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getSubfiles().getItem().length; i++)

@@ -24,7 +24,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: WUFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
@@ -114,7 +114,7 @@ public class WUFileWrapper
         if (raw.getLogFormat() != null)
             this.local_logFormat = new LogAccessLogFormatWrapper( raw.getLogFormat());
         this.local_logSearchTimeBuffSecs = raw.getLogSearchTimeBuffSecs();
-        if (raw.getLogColumns() != null)
+        if (raw.getLogColumns() != null && raw.getLogColumns().getItem() != null)
         {
             this.local_logColumns = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogColumns().getItem().length; i++)

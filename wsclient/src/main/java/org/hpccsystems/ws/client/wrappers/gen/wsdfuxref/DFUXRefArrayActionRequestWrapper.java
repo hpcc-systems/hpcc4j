@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: DFUXRefArrayActionRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefArrayActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
@@ -59,7 +59,7 @@ public class DFUXRefArrayActionRequestWrapper
         this.local_type = raw.getType();
         this.local_cluster = raw.getCluster();
         this.local_action = raw.getAction();
-        if (raw.getXRefFiles() != null)
+        if (raw.getXRefFiles() != null && raw.getXRefFiles().getItem() != null)
         {
             this.local_xRefFiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getXRefFiles().getItem().length; i++)

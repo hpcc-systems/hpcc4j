@@ -24,7 +24,7 @@ import org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: LockWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Lock
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
@@ -72,7 +72,7 @@ public class LockWrapper
         this.local_durationMS = raw.getDurationMS();
         this.local_timeLocked = raw.getTimeLocked();
         this.local_modes = raw.getModes();
-        if (raw.getModeNames() != null)
+        if (raw.getModeNames() != null && raw.getModeNames().getItem() != null)
         {
             this.local_modeNames = new ArrayList<String>();
             for ( int i = 0; i < raw.getModeNames().getItem().length; i++)

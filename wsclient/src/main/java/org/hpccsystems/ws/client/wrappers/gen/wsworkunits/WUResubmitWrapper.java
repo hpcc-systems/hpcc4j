@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: WUResubmitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
@@ -56,7 +56,7 @@ public class WUResubmitWrapper
         if (raw == null)
             return;
 
-        if (raw.getWuids() != null)
+        if (raw.getWuids() != null && raw.getWuids().getItem() != null)
         {
             this.local_wuids = new ArrayList<String>();
             for ( int i = 0; i < raw.getWuids().getItem().length; i++)

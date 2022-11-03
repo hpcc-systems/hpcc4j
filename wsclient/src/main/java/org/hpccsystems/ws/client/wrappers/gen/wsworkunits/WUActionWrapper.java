@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: WUActionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
@@ -84,7 +84,7 @@ public class WUActionWrapper
         if (raw == null)
             return;
 
-        if (raw.getWuids() != null)
+        if (raw.getWuids() != null && raw.getWuids().getItem() != null)
         {
             this.local_wuids = new ArrayList<String>();
             for ( int i = 0; i < raw.getWuids().getItem().length; i++)

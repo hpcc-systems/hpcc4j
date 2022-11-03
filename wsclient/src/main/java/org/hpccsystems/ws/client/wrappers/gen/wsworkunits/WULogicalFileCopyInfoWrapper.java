@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: WULogicalFileCopyInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULogicalFileCopyInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
@@ -62,7 +62,7 @@ public class WULogicalFileCopyInfoWrapper
         this.local_logicalName = raw.getLogicalName();
         this.local_dfuCopyWuid = raw.getDfuCopyWuid();
         this.local_dfuCopyError = raw.getDfuCopyError();
-        if (raw.getClusters() != null)
+        if (raw.getClusters() != null && raw.getClusters().getItem() != null)
         {
             this.local_clusters = new ArrayList<String>();
             for ( int i = 0; i < raw.getClusters().getItem().length; i++)

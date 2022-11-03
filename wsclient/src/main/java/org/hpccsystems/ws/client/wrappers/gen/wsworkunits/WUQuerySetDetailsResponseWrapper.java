@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: WUQuerySetDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
@@ -75,7 +75,7 @@ public class WUQuerySetDetailsResponseWrapper
         this.local_filter = raw.getFilter();
         if (raw.getFilterType() != null)
             this.local_filterType = new WUQuerySetFilterTypeWrapper( raw.getFilterType());
-        if (raw.getClusterNames() != null)
+        if (raw.getClusterNames() != null && raw.getClusterNames().getItem() != null)
         {
             this.local_clusterNames = new ArrayList<String>();
             for ( int i = 0; i < raw.getClusterNames().getItem().length; i++)

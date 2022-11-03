@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: ValidateResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidateResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
@@ -64,14 +64,14 @@ public class ValidateResultWrapper
 
         this.local_target = raw.getTarget();
         this.local_pMID = raw.getPMID();
-        if (raw.getWarnings() != null)
+        if (raw.getWarnings() != null && raw.getWarnings().getItem() != null)
         {
             this.local_warnings = new ArrayList<String>();
             for ( int i = 0; i < raw.getWarnings().getItem().length; i++)
             {
                 this.local_warnings.add(new String(raw.getWarnings().getItem()[i]));
             }
-        }        if (raw.getErrors() != null)
+        }        if (raw.getErrors() != null && raw.getErrors().getItem() != null)
         {
             this.local_errors = new ArrayList<String>();
             for ( int i = 0; i < raw.getErrors().getItem().length; i++)
