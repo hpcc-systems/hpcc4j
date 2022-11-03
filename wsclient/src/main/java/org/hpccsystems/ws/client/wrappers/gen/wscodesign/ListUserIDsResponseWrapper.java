@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: ListUserIDsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.ListUserIDsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wscodesign
@@ -54,7 +54,7 @@ public class ListUserIDsResponseWrapper
 
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-        if (raw.getUserIDs() != null && raw.getUserIDs().getItem() != null)//hand edited
+        if (raw.getUserIDs() != null && raw.getUserIDs().getItem() != null)
         {
             this.local_userIDs = new ArrayList<String>();
             for ( int i = 0; i < raw.getUserIDs().getItem().length; i++)

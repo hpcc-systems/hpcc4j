@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: SuperfileListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
@@ -57,7 +57,7 @@ public class SuperfileListResponseWrapper
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         this.local_superfile = raw.getSuperfile();
-        if (raw.getSubfiles() != null)
+        if (raw.getSubfiles() != null && raw.getSubfiles().getItem() != null)
         {
             this.local_subfiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getSubfiles().getItem().length; i++)

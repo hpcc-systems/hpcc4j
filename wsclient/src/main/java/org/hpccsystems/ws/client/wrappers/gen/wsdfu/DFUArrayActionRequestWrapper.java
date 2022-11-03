@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: DFUArrayActionRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
@@ -68,7 +68,7 @@ public class DFUArrayActionRequestWrapper
             this.local_type = new DFUArrayActionsWrapper( raw.getType());
         this.local_noDelete = raw.getNoDelete();
         this.local_backToPage = raw.getBackToPage();
-        if (raw.getLogicalFiles() != null)
+        if (raw.getLogicalFiles() != null && raw.getLogicalFiles().getItem() != null)
         {
             this.local_logicalFiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogicalFiles().getItem().length; i++)

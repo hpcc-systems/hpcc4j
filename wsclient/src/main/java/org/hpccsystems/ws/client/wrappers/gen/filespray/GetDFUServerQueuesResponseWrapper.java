@@ -54,7 +54,7 @@ public class GetDFUServerQueuesResponseWrapper
 
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-        if (raw.getNames() != null)
+        if (raw.getNames() != null && raw.getNames().getItem() != null)
         {
             this.local_names = new ArrayList<String>();
             for ( int i = 0; i < raw.getNames().getItem().length; i++)

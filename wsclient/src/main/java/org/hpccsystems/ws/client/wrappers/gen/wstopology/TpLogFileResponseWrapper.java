@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: TpLogFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
@@ -114,7 +114,7 @@ public class TpLogFileResponseWrapper
         this.local_nextPage = raw.getNextPage();
         this.local_totalPages = raw.getTotalPages();
         this.local_acceptLanguage = raw.getAcceptLanguage();
-        if (raw.getLogFieldNames() != null)
+        if (raw.getLogFieldNames() != null && raw.getLogFieldNames().getItem() != null)
         {
             this.local_logFieldNames = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogFieldNames().getItem().length; i++)

@@ -23,7 +23,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
+ * WrapperMaker version: 1.8
  * Class name: DFUFileBloomWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileBloom
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
@@ -57,7 +57,7 @@ public class DFUFileBloomWrapper
             return;
 
         this.local_fieldMask = raw.getFieldMask();
-        if (raw.getFieldNames() != null)
+        if (raw.getFieldNames() != null && raw.getFieldNames().getItem() != null)
         {
             this.local_fieldNames = new ArrayList<String>();
             for ( int i = 0; i < raw.getFieldNames().getItem().length; i++)
