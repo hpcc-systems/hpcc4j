@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUJobWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DFUJob
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.532Z
+ * Service version: 1.26
  */
 public class DFUJobWrapper
 {

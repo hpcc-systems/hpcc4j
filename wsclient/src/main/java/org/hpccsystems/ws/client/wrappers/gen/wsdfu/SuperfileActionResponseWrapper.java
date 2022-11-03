@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SuperfileActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.938Z
+ * Service version: 1.64
  */
 public class SuperfileActionResponseWrapper
 {
@@ -65,7 +66,8 @@ public class SuperfileActionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setSuperfile( local_superfile);
         raw.setRetcode( local_retcode);
         return raw;

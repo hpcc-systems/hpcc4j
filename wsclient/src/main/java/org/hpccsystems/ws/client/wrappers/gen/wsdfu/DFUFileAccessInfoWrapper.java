@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUFileAccessInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.866Z
+ * Service version: 1.64
  */
 public class DFUFileAccessInfoWrapper
 {
@@ -84,8 +85,10 @@ public class DFUFileAccessInfoWrapper
         raw.setMetaInfoBlob( local_metaInfoBlob);
         raw.setExpiryTime( local_expiryTime);
         raw.setNumParts( local_numParts);
-        raw.setFileLocations( local_fileLocations.getRaw());
-        raw.setFileParts( local_fileParts.getRaw());
+        if (local_fileLocations != null)
+            raw.setFileLocations( local_fileLocations.getRaw());
+        if (local_fileParts != null)
+            raw.setFileParts( local_fileParts.getRaw());
         raw.setRecordTypeInfoJson( local_recordTypeInfoJson);
         raw.setFileAccessPort( local_fileAccessPort);
         raw.setFileAccessSSL( local_fileAccessSSL);

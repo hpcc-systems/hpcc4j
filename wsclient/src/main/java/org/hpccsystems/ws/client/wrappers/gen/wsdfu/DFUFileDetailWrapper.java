@@ -24,10 +24,11 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUFileDetailWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.881Z
+ * Service version: 1.64
  */
 public class DFUFileDetailWrapper
 {
@@ -254,8 +255,10 @@ public class DFUFileDetailWrapper
         raw.setCsvEscape( local_csvEscape);
         raw.setModified( local_modified);
         raw.setEcl( local_ecl);
-        raw.setStat( local_stat.getRaw());
-        raw.setDFUFilePartsOnClusters( local_dFUFilePartsOnClusters.getRaw());
+        if (local_stat != null)
+            raw.setStat( local_stat.getRaw());
+        if (local_dFUFilePartsOnClusters != null)
+            raw.setDFUFilePartsOnClusters( local_dFUFilePartsOnClusters.getRaw());
         raw.setIsSuperfile( local_isSuperfile);
         raw.setShowFileContent( local_showFileContent);
         if (this.local_subfiles!= null)
@@ -267,10 +270,13 @@ public class DFUFileDetailWrapper
             }
             raw.setSubfiles(arr);
         }
-        raw.setSuperfiles( local_superfiles.getRaw());
-        raw.setProtectList( local_protectList.getRaw());
+        if (local_superfiles != null)
+            raw.setSuperfiles( local_superfiles.getRaw());
+        if (local_protectList != null)
+            raw.setProtectList( local_protectList.getRaw());
         raw.setFromRoxieCluster( local_fromRoxieCluster);
-        raw.setGraphs( local_graphs.getRaw());
+        if (local_graphs != null)
+            raw.setGraphs( local_graphs.getRaw());
         raw.setUserPermission( local_userPermission);
         raw.setContentType( local_contentType);
         raw.setCompressedFileSize( local_compressedFileSize);
@@ -281,8 +287,10 @@ public class DFUFileDetailWrapper
         raw.setJsonInfo( local_jsonInfo);
         raw.setBinInfo( local_binInfo);
         raw.setPackageID( local_packageID);
-        raw.setPartition( local_partition.getRaw());
-        raw.setBlooms( local_blooms.getRaw());
+        if (local_partition != null)
+            raw.setPartition( local_partition.getRaw());
+        if (local_blooms != null)
+            raw.setBlooms( local_blooms.getRaw());
         raw.setExpireDays( local_expireDays);
         raw.setKeyType( local_keyType);
         raw.setAtRestCost( local_atRestCost);

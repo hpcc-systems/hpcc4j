@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WURecreateQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-10-31T03:30:27.596Z
+ * Service version: 1.92
  */
 public class WURecreateQueryWrapper
 {

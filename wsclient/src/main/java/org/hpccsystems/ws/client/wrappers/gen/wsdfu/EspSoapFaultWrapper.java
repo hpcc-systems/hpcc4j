@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: EspSoapFaultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.927Z
+ * Service version: 1.64
  */
 public class EspSoapFaultWrapper
 {
@@ -59,7 +60,8 @@ public class EspSoapFaultWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault();
-        raw.setFaultMessage( local_faultMessage.getRaw());
+        if (local_faultMessage != null)
+            raw.setFaultMessage( local_faultMessage.getRaw());
         return raw;
     }
 

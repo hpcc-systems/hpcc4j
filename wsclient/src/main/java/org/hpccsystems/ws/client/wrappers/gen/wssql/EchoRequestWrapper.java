@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: EchoRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EchoRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.EchoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.103Z
+ * Service version: 3.06
  */
 public class EchoRequestWrapper
 {

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUGetDataColumnsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-10-28T23:07:50.893Z
+ * Service version: 1.64
  */
 public class DFUGetDataColumnsResponseWrapper
 {
@@ -243,50 +244,91 @@ public class DFUGetDataColumnsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsResponse();
-        raw.setExceptions( local_exceptions.getRaw());
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setLogicalName( local_logicalName);
         raw.setStartIndex( local_startIndex);
         raw.setEndIndex( local_endIndex);
-        raw.setDFUDataKeyedColumns1( local_dFUDataKeyedColumns1.getRaw());
-        raw.setDFUDataKeyedColumns2( local_dFUDataKeyedColumns2.getRaw());
-        raw.setDFUDataKeyedColumns3( local_dFUDataKeyedColumns3.getRaw());
-        raw.setDFUDataKeyedColumns4( local_dFUDataKeyedColumns4.getRaw());
-        raw.setDFUDataKeyedColumns5( local_dFUDataKeyedColumns5.getRaw());
-        raw.setDFUDataKeyedColumns6( local_dFUDataKeyedColumns6.getRaw());
-        raw.setDFUDataKeyedColumns7( local_dFUDataKeyedColumns7.getRaw());
-        raw.setDFUDataKeyedColumns8( local_dFUDataKeyedColumns8.getRaw());
-        raw.setDFUDataKeyedColumns9( local_dFUDataKeyedColumns9.getRaw());
-        raw.setDFUDataKeyedColumns10( local_dFUDataKeyedColumns10.getRaw());
-        raw.setDFUDataKeyedColumns11( local_dFUDataKeyedColumns11.getRaw());
-        raw.setDFUDataKeyedColumns12( local_dFUDataKeyedColumns12.getRaw());
-        raw.setDFUDataKeyedColumns13( local_dFUDataKeyedColumns13.getRaw());
-        raw.setDFUDataKeyedColumns14( local_dFUDataKeyedColumns14.getRaw());
-        raw.setDFUDataKeyedColumns15( local_dFUDataKeyedColumns15.getRaw());
-        raw.setDFUDataKeyedColumns16( local_dFUDataKeyedColumns16.getRaw());
-        raw.setDFUDataKeyedColumns17( local_dFUDataKeyedColumns17.getRaw());
-        raw.setDFUDataKeyedColumns18( local_dFUDataKeyedColumns18.getRaw());
-        raw.setDFUDataKeyedColumns19( local_dFUDataKeyedColumns19.getRaw());
-        raw.setDFUDataKeyedColumns20( local_dFUDataKeyedColumns20.getRaw());
-        raw.setDFUDataNonKeyedColumns1( local_dFUDataNonKeyedColumns1.getRaw());
-        raw.setDFUDataNonKeyedColumns2( local_dFUDataNonKeyedColumns2.getRaw());
-        raw.setDFUDataNonKeyedColumns3( local_dFUDataNonKeyedColumns3.getRaw());
-        raw.setDFUDataNonKeyedColumns4( local_dFUDataNonKeyedColumns4.getRaw());
-        raw.setDFUDataNonKeyedColumns5( local_dFUDataNonKeyedColumns5.getRaw());
-        raw.setDFUDataNonKeyedColumns6( local_dFUDataNonKeyedColumns6.getRaw());
-        raw.setDFUDataNonKeyedColumns7( local_dFUDataNonKeyedColumns7.getRaw());
-        raw.setDFUDataNonKeyedColumns8( local_dFUDataNonKeyedColumns8.getRaw());
-        raw.setDFUDataNonKeyedColumns9( local_dFUDataNonKeyedColumns9.getRaw());
-        raw.setDFUDataNonKeyedColumns10( local_dFUDataNonKeyedColumns10.getRaw());
-        raw.setDFUDataNonKeyedColumns11( local_dFUDataNonKeyedColumns11.getRaw());
-        raw.setDFUDataNonKeyedColumns12( local_dFUDataNonKeyedColumns12.getRaw());
-        raw.setDFUDataNonKeyedColumns13( local_dFUDataNonKeyedColumns13.getRaw());
-        raw.setDFUDataNonKeyedColumns14( local_dFUDataNonKeyedColumns14.getRaw());
-        raw.setDFUDataNonKeyedColumns15( local_dFUDataNonKeyedColumns15.getRaw());
-        raw.setDFUDataNonKeyedColumns16( local_dFUDataNonKeyedColumns16.getRaw());
-        raw.setDFUDataNonKeyedColumns17( local_dFUDataNonKeyedColumns17.getRaw());
-        raw.setDFUDataNonKeyedColumns18( local_dFUDataNonKeyedColumns18.getRaw());
-        raw.setDFUDataNonKeyedColumns19( local_dFUDataNonKeyedColumns19.getRaw());
-        raw.setDFUDataNonKeyedColumns20( local_dFUDataNonKeyedColumns20.getRaw());
+        if (local_dFUDataKeyedColumns1 != null)
+            raw.setDFUDataKeyedColumns1( local_dFUDataKeyedColumns1.getRaw());
+        if (local_dFUDataKeyedColumns2 != null)
+            raw.setDFUDataKeyedColumns2( local_dFUDataKeyedColumns2.getRaw());
+        if (local_dFUDataKeyedColumns3 != null)
+            raw.setDFUDataKeyedColumns3( local_dFUDataKeyedColumns3.getRaw());
+        if (local_dFUDataKeyedColumns4 != null)
+            raw.setDFUDataKeyedColumns4( local_dFUDataKeyedColumns4.getRaw());
+        if (local_dFUDataKeyedColumns5 != null)
+            raw.setDFUDataKeyedColumns5( local_dFUDataKeyedColumns5.getRaw());
+        if (local_dFUDataKeyedColumns6 != null)
+            raw.setDFUDataKeyedColumns6( local_dFUDataKeyedColumns6.getRaw());
+        if (local_dFUDataKeyedColumns7 != null)
+            raw.setDFUDataKeyedColumns7( local_dFUDataKeyedColumns7.getRaw());
+        if (local_dFUDataKeyedColumns8 != null)
+            raw.setDFUDataKeyedColumns8( local_dFUDataKeyedColumns8.getRaw());
+        if (local_dFUDataKeyedColumns9 != null)
+            raw.setDFUDataKeyedColumns9( local_dFUDataKeyedColumns9.getRaw());
+        if (local_dFUDataKeyedColumns10 != null)
+            raw.setDFUDataKeyedColumns10( local_dFUDataKeyedColumns10.getRaw());
+        if (local_dFUDataKeyedColumns11 != null)
+            raw.setDFUDataKeyedColumns11( local_dFUDataKeyedColumns11.getRaw());
+        if (local_dFUDataKeyedColumns12 != null)
+            raw.setDFUDataKeyedColumns12( local_dFUDataKeyedColumns12.getRaw());
+        if (local_dFUDataKeyedColumns13 != null)
+            raw.setDFUDataKeyedColumns13( local_dFUDataKeyedColumns13.getRaw());
+        if (local_dFUDataKeyedColumns14 != null)
+            raw.setDFUDataKeyedColumns14( local_dFUDataKeyedColumns14.getRaw());
+        if (local_dFUDataKeyedColumns15 != null)
+            raw.setDFUDataKeyedColumns15( local_dFUDataKeyedColumns15.getRaw());
+        if (local_dFUDataKeyedColumns16 != null)
+            raw.setDFUDataKeyedColumns16( local_dFUDataKeyedColumns16.getRaw());
+        if (local_dFUDataKeyedColumns17 != null)
+            raw.setDFUDataKeyedColumns17( local_dFUDataKeyedColumns17.getRaw());
+        if (local_dFUDataKeyedColumns18 != null)
+            raw.setDFUDataKeyedColumns18( local_dFUDataKeyedColumns18.getRaw());
+        if (local_dFUDataKeyedColumns19 != null)
+            raw.setDFUDataKeyedColumns19( local_dFUDataKeyedColumns19.getRaw());
+        if (local_dFUDataKeyedColumns20 != null)
+            raw.setDFUDataKeyedColumns20( local_dFUDataKeyedColumns20.getRaw());
+        if (local_dFUDataNonKeyedColumns1 != null)
+            raw.setDFUDataNonKeyedColumns1( local_dFUDataNonKeyedColumns1.getRaw());
+        if (local_dFUDataNonKeyedColumns2 != null)
+            raw.setDFUDataNonKeyedColumns2( local_dFUDataNonKeyedColumns2.getRaw());
+        if (local_dFUDataNonKeyedColumns3 != null)
+            raw.setDFUDataNonKeyedColumns3( local_dFUDataNonKeyedColumns3.getRaw());
+        if (local_dFUDataNonKeyedColumns4 != null)
+            raw.setDFUDataNonKeyedColumns4( local_dFUDataNonKeyedColumns4.getRaw());
+        if (local_dFUDataNonKeyedColumns5 != null)
+            raw.setDFUDataNonKeyedColumns5( local_dFUDataNonKeyedColumns5.getRaw());
+        if (local_dFUDataNonKeyedColumns6 != null)
+            raw.setDFUDataNonKeyedColumns6( local_dFUDataNonKeyedColumns6.getRaw());
+        if (local_dFUDataNonKeyedColumns7 != null)
+            raw.setDFUDataNonKeyedColumns7( local_dFUDataNonKeyedColumns7.getRaw());
+        if (local_dFUDataNonKeyedColumns8 != null)
+            raw.setDFUDataNonKeyedColumns8( local_dFUDataNonKeyedColumns8.getRaw());
+        if (local_dFUDataNonKeyedColumns9 != null)
+            raw.setDFUDataNonKeyedColumns9( local_dFUDataNonKeyedColumns9.getRaw());
+        if (local_dFUDataNonKeyedColumns10 != null)
+            raw.setDFUDataNonKeyedColumns10( local_dFUDataNonKeyedColumns10.getRaw());
+        if (local_dFUDataNonKeyedColumns11 != null)
+            raw.setDFUDataNonKeyedColumns11( local_dFUDataNonKeyedColumns11.getRaw());
+        if (local_dFUDataNonKeyedColumns12 != null)
+            raw.setDFUDataNonKeyedColumns12( local_dFUDataNonKeyedColumns12.getRaw());
+        if (local_dFUDataNonKeyedColumns13 != null)
+            raw.setDFUDataNonKeyedColumns13( local_dFUDataNonKeyedColumns13.getRaw());
+        if (local_dFUDataNonKeyedColumns14 != null)
+            raw.setDFUDataNonKeyedColumns14( local_dFUDataNonKeyedColumns14.getRaw());
+        if (local_dFUDataNonKeyedColumns15 != null)
+            raw.setDFUDataNonKeyedColumns15( local_dFUDataNonKeyedColumns15.getRaw());
+        if (local_dFUDataNonKeyedColumns16 != null)
+            raw.setDFUDataNonKeyedColumns16( local_dFUDataNonKeyedColumns16.getRaw());
+        if (local_dFUDataNonKeyedColumns17 != null)
+            raw.setDFUDataNonKeyedColumns17( local_dFUDataNonKeyedColumns17.getRaw());
+        if (local_dFUDataNonKeyedColumns18 != null)
+            raw.setDFUDataNonKeyedColumns18( local_dFUDataNonKeyedColumns18.getRaw());
+        if (local_dFUDataNonKeyedColumns19 != null)
+            raw.setDFUDataNonKeyedColumns19( local_dFUDataNonKeyedColumns19.getRaw());
+        if (local_dFUDataNonKeyedColumns20 != null)
+            raw.setDFUDataNonKeyedColumns20( local_dFUDataNonKeyedColumns20.getRaw());
         raw.setRowCount( local_rowCount);
         raw.setShowColumns( local_showColumns);
         raw.setChooseFile( local_chooseFile);

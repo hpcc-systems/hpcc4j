@@ -21,10 +21,11 @@ import java.math.BigInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: GetDBMetaDataResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2022-10-31T03:44:01.392Z
+ * Service version: 3.06
  */
 public class GetDBMetaDataResponseWrapper
 {
