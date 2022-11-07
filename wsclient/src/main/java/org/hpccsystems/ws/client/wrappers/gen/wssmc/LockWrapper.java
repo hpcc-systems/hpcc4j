@@ -27,7 +27,7 @@ import org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspStringArray;
  * Class name: LockWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Lock
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.589Z
+ * TimeStamp: 2022-07-25T18:14:46.542Z
  */
 public class LockWrapper
 {

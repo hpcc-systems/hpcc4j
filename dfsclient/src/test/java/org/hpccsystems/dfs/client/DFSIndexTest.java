@@ -56,18 +56,18 @@ import static org.junit.Assert.assertTrue;
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class DFSIndexTest extends BaseRemoteTest
 {
+    String[] datasetNames = {"~test::index::integer","~test::index::string"};
+    FieldDef[] datasetRecordDefinitions = new FieldDef[2];
 
-    @Test
-    public void hpccTLKFilterTest() throws Exception
+    ArrayList<HPCCRecord> partitionRangeStart = new ArrayList<HPCCRecord>();
+    ArrayList<HPCCRecord> partitionRangeEnd = new ArrayList<HPCCRecord>();
+
+    @Before
+    public void setup() throws Exception
     {
-
-        String[] datasetNames = {"~test::index::integer","~test::index::string"};
-        FieldDef[] datasetRecordDefinitions = new FieldDef[2];
-
-        // FieldDef[] fieldDefs = null;
         // Integer key
         FieldDef[] fieldDefs = new FieldDef[2];
-        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "INTEGER4", 4, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "INTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         fieldDefs[1] = new FieldDef("payload", FieldType.STRING, "STRING16", 16, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
 
         datasetRecordDefinitions[0]= new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
@@ -84,9 +84,6 @@ public class DFSIndexTest extends BaseRemoteTest
             //------------------------------------------------------------------------------
             // Create indexable dataset
             //------------------------------------------------------------------------------
-
-            ArrayList<HPCCRecord> partitionRangeStart = new ArrayList<HPCCRecord>();
-            ArrayList<HPCCRecord> partitionRangeEnd = new ArrayList<HPCCRecord>();
 
             String datasetName = datasetNames[i];
             FieldDef recordDef = datasetRecordDefinitions[i];
@@ -105,6 +102,17 @@ public class DFSIndexTest extends BaseRemoteTest
             {
                 Assume.assumeNoException("Failed to create index with error: ", e);
             }
+        }
+    }
+    
+    @Test
+    public void hpccTLKFilterTest() throws Exception
+    {
+        for (int i = 0; i < datasetNames.length; i++)
+        {
+            String datasetName = datasetNames[i];
+            FieldDef recordDef = datasetRecordDefinitions[i];
+            String indexName = datasetName + "::key";
 
             //------------------------------------------------------------------------------
             // Read index and check TLK against known partition ranges
@@ -206,6 +214,31 @@ public class DFSIndexTest extends BaseRemoteTest
         fileReader.close();
     }
 
+    @Test
+    public void biasedIntTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile("~test::index::integer::key", connString , hpccUser, hpccPass);
+
+        DataPartition[] fileParts = file.getFileParts();
+        HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[0], file.getRecordDefinition(), recordBuilder);
+
+        // Read the data from the first partition and make sure that biased integers have been corrected
+        int partitionIndex = 0;
+        {
+            HPCCRecord startRecord = fileReader.next();
+            long expectedStart = partitionIndex * 4;
+            Long start = (Long) startRecord.getField(0);
+            assertTrue(expectedStart == start);
+
+            HPCCRecord endRecord = fileReader.next();
+            long expectedEnd = partitionIndex * 4 + 3;
+            Long end = (Long) endRecord.getField(0);
+            assertTrue(expectedEnd == end);
+        }
+        fileReader.close();
+    }
+
     private String partitionListToString(List<DataPartition> partitions)
     {
         String matchedPartitionStr = "[ ";
@@ -244,7 +277,7 @@ public class DFSIndexTest extends BaseRemoteTest
             partitionRangeStart.clear();
             partitionRangeEnd.clear();
 
-            int bytesWritten = 0;
+            long bytesWritten = 0;
             int numRecords = 0;
             for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
             {
@@ -302,7 +335,6 @@ public class DFSIndexTest extends BaseRemoteTest
         return indexName;
     }
 
-    @Test
     public void testBatchRandomAccess() throws Exception
     {
         try

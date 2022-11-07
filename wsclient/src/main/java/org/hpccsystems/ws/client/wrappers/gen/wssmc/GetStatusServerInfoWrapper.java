@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: GetStatusServerInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.583Z
+ * TimeStamp: 2022-07-25T18:14:46.535Z
  */
 public class GetStatusServerInfoWrapper
 {

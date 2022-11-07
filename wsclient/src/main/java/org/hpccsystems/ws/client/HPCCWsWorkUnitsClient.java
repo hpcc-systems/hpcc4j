@@ -31,7 +31,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.FileUsedByQuery;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.NamedValue;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Ping;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type0;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Queries_type1;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySet;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQuery;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionItem;
@@ -70,7 +70,6 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckRespo
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits;
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunitsStub;
 import org.hpccsystems.ws.client.platform.QuerySetFilterType;
-import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.platform.WUActionCode;
 import org.hpccsystems.ws.client.platform.Workunit;
 import org.hpccsystems.ws.client.utils.Connection;
@@ -260,31 +259,23 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
     public void initWsWorkUnitsClientStub(Connection conn)
     {
-        initErrMessage = "";
-        try
-        {
-            setActiveConnectionInfo( conn);
+        initBaseWsClient(conn, true); //Preemptively fetch HPCC build version, Containerized mode
 
-            HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(conn);
-            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
-            if (targetHPCCBuildVersion != null)
+        if (targetHPCCBuildVersion != null)
+        {
+            try
             {
                 stubWrapper = new WsWorkunitsClientStubWrapper(conn, targetHPCCBuildVersion);
                 stub = stubWrapper.getLatestStub();
                 stub = setStubOptions(new WsWorkunitsStub(conn.getBaseUrl() + WSWORKUNITSWSDLURI), conn);
             }
-            else
-                throw new Exception("Cannot initialize HPCCWsDFUStub without valid HPCC version object");
-        }
-        catch (Exception e)
-        {
-            log.error("HPCCWsWorkUnitsClient: Could not stablish target HPCC bulid version, review all HPCC connection values");
-            if (!e.getLocalizedMessage().isEmpty())
+            catch (AxisFault e)
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error("HPCCWsWorkUnitsClient: " + e.getLocalizedMessage());
+                initErrMessage += "\nHPCCWsWorkUnitsClient: Could not retrieve version appropriate stub objct";
             }
         }
+        else
+            initErrMessage += "\nCannot initialize HPCCWsDFUStub without valid HPCC version object";
     }
 
     /**
@@ -2480,8 +2471,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         item.setQueryId(queryId);
         final QuerySetQueryActionItem[] items = new QuerySetQueryActionItem[] { item };
         queryAction.setQuerySetName(cluster);
-        Queries_type0 queries = new Queries_type0();
-        queries.setQuery(items);
+        Queries_type1 queries = new Queries_type1();
+        queries .setQuery(items);
         queryAction.setQueries(queries);
         final WUQuerySetQueryActionResponse resp = ((WsWorkunitsStub) stub).wUQuerysetQueryAction(queryAction);
 
@@ -2521,13 +2512,13 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
 
         WUQuerysetQueryAction params = new WUQuerysetQueryAction();
 
-        Queries_type0 queriesarray = new Queries_type0();
+        Queries_type1 queriesarray = new Queries_type1();
         for (String queryname : querynames)
         {
             QuerySetQueryActionItem item = new QuerySetQueryActionItem();
             item.setQueryId(queryname);
 
-            queriesarray.addQuery(item);
+            queriesarray .addQuery(item);
         }
 
         params.setQueries(queriesarray);

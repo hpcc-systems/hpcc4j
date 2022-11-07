@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfHPCCResourceWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResource
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2021-10-27T20:17:20.565Z
+ * TimeStamp: 2022-07-25T18:14:46.525Z
  */
 public class ArrayOfHPCCResourceWrapper
 {

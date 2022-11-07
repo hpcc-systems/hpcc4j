@@ -26,9 +26,10 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis2.AxisFault;
@@ -66,6 +67,7 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayFixed;
 import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayFixedResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse;
 import org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayVariable;
+import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.DelimitedDataOptions;
 import org.hpccsystems.ws.client.utils.EqualsUtil;
@@ -107,6 +109,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     private static String                     WSDLURL                = null;
 
     private static final PhysicalFileStruct[] NO_FILES               = {};
+    public static final Version               TrailingSlashPathHPCCVer = new Version(7, 12, 98); //First known HPCC version in which DZ paths are
+                                                                                                 //expected to contain trailing slash
 
     /**
      * Load WSDLURL.
@@ -342,25 +346,17 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     private void initWsFileSprayStub(Connection connection)
     {
+        initBaseWsClient(connection, true); //Fetch HPCC build Version and conatinerized mode
+
         try
         {
-            setActiveConnectionInfo(connection);
             stub = setStubOptions(new FileSprayStub(connection.getBaseUrl() + FILESPRAYWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            log.error("Could not initialize FileSprayStub- Review all HPCC connection values");
-            e.printStackTrace();
+            initErrMessage += "\nCould not initialize FileSprayStub - Review all HPCC connection values";
         }
-        catch (Exception e)
-        {
-            log.error("Could not initialize FileSprayStub- Review all HPCC connection values");
-            if (!e.getLocalizedMessage().isEmpty())
-            {
-                initErrMessage = e.getLocalizedMessage();
-                log.error(e.getLocalizedMessage());
-            }
-        }
+
     }
 
     /**
@@ -596,7 +592,14 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             DropZone[] dropZone = resp.getDropZones().getDropZone();
             for (int i = 0; i < dropZone.length; i++)
             {
-                dropZonesWrapper.add(new DropZoneWrapper(dropZone[i]));
+                DropZoneWrapper currentDZ = new DropZoneWrapper(dropZone[i]);
+
+                if(compatibilityCheck(TrailingSlashPathHPCCVer))
+                {
+                    currentDZ.setPath(Utils.ensureTrailingPathSlash(currentDZ.getPath(), currentDZ.getLinux()));
+                }
+
+                dropZonesWrapper.add(currentDZ);
             }
         }
 
@@ -1438,6 +1441,26 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return uploadFile(file, fetchLocalDropZones.get(0));
     }
 
+    static DocumentBuilder m_safeXMLDocBuilder = null;
+    static XPathExpression m_uploadResultExpression = null;
+
+    static protected void setupUploadResultParser() throws XPathExpressionException, ParserConfigurationException
+    {
+        if(m_uploadResultExpression != null && m_safeXMLDocBuilder != null)
+            return;
+
+        m_safeXMLDocBuilder = Utils.newSafeXMLDocBuilder();
+
+        if (m_safeXMLDocBuilder == null)
+            throw new XPathExpressionException ("Could not create new result XML parser");
+
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        m_uploadResultExpression= xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
+
+        if (m_uploadResultExpression == null)
+            throw new XPathExpressionException ("Could not Compile versionXpathExpression");
+    }
+
     /**
      * UPLOADS A FILE( UP TO 2GB FILE SIZES) TO THE SPECIFIED LANDING ZONE.
      *
@@ -1553,14 +1576,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         {
             try
             {
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder parser = factory.newDocumentBuilder();
-                Document document = parser.parse(new ByteArrayInputStream(response.toString().getBytes(StandardCharsets.UTF_8)));
+                setupUploadResultParser(); // throws if expression or docbuilder == null
 
-                XPath xpath = XPathFactory.newInstance().newXPath();
-                XPathExpression expr = xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
+                Document document = m_safeXMLDocBuilder.parse(new ByteArrayInputStream(response.toString().getBytes(StandardCharsets.UTF_8)));
 
-                String result = expr.evaluate(document);
+                String result = m_uploadResultExpression.evaluate(document);
                 log.info("uploadLargeFile ( " + uploadFile + ") result: '" + result + "'");
 
                 if (result.isEmpty() || !result.equalsIgnoreCase("Success"))
@@ -1735,6 +1755,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @param fileName
      *            - The file to download
      * @return - long, bytes transferred, -1 on error
+     *
      */
     public long downloadFile(FileChannel outputChannel, DropZoneWrapper dropZone, String fileName)
     {
@@ -1773,6 +1794,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
                     fileWasFound = true;
                     fileSize = filesInDropzone.get(i).getFilesize();
+                    break;
                 }
             }
 
@@ -1802,7 +1824,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         long bytesTransferred = -1;
         try
         {
-            ReadableByteChannel sourceChannel = Channels.newChannel(downloadURL.openStream());
+            URLConnection fileDownloadConnection =  Connection.createConnection(downloadURL);
+            fileDownloadConnection.setRequestProperty("Authorization", wsconn.getBasicAuthString());
+
+            ReadableByteChannel sourceChannel = Channels.newChannel(fileDownloadConnection.getInputStream());
             bytesTransferred = outputChannel.transferFrom(sourceChannel, 0, Long.MAX_VALUE);
 
             sourceChannel.close();

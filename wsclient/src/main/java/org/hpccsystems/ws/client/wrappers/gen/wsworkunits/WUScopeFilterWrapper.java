@@ -22,9 +22,9 @@ import java.math.BigInteger;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUScopeFilterWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUScopeFilter
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUScopeFilter
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2021-09-30T21:52:48.593Z
+ * TimeStamp: 2022-07-22T20:33:16.992Z
  */
 public class WUScopeFilterWrapper
 {

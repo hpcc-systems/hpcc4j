@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUChangeRestrictionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.248Z
+ * TimeStamp: 2022-07-27T21:11:36.103Z
  */
 public class DFUChangeRestrictionWrapper
 {

@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: HPCCServiceWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.v1_00.HPCCService
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2021-03-26T16:29:03.959Z
+ * TimeStamp: 2022-07-25T18:03:51.516Z
  */
 public class HPCCServiceWrapper
 {

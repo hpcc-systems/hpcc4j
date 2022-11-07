@@ -1,0 +1,6 @@
+<!ENTITY email "someone@email.com">
+<!ENTITY name "some one">
+<root>
+  <email>someone@email.com</email>
+  <name>some one</name>
+</root>‌

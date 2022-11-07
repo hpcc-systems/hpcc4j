@@ -275,32 +275,23 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     protected void initWsDFUClientStub(Connection conn)
     {
-        initErrMessage = "";
-        try
-        {
-            setActiveConnectionInfo(conn);
-            HPCCWsSMCClient wssmc = HPCCWsSMCClient.get(conn);
-            targetHPCCBuildVersion = new Version(wssmc.getHPCCBuild());
+        initBaseWsClient(conn, true); //Preemptively fetch HPCC build version, Containerized mode
 
-            if (targetHPCCBuildVersion != null)
+        if (targetHPCCBuildVersion != null)
+        {
+            try
             {
                 stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetHPCCBuildVersion);
                 stub = stubwrapper.getLatestStub(null);
+                stub = setStubOptions(stub, conn);
             }
-            else
-                throw new Exception("Cannot initialize HPCCWsDFUStub without valid HPCC version object");
-
-            stub = setStubOptions(stub, conn);
-        }
-        catch (Exception e)
-        {
-            log.error("HPCCWsDFUClient: Could not initialize WsDFU Stub - Review all HPCC connection values");
-            if (!e.getLocalizedMessage().isEmpty())
+            catch (AxisFault e)
             {
-                initErrMessage = e.getLocalizedMessage();
-                log.error("HPCCWsDFUClient: " + e.getLocalizedMessage());
+                initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values";
             }
         }
+        else
+            initErrMessage += "\nCannot initialize HPCCWsDFUStub without valid HPCC version object";
     }
 
     /**

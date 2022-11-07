@@ -23,13 +23,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUQueryRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2021-10-27T14:48:55.297Z
+ * TimeStamp: 2022-07-27T21:11:36.139Z
  */
 public class DFUQueryRequestWrapper
 {
     protected String local_prefix;
     protected String local_nodeGroup;
     protected String local_contentType;
+    protected boolean local_invertContent;
     protected String local_logicalName;
     protected String local_owner;
     protected String local_startDate;
@@ -48,6 +49,10 @@ public class DFUQueryRequestWrapper
     protected boolean local_includeSuperOwner;
     protected String local_startAccessedTime;
     protected String local_endAccessedTime;
+    protected long local_maxSkewFrom;
+    protected long local_maxSkewTo;
+    protected long local_minSkewFrom;
+    protected long local_minSkewTo;
 
     public DFUQueryRequestWrapper() {}
 
@@ -55,11 +60,12 @@ public class DFUQueryRequestWrapper
     {
         copy( dfuqueryrequest );
     }
-    public DFUQueryRequestWrapper( String _prefix, String _nodeGroup, String _contentType, String _logicalName, String _owner, String _startDate, String _endDate, String _fileType, long _fileSizeFrom, long _fileSizeTo, int _firstN, int _pageSize, int _pageStartFrom, String _sortby, boolean _descending, boolean _oneLevelDirFileReturn, long _cacheHint, int _maxNumberOfFiles, boolean _includeSuperOwner, String _startAccessedTime, String _endAccessedTime )
+    public DFUQueryRequestWrapper( String _prefix, String _nodeGroup, String _contentType, boolean _invertContent, String _logicalName, String _owner, String _startDate, String _endDate, String _fileType, long _fileSizeFrom, long _fileSizeTo, int _firstN, int _pageSize, int _pageStartFrom, String _sortby, boolean _descending, boolean _oneLevelDirFileReturn, long _cacheHint, int _maxNumberOfFiles, boolean _includeSuperOwner, String _startAccessedTime, String _endAccessedTime, long _maxSkewFrom, long _maxSkewTo, long _minSkewFrom, long _minSkewTo )
     {
         this.local_prefix = _prefix;
         this.local_nodeGroup = _nodeGroup;
         this.local_contentType = _contentType;
+        this.local_invertContent = _invertContent;
         this.local_logicalName = _logicalName;
         this.local_owner = _owner;
         this.local_startDate = _startDate;
@@ -78,6 +84,10 @@ public class DFUQueryRequestWrapper
         this.local_includeSuperOwner = _includeSuperOwner;
         this.local_startAccessedTime = _startAccessedTime;
         this.local_endAccessedTime = _endAccessedTime;
+        this.local_maxSkewFrom = _maxSkewFrom;
+        this.local_maxSkewTo = _maxSkewTo;
+        this.local_minSkewFrom = _minSkewFrom;
+        this.local_minSkewTo = _minSkewTo;
 
     }
 
@@ -89,6 +99,7 @@ public class DFUQueryRequestWrapper
         this.local_prefix = raw.getPrefix();
         this.local_nodeGroup = raw.getNodeGroup();
         this.local_contentType = raw.getContentType();
+        this.local_invertContent = raw.getInvertContent();
         this.local_logicalName = raw.getLogicalName();
         this.local_owner = raw.getOwner();
         this.local_startDate = raw.getStartDate();
@@ -107,13 +118,17 @@ public class DFUQueryRequestWrapper
         this.local_includeSuperOwner = raw.getIncludeSuperOwner();
         this.local_startAccessedTime = raw.getStartAccessedTime();
         this.local_endAccessedTime = raw.getEndAccessedTime();
+        this.local_maxSkewFrom = raw.getMaxSkewFrom();
+        this.local_maxSkewTo = raw.getMaxSkewTo();
+        this.local_minSkewFrom = raw.getMinSkewFrom();
+        this.local_minSkewTo = raw.getMinSkewTo();
 
     }
 
     @Override
     public String toString()
     {
-        return "DFUQueryRequestWrapper [" + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "contentType = " + local_contentType + ", " + "logicalName = " + local_logicalName + ", " + "owner = " + local_owner + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "fileType = " + local_fileType + ", " + "fileSizeFrom = " + local_fileSizeFrom + ", " + "fileSizeTo = " + local_fileSizeTo + ", " + "firstN = " + local_firstN + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "oneLevelDirFileReturn = " + local_oneLevelDirFileReturn + ", " + "cacheHint = " + local_cacheHint + ", " + "maxNumberOfFiles = " + local_maxNumberOfFiles + ", " + "includeSuperOwner = " + local_includeSuperOwner + ", " + "startAccessedTime = " + local_startAccessedTime + ", " + "endAccessedTime = " + local_endAccessedTime + "]";
+        return "DFUQueryRequestWrapper [" + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "contentType = " + local_contentType + ", " + "invertContent = " + local_invertContent + ", " + "logicalName = " + local_logicalName + ", " + "owner = " + local_owner + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "fileType = " + local_fileType + ", " + "fileSizeFrom = " + local_fileSizeFrom + ", " + "fileSizeTo = " + local_fileSizeTo + ", " + "firstN = " + local_firstN + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "oneLevelDirFileReturn = " + local_oneLevelDirFileReturn + ", " + "cacheHint = " + local_cacheHint + ", " + "maxNumberOfFiles = " + local_maxNumberOfFiles + ", " + "includeSuperOwner = " + local_includeSuperOwner + ", " + "startAccessedTime = " + local_startAccessedTime + ", " + "endAccessedTime = " + local_endAccessedTime + ", " + "maxSkewFrom = " + local_maxSkewFrom + ", " + "maxSkewTo = " + local_maxSkewTo + ", " + "minSkewFrom = " + local_minSkewFrom + ", " + "minSkewTo = " + local_minSkewTo + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest getRaw()
     {
@@ -121,6 +136,7 @@ public class DFUQueryRequestWrapper
         raw.setPrefix( local_prefix);
         raw.setNodeGroup( local_nodeGroup);
         raw.setContentType( local_contentType);
+        raw.setInvertContent( local_invertContent);
         raw.setLogicalName( local_logicalName);
         raw.setOwner( local_owner);
         raw.setStartDate( local_startDate);
@@ -139,6 +155,10 @@ public class DFUQueryRequestWrapper
         raw.setIncludeSuperOwner( local_includeSuperOwner);
         raw.setStartAccessedTime( local_startAccessedTime);
         raw.setEndAccessedTime( local_endAccessedTime);
+        raw.setMaxSkewFrom( local_maxSkewFrom);
+        raw.setMaxSkewTo( local_maxSkewTo);
+        raw.setMinSkewFrom( local_minSkewFrom);
+        raw.setMinSkewTo( local_minSkewTo);
         return raw;
     }
 
@@ -166,6 +186,14 @@ public class DFUQueryRequestWrapper
     public String getContentType( )
     {
         return this.local_contentType;
+    }
+    public void setInvertContent( boolean _invertContent )
+    {
+        this.local_invertContent = _invertContent;
+    }
+    public boolean getInvertContent( )
+    {
+        return this.local_invertContent;
     }
     public void setLogicalName( String _logicalName )
     {
@@ -310,5 +338,37 @@ public class DFUQueryRequestWrapper
     public String getEndAccessedTime( )
     {
         return this.local_endAccessedTime;
+    }
+    public void setMaxSkewFrom( long _maxSkewFrom )
+    {
+        this.local_maxSkewFrom = _maxSkewFrom;
+    }
+    public long getMaxSkewFrom( )
+    {
+        return this.local_maxSkewFrom;
+    }
+    public void setMaxSkewTo( long _maxSkewTo )
+    {
+        this.local_maxSkewTo = _maxSkewTo;
+    }
+    public long getMaxSkewTo( )
+    {
+        return this.local_maxSkewTo;
+    }
+    public void setMinSkewFrom( long _minSkewFrom )
+    {
+        this.local_minSkewFrom = _minSkewFrom;
+    }
+    public long getMinSkewFrom( )
+    {
+        return this.local_minSkewFrom;
+    }
+    public void setMinSkewTo( long _minSkewTo )
+    {
+        this.local_minSkewTo = _minSkewTo;
+    }
+    public long getMinSkewTo( )
+    {
+        return this.local_minSkewTo;
     }
 }

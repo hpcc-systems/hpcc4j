@@ -1,0 +1,2 @@
+<!DOCTYPE foo [ <!ENTITY ext SYSTEM "http://normal-website.com" > ]>
+<custom>&ext;</custtom>

@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
@@ -15,13 +16,16 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfBaseExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DFUWorkunitsActionResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneFilesResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -46,6 +50,13 @@ public class FileSprayClientTest extends BaseRemoteTest
     static
     {
         fileNames.add(testFile1);
+    }
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(filesprayclient.isTargetHPCCContainerized());
     }
 
     @Test
@@ -387,5 +398,81 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             Assert.fail(e.getLocalizedMessage());
         }
+    }
+
+    @Test
+    public void ensuredTrailingSlashDZSince7_12_98()
+    {
+        try
+        {
+            Assume.assumeTrue(filesprayclient.compatibilityCheck(HPCCFileSprayClient.TrailingSlashPathHPCCVer));
+
+            List<DropZoneWrapper> dzs = filesprayclient.fetchDropZones("");
+            Assume.assumeNotNull(dzs);
+            Assume.assumeTrue(dzs.size() > 0);
+
+            for (int i = 0; i < dzs.size(); i++)
+            {
+                DropZoneWrapper thisdz = dzs.get(i);
+                String thisDZsPath = thisdz.getPath();
+                Assert.assertTrue(thisDZsPath.charAt(thisDZsPath.length()-1) == Utils.LINUX_SEP || thisDZsPath.charAt(thisDZsPath.length()-1) == Utils.WIN_SEP);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void downLoadFileTest()
+    {
+         if (foundLocalDZ == null)
+             testfetchDropZones();
+
+        assumeNotNull(foundLocalDZ);
+
+        List<PhysicalFileStructWrapper> pfs = null;
+        try
+        {
+            pfs = filesprayclient.listFiles(foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
+        }
+        catch (Exception e) {}
+
+        assumeNotNull(pfs);
+        assumeTrue(pfs.size()>0);
+
+        System.out.println("Download test ...");
+        System.out.println("Searching small file in LocalDZ...");
+        String fileName = null;
+        for (int i = 0; pfs != null && i < pfs.size(); i++)
+        {
+            if (pfs.get(i).getIsDir() == false
+            && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
+            {
+                fileName = pfs.get(i).getName();
+                break;
+            }
+        }
+
+        assumeNotNull(fileName);
+
+        System.out.println("Attempting to download: " + fileName + " from DropZone");
+        String outputFile = System.getProperty("java.io.tmpdir") + File.separator + fileName;
+        System.out.println("Output File: " + outputFile);
+
+        File tmpFile = new File(outputFile);
+
+        long bytesTransferred = filesprayclient.downloadFile(tmpFile,foundLocalDZ,fileName);
+        if (bytesTransferred <= 0)
+        {
+            System.out.println("Download failed.");
+        }
+        else
+        {
+            System.out.println("File Download Test: Bytes transferred: " + bytesTransferred);
+        }
+
     }
 }

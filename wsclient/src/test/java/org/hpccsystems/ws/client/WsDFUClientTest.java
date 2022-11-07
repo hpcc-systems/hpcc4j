@@ -6,10 +6,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.HPCCWsDFUClient.DFUQueryFileType;
@@ -34,9 +37,11 @@ import org.w3c.dom.NodeList;
 public class WsDFUClientTest extends BaseRemoteTest
 {
     private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
+    public final static String defaultNewSuperFileName = "newSuperFile";
+
     private final static String logicalfilename = System.getProperty("logicalfilename", DEFAULTHPCCFILENAME);
 
-    private final static String testfilename = System.getProperty("newSuperFileName");
+    private final static String testfilename = System.getProperty("newSuperFileName", defaultNewSuperFileName);
     private final static  String testsubfilename = System.getProperty("existingSubFileName");
 
     @Before
@@ -137,14 +142,16 @@ public class WsDFUClientTest extends BaseRemoteTest
                 }
                 else
                 {
-                    if (directory.isEmpty() || directory.equals("."))
+                    if (randomfilename == null)
                     {
-                        if (randomfilename == null)
-                            randomfilename = file;
+                        if (directory.isEmpty() || directory.equals("."))
+                        {
+                            if (!file.getIsSuperfile())
+                                randomfilename = file;
+                        }
+                        System.out.println("/" + file.getFileName());
                     }
-                    System.out.println("/" + file.getFileName());
                 }
-
             }
         }
         catch (AxisFault e)
@@ -176,9 +183,12 @@ public class WsDFUClientTest extends BaseRemoteTest
                 }
                 else
                 {
-                    if (randomfilename == null)
-                        randomfilename = file;
-                    return;
+                    if(!file.getIsSuperfile())
+                    {
+                        if (randomfilename == null)
+                            randomfilename = file;
+                        return;
+                    }
                 }
             }
             Assert.assertNotNull("Could not find any files on HPCC for tests", randomfilename);
@@ -218,7 +228,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            getFirstFileAvailable("");
+            getFirstFileAvailable("benchmark");
 
             Assert.assertNotNull(randomfilename);
 
@@ -242,12 +252,12 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            getFirstFileAvailable("");
+            getFirstFileAvailable("benchmark");
 
             Assert.assertNotNull(randomfilename);
 
             DFUInfoWrapper file = wsdfuclient.getFileInfo(randomfilename.getFileName(), randomfilename.getNodeGroup());
-            Assert.assertNotNull(file);
+            Assert.assertNotNull("GetfilerInfo("+randomfilename.getFileName()+") resulted in null DFUInfoWrapper response", file);
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
@@ -421,6 +431,8 @@ public class WsDFUClientTest extends BaseRemoteTest
         assumeNotNull(testfilename);
         assumeNotNull(testsubfilename);
 
+        String superFileName = testfilename + "_" + UUID.randomUUID().toString();
+
         AddtoSuperfileRequestWrapper req = new AddtoSuperfileRequestWrapper();
         req.setExistingFile(false);
         req.setSuperfile(testfilename);
@@ -436,19 +448,20 @@ public class WsDFUClientTest extends BaseRemoteTest
     public void createNewSuperFileNoSubfilesTest() throws Exception
     {
         assumeNotNull(testfilename);
-         try
-         {
-             wsdfuclient.createSuperfile(testfilename, new String [] {""});
-         }
-         catch (Exception e)
-         {
-             String localizedMessage = e.getLocalizedMessage();
-             if (localizedMessage.contains(" already exists"))
-             {
-                 System.out.print("createNewSuperFileNoSubfilesTest() could not run validate because target superfile already exists: '" +  testfilename + "'");
-             }
-             else throw e;
-         }
+        String superFileName = testfilename + "_" + UUID.randomUUID().toString();
+        try
+        {
+            wsdfuclient.createSuperfile(superFileName, new String [] {""});
+        }
+        catch (Exception e)
+        {
+            String localizedMessage = e.getLocalizedMessage();
+            if (localizedMessage.contains(" already exists"))
+            {
+                System.out.print("createNewSuperFileNoSubfilesTest() could not run validate because target superfile already exists: '" +  superFileName + "'");
+            }
+            else throw e;
+        }
     }
 
     @Test (expected = ArrayOfEspExceptionWrapper.class)
@@ -457,9 +470,11 @@ public class WsDFUClientTest extends BaseRemoteTest
         assumeNotNull(testfilename);
         assumeNotNull(testsubfilename);
 
+        String superFileName = testfilename + "_" + UUID.randomUUID().toString();
+
         AddtoSuperfileRequestWrapper req = new AddtoSuperfileRequestWrapper();
         req.setExistingFile(true);
-        req.setSuperfile(testfilename);
+        req.setSuperfile(superFileName);
         List<String> _names = new ArrayList<String>();
         _names.add(testsubfilename);
         req.setNames(_names );
@@ -471,7 +486,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             String localizedMessage = e.getLocalizedMessage();
-            if (localizedMessage.contains("Cannot find file " + testfilename))
+            if (localizedMessage.contains("Cannot find file " + superFileName))
             {
                 throw e;
             }
@@ -486,9 +501,11 @@ public class WsDFUClientTest extends BaseRemoteTest
     public void createNewSuperFileInvalidSubfileTest() throws Exception
     {
         assumeNotNull(testfilename);
+        String superFileName = testfilename + "_" + UUID.randomUUID().toString();
+
         try
         {
-            wsdfuclient.createSuperfile(testfilename, new String [] {"BOGUSFILENAME"});
+            wsdfuclient.createSuperfile(superFileName, new String [] {"BOGUSFILENAME"});
         }
         catch (Exception e)
         {
@@ -503,5 +520,12 @@ public class WsDFUClientTest extends BaseRemoteTest
             }
         }
         Assert.fail("BOGUS subfile name should report failure");
+    }
+
+    @Test
+    public void getContainerizedModeTest() throws Exception
+    {
+        System.out.println("Fetching isTargetHPCCContainerized...");
+        assertNotNull(wsdfuclient.isTargetHPCCContainerized());
     }
 }
