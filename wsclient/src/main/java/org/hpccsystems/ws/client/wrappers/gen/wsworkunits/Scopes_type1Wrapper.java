@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: Scopes_type1Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Scopes_type1
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.865Z
+ * Service version: 1.92
  */
 public class Scopes_type1Wrapper
 {

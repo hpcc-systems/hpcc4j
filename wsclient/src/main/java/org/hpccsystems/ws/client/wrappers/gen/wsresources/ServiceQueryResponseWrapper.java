@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ServiceQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2022-07-25T18:03:51.518Z
+ * Service version: 1.01
  */
 public class ServiceQueryResponseWrapper
 {
@@ -63,6 +64,10 @@ public class ServiceQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_services != null)
+            raw.setServices( local_services.getRaw());
         return raw;
     }
 

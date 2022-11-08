@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: DFUFileCreateRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.113Z
+ * Service version: 1.64
  */
 public class DFUFileCreateRequestWrapper
 {
@@ -54,7 +55,7 @@ public class DFUFileCreateRequestWrapper
             return;
 
         this.local_eCLRecordDefinition = raw.getECLRecordDefinition();
-        if (raw.getPartLocations() != null)
+        if (raw.getPartLocations() != null && raw.getPartLocations().getItem() != null)
         {
             this.local_partLocations = new ArrayList<String>();
             for ( int i = 0; i < raw.getPartLocations().getItem().length; i++)
@@ -84,6 +85,8 @@ public class DFUFileCreateRequestWrapper
             }
             raw.setPartLocations(arr);
         }
+        if (local_requestBase != null)
+            raw.setRequestBase( local_requestBase.getRaw());
         return raw;
     }
 

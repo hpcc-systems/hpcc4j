@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ThorClusterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ThorCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.562Z
+ * Service version: 1.26
  */
 public class ThorClusterWrapper
 {

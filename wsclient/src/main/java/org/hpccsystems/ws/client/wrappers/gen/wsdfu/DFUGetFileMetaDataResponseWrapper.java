@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUGetFileMetaDataResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.129Z
+ * Service version: 1.64
  */
 public class DFUGetFileMetaDataResponseWrapper
 {
@@ -78,8 +79,12 @@ public class DFUGetFileMetaDataResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setTotalColumnCount( local_totalColumnCount);
         raw.setKeyedColumnCount( local_keyedColumnCount);
+        if (local_dataColumns != null)
+            raw.setDataColumns( local_dataColumns.getRaw());
         raw.setXmlSchema( local_xmlSchema);
         raw.setXmlXPathSchema( local_xmlXPathSchema);
         raw.setTotalResultRows( local_totalResultRows);

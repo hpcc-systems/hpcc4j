@@ -21,10 +21,11 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUDeployWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeployWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.899Z
+ * Service version: 1.92
  */
 public class WUDeployWorkunitWrapper
 {
@@ -99,6 +100,8 @@ public class WUDeployWorkunitWrapper
         raw.setResultLimit( local_resultLimit);
         raw.setQueryMainDefinition( local_queryMainDefinition);
         raw.setSnapshot( local_snapshot);
+        if (local_debugValues != null)
+            raw.setDebugValues( local_debugValues.getRaw());
         raw.setProtect( local_protect);
         return raw;
     }

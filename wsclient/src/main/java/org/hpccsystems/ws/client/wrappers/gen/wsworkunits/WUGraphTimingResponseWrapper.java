@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUGraphTimingResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTimingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.927Z
+ * Service version: 1.92
  */
 public class WUGraphTimingResponseWrapper
 {
@@ -63,6 +64,10 @@ public class WUGraphTimingResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTimingResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTimingResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTimingResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_workunit != null)
+            raw.setWorkunit( local_workunit.getRaw());
         return raw;
     }
 

@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: LockQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.543Z
+ * Service version: 1.26
  */
 public class LockQueryWrapper
 {
@@ -87,6 +88,8 @@ public class LockQueryWrapper
         raw.setDurationMSHigh( local_durationMSHigh);
         raw.setTimeLockedLow( local_timeLockedLow);
         raw.setTimeLockedHigh( local_timeLockedHigh);
+        if (local_mode != null)
+            raw.setMode( local_mode.getRaw());
         raw.setAllFileLocks( local_allFileLocks);
         return raw;
     }

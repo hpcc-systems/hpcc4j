@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: WUQuerySetDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.975Z
+ * Service version: 1.92
  */
 public class WUQuerySetDetailsResponseWrapper
 {
@@ -74,7 +75,7 @@ public class WUQuerySetDetailsResponseWrapper
         this.local_filter = raw.getFilter();
         if (raw.getFilterType() != null)
             this.local_filterType = new WUQuerySetFilterTypeWrapper( raw.getFilterType());
-        if (raw.getClusterNames() != null)
+        if (raw.getClusterNames() != null && raw.getClusterNames().getItem() != null)
         {
             this.local_clusterNames = new ArrayList<String>();
             for ( int i = 0; i < raw.getClusterNames().getItem().length; i++)
@@ -92,9 +93,17 @@ public class WUQuerySetDetailsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setQuerySetName( local_querySetName);
+        if (local_querysetQueries != null)
+            raw.setQuerysetQueries( local_querysetQueries.getRaw());
+        if (local_querysetAliases != null)
+            raw.setQuerysetAliases( local_querysetAliases.getRaw());
         raw.setClusterName( local_clusterName);
         raw.setFilter( local_filter);
+        if (local_filterType != null)
+            raw.setFilterType( local_filterType.getRaw());
         if (this.local_clusterNames!= null)
         {
             EspStringArray arr = new EspStringArray();

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUListQueriesUsingFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesUsingFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.941Z
+ * Service version: 1.92
  */
 public class WUListQueriesUsingFileResponseWrapper
 {
@@ -69,8 +70,12 @@ public class WUListQueriesUsingFileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesUsingFileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesUsingFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesUsingFileResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setProcess( local_process);
         raw.setFileName( local_fileName);
+        if (local_targets != null)
+            raw.setTargets( local_targets.getRaw());
         return raw;
     }
 

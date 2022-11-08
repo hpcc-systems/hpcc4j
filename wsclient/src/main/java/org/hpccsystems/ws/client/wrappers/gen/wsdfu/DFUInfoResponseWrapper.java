@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.134Z
+ * Service version: 1.64
  */
 public class DFUInfoResponseWrapper
 {
@@ -63,6 +64,10 @@ public class DFUInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_fileDetail != null)
+            raw.setFileDetail( local_fileDetail.getRaw());
         return raw;
     }
 

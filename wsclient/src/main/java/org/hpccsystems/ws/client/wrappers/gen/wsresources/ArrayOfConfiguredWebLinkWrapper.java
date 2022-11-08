@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ArrayOfConfiguredWebLinkWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfConfiguredWebLink
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2022-07-25T18:03:51.491Z
+ * Service version: 1.01
  */
 public class ArrayOfConfiguredWebLinkWrapper
 {

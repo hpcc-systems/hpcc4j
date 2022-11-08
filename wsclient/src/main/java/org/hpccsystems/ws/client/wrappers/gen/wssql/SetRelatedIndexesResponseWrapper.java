@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SetRelatedIndexesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.SetRelatedIndexesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.SetRelatedIndexesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.107Z
+ * Service version: 3.06
  */
 public class SetRelatedIndexesResponseWrapper
 {
@@ -59,6 +60,8 @@ public class SetRelatedIndexesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.SetRelatedIndexesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.SetRelatedIndexesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.SetRelatedIndexesResponse();
+        if (local_relatedIndexSets != null)
+            raw.setRelatedIndexSets( local_relatedIndexSets.getRaw());
         return raw;
     }
 

@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WURecreateQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.981Z
+ * Service version: 1.92
  */
 public class WURecreateQueryWrapper
 {
@@ -144,8 +145,12 @@ public class WURecreateQueryWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQuery();
         raw.setTarget( local_target);
         raw.setQueryId( local_queryId);
+        if (local_debugValues != null)
+            raw.setDebugValues( local_debugValues.getRaw());
         raw.setDestTarget( local_destTarget);
         raw.setRepublish( local_republish);
+        if (local_activate != null)
+            raw.setActivate( local_activate.getRaw());
         raw.setNoReload( local_noReload);
         raw.setMemoryLimit( local_memoryLimit);
         raw.setTimeLimit( local_timeLimit);

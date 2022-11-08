@@ -21,10 +21,11 @@ import java.math.BigInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: EclFieldTypeWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.EclFieldType
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.102Z
+ * Service version: 3.06
  */
 public class EclFieldTypeWrapper
 {
@@ -69,6 +70,8 @@ public class EclFieldTypeWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.EclFieldType();
+        if (local_type != null)
+            raw.setType( local_type.getRaw());
         raw.setLocale( local_locale);
         raw.setLength( local_length);
         raw.setPrecision( local_precision);

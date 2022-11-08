@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUGetThorJobListWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobList
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.922Z
+ * Service version: 1.92
  */
 public class WUGetThorJobListWrapper
 {

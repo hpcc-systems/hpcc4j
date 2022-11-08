@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SMCIndexResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.557Z
+ * Service version: 1.26
  */
 public class SMCIndexResponseWrapper
 {
@@ -59,6 +60,8 @@ public class SMCIndexResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

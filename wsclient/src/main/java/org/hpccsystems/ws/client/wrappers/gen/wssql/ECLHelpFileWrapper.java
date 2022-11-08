@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ECLHelpFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.ECLHelpFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLHelpFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.099Z
+ * Service version: 3.06
  */
 public class ECLHelpFileWrapper
 {

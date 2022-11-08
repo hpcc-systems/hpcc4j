@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ArrayOfDFULogicalFileWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.v1_02.ArrayOfDFULogicalFile
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.ArrayOfDFULogicalFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * TimeStamp: 2021-03-24T23:14:30.118Z
+ * Service version: 1.02
  */
 public class ArrayOfDFULogicalFileWrapper
 {

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: AddResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.079Z
+ * Service version: 1.64
  */
 public class AddResponseWrapper
 {
@@ -59,6 +60,8 @@ public class AddResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

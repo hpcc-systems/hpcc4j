@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: SuperfileListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.168Z
+ * Service version: 1.64
  */
 public class SuperfileListResponseWrapper
 {
@@ -56,7 +57,7 @@ public class SuperfileListResponseWrapper
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         this.local_superfile = raw.getSuperfile();
-        if (raw.getSubfiles() != null)
+        if (raw.getSubfiles() != null && raw.getSubfiles().getItem() != null)
         {
             this.local_subfiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getSubfiles().getItem().length; i++)
@@ -74,6 +75,8 @@ public class SuperfileListResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setSuperfile( local_superfile);
         if (this.local_subfiles!= null)
         {

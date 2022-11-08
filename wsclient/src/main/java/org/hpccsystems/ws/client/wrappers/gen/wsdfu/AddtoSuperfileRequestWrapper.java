@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: AddtoSuperfileRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.082Z
+ * Service version: 1.64
  */
 public class AddtoSuperfileRequestWrapper
 {
@@ -59,7 +60,7 @@ public class AddtoSuperfileRequestWrapper
 
         this.local_superfile = raw.getSuperfile();
         this.local_subfiles = raw.getSubfiles();
-        if (raw.getNames() != null)
+        if (raw.getNames() != null && raw.getNames().getItem() != null)
         {
             this.local_names = new ArrayList<String>();
             for ( int i = 0; i < raw.getNames().getItem().length; i++)

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpGetServicePluginsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.349Z
+ * Service version: 1.31
  */
 public class TpGetServicePluginsResponseWrapper
 {
@@ -63,6 +64,10 @@ public class TpGetServicePluginsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_plugins != null)
+            raw.setPlugins( local_plugins.getRaw());
         return raw;
     }
 

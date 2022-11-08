@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpGroupQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.351Z
+ * Service version: 1.31
  */
 public class TpGroupQueryResponseWrapper
 {
@@ -63,6 +64,10 @@ public class TpGroupQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_tpGroups != null)
+            raw.setTpGroups( local_tpGroups.getRaw());
         return raw;
     }
 

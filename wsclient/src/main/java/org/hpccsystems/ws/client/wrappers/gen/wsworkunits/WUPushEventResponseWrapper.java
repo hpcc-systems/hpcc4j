@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUPushEventResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.956Z
+ * Service version: 1.92
  */
 public class WUPushEventResponseWrapper
 {
@@ -59,6 +60,8 @@ public class WUPushEventResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

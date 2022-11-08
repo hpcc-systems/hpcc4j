@@ -21,10 +21,11 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SavexmlResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.164Z
+ * Service version: 1.64
  */
 public class SavexmlResponseWrapper
 {
@@ -63,6 +64,8 @@ public class SavexmlResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setXmlmap( local_xmlmap);
         return raw;
     }

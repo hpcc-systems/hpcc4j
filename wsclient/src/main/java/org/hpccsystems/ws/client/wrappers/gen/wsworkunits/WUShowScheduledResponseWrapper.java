@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUShowScheduledResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduledResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.994Z
+ * Service version: 1.92
  */
 public class WUShowScheduledResponseWrapper
 {
@@ -82,11 +83,17 @@ public class WUShowScheduledResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduledResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduledResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduledResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setClusterSelected( local_clusterSelected);
         raw.setEventName( local_eventName);
         raw.setPushEventName( local_pushEventName);
         raw.setPushEventText( local_pushEventText);
         raw.setQuery( local_query);
+        if (local_clusters != null)
+            raw.setClusters( local_clusters.getRaw());
+        if (local_workunits != null)
+            raw.setWorkunits( local_workunits.getRaw());
         return raw;
     }
 

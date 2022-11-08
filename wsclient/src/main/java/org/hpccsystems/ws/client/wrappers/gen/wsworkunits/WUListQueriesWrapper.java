@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUListQueriesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueries
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.939Z
+ * Service version: 1.92
  */
 public class WUListQueriesWrapper
 {
@@ -141,6 +142,8 @@ public class WUListQueriesWrapper
         raw.setPriorityLow( local_priorityLow);
         raw.setPriorityHigh( local_priorityHigh);
         raw.setActivated( local_activated);
+        if (local_suspendedFilter != null)
+            raw.setSuspendedFilter( local_suspendedFilter.getRaw());
         raw.setWUID( local_wUID);
         raw.setQueryID( local_queryID);
         raw.setQueryName( local_queryName);

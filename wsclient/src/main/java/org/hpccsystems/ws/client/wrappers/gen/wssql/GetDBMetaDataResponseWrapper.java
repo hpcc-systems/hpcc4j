@@ -21,10 +21,11 @@ import java.math.BigInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: GetDBMetaDataResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.GetDBMetaDataResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.091Z
+ * Service version: 3.06
  */
 public class GetDBMetaDataResponseWrapper
 {
@@ -75,7 +76,15 @@ public class GetDBMetaDataResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_tables != null)
+            raw.setTables( local_tables.getRaw());
         raw.setTableCount( local_tableCount);
+        if (local_querySets != null)
+            raw.setQuerySets( local_querySets.getRaw());
+        if (local_clusterNames != null)
+            raw.setClusterNames( local_clusterNames.getRaw());
         return raw;
     }
 

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUQuerysetQueryActionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetQueryAction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.979Z
+ * Service version: 1.92
  */
 public class WUQuerysetQueryActionWrapper
 {
@@ -66,7 +67,11 @@ public class WUQuerysetQueryActionWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetQueryAction getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetQueryAction raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetQueryAction();
+        if (local_action != null)
+            raw.setAction( local_action.getRaw());
         raw.setQuerySetName( local_querySetName);
+        if (local_queries != null)
+            raw.setQueries( local_queries.getRaw());
         return raw;
     }
 

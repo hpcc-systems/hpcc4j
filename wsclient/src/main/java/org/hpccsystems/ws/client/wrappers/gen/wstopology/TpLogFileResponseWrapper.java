@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: TpLogFileResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.361Z
+ * Service version: 1.31
  */
 public class TpLogFileResponseWrapper
 {
@@ -113,7 +114,7 @@ public class TpLogFileResponseWrapper
         this.local_nextPage = raw.getNextPage();
         this.local_totalPages = raw.getTotalPages();
         this.local_acceptLanguage = raw.getAcceptLanguage();
-        if (raw.getLogFieldNames() != null)
+        if (raw.getLogFieldNames() != null && raw.getLogFieldNames().getItem() != null)
         {
             this.local_logFieldNames = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogFieldNames().getItem().length; i++)
@@ -131,6 +132,8 @@ public class TpLogFileResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setName( local_name);
         raw.setType( local_type);
         raw.setStartDate( local_startDate);

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: BrowseResourcesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.530Z
+ * Service version: 1.26
  */
 public class BrowseResourcesResponseWrapper
 {
@@ -75,10 +76,14 @@ public class BrowseResourcesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setPortalURL( local_portalURL);
         raw.setNetAddress( local_netAddress);
         raw.setOS( local_oS);
         raw.setUseResource( local_useResource);
+        if (local_hPCCResourceRepositories != null)
+            raw.setHPCCResourceRepositories( local_hPCCResourceRepositories.getRaw());
         return raw;
     }
 

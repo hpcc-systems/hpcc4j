@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUDataColumnWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.104Z
+ * Service version: 1.64
  */
 public class DFUDataColumnWrapper
 {
@@ -99,6 +100,8 @@ public class DFUDataColumnWrapper
         raw.setColumnRawSize( local_columnRawSize);
         raw.setIsNaturalColumn( local_isNaturalColumn);
         raw.setIsKeyedColumn( local_isKeyedColumn);
+        if (local_dataColumns != null)
+            raw.setDataColumns( local_dataColumns.getRaw());
         return raw;
     }
 

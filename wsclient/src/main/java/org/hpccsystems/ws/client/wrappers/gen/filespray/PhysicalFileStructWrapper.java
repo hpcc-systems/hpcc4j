@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: PhysicalFileStructWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.340Z
+ * Service version: 1.23
  */
 public class PhysicalFileStructWrapper
 {
@@ -83,6 +84,8 @@ public class PhysicalFileStructWrapper
         raw.setFilesize( local_filesize);
         raw.setModifiedtime( local_modifiedtime);
         raw.setPath( local_path);
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         return raw;
     }
 

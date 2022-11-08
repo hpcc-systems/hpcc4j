@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.970Z
+ * Service version: 1.92
  */
 public class WUQueryResponseWrapper
 {
@@ -144,6 +145,8 @@ public class WUQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setType( local_type);
         raw.setCluster( local_cluster);
         raw.setRoxieCluster( local_roxieCluster);
@@ -171,6 +174,8 @@ public class WUQueryResponseWrapper
         raw.setBasicQuery( local_basicQuery);
         raw.setFilters( local_filters);
         raw.setCacheHint( local_cacheHint);
+        if (local_workunits != null)
+            raw.setWorkunits( local_workunits.getRaw());
         return raw;
     }
 

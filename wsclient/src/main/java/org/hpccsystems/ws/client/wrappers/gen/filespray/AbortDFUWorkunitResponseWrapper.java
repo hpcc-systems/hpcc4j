@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: AbortDFUWorkunitResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.280Z
+ * Service version: 1.23
  */
 public class AbortDFUWorkunitResponseWrapper
 {
@@ -59,6 +60,8 @@ public class AbortDFUWorkunitResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.AbortDFUWorkunitResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         return raw;
     }
 

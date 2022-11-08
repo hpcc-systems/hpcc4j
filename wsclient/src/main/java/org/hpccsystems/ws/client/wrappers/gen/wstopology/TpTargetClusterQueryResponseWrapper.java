@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpTargetClusterQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.383Z
+ * Service version: 1.31
  */
 public class TpTargetClusterQueryResponseWrapper
 {
@@ -87,6 +88,8 @@ public class TpTargetClusterQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setShowDetails( local_showDetails);
         raw.setMemThreshold( local_memThreshold);
         raw.setDiskThreshold( local_diskThreshold);
@@ -95,6 +98,8 @@ public class TpTargetClusterQueryResponseWrapper
         raw.setDiskThresholdType( local_diskThresholdType);
         raw.setPreflightProcessFilter( local_preflightProcessFilter);
         raw.setAcceptLanguage( local_acceptLanguage);
+        if (local_tpTargetClusters != null)
+            raw.setTpTargetClusters( local_tpTargetClusters.getRaw());
         return raw;
     }
 

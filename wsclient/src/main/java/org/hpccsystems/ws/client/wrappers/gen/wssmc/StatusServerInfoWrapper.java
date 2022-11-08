@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: StatusServerInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.560Z
+ * Service version: 1.26
  */
 public class StatusServerInfoWrapper
 {
@@ -67,6 +68,12 @@ public class StatusServerInfoWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo();
+        if (local_targetClusterInfo != null)
+            raw.setTargetClusterInfo( local_targetClusterInfo.getRaw());
+        if (local_serverInfo != null)
+            raw.setServerInfo( local_serverInfo.getRaw());
+        if (local_workunits != null)
+            raw.setWorkunits( local_workunits.getRaw());
         return raw;
     }
 

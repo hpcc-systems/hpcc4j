@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: WUActionWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAction
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.876Z
+ * Service version: 1.92
  */
 public class WUActionWrapper
 {
@@ -83,7 +84,7 @@ public class WUActionWrapper
         if (raw == null)
             return;
 
-        if (raw.getWuids() != null)
+        if (raw.getWuids() != null && raw.getWuids().getItem() != null)
         {
             this.local_wuids = new ArrayList<String>();
             for ( int i = 0; i < raw.getWuids().getItem().length; i++)
@@ -128,6 +129,8 @@ public class WUActionWrapper
             }
             raw.setWuids(arr);
         }
+        if (local_wUActionType != null)
+            raw.setWUActionType( local_wUActionType.getRaw());
         raw.setCluster( local_cluster);
         raw.setOwner( local_owner);
         raw.setState( local_state);

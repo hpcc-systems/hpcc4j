@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.985Z
+ * Service version: 1.92
  */
 public class WUResultWrapper
 {
@@ -93,6 +94,8 @@ public class WUResultWrapper
         raw.setCluster( local_cluster);
         raw.setSuppressXmlSchema( local_suppressXmlSchema);
         raw.setBypassCachedResult( local_bypassCachedResult);
+        if (local_filterBy != null)
+            raw.setFilterBy( local_filterBy.getRaw());
         raw.setStart( local_start);
         raw.setCount( local_count);
         return raw;

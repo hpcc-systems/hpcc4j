@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: CopyResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.CopyResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.290Z
+ * Service version: 1.23
  */
 public class CopyResponseWrapper
 {
@@ -62,6 +63,8 @@ public class CopyResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.CopyResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.CopyResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.CopyResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setResult( local_result);
         return raw;
     }

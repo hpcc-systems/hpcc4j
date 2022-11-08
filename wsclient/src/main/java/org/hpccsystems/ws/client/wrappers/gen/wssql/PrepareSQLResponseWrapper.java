@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: PrepareSQLResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.PrepareSQLResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.102Z
+ * Service version: 3.06
  */
 public class PrepareSQLResponseWrapper
 {
@@ -66,6 +67,10 @@ public class PrepareSQLResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.PrepareSQLResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_workunit != null)
+            raw.setWorkunit( local_workunit.getRaw());
         raw.setResult( local_result);
         return raw;
     }

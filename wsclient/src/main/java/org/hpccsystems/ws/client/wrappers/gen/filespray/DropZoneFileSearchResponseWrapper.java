@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DropZoneFileSearchResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFileSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.320Z
+ * Service version: 1.23
  */
 public class DropZoneFileSearchResponseWrapper
 {
@@ -66,6 +67,10 @@ public class DropZoneFileSearchResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFileSearchResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFileSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFileSearchResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         raw.setWarning( local_warning);
         return raw;
     }

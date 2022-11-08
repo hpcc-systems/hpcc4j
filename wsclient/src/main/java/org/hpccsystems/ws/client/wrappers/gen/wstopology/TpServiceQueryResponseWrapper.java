@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpServiceQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.375Z
+ * Service version: 1.31
  */
 public class TpServiceQueryResponseWrapper
 {
@@ -90,6 +91,8 @@ public class TpServiceQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setMemThreshold( local_memThreshold);
         raw.setDiskThreshold( local_diskThreshold);
         raw.setCpuThreshold( local_cpuThreshold);
@@ -99,6 +102,8 @@ public class TpServiceQueryResponseWrapper
         raw.setAcceptLanguage( local_acceptLanguage);
         raw.setMemThresholdType( local_memThresholdType);
         raw.setDiskThresholdType( local_diskThresholdType);
+        if (local_serviceList != null)
+            raw.setServiceList( local_serviceList.getRaw());
         return raw;
     }
 

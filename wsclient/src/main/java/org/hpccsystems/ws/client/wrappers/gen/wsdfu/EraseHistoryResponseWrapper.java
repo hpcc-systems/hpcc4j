@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: EraseHistoryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.154Z
+ * Service version: 1.64
  */
 public class EraseHistoryResponseWrapper
 {
@@ -63,6 +64,10 @@ public class EraseHistoryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EraseHistoryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_history != null)
+            raw.setHistory( local_history.getRaw());
         return raw;
     }
 

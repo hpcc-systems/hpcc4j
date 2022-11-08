@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: QuerySetAliases_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.QuerySetAliases_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.QuerySetAliases_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.107Z
+ * Service version: 3.06
  */
 public class QuerySetAliases_type0Wrapper
 {

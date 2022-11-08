@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: OpenSaveResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.339Z
+ * Service version: 1.23
  */
 public class OpenSaveResponseWrapper
 {
@@ -77,6 +78,8 @@ public class OpenSaveResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setLocation( local_location);
         raw.setPath( local_path);
         raw.setName( local_name);

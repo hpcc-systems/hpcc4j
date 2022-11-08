@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DeletePackageRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.152Z
+ * Service version: 1.05
  */
 public class DeletePackageRequestWrapper
 {
@@ -75,6 +76,8 @@ public class DeletePackageRequestWrapper
         raw.setPackageMap( local_packageMap);
         raw.setProcess( local_process);
         raw.setGlobalScope( local_globalScope);
+        if (local_packageMaps != null)
+            raw.setPackageMaps( local_packageMaps.getRaw());
         return raw;
     }
 

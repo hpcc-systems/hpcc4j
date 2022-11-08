@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUPropertiesToReturnWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPropertiesToReturn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.947Z
+ * Service version: 1.92
  */
 public class WUPropertiesToReturnWrapper
 {
@@ -95,6 +96,10 @@ public class WUPropertiesToReturnWrapper
         raw.setAllNotes( local_allNotes);
         raw.setMinVersion( local_minVersion);
         raw.setMeasure( local_measure);
+        if (local_properties != null)
+            raw.setProperties( local_properties.getRaw());
+        if (local_extraProperties != null)
+            raw.setExtraProperties( local_extraProperties.getRaw());
         return raw;
     }
 

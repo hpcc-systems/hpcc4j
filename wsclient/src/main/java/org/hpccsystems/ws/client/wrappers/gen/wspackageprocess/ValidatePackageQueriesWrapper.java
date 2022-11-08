@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: ValidatePackageQueriesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageQueries
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.183Z
+ * Service version: 1.05
  */
 public class ValidatePackageQueriesWrapper
 {
@@ -49,7 +50,7 @@ public class ValidatePackageQueriesWrapper
         if (raw == null)
             return;
 
-        if (raw.getUnmatched() != null)
+        if (raw.getUnmatched() != null && raw.getUnmatched().getItem() != null)
         {
             this.local_unmatched = new ArrayList<String>();
             for ( int i = 0; i < raw.getUnmatched().getItem().length; i++)

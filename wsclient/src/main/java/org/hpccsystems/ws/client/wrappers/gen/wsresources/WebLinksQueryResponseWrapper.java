@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WebLinksQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WebLinksQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2022-07-25T18:03:51.520Z
+ * Service version: 1.01
  */
 public class WebLinksQueryResponseWrapper
 {
@@ -67,6 +68,12 @@ public class WebLinksQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WebLinksQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WebLinksQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WebLinksQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_discoveredWebLinks != null)
+            raw.setDiscoveredWebLinks( local_discoveredWebLinks.getRaw());
+        if (local_configuredWebLinks != null)
+            raw.setConfiguredWebLinks( local_configuredWebLinks.getRaw());
         return raw;
     }
 

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUCopyQuerySetResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.892Z
+ * Service version: 1.92
  */
 public class WUCopyQuerySetResponseWrapper
 {
@@ -77,6 +78,14 @@ public class WUCopyQuerySetResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_copiedQueries != null)
+            raw.setCopiedQueries( local_copiedQueries.getRaw());
+        if (local_existingQueries != null)
+            raw.setExistingQueries( local_existingQueries.getRaw());
+        if (local_fileErrors != null)
+            raw.setFileErrors( local_fileErrors.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

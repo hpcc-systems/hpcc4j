@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUGetNumFileToCopyResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopyResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.919Z
+ * Service version: 1.92
  */
 public class WUGetNumFileToCopyResponseWrapper
 {
@@ -69,6 +70,10 @@ public class WUGetNumFileToCopyResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopyResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopyResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopyResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_endpoints != null)
+            raw.setEndpoints( local_endpoints.getRaw());
         raw.setCacheHint( local_cacheHint);
         raw.setTotal( local_total);
         return raw;

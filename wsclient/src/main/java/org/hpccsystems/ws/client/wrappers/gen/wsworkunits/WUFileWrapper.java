@@ -24,10 +24,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: WUFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.912Z
+ * Service version: 1.92
  */
 public class WUFileWrapper
 {
@@ -113,7 +114,7 @@ public class WUFileWrapper
         if (raw.getLogFormat() != null)
             this.local_logFormat = new LogAccessLogFormatWrapper( raw.getLogFormat());
         this.local_logSearchTimeBuffSecs = raw.getLogSearchTimeBuffSecs();
-        if (raw.getLogColumns() != null)
+        if (raw.getLogColumns() != null && raw.getLogColumns().getItem() != null)
         {
             this.local_logColumns = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogColumns().getItem().length; i++)
@@ -145,8 +146,14 @@ public class WUFileWrapper
         raw.setLogDate( local_logDate);
         raw.setSlaveNumber( local_slaveNumber);
         raw.setSizeLimit( local_sizeLimit);
+        if (local_errorMessageFormat != null)
+            raw.setErrorMessageFormat( local_errorMessageFormat.getRaw());
         raw.setPlainText( local_plainText);
         raw.setMaxLogRecords( local_maxLogRecords);
+        if (local_logSelectColumnMode != null)
+            raw.setLogSelectColumnMode( local_logSelectColumnMode.getRaw());
+        if (local_logFormat != null)
+            raw.setLogFormat( local_logFormat.getRaw());
         raw.setLogSearchTimeBuffSecs( local_logSearchTimeBuffSecs);
         if (this.local_logColumns!= null)
         {

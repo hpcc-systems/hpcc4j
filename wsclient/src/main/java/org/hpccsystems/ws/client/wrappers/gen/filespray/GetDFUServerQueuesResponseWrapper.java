@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: GetDFUServerQueuesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.331Z
+ * Service version: 1.23
  */
 public class GetDFUServerQueuesResponseWrapper
 {
@@ -53,7 +54,7 @@ public class GetDFUServerQueuesResponseWrapper
 
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
-        if (raw.getNames() != null)
+        if (raw.getNames() != null && raw.getNames().getItem() != null)
         {
             this.local_names = new ArrayList<String>();
             for ( int i = 0; i < raw.getNames().getItem().length; i++)
@@ -71,6 +72,8 @@ public class GetDFUServerQueuesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         if (this.local_names!= null)
         {
             EspStringArray arr = new EspStringArray();

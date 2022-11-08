@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: PackageMaps_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMaps_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.175Z
+ * Service version: 1.05
  */
 public class PackageMaps_type0Wrapper
 {

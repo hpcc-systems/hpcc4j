@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: Tables_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.Tables_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.Tables_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.097Z
+ * Service version: 3.06
  */
 public class Tables_type0Wrapper
 {

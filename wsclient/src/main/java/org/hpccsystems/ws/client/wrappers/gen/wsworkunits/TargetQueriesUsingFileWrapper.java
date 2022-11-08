@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TargetQueriesUsingFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.TargetQueriesUsingFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.872Z
+ * Service version: 1.92
  */
 public class TargetQueriesUsingFileWrapper
 {
@@ -67,6 +68,8 @@ public class TargetQueriesUsingFileWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.TargetQueriesUsingFile raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.TargetQueriesUsingFile();
         raw.setTarget( local_target);
         raw.setPackageMap( local_packageMap);
+        if (local_queries != null)
+            raw.setQueries( local_queries.getRaw());
         return raw;
     }
 

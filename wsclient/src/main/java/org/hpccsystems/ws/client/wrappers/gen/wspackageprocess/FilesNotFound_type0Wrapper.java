@@ -22,10 +22,11 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: FilesNotFound_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.FilesNotFound_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.158Z
+ * Service version: 1.05
  */
 public class FilesNotFound_type0Wrapper
 {

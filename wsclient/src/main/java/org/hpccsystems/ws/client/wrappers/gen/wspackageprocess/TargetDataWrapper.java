@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: TargetDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.TargetData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.180Z
+ * Service version: 1.05
  */
 public class TargetDataWrapper
 {
@@ -55,7 +56,7 @@ public class TargetDataWrapper
 
         this.local_name = raw.getName();
         this.local_type = raw.getType();
-        if (raw.getProcesses() != null)
+        if (raw.getProcesses() != null && raw.getProcesses().getItem() != null)
         {
             this.local_processes = new ArrayList<String>();
             for ( int i = 0; i < raw.getProcesses().getItem().length; i++)

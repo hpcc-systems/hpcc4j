@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: RemovePartFromPackageMapResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.176Z
+ * Service version: 1.05
  */
 public class RemovePartFromPackageMapResponseWrapper
 {
@@ -63,6 +64,10 @@ public class RemovePartFromPackageMapResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
         return raw;
     }
 

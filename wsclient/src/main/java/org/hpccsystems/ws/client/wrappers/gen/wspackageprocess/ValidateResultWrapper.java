@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: ValidateResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidateResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.186Z
+ * Service version: 1.05
  */
 public class ValidateResultWrapper
 {
@@ -63,14 +64,14 @@ public class ValidateResultWrapper
 
         this.local_target = raw.getTarget();
         this.local_pMID = raw.getPMID();
-        if (raw.getWarnings() != null)
+        if (raw.getWarnings() != null && raw.getWarnings().getItem() != null)
         {
             this.local_warnings = new ArrayList<String>();
             for ( int i = 0; i < raw.getWarnings().getItem().length; i++)
             {
                 this.local_warnings.add(new String(raw.getWarnings().getItem()[i]));
             }
-        }        if (raw.getErrors() != null)
+        }        if (raw.getErrors() != null && raw.getErrors().getItem() != null)
         {
             this.local_errors = new ArrayList<String>();
             for ( int i = 0; i < raw.getErrors().getItem().length; i++)
@@ -114,6 +115,12 @@ public class ValidateResultWrapper
             }
             raw.setErrors(arr);
         }
+        if (local_packages != null)
+            raw.setPackages( local_packages.getRaw());
+        if (local_queries != null)
+            raw.setQueries( local_queries.getRaw());
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
         return raw;
     }
 

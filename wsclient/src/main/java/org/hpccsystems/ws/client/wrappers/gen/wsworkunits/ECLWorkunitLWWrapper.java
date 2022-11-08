@@ -22,10 +22,11 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ECLWorkunitLWWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkunitLW
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.823Z
+ * Service version: 1.92
  */
 public class ECLWorkunitLWWrapper
 {
@@ -124,6 +125,8 @@ public class ECLWorkunitLWWrapper
         raw.setIsProtected( local_isProtected);
         raw.setDateTimeScheduled( local_dateTimeScheduled);
         raw.setTotalClusterTime( local_totalClusterTime);
+        if (local_applicationValues != null)
+            raw.setApplicationValues( local_applicationValues.getRaw());
         raw.setNoAccess( local_noAccess);
         return raw;
     }

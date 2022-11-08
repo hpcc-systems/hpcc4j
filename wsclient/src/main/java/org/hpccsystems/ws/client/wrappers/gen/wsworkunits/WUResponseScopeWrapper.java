@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUResponseScopeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.984Z
+ * Service version: 1.92
  */
 public class WUResponseScopeWrapper
 {
@@ -75,6 +76,10 @@ public class WUResponseScopeWrapper
         raw.setScopeName( local_scopeName);
         raw.setId( local_id);
         raw.setScopeType( local_scopeType);
+        if (local_properties != null)
+            raw.setProperties( local_properties.getRaw());
+        if (local_notes != null)
+            raw.setNotes( local_notes.getRaw());
         return raw;
     }
 

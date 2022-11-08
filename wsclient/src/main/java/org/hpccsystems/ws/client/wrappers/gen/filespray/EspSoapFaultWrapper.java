@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: EspSoapFaultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.325Z
+ * Service version: 1.23
  */
 public class EspSoapFaultWrapper
 {
@@ -59,6 +60,8 @@ public class EspSoapFaultWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault();
+        if (local_faultMessage != null)
+            raw.setFaultMessage( local_faultMessage.getRaw());
         return raw;
     }
 

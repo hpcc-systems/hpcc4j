@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: QuerySetQueryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQuery
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.853Z
+ * Service version: 1.92
  */
 public class QuerySetQueryWrapper
 {
@@ -113,6 +114,8 @@ public class QuerySetQueryWrapper
         raw.setWuid( local_wuid);
         raw.setDll( local_dll);
         raw.setSuspended( local_suspended);
+        if (local_clusters != null)
+            raw.setClusters( local_clusters.getRaw());
         raw.setMemoryLimit( local_memoryLimit);
         raw.setTimeLimit( local_timeLimit);
         raw.setWarnTimeLimit( local_warnTimeLimit);

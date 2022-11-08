@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: GetPackageMapByIdResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.162Z
+ * Service version: 1.05
  */
 public class GetPackageMapByIdResponseWrapper
 {
@@ -66,6 +67,10 @@ public class GetPackageMapByIdResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.GetPackageMapByIdResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
         raw.setInfo( local_info);
         return raw;
     }

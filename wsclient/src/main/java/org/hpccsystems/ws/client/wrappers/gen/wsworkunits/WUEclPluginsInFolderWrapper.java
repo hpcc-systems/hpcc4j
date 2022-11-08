@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUEclPluginsInFolderWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclPluginsInFolder
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.909Z
+ * Service version: 1.92
  */
 public class WUEclPluginsInFolderWrapper
 {
@@ -63,6 +64,8 @@ public class WUEclPluginsInFolderWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclPluginsInFolder raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclPluginsInFolder();
         raw.setPath( local_path);
+        if (local_plugins != null)
+            raw.setPlugins( local_plugins.getRaw());
         return raw;
     }
 

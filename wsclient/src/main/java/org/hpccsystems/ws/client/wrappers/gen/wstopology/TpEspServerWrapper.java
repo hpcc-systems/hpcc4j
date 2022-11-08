@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpEspServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.343Z
+ * Service version: 1.31
  */
 public class TpEspServerWrapper
 {
@@ -87,6 +88,10 @@ public class TpEspServerWrapper
         raw.setType( local_type);
         raw.setPath( local_path);
         raw.setLogDirectory( local_logDirectory);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
+        if (local_tpBindings != null)
+            raw.setTpBindings( local_tpBindings.getRaw());
         return raw;
     }
 

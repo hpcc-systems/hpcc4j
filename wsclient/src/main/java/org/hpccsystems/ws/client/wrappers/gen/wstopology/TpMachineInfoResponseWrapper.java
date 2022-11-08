@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpMachineInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.367Z
+ * Service version: 1.31
  */
 public class TpMachineInfoResponseWrapper
 {
@@ -63,6 +64,10 @@ public class TpMachineInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_machineInfo != null)
+            raw.setMachineInfo( local_machineInfo.getRaw());
         return raw;
     }
 

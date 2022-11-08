@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpClusterWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpCluster
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.331Z
+ * Service version: 1.31
  */
 public class TpClusterWrapper
 {
@@ -103,6 +104,8 @@ public class TpClusterWrapper
         raw.setDataModel( local_dataModel);
         raw.setOS( local_oS);
         raw.setHasThorSpareProcess( local_hasThorSpareProcess);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

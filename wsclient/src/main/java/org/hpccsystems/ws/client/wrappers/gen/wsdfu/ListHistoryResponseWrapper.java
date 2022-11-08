@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: ListHistoryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.159Z
+ * Service version: 1.64
  */
 public class ListHistoryResponseWrapper
 {
@@ -63,6 +64,10 @@ public class ListHistoryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_history != null)
+            raw.setHistory( local_history.getRaw());
         return raw;
     }
 

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUGetZAPInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.925Z
+ * Service version: 1.92
  */
 public class WUGetZAPInfoResponseWrapper
 {
@@ -80,6 +81,8 @@ public class WUGetZAPInfoResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWUID( local_wUID);
         raw.setESPIPAddress( local_eSPIPAddress);
         raw.setThorIPAddress( local_thorIPAddress);

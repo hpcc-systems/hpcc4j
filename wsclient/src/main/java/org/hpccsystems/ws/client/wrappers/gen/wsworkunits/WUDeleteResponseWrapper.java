@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUDeleteResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.898Z
+ * Service version: 1.92
  */
 public class WUDeleteResponseWrapper
 {
@@ -63,6 +64,10 @@ public class WUDeleteResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_actionResults != null)
+            raw.setActionResults( local_actionResults.getRaw());
         return raw;
     }
 

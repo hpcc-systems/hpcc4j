@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: UpdateDFUWorkunitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.354Z
+ * Service version: 1.23
  */
 public class UpdateDFUWorkunitWrapper
 {
@@ -71,6 +72,8 @@ public class UpdateDFUWorkunitWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit();
+        if (local_wu != null)
+            raw.setWu( local_wu.getRaw());
         raw.setClusterOrig( local_clusterOrig);
         raw.setJobNameOrig( local_jobNameOrig);
         raw.setIsProtectedOrig( local_isProtectedOrig);

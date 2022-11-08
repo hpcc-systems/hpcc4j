@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpSwapNodeResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.380Z
+ * Service version: 1.31
  */
 public class TpSwapNodeResponseWrapper
 {
@@ -62,6 +63,8 @@ public class TpSwapNodeResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setTpSwapNodeResult( local_tpSwapNodeResult);
         return raw;
     }

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: QueryFilesUsedWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.849Z
+ * Service version: 1.92
  */
 public class QueryFilesUsedWrapper
 {
@@ -67,6 +68,10 @@ public class QueryFilesUsedWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryFilesUsed();
         raw.setQueryId( local_queryId);
+        if (local_files != null)
+            raw.setFiles( local_files.getRaw());
+        if (local_superFiles != null)
+            raw.setSuperFiles( local_superFiles.getRaw());
         return raw;
     }
 

@@ -21,10 +21,11 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUGetDependancyTreesResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetDependancyTreesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.916Z
+ * Service version: 1.92
  */
 public class WUGetDependancyTreesResponseWrapper
 {
@@ -67,6 +68,10 @@ public class WUGetDependancyTreesResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetDependancyTreesResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetDependancyTreesResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetDependancyTreesResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_errors != null)
+            raw.setErrors( local_errors.getRaw());
         raw.setDependancyTrees( local_dependancyTrees);
         return raw;
     }

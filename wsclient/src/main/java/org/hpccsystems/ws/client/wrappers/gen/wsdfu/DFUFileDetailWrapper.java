@@ -24,10 +24,11 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: DFUFileDetailWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.120Z
+ * Service version: 1.64
  */
 public class DFUFileDetailWrapper
 {
@@ -184,7 +185,7 @@ public class DFUFileDetailWrapper
             this.local_dFUFilePartsOnClusters = new ArrayOfDFUFilePartsOnClusterWrapper( raw.getDFUFilePartsOnClusters());
         this.local_isSuperfile = raw.getIsSuperfile();
         this.local_showFileContent = raw.getShowFileContent();
-        if (raw.getSubfiles() != null)
+        if (raw.getSubfiles() != null && raw.getSubfiles().getItem() != null)
         {
             this.local_subfiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getSubfiles().getItem().length; i++)
@@ -254,6 +255,10 @@ public class DFUFileDetailWrapper
         raw.setCsvEscape( local_csvEscape);
         raw.setModified( local_modified);
         raw.setEcl( local_ecl);
+        if (local_stat != null)
+            raw.setStat( local_stat.getRaw());
+        if (local_dFUFilePartsOnClusters != null)
+            raw.setDFUFilePartsOnClusters( local_dFUFilePartsOnClusters.getRaw());
         raw.setIsSuperfile( local_isSuperfile);
         raw.setShowFileContent( local_showFileContent);
         if (this.local_subfiles!= null)
@@ -265,7 +270,13 @@ public class DFUFileDetailWrapper
             }
             raw.setSubfiles(arr);
         }
+        if (local_superfiles != null)
+            raw.setSuperfiles( local_superfiles.getRaw());
+        if (local_protectList != null)
+            raw.setProtectList( local_protectList.getRaw());
         raw.setFromRoxieCluster( local_fromRoxieCluster);
+        if (local_graphs != null)
+            raw.setGraphs( local_graphs.getRaw());
         raw.setUserPermission( local_userPermission);
         raw.setContentType( local_contentType);
         raw.setCompressedFileSize( local_compressedFileSize);
@@ -276,6 +287,10 @@ public class DFUFileDetailWrapper
         raw.setJsonInfo( local_jsonInfo);
         raw.setBinInfo( local_binInfo);
         raw.setPackageID( local_packageID);
+        if (local_partition != null)
+            raw.setPartition( local_partition.getRaw());
+        if (local_blooms != null)
+            raw.setBlooms( local_blooms.getRaw());
         raw.setExpireDays( local_expireDays);
         raw.setKeyType( local_keyType);
         raw.setAtRestCost( local_atRestCost);

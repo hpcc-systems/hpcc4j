@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: DeleteDFUWorkunitsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.294Z
+ * Service version: 1.23
  */
 public class DeleteDFUWorkunitsWrapper
 {
@@ -49,7 +50,7 @@ public class DeleteDFUWorkunitsWrapper
         if (raw == null)
             return;
 
-        if (raw.getWuids() != null)
+        if (raw.getWuids() != null && raw.getWuids().getItem() != null)
         {
             this.local_wuids = new ArrayList<String>();
             for ( int i = 0; i < raw.getWuids().getItem().length; i++)

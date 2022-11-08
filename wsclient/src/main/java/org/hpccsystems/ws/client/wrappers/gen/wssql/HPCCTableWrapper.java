@@ -21,10 +21,11 @@ import java.math.BigInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: HPCCTableWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCTable
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCTable
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.064Z
+ * Service version: 3.06
  */
 public class HPCCTableWrapper
 {
@@ -106,6 +107,8 @@ public class HPCCTableWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCTable raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCTable();
         raw.setName( local_name);
+        if (local_columns != null)
+            raw.setColumns( local_columns.getRaw());
         raw.setECL( local_eCL);
         raw.setFormat( local_format);
         raw.setContentType( local_contentType);

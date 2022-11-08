@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WULightWeightQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.935Z
+ * Service version: 1.92
  */
 public class WULightWeightQueryResponseWrapper
 {
@@ -69,8 +70,12 @@ public class WULightWeightQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setNumWUs( local_numWUs);
         raw.setCacheHint( local_cacheHint);
+        if (local_workunits != null)
+            raw.setWorkunits( local_workunits.getRaw());
         return raw;
     }
 

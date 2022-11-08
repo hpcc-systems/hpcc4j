@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUWUSearchResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.317Z
+ * Service version: 1.23
  */
 public class DFUWUSearchResponseWrapper
 {
@@ -63,6 +64,10 @@ public class DFUWUSearchResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_clusterNames != null)
+            raw.setClusterNames( local_clusterNames.getRaw());
         return raw;
     }
 

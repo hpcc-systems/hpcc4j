@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WUGetThorJobListResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobListResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.923Z
+ * Service version: 1.92
  */
 public class WUGetThorJobListResponseWrapper
 {
@@ -70,6 +71,12 @@ public class WUGetThorJobListResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobListResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobListResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobListResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_jobList != null)
+            raw.setJobList( local_jobList.getRaw());
+        if (local_inProgressJobList != null)
+            raw.setInProgressJobList( local_inProgressJobList.getRaw());
         raw.setWarning( local_warning);
         return raw;
     }

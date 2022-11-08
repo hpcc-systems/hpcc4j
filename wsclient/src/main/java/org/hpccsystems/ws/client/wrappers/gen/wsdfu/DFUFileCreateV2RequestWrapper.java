@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUFileCreateV2RequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.113Z
+ * Service version: 1.64
  */
 public class DFUFileCreateV2RequestWrapper
 {
@@ -88,6 +89,8 @@ public class DFUFileCreateV2RequestWrapper
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request();
         raw.setName( local_name);
         raw.setCluster( local_cluster);
+        if (local_type != null)
+            raw.setType( local_type.getRaw());
         raw.setECLRecordDefinition( local_eCLRecordDefinition);
         raw.setRequestId( local_requestId);
         raw.setExpirySeconds( local_expirySeconds);

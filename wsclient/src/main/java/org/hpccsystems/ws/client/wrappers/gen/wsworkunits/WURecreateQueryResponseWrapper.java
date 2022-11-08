@@ -21,10 +21,11 @@ import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WURecreateQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.982Z
+ * Service version: 1.92
  */
 public class WURecreateQueryResponseWrapper
 {
@@ -106,6 +107,8 @@ public class WURecreateQueryResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setWuid( local_wuid);
         raw.setQuerySet( local_querySet);
         raw.setQueryName( local_queryName);
@@ -118,6 +121,8 @@ public class WURecreateQueryResponseWrapper
         raw.setReloadFailed( local_reloadFailed);
         raw.setSuspended( local_suspended);
         raw.setErrorMessage( local_errorMessage);
+        if (local_fileErrors != null)
+            raw.setFileErrors( local_fileErrors.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

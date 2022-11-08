@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: DeleteDropZoneFilesRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDropZoneFilesRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.295Z
+ * Service version: 1.23
  */
 public class DeleteDropZoneFilesRequestWrapper
 {
@@ -61,7 +62,7 @@ public class DeleteDropZoneFilesRequestWrapper
         this.local_netAddress = raw.getNetAddress();
         this.local_path = raw.getPath();
         this.local_oS = raw.getOS();
-        if (raw.getNames() != null)
+        if (raw.getNames() != null && raw.getNames().getItem() != null)
         {
             this.local_names = new ArrayList<String>();
             for ( int i = 0; i < raw.getNames().getItem().length; i++)

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: HPCCColumnWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.HPCCColumn
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.066Z
+ * Service version: 3.06
  */
 public class HPCCColumnWrapper
 {
@@ -67,6 +68,8 @@ public class HPCCColumnWrapper
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCColumn();
         raw.setName( local_name);
         raw.setType( local_type);
+        if (local_columns != null)
+            raw.setColumns( local_columns.getRaw());
         return raw;
     }
 

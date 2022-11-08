@@ -21,10 +21,11 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SystemLogResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.328Z
+ * Service version: 1.31
  */
 public class SystemLogResponseWrapper
 {
@@ -63,6 +64,8 @@ public class SystemLogResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setThefile( local_thefile);
         return raw;
     }

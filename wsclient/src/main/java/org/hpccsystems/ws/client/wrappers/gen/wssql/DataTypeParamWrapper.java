@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DataTypeParamWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.v3_06.DataTypeParam
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataTypeParam
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * TimeStamp: 2021-05-14T01:46:09.060Z
+ * Service version: 3.06
  */
 public class DataTypeParamWrapper
 {
@@ -63,6 +64,8 @@ public class DataTypeParamWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataTypeParam raw = new org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataTypeParam();
         raw.setName( local_name);
+        if (local_values != null)
+            raw.setValues( local_values.getRaw());
         return raw;
     }
 

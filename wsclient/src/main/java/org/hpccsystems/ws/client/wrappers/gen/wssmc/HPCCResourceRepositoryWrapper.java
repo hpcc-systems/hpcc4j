@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: HPCCResourceRepositoryWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResourceRepository
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.540Z
+ * Service version: 1.26
  */
 public class HPCCResourceRepositoryWrapper
 {
@@ -67,6 +68,8 @@ public class HPCCResourceRepositoryWrapper
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResourceRepository raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResourceRepository();
         raw.setName( local_name);
         raw.setPath( local_path);
+        if (local_hPCCResources != null)
+            raw.setHPCCResources( local_hPCCResources.getRaw());
         return raw;
     }
 

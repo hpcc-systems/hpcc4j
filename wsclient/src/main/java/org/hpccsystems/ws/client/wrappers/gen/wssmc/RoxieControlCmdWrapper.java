@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: RoxieControlCmdWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.551Z
+ * Service version: 1.26
  */
 public class RoxieControlCmdWrapper
 {
@@ -70,6 +71,8 @@ public class RoxieControlCmdWrapper
         org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd raw = new org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd();
         raw.setProcessCluster( local_processCluster);
         raw.setTargetCluster( local_targetCluster);
+        if (local_command != null)
+            raw.setCommand( local_command.getRaw());
         raw.setWait( local_wait);
         return raw;
     }

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: GetDFUExceptionsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.329Z
+ * Service version: 1.23
  */
 public class GetDFUExceptionsResponseWrapper
 {
@@ -63,6 +64,10 @@ public class GetDFUExceptionsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_result != null)
+            raw.setResult( local_result.getRaw());
         return raw;
     }
 

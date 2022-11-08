@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: AddPackageResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.133Z
+ * Service version: 1.05
  */
 public class AddPackageResponseWrapper
 {
@@ -73,6 +74,12 @@ public class AddPackageResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
+        if (local_status != null)
+            raw.setStatus( local_status.getRaw());
+        if (local_filesNotFound != null)
+            raw.setFilesNotFound( local_filesNotFound.getRaw());
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;

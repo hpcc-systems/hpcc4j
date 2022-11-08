@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: SuperFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.179Z
+ * Service version: 1.05
  */
 public class SuperFileWrapper
 {
@@ -63,6 +64,8 @@ public class SuperFileWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.SuperFile();
         raw.setName( local_name);
+        if (local_subFiles != null)
+            raw.setSubFiles( local_subFiles.getRaw());
         return raw;
     }
 

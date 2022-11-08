@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: WUQueryDetailsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.965Z
+ * Service version: 1.92
  */
 public class WUQueryDetailsResponseWrapper
 {
@@ -111,7 +112,7 @@ public class WUQueryDetailsResponseWrapper
             this.local_clusters = new ArrayOfClusterQueryStateWrapper( raw.getClusters());
         this.local_publishedBy = raw.getPublishedBy();
         this.local_comment = raw.getComment();
-        if (raw.getLogicalFiles() != null)
+        if (raw.getLogicalFiles() != null && raw.getLogicalFiles().getItem() != null)
         {
             this.local_logicalFiles = new ArrayList<String>();
             for ( int i = 0; i < raw.getLogicalFiles().getItem().length; i++)
@@ -125,7 +126,7 @@ public class WUQueryDetailsResponseWrapper
         this.local_priorityID = raw.getPriorityID();
         this.local_wUSnapShot = raw.getWUSnapShot();
         this.local_compileTime = raw.getCompileTime();
-        if (raw.getLibrariesUsed() != null)
+        if (raw.getLibrariesUsed() != null && raw.getLibrariesUsed().getItem() != null)
         {
             this.local_librariesUsed = new ArrayList<String>();
             for ( int i = 0; i < raw.getLibrariesUsed().getItem().length; i++)
@@ -151,6 +152,8 @@ public class WUQueryDetailsResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setQueryId( local_queryId);
         raw.setQuerySet( local_querySet);
         raw.setQueryName( local_queryName);
@@ -159,6 +162,8 @@ public class WUQueryDetailsResponseWrapper
         raw.setSuspended( local_suspended);
         raw.setActivated( local_activated);
         raw.setSuspendedBy( local_suspendedBy);
+        if (local_clusters != null)
+            raw.setClusters( local_clusters.getRaw());
         raw.setPublishedBy( local_publishedBy);
         raw.setComment( local_comment);
         if (this.local_logicalFiles!= null)
@@ -170,6 +175,8 @@ public class WUQueryDetailsResponseWrapper
             }
             raw.setLogicalFiles(arr);
         }
+        if (local_superFiles != null)
+            raw.setSuperFiles( local_superFiles.getRaw());
         raw.setIsLibrary( local_isLibrary);
         raw.setPriority( local_priority);
         raw.setPriorityID( local_priorityID);
@@ -186,6 +193,12 @@ public class WUQueryDetailsResponseWrapper
         }
         raw.setCountGraphs( local_countGraphs);
         raw.setResourceURLCount( local_resourceURLCount);
+        if (local_wsEclAddresses != null)
+            raw.setWsEclAddresses( local_wsEclAddresses.getRaw());
+        if (local_wUGraphs != null)
+            raw.setWUGraphs( local_wUGraphs.getRaw());
+        if (local_wUTimers != null)
+            raw.setWUTimers( local_wUTimers.getRaw());
         return raw;
     }
 

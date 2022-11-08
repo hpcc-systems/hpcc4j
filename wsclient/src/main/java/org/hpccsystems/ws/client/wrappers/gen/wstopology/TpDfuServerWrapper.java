@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: TpDfuServerWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDfuServer
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * TimeStamp: 2021-10-27T23:40:06.337Z
+ * Service version: 1.31
  */
 public class TpDfuServerWrapper
 {
@@ -87,6 +88,8 @@ public class TpDfuServerWrapper
         raw.setType( local_type);
         raw.setPath( local_path);
         raw.setLogDirectory( local_logDirectory);
+        if (local_tpMachines != null)
+            raw.setTpMachines( local_tpMachines.getRaw());
         return raw;
     }
 

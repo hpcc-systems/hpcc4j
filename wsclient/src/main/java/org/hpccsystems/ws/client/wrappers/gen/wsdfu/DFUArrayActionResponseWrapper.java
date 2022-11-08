@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DFUArrayActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.092Z
+ * Service version: 1.64
  */
 public class DFUArrayActionResponseWrapper
 {
@@ -69,8 +70,12 @@ public class DFUArrayActionResponseWrapper
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse();
+        if (local_exceptions != null)
+            raw.setExceptions( local_exceptions.getRaw());
         raw.setBackToPage( local_backToPage);
         raw.setRedirectTo( local_redirectTo);
+        if (local_actionResults != null)
+            raw.setActionResults( local_actionResults.getRaw());
         return raw;
     }
 

@@ -23,10 +23,11 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.8
  * Class name: ValidatePackageFilesWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageFiles
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.182Z
+ * Service version: 1.05
  */
 public class ValidatePackageFilesWrapper
 {
@@ -51,7 +52,7 @@ public class ValidatePackageFilesWrapper
         if (raw == null)
             return;
 
-        if (raw.getUnmatched() != null)
+        if (raw.getUnmatched() != null && raw.getUnmatched().getItem() != null)
         {
             this.local_unmatched = new ArrayList<String>();
             for ( int i = 0; i < raw.getUnmatched().getItem().length; i++)
@@ -80,6 +81,8 @@ public class ValidatePackageFilesWrapper
             }
             raw.setUnmatched(arr);
         }
+        if (local_notInDFS != null)
+            raw.setNotInDFS( local_notInDFS.getRaw());
         return raw;
     }
 

@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: WsResourcesPingResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WsResourcesPingResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2022-07-25T18:03:51.521Z
+ * Service version: 1.01
  */
 public class WsResourcesPingResponseWrapper
 {

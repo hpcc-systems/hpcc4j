@@ -20,10 +20,11 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 /**
  * Generated Axis2 ADB stub class wrapper
+ * WrapperMaker version: 1.7
  * Class name: DiscoveredWebLinkWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * TimeStamp: 2022-07-25T18:03:51.511Z
+ * Service version: 1.01
  */
 public class DiscoveredWebLinkWrapper
 {
@@ -67,6 +68,8 @@ public class DiscoveredWebLinkWrapper
         org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink raw = new org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink();
         raw.setServiceName( local_serviceName);
         raw.setNameSpace( local_nameSpace);
+        if (local_annotations != null)
+            raw.setAnnotations( local_annotations.getRaw());
         return raw;
     }
 
