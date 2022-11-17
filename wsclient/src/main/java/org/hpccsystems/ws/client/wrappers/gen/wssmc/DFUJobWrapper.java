@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: DFUJobWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DFUJob
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.532Z
+ * TimeStamp: 2021-10-27T20:17:20.576Z
  */
 public class DFUJobWrapper
 {

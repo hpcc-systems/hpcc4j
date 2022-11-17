@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUCopyQuerySetResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUCopyQuerySetResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.892Z
+ * TimeStamp: 2021-09-30T21:52:48.468Z
  */
 public class WUCopyQuerySetResponseWrapper
 {
@@ -31,8 +31,6 @@ public class WUCopyQuerySetResponseWrapper
     protected CopiedQueries_type0Wrapper local_copiedQueries;
     protected ExistingQueries_type1Wrapper local_existingQueries;
     protected FileErrors_type3Wrapper local_fileErrors;
-    protected String local_dfuPublisherWuid;
-    protected String local_dfuPublisherState;
 
     public WUCopyQuerySetResponseWrapper() {}
 
@@ -40,14 +38,12 @@ public class WUCopyQuerySetResponseWrapper
     {
         copy( wucopyquerysetresponse );
     }
-    public WUCopyQuerySetResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, CopiedQueries_type0Wrapper _copiedQueries, ExistingQueries_type1Wrapper _existingQueries, FileErrors_type3Wrapper _fileErrors, String _dfuPublisherWuid, String _dfuPublisherState )
+    public WUCopyQuerySetResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, CopiedQueries_type0Wrapper _copiedQueries, ExistingQueries_type1Wrapper _existingQueries, FileErrors_type3Wrapper _fileErrors )
     {
         this.local_exceptions = _exceptions;
         this.local_copiedQueries = _copiedQueries;
         this.local_existingQueries = _existingQueries;
         this.local_fileErrors = _fileErrors;
-        this.local_dfuPublisherWuid = _dfuPublisherWuid;
-        this.local_dfuPublisherState = _dfuPublisherState;
 
     }
 
@@ -64,21 +60,17 @@ public class WUCopyQuerySetResponseWrapper
             this.local_existingQueries = new ExistingQueries_type1Wrapper( raw.getExistingQueries());
         if (raw.getFileErrors() != null)
             this.local_fileErrors = new FileErrors_type3Wrapper( raw.getFileErrors());
-        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
-        this.local_dfuPublisherState = raw.getDfuPublisherState();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUCopyQuerySetResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "copiedQueries = " + local_copiedQueries + ", " + "existingQueries = " + local_existingQueries + ", " + "fileErrors = " + local_fileErrors + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "dfuPublisherState = " + local_dfuPublisherState + "]";
+        return "WUCopyQuerySetResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "copiedQueries = " + local_copiedQueries + ", " + "existingQueries = " + local_existingQueries + ", " + "fileErrors = " + local_fileErrors + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse();
-        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
-        raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;
     }
 
@@ -114,21 +106,5 @@ public class WUCopyQuerySetResponseWrapper
     public FileErrors_type3Wrapper getFileErrors( )
     {
         return this.local_fileErrors;
-    }
-    public void setDfuPublisherWuid( String _dfuPublisherWuid )
-    {
-        this.local_dfuPublisherWuid = _dfuPublisherWuid;
-    }
-    public String getDfuPublisherWuid( )
-    {
-        return this.local_dfuPublisherWuid;
-    }
-    public void setDfuPublisherState( String _dfuPublisherState )
-    {
-        this.local_dfuPublisherState = _dfuPublisherState;
-    }
-    public String getDfuPublisherState( )
-    {
-        return this.local_dfuPublisherState;
     }
 }

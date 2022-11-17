@@ -21,16 +21,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUQueryFilesResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUQueryFilesResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.966Z
+ * TimeStamp: 2021-09-30T21:52:48.556Z
  */
 public class WUQueryFilesResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected Files_type2Wrapper local_files;
-    protected SuperFiles_type1Wrapper local_superFiles;
-    protected Queries_type0Wrapper local_queries;
 
     public WUQueryFilesResponseWrapper() {}
 
@@ -38,12 +36,10 @@ public class WUQueryFilesResponseWrapper
     {
         copy( wuqueryfilesresponse );
     }
-    public WUQueryFilesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Files_type2Wrapper _files, SuperFiles_type1Wrapper _superFiles, Queries_type0Wrapper _queries )
+    public WUQueryFilesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Files_type2Wrapper _files )
     {
         this.local_exceptions = _exceptions;
         this.local_files = _files;
-        this.local_superFiles = _superFiles;
-        this.local_queries = _queries;
 
     }
 
@@ -56,17 +52,13 @@ public class WUQueryFilesResponseWrapper
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         if (raw.getFiles() != null)
             this.local_files = new Files_type2Wrapper( raw.getFiles());
-        if (raw.getSuperFiles() != null)
-            this.local_superFiles = new SuperFiles_type1Wrapper( raw.getSuperFiles());
-        if (raw.getQueries() != null)
-            this.local_queries = new Queries_type0Wrapper( raw.getQueries());
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQueryFilesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "files = " + local_files + ", " + "superFiles = " + local_superFiles + ", " + "queries = " + local_queries + "]";
+        return "WUQueryFilesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "files = " + local_files + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse getRaw()
     {
@@ -90,21 +82,5 @@ public class WUQueryFilesResponseWrapper
     public Files_type2Wrapper getFiles( )
     {
         return this.local_files;
-    }
-    public void setSuperFiles( SuperFiles_type1Wrapper _superFiles )
-    {
-        this.local_superFiles = _superFiles;
-    }
-    public SuperFiles_type1Wrapper getSuperFiles( )
-    {
-        return this.local_superFiles;
-    }
-    public void setQueries( Queries_type0Wrapper _queries )
-    {
-        this.local_queries = _queries;
-    }
-    public Queries_type0Wrapper getQueries( )
-    {
-        return this.local_queries;
     }
 }

@@ -17,8 +17,6 @@
 
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.Random;
@@ -100,13 +98,6 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.print("\t\t" + key + ": '" + (value == null || value.isEmpty() ? "" : value) + "'");
             printMetaData(0, fetchKeyMetaData(store, namespace, key, global));
         }
-    }
-
-    @Test
-    public void getContainerizedModeTest() throws Exception
-    {
-        System.out.println("Fetching isTargetHPCCContainerized...");
-        assertNotNull(client.isTargetHPCCContainerized());
     }
 
     @Test

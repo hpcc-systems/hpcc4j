@@ -17,7 +17,6 @@
 
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -56,13 +55,6 @@ public class WSPackageProcessTest extends BaseRemoteTest
             System.out.println("WSPackageProcessTest: No 'roxiename' system prop provided, defaulting to '' ");
             targetRoxieName = "";
         }
-    }
-
-    @Test
-    public void getContainerizedModeTest() throws Exception
-    {
-        System.out.println("Fetching isTargetHPCCContainerized...");
-        assertNotNull(client.isTargetHPCCContainerized());
     }
 
     @Test

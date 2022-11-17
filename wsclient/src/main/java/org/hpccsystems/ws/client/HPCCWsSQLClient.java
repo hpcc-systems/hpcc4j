@@ -42,7 +42,6 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.ExecuteSQLResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.GetResultsResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCQuerySetWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wssql.NamedValueWrapper;
 
 /**
  * Facilitates SQL based action onto target HPCC Systems instance.
@@ -201,22 +200,22 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
     @SuppressWarnings("static-access")
     private void initHPCCWsSQLClientStub(Connection connection)
     {
-        initBaseWsClient(connection, false); //No need to preemptively fetch HPCC build version, Containerized mode
+        initErrMessage = "";
+
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WssqlStub(connection.getUrl() + this.WSSQLURI), connection);
         }
-        catch (AxisFault e)
+        catch (Exception e)
         {
-            initErrMessage = "Could not initialize WssqlStub - Review all HPCC connection values";
+            log.error("Could not initialize WssqlStub - Review all HPCC connection values");
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage += "\n" + e.getLocalizedMessage();
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
             }
         }
-
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
     }
 
     /**
@@ -829,7 +828,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper [] variables, Integer wait, Integer resultLimit,
+    public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit,
             String userName) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         return executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null, userName, true, true).getWorkunit();
@@ -860,7 +859,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper [] variables, Integer wait, Integer resultLimit,
+    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait, Integer resultLimit,
             String userName, String somesing) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         ExecutePreparedSQLResponseWrapper executePreparedSQL = executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null,
@@ -900,7 +899,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public ExecutePreparedSQLResponseWrapper executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper [] variables, Integer wait,
+    public ExecutePreparedSQLResponseWrapper executePreparedSQL(String wuid, String targetCluster, NamedValue[] variables, Integer wait,
             Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema,
             Boolean suppressResults) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
@@ -913,13 +912,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
         if (variables != null && variables.length > 0)
         {
             ArrayOfNamedValue arrayofvars = new ArrayOfNamedValue();
-            for (int i = 0; i < variables.length; i++)
-            {
-                NamedValue namedvalue = new NamedValue();
-                namedvalue.setName(variables[i].getName());
-                namedvalue.setValue(variables[i].getValue());
-                arrayofvars.addNamedValue(namedvalue);
-            }
+            arrayofvars.setNamedValue(variables);
             request.setVariables(arrayofvars);
         }
 

@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: ECLGraphWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.ECLGraph
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.804Z
+ * TimeStamp: 2021-09-30T21:52:48.375Z
  */
 public class ECLGraphWrapper
 {

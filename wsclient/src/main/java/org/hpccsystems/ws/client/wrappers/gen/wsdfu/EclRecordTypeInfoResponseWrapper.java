@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: EclRecordTypeInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EclRecordTypeInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.154Z
+ * TimeStamp: 2021-10-27T14:48:55.318Z
  */
 public class EclRecordTypeInfoResponseWrapper
 {

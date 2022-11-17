@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,17 +21,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddPackageResponseWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.133Z
+ * TimeStamp: 2020-09-23T03:53:35.663Z
  */
 public class AddPackageResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected BasePackageStatusWrapper local_status;
     protected FilesNotFound_type2Wrapper local_filesNotFound;
-    protected String local_dfuPublisherWuid;
-    protected String local_dfuPublisherState;
 
     public AddPackageResponseWrapper() {}
 
@@ -39,13 +37,11 @@ public class AddPackageResponseWrapper
     {
         copy( addpackageresponse );
     }
-    public AddPackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, FilesNotFound_type2Wrapper _filesNotFound, String _dfuPublisherWuid, String _dfuPublisherState )
+    public AddPackageResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, BasePackageStatusWrapper _status, FilesNotFound_type2Wrapper _filesNotFound )
     {
         this.local_exceptions = _exceptions;
         this.local_status = _status;
         this.local_filesNotFound = _filesNotFound;
-        this.local_dfuPublisherWuid = _dfuPublisherWuid;
-        this.local_dfuPublisherState = _dfuPublisherState;
 
     }
 
@@ -60,21 +56,17 @@ public class AddPackageResponseWrapper
             this.local_status = new BasePackageStatusWrapper( raw.getStatus());
         if (raw.getFilesNotFound() != null)
             this.local_filesNotFound = new FilesNotFound_type2Wrapper( raw.getFilesNotFound());
-        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
-        this.local_dfuPublisherState = raw.getDfuPublisherState();
 
     }
 
     @Override
     public String toString()
     {
-        return "AddPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "dfuPublisherState = " + local_dfuPublisherState + "]";
+        return "AddPackageResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "status = " + local_status + ", " + "filesNotFound = " + local_filesNotFound + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse raw = new org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse();
-        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
-        raw.setDfuPublisherState( local_dfuPublisherState);
         return raw;
     }
 
@@ -102,21 +94,5 @@ public class AddPackageResponseWrapper
     public FilesNotFound_type2Wrapper getFilesNotFound( )
     {
         return this.local_filesNotFound;
-    }
-    public void setDfuPublisherWuid( String _dfuPublisherWuid )
-    {
-        this.local_dfuPublisherWuid = _dfuPublisherWuid;
-    }
-    public String getDfuPublisherWuid( )
-    {
-        return this.local_dfuPublisherWuid;
-    }
-    public void setDfuPublisherState( String _dfuPublisherState )
-    {
-        this.local_dfuPublisherState = _dfuPublisherState;
-    }
-    public String getDfuPublisherState( )
-    {
-        return this.local_dfuPublisherState;
     }
 }

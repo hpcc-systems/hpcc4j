@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: DeleteDFUWorkunitsResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitsResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.295Z
+ * TimeStamp: 2021-10-27T18:52:06.427Z
  */
 public class DeleteDFUWorkunitsResponseWrapper
 {

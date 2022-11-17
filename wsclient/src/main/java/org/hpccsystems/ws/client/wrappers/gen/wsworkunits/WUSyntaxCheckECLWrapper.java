@@ -21,9 +21,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUSyntaxCheckECLWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckECL
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUSyntaxCheckECL
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.997Z
+ * TimeStamp: 2021-09-30T21:52:48.599Z
  */
 public class WUSyntaxCheckECLWrapper
 {
@@ -34,7 +34,6 @@ public class WUSyntaxCheckECLWrapper
     protected String local_cluster;
     protected String local_snapshot;
     protected int local_timeToWait;
-    protected boolean local_persistWorkunit;
     protected ArrayOfDebugValueWrapper local_debugValues;
 
     public WUSyntaxCheckECLWrapper() {}
@@ -43,7 +42,7 @@ public class WUSyntaxCheckECLWrapper
     {
         copy( wusyntaxcheckecl );
     }
-    public WUSyntaxCheckECLWrapper( String _eCL, String _moduleName, String _attributeName, String _queue, String _cluster, String _snapshot, int _timeToWait, boolean _persistWorkunit, ArrayOfDebugValueWrapper _debugValues )
+    public WUSyntaxCheckECLWrapper( String _eCL, String _moduleName, String _attributeName, String _queue, String _cluster, String _snapshot, int _timeToWait, ArrayOfDebugValueWrapper _debugValues )
     {
         this.local_eCL = _eCL;
         this.local_moduleName = _moduleName;
@@ -52,7 +51,6 @@ public class WUSyntaxCheckECLWrapper
         this.local_cluster = _cluster;
         this.local_snapshot = _snapshot;
         this.local_timeToWait = _timeToWait;
-        this.local_persistWorkunit = _persistWorkunit;
         this.local_debugValues = _debugValues;
 
     }
@@ -69,7 +67,6 @@ public class WUSyntaxCheckECLWrapper
         this.local_cluster = raw.getCluster();
         this.local_snapshot = raw.getSnapshot();
         this.local_timeToWait = raw.getTimeToWait();
-        this.local_persistWorkunit = raw.getPersistWorkunit();
         if (raw.getDebugValues() != null)
             this.local_debugValues = new ArrayOfDebugValueWrapper( raw.getDebugValues());
 
@@ -78,7 +75,7 @@ public class WUSyntaxCheckECLWrapper
     @Override
     public String toString()
     {
-        return "WUSyntaxCheckECLWrapper [" + "eCL = " + local_eCL + ", " + "moduleName = " + local_moduleName + ", " + "attributeName = " + local_attributeName + ", " + "queue = " + local_queue + ", " + "cluster = " + local_cluster + ", " + "snapshot = " + local_snapshot + ", " + "timeToWait = " + local_timeToWait + ", " + "persistWorkunit = " + local_persistWorkunit + ", " + "debugValues = " + local_debugValues + "]";
+        return "WUSyntaxCheckECLWrapper [" + "eCL = " + local_eCL + ", " + "moduleName = " + local_moduleName + ", " + "attributeName = " + local_attributeName + ", " + "queue = " + local_queue + ", " + "cluster = " + local_cluster + ", " + "snapshot = " + local_snapshot + ", " + "timeToWait = " + local_timeToWait + ", " + "debugValues = " + local_debugValues + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckECL getRaw()
     {
@@ -90,7 +87,6 @@ public class WUSyntaxCheckECLWrapper
         raw.setCluster( local_cluster);
         raw.setSnapshot( local_snapshot);
         raw.setTimeToWait( local_timeToWait);
-        raw.setPersistWorkunit( local_persistWorkunit);
         return raw;
     }
 
@@ -150,14 +146,6 @@ public class WUSyntaxCheckECLWrapper
     public int getTimeToWait( )
     {
         return this.local_timeToWait;
-    }
-    public void setPersistWorkunit( boolean _persistWorkunit )
-    {
-        this.local_persistWorkunit = _persistWorkunit;
-    }
-    public boolean getPersistWorkunit( )
-    {
-        return this.local_persistWorkunit;
     }
     public void setDebugValues( ArrayOfDebugValueWrapper _debugValues )
     {

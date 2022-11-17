@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Class name: ArrayOfDFUJobWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.524Z
+ * TimeStamp: 2021-10-27T20:17:20.563Z
  */
 public class ArrayOfDFUJobWrapper
 {

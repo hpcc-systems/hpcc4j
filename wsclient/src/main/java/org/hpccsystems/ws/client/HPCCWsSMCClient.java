@@ -184,22 +184,20 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
     @SuppressWarnings("static-access")
     private void initWsSMCSoapProxy(Connection conn)
     {
-        initBaseWsClient(conn, false); //Should never preemptively fetch HPCC build version, Containerized mode from HPCCwssmcclient
         try
         {
+            setActiveConnectionInfo(conn);
             stub = setStubOptions(new WsSMCStub(conn.getUrl() + this.WSSMCURI), conn);
         }
-        catch (AxisFault e)
+        catch (Exception e)
         {
-            initErrMessage = "Could not initialize WsSMCStub - Review all HPCC connection values";
+            log.error("Could not initialize WsSMCStub - Review all HPCC connection values");
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage += "\n" + e.getLocalizedMessage();
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
             }
         }
-
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
     }
 
     /**

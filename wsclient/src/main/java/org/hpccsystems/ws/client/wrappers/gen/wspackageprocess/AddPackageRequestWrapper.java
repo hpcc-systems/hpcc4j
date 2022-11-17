@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,13 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddPackageRequestWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageRequest
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.AddPackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.132Z
+ * TimeStamp: 2020-09-23T03:53:35.661Z
  */
 public class AddPackageRequestWrapper
 {
@@ -43,12 +42,6 @@ public class AddPackageRequestWrapper
     protected boolean local_updateSuperFiles;
     protected boolean local_updateCloneFrom;
     protected boolean local_appendCluster;
-    protected boolean local_dfuCopyFiles;
-    protected String local_dfuQueue;
-    protected NonNegativeInteger local_dfuWait;
-    protected boolean local_dfuOverwrite;
-    protected boolean local_onlyCopyFiles;
-    protected boolean local_stopIfFilesCopied;
 
     public AddPackageRequestWrapper() {}
 
@@ -56,7 +49,7 @@ public class AddPackageRequestWrapper
     {
         copy( addpackagerequest );
     }
-    public AddPackageRequestWrapper( String _info, boolean _activate, boolean _overWrite, String _target, String _packageMap, String _process, String _daliIp, boolean _globalScope, String _sourceProcess, boolean _allowForeignFiles, boolean _preloadAllPackages, boolean _replacePackageMap, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
+    public AddPackageRequestWrapper( String _info, boolean _activate, boolean _overWrite, String _target, String _packageMap, String _process, String _daliIp, boolean _globalScope, String _sourceProcess, boolean _allowForeignFiles, boolean _preloadAllPackages, boolean _replacePackageMap, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster )
     {
         this.local_info = _info;
         this.local_activate = _activate;
@@ -73,12 +66,6 @@ public class AddPackageRequestWrapper
         this.local_updateSuperFiles = _updateSuperFiles;
         this.local_updateCloneFrom = _updateCloneFrom;
         this.local_appendCluster = _appendCluster;
-        this.local_dfuCopyFiles = _dfuCopyFiles;
-        this.local_dfuQueue = _dfuQueue;
-        this.local_dfuWait = _dfuWait;
-        this.local_dfuOverwrite = _dfuOverwrite;
-        this.local_onlyCopyFiles = _onlyCopyFiles;
-        this.local_stopIfFilesCopied = _stopIfFilesCopied;
 
     }
 
@@ -102,19 +89,13 @@ public class AddPackageRequestWrapper
         this.local_updateSuperFiles = raw.getUpdateSuperFiles();
         this.local_updateCloneFrom = raw.getUpdateCloneFrom();
         this.local_appendCluster = raw.getAppendCluster();
-        this.local_dfuCopyFiles = raw.getDfuCopyFiles();
-        this.local_dfuQueue = raw.getDfuQueue();
-        this.local_dfuWait = raw.getDfuWait();
-        this.local_dfuOverwrite = raw.getDfuOverwrite();
-        this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
-        this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
 
     }
 
     @Override
     public String toString()
     {
-        return "AddPackageRequestWrapper [" + "info = " + local_info + ", " + "activate = " + local_activate + ", " + "overWrite = " + local_overWrite + ", " + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "daliIp = " + local_daliIp + ", " + "globalScope = " + local_globalScope + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "preloadAllPackages = " + local_preloadAllPackages + ", " + "replacePackageMap = " + local_replacePackageMap + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
+        return "AddPackageRequestWrapper [" + "info = " + local_info + ", " + "activate = " + local_activate + ", " + "overWrite = " + local_overWrite + ", " + "target = " + local_target + ", " + "packageMap = " + local_packageMap + ", " + "process = " + local_process + ", " + "daliIp = " + local_daliIp + ", " + "globalScope = " + local_globalScope + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "preloadAllPackages = " + local_preloadAllPackages + ", " + "replacePackageMap = " + local_replacePackageMap + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageRequest getRaw()
     {
@@ -134,12 +115,6 @@ public class AddPackageRequestWrapper
         raw.setUpdateSuperFiles( local_updateSuperFiles);
         raw.setUpdateCloneFrom( local_updateCloneFrom);
         raw.setAppendCluster( local_appendCluster);
-        raw.setDfuCopyFiles( local_dfuCopyFiles);
-        raw.setDfuQueue( local_dfuQueue);
-        raw.setDfuWait( local_dfuWait);
-        raw.setDfuOverwrite( local_dfuOverwrite);
-        raw.setOnlyCopyFiles( local_onlyCopyFiles);
-        raw.setStopIfFilesCopied( local_stopIfFilesCopied);
         return raw;
     }
 
@@ -263,53 +238,5 @@ public class AddPackageRequestWrapper
     public boolean getAppendCluster( )
     {
         return this.local_appendCluster;
-    }
-    public void setDfuCopyFiles( boolean _dfuCopyFiles )
-    {
-        this.local_dfuCopyFiles = _dfuCopyFiles;
-    }
-    public boolean getDfuCopyFiles( )
-    {
-        return this.local_dfuCopyFiles;
-    }
-    public void setDfuQueue( String _dfuQueue )
-    {
-        this.local_dfuQueue = _dfuQueue;
-    }
-    public String getDfuQueue( )
-    {
-        return this.local_dfuQueue;
-    }
-    public void setDfuWait( NonNegativeInteger _dfuWait )
-    {
-        this.local_dfuWait = _dfuWait;
-    }
-    public NonNegativeInteger getDfuWait( )
-    {
-        return this.local_dfuWait;
-    }
-    public void setDfuOverwrite( boolean _dfuOverwrite )
-    {
-        this.local_dfuOverwrite = _dfuOverwrite;
-    }
-    public boolean getDfuOverwrite( )
-    {
-        return this.local_dfuOverwrite;
-    }
-    public void setOnlyCopyFiles( boolean _onlyCopyFiles )
-    {
-        this.local_onlyCopyFiles = _onlyCopyFiles;
-    }
-    public boolean getOnlyCopyFiles( )
-    {
-        return this.local_onlyCopyFiles;
-    }
-    public void setStopIfFilesCopied( boolean _stopIfFilesCopied )
-    {
-        this.local_stopIfFilesCopied = _stopIfFilesCopied;
-    }
-    public boolean getStopIfFilesCopied( )
-    {
-        return this.local_stopIfFilesCopied;
     }
 }

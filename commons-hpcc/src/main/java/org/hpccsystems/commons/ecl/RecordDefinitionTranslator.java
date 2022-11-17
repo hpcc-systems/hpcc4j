@@ -933,13 +933,8 @@ public class RecordDefinitionTranslator
             }
             default:
             {
-                FieldDef fd = new FieldDef("", fieldType, fieldType.description(), length,
-                        isFixedLength(typeID), isUnsigned(typeID), getSourceType(typeID), new FieldDef[0]);
-                if ((typeID & TYPE_ID_MASK) == type_keyedint)
-                {
-                    fd.setIsBiased(true);
-                }
-                return fd;
+                return new FieldDef("", fieldType, fieldType.description(), length, isFixedLength(typeID), isUnsigned(typeID), getSourceType(typeID),
+                        new FieldDef[0]);
             }
         }
     }

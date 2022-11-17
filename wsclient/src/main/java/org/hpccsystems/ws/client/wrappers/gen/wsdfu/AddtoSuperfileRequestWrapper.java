@@ -18,15 +18,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-import java.util.ArrayList;
+
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
+
+import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: AddtoSuperfileRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.082Z
+ * TimeStamp: 2021-10-27T14:48:55.222Z
  */
 public class AddtoSuperfileRequestWrapper
 {

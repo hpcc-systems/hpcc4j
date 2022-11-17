@@ -24,7 +24,7 @@ import javax.activation.DataHandler;
  * Class name: SavexmlResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.164Z
+ * TimeStamp: 2021-10-27T14:48:55.335Z
  */
 public class SavexmlResponseWrapper
 {
