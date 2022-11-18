@@ -221,7 +221,10 @@ public class PartitionProcessor
                                     longVal = Long.MAX_VALUE;
                                 }
                             }
-
+                            else
+                            {
+                                longVal &= (~(1L << (intBitLength-1)));
+                            }
                             record.setField(i,longVal);
                         }
                         else if (fd.getFieldType() == FieldType.STRING)

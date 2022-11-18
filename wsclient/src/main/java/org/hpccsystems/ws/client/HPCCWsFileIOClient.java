@@ -193,17 +193,23 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
     {
         try
         {
-            initBaseWsClient(connection, false); //No need Preemptively fetch HPCC build version, Containerized mode
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsFileIOStub(connection.getBaseUrl() + FILEIOWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            initErrMessage = "\nCould not initialize FileIOStub- Review all HPCC connection values";
+            log.error("Could not initialize FileIOStub- Review all HPCC connection values");
             e.printStackTrace();
         }
-
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        catch (Exception e)
+        {
+            log.error("Could not initialize FileIOStub- Review all HPCC connection values");
+            if (!e.getLocalizedMessage().isEmpty())
+            {
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
+            }
+        }
     }
 
     /**

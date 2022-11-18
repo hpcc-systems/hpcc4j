@@ -23,12 +23,11 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: PhysicalFileStructWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.340Z
+ * TimeStamp: 2021-10-27T18:52:06.492Z
  */
 public class PhysicalFileStructWrapper
 {
     protected String local_name;
-    protected String local_server;
     protected boolean local_isDir;
     protected long local_filesize;
     protected String local_modifiedtime;
@@ -41,10 +40,9 @@ public class PhysicalFileStructWrapper
     {
         copy( physicalfilestruct );
     }
-    public PhysicalFileStructWrapper( String _name, String _server, boolean _isDir, long _filesize, String _modifiedtime, String _path, ArrayOfPhysicalFileStructWrapper _files )
+    public PhysicalFileStructWrapper( String _name, boolean _isDir, long _filesize, String _modifiedtime, String _path, ArrayOfPhysicalFileStructWrapper _files )
     {
         this.local_name = _name;
-        this.local_server = _server;
         this.local_isDir = _isDir;
         this.local_filesize = _filesize;
         this.local_modifiedtime = _modifiedtime;
@@ -59,7 +57,6 @@ public class PhysicalFileStructWrapper
             return;
 
         this.local_name = raw.getName();
-        this.local_server = raw.getServer();
         this.local_isDir = raw.getIsDir();
         this.local_filesize = raw.getFilesize();
         this.local_modifiedtime = raw.getModifiedtime();
@@ -72,13 +69,12 @@ public class PhysicalFileStructWrapper
     @Override
     public String toString()
     {
-        return "PhysicalFileStructWrapper [" + "name = " + local_name + ", " + "server = " + local_server + ", " + "isDir = " + local_isDir + ", " + "filesize = " + local_filesize + ", " + "modifiedtime = " + local_modifiedtime + ", " + "path = " + local_path + ", " + "files = " + local_files + "]";
+        return "PhysicalFileStructWrapper [" + "name = " + local_name + ", " + "isDir = " + local_isDir + ", " + "filesize = " + local_filesize + ", " + "modifiedtime = " + local_modifiedtime + ", " + "path = " + local_path + ", " + "files = " + local_files + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct();
         raw.setName( local_name);
-        raw.setServer( local_server);
         raw.setIsDir( local_isDir);
         raw.setFilesize( local_filesize);
         raw.setModifiedtime( local_modifiedtime);
@@ -94,14 +90,6 @@ public class PhysicalFileStructWrapper
     public String getName( )
     {
         return this.local_name;
-    }
-    public void setServer( String _server )
-    {
-        this.local_server = _server;
-    }
-    public String getServer( )
-    {
-        return this.local_server;
     }
     public void setIsDir( boolean _isDir )
     {

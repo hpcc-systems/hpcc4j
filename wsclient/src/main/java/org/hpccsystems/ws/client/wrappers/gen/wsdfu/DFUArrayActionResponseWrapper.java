@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUArrayActionResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.092Z
+ * TimeStamp: 2021-10-27T14:48:55.241Z
  */
 public class DFUArrayActionResponseWrapper
 {

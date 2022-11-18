@@ -18,15 +18,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * limitations under the License.
  *******************************************************************************/
 import java.util.List;
-import java.util.ArrayList;
+
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
+
+import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: WUDeleteWrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_83.WUDelete
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * TimeStamp: 2022-07-22T20:33:16.898Z
+ * TimeStamp: 2021-09-30T21:52:48.480Z
  */
 public class WUDeleteWrapper
 {

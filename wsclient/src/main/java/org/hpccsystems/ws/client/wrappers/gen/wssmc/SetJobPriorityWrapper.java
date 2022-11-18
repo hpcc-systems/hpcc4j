@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: SetJobPriorityWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.557Z
+ * TimeStamp: 2021-10-27T20:17:20.611Z
  */
 public class SetJobPriorityWrapper
 {

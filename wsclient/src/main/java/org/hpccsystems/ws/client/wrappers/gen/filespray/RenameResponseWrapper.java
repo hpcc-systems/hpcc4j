@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * Class name: RenameResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.RenameResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * TimeStamp: 2022-07-25T17:33:52.344Z
+ * TimeStamp: 2021-10-27T18:52:06.497Z
  */
 public class RenameResponseWrapper
 {

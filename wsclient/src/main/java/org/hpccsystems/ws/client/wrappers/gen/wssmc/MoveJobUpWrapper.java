@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
  * Class name: MoveJobUpWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * TimeStamp: 2022-07-25T18:14:46.547Z
+ * TimeStamp: 2021-10-27T20:17:20.597Z
  */
 public class MoveJobUpWrapper
 {

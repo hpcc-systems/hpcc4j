@@ -193,22 +193,25 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      */
     private void initWSStoreStub(Connection connection)
     {
-        initBaseWsClient(connection, true); //Preemptively fetch HPCC build version, Containerized mode
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsstoreStub(connection.getBaseUrl() + WSStoreWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            initErrMessage = "Could not initialize WsStoreStub- Review all HPCC connection values";
+            log.error("Could not initialize WsStoreStub- Review all HPCC connection values");
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            log.error("Could not initialize WsStoreStub- Review all HPCC connection values");
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage += "\n" + e.getLocalizedMessage();
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
             }
         }
-
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
     }
 
     /**
@@ -640,7 +643,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AES(value, secretKey), global);
+        return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AESPKCS5Pad(value, secretKey), global);
     }
 
     /**

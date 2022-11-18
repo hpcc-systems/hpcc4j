@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUPartLocationWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPartLocation
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.136Z
+ * TimeStamp: 2021-10-27T14:48:55.296Z
  */
 public class DFUPartLocationWrapper
 {

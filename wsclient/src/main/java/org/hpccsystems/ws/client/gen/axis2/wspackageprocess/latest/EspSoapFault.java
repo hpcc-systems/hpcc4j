@@ -1,39 +1,37 @@
 /**
  * EspSoapFault.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * This file was auto-generated from WSDL
+ * by the Apache Axis2 version: 1.7.9  Built on : Nov 16, 2018 (12:05:37 GMT)
  */
 package org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest;
 
 public class EspSoapFault extends java.lang.Exception {
+    private static final long serialVersionUID = 1600833045634L;
+    private org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Exceptions faultMessage;
 
-  private static final long serialVersionUID = 1658770770233L;
+    public EspSoapFault() {
+        super("EspSoapFault");
+    }
 
-  private org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Exceptions faultMessage;
+    public EspSoapFault(java.lang.String s) {
+        super(s);
+    }
 
-  public EspSoapFault() {
-    super("EspSoapFault");
-  }
+    public EspSoapFault(java.lang.String s, java.lang.Throwable ex) {
+        super(s, ex);
+    }
 
-  public EspSoapFault(java.lang.String s) {
-    super(s);
-  }
+    public EspSoapFault(java.lang.Throwable cause) {
+        super(cause);
+    }
 
-  public EspSoapFault(java.lang.String s, java.lang.Throwable ex) {
-    super(s, ex);
-  }
+    public void setFaultMessage(
+        org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Exceptions msg) {
+        faultMessage = msg;
+    }
 
-  public EspSoapFault(java.lang.Throwable cause) {
-    super(cause);
-  }
-
-  public void setFaultMessage(
-      org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Exceptions msg) {
-    faultMessage = msg;
-  }
-
-  public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Exceptions getFaultMessage() {
-    return faultMessage;
-  }
+    public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Exceptions getFaultMessage() {
+        return faultMessage;
+    }
 }

@@ -1,7 +1,5 @@
 ![hpcc4j Master Nightly](https://github.com/hpcc-systems/hpcc4j/workflows/hpcc4j%20Nightly/badge.svg?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j/badge.svg?subject=hpcc4j)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient/badge.svg?subject=dfsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient)
 
-[![CodeQL](https://github.com/hpcc-systems/hpcc4j/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/hpcc-systems/hpcc4j/actions/workflows/codeql-analysis.yml)
-
 :warning: <b>Note:</b> WsClient v6.8.0 and v6.8.2 include a packaging error and should be avoided [Learn more here](https://track.hpccsystems.com/browse/JAPI-450)
 
 HPCC4J Project

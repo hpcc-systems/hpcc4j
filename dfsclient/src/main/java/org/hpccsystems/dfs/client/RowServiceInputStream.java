@@ -914,18 +914,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             try
             {
                 bytesToRead = this.dis.available();
-                if (bytesToRead < 0)
-                {
-                    throw new IOException("Encountered unexpected end of stream mid fetch.");
-                }
-
-                // Either due to a bug in the JVM or due to a design issue
-                // available can return 0 even in cases where there is data available.
-                // So always attempt to read at least some data
-                if (bytesToRead < MIN_SOCKET_READ_SIZE)
-                {
-                    bytesToRead = MIN_SOCKET_READ_SIZE;
-                }
                 
                 // Limit bytes to read based on remaining data in request and buffer capacity
                 bytesToRead = Math.min(remainingBufferCapacity,

@@ -17,8 +17,6 @@
 
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.net.URL;
 
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
@@ -48,15 +46,6 @@ public class WsAttributesClientTest extends BaseRemoteTest
         client = HPCCWsAttributesClient.get(conn);
         Assert.assertNotNull(client);
     }
-
-
-    @Test (expected = Exception.class)
-    public void getContainerizedModeTest() throws Exception
-    {
-        System.out.println("Fetching isTargetHPCCContainerized...");
-        client.isTargetHPCCContainerized();
-    }
-
 
     @Test
     public void serviceURLTest() throws Exception

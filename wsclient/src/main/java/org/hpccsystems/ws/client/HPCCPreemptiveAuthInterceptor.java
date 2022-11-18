@@ -43,13 +43,12 @@ public class HPCCPreemptiveAuthInterceptor implements HttpRequestInterceptor
     @Override
     public void process(HttpRequest request, HttpContext context) throws HttpException, IOException
     {
-        log.debug("HPCCPreemptiveAuthInterceptor: Processing preemptive authentication...");
+        log.info("HPCCPreemptiveAuthInterceptor: Processing preemtive authentication...");
         AuthState authState = (AuthState) context.getAttribute(HttpClientContext.TARGET_AUTH_STATE);
         // If no auth scheme available yet, try to initialize it preemptively
         if (authState.getAuthScheme() == null)
         {
-            log.debug("HPCCPreemptiveAuthInterceptor: No previous authentication scheme found, initializing preemptively...");
-
+            log.info("HPCCPreemptiveAuthInterceptor: No previous authentication schem found, initializing preemtively...");
             CredentialsProvider credsProvider = (CredentialsProvider) context.getAttribute(HttpClientContext.CREDS_PROVIDER);
 
             if (credsProvider == null)

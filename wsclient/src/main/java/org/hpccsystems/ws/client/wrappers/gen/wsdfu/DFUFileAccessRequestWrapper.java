@@ -23,7 +23,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
  * Class name: DFUFileAccessRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * TimeStamp: 2022-07-27T21:11:36.109Z
+ * TimeStamp: 2021-10-27T14:48:55.254Z
  */
 public class DFUFileAccessRequestWrapper
 {

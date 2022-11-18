@@ -3,7 +3,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
 
 /*******************************************************************************
- * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
+ * HPCC SYSTEMS software Copyright (C) 2019 HPCC Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 /**
  * Generated Axis2 ADB stub class wrapper
  * Class name: Results_type0Wrapper
- * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.Results_type0
+ * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.v1_04.Results_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * TimeStamp: 2022-07-25T17:42:18.177Z
+ * TimeStamp: 2020-09-23T03:53:35.719Z
  */
 public class Results_type0Wrapper
 {

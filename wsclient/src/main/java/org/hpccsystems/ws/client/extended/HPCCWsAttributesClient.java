@@ -45,7 +45,6 @@ import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.SaveAttributeRequ
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.SaveAttributes;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.UpdateAttributesResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsattributes.latest.WsAttributesStub;
-import org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ECLAttributeWrapper;
@@ -202,22 +201,25 @@ public class HPCCWsAttributesClient extends BaseHPCCWsClient
      */
     private void initWsAttributesClientStub(Connection connection)
     {
-        initBaseWsClient(connection, false); //No need to preemptively fetch HPCC build version, Containerized mode
         try
         {
+            setActiveConnectionInfo(connection);
             stub = setStubOptions(new WsAttributesStub(connection.getBaseUrl()+WSATTRIBUTESWSDLURI), connection);
         }
         catch (AxisFault e)
         {
-            initErrMessage = "Could not initialize WsAttributesStub - Review all HPCC connection values";
+            log.error("Could not initialize WsAttributesStub - Review all HPCC connection values");
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            log.error("Could not initialize WsAttributesStub - Review all HPCC connection values");
             if (!e.getLocalizedMessage().isEmpty())
             {
-                initErrMessage += "\n" + e.getLocalizedMessage();
+                initErrMessage = e.getLocalizedMessage();
+                log.error(e.getLocalizedMessage());
             }
         }
-
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
     }
 
     /**
