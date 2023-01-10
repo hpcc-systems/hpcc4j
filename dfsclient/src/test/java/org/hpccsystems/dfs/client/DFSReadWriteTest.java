@@ -275,7 +275,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
         assertNull("Meta should be null for nonexistent file",meta);
     }
 
-
     private static final String       ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_";
     private static final SecureRandom RANDOM   = new SecureRandom();
 
@@ -332,6 +331,45 @@ public class DFSReadWriteTest extends BaseRemoteTest
             {
                 Assert.fail("Record mismatch");
             }
+        }
+    }
+
+    @Test
+    public void longStringTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[4];
+        fieldDefs[0] = new FieldDef("LongVarUnicode", FieldType.VAR_STRING, "", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("LongUnicode", FieldType.STRING, "", 64, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("LongVarString", FieldType.VAR_STRING, "", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[3] = new FieldDef("LongString", FieldType.STRING, "", 64, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[4];
+            fields[0] = generateRandomString(1024);
+            fields[1] = generateRandomString(64);
+            fields[2] = generateRandomString(1024);
+            fields[3] = generateRandomString(64);
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, "benchmark::long_string::10rows", recordDef,connTO);
+
+        HPCCFile file = new HPCCFile("benchmark::long_string::10rows", connString , hpccUser, hpccPass);
+        List<HPCCRecord> readRecords = readFile(file, connTO, false);
+        if (readRecords.size() < 10)
+        {
+            Assert.fail("Failed to read long string record dataset");
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            HPCCRecord record = records.get(i);
+            HPCCRecord readRecord = records.get(i);
+            Assert.assertEquals(record, readRecord);
         }
     }
 
