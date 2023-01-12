@@ -129,6 +129,7 @@ public class BinaryRecordReader implements IRecordReader
     protected boolean            defaultLE;
     private long                 streamPosAfterLastRecord = 0;
     private boolean              isIndex = false;
+    private boolean              useDecimalForUnsigned8 = false;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -217,6 +218,16 @@ public class BinaryRecordReader implements IRecordReader
         {
             throw new Exception("Error initializing BinaryRecordReader. IRecordBuilder provided a null record definition.");
         }
+    }
+
+    /**
+     * Determines if unsigned 8 values should be parsed into BigDecimals to avoid long overflow.
+     * 
+     * @param useDecimal use decimal
+     */
+    public void setUseDecimalForUnsigned8(boolean useDecimal)
+    {
+        useDecimalForUnsigned8 = useDecimal;
     }
 
     /**
@@ -350,7 +361,12 @@ public class BinaryRecordReader implements IRecordReader
                 if (fd.isUnsigned())
                 {
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
-                    if (intValue < 0)
+                    if (useDecimalForUnsigned8 && dataLen == 8)
+                    {
+                        BigInteger bi = extractUnsigned8Val(intValue);
+                        fieldValue = new BigDecimal(bi);
+                    }
+                    else if (intValue < 0)
                     {
                         messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary." );
                     }
@@ -805,6 +821,12 @@ public class BinaryRecordReader implements IRecordReader
         }
 
         return ret;
+    }
+
+    private static BigInteger extractUnsigned8Val(long unsigned8)
+    {
+        return (BigInteger.valueOf((unsigned8 >> 32) & 0xffffffffL).shiftLeft(32))
+                          .add((BigInteger.valueOf(unsigned8 & 0xffffffffL)));
     }
 
     /**

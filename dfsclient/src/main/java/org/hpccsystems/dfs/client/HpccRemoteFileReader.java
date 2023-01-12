@@ -240,6 +240,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         return resumeInfo;
     }
 
+    /**
+     * Returns the number of messages create during the reading process
+     * 
+     * @return number of messages created
+     */
     public int getRemoteReadMessageCount()
     {
         int count = 0;
@@ -249,6 +254,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         return count;
     }
 
+    /**
+     * Returns messages created during the file reading process
+     * 
+     * @return Messages concatenated into a String
+     */
     public String getRemoteReadMessages()
     {
         String report = "";
@@ -329,7 +339,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     }
 
     /**
-     * getAvailable
      * Returns the number of bytes available to read immediately.
      *
      * @return the available
@@ -341,11 +350,21 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         return this.binaryRecordReader.getAvailable();
     }
 
+    /**
+     * Returns the RowServiceInputStream used to read the file from dafilesrv
+     * 
+     * @return the input stream
+     */
     public RowServiceInputStream getInputStream()
     {
         return this.inputStream;
     }
 
+    /**
+     * Returns the BinaryRecordReader used to construct records
+     * 
+     * @return the record reader
+     */
     public BinaryRecordReader getRecordReader()
     {
         return this.binaryRecordReader;

@@ -334,6 +334,40 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
     }
+    
+    @Test
+    public void unsigned8ToDecimalTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[1];
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[1];
+            fields[0] = new BigDecimal(Long.valueOf(i));
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, "benchmark::unsigned8::10rows", recordDef, connTO);
+
+        HPCCFile file = new HPCCFile("benchmark::unsigned8::10rows", connString , hpccUser, hpccPass);
+        List<HPCCRecord> readRecords = readFile(file, connTO, false, true);
+        if (readRecords.size() < 10)
+        {
+            Assert.fail("Failed to read large record dataset");
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            HPCCRecord readRecord = readRecords.get(i);
+            HPCCRecord writtenRecord = records.get(i);
+            
+            assertEquals(readRecord, writtenRecord);
+        }
+    }
 
     @Test
     public void numericOverflowTest() throws Exception
@@ -701,17 +735,24 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
     }
-
+    
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
+    {
+        return readFile(file, connectTimeoutMillis, shouldForceTimeout, false);
+    }
+
+    public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout, boolean useDecimalForUnsigned8) throws Exception
     {
         if (file == null)
         {
             Assert.fail("HPCCFile construction failed.");
         }
+
         if (connectTimeoutMillis != null)
         {
             file.setFileAccessExpirySecs(connectTimeoutMillis/1000);
         }
+
         DataPartition[] fileParts = file.getFileParts();
         if (fileParts == null || fileParts.length == 0)
         {
@@ -731,6 +772,8 @@ public class DFSReadWriteTest extends BaseRemoteTest
             {
                 HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
                 HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+                fileReader.getRecordReader().setUseDecimalForUnsigned8(useDecimalForUnsigned8);
+
                 fileReaders.add(fileReader);
             }
             catch (Exception e)
