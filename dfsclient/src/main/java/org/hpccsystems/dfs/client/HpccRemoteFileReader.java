@@ -241,7 +241,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     }
 
     /**
-     * Returns the number of messages create during the reading process
+     * Returns the number of messages created during the reading process
      * 
      * @return number of messages created
      */

@@ -343,29 +343,31 @@ public class DFSReadWriteTest extends BaseRemoteTest
         fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
-        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        List<HPCCRecord> originalRecords = new ArrayList<HPCCRecord>();
         for (int i = 0; i < 10; i++)
         {
             Object[] fields = new Object[1];
-            fields[0] = new BigDecimal(Long.valueOf(i));
+            fields[0] = new BigDecimal(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.valueOf(i)));
             HPCCRecord record = new HPCCRecord(fields, recordDef);
-            records.add(record);
+            originalRecords.add(record);
         }
-        writeFile(records, "benchmark::unsigned8::10rows", recordDef, connTO);
 
-        HPCCFile file = new HPCCFile("benchmark::unsigned8::10rows", connString , hpccUser, hpccPass);
+        String datasetName = "benchmark::unsigned8::10rows"; 
+        writeFile(originalRecords, datasetName, recordDef, connTO);
+
+        HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
         List<HPCCRecord> readRecords = readFile(file, connTO, false, true);
         if (readRecords.size() < 10)
         {
-            Assert.fail("Failed to read large record dataset");
+            Assert.fail("Failed to read " + datasetName);
         }
 
         for (int i = 0; i < 10; i++)
         {
             HPCCRecord readRecord = readRecords.get(i);
-            HPCCRecord writtenRecord = records.get(i);
+            HPCCRecord originalRecord = originalRecords.get(i);
             
-            assertEquals(readRecord, writtenRecord);
+            assertEquals(readRecord, originalRecord);
         }
     }
 
@@ -735,7 +737,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
     }
-    
+
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
     {
         return readFile(file, connectTimeoutMillis, shouldForceTimeout, false);

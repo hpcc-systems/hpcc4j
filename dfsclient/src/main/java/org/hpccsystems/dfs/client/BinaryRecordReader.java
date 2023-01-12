@@ -28,6 +28,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.errors.UnparsableContentException;
+import org.hpccsystems.commons.utils.Utils;
 
 class CountingInputStream extends InputStream
 {
@@ -361,16 +362,20 @@ public class BinaryRecordReader implements IRecordReader
                 if (fd.isUnsigned())
                 {
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
-                    fieldValue = Long.valueOf(intValue);
-
                     if (useDecimalForUnsigned8 && fd.getDataLen() == 8)
                     {
-                        BigInteger bi = extractUnsigned8Val(intValue);
+                        BigInteger bi = Utils.extractUnsigned8Val(intValue);
                         fieldValue = new BigDecimal(bi);
                     }
-                    else if (intValue < 0)
+                    else 
                     {
-                        messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary." );
+                        fieldValue = Long.valueOf(intValue);
+                        if (intValue < 0)
+                        {
+                            messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() 
+                                            + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary, "
+                                            + " or call BinaryRecordReader.setUseDecimalForUnsigned8() before reading to convert unsigned8 values to BigDecimal values.");
+                        }
                     }
                 }
                 else
@@ -823,12 +828,6 @@ public class BinaryRecordReader implements IRecordReader
         }
 
         return ret;
-    }
-
-    private static BigInteger extractUnsigned8Val(long unsigned8)
-    {
-        return (BigInteger.valueOf((unsigned8 >> 32) & 0xffffffffL).shiftLeft(32))
-                          .add((BigInteger.valueOf(unsigned8 & 0xffffffffL)));
     }
 
     /**
