@@ -361,7 +361,9 @@ public class BinaryRecordReader implements IRecordReader
                 if (fd.isUnsigned())
                 {
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
-                    if (useDecimalForUnsigned8 && dataLen == 8)
+                    fieldValue = Long.valueOf(intValue);
+
+                    if (useDecimalForUnsigned8 && fd.getDataLen() == 8)
                     {
                         BigInteger bi = extractUnsigned8Val(intValue);
                         fieldValue = new BigDecimal(bi);
@@ -374,8 +376,8 @@ public class BinaryRecordReader implements IRecordReader
                 else
                 {
                     intValue = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN, fd.isBiased());
+                    fieldValue = Long.valueOf(intValue);
                 }
-                fieldValue = Long.valueOf(intValue);
                 break;
             case REAL:
                 // fixed number of bytes (4 or 8) in type info
