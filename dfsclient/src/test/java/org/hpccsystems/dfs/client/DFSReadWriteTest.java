@@ -345,7 +345,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         fieldDefs[3] = new FieldDef("LongString", FieldType.STRING, "", 64, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
-        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        List<HPCCRecord> originalRecords = new ArrayList<HPCCRecord>();
         for (int i = 0; i < 10; i++)
         {
             Object[] fields = new Object[4];
@@ -354,22 +354,24 @@ public class DFSReadWriteTest extends BaseRemoteTest
             fields[2] = generateRandomString(1024);
             fields[3] = generateRandomString(64);
             HPCCRecord record = new HPCCRecord(fields, recordDef);
-            records.add(record);
+            originalRecords.add(record);
         }
-        writeFile(records, "benchmark::long_string::10rows", recordDef,connTO);
 
-        HPCCFile file = new HPCCFile("benchmark::long_string::10rows", connString , hpccUser, hpccPass);
+        String datasetName = "benchmark::long_string::10rows"; 
+        writeFile(originalRecords, datasetName, recordDef,connTO);
+
+        HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
         List<HPCCRecord> readRecords = readFile(file, connTO, false);
         if (readRecords.size() < 10)
         {
-            Assert.fail("Failed to read long string record dataset");
+            Assert.fail("Failed to read " + datasetName + " dataset");
         }
 
         for (int i = 0; i < 10; i++)
         {
-            HPCCRecord record = records.get(i);
-            HPCCRecord readRecord = records.get(i);
-            Assert.assertEquals(record, readRecord);
+            HPCCRecord originalRecord = originalRecords.get(i);
+            HPCCRecord readRecord = originalRecords.get(i);
+            Assert.assertEquals(originalRecord, readRecord);
         }
     }
 
