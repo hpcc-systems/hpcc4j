@@ -341,9 +341,9 @@ public class DFSReadWriteTest extends BaseRemoteTest
     {
         // Create a large record dataset
         FieldDef[] fieldDefs = new FieldDef[3];
-        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
-        fieldDefs[1] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
-        fieldDefs[2] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[0] = new FieldDef("field1", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("field2", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("field3", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
         List<HPCCRecord> originalRecords = new ArrayList<HPCCRecord>();
