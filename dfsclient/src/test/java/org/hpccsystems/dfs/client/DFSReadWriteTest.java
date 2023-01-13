@@ -38,6 +38,7 @@ import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.commons.utils.Utils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
@@ -339,15 +340,19 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void unsigned8ToDecimalTest() throws Exception
     {
         // Create a large record dataset
-        FieldDef[] fieldDefs = new FieldDef[1];
+        FieldDef[] fieldDefs = new FieldDef[3];
         fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("key", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
         List<HPCCRecord> originalRecords = new ArrayList<HPCCRecord>();
         for (int i = 0; i < 10; i++)
         {
-            Object[] fields = new Object[1];
-            fields[0] = new BigDecimal(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.valueOf(i)));
+            Object[] fields = new Object[3];
+            fields[0] = new BigDecimal(Utils.extractUnsigned8Val((long) Long.MIN_VALUE));       // Max U8 value
+            fields[1] = new BigDecimal(0);                                                  // Min U8 value
+            fields[2] = new BigDecimal(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE)); // First U8 value that would cause an overflow
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             originalRecords.add(record);
         }
