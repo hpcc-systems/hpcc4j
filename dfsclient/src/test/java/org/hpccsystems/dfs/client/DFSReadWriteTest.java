@@ -38,6 +38,7 @@ import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.commons.utils.Utils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
@@ -332,6 +333,46 @@ public class DFSReadWriteTest extends BaseRemoteTest
             {
                 Assert.fail("Record mismatch");
             }
+        }
+    }
+    
+    @Test
+    public void unsigned8ToDecimalTest() throws Exception
+    {
+        // Create a large record dataset
+        FieldDef[] fieldDefs = new FieldDef[3];
+        fieldDefs[0] = new FieldDef("field1", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("field2", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("field3", FieldType.INTEGER, "UNSIGNED8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> originalRecords = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            Object[] fields = new Object[3];
+            fields[0] = new BigDecimal(Utils.extractUnsigned8Val((long) Long.MIN_VALUE));       // Max U8 value
+            fields[1] = new BigDecimal(0);                                                  // Min U8 value
+            fields[2] = new BigDecimal(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE)); // First U8 value that would cause an overflow
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            originalRecords.add(record);
+        }
+
+        String datasetName = "benchmark::unsigned8::10rows"; 
+        writeFile(originalRecords, datasetName, recordDef, connTO);
+
+        HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
+        List<HPCCRecord> readRecords = readFile(file, connTO, false, true);
+        if (readRecords.size() < 10)
+        {
+            Assert.fail("Failed to read " + datasetName);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            HPCCRecord readRecord = readRecords.get(i);
+            HPCCRecord originalRecord = originalRecords.get(i);
+            
+            assertEquals(readRecord, originalRecord);
         }
     }
 
@@ -704,14 +745,21 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
     {
+        return readFile(file, connectTimeoutMillis, shouldForceTimeout, false);
+    }
+
+    public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout, boolean useDecimalForUnsigned8) throws Exception
+    {
         if (file == null)
         {
             Assert.fail("HPCCFile construction failed.");
         }
+
         if (connectTimeoutMillis != null)
         {
             file.setFileAccessExpirySecs(connectTimeoutMillis/1000);
         }
+
         DataPartition[] fileParts = file.getFileParts();
         if (fileParts == null || fileParts.length == 0)
         {
@@ -731,6 +779,8 @@ public class DFSReadWriteTest extends BaseRemoteTest
             {
                 HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
                 HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+                fileReader.getRecordReader().setUseDecimalForUnsigned8(useDecimalForUnsigned8);
+
                 fileReaders.add(fileReader);
             }
             catch (Exception e)
