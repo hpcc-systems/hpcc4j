@@ -28,6 +28,7 @@ import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.errors.UnparsableContentException;
+import org.hpccsystems.commons.utils.Utils;
 
 class CountingInputStream extends InputStream
 {
@@ -129,6 +130,7 @@ public class BinaryRecordReader implements IRecordReader
     protected boolean            defaultLE;
     private long                 streamPosAfterLastRecord = 0;
     private boolean              isIndex = false;
+    private boolean              useDecimalForUnsigned8 = false;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -217,6 +219,16 @@ public class BinaryRecordReader implements IRecordReader
         {
             throw new Exception("Error initializing BinaryRecordReader. IRecordBuilder provided a null record definition.");
         }
+    }
+
+    /**
+     * Determines if unsigned 8 values should be parsed into BigDecimals to avoid long overflow.
+     * 
+     * @param useDecimal use decimal
+     */
+    public void setUseDecimalForUnsigned8(boolean useDecimal)
+    {
+        useDecimalForUnsigned8 = useDecimal;
     }
 
     /**
@@ -350,16 +362,27 @@ public class BinaryRecordReader implements IRecordReader
                 if (fd.isUnsigned())
                 {
                     intValue = getUnsigned((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN);
-                    if (intValue < 0)
+                    if (useDecimalForUnsigned8 && fd.getDataLen() == 8)
                     {
-                        messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary." );
+                        BigInteger bi = Utils.extractUnsigned8Val(intValue);
+                        fieldValue = new BigDecimal(bi);
+                    }
+                    else 
+                    {
+                        fieldValue = Long.valueOf(intValue);
+                        if (intValue < 0)
+                        {
+                            messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() 
+                                            + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary, "
+                                            + " or call BinaryRecordReader.setUseDecimalForUnsigned8() before reading to convert unsigned8 values to BigDecimal values.");
+                        }
                     }
                 }
                 else
                 {
                     intValue = getInt((int) fd.getDataLen(), fd.getSourceType() == HpccSrcType.LITTLE_ENDIAN, fd.isBiased());
+                    fieldValue = Long.valueOf(intValue);
                 }
-                fieldValue = Long.valueOf(intValue);
                 break;
             case REAL:
                 // fixed number of bytes (4 or 8) in type info
@@ -936,7 +959,7 @@ public class BinaryRecordReader implements IRecordReader
                     throw new IOException("Error, unexpected EOS while constructing UTF16 string.");
                 }
 
-                readSize = (readSize / 2) * 2;
+                readSize = ((readSize + 1) / 2) * 2;
                 if (readSize > OPTIMIZED_STRING_READ_AHEAD)
                 {
                     readSize = OPTIMIZED_STRING_READ_AHEAD;
@@ -947,7 +970,7 @@ public class BinaryRecordReader implements IRecordReader
 
                 for (int j = 0; j < readSize-1; j += 2)
                 {
-                    if (scratchBuffer[j] == '\0' && scratchBuffer[j + 1] == '\0')
+                    if (scratchBuffer[strByteLen + j] == '\0' && scratchBuffer[strByteLen + j + 1] == '\0')
                     {
                         eosLocation = j;
                         break;
@@ -995,7 +1018,7 @@ public class BinaryRecordReader implements IRecordReader
 
                 for (int j = 0; j < readSize; j++)
                 {
-                    if (scratchBuffer[j] == '\0')
+                    if (scratchBuffer[strByteLen + j] == '\0')
                     {
                         eosLocation = j;
                         break;
