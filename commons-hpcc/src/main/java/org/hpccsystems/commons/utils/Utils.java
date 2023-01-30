@@ -657,6 +657,8 @@ public class Utils
      */
     public static BigInteger extractUnsigned8Val(long unsigned8)
     {
+        // Shift upper 32 bits of the incoming long value down and use bitwise & to get unsigned value of upper 32 bits
+        // Shift upper 32 bits back once inside of BigInteger and add unsigned value of lower 32 bits
         return (BigInteger.valueOf((unsigned8 >> 32) & 0xffffffffL).shiftLeft(32)).add((BigInteger.valueOf(unsigned8 & 0xffffffffL)));
     }
 }
