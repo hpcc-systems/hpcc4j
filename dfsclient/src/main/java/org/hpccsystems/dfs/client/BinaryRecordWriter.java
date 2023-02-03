@@ -448,7 +448,7 @@ public class BinaryRecordWriter implements IRecordWriter
             case VAR_STRING:
             case STRING:
             {
-                String value = fieldValue != null?(String) fieldValue:"";
+                String value = fieldValue != null ? (String) fieldValue : "";
                 byte[] data = new byte[0];
                 if (fd.getSourceType() == HpccSrcType.UTF16LE)
                 {

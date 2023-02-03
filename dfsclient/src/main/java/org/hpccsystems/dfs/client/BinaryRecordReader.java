@@ -131,6 +131,14 @@ public class BinaryRecordReader implements IRecordReader
     private long                 streamPosAfterLastRecord = 0;
     private boolean              isIndex = false;
     private boolean              useDecimalForUnsigned8 = false;
+    
+    public static final int      TRIM_STRINGS = 1;
+    public static final int      TRIM_FIXED_LEN_STRINGS = 2;
+    public static final int      CONVERT_EMPTY_STRINGS_TO_NULL = 4;
+
+    private boolean              shouldTrimFixedLenStrings = false;
+    private boolean              shouldTrimStrings = false;
+    private boolean              convertEmptyStringsToNull = false;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -149,7 +157,7 @@ public class BinaryRecordReader implements IRecordReader
     private static final int     MASK_32_LOWER_HALF  = 0xffff;
     private static final int     BUFFER_GROW_SIZE    = 8192;
     private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
-
+    
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
     private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
@@ -239,6 +247,18 @@ public class BinaryRecordReader implements IRecordReader
     public void setIsIndex(boolean isIdx)
     {
         this.isIndex = isIdx;
+    }
+
+    /**
+     * Set string processing flags. 
+     * 
+     * @param flags 
+     */
+    public void setStringProcessingFlags(int flags)
+    {
+        shouldTrimStrings = (flags & TRIM_STRINGS) != 0;
+        shouldTrimFixedLenStrings = (flags & TRIM_FIXED_LEN_STRINGS) != 0;
+        convertEmptyStringsToNull = (flags & CONVERT_EMPTY_STRINGS_TO_NULL) != 0;
     }
 
     /*
@@ -439,10 +459,11 @@ public class BinaryRecordReader implements IRecordReader
                 fieldValue = Boolean.valueOf(value != 0);
                 break;
             case CHAR:
-                fieldValue = getString(fd.getSourceType(), 1);
+                fieldValue = getString(fd.getSourceType(), 1, false);
                 break;
             case STRING:
             {
+                boolean shouldTrim = shouldTrimStrings;
                 int codePoints = 0;
                 if (fd.isFixed())
                 {
@@ -453,13 +474,15 @@ public class BinaryRecordReader implements IRecordReader
                     }
 
                     codePoints = (int) fd.getDataLen();
+
+                    shouldTrim = shouldTrim || shouldTrimFixedLenStrings;
                 }
                 else
                 {
                     codePoints = ((int) getInt(4, isLittleEndian, false));
                 }
 
-                fieldValue = getString(fd.getSourceType(), codePoints);
+                fieldValue = getString(fd.getSourceType(), codePoints, shouldTrim);
                 break;
             }
             case VAR_STRING:
@@ -474,8 +497,10 @@ public class BinaryRecordReader implements IRecordReader
                                 "Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
                     }
 
+                    boolean shouldTrim = shouldTrimStrings || shouldTrimFixedLenStrings;
+
                     int codePoints = (int) fd.getDataLen();
-                    String strValue = getString(fd.getSourceType(), codePoints);
+                    String strValue = getString(fd.getSourceType(), codePoints, shouldTrim);
 
                     // Unicode uses two byte nulls
                     if (fd.getSourceType().isUTF16())
@@ -490,7 +515,8 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 else
                 {
-                    fieldValue = getNullTerminatedString(fd.getSourceType());
+                    boolean shouldTrim = shouldTrimStrings;
+                    fieldValue = getNullTerminatedString(fd.getSourceType(), shouldTrim);
                 }
                 break;
             }
@@ -914,6 +940,51 @@ public class BinaryRecordReader implements IRecordReader
         return ret;
     }
 
+    private void trimStringInScratchBuffer(boolean isUnicode, int[] range)
+    {
+        if (isUnicode)
+        {
+            while (range[0] < range[1] - 1) {
+                // Space in unicode is 0x0020
+                if (this.scratchBuffer[range[0]] != 0x20 || this.scratchBuffer[range[0]+1] != 0x00) {
+                    break;
+                }
+
+                range[0] += 2;
+            }
+
+            while (range[1] > range[0]) {
+                // Space in unicode is 0x0020, also need to check for EOS character
+                if ((this.scratchBuffer[range[1]-2] != 0x20 || this.scratchBuffer[range[1]-1] != 0x00)
+                && (this.scratchBuffer[range[1]-2] != 0x00 || this.scratchBuffer[range[1]-1] != 0x00)) {
+                    break;
+                }
+
+                range[1] -= 2;
+            }
+        }
+        else
+        {
+            while (range[0] < range[1]) {
+                // Space in utf8/sbc is 0x20
+                if (this.scratchBuffer[range[0]] != 0x20) {
+                    break;
+                }
+
+                range[0]++;
+            }
+
+            while (range[1] > range[0]) {
+                // Space in utf8/sbc is 0x20, also need to check for EOS character
+                if (this.scratchBuffer[range[1]-1] != 0x20 && this.scratchBuffer[range[1]-1] != 0x00) {
+                    break;
+                }
+
+                range[1]--;
+            }
+        }
+    }
+
     /**
      * Gets the null terminated string.
      *
@@ -923,7 +994,7 @@ public class BinaryRecordReader implements IRecordReader
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private String getNullTerminatedString(HpccSrcType stype) throws IOException
+    private String getNullTerminatedString(HpccSrcType stype, boolean shouldTrim) throws IOException
     {
         Charset charset = sbcSet;
         switch (stype)
@@ -1043,7 +1114,19 @@ public class BinaryRecordReader implements IRecordReader
             }
         }
 
-        return new String(scratchBuffer,0,strByteLen,charset);
+        int[] strRange = {0, strByteLen};
+        if (shouldTrim)
+        {
+            boolean isUnicode = (stype == HpccSrcType.UTF16BE || stype == HpccSrcType.UTF16LE);
+            trimStringInScratchBuffer(isUnicode, strRange);
+        }
+        
+        strByteLen = strRange[1] - strRange[0];
+        if (strByteLen == 0 && convertEmptyStringsToNull) {
+            return null;
+        }
+
+        return new String(scratchBuffer,strRange[0],strByteLen,charset);
     }
 
     /**
@@ -1057,7 +1140,7 @@ public class BinaryRecordReader implements IRecordReader
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private String getString(HpccSrcType styp, int codePoints) throws IOException
+    private String getString(HpccSrcType styp, int codePoints, boolean shouldTrim) throws IOException
     {
         Charset charset = utf8Set;
         switch (styp)
@@ -1129,6 +1212,7 @@ public class BinaryRecordReader implements IRecordReader
                         strByteLen += misalignedBytes;
                     }
                 }
+                
                 break;
             }
             case SINGLE_BYTE_CHAR:
@@ -1239,8 +1323,20 @@ public class BinaryRecordReader implements IRecordReader
             default:
                 throw new IOException("Unknown source type");
         }
+       
+        int[] strRange = {0, strByteLen};
+        if (shouldTrim)
+        {
+            boolean isUnicode = (styp == HpccSrcType.UTF16BE || styp == HpccSrcType.UTF16LE);
+            trimStringInScratchBuffer(isUnicode, strRange);
+        }
+        
+        strByteLen = strRange[1] - strRange[0];
+        if (strByteLen == 0 && convertEmptyStringsToNull) {
+            return null;
+        }
 
-        return new String(this.scratchBuffer, 0, strByteLen, charset);
+        return new String(scratchBuffer,strRange[0],strByteLen,charset);       
     }
 
     /**
