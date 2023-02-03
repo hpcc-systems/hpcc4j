@@ -252,7 +252,7 @@ public class BinaryRecordReader implements IRecordReader
     /**
      * Set string processing flags. 
      * 
-     * @param flags 
+     * @param flags string processing flags
      */
     public void setStringProcessingFlags(int flags)
     {
@@ -944,19 +944,23 @@ public class BinaryRecordReader implements IRecordReader
     {
         if (isUnicode)
         {
-            while (range[0] < range[1] - 1) {
+            while (range[0] < range[1] - 1)
+            {
                 // Space in unicode is 0x0020
-                if (this.scratchBuffer[range[0]] != 0x20 || this.scratchBuffer[range[0]+1] != 0x00) {
+                if (this.scratchBuffer[range[0]] != 0x20 || this.scratchBuffer[range[0]+1] != 0x00)
+                {
                     break;
                 }
 
                 range[0] += 2;
             }
 
-            while (range[1] > range[0]) {
+            while (range[1] > range[0])
+            {
                 // Space in unicode is 0x0020, also need to check for EOS character
                 if ((this.scratchBuffer[range[1]-2] != 0x20 || this.scratchBuffer[range[1]-1] != 0x00)
-                && (this.scratchBuffer[range[1]-2] != 0x00 || this.scratchBuffer[range[1]-1] != 0x00)) {
+                && (this.scratchBuffer[range[1]-2] != 0x00 || this.scratchBuffer[range[1]-1] != 0x00))
+                {
                     break;
                 }
 
@@ -965,18 +969,22 @@ public class BinaryRecordReader implements IRecordReader
         }
         else
         {
-            while (range[0] < range[1]) {
+            while (range[0] < range[1])
+            {
                 // Space in utf8/sbc is 0x20
-                if (this.scratchBuffer[range[0]] != 0x20) {
+                if (this.scratchBuffer[range[0]] != 0x20)
+                {
                     break;
                 }
 
                 range[0]++;
             }
 
-            while (range[1] > range[0]) {
+            while (range[1] > range[0])
+            {
                 // Space in utf8/sbc is 0x20, also need to check for EOS character
-                if (this.scratchBuffer[range[1]-1] != 0x20 && this.scratchBuffer[range[1]-1] != 0x00) {
+                if (this.scratchBuffer[range[1]-1] != 0x20 && this.scratchBuffer[range[1]-1] != 0x00)
+                {
                     break;
                 }
 
@@ -1122,7 +1130,8 @@ public class BinaryRecordReader implements IRecordReader
         }
         
         strByteLen = strRange[1] - strRange[0];
-        if (strByteLen == 0 && convertEmptyStringsToNull) {
+        if (strByteLen == 0 && convertEmptyStringsToNull)
+        {
             return null;
         }
 
@@ -1332,7 +1341,8 @@ public class BinaryRecordReader implements IRecordReader
         }
         
         strByteLen = strRange[1] - strRange[0];
-        if (strByteLen == 0 && convertEmptyStringsToNull) {
+        if (strByteLen == 0 && convertEmptyStringsToNull)
+        {
             return null;
         }
 
