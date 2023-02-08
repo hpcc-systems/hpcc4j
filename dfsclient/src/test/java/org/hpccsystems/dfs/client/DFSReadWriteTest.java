@@ -334,7 +334,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
         }
     }
-    
+
     @Test
     public void unsigned8ToDecimalTest() throws Exception
     {
@@ -356,7 +356,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             originalRecords.add(record);
         }
 
-        String datasetName = "benchmark::unsigned8::10rows"; 
+        String datasetName = "benchmark::unsigned8::10rows";
         writeFile(originalRecords, datasetName, recordDef, connTO);
 
         HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
@@ -370,7 +370,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             HPCCRecord readRecord = readRecords.get(i);
             HPCCRecord originalRecord = originalRecords.get(i);
-            
+
             assertEquals(readRecord, originalRecord);
         }
     }
@@ -398,7 +398,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             originalRecords.add(record);
         }
 
-        String datasetName = "benchmark::long_string::10rows"; 
+        String datasetName = "benchmark::long_string::10rows";
         writeFile(originalRecords, datasetName, recordDef,connTO);
 
         HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
@@ -677,7 +677,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
         List<HPCCRecord> records = new ArrayList<HPCCRecord>();
-        
+
         String[] nonEmptyStrings = new String[9];
         {
             for (int i = 0; i < 9; i++)
@@ -699,8 +699,8 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCRecord record = new HPCCRecord(fields, recordDef);
             records.add(record);
         }
-        
-        String datasetName = "test::string_processing"; 
+
+        String datasetName = "test::string_processing";
         writeFile(records, datasetName, recordDef, connTO);
 
         HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
@@ -712,6 +712,22 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             assertEquals(records.get(0).getField(i), nonEmptyStrings[i].trim());
             assertEquals(records.get(1).getField(i), null);
+        }
+
+        records = readFile(file, connTO, false, false, BinaryRecordReader.TRIM_FIXED_LEN_STRINGS);
+
+        assertEquals(records.size(), 2);
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (fieldDefs[i].isFixed())
+            {
+                assertEquals(records.get(0).getField(i), nonEmptyStrings[i].trim());
+            }
+            else
+            {
+                assertEquals(records.get(0).getField(i), nonEmptyStrings[i]);
+            }
         }
     }
 
@@ -840,12 +856,12 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
     {
-        return readFile(file, connectTimeoutMillis, shouldForceTimeout, false, 0);
+        return readFile(file, connectTimeoutMillis, shouldForceTimeout, false, BinaryRecordReader.NO_STRING_PROCESSING);
     }
 
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout, boolean useDecimalForUnsigned8) throws Exception
     {
-        return readFile(file, connectTimeoutMillis, shouldForceTimeout, useDecimalForUnsigned8, 0);
+        return readFile(file, connectTimeoutMillis, shouldForceTimeout, useDecimalForUnsigned8, BinaryRecordReader.NO_STRING_PROCESSING);
     }
 
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout, boolean useDecimalForUnsigned8, int stringProcessingFlags) throws Exception
