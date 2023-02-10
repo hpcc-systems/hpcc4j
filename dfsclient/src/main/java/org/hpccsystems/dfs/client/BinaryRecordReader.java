@@ -119,7 +119,7 @@ class CountingInputStream extends InputStream
 
 /**
  * Deserializes data from the provided InputStream and constructs records via the provided IRecordBuilder.
- * 
+ *
  * Data in the InputStream is expected to be in the HPCC Systems binary record format.
  */
 public class BinaryRecordReader implements IRecordReader
@@ -131,6 +131,15 @@ public class BinaryRecordReader implements IRecordReader
     private long                 streamPosAfterLastRecord = 0;
     private boolean              isIndex = false;
     private boolean              useDecimalForUnsigned8 = false;
+
+    public static final int      NO_STRING_PROCESSING = 0;
+    public static final int      TRIM_STRINGS = 1;
+    public static final int      TRIM_FIXED_LEN_STRINGS = 2;
+    public static final int      CONVERT_EMPTY_STRINGS_TO_NULL = 4;
+
+    private boolean              shouldTrimFixedLenStrings = false;
+    private boolean              shouldTrimStrings = false;
+    private boolean              convertEmptyStringsToNull = false;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -223,7 +232,7 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Determines if unsigned 8 values should be parsed into BigDecimals to avoid long overflow.
-     * 
+     *
      * @param useDecimal use decimal
      */
     public void setUseDecimalForUnsigned8(boolean useDecimal)
@@ -233,12 +242,24 @@ public class BinaryRecordReader implements IRecordReader
 
     /**
      * Should be set if this record reader is reading an index file.
-     * 
+     *
      * @param isIdx Is this an index file?
      */
     public void setIsIndex(boolean isIdx)
     {
         this.isIndex = isIdx;
+    }
+
+    /**
+     * Set string processing flags.
+     *
+     * @param flags string processing flags
+     */
+    public void setStringProcessingFlags(int flags)
+    {
+        shouldTrimStrings = (flags & TRIM_STRINGS) != 0;
+        shouldTrimFixedLenStrings = (flags & TRIM_FIXED_LEN_STRINGS) != 0;
+        convertEmptyStringsToNull = (flags & CONVERT_EMPTY_STRINGS_TO_NULL) != 0;
     }
 
     /*
@@ -367,12 +388,12 @@ public class BinaryRecordReader implements IRecordReader
                         BigInteger bi = Utils.extractUnsigned8Val(intValue);
                         fieldValue = new BigDecimal(bi);
                     }
-                    else 
+                    else
                     {
                         fieldValue = Long.valueOf(intValue);
                         if (intValue < 0)
                         {
-                            messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName() 
+                            messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName()
                                             + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary, "
                                             + " or call BinaryRecordReader.setUseDecimalForUnsigned8() before reading to convert unsigned8 values to BigDecimal values.");
                         }
@@ -439,10 +460,11 @@ public class BinaryRecordReader implements IRecordReader
                 fieldValue = Boolean.valueOf(value != 0);
                 break;
             case CHAR:
-                fieldValue = getString(fd.getSourceType(), 1);
+                fieldValue = getString(fd.getSourceType(), 1, false);
                 break;
             case STRING:
             {
+                boolean shouldTrim = shouldTrimStrings;
                 int codePoints = 0;
                 if (fd.isFixed())
                 {
@@ -453,13 +475,15 @@ public class BinaryRecordReader implements IRecordReader
                     }
 
                     codePoints = (int) fd.getDataLen();
+
+                    shouldTrim = shouldTrim || shouldTrimFixedLenStrings;
                 }
                 else
                 {
                     codePoints = ((int) getInt(4, isLittleEndian, false));
                 }
 
-                fieldValue = getString(fd.getSourceType(), codePoints);
+                fieldValue = getString(fd.getSourceType(), codePoints, shouldTrim);
                 break;
             }
             case VAR_STRING:
@@ -474,8 +498,10 @@ public class BinaryRecordReader implements IRecordReader
                                 "Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
                     }
 
+                    boolean shouldTrim = shouldTrimStrings || shouldTrimFixedLenStrings;
+
                     int codePoints = (int) fd.getDataLen();
-                    String strValue = getString(fd.getSourceType(), codePoints);
+                    String strValue = getString(fd.getSourceType(), codePoints, shouldTrim);
 
                     // Unicode uses two byte nulls
                     if (fd.getSourceType().isUTF16())
@@ -490,7 +516,8 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 else
                 {
-                    fieldValue = getNullTerminatedString(fd.getSourceType());
+                    boolean shouldTrim = shouldTrimStrings;
+                    fieldValue = getNullTerminatedString(fd.getSourceType(), shouldTrim);
                 }
                 break;
             }
@@ -692,7 +719,7 @@ public class BinaryRecordReader implements IRecordReader
      *            the length, 1 to 8 bytes
      * @param little_endian
      *            true if the value is little endian
-     * @param shouldCorrectBias 
+     * @param shouldCorrectBias
      *            true if the value should be corrected for index bias
      * @return the integer extracted as a long
      * @throws IOException
@@ -915,6 +942,66 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
+     * Trims the string within the scratch buffer by modifying the provided string range
+     *
+     * @param isUnicode is the string unicode
+     * @param range array with starting and ending byte of string within the scratch buffer
+    */
+    private void trimStringInScratchBuffer(boolean isUnicode, int[] range)
+    {
+        if (isUnicode)
+        {
+            while (range[0] < range[1] - 1)
+            {
+                int codePoint = this.scratchBuffer[range[0]] << 8 | this.scratchBuffer[range[0]+1];
+                if (!Character.isWhitespace(codePoint))
+                {
+                    break;
+                }
+
+                range[0] += 2;
+            }
+
+            while (range[1] > range[0])
+            {
+                // Need to check against EOS (0x0) in trim fixed len strings correctly
+                int codePoint = this.scratchBuffer[range[1]-2] << 8 | this.scratchBuffer[range[1]-1];
+                if (!Character.isWhitespace(codePoint) && codePoint != 0x0)
+                {
+                    break;
+                }
+
+                range[1] -= 2;
+            }
+        }
+        else
+        {
+            while (range[0] < range[1])
+            {
+                int codePoint = this.scratchBuffer[range[0]];
+                if (!Character.isWhitespace(codePoint))
+                {
+                    break;
+                }
+
+                range[0]++;
+            }
+
+            while (range[1] > range[0])
+            {
+                // Need to check against EOS (0x0) in trim fixed len strings correctly
+                int codePoint = this.scratchBuffer[range[1]-1];
+                if (!Character.isWhitespace(codePoint) && codePoint != 0x0)
+                {
+                    break;
+                }
+
+                range[1]--;
+            }
+        }
+    }
+
+    /**
      * Gets the null terminated string.
      *
      * @param stype
@@ -923,7 +1010,7 @@ public class BinaryRecordReader implements IRecordReader
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private String getNullTerminatedString(HpccSrcType stype) throws IOException
+    private String getNullTerminatedString(HpccSrcType stype, boolean shouldTrim) throws IOException
     {
         Charset charset = sbcSet;
         switch (stype)
@@ -1043,7 +1130,20 @@ public class BinaryRecordReader implements IRecordReader
             }
         }
 
-        return new String(scratchBuffer,0,strByteLen,charset);
+        int[] strRange = {0, strByteLen};
+        if (shouldTrim)
+        {
+            boolean isUnicode = (stype == HpccSrcType.UTF16BE || stype == HpccSrcType.UTF16LE);
+            trimStringInScratchBuffer(isUnicode, strRange);
+        }
+
+        strByteLen = strRange[1] - strRange[0];
+        if (strByteLen == 0 && convertEmptyStringsToNull)
+        {
+            return null;
+        }
+
+        return new String(scratchBuffer,strRange[0],strByteLen,charset);
     }
 
     /**
@@ -1057,7 +1157,7 @@ public class BinaryRecordReader implements IRecordReader
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private String getString(HpccSrcType styp, int codePoints) throws IOException
+    private String getString(HpccSrcType styp, int codePoints, boolean shouldTrim) throws IOException
     {
         Charset charset = utf8Set;
         switch (styp)
@@ -1129,6 +1229,7 @@ public class BinaryRecordReader implements IRecordReader
                         strByteLen += misalignedBytes;
                     }
                 }
+
                 break;
             }
             case SINGLE_BYTE_CHAR:
@@ -1240,7 +1341,20 @@ public class BinaryRecordReader implements IRecordReader
                 throw new IOException("Unknown source type");
         }
 
-        return new String(this.scratchBuffer, 0, strByteLen, charset);
+        int[] strRange = {0, strByteLen};
+        if (shouldTrim)
+        {
+            boolean isUnicode = (styp == HpccSrcType.UTF16BE || styp == HpccSrcType.UTF16LE);
+            trimStringInScratchBuffer(isUnicode, strRange);
+        }
+
+        strByteLen = strRange[1] - strRange[0];
+        if (strByteLen == 0 && convertEmptyStringsToNull)
+        {
+            return null;
+        }
+
+        return new String(scratchBuffer,strRange[0],strByteLen,charset);
     }
 
     /**
