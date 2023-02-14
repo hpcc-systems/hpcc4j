@@ -453,7 +453,6 @@ public class RDFHPCCWsClient extends HPCCWsClient
             WorkunitWrapper wu = new WorkunitWrapper();
             wu.setECL(eclstats + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));");
             wu.setCluster(targetECLCluster);
-            wu.setResultLimit(100);
             wu.setMaxMonitorMillis(eclmaxwaitMS);
 
             eclreturn = wuClient.createAndRunWUFromECLAndGetResults(wu);
