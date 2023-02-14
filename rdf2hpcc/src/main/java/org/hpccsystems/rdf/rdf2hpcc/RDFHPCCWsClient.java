@@ -12,18 +12,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hpccsystems.ws.client.gen.ecldirect.v1_0.ArrayOfEspException;
-import org.hpccsystems.ws.client.gen.ecldirect.v1_0.EspException;
-import org.hpccsystems.ws.client.gen.filespray.v1_13.DropZone;
-import org.hpccsystems.ws.client.gen.filespray.v1_13.PhysicalFileStruct;
-import org.hpccsystems.ws.client.HPCCECLDirectClient;
 import org.hpccsystems.ws.client.HPCCFileSprayClient;
 import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsFileIOClient;
-import org.hpccsystems.ws.client.platform.WorkunitInfo;
+import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZone;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.*;
+import java.lang.String;
 import org.hpccsystems.ws.client.utils.DataSingletonCollection;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.Utils;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.DropZoneWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrapper;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.apache.jena.riot.*;
 import org.apache.jena.graph.Node;
 import org.apache.jena.ttl.turtle.parser.ParseException;
@@ -440,7 +441,7 @@ public class RDFHPCCWsClient extends HPCCWsClient
 
         try
         {
-        	if(eclstatsfile != null)
+            if(eclstatsfile != null)
         	{
         		eclstats = new String(Files.readAllBytes(Paths.get(eclstatsfile)), Charset.defaultCharset());
         	} else
@@ -448,23 +449,13 @@ public class RDFHPCCWsClient extends HPCCWsClient
         		eclstats = STATSECL;
         	}
         	
-            HPCCECLDirectClient declient = getEclDirectClient();
-            WorkunitInfo wu = new WorkunitInfo();
+            HPCCWsWorkUnitsClient wuClient = getWsWorkunitsClient();
+            WorkunitWrapper wu = new WorkunitWrapper();
             wu.setECL(eclstats + "\n output(RdfTypeStats('~" + targetHPCCFilePath + "'));");
             wu.setCluster(targetECLCluster);
-            wu.setResultLimit(HPCCECLDirectClient.noresultlimit);
             wu.setMaxMonitorMillis(eclmaxwaitMS);
 
-            eclreturn = declient.submitECLandGetResults(wu );
-        }
-        catch (ArrayOfEspException e)
-        {
-            Utils.println(System.out, "Error while submiting ecl: ", false, verbosemode);
-            EspException[] espExceptions = e.getException();
-            for (EspException espException : espExceptions)
-            {
-                Utils.println(System.out, espException.getMessage(), false, verbosemode);
-            }
+            eclreturn = wuClient.createAndRunWUFromECLAndGetResults(wu);
         }
         catch (IOException e)
         {
@@ -775,20 +766,21 @@ public class RDFHPCCWsClient extends HPCCWsClient
 
         try
         {
-            DropZone[] dropZones = fsclient.fetchLocalDropZones();
+            List<DropZoneWrapper> dropZones = fsclient.fetchLocalDropZones();
 
-            if (dropZones.length > 0)
+            if (dropZones.size() > 0)
             {
-                targetDropzoneNetAddress = dropZones[0].getNetAddress();
-                targetHPCCDropzonePath = dropZones[0].getPath();
+                DropZoneWrapper thisDZ = dropZones.get(0);
+                targetDropzoneNetAddress = thisDZ.getNetAddress();
+                targetHPCCDropzonePath = thisDZ.getPath();
                 Utils.println(System.out, "Found dropzone net address: " + targetDropzoneNetAddress, false, verbosemode);
                 Utils.println(System.out, "Found dropzone path: " + targetHPCCDropzonePath, false, verbosemode);
 
                 try
                 {
-                    PhysicalFileStruct[] files = fsclient.listFiles(targetDropzoneNetAddress, targetHPCCDropzonePath, null);
+                    List<PhysicalFileStructWrapper> files = fsclient.listFiles(targetDropzoneNetAddress, targetHPCCDropzonePath, null);
                     Utils.println(System.out, "Existing Dropzone files:", true, verbosemode);
-                    for (PhysicalFileStruct file : files)
+                    for (PhysicalFileStructWrapper file : files)
                     {
                         Utils.println(System.out, "\t" + file.getName() +"-"+ file.getFilesize(), true, verbosemode);
                     }
@@ -798,14 +790,6 @@ public class RDFHPCCWsClient extends HPCCWsClient
                     Utils.println(System.out, "Warning: could not fetch existing landingzone file list.", true, verbosemode);
                 }
                 success = true;
-            }
-        }
-        catch (org.hpccsystems.ws.client.gen.filespray.v1_06.ArrayOfEspException e1)
-        {
-            Utils.println(System.out, "ERROR: Attempting to fetch HPCC dropzone Info:", false, verbosemode);
-            for (org.hpccsystems.ws.client.gen.filespray.v1_06.EspException exception : e1.getException())
-            {
-                Utils.println(System.out, "\t"+exception.getMessage(), false, verbosemode);
             }
         }
         catch (RemoteException e1)

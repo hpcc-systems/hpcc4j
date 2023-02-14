@@ -3,7 +3,7 @@
     <groupId>org.hpccsystems</groupId>
     <artifactId>rdf2hpcc</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <name>RDF Data Ingestion into HPCC</name>
     <description>This project allows a user to import RDF data into an easily ingestible format for HPCC</description>
     <url>https://hpccsystems.com</url>
@@ -16,6 +16,8 @@
     </licenses>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <scm>
         <connection>scm:git:https://github.com/hpcc-systems/hpcc4j.git</connection>
@@ -72,7 +74,7 @@
         <dependency>
             <groupId>org.hpccsystems</groupId>
             <artifactId>wsclient</artifactId>
-            <version>1.0.0</version>
+            <version>8.12.0-1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>
