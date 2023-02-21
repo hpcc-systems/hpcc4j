@@ -663,26 +663,33 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void stringProcesingTests() throws Exception
     {
+        String whiteSpaceStr = " \t\n\r\f"
+                             + '\u0009' + '\u000B' + '\u000C'
+                             + '\u001C' + '\u001D' + '\u001E' + '\u001F';
+
+        // Adding additional data to end of fixed length strings to test against EOS.
+        // Using an odd length to make sure that the trim() functionality works on odd alignments
+        int fixedStrLen = whiteSpaceStr.length() * 2 + 8 + 3;
+
         FieldDef[] fieldDefs = new FieldDef[9];
         fieldDefs[0] = new FieldDef("str1", FieldType.STRING, "UTF8", 4, false, false, HpccSrcType.UTF8, new FieldDef[0]);
         fieldDefs[1] = new FieldDef("str2", FieldType.STRING, "STRING", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
         fieldDefs[2] = new FieldDef("str3", FieldType.STRING, "UNICODE", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
         fieldDefs[3] = new FieldDef("str4", FieldType.VAR_STRING, "VAR_UNICODE", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
         fieldDefs[4] = new FieldDef("str5", FieldType.VAR_STRING, "VAR_STRING", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
-        fieldDefs[5] = new FieldDef("str6", FieldType.STRING, "FIXED_SBC", 12, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
-        fieldDefs[6] = new FieldDef("str7", FieldType.STRING, "FIXED_UNCIODE", 12, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
-        fieldDefs[7] = new FieldDef("str8", FieldType.VAR_STRING, "FIXED_VAR_UNICODE", 12, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
-        fieldDefs[8] = new FieldDef("str9", FieldType.VAR_STRING, "FIXED_VAR_STRING", 12, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[5] = new FieldDef("str6", FieldType.STRING, "FIXED_SBC", fixedStrLen, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[6] = new FieldDef("str7", FieldType.STRING, "FIXED_UNCIODE", fixedStrLen, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[7] = new FieldDef("str8", FieldType.VAR_STRING, "FIXED_VAR_UNICODE", fixedStrLen, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[8] = new FieldDef("str9", FieldType.VAR_STRING, "FIXED_VAR_STRING", fixedStrLen, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
 
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
-
         List<HPCCRecord> records = new ArrayList<HPCCRecord>();
 
         String[] nonEmptyStrings = new String[9];
         {
             for (int i = 0; i < 9; i++)
             {
-                nonEmptyStrings[i] = " " + generateRandomString(8) + " ";
+                nonEmptyStrings[i] = whiteSpaceStr + "0" + generateRandomString(8) + whiteSpaceStr;
             }
 
             HPCCRecord record = new HPCCRecord(nonEmptyStrings, recordDef);
