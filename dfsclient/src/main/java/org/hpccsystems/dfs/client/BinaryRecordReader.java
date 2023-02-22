@@ -953,7 +953,9 @@ public class BinaryRecordReader implements IRecordReader
         {
             while (range[0] < range[1] - 1)
             {
-                int codePoint = this.scratchBuffer[range[0]] << 8 | this.scratchBuffer[range[0]+1];
+                // Need to create a 16bit codepoint from two signed bytes. Mask with 0xFF to get unsigned values,
+                // shift upper byte by 8 and OR with lower byte to get the expected 16bit codepoint
+                int codePoint = (this.scratchBuffer[range[0]] & 0xFF) | ((this.scratchBuffer[range[0]+1] & 0xFF) << 8);
                 if (!Character.isWhitespace(codePoint))
                 {
                     break;
@@ -964,8 +966,11 @@ public class BinaryRecordReader implements IRecordReader
 
             while (range[1] > range[0])
             {
+                // Need to create a 16bit codepoint from two signed bytes. Mask with 0xFF to get unsigned values,
+                // shift upper byte by 8 and OR with lower byte to get the expected 16bit codepoint
+                int codePoint = (this.scratchBuffer[range[1]-2] & 0xFF) | ((this.scratchBuffer[range[1]-1] & 0xFF) << 8);
+
                 // Need to check against EOS (0x0) in trim fixed len strings correctly
-                int codePoint = this.scratchBuffer[range[1]-2] << 8 | this.scratchBuffer[range[1]-1];
                 if (!Character.isWhitespace(codePoint) && codePoint != 0x0)
                 {
                     break;
@@ -978,7 +983,7 @@ public class BinaryRecordReader implements IRecordReader
         {
             while (range[0] < range[1])
             {
-                int codePoint = this.scratchBuffer[range[0]];
+                int codePoint = (this.scratchBuffer[range[0]] & 0xFF);
                 if (!Character.isWhitespace(codePoint))
                 {
                     break;
@@ -990,7 +995,7 @@ public class BinaryRecordReader implements IRecordReader
             while (range[1] > range[0])
             {
                 // Need to check against EOS (0x0) in trim fixed len strings correctly
-                int codePoint = this.scratchBuffer[range[1]-1];
+                int codePoint = (this.scratchBuffer[range[1]-1] & 0xFF);
                 if (!Character.isWhitespace(codePoint) && codePoint != 0x0)
                 {
                     break;
