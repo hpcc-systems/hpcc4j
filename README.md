@@ -57,6 +57,8 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - RDF data ingestion tool to HPCC
   - Based on Apache Jena and dependent on org.hpccsystems.ws.client
 
+#### HPCC4J and HPCC Kubernetes Clusters
+Utilizing HPCC4J with containized HPCC Systems clusters requires some additional local configuration steps. These configuration steps are documented here: [Using HPCC4j with HPCC on a Kubernetes Cluster](https://github.com/hpcc-systems/hpcc4j/wiki/Using-HPCC4J-with-HPCC-on-a-Kubernetes-Cluster)
 
 #### Build
 These projects are configured to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:
