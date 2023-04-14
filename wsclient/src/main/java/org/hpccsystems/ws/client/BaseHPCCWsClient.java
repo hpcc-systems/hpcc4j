@@ -123,7 +123,17 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return false; //No CONTAINERIZED entry has to be assumed to mean target is not CONTAINERIZED
     }
 
-    private String getTargetHPCCBuildVersion() throws Exception
+    /**
+     * Gets the target HPCC build version
+     *
+     * @return the HPCC version
+     */
+    public Version getTargetHPCCBuildVersion()
+    {
+        return targetHPCCBuildVersion;
+    }
+
+    private String getTargetHPCCBuildVersionString() throws Exception
     {
         if (wsconn == null)
             throw new Exception("Cannot get target HPCC build version, client connection has not been initialized.");
@@ -160,7 +170,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         {
             try
             {
-                targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersion());
+                targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersionString());
             }
             catch (Exception e)
             {
