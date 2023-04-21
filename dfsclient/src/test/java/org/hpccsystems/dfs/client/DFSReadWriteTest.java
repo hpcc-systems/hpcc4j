@@ -739,6 +739,50 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void stringEOSTests() throws Exception
+    {
+        FieldDef[] fieldDefs = new FieldDef[9];
+        fieldDefs[0] = new FieldDef("str1", FieldType.STRING, "UTF8", 4, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("str2", FieldType.STRING, "STRING", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("str3", FieldType.STRING, "UNICODE", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[3] = new FieldDef("str4", FieldType.VAR_STRING, "VAR_UNICODE", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[4] = new FieldDef("str5", FieldType.VAR_STRING, "VAR_STRING", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[5] = new FieldDef("str6", FieldType.STRING, "FIXED_SBC", 12, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[6] = new FieldDef("str7", FieldType.STRING, "FIXED_UNCIODE", 12, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[7] = new FieldDef("str8", FieldType.VAR_STRING, "FIXED_VAR_UNICODE", 12, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[8] = new FieldDef("str9", FieldType.VAR_STRING, "FIXED_VAR_STRING", 12, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+
+        String[] nonEmptyStrings = new String[9];
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                nonEmptyStrings[i] = " " + generateRandomString(8) + "\0 ";
+            }
+
+            HPCCRecord record = new HPCCRecord(nonEmptyStrings, recordDef);
+            records.add(record);
+        }
+
+        String datasetName = "test::string::eos";
+        writeFile(records, datasetName, recordDef, connTO);
+
+        HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
+        records = readFile(file, connTO, false, false);
+
+        assertEquals(records.size(), 1);
+
+        for (int i = 0; i < 9; i++)
+        {
+            String field = (String) records.get(0).getField(i);
+            assertEquals(field.trim(), nonEmptyStrings[i].trim());
+        }
+    }
+
+    @Test
     public void resumeFileReadTest() throws Exception
     {
         HPCCFile file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
