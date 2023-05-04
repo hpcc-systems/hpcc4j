@@ -622,7 +622,7 @@ public class Axis2ADBStubWrapperMaker
 
                             if (className.substring(0,maxClassLength).equals(packageName))
                             {
-                                if (className.equalsIgnoreCase(targetClassName))
+                                if (className.substring(className.lastIndexOf('.')+1).equalsIgnoreCase(targetClassName))
                                     return Class.forName(className);
                             }
                         }
