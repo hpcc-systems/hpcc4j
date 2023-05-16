@@ -1,6 +1,9 @@
 name: https unit tests
 
-on: 
+on:
+  push:
+    branches:
+      - "JAPI-482"
   pull_request:
     branches:
       - "master"
@@ -12,82 +15,101 @@ jobs:
   test-against-platform:
     runs-on: ubuntu-latest
 
-    services:
-      hpccsystems-platform:
-        image: hpccsystemslegacy/platform
-        ports:
-          - 18510:18510
-          - 18010:18010
-          - 18002:18002
-
     steps:
-      
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-        fetch-depth: 0
-    - name: Rebase
-      run: |
-        git config user.email 'hpccsystems@lexisnexisrisk.com'
-        git config user.name 'hpccsystems development'
-        git rebase origin/${{ github.event.pull_request.base.ref }}
-        git log --pretty=one -n 15
 
     - name: Setup JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
 
-    - name: Fetch hpccsystems-platform docker container name
-      run: |
-        echo "PLATFORM_CONTAINER_NAME=$(docker ps --format \"{{.Names}}\")"  >> $GITHUB_ENV
+    - name: Install K8s
+      uses: balchua/microk8s-actions@v0.3.2
+      with:
+        channel: '1.26/stable'
+        devMode: 'true'
+        addons: '["dns", "rbac", "hostpath-storage", "registry"]'
 
-    - name: HPCCSystems Platform version
+    - name: Enable LoadBalancers
       run: |
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} cat /etc/HPCCSystems/version
-    
-    - name: HPCCSystems Certificate Setup
+        sudo microk8s enable metallb:10.64.140.43-10.64.140.49
+
+    - name: Install JetStack Cert Manager
       run: |
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} bash -c "echo -e \"[ v3_ca ]\nsubjectAltName\t= DNS:localhost,IP:127.0.0.1\" > /home/hpcc/hpcc.cnf ; sed -i '/openssl req/s/$/ -addext \"subjectAltName = DNS:localhost,IP:127.0.0.1\"/' /opt/HPCCSystems/etc/init.d/setupPKI ; sed -i '/openssl x509/s/$/ -extfile \/home\/hpcc\/hpcc.cnf -extensions v3_ca/' /opt/HPCCSystems/etc/init.d/setupPKI  ; /opt/HPCCSystems/etc/init.d/distributePKI "
+        helm repo add jetstack https://charts.jetstack.io
+        helm repo update
+        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+        helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.11.0
 
-    - name: HPCCSystems Datafile Setup
+    - name: Create Root Certificates
       run: |
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init start
-        wget -q https://raw.githubusercontent.com/hpcc-systems/hpcc4j/master/wsclient/src/test/resources/generatedata.sh
+        echo "[req]
+        default_bits           = 2048
+        default_keyfile        = ca.key
+        distinguished_name     = dn
+        prompt                 = no
+        x509_extensions        = x509_ca
 
-        #wget http://localhost:8010/WsDFUXRef/version_
-        #wget http://localhost:8510/WsSQL/version_
-        #wget http://localhost:8010/WsWorkunits/version_
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} cat /var/log/HPCCSystems/myesp/esp.log
+        [dn]
+        C                      = US
+        ST                     = GA
+        L                      = Alparetta
+        O                      = Lexis Nexis Risk
+        OU                     = Platform Development
+        CN                     = TestCluster
+        emailAddress           = support@lexisnexisrisk.com
 
-        chmod +x generatedata.sh
-        docker cp generatedata.sh ${{ env.PLATFORM_CONTAINER_NAME }}:/home/hpcc/generatedata.sh
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /home/hpcc/generatedata.sh
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init stop
+        [x509_ca]
+        basicConstraints=CA:true,pathlen:1" > ca-req.cfg
+        openssl req -x509 -newkey rsa:2048 -nodes -keyout ca.key -sha256 -days 1825 -out ca.crt -config ca-req.cfg
+        kubectl create secret tls hpcc-signing-issuer-key-pair --cert=ca.crt --key=ca.key
+        kubectl create secret tls hpcc-local-issuer-key-pair --cert=ca.crt --key=ca.key
+        sudo keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias hpcc-local-issuer -file ca.crt
 
-    - name: Setup Certs in java
+    - name: Install HPCC Cluster
       run: |
-        docker cp ${{ env.PLATFORM_CONTAINER_NAME }}:/home/hpcc/certificate/certificate.pem certificate.pem
-        CERTFILE=$(realpath certificate.pem)
-        keytool -importcert -v -keystore ${JAVA_HOME}/jre/lib/security/cacerts -storepass changeit -noprompt -alias hpccsystems -file ${CERTFILE}
-        keytool -list -alias hpccsystems -v -keystore ${JAVA_HOME}/jre/lib/security/cacerts
+        echo -e "certificates:\n  enabled: true\ndafilesrv:\n  - name: rowservice\n    disabled: false\n    application: stream\n    service:\n      servicePort: 7600\n      visibility: global" > values.yaml
+        helm repo add hpcc https://hpcc-systems.github.io/helm-chart
+        helm repo update
+        helm install myhpcc hpcc/hpcc --set global.image.version=latest -f values.yaml
 
-    - name: HPCCSystems https setup and start
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+
+    - name: Rebase
       run: |
-        docker cp .github/workflows/https-environment.xml ${{ env.PLATFORM_CONTAINER_NAME }}:/etc/HPCCSystems/environment.xml 
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} /etc/init.d/hpcc-init start
-        wget --no-check-certificate https://localhost:18010/WsDFUXRef/version_
-        wget --no-check-certificate https://localhost:18510/WsSQL/version_
-        wget --no-check-certificate https://localhost:18010/WsWorkunits/version_
-        docker exec ${{ env.PLATFORM_CONTAINER_NAME }} cat /var/log/HPCCSystems/myesp/esp.log
-    
+        git config user.email 'hpccsystems@lexisnexisrisk.com'
+        git config user.name 'hpccsystems development'
+
+    - name: Wait for ECLWatch Startup
+      run: |
+          kubectl wait --for=condition=ready pod --timeout=180s -l app=eclwatch
+          echo "ECLWATCH_IP=$(kubectl get svc eclwatch -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
+          timeout 180s bash -c 'until kubectl get svc/rowservice --output=jsonpath="{.status.loadBalancer}" | grep "ingress"; do : ; done'
+          echo "ROWSERVICE_IP=$(kubectl get svc rowservice -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
+          kubectl get pods
+          kubectl get svc
+
+    - name: Add Host File Entries
+      run: |
+        sudo -- sh -c -e "echo '${{ env.ECLWATCH_IP }} eclwatch.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '${{ env.ROWSERVICE_IP }} rowservice.default' >> /etc/hosts";
+
+    - name: Trust Certs
+      run: |
+        openssl s_client -showcerts -connect eclwatch.default:8010 < /dev/null | openssl x509 -outform DER > cert.der
+        sudo keytool -import -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt -alias eclwatch-tls -file cert.der
+        openssl s_client -showcerts -connect rowservice.default:7600 < /dev/null | openssl x509 -outform DER > cert.der
+        sudo keytool -import -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt -alias dafilesrv-tls -file cert.der
+
     # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
-    - name: Cashe Maven packages
+    - name: Cache Maven packages
       uses: actions/cache@v2
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-  
+
     - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=https://localhost:18010 -Dwssqlport=18510 install
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=https://eclwatch.default:8010 -Dwssqlport=8510 install
