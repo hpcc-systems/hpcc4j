@@ -211,7 +211,7 @@ public abstract class BaseRemoteTest
         URL eclFileURL = BaseRemoteTest.class.getClassLoader().getResource(eclFile);
         if (eclFileURL == null)
         {
-            return;
+            return null;
         }
 
         Path eclFilePath = Paths.get(eclFileURL.toURI());
