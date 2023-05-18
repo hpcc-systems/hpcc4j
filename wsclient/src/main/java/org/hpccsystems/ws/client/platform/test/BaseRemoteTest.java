@@ -209,7 +209,7 @@ public abstract class BaseRemoteTest
     public static String executeECLScript(String eclFile) throws Exception
     {
         URL eclFileURL = BaseRemoteTest.class.getClassLoader().getResource(eclFile);
-        if (URL == null)
+        if (eclFileURL == null)
         {
             return;
         }
