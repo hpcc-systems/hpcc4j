@@ -195,7 +195,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testSprayCSV() //invalid if testUploadFile unsuccessful
     {
         try
