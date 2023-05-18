@@ -52,7 +52,8 @@ IF(~Std.File.FileExists(dataset_name), OUTPUT(ds,,dataset_name,overwrite));
 key_name := '~benchmark::all_types::200KB::key';
 Ptbl := DATASET(dataset_name, {rec,UNSIGNED8 RecPtr {virtual(fileposition)}},  FLAT);
 indexds := INDEX(Ptbl, {int8, uint8, int4, uint4, int2, uint2, udec16, fixStr8,  RecPtr},key_name);
-IF(~Std.File.FileExists(key_name), BUILDINDEX(indexds, overwrite));
+Bld := BUILDINDEX(indexds, overwrite);
+Bld;
 
 dataset_name1 := '~benchmark::varstring::100MB';
 totalrecs := 1250 * 50 * 100;
@@ -129,32 +130,3 @@ rec8 := {integer  key, integer  fill};
 ds8 := DATASET(1250 * 50 * 100, transform(rec8, self.key := random() % unique_keys8; self.fill := random() % unique_values8;), DISTRIBUTED);
 
 IF(~Std.File.FileExists(dataset_name8), OUTPUT(ds8,,dataset_name8,overwrite));
-
-childRec2 := RECORD
-  	string8 str8;
-	integer8 int8;
-END;
-
-rec9 := RECORD
-    string12 str12;
-	string8 str8;
-	integer8 int8;
-	DATASET(childRec2) children{maxcount(100)};
-END;
-
-ds9 := DATASET(125, transform(rec9,
-                                self.str12 := (STRING) random();
-                                self.str8 := (STRING) random();
-                                self.int8 := random();
-                                self.children := DATASET(random() % 100, transform(childRec2,
-                                                                                  self.str8 := (string) random();
-                                                                                  self.int8 := random();
-                                                                                 ));
-                               ), DISTRIBUTED);
-
-dataset_name9 := '~test::index::child_dataset';
-IF(~Std.File.FileExists(dataset_name9), OUTPUT(ds9,,dataset_name9, overwrite));
-
-key_name2 := '~test::index::child_dataset::key';
-idx := INDEX(ds9, {str12}, {str8, int8, DATASET(childRec2) childDS {maxcount(100)} := children}, key_name2);
-IF(~Std.File.FileExists(dataset_name9), BUILDINDEX(idx, OVERWRITE));

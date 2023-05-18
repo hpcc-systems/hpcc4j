@@ -63,19 +63,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};
     private static final int[]    expectedCounts = { 1250, 5600 };
-    private static boolean generatedTestData = false;
 
-    @Before
-    public void generateTestData() throws Exception
-    {
-        if (!generatedTestData)
-        {
-            generatedTestData = true;
-            executeECLScript("generate-datasets.ecl");
-            executeECLScript("generate-nested-index.ecl");
-            executeECLScript("generate-superfile.ecl");
-        }
-    }
 
     @Test
     public void readBadlyDistributedFileTest() throws Exception

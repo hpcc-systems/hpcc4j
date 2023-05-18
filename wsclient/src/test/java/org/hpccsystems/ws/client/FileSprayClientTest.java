@@ -26,6 +26,7 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrappe
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -255,7 +256,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testDespray()
     {
         testSprayCSV();

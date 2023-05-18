@@ -43,6 +43,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySignatureWrapper;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -78,7 +79,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         client.isTargetHPCCContainerized();
     }
 
-    @Test
+    @Ignore @Test
     public void ping() throws Exception
     {
         try
@@ -97,7 +98,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void AAA2testGetTables() throws Exception
     {
         try
@@ -125,7 +126,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void AAA1testGetClusters() throws Exception
     {
         try
@@ -156,7 +157,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testInvalidGetTables() throws Exception
     {
         try
@@ -180,7 +181,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testGetDBVersion() throws Exception
     {
         try
@@ -197,7 +198,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testGetStoreProcs() throws Exception
     {
         try

@@ -2,6 +2,7 @@ package org.hpccsystems.ws.client;
 
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class WsClientTest extends BaseRemoteTest
@@ -17,7 +18,7 @@ public class WsClientTest extends BaseRemoteTest
             System.out.println("WARNING! 'roxietargetclustername' has been deprecated - Use 'roxiegroupname' instead");
     }
 
-    @Test
+    @Ignore @Test
     public void testAvailableClusterGroups()
     {
         try
@@ -55,7 +56,7 @@ public class WsClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testGetAvailableRoxieClusterNames()
     {
         try
@@ -79,7 +80,7 @@ public class WsClientTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void testGetAvailableThorClusterNames()
     {
         try

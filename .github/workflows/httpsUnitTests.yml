@@ -1,9 +1,6 @@
 name: https unit tests
 
 on:
-  push:
-    branches:
-      - "JAPI-482"
   pull_request:
     branches:
       - "master"
@@ -29,6 +26,8 @@ jobs:
         devMode: 'true'
         addons: '["dns", "rbac", "hostpath-storage", "registry"]'
 
+    # Note: IP Address range below is the IP address range that will be made available for load balancers
+    # on the host machine, they aren't actual load balancers so they will not be accessible externally
     - name: Enable LoadBalancers
       run: |
         sudo microk8s enable metallb:10.64.140.43-10.64.140.49
@@ -81,6 +80,8 @@ jobs:
       run: |
         git config user.email 'hpccsystems@lexisnexisrisk.com'
         git config user.name 'hpccsystems development'
+        git rebase origin/${{ github.event.pull_request.base.ref }}
+        git log --pretty=one -n 15
 
     - name: Wait for ECLWatch Startup
       run: |
@@ -88,8 +89,6 @@ jobs:
           echo "ECLWATCH_IP=$(kubectl get svc eclwatch -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
           timeout 180s bash -c 'until kubectl get svc/rowservice --output=jsonpath="{.status.loadBalancer}" | grep "ingress"; do : ; done'
           echo "ROWSERVICE_IP=$(kubectl get svc rowservice -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
-          kubectl get pods
-          kubectl get svc
 
     - name: Add Host File Entries
       run: |
@@ -112,4 +111,4 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=https://eclwatch.default:8010 -Dwssqlport=8510 install
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=https://eclwatch.default:8010 -Dwssqlport=8510 install
