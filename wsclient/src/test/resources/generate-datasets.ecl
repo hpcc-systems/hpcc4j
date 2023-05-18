@@ -49,62 +49,7 @@ ds := DATASET(totalrecs1, transform(rec,
 
 IF(~Std.File.FileExists(dataset_name), OUTPUT(ds,,dataset_name,overwrite));
 
-key_name := '~benchmark::all_types::200KB::key';
-Ptbl := DATASET(dataset_name, {rec,UNSIGNED8 RecPtr {virtual(fileposition)}},  FLAT);
-indexds := INDEX(Ptbl, {int8, uint8, int4, uint4, int2, uint2, udec16, fixStr8,  RecPtr},key_name);
-Bld := BUILDINDEX(indexds, overwrite);
-Bld;
-
-dataset_name1 := '~benchmark::varstring::100MB';
 totalrecs := 1250 * 50 * 100;
-
-rec1 := {varstring key,varstring fill};
-ds1 := DATASET(totalrecs, transform(rec1, self.key := (string) (random() % unique_keys);
-                                        self.fill := (string) (random() % unique_values);
-                                  ), DISTRIBUTED);
-
-IF(~Std.File.FileExists(dataset_name1), OUTPUT(ds1,,dataset_name1,overwrite));
-
-dataset_name2 := '~benchmark::utf8::100MB';
-
-rec2 := {utf8 key,utf8 fill};
-ds2 := DATASET(totalrecs, transform(rec2,
-                                   self.key := (string) (random() % unique_keys);
-                                   self.fill := (string) (random() % unique_values);
-                                  ), DISTRIBUTED);
-
-IF(~Std.File.FileExists(dataset_name2), OUTPUT(ds2,,dataset_name2,overwrite));
-
-dataset_name3 := '~benchmark::unicode::100MB';
-
-rec3 := {unicode8 key,unicode8 fill};
-ds3 := DATASET(totalrecs, transform(rec3,
-                                   self.key := (string) (random() % unique_keys);
-                                   self.fill := (string) (random() % unique_values);
-                                  ), DISTRIBUTED);
-
-IF(~Std.File.FileExists(dataset_name3), OUTPUT(ds3,,dataset_name3,overwrite));
-
-dataset_name4 := '~benchmark::real::100MB';
-
-rec4 := {real8 key,real8 fill};
-ds4 := DATASET(totalrecs, transform(rec4,
-                                   self.key := (real) (random() % unique_keys);
-                                   self.fill := (real) (random() % unique_values);
-                                  ), DISTRIBUTED);
-
-IF(~Std.File.FileExists(dataset_name4), OUTPUT(ds4,,dataset_name4,overwrite));
-
-dataset_name5 := '~benchmark::decimal::100MB';
-
-rec5 := {decimal16_8 key,decimal16_8 fill};
-ds5 := DATASET(totalrecs, transform(rec5,
-                                   self.key := (decimal16_8) (random() % unique_keys);
-                                   self.fill := (decimal16_8) (random() % unique_values);
-                                  ), DISTRIBUTED);
-
-IF(~Std.File.FileExists(dataset_name5), OUTPUT(ds5,,dataset_name5,overwrite));
-
 dataset_name6 := '~benchmark::string::100MB';
 
 rec6 := {string8 key,string8 fill};
@@ -122,11 +67,8 @@ ds7 := DATASET(1250, transform(rec7, self.key := random() % unique_keys; self.fi
 
 IF(~Std.File.FileExists(dataset_name7), OUTPUT(ds7,,dataset_name7,overwrite));
 
-dataset_name8 := '~benchmark::integer::100mb';
-unique_keys8 :=  100000;  // Should be less than number of records
-unique_values8 := 10212; // Should be less than number of records
-
-rec8 := {integer  key, integer  fill};
-ds8 := DATASET(1250 * 50 * 100, transform(rec8, self.key := random() % unique_keys8; self.fill := random() % unique_values8;), DISTRIBUTED);
-
-IF(~Std.File.FileExists(dataset_name8), OUTPUT(ds8,,dataset_name8,overwrite));
+String subfilename := '~benchmark::all_types::200KB';
+String sfname := '~benchmark::all_types::superfile';
+IF(false = STD.file.SuperFileExists(sfname),STD.file.CreateSuperFile(sfname));
+output(STD.file.SuperFileExists(sfname));
+IF (STD.file.GetSuperFileSubCount(sfname) = 0, STD.file.AddSuperFile(sfname, subfilename));
