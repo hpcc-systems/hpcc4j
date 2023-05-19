@@ -157,4 +157,4 @@ IF(~Std.File.FileExists(dataset_name9), OUTPUT(ds9,,dataset_name9, overwrite));
 
 key_name2 := '~test::index::child_dataset::key';
 idx := INDEX(ds9, {str12}, {str8, int8, DATASET(childRec2) childDS {maxcount(100)} := children}, key_name2);
-IF(~Std.File.FileExists(dataset_name9), BUILDINDEX(idx, OVERWRITE));
+IF(~Std.File.FileExists(key_name2), BUILDINDEX(idx, OVERWRITE));
