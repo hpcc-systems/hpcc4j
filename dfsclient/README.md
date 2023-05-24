@@ -7,6 +7,9 @@ HPCC Systems Distributed File System Client Project is a distributed data ingest
 Exploits internal HPCC Systems binaries to efficiently read and write data remotely in parallel.
 Supports generic and custom dataset creation and translation through IRecordBuilder and IRecordAccessor interfaces. HPCC Systems Distributed File System Client Project is a distributed data ingestion and extraction library. Also provides HPCC/Parquet file support via Avro data serialization.
 
+#### DFSClient and HPCC Kubernetes Clusters
+Utilizing DFSClient with containized HPCC Systems clusters requires some additional local configuration steps. These configuration steps are documented here: [Using HPCC4j with HPCC on a Kubernetes Cluster](https://github.com/hpcc-systems/hpcc4j/wiki/Using-HPCC4J-with-HPCC-on-a-Kubernetes-Cluster)
+
 #### Maven dependency
 To utilize this library as a dependency in your own maven project, simply add the following definition to your pom.xml
 

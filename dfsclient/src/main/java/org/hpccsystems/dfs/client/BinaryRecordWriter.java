@@ -33,7 +33,7 @@ import java.util.Arrays;
 
 /**
  * Serializes records into the provided OutputStream utilizing the provided IRecordAccessor to access record data.
- * 
+ *
  * The IRecordAccessor must match the type of records that are provided to {@link #writeRecord(Object) writeRecord}.
  * The data written to the OutputStream will be in the HPCC Systems binary record format.
  */
@@ -104,7 +104,7 @@ public class BinaryRecordWriter implements IRecordWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordWriter#initialize(org.hpccsystems.dfs.client.IRecordAccessor)
      */
     public void initialize(IRecordAccessor recordAccessor)
@@ -335,7 +335,7 @@ public class BinaryRecordWriter implements IRecordWriter
             case FILEPOS:
             {
                 Long value = null;
-                if (fieldValue==null) 
+                if (fieldValue==null)
                 {
                     value=Long.valueOf(0);
                 }
@@ -391,7 +391,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     {
                         this.buffer.put((byte) ((value >> (i*8)) & 0xFF));
                     }
-                   
+
                     long signBit = value < 0 ? 0x80L : 0;
                     this.buffer.put((byte) (((value >> (lastByteIdx*8)) & 0xFF) | signBit));
                 }
@@ -437,7 +437,7 @@ public class BinaryRecordWriter implements IRecordWriter
             case CHAR:
             {
                 byte c='\0';
-                if (fieldValue!=null) 
+                if (fieldValue!=null)
                 {
                     String value = (String) fieldValue;
                     c = (byte) value.charAt(0);
@@ -449,6 +449,12 @@ public class BinaryRecordWriter implements IRecordWriter
             case STRING:
             {
                 String value = fieldValue != null ? (String) fieldValue : "";
+                int eosIdx = value.indexOf('\0');
+                if (eosIdx > -1)
+                {
+                    value = value.substring(0,eosIdx);
+                }
+
                 byte[] data = new byte[0];
                 if (fd.getSourceType() == HpccSrcType.UTF16LE)
                 {
@@ -475,7 +481,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     int compressedDataLen = tempData.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
                     compressedDataLen /= QSTR_EXPANDED_CHUNK_LEN;
                     data = new byte[compressedDataLen];
-                    
+
                     int bitOffset = 0;
                     for (int i = 0; i < tempData.length; i++)
                     {
@@ -491,7 +497,7 @@ public class BinaryRecordWriter implements IRecordWriter
                             case 2:
                                 // The top 4 bits of Char 2 are in the bot 4 bits of byte1
                                 data[byteIdx] |= (byte) ((qstrByteValue & 0x3C) >> 2);
-                                
+
                                 // The bot 2 bits of Char 2 are in the top 2 bits of byte2
                                 data[byteIdx+1] = (byte) ((qstrByteValue & 0x3) << 6);
                                 break;
@@ -885,7 +891,7 @@ public class BinaryRecordWriter implements IRecordWriter
 
         // 1e18
         BigInteger divisor = BigInteger.valueOf(1000000000000000000L);
-        for (int currentDigit = 0; currentDigit < desiredPrecision;) 
+        for (int currentDigit = 0; currentDigit < desiredPrecision;)
         {
             // Consume 18 digits at a time
             BigInteger[] quotientRemainder = unscaledInt.divideAndRemainder(divisor);

@@ -51,6 +51,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private boolean                  simulateFail = false;
     private boolean                  forceTokenUse = false;
     private boolean                  inFetchingMode = false;
+    private boolean                  useOldProtocol = true;
     private byte[]                   tokenBin;
     private int                      handle;
     private DataPartition            dataPart;
@@ -58,8 +59,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private String                   jsonRecordDefinition          = null;
     private FieldDef                 projectedRecordDefinition     = null;
     private String                   projectedJsonRecordDefinition = null;
-    private java.io.DataInputStream  dis;
-    private java.io.DataOutputStream dos;
+    private java.io.DataInputStream  dis = null;
+    private java.io.DataOutputStream dos = null;
+
+    private String                   rowServiceVersion = "";
 
     private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
     private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
@@ -81,8 +84,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private int                      totalDataInCurrentRequest = 0;
     private int                      remainingDataInCurrentRequest = 0;
     private long                     streamPos = 0;
-    
-    // Used for restarts 
+
+    // Used for restarts
     private long                     streamPosOfFetchStart = 0;
     private List<Long>               streamPosOfFetches = new ArrayList<Long>();
     private List<byte[]>             tokenBinOfFetches = new ArrayList<byte[]>();
@@ -108,6 +111,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
 
     private static final Charset     HPCCCharSet                   = Charset.forName("ISO-8859-1");
+    private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
     private static final int         DEFAULT_MAX_READ_SIZE_KB = 4096;
@@ -118,8 +122,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     // the network connection is slow. The read on the socket will block until
     // at least 512 bytes are available
     private static final int         MIN_SOCKET_READ_SIZE     = 512;
-
-    private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
 
     private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
 
@@ -147,6 +149,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         public long streamPos = 0;
         public byte[] tokenBin = null;
+    }
+
+    private static class RowServiceResponse
+    {
+        int len = 0;
+        int errorCode = 0;
+        int handle = -1;
+        String errorMessage = null;
     }
 
     /**
@@ -275,9 +285,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
      * @param maxReadSizeInKB
      *            max readsize in kilobytes
-     * @param restartInfo 
+     * @param restartInfo
      *            information used to restart a read from a particular stream position
-     * @param isFetching 
+     * @param isFetching
      *            Will this input stream be used to serviced batched fetch requests
      * @throws Exception
      *            general exception
@@ -423,7 +433,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /**
      * Returns RestartInformation for the given streamPos if possible.
-     * 
+     *
      * @return RestartInformation
      */
     RestartInformation getRestartInformationForStreamPos(long streamPos)
@@ -448,11 +458,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return restartInfo;
     }
 
-    /**
-     * Sets the next file part copy.
-     *
-     * @return true, if successful
-     */
     private boolean setNextFilePartCopy()
     {
         if (filePartCopyIndexPointer + 1 >= prioritizedCopyIndexes.size()) return false;
@@ -481,11 +486,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return this.dataPart.getCopyIP(prioritizedCopyIndexes.get(getFilePartCopy()));
     }
 
-    /**
-     * The current file part's target copy index.
-     *
-     * @return Current filepart copy index (0-indexed)
-     */
     private int getFilePartCopy()
     {
         return filePartCopyIndexPointer;
@@ -499,16 +499,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public int getPort()
     {
         return this.dataPart.getPort();
-    }
-
-    /**
-     * The read transaction in JSON format.
-     *
-     * @return read transaction
-     */
-    public String getTrans()
-    {
-        return this.makeInitialRequest();
     }
 
     /**
@@ -529,6 +519,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public boolean isClosed()
     {
         return this.closed.get();
+    }
+
+    /**
+     * Is the remote rowservice using the new message protocol introduced in 8.12.10?
+     *
+     * @return true if using new protocol
+     */
+    public boolean isUsingNewProtocol()
+    {
+        return !this.useOldProtocol;
     }
 
     /**
@@ -592,7 +592,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /**
      * Starts a block fetching request for the requested records.
-     * 
+     *
      * Starts a block fetching request that will block until all of the requested records have been consumed.
      * Should only be called from a separate thread from the thread that is consuming data from the input stream.
      * @param fetchOffsets
@@ -685,13 +685,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         //------------------------------------------------------------------------------
-        // If we haven't made the connection active, activate it now and send the 
+        // If we haven't made the connection active, activate it now and send the
         // first request.
         //
-        // If we are in fetching mode and the connection is active send the 
+        // If we are in fetching mode and the connection is active send the
         // "read ahead" request
         //------------------------------------------------------------------------------
 
+        String readAheadRequest = null;
         numFetches++;
         if (!this.active.get())
         {
@@ -716,7 +717,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             if (inFetchingMode)
             {
                 if (this.simulateFail) this.handle = -1;
-                String readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
+                readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
 
                 try
                 {
@@ -738,114 +739,87 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         //------------------------------------------------------------------------------
-        // Read the response length from the request
+        // Read the response from the request
         //------------------------------------------------------------------------------
 
-        int len = 0;
-        try
+        boolean inTokenRetry = false;
+        do
         {
-            len = readReplyLen();
-        }
-        catch (HpccFileException e)
-        {
-            prefetchException = e;
+            RowServiceResponse response = null;
             try
             {
-                close();
+                response = readResponse();
             }
-            catch(Exception ie){}
-            return -1;
-        }
-
-        // If len == 0 we have finished reading the file
-        if (len == 0)
-        {
-            try
+            catch (HpccFileException e)
             {
-                close();
+                prefetchException = e;
+                try
+                {
+                    close();
+                }
+                catch(Exception ie){}
+                return -1;
             }
-            catch (IOException e)
-            {
-                prefetchException = new HpccFileException(e.getMessage());
-            }
-            return -1;
-        }
 
-        // Invalid response len, should be at least 4
-        if (len < 4)
-        {
-            prefetchException = new HpccFileException("Early data termination, no handle");
-            try
-            {
-                close();
-            }
-            catch(Exception e){}
-            return -1;
-        }
-
-        //------------------------------------------------------------------------------
-        // Read the new handle, and retry with the token if it is invalid
-        //------------------------------------------------------------------------------
-
-        try
-        {
-            this.handle = dis.readInt();
-            if (this.handle == 0)
+            // If len < 0 we have finished reading the file
+            if (response.len < 0)
             {
                 try
                 {
-                    len = retryWithToken();
-                    log.warn("Unable to make request with handle, retyring with token.");
+                    close();
                 }
-                catch (HpccFileException e)
+                catch (IOException e)
                 {
-                    prefetchException = e;
-                    try
-                    {
-                        close();
-                    }
-                    catch(Exception ie){}
+                    prefetchException = new HpccFileException(e.getMessage());
+                }
+                return -1;
+            }
+
+            if (response.errorCode != RFCCodes.RFCStreamNoError)
+            {
+                prefetchException = new HpccFileException(response.errorMessage);
+                return -1;
+            }
+
+            //------------------------------------------------------------------------------
+            // Retry with the token if handle is invalid
+            //------------------------------------------------------------------------------
+
+            this.handle = response.handle;
+            if (this.handle <= 0 && !inTokenRetry)
+            {
+                inTokenRetry = true;
+
+                String retryTrans = this.makeTokenRequest();
+                int len = retryTrans.length();
+                try
+                {
+                    this.dos.writeInt(len);
+                    this.dos.write(retryTrans.getBytes(HPCCCharSet), 0, len);
+                    this.dos.flush();
+                }
+                catch (IOException e)
+                {
+                    prefetchException = new HpccFileException("Failed on remote read read retry", e);
                     return -1;
                 }
-
-                if (len == 0)
+            }
+            else if (this.handle == 0)
+            {
+                prefetchException = new HpccFileException("Read retry failed");
+                try
                 {
                     close();
-                    return -1;
                 }
-
-                if (len < 4)
-                {
-                    prefetchException = new HpccFileException("Early data termination, no handle");
-                    try
-                    {
-                        close();
-                    }
-                    catch(Exception e){}
-                    return -1;
-                }
-
-                this.handle = dis.readInt();
-                if (this.handle == 0)
-                {
-                    prefetchException = new HpccFileException("Read retry failed");
-                    try
-                    {
-                        close();
-                    }
-                    catch(Exception e){}
-                }
+                catch(Exception e){}
+                return -1;
             }
-        }
-        catch (IOException e)
-        {
-            prefetchException = new HpccFileException("Error during read block", e);
-            try
+            else
             {
-                close();
+                inTokenRetry = false;
             }
-            catch(Exception ie){}
         }
+        while(inTokenRetry);
 
         //------------------------------------------------------------------------------
         // Read / return the length of the record data in this request
@@ -926,7 +900,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     bytesToRead = MIN_SOCKET_READ_SIZE;
                 }
-                
+
                 // Limit bytes to read based on remaining data in request and buffer capacity
                 bytesToRead = Math.min(remainingBufferCapacity,
                               Math.min(bytesToRead,remainingDataInCurrentRequest));
@@ -984,7 +958,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 this.tokenBin = new byte[tokenLen];
             }
             dis.readFully(this.tokenBin,0,tokenLen);
-            
+
             this.streamPosOfFetchStart += totalDataInCurrentRequest;
             synchronized (streamPosOfFetches)
             {
@@ -1210,6 +1184,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch(Exception e){}
             }
+
+            this.sendCloseFileRequest();
 
             this.dos.close();
             if (this.dis != null)
@@ -1491,118 +1467,153 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return metrics;
     }
 
-    /**
-     * Open client socket to the primary and open the streams.
-     *
-     * @throws HpccFileException
-     *             the hpcc file exception
-     */
     private void makeActive() throws HpccFileException
     {
         this.active.set(false);
         this.handle = 0;
 
-        while (true)
+        try
         {
+            log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '"
+                    + getIP() + "'");
+
             try
             {
-                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '"
-                        + getIP() + "'");
+                if (getUseSSL())
+                {
+                    SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+                    sock = (SSLSocket) ssf.createSocket();
 
+                    // Optimize for bandwidth over latency and connection time.
+                    // We are opening up a long standing connection and potentially reading a significant amount of
+                    // data
+                    // So we don't care as much about individual packet latency or connection time overhead
+                    sock.setPerformancePreferences(0, 1, 2);
+                    sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
+
+                    log.debug("Attempting SSL handshake...");
+                    ((SSLSocket) sock).startHandshake();
+                    log.debug("SSL handshake successful...");
+                    log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
+                }
+                else
+                {
+                    SocketFactory sf = SocketFactory.getDefault();
+                    sock = sf.createSocket();
+
+                    // Optimize for bandwidth over latency and connection time.
+                    // We are opening up a long standing connection and potentially reading a significant amount of
+                    // data
+                    // So we don't care as much about individual packet latency or connection time overhead
+                    sock.setPerformancePreferences(0, 1, 2);
+                    sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
+                }
+                log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
+            }
+            catch (java.net.UnknownHostException e)
+            {
+                throw new HpccFileException("Bad file part addr " + this.getIP(), e);
+            }
+            catch (java.io.IOException e)
+            {
+                throw new HpccFileException(e);
+            }
+
+            try
+            {
+                this.dos = new java.io.DataOutputStream(sock.getOutputStream());
+                this.dis = new java.io.DataInputStream(sock.getInputStream());
+            }
+            catch (java.io.IOException e)
+            {
+                throw new HpccFileException("Failed to create streams", e);
+            }
+
+
+            //------------------------------------------------------------------------------
+            // Check protocol version
+            //------------------------------------------------------------------------------
+
+            try
+            {
+                String msg = makeGetVersionRequest();
+                int msgLen = msg.length();
+
+                this.dos.writeInt(msgLen);
+                this.dos.write(msg.getBytes(HPCCCharSet), 0, msgLen);
+                this.dos.flush();
+            }
+            catch (IOException e)
+            {
+                throw new HpccFileException("Failed on initial remote read trans", e);
+            }
+
+            RowServiceResponse response = readResponse();
+            if (response.len == 0)
+            {
+                useOldProtocol = true;
+            }
+            else
+            {
+                useOldProtocol = false;
+
+                byte[] versionBytes = new byte[response.len];
                 try
                 {
-                    if (getUseSSL())
-                    {
-                        SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
-                        sock = (SSLSocket) ssf.createSocket();
-
-                        // Optimize for bandwidth over latency and connection time.
-                        // We are opening up a long standing connection and potentially reading a significant amount of
-                        // data
-                        // So we don't care as much about individual packet latency or connection time overhead
-                        sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
-
-                        log.debug("Attempting SSL handshake...");
-                        ((SSLSocket) sock).startHandshake();
-                        log.debug("SSL handshake successful...");
-                        log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
-                    }
-                    else
-                    {
-                        SocketFactory sf = SocketFactory.getDefault();
-                        sock = sf.createSocket();
-
-                        // Optimize for bandwidth over latency and connection time.
-                        // We are opening up a long standing connection and potentially reading a significant amount of
-                        // data
-                        // So we don't care as much about individual packet latency or connection time overhead
-                        sock.setPerformancePreferences(0, 1, 2);
-                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
-                    }
-                    log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
-                }
-                catch (java.net.UnknownHostException e)
-                {
-                    throw new HpccFileException("Bad file part addr " + this.getIP(), e);
-                }
-                catch (java.io.IOException e)
-                {
-                    throw new HpccFileException(e);
-                }
-
-                try
-                {
-                    this.dos = new java.io.DataOutputStream(sock.getOutputStream());
-                    this.dis = new java.io.DataInputStream(sock.getInputStream());
-                }
-                catch (java.io.IOException e)
-                {
-                    throw new HpccFileException("Failed to create streams", e);
-                }
-
-                this.active.set(true);
-                try
-                {
-                    String readTrans = null;
-                    if (this.tokenBin == null)
-                    {
-                        this.tokenBin = new byte[0];
-                        readTrans = makeInitialRequest();
-                    }
-                    else
-                    {
-                        readTrans = makeTokenRequest();
-                    }
-
-                    int transLen = readTrans.length();
-                    this.dos.writeInt(transLen);
-                    this.dos.write(readTrans.getBytes(HPCCCharSet), 0, transLen);
-                    this.dos.flush();
+                    this.dis.readFully(versionBytes);
                 }
                 catch (IOException e)
                 {
-                    throw new HpccFileException("Failed on initial remote read read trans", e);
+                    throw new HpccFileException("Error while attempting to read version response.", e);
                 }
 
-                if (CompileTimeConstants.PROFILE_CODE)
-                {
-                    firstByteTimeNS = System.nanoTime();
-                }
-                return;
+                rowServiceVersion = new String(versionBytes, HPCCCharSet); 
             }
-            catch (Exception e)
+
+            //------------------------------------------------------------------------------
+            // Send initial read request
+            //------------------------------------------------------------------------------
+
+            try
             {
-                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP()
-                        + "'");
-                log.error(e.getMessage());
+                String readTrans = null;
+                if (this.tokenBin == null)
+                {
+                    this.tokenBin = new byte[0];
+                    readTrans = makeInitialRequest();
+                }
+                else
+                {
+                    readTrans = makeTokenRequest();
+                }
 
-                if (!setNextFilePartCopy())
-                    // This should be a multi exception
-                    throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e);
+                int transLen = readTrans.length();
+                this.dos.writeInt(transLen);
+                this.dos.write(readTrans.getBytes(HPCCCharSet), 0, transLen);
+                this.dos.flush();
             }
-        }
+            catch (IOException e)
+            {
+                throw new HpccFileException("Failed on initial remote read read trans", e);
+            }
 
+            if (CompileTimeConstants.PROFILE_CODE)
+            {
+                firstByteTimeNS = System.nanoTime();
+            }
+
+            this.active.set(true);
+        }
+        catch (Exception e)
+        {
+            log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP()
+                    + "'");
+            log.error(e.getMessage());
+
+            if (!setNextFilePartCopy())
+                // This should be a multi exception
+                throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e);
+        }
     }
 
     /* Notes on protocol:
@@ -1637,208 +1648,229 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     * "fileName" is only used for unsecured non signed connections (normally forbidden), and specifies the fully qualified path to a physical file.
     *
     */
-        /* Example JSON request:
-        *
-        * {
-        *  "format" : "binary",
-        *  "handle" : "1234",
-        *  "replyLimit" : "64",
-        *  "commCompression" : "LZ4",
-        *  "node" : {
-        *   "metaInfo" : "",
-        *   "filePart" : 2,
-        *   "filePartCopy" : 1,
-        *   "kind" : "diskread",
-        *   "fileName": "examplefilename",
-        *   "keyFilter" : "f1='1    '",
-        *   "chooseN" : 5,
-        *   "compressed" : "false"
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *   "output" : {
-        *    "f2" : "string",
-        *    "f1" : "real"
-        *   }
-        *  }
-        * }
-        * OR
-        * {
-        *  "format" : "binary",
-        *  "handle" : "1234",
-        *  "replyLimit" : "64",
-        *  "commCompression" : "LZ4",
-        *  "node" : {
-        *   "kind" : "diskread",
-        *   "fileName": "examplefilename",
-        *   "keyFilter" : "f1='1    '",
-        *   "chooseN" : 5,
-        *   "compressed" : "false"
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *   "output" : {
-        *    "f2" : "string",
-        *    "f1" : "real"
-        *   }
-        *  }
-        * }
-        * OR
-        * {
-        *  "format" : "xml",
-        *  "handle" : "1234",
-        *  "replyLimit" : "64",
-        *  "node" : {
-        *   "kind" : "diskread",
-        *   "fileName": "examplefilename",
-        *   "keyFilter" : "f1='1    '",
-        *   "chooseN" : 5,
-        *   "compressed" : "false"
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *   "output" : {
-        *    "f2" : "string",
-        *    "f1" : "real"
-        *   }
-        *  }
-        * }
-        * OR
-        * {
-        *  "format" : "xml",
-        *  "handle" : "1234",
-        *  "node" : {
-        *   "kind" : "indexread",
-        *   "fileName": "examplefilename",
-        *   "keyFilter" : "f1='1    '",
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *   "output" : {
-        *    "f2" : "string",
-        *    "f1" : "real"
-        *   }
-        *  }
-        * OR
-        * {
-        *  "format" : "xml",
-        *  "node" : {
-        *   "kind" : "xmlread",
-        *   "fileName": "examplefilename",
-        *   "keyFilter" : "f1='1    '",
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *   "output" : {
-        *    "f2" : "string",
-        *    "f1" : "real"
-        *   }
-        *   "ActivityOptions" : { // usually not required, options here may override file meta info.
-        *    "rowTag" : "/Dataset/OtherRow"
-        *   }
-        *  }
-        * OR
-        * {
-        *  "format" : "xml",
-        *  "node" : {
-        *   "kind" : "csvread",
-        *   "fileName": "examplefilename",
-        *   "keyFilter" : "f1='1    '",
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *   "output" : {
-        *    "f2" : "string",
-        *    "f1" : "real"
-        *   }
-        *   "ActivityOptions" : { // usually not required, options here may override file meta info.
-        *    "csvQuote" : "\"",
-        *    "csvSeparate" : ","
-        *    "csvTerminate" : "\\n,\\r\\n",
-        *   }
-        *  }
-        * OR
-        * {
-        *  "format" : "xml",
-        *  "node" : {
-        *   "action" : "count",            // if present performs count with/without filter and returns count
-        *   "fileName": "examplefilename", // can be either index or flat file
-        *   "keyFilter" : "f1='1    '",
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   },
-        *  }
-        * }
-        * OR
-        * {
-        *  "format" : "binary",
-        *  "handle" : "1234",
-        *  "replyLimit" : "64",
-        *  "commCompression" : "LZ4",
-        *  "node" : {
-        *   "kind" : "diskwrite",
-        *   "fileName": "examplefilename",
-        *   "compressed" : "false" (or "LZ4", "FLZ", "LZW")
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   }
-        *  }
-        * }
-        * OR
-        * {
-        *  "format" : "binary",
-        *  "handle" : "1234",
-        *  "replyLimit" : "64",
-        *  "node" : {
-        *   "kind" : "indexwrite",
-        *   "fileName": "examplefilename",
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   }
-        *  }
-        * }
-        *
-        * Fetch fpos stream example:
-        * {
-        *  "format" : "binary",
-        *  "replyLimit" : "64",
-        *  "fetch" : {
-        *   "fpos" : "30",
-        *   "fpos" : "90"
-        *  },
-        *  "node" : {
-        *   "kind" : "diskread",
-        *   "fileName": "examplefilename",
-        *   "input" : {
-        *    "f1" : "string5",
-        *    "f2" : "string5"
-        *   }
-        *  }
-        * }
-        * 
-        * fetch continuation:
-        * {
-        *  "format" : "binary",
-        *  "handle" : "1234",
-        *  "replyLimit" : "64",
-        *  "fetch" : {
-        *   "fpos" : "120",
-        *   "fpos" : "135",
-        *   "fpos" : "150"
-        *  }
-        * }
-        *
-        */
-    
+
+    /* Example JSON request:
+    *
+    * {
+    *  "format" : "binary",
+    *  "handle" : "1234",
+    *  "command": "newstream",
+    *  "replyLimit" : "64",
+    *  "commCompression" : "LZ4",
+    *  "node" : {
+    *   "metaInfo" : "",
+    *   "filePart" : 2,
+    *   "filePartCopy" : 1,
+    *   "kind" : "diskread",
+    *   "fileName": "examplefilename",
+    *   "keyFilter" : "f1='1    '",
+    *   "chooseN" : 5,
+    *   "compressed" : "false"
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *   "output" : {
+    *    "f2" : "string",
+    *    "f1" : "real"
+    *   }
+    *  }
+    * }
+    * OR
+    * {
+    *  "format" : "binary",
+    *  "handle" : "1234",
+    *  "command": "newstream",
+    *  "replyLimit" : "64",
+    *  "commCompression" : "LZ4",
+    *  "node" : {
+    *   "kind" : "diskread",
+    *   "fileName": "examplefilename",
+    *   "keyFilter" : "f1='1    '",
+    *   "chooseN" : 5,
+    *   "compressed" : "false"
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *   "output" : {
+    *    "f2" : "string",
+    *    "f1" : "real"
+    *   }
+    *  }
+    * }
+    * OR
+    * {
+    *  "format" : "xml",
+    *  "handle" : "1234",
+    *  "command": "newstream",
+    *  "replyLimit" : "64",
+    *  "node" : {
+    *   "kind" : "diskread",
+    *   "fileName": "examplefilename",
+    *   "keyFilter" : "f1='1    '",
+    *   "chooseN" : 5,
+    *   "compressed" : "false"
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *   "output" : {
+    *    "f2" : "string",
+    *    "f1" : "real"
+    *   }
+    *  }
+    * }
+    * OR
+    * {
+    *  "format" : "xml",
+    *  "handle" : "1234",
+    *  "command": "newstream",
+    *  "node" : {
+    *   "kind" : "indexread",
+    *   "fileName": "examplefilename",
+    *   "keyFilter" : "f1='1    '",
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *   "output" : {
+    *    "f2" : "string",
+    *    "f1" : "real"
+    *   }
+    *  }
+    * OR
+    * {
+    *  "format" : "xml",
+    *  "command": "newstream",
+    *  "node" : {
+    *   "kind" : "xmlread",
+    *   "fileName": "examplefilename",
+    *   "keyFilter" : "f1='1    '",
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *   "output" : {
+    *    "f2" : "string",
+    *    "f1" : "real"
+    *   }
+    *   "ActivityOptions" : { // usually not required, options here may override file meta info.
+    *    "rowTag" : "/Dataset/OtherRow"
+    *   }
+    *  }
+    * OR
+    * {
+    *  "format" : "xml",
+    *  "command": "newstream",
+    *  "node" : {
+    *   "kind" : "csvread",
+    *   "fileName": "examplefilename",
+    *   "keyFilter" : "f1='1    '",
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *   "output" : {
+    *    "f2" : "string",
+    *    "f1" : "real"
+    *   }
+    *   "ActivityOptions" : { // usually not required, options here may override file meta info.
+    *    "csvQuote" : "\"",
+    *    "csvSeparate" : ","
+    *    "csvTerminate" : "\\n,\\r\\n",
+    *   }
+    *  }
+    * OR
+    * {
+    *  "format" : "xml",
+    *  "command": "newstream",
+    *  "node" : {
+    *   "action" : "count",            // if present performs count with/without filter and returns count
+    *   "fileName": "examplefilename", // can be either index or flat file
+    *   "keyFilter" : "f1='1    '",
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   },
+    *  }
+    * }
+    * OR
+    * {
+    *  "format" : "binary",
+    *  "handle" : "1234",
+    *  "command": "newstream",
+    *  "replyLimit" : "64",
+    *  "commCompression" : "LZ4",
+    *  "node" : {
+    *   "kind" : "diskwrite",
+    *   "fileName": "examplefilename",
+    *   "compressed" : "false" (or "LZ4", "FLZ", "LZW")
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   }
+    *  }
+    * }
+    * OR
+    * {
+    *  "format" : "binary",
+    *  "handle" : "1234",
+    *  "command": "newstream",
+    *  "replyLimit" : "64",
+    *  "node" : {
+    *   "kind" : "indexwrite",
+    *   "fileName": "examplefilename",
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   }
+    *  }
+    * }
+    *
+    * Fetch fpos stream example:
+    * {
+    *  "format" : "binary",
+    *  "command": "newstream",
+    *  "replyLimit" : "64",
+    *  "fetch" : {
+    *   "fpos" : "30",
+    *   "fpos" : "90"
+    *  },
+    *  "node" : {
+    *   "kind" : "diskread",
+    *   "fileName": "examplefilename",
+    *   "input" : {
+    *    "f1" : "string5",
+    *    "f2" : "string5"
+    *   }
+    *  }
+    * }
+    *
+    * fetch continuation:
+    * {
+    *  "format" : "binary",
+    *  "handle" : "1234",
+    *  "command": "continue",
+    *  "replyLimit" : "64",
+    *  "fetch" : {
+    *   "fpos" : "120",
+    *   "fpos" : "135",
+    *   "fpos" : "150"
+    *  }
+    * }
+    *
+    * close an open file
+    * {
+    *  "format" : "binary",
+    *  "command": "close",
+    *  "handle" : "1234",
+    *  "close"  : "true"
+    * }
+    *
+    * {  "command": "version"   "handle": "-1"}
+    */
+
     private void makeFetchObject(StringBuilder sb)
     {
         if (inFetchingMode)
@@ -1860,17 +1892,24 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
     }
 
-    /**
-     * Creates a request string using the record definition, filename, and current state of the file transfer.
-     *
-     * @return JSON request string
-     */
+    private String makeGetVersionRequest()
+    {
+        final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", \"format\": \"binary\" }";
+        return versionMsg;
+    }
+
     private String makeInitialRequest()
     {
-        StringBuilder sb = new StringBuilder(2048);
+        StringBuilder sb = new StringBuilder(256);
+
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\", \n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
+
+        if (!useOldProtocol)
+        {
+            sb.append("\"command\" : \"newstream\", \n");
+        }
 
         if (inFetchingMode)
         {
@@ -1883,14 +1922,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return sb.toString();
     }
 
-    /**
-     * Make the node part of the JSON request string.
-     *
-     * @return Json
-     */
     private String makeNodeObject()
     {
-        StringBuilder sb = new StringBuilder(50 + jsonRecordDefinition.length() + projectedJsonRecordDefinition.length());
+        StringBuilder sb = new StringBuilder(256);
+
         sb.append(" \"node\" : {\n ");
 
         DataPartition.FileType fileType = this.dataPart.getFileType();
@@ -1931,18 +1966,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return sb.toString();
     }
 
-    /**
-     * Request using a handle to read the next block.
-     *
-     * @return the request as a JSON string
-     */
-
     private String makeHandleRequest()
     {
-        StringBuilder sb = new StringBuilder(100);
+        StringBuilder sb = new StringBuilder(256);
+
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("  \"handle\" : \"" + Integer.toString(this.handle) + "\",");
+
+        if (!useOldProtocol)
+        {
+            sb.append("\"command\" : \"continue\", \n");
+        }
 
         if (inFetchingMode)
         {
@@ -1954,18 +1989,19 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return sb.toString();
     }
 
-    /**
-     * Make token request.
-     *
-     * @return the string
-     */
     private String makeTokenRequest()
     {
-        StringBuilder sb = new StringBuilder(
-                130 + this.jsonRecordDefinition.length() + this.projectedJsonRecordDefinition.length() + (int) (this.tokenBin.length * 1.4));
+        StringBuilder sb = new StringBuilder(256);
+
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
+
+        if (!useOldProtocol)
+        {
+            sb.append("\"command\" : \"newstream\", \n");
+        }
+
         sb.append(makeNodeObject());
         sb.append(",\n");
         sb.append("  \"cursorBin\" : \""); // dafilesrv calls our "token" a cursor. Renamed on our side to reduce confusion
@@ -1974,49 +2010,91 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return sb.toString();
     }
 
-    /**
-     * Read the reply length and process failures if indicated.
-     *
-     * @return length of the reply less failure indicator
-     * @throws HpccFileException
-     *             the hpcc file exception
-     */
-    private int readReplyLen() throws HpccFileException
+    private String makeCloseHandleRequest()
     {
-        int len = 0;
-        boolean hi_flag = false; // is a response without this set always an error?
+        StringBuilder sb = new StringBuilder(256);
+
+        sb.append("{ \"format\" : \"binary\",\n");
+        sb.append("  \"handle\" : \"" + Integer.toString(this.handle) + "\",");
+        sb.append("  \"command\" : \"close\"");
+        sb.append("\n}");
+
+        return sb.toString();
+    }
+
+    private void sendCloseFileRequest() throws IOException
+    {
+        if (useOldProtocol)
+        {
+            return;
+        }
+
+        String closeFileRequest = makeCloseHandleRequest();
+        int jsonRequestLen = closeFileRequest.length();
+
         try
         {
-            len = dis.readInt();
-            if (len < 0)
+            this.dos.writeInt(jsonRequestLen + 4 + 1);
+            this.dos.write((int)RFCCodes.RFCStreamGeneral);
+            this.dos.writeInt(jsonRequestLen);
+            this.dos.write(closeFileRequest.getBytes(HPCCCharSet));
+            this.dos.flush();
+        }
+        catch (IOException e)
+        {
+            throw new IOException("Failed on close file with error: ", e);
+        }
+
+        try
+        {
+            RowServiceResponse response = readResponse();
+        }
+        catch (HpccFileException e)
+        {
+            throw new IOException("Failed to close file. Unable to read response with error: ", e);
+        }
+    }
+
+    private RowServiceResponse readResponse() throws HpccFileException
+    {
+        RowServiceResponse response = new RowServiceResponse();
+        try
+        {
+            response.len = dis.readInt();
+            if (response.len < 0)
             {
-                hi_flag = true;
-                len &= 0x7FFFFFFF;
+                response.len &= 0x7FFFFFFF;
             }
 
-            if (len == 0) return 0;
-
-            int status = dis.readInt();
-            len -= 4; // account for the status int 4-byte
-            if (status != RFCCodes.RFCStreamNoError)
+            if (response.len == 0)
             {
-                StringBuilder sb = new StringBuilder();
+                response.len = -1;
+                return response;
+            }
+
+            response.errorCode = dis.readInt();
+            response.len -= 4;
+
+            if (response.errorCode != RFCCodes.RFCStreamNoError)
+            {
+                StringBuilder sb = new StringBuilder(256);
+
                 sb.append("\nReceived ERROR from Thor node (");
                 sb.append(this.getIP());
                 sb.append("): Code: '");
-                sb.append(status);
+                sb.append(response.errorCode);
                 sb.append("'");
 
-                if (len > 0)
+                if (response.len > 0)
                 {
-                    byte[] message = new byte[len];
-                    dis.readFully(message, 0, len);
+                    byte[] message = new byte[response.len];
+                    dis.readFully(message, 0, response.len);
                     sb.append(" Message: '");
                     sb.append(new String(message));
                     sb.append("'");
                 }
 
-                switch (status)
+                switch (response.errorCode)
                 {
                     case RFCCodes.DAFSERR_cmdstream_invalidexpiry:
                         sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
@@ -2028,37 +2106,24 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                         break;
                 }
 
-                throw new HpccFileException(sb.toString());
+                response.len = -1;
+                response.errorMessage = sb.toString();
+                return response;
             }
-        }
-        catch (IOException e)
-        {
-            throw new HpccFileException("Error during read block", e);
-        }
-        return len;
-    }
 
-    /**
-     * Retry with the full access token and read the reply. Process failures as indicated.
-     *
-     * @return the length pf the reply less failure indication
-     * @throws HpccFileException
-     *             the hpcc file exception
-     */
-    private int retryWithToken() throws HpccFileException
-    {
-        String retryTrans = this.makeTokenRequest();
-        int len = retryTrans.length();
-        try
-        {
-            this.dos.writeInt(len);
-            this.dos.write(retryTrans.getBytes(HPCCCharSet), 0, len);
-            this.dos.flush();
+            if (response.len < 4)
+            {
+                throw new HpccFileException("Early data termination, no handle");
+            }
+
+            response.handle = dis.readInt();
+            response.len -= 4;
         }
         catch (IOException e)
         {
-            throw new HpccFileException("Failed on remote read read retry", e);
+            throw new HpccFileException("Error while attempting to read row service response: ", e);
         }
-        return readReplyLen();
+
+        return response;
     }
 }

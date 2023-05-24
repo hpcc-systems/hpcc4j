@@ -41,6 +41,7 @@ import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.commons.utils.Utils;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.platform.Version;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
@@ -62,6 +63,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};
     private static final int[]    expectedCounts = { 1250, 5600 };
+    private static final Version newProtocolVersion = new Version(8,12,10);
 
     @Test
     public void readBadlyDistributedFileTest() throws Exception
@@ -739,6 +741,50 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void stringEOSTests() throws Exception
+    {
+        FieldDef[] fieldDefs = new FieldDef[9];
+        fieldDefs[0] = new FieldDef("str1", FieldType.STRING, "UTF8", 4, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("str2", FieldType.STRING, "STRING", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[2] = new FieldDef("str3", FieldType.STRING, "UNICODE", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[3] = new FieldDef("str4", FieldType.VAR_STRING, "VAR_UNICODE", 4, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[4] = new FieldDef("str5", FieldType.VAR_STRING, "VAR_STRING", 4, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[5] = new FieldDef("str6", FieldType.STRING, "FIXED_SBC", 12, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+        fieldDefs[6] = new FieldDef("str7", FieldType.STRING, "FIXED_UNCIODE", 12, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[7] = new FieldDef("str8", FieldType.VAR_STRING, "FIXED_VAR_UNICODE", 12, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+        fieldDefs[8] = new FieldDef("str9", FieldType.VAR_STRING, "FIXED_VAR_STRING", 12, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+
+        String[] nonEmptyStrings = new String[9];
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                nonEmptyStrings[i] = " " + generateRandomString(8) + "\0 ";
+            }
+
+            HPCCRecord record = new HPCCRecord(nonEmptyStrings, recordDef);
+            records.add(record);
+        }
+
+        String datasetName = "test::string::eos";
+        writeFile(records, datasetName, recordDef, connTO);
+
+        HPCCFile file = new HPCCFile(datasetName, connString , hpccUser, hpccPass);
+        records = readFile(file, connTO, false, false);
+
+        assertEquals(records.size(), 1);
+
+        for (int i = 0; i < 9; i++)
+        {
+            String field = (String) records.get(0).getField(i);
+            assertEquals(field.trim(), nonEmptyStrings[i].trim());
+        }
+    }
+
+    @Test
     public void resumeFileReadTest() throws Exception
     {
         HPCCFile file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
@@ -861,6 +907,70 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void protocolVersionTest()
+    {
+        HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
+
+        HpccRemoteFileReader<HPCCRecord> fileReader = null;
+        try 
+        {
+            HPCCFile file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
+            DataPartition[] fileParts = file.getFileParts();
+            FieldDef originalRD = file.getRecordDefinition();
+
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+            fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[0], originalRD, recordBuilder);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Exception while setting up protocol test: " + e.getMessage());
+        }
+        
+        Version remoteVersion = dfuClient.getTargetHPCCBuildVersion();
+
+        if (remoteVersion.isEqualOrNewerThan(newProtocolVersion))
+        {
+            assertTrue("Expected rowservice with version: " + remoteVersion.toString() + " to be using new protocol.", fileReader.getInputStream().isUsingNewProtocol());
+        }
+        else
+        {
+            assertFalse("Expected rowservice with version: " + remoteVersion.toString() + " to be using old protocol.", fileReader.getInputStream().isUsingNewProtocol());
+        }
+    }
+
+    @Test
+    public void emptyCompressedFileTest()
+    {
+        HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
+        Version remoteVersion = dfuClient.getTargetHPCCBuildVersion();
+
+        FieldDef[] fieldDefs = new FieldDef[2];
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        if (remoteVersion.isEqualOrNewerThan(newProtocolVersion))
+        {
+            writeFile(records, "test::empty_file", recordDef, 12000, true);
+        }
+        else
+        {
+            try
+            {
+                writeFileAndReportAnyExceptions(records, "test::empty_file", recordDef, 12000, true);
+            }
+            catch (Exception e)
+            {
+                // We are expecting an exception
+                return;
+            }
+
+            Assert.fail("Expected an exception when the file was closed without having written any data with this version of the protocol.");
+        }
+    }
+
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
     {
         return readFile(file, connectTimeoutMillis, shouldForceTimeout, false, BinaryRecordReader.NO_STRING_PROCESSING);
@@ -949,90 +1059,104 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
     private void writeFile(List<HPCCRecord> records, String fileName, FieldDef recordDef, Integer connectTimeoutMs)
     {
+        writeFile(records, fileName, recordDef, connectTimeoutMs, false);
+    }
+
+    private void writeFile(List<HPCCRecord> records, String fileName, FieldDef recordDef, Integer connectTimeoutMs, boolean compressed)
+    {
         try
         {
-            //------------------------------------------------------------------------------
-            //  Request a temp file be created in HPCC to write to
-            //------------------------------------------------------------------------------
-
-            String eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDef);
-
-            HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
-
-            String clusterName = this.thorClusterFileGroup;
-            System.out.println("Create Start");
-            DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, connTO==null?300:connTO, false, DFUFileTypeWrapper.Flat, "");
-            System.out.println("Create Finished");
-
-            DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
-            DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts,
-                    new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()), dfuFileParts.length, createResult.getFileAccessInfoBlob());
-
-            //------------------------------------------------------------------------------
-            //  Write partitions to file parts
-            //------------------------------------------------------------------------------
-
-            int recordsPerPartition = records.size() / dfuFileParts.length;
-
-            // These should be distributed evenly but we won't do this for the test
-            int residualRecords = records.size() % dfuFileParts.length;
-
-            int currentRecord = 0;
-            long bytesWritten = 0;
-            for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
-            {
-                int numRecordsInPartition = recordsPerPartition;
-                if (partitionIndex == dfuFileParts.length - 1)
-                {
-                    numRecordsInPartition += residualRecords;
-                }
-
-                HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
-                HPCCRemoteFileWriter<HPCCRecord> fileWriter = null;
-                if (connectTimeoutMs != null)
-                {
-                    fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
-                            recordAccessor, CompressionAlgorithm.NONE,connectTimeoutMs);
-                    //wait a bit longer than the default timeout to ensure the override connect timeout
-                    //is being honoured
-                    if (connectTimeoutMs != null
-                            && connectTimeoutMs > RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1)
-                    {
-                        Thread.sleep(RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1);
-                    }
-                } else {
-                    fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
-                            recordAccessor, CompressionAlgorithm.NONE);
-                }
-                try
-                {
-                    for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
-                    {
-                        fileWriter.writeRecord(records.get(currentRecord));
-                    }
-                    fileWriter.close();
-                    bytesWritten += fileWriter.getBytesWritten();
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                    Assert.fail(e.getMessage());
-                }
-            }
-
-            //------------------------------------------------------------------------------
-            //  Publish and finalize the temp file
-            //------------------------------------------------------------------------------
-
-            System.out.println("Publish Start");
-            dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, currentRecord, bytesWritten, true);
-            System.out.println("Publish Finished");
+            writeFileAndReportAnyExceptions(records, fileName, recordDef, connectTimeoutMs, compressed);
         }
         catch (Exception e)
         {
             e.printStackTrace();
             Assert.fail("Failed to write file with error: " + e.getMessage());
         }
+    }
+
+    private void writeFileAndReportAnyExceptions(List<HPCCRecord> records, String fileName, FieldDef recordDef, Integer connectTimeoutMs, boolean compressed) throws Exception
+    {
+        //------------------------------------------------------------------------------
+        //  Request a temp file be created in HPCC to write to
+        //------------------------------------------------------------------------------
+
+        String eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDef);
+
+        HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
+
+        String clusterName = this.thorClusterFileGroup;
+        System.out.println("Create Start");
+
+        CompressionAlgorithm compressionAlgorithm = CompressionAlgorithm.NONE;
+        DFUCreateFileWrapper createResult = null;
+        if (compressed)
+        {
+            createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, connTO==null?300:connTO, true, DFUFileTypeWrapper.Flat, "");
+            compressionAlgorithm = CompressionAlgorithm.DEFAULT;
+        }
+        else
+        {
+            createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, connTO==null?300:connTO, false, DFUFileTypeWrapper.Flat, "");
+        }
+        System.out.println("Create Finished");
+
+        DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
+        DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts,
+                new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()), dfuFileParts.length, createResult.getFileAccessInfoBlob());
+
+        //------------------------------------------------------------------------------
+        //  Write partitions to file parts
+        //------------------------------------------------------------------------------
+
+        int recordsPerPartition = records.size() / dfuFileParts.length;
+
+        // These should be distributed evenly but we won't do this for the test
+        int residualRecords = records.size() % dfuFileParts.length;
+
+        int currentRecord = 0;
+        long bytesWritten = 0;
+        for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
+        {
+            int numRecordsInPartition = recordsPerPartition;
+            if (partitionIndex == dfuFileParts.length - 1)
+            {
+                numRecordsInPartition += residualRecords;
+            }
+
+            HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
+            HPCCRemoteFileWriter<HPCCRecord> fileWriter = null;
+            if (connectTimeoutMs != null)
+            {
+                fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
+                        recordAccessor, compressionAlgorithm,connectTimeoutMs);
+                //wait a bit longer than the default timeout to ensure the override connect timeout
+                //is being honoured
+                if (connectTimeoutMs != null
+                        && connectTimeoutMs > RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1)
+                {
+                    Thread.sleep(RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS+1);
+                }
+            } else {
+                fileWriter=new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef,
+                        recordAccessor, compressionAlgorithm);
+            }
+
+            for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
+            {
+                fileWriter.writeRecord(records.get(currentRecord));
+            }
+            fileWriter.close();
+            bytesWritten += fileWriter.getBytesWritten();
+        }
+
+        //------------------------------------------------------------------------------
+        //  Publish and finalize the temp file
+        //------------------------------------------------------------------------------
+
+        System.out.println("Publish Start");
+        dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, currentRecord, bytesWritten, true);
+        System.out.println("Publish Finished");
     }
 
     @Test
