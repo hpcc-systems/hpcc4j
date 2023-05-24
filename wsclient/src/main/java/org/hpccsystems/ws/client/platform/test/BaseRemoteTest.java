@@ -61,48 +61,6 @@ public abstract class BaseRemoteTest
     protected final static Integer connTO = System.getProperty("connecttimeoutmillis")==null?null:Integer.valueOf(System.getProperty("connecttimeoutmillis"));
     protected final static String sockTO = System.getProperty("sockettimeoutmillis");
 
-    /*
-      Code used to generate HPCC file
-      unique_keys :=  100000;  // Should be less than number of records
-      unique_values := 10212; // Should be less than number of records
-      dataset_name := '~benchmark::all_types::200KB';
-      totalrecs := 779449/500;
-
-      childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
-
-      rec := { INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
-               INTEGER2 int2, UNSIGNED2 uint2, REAL8 r8, REAL4 r4,
-               DECIMAL16_8 dec16, UDECIMAL16_8 udec16, QSTRING qStr,
-               STRING8 fixStr8, STRING str, VARSTRING varStr, VARSTRING varStr8,
-               UTF8 utfStr, UNICODE8 uni8, UNICODE uni, VARUNICODE varUni,
-               DATASET(childRec) childDataset,  SET OF INTEGER1 int1Set
-             };
-
-             ds := DATASET(totalrecs, transform(rec,
-                                  self.int8 := (INTEGER)(random() % unique_keys);
-                                  self.uint8 := (INTEGER)(random() % unique_values);
-                                  self.int4 := (INTEGER)(random() % unique_values);
-                                  self.uint4 := (INTEGER)(random() % unique_values);
-                                  self.int2 := (INTEGER)(random() % unique_values);
-                                  self.uint2 := (INTEGER)(random() % unique_values);
-                                  self.r8 := (REAL)(random() % unique_values);
-                                  self.r4 := (REAL)(random() % unique_values);
-                                  self.dec16 := (REAL)(random() % unique_values);
-                                  self.udec16 := (REAL)(random() % unique_values);
-                                  self.qStr := (STRING)(random() % unique_values);
-                                  self.fixStr8 := (STRING)(random() % unique_values);
-                                  self.str := (STRING)(random() % unique_values);
-                                  self.varStr := (STRING)(random() % unique_values);
-                                  self.varStr8 := (STRING)(random() % unique_values);
-                                  self.utfStr := (STRING)(random() % unique_values);
-                                  self.uni8 := (STRING)(random() % unique_values);
-                                  self.uni := (STRING)(random() % unique_values);
-                                  self.varUni := (STRING)(random() % unique_values);
-                                  self.childDataset := DATASET([{'field1',2,3},{'field1',2,3}],childRec);
-                                  self.int1Set := [1,2,3];
-                           ), DISTRIBUTED);
-              OUTPUT(ds,,dataset_name,overwrite);
-     */
     public static final String DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
 
     /*
@@ -178,10 +136,10 @@ public abstract class BaseRemoteTest
             }
             catch (MalformedURLException e)
             {
-                fail("Could not adquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
+                fail("Could not acquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
             }
 
-            Assert.assertNotNull("Could not adquire connection object", connection);
+            Assert.assertNotNull("Could not acquire connection object", connection);
             connection.setCredentials(hpccUser, hpccPass);
 
             if (connTO != null)
@@ -192,7 +150,7 @@ public abstract class BaseRemoteTest
 
             platform = Platform.get(connection);
 
-            Assert.assertNotNull("Could not adquire platform object", platform);
+            Assert.assertNotNull("Could not acquire platform object", platform);
         }
 
         try
@@ -232,15 +190,30 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
-            fail("Could not adquire wsclient object: " + e.getMessage() );
+            fail("Could not acquire wsclient object: " + e.getMessage() );
         }
 
-        Assert.assertNotNull("Could not adquire wsclient object", wsclient);
+        Assert.assertNotNull("Could not acquire wsclient object", wsclient);
+
+        // Run the generate-datasets.ecl script if present in the project resources
+        try
+        {
+            executeECLScript("generate-datasets.ecl");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Error executing test data generation scripts with error: " + e.getMessage());
+        }
     }
 
-    public String executeECLScript(String eclFile) throws Exception
+    public static String executeECLScript(String eclFile) throws Exception
     {
-        URL eclFileURL = getClass().getClassLoader().getResource(eclFile);
+        URL eclFileURL = BaseRemoteTest.class.getClassLoader().getResource(eclFile);
+        if (eclFileURL == null)
+        {
+            return null;
+        }
+
         Path eclFilePath = Paths.get(eclFileURL.toURI());
 
         byte[] eclData = Files.readAllBytes(eclFilePath);

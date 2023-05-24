@@ -1,7 +1,9 @@
 package org.hpccsystems.ws.client;
 
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 
 public class WsClientTest extends BaseRemoteTest
@@ -20,6 +22,8 @@ public class WsClientTest extends BaseRemoteTest
     @Test
     public void testAvailableClusterGroups()
     {
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsclient.isContainerized());
+
         try
         {
             String[] availableClusterGroups = wsclient.getAvailableClusterGroups();
@@ -58,6 +62,8 @@ public class WsClientTest extends BaseRemoteTest
     @Test
     public void testGetAvailableRoxieClusterNames()
     {
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsclient.isContainerized());
+
         try
         {
             String[] availableClusterGroups = wsclient.getAvailableClusterNames("roxie");
@@ -82,6 +88,8 @@ public class WsClientTest extends BaseRemoteTest
     @Test
     public void testGetAvailableThorClusterNames()
     {
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", wsclient.isContainerized());
+
         try
         {
             String[] availableClusterGroups = wsclient.getAvailableClusterNames("thor");

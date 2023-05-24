@@ -30,9 +30,12 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import static org.junit.Assume.assumeFalse;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSFileIOClientTest extends BaseRemoteTest
@@ -52,83 +55,87 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
-    public void copyFile() throws Exception 
+    public void copyFile() throws Exception
     {
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
+
         String lzfile=System.currentTimeMillis() + "_csvtest.csv";
         String hpccfilename="temp::" + lzfile;
         client.createHPCCFile(lzfile, targetLZ, true);
         byte[] data = "Product,SKU,Color\r\nBike,1234,Blue\r\nCar,2345,Red\r\n".getBytes();
         client.writeHPCCFileData(data, lzfile, targetLZ, true, 0, 20);
-        try 
+        try
         {
             ProgressResponseWrapper dfuspray=wsclient.getFileSprayClient().sprayVariable(
                     new DelimitedDataOptions(),
                     wsclient.getFileSprayClient().fetchLocalDropZones().get(0),
                     lzfile,"~" + hpccfilename,"",thorClusterFileGroup,true,
                     HPCCFileSprayClient.SprayVariableFormat.DFUff_csv,
-                    null, null, null, null, null, null, null); 
+                    null, null, null, null, null, null, null);
             Thread.sleep(1000);
             int wait=60;
-            if (dfuspray.getExceptions() != null 
+            if (dfuspray.getExceptions() != null
                     && dfuspray.getExceptions().getException() != null
-                    && dfuspray.getExceptions().getException().size()>0) 
+                    && dfuspray.getExceptions().getException().size()>0)
             {
                 fail(dfuspray.getExceptions().getException().get(0).getMessage());
             }
-            if (dfuspray.getSecsLeft()>0) 
+            if (dfuspray.getSecsLeft()>0)
             {
                 System.out.println("Still spraying, waiting 1 sec...");
-                for (int i=wait;i>0;i--) 
+                for (int i=wait;i>0;i--)
                 {
-                    if (dfuspray.getSecsLeft()==0) 
+                    if (dfuspray.getSecsLeft()==0)
                     {
                         i=0;
-                    } 
-                    else 
+                    }
+                    else
                     {
                         Thread.sleep(1000);
                     }
                 }
             }
-            
+
             System.out.println("Test file successfully sprayed to " + "~" + hpccfilename + ", attempting copy to " + hpccfilename + "_2");
             wsclient.getFileSprayClient().copyFile(hpccfilename,hpccfilename + "_2",true);
             Thread.sleep(1000);
             DFUInfoWrapper copiedContent=wsclient.getWsDFUClient().getFileInfo(hpccfilename + "_2", thorClusterFileGroup);
-            if (copiedContent ==null || copiedContent.getExceptions() != null) 
+            if (copiedContent ==null || copiedContent.getExceptions() != null)
             {
-                if (copiedContent != null ) 
+                if (copiedContent != null )
                 {
                     System.out.println(copiedContent.getExceptions().getMessage());
                 }
                 throw new Exception("File copy failed");
-            }            
-        } 
-        catch (Exception e) 
+            }
+        }
+        catch (Exception e)
         {
             System.out.println(e.getMessage());
             e.printStackTrace();
             fail("Could not copy file: " + e.getMessage());
-        } 
-        finally 
+        }
+        finally
         {
-            try 
+            try
             {
                 Set<String> fnames=new HashSet<String>();
                 fnames.add(hpccfilename);
                 fnames.add(hpccfilename + "_2");
                 wsclient.getWsDFUClient().deleteFiles(fnames, thorClusterFileGroup);
-            } 
-            catch (Exception e2) 
+            }
+            catch (Exception e2)
             {
                 System.out.println("Could not delete test file " + hpccfilename + " from " + thorClusterFileGroup + ":" + e2.getMessage());
             }
         }
     }
-    
+
     @Test
     public void AcreateHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
+
         System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true));
     }
@@ -144,6 +151,8 @@ public class WSFileIOClientTest extends BaseRemoteTest
     @Test
     public void CreadHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
+
         System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
         String response = client.readFileData(targetLZ, testfilename, data.length, 0);
