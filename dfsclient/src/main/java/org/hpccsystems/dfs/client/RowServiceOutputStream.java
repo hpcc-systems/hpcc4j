@@ -16,7 +16,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.io.OutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -38,6 +42,7 @@ public class RowServiceOutputStream extends OutputStream
     public static final int      DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
+    private String               rowServiceVersion             = "";
     private String               rowServiceIP                  = null;
     private int                  rowServicePort                = -1;
     private FieldDef             recordDef                     = null;
@@ -47,9 +52,21 @@ public class RowServiceOutputStream extends OutputStream
     private CompressionAlgorithm compressionAlgo               = CompressionAlgorithm.NONE;
 
     private Socket               socket                        = null;
+    private DataInputStream      dis                           = null;
+    private DataOutputStream     dos                           = null;
 
+    private boolean              useOldProtocol                = false;
+    private long                 bytesWritten                  = 0;
     private long                 handle                        = -1;
     private ByteBuffer           scratchBuffer                 = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
+
+    private static class RowServiceResponse
+    {
+        int len = 0;
+        int errorCode = 0;
+        int handle = -1;
+        String errorMessage = null;
+    }
 
     /**
      * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
@@ -174,6 +191,11 @@ public class RowServiceOutputStream extends OutputStream
                 this.socket.setPerformancePreferences(0, 1, 2);
                 this.socket.connect(new InetSocketAddress(rowServiceIP, rowServicePort), DEFAULT_CONNECT_TIMEOUT_MILIS);
             }
+
+
+            this.dos = new DataOutputStream(socket.getOutputStream());
+            this.dis = new DataInputStream(socket.getInputStream());
+
         }
         catch (Exception e)
         {
@@ -182,26 +204,75 @@ public class RowServiceOutputStream extends OutputStream
             throw new Exception(errorMessage);
         }
 
+        //------------------------------------------------------------------------------
+        // Check protocol version
+        //------------------------------------------------------------------------------
+
+        try
+        {
+            String msg = makeGetVersionRequest();
+            int msgLen = msg.length();
+
+            this.dos.writeInt(msgLen);
+            this.dos.write(msg.getBytes(StandardCharsets.ISO_8859_1), 0, msgLen);
+            this.dos.flush();
+        }
+        catch (IOException e)
+        {
+            throw new HpccFileException("Failed on initial remote read read trans", e);
+        }
+
+        RowServiceResponse response = readResponse();
+        if (response.len == 0)
+        {
+            useOldProtocol = true;
+        }
+        else
+        {
+            useOldProtocol = false;
+
+            byte[] versionBytes = new byte[response.len];
+            try
+            {
+                this.dis.readFully(versionBytes);
+            }
+            catch (IOException e)
+            {
+                throw new HpccFileException("Error while attempting to read version response.", e);
+            }
+
+            rowServiceVersion = new String(versionBytes, StandardCharsets.ISO_8859_1); 
+        }
+
         // Go ahead and make the initial write request. This won't write any data to file
         // but it will cause the file to be opened on the remote server and keeps our access
         // token from expiring before we can start writing
         makeInitialWriteRequest();
     }
 
-    /**
-     * Make initial write request.
-     *
-     * @throws Exception
-     *             the exception
-     */
+    private String makeGetVersionRequest()
+    {
+        final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", \"format\": \"binary\" }";
+        return versionMsg;
+    }
+
     private void makeInitialWriteRequest() throws Exception
     {
         String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.recordDef).toString();
 
-        String initialRequest = "\n{\n" + "    \"format\" : \"binary\",\n" + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
-                + "    \"node\" : {\n" + "        \"kind\" : \"diskwrite\",\n" + "        \"metaInfo\" : \"" + this.accessToken + "\",\n"
-                + "        \"fileName\" : \"" + this.filePath + "\",\n" + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
-                + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n" + "        \"input\" : " + jsonRecordDef + "\n" + "    }\n" + "}\n";
+        String initialRequest = "\n{\n"
+                + "    \"format\" : \"binary\",\n"
+                + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
+                + (useOldProtocol ? "" : "\"command\" : \"newstream\",\n")
+                + "    \"node\" : {\n"
+                + "        \"kind\" : \"diskwrite\",\n"
+                + "        \"metaInfo\" : \"" + this.accessToken + "\",\n"
+                + "        \"fileName\" : \"" + this.filePath + "\",\n"
+                + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
+                + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n"
+                + "        \"input\" : " + jsonRecordDef + "\n"
+                + "    }\n"
+                + "}\n";
 
         // Resize scratch buffer if necessary
         byte[] jsonRequestData = initialRequest.getBytes("ISO-8859-1");
@@ -222,79 +293,166 @@ public class RowServiceOutputStream extends OutputStream
         requestBuffer.reset();
         requestBuffer.putInt(packetLen);
 
-        this.socket.getOutputStream().write(requestBuffer.array(), 0, headerLen);
-        this.socket.getOutputStream().flush();
-        this.readResponse();
+        this.dos.write(requestBuffer.array(), 0, headerLen);
+        this.dos.flush();
+
+        RowServiceResponse response = this.readResponse();
+        this.handle = response.handle;
     }
 
-    /**
-     * Read response.
-     *
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     */
-    private void readResponse() throws IOException
+    private String makeCloseHandleRequest()
     {
-        this.scratchBuffer.clear();
-        this.socket.getInputStream().read(scratchBuffer.array(), 0, 4);
-        int len = scratchBuffer.getInt() & 0x7FFFFFFF;
+        StringBuilder sb = new StringBuilder(256);
+        sb.delete(0, sb.length());
 
-        // We should always have a status & handle returned by the row service
-        if (len < 8)
+        sb.append("{ \"format\" : \"binary\",\n");
+        sb.append("  \"handle\" : \"" + Long.toString(this.handle) + "\",");
+        sb.append("  \"command\" : \"close\"");
+        sb.append("\n}");
+
+        return sb.toString();
+    }
+
+    private void sendCloseFileRequest() throws IOException
+    {
+        if (useOldProtocol)
         {
-            throw new IOException("Received short or truncated response from row service. Aborting.");
+            return;
         }
 
-        this.socket.getInputStream().read(scratchBuffer.array(), 4, len);
+        String closeFileRequest = makeCloseHandleRequest();
+        int jsonRequestLen = closeFileRequest.length();
 
-        int status = this.scratchBuffer.getInt();
-        if (status != RFCCodes.RFCStreamNoError)
+        try
         {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Row service returned error code: '");
-            sb.append(status);
-            sb.append("'");
+            this.dos.writeInt(jsonRequestLen + 4 + 1);
+            this.dos.write((int)RFCCodes.RFCStreamGeneral);
+            this.dos.writeInt(jsonRequestLen);
+            this.dos.write(closeFileRequest.getBytes(StandardCharsets.ISO_8859_1));
+            this.dos.flush();
+        }
+        catch (IOException e)
+        {
+            throw new IOException("Failed on close file with error: ", e);
+        }
 
-            if (len - 4 > 0)
+        try
+        {
+            readResponse();
+        }
+        catch (HpccFileException e)
+        {
+            throw new IOException("Failed to close file. Unable to read response with error: ", e);
+        }
+    }
+
+    private RowServiceResponse readResponse() throws HpccFileException
+    {
+        RowServiceResponse response = new RowServiceResponse();
+        try
+        {
+            response.len = dis.readInt();
+            if (response.len < 0)
             {
-                final byte[] bytes = new byte[scratchBuffer.remaining()];
-                scratchBuffer.get(bytes);
-                sb.append(" Message: '");
-                sb.append(new String(bytes));
-                sb.append("'");
+                response.len &= 0x7FFFFFFF;
             }
-            sb.append(" - Aborting.");
 
-            throw new IOException(sb.toString());
+            if (response.len == 0)
+            {
+                response.len = -1;
+                return response;
+            }
+
+            response.errorCode = dis.readInt();
+            response.len -= 4;
+
+            if (response.errorCode != RFCCodes.RFCStreamNoError)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.delete(0, sb.length());
+
+                sb.append("\nReceived ERROR from Thor node (");
+                sb.append(this.rowServiceIP);
+                sb.append("): Code: '");
+                sb.append(response.errorCode);
+                sb.append("'");
+
+                if (response.len > 0)
+                {
+                    byte[] message = new byte[response.len];
+                    dis.readFully(message, 0, response.len);
+                    sb.append(" Message: '");
+                    sb.append(new String(message));
+                    sb.append("'");
+                }
+
+                switch (response.errorCode)
+                {
+                    case RFCCodes.DAFSERR_cmdstream_invalidexpiry:
+                        sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
+                        break;
+                    case RFCCodes.DAFSERR_cmdstream_authexpired:
+                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
+                        break;
+                    default:
+                        break;
+                }
+
+                response.len = -1;
+                response.errorMessage = sb.toString();
+                return response;
+            }
+
+            if (response.len < 4)
+            {
+                throw new HpccFileException("Early data termination, no handle");
+            }
+
+            response.handle = dis.readInt();
+            response.len -= 4;
+        }
+        catch (IOException e)
+        {
+            throw new HpccFileException("Error while attempting to read row service response: ", e);
         }
 
-        this.handle = this.scratchBuffer.getInt();
+        return response;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.OutputStream#close()
      */
     public void close() throws IOException
     {
         this.flush();
+
+        if (!useOldProtocol)
+        {
+            this.sendCloseFileRequest();
+        }
+        else if (bytesWritten == 0 && compressionAlgo != CompressionAlgorithm.NONE)
+        {
+            throw new IOException("Fatal error while closing file. Writing compressed files with 0 length is not supported with the remote HPCC cluster.");
+        }
+
         this.socket.close();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.OutputStream#flush()
      */
     public void flush() throws IOException
     {
-        this.socket.getOutputStream().flush();
+        this.dos.flush();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.OutputStream#write(byte[])
      */
     public void write(byte[] b) throws IOException
@@ -304,12 +462,13 @@ public class RowServiceOutputStream extends OutputStream
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.OutputStream#write(byte[], int, int)
      */
     public void write(byte[] b, int off, int len) throws IOException
     {
-        String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\" }";
+        String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\""
+                       + (useOldProtocol ? "" : ", \"command\" : \"continue\"") + " }";
         byte[] jsonRequestData = request.getBytes("ISO-8859-1");
 
         this.scratchBuffer.clear();
@@ -328,15 +487,26 @@ public class RowServiceOutputStream extends OutputStream
         this.scratchBuffer.reset();
         this.scratchBuffer.putInt(packetLen);
 
-        this.socket.getOutputStream().write(this.scratchBuffer.array(), 0, headerLen);
-        this.socket.getOutputStream().write(b, off, len);
-        this.socket.getOutputStream().flush();
-        this.readResponse();
+        this.dos.write(this.scratchBuffer.array(), 0, headerLen);
+        this.dos.write(b, off, len);
+        this.dos.flush();
+
+        bytesWritten += len;
+
+        try
+        {
+            RowServiceResponse response = readResponse();
+            this.handle = response.handle;
+        }
+        catch (HpccFileException e)
+        {
+            throw new IOException("Failed during write operation. Unable to read response with error: ", e);
+        }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.io.OutputStream#write(int)
      */
     public void write(int b) throws IOException
