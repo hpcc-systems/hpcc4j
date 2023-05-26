@@ -41,6 +41,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetAliases_type0Wrapper
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetQueries_type0Wrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySignatureWrapper;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -51,12 +52,30 @@ public class WSSQLClientTest extends BaseRemoteTest
     private final static HPCCWsSQLClient client;
     private final static String testwuid = System.getProperty("targetwuid");
     private final static String wssqlport = System.getProperty("wssqlport", "8510");
+    private final static String wsSqlConnStr = System.getProperty("wssqlconn", "");
 
     private static String validClusterName = null;
 
     static
     {
-        Connection wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
+        Connection wssqlconn = null;
+        if (wsSqlConnStr.isEmpty())
+        {
+            wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
+        }
+        else
+        {
+            try
+            {
+                wssqlconn = new Connection(wsSqlConnStr);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Invalid WsSQL connection string: " + wsSqlConnStr + " defaulting to eclwatch host.");
+                wssqlconn = new Connection(connection.getProtocol(), connection.getHost(), wssqlport);
+            }
+        }
+
         Assert.assertNotNull(wssqlconn);
         wssqlconn.setCredentials(connection.getUserName(), connection.getPassword());
 

@@ -306,10 +306,9 @@ public class HPCCWsClient extends DataSingleton
     /**
      * Queries ECLWatch for containerized flag.
      *
-     * @throws Exception a {@link java.lang.Exception} object.
      * @return a boolean.
      */
-    public boolean isContainerized() throws Exception
+    public boolean isContainerized()
     {
         HPCCWsSMCClient wsSMCClient = getWsSMCClient();
 

@@ -52,6 +52,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.Before;
 import org.junit.runners.MethodSorters;
 import org.junit.experimental.categories.Category;
 
@@ -64,6 +65,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};
     private static final int[]    expectedCounts = { 1250, 5600 };
     private static final Version newProtocolVersion = new Version(8,12,10);
+
 
     @Test
     public void readBadlyDistributedFileTest() throws Exception
@@ -1163,7 +1165,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void readIndexTest() throws Exception
     {
         String indexName = "test::index::child_dataset::key";
-        executeECLScript("generate-nested-index.ecl");
 
         HPCCFile file = new HPCCFile(indexName, connString, hpccUser, hpccPass);
 

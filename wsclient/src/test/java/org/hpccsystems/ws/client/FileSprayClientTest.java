@@ -197,6 +197,18 @@ public class FileSprayClientTest extends BaseRemoteTest
     @Test
     public void testSprayCSV() //invalid if testUploadFile unsuccessful
     {
+        boolean isContainerized = false;
+        try
+        {
+            isContainerized = filesprayclient.isTargetHPCCContainerized();
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Unable to determine if HPCC environment is containerized: " + e.getMessage());
+        }
+
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", isContainerized);
+
         try
         {
             if (foundLocalDZ == null)
@@ -258,6 +270,18 @@ public class FileSprayClientTest extends BaseRemoteTest
     @Test
     public void testDespray()
     {
+        boolean isContainerized = false;
+        try
+        {
+            isContainerized = filesprayclient.isTargetHPCCContainerized();
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Unable to determine if HPCC environment is containerized: " + e.getMessage());
+        }
+
+        Assume.assumeFalse("Test not valid on containerized HPCC environment", isContainerized);
+
         testSprayCSV();
 
         assumeNotNull(sprayedFile);
