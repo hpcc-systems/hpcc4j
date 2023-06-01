@@ -23,8 +23,15 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
@@ -48,12 +55,61 @@ public class WSWorkunitsTest extends BaseRemoteTest
     private static String  testunknownwuid = System.getProperty("unknownwuid");
     //archived workunit
     private static String  testarchivedwuid = System.getProperty("archivedwuid");
+    final static int  testThreadCount = Integer.parseInt(System.getProperty("testthreadcount", "10"));
 
     @BeforeClass
     public static void setup() throws Exception
     {
         client = wsclient.getWsWorkunitsClient();
         Assert.assertNotNull(client);
+    }
+
+    static public void executeMultiThreadedTask(Callable<String> callableTask, int threadCount) throws InterruptedException
+    {
+        List<Callable<String>> callableTasks = new ArrayList<>();
+        for (int threadIndex=0; threadIndex<=threadCount; threadIndex++)
+        {
+            callableTasks.add(callableTask);
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        List<Future<String>> futures = executor.invokeAll(callableTasks);
+
+        for (int threadIndex=0; threadIndex<=threadCount; threadIndex++)
+        {
+            try
+            {
+                assertTrue(futures.get(threadIndex).get().isEmpty());
+            }
+            catch (InterruptedException | ExecutionException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testMultipleWsWUInits() throws InterruptedException
+    {
+        Callable<String> callableTask = () ->
+        {
+            HPCCWsWorkUnitsClient wswu = new HPCCWsWorkUnitsClient(wsclient.connection);
+            return wswu.getInitError();
+        };
+
+        executeMultiThreadedTask(callableTask, testThreadCount);
+    }
+
+    @Test
+    public void testSharedWsWUgets() throws InterruptedException
+    {
+        Callable<String> callableTask = () -> {
+            HPCCWsWorkUnitsClient wswu = wsclient.getWsWorkunitsClient();
+            return wswu.getInitError();
+        };
+
+        executeMultiThreadedTask(callableTask, testThreadCount);
     }
 
     @Test
