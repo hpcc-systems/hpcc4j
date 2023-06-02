@@ -17,12 +17,19 @@
 
 package org.hpccsystems.ws.client.platform.test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
@@ -60,6 +67,8 @@ public abstract class BaseRemoteTest
     protected final static String hpccPass = System.getProperty("hpccpass", "");
     protected final static Integer connTO = System.getProperty("connecttimeoutmillis")==null?null:Integer.valueOf(System.getProperty("connecttimeoutmillis"));
     protected final static String sockTO = System.getProperty("sockettimeoutmillis");
+
+    protected final static int  testThreadCount = Integer.parseInt(System.getProperty("testthreadcount", "10"));
 
     /*
       Code used to generate HPCC file
@@ -253,5 +262,32 @@ public abstract class BaseRemoteTest
 
         HPCCWsWorkUnitsClient client = wsclient.getWsWorkunitsClient();
         return client.createAndRunWUFromECLAndGetResults(wu);
+    }
+
+    static public void executeMultiThreadedTask(Callable<String> callableTask, int threadCount) throws InterruptedException
+    {
+        List<Callable<String>> callableTasks = new ArrayList<>();
+        for (int threadIndex=0; threadIndex<=threadCount; threadIndex++)
+        {
+            callableTasks.add(callableTask);
+        }
+
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        List<Future<String>> futures = executor.invokeAll(callableTasks);
+
+        for (int threadIndex=0; threadIndex<=threadCount; threadIndex++)
+        {
+            try
+            {
+                assertTrue(futures.get(threadIndex).get().isEmpty());
+            }
+            catch (InterruptedException | ExecutionException e)
+            {
+                System.out.println("Multithreaded task test failed! Thread index: '" + threadIndex +"'");
+                if (!e.getLocalizedMessage().isEmpty())
+                    System.out.println("\n\t" + e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }
