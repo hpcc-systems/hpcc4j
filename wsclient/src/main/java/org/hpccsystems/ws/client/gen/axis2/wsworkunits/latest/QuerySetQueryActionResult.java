@@ -48,6 +48,39 @@ public class QuerySetQueryActionResult implements org.apache.axis2.databinding.A
     this.localQueryId = param;
   }
 
+  /** field for WUID */
+  protected java.lang.String localWUID;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localWUIDTracker = false;
+
+  public boolean isWUIDSpecified() {
+    return localWUIDTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getWUID() {
+    return localWUID;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param WUID
+   */
+  public void setWUID(java.lang.String param) {
+    localWUIDTracker = param != null;
+
+    this.localWUID = param;
+  }
+
   /** field for Suspended */
   protected boolean localSuspended;
 
@@ -250,6 +283,22 @@ public class QuerySetQueryActionResult implements org.apache.axis2.databinding.A
       } else {
 
         xmlWriter.writeCharacters(localQueryId);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localWUIDTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "WUID", xmlWriter);
+
+      if (localWUID == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("WUID cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localWUID);
       }
 
       xmlWriter.writeEndElement();
@@ -572,6 +621,25 @@ public class QuerySetQueryActionResult implements org.apache.axis2.databinding.A
               java.lang.String content = reader.getElementText();
 
               object.setQueryId(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUID")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "WUID" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setWUID(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

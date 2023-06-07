@@ -115,7 +115,7 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for Properties */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 localProperties;
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2 localProperties;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -130,9 +130,9 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 getProperties() {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2 getProperties() {
     return localProperties;
   }
 
@@ -142,7 +142,7 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
    * @param param Properties
    */
   public void setProperties(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2 param) {
     localPropertiesTracker = param != null;
 
     this.localProperties = param;
@@ -179,6 +179,39 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
     localNotesTracker = param != null;
 
     this.localNotes = param;
+  }
+
+  /** field for SinkActivity */
+  protected java.lang.String localSinkActivity;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localSinkActivityTracker = false;
+
+  public boolean isSinkActivitySpecified() {
+    return localSinkActivityTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getSinkActivity() {
+    return localSinkActivity;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param SinkActivity
+   */
+  public void setSinkActivity(java.lang.String param) {
+    localSinkActivityTracker = param != null;
+
+    this.localSinkActivity = param;
   }
 
   /**
@@ -294,6 +327,22 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
       }
       localNotes.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Notes"), xmlWriter);
+    }
+    if (localSinkActivityTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "SinkActivity", xmlWriter);
+
+      if (localSinkActivity == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("SinkActivity cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localSinkActivity);
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -600,7 +649,7 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
                     .equals(reader.getName())) {
 
               object.setProperties(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3.Factory
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2.Factory
                       .parse(reader));
 
               reader.next();
@@ -613,6 +662,25 @@ public class WUResponseScope implements org.apache.axis2.databinding.ADBBean {
               object.setNotes(
                   org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Notes_type0.Factory.parse(
                       reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "SinkActivity")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "SinkActivity" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setSinkActivity(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

@@ -15,70 +15,69 @@ public class Dependencies_type0 implements org.apache.axis2.databinding.ADBBean 
   Namespace Prefix = ns1
   */
 
-  /** field for ECLAttribute This was an Array! */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[]
-      localECLAttribute;
+  /** field for Dependency This was an Array! */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[]
+      localDependency;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localECLAttributeTracker = false;
+  protected boolean localDependencyTracker = false;
 
-  public boolean isECLAttributeSpecified() {
-    return localECLAttributeTracker;
+  public boolean isDependencySpecified() {
+    return localDependencyTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[]
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[]
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[] getECLAttribute() {
-    return localECLAttribute;
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] getDependency() {
+    return localDependency;
   }
 
-  /** validate the array for ECLAttribute */
-  protected void validateECLAttribute(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[] param) {}
+  /** validate the array for Dependency */
+  protected void validateDependency(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] param) {}
 
   /**
    * Auto generated setter method
    *
-   * @param param ECLAttribute
+   * @param param Dependency
    */
-  public void setECLAttribute(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[] param) {
+  public void setDependency(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] param) {
 
-    validateECLAttribute(param);
+    validateDependency(param);
 
-    localECLAttributeTracker = param != null;
+    localDependencyTracker = param != null;
 
-    this.localECLAttribute = param;
+    this.localDependency = param;
   }
 
   /**
    * Auto generated add method for the array for convenience
    *
-   * @param param org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute
+   * @param param org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope
    */
-  public void addECLAttribute(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute param) {
-    if (localECLAttribute == null) {
-      localECLAttribute =
-          new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[] {};
+  public void addDependency(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope param) {
+    if (localDependency == null) {
+      localDependency =
+          new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] {};
     }
 
     // update the setting tracker
-    localECLAttributeTracker = true;
+    localDependencyTracker = true;
 
-    java.util.List list =
-        org.apache.axis2.databinding.utils.ConverterUtil.toList(localECLAttribute);
+    java.util.List list = org.apache.axis2.databinding.utils.ConverterUtil.toList(localDependency);
     list.add(param);
-    this.localECLAttribute =
-        (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[])
+    this.localDependency =
+        (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[])
             list.toArray(
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope
                     [list.size()]);
   }
 
@@ -134,12 +133,12 @@ public class Dependencies_type0 implements org.apache.axis2.databinding.ADBBean 
             xmlWriter);
       }
     }
-    if (localECLAttributeTracker) {
-      if (localECLAttribute != null) {
-        for (int i = 0; i < localECLAttribute.length; i++) {
-          if (localECLAttribute[i] != null) {
-            localECLAttribute[i].serialize(
-                new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ECLAttribute"),
+    if (localDependencyTracker) {
+      if (localDependency != null) {
+        for (int i = 0; i < localDependency.length; i++) {
+          if (localDependency[i] != null) {
+            localDependency[i].serialize(
+                new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Dependency"),
                 xmlWriter);
           } else {
 
@@ -149,7 +148,7 @@ public class Dependencies_type0 implements org.apache.axis2.databinding.ADBBean 
         }
       } else {
 
-        throw new org.apache.axis2.databinding.ADBException("ECLAttribute cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("Dependency cannot be null!!");
       }
     }
     xmlWriter.writeEndElement();
@@ -397,13 +396,13 @@ public class Dependencies_type0 implements org.apache.axis2.databinding.ADBBean 
         while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
         if (reader.isStartElement()
-            && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ECLAttribute")
+            && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Dependency")
                 .equals(reader.getName())) {
 
           // Process the array and step past its final element's end.
 
           list1.add(
-              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute.Factory.parse(
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope.Factory.parse(
                   reader));
 
           // loop until we find a start element that is not part of this array
@@ -419,10 +418,10 @@ public class Dependencies_type0 implements org.apache.axis2.databinding.ADBBean 
               // two continuous end elements means we are exiting the xml structure
               loopDone1 = true;
             } else {
-              if (new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ECLAttribute")
+              if (new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Dependency")
                   .equals(reader.getName())) {
                 list1.add(
-                    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute.Factory
+                    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope.Factory
                         .parse(reader));
 
               } else {
@@ -432,10 +431,10 @@ public class Dependencies_type0 implements org.apache.axis2.databinding.ADBBean 
           }
           // call the converter utility  to convert and set the array
 
-          object.setECLAttribute(
-              (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[])
+          object.setDependency(
+              (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[])
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute.class,
+                      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope.class,
                       list1));
 
         } // End of if for expected property start element

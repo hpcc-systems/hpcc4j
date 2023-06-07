@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,19 +18,17 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: WUDetailsMetaResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class WUDetailsMetaResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
-    protected Properties_type2Wrapper local_properties;
+    protected Properties_type3Wrapper local_properties;
     protected ScopeTypes_type2Wrapper local_scopeTypes;
     protected Measures_type0Wrapper local_measures;
-    protected Activities_type0Wrapper local_activities;
+    protected Activities_type1Wrapper local_activities;
 
     public WUDetailsMetaResponseWrapper() {}
 
@@ -40,7 +36,7 @@ public class WUDetailsMetaResponseWrapper
     {
         copy( wudetailsmetaresponse );
     }
-    public WUDetailsMetaResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Properties_type2Wrapper _properties, ScopeTypes_type2Wrapper _scopeTypes, Measures_type0Wrapper _measures, Activities_type0Wrapper _activities )
+    public WUDetailsMetaResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, Properties_type3Wrapper _properties, ScopeTypes_type2Wrapper _scopeTypes, Measures_type0Wrapper _measures, Activities_type1Wrapper _activities )
     {
         this.local_exceptions = _exceptions;
         this.local_properties = _properties;
@@ -58,13 +54,13 @@ public class WUDetailsMetaResponseWrapper
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         if (raw.getProperties() != null)
-            this.local_properties = new Properties_type2Wrapper( raw.getProperties());
+            this.local_properties = new Properties_type3Wrapper( raw.getProperties());
         if (raw.getScopeTypes() != null)
             this.local_scopeTypes = new ScopeTypes_type2Wrapper( raw.getScopeTypes());
         if (raw.getMeasures() != null)
             this.local_measures = new Measures_type0Wrapper( raw.getMeasures());
         if (raw.getActivities() != null)
-            this.local_activities = new Activities_type0Wrapper( raw.getActivities());
+            this.local_activities = new Activities_type1Wrapper( raw.getActivities());
 
     }
 
@@ -98,11 +94,11 @@ public class WUDetailsMetaResponseWrapper
     {
         return this.local_exceptions;
     }
-    public void setProperties( Properties_type2Wrapper _properties )
+    public void setProperties( Properties_type3Wrapper _properties )
     {
         this.local_properties = _properties;
     }
-    public Properties_type2Wrapper getProperties( )
+    public Properties_type3Wrapper getProperties( )
     {
         return this.local_properties;
     }
@@ -122,11 +118,11 @@ public class WUDetailsMetaResponseWrapper
     {
         return this.local_measures;
     }
-    public void setActivities( Activities_type0Wrapper _activities )
+    public void setActivities( Activities_type1Wrapper _activities )
     {
         this.local_activities = _activities;
     }
-    public Activities_type0Wrapper getActivities( )
+    public Activities_type1Wrapper getActivities( )
     {
         return this.local_activities;
     }

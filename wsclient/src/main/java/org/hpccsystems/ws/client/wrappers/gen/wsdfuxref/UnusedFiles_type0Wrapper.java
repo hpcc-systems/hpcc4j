@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -22,11 +20,9 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: UnusedFiles_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.UnusedFiles_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * Service version: 1.02
  */
 public class UnusedFiles_type0Wrapper
 {

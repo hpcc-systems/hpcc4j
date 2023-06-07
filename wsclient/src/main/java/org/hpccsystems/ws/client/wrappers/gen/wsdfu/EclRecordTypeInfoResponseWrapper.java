@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -21,11 +19,9 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: EclRecordTypeInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EclRecordTypeInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * Service version: 1.64
  */
 public class EclRecordTypeInfoResponseWrapper
 {

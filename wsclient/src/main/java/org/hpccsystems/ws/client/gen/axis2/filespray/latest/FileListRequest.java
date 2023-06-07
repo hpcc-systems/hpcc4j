@@ -13,6 +13,39 @@ public class FileListRequest implements org.apache.axis2.databinding.ADBBean {
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "FileListRequest", "ns1");
 
+  /** field for DropZoneName */
+  protected java.lang.String localDropZoneName;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDropZoneNameTracker = false;
+
+  public boolean isDropZoneNameSpecified() {
+    return localDropZoneNameTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getDropZoneName() {
+    return localDropZoneName;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param DropZoneName
+   */
+  public void setDropZoneName(java.lang.String param) {
+    localDropZoneNameTracker = param != null;
+
+    this.localDropZoneName = param;
+  }
+
   /** field for Netaddr */
   protected java.lang.String localNetaddr;
 
@@ -230,6 +263,22 @@ public class FileListRequest implements org.apache.axis2.databinding.ADBBean {
             "FileListRequest",
             xmlWriter);
       }
+    }
+    if (localDropZoneNameTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "DropZoneName", xmlWriter);
+
+      if (localDropZoneName == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("DropZoneName cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localDropZoneName);
+      }
+
+      xmlWriter.writeEndElement();
     }
     if (localNetaddrTracker) {
       namespace = "urn:hpccsystems:ws:filespray";
@@ -554,6 +603,25 @@ public class FileListRequest implements org.apache.axis2.databinding.ADBBean {
           if (reader.isStartElement()) {
 
             if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "DropZoneName")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DropZoneName" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDropZoneName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
                 && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Netaddr")
                     .equals(reader.getName())) {
 

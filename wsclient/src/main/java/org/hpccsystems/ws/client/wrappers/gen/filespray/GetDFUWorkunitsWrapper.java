@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: GetDFUWorkunitsWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * Service version: 1.23
  */
 public class GetDFUWorkunitsWrapper
 {
@@ -42,6 +38,9 @@ public class GetDFUWorkunitsWrapper
     protected long local_cacheHint;
     protected String local_parentWuid;
     protected String local_publisherWuid;
+    protected boolean local_includeProgressMessages;
+    protected boolean local_includeTimings;
+    protected boolean local_includeTransferRate;
 
     public GetDFUWorkunitsWrapper() {}
 
@@ -49,7 +48,7 @@ public class GetDFUWorkunitsWrapper
     {
         copy( getdfuworkunits );
     }
-    public GetDFUWorkunitsWrapper( String _wuid, String _owner, String _cluster, String _stateReq, String _type, String _jobname, long _pageSize, int _currentPage, long _pageStartFrom, String _sortby, boolean _descending, long _cacheHint, String _parentWuid, String _publisherWuid )
+    public GetDFUWorkunitsWrapper( String _wuid, String _owner, String _cluster, String _stateReq, String _type, String _jobname, long _pageSize, int _currentPage, long _pageStartFrom, String _sortby, boolean _descending, long _cacheHint, String _parentWuid, String _publisherWuid, boolean _includeProgressMessages, boolean _includeTimings, boolean _includeTransferRate )
     {
         this.local_wuid = _wuid;
         this.local_owner = _owner;
@@ -65,6 +64,9 @@ public class GetDFUWorkunitsWrapper
         this.local_cacheHint = _cacheHint;
         this.local_parentWuid = _parentWuid;
         this.local_publisherWuid = _publisherWuid;
+        this.local_includeProgressMessages = _includeProgressMessages;
+        this.local_includeTimings = _includeTimings;
+        this.local_includeTransferRate = _includeTransferRate;
 
     }
 
@@ -87,13 +89,16 @@ public class GetDFUWorkunitsWrapper
         this.local_cacheHint = raw.getCacheHint();
         this.local_parentWuid = raw.getParentWuid();
         this.local_publisherWuid = raw.getPublisherWuid();
+        this.local_includeProgressMessages = raw.getIncludeProgressMessages();
+        this.local_includeTimings = raw.getIncludeTimings();
+        this.local_includeTransferRate = raw.getIncludeTransferRate();
 
     }
 
     @Override
     public String toString()
     {
-        return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "type = " + local_type + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + ", " + "parentWuid = " + local_parentWuid + ", " + "publisherWuid = " + local_publisherWuid + "]";
+        return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "type = " + local_type + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + ", " + "parentWuid = " + local_parentWuid + ", " + "publisherWuid = " + local_publisherWuid + ", " + "includeProgressMessages = " + local_includeProgressMessages + ", " + "includeTimings = " + local_includeTimings + ", " + "includeTransferRate = " + local_includeTransferRate + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits getRaw()
     {
@@ -112,6 +117,9 @@ public class GetDFUWorkunitsWrapper
         raw.setCacheHint( local_cacheHint);
         raw.setParentWuid( local_parentWuid);
         raw.setPublisherWuid( local_publisherWuid);
+        raw.setIncludeProgressMessages( local_includeProgressMessages);
+        raw.setIncludeTimings( local_includeTimings);
+        raw.setIncludeTransferRate( local_includeTransferRate);
         return raw;
     }
 
@@ -227,5 +235,29 @@ public class GetDFUWorkunitsWrapper
     public String getPublisherWuid( )
     {
         return this.local_publisherWuid;
+    }
+    public void setIncludeProgressMessages( boolean _includeProgressMessages )
+    {
+        this.local_includeProgressMessages = _includeProgressMessages;
+    }
+    public boolean getIncludeProgressMessages( )
+    {
+        return this.local_includeProgressMessages;
+    }
+    public void setIncludeTimings( boolean _includeTimings )
+    {
+        this.local_includeTimings = _includeTimings;
+    }
+    public boolean getIncludeTimings( )
+    {
+        return this.local_includeTimings;
+    }
+    public void setIncludeTransferRate( boolean _includeTransferRate )
+    {
+        this.local_includeTransferRate = _includeTransferRate;
+    }
+    public boolean getIncludeTransferRate( )
+    {
+        return this.local_includeTransferRate;
     }
 }

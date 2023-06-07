@@ -17,29 +17,16 @@ public class ExtensionMapper {
       throws java.lang.Exception {
 
     if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
-        && "ConfiguredWebLink".equals(typeName)) {
-
-      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ConfiguredWebLink.Factory.parse(
-          reader);
-    }
-
-    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
-        && "ArrayOfConfiguredWebLink".equals(typeName)) {
-
-      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfConfiguredWebLink.Factory
-          .parse(reader);
-    }
-
-    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
         && "ArrayOfEspException".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfEspException.Factory
           .parse(reader);
     }
 
-    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "HPCCService".equals(typeName)) {
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ServiceConnection".equals(typeName)) {
 
-      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService.Factory.parse(
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceConnection.Factory.parse(
           reader);
     }
 
@@ -51,22 +38,29 @@ public class ExtensionMapper {
     }
 
     if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
-        && "DiscoveredWebLink".equals(typeName)) {
+        && "ArrayOfServicePorts".equals(typeName)) {
 
-      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink.Factory.parse(
-          reader);
-    }
-
-    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
-        && "ArrayOfDiscoveredWebLink".equals(typeName)) {
-
-      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfDiscoveredWebLink.Factory
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfServicePorts.Factory
           .parse(reader);
     }
 
     if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "NamedValue".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.NamedValue.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ExternalIPStatus".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ExternalIPStatus.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfHPCCQueue".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfHPCCQueue.Factory.parse(
           reader);
     }
 
@@ -81,6 +75,64 @@ public class ExtensionMapper {
 
       return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfNamedValue.Factory.parse(
           reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "EspStringArray".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspStringArray.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ConfiguredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ConfiguredWebLink.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfConfiguredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfConfiguredWebLink.Factory
+          .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "HPCCService".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCService.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "HPCCQueueType".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "ServicePorts".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServicePorts.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI) && "HPCCQueue".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueue.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "DiscoveredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsresources".equals(namespaceURI)
+        && "ArrayOfDiscoveredWebLink".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfDiscoveredWebLink.Factory
+          .parse(reader);
     }
 
     throw new org.apache.axis2.databinding.ADBException(

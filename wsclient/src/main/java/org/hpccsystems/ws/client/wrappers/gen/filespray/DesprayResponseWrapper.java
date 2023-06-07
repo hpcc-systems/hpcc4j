@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: DesprayResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.DesprayResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * Service version: 1.23
  */
 public class DesprayResponseWrapper
 {

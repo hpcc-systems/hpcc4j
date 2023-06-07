@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,18 +18,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: WUCompileECLResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCompileECLResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class WUCompileECLResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected String local_complexity;
     protected ArrayOfECLExceptionWrapper local_errors;
-    protected Dependencies_type0Wrapper local_dependencies;
+    protected Dependencies_type1Wrapper local_dependencies;
 
     public WUCompileECLResponseWrapper() {}
 
@@ -39,7 +35,7 @@ public class WUCompileECLResponseWrapper
     {
         copy( wucompileeclresponse );
     }
-    public WUCompileECLResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _complexity, ArrayOfECLExceptionWrapper _errors, Dependencies_type0Wrapper _dependencies )
+    public WUCompileECLResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _complexity, ArrayOfECLExceptionWrapper _errors, Dependencies_type1Wrapper _dependencies )
     {
         this.local_exceptions = _exceptions;
         this.local_complexity = _complexity;
@@ -59,7 +55,7 @@ public class WUCompileECLResponseWrapper
         if (raw.getErrors() != null)
             this.local_errors = new ArrayOfECLExceptionWrapper( raw.getErrors());
         if (raw.getDependencies() != null)
-            this.local_dependencies = new Dependencies_type0Wrapper( raw.getDependencies());
+            this.local_dependencies = new Dependencies_type1Wrapper( raw.getDependencies());
 
     }
 
@@ -106,11 +102,11 @@ public class WUCompileECLResponseWrapper
     {
         return this.local_errors;
     }
-    public void setDependencies( Dependencies_type0Wrapper _dependencies )
+    public void setDependencies( Dependencies_type1Wrapper _dependencies )
     {
         this.local_dependencies = _dependencies;
     }
-    public Dependencies_type0Wrapper getDependencies( )
+    public Dependencies_type1Wrapper getDependencies( )
     {
         return this.local_dependencies;
     }

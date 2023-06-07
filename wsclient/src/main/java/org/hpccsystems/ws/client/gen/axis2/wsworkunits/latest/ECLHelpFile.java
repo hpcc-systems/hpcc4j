@@ -281,6 +281,42 @@ public class ECLHelpFile implements org.apache.axis2.databinding.ADBBean {
     this.localMaxActivityId = param;
   }
 
+  /** field for IsAvailable */
+  protected boolean localIsAvailable =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIsAvailableTracker = false;
+
+  public boolean isIsAvailableSpecified() {
+    return localIsAvailableTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIsAvailable() {
+    return localIsAvailable;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IsAvailable
+   */
+  public void setIsAvailable(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIsAvailableTracker = true;
+
+    this.localIsAvailable = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -455,6 +491,21 @@ public class ECLHelpFile implements org.apache.axis2.databinding.ADBBean {
 
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMaxActivityId));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIsAvailableTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IsAvailable", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IsAvailable cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsAvailable));
       }
 
       xmlWriter.writeEndElement();
@@ -850,6 +901,25 @@ public class ECLHelpFile implements org.apache.axis2.databinding.ADBBean {
 
               object.setMaxActivityId(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "IsAvailable")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IsAvailable" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIsAvailable(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

@@ -553,13 +553,13 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   public WsSMCStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://localhost:8010/WsSMC?ver_=1.26");
+    this(configurationContext, "http://10.1.1.180:8888/WsSMC?ver_=1.26");
   }
 
   /** Default Constructor */
   public WsSMCStub() throws org.apache.axis2.AxisFault {
 
-    this("http://localhost:8010/WsSMC?ver_=1.26");
+    this("http://10.1.1.180:8888/WsSMC?ver_=1.26");
   }
 
   /** Constructor taking the target endpoint */
@@ -3287,7 +3287,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     }
     return false;
   }
-  // http://localhost:8010/WsSMC?ver_=1.26
+  // http://10.1.1.180:8888/WsSMC?ver_=1.26
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {

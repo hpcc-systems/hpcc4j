@@ -44,6 +44,9 @@ public class QuerySetQueryActionTypes implements org.apache.axis2.databinding.AD
   public static final java.lang.String _Delete =
       org.apache.axis2.databinding.utils.ConverterUtil.convertToString("Delete");
 
+  public static final java.lang.String _DeleteQueriesAndWUs =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToString("DeleteQueriesAndWUs");
+
   public static final java.lang.String _RemoveAllAliases =
       org.apache.axis2.databinding.utils.ConverterUtil.convertToString("RemoveAllAliases");
 
@@ -63,6 +66,9 @@ public class QuerySetQueryActionTypes implements org.apache.axis2.databinding.AD
       new QuerySetQueryActionTypes(_Activate, true);
 
   public static final QuerySetQueryActionTypes Delete = new QuerySetQueryActionTypes(_Delete, true);
+
+  public static final QuerySetQueryActionTypes DeleteQueriesAndWUs =
+      new QuerySetQueryActionTypes(_DeleteQueriesAndWUs, true);
 
   public static final QuerySetQueryActionTypes RemoveAllAliases =
       new QuerySetQueryActionTypes(_RemoveAllAliases, true);

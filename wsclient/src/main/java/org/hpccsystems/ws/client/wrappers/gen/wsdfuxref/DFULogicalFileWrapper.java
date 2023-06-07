@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfuxref;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: DFULogicalFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFULogicalFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
- * Service version: 1.02
  */
 public class DFULogicalFileWrapper
 {
@@ -47,6 +43,7 @@ public class DFULogicalFileWrapper
     protected long local_intSize;
     protected long local_intRecordCount;
     protected boolean local_fromRoxieCluster;
+    protected boolean local_browseData;
 
     public DFULogicalFileWrapper() {}
 
@@ -54,7 +51,7 @@ public class DFULogicalFileWrapper
     {
         copy( dfulogicalfile );
     }
-    public DFULogicalFileWrapper( String _prefix, String _clusterName, String _directory, String _description, String _parts, String _name, String _owner, String _totalsize, String _recordCount, String _modified, String _longSize, String _longRecordCount, boolean _isSuperfile, boolean _isZipfile, boolean _isDirectory, boolean _replicate, long _intSize, long _intRecordCount, boolean _fromRoxieCluster )
+    public DFULogicalFileWrapper( String _prefix, String _clusterName, String _directory, String _description, String _parts, String _name, String _owner, String _totalsize, String _recordCount, String _modified, String _longSize, String _longRecordCount, boolean _isSuperfile, boolean _isZipfile, boolean _isDirectory, boolean _replicate, long _intSize, long _intRecordCount, boolean _fromRoxieCluster, boolean _browseData )
     {
         this.local_prefix = _prefix;
         this.local_clusterName = _clusterName;
@@ -75,6 +72,7 @@ public class DFULogicalFileWrapper
         this.local_intSize = _intSize;
         this.local_intRecordCount = _intRecordCount;
         this.local_fromRoxieCluster = _fromRoxieCluster;
+        this.local_browseData = _browseData;
 
     }
 
@@ -102,13 +100,14 @@ public class DFULogicalFileWrapper
         this.local_intSize = raw.getIntSize();
         this.local_intRecordCount = raw.getIntRecordCount();
         this.local_fromRoxieCluster = raw.getFromRoxieCluster();
+        this.local_browseData = raw.getBrowseData();
 
     }
 
     @Override
     public String toString()
     {
-        return "DFULogicalFileWrapper [" + "prefix = " + local_prefix + ", " + "clusterName = " + local_clusterName + ", " + "directory = " + local_directory + ", " + "description = " + local_description + ", " + "parts = " + local_parts + ", " + "name = " + local_name + ", " + "owner = " + local_owner + ", " + "totalsize = " + local_totalsize + ", " + "recordCount = " + local_recordCount + ", " + "modified = " + local_modified + ", " + "longSize = " + local_longSize + ", " + "longRecordCount = " + local_longRecordCount + ", " + "isSuperfile = " + local_isSuperfile + ", " + "isZipfile = " + local_isZipfile + ", " + "isDirectory = " + local_isDirectory + ", " + "replicate = " + local_replicate + ", " + "intSize = " + local_intSize + ", " + "intRecordCount = " + local_intRecordCount + ", " + "fromRoxieCluster = " + local_fromRoxieCluster + "]";
+        return "DFULogicalFileWrapper [" + "prefix = " + local_prefix + ", " + "clusterName = " + local_clusterName + ", " + "directory = " + local_directory + ", " + "description = " + local_description + ", " + "parts = " + local_parts + ", " + "name = " + local_name + ", " + "owner = " + local_owner + ", " + "totalsize = " + local_totalsize + ", " + "recordCount = " + local_recordCount + ", " + "modified = " + local_modified + ", " + "longSize = " + local_longSize + ", " + "longRecordCount = " + local_longRecordCount + ", " + "isSuperfile = " + local_isSuperfile + ", " + "isZipfile = " + local_isZipfile + ", " + "isDirectory = " + local_isDirectory + ", " + "replicate = " + local_replicate + ", " + "intSize = " + local_intSize + ", " + "intRecordCount = " + local_intRecordCount + ", " + "fromRoxieCluster = " + local_fromRoxieCluster + ", " + "browseData = " + local_browseData + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFULogicalFile getRaw()
     {
@@ -132,6 +131,7 @@ public class DFULogicalFileWrapper
         raw.setIntSize( local_intSize);
         raw.setIntRecordCount( local_intRecordCount);
         raw.setFromRoxieCluster( local_fromRoxieCluster);
+        raw.setBrowseData( local_browseData);
         return raw;
     }
 
@@ -287,5 +287,13 @@ public class DFULogicalFileWrapper
     public boolean getFromRoxieCluster( )
     {
         return this.local_fromRoxieCluster;
+    }
+    public void setBrowseData( boolean _browseData )
+    {
+        this.local_browseData = _browseData;
+    }
+    public boolean getBrowseData( )
+    {
+        return this.local_browseData;
     }
 }

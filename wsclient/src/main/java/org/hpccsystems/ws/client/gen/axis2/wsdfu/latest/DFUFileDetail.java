@@ -1771,6 +1771,40 @@ public class DFUFileDetail implements org.apache.axis2.databinding.ADBBean {
     this.localExpirationDate = param;
   }
 
+  /** field for ExtendedIndexInfo */
+  protected org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo localExtendedIndexInfo;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localExtendedIndexInfoTracker = false;
+
+  public boolean isExtendedIndexInfoSpecified() {
+    return localExtendedIndexInfoTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo getExtendedIndexInfo() {
+    return localExtendedIndexInfo;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ExtendedIndexInfo
+   */
+  public void setExtendedIndexInfo(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo param) {
+    localExtendedIndexInfoTracker = param != null;
+
+    this.localExtendedIndexInfo = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -2570,6 +2604,14 @@ public class DFUFileDetail implements org.apache.axis2.databinding.ADBBean {
       }
 
       xmlWriter.writeEndElement();
+    }
+    if (localExtendedIndexInfoTracker) {
+      if (localExtendedIndexInfo == null) {
+        throw new org.apache.axis2.databinding.ADBException("ExtendedIndexInfo cannot be null!!");
+      }
+      localExtendedIndexInfo.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ExtendedIndexInfo"),
+          xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -3727,6 +3769,17 @@ public class DFUFileDetail implements org.apache.axis2.databinding.ADBBean {
 
               object.setExpirationDate(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ExtendedIndexInfo")
+                    .equals(reader.getName())) {
+
+              object.setExtendedIndexInfo(
+                  org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo.Factory.parse(
+                      reader));
 
               reader.next();
 
