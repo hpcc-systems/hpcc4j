@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -88,7 +87,14 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         setUpContainerizedParser();
 
-        Document document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+        Document document = null;
+        synchronized(m_XMLParser)
+        {
+            document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+        }
+
+        if (document == null)
+            throw new Exception("Cannot parse HPCC isContainerizedMode response.");
 
         NodeList namedValuesList = (NodeList) m_containerizedXpathExpression.evaluate(document,XPathConstants.NODESET);
         for(int i = 0; i < namedValuesList.getLength(); i++)
@@ -145,7 +151,14 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         setUpBuildVersionParser();
 
-        Document document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+        Document document = null;
+        synchronized(m_XMLParser)
+        {
+            document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+        }
+
+        if (document == null)
+            throw new Exception("Cannot parse HPCC build version response.");
 
         return (String) m_buildVersionXpathExpression.evaluate(document,XPathConstants.STRING);
 
@@ -832,7 +845,14 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                     try
                     {
                         setUpversionParser();
-                        Document document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+                        Document document = null;
+                        synchronized(m_XMLParser)
+                        {
+                            document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+                        }
+
+                        if (document == null)
+                            throw new Exception("Cannot parse ESP Interface version response.");
 
                         targetESPInterfaceVer = (double)m_serviceInterfaceVersionXpathExpression.evaluate(document, XPathConstants.NUMBER);
                         log.info(wsconn.getBaseUrl() + getServiceURI() + " version: " + targetESPInterfaceVer);

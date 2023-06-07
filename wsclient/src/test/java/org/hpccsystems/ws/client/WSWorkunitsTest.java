@@ -23,8 +23,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
+import java.util.concurrent.Callable;
+
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURunResponse;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
@@ -54,6 +55,29 @@ public class WSWorkunitsTest extends BaseRemoteTest
     {
         client = wsclient.getWsWorkunitsClient();
         Assert.assertNotNull(client);
+    }
+
+    @Test
+    public void testMultipleWsWUInits() throws InterruptedException
+    {
+        Callable<String> callableTask = () ->
+        {
+            HPCCWsWorkUnitsClient wswu = new HPCCWsWorkUnitsClient(wsclient.connection);
+            return wswu.getInitError();
+        };
+
+        executeMultiThreadedTask(callableTask, testThreadCount);
+    }
+
+    @Test
+    public void testSharedWsWUgets() throws InterruptedException
+    {
+        Callable<String> callableTask = () -> {
+            HPCCWsWorkUnitsClient wswu = wsclient.getWsWorkunitsClient();
+            return wswu.getInitError();
+        };
+
+        executeMultiThreadedTask(callableTask, testThreadCount);
     }
 
     @Test
