@@ -1,0 +1,86 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Generate all services 9.0.x",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "args": ["-b", "candidate-9.0.x"],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "wsdl updater help",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "args": ["-h"],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Generate 9.0.x wssmc",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.0.x", "-s", "wssmc"]
+        },
+        {
+            "name": "Generate 9.0.x wscodesign",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.0.x", "-s", "wscodesign", "-v"]
+        },
+        {
+            "name": "Generate 9.0.x wsworkunits",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.0.x", "-s", "wsworkunits"]
+        },
+        {
+            "name": "Generate 9.0.x filespray",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.0.x", "-s", "filespray"]
+        },
+        {
+            "name": "Generate 9.0.x wsCloud",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.0.x", "-s", "wscloud"]
+        },
+        {
+            "type": "java",
+            "name": "Axis2ADBStubWrapperMaker",
+            "request": "launch",
+            "mainClass": "org.hpccsystems.ws.client.utils.Axis2ADBStubWrapperMaker",
+            "projectName": "wsclient",
+            "args": "servicename=wssmc outputpackage=org.hpccsystems.ws.client.wrappers targetpackage=org.hpccsystems.ws.client.gen.axis2.wssmc.latest servicename=WsSMC outputdir=/home/ubuntu/GIT/generate-wsdl/hpcc4j/wsclient/src/main/java"
+        }
+    ]
+}
