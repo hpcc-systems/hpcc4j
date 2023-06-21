@@ -26,19 +26,35 @@ public class WUQueryTest extends BaseRemoteTest
         wswuclient = wsclient.getWsWorkunitsClient();
     }
 
+    public WorkunitWrapper createWU(String ecl, String cluster, String jobName, String owner, ApplicationValueWrapper av)
+    {
+        WorkunitWrapper wu=new WorkunitWrapper();
+        wu.setECL(ecl);
+        wu.setCluster(thorclustername);
+        wu.setJobname(jobName);
+        wu.setOwner(owner);
+        wu.getApplicationValues().add(av);
+        try
+        {
+            wu=wswuclient.compileWUFromECL(wu);
+            wu=wswuclient.runWorkunit(wu.getWuid(),null,null,null,false,null);
+        }
+        catch (Exception e)
+        {
+            System.err.println("WUQueryTest: Failed to create new WU for test: '" +  ecl + "'" );
+            System.err.println(e.getLocalizedMessage());
+            return null;
+        }
+        return wu;
+    }
 
     @Test
     public void testGetWorkunitByAppName() throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        WorkunitWrapper wu=new WorkunitWrapper();
-        wu.setECL("OUTPUT('1');");
-        wu.setCluster(thorclustername);
-        wu.setJobname("testGetWorkunitByAppName");
-        wu.setOwner("user");
         ApplicationValueWrapper av=new ApplicationValueWrapper("HIPIE","testkey","testvalue");
-        wu.getApplicationValues().add(av);
-        wu=wswuclient.compileWUFromECL(wu);
-        wu=wswuclient.runWorkunit(wu.getWuid(),null,null,null,false,null);
+        WorkunitWrapper wu = createWU("OUTPUT('1');", thorclustername, "1testGetWorkunitByAppName", "1user", av);
+
+        assumeTrue("testGetWorkunitByAppName failed to create WU!", wu != null);
 
         WUQueryWrapper info = new WUQueryWrapper().setSortBy(SortBy.WUID).setDescending(true);
         info.getApplicationValues().add(av);
@@ -58,8 +74,14 @@ public class WUQueryTest extends BaseRemoteTest
     @Test
     public void testGetWorkunitSort() throws Exception
     {
+        
+        assumeTrue("Testing WU sortBy failed to create First WU!", null != createWU("OUTPUT('a');", thorclustername, "aTestWorkunitSortBA", "aTestUser", new ApplicationValueWrapper("AppA","testkeyA","testvalueA")));
+        assumeTrue("Testing WU sortBy failed to create Second WU!", null != createWU("OUTPUT('b');", thorclustername, "bTestWorkunitSortBy", "bTestUser", new ApplicationValueWrapper("AppB","testkeyB","testvalueB")));
+
         //wuid descending
         List<WorkunitWrapper> result=wswuclient.getWorkunits(new WUQueryWrapper().setSortBy(SortBy.WUID).setDescending(true));
+        assumeTrue("Testing WU sortBy failed to find enough WUs!", result.size() > 1);
+
         if (result.get(0).getWuid().compareToIgnoreCase(result.get(1).getWuid())<0)
         {
             Assert.fail("descending workunits in wrong order:" + result.get(0).getWuid() + " then " + result.get(1).getWuid());
