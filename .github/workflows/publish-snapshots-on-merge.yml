@@ -4,6 +4,9 @@ on:
     branches:
     - 'master'
     - 'candidate-*'
+  create:
+    branches:
+    - 'candidate-*'
 jobs:
   publish:
     runs-on: ubuntu-latest
