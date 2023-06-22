@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,17 +18,15 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: WUCreateZAPInfoWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class WUCreateZAPInfoWrapper
 {
     protected String local_wuid;
-    protected String local_eSPIPAddress;
-    protected String local_thorIPAddress;
+    protected String local_eSPApplication;
+    protected String local_thorProcesses;
     protected String local_buildVersion;
     protected String local_problemDescription;
     protected String local_whatChanged;
@@ -50,11 +46,11 @@ public class WUCreateZAPInfoWrapper
     {
         copy( wucreatezapinfo );
     }
-    public WUCreateZAPInfoWrapper( String _wuid, String _eSPIPAddress, String _thorIPAddress, String _buildVersion, String _problemDescription, String _whatChanged, String _whereSlow, String _zAPFileName, String _includeThorSlaveLog, String _zAPPassword, boolean _sendEmail, boolean _attachZAPReportToEmail, String _emailFrom, String _emailSubject, String _emailBody )
+    public WUCreateZAPInfoWrapper( String _wuid, String _eSPApplication, String _thorProcesses, String _buildVersion, String _problemDescription, String _whatChanged, String _whereSlow, String _zAPFileName, String _includeThorSlaveLog, String _zAPPassword, boolean _sendEmail, boolean _attachZAPReportToEmail, String _emailFrom, String _emailSubject, String _emailBody )
     {
         this.local_wuid = _wuid;
-        this.local_eSPIPAddress = _eSPIPAddress;
-        this.local_thorIPAddress = _thorIPAddress;
+        this.local_eSPApplication = _eSPApplication;
+        this.local_thorProcesses = _thorProcesses;
         this.local_buildVersion = _buildVersion;
         this.local_problemDescription = _problemDescription;
         this.local_whatChanged = _whatChanged;
@@ -76,8 +72,8 @@ public class WUCreateZAPInfoWrapper
             return;
 
         this.local_wuid = raw.getWuid();
-        this.local_eSPIPAddress = raw.getESPIPAddress();
-        this.local_thorIPAddress = raw.getThorIPAddress();
+        this.local_eSPApplication = raw.getESPApplication();
+        this.local_thorProcesses = raw.getThorProcesses();
         this.local_buildVersion = raw.getBuildVersion();
         this.local_problemDescription = raw.getProblemDescription();
         this.local_whatChanged = raw.getWhatChanged();
@@ -96,14 +92,14 @@ public class WUCreateZAPInfoWrapper
     @Override
     public String toString()
     {
-        return "WUCreateZAPInfoWrapper [" + "wuid = " + local_wuid + ", " + "eSPIPAddress = " + local_eSPIPAddress + ", " + "thorIPAddress = " + local_thorIPAddress + ", " + "buildVersion = " + local_buildVersion + ", " + "problemDescription = " + local_problemDescription + ", " + "whatChanged = " + local_whatChanged + ", " + "whereSlow = " + local_whereSlow + ", " + "zAPFileName = " + local_zAPFileName + ", " + "includeThorSlaveLog = " + local_includeThorSlaveLog + ", " + "zAPPassword = " + local_zAPPassword + ", " + "sendEmail = " + local_sendEmail + ", " + "attachZAPReportToEmail = " + local_attachZAPReportToEmail + ", " + "emailFrom = " + local_emailFrom + ", " + "emailSubject = " + local_emailSubject + ", " + "emailBody = " + local_emailBody + "]";
+        return "WUCreateZAPInfoWrapper [" + "wuid = " + local_wuid + ", " + "eSPApplication = " + local_eSPApplication + ", " + "thorProcesses = " + local_thorProcesses + ", " + "buildVersion = " + local_buildVersion + ", " + "problemDescription = " + local_problemDescription + ", " + "whatChanged = " + local_whatChanged + ", " + "whereSlow = " + local_whereSlow + ", " + "zAPFileName = " + local_zAPFileName + ", " + "includeThorSlaveLog = " + local_includeThorSlaveLog + ", " + "zAPPassword = " + local_zAPPassword + ", " + "sendEmail = " + local_sendEmail + ", " + "attachZAPReportToEmail = " + local_attachZAPReportToEmail + ", " + "emailFrom = " + local_emailFrom + ", " + "emailSubject = " + local_emailSubject + ", " + "emailBody = " + local_emailBody + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo();
         raw.setWuid( local_wuid);
-        raw.setESPIPAddress( local_eSPIPAddress);
-        raw.setThorIPAddress( local_thorIPAddress);
+        raw.setESPApplication( local_eSPApplication);
+        raw.setThorProcesses( local_thorProcesses);
         raw.setBuildVersion( local_buildVersion);
         raw.setProblemDescription( local_problemDescription);
         raw.setWhatChanged( local_whatChanged);
@@ -128,21 +124,21 @@ public class WUCreateZAPInfoWrapper
     {
         return this.local_wuid;
     }
-    public void setESPIPAddress( String _eSPIPAddress )
+    public void setESPApplication( String _eSPApplication )
     {
-        this.local_eSPIPAddress = _eSPIPAddress;
+        this.local_eSPApplication = _eSPApplication;
     }
-    public String getESPIPAddress( )
+    public String getESPApplication( )
     {
-        return this.local_eSPIPAddress;
+        return this.local_eSPApplication;
     }
-    public void setThorIPAddress( String _thorIPAddress )
+    public void setThorProcesses( String _thorProcesses )
     {
-        this.local_thorIPAddress = _thorIPAddress;
+        this.local_thorProcesses = _thorProcesses;
     }
-    public String getThorIPAddress( )
+    public String getThorProcesses( )
     {
-        return this.local_thorIPAddress;
+        return this.local_thorProcesses;
     }
     public void setBuildVersion( String _buildVersion )
     {

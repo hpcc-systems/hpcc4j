@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -21,11 +19,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: ECLHelpFileWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLHelpFile
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * Service version: 3.06
  */
 public class ECLHelpFileWrapper
 {
@@ -37,6 +33,7 @@ public class ECLHelpFileWrapper
     protected UnsignedInt local_pID;
     protected UnsignedInt local_minActivityId;
     protected UnsignedInt local_maxActivityId;
+    protected boolean local_isAvailable;
 
     public ECLHelpFileWrapper() {}
 
@@ -44,7 +41,7 @@ public class ECLHelpFileWrapper
     {
         copy( eclhelpfile );
     }
-    public ECLHelpFileWrapper( String _name, String _type, String _iPAddress, String _description, long _fileSize, UnsignedInt _pID, UnsignedInt _minActivityId, UnsignedInt _maxActivityId )
+    public ECLHelpFileWrapper( String _name, String _type, String _iPAddress, String _description, long _fileSize, UnsignedInt _pID, UnsignedInt _minActivityId, UnsignedInt _maxActivityId, boolean _isAvailable )
     {
         this.local_name = _name;
         this.local_type = _type;
@@ -54,6 +51,7 @@ public class ECLHelpFileWrapper
         this.local_pID = _pID;
         this.local_minActivityId = _minActivityId;
         this.local_maxActivityId = _maxActivityId;
+        this.local_isAvailable = _isAvailable;
 
     }
 
@@ -70,13 +68,14 @@ public class ECLHelpFileWrapper
         this.local_pID = raw.getPID();
         this.local_minActivityId = raw.getMinActivityId();
         this.local_maxActivityId = raw.getMaxActivityId();
+        this.local_isAvailable = raw.getIsAvailable();
 
     }
 
     @Override
     public String toString()
     {
-        return "ECLHelpFileWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "iPAddress = " + local_iPAddress + ", " + "description = " + local_description + ", " + "fileSize = " + local_fileSize + ", " + "pID = " + local_pID + ", " + "minActivityId = " + local_minActivityId + ", " + "maxActivityId = " + local_maxActivityId + "]";
+        return "ECLHelpFileWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "iPAddress = " + local_iPAddress + ", " + "description = " + local_description + ", " + "fileSize = " + local_fileSize + ", " + "pID = " + local_pID + ", " + "minActivityId = " + local_minActivityId + ", " + "maxActivityId = " + local_maxActivityId + ", " + "isAvailable = " + local_isAvailable + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLHelpFile getRaw()
     {
@@ -89,6 +88,7 @@ public class ECLHelpFileWrapper
         raw.setPID( local_pID);
         raw.setMinActivityId( local_minActivityId);
         raw.setMaxActivityId( local_maxActivityId);
+        raw.setIsAvailable( local_isAvailable);
         return raw;
     }
 
@@ -156,5 +156,13 @@ public class ECLHelpFileWrapper
     public UnsignedInt getMaxActivityId( )
     {
         return this.local_maxActivityId;
+    }
+    public void setIsAvailable( boolean _isAvailable )
+    {
+        this.local_isAvailable = _isAvailable;
+    }
+    public boolean getIsAvailable( )
+    {
+        return this.local_isAvailable;
     }
 }

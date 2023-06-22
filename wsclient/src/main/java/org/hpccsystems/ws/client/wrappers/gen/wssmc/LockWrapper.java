@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -24,11 +22,9 @@ import org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.8
  * Class name: LockWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Lock
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssmc
- * Service version: 1.26
  */
 public class LockWrapper
 {

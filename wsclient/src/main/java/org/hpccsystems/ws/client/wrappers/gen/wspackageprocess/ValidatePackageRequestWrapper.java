@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -23,11 +21,9 @@ import org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.EspStringArra
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.8
  * Class name: ValidatePackageRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ValidatePackageRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * Service version: 1.05
  */
 public class ValidatePackageRequestWrapper
 {

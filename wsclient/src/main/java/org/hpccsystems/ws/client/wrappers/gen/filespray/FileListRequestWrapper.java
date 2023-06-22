@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,14 +18,13 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: FileListRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.filespray
- * Service version: 1.23
  */
 public class FileListRequestWrapper
 {
+    protected String local_dropZoneName;
     protected String local_netaddr;
     protected String local_path;
     protected String local_mask;
@@ -40,8 +37,9 @@ public class FileListRequestWrapper
     {
         copy( filelistrequest );
     }
-    public FileListRequestWrapper( String _netaddr, String _path, String _mask, String _oS, boolean _directoryOnly )
+    public FileListRequestWrapper( String _dropZoneName, String _netaddr, String _path, String _mask, String _oS, boolean _directoryOnly )
     {
+        this.local_dropZoneName = _dropZoneName;
         this.local_netaddr = _netaddr;
         this.local_path = _path;
         this.local_mask = _mask;
@@ -55,6 +53,7 @@ public class FileListRequestWrapper
         if (raw == null)
             return;
 
+        this.local_dropZoneName = raw.getDropZoneName();
         this.local_netaddr = raw.getNetaddr();
         this.local_path = raw.getPath();
         this.local_mask = raw.getMask();
@@ -66,11 +65,12 @@ public class FileListRequestWrapper
     @Override
     public String toString()
     {
-        return "FileListRequestWrapper [" + "netaddr = " + local_netaddr + ", " + "path = " + local_path + ", " + "mask = " + local_mask + ", " + "oS = " + local_oS + ", " + "directoryOnly = " + local_directoryOnly + "]";
+        return "FileListRequestWrapper [" + "dropZoneName = " + local_dropZoneName + ", " + "netaddr = " + local_netaddr + ", " + "path = " + local_path + ", " + "mask = " + local_mask + ", " + "oS = " + local_oS + ", " + "directoryOnly = " + local_directoryOnly + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListRequest getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListRequest raw = new org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListRequest();
+        raw.setDropZoneName( local_dropZoneName);
         raw.setNetaddr( local_netaddr);
         raw.setPath( local_path);
         raw.setMask( local_mask);
@@ -80,6 +80,14 @@ public class FileListRequestWrapper
     }
 
 
+    public void setDropZoneName( String _dropZoneName )
+    {
+        this.local_dropZoneName = _dropZoneName;
+    }
+    public String getDropZoneName( )
+    {
+        return this.local_dropZoneName;
+    }
     public void setNetaddr( String _netaddr )
     {
         this.local_netaddr = _netaddr;

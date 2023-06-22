@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wspackageprocess;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -22,11 +20,9 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: ArrayOfPackageListDataWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfPackageListData
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
- * Service version: 1.05
  */
 public class ArrayOfPackageListDataWrapper
 {

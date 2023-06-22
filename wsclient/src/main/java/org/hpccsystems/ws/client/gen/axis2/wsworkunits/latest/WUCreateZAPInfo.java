@@ -46,17 +46,17 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
     this.localWuid = param;
   }
 
-  /** field for ESPIPAddress */
-  protected java.lang.String localESPIPAddress;
+  /** field for ESPApplication */
+  protected java.lang.String localESPApplication;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localESPIPAddressTracker = false;
+  protected boolean localESPApplicationTracker = false;
 
-  public boolean isESPIPAddressSpecified() {
-    return localESPIPAddressTracker;
+  public boolean isESPApplicationSpecified() {
+    return localESPApplicationTracker;
   }
 
   /**
@@ -64,32 +64,32 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
    *
    * @return java.lang.String
    */
-  public java.lang.String getESPIPAddress() {
-    return localESPIPAddress;
+  public java.lang.String getESPApplication() {
+    return localESPApplication;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param ESPIPAddress
+   * @param param ESPApplication
    */
-  public void setESPIPAddress(java.lang.String param) {
-    localESPIPAddressTracker = param != null;
+  public void setESPApplication(java.lang.String param) {
+    localESPApplicationTracker = param != null;
 
-    this.localESPIPAddress = param;
+    this.localESPApplication = param;
   }
 
-  /** field for ThorIPAddress */
-  protected java.lang.String localThorIPAddress;
+  /** field for ThorProcesses */
+  protected java.lang.String localThorProcesses;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localThorIPAddressTracker = false;
+  protected boolean localThorProcessesTracker = false;
 
-  public boolean isThorIPAddressSpecified() {
-    return localThorIPAddressTracker;
+  public boolean isThorProcessesSpecified() {
+    return localThorProcessesTracker;
   }
 
   /**
@@ -97,19 +97,19 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
    *
    * @return java.lang.String
    */
-  public java.lang.String getThorIPAddress() {
-    return localThorIPAddress;
+  public java.lang.String getThorProcesses() {
+    return localThorProcesses;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param ThorIPAddress
+   * @param param ThorProcesses
    */
-  public void setThorIPAddress(java.lang.String param) {
-    localThorIPAddressTracker = param != null;
+  public void setThorProcesses(java.lang.String param) {
+    localThorProcessesTracker = param != null;
 
-    this.localThorIPAddress = param;
+    this.localThorProcesses = param;
   }
 
   /** field for BuildVersion */
@@ -582,34 +582,34 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
-    if (localESPIPAddressTracker) {
+    if (localESPApplicationTracker) {
       namespace = "urn:hpccsystems:ws:wsworkunits";
-      writeStartElement(null, namespace, "ESPIPAddress", xmlWriter);
+      writeStartElement(null, namespace, "ESPApplication", xmlWriter);
 
-      if (localESPIPAddress == null) {
+      if (localESPApplication == null) {
         // write the nil attribute
 
-        throw new org.apache.axis2.databinding.ADBException("ESPIPAddress cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("ESPApplication cannot be null!!");
 
       } else {
 
-        xmlWriter.writeCharacters(localESPIPAddress);
+        xmlWriter.writeCharacters(localESPApplication);
       }
 
       xmlWriter.writeEndElement();
     }
-    if (localThorIPAddressTracker) {
+    if (localThorProcessesTracker) {
       namespace = "urn:hpccsystems:ws:wsworkunits";
-      writeStartElement(null, namespace, "ThorIPAddress", xmlWriter);
+      writeStartElement(null, namespace, "ThorProcesses", xmlWriter);
 
-      if (localThorIPAddress == null) {
+      if (localThorProcesses == null) {
         // write the nil attribute
 
-        throw new org.apache.axis2.databinding.ADBException("ThorIPAddress cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("ThorProcesses cannot be null!!");
 
       } else {
 
-        xmlWriter.writeCharacters(localThorIPAddress);
+        xmlWriter.writeCharacters(localThorProcesses);
       }
 
       xmlWriter.writeEndElement();
@@ -1069,38 +1069,38 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ESPIPAddress")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ESPApplication")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "ESPIPAddress" + "  cannot be null");
+                    "The element: " + "ESPApplication" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setESPIPAddress(
+              object.setESPApplication(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ThorIPAddress")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ThorProcesses")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "ThorIPAddress" + "  cannot be null");
+                    "The element: " + "ThorProcesses" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setThorIPAddress(
+              object.setThorProcesses(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

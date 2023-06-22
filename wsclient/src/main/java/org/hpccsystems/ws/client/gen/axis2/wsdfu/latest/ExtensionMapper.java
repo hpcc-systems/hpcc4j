@@ -107,6 +107,11 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileBloom.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wsdfu".equals(namespaceURI) && "DFUIndexInfo".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wsdfu".equals(namespaceURI) && "DFUChangeProtection".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeProtection.Factory.parse(

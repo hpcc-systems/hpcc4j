@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wstopology;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -21,11 +19,9 @@ import org.apache.axis2.databinding.types.UnsignedInt;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: TpSparkThorWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSparkThor
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wstopology
- * Service version: 1.31
  */
 public class TpSparkThorWrapper
 {
