@@ -1,104 +1,173 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wscloud" targetNamespace="urn:hpccsystems:ws:wscloud">
-    <types>
-        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wscloud">
-            <xsd:complexType name="EspException">
-                <xsd:all>
-                    <xsd:element name="Code" type="xsd:string" minOccurs="0"/>
-                    <xsd:element name="Audience" type="xsd:string" minOccurs="0"/>
-                    <xsd:element name="Source" type="xsd:string" minOccurs="0"/>
-                    <xsd:element name="Message" type="xsd:string" minOccurs="0"/>
-                </xsd:all>
-            </xsd:complexType>
-            <xsd:complexType name="ArrayOfEspException">
-                <xsd:sequence>
-                    <xsd:element name="Source" type="xsd:string" minOccurs="0"/>
-                    <xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/>
-                </xsd:sequence>
-            </xsd:complexType>
-            <xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
-            <xsd:element name="GetPODsRequest">
-                <xsd:complexType>
-                    <xsd:all/>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="GetPODsResponse">
-                <xsd:complexType>
-                    <xsd:all>
-                        <xsd:element minOccurs="0" name="Result" type="xsd:string"/>
-                    </xsd:all>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="WsCloudPingRequest">
-                <xsd:complexType>
-                    <xsd:all/>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="WsCloudPingResponse">
-                <xsd:complexType>
-                    <xsd:all/>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="string" nillable="true" type="xsd:string"/>
-        </xsd:schema>
-    </types>
-    <message name="GetPODsSoapIn">
-        <part name="parameters" element="tns:GetPODsRequest"/>
-    </message>
-    <message name="GetPODsSoapOut">
-        <part name="parameters" element="tns:GetPODsResponse"/>
-    </message>
-    <message name="PingSoapIn">
-        <part name="parameters" element="tns:WsCloudPingRequest"/>
-    </message>
-    <message name="PingSoapOut">
-        <part name="parameters" element="tns:WsCloudPingResponse"/>
-    </message>
-    <message name="EspSoapFault">
-        <part name="parameters" element="tns:Exceptions"/>
-    </message>
-    <portType name="WsCloudServiceSoap">
-        <operation name="GetPODs">
-            <input message="tns:GetPODsSoapIn"/>
-            <output message="tns:GetPODsSoapOut"/>
-            <fault name="excfault" message="tns:EspSoapFault"/>
-        </operation>
-        <operation name="Ping">
-            <input message="tns:PingSoapIn"/>
-            <output message="tns:PingSoapOut"/>
-            <fault name="excfault" message="tns:EspSoapFault"/>
-        </operation>
-    </portType>
-    <binding name="WsCloudServiceSoap" type="tns:WsCloudServiceSoap">
-        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-        <operation name="GetPODs">
-            <soap:operation soapAction="WsCloud/GetPODs?ver_=1" style="document"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-            <fault name="excfault">
-                <soap:fault name="excfault" use="literal"/>
-            </fault>
-        </operation>
-        <operation name="Ping">
-            <soap:operation soapAction="WsCloud/Ping?ver_=1" style="document"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-            <fault name="excfault">
-                <soap:fault name="excfault" use="literal"/>
-            </fault>
-        </operation>
-    </binding>
-    <service name="WsCloud">
-        <port name="WsCloudServiceSoap" binding="tns:WsCloudServiceSoap">
-            <soap:address location="http://localhost:8010/WsCloud?ver_=1"/>
-        </port>
-    </service>
+	<types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wscloud">
+			
+
+			<xsd:complexType name="EspException">
+				<xsd:all>
+					<xsd:element name="Code" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Audience" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+				</xsd:all>
+			</xsd:complexType>
+			
+
+			<xsd:complexType name="ArrayOfEspException">
+				<xsd:sequence>
+					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+
+			<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+			
+
+			<xsd:element name="GetPODsRequest">
+				<xsd:complexType>
+					<xsd:all/>
+				</xsd:complexType>
+			</xsd:element>
+			
+
+			<xsd:element name="GetPODsResponse">
+				<xsd:complexType>
+					
+
+					<xsd:all>
+						<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+						
+
+					</xsd:all>
+					
+
+				</xsd:complexType>
+			</xsd:element>
+			
+
+			<xsd:element name="GetServicesRequest">
+				<xsd:complexType>
+					<xsd:all/>
+				</xsd:complexType>
+			</xsd:element>
+			
+
+			<xsd:element name="GetServicesResponse">
+				<xsd:complexType>
+					
+
+					<xsd:all>
+						<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+						
+
+					</xsd:all>
+					
+
+				</xsd:complexType>
+			</xsd:element>
+			
+
+			<xsd:element name="WsCloudPingRequest">
+				<xsd:complexType>
+					<xsd:all/>
+				</xsd:complexType>
+			</xsd:element>
+			
+
+			<xsd:element name="WsCloudPingResponse">
+				<xsd:complexType>
+					<xsd:all/>
+				</xsd:complexType>
+			</xsd:element>
+			
+
+			<xsd:element name="string" nillable="true" type="xsd:string"/>
+			
+
+		</xsd:schema>
+	</types>
+	<message name="GetPODsSoapIn">
+		<part name="parameters" element="tns:GetPODsRequest"/>
+	</message>
+	<message name="GetPODsSoapOut">
+		<part name="parameters" element="tns:GetPODsResponse"/>
+	</message>
+	<message name="GetServicesSoapIn">
+		<part name="parameters" element="tns:GetServicesRequest"/>
+	</message>
+	<message name="GetServicesSoapOut">
+		<part name="parameters" element="tns:GetServicesResponse"/>
+	</message>
+	<message name="PingSoapIn">
+		<part name="parameters" element="tns:WsCloudPingRequest"/>
+	</message>
+	<message name="PingSoapOut">
+		<part name="parameters" element="tns:WsCloudPingResponse"/>
+	</message>
+	<message name="EspSoapFault">
+		<part name="parameters" element="tns:Exceptions"/>
+	</message>
+	<portType name="WsCloudServiceSoap">
+		<operation name="GetPODs">
+			<input message="tns:GetPODsSoapIn"/>
+			<output message="tns:GetPODsSoapOut"/>
+			<fault name="excfault" message="tns:EspSoapFault"/>
+		</operation>
+		<operation name="GetServices">
+			<input message="tns:GetServicesSoapIn"/>
+			<output message="tns:GetServicesSoapOut"/>
+			<fault name="excfault" message="tns:EspSoapFault"/>
+		</operation>
+		<operation name="Ping">
+			<input message="tns:PingSoapIn"/>
+			<output message="tns:PingSoapOut"/>
+			<fault name="excfault" message="tns:EspSoapFault"/>
+		</operation>
+	</portType>
+	<binding name="WsCloudServiceSoap" type="tns:WsCloudServiceSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<operation name="GetPODs">
+			<soap:operation soapAction="WsCloud/GetPODs?ver_=1.01" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="excfault">
+				<soap:fault name="excfault" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="GetServices">
+			<soap:operation soapAction="WsCloud/GetServices?ver_=1.01" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="excfault">
+				<soap:fault name="excfault" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="Ping">
+			<soap:operation soapAction="WsCloud/Ping?ver_=1.01" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="excfault">
+				<soap:fault name="excfault" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="WsCloud">
+		<port name="WsCloudServiceSoap" binding="tns:WsCloudServiceSoap">
+			<soap:address location="http://10.1.2.160:8888/WsCloud?ver_=1.01"/>
+		</port>
+	</service>
 </definitions>

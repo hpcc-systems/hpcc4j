@@ -493,13 +493,13 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
   public WsPackageProcessStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://localhost:8010/WsPackageProcess?ver_=1.05");
+    this(configurationContext, "http://10.1.1.180:8888/WsPackageProcess?ver_=1.05");
   }
 
   /** Default Constructor */
   public WsPackageProcessStub() throws org.apache.axis2.AxisFault {
 
-    this("http://localhost:8010/WsPackageProcess?ver_=1.05");
+    this("http://10.1.1.180:8888/WsPackageProcess?ver_=1.05");
   }
 
   /** Constructor taking the target endpoint */
@@ -2765,7 +2765,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     }
     return false;
   }
-  // http://localhost:8010/WsPackageProcess?ver_=1.05
+  // http://10.1.1.180:8888/WsPackageProcess?ver_=1.05
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest param,
       boolean optimizeContent)

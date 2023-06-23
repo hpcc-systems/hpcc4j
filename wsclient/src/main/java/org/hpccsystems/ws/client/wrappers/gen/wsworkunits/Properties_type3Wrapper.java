@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -22,15 +20,13 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: Properties_type3Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class Properties_type3Wrapper
 {
-    protected List<WUResponsePropertyWrapper> local_property = null;
+    protected List<WUDetailsMetaPropertyWrapper> local_property = null;
 
     public Properties_type3Wrapper() {}
 
@@ -38,7 +34,7 @@ public class Properties_type3Wrapper
     {
         copy( properties_type3 );
     }
-    public Properties_type3Wrapper( List<WUResponsePropertyWrapper> _property )
+    public Properties_type3Wrapper( List<WUDetailsMetaPropertyWrapper> _property )
     {
         this.local_property = _property;
 
@@ -51,10 +47,10 @@ public class Properties_type3Wrapper
 
         if (raw.getProperty() != null)
         {
-            this.local_property = new ArrayList<WUResponsePropertyWrapper>();
+            this.local_property = new ArrayList<WUDetailsMetaPropertyWrapper>();
             for ( int i = 0; i < raw.getProperty().length; i++)
             {
-                this.local_property.add(new WUResponsePropertyWrapper(raw.getProperty()[i]));
+                this.local_property.add(new WUDetailsMetaPropertyWrapper(raw.getProperty()[i]));
             }
         }
     }
@@ -69,7 +65,7 @@ public class Properties_type3Wrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3();
         if (this.local_property!= null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[] arr = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[this.local_property.size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[] arr = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[this.local_property.size()];
             for ( int i = 0; i < this.local_property.size(); i++)
             {
                 arr[i] = this.local_property.get(i) .getRaw();
@@ -80,11 +76,11 @@ public class Properties_type3Wrapper
     }
 
 
-    public void setProperty( List<WUResponsePropertyWrapper> _property )
+    public void setProperty( List<WUDetailsMetaPropertyWrapper> _property )
     {
         this.local_property = _property;
     }
-    public List<WUResponsePropertyWrapper> getProperty( )
+    public List<WUDetailsMetaPropertyWrapper> getProperty( )
     {
         return this.local_property;
     }

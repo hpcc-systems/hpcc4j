@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,19 +18,18 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: WUResponseScopeWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class WUResponseScopeWrapper
 {
     protected String local_scopeName;
     protected String local_id;
     protected String local_scopeType;
-    protected Properties_type3Wrapper local_properties;
+    protected Properties_type2Wrapper local_properties;
     protected Notes_type0Wrapper local_notes;
+    protected String local_sinkActivity;
 
     public WUResponseScopeWrapper() {}
 
@@ -40,13 +37,14 @@ public class WUResponseScopeWrapper
     {
         copy( wuresponsescope );
     }
-    public WUResponseScopeWrapper( String _scopeName, String _id, String _scopeType, Properties_type3Wrapper _properties, Notes_type0Wrapper _notes )
+    public WUResponseScopeWrapper( String _scopeName, String _id, String _scopeType, Properties_type2Wrapper _properties, Notes_type0Wrapper _notes, String _sinkActivity )
     {
         this.local_scopeName = _scopeName;
         this.local_id = _id;
         this.local_scopeType = _scopeType;
         this.local_properties = _properties;
         this.local_notes = _notes;
+        this.local_sinkActivity = _sinkActivity;
 
     }
 
@@ -59,16 +57,17 @@ public class WUResponseScopeWrapper
         this.local_id = raw.getId();
         this.local_scopeType = raw.getScopeType();
         if (raw.getProperties() != null)
-            this.local_properties = new Properties_type3Wrapper( raw.getProperties());
+            this.local_properties = new Properties_type2Wrapper( raw.getProperties());
         if (raw.getNotes() != null)
             this.local_notes = new Notes_type0Wrapper( raw.getNotes());
+        this.local_sinkActivity = raw.getSinkActivity();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUResponseScopeWrapper [" + "scopeName = " + local_scopeName + ", " + "id = " + local_id + ", " + "scopeType = " + local_scopeType + ", " + "properties = " + local_properties + ", " + "notes = " + local_notes + "]";
+        return "WUResponseScopeWrapper [" + "scopeName = " + local_scopeName + ", " + "id = " + local_id + ", " + "scopeType = " + local_scopeType + ", " + "properties = " + local_properties + ", " + "notes = " + local_notes + ", " + "sinkActivity = " + local_sinkActivity + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope getRaw()
     {
@@ -80,6 +79,7 @@ public class WUResponseScopeWrapper
             raw.setProperties( local_properties.getRaw());
         if (local_notes != null)
             raw.setNotes( local_notes.getRaw());
+        raw.setSinkActivity( local_sinkActivity);
         return raw;
     }
 
@@ -108,11 +108,11 @@ public class WUResponseScopeWrapper
     {
         return this.local_scopeType;
     }
-    public void setProperties( Properties_type3Wrapper _properties )
+    public void setProperties( Properties_type2Wrapper _properties )
     {
         this.local_properties = _properties;
     }
-    public Properties_type3Wrapper getProperties( )
+    public Properties_type2Wrapper getProperties( )
     {
         return this.local_properties;
     }
@@ -123,5 +123,13 @@ public class WUResponseScopeWrapper
     public Notes_type0Wrapper getNotes( )
     {
         return this.local_notes;
+    }
+    public void setSinkActivity( String _sinkActivity )
+    {
+        this.local_sinkActivity = _sinkActivity;
+    }
+    public String getSinkActivity( )
+    {
+        return this.local_sinkActivity;
     }
 }

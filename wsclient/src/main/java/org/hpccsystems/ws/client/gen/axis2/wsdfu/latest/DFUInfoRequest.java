@@ -354,6 +354,42 @@ public class DFUInfoRequest implements org.apache.axis2.databinding.ADBBean {
     this.localRestrict = param;
   }
 
+  /** field for ForceIndexInfo */
+  protected boolean localForceIndexInfo =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localForceIndexInfoTracker = false;
+
+  public boolean isForceIndexInfoSpecified() {
+    return localForceIndexInfoTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getForceIndexInfo() {
+    return localForceIndexInfo;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ForceIndexInfo
+   */
+  public void setForceIndexInfo(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localForceIndexInfoTracker = true;
+
+    this.localForceIndexInfo = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -545,6 +581,21 @@ public class DFUInfoRequest implements org.apache.axis2.databinding.ADBBean {
       }
       localRestrict.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Restrict"), xmlWriter);
+    }
+    if (localForceIndexInfoTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "ForceIndexInfo", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("ForceIndexInfo cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localForceIndexInfo));
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -959,6 +1010,25 @@ public class DFUInfoRequest implements org.apache.axis2.databinding.ADBBean {
               object.setRestrict(
                   org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUChangeRestriction.Factory
                       .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ForceIndexInfo")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ForceIndexInfo" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setForceIndexInfo(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

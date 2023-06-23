@@ -15,6 +15,17 @@ public interface WsResources {
   /**
    * Auto generated method signature
    *
+   * @param targetQueryRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.TargetQueryResponse targetQuery(
+      org.hpccsystems.ws.client.gen.axis2.wsresources.latest.TargetQueryRequest targetQueryRequest)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
    * @param wsResourcesPingRequest
    * @throws org.hpccsystems.ws.client.gen.axis2.wsresources.latest.EspSoapFault :
    */

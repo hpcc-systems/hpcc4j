@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -22,15 +20,13 @@ import java.util.ArrayList;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: Dependencies_type0Wrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class Dependencies_type0Wrapper
 {
-    protected List<WUECLAttributeWrapper> local_eCLAttribute = null;
+    protected List<WUResponseScopeWrapper> local_dependency = null;
 
     public Dependencies_type0Wrapper() {}
 
@@ -38,9 +34,9 @@ public class Dependencies_type0Wrapper
     {
         copy( dependencies_type0 );
     }
-    public Dependencies_type0Wrapper( List<WUECLAttributeWrapper> _eCLAttribute )
+    public Dependencies_type0Wrapper( List<WUResponseScopeWrapper> _dependency )
     {
-        this.local_eCLAttribute = _eCLAttribute;
+        this.local_dependency = _dependency;
 
     }
 
@@ -49,12 +45,12 @@ public class Dependencies_type0Wrapper
         if (raw == null)
             return;
 
-        if (raw.getECLAttribute() != null)
+        if (raw.getDependency() != null)
         {
-            this.local_eCLAttribute = new ArrayList<WUECLAttributeWrapper>();
-            for ( int i = 0; i < raw.getECLAttribute().length; i++)
+            this.local_dependency = new ArrayList<WUResponseScopeWrapper>();
+            for ( int i = 0; i < raw.getDependency().length; i++)
             {
-                this.local_eCLAttribute.add(new WUECLAttributeWrapper(raw.getECLAttribute()[i]));
+                this.local_dependency.add(new WUResponseScopeWrapper(raw.getDependency()[i]));
             }
         }
     }
@@ -62,30 +58,30 @@ public class Dependencies_type0Wrapper
     @Override
     public String toString()
     {
-        return "Dependencies_type0Wrapper [" + "eCLAttribute = " + local_eCLAttribute + "]";
+        return "Dependencies_type0Wrapper [" + "dependency = " + local_dependency + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0 getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0 raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0();
-        if (this.local_eCLAttribute!= null)
+        if (this.local_dependency!= null)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[] arr = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUECLAttribute[this.local_eCLAttribute.size()];
-            for ( int i = 0; i < this.local_eCLAttribute.size(); i++)
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] arr = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[this.local_dependency.size()];
+            for ( int i = 0; i < this.local_dependency.size(); i++)
             {
-                arr[i] = this.local_eCLAttribute.get(i) .getRaw();
+                arr[i] = this.local_dependency.get(i) .getRaw();
             }
-            raw.setECLAttribute(arr);
+            raw.setDependency(arr);
         }
         return raw;
     }
 
 
-    public void setECLAttribute( List<WUECLAttributeWrapper> _eCLAttribute )
+    public void setDependency( List<WUResponseScopeWrapper> _dependency )
     {
-        this.local_eCLAttribute = _eCLAttribute;
+        this.local_dependency = _dependency;
     }
-    public List<WUECLAttributeWrapper> getECLAttribute( )
+    public List<WUResponseScopeWrapper> getDependency( )
     {
-        return this.local_eCLAttribute;
+        return this.local_dependency;
     }
 }

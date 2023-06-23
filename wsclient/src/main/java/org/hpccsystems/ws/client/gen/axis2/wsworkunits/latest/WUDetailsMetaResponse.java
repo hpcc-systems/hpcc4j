@@ -51,7 +51,7 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
   }
 
   /** field for Properties */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2 localProperties;
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 localProperties;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -66,9 +66,9 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2 getProperties() {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 getProperties() {
     return localProperties;
   }
 
@@ -78,7 +78,7 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
    * @param param Properties
    */
   public void setProperties(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2 param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3 param) {
     localPropertiesTracker = param != null;
 
     this.localProperties = param;
@@ -153,7 +153,7 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
   }
 
   /** field for Activities */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type0 localActivities;
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1 localActivities;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -168,9 +168,9 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type0
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type0 getActivities() {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1 getActivities() {
     return localActivities;
   }
 
@@ -180,7 +180,7 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
    * @param param Activities
    */
   public void setActivities(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type0 param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1 param) {
     localActivitiesTracker = param != null;
 
     this.localActivities = param;
@@ -531,7 +531,7 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
                     .equals(reader.getName())) {
 
               object.setProperties(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type2.Factory
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type3.Factory
                       .parse(reader));
 
               reader.next();
@@ -564,7 +564,7 @@ public class WUDetailsMetaResponse implements org.apache.axis2.databinding.ADBBe
                     .equals(reader.getName())) {
 
               object.setActivities(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type0.Factory
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1.Factory
                       .parse(reader));
 
               reader.next();
