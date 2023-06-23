@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,17 +18,16 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: DiscoveredWebLinkWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * Service version: 1.01
  */
 public class DiscoveredWebLinkWrapper
 {
     protected String local_serviceName;
     protected String local_nameSpace;
     protected ArrayOfNamedValueWrapper local_annotations;
+    protected ServiceConnectionWrapper local_connection;
 
     public DiscoveredWebLinkWrapper() {}
 
@@ -38,11 +35,12 @@ public class DiscoveredWebLinkWrapper
     {
         copy( discoveredweblink );
     }
-    public DiscoveredWebLinkWrapper( String _serviceName, String _nameSpace, ArrayOfNamedValueWrapper _annotations )
+    public DiscoveredWebLinkWrapper( String _serviceName, String _nameSpace, ArrayOfNamedValueWrapper _annotations, ServiceConnectionWrapper _connection )
     {
         this.local_serviceName = _serviceName;
         this.local_nameSpace = _nameSpace;
         this.local_annotations = _annotations;
+        this.local_connection = _connection;
 
     }
 
@@ -55,13 +53,15 @@ public class DiscoveredWebLinkWrapper
         this.local_nameSpace = raw.getNameSpace();
         if (raw.getAnnotations() != null)
             this.local_annotations = new ArrayOfNamedValueWrapper( raw.getAnnotations());
+        if (raw.getConnection() != null)
+            this.local_connection = new ServiceConnectionWrapper( raw.getConnection());
 
     }
 
     @Override
     public String toString()
     {
-        return "DiscoveredWebLinkWrapper [" + "serviceName = " + local_serviceName + ", " + "nameSpace = " + local_nameSpace + ", " + "annotations = " + local_annotations + "]";
+        return "DiscoveredWebLinkWrapper [" + "serviceName = " + local_serviceName + ", " + "nameSpace = " + local_nameSpace + ", " + "annotations = " + local_annotations + ", " + "connection = " + local_connection + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.DiscoveredWebLink getRaw()
     {
@@ -70,6 +70,8 @@ public class DiscoveredWebLinkWrapper
         raw.setNameSpace( local_nameSpace);
         if (local_annotations != null)
             raw.setAnnotations( local_annotations.getRaw());
+        if (local_connection != null)
+            raw.setConnection( local_connection.getRaw());
         return raw;
     }
 
@@ -97,5 +99,13 @@ public class DiscoveredWebLinkWrapper
     public ArrayOfNamedValueWrapper getAnnotations( )
     {
         return this.local_annotations;
+    }
+    public void setConnection( ServiceConnectionWrapper _connection )
+    {
+        this.local_connection = _connection;
+    }
+    public ServiceConnectionWrapper getConnection( )
+    {
+        return this.local_connection;
     }
 }

@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,15 +18,14 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: QuerySetQueryActionResultWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionResult
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class QuerySetQueryActionResultWrapper
 {
     protected String local_queryId;
+    protected String local_wUID;
     protected boolean local_suspended;
     protected boolean local_success;
     protected int local_code;
@@ -40,9 +37,10 @@ public class QuerySetQueryActionResultWrapper
     {
         copy( querysetqueryactionresult );
     }
-    public QuerySetQueryActionResultWrapper( String _queryId, boolean _suspended, boolean _success, int _code, String _message )
+    public QuerySetQueryActionResultWrapper( String _queryId, String _wUID, boolean _suspended, boolean _success, int _code, String _message )
     {
         this.local_queryId = _queryId;
+        this.local_wUID = _wUID;
         this.local_suspended = _suspended;
         this.local_success = _success;
         this.local_code = _code;
@@ -56,6 +54,7 @@ public class QuerySetQueryActionResultWrapper
             return;
 
         this.local_queryId = raw.getQueryId();
+        this.local_wUID = raw.getWUID();
         this.local_suspended = raw.getSuspended();
         this.local_success = raw.getSuccess();
         this.local_code = raw.getCode();
@@ -66,12 +65,13 @@ public class QuerySetQueryActionResultWrapper
     @Override
     public String toString()
     {
-        return "QuerySetQueryActionResultWrapper [" + "queryId = " + local_queryId + ", " + "suspended = " + local_suspended + ", " + "success = " + local_success + ", " + "code = " + local_code + ", " + "message = " + local_message + "]";
+        return "QuerySetQueryActionResultWrapper [" + "queryId = " + local_queryId + ", " + "wUID = " + local_wUID + ", " + "suspended = " + local_suspended + ", " + "success = " + local_success + ", " + "code = " + local_code + ", " + "message = " + local_message + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionResult getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionResult raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionResult();
         raw.setQueryId( local_queryId);
+        raw.setWUID( local_wUID);
         raw.setSuspended( local_suspended);
         raw.setSuccess( local_success);
         raw.setCode( local_code);
@@ -87,6 +87,14 @@ public class QuerySetQueryActionResultWrapper
     public String getQueryId( )
     {
         return this.local_queryId;
+    }
+    public void setWUID( String _wUID )
+    {
+        this.local_wUID = _wUID;
+    }
+    public String getWUID( )
+    {
+        return this.local_wUID;
     }
     public void setSuspended( boolean _suspended )
     {

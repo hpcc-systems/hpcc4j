@@ -48,6 +48,77 @@ public class QuerySetQueryActionItem implements org.apache.axis2.databinding.ADB
     this.localQueryId = param;
   }
 
+  /** field for Activated */
+  protected boolean localActivated;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localActivatedTracker = false;
+
+  public boolean isActivatedSpecified() {
+    return localActivatedTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getActivated() {
+    return localActivated;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Activated
+   */
+  public void setActivated(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localActivatedTracker = true;
+
+    this.localActivated = param;
+  }
+
+  /** field for SuspendedByUser */
+  protected boolean localSuspendedByUser =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localSuspendedByUserTracker = false;
+
+  public boolean isSuspendedByUserSpecified() {
+    return localSuspendedByUserTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getSuspendedByUser() {
+    return localSuspendedByUser;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param SuspendedByUser
+   */
+  public void setSuspendedByUser(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localSuspendedByUserTracker = true;
+
+    this.localSuspendedByUser = param;
+  }
+
   /** field for ClientState */
   protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryClientState
       localClientState;
@@ -148,6 +219,36 @@ public class QuerySetQueryActionItem implements org.apache.axis2.databinding.ADB
       } else {
 
         xmlWriter.writeCharacters(localQueryId);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localActivatedTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "Activated", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("Activated cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localActivated));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localSuspendedByUserTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "SuspendedByUser", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("SuspendedByUser cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSuspendedByUser));
       }
 
       xmlWriter.writeEndElement();
@@ -418,6 +519,45 @@ public class QuerySetQueryActionItem implements org.apache.axis2.databinding.ADB
 
               object.setQueryId(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Activated")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Activated" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setActivated(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "SuspendedByUser")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "SuspendedByUser" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setSuspendedByUser(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

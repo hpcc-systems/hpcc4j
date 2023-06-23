@@ -1916,6 +1916,76 @@ public class DFUWorkunit implements org.apache.axis2.databinding.ADBBean {
     this.localFileAccessCost = param;
   }
 
+  /** field for KbPerSecAve */
+  protected int localKbPerSecAve;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localKbPerSecAveTracker = false;
+
+  public boolean isKbPerSecAveSpecified() {
+    return localKbPerSecAveTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return int
+   */
+  public int getKbPerSecAve() {
+    return localKbPerSecAve;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param KbPerSecAve
+   */
+  public void setKbPerSecAve(int param) {
+
+    // setting primitive attribute tracker to true
+    localKbPerSecAveTracker = param != java.lang.Integer.MIN_VALUE;
+
+    this.localKbPerSecAve = param;
+  }
+
+  /** field for KbPerSec */
+  protected int localKbPerSec;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localKbPerSecTracker = false;
+
+  public boolean isKbPerSecSpecified() {
+    return localKbPerSecTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return int
+   */
+  public int getKbPerSec() {
+    return localKbPerSec;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param KbPerSec
+   */
+  public void setKbPerSec(int param) {
+
+    // setting primitive attribute tracker to true
+    localKbPerSecTracker = param != java.lang.Integer.MIN_VALUE;
+
+    this.localKbPerSec = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -2839,6 +2909,36 @@ public class DFUWorkunit implements org.apache.axis2.databinding.ADBBean {
       } else {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFileAccessCost));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localKbPerSecAveTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "KbPerSecAve", xmlWriter);
+
+      if (localKbPerSecAve == java.lang.Integer.MIN_VALUE) {
+
+        throw new org.apache.axis2.databinding.ADBException("KbPerSecAve cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localKbPerSecAve));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localKbPerSecTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "KbPerSec", xmlWriter);
+
+      if (localKbPerSec == java.lang.Integer.MIN_VALUE) {
+
+        throw new org.apache.axis2.databinding.ADBException("KbPerSec cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localKbPerSec));
       }
 
       xmlWriter.writeEndElement();
@@ -4154,6 +4254,44 @@ public class DFUWorkunit implements org.apache.axis2.databinding.ADBBean {
 
               object.setFileAccessCost(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "KbPerSecAve")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "KbPerSecAve" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setKbPerSecAve(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "KbPerSec")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "KbPerSec" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setKbPerSec(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
 
               reader.next();
 

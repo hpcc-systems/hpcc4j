@@ -1,37 +1,39 @@
 /**
  * EspSoapFault.java
  *
- * This file was auto-generated from WSDL
- * by the Apache Axis2 version: 1.7.9  Built on : Nov 16, 2018 (12:05:37 GMT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
+ * 2022 (03:46:59 EDT)
  */
 package org.hpccsystems.ws.client.gen.axis2.wscodesign.latest;
 
 public class EspSoapFault extends java.lang.Exception {
-    private static final long serialVersionUID = 1616783011440L;
-    private org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Exceptions faultMessage;
 
-    public EspSoapFault() {
-        super("EspSoapFault");
-    }
+  private static final long serialVersionUID = 1686862874482L;
 
-    public EspSoapFault(java.lang.String s) {
-        super(s);
-    }
+  private org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Exceptions faultMessage;
 
-    public EspSoapFault(java.lang.String s, java.lang.Throwable ex) {
-        super(s, ex);
-    }
+  public EspSoapFault() {
+    super("EspSoapFault");
+  }
 
-    public EspSoapFault(java.lang.Throwable cause) {
-        super(cause);
-    }
+  public EspSoapFault(java.lang.String s) {
+    super(s);
+  }
 
-    public void setFaultMessage(
-        org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Exceptions msg) {
-        faultMessage = msg;
-    }
+  public EspSoapFault(java.lang.String s, java.lang.Throwable ex) {
+    super(s, ex);
+  }
 
-    public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Exceptions getFaultMessage() {
-        return faultMessage;
-    }
+  public EspSoapFault(java.lang.Throwable cause) {
+    super(cause);
+  }
+
+  public void setFaultMessage(
+      org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Exceptions msg) {
+    faultMessage = msg;
+  }
+
+  public org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.Exceptions getFaultMessage() {
+    return faultMessage;
+  }
 }

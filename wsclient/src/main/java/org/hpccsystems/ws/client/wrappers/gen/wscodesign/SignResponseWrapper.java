@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wscodesign;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: SignResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.SignResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wscodesign
- * Service version: 1.1
  */
 public class SignResponseWrapper
 {

@@ -323,13 +323,13 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
   public WssqlStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://localhost:8510/wssql?ver_=3.06");
+    this(configurationContext, "http://10.1.1.145:8880/wssql?ver_=3.06");
   }
 
   /** Default Constructor */
   public WssqlStub() throws org.apache.axis2.AxisFault {
 
-    this("http://localhost:8510/wssql?ver_=3.06");
+    this("http://10.1.1.145:8880/wssql?ver_=3.06");
   }
 
   /** Constructor taking the target endpoint */
@@ -1714,7 +1714,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     }
     return false;
   }
-  // http://localhost:8510/wssql?ver_=3.06
+  // http://10.1.1.145:8880/wssql?ver_=3.06
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecuteSQLRequest param,
       boolean optimizeContent)

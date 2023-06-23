@@ -16,8 +16,7 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
   */
 
   /** field for Activity This was an Array! */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[]
-      localActivity;
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] localActivity;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -32,16 +31,15 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[]
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[]
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[]
-      getActivity() {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] getActivity() {
     return localActivity;
   }
 
   /** validate the array for Activity */
   protected void validateActivity(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[] param) {}
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] param) {}
 
   /**
    * Auto generated setter method
@@ -49,7 +47,7 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
    * @param param Activity
    */
   public void setActivity(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[] param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] param) {
 
     validateActivity(param);
 
@@ -61,13 +59,13 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated add method for the array for convenience
    *
-   * @param param org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo
+   * @param param org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope
    */
   public void addActivity(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope param) {
     if (localActivity == null) {
       localActivity =
-          new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[] {};
+          new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[] {};
     }
 
     // update the setting tracker
@@ -76,9 +74,9 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
     java.util.List list = org.apache.axis2.databinding.utils.ConverterUtil.toList(localActivity);
     list.add(param);
     this.localActivity =
-        (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[])
+        (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[])
             list.toArray(
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope
                     [list.size()]);
   }
 
@@ -403,8 +401,8 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
           // Process the array and step past its final element's end.
 
           list1.add(
-              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo.Factory
-                  .parse(reader));
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope.Factory.parse(
+                  reader));
 
           // loop until we find a start element that is not part of this array
           boolean loopDone1 = false;
@@ -422,8 +420,8 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
               if (new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Activity")
                   .equals(reader.getName())) {
                 list1.add(
-                    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo
-                        .Factory.parse(reader));
+                    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope.Factory
+                        .parse(reader));
 
               } else {
                 loopDone1 = true;
@@ -433,10 +431,9 @@ public class Activities_type0 implements org.apache.axis2.databinding.ADBBean {
           // call the converter utility  to convert and set the array
 
           object.setActivity(
-              (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo[])
+              (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope[])
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsActivityInfo
-                          .class,
+                      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseScope.class,
                       list1));
 
         } // End of if for expected property start element

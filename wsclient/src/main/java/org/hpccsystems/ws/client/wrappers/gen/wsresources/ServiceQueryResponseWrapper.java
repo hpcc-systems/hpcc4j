@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: ServiceQueryResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsresources
- * Service version: 1.01
  */
 public class ServiceQueryResponseWrapper
 {

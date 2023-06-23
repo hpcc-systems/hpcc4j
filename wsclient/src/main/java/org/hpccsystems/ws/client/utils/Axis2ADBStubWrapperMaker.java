@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-import org.apache.axis2.addressing.metadata.ServiceName;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 
@@ -38,16 +36,21 @@ import java.util.Properties;
  */
 public class Axis2ADBStubWrapperMaker
 {
-    final public static String version = "1.8";
+    final public static String version = "1.9";
 
     private static String elementcommentstart = "/**\n"
                                               + " * Generated Axis2 ADB stub class wrapper\n"
-                                              + " * WrapperMaker version: %s\n"
                                               + " * Class name: %s\n"
                                               + " * Wraps class: %s\n"
                                               + " * Output package : %s\n"
-                                              + " * Service version: %s\n"
                                               + " */\n";
+
+    private static String wrapperReport =   "Generated Axis2 ADB stub class wrapper package report:\n"
+                                            + "  WrapperMaker version: %s\n"
+                                            + "  Wrapper package name: %s\n"
+                                            + "  Wrapped service name: %s\n"
+                                            + "  Wrapped package: %s\n"
+                                            + "  Wrapped service version: %s\n";
 
     private String crheader = "\n/*******************************************************************************\n"
                              + " * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.\n"
@@ -224,12 +227,94 @@ public class Axis2ADBStubWrapperMaker
         this.outputDir = outputdir;
     }
 
+    public void outputPackageGenerationReport(List<String> wrappedClasses)
+    {
+        String fullpath = outputDir + File.separator + this.targetPackage.replace(".", File.separator);
+        File wrapperDir = new File(fullpath);
+        if (!wrapperDir.exists())
+        {
+            if (!wrapperDir.mkdirs())
+            {
+                System.out.println("Failed to create directory: " + fullpath);
+                System.exit(-1);
+            }
+        }
+
+        fullpath = fullpath + File.separator + "WrapperReport.txt";
+        System.out.println("Attempting to create file: " + fullpath);
+
+        File reportFile = new File(fullpath);
+        try
+        {
+            if (!reportFile.createNewFile())
+            {
+                System.out.println("Warning: Target file already exists: " + fullpath);
+            }
+        }
+        catch (IOException e1)
+        {
+            System.out.println("Warning: Could not create file: " + fullpath);
+            System.out.println(e1.getLocalizedMessage());
+            e1.printStackTrace();
+            System.exit(-1);
+        }
+
+        FileWriter writer = null;
+        try
+        {
+            writer = new FileWriter(reportFile);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Warning: Could not filewriter for : " + fullpath);
+            System.out.println(e.getLocalizedMessage());
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        String report = String.format(wrapperReport, version, targetPackage, targetWsService, generatedPackageToWrap, targetWsServiceVer);
+
+        report += "Wrapped Classes:\n";
+        for (String wrappedClass : wrappedClasses)
+        {
+            report += "    " + wrappedClass + "\n";
+        }
+
+        try
+        {
+            writer.write(report);
+            
+        }
+        catch (IOException e)
+        {
+            System.out.println("Warning: Could not write to file: " + fullpath);
+            System.out.println(e.getLocalizedMessage());
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        finally
+        {
+            if (writer != null)
+            {
+                try
+                {
+                    writer.close();
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Warning: Could not close filewritter: " + fullpath);
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void wrapClass(Class<?> cls)
     {
         imports = new ArrayList<String>();
         fields = new ArrayList<SimpleField>();
 
-        String packagedeclaration = "package " + this.targetPackage + ";\n\n";
+        String packagedeclaration = "package " + this.targetPackage + ";\n";
 
         String wrappedclassname = cls.getSimpleName()+"Wrapper";
         System.out.println(cls.getName() + " to be wrapped as: " + this.targetPackage + "." + targetWsService + "." + wrappedclassname);
@@ -288,9 +373,9 @@ public class Axis2ADBStubWrapperMaker
         String constructors = generateConstructors(cls);
         String gettersettermethods = createGetterAndSetter();
 
-        String classcomment = String.format(elementcommentstart, version, wrappedclassname, cls.getName(), targetPackage, targetWsServiceVer );
+        String classcomment = String.format(elementcommentstart, wrappedclassname, cls.getName(), targetPackage);
 
-        String classcontent = packagedeclaration + "\n" + crheader + importdeclarations +  classcomment + "public class " + wrappedclassname + "\n{\n" + fielddeclarations + "\n" + constructors + "\n" + gettersettermethods +"\n}";
+        String classcontent = packagedeclaration + crheader + importdeclarations +  classcomment + "public class " + wrappedclassname + "\n{\n" + fielddeclarations + "\n" + constructors + "\n" + gettersettermethods +"\n}";
 
         try
         {
@@ -888,8 +973,10 @@ public class Axis2ADBStubWrapperMaker
         Axis2ADBStubWrapperMaker wrapperMaker = new Axis2ADBStubWrapperMaker(outputdir, generatedPackageToWrap, targetPackage, targetWsServiceName, serviceVer);
 
         List<Class<?>> classesInPackage = getClassesInPackage(generatedPackageToWrap);
+
         if (classesInPackage.size() > 0)
         {
+            List<String> wrappedClasses = new ArrayList<String>();
             for (Class<?> cls : classesInPackage)
             {
                 if (cls.getDeclaringClass() != null) //ignore inner classes
@@ -921,7 +1008,10 @@ public class Axis2ADBStubWrapperMaker
                 }
 
                 wrapperMaker.wrapClass(cls);
+                wrappedClasses.add(cls.getName());
             }
+            wrapperMaker.outputPackageGenerationReport(wrappedClasses);
+
             System.out.println("Finsished wrapping stub classes from package: " + generatedPackageToWrap + "!\n");
             System.out.println("Confirm contents of: " + outputdir  + File.separator + targetPackage);
         }
