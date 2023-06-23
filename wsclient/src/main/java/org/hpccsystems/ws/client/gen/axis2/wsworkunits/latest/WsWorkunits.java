@@ -781,6 +781,18 @@ public interface WsWorkunits {
   /**
    * Auto generated method signature
    *
+   * @param wUAnalyseHotspot
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAnalyseHotspotResponse
+      wUAnalyseHotspot(
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAnalyseHotspot wUAnalyseHotspot)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
    * @param wUAction
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */

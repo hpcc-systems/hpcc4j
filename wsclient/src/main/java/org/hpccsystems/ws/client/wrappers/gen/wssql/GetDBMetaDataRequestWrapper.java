@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: GetDBMetaDataRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wssql.latest.GetDBMetaDataRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wssql
- * Service version: 3.06
  */
 public class GetDBMetaDataRequestWrapper
 {

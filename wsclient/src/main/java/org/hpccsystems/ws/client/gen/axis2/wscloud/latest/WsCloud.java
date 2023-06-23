@@ -34,5 +34,16 @@ public interface WsCloud {
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspSoapFault;
 
+  /**
+   * Auto generated method signature
+   *
+   * @param getServicesRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetServicesResponse getServices(
+      org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetServicesRequest getServicesRequest)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspSoapFault;
+
   //
 }

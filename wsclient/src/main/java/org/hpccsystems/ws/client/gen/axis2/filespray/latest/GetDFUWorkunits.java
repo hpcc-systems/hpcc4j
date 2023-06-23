@@ -488,6 +488,114 @@ public class GetDFUWorkunits implements org.apache.axis2.databinding.ADBBean {
     this.localPublisherWuid = param;
   }
 
+  /** field for IncludeProgressMessages */
+  protected boolean localIncludeProgressMessages =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeProgressMessagesTracker = false;
+
+  public boolean isIncludeProgressMessagesSpecified() {
+    return localIncludeProgressMessagesTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeProgressMessages() {
+    return localIncludeProgressMessages;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeProgressMessages
+   */
+  public void setIncludeProgressMessages(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeProgressMessagesTracker = true;
+
+    this.localIncludeProgressMessages = param;
+  }
+
+  /** field for IncludeTimings */
+  protected boolean localIncludeTimings =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeTimingsTracker = false;
+
+  public boolean isIncludeTimingsSpecified() {
+    return localIncludeTimingsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeTimings() {
+    return localIncludeTimings;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeTimings
+   */
+  public void setIncludeTimings(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeTimingsTracker = true;
+
+    this.localIncludeTimings = param;
+  }
+
+  /** field for IncludeTransferRate */
+  protected boolean localIncludeTransferRate =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeTransferRateTracker = false;
+
+  public boolean isIncludeTransferRateSpecified() {
+    return localIncludeTransferRateTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeTransferRate() {
+    return localIncludeTransferRate;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeTransferRate
+   */
+  public void setIncludeTransferRate(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeTransferRateTracker = true;
+
+    this.localIncludeTransferRate = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -753,6 +861,54 @@ public class GetDFUWorkunits implements org.apache.axis2.databinding.ADBBean {
       } else {
 
         xmlWriter.writeCharacters(localPublisherWuid);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeProgressMessagesTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "includeProgressMessages", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException(
+            "includeProgressMessages cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeProgressMessages));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeTimingsTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "includeTimings", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("includeTimings cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeTimings));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeTransferRateTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "includeTransferRate", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("includeTransferRate cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeTransferRate));
       }
 
       xmlWriter.writeEndElement();
@@ -1262,6 +1418,65 @@ public class GetDFUWorkunits implements org.apache.axis2.databinding.ADBBean {
 
               object.setPublisherWuid(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:filespray", "includeProgressMessages")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "includeProgressMessages" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeProgressMessages(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "includeTimings")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "includeTimings" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeTimings(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:filespray", "includeTransferRate")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "includeTransferRate" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeTransferRate(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

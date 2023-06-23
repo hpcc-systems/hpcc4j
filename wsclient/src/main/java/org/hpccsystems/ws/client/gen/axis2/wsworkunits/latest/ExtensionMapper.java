@@ -420,6 +420,13 @@ public class ExtensionMapper {
     }
 
     if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
+        && "Dependencies_type1".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type1.Factory
+          .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
         && "AllowedClusters_type0".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.AllowedClusters_type0.Factory
@@ -553,6 +560,13 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI) && "ECLSchemaItem".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSchemaItem.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
+        && "Activities_type1".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1.Factory.parse(
           reader);
     }
 

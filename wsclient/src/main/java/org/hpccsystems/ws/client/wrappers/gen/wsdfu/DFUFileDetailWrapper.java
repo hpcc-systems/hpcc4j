@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -24,11 +22,9 @@ import javax.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.8
  * Class name: DFUFileDetailWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * Service version: 1.64
  */
 public class DFUFileDetailWrapper
 {
@@ -84,6 +80,7 @@ public class DFUFileDetailWrapper
     protected double local_atRestCost;
     protected double local_accessCost;
     protected String local_expirationDate;
+    protected DFUIndexInfoWrapper local_extendedIndexInfo;
 
     public DFUFileDetailWrapper() {}
 
@@ -91,7 +88,7 @@ public class DFUFileDetailWrapper
     {
         copy( dfufiledetail );
     }
-    public DFUFileDetailWrapper( String _name, String _filename, String _prefix, String _nodeGroup, int _numParts, String _description, String _dir, String _pathMask, String _filesize, long _fileSizeInt64, String _recordSize, String _recordCount, long _recordSizeInt64, long _recordCountInt64, String _wuid, String _owner, String _jobName, String _persistent, String _format, String _maxRecordSize, String _csvSeparate, String _csvQuote, String _csvTerminate, String _csvEscape, String _modified, String _ecl, DFUFileStatWrapper _stat, ArrayOfDFUFilePartsOnClusterWrapper _dFUFilePartsOnClusters, boolean _isSuperfile, boolean _showFileContent, List<String> _subfiles, ArrayOfDFULogicalFileWrapper _superfiles, ArrayOfDFUFileProtectWrapper _protectList, boolean _fromRoxieCluster, Graphs_type0Wrapper _graphs, String _userPermission, String _contentType, long _compressedFileSize, String _percentCompressed, boolean _isCompressed, boolean _isRestricted, boolean _browseData, String _jsonInfo, DataHandler _binInfo, String _packageID, DFUFilePartitionWrapper _partition, ArrayOfDFUFileBloomWrapper _blooms, int _expireDays, String _keyType, double _atRestCost, double _accessCost, String _expirationDate )
+    public DFUFileDetailWrapper( String _name, String _filename, String _prefix, String _nodeGroup, int _numParts, String _description, String _dir, String _pathMask, String _filesize, long _fileSizeInt64, String _recordSize, String _recordCount, long _recordSizeInt64, long _recordCountInt64, String _wuid, String _owner, String _jobName, String _persistent, String _format, String _maxRecordSize, String _csvSeparate, String _csvQuote, String _csvTerminate, String _csvEscape, String _modified, String _ecl, DFUFileStatWrapper _stat, ArrayOfDFUFilePartsOnClusterWrapper _dFUFilePartsOnClusters, boolean _isSuperfile, boolean _showFileContent, List<String> _subfiles, ArrayOfDFULogicalFileWrapper _superfiles, ArrayOfDFUFileProtectWrapper _protectList, boolean _fromRoxieCluster, Graphs_type0Wrapper _graphs, String _userPermission, String _contentType, long _compressedFileSize, String _percentCompressed, boolean _isCompressed, boolean _isRestricted, boolean _browseData, String _jsonInfo, DataHandler _binInfo, String _packageID, DFUFilePartitionWrapper _partition, ArrayOfDFUFileBloomWrapper _blooms, int _expireDays, String _keyType, double _atRestCost, double _accessCost, String _expirationDate, DFUIndexInfoWrapper _extendedIndexInfo )
     {
         this.local_name = _name;
         this.local_filename = _filename;
@@ -145,6 +142,7 @@ public class DFUFileDetailWrapper
         this.local_atRestCost = _atRestCost;
         this.local_accessCost = _accessCost;
         this.local_expirationDate = _expirationDate;
+        this.local_extendedIndexInfo = _extendedIndexInfo;
 
     }
 
@@ -218,13 +216,15 @@ public class DFUFileDetailWrapper
         this.local_atRestCost = raw.getAtRestCost();
         this.local_accessCost = raw.getAccessCost();
         this.local_expirationDate = raw.getExpirationDate();
+        if (raw.getExtendedIndexInfo() != null)
+            this.local_extendedIndexInfo = new DFUIndexInfoWrapper( raw.getExtendedIndexInfo());
 
     }
 
     @Override
     public String toString()
     {
-        return "DFUFileDetailWrapper [" + "name = " + local_name + ", " + "filename = " + local_filename + ", " + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "numParts = " + local_numParts + ", " + "description = " + local_description + ", " + "dir = " + local_dir + ", " + "pathMask = " + local_pathMask + ", " + "filesize = " + local_filesize + ", " + "fileSizeInt64 = " + local_fileSizeInt64 + ", " + "recordSize = " + local_recordSize + ", " + "recordCount = " + local_recordCount + ", " + "recordSizeInt64 = " + local_recordSizeInt64 + ", " + "recordCountInt64 = " + local_recordCountInt64 + ", " + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "jobName = " + local_jobName + ", " + "persistent = " + local_persistent + ", " + "format = " + local_format + ", " + "maxRecordSize = " + local_maxRecordSize + ", " + "csvSeparate = " + local_csvSeparate + ", " + "csvQuote = " + local_csvQuote + ", " + "csvTerminate = " + local_csvTerminate + ", " + "csvEscape = " + local_csvEscape + ", " + "modified = " + local_modified + ", " + "ecl = " + local_ecl + ", " + "stat = " + local_stat + ", " + "dFUFilePartsOnClusters = " + local_dFUFilePartsOnClusters + ", " + "isSuperfile = " + local_isSuperfile + ", " + "showFileContent = " + local_showFileContent + ", " + "subfiles = " + local_subfiles + ", " + "superfiles = " + local_superfiles + ", " + "protectList = " + local_protectList + ", " + "fromRoxieCluster = " + local_fromRoxieCluster + ", " + "graphs = " + local_graphs + ", " + "userPermission = " + local_userPermission + ", " + "contentType = " + local_contentType + ", " + "compressedFileSize = " + local_compressedFileSize + ", " + "percentCompressed = " + local_percentCompressed + ", " + "isCompressed = " + local_isCompressed + ", " + "isRestricted = " + local_isRestricted + ", " + "browseData = " + local_browseData + ", " + "jsonInfo = " + local_jsonInfo + ", " + "binInfo = " + local_binInfo + ", " + "packageID = " + local_packageID + ", " + "partition = " + local_partition + ", " + "blooms = " + local_blooms + ", " + "expireDays = " + local_expireDays + ", " + "keyType = " + local_keyType + ", " + "atRestCost = " + local_atRestCost + ", " + "accessCost = " + local_accessCost + ", " + "expirationDate = " + local_expirationDate + "]";
+        return "DFUFileDetailWrapper [" + "name = " + local_name + ", " + "filename = " + local_filename + ", " + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "numParts = " + local_numParts + ", " + "description = " + local_description + ", " + "dir = " + local_dir + ", " + "pathMask = " + local_pathMask + ", " + "filesize = " + local_filesize + ", " + "fileSizeInt64 = " + local_fileSizeInt64 + ", " + "recordSize = " + local_recordSize + ", " + "recordCount = " + local_recordCount + ", " + "recordSizeInt64 = " + local_recordSizeInt64 + ", " + "recordCountInt64 = " + local_recordCountInt64 + ", " + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "jobName = " + local_jobName + ", " + "persistent = " + local_persistent + ", " + "format = " + local_format + ", " + "maxRecordSize = " + local_maxRecordSize + ", " + "csvSeparate = " + local_csvSeparate + ", " + "csvQuote = " + local_csvQuote + ", " + "csvTerminate = " + local_csvTerminate + ", " + "csvEscape = " + local_csvEscape + ", " + "modified = " + local_modified + ", " + "ecl = " + local_ecl + ", " + "stat = " + local_stat + ", " + "dFUFilePartsOnClusters = " + local_dFUFilePartsOnClusters + ", " + "isSuperfile = " + local_isSuperfile + ", " + "showFileContent = " + local_showFileContent + ", " + "subfiles = " + local_subfiles + ", " + "superfiles = " + local_superfiles + ", " + "protectList = " + local_protectList + ", " + "fromRoxieCluster = " + local_fromRoxieCluster + ", " + "graphs = " + local_graphs + ", " + "userPermission = " + local_userPermission + ", " + "contentType = " + local_contentType + ", " + "compressedFileSize = " + local_compressedFileSize + ", " + "percentCompressed = " + local_percentCompressed + ", " + "isCompressed = " + local_isCompressed + ", " + "isRestricted = " + local_isRestricted + ", " + "browseData = " + local_browseData + ", " + "jsonInfo = " + local_jsonInfo + ", " + "binInfo = " + local_binInfo + ", " + "packageID = " + local_packageID + ", " + "partition = " + local_partition + ", " + "blooms = " + local_blooms + ", " + "expireDays = " + local_expireDays + ", " + "keyType = " + local_keyType + ", " + "atRestCost = " + local_atRestCost + ", " + "accessCost = " + local_accessCost + ", " + "expirationDate = " + local_expirationDate + ", " + "extendedIndexInfo = " + local_extendedIndexInfo + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileDetail getRaw()
     {
@@ -296,6 +296,8 @@ public class DFUFileDetailWrapper
         raw.setAtRestCost( local_atRestCost);
         raw.setAccessCost( local_accessCost);
         raw.setExpirationDate( local_expirationDate);
+        if (local_extendedIndexInfo != null)
+            raw.setExtendedIndexInfo( local_extendedIndexInfo.getRaw());
         return raw;
     }
 
@@ -715,5 +717,13 @@ public class DFUFileDetailWrapper
     public String getExpirationDate( )
     {
         return this.local_expirationDate;
+    }
+    public void setExtendedIndexInfo( DFUIndexInfoWrapper _extendedIndexInfo )
+    {
+        this.local_extendedIndexInfo = _extendedIndexInfo;
+    }
+    public DFUIndexInfoWrapper getExtendedIndexInfo( )
+    {
+        return this.local_extendedIndexInfo;
     }
 }

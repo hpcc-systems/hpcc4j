@@ -678,13 +678,13 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
   public WsDfuStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://localhost:8010/WsDfu?ver_=1.64");
+    this(configurationContext, "http://10.1.1.180:8888/WsDfu?ver_=1.65");
   }
 
   /** Default Constructor */
   public WsDfuStub() throws org.apache.axis2.AxisFault {
 
-    this("http://localhost:8010/WsDfu?ver_=1.64");
+    this("http://10.1.1.180:8888/WsDfu?ver_=1.65");
   }
 
   /** Constructor taking the target endpoint */
@@ -708,7 +708,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsDfu/ListHistory?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/ListHistory?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -830,7 +830,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsDfu/EraseHistory?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/EraseHistory?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -952,7 +952,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsDfu/Ping?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/Ping?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1073,7 +1073,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUDefFile?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUDefFile?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1197,7 +1197,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUGetFileMetaData?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUGetFileMetaData?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1323,7 +1323,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileAccessV2?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUFileAccessV2?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1447,7 +1447,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileView?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUFileView?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1569,7 +1569,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUSpace?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUSpace?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1692,7 +1692,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsDfu/AddtoSuperfile?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/AddtoSuperfile?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1814,7 +1814,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileAccess?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUFileAccess?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1936,7 +1936,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUSearchData?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUSearchData?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2059,7 +2059,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUArrayAction?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUArrayAction?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2182,7 +2182,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFilePublish?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUFilePublish?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2306,7 +2306,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsDfu/EclRecordTypeInfo?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/EclRecordTypeInfo?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2431,7 +2431,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsDfu/AddRemote?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/AddRemote?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2554,7 +2554,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsDfu/SuperfileAction?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/SuperfileAction?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2678,7 +2678,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileCreate?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUFileCreate?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2802,7 +2802,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUGetDataColumns?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUGetDataColumns?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2929,7 +2929,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFURecordTypeInfo?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFURecordTypeInfo?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3054,7 +3054,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsDfu/SuperfileList?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/SuperfileList?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3177,7 +3177,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileCreateV2?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUFileCreateV2?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3301,7 +3301,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("WsDfu/Add?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/Add?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3422,7 +3422,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[22].getName());
-      _operationClient.getOptions().setAction("WsDfu/Savexml?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/Savexml?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3543,7 +3543,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[23].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUQuery?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUQuery?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3665,7 +3665,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[24].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUSearch?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUSearch?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3787,7 +3787,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[25].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUBrowseData?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUBrowseData?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3909,7 +3909,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[26].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUInfo?ver_=1.64");
+      _operationClient.getOptions().setAction("WsDfu/DFUInfo?ver_=1.65");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4028,7 +4028,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     }
     return false;
   }
-  // http://localhost:8010/WsDfu?ver_=1.64
+  // http://10.1.1.180:8888/WsDfu?ver_=1.65
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryRequest param,
       boolean optimizeContent)

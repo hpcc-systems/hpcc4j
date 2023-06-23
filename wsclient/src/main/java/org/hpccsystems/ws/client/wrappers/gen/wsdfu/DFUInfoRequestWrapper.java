@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,11 +18,9 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: DFUInfoRequestWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoRequest
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsdfu
- * Service version: 1.64
  */
 public class DFUInfoRequestWrapper
 {
@@ -38,6 +34,7 @@ public class DFUInfoRequestWrapper
     protected boolean local_includeBinTypeInfo;
     protected DFUChangeProtectionWrapper local_protect;
     protected DFUChangeRestrictionWrapper local_restrict;
+    protected boolean local_forceIndexInfo;
 
     public DFUInfoRequestWrapper() {}
 
@@ -45,7 +42,7 @@ public class DFUInfoRequestWrapper
     {
         copy( dfuinforequest );
     }
-    public DFUInfoRequestWrapper( String _name, String _cluster, boolean _updateDescription, String _querySet, String _query, String _fileDesc, boolean _includeJsonTypeInfo, boolean _includeBinTypeInfo, DFUChangeProtectionWrapper _protect, DFUChangeRestrictionWrapper _restrict )
+    public DFUInfoRequestWrapper( String _name, String _cluster, boolean _updateDescription, String _querySet, String _query, String _fileDesc, boolean _includeJsonTypeInfo, boolean _includeBinTypeInfo, DFUChangeProtectionWrapper _protect, DFUChangeRestrictionWrapper _restrict, boolean _forceIndexInfo )
     {
         this.local_name = _name;
         this.local_cluster = _cluster;
@@ -57,6 +54,7 @@ public class DFUInfoRequestWrapper
         this.local_includeBinTypeInfo = _includeBinTypeInfo;
         this.local_protect = _protect;
         this.local_restrict = _restrict;
+        this.local_forceIndexInfo = _forceIndexInfo;
 
     }
 
@@ -77,13 +75,14 @@ public class DFUInfoRequestWrapper
             this.local_protect = new DFUChangeProtectionWrapper( raw.getProtect());
         if (raw.getRestrict() != null)
             this.local_restrict = new DFUChangeRestrictionWrapper( raw.getRestrict());
+        this.local_forceIndexInfo = raw.getForceIndexInfo();
 
     }
 
     @Override
     public String toString()
     {
-        return "DFUInfoRequestWrapper [" + "name = " + local_name + ", " + "cluster = " + local_cluster + ", " + "updateDescription = " + local_updateDescription + ", " + "querySet = " + local_querySet + ", " + "query = " + local_query + ", " + "fileDesc = " + local_fileDesc + ", " + "includeJsonTypeInfo = " + local_includeJsonTypeInfo + ", " + "includeBinTypeInfo = " + local_includeBinTypeInfo + ", " + "protect = " + local_protect + ", " + "restrict = " + local_restrict + "]";
+        return "DFUInfoRequestWrapper [" + "name = " + local_name + ", " + "cluster = " + local_cluster + ", " + "updateDescription = " + local_updateDescription + ", " + "querySet = " + local_querySet + ", " + "query = " + local_query + ", " + "fileDesc = " + local_fileDesc + ", " + "includeJsonTypeInfo = " + local_includeJsonTypeInfo + ", " + "includeBinTypeInfo = " + local_includeBinTypeInfo + ", " + "protect = " + local_protect + ", " + "restrict = " + local_restrict + ", " + "forceIndexInfo = " + local_forceIndexInfo + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoRequest getRaw()
     {
@@ -100,6 +99,7 @@ public class DFUInfoRequestWrapper
             raw.setProtect( local_protect.getRaw());
         if (local_restrict != null)
             raw.setRestrict( local_restrict.getRaw());
+        raw.setForceIndexInfo( local_forceIndexInfo);
         return raw;
     }
 
@@ -183,5 +183,13 @@ public class DFUInfoRequestWrapper
     public DFUChangeRestrictionWrapper getRestrict( )
     {
         return this.local_restrict;
+    }
+    public void setForceIndexInfo( boolean _forceIndexInfo )
+    {
+        this.local_forceIndexInfo = _forceIndexInfo;
+    }
+    public boolean getForceIndexInfo( )
+    {
+        return this.local_forceIndexInfo;
     }
 }

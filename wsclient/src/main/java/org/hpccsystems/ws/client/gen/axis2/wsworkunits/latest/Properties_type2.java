@@ -16,7 +16,7 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
   */
 
   /** field for Property This was an Array! */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[]
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[]
       localProperty;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
@@ -32,16 +32,15 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[]
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[]
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[]
-      getProperty() {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[] getProperty() {
     return localProperty;
   }
 
   /** validate the array for Property */
   protected void validateProperty(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[] param) {}
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[] param) {}
 
   /**
    * Auto generated setter method
@@ -49,7 +48,7 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
    * @param param Property
    */
   public void setProperty(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[] param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[] param) {
 
     validateProperty(param);
 
@@ -61,13 +60,13 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated add method for the array for convenience
    *
-   * @param param org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty
+   * @param param org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty
    */
   public void addProperty(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty param) {
     if (localProperty == null) {
       localProperty =
-          new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[] {};
+          new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[] {};
     }
 
     // update the setting tracker
@@ -76,9 +75,9 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
     java.util.List list = org.apache.axis2.databinding.utils.ConverterUtil.toList(localProperty);
     list.add(param);
     this.localProperty =
-        (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[])
+        (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[])
             list.toArray(
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty
+                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty
                     [list.size()]);
   }
 
@@ -403,7 +402,7 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
           // Process the array and step past its final element's end.
 
           list1.add(
-              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty.Factory
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty.Factory
                   .parse(reader));
 
           // loop until we find a start element that is not part of this array
@@ -422,7 +421,7 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
               if (new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Property")
                   .equals(reader.getName())) {
                 list1.add(
-                    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty
+                    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty
                         .Factory.parse(reader));
 
               } else {
@@ -433,9 +432,9 @@ public class Properties_type2 implements org.apache.axis2.databinding.ADBBean {
           // call the converter utility  to convert and set the array
 
           object.setProperty(
-              (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty[])
+              (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty[])
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty
+                      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseProperty
                           .class,
                       list1));
 

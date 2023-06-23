@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -23,11 +21,9 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspStringArray;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.8
  * Class name: WUResubmitWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmit
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class WUResubmitWrapper
 {

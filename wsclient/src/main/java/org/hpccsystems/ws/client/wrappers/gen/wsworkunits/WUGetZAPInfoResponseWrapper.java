@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
-
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -20,22 +18,21 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 
 /**
  * Generated Axis2 ADB stub class wrapper
- * WrapperMaker version: 1.7
  * Class name: WUGetZAPInfoResponseWrapper
  * Wraps class: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse
  * Output package : org.hpccsystems.ws.client.wrappers.gen.wsworkunits
- * Service version: 1.92
  */
 public class WUGetZAPInfoResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected String local_wUID;
-    protected String local_eSPIPAddress;
-    protected String local_thorIPAddress;
+    protected String local_eSPApplication;
+    protected String local_thorProcesses;
     protected String local_buildVersion;
     protected String local_archive;
     protected String local_emailTo;
     protected String local_emailFrom;
+    protected String local_message;
 
     public WUGetZAPInfoResponseWrapper() {}
 
@@ -43,16 +40,17 @@ public class WUGetZAPInfoResponseWrapper
     {
         copy( wugetzapinforesponse );
     }
-    public WUGetZAPInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wUID, String _eSPIPAddress, String _thorIPAddress, String _buildVersion, String _archive, String _emailTo, String _emailFrom )
+    public WUGetZAPInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wUID, String _eSPApplication, String _thorProcesses, String _buildVersion, String _archive, String _emailTo, String _emailFrom, String _message )
     {
         this.local_exceptions = _exceptions;
         this.local_wUID = _wUID;
-        this.local_eSPIPAddress = _eSPIPAddress;
-        this.local_thorIPAddress = _thorIPAddress;
+        this.local_eSPApplication = _eSPApplication;
+        this.local_thorProcesses = _thorProcesses;
         this.local_buildVersion = _buildVersion;
         this.local_archive = _archive;
         this.local_emailTo = _emailTo;
         this.local_emailFrom = _emailFrom;
+        this.local_message = _message;
 
     }
 
@@ -64,19 +62,20 @@ public class WUGetZAPInfoResponseWrapper
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         this.local_wUID = raw.getWUID();
-        this.local_eSPIPAddress = raw.getESPIPAddress();
-        this.local_thorIPAddress = raw.getThorIPAddress();
+        this.local_eSPApplication = raw.getESPApplication();
+        this.local_thorProcesses = raw.getThorProcesses();
         this.local_buildVersion = raw.getBuildVersion();
         this.local_archive = raw.getArchive();
         this.local_emailTo = raw.getEmailTo();
         this.local_emailFrom = raw.getEmailFrom();
+        this.local_message = raw.getMessage();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUGetZAPInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wUID = " + local_wUID + ", " + "eSPIPAddress = " + local_eSPIPAddress + ", " + "thorIPAddress = " + local_thorIPAddress + ", " + "buildVersion = " + local_buildVersion + ", " + "archive = " + local_archive + ", " + "emailTo = " + local_emailTo + ", " + "emailFrom = " + local_emailFrom + "]";
+        return "WUGetZAPInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wUID = " + local_wUID + ", " + "eSPApplication = " + local_eSPApplication + ", " + "thorProcesses = " + local_thorProcesses + ", " + "buildVersion = " + local_buildVersion + ", " + "archive = " + local_archive + ", " + "emailTo = " + local_emailTo + ", " + "emailFrom = " + local_emailFrom + ", " + "message = " + local_message + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse getRaw()
     {
@@ -84,12 +83,13 @@ public class WUGetZAPInfoResponseWrapper
         if (local_exceptions != null)
             raw.setExceptions( local_exceptions.getRaw());
         raw.setWUID( local_wUID);
-        raw.setESPIPAddress( local_eSPIPAddress);
-        raw.setThorIPAddress( local_thorIPAddress);
+        raw.setESPApplication( local_eSPApplication);
+        raw.setThorProcesses( local_thorProcesses);
         raw.setBuildVersion( local_buildVersion);
         raw.setArchive( local_archive);
         raw.setEmailTo( local_emailTo);
         raw.setEmailFrom( local_emailFrom);
+        raw.setMessage( local_message);
         return raw;
     }
 
@@ -110,21 +110,21 @@ public class WUGetZAPInfoResponseWrapper
     {
         return this.local_wUID;
     }
-    public void setESPIPAddress( String _eSPIPAddress )
+    public void setESPApplication( String _eSPApplication )
     {
-        this.local_eSPIPAddress = _eSPIPAddress;
+        this.local_eSPApplication = _eSPApplication;
     }
-    public String getESPIPAddress( )
+    public String getESPApplication( )
     {
-        return this.local_eSPIPAddress;
+        return this.local_eSPApplication;
     }
-    public void setThorIPAddress( String _thorIPAddress )
+    public void setThorProcesses( String _thorProcesses )
     {
-        this.local_thorIPAddress = _thorIPAddress;
+        this.local_thorProcesses = _thorProcesses;
     }
-    public String getThorIPAddress( )
+    public String getThorProcesses( )
     {
-        return this.local_thorIPAddress;
+        return this.local_thorProcesses;
     }
     public void setBuildVersion( String _buildVersion )
     {
@@ -157,5 +157,13 @@ public class WUGetZAPInfoResponseWrapper
     public String getEmailFrom( )
     {
         return this.local_emailFrom;
+    }
+    public void setMessage( String _message )
+    {
+        this.local_message = _message;
+    }
+    public String getMessage( )
+    {
+        return this.local_message;
     }
 }

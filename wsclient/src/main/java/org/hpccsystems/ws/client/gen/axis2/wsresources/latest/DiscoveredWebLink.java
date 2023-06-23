@@ -116,6 +116,41 @@ public class DiscoveredWebLink implements org.apache.axis2.databinding.ADBBean {
     this.localAnnotations = param;
   }
 
+  /** field for Connection */
+  protected org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceConnection
+      localConnection;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localConnectionTracker = false;
+
+  public boolean isConnectionSpecified() {
+    return localConnectionTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceConnection
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceConnection getConnection() {
+    return localConnection;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Connection
+   */
+  public void setConnection(
+      org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceConnection param) {
+    localConnectionTracker = param != null;
+
+    this.localConnection = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -207,6 +242,13 @@ public class DiscoveredWebLink implements org.apache.axis2.databinding.ADBBean {
       localAnnotations.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsresources", "Annotations"),
           xmlWriter);
+    }
+    if (localConnectionTracker) {
+      if (localConnection == null) {
+        throw new org.apache.axis2.databinding.ADBException("Connection cannot be null!!");
+      }
+      localConnection.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsresources", "Connection"), xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -495,6 +537,17 @@ public class DiscoveredWebLink implements org.apache.axis2.databinding.ADBBean {
 
               object.setAnnotations(
                   org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfNamedValue.Factory
+                      .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsresources", "Connection")
+                    .equals(reader.getName())) {
+
+              object.setConnection(
+                  org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceConnection.Factory
                       .parse(reader));
 
               reader.next();

@@ -118,7 +118,7 @@ public class WUCompileECLResponse implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for Dependencies */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type1
       localDependencies;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
@@ -134,9 +134,9 @@ public class WUCompileECLResponse implements org.apache.axis2.databinding.ADBBea
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type1
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type1
       getDependencies() {
     return localDependencies;
   }
@@ -147,7 +147,7 @@ public class WUCompileECLResponse implements org.apache.axis2.databinding.ADBBea
    * @param param Dependencies
    */
   public void setDependencies(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0 param) {
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type1 param) {
     localDependenciesTracker = param != null;
 
     this.localDependencies = param;
@@ -531,7 +531,7 @@ public class WUCompileECLResponse implements org.apache.axis2.databinding.ADBBea
                     .equals(reader.getName())) {
 
               object.setDependencies(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type0.Factory
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Dependencies_type1.Factory
                       .parse(reader));
 
               reader.next();
