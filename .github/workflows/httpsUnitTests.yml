@@ -100,6 +100,10 @@ jobs:
         sudo -- sh -c -e "echo '${{ env.ROWSERVICE_IP }} rowservice.default' >> /etc/hosts";
         sudo -- sh -c -e "echo '${{ env.SQL_TO_ECL_IP }} sql2ecl.default' >> /etc/hosts";
 
+    # Notes:
+    # Using keytool -import -cacerts doesn't work as expected, need to specify the cacerts path explicitly
+    # Path changed between JDK 8 & 11, Command for JDK 8:
+    # sudo keytool -import -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt -alias eclwatch-tls -file cert.der
     - name: Trust Certs
       run: |
         openssl s_client -showcerts -connect eclwatch.default:8010 < /dev/null | openssl x509 -outform DER > cert.der
