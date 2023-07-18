@@ -31,8 +31,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.version>3.8.0</maven.compiler.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.release>8</maven.compiler.release>
     <maven.assembly.version>3.1.1</maven.assembly.version>
     <sonatype.staging.version>1.6.8</sonatype.staging.version>
     <sonatype.staging.autorelease>false</sonatype.staging.autorelease>
@@ -203,8 +202,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven.compiler.version}</version>
           <configuration>
-            <source>${maven.compiler.source}</source>
-            <target>${maven.compiler.target}</target>
+            <release>${maven.compiler.release}</release>
             <groups>${maven.compiler.groups}</groups>
             <excludedGroups>${maven.compiler.excludedGroups}</excludedGroups>
           </configuration>
