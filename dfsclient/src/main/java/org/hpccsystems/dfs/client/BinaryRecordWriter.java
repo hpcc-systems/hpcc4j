@@ -415,9 +415,35 @@ public class BinaryRecordWriter implements IRecordWriter
                 {
                     value = (Double) fieldValue;
                 }
-                else if (fieldValue instanceof Integer)
+                else if (fieldValue instanceof Float)
                 {
                     value = ((Float) fieldValue).doubleValue();
+                }
+                else if (fieldValue instanceof Integer)
+                {
+                    value = ((Integer) fieldValue).doubleValue();
+                }
+                else if (fieldValue instanceof Long)
+                {
+                    value = ((Long) fieldValue).doubleValue();
+                }
+                else if (fieldValue instanceof BigInteger)
+                {
+                    value = ((BigInteger) fieldValue).doubleValue();
+                    messages.addMessage("Warning: Potential loss of precision converting BigInteger to Double", fd.getFieldName());
+                }
+                else if (fieldValue instanceof BigDecimal)
+                {
+                    value = ((BigDecimal) fieldValue).doubleValue();
+                    messages.addMessage("Warning: Potential loss of precision converting BigDecimal to Double", fd.getFieldName());
+                }
+                else if (fieldValue instanceof Short)
+                {
+                    value = ((Short) fieldValue).doubleValue();
+                }
+                else if (fieldValue instanceof Byte)
+                {
+                    value = ((Byte) fieldValue).doubleValue();
                 }
 
                 if (fd.getDataLen() == 4)
