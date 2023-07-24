@@ -4,7 +4,7 @@
 
 :warning: <b>Note:</b> WsClient v6.8.0 and v6.8.2 include a packaging error and should be avoided [Learn more here](https://track.hpccsystems.com/browse/JAPI-450)
 
-HPCC4J Project
+HPCC4J Projectx
 =======================
 
 #### Java based libraries for interaction with HPCC services/tools
