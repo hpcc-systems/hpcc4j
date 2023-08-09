@@ -652,6 +652,18 @@ public class BinaryRecordWriter implements IRecordWriter
             case SET:
             case DATASET:
             {
+                long dataLen = BinaryRecordWriter.DataLenFieldSize;
+                boolean isSet = fd.getDef(0).getFieldType() != FieldType.RECORD;
+                if (isSet)
+                {
+                    dataLen++;
+                }
+
+                if (fieldValue == null)
+                {
+                    return dataLen;
+                }
+
                 List<Object> listValue = null;
                 if (fieldValue instanceof List)
                 {
@@ -660,13 +672,6 @@ public class BinaryRecordWriter implements IRecordWriter
                 else
                 {
                     throw new Exception("Error writing list. Expected List, got: " + fieldValue.getClass().getName());
-                }
-
-                long dataLen = BinaryRecordWriter.DataLenFieldSize;
-                boolean isSet = fd.getDef(0).getFieldType() != FieldType.RECORD;
-                if (isSet)
-                {
-                    dataLen++;
                 }
 
                 for (Object o : listValue)
@@ -680,6 +685,10 @@ public class BinaryRecordWriter implements IRecordWriter
                 if (fd.isFixed())
                 {
                     return fd.getDataLen();
+                }
+                else if (fieldValue == null)
+                {
+                    return BinaryRecordWriter.DataLenFieldSize;
                 }
                 else
                 {
@@ -741,6 +750,27 @@ public class BinaryRecordWriter implements IRecordWriter
                     return dataLen;
                 }
 
+                long dataLen = 0;
+                if (fd.getFieldType() == FieldType.STRING)
+                {
+                    dataLen = BinaryRecordWriter.DataLenFieldSize;
+                }
+                else
+                {
+                    int eosLen = 1;
+                    if (fd.getSourceType().isUTF16())
+                    {
+                        eosLen++;
+                    }
+
+                    dataLen = eosLen;
+                }
+
+                if (fieldValue == null)
+                {
+                    return dataLen;
+                }
+
                 String value = (String) fieldValue;
                 byte[] data = null;
 
@@ -775,21 +805,8 @@ public class BinaryRecordWriter implements IRecordWriter
                             "Unsupported string encoding type: " + fd.getSourceType() + " encountered while writing field: " + fd.getFieldName());
                 }
 
-                if (fd.getFieldType() == FieldType.STRING)
-                {
-                    return data.length + BinaryRecordWriter.DataLenFieldSize;
-                }
-                else
-                {
-                    int eosLen = 1;
-                    if (fd.getSourceType().isUTF16())
-                    {
-                        eosLen++;
-                    }
-
-                    return data.length + eosLen;
-                }
-
+                dataLen += data.length;
+                return dataLen;
             }
             case RECORD:
             {

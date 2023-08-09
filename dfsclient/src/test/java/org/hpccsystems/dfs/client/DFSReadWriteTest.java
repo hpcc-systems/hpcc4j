@@ -262,6 +262,71 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void nullElementTests()
+    {
+        FieldDef[] stringSetElemFD = new FieldDef[1];
+        stringSetElemFD[0] = new FieldDef("strValue", FieldType.STRING, "UTF8", 4, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+
+        FieldDef[] childDatasetElemFD = new FieldDef[1];
+        {
+            FieldDef[] fieldDefs = new FieldDef[1];
+            fieldDefs[0] = new FieldDef("strValue", FieldType.STRING, "UTF8", 4, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+            childDatasetElemFD[0] = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+        }
+
+        FieldDef recordDef = null;
+        {
+            FieldDef[] fieldDefs = new FieldDef[3];
+            fieldDefs[0] = new FieldDef("stringSet", FieldType.SET, "SET", 4, false, false, HpccSrcType.LITTLE_ENDIAN, stringSetElemFD);
+            fieldDefs[1] = new FieldDef("childDataset", FieldType.DATASET, "DATASET", 4, false, false, HpccSrcType.LITTLE_ENDIAN, childDatasetElemFD);
+            fieldDefs[2] = new FieldDef("binaryField", FieldType.BINARY, "BINARY", 128, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+            recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+        }
+
+        List<String> stringSet = new ArrayList<String>();
+        List<HPCCRecord> childDataSet = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+            if ((i % 2) == 1)
+            {
+                stringSet.add("" + i);
+
+                Object[] fields = new Object[1];
+                fields[0] = "" + i;
+                HPCCRecord childRecord = new HPCCRecord(fields, childDatasetElemFD[0]);
+                childDataSet.add(childRecord);
+            }
+            else
+            {
+                stringSet.add(null);
+                childDataSet.add(null);
+            }
+        }
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 10; i++)
+        {
+
+            Object[] fields = new Object[3];
+            fields[0] = stringSet;
+            fields[1] = childDataSet;
+
+            if ((i % 2) == 1)
+            {
+                fields[2] = generateRandomString(128).getBytes();
+            }
+            else
+            {
+                fields[2] = null;
+            }
+
+            HPCCRecord record = new HPCCRecord(fields, recordDef);
+            records.add(record);
+        }
+        writeFile(records, "null::element::test", recordDef, connTO);
+    }
+
+    @Test
     public void getMetadataTest() throws Exception
     {
         String fname = datasets[0];
@@ -915,7 +980,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 
         HpccRemoteFileReader<HPCCRecord> fileReader = null;
-        try 
+        try
         {
             HPCCFile file = new HPCCFile("benchmark::integer::20kb", connString , hpccUser, hpccPass);
             DataPartition[] fileParts = file.getFileParts();
@@ -928,7 +993,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         {
             Assert.fail("Exception while setting up protocol test: " + e.getMessage());
         }
-        
+
         Version remoteVersion = dfuClient.getTargetHPCCBuildVersion();
 
         if (remoteVersion.isEqualOrNewerThan(newProtocolVersion))
