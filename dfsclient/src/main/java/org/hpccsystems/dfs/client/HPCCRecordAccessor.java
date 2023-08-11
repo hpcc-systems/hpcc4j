@@ -22,7 +22,7 @@ import org.hpccsystems.dfs.client.HPCCRecord;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 
-/** 
+/**
  * Allows consumers of IRecordAccessor to access data within an @see org.hpccsystems.dfs.client.HPCCRecord.
  */
 public class HPCCRecordAccessor implements IRecordAccessor
@@ -61,12 +61,11 @@ public class HPCCRecordAccessor implements IRecordAccessor
                 childRecordAccessors[i] = null;
             }
         }
-
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordAccessor#setRecord(java.lang.Object)
      */
     public IRecordAccessor setRecord(Object rd)
@@ -77,7 +76,7 @@ public class HPCCRecordAccessor implements IRecordAccessor
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordAccessor#getNumFields()
      */
     public int getNumFields()
@@ -87,17 +86,22 @@ public class HPCCRecordAccessor implements IRecordAccessor
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordAccessor#getFieldValue(int)
      */
     public Object getFieldValue(int index)
     {
+        if (this.record == null)
+        {
+            return null;
+        }
+
         return this.record.getField(index);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordAccessor#getFieldDefinition(int)
      */
     public FieldDef getFieldDefinition(int index)
@@ -107,7 +111,7 @@ public class HPCCRecordAccessor implements IRecordAccessor
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.hpccsystems.dfs.client.IRecordAccessor#getChildRecordAccessor(int)
      */
     public IRecordAccessor getChildRecordAccessor(int index)
