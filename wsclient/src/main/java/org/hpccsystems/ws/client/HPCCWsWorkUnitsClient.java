@@ -786,11 +786,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      * Get information about a given WorkUnit, caller can request to unarchive
      * the WU if necessary to fetch WU info.
      *
-     * @return - ECLWorkunit object with information pertaining to the WU
-     * @throws java.lang.Exception
-     *             - Caller must handle exceptions
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
-     *             the array of esp exception wrapper
      * @param wuinfodetailsparams
      *            - workunit info request wrapper
      * @return - ECLWorkunit object with information pertaining to the WU
