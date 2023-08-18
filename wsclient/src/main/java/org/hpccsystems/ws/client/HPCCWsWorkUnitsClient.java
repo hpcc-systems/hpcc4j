@@ -788,6 +788,7 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      *
      * @param wuinfodetailsparams
      *            - workunit info request wrapper
+     * @return - WorkunitWrapper object with information pertaining to the WU
      * @throws Exception a {@link java.lang.Exception} object.
      *             - Caller must handle exceptions
      * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
