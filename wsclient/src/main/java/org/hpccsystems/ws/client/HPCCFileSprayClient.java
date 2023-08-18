@@ -1481,7 +1481,18 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         URLConnection fileUploadConnection = null;
         URL fileUploadURL = null;
         String uploadurlbuilder = UPLOADURI;
-        uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress();
+
+        if (dropZone.getPath().isEmpty())
+        {
+            log.error("HPCCFileSprayClient::uploadLargeFile: empty dropZone path detected!");
+            return false;
+        }
+
+        uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress() + "&Path=" + dropZone.getPath();
+
+        if (!dropZone.getName().isEmpty())
+            uploadurlbuilder +=  "&DropZoneName=" + dropZone.getName();
+
         String path = dropZone.getPath().trim();
         if (!path.endsWith("/"))
             path += "/";

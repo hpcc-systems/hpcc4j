@@ -19,6 +19,7 @@ package org.hpccsystems.ws.client;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +45,8 @@ public class WSFileIOClientTest extends BaseRemoteTest
 
     private final static String testfilename = System.getProperty("lztestfile", "myfilename.txt");
     private final static  String targetLZ = System.getProperty("lzname", "localhost");
+    private final static String targetLZPath = System.getProperty("lzpath", "/var/lib/HPCCSystems/mydropzone");
+    private final static String HPCC_30117 = System.getProperty("HPCC30117", "fixed");
 
     static
     {
@@ -52,13 +55,21 @@ public class WSFileIOClientTest extends BaseRemoteTest
 
         if (System.getProperty("lzname") == null)
             System.out.println("lzname not provided - defaulting to localhost");
+
+        if (System.getProperty("lzpath") == null)
+            System.out.println("lzpath not provided - defaulting to /var/lib/HPCCSystems/mydropzone");
+
+        if (System.getProperty("HPCC30117") == null)
+            System.out.println("HPCC30117 status not provided - defaulting to fixed");
+        else
+            System.out.println("HPCC30117 status: '" + HPCC_30117 + "'");
     }
 
     @Test
     public void copyFile() throws Exception
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
-
+        assumeTrue("Ignoring test 'copyFile' because HPCC-30117 is not fixed", HPCC_30117.equalsIgnoreCase("fixed"));
         String lzfile=System.currentTimeMillis() + "_csvtest.csv";
         String hpccfilename="temp::" + lzfile;
         client.createHPCCFile(lzfile, targetLZ, true);
@@ -135,7 +146,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     public void AcreateHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
-
+        assumeTrue("Ignoring test 'copyFile' because HPCC-30117 is not fixed", HPCC_30117.equalsIgnoreCase("fixed"));
         System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true));
     }
@@ -143,6 +154,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     @Test
     public void BwriteHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
+        assumeTrue("Ignoring test 'copyFile' because HPCC-30117 is not fixed", HPCC_30117.equalsIgnoreCase("fixed"));
         System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
         Assert.assertTrue(client.writeHPCCFileData(data, testfilename, targetLZ, true, 0, 20));
@@ -152,6 +164,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     public void CreadHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
+        assumeTrue("Ignoring test 'copyFile' because HPCC-30117 is not fixed", HPCC_30117.equalsIgnoreCase("fixed"));
 
         System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
