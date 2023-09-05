@@ -13,6 +13,7 @@
 package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.commons.ecl.FieldDef;
+import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.dfs.client.RowServiceOutputStream;
 
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,7 @@ public class HPCCRemoteFileWriter<T>
     private BinaryRecordWriter     binaryRecordWriter = null;
     private IRecordAccessor        recordAccessor     = null;
     private long                   recordsWritten     = 0;
+    private long                   openTimeMs         = 0;
 
     /**
      * A remote file writer.
@@ -85,6 +87,12 @@ public class HPCCRemoteFileWriter<T>
 
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);
+
+        log.info("HPCCRemoteFileWriter: Opening file part: " + dataPartition.getThisPart()
+                + " compression: " + fileCompression.name());
+        log.trace("Record definition:\n"
+                + RecordDefinitionTranslator.toJsonRecord(this.recordDef));
+        openTimeMs = System.currentTimeMillis();
     }
 
     /**
@@ -128,6 +136,12 @@ public class HPCCRemoteFileWriter<T>
     {
         this.report();
         this.binaryRecordWriter.finalize();
+
+        long closeTimeMs = System.currentTimeMillis();
+        double writeTimeS = (closeTimeMs -  openTimeMs) / 1000.0;
+        log.info("HPCCRemoteFileWriter: Closing file part: " + dataPartition.getThisPart()
+                + " write time: " + writeTimeS + "s "
+                + " records written: " + recordsWritten);
     }
 
     /**
@@ -201,7 +215,7 @@ public class HPCCRemoteFileWriter<T>
 
         return report;
     }
-    
+
     /**
      * Reports summary of messages generated during write operation.
      */
