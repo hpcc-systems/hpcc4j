@@ -294,6 +294,13 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         try
         {
             rslt = this.binaryRecordReader.hasNext();
+
+            // Has next may not catch the prefetch exception if it occurs at the beginning of a read
+            // This is due to InputStream.hasNext() being allowed to through an IOException when closed.
+            if (this.inputStream.getPrefetchException() != null)
+            {
+                throw this.inputStream.getPrefetchException();
+            }
         }
         catch (HpccFileException e)
         {
