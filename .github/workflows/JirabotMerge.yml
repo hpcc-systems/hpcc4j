@@ -177,6 +177,7 @@ jobs:
             pull_url = os.environ['PULL_URL']
             github_token = os.environ['GITHUB_TOKEN']
             branch_name = os.environ['BRANCH_NAME']
+            comments_url = os.environ['COMMENTS_URL']
 
             print("%s %s %s" % (title, user, comments_url))
             result = ''

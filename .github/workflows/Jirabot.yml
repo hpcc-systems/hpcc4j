@@ -87,6 +87,7 @@ jobs:
             user = os.environ['PULL_REQUEST_AUTHOR_NAME']
             pull_url = os.environ['PULL_URL']
             github_token = os.environ['GITHUB_TOKEN']
+            comments_url = os.environ['COMMENTS_URL']
 
             print("%s %s %s" % (title, user, comments_url))
             result = ''
