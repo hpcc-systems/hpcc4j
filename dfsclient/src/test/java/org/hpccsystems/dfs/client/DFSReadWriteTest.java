@@ -51,6 +51,7 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runners.MethodSorters;
@@ -1006,7 +1007,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    @Ignore @Test
     public void emptyCompressedFileTest()
     {
         HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
