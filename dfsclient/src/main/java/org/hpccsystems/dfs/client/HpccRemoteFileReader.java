@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition 
+ * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition
  * and constructs records via the provided @see org.hpccsystems.dfs.client#IRecordBuilder.
  */
 public class HpccRemoteFileReader<T> implements Iterator<T>
@@ -72,7 +72,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      *            the record defintion for the dataset
      * @param recBuilder
      *            the IRecordBuilder used to construct records
-     * @param connectTimeout 
+     * @param connectTimeout
      *            the connection timeout in seconds, -1 for default
      * @throws Exception
      *             the exception
@@ -105,20 +105,20 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
-     * 
+     *
      * @param dp
      *            the part of the file, name and location
      * @param originalRD
      *            the record defintion for the dataset
      * @param recBuilder
      *            the IRecordBuilder used to construct records
-     * @param connectTimeout 
+     * @param connectTimeout
      *            the connection timeout in seconds, -1 for default
-     * @param limit 
+     * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
-     * @param createPrefetchThread 
+     * @param createPrefetchThread
      *            the input stream should create and manage prefetching on its own thread. If false prefetch needs to be called on another thread periodically.
-     * @param readSizeKB 
+     * @param readSizeKB
      *            read request size in KB, -1 specifies use default value
      * @throws Exception
      * 			  general exception
@@ -130,22 +130,22 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
-     * 
+     *
      * @param dp
      *            the part of the file, name and location
      * @param originalRD
      *            the record defintion for the dataset
      * @param recBuilder
      *            the IRecordBuilder used to construct records
-     * @param connectTimeout 
+     * @param connectTimeout
      *            the connection timeout in seconds, -1 for default
-     * @param limit 
+     * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
-     * @param createPrefetchThread 
+     * @param createPrefetchThread
      *            the input stream should create and manage prefetching on its own thread. If false prefetch needs to be called on another thread periodically.
-     * @param readSizeKB 
+     * @param readSizeKB
      *            read request size in KB, -1 specifies use default value
-     * @param resumeInfo 
+     * @param resumeInfo
      *            FileReadeResumeInfo data required to restart a read from a particular point in a file
      * @throws Exception
      * 			  general exception
@@ -204,7 +204,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns the stream position within the file.
-     * 
+     *
      * @return stream position
      */
     public long getStreamPosition()
@@ -214,7 +214,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns read resume info for the current position within the file.
-     * 
+     *
      * @return FileReadResumeInfo
      */
     public FileReadResumeInfo getFileReadResumeInfo()
@@ -224,7 +224,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns read resume info for the specified position within the file.
-     * 
+     *
      * @param streamPosition the stream position to resume from
      * @return FileReadResumeInfo
      */
@@ -242,7 +242,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns the number of messages created during the reading process
-     * 
+     *
      * @return number of messages created
      */
     public int getRemoteReadMessageCount()
@@ -256,7 +256,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns messages created during the file reading process
-     * 
+     *
      * @return Messages concatenated into a String
      */
     public String getRemoteReadMessages()
@@ -284,7 +284,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Is there more data
-     * 
+     *
      * @return true if there is a next record
      */
     @Override
@@ -296,7 +296,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             rslt = this.binaryRecordReader.hasNext();
 
             // Has next may not catch the prefetch exception if it occurs at the beginning of a read
-            // This is due to InputStream.hasNext() being allowed to through an IOException when closed.
+            // This is due to InputStream.hasNext() being allowed to throw an IOException when closed.
             if (this.inputStream.getPrefetchException() != null)
             {
                 throw this.inputStream.getPrefetchException();
@@ -359,7 +359,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns the RowServiceInputStream used to read the file from dafilesrv
-     * 
+     *
      * @return the input stream
      */
     public RowServiceInputStream getInputStream()
@@ -369,7 +369,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
     /**
      * Returns the BinaryRecordReader used to construct records
-     * 
+     *
      * @return the record reader
      */
     public BinaryRecordReader getRecordReader()

@@ -1066,7 +1066,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             // We are expecting a failure
             if (readException != null)
             {
-                System.out.println("Test passed with exception: " + readException.getMessage());
+                System.out.println("Test passed with expected exception: " + readException.getMessage());
             }
             else
             {
@@ -1109,7 +1109,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             // We are expecting a failure
             if (writeException != null)
             {
-                System.out.println("Test passed with exception: " + writeException.getMessage());
+                System.out.println("Test passed with expected exception: " + writeException.getMessage());
             }
             else
             {

@@ -1167,7 +1167,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         {
             if (this.prefetchException != null)
             {
-                throw new IOException("", this.prefetchException);
+                throw new IOException("Prefetch thread exited early exception.", this.prefetchException);
             }
 
             int bufferLen = this.readBufferDataLen.get();
