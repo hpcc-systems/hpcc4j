@@ -1014,7 +1014,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         Version remoteVersion = dfuClient.getTargetHPCCBuildVersion();
 
         FieldDef[] fieldDefs = new FieldDef[2];
-        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "lNTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+        fieldDefs[0] = new FieldDef("key", FieldType.INTEGER, "INTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
         fieldDefs[1] = new FieldDef("value", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
 
@@ -1036,6 +1036,86 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
 
             Assert.fail("Expected an exception when the file was closed without having written any data with this version of the protocol.");
+        }
+    }
+
+    @Test
+    public void invalidSignatureTest()
+    {
+
+        HPCCFile readFile = null;
+        {
+            Exception readException = null;
+            try
+            {
+                readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
+                DataPartition[] fileParts = readFile.getFileParts();
+
+                for (int i = 0; i < fileParts.length; i++)
+                {
+                    fileParts[i].setFileAccessBlob("invalid_blob");
+                }
+
+                List<HPCCRecord> records = readFile(readFile, null, false);
+                System.out.println("Record count: " + records.size());
+            }
+            catch (Exception e)
+            {
+                readException = e;
+            }
+
+            // We are expecting a failure
+            if (readException != null)
+            {
+                System.out.println("Test passed with expected exception: " + readException.getMessage());
+            }
+            else
+            {
+                Assert.fail("Expected an exception during read due to the invalid signature");
+            }
+        }
+
+        {
+            Exception writeException = null;
+            try
+            {
+                FieldDef recordDef = readFile.getRecordDefinition();
+                String eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDef);
+
+                HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
+                DFUCreateFileWrapper createResult = dfuClient.createFile(datasets[0] + "-copy123", this.thorClusterFileGroup, eclRecordDefn, 300, false, DFUFileTypeWrapper.Flat, "");
+
+                DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
+                DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts,
+                        new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()), dfuFileParts.length, createResult.getFileAccessInfoBlob());
+
+                for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
+                {
+                    hpccPartitions[partitionIndex].setFileAccessBlob("invalid_blob");
+
+                    HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
+                    HPCCRemoteFileWriter<HPCCRecord> fileWriter = null;
+
+                    fileWriter = new HPCCRemoteFileWriter<HPCCRecord>(hpccPartitions[partitionIndex], recordDef, recordAccessor, CompressionAlgorithm.NONE);
+                    fileWriter.close();
+                }
+
+                dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, 0, 0, true);
+            }
+            catch (Exception e)
+            {
+                writeException = e;
+            }
+
+            // We are expecting a failure
+            if (writeException != null)
+            {
+                System.out.println("Test passed with expected exception: " + writeException.getMessage());
+            }
+            else
+            {
+                Assert.fail("Expected an exception during write due to the invalid signature");
+            }
         }
     }
 
