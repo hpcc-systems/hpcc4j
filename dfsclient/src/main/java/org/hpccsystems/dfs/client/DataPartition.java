@@ -78,7 +78,7 @@ public class DataPartition implements Serializable
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Enum#toString()
          */
         public String toString()
@@ -222,6 +222,16 @@ public class DataPartition implements Serializable
     }
 
     /**
+     * Set the security access blob.
+     *
+     * @param accessBlob security access blob
+     */
+    public void setFileAccessBlob(String accessBlob)
+    {
+        this.fileAccessBlob = accessBlob;
+    }
+
+    /**
      * The underying file format for this partition .
      *
      * @return file type
@@ -330,11 +340,11 @@ public class DataPartition implements Serializable
     {
         return this.fileFilter;
     }
-    
+
     /**
      * Set the filter object to select specific rows.
      *
-     * @param filter file filter 
+     * @param filter file filter
      * @return the partition
      */
     public DataPartition setFilter(FileFilter filter)
@@ -345,7 +355,7 @@ public class DataPartition implements Serializable
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object
      */
     public String toString()
@@ -469,7 +479,7 @@ public class DataPartition implements Serializable
 
     /**
      * Is this data partition the TLK
-     * 
+     *
      * @return isTLK
      */
     public boolean isTLK()
