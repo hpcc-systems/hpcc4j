@@ -1,7 +1,8 @@
 name: Jirabot - Merge
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - "master"
       - "candidate-*"
@@ -9,6 +10,7 @@ on:
 jobs:
   jirabot:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       - uses: "actions/setup-python@v2"
         with:

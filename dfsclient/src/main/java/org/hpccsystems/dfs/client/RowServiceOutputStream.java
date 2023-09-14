@@ -241,7 +241,7 @@ public class RowServiceOutputStream extends OutputStream
                 throw new HpccFileException("Error while attempting to read version response.", e);
             }
 
-            rowServiceVersion = new String(versionBytes, StandardCharsets.ISO_8859_1); 
+            rowServiceVersion = new String(versionBytes, StandardCharsets.ISO_8859_1);
         }
 
         // Go ahead and make the initial write request. This won't write any data to file
@@ -298,6 +298,11 @@ public class RowServiceOutputStream extends OutputStream
 
         RowServiceResponse response = this.readResponse();
         this.handle = response.handle;
+
+        if (response.errorCode != RFCCodes.RFCStreamNoError)
+        {
+            throw new IOException(response.errorMessage);
+        }
     }
 
     private String makeCloseHandleRequest()
@@ -336,13 +341,19 @@ public class RowServiceOutputStream extends OutputStream
             throw new IOException("Failed on close file with error: ", e);
         }
 
+        RowServiceResponse response = null;
         try
         {
-            readResponse();
+            response = readResponse();
         }
         catch (HpccFileException e)
         {
             throw new IOException("Failed to close file. Unable to read response with error: ", e);
+        }
+
+        if (response.errorCode != RFCCodes.RFCStreamNoError)
+        {
+            throw new IOException(response.errorMessage);
         }
     }
 
@@ -493,14 +504,20 @@ public class RowServiceOutputStream extends OutputStream
 
         bytesWritten += len;
 
+        RowServiceResponse response = null;
         try
         {
-            RowServiceResponse response = readResponse();
+            response = readResponse();
             this.handle = response.handle;
         }
         catch (HpccFileException e)
         {
             throw new IOException("Failed during write operation. Unable to read response with error: ", e);
+        }
+
+        if (response.errorCode != RFCCodes.RFCStreamNoError)
+        {
+            throw new IOException(response.errorMessage);
         }
     }
 
