@@ -62,7 +62,7 @@ jobs:
                         result += 'Workflow Transition: ' + transition + '\n'
                     except:
                         transitions = jira.transitions(issue)
-                        result += 'Error: Transition: "' + transition + '" failed. Valid transitions=' + transitions + '\n'
+                        result += 'Error: Transition: "' + transition + '" failed. Valid transitions=[' + (', '.join(transitions)) + ']\n'
 
                 if issue.fields.customfield_10010 is None:
                     issue.update(fields={'customfield_10010': pull_url})

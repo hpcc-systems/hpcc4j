@@ -492,6 +492,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
+     * The HpccFileException from the prefetch thread if an exception has occured.
+     *
+     * @return the prefetch exception
+     */
+    public HpccFileException getPrefetchException()
+    {
+        return this.prefetchException;
+    }
+
+    /**
      * The port number for the remote read service.
      *
      * @return port number
@@ -761,6 +771,19 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 return -1;
             }
 
+            if (response.errorCode != RFCCodes.RFCStreamNoError)
+            {
+                prefetchException = new HpccFileException(response.errorMessage);
+                try
+                {
+                    close();
+                }
+                catch (IOException e)
+                {}
+
+                return -1;
+            }
+
             // If len < 0 we have finished reading the file
             if (response.len < 0)
             {
@@ -772,12 +795,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     prefetchException = new HpccFileException(e.getMessage());
                 }
-                return -1;
-            }
-
-            if (response.errorCode != RFCCodes.RFCStreamNoError)
-            {
-                prefetchException = new HpccFileException(response.errorMessage);
                 return -1;
             }
 
@@ -1148,6 +1165,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         // Do the check for closed first here to avoid data races
         if (this.closed.get())
         {
+            if (this.prefetchException != null)
+            {
+                throw new IOException("Prefetch thread exited early exception.", this.prefetchException);
+            }
+
             int bufferLen = this.readBufferDataLen.get();
             int availBytes = bufferLen - this.readPos;
             if (availBytes == 0)
@@ -1529,7 +1551,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 throw new HpccFileException("Failed to create streams", e);
             }
 
-
             //------------------------------------------------------------------------------
             // Check protocol version
             //------------------------------------------------------------------------------
@@ -1567,7 +1588,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     throw new HpccFileException("Error while attempting to read version response.", e);
                 }
 
-                rowServiceVersion = new String(versionBytes, HPCCCharSet); 
+                rowServiceVersion = new String(versionBytes, HPCCCharSet);
             }
 
             //------------------------------------------------------------------------------
