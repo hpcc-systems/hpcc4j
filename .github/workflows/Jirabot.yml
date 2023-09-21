@@ -28,7 +28,7 @@ jobs:
         env:
           JIRABOT_USERNAME : ${{ secrets.JIRABOT_USERNAME }}
           JIRABOT_PASSWORD : ${{ secrets.JIRABOT_PASSWORD }}
-          JIRA_URL : ${{ secrets.JIRA_URL }}
+          JIRA_URL : ${{ vars.JIRA_URL }}
           PULL_REQUEST_NUMBER : ${{ github.event.pull_request.number }}
           PULL_REQUEST_TITLE : ${{ github.event.pull_request.title }}
           PULL_REQUEST_AUTHOR_NAME : ${{ github.event.pull_request.user.login }}
