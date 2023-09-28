@@ -40,6 +40,7 @@ public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
     public static final int      DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
+    public static final int      DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on reads
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
     private String               rowServiceVersion             = "";
@@ -50,6 +51,7 @@ public class RowServiceOutputStream extends OutputStream
     private int                  filePartIndex                 = -1;
     private String               accessToken                   = null;
     private CompressionAlgorithm compressionAlgo               = CompressionAlgorithm.NONE;
+    private int                  sockOpTimeoutMs               = DEFAULT_SOCKET_OP_TIMEOUT_MS;
 
     private Socket               socket                        = null;
     private DataInputStream      dis                           = null;
@@ -125,6 +127,35 @@ public class RowServiceOutputStream extends OutputStream
         this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
 
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param useSSL
+     *            the use SSL
+     * @param accessToken
+     *            the access token
+     * @param recordDef
+     *            the record def
+     * @param filePartIndex
+     *            the file part index
+     * @param filePartPath
+     *            the file part path
+     * @param fileCompression
+     *            the file compression
+     * @param connectTimeoutMs
+     *            the socket connect timeout in ms (default is 5000)
+     * @throws Exception
+     *             the exception
+     */
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+            CompressionAlgorithm fileCompression, int connectTimeoutMs) throws Exception
+    {
+        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, DEFAULT_SOCKET_OP_TIMEOUT_MS);
+    }
 
     /**
      * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster.
@@ -146,12 +177,14 @@ public class RowServiceOutputStream extends OutputStream
      * @param fileCompression
      *            the file compression
      * @param connectTimeoutMs
-     *            the socket timeout in ms (default is 1000)
+     *            the socket connect timeout in ms (default is 5000)
+     * @param socketOpTimeoutMS
+     *            the socket operation(read/write) timeout in ms (default is 15000)
      * @throws Exception
      *             the exception
      */
     RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
-            CompressionAlgorithm fileCompression, int connectTimeoutMs) throws Exception
+            CompressionAlgorithm fileCompression, int connectTimeoutMs, int sockOpTimeoutMS) throws Exception
     {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
@@ -160,6 +193,7 @@ public class RowServiceOutputStream extends OutputStream
         this.filePath = filePartPath;
         this.accessToken = accessToken;
         this.compressionAlgo = fileCompression;
+        this.sockOpTimeoutMs = sockOpTimeoutMS;
 
         try
         {
@@ -192,6 +226,7 @@ public class RowServiceOutputStream extends OutputStream
                 this.socket.connect(new InetSocketAddress(rowServiceIP, rowServicePort), DEFAULT_CONNECT_TIMEOUT_MILIS);
             }
 
+            this.socket.setSoTimeout(sockOpTimeoutMs);
 
             this.dos = new DataOutputStream(socket.getOutputStream());
             this.dis = new DataInputStream(socket.getInputStream());
