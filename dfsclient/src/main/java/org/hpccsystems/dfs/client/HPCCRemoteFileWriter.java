@@ -69,11 +69,35 @@ public class HPCCRemoteFileWriter<T>
      * @param fileCompression
      *            the file compression
      * @param connectTimeoutMs
-     *            the socket timeout in ms (default is 1000)
+     *            the socket timeout in ms (default is 5000)
      * @throws Exception
      *             the exception
      */
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression, int connectTimeoutMs)
+            throws Exception
+    {
+        this(dp,recordDef,recordAccessor,fileCompression,RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS, RowServiceOutputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
+    }
+
+    /**
+     * A remote file writer.
+     *
+     * @param dp
+     *            the part of the file, name and location
+     * @param recordDef
+     *            the record def
+     * @param recordAccessor
+     *            the record accessor
+     * @param fileCompression
+     *            the file compression
+     * @param connectTimeoutMs
+     *            the socket timeout in ms (default is 5000)
+     * @param socketOpTimeoutMs
+     *            the socket operation timeout in ms (default is 15000)
+     * @throws Exception
+     *             the exception
+     */
+    public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
             throws Exception
     {
         this.recordDef = recordDef;
@@ -83,7 +107,7 @@ public class HPCCRemoteFileWriter<T>
 
         this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
                 dataPartition.getFileAccessBlob(), this.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
-                fileCompression, connectTimeoutMs);
+                fileCompression, connectTimeoutMs, socketOpTimeoutMs);
 
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);

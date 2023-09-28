@@ -108,7 +108,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private Socket                   sock;
     public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
+    public static final int          DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on read / write operations
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
+    private int                      socketOpTimeoutMs = DEFAULT_SOCKET_OP_TIMEOUT_MS;
 
     private static final Charset     HPCCCharSet                   = Charset.forName("ISO-8859-1");
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
@@ -294,6 +296,37 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching) throws Exception
     {
+        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, restartInfo, isFetching, DEFAULT_SOCKET_OP_TIMEOUT_MS);
+    }
+
+    /**
+     * A plain socket connect to a THOR node for remote read
+     *
+     * @param dp
+     *            the data partition to read
+     * @param rd
+     *            the JSON definition for the read input and output
+     * @param pRd
+     *            the projected record definition
+     * @param connectTimeout
+     *               the connection timeout in milliseconds
+     * @param limit
+     *            the record limit to use for reading the dataset. -1 implies no limit
+     * @param createPrefetchThread
+     *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
+     * @param maxReadSizeInKB
+     *            max readsize in kilobytes
+     * @param restartInfo
+     *            information used to restart a read from a particular stream position
+     * @param isFetching
+     *            Will this input stream be used to serviced batched fetch requests
+     * @param socketOpTimeoutMS
+     *            Socket (read / write) operation timeout in milliseconds
+     * @throws Exception
+     *            general exception
+     */
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS) throws Exception
+    {
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
         this.inFetchingMode = isFetching;
@@ -325,6 +358,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         this.tokenBin = null;
         this.simulateFail = false;
         this.connectTimeout = connectTimeout;
+        this.socketOpTimeoutMs = socketOpTimeoutMS;
         this.recordLimit = limit;
 
         this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
@@ -1530,6 +1564,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     sock.setPerformancePreferences(0, 1, 2);
                     sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
                 }
+
+                this.sock.setSoTimeout(socketOpTimeoutMs);
+
                 log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
             }
             catch (java.net.UnknownHostException e)
