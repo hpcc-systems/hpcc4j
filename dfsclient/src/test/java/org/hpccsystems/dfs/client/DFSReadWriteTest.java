@@ -1040,6 +1040,53 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void filePartReadRetryTest()
+    {
+        {
+            HPCCFile readFile = null;
+            try
+            {
+                readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
+                DataPartition[] fileParts = readFile.getFileParts();
+                for (int i = 0; i < fileParts.length; i++)
+                {
+                    String firstCopyIP = fileParts[i].getCopyIP(0);
+                    String firstCopyPath = fileParts[i].getCopyPath(0);
+                    fileParts[i].setCopyIP(0, "1.1.1.1");
+                    fileParts[i].add(1, firstCopyIP, firstCopyPath);
+                }
+
+                List<HPCCRecord> records = readFile(readFile, null, false);
+                System.out.println("Record count: " + records.size());
+            }
+            catch (Exception e)
+            {
+                Assert.fail(e.getMessage());
+            }
+        }
+
+        {
+            HPCCFile readFile = null;
+            try
+            {
+                readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
+                DataPartition[] fileParts = readFile.getFileParts();
+                for (int i = 0; i < fileParts.length; i++)
+                {
+                    fileParts[i].add(0,"1.1.1.1", "");
+                }
+
+                List<HPCCRecord> records = readFile(readFile, null, false);
+                System.out.println("Record count: " + records.size());
+            }
+            catch (Exception e)
+            {
+                Assert.fail(e.getMessage());
+            }
+        }
+    }
+
+    @Test
     public void invalidSignatureTest()
     {
 

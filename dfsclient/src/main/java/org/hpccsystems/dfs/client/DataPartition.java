@@ -16,6 +16,9 @@
 package org.hpccsystems.dfs.client;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.hpccsystems.commons.ecl.FileFilter;
 import org.hpccsystems.commons.errors.HpccFileException;
@@ -264,6 +267,38 @@ public class DataPartition implements Serializable
         if (copyindex < 0 || copyindex >= copiescount) return null;
 
         return copyLocations[copyindex];
+    }
+
+    /**
+     * Set the copy IP
+     *
+     * @param copyIndex
+     *            the copyindex
+     * @param copyIP The IP of the file part copy
+     */
+    public void setCopyIP(int copyIndex, String copyIP)
+    {
+        if (copyIndex < 0 || copyIndex >= copyLocations.length) return;
+
+        copyLocations[copyIndex] = copyIP;
+    }
+
+    /**
+     * Add file part copy
+     *
+     * @param index The index at which to insert the file part copy
+     * @param copyIP The IP of the new file part copy
+     * @param copyPath The path of the new file part copy
+     */
+    public void add(int index, String copyIP, String copyPath)
+    {
+        List<String> copyLocationsList = new ArrayList<>(Arrays.asList(copyLocations));
+        copyLocationsList.add(index, copyIP);
+        copyLocations = copyLocationsList.toArray(new String[0]);
+
+        List<String> copyPathList = new ArrayList<>(Arrays.asList(copyPaths));
+        copyPathList.add(index, copyPath);
+        copyPaths = copyPathList.toArray(new String[0]);
     }
 
     /**
