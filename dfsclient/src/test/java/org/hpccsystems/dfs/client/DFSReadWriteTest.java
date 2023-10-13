@@ -178,6 +178,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
         }
 
+        Runtime runtime = Runtime.getRuntime();
         ArrayList<HPCCRecord> resumedRecords = new ArrayList<HPCCRecord>();
         for (int i = 0; i < resumeInfo.size(); i++)
         {
@@ -193,6 +194,13 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 }
 
                 resumedRecords.add(record);
+            }
+
+            // Periodically run garbage collector to prevent buffers in remote file readers from exhausting free memory
+            // This is only needed due to rapidly creating / destroying thousands of HpccRemoteFileReaders
+            if ((i % 10) == 0)
+            {
+                runtime.gc();
             }
         }
 
