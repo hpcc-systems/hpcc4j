@@ -520,6 +520,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return this.dataPart.getCopyIP(prioritizedCopyIndexes.get(getFilePartCopy()));
     }
 
+    private String getCopyPath()
+    {
+        return this.dataPart.getCopyPath(prioritizedCopyIndexes.get(getFilePartCopy()));
+    }
+
     private int getFilePartCopy()
     {
         return filePartCopyIndexPointer;
@@ -1528,150 +1533,156 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         this.active.set(false);
         this.handle = 0;
 
-        try
+        boolean needsRetry = false;
+        do
         {
-            log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '"
-                    + getIP() + "'");
-
+            needsRetry = false;
             try
             {
-                if (getUseSSL())
-                {
-                    SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
-                    sock = (SSLSocket) ssf.createSocket();
-
-                    // Optimize for bandwidth over latency and connection time.
-                    // We are opening up a long standing connection and potentially reading a significant amount of
-                    // data
-                    // So we don't care as much about individual packet latency or connection time overhead
-                    sock.setPerformancePreferences(0, 1, 2);
-                    sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
-
-                    log.debug("Attempting SSL handshake...");
-                    ((SSLSocket) sock).startHandshake();
-                    log.debug("SSL handshake successful...");
-                    log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
-                }
-                else
-                {
-                    SocketFactory sf = SocketFactory.getDefault();
-                    sock = sf.createSocket();
-
-                    // Optimize for bandwidth over latency and connection time.
-                    // We are opening up a long standing connection and potentially reading a significant amount of
-                    // data
-                    // So we don't care as much about individual packet latency or connection time overhead
-                    sock.setPerformancePreferences(0, 1, 2);
-                    sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
-                }
-
-                this.sock.setSoTimeout(socketOpTimeoutMs);
-
-                log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
-            }
-            catch (java.net.UnknownHostException e)
-            {
-                throw new HpccFileException("Bad file part addr " + this.getIP(), e);
-            }
-            catch (java.io.IOException e)
-            {
-                throw new HpccFileException(e);
-            }
-
-            try
-            {
-                this.dos = new java.io.DataOutputStream(sock.getOutputStream());
-                this.dis = new java.io.DataInputStream(sock.getInputStream());
-            }
-            catch (java.io.IOException e)
-            {
-                throw new HpccFileException("Failed to create streams", e);
-            }
-
-            //------------------------------------------------------------------------------
-            // Check protocol version
-            //------------------------------------------------------------------------------
-
-            try
-            {
-                String msg = makeGetVersionRequest();
-                int msgLen = msg.length();
-
-                this.dos.writeInt(msgLen);
-                this.dos.write(msg.getBytes(HPCCCharSet), 0, msgLen);
-                this.dos.flush();
-            }
-            catch (IOException e)
-            {
-                throw new HpccFileException("Failed on initial remote read trans", e);
-            }
-
-            RowServiceResponse response = readResponse();
-            if (response.len == 0)
-            {
-                useOldProtocol = true;
-            }
-            else
-            {
-                useOldProtocol = false;
-
-                byte[] versionBytes = new byte[response.len];
+                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '"
+                        + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'" + " for Path: '" + getCopyPath() + "'");
                 try
                 {
-                    this.dis.readFully(versionBytes);
+                    if (getUseSSL())
+                    {
+                        SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+                        sock = (SSLSocket) ssf.createSocket();
+
+                        // Optimize for bandwidth over latency and connection time.
+                        // We are opening up a long standing connection and potentially reading a significant amount of
+                        // data
+                        // So we don't care as much about individual packet latency or connection time overhead
+                        sock.setPerformancePreferences(0, 1, 2);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
+
+                        log.debug("Attempting SSL handshake...");
+                        ((SSLSocket) sock).startHandshake();
+                        log.debug("SSL handshake successful...");
+                        log.debug("   Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
+                    }
+                    else
+                    {
+                        SocketFactory sf = SocketFactory.getDefault();
+                        sock = sf.createSocket();
+
+                        // Optimize for bandwidth over latency and connection time.
+                        // We are opening up a long standing connection and potentially reading a significant amount of
+                        // data
+                        // So we don't care as much about individual packet latency or connection time overhead
+                        sock.setPerformancePreferences(0, 1, 2);
+                        sock.connect(new InetSocketAddress(this.getIP(), this.dataPart.getPort()), this.connectTimeout);
+                    }
+
+                    this.sock.setSoTimeout(socketOpTimeoutMs);
+
+                    log.debug("Connected: Remote address = " + sock.getInetAddress().toString() + " Remote port = " + sock.getPort());
+                }
+                catch (java.net.UnknownHostException e)
+                {
+                    throw new HpccFileException("Bad file part IP address or host name: " + this.getIP(), e);
+                }
+                catch (java.io.IOException e)
+                {
+                    throw new HpccFileException(e);
+                }
+
+                try
+                {
+                    this.dos = new java.io.DataOutputStream(sock.getOutputStream());
+                    this.dis = new java.io.DataInputStream(sock.getInputStream());
+                }
+                catch (java.io.IOException e)
+                {
+                    throw new HpccFileException("Failed to create streams", e);
+                }
+
+                //------------------------------------------------------------------------------
+                // Check protocol version
+                //------------------------------------------------------------------------------
+
+                try
+                {
+                    String msg = makeGetVersionRequest();
+                    int msgLen = msg.length();
+
+                    this.dos.writeInt(msgLen);
+                    this.dos.write(msg.getBytes(HPCCCharSet), 0, msgLen);
+                    this.dos.flush();
                 }
                 catch (IOException e)
                 {
-                    throw new HpccFileException("Error while attempting to read version response.", e);
+                    throw new HpccFileException("Failed on initial remote read trans", e);
                 }
 
-                rowServiceVersion = new String(versionBytes, HPCCCharSet);
-            }
-
-            //------------------------------------------------------------------------------
-            // Send initial read request
-            //------------------------------------------------------------------------------
-
-            try
-            {
-                String readTrans = null;
-                if (this.tokenBin == null)
+                RowServiceResponse response = readResponse();
+                if (response.len == 0)
                 {
-                    this.tokenBin = new byte[0];
-                    readTrans = makeInitialRequest();
+                    useOldProtocol = true;
                 }
                 else
                 {
-                    readTrans = makeTokenRequest();
+                    useOldProtocol = false;
+
+                    byte[] versionBytes = new byte[response.len];
+                    try
+                    {
+                        this.dis.readFully(versionBytes);
+                    }
+                    catch (IOException e)
+                    {
+                        throw new HpccFileException("Error while attempting to read version response.", e);
+                    }
+
+                    rowServiceVersion = new String(versionBytes, HPCCCharSet);
                 }
 
-                int transLen = readTrans.length();
-                this.dos.writeInt(transLen);
-                this.dos.write(readTrans.getBytes(HPCCCharSet), 0, transLen);
-                this.dos.flush();
+                //------------------------------------------------------------------------------
+                // Send initial read request
+                //------------------------------------------------------------------------------
+
+                try
+                {
+                    String readTrans = null;
+                    if (this.tokenBin == null)
+                    {
+                        this.tokenBin = new byte[0];
+                        readTrans = makeInitialRequest();
+                    }
+                    else
+                    {
+                        readTrans = makeTokenRequest();
+                    }
+
+                    int transLen = readTrans.length();
+                    this.dos.writeInt(transLen);
+                    this.dos.write(readTrans.getBytes(HPCCCharSet), 0, transLen);
+                    this.dos.flush();
+                }
+                catch (IOException e)
+                {
+                    throw new HpccFileException("Failed on initial remote read read trans", e);
+                }
+
+                if (CompileTimeConstants.PROFILE_CODE)
+                {
+                    firstByteTimeNS = System.nanoTime();
+                }
+
+                this.active.set(true);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
-                throw new HpccFileException("Failed on initial remote read read trans", e);
+                log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP()
+                        + "'");
+                log.error(e.getMessage());
+
+                needsRetry = true;
+                if (!setNextFilePartCopy())
+                {
+                    throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e);
+                }
             }
-
-            if (CompileTimeConstants.PROFILE_CODE)
-            {
-                firstByteTimeNS = System.nanoTime();
-            }
-
-            this.active.set(true);
-        }
-        catch (Exception e)
-        {
-            log.error("Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP()
-                    + "'");
-            log.error(e.getMessage());
-
-            if (!setNextFilePartCopy())
-                // This should be a multi exception
-                throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e);
-        }
+        } while (needsRetry);
     }
 
     /* Notes on protocol:

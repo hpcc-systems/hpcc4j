@@ -178,6 +178,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
         }
 
+        Runtime runtime = Runtime.getRuntime();
         ArrayList<HPCCRecord> resumedRecords = new ArrayList<HPCCRecord>();
         for (int i = 0; i < resumeInfo.size(); i++)
         {
@@ -193,6 +194,13 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 }
 
                 resumedRecords.add(record);
+            }
+
+            // Periodically run garbage collector to prevent buffers in remote file readers from exhausting free memory
+            // This is only needed due to rapidly creating / destroying thousands of HpccRemoteFileReaders
+            if ((i % 10) == 0)
+            {
+                runtime.gc();
             }
         }
 
@@ -1036,6 +1044,53 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
 
             Assert.fail("Expected an exception when the file was closed without having written any data with this version of the protocol.");
+        }
+    }
+
+    @Test
+    public void filePartReadRetryTest()
+    {
+        {
+            HPCCFile readFile = null;
+            try
+            {
+                readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
+                DataPartition[] fileParts = readFile.getFileParts();
+                for (int i = 0; i < fileParts.length; i++)
+                {
+                    String firstCopyIP = fileParts[i].getCopyIP(0);
+                    String firstCopyPath = fileParts[i].getCopyPath(0);
+                    fileParts[i].setCopyIP(0, "1.1.1.1");
+                    fileParts[i].add(1, firstCopyIP, firstCopyPath);
+                }
+
+                List<HPCCRecord> records = readFile(readFile, null, false);
+                System.out.println("Record count: " + records.size());
+            }
+            catch (Exception e)
+            {
+                Assert.fail(e.getMessage());
+            }
+        }
+
+        {
+            HPCCFile readFile = null;
+            try
+            {
+                readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
+                DataPartition[] fileParts = readFile.getFileParts();
+                for (int i = 0; i < fileParts.length; i++)
+                {
+                    fileParts[i].add(0,"1.1.1.1", "");
+                }
+
+                List<HPCCRecord> records = readFile(readFile, null, false);
+                System.out.println("Record count: " + records.size());
+            }
+            catch (Exception e)
+            {
+                Assert.fail(e.getMessage());
+            }
         }
     }
 
