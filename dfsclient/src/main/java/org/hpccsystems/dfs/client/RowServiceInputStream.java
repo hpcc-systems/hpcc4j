@@ -520,6 +520,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return this.dataPart.getCopyIP(prioritizedCopyIndexes.get(getFilePartCopy()));
     }
 
+    private String getCopyPath()
+    {
+        return this.dataPart.getCopyPath(prioritizedCopyIndexes.get(getFilePartCopy()));
+    }
+
     private int getFilePartCopy()
     {
         return filePartCopyIndexPointer;
@@ -1535,7 +1540,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             try
             {
                 log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '"
-                        + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'");
+                        + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'" + " for Path: '" + getCopyPath() + "'");
                 try
                 {
                     if (getUseSSL())
@@ -1574,7 +1579,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.net.UnknownHostException e)
                 {
-                    throw new HpccFileException("Bad file part addr " + this.getIP(), e);
+                    throw new HpccFileException("Bad file part IP address or host name: " + this.getIP(), e);
                 }
                 catch (java.io.IOException e)
                 {
