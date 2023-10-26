@@ -51,7 +51,7 @@
     <jsch.version>0.1.54</jsch.version>
     <commons-io.version>2.7</commons-io.version>
     <junit.version>4.13.1</junit.version>
-    <json.version>20230227</json.version>
+    <json.version>20231013</json.version>
     <log4j.version>2.17.1</log4j.version>
     <axis2.version>1.8.1</axis2.version>
     <hadoop.version>2.10.1</hadoop.version>
