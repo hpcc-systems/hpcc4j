@@ -178,11 +178,12 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
         }
 
+        int readSizeKB = 100;
         ArrayList<HPCCRecord> resumedRecords = new ArrayList<HPCCRecord>();
         for (int i = 0; i < resumeInfo.size(); i++)
         {
             HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
-            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[resumeFilePart.get(i)], originalRD, recordBuilder, -1, -1, true, -1, resumeInfo.get(i));
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[resumeFilePart.get(i)], originalRD, recordBuilder, -1, -1, true, readSizeKB, resumeInfo.get(i));
 
             if (fileReader.hasNext())
             {
@@ -194,6 +195,10 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
                 resumedRecords.add(record);
             }
+            fileReader.close();
+
+            fileReader = null;
+            recordBuilder = null;
         }
 
         assertEquals("Number of records did not match during read resume.", records.size(), resumedRecords.size());
