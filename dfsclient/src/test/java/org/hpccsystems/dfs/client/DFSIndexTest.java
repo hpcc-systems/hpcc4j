@@ -355,6 +355,7 @@ public class DFSIndexTest extends BaseRemoteTest
         return indexName;
     }
 
+    @Test
     public void testBatchRandomAccess() throws Exception
     {
         try
