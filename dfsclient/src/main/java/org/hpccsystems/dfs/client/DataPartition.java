@@ -296,6 +296,7 @@ public class DataPartition implements Serializable
      * @param index The index at which to insert the file part copy
      * @param copyIP The IP of the new file part copy
      * @param copyPath The path of the new file part copy
+     * @throws Exception The exception
      */
     public void add(int index, String copyIP, String copyPath) throws Exception
     {
