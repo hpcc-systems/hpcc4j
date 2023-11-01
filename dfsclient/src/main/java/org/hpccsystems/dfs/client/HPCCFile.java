@@ -319,6 +319,34 @@ public class HPCCFile implements Serializable
     }
 
     /**
+     * Get the value of useTLK option
+     *
+     * @return a boolean value indicating use of the TLK to filter index file reads
+     */
+    public boolean getUseTLK()
+    {
+        return this.useTLK;
+    }
+
+    /**
+     * Sets the useTLK option.
+     * Note: the value must be set before querying any data from the file, including record definition information.
+     *
+     * @param useTLK should the TLK be used to filter index file reads
+     *
+     * @return this HPCCFile
+     */
+    public HPCCFile setUseTLK(boolean useTLK)
+    {
+        this.useTLK = useTLK;
+
+        // Force the data parts to be re-created
+        this.dataParts = null;
+
+        return this;
+    }
+
+    /**
      * Gets the filter.
      *
      * @return the filter

@@ -230,11 +230,8 @@ public class DFSIndexTest extends BaseRemoteTest
         // Read index ignoring TLK and check that all partitions are returned
         //------------------------------------------------------------------------------
 
-        Connection espConn = new Connection(connString);
-        espConn.setUserName(hpccUser);
-        espConn.setPassword(hpccPass);
-
-        HPCCFile file = new HPCCFile("~test::index::integer::key", espConn, "", "", new RemapInfo(), 0, "", false);
+        HPCCFile file = new HPCCFile("~test::index::integer::key", connString , hpccUser, hpccPass);
+        file.setUseTLK(false);
         DataPartition[] dataParts = file.getFileParts();
 
         Long searchValue = 3L;
