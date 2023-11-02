@@ -50,6 +50,7 @@ public class HPCCFile implements Serializable
 
     private DataPartition[]      dataParts;
     private DataPartition        tlkPartition                  = null;
+    private boolean              useTLK                        = true;
     private PartitionProcessor   partitionProcessor            = null;
     private long                 dataPartsCreationTimeMS       = -1;
 
@@ -131,11 +132,43 @@ public class HPCCFile implements Serializable
     public HPCCFile(String fileName, Connection espconninfo, String targetColumnList, String filter, RemapInfo remap_info, int maxParts,
             String targetfilecluster) throws HpccFileException
     {
+        this(fileName, espconninfo, targetColumnList, filter, remap_info, maxParts, targetfilecluster, true);
+    }
+
+    /**
+     * Constructor for the HpccFile. Captures HPCC logical file information from the DALI Server for the clusters behind
+     * the ESP named by the IP address and re-maps the address information for the THOR nodes to visible addresses when
+     * the THOR clusters are virtual.
+     *
+     * @param fileName
+     *            The HPCC file name
+     * @param espconninfo
+     *            the espconninfo
+     * @param targetColumnList
+     *            a comma separated list of column names in dotted notation for columns within compound columns.
+     * @param filter
+     *            a file filter to select records of interest (SQL where syntax)
+     * @param remap_info
+     *            address and port re-mapping info for THOR cluster
+     * @param maxParts
+     *            optional the maximum number of partitions or zero for no max
+     * @param targetfilecluster
+     *            optional - the hpcc cluster the target file resides in
+     * @param useTLK
+     *            optional - whether or not the top level key should be used to help filter index files
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
+    public HPCCFile(String fileName, Connection espconninfo, String targetColumnList, String filter, RemapInfo remap_info, int maxParts,
+            String targetfilecluster, boolean useTLK) throws HpccFileException
+    {
         this.fileName = fileName;
         this.recordDefinition = null;
         this.projectedRecordDefinition = null;
         this.columnPruner = new ColumnPruner(targetColumnList);
         this.espConnInfo = espconninfo;
+        this.useTLK = useTLK;
+
         try
         {
             if (filter != null && !filter.isEmpty())
@@ -163,12 +196,12 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * Extracts the offset in the file part from a fileposition value. 
+     * Extracts the offset in the file part from a fileposition value.
      *
      * @param fpos file position
      * @return the project list
      */
-    public static long getOffsetFromFPos(long fpos) 
+    public static long getOffsetFromFPos(long fpos)
     {
         // First 48 bits store the offset
         return fpos & 0xffffffffffffL;
@@ -280,6 +313,34 @@ public class HPCCFile implements Serializable
         this.clusterRemapInfo = remapinfo;
 
         // Force the data parts to be recreated
+        this.dataParts = null;
+
+        return this;
+    }
+
+    /**
+     * Get the value of useTLK option
+     *
+     * @return a boolean value indicating use of the TLK to filter index file reads
+     */
+    public boolean getUseTLK()
+    {
+        return this.useTLK;
+    }
+
+    /**
+     * Sets the useTLK option.
+     * Note: the value must be set before querying any data from the file, including record definition information.
+     *
+     * @param useTLK should the TLK be used to filter index file reads
+     *
+     * @return this HPCCFile
+     */
+    public HPCCFile setUseTLK(boolean useTLK)
+    {
+        this.useTLK = useTLK;
+
+        // Force the data parts to be re-created
         this.dataParts = null;
 
         return this;
@@ -424,13 +485,20 @@ public class HPCCFile implements Serializable
 
                 this.recordDefinition = RecordDefinitionTranslator.parseJsonRecordDefinition(new JSONObject(originalRecDefInJSON));
 
-                try
+                if (this.useTLK)
                 {
-                    this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
+                    try
+                    {
+                        this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, this.tlkPartition);
+                    }
+                    catch (Exception e)
+                    {
+                        log.error("Error while constructing partition processor, reading will continue without partition filtering: " + e.getMessage());
+                        this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    log.error("Error while constructing partition processor, reading will continue without partition filtering: " + e.getMessage());
                     this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
                 }
 
@@ -622,13 +690,13 @@ public class HPCCFile implements Serializable
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpcc.getFileAccessBlob(fileName, clusterName, expirySeconds, uniqueID);
     }
-    
+
     /**
      * @return the file metadata information for this HPCCFile (if it exists)
      */
-    public DFUFileDetailWrapper getOriginalFileMetadata() 
+    public DFUFileDetailWrapper getOriginalFileMetadata()
     {
-        if (originalFileMetadata==null) 
+        if (originalFileMetadata==null)
         {
             HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(espConnInfo);
             if (dfuClient.hasInitError())

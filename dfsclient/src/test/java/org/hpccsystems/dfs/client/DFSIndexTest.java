@@ -30,6 +30,7 @@ import java.lang.Math;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
@@ -220,6 +221,25 @@ public class DFSIndexTest extends BaseRemoteTest
             System.out.println("Key: " + keyValue + " Search value: " + searchValue + " found: " + foundRecord);
         }
         fileReader.close();
+    }
+
+    @Test
+    public void tlkBypassTest() throws Exception
+    {
+        //------------------------------------------------------------------------------
+        // Read index ignoring TLK and check that all partitions are returned
+        //------------------------------------------------------------------------------
+
+        HPCCFile file = new HPCCFile("~test::index::integer::key", connString , hpccUser, hpccPass);
+        file.setUseTLK(false);
+        DataPartition[] dataParts = file.getFileParts();
+
+        Long searchValue = 3L;
+        FileFilter filter = new FileFilter("key = " + searchValue);
+        List<DataPartition> filteredPartitions = file.findMatchingPartitions(filter);
+
+        // Without the TLK being read the above filter should return all file parts
+        assertTrue("Unexpected number of partitions", filteredPartitions.size() == dataParts.length);
     }
 
     @Test
