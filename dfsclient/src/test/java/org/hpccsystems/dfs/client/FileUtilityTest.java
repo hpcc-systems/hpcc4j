@@ -57,6 +57,18 @@ public class FileUtilityTest extends BaseRemoteTest
         }
 
         {
+            String readArgs[] = {"-read_test", "benchmark::integer::20kb", "-url", this.connString,
+                                 "-user", this.hpccUser, "-pass", this.hpccPass, "-file_parts", "1" };
+
+            JSONArray results = FileUtility.run(readArgs);
+            JSONObject result = results.optJSONObject(0);
+            Assert.assertNotNull("FileUtility result should not be null.", result);
+
+            boolean success = result.optBoolean("successful",false);
+            Assert.assertTrue("FileUtility operation didn't complete successfully", success);
+        }
+
+        {
             String copyArgs[] = {"-copy", "benchmark::integer::20kb benchmark::integer::20kb-copy",
                                 "-url", this.connString, "-dest_url", this.connString,
                                 "-dest_cluster", this.thorClusterFileGroup,
