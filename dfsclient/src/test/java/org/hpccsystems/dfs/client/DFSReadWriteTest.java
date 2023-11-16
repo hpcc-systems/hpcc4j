@@ -1179,6 +1179,77 @@ public class DFSReadWriteTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void earlyCloseTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);
+
+        DataPartition[] fileParts = file.getFileParts();
+        if (fileParts == null || fileParts.length == 0)
+        {
+            Assert.fail("No file parts found");
+        }
+
+        FieldDef originalRD = file.getRecordDefinition();
+        if (originalRD == null || originalRD.getNumDefs() == 0)
+        {
+            Assert.fail("Invalid or null record definition");
+        }
+
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[0], originalRD, recordBuilder);
+
+            int expectedRecordCounts = 10;
+            int numRecords = 0;
+            while (fileReader.hasNext())
+            {
+                try
+                {
+                    fileReader.next();
+                    numRecords++;
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+
+                if (numRecords == expectedRecordCounts)
+                {
+                    fileReader.close();
+                }
+            }
+            assertTrue("Expected record count: " + expectedRecordCounts + " Actual count: " + numRecords, numRecords == expectedRecordCounts);
+        }
+
+        // Check that calling close() inbetween hasNext() & next() allows the current record to be read
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[0], originalRD, recordBuilder);
+
+            int expectedRecordCounts = 11;
+            int numRecords = 0;
+            while (fileReader.hasNext())
+            {
+                if (numRecords == expectedRecordCounts-1)
+                {
+                    fileReader.close();
+                }
+
+                try
+                {
+                    fileReader.next();
+                    numRecords++;
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            assertTrue("Expected record count: " + expectedRecordCounts + " Actual count: " + numRecords, numRecords == expectedRecordCounts);
+        }
+    }
+
     public List<HPCCRecord> readFile(HPCCFile file, Integer connectTimeoutMillis, boolean shouldForceTimeout) throws Exception
     {
         return readFile(file, connectTimeoutMillis, shouldForceTimeout, false, BinaryRecordReader.NO_STRING_PROCESSING);
