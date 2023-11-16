@@ -35,6 +35,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     private BinaryRecordReader    binaryRecordReader;
     private IRecordBuilder        recordBuilder     = null;
     private boolean               handlePrefetch    = true;
+    private boolean               isClosed          = false;
+    private boolean               canReadNext       = true;
     private long                  openTimeMs        = 0;
     private long                  recordsRead       = 0;
 
@@ -234,7 +236,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.binaryRecordReader.initialize(this.recordBuilder);
         }
 
-
         log.info("HPCCRemoteFileReader: Opening file part: " + dataPartition.getThisPart()
                 + (resumeInfo != null ? " resume position: " + resumeInfo.inputStreamPos : "" ));
         log.trace("Original record definition:\n"
@@ -315,9 +316,15 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public void prefetch()
     {
-        if (this.handlePrefetch)
+        if (handlePrefetch)
         {
             log.warn("Prefetch called on an HpccRemoteFileReader that has an internal prefetch thread.");
+            return;
+        }
+
+        if (isClosed)
+        {
+            log.warn("Prefetch called on an HpccRemoteFileReader that has been closed.");
             return;
         }
 
@@ -332,10 +339,19 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     @Override
     public boolean hasNext()
     {
-        boolean rslt = false;
+        if (isClosed)
+        {
+            log.warn("hasNext() called on an HpccRemoteFileReader that has been closed.");
+            return false;
+        }
+
+        // Keep track of whether we have said there is another record.
+        // This allows us to handle edge cases around close() being called between hasNext() and next()
+        canReadNext = false;
+
         try
         {
-            rslt = this.binaryRecordReader.hasNext();
+            canReadNext = this.binaryRecordReader.hasNext();
 
             // Has next may not catch the prefetch exception if it occurs at the beginning of a read
             // This is due to InputStream.hasNext() being allowed to throw an IOException when closed.
@@ -346,12 +362,14 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         }
         catch (HpccFileException e)
         {
-            rslt = false;
+            canReadNext = false;
             log.error("Read failure for " + this.dataPartition.toString());
-            throw new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
+            java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
+            exception.initCause(e);
+            throw exception;
         }
 
-        return rslt;
+        return canReadNext;
     }
 
     /**
@@ -362,6 +380,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     @Override
     public T next()
     {
+        if (isClosed && !canReadNext)
+        {
+            throw new java.util.NoSuchElementException("Fatal read error: Attempting to read next() from a closed file reader.");
+        }
+
         Object rslt = null;
         try
         {
@@ -370,10 +393,16 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         catch (HpccFileException e)
         {
             log.error("Read failure for " + this.dataPartition.toString() + " " + e.getMessage());
-            throw new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
+            java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
+            exception.initCause(e);
+            throw exception;
         }
 
         recordsRead++;
+
+        // Reset this after each read so we can handle edge cases where close() was called between hasNext() / next()
+        canReadNext = false;
+
         return (T) rslt;
     }
 
@@ -385,8 +414,15 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public void close() throws Exception
     {
+        if (isClosed)
+        {
+            log.warn("Calling close on an already closed file reader for file part: " + this.dataPartition.toString());
+            return;
+        }
+
         report();
         this.inputStream.close();
+        isClosed = true;
 
         long closeTimeMs = System.currentTimeMillis();
         double readTimeS = (closeTimeMs -  openTimeMs) / 1000.0;
