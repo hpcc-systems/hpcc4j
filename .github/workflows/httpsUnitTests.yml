@@ -69,7 +69,7 @@ jobs:
         echo -e "certificates:\n  enabled: true\ndafilesrv:\n  - name: rowservice\n    disabled: false\n    application: stream\n    service:\n      servicePort: 7600\n      visibility: global" > values.yaml
         helm repo add hpcc https://hpcc-systems.github.io/helm-chart
         helm repo update
-        helm install myhpcc hpcc/hpcc --set global.image.version=latest -f values.yaml
+        helm install myhpcc hpcc/hpcc -f values.yaml
 
     - uses: actions/checkout@v3
       with:
