@@ -27,12 +27,20 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
+          <configuration>
+            <properties>
+              <property>
+                <name>listener</name>
+                <value>org.hpccsystems.ws.client.TestResultNotifier</value>
+              </property>
+            </properties>
+          </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>templating-maven-plugin</artifactId>
         <version>${codehaus.template.version}</version>
-      </plugin>    
+      </plugin>
     </plugins>
   </build>
 
@@ -82,6 +90,13 @@
           <artifactId>slf4j-log4j12</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hpccsystems</groupId>
+      <artifactId>wsclient</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>

@@ -27,9 +27,10 @@ import java.util.Arrays;
 import java.lang.StringBuilder;
 import java.lang.Math;
 
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
@@ -88,7 +89,7 @@ public class DFSIndexTest extends BaseRemoteTest
             String datasetName = datasetNames[i];
             FieldDef recordDef = datasetRecordDefinitions[i];
             createIndexableFile(datasetName, recordDef, partitionRangeStart, partitionRangeEnd);
-            
+
             //------------------------------------------------------------------------------
             // Create index
             //------------------------------------------------------------------------------
@@ -104,7 +105,7 @@ public class DFSIndexTest extends BaseRemoteTest
             }
         }
     }
-    
+
     @Test
     public void hpccTLKFilterTest() throws Exception
     {
@@ -165,7 +166,7 @@ public class DFSIndexTest extends BaseRemoteTest
                     {
                         System.out.println("Partition: " + j + " Filter: " + filterStr);
                         System.out.println("Partition range: " + file.getPartitionProcessor().getPartitionRangeAsString(j));
-                        Assert.fail("PartitionProcessor: " + j 
+                        Assert.fail("PartitionProcessor: " + j
                                 + " filtering result did not contain partition"
                                 + partitionListToString(matchedPartitions));
                     }
@@ -181,21 +182,21 @@ public class DFSIndexTest extends BaseRemoteTest
         //------------------------------------------------------------------------------
         // Read index and check TLK against known partition ranges
         //------------------------------------------------------------------------------
-        
+
         HPCCFile file = new HPCCFile("~test::index::integer::key", connString , hpccUser, hpccPass);
-        
+
         // Find partitions that match the provided filter
         Long searchValue = 3L;
         FileFilter filter = new FileFilter("key = " + searchValue);
         List<DataPartition> filteredPartitions = file.findMatchingPartitions(filter);
-        
+
         assertTrue("Unexpected number of partitions", filteredPartitions.size() == 1);
 
         DataPartition matchedPart = filteredPartitions.get(0);
         HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
         HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(matchedPart, file.getRecordDefinition(), recordBuilder);
-        
-        boolean foundRecord = false; 
+
+        boolean foundRecord = false;
         while (fileReader.hasNext())
         {
             HPCCRecord record = fileReader.next();
@@ -273,7 +274,7 @@ public class DFSIndexTest extends BaseRemoteTest
             //------------------------------------------------------------------------------
             //  Write partitions to file parts and keep track of record ranges
             //------------------------------------------------------------------------------
-            
+
             partitionRangeStart.clear();
             partitionRangeEnd.clear();
 
@@ -404,7 +405,7 @@ public class DFSIndexTest extends BaseRemoteTest
             boolean isKeyField = (i == 0);
             boolean isStart = true;
             rangeStartFields[i] = createFieldValue(partitionIndex, numPartitions, recordDef.getDef(i), isKeyField, isStart);
-            
+
             isStart = false;
             rangeEndFields[i] = createFieldValue(partitionIndex, numPartitions, recordDef.getDef(i),isKeyField, isStart);
         }
@@ -454,13 +455,13 @@ public class DFSIndexTest extends BaseRemoteTest
                     {
                         rangeNum = partitionIndex * 4 + 3;
                     }
-                    
+
                     StringBuilder builder = new StringBuilder("                ");
                     int charIndex = (int) Math.ceil(Math.log(numPartitions) / Math.log(26));
                     while (rangeNum > 0)
                     {
                         char currentLetter = (char) ('A' + (rangeNum % 26));
-                        builder.setCharAt(charIndex,currentLetter); 
+                        builder.setCharAt(charIndex,currentLetter);
 
                         rangeNum /= 26;
                         charIndex--;
