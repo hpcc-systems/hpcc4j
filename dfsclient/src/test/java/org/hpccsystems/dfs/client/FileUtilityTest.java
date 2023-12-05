@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 
 import org.hpccsystems.dfs.client.FileUtility;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;

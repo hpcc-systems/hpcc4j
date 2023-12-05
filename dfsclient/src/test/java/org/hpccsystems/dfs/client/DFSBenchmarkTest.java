@@ -25,12 +25,11 @@ import org.hpccsystems.dfs.client.HPCCFile;
 import org.hpccsystems.dfs.client.HPCCRecord;
 import org.hpccsystems.dfs.client.HPCCRecordBuilder;
 import org.hpccsystems.dfs.client.HpccRemoteFileReader;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.dfs.client.DataPartition;
 
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.errors.HpccFileException;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
-
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -86,7 +85,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
     {
         System.out.println("Starting Raw Read Tests");
         System.out.println("-------------------------------------------------------------");
-        
+
         MetricSumTransformer sumTransformer = new MetricSumTransformer();
         MetricAverageTransformer aggregateTransformer = new MetricAverageTransformer();
         ArrayList<BenchmarkResult> rawReadTests = new ArrayList<BenchmarkResult>();
@@ -128,7 +127,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             }
             avgdMetrics = aggregateTransformer.transform(avgdMetrics);
             result.addMetrics(avgdMetrics);
-            
+
             // Calculate and add bandwidth
             IMetric readTimeMetric = result.getMetric(READ_TIME_METRIC);
             double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale,Units.Scale.UNIT);
@@ -174,7 +173,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
                     metrics = sumTransformer.transform(metrics);
                     metrics.add(new SimpleMetric((double)readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
-                    
+
                     avgdMetrics.addAll(metrics);
                 }
                 catch(Exception e)
@@ -203,7 +202,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
         // Output plugin results
         JSONArray testGroups = new JSONArray();
-        
+
         JSONObject rawReadGroup = new JSONObject();
         rawReadGroup.put("name","Raw Read Tests");
 
@@ -230,7 +229,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
         JSONObject output = new JSONObject();
         output.put("groups",testGroups);
-        
+
         String outputPath = "results.json";
         FileWriter fileWriter = new FileWriter(outputPath);
         fileWriter.write(output.toString());
@@ -302,7 +301,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                 {
                     bytesToRead = buffer.length;
                 }
-                inputStream.read(buffer,0,bytesToRead); 
+                inputStream.read(buffer,0,bytesToRead);
 
                 try
                 {
@@ -322,7 +321,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                     hasMoreData = nextByte >= 0;
                 }
             }
-            
+
             metrics.addAll(inputStream.getMetrics());
             inputStream.close();
         }
@@ -434,7 +433,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                     Integer filePartRecordCount = 0;
                     FieldDef recordDefinition = originalRD;
                     public void run()
-                    { 
+                    {
                         HpccRemoteFileReader<HPCCRecord> fileReader = null;
                         try
                         {
@@ -459,14 +458,14 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                             {
                                 Assert.fail("Received null record during read");
                             }
-                            
+
                             filePartRecordCount++;
                         }
-                        
+
                         recordCounts[filePartIndex] = filePartRecordCount;
                         try
                         {
-                            fileReader.close();  
+                            fileReader.close();
                         }
                         catch (Exception e){}
                     }

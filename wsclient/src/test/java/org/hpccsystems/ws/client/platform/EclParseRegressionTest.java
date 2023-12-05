@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileDetailWrapper;
@@ -180,7 +180,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
     {
         int index = 0;
         int matches = 0;
-        do 
+        do
         {
             index = str.indexOf(pattern,index);
             if (index >= 0)
