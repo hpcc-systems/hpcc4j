@@ -29,7 +29,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.commons.utils.CryptoHelper;
 import org.hpccsystems.commons.utils.DigestAlgorithmType;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -53,7 +52,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
         if (System.getProperty("storenamespace") == null)
             System.out.println("'storenamespace' not provided, defaulting to: '" + defaultNS + "'");
-        
+
         client = HPCCWsStoreClient.get(connection);
         Assert.assertNotNull(client);
     }
