@@ -78,9 +78,17 @@
           </excludes>
         </configuration>
       </plugin>
-            <plugin>
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
+          <configuration>
+            <properties>
+              <property>
+                <name>listener</name>
+                <value>org.hpccsystems.ws.client.TestResultNotifier</value>
+              </property>
+            </properties>
+          </configuration>
       </plugin>
    </plugins>
  </build>
