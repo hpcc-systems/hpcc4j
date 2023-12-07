@@ -17,7 +17,6 @@ import java.util.UUID;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.HPCCWsDFUClient.DFUQueryFileType;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfu.AddtoSuperfileResponseWrapper;
