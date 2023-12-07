@@ -3,7 +3,6 @@ package org.hpccsystems.ws.client;
 import static org.junit.Assert.assertNotNull;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefDirectoryWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper;

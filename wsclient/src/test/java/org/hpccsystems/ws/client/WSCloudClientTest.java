@@ -20,7 +20,6 @@ package org.hpccsystems.ws.client;
 
 import static org.junit.Assume.assumeTrue;
 
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;

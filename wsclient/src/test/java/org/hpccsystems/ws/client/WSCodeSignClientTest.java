@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wscodesign.ListUserIDsRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wscodesign.ListUserIDsResponseWrapper;

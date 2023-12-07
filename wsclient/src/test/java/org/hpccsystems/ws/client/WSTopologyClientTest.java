@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient.TopologyGroupQueryKind;
-import org.hpccsystems.ws.client.platform.test.BaseRemoteTest;
 import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpClusterInfoResponseWrapper;
