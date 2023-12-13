@@ -9,7 +9,10 @@ childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
 rec := {  INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
           INTEGER2 int2, UNSIGNED2 uint2,
           REAL8 r8, REAL4 r4,
-          DECIMAL16_8 dec16, UDECIMAL16_8 udec16,
+          DECIMAL16_8 dec16,
+          DECIMAL15_8 dec15,
+          UDECIMAL16_8 udec16,
+          UDECIMAL15_8 udec15,
           QSTRING qStr,
           STRING8 fixStr8,
           STRING str,
@@ -32,7 +35,9 @@ ds := DATASET(totalrecs1, transform(rec,
                                    self.r8 := (REAL)(random() % unique_values);
                                    self.r4 := (REAL)(random() % unique_values);
                                    self.dec16 := (REAL)(random() % unique_values);
+                                   self.dec15 := (REAL)(random() % unique_values);
                                    self.udec16 := (REAL)(random() % unique_values);
+                                   self.udec15 := (REAL)(random() % unique_values);
                                    self.qStr := (STRING)(random() % unique_values);
                                    self.fixStr8 := (STRING)(random() % unique_values);
                                    self.str := (STRING)(random() % unique_values);
