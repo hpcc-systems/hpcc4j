@@ -830,7 +830,15 @@ public class BinaryRecordReader implements IRecordReader
         BigDecimal ret = new BigDecimal(0);
 
         int idx = 0;
-        int curDigit = numDigits - 1;
+        int curDigit = numDigits;
+
+        // If the # of digits is odd the top most nibble is unused and we don't want to include it
+        // in the scale calculations below. Due to how the scale calculation works below this means
+        // we decrement the starting value of curDigit in the case of even length decimals
+        if ((numDigits % 2) == 0)
+        {
+            curDigit--;
+        }
 
         while (idx < dataLen)
         {
