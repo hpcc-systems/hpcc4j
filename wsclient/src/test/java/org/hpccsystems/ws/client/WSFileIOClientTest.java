@@ -21,7 +21,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.axis2.AxisFault;
@@ -67,9 +69,6 @@ public class WSFileIOClientTest extends BaseRemoteTest
     @Test
     public void copyFile() throws Exception
     {
-        Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
-        assumeTrue("Ignoring test 'copyFile' because HPCC-30117 is not fixed", HPCC_30117.equalsIgnoreCase("fixed"));
-
         String lzfile=System.currentTimeMillis() + "_csvtest.csv";
         String hpccfilename="temp::" + lzfile;
         client.createHPCCFile(lzfile, targetLZ, true);
@@ -77,35 +76,43 @@ public class WSFileIOClientTest extends BaseRemoteTest
         client.writeHPCCFileData(data, lzfile, targetLZ, true, 0, 20);
         try
         {
-            ProgressResponseWrapper dfuspray=wsclient.getFileSprayClient().sprayVariable(
+            System.out.println("Starting file spray.");
+            ProgressResponseWrapper dfuspray = wsclient.getFileSprayClient().sprayVariable(
                     new DelimitedDataOptions(),
                     wsclient.getFileSprayClient().fetchLocalDropZones().get(0),
                     lzfile,"~" + hpccfilename,"",thorClusterFileGroup,true,
                     HPCCFileSprayClient.SprayVariableFormat.DFUff_csv,
                     null, null, null, null, null, null, null);
-            Thread.sleep(1000);
-            int wait=60;
             if (dfuspray.getExceptions() != null
-                    && dfuspray.getExceptions().getException() != null
-                    && dfuspray.getExceptions().getException().size()>0)
+                && dfuspray.getExceptions().getException() != null
+                && dfuspray.getExceptions().getException().size()>0)
             {
                 fail(dfuspray.getExceptions().getException().get(0).getMessage());
             }
-            if (dfuspray.getSecsLeft()>0)
+
+            List<String> whiteListedStates = Arrays.asList( "queued", "started", "unknown", "finished", "monitoring");
+            int waitCount = 0;
+            int MAX_WAIT_COUNT = 60;
+
+            ProgressResponseWrapper dfuProgress = null;
+            do
             {
-                System.out.println("Still spraying, waiting 1 sec...");
-                for (int i=wait;i>0;i--)
+                dfuProgress = wsclient.getFileSprayClient().getDfuProgress(dfuspray.getWuid());
+                boolean stateIsWhiteListed = whiteListedStates.contains(dfuProgress.getState());
+                if (!stateIsWhiteListed)
                 {
-                    if (dfuspray.getSecsLeft()==0)
-                    {
-                        i=0;
-                    }
-                    else
-                    {
-                        Thread.sleep(1000);
-                    }
+                    fail("File spray failed: Summary: " + dfuProgress.getSummaryMessage() + " Exceptions: " + dfuProgress.getExceptions());
                 }
-            }
+
+                if (dfuProgress.getPercentDone() < 100)
+                {
+                    Thread.sleep(1000);
+                    System.out.println("File spray percent complete: " + dfuProgress.getPercentDone() + "% Sleeping for 1sec to wait for spray.");
+                    waitCount++;
+                }
+            } while (waitCount < 60 && dfuProgress.getPercentDone() < 100);
+
+            assumeTrue("File spray did not complete within: " + MAX_WAIT_COUNT + "s. Failing test.", waitCount < MAX_WAIT_COUNT);
 
             System.out.println("Test file successfully sprayed to " + "~" + hpccfilename + ", attempting copy to " + hpccfilename + "_2");
             wsclient.getFileSprayClient().copyFile(hpccfilename,hpccfilename + "_2",true);
