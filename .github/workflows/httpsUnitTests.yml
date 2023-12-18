@@ -66,7 +66,28 @@ jobs:
 
     - name: Install HPCC Cluster
       run: |
-        echo -e "certificates:\n  enabled: true\ndafilesrv:\n  - name: rowservice\n    disabled: false\n    application: stream\n    service:\n      servicePort: 7600\n      visibility: global" > values.yaml
+        cat <<EOF > values.yaml
+        certificates:
+          enabled: true
+        dafilesrv:
+          - name: rowservice
+            disabled: false
+            application: stream
+            service:
+              servicePort: 7600
+              visibility: global
+          - name: direct-access
+            disabled: true
+            application: directio
+            service:
+              servicePort: 7200
+              visibility: local
+          - name: spray-service
+            application: spray
+            service:
+              servicePort: 7300
+              visibility: cluster
+        EOF
         helm repo add hpcc https://hpcc-systems.github.io/helm-chart
         helm repo update
         helm install myhpcc hpcc/hpcc -f values.yaml
