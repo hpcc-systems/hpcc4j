@@ -1,4 +1,4 @@
-name: https unit tests
+name: K8s Regression Suite
 
 on:
   pull_request:

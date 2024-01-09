@@ -1,0 +1,168 @@
+name: Baremetal Regression Suite
+
+on:
+  pull_request:
+    branches:
+      - "master"
+      - "candidate-*"
+
+  workflow_dispatch:
+
+jobs:
+  test-against-platform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    - uses: "actions/setup-python@v2"
+      with:
+        python-version: "3.8"
+
+    - name: "Install Python dependencies"
+      run: |
+        set -xe
+        python -VV
+        python -m site
+        python -m pip install --upgrade pip setuptools wheel
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+
+    - name: Extract Latest Tagged Version
+      id: extract_version
+      env:
+        PULL_REQUEST_NUMBER : ${{ github.event.pull_request.number }}
+        PULL_REQUEST_TITLE : ${{ github.event.pull_request.title }}
+        PULL_REQUEST_AUTHOR_NAME : ${{ github.event.pull_request.user.login }}
+        PULL_URL: ${{ github.event.pull_request.html_url }}
+        COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH_NAME: ${{ github.base_ref }}
+      shell: python
+      run: |
+        import os
+        import re
+        import subprocess
+        import time
+        import sys
+
+        def extractVersion(versionStr):
+            parts = versionStr.split('.')
+            if len(parts) != 3:
+                print('Invalid version: ' + version)
+                sys.exit(1)
+            if parts[2].lower() == 'x':
+                parts[2] = '0'
+
+            major, minor, point = map(int, parts)
+            return [major, minor, point]
+
+        def getTagVersionForCmd(cmd):
+            versionPattern = re.compile(r'.*([0-9]+\.[0-9]+\.[0-9]+).*')
+
+            # Get latest release version
+            gitTagProcess = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            (output, err) = gitTagProcess.communicate()
+            gitTagProcessStatus = gitTagProcess.wait()
+
+            if gitTagProcessStatus != 0:
+                print('Unable to retrieve latest git tag. With error: ' + str(err))
+                sys.exit(1)
+
+            latestGitTag = str(output)
+
+            versionMatch = versionPattern.match(latestGitTag)
+            if versionMatch:
+                return extractVersion(versionMatch.group(1))
+            else:
+                print('Unable to extract version from git tag: ' + latestGitTag)
+                sys.exit(2)
+
+        def buildVersionString(version):
+            major, minor, point = map(int, version)
+            return f'{major}.{minor}.{point}'
+
+        def getLatestBranchVersion(branchName):
+
+            latestVersion = getTagVersionForCmd("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
+
+            # If we are merging into master we assume it is going into the next minor release
+            if branchName == 'master':
+                return buildVersionString([latestVersion[0], latestVersion[1] + 2, 0])
+            else:
+                # Extract candidate branch major / minor version
+                candidateBranchPattern = re.compile(r'candidate-([0-9]+\.[0-9]+\.([0-9]+|x)).*')
+                branchVersionMatch = candidateBranchPattern.match(branchName)
+                if branchVersionMatch is None:
+                    print('Unable to extract version from branch name: ' + branchName)
+                    sys.exit(3)
+
+                branchVersion = extractVersion(branchVersionMatch.group(1))
+
+                # Get latest release in branch
+                findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
+                return getTagVersionForCmd(findLatestBranchVer)
+
+        branch_name = os.environ['BRANCH_NAME']
+
+        latestVersion = getLatestBranchVersion(branch_name)
+        previousVersion = [latestVersion[0], latestVersion[1], latestVersion[2] - 2]
+
+        previousVersionStr = ".".join(map(str, previousVersion))
+        previousVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + previousVersionStr \
+                           + '/bin/platform/hpccsystems-platform-community_' + previousVersionStr + '-1jammy_amd64_withsymbols.deb'
+
+        latestVersionStr = ".".join(map(str, latestVersion))
+        latestVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + latestVersionStr \
+                         + '/bin/platform/hpccsystems-platform-community_' + latestVersionStr + '-1jammy_amd64_withsymbols.deb'
+
+        print(f"::set-output name=previousVersion::{previousVersionStr}")
+        print(f"::set-output name=previousVersionURL::{previousVersionURL}")
+        print(f"::set-output name=latestVersion::{latestVersionStr}")
+        print(f"::set-output name=latestVersionURL::{latestVersionURL}")
+
+    - name: Install latest version
+      run: |
+        if wget -q --spider ${{ steps.extract_version.outputs.latestVersionURL }}; then
+          wget -q ${{ steps.extract_version.outputs.latestVersionURL }}
+        elif wget -q --spider ${{ steps.extract_version.outputs.previousVersionURL }}; then
+          wget -q ${{ steps.extract_version.outputs.previousVersionURL }}
+        else
+          echo "Unable to find HPCC version to install"
+          exit 1
+        fi
+
+        sudo apt-get update
+        sudo apt-get install -y expect
+        sudo dpkg -i hpccsystems-platform-community_*.deb
+        sudo apt-get -f install -y
+
+    - name: Start HPCC-Platform
+      shell: "bash"
+      run: |
+        export LANG="en_US.UTF-8"
+        sudo update-locale
+        sudo /etc/init.d/hpcc-init start
+
+    - name: Add Host File Entries
+      run: |
+        sudo -- sh -c -e "echo '127.0.0.1 eclwatch.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '127.0.0.1 rowservice.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '127.0.0.1 sql2ecl.default' >> /etc/hosts";
+
+    # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Build with Maven
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
