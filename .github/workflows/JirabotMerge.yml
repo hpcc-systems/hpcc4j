@@ -24,6 +24,12 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade jira
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+          fetch-tags: true
       - name: "Run"
         env:
           JIRABOT_USERNAME : ${{ secrets.JIRABOT_USERNAME }}
