@@ -77,6 +77,7 @@ opts:
 opt:
     maxlength
     | maxcount
+    | setdefaultval
     | defaultval
     | xpath
     | xmldefaultval
@@ -93,7 +94,7 @@ maxcount:
 ;
 
 defaultval:
-    'DEFAULT' OPAREN STRING CPAREN
+    ('DEFAULT' OPAREN STRING CPAREN)
 ;
 
 xpath:
@@ -102,6 +103,10 @@ xpath:
 
 xmldefaultval:
     'XMLDEFAULT' OPAREN STRING CPAREN
+;
+
+setdefaultval:
+    ('DEFAULT' OPAREN OSQUARE STRING CSQUARE CPAREN | 'DEFAULT' OPAREN SETSTRING CPAREN)
 ;
 
 annotation_name : ATOKEN;
@@ -114,6 +119,9 @@ comment:
 	( '/*' annotation?  (COMMA annotation)* .*? (.*?'*/' | '*/'))
 ;
 
+QUOTE              : '\'';
+OSQUARE            : '[';
+CSQUARE            : ']';
 OPAREN             : '(';
 CPAREN             : ')';
 OCURLY             : '{';
@@ -130,6 +138,7 @@ DATASET_SYM            : 'DATASET';
 WS : [ \t\r\n] -> skip;
 INT     : [0-9]+ ;
 fragment ESCAPED_QUOTE : '\\\'';
+SETSTRING :    '[\'' ( ESCAPED_QUOTE | ~('\'') )* '\']';
 STRING :   '\'' ( ESCAPED_QUOTE | ~('\'') )* '\'';
 ATOKEN: [@][a-zA-Z0-9_-]+[a-zA-Z0-9_];
 TOKEN :  ~[_\r\n\t; (),:={}-]~[\r\n \t;(),:={}-]* ;

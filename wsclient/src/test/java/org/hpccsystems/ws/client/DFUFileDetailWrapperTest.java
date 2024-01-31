@@ -333,6 +333,34 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
+    public void testSetDefault() throws Exception {
+        String setof = "RECORD\nSET OF UTF8 field3set {DEFAULT ([''])};\nEND;";
+        EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(setof);
+        if (info.getParseErrors().size()!=0) {
+            fail("Failed get set default test:" + String.join("\n",info.getParseErrors()));
+        }
+        DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
+        assertNotNull(recordDefInfo);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "field3set");
+        assertNotNull(column);
+        assertNotNull(column.getColumnValue());
+
+        String setof2 = "RECORD\nSET OF UTF8 field3set {DEFAULT (['test'])};\nEND;";
+        EclRecordWrapper info2 = DFUFileDetailWrapper.getRecordEcl(setof2);
+        if (info2.getParseErrors().size()!=0) {
+            fail("Failed get set default test:" + String.join("\n",info2.getParseErrors()));
+        }
+        DFURecordDefWrapper recordDefInfo2 = info2.getRecordsets().get("unnamed0");
+        assertNotNull(recordDefInfo2);
+        assertEquals(0, recordDefInfo2.getAnnotations().size());
+        DFUDataColumnWrapper column2 = getColumnByName(recordDefInfo2, "field3set");
+        assertNotNull(column2);
+        assertNotNull(column2.getColumnValue());
+        assertEquals("test", column2.getColumnValue());
+    }
+
+    @Test
     public void testEclParsing() throws Exception {
         Map<String,String> layouts=new LinkedHashMap<String,String>();
         layouts.put("inline record with dataset child", "l_test:=RECORD\nSTRING1 test;\nEND;\n\nRECORD\nSTRING __field1;\n{DATASET(l_test) a} field2;\nEND;");

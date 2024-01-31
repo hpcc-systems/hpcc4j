@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.ws.client.antlr.gen.EclRecordBaseListener;
 import org.hpccsystems.ws.client.antlr.gen.EclRecordParser;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn;
 import org.hpccsystems.ws.client.platform.DFUDataColumnAnnotation;
 import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUDataColumnWrapper;
@@ -385,6 +386,30 @@ public class EclRecordReader extends EclRecordBaseListener
     {
         String val = ctx.getChild(2).getText();
         val = val.replace("'", "");
+
+        if (currentfield != null)
+        {
+            currentfield.setColumnValue(val);
+        }
+        else if (currentrec != null)
+        {
+            currentrec.setColumnValue(val);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * When entering a DEFAULT option, set the columnvalue of the current field/rec to its value
+     * </p>
+     */
+    @Override
+    public void enterSetdefaultval(EclRecordParser.SetdefaultvalContext ctx)
+    {
+        String val = ctx.getChild(2).getText();
+        val = val.replace("['", "");
+        val = val.replace("']", "");
 
         if (currentfield != null)
         {
