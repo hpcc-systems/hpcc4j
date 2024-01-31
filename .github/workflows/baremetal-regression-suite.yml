@@ -109,15 +109,17 @@ jobs:
                 findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
                 return getTagVersionForCmd(findLatestBranchVer)
 
-        branch_name = os.environ['BRANCH_NAME']
+        branch_name = 'master'
 
         latestVersion = getLatestBranchVersion(branch_name)
-
+        
         if latestVersion[2] == 0:
           print('Latest version is a new minor. Setting previous version to latest version')
           previousVersion = latestVersion
         else:
-          previousVersion = [latestVersion[0], latestVersion[1], int(latestVersion[2]) - 2]
+          latestVersion = list(map(int, latestVersion.split('.')))
+          previousVersion = [latestVersion[0], latestVersion[1]-2, latestVersion[2] ]
+          print(f"{previousVersion}")
           
         previousVersionStr = ".".join(map(str, previousVersion))
         previousVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + previousVersionStr \
