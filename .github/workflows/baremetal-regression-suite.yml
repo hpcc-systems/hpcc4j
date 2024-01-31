@@ -55,7 +55,7 @@ jobs:
         def extractVersion(versionStr):
             parts = versionStr.split('.')
             if len(parts) != 3:
-                print('Invalid version: ' + version)
+                print('Invalid version: ' + versionStr)
                 sys.exit(1)
             if parts[2].lower() == 'x':
                 parts[2] = '0'
@@ -84,17 +84,12 @@ jobs:
                 print('Unable to extract version from git tag: ' + latestGitTag)
                 sys.exit(2)
 
-        def buildVersionString(version):
-            major, minor, point = map(int, version)
-            return f'{major}.{minor}.{point}'
-
         def getLatestBranchVersion(branchName):
 
             latestVersion = getTagVersionForCmd("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
 
-            # If we are merging into master we assume it is going into the next minor release
             if branchName == 'master':
-                return buildVersionString([latestVersion[0], latestVersion[1] + 2, 0])
+                return [latestVersion[0], latestVersion[1], latestVersion[2]]
             else:
                 # Extract candidate branch major / minor version
                 candidateBranchPattern = re.compile(r'candidate-([0-9]+\.[0-9]+\.([0-9]+|x)).*')
