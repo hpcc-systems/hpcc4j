@@ -400,7 +400,7 @@ public class EclRecordReader extends EclRecordBaseListener
      * {@inheritDoc}
      *
      * <p>
-     * When entering a DEFAULT option, set the columnvalue of the current field/rec to its value
+     * When entering a DEFAULT option for Set Of, set the columnvalue of the current field/rec to its value
      * </p>
      */
     @Override
