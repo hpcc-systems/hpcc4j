@@ -110,7 +110,6 @@ jobs:
                 return getTagVersionForCmd(findLatestBranchVer)
 
         branch_name = os.environ['BRANCH_NAME']
-
         latestVersion = getLatestBranchVersion(branch_name)
         
         if latestVersion[2] == 0:
@@ -118,8 +117,7 @@ jobs:
           previousVersion = latestVersion
         else:
           latestVersion = list(map(int, latestVersion.split('.')))
-          previousVersion = [latestVersion[0], latestVersion[1]-2, latestVersion[2] ]
-          print(f"{previousVersion}")
+          previousVersion = [latestVersion[0], latestVersion[1]-2, latestVersion[2]]
           
         previousVersionStr = ".".join(map(str, previousVersion))
         previousVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + previousVersionStr \
