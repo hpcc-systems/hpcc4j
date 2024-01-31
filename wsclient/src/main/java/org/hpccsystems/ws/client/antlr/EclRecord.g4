@@ -119,7 +119,6 @@ comment:
 	( '/*' annotation?  (COMMA annotation)* .*? (.*?'*/' | '*/'))
 ;
 
-QUOTE              : '\'';
 OSQUARE            : '[';
 CSQUARE            : ']';
 OPAREN             : '(';
