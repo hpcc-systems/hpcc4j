@@ -24,6 +24,8 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade jira
+          python -m pip --version
+          python -m pip freeze | grep jira
       - name: "Run"
         env:
           JIRABOT_USERNAME : ${{ secrets.JIRABOT_USERNAME }}
@@ -60,9 +62,9 @@ jobs:
                     try:
                         jira.transition_issue(issue, transition)
                         result += 'Workflow Transition: ' + transition + '\n'
-                    except:
+                    except Exception as error:
                         transitions = jira.transitions(issue)
-                        result += 'Error: Transition: "' + transition + '" failed. Valid transitions=[' + (', '.join(transitions)) + ']\n'
+                        result += 'Error: Transition: "' + transition + '" failed with: "' + str(error) + '" Valid transitions=' + str(transitions) + '\n'
 
                 if issue.fields.customfield_10010 is None:
                     issue.update(fields={'customfield_10010': pull_url})
