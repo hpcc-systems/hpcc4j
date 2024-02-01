@@ -34,7 +34,7 @@ import org.junit.experimental.categories.Category;
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class DFUFileDetailWrapperTest
 {
-    public static final String SETOF = "RECORD\n" +
+    private static final String SETOF = "RECORD\n" +
             "STRING1 test;\n" +
             "SET OF UTF8 field3set {DEFAULT ([''])};\n" +
             "SET OF UTF8 field4set {DEFAULT (['test'])};\n" +
