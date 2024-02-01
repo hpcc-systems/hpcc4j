@@ -34,6 +34,12 @@ import org.junit.experimental.categories.Category;
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class DFUFileDetailWrapperTest
 {
+    public static final String SETOF = "RECORD\n" +
+            "STRING1 test;\n" +
+            "SET OF UTF8 field3set {DEFAULT ([''])};\n" +
+            "SET OF UTF8 field4set {DEFAULT (['test'])};\n" +
+            "STRING2 test;\n" +
+            "END;";
     private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
     private final String MAXLENGTH = "RECORD\nSTRING SSN;\nINTEGER8 maxlength;\nEND;";
     private final String WITH_ANNOTATION_NO_PARAMS = "RECORD\nSTRING SSN; // @FEW\nEND;";
@@ -334,8 +340,7 @@ public class DFUFileDetailWrapperTest
 
     @Test
     public void testSetDefault() throws Exception {
-        String setof = "RECORD\nSET OF UTF8 field3set {DEFAULT ([''])};\nEND;";
-        EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(setof);
+        EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(SETOF);
         if (info.getParseErrors().size()!=0) {
             fail("Failed get set default test:" + String.join("\n",info.getParseErrors()));
         }
@@ -346,15 +351,7 @@ public class DFUFileDetailWrapperTest
         assertNotNull(column);
         assertNotNull(column.getColumnValue());
 
-        String setof2 = "RECORD\nSET OF UTF8 field3set {DEFAULT (['test'])};\nEND;";
-        EclRecordWrapper info2 = DFUFileDetailWrapper.getRecordEcl(setof2);
-        if (info2.getParseErrors().size()!=0) {
-            fail("Failed get set default test:" + String.join("\n",info2.getParseErrors()));
-        }
-        DFURecordDefWrapper recordDefInfo2 = info2.getRecordsets().get("unnamed0");
-        assertNotNull(recordDefInfo2);
-        assertEquals(0, recordDefInfo2.getAnnotations().size());
-        DFUDataColumnWrapper column2 = getColumnByName(recordDefInfo2, "field3set");
+        DFUDataColumnWrapper column2 = getColumnByName(recordDefInfo, "field4set");
         assertNotNull(column2);
         assertNotNull(column2.getColumnValue());
         assertEquals("test", column2.getColumnValue());
