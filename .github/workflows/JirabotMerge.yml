@@ -1,19 +1,26 @@
 name: Jirabot - Merge
 
 on:
-  pull_request:
+  pull_request_target:
     types: [closed]
     branches:
       - "master"
       - "candidate-*"
-
-permissions: write-all
 
 jobs:
   jirabot:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
+      - name: "Debug Vars"
+        run: |
+          echo "JIRA_URL: ${{ vars.JIRA_URL }}"
+          echo "Pull Request Number: ${{ github.event.pull_request.number }}"
+          echo "Pull Request Title: ${{ github.event.pull_request.title }}"
+          echo "Pull Request Author Name: ${{ github.event.pull_request.user.login }}"
+          echo "Pull Request URL: ${{ github.event.pull_request.html_url }}"
+          echo "Comments URL: ${{ github.event.pull_request.comments_url }}"
+          echo "Branch Name: ${{ github.ref_name }}"
       - uses: "actions/setup-python@v2"
         with:
           python-version: "3.8"
@@ -24,6 +31,12 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade jira
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+          fetch-tags: true
       - name: "Run"
         env:
           JIRABOT_USERNAME : ${{ secrets.JIRABOT_USERNAME }}
@@ -176,6 +189,11 @@ jobs:
             jirabot_user = os.environ['JIRABOT_USERNAME']
             jirabot_pass = os.environ['JIRABOT_PASSWORD']
             jira_url = os.environ['JIRA_URL']
+
+            if not jira_url:
+                jira_url = 'https://track.hpccsystems.com'
+                print('Jira URL us empty defaulting to: ' + jira_url)
+
             pr = os.environ['PULL_REQUEST_NUMBER']
             title = os.environ['PULL_REQUEST_TITLE']
             user = os.environ['PULL_REQUEST_AUTHOR_NAME']
