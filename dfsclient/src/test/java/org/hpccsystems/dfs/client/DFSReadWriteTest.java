@@ -89,6 +89,93 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void nullCharTests() throws Exception
+    {
+        // Unicode
+        {
+            FieldDef recordDef = null;
+            {
+                FieldDef[] fieldDefs = new FieldDef[2];
+                fieldDefs[0] = new FieldDef("uni", FieldType.STRING, "STRING", 100, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+                fieldDefs[1] = new FieldDef("fixedUni", FieldType.STRING, "STRING", 100, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+
+                recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+            }
+
+            List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+            int maxUTF16BMPChar = Character.MAX_CODE_POINT;
+            for (int i = 0; i < maxUTF16BMPChar; i++) {
+                String strMidEOS = "";
+                for (int j = 0; j < 98; j++, i++) {
+                    if (j == 50) {
+                        strMidEOS += "\0";
+                    }
+                    strMidEOS += Character.toString((char) i);
+                }
+
+                Object[] fields = {strMidEOS, strMidEOS};
+                records.add(new HPCCRecord(fields, recordDef));
+            }
+
+            String fileName = "unicode::all_chars::test";
+            writeFile(records, fileName, recordDef, connTO);
+
+            HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
+            List<HPCCRecord> readRecords = readFile(file, 10000, false, false, BinaryRecordReader.TRIM_STRINGS);
+
+            for (int i = 0; i < records.size(); i++) {
+                HPCCRecord record = records.get(i);
+                HPCCRecord readRecord = readRecords.get(i);
+                if (readRecord.equals(record) == false)
+                {
+                    System.out.println("Record: " + i + " did not match\n" + record + "\n" + readRecord);
+                }
+            }
+        }
+
+        // SBC / ASCII
+        {
+            FieldDef recordDef = null;
+            {
+                FieldDef[] fieldDefs = new FieldDef[2];
+                fieldDefs[0] = new FieldDef("str", FieldType.STRING, "STRING", 10, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+                fieldDefs[1] = new FieldDef("fixedStr", FieldType.STRING, "STRING", 10, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]);
+
+                recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
+            }
+
+            List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+            for (int i = 0; i < 255; i++) {
+                String strMidEOS = "";
+                for (int j = 0; j < 9; j++, i++) {
+                    if (j == 5) {
+                        strMidEOS += "\0";
+                    }
+                    strMidEOS += Character.toString((char) i);
+                }
+
+                Object[] fields = {strMidEOS, strMidEOS};
+                records.add(new HPCCRecord(fields, recordDef));
+            }
+
+            String fileName = "ascii::all_chars::test";
+            writeFile(records, fileName, recordDef, connTO);
+
+            HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
+            List<HPCCRecord> readRecords = readFile(file, 10000, false, false, BinaryRecordReader.TRIM_STRINGS);
+
+            for (int i = 0; i < records.size(); i++) {
+                HPCCRecord record = records.get(i);
+                HPCCRecord readRecord = readRecords.get(i);
+                if (readRecord.equals(record) == false)
+                {
+                    System.out.println("Record: " + i + " did not match\n" + record + "\n" + readRecord);
+                }
+            }
+        }
+    }
+
+    @Test
     public void integrationReadWriteBackTest() throws Exception
     {
         for (int i = 0; i < datasets.length; i++)
