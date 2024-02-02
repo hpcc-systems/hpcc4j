@@ -52,6 +52,8 @@ public class BinaryRecordWriter implements IRecordWriter
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
     private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
 
+    private static final byte    NULL_TERMINATOR = '\0';
+
     private byte[]              scratchBuffer       = new byte[SCRATCH_BUFFER_SIZE];
 
     private OutputStream        outputStream        = null;
@@ -307,7 +309,7 @@ public class BinaryRecordWriter implements IRecordWriter
                             fillLength = SCRATCH_BUFFER_SIZE;
                         }
 
-                        Arrays.fill(scratchBuffer, 0, fillLength, (byte) '\0');
+                        Arrays.fill(scratchBuffer, 0, fillLength, NULL_TERMINATOR);
                         writeByteArray(scratchBuffer, 0, fillLength);
                         numFillBytes -= fillLength;
                     }
@@ -436,7 +438,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case CHAR:
             {
-                byte c='\0';
+                byte c = NULL_TERMINATOR;
                 if (fieldValue!=null)
                 {
                     String value = (String) fieldValue;
@@ -449,10 +451,13 @@ public class BinaryRecordWriter implements IRecordWriter
             case STRING:
             {
                 String value = fieldValue != null ? (String) fieldValue : "";
-                int eosIdx = value.indexOf('\0');
-                if (eosIdx > -1)
+                if (fd.getFieldType() == FieldType.VAR_STRING)
                 {
-                    value = value.substring(0,eosIdx);
+                    int eosIdx = value.indexOf(NULL_TERMINATOR);
+                    if (eosIdx > -1)
+                    {
+                        value = value.substring(0,eosIdx);
+                    }
                 }
 
                 byte[] data = new byte[0];
@@ -547,10 +552,10 @@ public class BinaryRecordWriter implements IRecordWriter
                     {
                         if (fd.getFieldType() == FieldType.VAR_STRING && bytesToWrite > 0)
                         {
-                            data[bytesToWrite - 1] = '\0';
+                            data[bytesToWrite - 1] = NULL_TERMINATOR;
                             if (fd.getSourceType().isUTF16() && bytesToWrite > 1)
                             {
-                                data[bytesToWrite - 2] = '\0';
+                                data[bytesToWrite - 2] = NULL_TERMINATOR;
                             }
                         }
 
@@ -568,7 +573,7 @@ public class BinaryRecordWriter implements IRecordWriter
                                 fillLength = SCRATCH_BUFFER_SIZE;
                             }
 
-                            Arrays.fill(scratchBuffer, 0, fillLength, (byte) '\0');
+                            Arrays.fill(scratchBuffer, 0, fillLength, NULL_TERMINATOR);
                             writeByteArray(scratchBuffer, 0, fillLength);
                             numFillBytes -= fillLength;
                         }
@@ -582,11 +587,25 @@ public class BinaryRecordWriter implements IRecordWriter
 
                         if (fd.getFieldType() == FieldType.VAR_STRING)
                         {
-                            byte nullByte = '\0';
-                            this.buffer.put(nullByte);
                             if (fd.getSourceType().isUTF16())
                             {
-                                this.buffer.put(nullByte);
+                                boolean needsNullAdded = data.length < 2
+                                                   || data[data.length - 1] != NULL_TERMINATOR
+                                                   || data[data.length - 2] != NULL_TERMINATOR;
+                                if (needsNullAdded)
+                                {
+                                    this.buffer.put(NULL_TERMINATOR);
+                                    this.buffer.put(NULL_TERMINATOR);
+                                }
+                            }
+                            else
+                            {
+                                boolean needsNullAdded = data.length < 1
+                                                      || data[data.length - 1] != NULL_TERMINATOR;
+                                if (needsNullAdded)
+                                {
+                                    this.buffer.put(NULL_TERMINATOR);
+                                }
                             }
                         }
                     }
