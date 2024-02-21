@@ -38,13 +38,14 @@ jobs:
           COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GHUB_JIRA_USER_MAP: ${{ vars.GHUB_JIRA_USER_MAP }}
+          JIRA_ISSUE_PROPERTY_MAP: ${{ vars.JIRA_ISSUE_PROPERTY_MAP }}
         run: |
             import os
             import re
             import json
             from jira.client import JIRA
 
-            def updateIssue(jira, issue, prAuthor: str, pull_url: str) -> str:
+            def updateIssue(jira, issue, prAuthor: str, propertyMap: dict, pull_url: str) -> str:
                 result = ''
 
                 statusName = str(issue.fields.status)
@@ -67,10 +68,17 @@ jobs:
                         transitions = jira.transitions(issue)
                         result += 'Error: Transition: "' + transition + '" failed with: "' + str(error) + '" Valid transitions=' + str(transitions) + '\n'
 
-                if issue.fields.customfield_10010 is None:
-                    issue.update(fields={'customfield_10010': pull_url})
+                prFieldName = propertyMap.get('pullRequestFieldName', 'customfield_10010')
+                try:
+                    currentPR = getattr(issue.fields, prFieldName)
+                except:
+                    currentPR = None
+                    print('Error: Unable to get current pull request with field name: ' + prFieldName)
+
+                if currentPR is None:
+                    issue.update(fields={prFieldName: pull_url})
                     result += 'Updated PR\n'
-                elif issue.fields.customfield_10010 is not None and issue.fields.customfield_10010 != pull_url:
+                elif currentPR is not None and currentPR != pull_url:
                     result += 'Additional PR: ' + pull_url + '\n'
 
                 if prAuthor:
@@ -127,7 +135,11 @@ jobs:
                 issue = jira.issue(issue_name)
                 result = 'Jirabot Action Result:\n'
 
-                result += updateIssue(jira, issue, prAuthor, pull_url)
+                jiraIssuePropertyMap = json.loads(os.environ['JIRA_ISSUE_PROPERTY_MAP'])
+                if not isinstance(jiraIssuePropertyMap, dict):
+                    jiraIssuePropertyMap = {}
+
+                result += updateIssue(jira, issue, prAuthor, jiraIssuePropertyMap, pull_url)
                 jira.add_comment(issue, result)
             else:
                 print('Unable to find Jira issue name in title')
