@@ -1,0 +1,227 @@
+name: Jirabot - Merge
+
+on:
+  pull_request_target:
+    types: [closed]
+    branches:
+      - "master"
+      - "candidate-*"
+
+jobs:
+  jirabot:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: "Debug Vars"
+        run: |
+          echo "JIRA_URL: ${{ vars.JIRA_URL }}"
+          echo "Pull Request Number: ${{ github.event.pull_request.number }}"
+          echo "Pull Request Title: ${{ github.event.pull_request.title }}"
+          echo "Pull Request Author Name: ${{ github.event.pull_request.user.login }}"
+          echo "Pull Request URL: ${{ github.event.pull_request.html_url }}"
+          echo "Comments URL: ${{ github.event.pull_request.comments_url }}"
+          echo "Branch Name: ${{ github.ref_name }}"
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.8"
+      - name: "Install dependencies"
+        run: |
+          set -xe
+          python -VV
+          python -m site
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade jira
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+          fetch-tags: true
+      - name: "Run"
+        env:
+          JIRABOT_USERNAME : ${{ secrets.JIRABOT_USERNAME }}
+          JIRABOT_PASSWORD : ${{ secrets.JIRABOT_PASSWORD }}
+          JIRA_URL : ${{ vars.JIRA_URL }}
+          PULL_REQUEST_NUMBER : ${{ github.event.pull_request.number }}
+          PULL_REQUEST_TITLE : ${{ github.event.pull_request.title }}
+          PULL_REQUEST_AUTHOR_NAME : ${{ github.event.pull_request.user.login }}
+          PULL_URL: ${{ github.event.pull_request.html_url }}
+          COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.ref_name }}
+
+        run: |
+            import os
+            import re
+            import subprocess
+            import time
+            import sys
+            from jira.client import JIRA
+
+            def extractVersion(versionStr):
+                parts = versionStr.split('.')
+                if len(parts) != 3:
+                    print('Invalid version: ' + version)
+                    sys.exit(1)
+                if parts[2].lower() == 'x':
+                    parts[2] = '0'
+
+                major, minor, point = map(int, parts)
+                return [major, minor, point]
+
+            def getTagVersionForCmd(cmd):
+                versionPattern = re.compile(r".*([0-9]+\.[0-9]+\.[0-9]+).*")
+
+                # Get latest release version
+                gitTagProcess = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+                (output, err) = gitTagProcess.communicate()
+                gitTagProcessStatus = gitTagProcess.wait()
+
+                if gitTagProcessStatus != 0:
+                    print('Unable to retrieve latest git tag.')
+                    sys.exit(1)
+
+                latestGitTag = str(output)
+
+                versionMatch = versionPattern.match(latestGitTag)
+                if versionMatch:
+                    return extractVersion(versionMatch.group(1))
+                else:
+                    print('Unable to extract version from git tag.')
+                    sys.exit(2)
+
+            def buildVersionString(version):
+                major, minor, point = map(int, version)
+                return f"{major}.{minor}.{point}"
+
+            def generateFixVersionList(jira, branchName):
+
+                latestVersion = getTagVersionForCmd("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
+
+                # If we are merging into master we assume it is going into the next minor release
+                fixVersions = []
+                if branchName == "master":
+                    fixVersions = [buildVersionString([latestVersion[0], latestVersion[1] + 2, 0])]
+                else:
+                    # Extract candidate branch major / minor version
+                    candidateBranchPattern = re.compile(r"candidate-([0-9]+\.[0-9]+\.([0-9]+|x)).*")
+                    branchVersionMatch = candidateBranchPattern.match(branchName)
+                    branchVersion = extractVersion(branchVersionMatch.group(1))
+
+                    # Get latest release in branch
+                    findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
+                    latestBranchVer = getTagVersionForCmd(findLatestBranchVer)
+
+                    curMajor = branchVersion[0]
+                    latestMajor = latestVersion[0]
+                    while curMajor <= latestMajor:
+                        latestVersionInMajor = getTagVersionForCmd("git tag --list 'hpcc4j_" + str(curMajor) + "*-release' --sort=-v:refname | head -n 1")
+
+                        curMinor = 0
+                        if curMajor == branchVersion[0]:
+                            curMinor = branchVersion[1]
+
+                        latestMinor = latestVersionInMajor[1]
+
+                        while curMinor <= latestMinor:
+                            latestPointInMinor = getTagVersionForCmd("git tag --list 'hpcc4j_" + str(curMajor) + "." + str(curMinor) + "*-release' --sort=-v:refname | head -n 1")
+                            fixVersions.append(buildVersionString([latestPointInMinor[0], latestPointInMinor[1], latestPointInMinor[2] + 2]))
+                            curMinor += 2
+                        curMajor += 1
+
+                for fixVersion in fixVersions:
+                    alreadyHasFixVersion = False
+                    versions = jira.project_versions('JAPI')
+                    for v in versions:
+                        if v.name == fixVersion:
+                            alreadyHasFixVersion = True
+
+                    if not alreadyHasFixVersion:
+                        jira.create_version(name=fixVersion, project='JAPI', description=fixVersion)
+
+                return fixVersions
+
+            def resolveIssue(jira, issue, fixVersions) -> str:
+                result = ''
+
+                versionsToAdd = []
+
+                for addedVersion in fixVersions:
+                    alreadyHasFixVersion = False
+                    for v in issue.fields.fixVersions:
+                        if v.name == addedVersion:
+                            alreadyHasFixVersion = True
+                            break
+                    if not alreadyHasFixVersion:
+                        versionsToAdd.append(addedVersion)
+
+                versions = jira.project_versions('JAPI')
+                updatedVersionList = []
+                for v in issue.fields.fixVersions:
+                    updatedVersionList.append({'id' : v.id})
+
+                for fixVersionName in versionsToAdd:
+                    fixVersion = None
+                    for v in versions:
+                        if v.name == fixVersionName:
+                            fixVersion = v
+                            break
+
+                    if fixVersion:
+                        updatedVersionList.append({'id' : fixVersion.id})
+                        result += "Added fix version: " + fixVersionName + "\n"
+                    else:
+                        result += "Error: Unable to find fix version: " + fixVersionName + "\n"
+
+                if len(versionsToAdd) > 0:
+                    issue.update(fields={'fixVersions': updatedVersionList})
+                else:
+                    result += "Fix versions already added.\n"
+
+                statusName = str(issue.fields.status)
+                if statusName != 'Resolved':
+                    transition = 'Resolve Issue'
+                    jira.transition_issue(issue, transition)
+                    result += "Workflow Transition: 'Resolve issue'\n"
+
+                return result
+
+            jirabot_user = os.environ['JIRABOT_USERNAME']
+            jirabot_pass = os.environ['JIRABOT_PASSWORD']
+            jira_url = os.environ['JIRA_URL']
+
+            pr = os.environ['PULL_REQUEST_NUMBER']
+            title = os.environ['PULL_REQUEST_TITLE']
+            user = os.environ['PULL_REQUEST_AUTHOR_NAME']
+            pull_url = os.environ['PULL_URL']
+            github_token = os.environ['GITHUB_TOKEN']
+            branch_name = os.environ['BRANCH_NAME']
+            comments_url = os.environ['COMMENTS_URL']
+
+            print("Attempting to close out Jira issue: %s %s %s" % (title, user, comments_url))
+            result = ''
+            issuem = re.search("(HPCC4J|JAPI)-[0-9]+", title)
+            if issuem:
+                nameCorrectionPattern = re.compile("hpcc4j", re.IGNORECASE)
+                issue_name = nameCorrectionPattern.sub("JAPI",issuem.group())
+
+                options = {
+                    'server': jira_url
+                }
+
+                jira = JIRA(options=options, basic_auth=(jirabot_user, jirabot_pass))
+                issue = jira.issue(issue_name)
+                if issue is None:
+                    print('Unable to find issue with name: ' + issue_name)
+                    sys.exit(1)
+
+                result = 'Jirabot Action Result:\n'
+
+                fixVersions = generateFixVersionList(jira, branch_name)
+                result += resolveIssue(jira, issue, fixVersions)
+                jira.add_comment(issue, result)
+            else:
+                print('Unable to find Jira issue name in title')
+
+            print(result)
+        shell: python
