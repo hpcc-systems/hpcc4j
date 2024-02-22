@@ -190,10 +190,6 @@ jobs:
             jirabot_pass = os.environ['JIRABOT_PASSWORD']
             jira_url = os.environ['JIRA_URL']
 
-            if not jira_url:
-                jira_url = 'https://track.hpccsystems.com'
-                print('Jira URL us empty defaulting to: ' + jira_url)
-
             pr = os.environ['PULL_REQUEST_NUMBER']
             title = os.environ['PULL_REQUEST_TITLE']
             user = os.environ['PULL_REQUEST_AUTHOR_NAME']
