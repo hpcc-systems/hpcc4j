@@ -7,13 +7,14 @@ on:
   create:
     branches:
     - 'candidate-*'
+
 jobs:
-  publish:
+  publish-maven-central:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Maven Central Repository
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'adopt'
@@ -25,3 +26,27 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USER_NAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
+  publish-jfrog-artifactory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Jfrog Artifactory Deployment
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          server-id: 'jfrog-snapshot'
+          server-username: JFROG_USER
+          server-password: JFROG_TOKEN
+          gpg-private-key: ${{ secrets.SIGNING_SECRET }}
+          gpg-passphrase: JFROG_GPG_PASSPHRASE
+      - name: Publish package
+        if: contains(github.ref_name, '-release') == false
+        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 clean deploy -e
+        env:
+          JFROG_USER: ${{ secrets.JFROG_USER }}
+          JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+          JFROG_GPG_PASSPHRASE: ${{ secrets.SIGN_MODULES_PASSPHRASE }}
+          JFROG_URL: ${{ vars.JFROG_URL }}
+          JFROG_SNAPSHOT_REPOSITORY: ${{ vars.JFROG_SNAPSHOT_REPOSITORY }}
+          JFROG_REPOSITORY: ${{ vars.JFROG_REPOSITORY }}
