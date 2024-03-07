@@ -1061,21 +1061,64 @@ public class Utils
         return safeXMLDocBuilder;
     }
 
+    /**
+     * Ensures the given path contains a trailing path delimiter.
+     * Does not introduce duplicate trailing path delimiter if one already exists.
+     * Defaults to Linux style separator if the given path either contains a Linux style separator, or the path is empty.
+     * Strips all trailing white space character
+     * @param path The path to be postfixed
+     * @return original path with proper trailing path delimiter
+     */
     public static String ensureTrailingPathSlash(String path)
     {
         return ensureTrailingPathSlash(path, (path.contains(Character.toString(LINUX_SEP)) || path.length() == 0) ? LINUX_SEP : WIN_SEP);
     }
 
+    /**
+     * Ensures the given path contains a trailing path delimiter.
+     * Does not introduce duplicate trailing path delimiter if one already exists.
+     * Uses Linux style path separator 'useLinuxSep' == "true", otherwise uses windows style path separator
+     * Strips all trailing white space character
+     * @param path path The path to be postfixed
+     * @param useLinuxSep String, if "true" linux styled path delimiter will be used
+     * @return original path with proper trailing path delimiter
+     */
     public static String ensureTrailingPathSlash(String path, String useLinuxSep)
     {
         return ensureTrailingPathSlash(path, useLinuxSep.equalsIgnoreCase("true") ? LINUX_SEP : WIN_SEP);
     }
 
+    /**
+     * Ensures the given path contains a trailing path delimiter.
+     * Does not introduce duplicate trailing path delimiter if one already exists.
+     * Uses provided 'slash' as trailing path delimiter
+     * Strips all trailing white space character
+     * @param path The path to be postfixed
+     * @param slash The character to append
+     * @return original path with proper trailing path delimiter
+     */
     public static String ensureTrailingPathSlash(String path, char slash)
     {
+        path = trimTrailing(path);
+
         if (path.length() == 0 || path.charAt(path.length()-1) != slash)
             path = path + slash;
 
         return path;
+    }
+
+    /**
+     * Removes trailing whitespace characters from a string.
+     *
+     * @param originalStr the original string from which trailing whitespace should be removed
+     * @return a new string with the same characters as the original string, minus any trailing whitespace
+     */
+    public static String trimTrailing(String originalStr)
+    {
+        int strIndex = originalStr.length()-1;
+        while(strIndex >= 0 && Character.isWhitespace(originalStr.charAt(strIndex)))
+            strIndex--;
+
+        return originalStr.substring(0,strIndex+1);
     }
 }
