@@ -490,6 +490,81 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>jfrog-artifactory</id>
+      <properties>
+        <maven.gpg.skip>false</maven.gpg.skip>
+        <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
+      </properties>
+      <!-- Needed for access to jfrog servers given github stored secrets -->
+      <distributionManagement>
+        <repository>
+          <id>jfrog</id>
+          <url>${env.JFROG_URL}/artifactory/${env.JFROG_REPOSITORY}</url>
+        </repository>
+        <snapshotRepository>
+          <id>jfrog-snapshot</id>
+          <url>${env.JFROG_URL}/artifactory/${env.JFROG_SNAPSHOT_REPOSITORY}</url>
+        </snapshotRepository>
+      </distributionManagement>
+      <repositories>
+        <repository>
+          <id>jfrog</id>
+          <name>hpccpl-maven-virtual</name>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <url>${env.JFROG_URL}/artifactory/${env.JFROG_REPOSITORY}</url>
+        </repository>
+        <repository>
+          <id>snapshots</id>
+          <name>hccpl-maven-snapshot-virtual</name>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <url>${env.JFROG_URL}/artifactory/${env.JFROG_SNAPSHOT_REPOSITORY}</url>
+        </repository>
+      </repositories>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven.javadoc.version}</version>
+            <configuration>
+                <excludePackageNames>${javadoc.excludePackageNames}</excludePackageNames>
+              </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven.source.version}</version>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven.gpg.version}</version>
+            <configuration>
+              <useAgent>true</useAgent>
+              <gpgArguments>
+                <arg>--batch</arg>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+              <skip>${maven.gpg.skip}</skip>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven.surefire.version}</version>
+            <configuration>
+              <argLine>${argLine}</argLine>
+              <groups>${groups}</groups>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 
   <developers>
