@@ -1,18 +1,18 @@
 /**
- * GetDFUServerQueuesResponse.java
+ * CreateDFUPublisherWorkunitResponse.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
  * 2022 (03:47:13 EDT)
  */
 package org.hpccsystems.ws.client.gen.axis2.filespray.latest;
 
-/** GetDFUServerQueuesResponse bean class */
+/** CreateDFUPublisherWorkunitResponse bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.ADBBean {
+public class CreateDFUPublisherWorkunitResponse implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:filespray", "GetDFUServerQueuesResponse", "ns1");
+          "urn:hpccsystems:ws:filespray", "CreateDFUPublisherWorkunitResponse", "ns1");
 
   /** field for Exceptions */
   protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException
@@ -49,37 +49,37 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
     this.localExceptions = param;
   }
 
-  /** field for Names */
-  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray localNames;
+  /** field for Result */
+  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit localResult;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localNamesTracker = false;
+  protected boolean localResultTracker = false;
 
-  public boolean isNamesSpecified() {
-    return localNamesTracker;
+  public boolean isResultSpecified() {
+    return localResultTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray
+   * @return org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit
    */
-  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray getNames() {
-    return localNames;
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit getResult() {
+    return localResult;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Names
+   * @param param Result
    */
-  public void setNames(org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray param) {
-    localNamesTracker = param != null;
+  public void setResult(org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit param) {
+    localResultTracker = param != null;
 
-    this.localNames = param;
+    this.localResult = param;
   }
 
   /**
@@ -121,14 +121,14 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":GetDFUServerQueuesResponse",
+            namespacePrefix + ":CreateDFUPublisherWorkunitResponse",
             xmlWriter);
       } else {
         writeAttribute(
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            "GetDFUServerQueuesResponse",
+            "CreateDFUPublisherWorkunitResponse",
             xmlWriter);
       }
     }
@@ -139,12 +139,12 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
       localExceptions.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"), xmlWriter);
     }
-    if (localNamesTracker) {
-      if (localNames == null) {
-        throw new org.apache.axis2.databinding.ADBException("Names cannot be null!!");
+    if (localResultTracker) {
+      if (localResult == null) {
+        throw new org.apache.axis2.databinding.ADBException("result cannot be null!!");
       }
-      localNames.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Names"), xmlWriter);
+      localResult.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "result"), xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -343,9 +343,9 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static GetDFUServerQueuesResponse parse(javax.xml.stream.XMLStreamReader reader)
+    public static CreateDFUPublisherWorkunitResponse parse(javax.xml.stream.XMLStreamReader reader)
         throws java.lang.Exception {
-      GetDFUServerQueuesResponse object = new GetDFUServerQueuesResponse();
+      CreateDFUPublisherWorkunitResponse object = new CreateDFUPublisherWorkunitResponse();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -370,10 +370,10 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"GetDFUServerQueuesResponse".equals(type)) {
+            if (!"CreateDFUPublisherWorkunitResponse".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (GetDFUServerQueuesResponse)
+              return (CreateDFUPublisherWorkunitResponse)
                   org.hpccsystems.ws.client.gen.axis2.filespray.latest.ExtensionMapper
                       .getTypeObject(nsUri, type, reader);
             }
@@ -401,11 +401,11 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Names")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "result")
                     .equals(reader.getName())) {
 
-              object.setNames(
-                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray.Factory.parse(
+              object.setResult(
+                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit.Factory.parse(
                       reader));
 
               reader.next();

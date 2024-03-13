@@ -1,85 +1,50 @@
 /**
- * GetDFUServerQueuesResponse.java
+ * CreateDFUPublisherWorkunit.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
  * 2022 (03:47:13 EDT)
  */
 package org.hpccsystems.ws.client.gen.axis2.filespray.latest;
 
-/** GetDFUServerQueuesResponse bean class */
+/** CreateDFUPublisherWorkunit bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.ADBBean {
+public class CreateDFUPublisherWorkunit implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:filespray", "GetDFUServerQueuesResponse", "ns1");
+          "urn:hpccsystems:ws:filespray", "CreateDFUPublisherWorkunit", "ns1");
 
-  /** field for Exceptions */
-  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException
-      localExceptions;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localExceptionsTracker = false;
-
-  public boolean isExceptionsSpecified() {
-    return localExceptionsTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException
-   */
-  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException getExceptions() {
-    return localExceptions;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param Exceptions
-   */
-  public void setExceptions(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException param) {
-    localExceptionsTracker = param != null;
-
-    this.localExceptions = param;
-  }
-
-  /** field for Names */
-  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray localNames;
+  /** field for DFUServerQueue */
+  protected java.lang.String localDFUServerQueue;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localNamesTracker = false;
+  protected boolean localDFUServerQueueTracker = false;
 
-  public boolean isNamesSpecified() {
-    return localNamesTracker;
+  public boolean isDFUServerQueueSpecified() {
+    return localDFUServerQueueTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray
+   * @return java.lang.String
    */
-  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray getNames() {
-    return localNames;
+  public java.lang.String getDFUServerQueue() {
+    return localDFUServerQueue;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Names
+   * @param param DFUServerQueue
    */
-  public void setNames(org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray param) {
-    localNamesTracker = param != null;
+  public void setDFUServerQueue(java.lang.String param) {
+    localDFUServerQueueTracker = param != null;
 
-    this.localNames = param;
+    this.localDFUServerQueue = param;
   }
 
   /**
@@ -121,30 +86,32 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":GetDFUServerQueuesResponse",
+            namespacePrefix + ":CreateDFUPublisherWorkunit",
             xmlWriter);
       } else {
         writeAttribute(
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            "GetDFUServerQueuesResponse",
+            "CreateDFUPublisherWorkunit",
             xmlWriter);
       }
     }
-    if (localExceptionsTracker) {
-      if (localExceptions == null) {
-        throw new org.apache.axis2.databinding.ADBException("Exceptions cannot be null!!");
+    if (localDFUServerQueueTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "DFUServerQueue", xmlWriter);
+
+      if (localDFUServerQueue == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("DFUServerQueue cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localDFUServerQueue);
       }
-      localExceptions.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"), xmlWriter);
-    }
-    if (localNamesTracker) {
-      if (localNames == null) {
-        throw new org.apache.axis2.databinding.ADBException("Names cannot be null!!");
-      }
-      localNames.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Names"), xmlWriter);
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -343,9 +310,9 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static GetDFUServerQueuesResponse parse(javax.xml.stream.XMLStreamReader reader)
+    public static CreateDFUPublisherWorkunit parse(javax.xml.stream.XMLStreamReader reader)
         throws java.lang.Exception {
-      GetDFUServerQueuesResponse object = new GetDFUServerQueuesResponse();
+      CreateDFUPublisherWorkunit object = new CreateDFUPublisherWorkunit();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -370,10 +337,10 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"GetDFUServerQueuesResponse".equals(type)) {
+            if (!"CreateDFUPublisherWorkunit".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (GetDFUServerQueuesResponse)
+              return (CreateDFUPublisherWorkunit)
                   org.hpccsystems.ws.client.gen.axis2.filespray.latest.ExtensionMapper
                       .getTypeObject(nsUri, type, reader);
             }
@@ -390,23 +357,20 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
           if (reader.isStartElement()) {
 
             if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "DFUServerQueue")
                     .equals(reader.getName())) {
 
-              object.setExceptions(
-                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException.Factory
-                      .parse(reader));
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DFUServerQueue" + "  cannot be null");
+              }
 
-              reader.next();
+              java.lang.String content = reader.getElementText();
 
-            } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Names")
-                    .equals(reader.getName())) {
-
-              object.setNames(
-                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray.Factory.parse(
-                      reader));
+              object.setDFUServerQueue(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

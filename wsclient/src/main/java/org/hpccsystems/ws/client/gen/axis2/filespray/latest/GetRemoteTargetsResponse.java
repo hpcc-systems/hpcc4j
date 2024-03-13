@@ -1,18 +1,18 @@
 /**
- * GetDFUServerQueuesResponse.java
+ * GetRemoteTargetsResponse.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
  * 2022 (03:47:13 EDT)
  */
 package org.hpccsystems.ws.client.gen.axis2.filespray.latest;
 
-/** GetDFUServerQueuesResponse bean class */
+/** GetRemoteTargetsResponse bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.ADBBean {
+public class GetRemoteTargetsResponse implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:filespray", "GetDFUServerQueuesResponse", "ns1");
+          "urn:hpccsystems:ws:filespray", "GetRemoteTargetsResponse", "ns1");
 
   /** field for Exceptions */
   protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfEspException
@@ -49,17 +49,17 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
     this.localExceptions = param;
   }
 
-  /** field for Names */
-  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray localNames;
+  /** field for TargetNames */
+  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray localTargetNames;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localNamesTracker = false;
+  protected boolean localTargetNamesTracker = false;
 
-  public boolean isNamesSpecified() {
-    return localNamesTracker;
+  public boolean isTargetNamesSpecified() {
+    return localTargetNamesTracker;
   }
 
   /**
@@ -67,19 +67,55 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
    *
    * @return org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray
    */
-  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray getNames() {
-    return localNames;
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray getTargetNames() {
+    return localTargetNames;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Names
+   * @param param TargetNames
    */
-  public void setNames(org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray param) {
-    localNamesTracker = param != null;
+  public void setTargetNames(
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray param) {
+    localTargetNamesTracker = param != null;
 
-    this.localNames = param;
+    this.localTargetNames = param;
+  }
+
+  /** field for AllowForeign */
+  protected boolean localAllowForeign;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localAllowForeignTracker = false;
+
+  public boolean isAllowForeignSpecified() {
+    return localAllowForeignTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getAllowForeign() {
+    return localAllowForeign;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param AllowForeign
+   */
+  public void setAllowForeign(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localAllowForeignTracker = true;
+
+    this.localAllowForeign = param;
   }
 
   /**
@@ -121,14 +157,14 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":GetDFUServerQueuesResponse",
+            namespacePrefix + ":GetRemoteTargetsResponse",
             xmlWriter);
       } else {
         writeAttribute(
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            "GetDFUServerQueuesResponse",
+            "GetRemoteTargetsResponse",
             xmlWriter);
       }
     }
@@ -139,12 +175,27 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
       localExceptions.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"), xmlWriter);
     }
-    if (localNamesTracker) {
-      if (localNames == null) {
-        throw new org.apache.axis2.databinding.ADBException("Names cannot be null!!");
+    if (localTargetNamesTracker) {
+      if (localTargetNames == null) {
+        throw new org.apache.axis2.databinding.ADBException("TargetNames cannot be null!!");
       }
-      localNames.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Names"), xmlWriter);
+      localTargetNames.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "TargetNames"), xmlWriter);
+    }
+    if (localAllowForeignTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "AllowForeign", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("AllowForeign cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAllowForeign));
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -343,9 +394,9 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static GetDFUServerQueuesResponse parse(javax.xml.stream.XMLStreamReader reader)
+    public static GetRemoteTargetsResponse parse(javax.xml.stream.XMLStreamReader reader)
         throws java.lang.Exception {
-      GetDFUServerQueuesResponse object = new GetDFUServerQueuesResponse();
+      GetRemoteTargetsResponse object = new GetRemoteTargetsResponse();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -370,10 +421,10 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"GetDFUServerQueuesResponse".equals(type)) {
+            if (!"GetRemoteTargetsResponse".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (GetDFUServerQueuesResponse)
+              return (GetRemoteTargetsResponse)
                   org.hpccsystems.ws.client.gen.axis2.filespray.latest.ExtensionMapper
                       .getTypeObject(nsUri, type, reader);
             }
@@ -401,12 +452,31 @@ public class GetDFUServerQueuesResponse implements org.apache.axis2.databinding.
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Names")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "TargetNames")
                     .equals(reader.getName())) {
 
-              object.setNames(
+              object.setTargetNames(
                   org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspStringArray.Factory.parse(
                       reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "AllowForeign")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "AllowForeign" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setAllowForeign(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

@@ -43,7 +43,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     // creating the operations
     org.apache.axis2.description.AxisOperation __operation;
 
-    _operations = new org.apache.axis2.description.AxisOperation[30];
+    _operations = new org.apache.axis2.description.AxisOperation[32];
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -139,7 +139,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUServerQueues"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getRemoteTargets"));
     _service.addOperation(__operation);
 
     _operations[12] = __operation;
@@ -147,29 +147,29 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "deleteDFUWorkunits"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUServerQueues"));
     _service.addOperation(__operation);
 
     _operations[13] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "despray"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "deleteDFUWorkunits"));
     _service.addOperation(__operation);
 
     _operations[14] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "fileList"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "despray"));
     _service.addOperation(__operation);
 
     _operations[15] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dFUWorkunitsAction"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "fileList"));
     _service.addOperation(__operation);
 
     _operations[16] = __operation;
@@ -177,7 +177,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dropZoneFiles"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dFUWorkunitsAction"));
     _service.addOperation(__operation);
 
     _operations[17] = __operation;
@@ -185,7 +185,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "deleteDFUWorkunit"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dropZoneFiles"));
     _service.addOperation(__operation);
 
     _operations[18] = __operation;
@@ -193,7 +193,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "submitDFUWorkunit"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "deleteDFUWorkunit"));
     _service.addOperation(__operation);
 
     _operations[19] = __operation;
@@ -201,7 +201,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dfuMonitor"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "submitDFUWorkunit"));
     _service.addOperation(__operation);
 
     _operations[20] = __operation;
@@ -209,7 +209,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dFUWUSearch"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dfuMonitor"));
     _service.addOperation(__operation);
 
     _operations[21] = __operation;
@@ -217,7 +217,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUWorkunits"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dFUWUSearch"));
     _service.addOperation(__operation);
 
     _operations[22] = __operation;
@@ -225,7 +225,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "deleteDropZoneFiles"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUWorkunits"));
     _service.addOperation(__operation);
 
     _operations[23] = __operation;
@@ -233,7 +233,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getSprayTargets"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "deleteDropZoneFiles"));
     _service.addOperation(__operation);
 
     _operations[24] = __operation;
@@ -241,7 +241,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUExceptions"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getSprayTargets"));
     _service.addOperation(__operation);
 
     _operations[25] = __operation;
@@ -249,7 +249,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "echoDateTime"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUExceptions"));
     _service.addOperation(__operation);
 
     _operations[26] = __operation;
@@ -257,7 +257,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "updateDFUWorkunit"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "echoDateTime"));
     _service.addOperation(__operation);
 
     _operations[27] = __operation;
@@ -265,17 +265,34 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUProgress"));
+        new javax.xml.namespace.QName(
+            "urn:hpccsystems:ws:filespray", "createDFUPublisherWorkunit"));
     _service.addOperation(__operation);
 
     _operations[28] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "openSave"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "updateDFUWorkunit"));
     _service.addOperation(__operation);
 
     _operations[29] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUProgress"));
+    _service.addOperation(__operation);
+
+    _operations[30] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "openSave"));
+    _service.addOperation(__operation);
+
+    _operations[31] = __operation;
   }
 
   // populates the faults
@@ -467,6 +484,22 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
+            "GetRemoteTargets"),
+        "org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
+            "GetRemoteTargets"),
+        "org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
+            "GetRemoteTargets"),
+        "org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
             "GetDFUServerQueues"),
         "org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
@@ -699,6 +732,22 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
             "EchoDateTime"),
+        "org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
+            "CreateDFUPublisherWorkunit"),
+        "org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
+            "CreateDFUPublisherWorkunit"),
+        "org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Exceptions"),
+            "CreateDFUPublisherWorkunit"),
         "org.hpccsystems.ws.client.gen.axis2.filespray.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -780,13 +829,13 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
   public FileSprayStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/FileSpray?ver_=1.25");
+    this(configurationContext, "http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26");
   }
 
   /** Default Constructor */
   public FileSprayStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/FileSpray?ver_=1.25");
+    this("http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26");
   }
 
   /** Constructor taking the target endpoint */
@@ -810,7 +859,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("FileSpray/SprayVariable?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/SprayVariable?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -932,7 +981,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("FileSpray/DFUWUFile?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/DFUWUFile?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1055,7 +1104,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("FileSpray/Ping?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/Ping?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1178,7 +1227,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("FileSpray/Copy?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/Copy?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1300,7 +1349,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("FileSpray/Replicate?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/Replicate?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1424,7 +1473,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("FileSpray/CreateDFUWorkunit?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/CreateDFUWorkunit?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1550,7 +1599,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunit?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunit?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1672,7 +1721,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("FileSpray/Rename?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/Rename?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1794,7 +1843,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("FileSpray/SprayFixed?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/SprayFixed?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1916,7 +1965,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("FileSpray/ShowResult?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/ShowResult?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2039,7 +2088,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("FileSpray/AbortDFUWorkunit?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/AbortDFUWorkunit?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2166,7 +2215,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("FileSpray/DropZoneFileSearch?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/DropZoneFileSearch?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2281,14 +2330,14 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getDFUServerQueues
-   * @param getDFUServerQueuesRequest25
+   * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getRemoteTargets
+   * @param getRemoteTargetsRequest25
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesResponse
-      getDFUServerQueues(
-          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest
-              getDFUServerQueuesRequest25)
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse
+      getRemoteTargets(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest
+              getRemoteTargetsRequest25)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
@@ -2296,7 +2345,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUServerQueues?ver_=1.25");
+      _operationClient.getOptions().setAction("FileSpray/GetRemoteTargets?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2310,7 +2359,135 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getDFUServerQueuesRequest25,
+              getRemoteTargetsRequest25,
+              optimizeContent(
+                  new javax.xml.namespace.QName(
+                      "urn:hpccsystems:ws:filespray", "getRemoteTargets")),
+              new javax.xml.namespace.QName(
+                  "urn:hpccsystems:ws:filespray", "GetRemoteTargetsRequest"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetRemoteTargets"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "GetRemoteTargets"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "GetRemoteTargets"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getDFUServerQueues
+   * @param getDFUServerQueuesRequest27
+   * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesResponse
+      getDFUServerQueues(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUServerQueuesRequest
+              getDFUServerQueuesRequest27)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[13].getName());
+      _operationClient.getOptions().setAction("FileSpray/GetDFUServerQueues?ver_=1.26");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              getDFUServerQueuesRequest27,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "getDFUServerQueues")),
@@ -2412,21 +2589,21 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#deleteDFUWorkunits
-   * @param deleteDFUWorkunits27
+   * @param deleteDFUWorkunits29
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitsResponse
       deleteDFUWorkunits(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunits
-              deleteDFUWorkunits27)
+              deleteDFUWorkunits29)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunits?ver_=1.25");
+          _serviceClient.createClient(_operations[14].getName());
+      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunits?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2440,7 +2617,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              deleteDFUWorkunits27,
+              deleteDFUWorkunits29,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "deleteDFUWorkunits")),
@@ -2541,19 +2718,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#despray
-   * @param despray29
+   * @param despray31
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DesprayResponse despray(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.Despray despray29)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.Despray despray31)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("FileSpray/Despray?ver_=1.25");
+          _serviceClient.createClient(_operations[15].getName());
+      _operationClient.getOptions().setAction("FileSpray/Despray?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2567,7 +2744,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              despray29,
+              despray31,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "despray")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Despray"));
@@ -2663,19 +2840,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#fileList
-   * @param fileListRequest31
+   * @param fileListRequest33
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListResponse fileList(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListRequest fileListRequest31)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileListRequest fileListRequest33)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("FileSpray/FileList?ver_=1.25");
+          _serviceClient.createClient(_operations[16].getName());
+      _operationClient.getOptions().setAction("FileSpray/FileList?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2689,7 +2866,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              fileListRequest31,
+              fileListRequest33,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "fileList")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "FileListRequest"));
@@ -2785,21 +2962,21 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#dFUWorkunitsAction
-   * @param dFUWorkunitsActionRequest33
+   * @param dFUWorkunitsActionRequest35
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunitsActionResponse
       dFUWorkunitsAction(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunitsActionRequest
-              dFUWorkunitsActionRequest33)
+              dFUWorkunitsActionRequest35)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("FileSpray/DFUWorkunitsAction?ver_=1.25");
+          _serviceClient.createClient(_operations[17].getName());
+      _operationClient.getOptions().setAction("FileSpray/DFUWorkunitsAction?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2813,7 +2990,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUWorkunitsActionRequest33,
+              dFUWorkunitsActionRequest35,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "dFUWorkunitsAction")),
@@ -2915,20 +3092,20 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#dropZoneFiles
-   * @param dropZoneFilesRequest35
+   * @param dropZoneFilesRequest37
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFilesResponse dropZoneFiles(
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFilesRequest
-          dropZoneFilesRequest35)
+          dropZoneFilesRequest37)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("FileSpray/DropZoneFiles?ver_=1.25");
+          _serviceClient.createClient(_operations[18].getName());
+      _operationClient.getOptions().setAction("FileSpray/DropZoneFiles?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2942,7 +3119,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dropZoneFilesRequest35,
+              dropZoneFilesRequest37,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dropZoneFiles")),
               new javax.xml.namespace.QName(
@@ -3039,21 +3216,21 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#deleteDFUWorkunit
-   * @param deleteDFUWorkunit37
+   * @param deleteDFUWorkunit39
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunitResponse
       deleteDFUWorkunit(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunit
-              deleteDFUWorkunit37)
+              deleteDFUWorkunit39)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunit?ver_=1.25");
+          _serviceClient.createClient(_operations[19].getName());
+      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunit?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3067,7 +3244,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              deleteDFUWorkunit37,
+              deleteDFUWorkunit39,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "deleteDFUWorkunit")),
@@ -3167,21 +3344,21 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#submitDFUWorkunit
-   * @param submitDFUWorkunit39
+   * @param submitDFUWorkunit41
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.SubmitDFUWorkunitResponse
       submitDFUWorkunit(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.SubmitDFUWorkunit
-              submitDFUWorkunit39)
+              submitDFUWorkunit41)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("FileSpray/SubmitDFUWorkunit?ver_=1.25");
+          _serviceClient.createClient(_operations[20].getName());
+      _operationClient.getOptions().setAction("FileSpray/SubmitDFUWorkunit?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3195,7 +3372,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              submitDFUWorkunit39,
+              submitDFUWorkunit41,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "submitDFUWorkunit")),
@@ -3295,19 +3472,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#dfuMonitor
-   * @param dfuMonitorRequest41
+   * @param dfuMonitorRequest43
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DfuMonitorResponse dfuMonitor(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.DfuMonitorRequest dfuMonitorRequest41)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.DfuMonitorRequest dfuMonitorRequest43)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("FileSpray/DfuMonitor?ver_=1.25");
+          _serviceClient.createClient(_operations[21].getName());
+      _operationClient.getOptions().setAction("FileSpray/DfuMonitor?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3321,7 +3498,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dfuMonitorRequest41,
+              dfuMonitorRequest43,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dfuMonitor")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "DfuMonitorRequest"));
@@ -3417,19 +3594,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#dFUWUSearch
-   * @param dFUWUSearchRequest43
+   * @param dFUWUSearchRequest45
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchResponse dFUWUSearch(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchRequest dFUWUSearchRequest43)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUSearchRequest dFUWUSearchRequest45)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("FileSpray/DFUWUSearch?ver_=1.25");
+          _serviceClient.createClient(_operations[22].getName());
+      _operationClient.getOptions().setAction("FileSpray/DFUWUSearch?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3443,7 +3620,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUWUSearchRequest43,
+              dFUWUSearchRequest45,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "dFUWUSearch")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "DFUWUSearchRequest"));
@@ -3539,20 +3716,20 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getDFUWorkunits
-   * @param getDFUWorkunits45
+   * @param getDFUWorkunits47
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse
       getDFUWorkunits(
-          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits getDFUWorkunits45)
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits getDFUWorkunits47)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[22].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunits?ver_=1.25");
+          _serviceClient.createClient(_operations[23].getName());
+      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunits?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3566,7 +3743,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getDFUWorkunits45,
+              getDFUWorkunits47,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUWorkunits")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "GetDFUWorkunits"));
@@ -3664,21 +3841,21 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#deleteDropZoneFiles
-   * @param deleteDropZoneFilesRequest47
+   * @param deleteDropZoneFilesRequest49
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunitsActionResponse
       deleteDropZoneFiles(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDropZoneFilesRequest
-              deleteDropZoneFilesRequest47)
+              deleteDropZoneFilesRequest49)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[23].getName());
-      _operationClient.getOptions().setAction("FileSpray/DeleteDropZoneFiles?ver_=1.25");
+          _serviceClient.createClient(_operations[24].getName());
+      _operationClient.getOptions().setAction("FileSpray/DeleteDropZoneFiles?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3692,7 +3869,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              deleteDropZoneFilesRequest47,
+              deleteDropZoneFilesRequest49,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "deleteDropZoneFiles")),
@@ -3794,21 +3971,21 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getSprayTargets
-   * @param getSprayTargetsRequest49
+   * @param getSprayTargetsRequest51
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsResponse
       getSprayTargets(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsRequest
-              getSprayTargetsRequest49)
+              getSprayTargetsRequest51)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[24].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetSprayTargets?ver_=1.25");
+          _serviceClient.createClient(_operations[25].getName());
+      _operationClient.getOptions().setAction("FileSpray/GetSprayTargets?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3822,7 +3999,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getSprayTargetsRequest49,
+              getSprayTargetsRequest51,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getSprayTargets")),
               new javax.xml.namespace.QName(
@@ -3921,20 +4098,20 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getDFUExceptions
-   * @param getDFUExceptions51
+   * @param getDFUExceptions53
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptionsResponse
       getDFUExceptions(
-          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptions getDFUExceptions51)
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUExceptions getDFUExceptions53)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[25].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUExceptions?ver_=1.25");
+          _serviceClient.createClient(_operations[26].getName());
+      _operationClient.getOptions().setAction("FileSpray/GetDFUExceptions?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3948,7 +4125,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getDFUExceptions51,
+              getDFUExceptions53,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "getDFUExceptions")),
@@ -4047,19 +4224,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#echoDateTime
-   * @param echoDateTime53
+   * @param echoDateTime55
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTimeResponse echoDateTime(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime echoDateTime53)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime echoDateTime55)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[26].getName());
-      _operationClient.getOptions().setAction("FileSpray/EchoDateTime?ver_=1.25");
+          _serviceClient.createClient(_operations[27].getName());
+      _operationClient.getOptions().setAction("FileSpray/EchoDateTime?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4073,7 +4250,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              echoDateTime53,
+              echoDateTime55,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "echoDateTime")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "EchoDateTime"));
@@ -4168,22 +4345,22 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#updateDFUWorkunit
-   * @param updateDFUWorkunit55
+   * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#createDFUPublisherWorkunit
+   * @param createDFUPublisherWorkunit57
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunitResponse
-      updateDFUWorkunit(
-          org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit
-              updateDFUWorkunit55)
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse
+      createDFUPublisherWorkunit(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit
+              createDFUPublisherWorkunit57)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[27].getName());
-      _operationClient.getOptions().setAction("FileSpray/UpdateDFUWorkunit?ver_=1.25");
+          _serviceClient.createClient(_operations[28].getName());
+      _operationClient.getOptions().setAction("FileSpray/CreateDFUPublisherWorkunit?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4197,7 +4374,139 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              updateDFUWorkunit55,
+              createDFUPublisherWorkunit57,
+              optimizeContent(
+                  new javax.xml.namespace.QName(
+                      "urn:hpccsystems:ws:filespray", "createDFUPublisherWorkunit")),
+              new javax.xml.namespace.QName(
+                  "urn:hpccsystems:ws:filespray", "CreateDFUPublisherWorkunit"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.filespray.latest
+                  .CreateDFUPublisherWorkunitResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.filespray.latest
+              .CreateDFUPublisherWorkunitResponse)
+          object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(
+                faultElt.getQName(), "CreateDFUPublisherWorkunit"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "CreateDFUPublisherWorkunit"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "CreateDFUPublisherWorkunit"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#updateDFUWorkunit
+   * @param updateDFUWorkunit59
+   * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunitResponse
+      updateDFUWorkunit(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit
+              updateDFUWorkunit59)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[29].getName());
+      _operationClient.getOptions().setAction("FileSpray/UpdateDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              updateDFUWorkunit59,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:filespray", "updateDFUWorkunit")),
@@ -4297,19 +4606,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#getDFUProgress
-   * @param progressRequest57
+   * @param progressRequest61
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.ProgressResponse getDFUProgress(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.ProgressRequest progressRequest57)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.ProgressRequest progressRequest61)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[28].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUProgress?ver_=1.25");
+          _serviceClient.createClient(_operations[30].getName());
+      _operationClient.getOptions().setAction("FileSpray/GetDFUProgress?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4323,7 +4632,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              progressRequest57,
+              progressRequest61,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "getDFUProgress")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "ProgressRequest"));
@@ -4419,19 +4728,19 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.filespray.latest.FileSpray#openSave
-   * @param openSaveRequest59
+   * @param openSaveRequest63
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveResponse openSave(
-      org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest openSaveRequest59)
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.OpenSaveRequest openSaveRequest63)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[29].getName());
-      _operationClient.getOptions().setAction("FileSpray/OpenSave?ver_=1.25");
+          _serviceClient.createClient(_operations[31].getName());
+      _operationClient.getOptions().setAction("FileSpray/OpenSave?ver_=1.26");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4445,7 +4754,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              openSaveRequest59,
+              openSaveRequest63,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "openSave")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "OpenSaveRequest"));
@@ -4551,7 +4860,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     }
     return false;
   }
-  // http://10.1.1.180:8888/FileSpray?ver_=1.25
+  // http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayVariable param,
       boolean optimizeContent)
@@ -4893,6 +5202,34 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       return param.getOMElement(
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFileSearchResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -5305,6 +5642,35 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
   }
 
   private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse
+              .MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
@@ -5666,6 +6032,31 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
           .addChild(
               param.getOMElement(
                   org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZoneFileSearchRequest
+                      .MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest
                       .MY_QNAME,
                   factory));
       return emptyEnvelope;
@@ -6042,6 +6433,31 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit
+                      .MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.UpdateDFUWorkunit param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
@@ -6158,6 +6574,29 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.filespray.latest.CopyResponse.Factory.parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit.class
+          .equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit.Factory
+                .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse
+          .class
+          .equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse
+                .Factory.parse(reader);
         reader.close();
         return result;
       }
@@ -6543,6 +6982,28 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse.Factory
+                .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest.Factory
+                .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse.class
+          .equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse.Factory
                 .parse(reader);
         reader.close();
         return result;

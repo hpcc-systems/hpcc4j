@@ -152,6 +152,19 @@ public interface FileSpray {
   /**
    * Auto generated method signature
    *
+   * @param getRemoteTargetsRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse
+      getRemoteTargets(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest
+              getRemoteTargetsRequest)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
    * @param getDFUServerQueuesRequest
    * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
    */
@@ -328,6 +341,19 @@ public interface FileSpray {
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime echoDateTime)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param createDFUPublisherWorkunit
+   * @throws org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse
+      createDFUPublisherWorkunit(
+          org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit
+              createDFUPublisherWorkunit)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.filespray.latest.EspSoapFault;
 
   /**
    * Auto generated method signature
