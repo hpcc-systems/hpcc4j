@@ -23,6 +23,7 @@ import java.util.Iterator;
 
 /**
  * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition
+ * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition
  * and constructs records via the provided @see org.hpccsystems.dfs.client#IRecordBuilder.
  */
 public class HpccRemoteFileReader<T> implements Iterator<T>
@@ -76,7 +77,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param recBuilder
      *            the IRecordBuilder used to construct records
      * @param connectTimeout
-     *            the connection timeout in milliseconds, -1 for default
+     *            the connection timeout in seconds, -1 for default
      * @throws Exception
      *             the exception
      */
@@ -116,7 +117,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param recBuilder
      *            the IRecordBuilder used to construct records
      * @param connectTimeout
-     *            the connection timeout in milliseconds, -1 for default
+     *            the connection timeout in seconds, -1 for default
      * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
      * @param createPrefetchThread
@@ -141,7 +142,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param recBuilder
      *            the IRecordBuilder used to construct records
      * @param connectTimeout
-     *            the connection timeout in milliseconds, -1 for default
+     *            the connection timeout in seconds, -1 for default
      * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
      * @param createPrefetchThread
