@@ -63,8 +63,8 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
-    private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};
-    private static final int[]    expectedCounts = { 1250, 5600 };
+    private static final String[] datasets       = { "~benchmark::integer::20kb", "~unit_test::all_types::thor", "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
+    private static final int[]    expectedCounts = { 1250, 10000, 10000, 10000, 10000, 10000};
     private static final Version newProtocolVersion = new Version(8,12,10);
 
 
@@ -183,6 +183,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCFile file = new HPCCFile(datasets[i], connString, hpccUser, hpccPass);
             file.setProjectList("");
 
+            System.out.println("Reading dataset: " + datasets[i]);
             List<HPCCRecord> records = readFile(file, connTO, false);
             if (records.size() != expectedCounts[i])
             {
@@ -190,7 +191,8 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
 
             // Write the dataset back
-            String copyFileName = datasets[i] + "-copy13";
+            String copyFileName = datasets[i] + "-copy";
+            System.out.println("Writing dataset: " + copyFileName);
             writeFile(records, copyFileName, file.getProjectedRecordDefinition(),connTO);
 
             // Read and compare to original dataset
@@ -203,7 +205,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
 
             //read out a projected layout, confirm that this works
-            List<String> projectedfields=new ArrayList<String>();
+            List<String> projectedfields = new ArrayList<String>();
             for (int j=0; j < file.getRecordDefinition().getNumDefs()-1;j++)
             {
                 projectedfields.add(file.getRecordDefinition().getDef(j).getFieldName());
@@ -211,7 +213,6 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             file=new HPCCFile(copyFileName, connString , hpccUser, hpccPass);
 
-            FieldDef recdef=file.getRecordDefinition();
             file.setProjectList(String.join(",", projectedfields));
             List<HPCCRecord> recs=readFile(file, connTO, false);
             if (recs.get(0).getNumFields() != file.getRecordDefinition().getNumDefs()-1)

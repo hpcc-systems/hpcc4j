@@ -2,13 +2,12 @@ IMPORT Std;
 
 unique_keys :=  100000;  // Should be less than number of records
 unique_values := 10212; // Should be less than number of records
-dataset_name := '~benchmark::all_types::200KB';
-totalrecs1 := 5600;
+totalrecs1 := 10000;
 
 childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
 
-rec := {INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
-        INTEGER2 int2, UNSIGNED2 uint2,
+rec := {  INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
+          INTEGER2 int2, UNSIGNED2 uint2,
           REAL8 r8, REAL4 r4,
           DECIMAL16_8 dec16,
           DECIMAL15_8 dec15,
@@ -19,7 +18,7 @@ rec := {INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
           STRING str,
           VARSTRING varStr,
           VARSTRING varStr8,
-        UTF8 utfStr,
+          UTF8 utfStr,
           UNICODE8 uni8,
           UNICODE uni,
           VARUNICODE varUni,
@@ -52,10 +51,65 @@ ds := DATASET(totalrecs1, transform(rec,
                                    self.int1Set := [1,2,3];
                                   ), DISTRIBUTED);
 
+dataset_name := '~unit_test::all_types::thor';
 IF(~Std.File.FileExists(dataset_name), OUTPUT(ds,,dataset_name,overwrite));
 
-key_name := '~benchmark::all_types::200KB::key';
-Ptbl := DATASET(dataset_name, {rec,UNSIGNED8 RecPtr {virtual(fileposition)}},  FLAT);
+// For the text files there appears to be an issue with reading sets from the datasets
+// So, for those file formats create datasets wwith all types except SETs
+recWithoutSet := {  INTEGER8 int8, UNSIGNED8 uint8, INTEGER4 int4, UNSIGNED4 uint4,
+          INTEGER2 int2, UNSIGNED2 uint2,
+          REAL8 r8, REAL4 r4,
+          DECIMAL16_8 dec16,
+          DECIMAL15_8 dec15,
+          UDECIMAL16_8 udec16,
+          UDECIMAL15_8 udec15,
+          QSTRING qStr,
+          STRING8 fixStr8,
+          STRING str,
+          VARSTRING varStr,
+          VARSTRING varStr8,
+          UTF8 utfStr,
+          UNICODE8 uni8,
+          UNICODE uni,
+          VARUNICODE varUni,
+          DATASET(childRec) childDataset,
+        };
+dsWithoutSet := DATASET(totalrecs1, transform(recWithoutSet,
+                                   self.int8 := (INTEGER)(random() % unique_keys);
+                                   self.uint8 := (INTEGER)(random() % unique_values);
+                                   self.int4 := (INTEGER)(random() % unique_values);
+                                   self.uint4 := (INTEGER)(random() % unique_values);
+                                   self.int2 := (INTEGER)(random() % unique_values);
+                                   self.uint2 := (INTEGER)(random() % unique_values);
+                                   self.r8 := (REAL)(random() % unique_values);
+                                   self.r4 := (REAL)(random() % unique_values);
+                                   self.dec16 := (REAL)(random() % unique_values);
+                                   self.dec15 := (REAL)(random() % unique_values);
+                                   self.udec16 := (REAL)(random() % unique_values);
+                                   self.udec15 := (REAL)(random() % unique_values);
+                                   self.qStr := (STRING)(random() % unique_values);
+                                   self.fixStr8 := (STRING)(random() % unique_values);
+                                   self.str := (STRING)(random() % unique_values);
+                                   self.varStr := (STRING)(random() % unique_values);
+                                   self.varStr8 := (STRING)(random() % unique_values);
+                                   self.utfStr := (STRING)(random() % unique_values);
+                                   self.uni8 := (STRING)(random() % unique_values);
+                                   self.uni := (STRING)(random() % unique_values);
+                                   self.varUni := (STRING)(random() % unique_values);
+                                   self.childDataset := DATASET([{'field1',2,3},{'field1',2,3}],childRec);
+                                  ), DISTRIBUTED);
+
+xml_dataset_name := '~unit_test::all_types::xml';
+IF(~Std.File.FileExists(xml_dataset_name), OUTPUT(dsWithoutSet,,xml_dataset_name,XML,overwrite));
+
+json_dataset_name := '~unit_test::all_types::json';
+IF(~Std.File.FileExists(json_dataset_name), OUTPUT(dsWithoutSet,,json_dataset_name,JSON,overwrite));
+
+csv_dataset_name := '~unit_test::all_types::csv';
+IF(~Std.File.FileExists(csv_dataset_name), OUTPUT(dsWithoutSet,,csv_dataset_name,CSV,overwrite));
+
+key_name := '~unit_test::all_types::key';
+Ptbl := DATASET('~unit_test::all_types::thor', {rec,UNSIGNED8 RecPtr {virtual(fileposition)}},  FLAT);
 indexds := INDEX(Ptbl, {int8, uint8, int4, uint4, int2, uint2, udec16, fixStr8,  RecPtr},key_name);
 IF(~Std.File.FileExists(key_name), BUILDINDEX(indexds, overwrite));
 
