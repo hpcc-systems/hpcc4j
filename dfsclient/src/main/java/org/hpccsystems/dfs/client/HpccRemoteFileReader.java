@@ -128,7 +128,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB) throws Exception
     {
-        this(dp, originalRD, recBuilder, connectTimeout, limit, true, DEFAULT_READ_SIZE_OPTION, null);
+        this(dp, originalRD, recBuilder, connectTimeout, limit, createPrefetchThread, readSizeKB, null);
     }
 
     /**
@@ -155,7 +155,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo) throws Exception
     {
-        this(dp, originalRD, recBuilder, connectTimeout, limit, true, readSizeKB, resumeInfo, RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
+        this(dp, originalRD, recBuilder, connectTimeout, limit, createPrefetchThread, readSizeKB, resumeInfo, RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
     }
 
     /**
