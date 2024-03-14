@@ -1004,9 +1004,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         if (targetDropZone == null) throw new Exception("TargetDropZone object not available!");
 
         SprayVariable request = new SprayVariable();
-
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(targetDropZone.getPath() + "/" + sourceFileName);
+        request.setSourcePath(Utils.ensureTrailingPathSlash(targetDropZone.getPath()) + sourceFileName);
         request.setDestGroup(destGroup);
         request.setDestLogicalName(targetFileName);
         request.setOverwrite(overwrite);
@@ -1162,7 +1161,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         request.setDestGroup(destGroup);
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(targetDropZone.getPath() + "/" + sourceFileName);
+        request.setSourcePath(Utils.ensureTrailingPathSlash(targetDropZone.getPath()) + sourceFileName);
         request.setDestLogicalName(targetFileName);
         request.setOverwrite(overwrite);
         request.setSourceFormat(format.getValue());
@@ -1318,7 +1317,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         request.setDestGroup(destGroup);
         request.setSourceRecordSize(recordSize);
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(targetDropZone.getPath() + "/" + sourceFileName);
+        request.setSourcePath(Utils.ensureTrailingPathSlash(targetDropZone.getPath()) + sourceFileName);
         request.setDestLogicalName(targetFileLabel);
         request.setOverwrite(overwrite);
         request.setPrefix(prefix);
@@ -1488,15 +1487,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             return false;
         }
 
-        uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress() + "&Path=" + dropZone.getPath();
+        uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress() + "&Path=" + Utils.ensureTrailingPathSlash(dropZone.getPath());
 
         if (!dropZone.getName().isEmpty())
             uploadurlbuilder +=  "&DropZoneName=" + dropZone.getName();
 
-        String path = dropZone.getPath().trim();
-        if (!path.endsWith("/"))
-            path += "/";
-        uploadurlbuilder += "&Path=" + path;
         uploadurlbuilder += "&OS=" + (dropZone.getLinux().equalsIgnoreCase("true") ? "2" : "1");
         uploadurlbuilder += "&rawxml_=1";
         WritableByteChannel outchannel = null;
