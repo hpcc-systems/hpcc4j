@@ -9,58 +9,74 @@ import com.ibm.icu.impl.Assert;
 public class UtilsTest
 {
     @Test
+    public void testEnsureTrailingSlashTrailingWhiteSpace()
+    {
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(""));
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP)+ "   "));
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP) + "  "));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)+"\t"));
+        assertEquals("C:\\some\\Path\\", Utils.ensureTrailingPathSlash("C:\\some\\Path  "));
+        assertEquals("C:\\some\\Path\\", Utils.ensureTrailingPathSlash("C:\\some\\Path\\ "));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path "));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/\t\t"));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/\n"));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/" + '\u005Cn'));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/ " + '\u005Ct'));
+    }
+
+    @Test
     public void testEnsureTrailingSlashNoSlashSpecified()
     {
-        assertEquals(Utils.ensureTrailingPathSlash(""), Character.toString(Utils.LINUX_SEP)); //no sep in path, default to lin sep
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP)), Character.toString(Utils.LINUX_SEP));//no change expected
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)), Character.toString(Utils.WIN_SEP)); //no change expected
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP));//no change expected
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path"), "C:\\some\\Path\\");
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path\\"), "C:\\some\\Path\\");
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path"), "/another/path/");
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path/"), "/another/path/");
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash("")); //no sep in path, default to lin sep
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP)));//no change expected
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP))); //no change expected
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)));//no change expected
+        assertEquals("C:\\some\\Path\\", Utils.ensureTrailingPathSlash("C:\\some\\Path"));
+        assertEquals("C:\\some\\Path\\", Utils.ensureTrailingPathSlash("C:\\some\\Path\\"));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path"));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/"));
     }
 
     @Test
     public void testEnsureTrailingSlashSlashSpecified()
     {
-        assertEquals(Utils.ensureTrailingPathSlash("", Utils.LINUX_SEP), Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash("", Utils.WIN_SEP), Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), Utils.WIN_SEP), Character.toString(Utils.LINUX_SEP)+Utils.WIN_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), Utils.LINUX_SEP), Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), Utils.WIN_SEP), Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), Utils.LINUX_SEP), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.LINUX_SEP), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.WIN_SEP), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)+Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path", Utils.LINUX_SEP), "C:\\some\\Path\\"+Utils.LINUX_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path", Utils.WIN_SEP), "C:\\some\\Path\\"+Utils.WIN_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path\\", Utils.LINUX_SEP), "C:\\some\\Path\\" + Utils.LINUX_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path\\", Utils.WIN_SEP), "C:\\some\\Path\\");
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path", Utils.LINUX_SEP), "/another/path" + Utils.LINUX_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path", Utils.WIN_SEP), "/another/path/"+ Utils.WIN_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path/", Utils.LINUX_SEP), "/another/path/");
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path/", Utils.WIN_SEP), "/another/path/"+Utils.WIN_SEP);
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash("", Utils.LINUX_SEP));
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash("", Utils.WIN_SEP));
+        assertEquals(Character.toString(Utils.LINUX_SEP)+Utils.WIN_SEP, Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), Utils.WIN_SEP));
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), Utils.LINUX_SEP));
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), Utils.WIN_SEP));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), Utils.LINUX_SEP));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.LINUX_SEP));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)+Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.WIN_SEP));
+        assertEquals("C:\\some\\Path\\"+Utils.LINUX_SEP, Utils.ensureTrailingPathSlash("C:\\some\\Path", Utils.LINUX_SEP));
+        assertEquals("C:\\some\\Path\\"+Utils.WIN_SEP, Utils.ensureTrailingPathSlash("C:\\some\\Path", Utils.WIN_SEP));
+        assertEquals("C:\\some\\Path\\" + Utils.LINUX_SEP, Utils.ensureTrailingPathSlash("C:\\some\\Path\\", Utils.LINUX_SEP));
+        assertEquals("C:\\some\\Path\\", Utils.ensureTrailingPathSlash("C:\\some\\Path\\", Utils.WIN_SEP));
+        assertEquals("/another/path" + Utils.LINUX_SEP, Utils.ensureTrailingPathSlash("/another/path", Utils.LINUX_SEP));
+        assertEquals("/another/path/"+ Utils.WIN_SEP, Utils.ensureTrailingPathSlash("/another/path", Utils.WIN_SEP));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/", Utils.LINUX_SEP));
+        assertEquals("/another/path/"+Utils.WIN_SEP, Utils.ensureTrailingPathSlash("/another/path/", Utils.WIN_SEP));
     }
 
     @Test
     public void testEnsureTrailingSlashUseLinuxBoolTest()
     {
-        assertEquals(Utils.ensureTrailingPathSlash("", "true"), Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash("", "false"), Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash("", "xyz"), Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), "false"), Character.toString(Utils.LINUX_SEP)+Utils.WIN_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), "true"), Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), "false"), Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), "true"), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), "true"), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), "false"), Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)+Character.toString(Utils.WIN_SEP));
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path", "true"), "C:\\some\\Path\\"+Utils.LINUX_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path", "false"), "C:\\some\\Path\\"+Utils.WIN_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path\\", "true"), "C:\\some\\Path\\" + Utils.LINUX_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("C:\\some\\Path\\", "false"), "C:\\some\\Path\\");
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path", "TRUE"), "/another/path" + Utils.LINUX_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path", "FALSE"), "/another/path/"+ Utils.WIN_SEP);
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path/", "TrUe"), "/another/path/");
-        assertEquals(Utils.ensureTrailingPathSlash("/another/path/", "FalSe"), "/another/path/"+Utils.WIN_SEP);
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash("", "true"));
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash("", "false"));
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash("", "xyz"));
+        assertEquals(Character.toString(Utils.LINUX_SEP)+Utils.WIN_SEP, Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), "false"));
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.LINUX_SEP), "true"));
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), "false"));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP), "true"));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), "true"));
+        assertEquals(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP)+Character.toString(Utils.WIN_SEP), Utils.ensureTrailingPathSlash(Character.toString(Utils.WIN_SEP)+Character.toString(Utils.LINUX_SEP), "false"));
+        assertEquals("C:\\some\\Path\\"+Utils.LINUX_SEP, Utils.ensureTrailingPathSlash("C:\\some\\Path", "true"));
+        assertEquals("C:\\some\\Path\\"+Utils.WIN_SEP, Utils.ensureTrailingPathSlash("C:\\some\\Path", "false"));
+        assertEquals("C:\\some\\Path\\" + Utils.LINUX_SEP, Utils.ensureTrailingPathSlash("C:\\some\\Path\\", "true"));
+        assertEquals("C:\\some\\Path\\", Utils.ensureTrailingPathSlash("C:\\some\\Path\\", "false"));
+        assertEquals("/another/path" + Utils.LINUX_SEP, Utils.ensureTrailingPathSlash("/another/path", "TRUE"));
+        assertEquals("/another/path/"+ Utils.WIN_SEP, Utils.ensureTrailingPathSlash("/another/path", "FALSE"));
+        assertEquals("/another/path/", Utils.ensureTrailingPathSlash("/another/path/", "TrUe"));
+        assertEquals("/another/path/"+Utils.WIN_SEP, Utils.ensureTrailingPathSlash("/another/path/", "FalSe"));
     }
 }
