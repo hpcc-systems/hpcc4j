@@ -13,6 +13,42 @@ public class WUCheckFeatures implements org.apache.axis2.databinding.ADBBean {
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUCheckFeatures", "ns1");
 
+  /** field for IncludeFullVersion */
+  protected boolean localIncludeFullVersion =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("0");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeFullVersionTracker = false;
+
+  public boolean isIncludeFullVersionSpecified() {
+    return localIncludeFullVersionTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeFullVersion() {
+    return localIncludeFullVersion;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeFullVersion
+   */
+  public void setIncludeFullVersion(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeFullVersionTracker = true;
+
+    this.localIncludeFullVersion = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -64,7 +100,22 @@ public class WUCheckFeatures implements org.apache.axis2.databinding.ADBBean {
             xmlWriter);
       }
     }
+    if (localIncludeFullVersionTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IncludeFullVersion", xmlWriter);
 
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IncludeFullVersion cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeFullVersion));
+      }
+
+      xmlWriter.writeEndElement();
+    }
     xmlWriter.writeEndElement();
   }
 
@@ -304,6 +355,41 @@ public class WUCheckFeatures implements org.apache.axis2.databinding.ADBBean {
         java.util.Vector handledAttributes = new java.util.Vector();
 
         reader.next();
+
+        while (!reader.isEndElement()) {
+          if (reader.isStartElement()) {
+
+            if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "IncludeFullVersion")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludeFullVersion" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeFullVersion(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else {
+              // 3 - A start element we are not expecting indicates an invalid parameter was passed
+
+              throw new org.apache.axis2.databinding.ADBException(
+                  "Unexpected subelement " + reader.getName());
+            }
+
+          } else {
+            reader.next();
+          }
+        } // end of while loop
 
       } catch (javax.xml.stream.XMLStreamException e) {
         throw new java.lang.Exception(e);
