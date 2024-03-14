@@ -1,150 +1,85 @@
 /**
- * MoveJobBack.java
+ * ArrayOfLogFileStruct.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
  * 2022 (03:47:13 EDT)
  */
-package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
+package org.hpccsystems.ws.client.gen.axis2.wstopology.latest;
 
-/** MoveJobBack bean class */
+/** ArrayOfLogFileStruct bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class MoveJobBack implements org.apache.axis2.databinding.ADBBean {
+public class ArrayOfLogFileStruct implements org.apache.axis2.databinding.ADBBean {
+  /* This type was generated from the piece of schema that had
+  name = ArrayOfLogFileStruct
+  Namespace URI = urn:hpccsystems:ws:wstopology
+  Namespace Prefix = ns1
+  */
 
-  public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "MoveJobBack", "ns1");
-
-  /** field for ClusterType */
-  protected int localClusterType;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localClusterTypeTracker = false;
-
-  public boolean isClusterTypeSpecified() {
-    return localClusterTypeTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return int
-   */
-  public int getClusterType() {
-    return localClusterType;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param ClusterType
-   */
-  public void setClusterType(int param) {
-
-    // setting primitive attribute tracker to true
-    localClusterTypeTracker = param != java.lang.Integer.MIN_VALUE;
-
-    this.localClusterType = param;
-  }
-
-  /** field for Cluster */
-  protected java.lang.String localCluster;
+  /** field for LogFileStruct This was an Array! */
+  protected org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[]
+      localLogFileStruct;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localClusterTracker = false;
+  protected boolean localLogFileStructTracker = false;
 
-  public boolean isClusterSpecified() {
-    return localClusterTracker;
+  public boolean isLogFileStructSpecified() {
+    return localLogFileStructTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[]
    */
-  public java.lang.String getCluster() {
-    return localCluster;
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[] getLogFileStruct() {
+    return localLogFileStruct;
   }
+
+  /** validate the array for LogFileStruct */
+  protected void validateLogFileStruct(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[] param) {}
 
   /**
    * Auto generated setter method
    *
-   * @param param Cluster
+   * @param param LogFileStruct
    */
-  public void setCluster(java.lang.String param) {
-    localClusterTracker = param != null;
+  public void setLogFileStruct(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[] param) {
 
-    this.localCluster = param;
-  }
+    validateLogFileStruct(param);
 
-  /** field for QueueName */
-  protected java.lang.String localQueueName;
+    localLogFileStructTracker = param != null;
 
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localQueueNameTracker = false;
-
-  public boolean isQueueNameSpecified() {
-    return localQueueNameTracker;
+    this.localLogFileStruct = param;
   }
 
   /**
-   * Auto generated getter method
+   * Auto generated add method for the array for convenience
    *
-   * @return java.lang.String
+   * @param param org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct
    */
-  public java.lang.String getQueueName() {
-    return localQueueName;
-  }
+  public void addLogFileStruct(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct param) {
+    if (localLogFileStruct == null) {
+      localLogFileStruct =
+          new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[] {};
+    }
 
-  /**
-   * Auto generated setter method
-   *
-   * @param param QueueName
-   */
-  public void setQueueName(java.lang.String param) {
-    localQueueNameTracker = param != null;
+    // update the setting tracker
+    localLogFileStructTracker = true;
 
-    this.localQueueName = param;
-  }
-
-  /** field for Wuid */
-  protected java.lang.String localWuid;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localWuidTracker = false;
-
-  public boolean isWuidSpecified() {
-    return localWuidTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return java.lang.String
-   */
-  public java.lang.String getWuid() {
-    return localWuid;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param Wuid
-   */
-  public void setWuid(java.lang.String param) {
-    localWuidTracker = param != null;
-
-    this.localWuid = param;
+    java.util.List list =
+        org.apache.axis2.databinding.utils.ConverterUtil.toList(localLogFileStruct);
+    list.add(param);
+    this.localLogFileStruct =
+        (org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[])
+            list.toArray(
+                new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct
+                    [list.size()]);
   }
 
   /**
@@ -156,7 +91,8 @@ public class MoveJobBack implements org.apache.axis2.databinding.ADBBean {
       final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
       throws org.apache.axis2.databinding.ADBException {
 
-    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+    return factory.createOMElement(
+        new org.apache.axis2.databinding.ADBDataSource(this, parentQName));
   }
 
   public void serialize(
@@ -180,87 +116,46 @@ public class MoveJobBack implements org.apache.axis2.databinding.ADBBean {
 
     if (serializeType) {
 
-      java.lang.String namespacePrefix = registerPrefix(xmlWriter, "urn:hpccsystems:ws:wssmc");
+      java.lang.String namespacePrefix = registerPrefix(xmlWriter, "urn:hpccsystems:ws:wstopology");
       if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
         writeAttribute(
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":MoveJobBack",
+            namespacePrefix + ":ArrayOfLogFileStruct",
             xmlWriter);
       } else {
         writeAttribute(
-            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "MoveJobBack", xmlWriter);
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance",
+            "type",
+            "ArrayOfLogFileStruct",
+            xmlWriter);
       }
     }
-    if (localClusterTypeTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "ClusterType", xmlWriter);
+    if (localLogFileStructTracker) {
+      if (localLogFileStruct != null) {
+        for (int i = 0; i < localLogFileStruct.length; i++) {
+          if (localLogFileStruct[i] != null) {
+            localLogFileStruct[i].serialize(
+                new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "LogFileStruct"),
+                xmlWriter);
+          } else {
 
-      if (localClusterType == java.lang.Integer.MIN_VALUE) {
+            // we don't have to do any thing since minOccures is zero
 
-        throw new org.apache.axis2.databinding.ADBException("ClusterType cannot be null!!");
-
-      } else {
-        xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localClusterType));
-      }
-
-      xmlWriter.writeEndElement();
-    }
-    if (localClusterTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "Cluster", xmlWriter);
-
-      if (localCluster == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("Cluster cannot be null!!");
-
+          }
+        }
       } else {
 
-        xmlWriter.writeCharacters(localCluster);
+        throw new org.apache.axis2.databinding.ADBException("LogFileStruct cannot be null!!");
       }
-
-      xmlWriter.writeEndElement();
-    }
-    if (localQueueNameTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "QueueName", xmlWriter);
-
-      if (localQueueName == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("QueueName cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localQueueName);
-      }
-
-      xmlWriter.writeEndElement();
-    }
-    if (localWuidTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "Wuid", xmlWriter);
-
-      if (localWuid == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("Wuid cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localWuid);
-      }
-
-      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
-    if (namespace.equals("urn:hpccsystems:ws:wssmc")) {
+    if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
       return "ns1";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -453,9 +348,9 @@ public class MoveJobBack implements org.apache.axis2.databinding.ADBBean {
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static MoveJobBack parse(javax.xml.stream.XMLStreamReader reader)
+    public static ArrayOfLogFileStruct parse(javax.xml.stream.XMLStreamReader reader)
         throws java.lang.Exception {
-      MoveJobBack object = new MoveJobBack();
+      ArrayOfLogFileStruct object = new ArrayOfLogFileStruct();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -480,12 +375,12 @@ public class MoveJobBack implements org.apache.axis2.databinding.ADBBean {
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"MoveJobBack".equals(type)) {
+            if (!"ArrayOfLogFileStruct".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (MoveJobBack)
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ExtensionMapper.getTypeObject(
-                      nsUri, type, reader);
+              return (ArrayOfLogFileStruct)
+                  org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ExtensionMapper
+                      .getTypeObject(nsUri, type, reader);
             }
           }
         }
@@ -496,96 +391,64 @@ public class MoveJobBack implements org.apache.axis2.databinding.ADBBean {
 
         reader.next();
 
-        while (!reader.isEndElement()) {
-          if (reader.isStartElement()) {
+        java.util.ArrayList list1 = new java.util.ArrayList();
 
-            if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ClusterType")
-                    .equals(reader.getName())) {
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "ClusterType" + "  cannot be null");
-              }
+        if (reader.isStartElement()
+            && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "LogFileStruct")
+                .equals(reader.getName())) {
 
-              java.lang.String content = reader.getElementText();
+          // Process the array and step past its final element's end.
 
-              object.setClusterType(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+          list1.add(
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct.Factory.parse(
+                  reader));
 
-              reader.next();
-
-            } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Cluster")
-                    .equals(reader.getName())) {
-
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Cluster" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              object.setCluster(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-
-              reader.next();
-
-            } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "QueueName")
-                    .equals(reader.getName())) {
-
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "QueueName" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              object.setQueueName(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-
-              reader.next();
-
-            } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Wuid")
-                    .equals(reader.getName())) {
-
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Wuid" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              object.setWuid(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-
-              reader.next();
-
-            } // End of if for expected property start element
-            else {
-              // 3 - A start element we are not expecting indicates an invalid parameter was passed
-
-              throw new org.apache.axis2.databinding.ADBException(
-                  "Unexpected subelement " + reader.getName());
-            }
-
-          } else {
+          // loop until we find a start element that is not part of this array
+          boolean loopDone1 = false;
+          while (!loopDone1) {
+            // We should be at the end element, but make sure
+            while (!reader.isEndElement()) reader.next();
+            // Step out of this element
             reader.next();
+            // Step to next element event.
+            while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+            if (reader.isEndElement()) {
+              // two continuous end elements means we are exiting the xml structure
+              loopDone1 = true;
+            } else {
+              if (new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "LogFileStruct")
+                  .equals(reader.getName())) {
+                list1.add(
+                    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct.Factory
+                        .parse(reader));
+
+              } else {
+                loopDone1 = true;
+              }
+            }
           }
-        } // end of while loop
+          // call the converter utility  to convert and set the array
+
+          object.setLogFileStruct(
+              (org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct[])
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
+                      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct.class,
+                      list1));
+
+        } // End of if for expected property start element
+        else {
+
+        }
+
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+
+        if (reader.isStartElement())
+          // 2 - A start element we are not expecting indicates a trailing invalid property
+
+          throw new org.apache.axis2.databinding.ADBException(
+              "Unexpected subelement " + reader.getName());
 
       } catch (javax.xml.stream.XMLStreamException e) {
         throw new java.lang.Exception(e);

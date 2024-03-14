@@ -1,29 +1,31 @@
 /**
- * ClearQueue.java
+ * LogFileStruct.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
  * 2022 (03:47:13 EDT)
  */
-package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
+package org.hpccsystems.ws.client.gen.axis2.wstopology.latest;
 
-/** ClearQueue bean class */
+/** LogFileStruct bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
+public class LogFileStruct implements org.apache.axis2.databinding.ADBBean {
+  /* This type was generated from the piece of schema that had
+  name = LogFileStruct
+  Namespace URI = urn:hpccsystems:ws:wstopology
+  Namespace Prefix = ns1
+  */
 
-  public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ClearQueue", "ns1");
-
-  /** field for Cluster */
-  protected java.lang.String localCluster;
+  /** field for Name */
+  protected java.lang.String localName;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localClusterTracker = false;
+  protected boolean localNameTracker = false;
 
-  public boolean isClusterSpecified() {
-    return localClusterTracker;
+  public boolean isNameSpecified() {
+    return localNameTracker;
   }
 
   /**
@@ -31,32 +33,32 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
    *
    * @return java.lang.String
    */
-  public java.lang.String getCluster() {
-    return localCluster;
+  public java.lang.String getName() {
+    return localName;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Cluster
+   * @param param Name
    */
-  public void setCluster(java.lang.String param) {
-    localClusterTracker = param != null;
+  public void setName(java.lang.String param) {
+    localNameTracker = param != null;
 
-    this.localCluster = param;
+    this.localName = param;
   }
 
-  /** field for QueueName */
-  protected java.lang.String localQueueName;
+  /** field for Path */
+  protected java.lang.String localPath;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localQueueNameTracker = false;
+  protected boolean localPathTracker = false;
 
-  public boolean isQueueNameSpecified() {
-    return localQueueNameTracker;
+  public boolean isPathSpecified() {
+    return localPathTracker;
   }
 
   /**
@@ -64,32 +66,32 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
    *
    * @return java.lang.String
    */
-  public java.lang.String getQueueName() {
-    return localQueueName;
+  public java.lang.String getPath() {
+    return localPath;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param QueueName
+   * @param param Path
    */
-  public void setQueueName(java.lang.String param) {
-    localQueueNameTracker = param != null;
+  public void setPath(java.lang.String param) {
+    localPathTracker = param != null;
 
-    this.localQueueName = param;
+    this.localPath = param;
   }
 
-  /** field for Comment */
-  protected java.lang.String localComment;
+  /** field for Host */
+  protected java.lang.String localHost;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localCommentTracker = false;
+  protected boolean localHostTracker = false;
 
-  public boolean isCommentSpecified() {
-    return localCommentTracker;
+  public boolean isHostSpecified() {
+    return localHostTracker;
   }
 
   /**
@@ -97,120 +99,122 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
    *
    * @return java.lang.String
    */
-  public java.lang.String getComment() {
-    return localComment;
+  public java.lang.String getHost() {
+    return localHost;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Comment
+   * @param param Host
    */
-  public void setComment(java.lang.String param) {
-    localCommentTracker = param != null;
+  public void setHost(java.lang.String param) {
+    localHostTracker = param != null;
 
-    this.localComment = param;
+    this.localHost = param;
   }
 
-  /** field for ServerType */
-  protected java.lang.String localServerType;
+  /** field for IsDir */
+  protected boolean localIsDir;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localServerTypeTracker = false;
+  protected boolean localIsDirTracker = false;
 
-  public boolean isServerTypeSpecified() {
-    return localServerTypeTracker;
+  public boolean isIsDirSpecified() {
+    return localIsDirTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return boolean
    */
-  public java.lang.String getServerType() {
-    return localServerType;
+  public boolean getIsDir() {
+    return localIsDir;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param ServerType
+   * @param param IsDir
    */
-  public void setServerType(java.lang.String param) {
-    localServerTypeTracker = param != null;
-
-    this.localServerType = param;
-  }
-
-  /** field for NetworkAddress */
-  protected java.lang.String localNetworkAddress;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localNetworkAddressTracker = false;
-
-  public boolean isNetworkAddressSpecified() {
-    return localNetworkAddressTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return java.lang.String
-   */
-  public java.lang.String getNetworkAddress() {
-    return localNetworkAddress;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param NetworkAddress
-   */
-  public void setNetworkAddress(java.lang.String param) {
-    localNetworkAddressTracker = param != null;
-
-    this.localNetworkAddress = param;
-  }
-
-  /** field for Port */
-  protected int localPort;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localPortTracker = false;
-
-  public boolean isPortSpecified() {
-    return localPortTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return int
-   */
-  public int getPort() {
-    return localPort;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param Port
-   */
-  public void setPort(int param) {
+  public void setIsDir(boolean param) {
 
     // setting primitive attribute tracker to true
-    localPortTracker = param != java.lang.Integer.MIN_VALUE;
+    localIsDirTracker = true;
 
-    this.localPort = param;
+    this.localIsDir = param;
+  }
+
+  /** field for FileSize */
+  protected long localFileSize;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localFileSizeTracker = false;
+
+  public boolean isFileSizeSpecified() {
+    return localFileSizeTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return long
+   */
+  public long getFileSize() {
+    return localFileSize;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param FileSize
+   */
+  public void setFileSize(long param) {
+
+    // setting primitive attribute tracker to true
+    localFileSizeTracker = param != java.lang.Long.MIN_VALUE;
+
+    this.localFileSize = param;
+  }
+
+  /** field for Modifiedtime */
+  protected java.lang.String localModifiedtime;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localModifiedtimeTracker = false;
+
+  public boolean isModifiedtimeSpecified() {
+    return localModifiedtimeTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getModifiedtime() {
+    return localModifiedtime;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Modifiedtime
+   */
+  public void setModifiedtime(java.lang.String param) {
+    localModifiedtimeTracker = param != null;
+
+    this.localModifiedtime = param;
   }
 
   /**
@@ -222,7 +226,8 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
       final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
       throws org.apache.axis2.databinding.ADBException {
 
-    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+    return factory.createOMElement(
+        new org.apache.axis2.databinding.ADBDataSource(this, parentQName));
   }
 
   public void serialize(
@@ -246,110 +251,109 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
 
     if (serializeType) {
 
-      java.lang.String namespacePrefix = registerPrefix(xmlWriter, "urn:hpccsystems:ws:wssmc");
+      java.lang.String namespacePrefix = registerPrefix(xmlWriter, "urn:hpccsystems:ws:wstopology");
       if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
         writeAttribute(
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":ClearQueue",
+            namespacePrefix + ":LogFileStruct",
             xmlWriter);
       } else {
         writeAttribute(
-            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "ClearQueue", xmlWriter);
+            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "LogFileStruct", xmlWriter);
       }
     }
-    if (localClusterTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "Cluster", xmlWriter);
+    if (localNameTracker) {
+      namespace = "urn:hpccsystems:ws:wstopology";
+      writeStartElement(null, namespace, "Name", xmlWriter);
 
-      if (localCluster == null) {
+      if (localName == null) {
         // write the nil attribute
 
-        throw new org.apache.axis2.databinding.ADBException("Cluster cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
 
       } else {
 
-        xmlWriter.writeCharacters(localCluster);
+        xmlWriter.writeCharacters(localName);
       }
 
       xmlWriter.writeEndElement();
     }
-    if (localQueueNameTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "QueueName", xmlWriter);
+    if (localPathTracker) {
+      namespace = "urn:hpccsystems:ws:wstopology";
+      writeStartElement(null, namespace, "Path", xmlWriter);
 
-      if (localQueueName == null) {
+      if (localPath == null) {
         // write the nil attribute
 
-        throw new org.apache.axis2.databinding.ADBException("QueueName cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("Path cannot be null!!");
 
       } else {
 
-        xmlWriter.writeCharacters(localQueueName);
+        xmlWriter.writeCharacters(localPath);
       }
 
       xmlWriter.writeEndElement();
     }
-    if (localCommentTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "Comment", xmlWriter);
+    if (localHostTracker) {
+      namespace = "urn:hpccsystems:ws:wstopology";
+      writeStartElement(null, namespace, "Host", xmlWriter);
 
-      if (localComment == null) {
+      if (localHost == null) {
         // write the nil attribute
 
-        throw new org.apache.axis2.databinding.ADBException("Comment cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("Host cannot be null!!");
 
       } else {
 
-        xmlWriter.writeCharacters(localComment);
+        xmlWriter.writeCharacters(localHost);
       }
 
       xmlWriter.writeEndElement();
     }
-    if (localServerTypeTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "ServerType", xmlWriter);
+    if (localIsDirTracker) {
+      namespace = "urn:hpccsystems:ws:wstopology";
+      writeStartElement(null, namespace, "IsDir", xmlWriter);
 
-      if (localServerType == null) {
-        // write the nil attribute
+      if (false) {
 
-        throw new org.apache.axis2.databinding.ADBException("ServerType cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localServerType);
-      }
-
-      xmlWriter.writeEndElement();
-    }
-    if (localNetworkAddressTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "NetworkAddress", xmlWriter);
-
-      if (localNetworkAddress == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("NetworkAddress cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localNetworkAddress);
-      }
-
-      xmlWriter.writeEndElement();
-    }
-    if (localPortTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "Port", xmlWriter);
-
-      if (localPort == java.lang.Integer.MIN_VALUE) {
-
-        throw new org.apache.axis2.databinding.ADBException("Port cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("IsDir cannot be null!!");
 
       } else {
         xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPort));
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsDir));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localFileSizeTracker) {
+      namespace = "urn:hpccsystems:ws:wstopology";
+      writeStartElement(null, namespace, "FileSize", xmlWriter);
+
+      if (localFileSize == java.lang.Long.MIN_VALUE) {
+
+        throw new org.apache.axis2.databinding.ADBException("FileSize cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFileSize));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localModifiedtimeTracker) {
+      namespace = "urn:hpccsystems:ws:wstopology";
+      writeStartElement(null, namespace, "Modifiedtime", xmlWriter);
+
+      if (localModifiedtime == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Modifiedtime cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localModifiedtime);
       }
 
       xmlWriter.writeEndElement();
@@ -358,7 +362,7 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
   }
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
-    if (namespace.equals("urn:hpccsystems:ws:wssmc")) {
+    if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
       return "ns1";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -551,9 +555,9 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static ClearQueue parse(javax.xml.stream.XMLStreamReader reader)
+    public static LogFileStruct parse(javax.xml.stream.XMLStreamReader reader)
         throws java.lang.Exception {
-      ClearQueue object = new ClearQueue();
+      LogFileStruct object = new LogFileStruct();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -578,12 +582,12 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"ClearQueue".equals(type)) {
+            if (!"LogFileStruct".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (ClearQueue)
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ExtensionMapper.getTypeObject(
-                      nsUri, type, reader);
+              return (LogFileStruct)
+                  org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ExtensionMapper
+                      .getTypeObject(nsUri, type, reader);
             }
           }
         }
@@ -598,115 +602,115 @@ public class ClearQueue implements org.apache.axis2.databinding.ADBBean {
           if (reader.isStartElement()) {
 
             if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Cluster")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Name")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Cluster" + "  cannot be null");
+                    "The element: " + "Name" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setCluster(
+              object.setName(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "QueueName")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Path")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "QueueName" + "  cannot be null");
+                    "The element: " + "Path" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setQueueName(
+              object.setPath(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Comment")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Host")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Comment" + "  cannot be null");
+                    "The element: " + "Host" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setComment(
+              object.setHost(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ServerType")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "IsDir")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "ServerType" + "  cannot be null");
+                    "The element: " + "IsDir" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setServerType(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              object.setIsDir(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "NetworkAddress")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "FileSize")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "NetworkAddress" + "  cannot be null");
+                    "The element: " + "FileSize" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setNetworkAddress(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              object.setFileSize(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToLong(content));
 
               reader.next();
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Port")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Modifiedtime")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Port" + "  cannot be null");
+                    "The element: " + "Modifiedtime" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setPort(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+              object.setModifiedtime(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
