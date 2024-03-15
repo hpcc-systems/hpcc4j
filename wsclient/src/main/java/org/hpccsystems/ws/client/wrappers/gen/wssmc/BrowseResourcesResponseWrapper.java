@@ -26,6 +26,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssmc;
 public class BrowseResourcesResponseWrapper {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected String local_portalURL;
+    protected String local_eSPInstance;
     protected String local_netAddress;
     protected int local_oS;
     protected boolean local_useResource;
@@ -39,11 +40,17 @@ public class BrowseResourcesResponseWrapper {
         copy(browseresourcesresponse);
     }
 
-    public BrowseResourcesResponseWrapper(ArrayOfEspExceptionWrapper _exceptions, String _portalURL, String _netAddress,
-            int _oS, boolean _useResource, ArrayOfHPCCResourceRepositoryWrapper _hPCCResourceRepositories) {
+    public BrowseResourcesResponseWrapper(ArrayOfEspExceptionWrapper _exceptions, String _portalURL,
+            String _eSPInstance, String _netAddress, int _oS, boolean _useResource,
+            ArrayOfHPCCResourceRepositoryWrapper _hPCCResourceRepositories) {
         this.local_exceptions = _exceptions;
         this.local_portalURL = _portalURL;
+        this.local_eSPInstance = _eSPInstance;
         this.local_netAddress = _netAddress;
+        if (local_eSPInstance != null && local_eSPInstance.length() > 0) {
+            if (local_netAddress == null || local_netAddress.length() == 0)
+                this.local_netAddress = local_eSPInstance;
+        }
         this.local_oS = _oS;
         this.local_useResource = _useResource;
         this.local_hPCCResourceRepositories = _hPCCResourceRepositories;
@@ -57,7 +64,12 @@ public class BrowseResourcesResponseWrapper {
         if (raw.getExceptions() != null)
             this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
         this.local_portalURL = raw.getPortalURL();
-        // this.local_netAddress = raw.getNetAddress();
+        this.local_eSPInstance = raw.getESPInstance();
+        this.local_netAddress = raw.getNetAddress();
+        if (local_eSPInstance != null && local_eSPInstance.length() > 0) {
+            if (local_netAddress == null || local_netAddress.length() == 0)
+                this.local_netAddress = local_eSPInstance;
+        }
         this.local_oS = raw.getOS();
         this.local_useResource = raw.getUseResource();
         if (raw.getHPCCResourceRepositories() != null)
@@ -69,9 +81,9 @@ public class BrowseResourcesResponseWrapper {
     @Override
     public String toString() {
         return "BrowseResourcesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "portalURL = "
-                + local_portalURL + ", " + "netAddress = " + local_netAddress + ", " + "oS = "
-                + local_oS + ", " + "useResource = " + local_useResource + ", " + "hPCCResourceRepositories = "
-                + local_hPCCResourceRepositories + "]";
+                + local_portalURL + ", " + "eSPInstance = " + local_eSPInstance + ", " + "netAddress = "
+                + local_netAddress + ", " + "oS = " + local_oS + ", " + "useResource = " + local_useResource + ", "
+                + "hPCCResourceRepositories = " + local_hPCCResourceRepositories + "]";
     }
 
     public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse getRaw() {
@@ -79,7 +91,8 @@ public class BrowseResourcesResponseWrapper {
         if (local_exceptions != null)
             raw.setExceptions(local_exceptions.getRaw());
         raw.setPortalURL(local_portalURL);
-        // raw.setNetAddress( local_netAddress);
+        raw.setESPInstance(local_eSPInstance);
+        raw.setNetAddress(local_netAddress);
         raw.setOS(local_oS);
         raw.setUseResource(local_useResource);
         if (local_hPCCResourceRepositories != null)
@@ -101,6 +114,14 @@ public class BrowseResourcesResponseWrapper {
 
     public String getPortalURL() {
         return this.local_portalURL;
+    }
+
+    public void setESPInstance(String _eSPInstance) {
+        this.local_eSPInstance = _eSPInstance;
+    }
+
+    public String getESPInstance() {
+        return this.local_eSPInstance;
     }
 
     public void setNetAddress(String _netAddress) {

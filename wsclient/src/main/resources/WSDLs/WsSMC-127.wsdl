@@ -1395,6 +1395,7 @@
 						
             
 						<xsd:element minOccurs="0" name="ESPInstance" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/> <!-- manually added because it was dropped in v1.27-->
 						
             
 						<xsd:element minOccurs="0" name="OS" type="xsd:int"/>
