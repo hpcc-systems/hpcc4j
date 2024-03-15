@@ -23,6 +23,7 @@ import java.net.URL;
 
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import java.math.BigDecimal;
@@ -55,6 +56,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runners.MethodSorters;
+
+import com.nimbusds.jose.util.StandardCharset;
+
 import org.junit.experimental.categories.Category;
 
 import static org.junit.Assert.*;
@@ -92,6 +96,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void nullCharTests() throws Exception
     {
         // Unicode
+        boolean unicodePassed = true;
         {
             FieldDef recordDef = null;
             {
@@ -105,12 +110,20 @@ public class DFSReadWriteTest extends BaseRemoteTest
             List<HPCCRecord> records = new ArrayList<HPCCRecord>();
             int maxUTF16BMPChar = Character.MAX_CODE_POINT;
             for (int i = 0; i < maxUTF16BMPChar; i++) {
+
+
                 String strMidEOS = "";
                 for (int j = 0; j < 98; j++, i++) {
                     if (j == 50) {
                         strMidEOS += "\0";
                     }
-                    strMidEOS += Character.toString((char) i);
+
+                    if (Character.isValidCodePoint(i) == false)
+                    {
+                        continue;
+                    }
+
+                    strMidEOS += new String(Character.toChars(i)); //Character.toString((char) i);
                 }
 
                 Object[] fields = {strMidEOS, strMidEOS};
@@ -129,11 +142,13 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 if (readRecord.equals(record) == false)
                 {
                     System.out.println("Record: " + i + " did not match\n" + record + "\n" + readRecord);
+                    unicodePassed = false;
                 }
             }
         }
 
         // SBC / ASCII
+        boolean sbcPassed = true;
         {
             FieldDef recordDef = null;
             {
@@ -170,9 +185,13 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 if (readRecord.equals(record) == false)
                 {
                     System.out.println("Record: " + i + " did not match\n" + record + "\n" + readRecord);
+                    sbcPassed = false;
                 }
             }
         }
+
+        assertTrue("Unicode EOS character test failed. See mismatches above.", unicodePassed);
+        assertTrue("Single byte EOS character test failed. See mismatches above.", sbcPassed);
     }
 
     @Test
@@ -1406,6 +1425,11 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HpccRemoteFileReader<HPCCRecord> fileReader = fileReaders.get(i);
             while (fileReader.hasNext())
             {
+                if (records.size() == 558)
+                {
+                    System.out.println("Record count: " + records.size());
+                }
+
                 HPCCRecord record = fileReader.next();
                 if (record == null)
                 {
@@ -1510,6 +1534,11 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
             {
+                if (currentRecord == 558)
+                {
+                    System.out.println("Record count: " + currentRecord);
+                }
+
                 fileWriter.writeRecord(records.get(currentRecord));
             }
             fileWriter.close();
