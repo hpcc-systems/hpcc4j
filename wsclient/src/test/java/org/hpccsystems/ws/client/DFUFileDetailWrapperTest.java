@@ -34,6 +34,14 @@ import org.junit.experimental.categories.Category;
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class DFUFileDetailWrapperTest
 {
+    private static final String SETOF = "RECORD\n" +
+            "STRING1 test;\n" +
+            "SET OF UTF8 fieldAllset {DEFAULT (ALL)};\n" +
+            "SET OF UTF8 field2set {DEFAULT (['test1','test2'])};\n" +
+            "SET OF UTF8 field3set {DEFAULT ([''])};\n" +
+            "SET OF UTF8 field4set {DEFAULT (['test'])};\n" +
+            "STRING2 test;\n" +
+            "END;";
     private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
     private final String MAXLENGTH = "RECORD\nSTRING SSN;\nINTEGER8 maxlength;\nEND;";
     private final String WITH_ANNOTATION_NO_PARAMS = "RECORD\nSTRING SSN; // @FEW\nEND;";
@@ -330,6 +338,35 @@ public class DFUFileDetailWrapperTest
         assertEquals(0, recordDefInfo.getAnnotations().size());
         DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "maxlength");
         assertNotNull(column);
+    }
+
+    @Test
+    public void testSetDefault() throws Exception {
+        EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(SETOF);
+        if (info.getParseErrors().size()!=0) {
+            fail("Failed get set default test:" + String.join("\n",info.getParseErrors()));
+        }
+        DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
+        assertNotNull(recordDefInfo);
+        assertEquals(0, recordDefInfo.getAnnotations().size());
+        DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "field3set");
+        assertNotNull(column);
+        assertNotNull(column.getColumnValue());
+
+        DFUDataColumnWrapper column4 = getColumnByName(recordDefInfo, "field4set");
+        assertNotNull(column4);
+        assertNotNull(column4.getColumnValue());
+        assertEquals("test", column4.getColumnValue());
+
+        DFUDataColumnWrapper column2 = getColumnByName(recordDefInfo, "field2set");
+        assertNotNull(column2);
+        assertNotNull(column2.getColumnValue());
+        assertEquals("'test1','test2'", column2.getColumnValue());
+
+        DFUDataColumnWrapper column3 = getColumnByName(recordDefInfo, "field3set");
+        assertNotNull(column3);
+        assertNotNull(column3.getColumnValue());
+        assertEquals("", column3.getColumnValue());
     }
 
     @Test

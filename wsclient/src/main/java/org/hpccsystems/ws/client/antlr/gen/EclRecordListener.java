@@ -278,6 +278,26 @@ public interface EclRecordListener extends ParseTreeListener {
 	 */
 	void exitXmldefaultval(EclRecordParser.XmldefaultvalContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EclRecordParser#setdefaultval}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetdefaultval(EclRecordParser.SetdefaultvalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EclRecordParser#setdefaultval}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetdefaultval(EclRecordParser.SetdefaultvalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EclRecordParser#setdefaultvalall}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetdefaultvalall(EclRecordParser.SetdefaultvalallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EclRecordParser#setdefaultvalall}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetdefaultvalall(EclRecordParser.SetdefaultvalallContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EclRecordParser#annotation_name}.
 	 * @param ctx the parse tree
 	 */
