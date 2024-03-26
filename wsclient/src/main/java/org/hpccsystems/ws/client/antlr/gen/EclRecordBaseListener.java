@@ -340,6 +340,30 @@ public class EclRecordBaseListener implements EclRecordListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSetdefaultval(EclRecordParser.SetdefaultvalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetdefaultval(EclRecordParser.SetdefaultvalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSetdefaultvalall(EclRecordParser.SetdefaultvalallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetdefaultvalall(EclRecordParser.SetdefaultvalallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAnnotation_name(EclRecordParser.Annotation_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
