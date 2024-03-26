@@ -23,6 +23,7 @@ import java.util.Iterator;
 
 /**
  * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition
+ * Remote file reader the reads the data represented by a @see org.hpccsystems.dfs.client.DataPartition
  * and constructs records via the provided @see org.hpccsystems.dfs.client#IRecordBuilder.
  */
 public class HpccRemoteFileReader<T> implements Iterator<T>
@@ -78,7 +79,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param recBuilder
      *            the IRecordBuilder used to construct records
      * @param connectTimeout
-     *            the connection timeout in milliseconds, -1 for default
+     *            the connection timeout in seconds, -1 for default
      * @throws Exception
      *             the exception
      */
@@ -118,7 +119,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param recBuilder
      *            the IRecordBuilder used to construct records
      * @param connectTimeout
-     *            the connection timeout in milliseconds, -1 for default
+     *            the connection timeout in seconds, -1 for default
      * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
      * @param createPrefetchThread
@@ -130,7 +131,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB) throws Exception
     {
-        this(dp, originalRD, recBuilder, connectTimeout, limit, true, DEFAULT_READ_SIZE_OPTION, null);
+        this(dp, originalRD, recBuilder, connectTimeout, limit, createPrefetchThread, readSizeKB, null);
     }
 
     /**
@@ -143,7 +144,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @param recBuilder
      *            the IRecordBuilder used to construct records
      * @param connectTimeout
-     *            the connection timeout in milliseconds, -1 for default
+     *            the connection timeout in seconds, -1 for default
      * @param limit
      *            the maximum number of records to read from the provided data partition, -1 specifies no limit
      * @param createPrefetchThread
@@ -157,7 +158,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      */
     public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo) throws Exception
     {
-        this(dp, originalRD, recBuilder, connectTimeout, limit, true, readSizeKB, resumeInfo, RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
+        this(dp, originalRD, recBuilder, connectTimeout, limit, createPrefetchThread, readSizeKB, resumeInfo, RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
     }
 
     /**
