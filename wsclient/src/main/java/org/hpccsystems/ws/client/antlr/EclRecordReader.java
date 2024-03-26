@@ -396,6 +396,23 @@ public class EclRecordReader extends EclRecordBaseListener
         }
     }
 
+
+    @Override
+    public void enterSetdefaultvalall(EclRecordParser.SetdefaultvalallContext ctx) {
+        String val = ctx.getChild(2).getText();
+        val = val.replace("'", "");
+
+        if (currentfield != null)
+        {
+            currentfield.setColumnValue(val);
+        }
+        else if (currentrec != null)
+        {
+            currentrec.setColumnValue(val);
+        }
+    }
+
+
     /**
      * {@inheritDoc}
      *
@@ -407,9 +424,28 @@ public class EclRecordReader extends EclRecordBaseListener
     public void enterSetdefaultval(EclRecordParser.SetdefaultvalContext ctx)
     {
         String val = ctx.getChild(2).getText();
-        val = val.replace("['", "");
+        if(val.length() >= 2){
+            if(val.substring(0, 2).equals("['")) {
+                val = val.substring(2, val.length());
+            }
+        }
+        if(val.length() >= 2){
+            if(val.substring(val.length()-2, val.length()).equals("']")) {
+                val = val.substring(0, val.length() - 2);
+            }
+        }
+        //val = val.replaceFirst("(\[')", "");
+        //val = val.replace("['", "");
         val = val.replace("']", "");
 
+        if(val.contains("','")){
+            if(!val.startsWith("'")) {
+                val = "'" + val;
+            }
+            if(!val.endsWith("'")){
+                val = val + "'";
+            }
+        }
         if (currentfield != null)
         {
             currentfield.setColumnValue(val);
@@ -418,6 +454,8 @@ public class EclRecordReader extends EclRecordBaseListener
         {
             currentrec.setColumnValue(val);
         }
+
+
     }
 
     /**

@@ -36,6 +36,8 @@ public class DFUFileDetailWrapperTest
 {
     private static final String SETOF = "RECORD\n" +
             "STRING1 test;\n" +
+            "SET OF UTF8 fieldAllset {DEFAULT (ALL)};\n" +
+            "SET OF UTF8 field2set {DEFAULT (['test1','test2'])};\n" +
             "SET OF UTF8 field3set {DEFAULT ([''])};\n" +
             "SET OF UTF8 field4set {DEFAULT (['test'])};\n" +
             "STRING2 test;\n" +
@@ -351,10 +353,20 @@ public class DFUFileDetailWrapperTest
         assertNotNull(column);
         assertNotNull(column.getColumnValue());
 
-        DFUDataColumnWrapper column2 = getColumnByName(recordDefInfo, "field4set");
+        DFUDataColumnWrapper column4 = getColumnByName(recordDefInfo, "field4set");
+        assertNotNull(column4);
+        assertNotNull(column4.getColumnValue());
+        assertEquals("test", column4.getColumnValue());
+
+        DFUDataColumnWrapper column2 = getColumnByName(recordDefInfo, "field2set");
         assertNotNull(column2);
         assertNotNull(column2.getColumnValue());
-        assertEquals("test", column2.getColumnValue());
+        assertEquals("'test1','test2'", column2.getColumnValue());
+
+        DFUDataColumnWrapper column3 = getColumnByName(recordDefInfo, "field3set");
+        assertNotNull(column3);
+        assertNotNull(column3.getColumnValue());
+        assertEquals("", column3.getColumnValue());
     }
 
     @Test
