@@ -27,12 +27,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ArrayOfEspException;
 import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ServiceQueryResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.TargetQueryResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WsResourcesPingRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WsResourcesStub;
+import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.WebLinksQueryResponse;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryResponseWrapper;
+
 
 /**
  * Facilitates discovery of containerized HPCC Systems resources.
@@ -48,7 +55,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
 
     /**
      * Load WSDLURL.
-     */
+    */
     private static void loadWSDLURL()
     {
         try
@@ -67,7 +74,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      * Gets the service URI.
      *
      * @return the service URI
-     */
+    */
     public String getServiceURI()
     {
         return WSRESOURCESURI;
@@ -116,10 +123,10 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets the Ws Resources client
      *
      * @param connection
-     *            the connection
+     *           the connection
      * @return the HPCC HPCCWsResources client
      */
     public static HPCCWsResourcesClient get(Connection connection)
@@ -128,7 +135,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets the Ws Resources client
      *
      * @param protocol
      *            the protocol
@@ -150,7 +157,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     }
 
     /**
-     * Gets the.
+     * Gets the Ws Resources client
      *
      * @param protocol
      *            the protocol
@@ -188,7 +195,8 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     }
 
     /**
-     * Initializes the service's underlying stub Should only be used by constructors.
+     * Initializes the service's underlying stub Should only be used by
+     * constructors.
      *
      * @param conn
      *            -- All connection settings included
@@ -219,14 +227,19 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     /**
      * Submit service query request
      *
-     * @param req a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper} object.
+     * @param req a
+     *            {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper}
+     *            object.
      * @throws Exception a {@link java.lang.Exception} object.
-     * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper} object.
+     * @return a
+     *         {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper}
+     *         object.
      */
     public ServiceQueryResponseWrapper serviceQuery(ServiceQueryRequestWrapper req) throws Exception
     {
         if (req == null)
-            throw new Exception("");
+            throw new Exception("ServiceQueryRequestWrapper must be provided!");
+
         verifyStub();
 
         ServiceQueryResponse resp = null;
@@ -247,6 +260,82 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
         }
 
         return new ServiceQueryResponseWrapper(resp);
+    }
+
+    /**
+     * Submit target query request
+     *
+     * @param req a
+     *            {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryRequestWrapper}
+     *            object.
+     * @throws Exception a {@link java.lang.Exception} object.
+     * @return a
+     *         {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryResponseWrapper}
+     *         object.
+     */
+    public TargetQueryResponseWrapper targetQuery(TargetQueryRequestWrapper req) throws Exception
+    {
+        if (req == null)
+            throw new Exception("TargetQueryRequestWrapper must be provided!");
+
+        verifyStub();
+
+        TargetQueryResponse resp = null;
+
+        try
+        {
+            resp = ((WsResourcesStub) stub).targetQuery(req.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWSRESOURCESClient.targetQuery(TargetQueryRequestWrapper) encountered RemoteException.", e);
+        }
+
+        if (resp.getExceptions() != null)
+        {
+            ArrayOfEspException exceptions = resp.getExceptions();
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query");
+        }
+
+        return new TargetQueryResponseWrapper(resp);
+    }
+
+    /**
+     * Submit WebLinks query request
+     *
+     * @param req a
+     *            {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksRequestWrapper}
+     *            object.
+     * @throws Exception a {@link java.lang.Exception} object.
+     * @return a
+     *         {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksResponseWrapper}
+     *         object.
+     */
+    public WebLinksQueryResponseWrapper webLinks(WebLinksQueryRequestWrapper req) throws Exception
+    {
+        if (req == null)
+            throw new Exception("WebLinksQueryRequestWrapper must be provided!");
+
+        verifyStub();
+
+        WebLinksQueryResponse resp = null;
+
+        try
+        {
+            resp = ((WsResourcesStub) stub).webLinksQuery(req.getRaw());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWSRESOURCESClient.webLinksQuery(WebLinksQueryRequestWrapper) encountered RemoteException.", e);
+        }
+
+        if (resp.getExceptions() != null)
+        {
+            ArrayOfEspException exceptions = resp.getExceptions();
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query");
+        }
+
+        return new WebLinksQueryResponseWrapper(resp);
     }
 
     /**
