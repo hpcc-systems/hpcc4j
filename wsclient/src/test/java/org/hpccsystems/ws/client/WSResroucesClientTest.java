@@ -22,10 +22,16 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.apache.axis2.AxisFault;
+import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.HPCCQueueTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.HPCCServiceWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryRequestWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryResponseWrapper;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -36,13 +42,13 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSResroucesClientTest extends BaseRemoteTest
 {
-    private static HPCCWsResourcesClient client;
+    private static HPCCWsResourcesClient wsResourcesClient;
     private boolean iscontainerized = false;
 
     static
     {
-        client = HPCCWsResourcesClient.get(connection);
-        Assert.assertNotNull(client);
+        wsResourcesClient = HPCCWsResourcesClient.get(connection);
+        Assert.assertNotNull(wsResourcesClient);
     }
 
     @Before
@@ -65,7 +71,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
         try
         {
             System.out.println("Querying all HPCC Services...");
-            ServiceQueryResponseWrapper resp = client.serviceQuery(new ServiceQueryRequestWrapper());
+            ServiceQueryResponseWrapper resp = wsResourcesClient.serviceQuery(new ServiceQueryRequestWrapper());
             Assert.assertNotNull(resp);
             Assert.assertNotNull(resp.getServices());
             List<HPCCServiceWrapper> services = resp.getServices().getService();
@@ -88,7 +94,60 @@ public class WSResroucesClientTest extends BaseRemoteTest
     public void getContainerizedModeTest() throws Exception
     {
         System.out.println("Fetching isTargetHPCCContainerized...");
-        assertNotNull(client.isTargetHPCCContainerized());
+        assertNotNull(wsResourcesClient.isTargetHPCCContainerized());
+    }
+
+    @Test
+    public void testTargetQueryNullType() throws Exception
+    {
+        // Create a target query request
+        TargetQueryRequestWrapper request = new TargetQueryRequestWrapper();
+        // Set the request parameters
+        request.setType(null);
+
+        // Call the targetQuery method
+        TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+
+        Assert.assertNotNull(response);
+    }
+
+    @Test
+    public void testTargetQueryAllType() throws Exception
+    {
+        // Create a target query request
+        TargetQueryRequestWrapper request = new TargetQueryRequestWrapper();
+        request.setType(new HPCCQueueTypeWrapper(HPCCQueueType._All));
+
+        // Call the targetQuery method
+        TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+
+        Assert.assertNotNull(response);
+    }
+
+    @Test
+    public void testTargetQueryRoxieType() throws Exception
+    {
+        // Create a target query request
+        TargetQueryRequestWrapper request = new TargetQueryRequestWrapper();
+        request.setType(new HPCCQueueTypeWrapper(HPCCQueueType._Roxie));
+
+        // Call the targetQuery method
+        TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+
+        Assert.assertNotNull(response);
+    }
+
+    @Test
+    public void testWebLinksQuery() throws Exception
+    {
+        // Create a web links query request
+        WebLinksQueryRequestWrapper request = new WebLinksQueryRequestWrapper();
+        // Call the webLinksQuery method
+        WebLinksQueryResponseWrapper response = wsResourcesClient.webLinks(request);
+
+        // Assert the response
+        Assert.assertNotNull(response);
+        // Add more assertions as needed
     }
 
     @Test
@@ -97,7 +156,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
         Assume.assumeTrue("Target HPCC does not seem to be containerized", iscontainerized);
         try
         {
-            Assert.assertTrue(client.ping());
+            Assert.assertTrue(wsResourcesClient.ping());
         }
         catch (AxisFault e)
         {
