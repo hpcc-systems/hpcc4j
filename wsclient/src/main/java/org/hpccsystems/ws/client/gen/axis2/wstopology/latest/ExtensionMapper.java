@@ -175,6 +175,13 @@ public class ExtensionMapper {
     }
 
     if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI)
+        && "ArrayOfLogFileStruct".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfLogFileStruct.Factory
+          .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI)
         && "ArrayOfTpDropZone".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDropZone.Factory.parse(
@@ -258,6 +265,12 @@ public class ExtensionMapper {
         && "RoxieQueueFilter".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.RoxieQueueFilter.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI) && "LogFileStruct".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct.Factory.parse(
           reader);
     }
 

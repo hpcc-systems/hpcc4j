@@ -116,6 +116,19 @@ public interface WsTopology {
   /**
    * Auto generated method signature
    *
+   * @param tpListLogFilesRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse
+      tpListLogFiles(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest
+              tpListLogFilesRequest)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
    * @param tpGroupQueryRequest
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */

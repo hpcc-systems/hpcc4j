@@ -22,6 +22,12 @@ public class ExtensionMapper {
           reader);
     }
 
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI) && "SortDirection".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.SortDirection.Factory.parse(
+          reader);
+    }
+
     if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI) && "Files_type2".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Files_type2.Factory.parse(
@@ -426,6 +432,11 @@ public class ExtensionMapper {
           .parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI) && "TimeRange".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.TimeRange.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
         && "AllowedClusters_type0".equals(typeName)) {
 
@@ -477,6 +488,13 @@ public class ExtensionMapper {
         && "FileErrors_type0".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.FileErrors_type0.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
+        && "LogAccessFilter".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter.Factory.parse(
           reader);
     }
 
@@ -540,6 +558,12 @@ public class ExtensionMapper {
         && "WUResponseNote".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseNote.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI) && "LogEventClass".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogEventClass.Factory.parse(
           reader);
     }
 
@@ -627,6 +651,12 @@ public class ExtensionMapper {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.PropertyFilters_type0.Factory
           .parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI) && "ECLWUProcess".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWUProcess.Factory.parse(
+          reader);
     }
 
     if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
@@ -1138,6 +1168,13 @@ public class ExtensionMapper {
 
       return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Endpoints_type0.Factory.parse(
           reader);
+    }
+
+    if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)
+        && "ArrayOfECLWUProcess".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUProcess.Factory
+          .parse(reader);
     }
 
     if ("urn:hpccsystems:ws:wsworkunits".equals(namespaceURI)

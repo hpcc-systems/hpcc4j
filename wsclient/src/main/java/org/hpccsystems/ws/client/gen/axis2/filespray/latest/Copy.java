@@ -279,6 +279,41 @@ public class Copy implements org.apache.axis2.databinding.ADBBean {
     this.localOverwrite = param;
   }
 
+  /** field for Ensure */
+  protected boolean localEnsure;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localEnsureTracker = false;
+
+  public boolean isEnsureSpecified() {
+    return localEnsureTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getEnsure() {
+    return localEnsure;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Ensure
+   */
+  public void setEnsure(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localEnsureTracker = true;
+
+    this.localEnsure = param;
+  }
+
   /** field for Replicate */
   protected boolean localReplicate;
 
@@ -1223,6 +1258,21 @@ public class Copy implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
+    if (localEnsureTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "ensure", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("ensure cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEnsure));
+      }
+
+      xmlWriter.writeEndElement();
+    }
     if (localReplicateTracker) {
       namespace = "urn:hpccsystems:ws:filespray";
       writeStartElement(null, namespace, "replicate", xmlWriter);
@@ -1950,6 +2000,25 @@ public class Copy implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setOverwrite(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "ensure")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ensure" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setEnsure(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();

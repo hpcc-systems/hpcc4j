@@ -84,6 +84,39 @@ public class WUDetailsMetaProperty implements org.apache.axis2.databinding.ADBBe
     this.localValueType = param;
   }
 
+  /** field for Description */
+  protected java.lang.String localDescription;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDescriptionTracker = false;
+
+  public boolean isDescriptionSpecified() {
+    return localDescriptionTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getDescription() {
+    return localDescription;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Description
+   */
+  public void setDescription(java.lang.String param) {
+    localDescriptionTracker = param != null;
+
+    this.localDescription = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -158,6 +191,22 @@ public class WUDetailsMetaProperty implements org.apache.axis2.databinding.ADBBe
       }
       localValueType.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ValueType"), xmlWriter);
+    }
+    if (localDescriptionTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "Description", xmlWriter);
+
+      if (localDescription == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Description cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localDescription);
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -428,6 +477,25 @@ public class WUDetailsMetaProperty implements org.apache.axis2.databinding.ADBBe
               object.setValueType(
                   org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsAttrValueType
                       .Factory.parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Description")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Description" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDescription(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

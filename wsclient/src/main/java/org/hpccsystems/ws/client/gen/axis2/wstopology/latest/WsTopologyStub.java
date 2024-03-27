@@ -43,7 +43,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     // creating the operations
     org.apache.axis2.description.AxisOperation __operation;
 
-    _operations = new org.apache.axis2.description.AxisOperation[20];
+    _operations = new org.apache.axis2.description.AxisOperation[21];
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -112,7 +112,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpGroupQuery"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpListLogFiles"));
     _service.addOperation(__operation);
 
     _operations[8] = __operation;
@@ -120,7 +120,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpDropZoneQuery"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpGroupQuery"));
     _service.addOperation(__operation);
 
     _operations[9] = __operation;
@@ -128,22 +128,22 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpSetMachineStatus"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpDropZoneQuery"));
     _service.addOperation(__operation);
 
     _operations[10] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ping"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpSetMachineStatus"));
     _service.addOperation(__operation);
 
     _operations[11] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpSwapNode"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ping"));
     _service.addOperation(__operation);
 
     _operations[12] = __operation;
@@ -151,7 +151,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "systemLog"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpSwapNode"));
     _service.addOperation(__operation);
 
     _operations[13] = __operation;
@@ -159,7 +159,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpLogFileDisplay"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "systemLog"));
     _service.addOperation(__operation);
 
     _operations[14] = __operation;
@@ -167,7 +167,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpLogFile"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpLogFileDisplay"));
     _service.addOperation(__operation);
 
     _operations[15] = __operation;
@@ -175,7 +175,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpMachineQuery"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpLogFile"));
     _service.addOperation(__operation);
 
     _operations[16] = __operation;
@@ -183,7 +183,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpTargetClusterQuery"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpMachineQuery"));
     _service.addOperation(__operation);
 
     _operations[17] = __operation;
@@ -191,7 +191,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpMachineInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpTargetClusterQuery"));
     _service.addOperation(__operation);
 
     _operations[18] = __operation;
@@ -199,10 +199,18 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpXMLFile"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpMachineInfo"));
     _service.addOperation(__operation);
 
     _operations[19] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpXMLFile"));
+    _service.addOperation(__operation);
+
+    _operations[20] = __operation;
   }
 
   // populates the faults
@@ -334,6 +342,22 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
             "TpClusterInfo"),
+        "org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
+            "TpListLogFiles"),
+        "org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
+            "TpListLogFiles"),
+        "org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Exceptions"),
+            "TpListLogFiles"),
         "org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -556,13 +580,13 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
   public WsTopologyStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/WsTopology?ver_=1.31");
+    this(configurationContext, "http://eclwatch-65768756c6-9sm8c:8888/WsTopology?ver_=1.32");
   }
 
   /** Default Constructor */
   public WsTopologyStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/WsTopology?ver_=1.31");
+    this("http://eclwatch-65768756c6-9sm8c:8888/WsTopology?ver_=1.32");
   }
 
   /** Constructor taking the target endpoint */
@@ -588,7 +612,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpServiceQuery?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpServiceQuery?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -713,7 +737,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpGetServicePlugins?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpGetServicePlugins?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -843,7 +867,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpClusterQuery?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpClusterQuery?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -968,7 +992,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpLogicalClusterQuery?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpLogicalClusterQuery?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1099,7 +1123,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpListTargetClusters?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpListTargetClusters?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1228,7 +1252,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpThorStatus?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpThorStatus?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1353,7 +1377,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpGetComponentFile?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpGetComponentFile?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1482,7 +1506,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpClusterInfo?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpClusterInfo?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1592,21 +1616,22 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpGroupQuery
-   * @param tpGroupQueryRequest18
+   * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpListLogFiles
+   * @param tpListLogFilesRequest18
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse tpGroupQuery(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest
-          tpGroupQueryRequest18)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse
+      tpListLogFiles(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest
+              tpListLogFilesRequest18)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpGroupQuery?ver_=1.31");
+      _operationClient.getOptions().setAction("WsTopology/TpListLogFiles?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1620,7 +1645,131 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpGroupQueryRequest18,
+              tpListLogFilesRequest18,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpListLogFiles")),
+              new javax.xml.namespace.QName(
+                  "urn:hpccsystems:ws:wstopology", "TpListLogFilesRequest"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "TpListLogFiles"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "TpListLogFiles"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "TpListLogFiles"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpGroupQuery
+   * @param tpGroupQueryRequest20
+   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse tpGroupQuery(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest
+          tpGroupQueryRequest20)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[9].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpGroupQuery?ver_=1.32");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              tpGroupQueryRequest20,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpGroupQuery")),
               new javax.xml.namespace.QName(
@@ -1717,21 +1866,21 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpDropZoneQuery
-   * @param tpDropZoneQueryRequest20
+   * @param tpDropZoneQueryRequest22
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse
       tpDropZoneQuery(
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryRequest
-              tpDropZoneQueryRequest20)
+              tpDropZoneQueryRequest22)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpDropZoneQuery?ver_=1.31");
+          _serviceClient.createClient(_operations[10].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpDropZoneQuery?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1745,7 +1894,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpDropZoneQueryRequest20,
+              tpDropZoneQueryRequest22,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wstopology", "tpDropZoneQuery")),
@@ -1845,21 +1994,21 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpSetMachineStatus
-   * @param tpSetMachineStatusRequest22
+   * @param tpSetMachineStatusRequest24
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse
       tpSetMachineStatus(
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusRequest
-              tpSetMachineStatusRequest22)
+              tpSetMachineStatusRequest24)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpSetMachineStatus?ver_=1.31");
+          _serviceClient.createClient(_operations[11].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpSetMachineStatus?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1873,7 +2022,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpSetMachineStatusRequest22,
+              tpSetMachineStatusRequest24,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wstopology", "tpSetMachineStatus")),
@@ -1975,20 +2124,20 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#ping
-   * @param wsTopologyPingRequest24
+   * @param wsTopologyPingRequest26
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse ping(
       org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingRequest
-          wsTopologyPingRequest24)
+          wsTopologyPingRequest26)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsTopology/Ping?ver_=1.31");
+          _serviceClient.createClient(_operations[12].getName());
+      _operationClient.getOptions().setAction("WsTopology/Ping?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2002,7 +2151,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wsTopologyPingRequest24,
+              wsTopologyPingRequest26,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "ping")),
               new javax.xml.namespace.QName(
@@ -2099,19 +2248,19 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpSwapNode
-   * @param tpSwapNodeRequest26
+   * @param tpSwapNodeRequest28
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse tpSwapNode(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeRequest tpSwapNodeRequest26)
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeRequest tpSwapNodeRequest28)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpSwapNode?ver_=1.31");
+          _serviceClient.createClient(_operations[13].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpSwapNode?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2125,7 +2274,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpSwapNodeRequest26,
+              tpSwapNodeRequest28,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpSwapNode")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpSwapNodeRequest"));
@@ -2221,19 +2370,19 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#systemLog
-   * @param systemLogRequest28
+   * @param systemLogRequest30
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse systemLog(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogRequest systemLogRequest28)
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogRequest systemLogRequest30)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsTopology/SystemLog?ver_=1.31");
+          _serviceClient.createClient(_operations[14].getName());
+      _operationClient.getOptions().setAction("WsTopology/SystemLog?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2247,7 +2396,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              systemLogRequest28,
+              systemLogRequest30,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "systemLog")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "SystemLogRequest"));
@@ -2343,19 +2492,19 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpLogFileDisplay
-   * @param tpLogFileRequest30
+   * @param tpLogFileRequest32
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse tpLogFileDisplay(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest tpLogFileRequest30)
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest tpLogFileRequest32)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpLogFileDisplay?ver_=1.31");
+          _serviceClient.createClient(_operations[15].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpLogFileDisplay?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2369,7 +2518,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpLogFileRequest30,
+              tpLogFileRequest32,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wstopology", "tpLogFileDisplay")),
@@ -2468,19 +2617,19 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpLogFile
-   * @param tpLogFileRequest32
+   * @param tpLogFileRequest34
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse tpLogFile(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest tpLogFileRequest32)
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest tpLogFileRequest34)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpLogFile?ver_=1.31");
+          _serviceClient.createClient(_operations[16].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpLogFile?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2494,7 +2643,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpLogFileRequest32,
+              tpLogFileRequest34,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpLogFile")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpLogFileRequest"));
@@ -2590,21 +2739,21 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpMachineQuery
-   * @param tpMachineQueryRequest34
+   * @param tpMachineQueryRequest36
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse
       tpMachineQuery(
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryRequest
-              tpMachineQueryRequest34)
+              tpMachineQueryRequest36)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpMachineQuery?ver_=1.31");
+          _serviceClient.createClient(_operations[17].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpMachineQuery?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2618,7 +2767,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpMachineQueryRequest34,
+              tpMachineQueryRequest36,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpMachineQuery")),
               new javax.xml.namespace.QName(
@@ -2715,21 +2864,21 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpTargetClusterQuery
-   * @param tpTargetClusterQueryRequest36
+   * @param tpTargetClusterQueryRequest38
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse
       tpTargetClusterQuery(
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryRequest
-              tpTargetClusterQueryRequest36)
+              tpTargetClusterQueryRequest38)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpTargetClusterQuery?ver_=1.31");
+          _serviceClient.createClient(_operations[18].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpTargetClusterQuery?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2743,7 +2892,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpTargetClusterQueryRequest36,
+              tpTargetClusterQueryRequest38,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wstopology", "tpTargetClusterQuery")),
@@ -2845,20 +2994,20 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpMachineInfo
-   * @param tpMachineInfoRequest38
+   * @param tpMachineInfoRequest40
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse tpMachineInfo(
       org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest
-          tpMachineInfoRequest38)
+          tpMachineInfoRequest40)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpMachineInfo?ver_=1.31");
+          _serviceClient.createClient(_operations[19].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpMachineInfo?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2872,7 +3021,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpMachineInfoRequest38,
+              tpMachineInfoRequest40,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpMachineInfo")),
               new javax.xml.namespace.QName(
@@ -2969,19 +3118,19 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopology#tpXMLFile
-   * @param tpXMLFileRequest40
+   * @param tpXMLFileRequest42
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse tpXMLFile(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest tpXMLFileRequest40)
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest tpXMLFileRequest42)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsTopology/TpXMLFile?ver_=1.31");
+          _serviceClient.createClient(_operations[20].getName());
+      _operationClient.getOptions().setAction("WsTopology/TpXMLFile?ver_=1.32");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2995,7 +3144,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              tpXMLFileRequest40,
+              tpXMLFileRequest42,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "tpXMLFile")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpXMLFileRequest"));
@@ -3101,7 +3250,7 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     }
     return false;
   }
-  // http://10.1.1.180:8888/WsTopology?ver_=1.31
+  // http://eclwatch-65768756c6-9sm8c:8888/WsTopology?ver_=1.32
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest param,
       boolean optimizeContent)
@@ -3339,6 +3488,34 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
     try {
       return param.getOMElement(
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3857,6 +4034,31 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest
+                      .MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
       org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
@@ -4294,6 +4496,28 @@ public class WsTopologyStub extends org.apache.axis2.client.Stub implements WsTo
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse.Factory
+                .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest.Factory
+                .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse.Factory
                 .parse(reader);
         reader.close();
         return result;
