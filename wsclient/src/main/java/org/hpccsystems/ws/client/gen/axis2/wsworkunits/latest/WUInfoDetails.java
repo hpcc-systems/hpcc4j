@@ -727,6 +727,42 @@ public class WUInfoDetails implements org.apache.axis2.databinding.ADBBean {
     this.localIncludeServiceNames = param;
   }
 
+  /** field for IncludeProcesses */
+  protected boolean localIncludeProcesses =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeProcessesTracker = false;
+
+  public boolean isIncludeProcessesSpecified() {
+    return localIncludeProcessesTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeProcesses() {
+    return localIncludeProcesses;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeProcesses
+   */
+  public void setIncludeProcesses(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeProcessesTracker = true;
+
+    this.localIncludeProcesses = param;
+  }
+
   /** field for SuppressResultSchemas */
   protected boolean localSuppressResultSchemas =
       org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
@@ -1158,6 +1194,22 @@ public class WUInfoDetails implements org.apache.axis2.databinding.ADBBean {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
                 localIncludeServiceNames));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeProcessesTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IncludeProcesses", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IncludeProcesses cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeProcesses));
       }
 
       xmlWriter.writeEndElement();
@@ -1826,6 +1878,26 @@ public class WUInfoDetails implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setIncludeServiceNames(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "IncludeProcesses")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludeProcesses" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeProcesses(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();

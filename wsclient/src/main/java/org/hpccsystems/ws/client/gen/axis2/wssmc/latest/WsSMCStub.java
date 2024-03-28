@@ -553,13 +553,13 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   public WsSMCStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/WsSMC?ver_=1.26");
+    this(configurationContext, "http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27");
   }
 
   /** Default Constructor */
   public WsSMCStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/WsSMC?ver_=1.26");
+    this("http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27");
   }
 
   /** Constructor taking the target endpoint */
@@ -583,7 +583,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsSMC/LockQuery?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/LockQuery?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -705,7 +705,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsSMC/PauseQueue?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/PauseQueue?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -827,7 +827,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsSMC/ResumeQueue?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/ResumeQueue?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -949,7 +949,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsSMC/Index?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/Index?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1070,7 +1070,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsSMC/Activity?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/Activity?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1192,7 +1192,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobDown?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/MoveJobDown?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1314,7 +1314,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsSMC/SetBanner?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/SetBanner?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1436,7 +1436,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobBack?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/MoveJobBack?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1560,7 +1560,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsSMC/GetStatusServerInfo?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/GetStatusServerInfo?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1684,7 +1684,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobUp?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/MoveJobUp?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1806,7 +1806,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsSMC/RoxieControlCmd?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/RoxieControlCmd?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1930,7 +1930,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsSMC/Ping?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/Ping?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2051,7 +2051,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsSMC/BrowseResources?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/BrowseResources?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2175,7 +2175,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsSMC/GetBuildInfo?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/GetBuildInfo?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2297,7 +2297,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsSMC/ClearQueue?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/ClearQueue?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2421,7 +2421,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsSMC/GetThorQueueAvailability?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/GetThorQueueAvailability?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2550,7 +2550,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobFront?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/MoveJobFront?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2672,7 +2672,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsSMC/RoxieXrefCmd?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/RoxieXrefCmd?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2794,7 +2794,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsSMC/StopQueue?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/StopQueue?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2916,7 +2916,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsSMC/RemoveJob?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/RemoveJob?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3038,7 +3038,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("WsSMC/SetJobPriority?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/SetJobPriority?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3162,7 +3162,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("WsSMC/NotInCommunityEdition?ver_=1.26");
+      _operationClient.getOptions().setAction("WsSMC/NotInCommunityEdition?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3287,7 +3287,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     }
     return false;
   }
-  // http://10.1.1.180:8888/WsSMC?ver_=1.26
+  // http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {

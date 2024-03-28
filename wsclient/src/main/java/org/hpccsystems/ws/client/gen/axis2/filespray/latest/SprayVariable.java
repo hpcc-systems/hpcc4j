@@ -482,6 +482,42 @@ public class SprayVariable implements org.apache.axis2.databinding.ADBBean {
     this.localDestLogicalName = param;
   }
 
+  /** field for DestNumParts */
+  protected int localDestNumParts =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDestNumPartsTracker = false;
+
+  public boolean isDestNumPartsSpecified() {
+    return localDestNumPartsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return int
+   */
+  public int getDestNumParts() {
+    return localDestNumParts;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param DestNumParts
+   */
+  public void setDestNumParts(int param) {
+
+    // setting primitive attribute tracker to true
+    localDestNumPartsTracker = param != java.lang.Integer.MIN_VALUE;
+
+    this.localDestNumParts = param;
+  }
+
   /** field for Overwrite */
   protected boolean localOverwrite;
 
@@ -1591,6 +1627,21 @@ public class SprayVariable implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
+    if (localDestNumPartsTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "destNumParts", xmlWriter);
+
+      if (localDestNumParts == java.lang.Integer.MIN_VALUE) {
+
+        throw new org.apache.axis2.databinding.ADBException("destNumParts cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDestNumParts));
+      }
+
+      xmlWriter.writeEndElement();
+    }
     if (localOverwriteTracker) {
       namespace = "urn:hpccsystems:ws:filespray";
       writeStartElement(null, namespace, "overwrite", xmlWriter);
@@ -2464,6 +2515,25 @@ public class SprayVariable implements org.apache.axis2.databinding.ADBBean {
 
               object.setDestLogicalName(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "destNumParts")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "destNumParts" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDestNumParts(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
 
               reader.next();
 

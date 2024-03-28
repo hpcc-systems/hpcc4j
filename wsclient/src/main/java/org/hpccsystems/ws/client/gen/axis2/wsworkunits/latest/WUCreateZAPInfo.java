@@ -515,6 +515,40 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
     this.localEmailBody = param;
   }
 
+  /** field for LogFilter */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter localLogFilter;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localLogFilterTracker = false;
+
+  public boolean isLogFilterSpecified() {
+    return localLogFilterTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter getLogFilter() {
+    return localLogFilter;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param LogFilter
+   */
+  public void setLogFilter(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter param) {
+    localLogFilterTracker = param != null;
+
+    this.localLogFilter = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -805,6 +839,13 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
       }
 
       xmlWriter.writeEndElement();
+    }
+    if (localLogFilterTracker) {
+      if (localLogFilter == null) {
+        throw new org.apache.axis2.databinding.ADBException("LogFilter cannot be null!!");
+      }
+      localLogFilter.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "LogFilter"), xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -1333,6 +1374,17 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
 
               object.setEmailBody(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "LogFilter")
+                    .equals(reader.getName())) {
+
+              object.setLogFilter(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter.Factory
+                      .parse(reader));
 
               reader.next();
 

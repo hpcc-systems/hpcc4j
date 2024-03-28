@@ -289,7 +289,8 @@ public class WURecreateQuery implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for TimeLimit */
-  protected org.apache.axis2.databinding.types.NonNegativeInteger localTimeLimit;
+  protected org.apache.axis2.databinding.types.NonNegativeInteger localTimeLimit =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToNonNegativeInteger("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -322,7 +323,8 @@ public class WURecreateQuery implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for WarnTimeLimit */
-  protected org.apache.axis2.databinding.types.NonNegativeInteger localWarnTimeLimit;
+  protected org.apache.axis2.databinding.types.NonNegativeInteger localWarnTimeLimit =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToNonNegativeInteger("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -984,6 +986,72 @@ public class WURecreateQuery implements org.apache.axis2.databinding.ADBBean {
     this.localStopIfFilesCopied = param;
   }
 
+  /** field for DfuPublisherWuid */
+  protected java.lang.String localDfuPublisherWuid;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDfuPublisherWuidTracker = false;
+
+  public boolean isDfuPublisherWuidSpecified() {
+    return localDfuPublisherWuidTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getDfuPublisherWuid() {
+    return localDfuPublisherWuid;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param DfuPublisherWuid
+   */
+  public void setDfuPublisherWuid(java.lang.String param) {
+    localDfuPublisherWuidTracker = param != null;
+
+    this.localDfuPublisherWuid = param;
+  }
+
+  /** field for RemoteStorage */
+  protected java.lang.String localRemoteStorage;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localRemoteStorageTracker = false;
+
+  public boolean isRemoteStorageSpecified() {
+    return localRemoteStorageTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getRemoteStorage() {
+    return localRemoteStorage;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param RemoteStorage
+   */
+  public void setRemoteStorage(java.lang.String param) {
+    localRemoteStorageTracker = param != null;
+
+    this.localRemoteStorage = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -1455,6 +1523,38 @@ public class WURecreateQuery implements org.apache.axis2.databinding.ADBBean {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
                 localStopIfFilesCopied));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localDfuPublisherWuidTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "DfuPublisherWuid", xmlWriter);
+
+      if (localDfuPublisherWuid == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("DfuPublisherWuid cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localDfuPublisherWuid);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localRemoteStorageTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "RemoteStorage", xmlWriter);
+
+      if (localRemoteStorage == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("RemoteStorage cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localRemoteStorage);
       }
 
       xmlWriter.writeEndElement();
@@ -2222,6 +2322,45 @@ public class WURecreateQuery implements org.apache.axis2.databinding.ADBBean {
 
               object.setStopIfFilesCopied(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "DfuPublisherWuid")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DfuPublisherWuid" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDfuPublisherWuid(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "RemoteStorage")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "RemoteStorage" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setRemoteStorage(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

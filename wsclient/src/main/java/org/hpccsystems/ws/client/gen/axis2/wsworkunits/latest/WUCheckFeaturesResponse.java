@@ -223,6 +223,105 @@ public class WUCheckFeaturesResponse implements org.apache.axis2.databinding.ADB
     this.localDeployment = param;
   }
 
+  /** field for BuildVersion */
+  protected java.lang.String localBuildVersion;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localBuildVersionTracker = false;
+
+  public boolean isBuildVersionSpecified() {
+    return localBuildVersionTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getBuildVersion() {
+    return localBuildVersion;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param BuildVersion
+   */
+  public void setBuildVersion(java.lang.String param) {
+    localBuildVersionTracker = param != null;
+
+    this.localBuildVersion = param;
+  }
+
+  /** field for BuildMaturity */
+  protected java.lang.String localBuildMaturity;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localBuildMaturityTracker = false;
+
+  public boolean isBuildMaturitySpecified() {
+    return localBuildMaturityTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getBuildMaturity() {
+    return localBuildMaturity;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param BuildMaturity
+   */
+  public void setBuildMaturity(java.lang.String param) {
+    localBuildMaturityTracker = param != null;
+
+    this.localBuildMaturity = param;
+  }
+
+  /** field for BuildTagTimestamp */
+  protected java.lang.String localBuildTagTimestamp;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localBuildTagTimestampTracker = false;
+
+  public boolean isBuildTagTimestampSpecified() {
+    return localBuildTagTimestampTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getBuildTagTimestamp() {
+    return localBuildTagTimestamp;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param BuildTagTimestamp
+   */
+  public void setBuildTagTimestamp(java.lang.String param) {
+    localBuildTagTimestampTracker = param != null;
+
+    this.localBuildTagTimestamp = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -354,6 +453,54 @@ public class WUCheckFeaturesResponse implements org.apache.axis2.databinding.ADB
       }
       localDeployment.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Deployment"), xmlWriter);
+    }
+    if (localBuildVersionTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "BuildVersion", xmlWriter);
+
+      if (localBuildVersion == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("BuildVersion cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localBuildVersion);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localBuildMaturityTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "BuildMaturity", xmlWriter);
+
+      if (localBuildMaturity == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("BuildMaturity cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localBuildMaturity);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localBuildTagTimestampTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "BuildTagTimestamp", xmlWriter);
+
+      if (localBuildTagTimestamp == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("BuildTagTimestamp cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localBuildTagTimestamp);
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -696,6 +843,64 @@ public class WUCheckFeaturesResponse implements org.apache.axis2.databinding.ADB
               object.setDeployment(
                   org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.DeploymentFeatures.Factory
                       .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "BuildVersion")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "BuildVersion" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setBuildVersion(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "BuildMaturity")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "BuildMaturity" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setBuildMaturity(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "BuildTagTimestamp")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "BuildTagTimestamp" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setBuildTagTimestamp(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
