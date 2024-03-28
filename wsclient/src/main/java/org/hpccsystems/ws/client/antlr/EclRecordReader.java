@@ -396,6 +396,72 @@ public class EclRecordReader extends EclRecordBaseListener
         }
     }
 
+
+    @Override
+    public void enterSetdefaultvalall(EclRecordParser.SetdefaultvalallContext ctx)
+    {
+        String val = ctx.getChild(2).getText();
+        val = val.replace("'", "");
+
+        if (currentfield != null)
+        {
+            currentfield.setColumnValue(val);
+        }
+        else if (currentrec != null)
+        {
+            currentrec.setColumnValue(val);
+        }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * When entering a DEFAULT option for Set Of, set the columnvalue of the current field/rec to its value
+     * </p>
+     */
+    @Override
+    public void enterSetdefaultval(EclRecordParser.SetdefaultvalContext ctx)
+    {
+        String val = ctx.getChild(2).getText();
+        if(val.length() >= 2)
+        {
+            if(val.substring(0, 2).equals("['"))
+            {
+                val = val.substring(2, val.length());
+            }
+        }
+        if(val.length() >= 2)
+        {
+            if(val.substring(val.length()-2, val.length()).equals("']"))
+            {
+                val = val.substring(0, val.length() - 2);
+            }
+        }
+        val = val.replace("']", "");
+
+        if(val.contains("','"))
+        {
+            if(!val.startsWith("'"))
+            {
+                val = "'" + val;
+            }
+            if(!val.endsWith("'"))
+            {
+                val = val + "'";
+            }
+        }
+        if (currentfield != null)
+        {
+            currentfield.setColumnValue(val);
+        }
+        else if (currentrec != null)
+        {
+            currentrec.setColumnValue(val);
+        }
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -407,10 +473,12 @@ public class EclRecordReader extends EclRecordBaseListener
     public void enterXpath(EclRecordParser.XpathContext ctx)
     {
         String val = ctx.getChild(2).getText();
-        if (val.startsWith("'")) {
+        if (val.startsWith("'"))
+        {
             val=val.substring(1);
         }
-        if (val.endsWith("'")) {
+        if (val.endsWith("'"))
+        {
             val=val.substring(0,val.length()-1);
         }
         if (currentfield != null)
