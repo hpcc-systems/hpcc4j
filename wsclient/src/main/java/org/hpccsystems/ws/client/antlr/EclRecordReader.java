@@ -434,8 +434,6 @@ public class EclRecordReader extends EclRecordBaseListener
                 val = val.substring(0, val.length() - 2);
             }
         }
-        //val = val.replaceFirst("(\[')", "");
-        //val = val.replace("['", "");
         val = val.replace("']", "");
 
         if(val.contains("','")){
