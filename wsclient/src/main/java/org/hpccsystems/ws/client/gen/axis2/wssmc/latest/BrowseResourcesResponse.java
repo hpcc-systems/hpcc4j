@@ -80,6 +80,39 @@ public class BrowseResourcesResponse implements org.apache.axis2.databinding.ADB
     this.localPortalURL = param;
   }
 
+  /** field for ESPInstance */
+  protected java.lang.String localESPInstance;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localESPInstanceTracker = false;
+
+  public boolean isESPInstanceSpecified() {
+    return localESPInstanceTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getESPInstance() {
+    return localESPInstance;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ESPInstance
+   */
+  public void setESPInstance(java.lang.String param) {
+    localESPInstanceTracker = param != null;
+
+    this.localESPInstance = param;
+  }
+
   /** field for NetAddress */
   protected java.lang.String localNetAddress;
 
@@ -288,6 +321,22 @@ public class BrowseResourcesResponse implements org.apache.axis2.databinding.ADB
       } else {
 
         xmlWriter.writeCharacters(localPortalURL);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localESPInstanceTracker) {
+      namespace = "urn:hpccsystems:ws:wssmc";
+      writeStartElement(null, namespace, "ESPInstance", xmlWriter);
+
+      if (localESPInstance == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("ESPInstance cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localESPInstance);
       }
 
       xmlWriter.writeEndElement();
@@ -615,6 +664,25 @@ public class BrowseResourcesResponse implements org.apache.axis2.databinding.ADB
               java.lang.String content = reader.getElementText();
 
               object.setPortalURL(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ESPInstance")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ESPInstance" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setESPInstance(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

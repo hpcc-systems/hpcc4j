@@ -147,6 +147,42 @@ public class DFUXRefArrayActionRequest implements org.apache.axis2.databinding.A
     this.localXRefFiles = param;
   }
 
+  /** field for RemoveFromSuperfiles */
+  protected boolean localRemoveFromSuperfiles =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localRemoveFromSuperfilesTracker = false;
+
+  public boolean isRemoveFromSuperfilesSpecified() {
+    return localRemoveFromSuperfilesTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getRemoveFromSuperfiles() {
+    return localRemoveFromSuperfiles;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param RemoveFromSuperfiles
+   */
+  public void setRemoveFromSuperfiles(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localRemoveFromSuperfilesTracker = true;
+
+    this.localRemoveFromSuperfiles = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -251,6 +287,23 @@ public class DFUXRefArrayActionRequest implements org.apache.axis2.databinding.A
       }
       localXRefFiles.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfuxref", "XRefFiles"), xmlWriter);
+    }
+    if (localRemoveFromSuperfilesTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfuxref";
+      writeStartElement(null, namespace, "RemoveFromSuperfiles", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException(
+            "RemoveFromSuperfiles cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localRemoveFromSuperfiles));
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -559,6 +612,26 @@ public class DFUXRefArrayActionRequest implements org.apache.axis2.databinding.A
               object.setXRefFiles(
                   org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.EspStringArray.Factory.parse(
                       reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsdfuxref", "RemoveFromSuperfiles")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "RemoveFromSuperfiles" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setRemoveFromSuperfiles(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

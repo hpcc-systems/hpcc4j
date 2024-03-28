@@ -513,7 +513,8 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for TotalClusterTimeThresholdMilliSec */
-  protected org.apache.axis2.databinding.types.UnsignedInt localTotalClusterTimeThresholdMilliSec;
+  protected org.apache.axis2.databinding.types.UnsignedInt localTotalClusterTimeThresholdMilliSec =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -582,7 +583,8 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for PageSize */
-  protected long localPageSize;
+  protected long localPageSize =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -617,7 +619,8 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for PageStartFrom */
-  protected long localPageStartFrom;
+  protected long localPageStartFrom =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field

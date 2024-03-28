@@ -84,7 +84,8 @@ public class WUInfoResponse implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for AutoRefresh */
-  protected int localAutoRefresh;
+  protected int localAutoRefresh =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
