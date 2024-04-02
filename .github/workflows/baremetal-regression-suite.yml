@@ -73,7 +73,7 @@ jobs:
 
             if gitTagProcessStatus != 0:
                 print('Unable to retrieve latest git tag. With error: ' + str(err))
-                sys.exit(1)
+                return None
 
             latestGitTag = str(output)
 
@@ -82,11 +82,14 @@ jobs:
                 return extractVersion(versionMatch.group(1))
             else:
                 print('Unable to extract version from git tag: ' + latestGitTag)
-                sys.exit(2)
+                return None
 
         def getLatestBranchVersion(branchName):
 
             latestVersion = getTagVersionForCmd("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
+            if latestVersion is None:
+                print('Unable to find latest release version')
+                sys.exit(2)
 
             if branchName == 'master':
                 return [latestVersion[0], latestVersion[1], latestVersion[2]]
@@ -102,7 +105,12 @@ jobs:
 
                 # Get latest release in branch
                 findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
-                return getTagVersionForCmd(findLatestBranchVer)
+                latestBranchVersion = getTagVersionForCmd(findLatestBranchVer)
+                if latestBranchVersion is None:
+                    print('No release found for branch: ' + branchName + ' using latest release: ' + str(latestVersion))
+                    return latestVersion
+                else:
+                    return latestBranchVersion
 
         branch_name = os.environ['BRANCH_NAME']
 
