@@ -1,5 +1,7 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
+import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType;
+
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -54,9 +56,16 @@ public class HPCCQueueTypeWrapper
     }
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType raw = null;
+        if (local_hPCCQueueType.equalsIgnoreCase("ALL"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.All;
+        else if (local_hPCCQueueType.equalsIgnoreCase("Thor"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.Thor;
+        else if (local_hPCCQueueType.equalsIgnoreCase("HThor"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.HThor;
+        else if (local_hPCCQueueType.equalsIgnoreCase("Roxie"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.Roxie;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setHPCCQueueType(hPCCQueueType);
-        return raw;
+        return null;
     }
 
 
