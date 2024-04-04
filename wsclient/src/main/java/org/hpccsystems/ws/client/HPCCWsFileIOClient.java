@@ -232,12 +232,14 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
     }
 
     /**
-     * Creates the HPCC file.
+     * @deprecated Due to change in server behavior
+     *             Use boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile, String lzAddress) instead
+     * Creates an HPCC file.
      *
      * @param fileName
      *            - The target HPCC file name
      * @param targetLandingZone
-     *            - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
+     *            - The LZ name, no longer the netaddress of the LZ. should be fetched from landingzones in filesprayclient
      * @param overwritefile
      *            - If the file exists, should it be overwritten?
      * @return true, if successful
@@ -248,8 +250,36 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      */
     public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile) throws Exception, ArrayOfEspExceptionWrapper
     {
+        return createHPCCFile(fileName, targetLandingZone, overwritefile, null);
+    }
+
+    /**
+     * Creates an HPCC file.
+     *
+     * @param fileName
+     *            - The target HPCC file name
+     * @param targetLandingZone
+     *            - The LZ name, no longer the netaddress of the LZ. should be fetched from landingzones in filesprayclient
+     * @param overwritefile
+     *            - If the file exists, should it be overwritten?
+     * @param lzAddress
+     *            - The Landing zone address
+     * @return true, if successful
+     * @throws java.lang.Exception
+     *             - Caller should handle exception in case of errors
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile, String lzAddress) throws Exception, ArrayOfEspExceptionWrapper
+    {
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
+
+        if (targetLandingZone == null || targetLandingZone.isEmpty())
+            throw new Exception("HPCCWsFileIOClient::createHPCCFile: targetLandingZone required!");
+
+        if (fileName == null || fileName.isEmpty())
+            throw new Exception("HPCCWsFileIOClient::createHPCCFile: fileName required!");
 
         verifyStub(); // Throws exception if stub failed
 
@@ -258,6 +288,8 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         request.setDestDropZone(targetLandingZone);
         request.setDestRelativePath(fileName);
         request.setOverwrite(overwritefile);
+        if (lzAddress != null && !lzAddress.isEmpty())
+            request.setDestNetAddress(lzAddress);
 
         CreateFileResponse resp = null;
         try
@@ -298,13 +330,15 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      *            - At what offset should this be written - Specify 0 if necessary
      * @param uploadchunksize
      *            - Chunksize to upload the data
+     * @param lzAddress
+     *            - The Landing zone address
      * @return true, if successful
      * @throws java.lang.Exception
      *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize)
+    public boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize, String lzAddress)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = true;
@@ -318,6 +352,8 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         request.setDestDropZone(targetLandingZone);
         request.setDestRelativePath(fileName);
         request.setOffset(offset);
+        if (lzAddress != null && !lzAddress.isEmpty())
+            request.setDestNetAddress(lzAddress);
 
         int dataindex = 0;
         int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
@@ -369,6 +405,35 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
     }
 
     /**
+     * @deprecated Due to change in server behavior
+     *             Use boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize, String lzAddress) instead
+     * Write HPCC file data.
+     *
+     * @param data
+     *            - The data to write
+     * @param fileName
+     *            - The target HPCC file to write to
+     * @param targetLandingZone
+     *            - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
+     * @param append
+     *            - Should this data be appended?
+     * @param offset
+     *            - At what offset should this be written - Specify 0 if necessary
+     * @param uploadchunksize
+     *            - Chunksize to upload the data
+     * @return true, if successful
+     * @throws java.lang.Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize)
+            throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return writeHPCCFileData(data, fileName, targetLandingZone, append, offset, uploadchunksize, null);
+    }
+
+    /**
      * Read file data.
      *
      * @param dropzone
@@ -379,19 +444,23 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      *            the datasize
      * @param offset
      *            the offset
+     * @param dropzoneAddress
+     *            the dropzone address (not needed in containerized mode)
      * @return the string
      * @throws java.lang.Exception
      *             the exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String readFileData(String dropzone, String fileName, long datasize, long offset) throws Exception, ArrayOfEspExceptionWrapper
+    public String readFileData(String dropzone, String fileName, long datasize, long offset, String dropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         ReadFileDataRequest readFileDataRequest = new ReadFileDataRequest();
         readFileDataRequest.setDestDropZone(dropzone);
         readFileDataRequest.setDestRelativePath(fileName);
         readFileDataRequest.setDataSize(datasize);
         readFileDataRequest.setOffset(offset);
+        if (dropzoneAddress != null && !dropzoneAddress.isEmpty())
+            readFileDataRequest.setDestNetAddress(dropzoneAddress);
 
         ReadFileDataResponse resp = null;
         try
@@ -425,5 +494,29 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         }
 
         return data;
+    }
+
+    /**
+     * @deprecated Due to change in server behavior
+     *             Use String readFileData(String dropzone, String fileName, long datasize, long offset, String dropzoneAddress) instead
+     * Read file data.
+     *
+     * @param dropzone
+     *            the dropzone
+     * @param fileName
+     *            the file name
+     * @param datasize
+     *            the datasize
+     * @param offset
+     *            the offset
+     * @return the string
+     * @throws java.lang.Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public String readFileData(String dropzone, String fileName, long datasize, long offset) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return readFileData(dropzone, fileName, datasize, offset, null);
     }
 }
