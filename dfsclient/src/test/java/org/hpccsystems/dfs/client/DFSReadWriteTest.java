@@ -92,25 +92,43 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void nullCharTests() throws Exception
     {
         // Unicode
+        boolean unicodePassed = true;
         {
             FieldDef recordDef = null;
             {
                 FieldDef[] fieldDefs = new FieldDef[2];
                 fieldDefs[0] = new FieldDef("uni", FieldType.STRING, "STRING", 100, false, false, HpccSrcType.UTF16LE, new FieldDef[0]);
-                fieldDefs[1] = new FieldDef("fixedUni", FieldType.STRING, "STRING", 100, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
+                fieldDefs[1] = new FieldDef("fixedUni", FieldType.STRING, "STRING", 200, true, false, HpccSrcType.UTF16LE, new FieldDef[0]);
 
                 recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
             }
 
             List<HPCCRecord> records = new ArrayList<HPCCRecord>();
             int maxUTF16BMPChar = Character.MAX_CODE_POINT;
-            for (int i = 0; i < maxUTF16BMPChar; i++) {
+            for (int i = 0; i < maxUTF16BMPChar; i++)
+            {
+
                 String strMidEOS = "";
-                for (int j = 0; j < 98; j++, i++) {
-                    if (j == 50) {
+                for (int j = 0; j < 98; j++, i++)
+                {
+                    if (!Character.isValidCodePoint(i) || !Character.isDefined(i))
+                    {
+                        continue;
+                    }
+
+                    char[] chars = Character.toChars(i);
+                    if (Character.isSurrogate(chars[0]))
+                    {
+                        continue;
+                    }
+
+                    if (j == 50 && strMidEOS.length() > 0)
+                    {
                         strMidEOS += "\0";
                     }
-                    strMidEOS += Character.toString((char) i);
+
+                    String charStr = new String(chars);
+                    strMidEOS += charStr;
                 }
 
                 Object[] fields = {strMidEOS, strMidEOS};
@@ -123,17 +141,20 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
             List<HPCCRecord> readRecords = readFile(file, 10000, false, false, BinaryRecordReader.TRIM_STRINGS);
 
-            for (int i = 0; i < records.size(); i++) {
+            for (int i = 0; i < records.size(); i++)
+            {
                 HPCCRecord record = records.get(i);
                 HPCCRecord readRecord = readRecords.get(i);
                 if (readRecord.equals(record) == false)
                 {
                     System.out.println("Record: " + i + " did not match\n" + record + "\n" + readRecord);
+                    unicodePassed = false;
                 }
             }
         }
 
         // SBC / ASCII
+        boolean sbcPassed = true;
         {
             FieldDef recordDef = null;
             {
@@ -145,13 +166,16 @@ public class DFSReadWriteTest extends BaseRemoteTest
             }
 
             List<HPCCRecord> records = new ArrayList<HPCCRecord>();
-            for (int i = 0; i < 255; i++) {
+            for (int i = 0; i < 255; i++)
+            {
                 String strMidEOS = "";
-                for (int j = 0; j < 9; j++, i++) {
-                    if (j == 5) {
+                for (int j = 0; j < 9; j++, i++)
+                {
+                    if (j == 5)
+                    {
                         strMidEOS += "\0";
                     }
-                    strMidEOS += Character.toString((char) i);
+                    strMidEOS += new String(Character.toChars(j));
                 }
 
                 Object[] fields = {strMidEOS, strMidEOS};
@@ -164,15 +188,20 @@ public class DFSReadWriteTest extends BaseRemoteTest
             HPCCFile file = new HPCCFile(fileName, connString , hpccUser, hpccPass);
             List<HPCCRecord> readRecords = readFile(file, 10000, false, false, BinaryRecordReader.TRIM_STRINGS);
 
-            for (int i = 0; i < records.size(); i++) {
+            for (int i = 0; i < records.size(); i++)
+            {
                 HPCCRecord record = records.get(i);
                 HPCCRecord readRecord = readRecords.get(i);
                 if (readRecord.equals(record) == false)
                 {
                     System.out.println("Record: " + i + " did not match\n" + record + "\n" + readRecord);
+                    sbcPassed = false;
                 }
             }
         }
+
+        assertTrue("Unicode EOS character test failed. See mismatches above.", unicodePassed);
+        assertTrue("Single byte EOS character test failed. See mismatches above.", sbcPassed);
     }
 
     @Test
