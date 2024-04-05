@@ -43,14 +43,24 @@ import static org.junit.Assume.assumeFalse;
 public class WSFileIOClientTest extends BaseRemoteTest
 {
     private final static HPCCWsFileIOClient client = wsclient.getWsFileIOClient();
-
+    private static boolean isContainerized = false;
     private final static String testfilename = System.getProperty("lztestfile", "myfilename.txt");
-    private final static  String targetLZ = System.getProperty("lzname", "localhost");
+    private final static String targetLZ = System.getProperty("lzname", "mydropzone"); //targetLZ accepted the address "localhost" once upon a time.
     private final static String targetLZPath = System.getProperty("lzpath", "/var/lib/HPCCSystems/mydropzone");
-    private final static String HPCC_30117 = System.getProperty("HPCC30117", "fixed");
+    private final static String targetLZAddress = System.getProperty("lzaddress", ".");
 
     static
     {
+        try
+        {
+            if (client.isTargetHPCCContainerized())
+                isContainerized = true;
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not determine if target service is containerized, default: 'false'");
+        }
+
         if (System.getProperty("lztestfile") == null)
             System.out.println("lztestfile not provided - defaulting to myfilename.txt");
 
@@ -60,10 +70,8 @@ public class WSFileIOClientTest extends BaseRemoteTest
         if (System.getProperty("lzpath") == null)
             System.out.println("lzpath not provided - defaulting to /var/lib/HPCCSystems/mydropzone");
 
-        if (System.getProperty("HPCC30117") == null)
-            System.out.println("HPCC30117 status not provided - defaulting to fixed");
-        else
-            System.out.println("HPCC30117 status: '" + HPCC_30117 + "'");
+        if (System.getProperty("lzaddress") == null)
+            System.out.println("lzaddress not provided - defaulting to '.'");
     }
 
     @Test
@@ -71,9 +79,9 @@ public class WSFileIOClientTest extends BaseRemoteTest
     {
         String lzfile=System.currentTimeMillis() + "_csvtest.csv";
         String hpccfilename="temp::" + lzfile;
-        client.createHPCCFile(lzfile, targetLZ, true);
+        client.createHPCCFile(lzfile, targetLZ, true, isContainerized ? null : targetLZAddress);
         byte[] data = "Product,SKU,Color\r\nBike,1234,Blue\r\nCar,2345,Red\r\n".getBytes();
-        client.writeHPCCFileData(data, lzfile, targetLZ, true, 0, 20);
+        client.writeHPCCFileData(data, lzfile, targetLZ, true, 0, 20, isContainerized ? null : targetLZAddress);
         try
         {
             System.out.println("Starting file spray.");
@@ -152,15 +160,33 @@ public class WSFileIOClientTest extends BaseRemoteTest
     @Test
     public void AcreateHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
-        System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
-        Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true));
+        if (isContainerized)
+        {
+            System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
+            System.out.println("Target HPCC is containerized, not providing targetLZAddress");
+            Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true, null));
+        }
+        else
+        {
+            System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' targetLZaddress: '" + targetLZAddress + "' on HPCC: '" + super.connString +"'");
+            System.out.println("Target HPCC is NOT containerized, providing targetLZAddress");
+            Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true, targetLZAddress));
+        }
     }
 
     @Test
     public void BwriteHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
+        System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
-        Assert.assertTrue(client.writeHPCCFileData(data, testfilename, targetLZ, true, 0, 20));
+        if (isContainerized)
+        {
+            Assert.assertTrue(client.writeHPCCFileData(data, testfilename, targetLZ, true, 0, 20, null));
+        }
+        else
+        {
+            Assert.assertTrue(client.writeHPCCFileData(data, testfilename, targetLZ, true, 0, 20, targetLZAddress));
+        }
     }
 
     @Test
@@ -168,7 +194,15 @@ public class WSFileIOClientTest extends BaseRemoteTest
     {
         System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
-        String response = client.readFileData(targetLZ, testfilename, data.length, 0);
+        String response = null;
+        if (isContainerized)
+        {
+             response = client.readFileData(targetLZ, testfilename, data.length, 0, null);
+        }
+        else
+        {
+             response = client.readFileData(targetLZ, testfilename, data.length, 0, targetLZAddress);
+        }
         Assert.assertNotNull(response);
         Assert.assertArrayEquals(data, response.getBytes());
     }
