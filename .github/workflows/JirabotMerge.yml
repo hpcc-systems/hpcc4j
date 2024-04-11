@@ -30,6 +30,7 @@ jobs:
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade atlassian-python-api
           python -m pip install --upgrade jira
       - name: "Checkout"
         uses: actions/checkout@v2
@@ -56,7 +57,7 @@ jobs:
             import subprocess
             import time
             import sys
-            from jira.client import JIRA
+            from atlassian.jira import Jira
 
             def extractVersion(versionStr):
                 parts = versionStr.split('.')
@@ -131,13 +132,13 @@ jobs:
 
                 for fixVersion in fixVersions:
                     alreadyHasFixVersion = False
-                    versions = jira.project_versions('JAPI')
+                    versions = jira.get_project_versions('HPCC4J')
                     for v in versions:
-                        if v.name == fixVersion:
+                        if v['name'] == fixVersion:
                             alreadyHasFixVersion = True
 
                     if not alreadyHasFixVersion:
-                        jira.create_version(name=fixVersion, project='JAPI', description=fixVersion)
+                        jira.add_version(fixVersion, 'HPCC4J', fixVersion)
 
                 return fixVersions
 
@@ -146,42 +147,45 @@ jobs:
 
                 versionsToAdd = []
 
+                issueName = issue['key']
+                issueFields = issue['fields']
+
                 for addedVersion in fixVersions:
                     alreadyHasFixVersion = False
-                    for v in issue.fields.fixVersions:
-                        if v.name == addedVersion:
+                    for v in issueFields['fixVersions']:
+                        if v['name'] == addedVersion:
                             alreadyHasFixVersion = True
                             break
                     if not alreadyHasFixVersion:
                         versionsToAdd.append(addedVersion)
 
-                versions = jira.project_versions('JAPI')
+                versions = jira.get_project_versions('HPCC4J')
                 updatedVersionList = []
-                for v in issue.fields.fixVersions:
-                    updatedVersionList.append({'id' : v.id})
+                for v in issueFields['fixVersions']:
+                    updatedVersionList.append({'id' : v['id']})
 
                 for fixVersionName in versionsToAdd:
                     fixVersion = None
                     for v in versions:
-                        if v.name == fixVersionName:
+                        if v['name'] == fixVersionName:
                             fixVersion = v
                             break
 
                     if fixVersion:
-                        updatedVersionList.append({'id' : fixVersion.id})
+                        updatedVersionList.append({'id' : fixVersion['id']})
                         result += "Added fix version: " + fixVersionName + "\n"
                     else:
                         result += "Error: Unable to find fix version: " + fixVersionName + "\n"
 
                 if len(versionsToAdd) > 0:
-                    issue.update(fields={'fixVersions': updatedVersionList})
+                    jira.update_issue_field(issueName, {'fixVersions': updatedVersionList})
                 else:
                     result += "Fix versions already added.\n"
 
-                statusName = str(issue.fields.status)
+                statusName = str(issueFields['status']['name'])
                 if statusName != 'Resolved':
-                    transition = 'Resolve Issue'
-                    jira.transition_issue(issue, transition)
+                    transition = 'Accept Pull Request'
+                    jira.issue_transition(issue_name, transition)
                     result += "Workflow Transition: 'Resolve issue'\n"
 
                 return result
@@ -203,23 +207,24 @@ jobs:
             issuem = re.search("(HPCC4J|JAPI)-[0-9]+", title)
             if issuem:
                 nameCorrectionPattern = re.compile("hpcc4j", re.IGNORECASE)
-                issue_name = nameCorrectionPattern.sub("JAPI",issuem.group())
+                issue_name = nameCorrectionPattern.sub("HPCC4J",issuem.group())
 
                 options = {
                     'server': jira_url
                 }
 
-                jira = JIRA(options=options, basic_auth=(jirabot_user, jirabot_pass))
-                issue = jira.issue(issue_name)
-                if issue is None:
-                    print('Unable to find issue with name: ' + issue_name)
-                    sys.exit(1)
+                jira = Jira(url=jira_url, username=jirabot_user, password=jirabot_pass, cloud=True)
+
+                if not jira.issue_exists(issue_name):
+                    sys.exit('Error: Unable to find Jira issue: ' + issue_name)
+                else:
+                    issue = jira.issue(issue_name)
 
                 result = 'Jirabot Action Result:\n'
 
                 fixVersions = generateFixVersionList(jira, branch_name)
                 result += resolveIssue(jira, issue, fixVersions)
-                jira.add_comment(issue, result)
+                jira.issue_add_comment(issue_name, result)
             else:
                 print('Unable to find Jira issue name in title')
 
