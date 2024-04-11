@@ -115,7 +115,7 @@ jobs:
             issuem = re.search("(HPCC4J|JAPI)-[0-9]+", title)
             if issuem:
                 nameCorrectionPattern = re.compile("hpcc4j", re.IGNORECASE)
-                issue_name = nameCorrectionPattern.sub("JAPI",issuem.group())
+                issue_name = nameCorrectionPattern.sub("HPCC4J",issuem.group())
 
                 userDict = json.loads(os.environ['GHUB_JIRA_USER_MAP'])
                 if not isinstance(userDict, dict):
