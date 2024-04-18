@@ -328,6 +328,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      */
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS) throws Exception
     {
+
         this.recordDefinition = rd;
         this.projectedRecordDefinition = pRd;
         this.inFetchingMode = isFetching;
@@ -371,6 +372,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.streamPos = restartInfo.streamPos;
             this.streamPosOfFetchStart = this.streamPos;
         }
+        String prefix = "RowServiceInputStream constructor, file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         if (inFetchingMode == false)
         {
@@ -389,7 +391,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (Exception e)
                 {
-                    prefetchException = new HpccFileException("Error while batch fetch warm starting: " + e.getMessage());
+                    prefetchException = new HpccFileException(prefix + "Error while batch fetch warm starting: " + e.getMessage());
                 }
 
                 blockingRequestFinished.set(true);
@@ -734,6 +736,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         {
             return -1;
         }
+        String prefix = "RowServiceInputStream.startFetch(), file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+
 
         //------------------------------------------------------------------------------
         // If we haven't made the connection active, activate it now and send the
@@ -779,7 +783,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    prefetchException = new HpccFileException("Failure sending read ahead transaction", e);
+                    prefetchException = new HpccFileException(prefix + "Failure sending read ahead transaction:" + e.getMessage(), e);
                     try
                     {
                         close();
@@ -814,7 +818,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
             if (response.errorCode != RFCCodes.RFCStreamNoError)
             {
-                prefetchException = new HpccFileException(response.errorMessage);
+                prefetchException = new HpccFileException(prefix + response.errorMessage);
                 try
                 {
                     close();
@@ -834,7 +838,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    prefetchException = new HpccFileException(e.getMessage());
+                    prefetchException = new HpccFileException(prefix + "response length was < 0; error closing file:" + e.getMessage());
                 }
                 return -1;
             }
@@ -858,13 +862,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    prefetchException = new HpccFileException("Failed on remote read read retry", e);
+                    prefetchException = new HpccFileException(prefix + "Failed on remote read read retry:" + e.getMessage(), e);
                     return -1;
                 }
             }
             else if (this.handle == 0)
             {
-                prefetchException = new HpccFileException("Read retry failed");
+                prefetchException = new HpccFileException(prefix + "response.handle was null, Read retry failed");
                 try
                 {
                     close();
@@ -898,7 +902,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         catch (IOException e)
         {
-            prefetchException = new HpccFileException("Error during read block", e);
+            prefetchException = new HpccFileException(prefix + "Error during read block:" + e.getMessage(), e);
             try
             {
                 close();
@@ -911,6 +915,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void readDataInFetch()
     {
+        String prefix = "RowServiceInputStream.readDataInFetch(), file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
         if (this.closed.get())
         {
             return;
@@ -948,7 +953,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 bytesToRead = this.dis.available();
                 if (bytesToRead < 0)
                 {
-                    throw new IOException("Encountered unexpected end of stream mid fetch.");
+                    throw new IOException(prefix + "Encountered unexpected end of stream mid fetch, this.dis.available() returned " + bytesToRead + " bytes.");
                 }
 
                 // Either due to a bug in the JVM or due to a design issue
@@ -966,7 +971,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             }
             catch (IOException e)
             {
-                prefetchException = new HpccFileException("Error during read block", e);
+                prefetchException = new HpccFileException(prefix + "Error during read block:" + e.getMessage(), e);
                 try
                 {
                     close();
@@ -990,6 +995,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void finishFetch()
     {
+        String prefix = "RowServiceInputStream.finishFetch(), file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
         if (this.closed.get())
         {
             return;
@@ -1026,7 +1032,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         catch (IOException e)
         {
-            prefetchException = new HpccFileException("Error during read block", e);
+            prefetchException = new HpccFileException(prefix + "Error during finish request read block: " + e.getMessage(), e);
             try
             {
                 close();
@@ -1053,7 +1059,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             }
             catch (IOException e)
             {
-                prefetchException = new HpccFileException("Failure sending read ahead transaction", e);
+                prefetchException = new HpccFileException(prefix + "Failure sending read ahead transaction:" + e.getMessage(), e);
                 try
                 {
                     close();
@@ -1203,12 +1209,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     @Override
     public int available() throws IOException
     {
+        String prefix = "RowServiceInputStream.available(), file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+
         // Do the check for closed first here to avoid data races
         if (this.closed.get())
         {
             if (this.prefetchException != null)
             {
-                throw new IOException("Prefetch thread exited early exception.", this.prefetchException);
+                throw new IOException("Prefetch thread exited early exception:" + prefetchException.getMessage(), this.prefetchException);
             }
 
             int bufferLen = this.readBufferDataLen.get();
@@ -1216,7 +1224,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             if (availBytes == 0)
             {
                 // this.bufferWriteMutex.release();
-                throw new IOException("End of input stream.");
+                throw new IOException(prefix + "End of input stream, bufferLen:" + bufferLen + ", this.readPos:" + this.readPos + ", availableBytes=0");
             }
         }
 
@@ -1338,7 +1346,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage());
+            throw new IOException(this.prefetchException.getMessage(),this.prefetchException);
         }
 
         // We are waiting on a single byte so hot loop
@@ -1426,7 +1434,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage());
+            throw new IOException(this.prefetchException.getMessage(),prefetchException);
         }
 
         int available = 0;
@@ -1466,7 +1474,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage());
+            throw new IOException(this.prefetchException.getMessage(),prefetchException);
         }
 
         if (this.markPos < 0)
@@ -1490,7 +1498,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage());
+            throw new IOException(this.prefetchException.getMessage(),prefetchException);
         }
 
         // Have to read the data if we need to skip
@@ -1550,6 +1558,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         this.active.set(false);
         this.handle = 0;
+        String prefix = "RowServiceInputStream.makeActive, file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         boolean needsRetry = false;
         do
@@ -1597,11 +1606,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.net.UnknownHostException e)
                 {
-                    throw new HpccFileException("Bad file part IP address or host name: " + this.getIP(), e);
+                    throw new HpccFileException(prefix +  "Bad file part IP address or host name: " + e.getMessage(),e);
                 }
                 catch (java.io.IOException e)
                 {
-                    throw new HpccFileException(e);
+                    throw new HpccFileException(prefix + " error making part active:" + e.getMessage(),e);
                 }
 
                 try
@@ -1611,7 +1620,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.io.IOException e)
                 {
-                    throw new HpccFileException("Failed to create streams", e);
+                    throw new HpccFileException(prefix + " Failed to make streams for datapart:" + e.getMessage(), e);
                 }
 
                 //------------------------------------------------------------------------------
@@ -1629,7 +1638,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    throw new HpccFileException("Failed on initial remote read trans", e);
+                    throw new HpccFileException(prefix+ " Failed on initial remote read transfer: " + e.getMessage(),e);
                 }
 
                 RowServiceResponse response = readResponse();
@@ -1648,7 +1657,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     }
                     catch (IOException e)
                     {
-                        throw new HpccFileException("Error while attempting to read version response.", e);
+                        throw new HpccFileException(prefix + "Error while attempting to read version response:" + e.getMessage(), e);
                     }
 
                     rowServiceVersion = new String(versionBytes, HPCCCharSet);
@@ -1678,7 +1687,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    throw new HpccFileException("Failed on initial remote read read trans", e);
+                    throw new HpccFileException(prefix + " Failed on initial remote read read trans:" + e.getMessage(), e);
                 }
 
                 if (CompileTimeConstants.PROFILE_CODE)
@@ -1697,7 +1706,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 needsRetry = true;
                 if (!setNextFilePartCopy())
                 {
-                    throw new HpccFileException("Unsuccessfuly attempted to connect to all file part copies", e);
+                    throw new HpccFileException(prefix + " Unsuccessfuly attempted to connect to all file part copies", e);
                 }
             }
         } while (needsRetry);
@@ -2111,6 +2120,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void sendCloseFileRequest() throws IOException
     {
+        String prefix = "RowServiceInputStream.sendCloseFileRequest(), file part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+
         if (useOldProtocol)
         {
             return;
@@ -2129,7 +2140,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         catch (IOException e)
         {
-            throw new IOException("Failed on close file with error: ", e);
+            throw new IOException(prefix + " Failed on close file with error: " + e.getMessage(), e);
         }
 
         try
@@ -2138,13 +2149,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         catch (HpccFileException e)
         {
-            throw new IOException("Failed to close file. Unable to read response with error: ", e);
+            throw new IOException(prefix + "Failed to close file. Unable to read response with error: " + e.getMessage(), e);
         }
     }
 
     private RowServiceResponse readResponse() throws HpccFileException
     {
         RowServiceResponse response = new RowServiceResponse();
+        String prefix="RowServiceInputStream.readResponse(): , file part " + dataPart.getThisPart() + " on IP " + getIP() + ": ";
         try
         {
             response.len = dis.readInt();
@@ -2200,7 +2212,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
             if (response.len < 4)
             {
-                throw new HpccFileException("Early data termination, no handle");
+                throw new HpccFileException(prefix + "Early data termination, no handle. response length < 4");
             }
 
             response.handle = dis.readInt();
@@ -2208,7 +2220,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         catch (IOException e)
         {
-            throw new HpccFileException("Error while attempting to read row service response: ", e);
+            throw new HpccFileException(prefix + "Error while attempting to read row service response: " + e.getMessage(), e);
         }
 
         return response;
