@@ -319,7 +319,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         }
         catch (RemoteException e)
         {
-            throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered RemoteException.", e);
+            throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered RemoteException for topology kind " + kind, e);
         }
 
         if (response == null)
