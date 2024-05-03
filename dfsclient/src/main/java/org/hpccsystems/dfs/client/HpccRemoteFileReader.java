@@ -38,12 +38,20 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     private boolean               handlePrefetch    = true;
     private boolean               isClosed          = false;
     private boolean               canReadNext       = true;
+    private boolean               createPrefetchThread = true;
+    private int                   retryCount        = 0;
+    private int                   connectTimeout    = 0;
+    private int                   readSizeKB        = 0;
+    private int                   limit             = -1;
+    private int                   maxReadRetries    = DEFAULT_READ_RETRIES;
+    private int                   socketOpTimeoutMs = 0;
     private long                  openTimeMs        = 0;
     private long                  recordsRead       = 0;
 
     public static final int    NO_RECORD_LIMIT                  = -1;
     public static final int    DEFAULT_READ_SIZE_OPTION         = -1;
     public static final int    DEFAULT_CONNECT_TIMEOUT_OPTION   = -1;
+    public static final int    DEFAULT_READ_RETRIES             = 3;
 
     public static class FileReadResumeInfo
     {
@@ -189,18 +197,23 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     {
         this.handlePrefetch = createPrefetchThread;
         this.originalRecordDef = originalRD;
-        if (this.originalRecordDef == null)
-        {
-            throw new Exception("HpccRemoteFileReader: Original record definition is null.");
-        }
+        this.dataPartition = dp;
+        this.recordBuilder = recBuilder;
+        this.readSizeKB = readSizeKB;
+        this.limit = limit;
+        this.createPrefetchThread = createPrefetchThread;
+        this.socketOpTimeoutMs = socketOpTimeoutMs;
 
         if (connectTimeout < 1)
         {
             connectTimeout = RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS;
         }
+        this.connectTimeout = connectTimeout;
 
-        this.dataPartition = dp;
-        this.recordBuilder = recBuilder;
+        if (this.originalRecordDef == null)
+        {
+            throw new Exception("HpccRemoteFileReader: Provided original record definition is null, original record definition is required.");
+        }
 
         FieldDef projectedRecordDefinition = recBuilder.getRecordDefinition();
         if (projectedRecordDefinition == null)
@@ -244,6 +257,61 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                 + " projected record definition:\n"
                 + RecordDefinitionTranslator.toJsonRecord(projectedRecordDefinition));
         openTimeMs = System.currentTimeMillis();
+    }
+
+    private boolean retryRead()
+    {
+        if (retryCount < maxReadRetries)
+        {
+            log.info("Retrying read for " + this.dataPartition.toString() + " retry count: " + retryCount);
+            retryCount++;
+
+            FileReadResumeInfo resumeInfo = getFileReadResumeInfo();
+            RowServiceInputStream.RestartInformation restartInfo = new RowServiceInputStream.RestartInformation();
+            restartInfo.streamPos = resumeInfo.inputStreamPos;
+            restartInfo.tokenBin = resumeInfo.tokenBin;
+
+            try
+            {
+                this.inputStream.close();
+            }
+            catch (Exception e) {}
+
+            try
+            {
+                this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef,
+                                                            this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
+                                                            this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs);
+                long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
+                if (bytesToSkip < 0)
+                {
+                    throw new Exception("Unable to restart read stream, unexpected stream position in record reader.");
+                }
+                this.inputStream.skip(bytesToSkip);
+
+                this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos);
+                this.binaryRecordReader.initialize(this.recordBuilder);
+            }
+            catch (Exception e)
+            {
+                log.error("Failed to retry read for " + this.dataPartition.toString() + " " + e.getMessage(), e);
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Sets the maximum number of times to retry a read operation before failing.
+     *
+     * @param maxReadRetries maximum number of read retries
+     */
+    public void setMaxReadRetries(int maxReadRetries)
+    {
+        this.maxReadRetries = maxReadRetries;
     }
 
     /**
@@ -363,11 +431,16 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         }
         catch (HpccFileException e)
         {
-            canReadNext = false;
-            log.error("Read failure for " + this.dataPartition.toString());
-            java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
-            exception.initCause(e);
-            throw exception;
+            if (!retryRead())
+            {
+                canReadNext = false;
+                log.error("Read failure for " + this.dataPartition.toString(), e);
+                java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
+                exception.initCause(e);
+                throw exception;
+            }
+
+            return hasNext();
         }
 
         return canReadNext;
@@ -393,10 +466,15 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         }
         catch (HpccFileException e)
         {
-            log.error("Read failure for " + this.dataPartition.toString() + " " + e.getMessage());
-            java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
-            exception.initCause(e);
-            throw exception;
+            if (!retryRead())
+            {
+                log.error("Read failure for " + this.dataPartition.toString() + " " + e.getMessage(), e);
+                java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
+                exception.initCause(e);
+                throw exception;
+            }
+
+            return next();
         }
 
         recordsRead++;
