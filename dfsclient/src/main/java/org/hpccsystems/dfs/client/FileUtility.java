@@ -64,6 +64,7 @@ public class FileUtility
     private static final int DEFAULT_SPLIT_TABLE_SIZE = 128;
 
     private static final int NUM_DEFAULT_THREADS = 4;
+    static private final int DEFAULT_ACCESS_EXPIRY_SECONDS = 120;
 
     private static class TaskContext
     {
@@ -425,6 +426,7 @@ public class FileUtility
         options.addOption("user", true, "Specifies the username used to connect. Defaults to null.");
         options.addOption("pass", true, "Specifies the password used to connect. Defaults to null.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
+        options.addOption("access_expiry_seconds", true, "Access token expiration seconds.");
 
         options.addOption(Option.builder("file_parts")
                                 .argName("_file_parts")
@@ -633,11 +635,6 @@ public class FileUtility
 
     private static void executeTasks(Runnable[] tasks, int numThreads) throws Exception
     {
-        if (tasks.length > numThreads)
-        {
-            numThreads = tasks.length;
-        }
-
         int numTasksPerThread = tasks.length / numThreads;
         int numResidualTasks = tasks.length % numThreads;
 
@@ -686,16 +683,15 @@ public class FileUtility
         {
             final int taskIndex = i;
             final DataPartition filePart = fileParts[taskIndex];
-            final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(filePart, recordDef, new HPCCRecordBuilder(recordDef));
 
             tasks[taskIndex] = new Runnable()
             {
-                HpccRemoteFileReader<HPCCRecord> fileReader = filePartReader;
-
                 public void run()
                 {
                     try
                     {
+                        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(filePart, recordDef, new HPCCRecordBuilder(recordDef));
+
                         while (fileReader.hasNext())
                         {
                             HPCCRecord record = fileReader.next();
@@ -1250,6 +1246,18 @@ public class FileUtility
                               + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
         }
 
+        int expirySeconds = DEFAULT_ACCESS_EXPIRY_SECONDS;
+        String expirySecondsStr = cmd.getOptionValue("access_expiry_seconds", "" + expirySeconds);
+        try
+        {
+            expirySeconds = Integer.parseInt(expirySecondsStr);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Invalid option value for access_expiry_seconds: "
+                              + numThreadsStr + ", must be an integer. Defaulting to: " + DEFAULT_ACCESS_EXPIRY_SECONDS + "s.");
+        }
+
         String formatStr = cmd.getOptionValue("format");
         if (formatStr == null)
         {
@@ -1277,6 +1285,7 @@ public class FileUtility
         try
         {
             file = new HPCCFile(datasetName, connString, user, pass);
+            file.setFileAccessExpirySecs(expirySeconds);
         }
         catch (Exception e)
         {
