@@ -151,6 +151,10 @@ jobs:
         sudo dpkg -i hpccsystems-platform-community_*.deb
         sudo apt-get -f install -y
 
+    - name: Setup Certificates
+      run: |
+        sudo /opt/HPCCSystems/etc/init.d/setupPKI
+
     - name: Start HPCC-Platform
       shell: "bash"
       run: |
