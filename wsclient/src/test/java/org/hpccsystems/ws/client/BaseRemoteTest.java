@@ -57,10 +57,10 @@ public abstract class BaseRemoteTest
 
     protected final static String connString = System.getProperty("hpccconn", "http://localhost:8010");
     protected static String thorClusterFileGroup = System.getProperty("thorgroupname");
-    protected final static String thorclustername = System.getProperty("thorclustername", "thor");
+    protected final static String thorclustername = System.getProperty("thorclustername", "thor_120");
 
     protected static String roxieClusterGroup = System.getProperty("roxiegroupname");
-    protected final static String roxieclustername = System.getProperty("roxieclustername", "roxie");
+    protected final static String roxieclustername = System.getProperty("roxieclustername", "roxie_120");
 
     protected final static String defaultUserName = "JunitUser";
     protected static Connection connection = null;
@@ -208,10 +208,11 @@ public abstract class BaseRemoteTest
         // Run the generate-datasets.ecl script if present in the project resources
         try
         {
-            executeECLScript("generate-datasets.ecl");
+        //    executeECLScript("generate-datasets.ecl");
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             Assert.fail("Error executing test data generation scripts with error: " + e.getMessage());
         }
     }

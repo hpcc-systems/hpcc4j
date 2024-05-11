@@ -415,8 +415,7 @@ public class DataPartition implements Serializable
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getThisPart());
-        sb.append(" copy locations: {");
+        sb.append("part ").append(this.getThisPart()).append(", copy locations: {");
         for (int copyindex = 0; copyindex < getCopyCount(); copyindex++)
         {
             if (copyindex > 0) sb.append(", ");
