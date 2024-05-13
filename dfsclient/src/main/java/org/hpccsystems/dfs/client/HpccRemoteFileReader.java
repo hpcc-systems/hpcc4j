@@ -193,7 +193,36 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @throws Exception
      * 			  general exception
      */
-    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs) throws Exception
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs) throws Exception {
+        this(dp, originalRD, recBuilder, connectTimeout, limit, createPrefetchThread, readSizeKB, resumeInfo, RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS,null);
+    }
+    /**
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     *
+     * @param dp
+     *            the part of the file, name and location
+     * @param originalRD
+     *            the record defintion for the dataset
+     * @param recBuilder
+     *            the IRecordBuilder used to construct records
+     * @param connectTimeout
+     *            the connection timeout in milliseconds, -1 for default
+     * @param limit
+     *            the maximum number of records to read from the provided data partition, -1 specifies no limit
+     * @param createPrefetchThread
+     *            the input stream should create and manage prefetching on its own thread. If false prefetch needs to be called on another thread periodically.
+     * @param readSizeKB
+     *            read request size in KB, -1 specifies use default value
+     * @param resumeInfo
+     *            FileReadeResumeInfo data required to restart a read from a particular point in a file, null for reading from start
+     * @param socketOpTimeoutMs
+     *            Socket (read / write) operation timeout in milliseconds
+     * @param fileName
+     *            filename to read
+     * @throws Exception
+     * 			  general exception
+     */
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs, String fileName) throws Exception
     {
         this.handlePrefetch = createPrefetchThread;
         this.originalRecordDef = originalRD;
@@ -223,7 +252,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
         if (resumeInfo == null)
         {
-            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, null, false, socketOpTimeoutMs);
+            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, null, false, socketOpTimeoutMs, fileName);
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
             this.binaryRecordReader.initialize(this.recordBuilder);
 
@@ -280,8 +309,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             try
             {
                 this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef,
-                                                            this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
-                                                            this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs);
+                        this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
+                        this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs);
                 long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
                 if (bytesToSkip < 0)
                 {
@@ -434,7 +463,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             if (!retryRead())
             {
                 canReadNext = false;
-                log.error("Read failure for " + this.dataPartition.toString(), e);
+                log.error("Read failure for " + this.dataPartition.toString() +":" + e.getMessage(),e);
                 java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
                 exception.initCause(e);
                 throw exception;
