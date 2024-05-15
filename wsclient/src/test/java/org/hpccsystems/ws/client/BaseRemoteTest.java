@@ -17,9 +17,6 @@
 
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.InetAddress;
@@ -40,7 +37,9 @@ import org.hpccsystems.ws.client.HPCCWsTopologyClient.TopologyGroupQueryKind;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
+import org.junit.Assume;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.experimental.categories.Category;
 
 import java.net.URL;
@@ -52,6 +51,7 @@ import java.nio.file.Files;
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
 {
+    public static Exception initializationException = null;
     protected static Platform platform;
     protected static HPCCWsClient wsclient;
 
@@ -85,6 +85,31 @@ public abstract class BaseRemoteTest
     public static final String DEFAULTHPCCSUPERFILENAME = "benchmark::all_types::superfile";
 
     static
+    {
+        try
+        {
+            initialize();
+        }
+        catch (Exception e)
+        {
+            initializationException = e;
+        }
+    }
+
+    @BeforeClass
+    public static void initCheck()
+    {
+        String exceptionMessage = "";
+        if (initializationException != null)
+        {
+            exceptionMessage = initializationException.getLocalizedMessage();
+            initializationException.printStackTrace();
+        }
+
+        Assume.assumeTrue("Error initializing test suite: " + exceptionMessage, initializationException == null);
+    }
+
+    public static void initialize() throws Exception
     {
         // This allows testing against locally created self signed certs to work.
         // In production certs will need to be created valid hostnames
@@ -146,10 +171,14 @@ public abstract class BaseRemoteTest
             }
             catch (MalformedURLException e)
             {
-                fail("Could not acquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
+                throw new Exception("Could not acquire connection object based on: '" + connString + "' - " + e.getLocalizedMessage());
             }
 
-            Assert.assertNotNull("Could not acquire connection object", connection);
+            if (connection == null)
+            {
+                throw new Exception("Could not acquire connection object based on: '" + connString + "'");
+            }
+
             connection.setCredentials(hpccUser, hpccPass);
 
             if (connTO != null)
@@ -159,8 +188,10 @@ public abstract class BaseRemoteTest
                 connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
 
             platform = Platform.get(connection);
-
-            Assert.assertNotNull("Could not acquire platform object", platform);
+            if (platform == null)
+            {
+                throw new Exception("Could not acquire platform object");
+            }
         }
 
         try
@@ -200,10 +231,11 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
-            fail("Could not acquire wsclient object: " + e.getMessage() );
+            throw new Exception("Could not acquire wsclient object: " + e.getMessage() );
         }
 
-        Assert.assertNotNull("Could not acquire wsclient object", wsclient);
+        if (wsclient == null)
+            throw new Exception("Could not acquire wsclient object");
 
         // Run the generate-datasets.ecl script if present in the project resources
         try
@@ -212,7 +244,7 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
-            Assert.fail("Error executing test data generation scripts with error: " + e.getMessage());
+            throw new Exception("Error executing test data generation scripts with error: " + e.getMessage());
         }
     }
 
@@ -255,7 +287,7 @@ public abstract class BaseRemoteTest
         {
             try
             {
-                assertTrue(futures.get(threadIndex).get().isEmpty());
+                Assert.assertTrue(futures.get(threadIndex).get().isEmpty());
             }
             catch (InterruptedException | ExecutionException e)
             {
