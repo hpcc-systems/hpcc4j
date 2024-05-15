@@ -404,7 +404,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.streamPos = restartInfo.streamPos;
             this.streamPosOfFetchStart = this.streamPos;
         }
-        String prefix = "RowServiceInputStream constructor, file "  + dataPart.getCopyPath(0) +  " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream constructor, file "  + fileName +  " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         if (inFetchingMode == false)
         {
@@ -2229,7 +2229,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                         sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
                         break;
                     case RFCCodes.DAFSERR_cmdstream_authexpired:
-                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
+                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile) to something greater than " + this.socketOpTimeoutMs);
                         break;
                     default:
                         break;
