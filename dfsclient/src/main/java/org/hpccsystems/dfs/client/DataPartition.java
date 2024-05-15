@@ -43,6 +43,7 @@ public class DataPartition implements Serializable
     private String           fileAccessBlob;
     private FileType         fileType;
     private boolean          isTLK;
+    private String           fileName;
 
     public static enum FileType
     {
@@ -197,13 +198,42 @@ public class DataPartition implements Serializable
      *            the file type
      */
     private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
-            String fileAccessBlob, FileType fileType)
+            String fileAccessBlob, FileType fileType) {
+        this(copylocations,copyPaths,this_part,num_parts,clearport,sslport,filter,fileAccessBlob,fileType,null);
+    }
+    /**
+     * Construct the data part, used by makeParts.
+     *
+     * @param copylocations
+     *            locations of all copies of this file part
+     * @param copyPaths
+     *            the copy paths
+     * @param this_part
+     *            part number
+     * @param num_parts
+     *            number of parts
+     * @param clearport
+     *            port number of clear communications
+     * @param sslport
+     *            port number of ssl communications
+     * @param filter
+     *            the file filter object
+     * @param fileAccessBlob
+     *            file access token
+     * @param fileType
+     *            the file type
+     * @param fileName
+     *            the file name
+     */
+    private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
+                          String fileAccessBlob, FileType fileType, String fileName)
     {
         this.this_part = this_part;
         this.num_parts = num_parts;
         this.rowservicePort = clearport;
         this.useSSL = sslport;
         this.fileFilter = filter;
+        this.fileName=fileName;
         if (this.fileFilter == null)
         {
             this.fileFilter = new FileFilter();
@@ -349,6 +379,16 @@ public class DataPartition implements Serializable
     }
 
     /**
+     * File name being read
+     *
+     * @return filename
+     */
+    public String getFileName()
+    {
+        return fileName;
+    }
+
+    /**
      * Copy Path.
      *
      * @param index
@@ -470,6 +510,7 @@ public class DataPartition implements Serializable
         return createPartitions(dfuparts, clusterremapper, max_parts, FileFilter.nullFilter(), fileAccessBlob, FileType.FLAT);
     }
 
+
     /**
      * Creates the partitions.
      *
@@ -490,7 +531,33 @@ public class DataPartition implements Serializable
      *             the hpcc file exception
      */
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfuparts, ClusterRemapper clusterremapper, int max_parts, FileFilter filter,
-            String fileAccessBlob, FileType fileType) throws HpccFileException
+                                                   String fileAccessBlob, FileType fileType) throws HpccFileException {
+    return createPartitions(dfuparts,clusterremapper,max_parts,filter,fileAccessBlob,fileType,null);
+    }
+
+    /**
+     * Creates the partitions.
+     *
+     * @param dfuparts
+     *            the dfuparts
+     * @param clusterremapper
+     *            the clusterremapper
+     * @param max_parts
+     *            the max parts
+     * @param filter
+     *            the filter
+     * @param fileAccessBlob
+     *            the file access blob
+     * @param fileType
+     *            the file type
+     * @param fileName
+     *            the file name
+     * @return the data partition[]
+     * @throws HpccFileException
+     *             the hpcc file exception
+     */
+    public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfuparts, ClusterRemapper clusterremapper, int max_parts, FileFilter filter,
+            String fileAccessBlob, FileType fileType, String fileName) throws HpccFileException
     {
         DataPartition[] rslt = new DataPartition[dfuparts.length];
 
@@ -507,7 +574,7 @@ public class DataPartition implements Serializable
 
                 DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), copyPaths, dfuparts[i].getPartIndex(),
                         dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob,
-                        fileType);
+                        fileType,fileName);
                 new_dp.isTLK = dfuparts[i].isTopLevelKey();
 
                 rslt[i] = new_dp;

@@ -61,7 +61,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private String                   projectedJsonRecordDefinition = null;
     private java.io.DataInputStream  dis = null;
     private java.io.DataOutputStream dos = null;
-    private String                   fileName                      = null;
     private String                   rowServiceVersion = "";
 
     private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
@@ -326,42 +325,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS) throws Exception {
-        this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, restartInfo, isFetching, DEFAULT_SOCKET_OP_TIMEOUT_MS,null);
-    }
-
-    /**
-     * A plain socket connect to a THOR node for remote read
-     *
-     * @param dp
-     *            the data partition to read
-     * @param rd
-     *            the JSON definition for the read input and output
-     * @param pRd
-     *            the projected record definition
-     * @param connectTimeout
-     *               the connection timeout in milliseconds
-     * @param limit
-     *            the record limit to use for reading the dataset. -1 implies no limit
-     * @param createPrefetchThread
-     *            Wether or not this inputstream should handle prefetching itself or if prefetch will be called externally
-     * @param maxReadSizeInKB
-     *            max readsize in kilobytes
-     * @param restartInfo
-     *            information used to restart a read from a particular stream position
-     * @param isFetching
-     *            Will this input stream be used to serviced batched fetch requests
-     * @param socketOpTimeoutMS
-     *            Socket (read / write) operation timeout in milliseconds
-     * @param fileName
-     *            fileName being read
-     * @throws Exception
-     *            general exception
-     */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS, String fileName) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS) throws Exception
     {
         this.recordDefinition = rd;
-        this.fileName =fileName;
         this.projectedRecordDefinition = pRd;
         this.inFetchingMode = isFetching;
 
@@ -403,8 +369,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.tokenBin = restartInfo.tokenBin;
             this.streamPos = restartInfo.streamPos;
             this.streamPosOfFetchStart = this.streamPos;
-        }
-        String prefix = "RowServiceInputStream constructor, file "  + fileName +  " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        }   
+        String prefix = "RowServiceInputStream constructor, file "  + dataPart.getFileName() +  " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         if (inFetchingMode == false)
         {
@@ -768,7 +734,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         {
             return -1;
         }
-        String prefix = "RowServiceInputStream.startFetch(), file "   + fileName + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.startFetch(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
 
         //------------------------------------------------------------------------------
@@ -947,7 +913,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void readDataInFetch()
     {
-        String prefix = "RowServiceInputStream.readDataInFetch(), file "   + fileName + "part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.readDataInFetch(), file "   + dataPart.getFileName() + "part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
         if (this.closed.get())
         {
             return;
@@ -1027,7 +993,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void finishFetch()
     {
-        String prefix = "RowServiceInputStream.finishFetch(), file "   + fileName + "part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.finishFetch(), file "   + dataPart.getFileName() + "part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
         if (this.closed.get())
         {
             return;
@@ -1241,7 +1207,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     @Override
     public int available() throws IOException
     {
-        String prefix = "RowServiceInputStream.available(), file "   + fileName + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         // Do the check for closed first here to avoid data races
         if (this.closed.get())
@@ -1590,7 +1556,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         this.active.set(false);
         this.handle = 0;
-        String prefix = "RowServiceInputStream.makeActive, file "  + fileName + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.makeActive, file "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         boolean needsRetry = false;
         do
@@ -2150,7 +2116,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void sendCloseFileRequest() throws IOException
     {
-        String prefix = "RowServiceInputStream.sendCloseFileRequest(), file  "  + fileName + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.sendCloseFileRequest(), file  "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
         if (useOldProtocol)
         {
@@ -2186,7 +2152,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private RowServiceResponse readResponse() throws HpccFileException
     {
         RowServiceResponse response = new RowServiceResponse();
-        String prefix="RowServiceInputStream.readResponse(): , file "  + fileName + " part " + dataPart.getThisPart() + " on IP " + getIP() + ": ";
+        String prefix="RowServiceInputStream.readResponse(): , file "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ": ";
         try
         {
             response.len = dis.readInt();
