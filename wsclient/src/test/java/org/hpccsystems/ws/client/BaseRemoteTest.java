@@ -212,6 +212,7 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             Assert.fail("Error executing test data generation scripts with error: " + e.getMessage());
         }
     }

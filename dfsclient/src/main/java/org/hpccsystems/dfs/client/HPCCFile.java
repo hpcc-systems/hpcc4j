@@ -469,7 +469,7 @@ public class HPCCFile implements Serializable
             {
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
-                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(), fileType);
+                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(), fileType,this.getFileName());
 
                 // Check to see if this file has a TLK. The TLK will always be the last partition.
                 // If we do have a TLK remove it from the standard list of data partitions.
