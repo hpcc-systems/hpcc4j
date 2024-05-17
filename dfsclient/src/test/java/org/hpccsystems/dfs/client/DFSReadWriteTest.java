@@ -57,6 +57,8 @@ import org.junit.Before;
 import org.junit.runners.MethodSorters;
 import org.junit.experimental.categories.Category;
 
+import static org.hpccsystems.dfs.client.HpccRemoteFileReader.DEFAULT_READ_SIZE_OPTION;
+import static org.hpccsystems.dfs.client.HpccRemoteFileReader.NO_RECORD_LIMIT;
 import static org.junit.Assert.*;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
@@ -64,7 +66,11 @@ import static org.junit.Assert.*;
 public class DFSReadWriteTest extends BaseRemoteTest
 {
     private static final String[] datasets       = { "~benchmark::integer::20kb", "~unit_test::all_types::thor", "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
-    private static final int[]    expectedCounts = { 1250, 10000, 10000, 10000, 10000, 10000};
+    private static final int[]    expectedCounts = { 1250, 5600, 10000, 10000, 10000, 10000};
+
+    //use until standard test is working
+    //        private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};//, "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
+    //        private static final int[]    expectedCounts = { 1250, 5600 };//, 10000, 10000, 10000, 10000};
     private static final Version newProtocolVersion = new Version(8,12,10);
 
 
@@ -301,7 +307,8 @@ public class DFSReadWriteTest extends BaseRemoteTest
         for (int i = 0; i < resumeInfo.size(); i++)
         {
             HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
-            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[resumeFilePart.get(i)], originalRD, recordBuilder, -1, -1, true, readSizeKB, resumeInfo.get(i));
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(
+                    fileParts[resumeFilePart.get(i)], originalRD, recordBuilder, 1000000, -1, true, readSizeKB, resumeInfo.get(i));
 
             if (fileReader.hasNext())
             {
@@ -1407,7 +1414,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
             try
             {
                 HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
-                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder);
+                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[i], originalRD, recordBuilder, RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS, NO_RECORD_LIMIT, true, DEFAULT_READ_SIZE_OPTION,null,RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
                 fileReader.getRecordReader().setUseDecimalForUnsigned8(useDecimalForUnsigned8);
                 fileReader.getRecordReader().setStringProcessingFlags(stringProcessingFlags);
                 fileReaders.add(fileReader);

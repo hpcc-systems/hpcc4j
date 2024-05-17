@@ -193,7 +193,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @throws Exception
      * 			  general exception
      */
-    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs) throws Exception
+   public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs) throws Exception
     {
         this.handlePrefetch = createPrefetchThread;
         this.originalRecordDef = originalRD;
@@ -280,8 +280,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             try
             {
                 this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef,
-                                                            this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
-                                                            this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs);
+                        this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
+                        this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs);
                 long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
                 if (bytesToSkip < 0)
                 {
@@ -434,7 +434,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             if (!retryRead())
             {
                 canReadNext = false;
-                log.error("Read failure for " + this.dataPartition.toString(), e);
+                log.error("Read failure for " + this.dataPartition.toString() +":" + e.getMessage(),e);
                 java.util.NoSuchElementException exception = new java.util.NoSuchElementException("Fatal read error: " + e.getMessage());
                 exception.initCause(e);
                 throw exception;
@@ -505,7 +505,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
         long closeTimeMs = System.currentTimeMillis();
         double readTimeS = (closeTimeMs -  openTimeMs) / 1000.0;
-        log.info("HPCCRemoteFileReader: Closing file part: " + dataPartition.getThisPart()
+        log.info("HPCCRemoteFileReader: Closing file part: " + dataPartition.getThisPart() + " for " + dataPartition.getFileName()
                 + " read time: " + readTimeS + "s "
                 + " records read: " + recordsRead);
     }
@@ -550,7 +550,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     {
         if (getRemoteReadMessageCount() > 0)
         {
-            log.warn("DataPartition '" + this.dataPartition + "' read operation messages:\n");
+            log.warn("DataPartition '" + this.dataPartition + "' read operation messages for " + dataPartition.getFileName() + ":\n");
             log.warn(getRemoteReadMessages());
         }
     }

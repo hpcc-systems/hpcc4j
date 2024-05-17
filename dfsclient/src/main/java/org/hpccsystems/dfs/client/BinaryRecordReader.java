@@ -271,7 +271,7 @@ public class BinaryRecordReader implements IRecordReader
     {
         if (this.rootRecordBuilder == null)
         {
-            throw new HpccFileException("RecordReader must be initialized before being used.");
+            throw new HpccFileException("BinaryRecordReader.hasNext(): RecordReader must be initialized before being used. rootRecordBuilder is null, hasNext() failed.");
         }
 
         int nextByte = -1;
@@ -299,7 +299,7 @@ public class BinaryRecordReader implements IRecordReader
         }
         catch (IOException e)
         {
-            throw new HpccFileException(e);
+            throw new HpccFileException("BinaryRecordReader.hasNext(): failed to peek at the next byte in the input stream:" + e.getMessage(),e);
         }
 
         return nextByte >= 0;
@@ -314,7 +314,7 @@ public class BinaryRecordReader implements IRecordReader
     {
         if (this.rootRecordBuilder == null)
         {
-            throw new HpccFileException("RecordReader must be initialized before being used.");
+            throw new HpccFileException("BinaryRecordReader.getNext(): RecordReader must be initialized before being used, rootRecordBuilder is null.");
         }
 
         if (!this.hasNext()) throw new NoSuchElementException("No next record!");
@@ -325,13 +325,13 @@ public class BinaryRecordReader implements IRecordReader
             record = parseRecord(this.rootRecordDefinition, this.rootRecordBuilder, this.defaultLE);
             if (record == null)
             {
-                throw new HpccFileException("RecordContent not found, or invalid record structure. Check logs for more information.");
+                throw new HpccFileException("BinaryRecordReader.getNext(): RecordContent not found, or invalid record structure. Check logs for more information.");
             }
 
         }
         catch (Exception e)
         {
-            throw new HpccFileException("Failed to parse next record: " + e.getMessage(), e);
+            throw new HpccFileException("BinaryRecordReader.getNext(): Failed to parse next record: " + e.getMessage(), e);
         }
 
         this.streamPosAfterLastRecord = this.inputStream.getStreamPosition();
@@ -370,7 +370,7 @@ public class BinaryRecordReader implements IRecordReader
 
         if (fd.isFixed() && fd.getDataLen() > Integer.MAX_VALUE)
         {
-            throw new UnparsableContentException("Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
+            throw new UnparsableContentException("BinaryRecordReader.parseFlatField(): Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
         }
 
         // Embedded field lengths are little endian

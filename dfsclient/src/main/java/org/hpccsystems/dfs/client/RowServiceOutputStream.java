@@ -438,7 +438,7 @@ public class RowServiceOutputStream extends OutputStream
                         sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
                         break;
                     case RFCCodes.DAFSERR_cmdstream_authexpired:
-                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile)");
+                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile) to something greater than " + this.sockOpTimeoutMs);
                         break;
                     default:
                         break;

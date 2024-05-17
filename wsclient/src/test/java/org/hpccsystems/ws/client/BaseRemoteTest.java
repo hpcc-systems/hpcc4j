@@ -244,6 +244,7 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             throw new Exception("Error executing test data generation scripts with error: " + e.getMessage());
         }
     }
