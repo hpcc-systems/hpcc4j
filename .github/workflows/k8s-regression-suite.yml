@@ -143,5 +143,20 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=https://eclwatch.default:8010 -Dwssqlconn=https://sql2ecl.default:8510 -DHPCC30117=open  install
+    - name: Exclude Tests
+      env:
+        EXCLUDES: ${{ vars.EXCLUDED_TESTS }}
+      run: |
+        echo $EXCLUDES >> excluded-tests.txt
+
+    - name: Build Project
+      run: mvn clean install -DskipTests=true
+
+    - name: Run Commons-HPCC Tests
+      run: mvn -pl commons-hpcc --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false verify
+
+    - name: Run WSClient Tests
+      run: mvn -pl wsclient --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=https://eclwatch.default:8010 -Dwssqlconn=https://sql2ecl.default:8510 verify
+
+    - name: Run DFSClient Tests
+      run: mvn -pl dfsclient --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=https://eclwatch.default:8010 verify

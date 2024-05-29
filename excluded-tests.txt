@@ -1,0 +1,3 @@
+# See: https://maven.apache.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html#multiple-formats-in-one
+# Example:
+# **/*RampsDevRegressionTest.java
