@@ -40,13 +40,28 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanBuilder;
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.Scope;
+import io.opentelemetry.semconv.HttpAttributes;
+import io.opentelemetry.semconv.ServerAttributes;
+
 /**
- * Defines functionality common to all HPCC Systmes web service clients.
+ * Defines functionality common to all HPCC Systems web service clients.
  *
  * Typically implemented by specialized HPCC Web service clients.
  */
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
+    public static final String PROJECT_NAME = "WsClient";
+    private static OpenTelemetry globalOTel = null;
     /** Constant <code>log</code> */
     protected static final Logger log                    = LogManager.getLogger(BaseHPCCWsClient.class);
     /** Constant <code>DEAFULTECLWATCHPORT="8010"</code> */
@@ -164,6 +179,53 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     }
 
+    public SpanBuilder getWsClientSpanBuilder(String spanName)
+    {
+        SpanBuilder spanBuilder = getWsClientTracer().spanBuilder(spanName)
+          .setAttribute(ServerAttributes.SERVER_ADDRESS, wsconn.getHost())
+          .setAttribute(ServerAttributes.SERVER_PORT, Long.getLong(wsconn.getPort()))
+          .setAttribute(HttpAttributes.HTTP_REQUEST_METHOD, HttpAttributes.HttpRequestMethodValues.GET)
+          .setSpanKind(SpanKind.CLIENT);
+
+        return spanBuilder;
+    }
+
+    static public void injectCurrentSpanTraceParentHeader(Stub clientStub)
+    {
+        if (clientStub != null)
+        {
+            injectCurrentSpanTraceParentHeader(clientStub._getServiceClient().getOptions());
+        }
+    }
+
+    static public void injectCurrentSpanTraceParentHeader(Options options)
+    {
+        if (options != null)
+        {
+            W3CTraceContextPropagator.getInstance().inject(Context.current(), options, Options::setProperty);
+        }
+    }
+
+    /**
+     * Performs all Otel initialization
+     */
+    private void initOTel()
+    {
+        /*
+         * If using the OpenTelemetry SDK, you may want to instantiate the OpenTelemetry toprovide configuration, for example of Resource or Sampler. See OpenTelemetrySdk and OpenTelemetrySdk.builder for information on how to construct theSDK's OpenTelemetry implementation. 
+         * WARNING: Due to the inherent complications around initialization order involving this classand its single global instance, we strongly recommend *not* using GlobalOpenTelemetry unless youhave a use-case that absolutely requires it. Please favor using instances of OpenTelemetrywherever possible. 
+         *  If you are using the OpenTelemetry javaagent, it is generally best to only callGlobalOpenTelemetry.get() once, and then pass the resulting reference where you need to use it.
+        */
+        globalOTel = GlobalOpenTelemetry.get();
+    }
+
+    public Tracer getWsClientTracer()
+    {
+        if (globalOTel == null)
+            initOTel();
+
+        return globalOTel.getTracer(PROJECT_NAME);
+    }
     /**
      * All instances of HPCCWsXYZClient should utilize this init function
      * Attempts to establish the target HPCC build version and its container mode
@@ -175,36 +237,55 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     protected boolean initBaseWsClient(Connection connection, boolean fetchVersionAndContainerMode)
     {
+        initOTel();
+
         boolean success = true;
         initErrMessage = "";
         setActiveConnectionInfo(connection);
 
         if (fetchVersionAndContainerMode)
         {
-            try
+            Span fetchHPCCVerSpan = getWsClientSpanBuilder("FetchHPCCVersion").setSpanKind(SpanKind.INTERNAL).startSpan();
+            try (Scope scope = fetchHPCCVerSpan.makeCurrent())
             {
-                targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersionString());
+                try
+                {
+                    targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersionString());
+                }
+                catch (Exception e)
+                {
+                    initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
+                    if (!e.getLocalizedMessage().isEmpty())
+                        initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+                    success = false;
+                }
             }
-            catch (Exception e)
+            finally
             {
-                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
-                if (!e.getLocalizedMessage().isEmpty())
-                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
-
-                success = false;
+                fetchHPCCVerSpan.setStatus(success ? StatusCode.OK : StatusCode.ERROR, initErrMessage);
+                fetchHPCCVerSpan.end();
             }
 
-            try
+            Span fetchHPCCContainerMode = getWsClientSpanBuilder("FetchHPCCContainerMode").startSpan();
+            try (Scope scope = fetchHPCCContainerMode.makeCurrent())
             {
-                targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
-            }
-            catch (Exception e)
-            {
-                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
-                if (!e.getLocalizedMessage().isEmpty())
-                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+                try
+                {
+                    targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
+                }
+                catch (Exception e)
+                {
+                    initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
+                    if (!e.getLocalizedMessage().isEmpty())
+                        initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
 
-                success = false;
+                    success = false;
+                }
+            }
+            finally
+            {
+                fetchHPCCContainerMode.setStatus(success ? StatusCode.OK : StatusCode.ERROR, initErrMessage);
+                fetchHPCCContainerMode.end();
             }
         }
         if (!initErrMessage.isEmpty())
@@ -401,7 +482,10 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected Stub verifyStub() throws Exception
     {
         if (stub != null)
+        {
+            injectCurrentSpanTraceParentHeader(stub);
             return stub;
+        }
         else
             throw new Exception("WS Client Stub not available." + (hasInitError() ? "\n" + initErrMessage : ""));
     }
@@ -687,6 +771,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         if (message != null && !message.isEmpty()) exp.setWsClientMessage(message);
 
         log.error(exp.toString());
+
         throw exp;
     }
 

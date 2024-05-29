@@ -19,7 +19,6 @@ import org.hpccsystems.ws.client.utils.HpccContainerizedUnsupportedException;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
-import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupQueryResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
