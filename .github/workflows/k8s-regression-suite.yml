@@ -148,6 +148,7 @@ jobs:
         EXCLUDES: ${{ vars.EXCLUDED_TESTS }}
       run: |
         echo $EXCLUDES >> excluded-tests.txt
+        cat excluded-tests.txt
 
     - name: Build Project
       run: mvn clean install -DskipTests=true
