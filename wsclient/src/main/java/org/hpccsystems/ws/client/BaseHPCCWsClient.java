@@ -561,7 +561,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     final static UsernamePasswordCredentials emptyCreds = new UsernamePasswordCredentials("", null);
 
     /**
-     * Sets the stub options defaults preemptiveauth to 'true;
+     * Sets the stub options defaults preemptiveauth to 'true';
      *
      * @param thestub
      *            The Axis generated service stub
@@ -573,7 +573,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     static public Stub setStubOptions(Stub thestub, Connection connection) throws AxisFault
     {
+        //Add "rawxml_" query param to request ESP to suppress any default redirects
         Options opt = thestub._getServiceClient().getOptions();
+        EndpointReference toRef = opt.getTo();
+        String toAddress = toRef.getAddress() + (toRef.getAddress().contains("?") ? "&" : "?") + "rawxml_";
+        toRef.setAddress(toAddress);
+        opt.setTo(toRef);
 
         opt.setProperty(HTTPConstants.SO_TIMEOUT, connection.getSocketTimeoutMilli());
         opt.setProperty(HTTPConstants.CONNECTION_TIMEOUT, connection.getConnectTimeoutMilli());
