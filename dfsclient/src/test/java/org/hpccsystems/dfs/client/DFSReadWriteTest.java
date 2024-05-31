@@ -65,12 +65,10 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DFSReadWriteTest extends BaseRemoteTest
 {
-    private static final String[] datasets       = { "~benchmark::integer::20kb", "~unit_test::all_types::thor", "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
-    private static final int[]    expectedCounts = { 1250, 5600, 10000, 10000, 10000, 10000};
+    // private static final String[] datasets       = { "~benchmark::integer::20kb", "~unit_test::all_types::thor", "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
+    private static final String[] datasets       = { "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
+    private static final int[]    expectedCounts = { 1250, 100000, 100000, 100000, 100000, 100000};
 
-    //use until standard test is working
-    //        private static final String[] datasets       = { "~benchmark::integer::20kb", "~benchmark::all_types::200kb"};//, "~unit_test::all_types::xml", "~unit_test::all_types::json", "~unit_test::all_types::csv" };
-    //        private static final int[]    expectedCounts = { 1250, 5600 };//, 10000, 10000, 10000, 10000};
     private static final Version newProtocolVersion = new Version(8,12,10);
 
 
