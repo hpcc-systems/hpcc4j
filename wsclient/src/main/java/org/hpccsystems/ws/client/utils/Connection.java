@@ -12,6 +12,8 @@ import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -205,6 +207,9 @@ public class Connection
     private StringBuffer        baseUrl;
     private StringBuffer        uriAndParams;
 
+    // Note: this pattern is very basic and is only meant to extract hostnames from URLs
+    public final static Pattern URL_HOSTNAME_PATTERN = Pattern.compile("((https?|ftp|file):\\/\\/)?(?<hostname>([\\da-z\\.\\-_]+)(\\.[a-z\\.]{2,6})?)(:\\d{2,6})?.*");
+
     /** Constant <code>CONNECT_TIMEOUT_PARAM="connecttimeoutmillis"</code> */
     final static public String  CONNECT_TIMEOUT_PARAM         = "connecttimeoutmillis";
     /** Constant <code>READ_TIMEOUT_PARAM="readtimeoutmillis"</code> */
@@ -287,7 +292,27 @@ public class Connection
      */
     public Connection(String connectionstring) throws MalformedURLException
     {
-        URL theurl = new URL(connectionstring);
+        URL theurl = null;
+        try
+        {
+            theurl = new URL(connectionstring);
+        }
+        catch (MalformedURLException e)
+        {
+            Matcher matcher = URL_HOSTNAME_PATTERN.matcher(connectionstring);
+            if (matcher.matches())
+            {
+                String hostName = matcher.group("hostname");
+                if (hostName.contains("_"))
+                {
+                    throw new MalformedURLException("Invalid URL: Hostname contains invalid underscores: '" + connectionstring + "': " + e.getMessage());
+                }
+            }
+            else
+            {
+                throw e;
+            }
+        }
 
         setProtocol(theurl.getProtocol());
 
