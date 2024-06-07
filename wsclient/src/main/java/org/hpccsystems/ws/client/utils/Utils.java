@@ -16,7 +16,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -38,6 +40,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.propagation.TextMapSetter;
 
 /**
  * Provides multiple functions which support HPCCWsClient actions.
@@ -1120,5 +1127,26 @@ public class Utils
             strIndex--;
 
         return originalStr.substring(0,strIndex+1);
+    }
+
+    /**
+     * Returns traceparent value for Open Telemetry based context propagation
+     * @return traceparent of current span if valid, otherwise invalid traceparent header value
+     */
+    static public String getCurrentSpanTraceParentHeader()
+    {
+        String traceparent = null;
+        Span currentSpan = Span.current();
+        if (currentSpan != null && currentSpan.getSpanContext().isValid())
+        {
+            Map<String, String> carrier = new HashMap<>();
+            TextMapSetter<Map<String, String>> setter = Map::put;
+            W3CTraceContextPropagator.getInstance().inject(Context.current(), carrier, setter);
+
+            traceparent = carrier.getOrDefault("traceparent", "00-" + currentSpan.getSpanContext().getTraceId() + "-" + currentSpan.getSpanContext().getSpanId() + "-00");
+            carrier.clear();
+        }
+
+        return traceparent;
     }
 }

@@ -63,6 +63,8 @@
     <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
     <codehaus.template.version>1.0.0</codehaus.template.version>
     <project.benchmarking>false</project.benchmarking>
+    <opentelemetry.bom.version>1.38.0</opentelemetry.bom.version>
+    <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
   </properties>
 
   <scm>
@@ -98,8 +100,44 @@
       </snapshots>
     </repository>
   </repositories>
-
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-bom</artifactId>
+        <version>${opentelemetry.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-sdk</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-exporter-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-sdk-extension-autoconfigure</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-sdk-extension-autoconfigure-spi</artifactId>
+    </dependency>
+    <dependency>
+      <!-- Not managed by opentelemetry-bom -->
+      <groupId>io.opentelemetry.semconv</groupId>
+      <artifactId>opentelemetry-semconv</artifactId>
+      <version>1.25.0-alpha</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
