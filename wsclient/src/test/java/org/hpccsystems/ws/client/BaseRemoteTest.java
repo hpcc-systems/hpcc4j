@@ -30,28 +30,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
-import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
-import org.hpccsystems.ws.client.HPCCWsClient;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient.TopologyGroupQueryKind;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
-import org.junit.Assume;
+import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.experimental.categories.Category;
 
-import java.net.URL;
-
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.file.Files;
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.trace.SpanBuilder;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
 {
     public static Exception initializationException = null;
+    private final static String INSTRUMENTED_LIB_NAME = "WsClientJUnitSuite";
     protected static Platform platform;
     protected static HPCCWsClient wsclient;
 
@@ -72,6 +71,7 @@ public abstract class BaseRemoteTest
 
     protected final static int  testThreadCount = Integer.parseInt(System.getProperty("testthreadcount", "10"));
     public static final String DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
+    protected static OpenTelemetry globalOTel = null;
 
     /*
      * Code to generate superfile with default file as subfile
@@ -109,8 +109,39 @@ public abstract class BaseRemoteTest
         Assume.assumeTrue("Error initializing test suite: " + exceptionMessage, initializationException == null);
     }
 
+    public static Tracer getRemoteTestTracer()
+    {
+        return globalOTel.getTracer(INSTRUMENTED_LIB_NAME);
+    }
+
+    public static SpanBuilder getRemoteTestTraceBuilder(String spanName)
+    {
+        return getRemoteTestTracer().spanBuilder(spanName);
+    }
+
     public static void initialize() throws Exception
     {
+        if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
+        {
+            System.out.println("OpenTelemetry autoconfiguration enabled with following values.");
+            System.out.println("If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
+            System.out.println("If missing dependancies arise, test will halt!");
+            System.out.println("    otel.traces.exporter sys property: "+System.getProperty("otel.traces.exporter"));
+            System.out.println("    OTEL_TRACES_EXPORTER Env var: " + System.getenv("OTEL_TRACES_EXPORTER"));
+            System.out.println("        OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
+            System.out.println("        otel.traces.sampler sys property: "+System.getProperty("otel.traces.sampler"));
+            System.out.println("    otel.logs.exporter: "+ System.getProperty("otel.logs.exporter"));
+            System.out.println("    OTEL_LOGS_EXPORTER Env var: " + System.getenv("OTEL_LOGS_EXPORTER"));
+            System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
+            System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
+
+            globalOTel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+        }
+        else
+        {
+            globalOTel = GlobalOpenTelemetry.get();
+        }
+
         // This allows testing against locally created self signed certs to work.
         // In production certs will need to be created valid hostnames
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
@@ -226,7 +257,7 @@ public abstract class BaseRemoteTest
             }
             else
             {
-            	System.out.println("RemoteTest: 'roxiegroupname': '" + roxieclustername + "'");
+                System.out.println("RemoteTest: 'roxiegroupname': '" + roxieclustername + "'");
             }
         }
         catch (Exception e)

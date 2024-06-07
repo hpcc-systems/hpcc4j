@@ -12,9 +12,20 @@ import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hpccsystems.ws.client.BaseHPCCWsClient;
+
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.context.Scope;
+import io.opentelemetry.semconv.HttpAttributes;
+import io.opentelemetry.semconv.ServerAttributes;
 
 /**
  * Represents and structures connection information.
@@ -205,6 +216,9 @@ public class Connection
     private StringBuffer        baseUrl;
     private StringBuffer        uriAndParams;
 
+    // Note: this pattern is very basic and is only meant to extract hostnames from URLs
+    public final static Pattern URL_HOSTNAME_PATTERN = Pattern.compile("((https?|ftp|file):\\/\\/)?(?<hostname>([\\da-z\\.\\-_]+)(\\.[a-z\\.]{2,6})?)(:\\d{2,6})?.*");
+
     /** Constant <code>CONNECT_TIMEOUT_PARAM="connecttimeoutmillis"</code> */
     final static public String  CONNECT_TIMEOUT_PARAM         = "connecttimeoutmillis";
     /** Constant <code>READ_TIMEOUT_PARAM="readtimeoutmillis"</code> */
@@ -287,7 +301,27 @@ public class Connection
      */
     public Connection(String connectionstring) throws MalformedURLException
     {
-        URL theurl = new URL(connectionstring);
+        URL theurl = null;
+        try
+        {
+            theurl = new URL(connectionstring);
+        }
+        catch (MalformedURLException e)
+        {
+            Matcher matcher = URL_HOSTNAME_PATTERN.matcher(connectionstring);
+            if (matcher.matches())
+            {
+                String hostName = matcher.group("hostname");
+                if (hostName.contains("_"))
+                {
+                    throw new MalformedURLException("Invalid URL: Hostname contains invalid underscores: '" + connectionstring + "': " + e.getMessage());
+                }
+            }
+            else
+            {
+                throw e;
+            }
+        }
 
         setProtocol(theurl.getProtocol());
 
@@ -1028,39 +1062,61 @@ public class Connection
 
         URL url = new URL (getBaseUrl() + (uri != null && uri.startsWith("/") ? "" : "/") + uri);
 
+        Span sendHTTPReqSpan = GlobalOpenTelemetry.get().getTracer(BaseHPCCWsClient.PROJECT_NAME)
+                .spanBuilder(method.toUpperCase() + " " + url.toExternalForm())
+                .setAttribute(ServerAttributes.SERVER_ADDRESS, getHost())
+                .setAttribute(ServerAttributes.SERVER_PORT, Long.getLong(getPort()))
+                .setAttribute(HttpAttributes.HTTP_REQUEST_METHOD, method)
+                .setSpanKind(SpanKind.CLIENT)
+                .startSpan();
+
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //throws IOException
 
-         Connection.log.info("Sending HTTP " + method + "Request to:" + url.toString());
+        Connection.log.info("Sending HTTP " + method + "Request to:" + url.toString());
 
-         if (hasCredentials())
-         {
-             httpURLConnection.setRequestProperty("Authorization", getBasicAuthString());
-         }
+        if (hasCredentials())
+        {
+            httpURLConnection.setRequestProperty("Authorization", getBasicAuthString());
+            sendHTTPReqSpan.setAttribute("hasCredentials", true);
+        }
+        else
+        {
+            sendHTTPReqSpan.setAttribute("hasCredentials", false);
+        }
 
-         httpURLConnection.setRequestMethod(method); //throws ProtocolException
+        try (Scope scope = sendHTTPReqSpan.makeCurrent())
+        {
+            httpURLConnection.setRequestProperty("traceparent", Utils.getCurrentSpanTraceParentHeader());
+            httpURLConnection.setRequestMethod(method); //throws ProtocolException
 
-         int responseCode = httpURLConnection.getResponseCode(); //throws IOException
+            int responseCode = httpURLConnection.getResponseCode(); //throws IOException
+            sendHTTPReqSpan.setAttribute("http.response.status_code", responseCode);
+            Connection.log.info("HTTP Response code: " + responseCode);
 
-         Connection.log.info("HTTP Response code: " + responseCode);
+            if (responseCode == HttpURLConnection.HTTP_OK) //success
+            {
+                BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream())); //throws IOException
+                String inputLine;
+                StringBuffer response = new StringBuffer();
 
-         if (responseCode == HttpURLConnection.HTTP_OK) //success
-         {
-             BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream())); //throws IOException
-             String inputLine;
-             StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) // throws IOException
+                {
+                    response.append(inputLine);
+                }
 
-             while ((inputLine = in.readLine()) != null) // throws IOException
-             {
-                 response.append(inputLine);
-             }
-
-             in.close(); //throws IOException
-
-             return response.toString();
-         }
-         else
-         {
-             throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage() );
-         }
+                in.close(); //throws IOException
+                sendHTTPReqSpan.setStatus(StatusCode.OK);
+                return response.toString();
+            }
+            else
+            {
+                sendHTTPReqSpan.setStatus(StatusCode.ERROR);
+                throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage() );
+            }
+        }
+        finally
+        {
+            sendHTTPReqSpan.end();
+        }
     }
 }

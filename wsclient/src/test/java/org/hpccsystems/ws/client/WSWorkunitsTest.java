@@ -38,6 +38,11 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.context.Scope;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSWorkunitsTest extends BaseRemoteTest
 {
@@ -82,18 +87,30 @@ public class WSWorkunitsTest extends BaseRemoteTest
     @Test
     public void stageA_ping() throws Exception
     {
-        try
+        Span pingSpan = getRemoteTestTraceBuilder("WsWUTests-PingTest").setSpanKind(SpanKind.CLIENT).startSpan();
+
+        try (Scope innerScope = pingSpan.makeCurrent())
         {
-            Assert.assertTrue(client.ping());
+            try
+            {
+                Assert.assertTrue(client.ping());
+                pingSpan.setStatus(StatusCode.OK);
+            }
+            catch (AxisFault e)
+            {
+                pingSpan.recordException(e);
+                e.printStackTrace();
+                Assert.fail();
+            }
+            catch (Exception e)
+            {
+               pingSpan.recordException(e);
+               Assert.fail(e.toString());
+            }
         }
-        catch (AxisFault e)
+        finally
         {
-            e.printStackTrace();
-            Assert.fail();
-        }
-        catch (Exception e)
-        {
-            Assert.fail(e.toString());
+            pingSpan.end();
         }
     }
 

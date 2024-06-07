@@ -100,6 +100,10 @@ import org.hpccsystems.ws.client.wrappers.wsworkunits.WUUpdateResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WsWorkunitsClientStubWrapper;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.context.Scope;
+
 /**
  * Facilitates ECL WorkUnit related actions.
  *
@@ -303,7 +307,6 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         request.setCount(1);
 
         WUQueryResponse response = null;
-
         try
         {
             response = ((WsWorkunits) stub).wUQuery(request);
@@ -326,7 +329,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             {
                 ECLWorkunit[] eclWorkunit = response.getWorkunits().getECLWorkunit();
 
-                if (eclWorkunit != null && eclWorkunit.length == 1) wu.update(eclWorkunit[0]);
+                if (eclWorkunit != null && eclWorkunit.length == 1)
+                    wu.update(eclWorkunit[0]);
             }
 
             if (previousState != getStateID(wu))
@@ -2551,18 +2555,27 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
      */
     public boolean ping() throws Exception
     {
-        verifyStub();
-
-        Ping request = new Ping();
-
-        try
+        Span span = getWsClientSpanBuilder("WsWUClient_Ping").startSpan();
+        try (Scope scope = span.makeCurrent())
         {
-            ((WsWorkunitsStub) stub).ping(request);
+            verifyStub(); // must be called within span scope for proper context propagation
+
+            Ping request = new Ping();
+            try
+            {
+                ((WsWorkunitsStub) stub).ping(request);
+                span.setStatus(StatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                span.recordException(e);
+                log.error(e.getLocalizedMessage());
+                return false;
+            }
         }
-        catch (Exception e)
+        finally
         {
-            log.error(e.getLocalizedMessage());
-            return false;
+            span.end();
         }
 
         return true;

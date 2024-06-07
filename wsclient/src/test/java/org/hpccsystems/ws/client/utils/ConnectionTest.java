@@ -19,6 +19,7 @@ package org.hpccsystems.ws.client.utils;
 import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
+import java.util.regex.Matcher;
 
 import org.junit.Test;
 
@@ -106,5 +107,28 @@ public class ConnectionTest
         Connection con = new Connection("XYZ", host, port);
         assertFalse(con.getIsHttps());
         assertEquals(con.getProtocol(), http);
+    }
+
+    @Test
+    public void hostNamePatternTest() throws MalformedURLException
+    {
+        // Note: we want to test improved error messaging with underscores, but not all versions
+        // of Java throw an exception for underscores in hostnames.
+        // So we are testing the pattern instead
+        String[] urls = {
+            "https://invalid_host_name.test:8010?params",
+            "https://invalid_host_name.test:8010",
+            "http://invalid_host_name.test:8010",
+            "invalid_host_name.test:8010",
+            "invalid_host_name.test"
+        };
+
+        String hostName = "invalid_host_name.test";
+        for (String url : urls)
+        {
+            Matcher matcher = Connection.URL_HOSTNAME_PATTERN.matcher(url);
+            assertTrue(matcher.matches());
+            assertEquals(matcher.group("hostname"), hostName);
+        }
     }
 }
