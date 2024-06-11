@@ -38,7 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GHUB_JIRA_USER_MAP: ${{ vars.GHUB_JIRA_USER_MAP }}
           JIRA_ISSUE_PROPERTY_MAP: ${{ vars.JIRA_ISSUE_PROPERTY_MAP }}
-          JIRA_ISSUE_TRANSITION_MAP: ${{ vars.JIRA_ISSUE_TRANSITION_MAP }}
         run: |
             import os
             import re
@@ -47,24 +46,19 @@ jobs:
             import json
             from atlassian.jira import Jira
 
-            def updateIssue(jira, issue, prAuthor : str, transitionMap: dict, propertyMap: dict, pull_url: str) -> str:
+            def updateIssue(jira, issue, prAuthor : str, propertyMap: dict, pull_url: str) -> str:
                 result = ''
 
                 issueName = issue['key']
                 issueFields = issue['fields']
 
-                statusName = str(issueFields['status']['name'])
-                transition = transitionMap.get(statusName, None)
-
-                if transition == None:
-                    print('Error: Unable to find transition for status: ' + statusName)
-                elif transition != '':
-                    try:
-                        jira.issue_transition(issueName, transition)
-                        result += 'Workflow Transition: ' + transition + '\n'
-                    except Exception as error:
-                        transitions = jira.get_issue_transitions(issueName)
-                        result += 'Error: Transition: "' + transition + '" failed with: "' + str(error) + '" Valid transitions=' + str(transitions) + '\n'
+                try:
+                    transitionId = jira.get_transition_id_to_status_name(issue_name, desiredStatus)
+                    jira.set_issue_status_by_transition_id(issue_name, transitionId)
+                    result += 'Workflow Transition To: ' + desiredStatus + '\n'
+                except Exception as error:
+                    transitions = jira.get_issue_transitions(issueName)
+                    result += 'Error: Transitioning to: "' + desiredStatus + '" failed with: "' + str(error) + '" Valid transitions=' + str(transitions) + '\n'
 
                 prFieldName = propertyMap.get('pullRequestFieldName', 'customfield_10010')
 
@@ -141,17 +135,12 @@ jobs:
 
                 result = 'Jirabot Action Result:\n'
 
-                transitionMap = json.loads(os.environ['JIRA_ISSUE_TRANSITION_MAP'])
-                if not isinstance(transitionMap, dict):
-                    print('Error: JIRA_ISSUE_TRANSITION_MAP is not a valid JSON object, ignoring.')
-                    transitionMap = {}
-
                 jiraIssuePropertyMap = json.loads(os.environ['JIRA_ISSUE_PROPERTY_MAP'])
                 if not isinstance(jiraIssuePropertyMap, dict):
                     print('Error: JIRA_ISSUE_PROPERTY_MAP is not a valid JSON object, ignoring.')
                     jiraIssuePropertyMap = {}
 
-                result += updateIssue(jira, issue, jiraUser, transitionMap, jiraIssuePropertyMap, pull_url)
+                result += updateIssue(jira, issue, jiraUser, jiraIssuePropertyMap, pull_url)
                 jira.issue_add_comment(issue_name, result)
 
                 result = 'Jira Issue: ' + jira_url + '/browse/' + issue_name + '\n\n' + result
