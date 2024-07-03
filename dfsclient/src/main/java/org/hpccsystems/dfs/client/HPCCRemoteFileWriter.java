@@ -14,7 +14,14 @@ package org.hpccsystems.dfs.client;
 
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
+
 import org.hpccsystems.dfs.client.RowServiceOutputStream;
+import org.hpccsystems.dfs.client.Utils;
+
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.semconv.ServerAttributes;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +43,9 @@ public class HPCCRemoteFileWriter<T>
     private IRecordAccessor        recordAccessor     = null;
     private long                   recordsWritten     = 0;
     private long                   openTimeMs         = 0;
+
+    private Span                   writeSpan          = null;
+    private String                 writeSpanName      = null;
 
     /**
      * A remote file writer.
@@ -105,9 +115,24 @@ public class HPCCRemoteFileWriter<T>
 
         this.recordAccessor = recordAccessor;
 
+        this.writeSpanName = "HPCCRemoteFileWriter.RowService/Write_" + dp.getFileName() + "_" + dp.getThisPart();
+        this.writeSpan = Utils.createSpan(writeSpanName);
+
+        String primaryIP = dp.getCopyIP(0);
+        String secondaryIP = "";
+        if (dp.getCopyCount() > 1)
+        {
+            secondaryIP = dp.getCopyIP(1);
+        }
+
+        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.primary.address"), primaryIP,
+                                                AttributeKey.stringKey("server.secondary.address"), secondaryIP,
+                                                ServerAttributes.SERVER_PORT, Long.valueOf(dp.getPort()));
+        writeSpan.setAllAttributes(attributes);
+
         this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
                 dataPartition.getFileAccessBlob(), this.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
-                fileCompression, connectTimeoutMs, socketOpTimeoutMs);
+                fileCompression, connectTimeoutMs, socketOpTimeoutMs, this.writeSpan);
 
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);
@@ -160,6 +185,8 @@ public class HPCCRemoteFileWriter<T>
     {
         this.report();
         this.binaryRecordWriter.finalize();
+
+        this.writeSpan.end();
 
         long closeTimeMs = System.currentTimeMillis();
         double writeTimeS = (closeTimeMs -  openTimeMs) / 1000.0;
