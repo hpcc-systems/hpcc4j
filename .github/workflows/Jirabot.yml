@@ -45,7 +45,16 @@ jobs:
             import time
             import sys
             import json
+            import subprocess
+            from email.utils import parseaddr
             from atlassian.jira import Jira
+
+            def sanitizeInput(input: str, inputType: str) -> str:
+                if inputType.lower() == 'email':
+                    # Return the email address only, returns '' if not valid or found
+                    return parseaddr(input)[1]
+                else:
+                    return ''
 
             def updateIssue(jira, issue, prAuthor : str, transitionMap: dict, propertyMap: dict, pull_url: str) -> str:
                 result = ''
@@ -89,8 +98,12 @@ jobs:
                         assigneeId = assignee['accountId']
                         assigneeEmail = assignee["emailAddress"]
 
+                    assigneeEmail = sanitizeInput(assigneeEmail, 'email')
+
                     prAuthorId = prAuthor["accountId"]
                     prAuthorEmail = prAuthor["emailAddress"]
+                    prAuthorEmail = sanitizeInput(prAuthorEmail, 'email')
+
                     if assigneeId is None or assigneeId == '':
                         jira.assign_issue(issueName, prAuthorId)
                         result += 'Assigning user: ' + prAuthorEmail + '\n'
@@ -110,7 +123,6 @@ jobs:
             github_token = os.environ['GITHUB_TOKEN']
             comments_url = os.environ['COMMENTS_URL']
 
-            print("%s %s %s" % (title, prAuthor, comments_url))
             result = ''
             issuem = re.search("(HPCC4J|JAPI)-[0-9]+", title)
             if issuem:
@@ -132,7 +144,7 @@ jobs:
                 if userSearchResults and len(userSearchResults) > 0:
                     jiraUser = userSearchResults[0]
                 else:
-                    print('Error: Unable to find Jira user: ' + prAuthor + ' continuing without assigning')
+                    print('Error: Unable to map GitHub user to Jira user, continuing without assigning')
 
                 if not jira.issue_exists(issue_name):
                     sys.exit('Error: Unable to find Jira issue: ' + issue_name)
@@ -159,8 +171,7 @@ jobs:
                 # Escape the result for JSON
                 result = json.dumps(result)
 
-                curlCommand = 'curl -X POST %s -H "Content-Type: application/json" -H "Authorization: token %s" --data \'{ "body": %s }\'' % ( comments_url, github_token, result )
-                os.system(curlCommand)
+                subprocess.run(['curl', '-X', 'POST', comments_url, '-H', 'Content-Type: application/json', '-H', f'Authorization: token {github_token}', '--data', f'{{ "body": {result} }}'], check=True)
             else:
                 print('Unable to find Jira issue name in title')
 
