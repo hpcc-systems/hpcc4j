@@ -205,7 +205,6 @@ jobs:
             comments_url = os.environ['COMMENTS_URL']
             project_name = 'HPCC4J'
 
-            print("Attempting to close out Jira issue: %s %s %s" % (title, user, comments_url))
             result = ''
             issuem = re.search("(" + project_name + ")-[0-9]+", title, re.IGNORECASE)
             if issuem:
