@@ -1135,15 +1135,26 @@ public class Utils
      */
     static public String getCurrentSpanTraceParentHeader()
     {
-        String traceparent = null;
         Span currentSpan = Span.current();
-        if (currentSpan != null && currentSpan.getSpanContext().isValid())
+        return getTraceParentHeader(currentSpan);
+    }
+
+    /**
+     * Returns traceparent value for Open Telemetry based context propagation
+     * @param span Span to extract traceparent from
+     * @return traceparent of the provided span if valid, otherwise invalid traceparent header value
+     */
+    static public String getTraceParentHeader(Span span)
+    {
+
+        String traceparent = null;
+        if (span != null && span.getSpanContext().isValid())
         {
             Map<String, String> carrier = new HashMap<>();
             TextMapSetter<Map<String, String>> setter = Map::put;
             W3CTraceContextPropagator.getInstance().inject(Context.current(), carrier, setter);
 
-            traceparent = carrier.getOrDefault("traceparent", "00-" + currentSpan.getSpanContext().getTraceId() + "-" + currentSpan.getSpanContext().getSpanId() + "-00");
+            traceparent = carrier.getOrDefault("traceparent", "00-" + span.getSpanContext().getTraceId() + "-" + span.getSpanContext().getSpanId() + "-00");
             carrier.clear();
         }
 

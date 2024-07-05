@@ -12,9 +12,17 @@
  *******************************************************************************/
 package org.hpccsystems.dfs.client;
 
+import org.hpccsystems.dfs.client.Utils;
+
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
+
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.semconv.ServerAttributes;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -47,6 +55,9 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     private int                   socketOpTimeoutMs = 0;
     private long                  openTimeMs        = 0;
     private long                  recordsRead       = 0;
+
+    private Span                  readSpan          = null;
+    private String                readSpanName      = null;
 
     public static final int    NO_RECORD_LIMIT                  = -1;
     public static final int    DEFAULT_READ_SIZE_OPTION         = -1;
@@ -204,6 +215,22 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         this.createPrefetchThread = createPrefetchThread;
         this.socketOpTimeoutMs = socketOpTimeoutMs;
 
+        this.readSpanName = "HPCCRemoteFileReader.RowService/Read_" + dp.getFileName() + "_" + dp.getThisPart();
+        this.readSpan = Utils.createSpan(readSpanName);
+
+        String primaryIP = dp.getCopyIP(0);
+        String secondaryIP = "";
+        if (dp.getCopyCount() > 1)
+        {
+            secondaryIP = dp.getCopyIP(1);
+        }
+
+        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.primary.address"), primaryIP,
+                                                AttributeKey.stringKey("server.secondary.address"), secondaryIP,
+                                                ServerAttributes.SERVER_PORT, Long.valueOf(dp.getPort()),
+                                                AttributeKey.longKey("read.size"), Long.valueOf(readSizeKB*1000));
+        readSpan.setAllAttributes(attributes);
+
         if (connectTimeout < 1)
         {
             connectTimeout = RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS;
@@ -212,18 +239,24 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
         if (this.originalRecordDef == null)
         {
-            throw new Exception("HpccRemoteFileReader: Provided original record definition is null, original record definition is required.");
+            Exception e = new Exception("HpccRemoteFileReader: Provided original record definition is null, original record definition is required.");
+            this.readSpan.recordException(e);
+            this.readSpan.end();
+            throw e;
         }
 
         FieldDef projectedRecordDefinition = recBuilder.getRecordDefinition();
         if (projectedRecordDefinition == null)
         {
-            throw new Exception("IRecordBuilder does not have a valid record definition.");
+            Exception e = new Exception("IRecordBuilder does not have a valid record definition.");
+            this.readSpan.recordException(e);
+            this.readSpan.end();
+            throw e;
         }
 
         if (resumeInfo == null)
         {
-            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, null, false, socketOpTimeoutMs);
+            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, null, false, socketOpTimeoutMs, readSpan);
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
             this.binaryRecordReader.initialize(this.recordBuilder);
 
@@ -238,11 +271,14 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             restartInfo.streamPos = resumeInfo.inputStreamPos;
             restartInfo.tokenBin = resumeInfo.tokenBin;
 
-            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, restartInfo, false, socketOpTimeoutMs);
+            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, restartInfo, false, socketOpTimeoutMs, this.readSpan);
+
             long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
             if (bytesToSkip < 0)
             {
-                throw new Exception("Unable to restart unexpected stream pos in record reader.");
+                Exception e = new Exception("Unable to restart read stream, unexpected stream position in record reader.");
+                this.readSpan.recordException(e);
+                this.readSpan.end();
             }
             this.inputStream.skip(bytesToSkip);
 
@@ -279,9 +315,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
             try
             {
+                this.readSpan = Utils.createSpan(readSpanName);
                 this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef,
                         this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
-                        this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs);
+                        this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs, this.readSpan);
+
                 long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
                 if (bytesToSkip < 0)
                 {
@@ -294,6 +332,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             }
             catch (Exception e)
             {
+                this.readSpan.recordException(e);
+                this.readSpan.end();
                 log.error("Failed to retry read for " + this.dataPartition.toString() + " " + e.getMessage(), e);
                 return false;
             }
@@ -499,7 +539,9 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             return;
         }
 
+        this.readSpan.end();
         report();
+
         this.inputStream.close();
         isClosed = true;
 
