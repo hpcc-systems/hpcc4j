@@ -50,7 +50,6 @@ jobs:
           COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}
-
         run: |
             import os
             import re
@@ -95,9 +94,9 @@ jobs:
                 major, minor, point = map(int, version)
                 return f"{major}.{minor}.{point}"
 
-            def generateFixVersionList(jira, branchName):
-
-                latestVersion = getTagVersionForCmd("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
+            def generateFixVersionList(jira, projectName, branchName):
+                cmd = "git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1"
+                latestVersion = getTagVersionForCmd(cmd)
 
                 # If we are merging into master we assume it is going into the next minor release
                 fixVersions = []
@@ -116,7 +115,8 @@ jobs:
                     curMajor = branchVersion[0]
                     latestMajor = latestVersion[0]
                     while curMajor <= latestMajor:
-                        latestVersionInMajor = getTagVersionForCmd("git tag --list 'hpcc4j_" + str(curMajor) + "*-release' --sort=-v:refname | head -n 1")
+                        cmd = "git tag --list 'hpcc4j_" + str(curMajor) + "*-release' --sort=-v:refname | head -n 1"
+                        latestVersionInMajor = getTagVersionForCmd(cmd)
 
                         curMinor = 0
                         if curMajor == branchVersion[0]:
@@ -131,18 +131,24 @@ jobs:
                         curMajor += 1
 
                 for fixVersion in fixVersions:
-                    alreadyHasFixVersion = False
-                    versions = jira.get_project_versions('HPCC4J')
-                    for v in versions:
-                        if v['name'] == fixVersion:
-                            alreadyHasFixVersion = True
+                    try:
+                        alreadyHasFixVersion = False
+                        versions = jira.get_project_versions(projectName)
+                        for v in versions:
+                            if v['name'] == fixVersion:
+                                alreadyHasFixVersion = True
 
-                    if not alreadyHasFixVersion:
-                        jira.add_version(fixVersion, 'HPCC4J', fixVersion)
+                        if not alreadyHasFixVersion:
+                            project = jira.get_project(projectName)
+                            projectId = project['id']
+                            jira.add_version(projectName, projectId, fixVersion)
+                    catch Exception as error:
+                        print('Error: Unable to add fix version: ' + fixVersion + ' with: ' + str(error))
+                        sys.exit(1)
 
                 return fixVersions
 
-            def resolveIssue(jira, issue, fixVersions) -> str:
+            def resolveIssue(jira, projectName, issue, fixVersions) -> str:
                 result = ''
 
                 versionsToAdd = []
@@ -159,7 +165,7 @@ jobs:
                     if not alreadyHasFixVersion:
                         versionsToAdd.append(addedVersion)
 
-                versions = jira.get_project_versions('HPCC4J')
+                versions = jira.get_project_versions(projectName)
                 updatedVersionList = []
                 for v in issueFields['fixVersions']:
                     updatedVersionList.append({'id' : v['id']})
@@ -178,15 +184,21 @@ jobs:
                         result += "Error: Unable to find fix version: " + fixVersionName + "\n"
 
                 if len(versionsToAdd) > 0:
-                    jira.update_issue_field(issueName, {'fixVersions': updatedVersionList})
+                    try:
+                        jira.update_issue_field(issueName, {'fixVersions': updatedVersionList})
+                    except Exception as error:
+                        result += 'Error: Updating fix versions failed with: "' + str(error) + '\n'
                 else:
                     result += "Fix versions already added.\n"
 
                 statusName = str(issueFields['status']['name'])
                 if statusName != 'Resolved':
-                    transition = 'Accept Pull Request'
-                    jira.issue_transition(issue_name, transition)
-                    result += "Workflow Transition: 'Resolve issue'\n"
+                    try:
+                        transitionId = jira.get_transition_id_to_status_name(issueName, 'Resolved')
+                        jira.set_issue_status_by_transition_id(issueName, transitionId)
+                        result += "Workflow Transition: 'Resolve issue'\n"
+                    except Exception as error:
+                        result += 'Error: Transitioning to: "Resolved" failed with: "' + str(error) + '\n'
 
                 return result
 
@@ -201,16 +213,12 @@ jobs:
             github_token = os.environ['GITHUB_TOKEN']
             branch_name = os.environ['BRANCH_NAME']
             comments_url = os.environ['COMMENTS_URL']
+            project_name = 'HPCC4J'
 
             result = ''
-            issuem = re.search("(HPCC4J|JAPI)-[0-9]+", title)
+            issuem = re.search("(" + project_name + ")-[0-9]+", title, re.IGNORECASE)
             if issuem:
-                nameCorrectionPattern = re.compile("hpcc4j", re.IGNORECASE)
-                issue_name = nameCorrectionPattern.sub("HPCC4J",issuem.group())
-
-                options = {
-                    'server': jira_url
-                }
+                issue_name = issuem.group()
 
                 jira = Jira(url=jira_url, username=jirabot_user, password=jirabot_pass, cloud=True)
 
@@ -221,9 +229,14 @@ jobs:
 
                 result = 'Jirabot Action Result:\n'
 
-                fixVersions = generateFixVersionList(jira, branch_name)
-                result += resolveIssue(jira, issue, fixVersions)
+                fixVersions = generateFixVersionList(jira, project_name, branch_name)
+                result += resolveIssue(jira, project_name, issue, fixVersions)
                 jira.issue_add_comment(issue_name, result)
+
+                # Escape the result for JSON
+                result = json.dumps(result)
+
+                subprocess.run(['curl', '-X', 'POST', comments_url, '-H', 'Content-Type: application/json', '-H', f'Authorization: token {github_token}', '--data', f'{{ "body": {result} }}'], check=True)
             else:
                 print('Unable to find Jira issue name in title')
 
