@@ -18,6 +18,7 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.io.OutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -235,7 +236,17 @@ public class RowServiceOutputStream extends OutputStream
         this.filePath = filePartPath;
         this.accessToken = accessToken;
         this.compressionAlgo = fileCompression;
+
+        if (sockOpTimeoutMS < 0)
+        {
+            sockOpTimeoutMS = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        }
         this.sockOpTimeoutMs = sockOpTimeoutMS;
+
+        if (connectTimeoutMs < 0)
+        {
+            connectTimeoutMs = DEFAULT_CONNECT_TIMEOUT_MILIS;
+        }
 
         if (writeSpan != null && writeSpan.getSpanContext().isValid())
         {
@@ -245,9 +256,7 @@ public class RowServiceOutputStream extends OutputStream
 
         if (this.writeSpan != null)
         {
-            Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                  ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-            writeSpan.addEvent("RowServiceOutputStream.connect", attributes);
+            writeSpan.addEvent("RowServiceOutputStream.connect", getServerAttributes());
         }
 
         try
@@ -295,9 +304,7 @@ public class RowServiceOutputStream extends OutputStream
             Exception wrappedException = new Exception(errorMessage, e);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                      ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -309,9 +316,7 @@ public class RowServiceOutputStream extends OutputStream
 
         if (writeSpan != null)
         {
-            Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-            writeSpan.addEvent("RowServiceOutputStream.versionRequest", attributes);
+            writeSpan.addEvent("RowServiceOutputStream.versionRequest", getServerAttributes());
         }
 
         try
@@ -328,9 +333,7 @@ public class RowServiceOutputStream extends OutputStream
             HpccFileException wrappedException = new HpccFileException("Failed on initial remote read read trans", e);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                      ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -355,9 +358,7 @@ public class RowServiceOutputStream extends OutputStream
                 HpccFileException wrappedException = new HpccFileException("Error while attempting to read version response.", e);
                 if (writeSpan != null)
                 {
-                    Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                        ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                    writeSpan.recordException(wrappedException, attributes);
+                    writeSpan.recordException(wrappedException, getServerAttributes());
                 }
 
                 throw wrappedException;
@@ -372,9 +373,16 @@ public class RowServiceOutputStream extends OutputStream
         makeInitialWriteRequest();
     }
 
+    private Attributes getServerAttributes()
+    {
+        return Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
+                             ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
+    }
+
     private String makeGetVersionRequest()
     {
-        final String trace = traceContextHeader != null ? "\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n" : "";
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
+
         final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", " + trace + " \"format\": \"binary\" }";
         return versionMsg;
     }
@@ -383,7 +391,7 @@ public class RowServiceOutputStream extends OutputStream
     {
         String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.recordDef).toString();
 
-        final String trace = traceContextHeader != null ? "\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n" : "";
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
         String initialRequest = "\n{\n"
                 + "    \"format\" : \"binary\",\n"
                 + trace
@@ -429,9 +437,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException(response.errorMessage);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -440,7 +446,7 @@ public class RowServiceOutputStream extends OutputStream
 
     private String makeCloseHandleRequest()
     {
-        final String trace = traceContextHeader != null ? "\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n" : "";
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
 
         StringBuilder sb = new StringBuilder(256);
         sb.delete(0, sb.length());
@@ -477,9 +483,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException("Failed on close file with error: ", e);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -495,9 +499,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException("Failed to close file. Unable to read response with error: ", e);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -508,9 +510,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException(response.errorMessage);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -579,9 +579,7 @@ public class RowServiceOutputStream extends OutputStream
                 HpccFileException wrappedException = new HpccFileException("Early data termination, no handle");
                 if (writeSpan != null)
                 {
-                    Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                        ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                    writeSpan.recordException(wrappedException, attributes);
+                    writeSpan.recordException(wrappedException, getServerAttributes());
                 }
 
                 throw wrappedException;
@@ -595,9 +593,7 @@ public class RowServiceOutputStream extends OutputStream
             HpccFileException wrappedException = new HpccFileException("Error while attempting to read row service response: ", e);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -624,9 +620,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException("Fatal error while closing file. Writing compressed files with 0 length is not supported with the remote HPCC cluster.");
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -662,7 +656,7 @@ public class RowServiceOutputStream extends OutputStream
      */
     public void write(byte[] b, int off, int len) throws IOException
     {
-        final String trace = traceContextHeader != null ? "\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n" : "";
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
 
         String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\","
                        + trace
@@ -702,9 +696,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException("Failed during write operation. Unable to read response with error: ", e);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -715,9 +707,7 @@ public class RowServiceOutputStream extends OutputStream
             IOException wrappedException = new IOException(response.errorMessage);
             if (writeSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
-                writeSpan.recordException(wrappedException, attributes);
+                writeSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;

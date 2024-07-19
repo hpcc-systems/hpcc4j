@@ -36,7 +36,6 @@ public class HPCCRemoteFileWriter<T>
 {
     private static final Logger    log                = LogManager.getLogger(HPCCRemoteFileWriter.class);
 
-    private FieldDef               recordDef          = null;
     private DataPartition          dataPartition      = null;
     private RowServiceOutputStream outputStream       = null;
     private BinaryRecordWriter     binaryRecordWriter = null;
@@ -44,8 +43,30 @@ public class HPCCRemoteFileWriter<T>
     private long                   recordsWritten     = 0;
     private long                   openTimeMs         = 0;
 
+    private FileWriteContext       context            = null;
+
     private Span                   writeSpan          = null;
     private String                 writeSpanName      = null;
+
+    public static class FileWriteContext
+    {
+        public FieldDef recordDef = null;
+        public CompressionAlgorithm fileCompression = CompressionAlgorithm.DEFAULT;
+        public int connectTimeoutMs = -1;
+        public int socketOpTimeoutMs = -1;
+        public Span parentSpan = null;
+    }
+
+    private static FileWriteContext constructReadContext(FieldDef recordDef, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
+    {
+        FileWriteContext context = new FileWriteContext();
+        context.recordDef = recordDef;
+        context.fileCompression = fileCompression;
+        context.connectTimeoutMs = connectTimeoutMs;
+        context.socketOpTimeoutMs = socketOpTimeoutMs;
+
+        return context;
+    }
 
     /**
      * A remote file writer.
@@ -110,13 +131,19 @@ public class HPCCRemoteFileWriter<T>
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
             throws Exception
     {
-        this.recordDef = recordDef;
+        this(constructReadContext(recordDef, fileCompression, connectTimeoutMs, socketOpTimeoutMs), dp, recordAccessor);
+    }
+
+    public HPCCRemoteFileWriter(FileWriteContext ctx, DataPartition dp, IRecordAccessor recordAccessor)
+            throws Exception
+    {
         this.dataPartition = dp;
+        this.context = ctx;
 
         this.recordAccessor = recordAccessor;
 
         this.writeSpanName = "HPCCRemoteFileWriter.RowService/Write_" + dp.getFileName() + "_" + dp.getThisPart();
-        this.writeSpan = Utils.createSpan(writeSpanName);
+        this.writeSpan = Utils.createChildSpan(context.parentSpan, writeSpanName);
 
         String primaryIP = dp.getCopyIP(0);
         String secondaryIP = "";
@@ -125,22 +152,22 @@ public class HPCCRemoteFileWriter<T>
             secondaryIP = dp.getCopyIP(1);
         }
 
-        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.primary.address"), primaryIP,
-                                                AttributeKey.stringKey("server.secondary.address"), secondaryIP,
+        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.0.address"), primaryIP,
+                                                AttributeKey.stringKey("server.1.address"), secondaryIP,
                                                 ServerAttributes.SERVER_PORT, Long.valueOf(dp.getPort()));
         writeSpan.setAllAttributes(attributes);
 
         this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
-                dataPartition.getFileAccessBlob(), this.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
-                fileCompression, connectTimeoutMs, socketOpTimeoutMs, this.writeSpan);
+                dataPartition.getFileAccessBlob(), context.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
+                context.fileCompression, context.connectTimeoutMs, context.socketOpTimeoutMs, this.writeSpan);
 
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);
 
         log.info("HPCCRemoteFileWriter: Opening file part: " + dataPartition.getThisPart()
-                + " compression: " + fileCompression.name());
+                + " compression: " + context.fileCompression.name());
         log.trace("Record definition:\n"
-                + RecordDefinitionTranslator.toJsonRecord(this.recordDef));
+                + RecordDefinitionTranslator.toJsonRecord(context.recordDef));
         openTimeMs = System.currentTimeMillis();
     }
 
