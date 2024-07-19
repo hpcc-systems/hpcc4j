@@ -410,8 +410,17 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         this.handle = 0;
         this.tokenBin = null;
         this.simulateFail = false;
-        this.connectTimeout = connectTimeout;
-        this.socketOpTimeoutMs = socketOpTimeoutMS;
+
+        if (connectTimeout > 0)
+        {
+            this.connectTimeout = connectTimeout;
+        }
+
+        if (socketOpTimeoutMS > 0)
+        {
+            this.socketOpTimeoutMs = socketOpTimeoutMS;
+        }
+
         this.recordLimit = limit;
 
         this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
@@ -555,8 +564,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         if (readSpan != null)
         {
-            Attributes attributes = Attributes.of(  ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
+            Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                     ExceptionAttributes.EXCEPTION_MESSAGE, e.getMessage());
             readSpan.recordException(e, attributes);
         }
@@ -725,8 +733,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             Exception wrappedException = new Exception("Error: attempted to start a fetch request for an input stream in sequential read mode.");
             if (readSpan != null)
             {
-                Attributes attributes = Attributes.of(  ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                        ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
+                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                         ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
                 readSpan.recordException(wrappedException, attributes);
             }
@@ -812,15 +819,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         String prefix = "RowServiceInputStream.startFetch(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
-        if (readSpan != null)
-        {
-            Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
-                                                    AttributeKey.longKey("read.offset"), streamPos,
-                                                    AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
-            readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
-        }
-
         //------------------------------------------------------------------------------
         // If we haven't made the connection active, activate it now and send the
         // first request.
@@ -833,6 +831,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         numFetches++;
         if (!this.active.get())
         {
+            if (readSpan != null)
+            {
+                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                                                        AttributeKey.longKey("read.offset"), streamPos,
+                                                        AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
+                readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
+            }
+
             try
             {
                 makeActive();
@@ -1038,8 +1044,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     IOException wrappedException = new IOException(prefix + "Encountered unexpected end of stream mid fetch, this.dis.available() returned " + bytesToRead + " bytes.");
                     if (readSpan != null)
                     {
-                        Attributes attributes = Attributes.of(  ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                                ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
+                        Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                                 ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
                         readSpan.recordException(wrappedException, attributes);
                     }
@@ -1132,9 +1137,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         if (readSpan != null)
         {
-            Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                  ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
-                                                  AttributeKey.longKey("read.bytesRead"), Long.valueOf(totalDataInCurrentRequest));
+            Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                                                    AttributeKey.longKey("read.bytesRead"), Long.valueOf(totalDataInCurrentRequest));
             readSpan.addEvent("RowServiceInputStream.readResponse", attributes);
         }
 
@@ -1146,10 +1150,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         {
             if (readSpan != null)
             {
-                Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
-                                                    AttributeKey.longKey("read.offset"), streamPos,
-                                                    AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
+                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                                                        AttributeKey.longKey("read.offset"), streamPos,
+                                                        AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
                 readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
             }
 
@@ -1333,13 +1336,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 // this.bufferWriteMutex.release();
                 IOException wrappedException = new IOException(prefix + "End of input stream, bufferLen:" + bufferLen + ", this.readPos:" + this.readPos + ", availableBytes=0");
-                if (readSpan != null)
-                {
-                    Attributes attributes = Attributes.of(  ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                            ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
-                                                            ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
-                    readSpan.recordException(wrappedException, attributes);
-                }
                 throw wrappedException;
             }
         }
@@ -1679,8 +1675,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         if (readSpan != null)
         {
-            Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                    ServerAttributes.SERVER_PORT, Long.valueOf(getPort()));
+            Attributes attributes = Attributes.of( AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()) );
             readSpan.addEvent("RowServiceInputStream.connect", attributes);
         }
 
@@ -1753,8 +1748,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
                 if (readSpan != null)
                 {
-                    Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                            ServerAttributes.SERVER_PORT, Long.valueOf(getPort()));
+                    Attributes attributes = Attributes.of( AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()) );
                     readSpan.addEvent("RowServiceInputStream.versionRequest", attributes);
                 }
 
@@ -1795,9 +1789,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
                     if (readSpan != null)
                     {
-                        Attributes attributes = Attributes.of(ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                            ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
-                                                            ServiceAttributes.SERVICE_VERSION, rowServiceVersion);
+                        Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                                                                ServiceAttributes.SERVICE_VERSION, rowServiceVersion);
                         readSpan.addEvent("RowServiceInputStream.versionResponse", attributes);
                     }
                 }
@@ -2127,7 +2120,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private String makeGetVersionRequest()
     {
-        final String trace = traceContextHeader != null ? "\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n" : "";
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
         final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", " + trace + " \"format\": \"binary\" }";
         return versionMsg;
     }
@@ -2140,10 +2133,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append("{ \"format\" : \"binary\", \n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
 
-        if (traceContextHeader != null)
-        {
-            sb.append("\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n");
-        }
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
+        sb.append(trace);
 
         if (!useOldProtocol)
         {
@@ -2213,10 +2204,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("  \"handle\" : \"" + Integer.toString(this.handle) + "\",");
 
-        if (traceContextHeader != null)
-        {
-            sb.append("\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n");
-        }
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
+        sb.append(trace);
 
         if (!useOldProtocol)
         {
@@ -2241,10 +2230,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
 
-        if (traceContextHeader != null)
-        {
-            sb.append("\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n");
-        }
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
+        sb.append(trace);
 
         if (!useOldProtocol)
         {
@@ -2266,10 +2253,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("  \"handle\" : \"" + Integer.toString(this.handle) + "\",");
 
-        if (traceContextHeader != null)
-        {
-            sb.append("\"_trace/traceparent\" : \"" + traceContextHeader + "\",\n");
-        }
+        final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
+        sb.append(trace);
 
         sb.append("  \"command\" : \"close\"");
         sb.append("\n}");
@@ -2311,8 +2296,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             IOException wrappedException = new IOException(prefix + "Failed to close file. Unable to read response with error: " + e.getMessage(), e);
             if (readSpan != null)
             {
-                Attributes attributes = Attributes.of(  ServerAttributes.SERVER_ADDRESS, getIP(),
-                                                        ServerAttributes.SERVER_PORT, Long.valueOf(getPort()),
+                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                         ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
                 readSpan.recordException(wrappedException, attributes);
             }
