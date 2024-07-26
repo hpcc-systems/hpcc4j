@@ -13,6 +13,7 @@
 package org.hpccsystems.dfs.client;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.Tracer;
@@ -20,24 +21,53 @@ import io.opentelemetry.context.Context;
 
 public class Utils
 {
+    private static OpenTelemetry globalOpenTelemetry = null;
+    private static Tracer dfsClientTracer = null;
+
+    public static OpenTelemetry getOpenTelemetry()
+    {
+        if (globalOpenTelemetry == null)
+        {
+            globalOpenTelemetry = GlobalOpenTelemetry.get();
+        }
+
+        return globalOpenTelemetry;
+    }
+
     public static Tracer getTelemetryTracer()
     {
-        return GlobalOpenTelemetry.get().getTracer("DFSClient");
+        if (dfsClientTracer == null)
+        {
+            dfsClientTracer = getOpenTelemetry().getTracer("org.hpccsystems.dfsclient");
+        }
+
+        return dfsClientTracer;
     }
 
     public static Span createSpan(String name)
     {
-        return Utils.getTelemetryTracer().spanBuilder(name)
-                                        .setSpanKind(SpanKind.CLIENT)
-                                        .startSpan();
+        return createChildSpan(null, name);
     }
 
     public static Span createChildSpan(Span parentSpan, String name)
     {
-        return Utils.getTelemetryTracer().spanBuilder(name)
-                                        .setParent(Context.current().with(parentSpan))
-                                        .setSpanKind(SpanKind.CLIENT)
-                                        .startSpan();
+        Span span = null;
+        if (parentSpan == null)
+        {
+            span = Utils.getTelemetryTracer().spanBuilder(name)
+                                    .setSpanKind(SpanKind.CLIENT)
+                                    .startSpan();
+        }
+        else
+        {
+            span = Utils.getTelemetryTracer().spanBuilder(name)
+                                    .setParent(Context.current().with(parentSpan))
+                                    .setSpanKind(SpanKind.CLIENT)
+                                    .startSpan();
+        }
+
+        span.makeCurrent();
+        return span;
     }
 
 }

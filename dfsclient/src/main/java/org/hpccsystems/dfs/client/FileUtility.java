@@ -17,6 +17,7 @@
 package org.hpccsystems.dfs.client;
 
 import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
@@ -32,6 +33,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
 
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.json.JSONArray;
@@ -66,27 +74,139 @@ public class FileUtility
     private static final int NUM_DEFAULT_THREADS = 4;
     static private final int DEFAULT_ACCESS_EXPIRY_SECONDS = 120;
 
+    private static boolean otelInitialized = false;
+
     private static class TaskContext
     {
-        public AtomicLong recordsRead = new AtomicLong(0);
-        public AtomicLong recordsWritten = new AtomicLong(0);
+        private static class TaskOperation
+        {
+            public String currentOperationDesc = "";
+            public long operationStartNS = 0;
 
-        public AtomicLong bytesRead = new AtomicLong(0);
-        public AtomicLong bytesWritten = new AtomicLong(0);
+            public List<String> errorMessages = new ArrayList<String>();
+            public List<String> warnMessages = new ArrayList<String>();
 
-        private List<String> errorMessages = new ArrayList<String>();
-        private List<String> warnMessages = new ArrayList<String>();
+            public AtomicLong recordsRead = new AtomicLong(0);
+            public AtomicLong recordsWritten = new AtomicLong(0);
 
-        private String currentOperationDesc = "";
-        private long operationStart = 0;
-        private List<JSONObject> operationResults = new ArrayList<JSONObject>();
+            public AtomicLong bytesRead = new AtomicLong(0);
+            public AtomicLong bytesWritten = new AtomicLong(0);
+
+            public Span operationSpan = null;
+
+            public JSONObject end(boolean success)
+            {
+                if (success)
+                {
+                    operationSpan.setStatus(StatusCode.OK);
+                }
+                else
+                {
+                    operationSpan.setStatus(StatusCode.ERROR);
+                }
+
+                operationSpan.end();
+
+                long totalOperationTime = System.nanoTime();
+                totalOperationTime -= operationStartNS;
+
+                double timeInSeconds = (double) totalOperationTime / 1_000_000_000.0;
+
+                JSONObject results = new JSONObject();
+
+                results.put("operation", currentOperationDesc);
+                results.put("successful", success);
+
+                JSONArray errors = new JSONArray();
+                for (String err : errorMessages)
+                {
+                    errors.put(err);
+                }
+                results.put("errors", errors);
+
+                JSONArray warns = new JSONArray();
+                for (String warn : warnMessages)
+                {
+                    warns.put(warn);
+                }
+                results.put("warns", warns);
+
+                results.put("bytesWritten", bytesWritten.get());
+                results.put("recordsWritten", recordsWritten.get());
+
+                results.put("bytesRead", bytesRead.get());
+                results.put("recordsRead", recordsRead.get());
+
+                results.put("time", String.format("%.2f s",timeInSeconds));
+
+                double readBandwidth = (double) bytesRead.get() / (1_000_000.0 * timeInSeconds);
+                results.put("Read Bandwidth", String.format("%.2f MB/s", readBandwidth));
+
+                double writeBandwidth = (double) bytesWritten.get() / (1_000_000.0 * timeInSeconds);
+                results.put("Write Bandwidth", String.format("%.2f MB/s", writeBandwidth));
+
+                return results;
+            }
+        }
+
+        private Stack<TaskOperation> operations = new Stack<TaskOperation>();
+        public List<JSONObject> operationResults = new ArrayList<JSONObject>();
+
+        public void setCurrentOperationSpanAttributes(Attributes attributes)
+        {
+            if (!hasCurrentOperation())
+            {
+                return;
+            }
+            TaskOperation op = getCurrentOperation();
+
+            synchronized(op.operationSpan)
+            {
+                op.operationSpan.setAllAttributes(attributes);
+            }
+        }
+
+        public void addCurrentOperationSpanAttribute(AttributeKey key, Object value)
+        {
+            if (!hasCurrentOperation())
+            {
+                return;
+            }
+            TaskOperation op = getCurrentOperation();
+
+            synchronized(op.operationSpan)
+            {
+                op.operationSpan.setAttribute(key, value);
+            }
+        }
+
+        public void makeCurrentOperationSpanCurrent()
+        {
+            if (!hasCurrentOperation())
+            {
+                return;
+            }
+            TaskOperation op = getCurrentOperation();
+
+            synchronized(op.operationSpan)
+            {
+                op.operationSpan.makeCurrent();
+            }
+        }
 
         public boolean hasError()
         {
-            boolean err = false;
-            synchronized(errorMessages)
+            if (!hasCurrentOperation())
             {
-                err = errorMessages.size() > 0;
+                return false;
+            }
+
+            TaskOperation op = getCurrentOperation();
+
+            boolean err = false;
+            synchronized(op.errorMessages)
+            {
+                err = op.errorMessages.size() > 0;
             }
 
             return err;
@@ -94,44 +214,84 @@ public class FileUtility
 
         public void addError(String error)
         {
-            synchronized(errorMessages)
+            if (!hasCurrentOperation())
             {
-                errorMessages.add(error);
+                return;
+            }
+
+            TaskOperation op = getCurrentOperation();
+
+            synchronized(op.errorMessages)
+            {
+                op.errorMessages.add(error);
+            }
+
+            synchronized(op.operationSpan)
+            {
+                op.operationSpan.recordException(new Exception(error));
             }
         }
 
         public void addWarn(String warn)
         {
-            synchronized(warnMessages)
+            if (!hasCurrentOperation())
             {
-                warnMessages.add(warn);
+                return;
+            }
+
+            TaskOperation op = getCurrentOperation();
+
+            synchronized(op.warnMessages)
+            {
+                op.warnMessages.add(warn);
+            }
+
+            synchronized(op.operationSpan)
+            {
+                op.operationSpan.addEvent(warn);
             }
         }
 
-        public void clear()
+        public boolean hasCurrentOperation()
         {
-            currentOperationDesc = "";
-            operationStart = 0;
-            recordsRead.set(0);
-            recordsWritten.set(0);
+            if (operations.isEmpty())
+            {
+                return false;
+            }
 
-            bytesRead.set(0);
-            bytesWritten.set(0);
-
-            errorMessages.clear();
-            warnMessages.clear();
+            return true;
         }
 
-        public boolean hasOperation()
+        public TaskOperation getCurrentOperation()
         {
-            return !currentOperationDesc.isEmpty();
+            if (!hasCurrentOperation())
+            {
+                return null;
+            }
+
+            return operations.peek();
+        }
+
+        private void setCurrentOperation(TaskOperation op)
+        {
+            operations.push(op);
         }
 
         public void startOperation(String operationName)
         {
-            clear();
-            currentOperationDesc = operationName;
-            operationStart = System.nanoTime();
+            TaskOperation op = new TaskOperation();
+            op.currentOperationDesc = operationName;
+            op.operationStartNS = System.nanoTime();
+
+            Span parentSpan = null;
+            TaskOperation prevOp = getCurrentOperation();
+            if (prevOp != null)
+            {
+                parentSpan = prevOp.operationSpan;
+            }
+
+            op.operationSpan = Utils.createChildSpan(parentSpan, operationName);
+            setCurrentOperation(op);
         }
 
         public void endOperation()
@@ -141,52 +301,13 @@ public class FileUtility
 
         public void endOperation(boolean success)
         {
-            if (!hasOperation())
+            if (!hasCurrentOperation())
             {
                 return;
             }
 
-            long totalOperationTime = System.nanoTime();
-            totalOperationTime -= operationStart;
-
-            double timeInSeconds = (double) totalOperationTime / 1_000_000_000.0;
-
-            JSONObject results = new JSONObject();
-
-            results.put("operation", currentOperationDesc);
-            results.put("successful", success);
-
-            JSONArray errors = new JSONArray();
-            for (String err : errorMessages)
-            {
-                errors.put(err);
-            }
-            results.put("errors", errors);
-
-            JSONArray warns = new JSONArray();
-            for (String warn : warnMessages)
-            {
-                warns.put(warn);
-            }
-            results.put("warns", warns);
-
-            results.put("bytesWritten", bytesWritten.get());
-            results.put("recordsWritten", recordsWritten.get());
-
-            results.put("bytesRead", bytesRead.get());
-            results.put("recordsRead", recordsRead.get());
-
-            results.put("time", String.format("%.2f s",timeInSeconds));
-
-            double readBandwidth = (double) bytesRead.get() / (1_000_000.0 * timeInSeconds);
-            results.put("Read Bandwidth", String.format("%.2f MB/s", readBandwidth));
-
-            double writeBandwidth = (double) bytesWritten.get() / (1_000_000.0 * timeInSeconds);
-            results.put("Write Bandwidth", String.format("%.2f MB/s", writeBandwidth));
-
-            operationResults.add(results);
-
-            clear();
+            operationResults.add(getCurrentOperation().end(success));
+            operations.pop();
         }
 
         public JSONArray generateResultsMessage()
@@ -633,7 +754,7 @@ public class FileUtility
         return filteredFiles.toArray(new String[0]);
     }
 
-    private static void executeTasks(Runnable[] tasks, int numThreads) throws Exception
+    private static void executeTasks(Runnable[] tasks, int numThreads, TaskContext context) throws Exception
     {
         int numTasksPerThread = tasks.length / numThreads;
         int numResidualTasks = tasks.length % numThreads;
@@ -659,6 +780,10 @@ public class FileUtility
 
                 public void run()
                 {
+                    // Make sure the span is current for the thread, otherwise spans created
+                    // within this thread will not be children of the task span
+                    context.makeCurrentOperationSpanCurrent();
+
                     for (int j = 0; j < numSubTasks; j++)
                     {
                         subTasks[startingSubTask + j].run();
@@ -690,16 +815,19 @@ public class FileUtility
                 {
                     try
                     {
-                        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(filePart, recordDef, new HPCCRecordBuilder(recordDef));
+                        HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+                        readContext.parentSpan = context.getCurrentOperation().operationSpan;
+                        readContext.originalRD = recordDef;
+                        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, filePart, new HPCCRecordBuilder(recordDef));
 
                         while (fileReader.hasNext())
                         {
                             HPCCRecord record = fileReader.next();
-                            context.recordsRead.incrementAndGet();
+                            context.getCurrentOperation().recordsRead.incrementAndGet();
                         }
 
                         fileReader.close();
-                        context.bytesRead.addAndGet(fileReader.getStreamPosition());
+                        context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
                     }
                     catch (Exception e)
                     {
@@ -719,7 +847,11 @@ public class FileUtility
         for (int i = 0; i < tasks.length; i++)
         {
             final int taskIndex = i;
-            final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[taskIndex], recordDef, new HPCCRecordBuilder(recordDef));
+
+            HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+            readContext.parentSpan = context.getCurrentOperation().operationSpan;
+            readContext.originalRD = recordDef;
+            final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[taskIndex], new HPCCRecordBuilder(recordDef));
 
             final String filePath = outFilePaths[taskIndex];
             final FileOutputStream outStream = new FileOutputStream(filePath);
@@ -743,13 +875,13 @@ public class FileUtility
                             splitTable.addRecordPosition(fileReader.getStreamPosition());
                             HPCCRecord record = fileReader.next();
                             fileWriter.writeRecord(record);
-                            context.recordsRead.incrementAndGet();
+                            context.getCurrentOperation().recordsRead.incrementAndGet();
                         }
 
                         splitTable.finish(fileReader.getStreamPosition());
 
                         fileReader.close();
-                        context.bytesRead.addAndGet(fileReader.getStreamPosition());
+                        context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
 
                         fileWriter.finalize();
                         outputStream.close();
@@ -839,12 +971,19 @@ public class FileUtility
             for (int j = 0; j < numIncomingParts; j++)
             {
                 DataPartition inFilePart = inFileParts[incomingFilePartIndex + j];
-                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(inFilePart, recordDef, new HPCCRecordBuilder(recordDef));
+                HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+                readContext.parentSpan = context.getCurrentOperation().operationSpan;
+                readContext.originalRD = recordDef;
+                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(recordDef));
             }
             incomingFilePartIndex += numIncomingParts;
 
             HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
-            final HPCCRemoteFileWriter<HPCCRecord> partFileWriter = new HPCCRemoteFileWriter<HPCCRecord>(outFilePart, recordDef, recordAccessor, CompressionAlgorithm.NONE);
+            HPCCRemoteFileWriter.FileWriteContext writeContext = new HPCCRemoteFileWriter.FileWriteContext();
+            writeContext.parentSpan = context.getCurrentOperation().operationSpan;
+            writeContext.recordDef = recordDef;
+            writeContext.fileCompression = CompressionAlgorithm.NONE;
+            final HPCCRemoteFileWriter<HPCCRecord> partFileWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext, outFilePart, recordAccessor);
 
             tasks[taskIndex] = new Runnable()
             {
@@ -862,16 +1001,16 @@ public class FileUtility
                             {
                                 HPCCRecord record = fileReader.next();
                                 fileWriter.writeRecord(record);
-                                context.recordsWritten.incrementAndGet();
-                                context.recordsRead.incrementAndGet();
+                                context.getCurrentOperation().recordsWritten.incrementAndGet();
+                                context.getCurrentOperation().recordsRead.incrementAndGet();
                             }
 
                             fileReader.close();
-                            context.bytesRead.addAndGet(fileReader.getStreamPosition());
+                            context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
                         }
                         System.out.println("Closing file writer for task: " + taskIndex);
                         fileWriter.close();
-                        context.bytesWritten.addAndGet(fileWriter.getBytesWritten());
+                        context.getCurrentOperation().bytesWritten.addAndGet(fileWriter.getBytesWritten());
                     }
                     catch (Exception e)
                     {
@@ -968,7 +1107,12 @@ public class FileUtility
 
             DataPartition outFilePart = outFileParts[taskIndex];
             HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
-            HPCCRemoteFileWriter<HPCCRecord> filePartWriter = new HPCCRemoteFileWriter<HPCCRecord>(outFilePart, recordDef, recordAccessor, CompressionAlgorithm.NONE);
+
+            HPCCRemoteFileWriter.FileWriteContext writeContext = new HPCCRemoteFileWriter.FileWriteContext();
+            writeContext.parentSpan = context.getCurrentOperation().operationSpan;
+            writeContext.recordDef = recordDef;
+            writeContext.fileCompression = CompressionAlgorithm.NONE;
+            HPCCRemoteFileWriter<HPCCRecord> filePartWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext, outFilePart, recordAccessor);
 
             tasks[taskIndex] = new Runnable()
             {
@@ -1015,15 +1159,15 @@ public class FileUtility
                             {
                                 HPCCRecord record = (HPCCRecord) fileReader.getNext();
                                 fileWriter.writeRecord(record);
-                                context.recordsWritten.incrementAndGet();
-                                context.recordsRead.incrementAndGet();
+                                context.getCurrentOperation().recordsWritten.incrementAndGet();
+                                context.getCurrentOperation().recordsRead.incrementAndGet();
                             }
 
-                            context.bytesRead.addAndGet(fileReader.getStreamPosAfterLastRecord());
+                            context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosAfterLastRecord());
                             inputStreams[j].close();
                         }
                         fileWriter.close();
-                        context.bytesWritten.addAndGet(fileWriter.getBytesWritten());
+                        context.getCurrentOperation().bytesWritten.addAndGet(fileWriter.getBytesWritten());
                     }
                     catch (Exception e)
                     {
@@ -1095,7 +1239,8 @@ public class FileUtility
         for (int i = 0; i < datasets.length; i++)
         {
             String datasetName = datasets[i];
-            context.startOperation("Read " + datasetName);
+            context.startOperation("FileUtility.Read_" + datasetName);
+            context.setCurrentOperationSpanAttributes(Attributes.of(AttributeKey.stringKey("server.url"), connString));
 
             HPCCFile file = null;
             try
@@ -1104,7 +1249,8 @@ public class FileUtility
             }
             catch (Exception e)
             {
-                System.out.println("Error while attempting to open file: '" + datasetName + "': " + e.getMessage());
+                String error = "Error while attempting to open file: '" + datasetName + "': " + e.getMessage();
+                context.addError(error);
                 return;
             }
 
@@ -1117,7 +1263,8 @@ public class FileUtility
             }
             catch (Exception e)
             {
-                System.out.println("Error while retrieving file parts for: '" + datasetName + "': " + e.getMessage());
+                String error = "Error while retrieving file parts for: '" + datasetName + "': " + e.getMessage();
+                context.addError(error);
                 return;
             }
 
@@ -1163,7 +1310,7 @@ public class FileUtility
 
             try
             {
-                executeTasks(tasks, numThreads);
+                executeTasks(tasks, numThreads, context);
             }
             catch (Exception e)
             {
@@ -1279,7 +1426,9 @@ public class FileUtility
         }
 
         String datasetName = cmd.getOptionValue("read_test");
-        context.startOperation("Read Test " + datasetName);
+        context.startOperation("FileUtility.ReadTest_" + datasetName);
+
+        context.setCurrentOperationSpanAttributes(Attributes.of(AttributeKey.stringKey("server.url"), connString));
 
         HPCCFile file = null;
         try
@@ -1289,7 +1438,7 @@ public class FileUtility
         }
         catch (Exception e)
         {
-            System.out.println("Error while attempting to open file: '" + datasetName + "': " + e.getMessage());
+            context.addError("Error while attempting to open file: '" + datasetName + "': " + e.getMessage());
             return;
         }
 
@@ -1302,7 +1451,7 @@ public class FileUtility
         }
         catch (Exception e)
         {
-            System.out.println("Error while retrieving file parts for: '" + datasetName + "': " + e.getMessage());
+            context.addError("Error while retrieving file parts for: '" + datasetName + "': " + e.getMessage());
             return;
         }
 
@@ -1317,16 +1466,15 @@ public class FileUtility
                     int filePartIndex = Integer.parseInt(filePartsStrs[i]) - 1;
                     if (filePartIndex < 0 || filePartIndex >= fileParts.length)
                     {
-                        System.out.println("Skipping invalid file part index: " + filePartsStrs[i]
+                        context.addWarn("InvalidParams: Skipping invalid file part index: " + filePartsStrs[i]
                                         + " outside of range: [0," + fileParts.length + "]");
-                        continue;
                     }
 
                     filePartList.add(fileParts[filePartIndex]);
                 }
                 catch (NumberFormatException e)
                 {
-                    System.out.println("Skipping invalid file part index: " + filePartsStrs[i]);
+                    context.addWarn("InvalidParams: Skipping invalid file part index: " + filePartsStrs[i]);
                 }
             }
         }
@@ -1352,7 +1500,7 @@ public class FileUtility
 
         try
         {
-            executeTasks(tasks, numThreads);
+            executeTasks(tasks, numThreads, context);
         }
         catch (Exception e)
         {
@@ -1463,7 +1611,9 @@ public class FileUtility
             String srcFile = copyPairs[i];
             String destFile = copyPairs[i+1];
 
-            context.startOperation("Copy " + srcFile + " -> " + destFile);
+            context.startOperation("FileUtility.Copy_ " + srcFile + " -> " + destFile);
+            context.setCurrentOperationSpanAttributes(Attributes.of(AttributeKey.stringKey("server.src.url"), srcURL,
+                                                        AttributeKey.stringKey("server.dest.url"), destURL));
 
             HPCCFile file = null;
             try
@@ -1484,6 +1634,7 @@ public class FileUtility
             catch (HpccFileException e)
             {
                 context.addError("Error while retrieving file parts for: '" + srcFile + "': " + e.getMessage());
+                return;
             }
 
             boolean shouldRedistribute = true;
@@ -1517,7 +1668,7 @@ public class FileUtility
 
                 try
                 {
-                    executeTasks(tasks, numThreads);
+                    executeTasks(tasks, numThreads, context);
                 }
                 catch (Exception e)
                 {
@@ -1527,13 +1678,13 @@ public class FileUtility
 
                 if (context.hasError())
                 {
-                    return;
+                   return;
                 }
 
                 try
                 {
-                    long bytesWritten = context.bytesWritten.get();
-                    long recordsWritten = context.recordsWritten.get();
+                    long bytesWritten = context.getCurrentOperation().bytesWritten.get();
+                    long recordsWritten = context.getCurrentOperation().recordsWritten.get();
                     dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, recordsWritten, bytesWritten, true);
                 }
                 catch (Exception e)
@@ -1641,7 +1792,10 @@ public class FileUtility
             String srcFile = writePairs[pairIdx];
             String destFile = writePairs[pairIdx+1];
 
-            context.startOperation("Write " + srcFile + " -> " + destFile);
+            context.startOperation( "FileUtility.Write_" + srcFile + "_to_" + destFile);
+
+            Attributes attributes = Attributes.of(AttributeKey.stringKey("server.url"), destURL);
+            context.setCurrentOperationSpanAttributes(attributes);
 
             SplitTable[] splitTables = null;
             String[] srcFiles = null;
@@ -1685,7 +1839,7 @@ public class FileUtility
 
                 try
                 {
-                    executeTasks(tasks, numThreads);
+                    executeTasks(tasks, numThreads, context);
                 }
                 catch (Exception e)
                 {
@@ -1741,7 +1895,7 @@ public class FileUtility
 
             try
             {
-                executeTasks(tasks, numThreads);
+                executeTasks(tasks, numThreads, context);
             }
             catch (Exception e)
             {
@@ -1756,8 +1910,8 @@ public class FileUtility
 
             try
             {
-                long bytesWritten = context.bytesWritten.get();
-                long recordsWritten = context.recordsWritten.get();
+                long bytesWritten = context.getCurrentOperation().bytesWritten.get();
+                long recordsWritten = context.getCurrentOperation().recordsWritten.get();
                 dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, recordsWritten, bytesWritten, true);
             }
             catch (Exception e)
@@ -1777,6 +1931,28 @@ public class FileUtility
      */
     public static JSONArray run(String[] args)
     {
+        if (!otelInitialized)
+        {
+            if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
+            {
+                System.out.println("OpenTelemetry autoconfiguration enabled with following values.");
+                System.out.println("If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
+                System.out.println("If missing dependancies arise, utility will halt!");
+                System.out.println("    otel.traces.exporter sys property: " + System.getProperty("otel.traces.exporter"));
+                System.out.println("    OTEL_TRACES_EXPORTER Env var: " + System.getenv("OTEL_TRACES_EXPORTER"));
+                System.out.println("        OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
+                System.out.println("        otel.traces.sampler sys property: " + System.getProperty("otel.traces.sampler"));
+                System.out.println("    otel.logs.exporter: "+ System.getProperty("otel.logs.exporter"));
+                System.out.println("    OTEL_LOGS_EXPORTER Env var: " + System.getenv("OTEL_LOGS_EXPORTER"));
+                System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
+                System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
+
+                OpenTelemetry otel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+            }
+
+            otelInitialized = true;
+        }
+
         Options options = getTopLevelOptions();
         CommandLineParser parser = new DefaultParser();
 
@@ -1815,7 +1991,7 @@ public class FileUtility
         }
 
         // If we are still in the middle of an operation there was a failure
-        if (context.hasOperation())
+        if (context.hasCurrentOperation())
         {
             boolean succeded = false;
             context.endOperation(succeded);

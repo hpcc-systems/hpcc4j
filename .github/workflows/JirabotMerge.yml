@@ -56,12 +56,13 @@ jobs:
             import subprocess
             import time
             import sys
+            import json
             from atlassian.jira import Jira
 
             def extractVersion(versionStr):
                 parts = versionStr.split('.')
                 if len(parts) != 3:
-                    print('Invalid version: ' + version)
+                    print('Invalid version: ' + versionStr)
                     sys.exit(1)
                 if parts[2].lower() == 'x':
                     parts[2] = '0'
@@ -131,16 +132,20 @@ jobs:
                         curMajor += 1
 
                 for fixVersion in fixVersions:
-                    alreadyHasFixVersion = False
-                    versions = jira.get_project_versions(projectName)
-                    for v in versions:
-                        if v['name'] == fixVersion:
-                            alreadyHasFixVersion = True
+                    try:
+                        alreadyHasFixVersion = False
+                        versions = jira.get_project_versions(projectName)
+                        for v in versions:
+                            if v['name'] == fixVersion:
+                                alreadyHasFixVersion = True
 
-                    if not alreadyHasFixVersion:
-                        project = jira.get_project(projectName)
-                        projectId = project['id']
-                        jira.add_version(projectName, projectId, fixVersion)
+                        if not alreadyHasFixVersion:
+                            project = jira.get_project(projectName)
+                            projectId = project['id']
+                            jira.add_version(projectName, projectId, fixVersion)
+                    except Exception as error:
+                        print('Error: Unable to add fix version: ' + fixVersion + ' with: ' + str(error))
+                        sys.exit(1)
 
                 return fixVersions
 
@@ -180,15 +185,21 @@ jobs:
                         result += "Error: Unable to find fix version: " + fixVersionName + "\n"
 
                 if len(versionsToAdd) > 0:
-                    jira.update_issue_field(issueName, {'fixVersions': updatedVersionList})
+                    try:
+                        jira.update_issue_field(issueName, {'fixVersions': updatedVersionList})
+                    except Exception as error:
+                        result += 'Error: Updating fix versions failed with: "' + str(error) + '\n'
                 else:
                     result += "Fix versions already added.\n"
 
                 statusName = str(issueFields['status']['name'])
                 if statusName != 'Resolved':
-                    transitionId = jira.get_transition_id_to_status_name(issue_name, 'Resolved')
-                    jira.set_issue_status_by_transition_id(issue_name, transitionId)
-                    result += "Workflow Transition: 'Resolve issue'\n"
+                    try:
+                        transitionId = jira.get_transition_id_to_status_name(issueName, 'Resolved')
+                        jira.set_issue_status_by_transition_id(issueName, transitionId)
+                        result += "Workflow Transition: 'Resolve issue'\n"
+                    except Exception as error:
+                        result += 'Error: Transitioning to: "Resolved" failed with: "' + str(error) + '\n'
 
                 return result
 
@@ -219,15 +230,14 @@ jobs:
 
                 result = 'Jirabot Action Result:\n'
 
-                fixVersions = generateFixVersionList(jira, branch_name)
-                result += resolveIssue(jira, issue, fixVersions)
+                fixVersions = generateFixVersionList(jira, project_name, branch_name)
+                result += resolveIssue(jira, project_name, issue, fixVersions)
                 jira.issue_add_comment(issue_name, result)
 
                 # Escape the result for JSON
                 result = json.dumps(result)
 
-                curlCommand = 'curl -X POST %s -H "Content-Type: application/json" -H "Authorization: token %s" --data \'{ "body": %s }\'' % ( comments_url, github_token, result )
-                os.system(curlCommand)
+                subprocess.run(['curl', '-X', 'POST', comments_url, '-H', 'Content-Type: application/json', '-H', f'Authorization: token {github_token}', '--data', f'{{ "body": {result} }}'], check=True)
             else:
                 print('Unable to find Jira issue name in title')
 
