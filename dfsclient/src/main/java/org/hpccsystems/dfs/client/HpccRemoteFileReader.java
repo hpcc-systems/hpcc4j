@@ -38,7 +38,6 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 {
     private static final Logger   log               = LogManager.getLogger(HpccRemoteFileReader.class);
 
-    private FieldDef              originalRecordDef = null;
     private DataPartition         dataPartition     = null;
     private RowServiceInputStream inputStream       = null;
     private BinaryRecordReader    binaryRecordReader;
@@ -46,18 +45,13 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     private boolean               handlePrefetch    = true;
     private boolean               isClosed          = false;
     private boolean               canReadNext       = true;
-    private boolean               createPrefetchThread = true;
     private int                   retryCount        = 0;
-    private int                   connectTimeout    = 0;
-    private int                   readSizeKB        = 0;
-    private int                   limit             = -1;
     private int                   maxReadRetries    = DEFAULT_READ_RETRIES;
-    private int                   socketOpTimeoutMs = 0;
     private long                  openTimeMs        = 0;
     private long                  recordsRead       = 0;
 
+    private FileReadContext       context           = null;
     private Span                  readSpan          = null;
-    private String                readSpanName      = null;
 
     public static final int    NO_RECORD_LIMIT                  = -1;
     public static final int    DEFAULT_READ_SIZE_OPTION         = -1;
@@ -70,6 +64,31 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         public byte[] tokenBin = null;
         public long recordReaderStreamPos = 0;
     };
+
+    public static class FileReadContext
+    {
+        public FieldDef originalRD = null;
+        public int connectTimeout = -1;
+        public int socketOpTimeoutMS = -1;
+        public int recordReadLimit = -1;
+        public boolean createPrefetchThread = true;
+        public int readSizeKB = -1;
+        public Span parentSpan = null;
+    };
+
+    private static FileReadContext constructReadContext(FieldDef originalRD, int connectTimeout, int socketOpTimeoutMS,
+                                                        int recordReadLimit, boolean createPrefetchThread, int readSizeKB)
+    {
+        FileReadContext context = new FileReadContext();
+        context.originalRD = originalRD;
+        context.connectTimeout = connectTimeout;
+        context.socketOpTimeoutMS = socketOpTimeoutMS;
+        context.recordReadLimit = recordReadLimit;
+        context.createPrefetchThread = createPrefetchThread;
+        context.readSizeKB = readSizeKB;
+
+        return context;
+    }
 
     /**
      * Instantiates a new hpcc remote file reader.
@@ -204,19 +223,51 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
      * @throws Exception
      * 			  general exception
      */
-   public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs) throws Exception
+    public HpccRemoteFileReader(DataPartition dp, FieldDef originalRD, IRecordBuilder recBuilder, int connectTimeout, int limit, boolean createPrefetchThread, int readSizeKB, FileReadResumeInfo resumeInfo, int socketOpTimeoutMs) throws Exception
     {
-        this.handlePrefetch = createPrefetchThread;
-        this.originalRecordDef = originalRD;
+        this(constructReadContext(originalRD, connectTimeout, socketOpTimeoutMs, limit, createPrefetchThread, readSizeKB), dp, recBuilder, resumeInfo);
+    }
+
+    /**
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     *
+     * @param ctx
+     *            the FileReadContext
+     * @param dp
+     *            the part of the file, name and location
+     * @param recBuilder
+     *            the IRecordBuilder used to construct records
+     * @throws Exception
+     * 			  general exception
+     */
+    public HpccRemoteFileReader(FileReadContext ctx, DataPartition dp, IRecordBuilder recBuilder) throws Exception
+    {
+        this(ctx, dp, recBuilder, null);
+    }
+
+    /**
+     * A remote file reader that reads the part identified by the HpccPart object using the record definition provided.
+     *
+     * @param ctx
+     *            the FileReadContext
+     * @param dp
+     *            the part of the file, name and location
+     * @param recBuilder
+     *            the IRecordBuilder used to construct records
+     * @param resumeInfo
+     *            FileReadeResumeInfo data required to restart a read from a particular point in a file, null for reading from start
+     * @throws Exception
+     * 			  general exception
+     */
+    public HpccRemoteFileReader(FileReadContext ctx, DataPartition dp, IRecordBuilder recBuilder, FileReadResumeInfo resumeInfo) throws Exception
+    {
+        this.context = ctx;
+        this.handlePrefetch = context.createPrefetchThread;
         this.dataPartition = dp;
         this.recordBuilder = recBuilder;
-        this.readSizeKB = readSizeKB;
-        this.limit = limit;
-        this.createPrefetchThread = createPrefetchThread;
-        this.socketOpTimeoutMs = socketOpTimeoutMs;
 
-        this.readSpanName = "HPCCRemoteFileReader.RowService/Read_" + dp.getFileName() + "_" + dp.getThisPart();
-        this.readSpan = Utils.createSpan(readSpanName);
+        String readSpanName = "HPCCRemoteFileReader.RowService/Read_" + dataPartition.getFileName() + "_" + dataPartition.getThisPart();
+        this.readSpan = Utils.createChildSpan(context.parentSpan, readSpanName);
 
         String primaryIP = dp.getCopyIP(0);
         String secondaryIP = "";
@@ -225,19 +276,13 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             secondaryIP = dp.getCopyIP(1);
         }
 
-        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.primary.address"), primaryIP,
-                                                AttributeKey.stringKey("server.secondary.address"), secondaryIP,
+        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.0.address"), primaryIP,
+                                                AttributeKey.stringKey("server.1.address"), secondaryIP,
                                                 ServerAttributes.SERVER_PORT, Long.valueOf(dp.getPort()),
-                                                AttributeKey.longKey("read.size"), Long.valueOf(readSizeKB*1000));
-        readSpan.setAllAttributes(attributes);
+                                                AttributeKey.longKey("read.size"), Long.valueOf(context.readSizeKB*1000));
+        this.readSpan.setAllAttributes(attributes);
 
-        if (connectTimeout < 1)
-        {
-            connectTimeout = RowServiceInputStream.DEFAULT_CONNECT_TIMEOUT_MILIS;
-        }
-        this.connectTimeout = connectTimeout;
-
-        if (this.originalRecordDef == null)
+        if (context.originalRD == null)
         {
             Exception e = new Exception("HpccRemoteFileReader: Provided original record definition is null, original record definition is required.");
             this.readSpan.recordException(e);
@@ -256,7 +301,9 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
         if (resumeInfo == null)
         {
-            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, null, false, socketOpTimeoutMs, readSpan);
+            this.inputStream = new RowServiceInputStream(this.dataPartition, context.originalRD, projectedRecordDefinition, context.connectTimeout,
+                                                        context.recordReadLimit, context.createPrefetchThread, context.readSizeKB, null,
+                                                        false, context.socketOpTimeoutMS, this.readSpan);
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
             this.binaryRecordReader.initialize(this.recordBuilder);
 
@@ -271,7 +318,9 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             restartInfo.streamPos = resumeInfo.inputStreamPos;
             restartInfo.tokenBin = resumeInfo.tokenBin;
 
-            this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, limit, createPrefetchThread, readSizeKB, restartInfo, false, socketOpTimeoutMs, this.readSpan);
+            this.inputStream = new RowServiceInputStream(this.dataPartition, context.originalRD, projectedRecordDefinition, context.connectTimeout,
+                                                        context.recordReadLimit, context.createPrefetchThread, context.readSizeKB, restartInfo,
+                                                        false, context.socketOpTimeoutMS, this.readSpan);
 
             long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
             if (bytesToSkip < 0)
@@ -289,7 +338,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         log.info("HPCCRemoteFileReader: Opening file part: " + dataPartition.getThisPart()
                 + (resumeInfo != null ? " resume position: " + resumeInfo.inputStreamPos : "" ));
         log.trace("Original record definition:\n"
-                + RecordDefinitionTranslator.toJsonRecord(originalRD)
+                + RecordDefinitionTranslator.toJsonRecord(context.originalRD)
                 + " projected record definition:\n"
                 + RecordDefinitionTranslator.toJsonRecord(projectedRecordDefinition));
         openTimeMs = System.currentTimeMillis();
@@ -315,10 +364,19 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
 
             try
             {
-                this.readSpan = Utils.createSpan(readSpanName);
-                this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef,
-                        this.recordBuilder.getRecordDefinition(), this.connectTimeout, this.limit, this.createPrefetchThread,
-                        this.readSizeKB, restartInfo, false, this.socketOpTimeoutMs, this.readSpan);
+                String readSpanName = "HPCCRemoteFileReader.RowService/Read_" + dataPartition.getFileName() + "_" + dataPartition.getThisPart();
+                if (context.parentSpan != null)
+                {
+                    this.readSpan = Utils.createChildSpan(context.parentSpan, readSpanName);
+                }
+                else
+                {
+                    this.readSpan = Utils.createSpan(readSpanName);
+                }
+
+                this.inputStream = new RowServiceInputStream(this.dataPartition, context.originalRD,this.recordBuilder.getRecordDefinition(),
+                                                            context.connectTimeout, context.recordReadLimit, context.createPrefetchThread,
+                                                            context.readSizeKB, restartInfo, false, context.socketOpTimeoutMS, this.readSpan);
 
                 long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
                 if (bytesToSkip < 0)
