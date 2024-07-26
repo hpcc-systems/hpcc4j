@@ -61,28 +61,7 @@ jobs:
                 issueName = issue['key']
                 issueFields = issue['fields']
 
-                try:
-                    transitionId = jira.get_transition_id_to_status_name(issue_name, desiredStatus)
-                    jira.set_issue_status_by_transition_id(issue_name, transitionId)
-                    result += 'Workflow Transition To: ' + desiredStatus + '\n'
-                except Exception as error:
-                    transitions = jira.get_issue_transitions(issueName)
-                    result += 'Error: Transitioning to: "' + desiredStatus + '" failed with: "' + str(error) + '" Valid transitions=' + str(transitions) + '\n'
-
-                prFieldName = propertyMap.get('pullRequestFieldName', 'customfield_10010')
-
-                if prFieldName in issueFields:
-                    currentPR = issueFields[prFieldName]
-                else:
-                    print('Error: Unable to find pull request field with field name: ' + prFieldName)
-                    currentPR = None
-
-                if currentPR is None:
-                    jira.update_issue_field(issueName, {prFieldName: pull_url})
-                    result += 'Updated PR\n'
-                elif currentPR is not None and currentPR != pull_url:
-                    result += 'Additional PR: ' + pull_url + '\n'
-
+                # Need to update user first in case we are starting from Unresourced
                 if prAuthor:
                     assignee = issueFields['assignee']
                     if assignee is None:
@@ -104,6 +83,37 @@ jobs:
                     elif assigneeId != prAuthorId:
                         result += 'Changing assignee from: ' + assigneeEmail + ' to: ' + prAuthorEmail + '\n'
                         jira.assign_issue(issueName, prAuthorId)
+
+                # We should be able to transition directly to Merge Pending, keeping this for future reference
+                transitionFlow = ['Merge Pending']
+                # statusName = str(issueFields['status']['name'])
+                # if statusName == 'Awaiting Information' or statusName == 'Unresourced':
+                #     transitionFlow = ['Accepted', 'Active', 'Merge Pending']
+                # elif statusName != 'Active':
+                #     transitionFlow = ['Active', 'Merge Pending']
+
+                for desiredStatus in transitionFlow:
+                    try:
+                        transitionId = jira.get_transition_id_to_status_name(issueName, desiredStatus)
+                        jira.set_issue_status_by_transition_id(issueName, transitionId)
+                        result += 'Workflow Transition To: ' + desiredStatus + '\n'
+                    except Exception as error:
+                        transitions = jira.get_issue_transitions(issueName)
+                        result += 'Error: Transitioning to: "' + desiredStatus + '" failed with: "' + str(error) + '" Valid transitions=' + str(transitions) + '\n'
+
+                prFieldName = propertyMap.get('pullRequestFieldName', 'customfield_10010')
+
+                if prFieldName in issueFields:
+                    currentPR = issueFields[prFieldName]
+                else:
+                    print('Error: Unable to find pull request field with field name: ' + prFieldName)
+                    currentPR = None
+
+                if currentPR is None:
+                    jira.update_issue_field(issueName, {prFieldName: pull_url})
+                    result += 'Updated PR\n'
+                elif currentPR is not None and currentPR != pull_url:
+                    result += 'Additional PR: ' + pull_url + '\n'
 
                 return result
 
