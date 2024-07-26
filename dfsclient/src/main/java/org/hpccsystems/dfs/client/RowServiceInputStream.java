@@ -922,6 +922,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 try
                 {
+                    // Read handle before closing
+                    this.dis.readInt();
+
                     close();
                 }
                 catch (IOException e)

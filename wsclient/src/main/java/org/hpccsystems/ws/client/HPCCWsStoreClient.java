@@ -254,7 +254,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         String namespaces[] = null;
         ListNamespacesRequest request = new ListNamespacesRequest();
         request.setStoreName(storename);
-        request.setUserSpecific(global);
+        request.setUserSpecific(!global);
         try
         {
             ListNamespacesResponse response = ((WsstoreStub) stub).listNamespaces(request);
