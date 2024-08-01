@@ -240,8 +240,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven.compiler.version}</version>
           <configuration>
-            <source>${maven.compiler.source}</source>
-            <target>${maven.compiler.target}</target>
+            <release>${maven.compiler.release}</release>
             <groups>${maven.compiler.groups}</groups>
             <excludedGroups>${maven.compiler.excludedGroups}</excludedGroups>
           </configuration>
