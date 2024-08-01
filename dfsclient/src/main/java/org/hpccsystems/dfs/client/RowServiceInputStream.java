@@ -889,6 +889,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 if (dataLen == 0)
                 {
+                    dataLen = dis.readInt(); // need to read addl int here ...
                     close();
                     return 0;
                 }
