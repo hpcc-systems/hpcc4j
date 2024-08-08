@@ -832,9 +832,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 try
                 {
-                    // Read handle before closing
-                    this.dis.readInt();
-
                     close();
                 }
                 catch (IOException e)
@@ -896,7 +893,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 if (dataLen == 0)
                 {
-                    dataLen = dis.readInt(); // need to read addl int here ...
+                    // Read handle before closing
+                    dis.readInt();
                     close();
                     return 0;
                 }
