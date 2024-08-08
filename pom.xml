@@ -45,7 +45,7 @@
     <maven.deploy.version>2.8.2</maven.deploy.version>
     <maven.install.version>2.5.2</maven.install.version>
     <maven.jar.version>3.0.2</maven.jar.version>
-    <maven.surefire.version>2.22.1</maven.surefire.version>
+    <maven.surefire.version>3.2.5</maven.surefire.version>
     <antlr.version>4.10.1</antlr.version>
     <javax.mail.version>1.4</javax.mail.version>
     <jsch.version>0.1.54</jsch.version>
@@ -213,6 +213,7 @@
           <configuration>
             <argLine>${argLine}</argLine>
             <groups>${groups}</groups>
+            <excludesFile>excluded-tests.txt</excludesFile>
           </configuration>
         </plugin>
         <plugin>
@@ -433,6 +434,7 @@
             <configuration>
               <argLine>${argLine}</argLine>
               <groups>${groups}</groups>
+              <excludesFile>excluded-tests.txt</excludesFile>
             </configuration>
           </plugin>
         </plugins>
@@ -485,6 +487,7 @@
             <configuration>
               <argLine>${argLine}</argLine>
               <groups>${groups}</groups>
+              <excludesFile>excluded-tests.txt</excludesFile>
             </configuration>
           </plugin>
         </plugins>
@@ -560,6 +563,7 @@
             <configuration>
               <argLine>${argLine}</argLine>
               <groups>${groups}</groups>
+              <excludesFile>excluded-tests.txt</excludesFile>
             </configuration>
           </plugin>
         </plugins>
