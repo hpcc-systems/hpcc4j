@@ -1005,7 +1005,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         SprayVariable request = new SprayVariable();
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(Utils.ensureTrailingPathSlash(targetDropZone.getPath()) + sourceFileName);
+        request.setSourcePath(Utils.appendPathSections(targetDropZone.getPath(), sourceFileName));
         request.setDestGroup(destGroup);
         request.setDestLogicalName(targetFileName);
         request.setOverwrite(overwrite);
@@ -1161,7 +1161,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         request.setDestGroup(destGroup);
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(Utils.ensureTrailingPathSlash(targetDropZone.getPath()) + sourceFileName);
+        request.setSourcePath(Utils.appendPathSections(targetDropZone.getPath(), sourceFileName));
         request.setDestLogicalName(targetFileName);
         request.setOverwrite(overwrite);
         request.setSourceFormat(format.getValue());
@@ -1317,7 +1317,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         request.setDestGroup(destGroup);
         request.setSourceRecordSize(recordSize);
         request.setSourceIP(targetDropZone.getNetAddress());
-        request.setSourcePath(Utils.ensureTrailingPathSlash(targetDropZone.getPath()) + sourceFileName);
+        request.setSourcePath(Utils.appendPathSections(targetDropZone.getPath(), sourceFileName));
         request.setDestLogicalName(targetFileLabel);
         request.setOverwrite(overwrite);
         request.setPrefix(prefix);
