@@ -1,6 +1,7 @@
 package org.hpccsystems.ws.client;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -159,24 +160,44 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         if (wsconn == null)
             throw new Exception("Cannot get target HPCC build version, client connection has not been initialized.");
 
-        String response = wsconn.sendGetRequest("WsSMC/Activity?rawxml_");//throws
+        String response = wsconn.sendGetRequest("WsSMC/Activity?rawxml_");//throws IOException if http != ok
 
         if (response == null || response.isEmpty())
             throw new Exception("Cannot get target HPCC build version, received empty " + wsconn.getBaseUrl() + " wssmc/activity response");
 
+        String header = response.substring(0, 100).trim(); //crude, but can prevent wasteful overhead
+        if (header.startsWith("<html"))
+            throw new Exception("Received invalid HTML response, expected XML HPCC build version: \"" + header + "\"...");
+
         setUpBuildVersionParser();
 
+        String versionString = null;
         Document document = null;
-        synchronized(m_XMLParser)
+        try
         {
-            document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+            synchronized(m_XMLParser)
+            {
+                document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+            }
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Could not parse XML HPCC Version response: \"" + response.substring(0, 100) + "\"...", e);
         }
 
         if (document == null)
-            throw new Exception("Cannot parse HPCC build version response.");
+            throw new Exception("Could not parse XML HPCC Version response: \"" + response.substring(0, 100) + "\"...");
 
-        return (String) m_buildVersionXpathExpression.evaluate(document,XPathConstants.STRING);
+        try
+        {
+            versionString = (String) m_buildVersionXpathExpression.evaluate(document,XPathConstants.STRING);
+        }
+        catch (XPathExpressionException e)
+        {
+            throw new Exception("Could not extract build version from HPCC Build/Version response: \"" + response + "\"");
+        }
 
+        return versionString;
     }
 
     public SpanBuilder getWsClientSpanBuilder(String spanName)
