@@ -108,6 +108,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private long                     mutexWaitTimeNS = 0;
     private long                     waitTimeNS = 0;
     private long                     sleepTimeNS = 0;
+    private int                      readRequestDelayMS = 0;
     private long                     fetchStartTimeNS = 0;
     private long                     fetchTimeNS = 0;
     private long                     fetchFinishTimeNS = 0;
@@ -669,6 +670,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
+     * The delay in milliseconds between read requests. Primarily used for testing.
+     * @param sleepTimeMS
+     */
+    public void setReadRequestDelay(int sleepTimeMS)
+    {
+        this.readRequestDelayMS = sleepTimeMS;
+    }
+
+    /**
      * Simulate a handle failure and use the file token instead. The handle is set to an invalid value so the THOR node
      * will indicate that the handle is unknown and request a otken.
      *
@@ -1151,6 +1161,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         if (inFetchingMode == false)
         {
+            if (readRequestDelayMS > 0)
+            {
+                try
+                {
+                    Thread.sleep(readRequestDelayMS);
+                }
+                catch (InterruptedException e)
+                {
+                    // We don't care about waking early
+                }
+            }
+
             if (readSpan != null)
             {
                 Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
@@ -1158,7 +1180,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                                                         AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
                 readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
             }
-
 
             // Create the read ahead request
             if (this.simulateFail) this.handle = -1;
