@@ -74,6 +74,9 @@ public class FileUtility
     private static final int NUM_DEFAULT_THREADS = 4;
     static private final int DEFAULT_ACCESS_EXPIRY_SECONDS = 120;
 
+    static private final int DEFAULT_READ_REQUEST_SIZE = 4096;
+    static private final int DEFAULT_READ_REQUEST_DELAY = 0;
+
     private static boolean otelInitialized = false;
 
     private static class TaskContext
@@ -548,6 +551,8 @@ public class FileUtility
         options.addOption("pass", true, "Specifies the password used to connect. Defaults to null.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("access_expiry_seconds", true, "Access token expiration seconds.");
+        options.addOption("read_request_size", true, "The size of the read requests in KB sent to the rowservice.");
+        options.addOption("read_request_delay", true, "The delay in MS between read requests sent to the rowservice.");
 
         options.addOption(Option.builder("file_parts")
                                 .argName("_file_parts")
@@ -801,7 +806,7 @@ public class FileUtility
         }
     }
 
-    private static Runnable[] createReadTestTasks(DataPartition[] fileParts, FieldDef recordDef, TaskContext context) throws Exception
+    private static Runnable[] createReadTestTasks(DataPartition[] fileParts, FieldDef recordDef, TaskContext context, int readRequestSize, int readRequestDelay) throws Exception
     {
         Runnable[] tasks = new Runnable[fileParts.length];
         for (int i = 0; i < tasks.length; i++)
@@ -818,7 +823,9 @@ public class FileUtility
                         HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
                         readContext.parentSpan = context.getCurrentOperation().operationSpan;
                         readContext.originalRD = recordDef;
+                        readContext.readSizeKB = readRequestSize;
                         HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, filePart, new HPCCRecordBuilder(recordDef));
+                        fileReader.getInputStream().setReadRequestDelay(readRequestDelay);
 
                         while (fileReader.hasNext())
                         {
@@ -1405,6 +1412,30 @@ public class FileUtility
                               + numThreadsStr + ", must be an integer. Defaulting to: " + DEFAULT_ACCESS_EXPIRY_SECONDS + "s.");
         }
 
+        int readRequestSize = DEFAULT_READ_REQUEST_SIZE;
+        String readRequestSizeStr = cmd.getOptionValue("read_request_size", "" + readRequestSize);
+        try
+        {
+            readRequestSize = Integer.parseInt(readRequestSizeStr);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Invalid option value for read_request_size: "
+                              + readRequestSizeStr + ", must be an integer. Defaulting to: " + DEFAULT_READ_REQUEST_SIZE + "KB.");
+        }
+
+        int readRequestDelay = DEFAULT_READ_REQUEST_DELAY;
+        String readRequestDelayStr = cmd.getOptionValue("read_request_delay", "" + readRequestDelay);
+        try
+        {
+            readRequestDelay = Integer.parseInt(readRequestDelayStr);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Invalid option value for read_request_delay: "
+                              + readRequestDelayStr + ", must be an integer. Defaulting to: " + DEFAULT_READ_REQUEST_DELAY + "ms.");
+        }
+
         String formatStr = cmd.getOptionValue("format");
         if (formatStr == null)
         {
@@ -1477,6 +1508,7 @@ public class FileUtility
                     context.addWarn("InvalidParams: Skipping invalid file part index: " + filePartsStrs[i]);
                 }
             }
+            fileParts = filePartList.toArray(new DataPartition[0]);
         }
 
         Runnable[] tasks = null;
@@ -1485,7 +1517,7 @@ public class FileUtility
             switch (format)
             {
                 case THOR:
-                    tasks = createReadTestTasks(fileParts, recordDef, context);
+                    tasks = createReadTestTasks(fileParts, recordDef, context, readRequestSize, readRequestDelay);
                     break;
                 case PARQUET:
                 default:
