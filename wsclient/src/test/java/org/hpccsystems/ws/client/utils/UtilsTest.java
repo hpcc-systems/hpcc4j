@@ -8,6 +8,35 @@ import com.ibm.icu.impl.Assert;
 
 public class UtilsTest
 {
+
+    @Test
+    public void testappendPathSections() throws Exception
+    {
+        //appendWindowsPathSections
+        assertEquals(Character.toString(Utils.WIN_SEP), Utils.appendWindowsPathSections("", ""));
+        assertEquals("C:\\some\\path\\", Utils.appendWindowsPathSections("C:\\some\\ ", "  \\path\\"));
+        assertEquals("C:\\some\\path\\", Utils.appendWindowsPathSections("C:\\some", " path\\"));
+
+        //appendLinuxPathSections
+        assertEquals(Character.toString(Utils.LINUX_SEP), Utils.appendLinuxPathSections("", ""));
+        assertEquals("/root/path/relative/path", Utils.appendLinuxPathSections("/root/path ", "  relative/path"));
+        assertEquals("/root/path/relative/path", Utils.appendLinuxPathSections("/root/path/  ", " /relative/path"));
+        assertEquals("/relative/path", Utils.appendLinuxPathSections("/  ", "/relative/path"));
+        assertEquals("/relative/path", Utils.appendLinuxPathSections("/  ", "/relative/path"));
+        assertEquals("/relative/path", Utils.appendLinuxPathSections("/", " /relative/path"));
+
+        //appendPathSections
+        assertEquals("/relative/path", Utils.appendPathSections("/", " /relative/path"));
+        assertEquals("/root/path/relative/path", Utils.appendPathSections("/root/path ", "  relative/path"));
+        assertEquals("/root/path/relative/path", Utils.appendPathSections("/root/path/  ", " /relative/path"));
+        assertEquals("/relative/path", Utils.appendPathSections("/  ", "/relative/path"));
+        assertEquals("/relative/path", Utils.appendPathSections("/  ", "/relative/path"));
+        assertEquals("/relative/path", Utils.appendPathSections("/", " /relative/path"));
+
+        assertEquals("C:\\some\\path\\", Utils.appendPathSections("C:\\some\\ ", "  \\path\\"));
+        assertEquals("C:\\some\\path", Utils.appendPathSections("C:\\some", " path"));
+    }
+
     @Test
     public void testEnsureTrailingSlashTrailingWhiteSpace()
     {

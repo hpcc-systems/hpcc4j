@@ -1115,6 +1115,107 @@ public class Utils
     }
 
     /**
+     * Constructs new path based on provided pre and post path sections
+     * Ensures resulting path is properly delimited at the point of concatenation
+     * Uses Linux path style path separator
+     *
+     * @param prefixPath - the prefix path
+     * @param postfixPath - the postfix path
+     * @return - new path comprised of path prefix a linux style path separator and path postfix
+     */
+    public static String appendLinuxPathSections(String prefixPath, String postfixPath)
+    {
+        return appendPathSections(prefixPath, LINUX_SEP, postfixPath);
+    }
+
+    /**
+     * Constructs new path based on provided pre and post path sections
+     * Ensures resulting path is properly delimited at the point of concatenation
+     * Uses Windows path style path separator
+     *
+     * @param prefixPath - the prefix path
+     * @param postfixPath - the postfix path
+     * @return - new path comprised of path prefix a windows style path separator and path postfix
+     */
+    public static String appendWindowsPathSections(String prefixPath, String postfixPath)
+    {
+        return appendPathSections(prefixPath, WIN_SEP, postfixPath);
+    }
+
+    /**
+     * Constructs new path based on provided pre and post path sections
+     * Ensures resulting path is properly delimited at the point of concatenation
+     * Infers proper path separator on presence of Linux or Windows style path separator in prefix path
+     *
+     * @param prefixPath - the prefix path
+     * @param postfixPath - the postfix path
+     * @return - new path comprised of path prefix a path separator and path postfix
+     * @throws Exception - Invalid paths, indiscernible path style
+     */
+    public static String appendPathSections(String prefixPath, String postfixPath) throws Exception
+    {
+        if (prefixPath == null)
+            prefixPath = "";
+
+        if (postfixPath == null)
+            postfixPath = "";
+
+        if (prefixPath.length() == 0 && postfixPath.length() == 0)
+            return "";
+
+        try
+        {
+            char pathSep = inferPathSeperatorType(prefixPath.length() != 0 ? prefixPath : postfixPath);
+            return appendPathSections(prefixPath, pathSep, postfixPath);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Could not append path sections, ensure original path sections are valid and contain path seperator");
+        }
+    }
+
+    /**
+     * Constructs new path based on provided pre and post path sections
+     * Ensures resulting path is properly delimited at the point of concatenation
+     * Uses provided char as delimiter between pre and post path sections
+     *
+     * @param prefixPath - the prefix path
+     * @param slash - separator to use when appending path sections
+     * @param postfixPath - the postfix path
+     * @return - new path comprised of path prefix a path separator and path postfix
+     */
+    public static String appendPathSections(String prefixPath, char slash, String postfixPath)
+    {
+        prefixPath = trimTrailing(prefixPath);
+
+        if (prefixPath.length() == 0 || prefixPath.charAt(prefixPath.length()-1) != slash)
+            prefixPath = prefixPath + slash;
+
+        postfixPath = postfixPath.trim();
+
+        if (postfixPath.length() > 0 && postfixPath.charAt(0) == slash)
+            prefixPath = prefixPath + postfixPath.substring(1);
+        else
+            prefixPath = prefixPath + postfixPath;
+
+        return prefixPath;
+    }
+
+    /**
+     * Infers path style (linux/windows) based on presence of Linux separator
+     * @param path - the path
+     * @return - new path comprised of path prefix a path separator and path postfix
+     * @throws Exception - Invalid paths, indiscernible path style
+     */
+    public static char inferPathSeperatorType(String path) throws Exception
+    {
+        if (path.length() == 0)
+            throw new Exception("Zero len path detected!");
+
+        return path.contains(Character.toString(LINUX_SEP)) ? LINUX_SEP : WIN_SEP;
+    }
+
+    /**
      * Removes trailing whitespace characters from a string.
      *
      * @param originalStr the original string from which trailing whitespace should be removed
