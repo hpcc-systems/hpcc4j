@@ -27,6 +27,9 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
+        <configuration>
+          <excludesFile>../excluded-tests.txt</excludesFile>
+        </configuration>
       </plugin>
     </plugins>
   </build>
