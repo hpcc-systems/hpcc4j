@@ -31,7 +31,9 @@ import org.json.JSONObject;
 
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.semconv.ServerAttributes;
+import io.opentelemetry.semconv.ServiceAttributes;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -68,7 +70,7 @@ public class RowServiceOutputStream extends OutputStream
     private long                 handle                        = -1;
     private ByteBuffer           scratchBuffer                 = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
 
-    private Span                 writeSpan                     = null;
+    private Span                 fileWriteSpan                     = null;
     private String               traceContextHeader            = null;
 
     private static class RowServiceResponse
@@ -221,13 +223,13 @@ public class RowServiceOutputStream extends OutputStream
      *            the socket connect timeout in ms (default is 5000)
      * @param socketOpTimeoutMS
      *            the socket operation(read/write) timeout in ms (default is 15000)
-     * @param writeSpan
+     * @param fileWriteSpan
      *            the opentelemetry span to use for tracing
      * @throws Exception
      *             the exception
      */
     RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
-            CompressionAlgorithm fileCompression, int connectTimeoutMs, int sockOpTimeoutMS, Span writeSpan) throws Exception
+            CompressionAlgorithm fileCompression, int connectTimeoutMs, int sockOpTimeoutMS, Span fileWriteSpan) throws Exception
     {
         this.rowServiceIP = ip;
         this.rowServicePort = port;
@@ -248,15 +250,18 @@ public class RowServiceOutputStream extends OutputStream
             connectTimeoutMs = DEFAULT_CONNECT_TIMEOUT_MILIS;
         }
 
-        if (writeSpan != null && writeSpan.getSpanContext().isValid())
+        if (fileWriteSpan != null && fileWriteSpan.getSpanContext().isValid())
         {
-            this.writeSpan = writeSpan;
-            this.traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(writeSpan);
+            this.fileWriteSpan = fileWriteSpan;
+            this.traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(fileWriteSpan);
         }
 
-        if (this.writeSpan != null)
+        Span connectSpan = null;
+        if (this.fileWriteSpan != null)
         {
-            writeSpan.addEvent("RowServiceOutputStream.connect", getServerAttributes());
+            connectSpan = Utils.createChildSpan(fileWriteSpan, "Connect");
+            connectSpan.setStatus(StatusCode.OK);
+            connectSpan.setAllAttributes(getServerAttributes());
         }
 
         try
@@ -302,21 +307,31 @@ public class RowServiceOutputStream extends OutputStream
             log.error(errorMessage);
 
             Exception wrappedException = new Exception(errorMessage, e);
-            if (writeSpan != null)
+            if (connectSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                connectSpan.recordException(wrappedException, getServerAttributes());
+                connectSpan.setStatus(StatusCode.ERROR);
+                connectSpan.end();
             }
 
             throw wrappedException;
+        }
+
+        if (connectSpan != null)
+        {
+            connectSpan.end();
         }
 
         //------------------------------------------------------------------------------
         // Check protocol version
         //------------------------------------------------------------------------------
 
-        if (writeSpan != null)
+        Span versionSpan = null;
+        if (fileWriteSpan != null)
         {
-            writeSpan.addEvent("RowServiceOutputStream.versionRequest", getServerAttributes());
+            versionSpan = Utils.createChildSpan(fileWriteSpan, "VersionRequest");
+            versionSpan.setStatus(StatusCode.OK);
+            versionSpan.setAllAttributes(getServerAttributes());
         }
 
         try
@@ -331,9 +346,11 @@ public class RowServiceOutputStream extends OutputStream
         catch (IOException e)
         {
             HpccFileException wrappedException = new HpccFileException("Failed on initial remote read read trans", e);
-            if (writeSpan != null)
+            if (versionSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                versionSpan.recordException(wrappedException, getServerAttributes());
+                versionSpan.setStatus(StatusCode.ERROR);
+                versionSpan.end();
             }
 
             throw wrappedException;
@@ -356,15 +373,23 @@ public class RowServiceOutputStream extends OutputStream
             catch (IOException e)
             {
                 HpccFileException wrappedException = new HpccFileException("Error while attempting to read version response.", e);
-                if (writeSpan != null)
+                if (versionSpan != null)
                 {
-                    writeSpan.recordException(wrappedException, getServerAttributes());
+                    versionSpan.recordException(wrappedException, getServerAttributes());
+                    versionSpan.setStatus(StatusCode.ERROR);
+                    versionSpan.end();
                 }
 
                 throw wrappedException;
             }
 
             rowServiceVersion = new String(versionBytes, StandardCharsets.ISO_8859_1);
+        }
+
+        if (versionSpan != null)
+        {
+            versionSpan.setAttribute(ServiceAttributes.SERVICE_VERSION, rowServiceVersion);
+            versionSpan.end();
         }
 
         // Go ahead and make the initial write request. This won't write any data to file
@@ -435,9 +460,9 @@ public class RowServiceOutputStream extends OutputStream
         if (response.errorCode != RFCCodes.RFCStreamNoError)
         {
             IOException wrappedException = new IOException(response.errorMessage);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -481,9 +506,9 @@ public class RowServiceOutputStream extends OutputStream
         catch (IOException e)
         {
             IOException wrappedException = new IOException("Failed on close file with error: ", e);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -497,9 +522,9 @@ public class RowServiceOutputStream extends OutputStream
         catch (HpccFileException e)
         {
             IOException wrappedException = new IOException("Failed to close file. Unable to read response with error: ", e);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -508,9 +533,9 @@ public class RowServiceOutputStream extends OutputStream
         if (response.errorCode != RFCCodes.RFCStreamNoError)
         {
             IOException wrappedException = new IOException(response.errorMessage);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -577,9 +602,9 @@ public class RowServiceOutputStream extends OutputStream
             if (response.len < 4)
             {
                 HpccFileException wrappedException = new HpccFileException("Early data termination, no handle");
-                if (writeSpan != null)
+                if (fileWriteSpan != null)
                 {
-                    writeSpan.recordException(wrappedException, getServerAttributes());
+                    fileWriteSpan.recordException(wrappedException, getServerAttributes());
                 }
 
                 throw wrappedException;
@@ -591,9 +616,9 @@ public class RowServiceOutputStream extends OutputStream
         catch (IOException e)
         {
             HpccFileException wrappedException = new HpccFileException("Error while attempting to read row service response: ", e);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -618,9 +643,9 @@ public class RowServiceOutputStream extends OutputStream
         else if (bytesWritten == 0 && compressionAlgo != CompressionAlgorithm.NONE)
         {
             IOException wrappedException = new IOException("Fatal error while closing file. Writing compressed files with 0 length is not supported with the remote HPCC cluster.");
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -694,9 +719,9 @@ public class RowServiceOutputStream extends OutputStream
         catch (HpccFileException e)
         {
             IOException wrappedException = new IOException("Failed during write operation. Unable to read response with error: ", e);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
@@ -705,9 +730,9 @@ public class RowServiceOutputStream extends OutputStream
         if (response.errorCode != RFCCodes.RFCStreamNoError)
         {
             IOException wrappedException = new IOException(response.errorMessage);
-            if (writeSpan != null)
+            if (fileWriteSpan != null)
             {
-                writeSpan.recordException(wrappedException, getServerAttributes());
+                fileWriteSpan.recordException(wrappedException, getServerAttributes());
             }
 
             throw wrappedException;
