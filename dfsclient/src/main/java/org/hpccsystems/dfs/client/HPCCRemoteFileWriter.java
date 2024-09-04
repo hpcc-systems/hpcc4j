@@ -21,6 +21,7 @@ import org.hpccsystems.dfs.client.Utils;
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.semconv.ServerAttributes;
 
 import org.apache.logging.log4j.Logger;
@@ -142,8 +143,9 @@ public class HPCCRemoteFileWriter<T>
 
         this.recordAccessor = recordAccessor;
 
-        this.writeSpanName = "HPCCRemoteFileWriter.RowService/Write_" + dp.getFileName() + "_" + dp.getThisPart();
+        this.writeSpanName = "HPCCRemoteFileWriter/Write_" + dp.getFileName() + "_" + dp.getThisPart();
         this.writeSpan = Utils.createChildSpan(context.parentSpan, writeSpanName);
+        this.writeSpan.setStatus(StatusCode.OK);
 
         String primaryIP = dp.getCopyIP(0);
         String secondaryIP = "";
@@ -154,7 +156,7 @@ public class HPCCRemoteFileWriter<T>
 
         Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.0.address"), primaryIP,
                                                 AttributeKey.stringKey("server.1.address"), secondaryIP,
-                                                ServerAttributes.SERVER_PORT, Long.valueOf(dp.getPort()));
+                                                AttributeKey.stringKey("server.port"), Integer.toString(dp.getPort()));
         writeSpan.setAllAttributes(attributes);
 
         this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
@@ -181,8 +183,20 @@ public class HPCCRemoteFileWriter<T>
      */
     public void writeRecord(T record) throws Exception
     {
-        this.binaryRecordWriter.writeRecord(record);
-        this.recordsWritten++;
+        try
+        {
+            this.binaryRecordWriter.writeRecord(record);
+            this.recordsWritten++;
+        }
+        catch (Exception e)
+        {
+            log.error("HPCCRemoteFileWriter: Error writing record: " + e.getMessage());
+            this.writeSpan.recordException(e);
+            this.writeSpan.setStatus(StatusCode.ERROR);
+            this.writeSpan.end();
+
+            throw e;
+        }
     }
 
     /**
@@ -197,7 +211,20 @@ public class HPCCRemoteFileWriter<T>
     {
         while (it.hasNext())
         {
-            this.binaryRecordWriter.writeRecord(it.next());
+            try
+            {
+                this.binaryRecordWriter.writeRecord(it.next());
+                this.recordsWritten++;
+            }
+            catch (Exception e)
+            {
+                log.error("HPCCRemoteFileWriter: Error writing record: " + e.getMessage());
+                this.writeSpan.recordException(e);
+                this.writeSpan.setStatus(StatusCode.ERROR);
+                this.writeSpan.end();
+
+                throw e;
+            }
             this.recordsWritten++;
         }
     }
