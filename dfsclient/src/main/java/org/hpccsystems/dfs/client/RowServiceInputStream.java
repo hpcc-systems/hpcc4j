@@ -24,6 +24,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.io.InputStream;
 
+import java.sql.Timestamp;
+
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -55,6 +57,60 @@ import io.opentelemetry.semconv.ServiceAttributes;
  */
 public class RowServiceInputStream extends InputStream implements IProfilable
 {
+    private static class ReadRequestEvent
+    {
+        public long requestTime = 0;
+        public long requestStreamPos = 0;
+        public long responseTime = 0;
+        public int bytesRead = 0;
+        public int requestSize = 0;
+    };
+
+    public static class RestartInformation
+    {
+        public long streamPos = 0;
+        public byte[] tokenBin = null;
+    }
+
+    private static class RowServiceResponse
+    {
+        int len = 0;
+        int errorCode = 0;
+        int handle = -1;
+        String errorMessage = null;
+    }
+
+    public static final int          DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE = 25;
+    public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
+    public static final int          DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on read / write operations
+
+    // Note: The platform may respond with more data than this if records are larger than this limit.
+    public static final int          DEFAULT_MAX_READ_SIZE_KB = 4096;
+    private static final int         SHORT_SLEEP_MS           = 1;
+    private static final int         LONG_WAIT_THRESHOLD_US   = 100;
+    private static final int         MAX_HOT_LOOP_NS          = 10000;
+
+    // This is used to prevent the prefetch thread from hot looping when
+    // the network connection is slow. The read on the socket will block until
+    // at least 512 bytes are available
+    private static final int         MIN_SOCKET_READ_SIZE     = 512;
+
+    public static final String BYTES_READ_METRIC = "bytesRead";
+    public static final String FIRST_BYTE_TIME_METRIC = "prefetchFirstByteTime";
+    public static final String WAIT_TIME_METRIC = "parseWaitTime";
+    public static final String MUTEX_WAIT_TIME_METRIC = "mutexWaitTime";
+    public static final String SLEEP_TIME_METRIC = "prefetchSleepTime";
+
+    public static final String FETCH_START_TIME_METRIC = "fetchRequestStartTime";
+    public static final String FETCH_TIME_METRIC = "fetchRequestReadTime";
+    public static final String FETCH_FINISH_TIME_METRIC = "fetchRequestFinishTime";
+    public static final String CLOSE_TIME_METRIC = "connectionCloseTime";
+
+    public static final String LONG_WAITS_METRIC = "numLongWaits";
+    public static final String FETCHES_METRIC = "numFetches";
+    public static final String PARTIAL_BLOCK_READS_METRIC = "numPartialBlockReads";
+    public static final String BLOCK_READS_METRIC = "numBlockReads";
+
     private AtomicBoolean            active = new AtomicBoolean(false);
     private AtomicBoolean            closed = new AtomicBoolean(false);
     private boolean                  simulateFail = false;
@@ -72,8 +128,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private java.io.DataOutputStream dos = null;
     private String                   rowServiceVersion = "";
 
-    private Span                     readSpan = null;
+    private Span                     fileReadSpan = null;
     private String                   traceContextHeader = null;
+
+    private Span                     readRequestSpan = null;
+    private int                      readRequestCount = 0;
+    private int                      readRequestStart = 0;
+    private int                      readRequestBatchSize = DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE;
+
+    private List<ReadRequestEvent>   readRequestEvents = new ArrayList<ReadRequestEvent>();
+    private ReadRequestEvent         currentReadRequestEvent = null;
 
     private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
     private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
@@ -108,6 +172,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private long                     mutexWaitTimeNS = 0;
     private long                     waitTimeNS = 0;
     private long                     sleepTimeNS = 0;
+    private int                      readRequestDelayMS = 0;
     private long                     fetchStartTimeNS = 0;
     private long                     fetchTimeNS = 0;
     private long                     fetchFinishTimeNS = 0;
@@ -118,60 +183,17 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private long                     numBlockReads = 0;
 
     private Socket                   sock;
-    public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
-    public static final int          DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on read / write operations
     private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
     private int                      socketOpTimeoutMs = DEFAULT_SOCKET_OP_TIMEOUT_MS;
 
     private static final Charset     HPCCCharSet                   = Charset.forName("ISO-8859-1");
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
 
-    // Note: The platform may respond with more data than this if records are larger than this limit.
-    private static final int         DEFAULT_MAX_READ_SIZE_KB = 4096;
-    private static final int         SHORT_SLEEP_MS           = 1;
-    private static final int         LONG_WAIT_THRESHOLD_US   = 100;
-    private static final int         MAX_HOT_LOOP_NS          = 10000;
-
-    // This is used to prevent the prefetch thread from hot looping when
-    // the network connection is slow. The read on the socket will block until
-    // at least 512 bytes are available
-    private static final int         MIN_SOCKET_READ_SIZE     = 512;
-
     private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
 
     // Buffer compact threshold should always be smaller than buffer prefetch threshold
     private int bufferPrefetchThresholdKB = DEFAULT_MAX_READ_SIZE_KB/2;
     private int bufferCompactThresholdKB = DEFAULT_MAX_READ_SIZE_KB/4;
-
-    public static final String BYTES_READ_METRIC = "bytesRead";
-    public static final String FIRST_BYTE_TIME_METRIC = "prefetchFirstByteTime";
-    public static final String WAIT_TIME_METRIC = "parseWaitTime";
-    public static final String MUTEX_WAIT_TIME_METRIC = "mutexWaitTime";
-    public static final String SLEEP_TIME_METRIC = "prefetchSleepTime";
-
-    public static final String FETCH_START_TIME_METRIC = "fetchRequestStartTime";
-    public static final String FETCH_TIME_METRIC = "fetchRequestReadTime";
-    public static final String FETCH_FINISH_TIME_METRIC = "fetchRequestFinishTime";
-    public static final String CLOSE_TIME_METRIC = "connectionCloseTime";
-
-    public static final String LONG_WAITS_METRIC = "numLongWaits";
-    public static final String FETCHES_METRIC = "numFetches";
-    public static final String PARTIAL_BLOCK_READS_METRIC = "numPartialBlockReads";
-    public static final String BLOCK_READS_METRIC = "numBlockReads";
-
-    public static class RestartInformation
-    {
-        public long streamPos = 0;
-        public byte[] tokenBin = null;
-    }
-
-    private static class RowServiceResponse
-    {
-        int len = 0;
-        int errorCode = 0;
-        int handle = -1;
-        String errorMessage = null;
-    }
 
     /**
      * Instantiates a new row service input stream.
@@ -393,8 +415,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         if (rdSpan != null && rdSpan.getSpanContext().isValid())
         {
-            this.readSpan = rdSpan;
-            this.traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(readSpan);
+            this.fileReadSpan = rdSpan;
+            this.traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(fileReadSpan);
         }
 
         int copycount = dataPart.getCopyCount();
@@ -557,16 +579,20 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return restartInfo;
     }
 
-
     private void setPrefetchException(HpccFileException e)
     {
         this.prefetchException = e;
 
-        if (readSpan != null)
+        if (readRequestSpan != null)
+        {
+            readRequestSpan.recordException(e);
+            readRequestSpan.setStatus(StatusCode.ERROR);
+        }
+        else if (fileReadSpan != null)
         {
             Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                     ExceptionAttributes.EXCEPTION_MESSAGE, e.getMessage());
-            readSpan.recordException(e, attributes);
+            fileReadSpan.recordException(e, attributes);
         }
     }
 
@@ -669,6 +695,30 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
+     * The delay in milliseconds between read requests. Primarily used for testing.
+     * @param sleepTimeMS
+     */
+    public void setReadRequestDelay(int sleepTimeMS)
+    {
+        this.readRequestDelayMS = sleepTimeMS;
+    }
+
+    /**
+     * Sets the read request span batch size.
+     *
+     * @param batchSize the read request span batch size
+     */
+    public void setReadRequestSpanBatchSize(int batchSize)
+    {
+        if (batchSize < 1)
+        {
+            batchSize = DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE;
+        }
+
+        this.readRequestBatchSize = batchSize;
+    }
+
+    /**
      * Simulate a handle failure and use the file token instead. The handle is set to an invalid value so the THOR node
      * will indicate that the handle is unknown and request a otken.
      *
@@ -731,11 +781,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         if (inFetchingMode == false)
         {
             Exception wrappedException = new Exception("Error: attempted to start a fetch request for an input stream in sequential read mode.");
-            if (readSpan != null)
+            if (fileReadSpan != null)
             {
                 Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                         ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
-                readSpan.recordException(wrappedException, attributes);
+                fileReadSpan.recordException(wrappedException, attributes);
             }
             throw wrappedException;
         }
@@ -810,6 +860,75 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
     }
 
+    private void startNewReadRequestSpan()
+    {
+        if (fileReadSpan != null)
+        {
+            // finishReadRequestSpan will clear the readRequestSpan when it is finished
+            boolean shouldStartNewSpan = readRequestSpan == null;
+            if (shouldStartNewSpan)
+            {
+                readRequestSpan = Utils.createChildSpan(fileReadSpan, "ReadRequest[" + readRequestCount
+                                    + "," + (readRequestCount + readRequestBatchSize) + "]");
+                readRequestSpan.setAttribute("server.index", getFilePartCopy());
+                readRequestSpan.setStatus(StatusCode.OK);
+                readRequestStart = readRequestCount;
+            }
+            readRequestCount++;
+
+            currentReadRequestEvent = new ReadRequestEvent();
+            currentReadRequestEvent.requestTime = System.currentTimeMillis();
+            currentReadRequestEvent.requestStreamPos = streamPos;
+            currentReadRequestEvent.requestSize = maxReadSizeKB*1000;
+        }
+    }
+
+    private void finishReadRequestSpan()
+    {
+        if (readRequestSpan != null)
+        {
+            if (currentReadRequestEvent != null)
+            {
+                currentReadRequestEvent.responseTime = System.currentTimeMillis();
+                currentReadRequestEvent.bytesRead = totalDataInCurrentRequest;
+                readRequestEvents.add(currentReadRequestEvent);
+
+                currentReadRequestEvent = null;
+            }
+
+            int batchIndex = readRequestCount % readRequestBatchSize;
+            if (batchIndex == 0 || isClosed())
+            {
+                List<String> requestTimes = new ArrayList<String>();
+                List<String> responseTimes = new ArrayList<String>();
+                List<Long> requestSizes = new ArrayList<Long>();
+                List<Long> bytesRead = new ArrayList<Long>();
+                List<Long> requestStreamPos = new ArrayList<Long>();
+
+                for (ReadRequestEvent event : readRequestEvents)
+                {
+                    requestTimes.add( (new Timestamp(event.requestTime)).toString() );
+                    responseTimes.add( (new Timestamp(event.responseTime)).toString() );
+                    requestSizes.add((long)event.requestSize);
+                    bytesRead.add((long)event.bytesRead);
+                    requestStreamPos.add(event.requestStreamPos);
+                }
+                readRequestEvents.clear();
+
+                readRequestSpan.setAttribute(AttributeKey.stringArrayKey("requestTimes"), requestTimes);
+                readRequestSpan.setAttribute(AttributeKey.stringArrayKey("responseTimes"), responseTimes);
+                readRequestSpan.setAttribute(AttributeKey.longArrayKey("requestSizes"), requestSizes);
+                readRequestSpan.setAttribute(AttributeKey.longArrayKey("bytesRead"), bytesRead);
+                readRequestSpan.setAttribute(AttributeKey.longArrayKey("requestStreamPos"), requestStreamPos);
+                readRequestSpan.updateName( "ReadRequest[" + readRequestStart + "," + readRequestCount + "]");
+
+                readRequestSpan.end();
+                readRequestSpan = null;
+            }
+        }
+    }
+
+
     // Run from prefetch thread only
     private int startFetch()
     {
@@ -831,13 +950,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         numFetches++;
         if (!this.active.get())
         {
-            if (readSpan != null)
-            {
-                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                        AttributeKey.longKey("read.offset"), streamPos,
-                                                        AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
-                readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
-            }
+            startNewReadRequestSpan();
 
             try
             {
@@ -1044,11 +1157,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 if (bytesToRead < 0)
                 {
                     IOException wrappedException = new IOException(prefix + "Encountered unexpected end of stream mid fetch, this.dis.available() returned " + bytesToRead + " bytes.");
-                    if (readSpan != null)
+                    if (fileReadSpan != null)
                     {
                         Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
                                                                 ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
-                        readSpan.recordException(wrappedException, attributes);
+                        fileReadSpan.recordException(wrappedException, attributes);
                     }
                     throw wrappedException;
                 }
@@ -1137,12 +1250,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             catch(Exception ie){}
         }
 
-        if (readSpan != null)
-        {
-            Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                    AttributeKey.longKey("read.bytesRead"), Long.valueOf(totalDataInCurrentRequest));
-            readSpan.addEvent("RowServiceInputStream.readResponse", attributes);
-        }
+        finishReadRequestSpan();
+
 
         //------------------------------------------------------------------------------
         // Send read ahead request
@@ -1150,6 +1259,19 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         if (inFetchingMode == false)
         {
+            startNewReadRequestSpan();
+            if (readRequestDelayMS > 0)
+            {
+                try
+                {
+                    Thread.sleep(readRequestDelayMS);
+                }
+                catch (InterruptedException e)
+                {
+                    // We don't care about waking early
+                }
+            }
+
             if (readSpan != null)
             {
                 Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
@@ -1157,7 +1279,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                                                         AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
                 readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
             }
-
 
             // Create the read ahead request
             if (this.simulateFail) this.handle = -1;
@@ -1370,6 +1491,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 catch(Exception e){}
             }
 
+            finishReadRequestSpan();
 
             this.sendCloseFileRequest();
 
@@ -1675,11 +1797,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         this.handle = 0;
         String prefix = "RowServiceInputStream.makeActive, file "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
-        if (readSpan != null)
+        Span connectSpan = null;
+        if (fileReadSpan != null)
         {
-            Attributes attributes = Attributes.of( AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()) );
-            readSpan.addEvent("RowServiceInputStream.connect", attributes);
+
+            connectSpan = Utils.createChildSpan(fileReadSpan, "Connect");
+            connectSpan.setAttribute("server.index", getFilePartCopy());
         }
+
 
         boolean needsRetry = false;
         do
@@ -1727,11 +1852,29 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.net.UnknownHostException e)
                 {
-                    throw new HpccFileException(prefix +  "Bad file part IP address or host name: " + e.getMessage(),e);
+                    HpccFileException wrappedException = new HpccFileException(prefix +  "Bad file part IP address or host name: " + e.getMessage(),e);
+
+                    if (connectSpan != null)
+                    {
+                        connectSpan.recordException(wrappedException);
+                        connectSpan.setStatus(StatusCode.ERROR);
+                        connectSpan.end();
+                    }
+
+                    throw wrappedException;
                 }
                 catch (java.io.IOException e)
                 {
-                    throw new HpccFileException(prefix + " error making part active:" + e.getMessage(),e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + " error making part active:" + e.getMessage(),e);
+
+                    if (connectSpan != null)
+                    {
+                        connectSpan.recordException(wrappedException);
+                        connectSpan.setStatus(StatusCode.ERROR);
+                        connectSpan.end();
+                    }
+
+                    throw wrappedException;
                 }
 
                 try
@@ -1741,17 +1884,35 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.io.IOException e)
                 {
-                    throw new HpccFileException(prefix + " Failed to make streams for datapart:" + e.getMessage(), e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + " Failed to make streams for datapart:" + e.getMessage(), e);
+
+                    if (connectSpan != null)
+                    {
+                        connectSpan.recordException(wrappedException);
+                        connectSpan.setStatus(StatusCode.ERROR);
+                        connectSpan.end();
+                    }
+
+                    throw wrappedException;
+                }
+
+                if (connectSpan != null)
+                {
+                    connectSpan.setStatus(StatusCode.OK);
+                    connectSpan.end();
                 }
 
                 //------------------------------------------------------------------------------
                 // Check protocol version
                 //------------------------------------------------------------------------------
 
-                if (readSpan != null)
+
+                Span versionSpan = null;
+                if (fileReadSpan != null)
                 {
-                    Attributes attributes = Attributes.of( AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()) );
-                    readSpan.addEvent("RowServiceInputStream.versionRequest", attributes);
+                    versionSpan = Utils.createChildSpan(fileReadSpan, "VersionRequest");
+                    versionSpan.setAttribute( AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()) );
+                    versionSpan.setStatus(StatusCode.OK);
                 }
 
                 try
@@ -1765,7 +1926,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    throw new HpccFileException(prefix+ " Failed on initial remote read transfer: " + e.getMessage(),e);
+                    HpccFileException wrappedException = new HpccFileException(prefix+ " Failed on initial remote read transfer: " + e.getMessage(),e);
+                    if (versionSpan != null)
+                    {
+                        versionSpan.setStatus(StatusCode.ERROR);
+                        versionSpan.recordException(wrappedException);
+                        versionSpan.end();
+                    }
+
+                    throw wrappedException;
                 }
 
                 RowServiceResponse response = readResponse();
@@ -1784,23 +1953,31 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     }
                     catch (IOException e)
                     {
-                        throw new HpccFileException(prefix + "Error while attempting to read version response:" + e.getMessage(), e);
+                        HpccFileException wrappedException = new HpccFileException(prefix + "Error while attempting to read version response:" + e.getMessage(), e);
+                        if (versionSpan != null)
+                        {
+                            versionSpan.setStatus(StatusCode.ERROR);
+                            versionSpan.recordException(wrappedException);
+                            versionSpan.end();
+                        }
+
+                        throw wrappedException;
                     }
 
                     rowServiceVersion = new String(versionBytes, HPCCCharSet);
+                }
 
-                    if (readSpan != null)
-                    {
-                        Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                                ServiceAttributes.SERVICE_VERSION, rowServiceVersion);
-                        readSpan.addEvent("RowServiceInputStream.versionResponse", attributes);
-                    }
+                if (versionSpan != null)
+                {
+                    versionSpan.setAttribute(ServiceAttributes.SERVICE_VERSION, rowServiceVersion);
+                    versionSpan.end();
                 }
 
                 //------------------------------------------------------------------------------
                 // Send initial read request
                 //------------------------------------------------------------------------------
 
+                startNewReadRequestSpan();
                 try
                 {
                     String readTrans = null;
@@ -1821,7 +1998,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    throw new HpccFileException(prefix + " Failed on initial remote read read trans:" + e.getMessage(), e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + " Failed on initial remote read read trans:" + e.getMessage(), e);
+
+                    if (readRequestSpan != null)
+                    {
+                        readRequestSpan.recordException(wrappedException);
+                        readRequestSpan.setStatus(StatusCode.ERROR);
+                        readRequestSpan.end();
+                    }
+
+                    throw wrappedException;
                 }
 
                 if (CompileTimeConstants.PROFILE_CODE)
@@ -2273,6 +2459,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return;
         }
 
+        Span closeSpan = null;
+        if (fileReadSpan != null)
+        {
+            closeSpan = Utils.createChildSpan(fileReadSpan, "CloseRequest");
+            closeSpan.setAttribute("server.index", getFilePartCopy());
+            closeSpan.setStatus(StatusCode.OK);
+        }
+
         String closeFileRequest = makeCloseHandleRequest();
         int jsonRequestLen = closeFileRequest.length();
 
@@ -2296,13 +2490,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         catch (HpccFileException e)
         {
             IOException wrappedException = new IOException(prefix + "Failed to close file. Unable to read response with error: " + e.getMessage(), e);
-            if (readSpan != null)
+            if (closeSpan != null)
             {
-                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                        ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
-                readSpan.recordException(wrappedException, attributes);
+                closeSpan.recordException(wrappedException);
+                closeSpan.setStatus(StatusCode.ERROR);
+                closeSpan.end();
             }
             throw wrappedException;
+        }
+
+        if (closeSpan != null)
+        {
+            closeSpan.end();
         }
     }
 
