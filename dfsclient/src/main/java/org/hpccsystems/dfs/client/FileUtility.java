@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.BufferedInputStream;
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -324,6 +325,28 @@ public class FileUtility
             return results;
         }
     };
+
+    private static String[] getCredentials(CommandLine cmd)
+    {
+        Console console = System.console();
+
+        String user = cmd.getOptionValue("user");
+        boolean userIsEmpty = user == null || user.isEmpty();
+        if (userIsEmpty)
+        {
+            user = new String(console.readLine("Enter username: "));
+            userIsEmpty = user == null || user.isEmpty();
+        }
+
+        String pass = cmd.getOptionValue("pass");
+        boolean passIsEmpty = pass == null || pass.isEmpty();
+        if (!userIsEmpty && passIsEmpty)
+        {
+            pass = new String(console.readPassword("Enter password for " + user + ": "));
+        }
+
+        return new String[] {user, pass};
+    }
 
     private static enum FileFormat
     {
@@ -1205,8 +1228,10 @@ public class FileUtility
         }
 
         String connString = cmd.getOptionValue("url");
-        String user = cmd.getOptionValue("user");
-        String pass = cmd.getOptionValue("pass");
+
+        String[] creds = getCredentials(cmd);
+        String user = creds[0];
+        String pass = creds[1];
 
         String outputPath = cmd.getOptionValue("out",".");
 
@@ -1383,8 +1408,10 @@ public class FileUtility
         }
 
         String connString = cmd.getOptionValue("url");
-        String user = cmd.getOptionValue("user");
-        String pass = cmd.getOptionValue("pass");
+
+        String[] creds = getCredentials(cmd);
+        String user = creds[0];
+        String pass = creds[1];
 
         String outputPath = cmd.getOptionValue("out",".");
 
@@ -1592,8 +1619,9 @@ public class FileUtility
                               + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
         }
 
-        String user = cmd.getOptionValue("user");
-        String pass = cmd.getOptionValue("pass");
+        String[] creds = getCredentials(cmd);
+        String user = creds[0];
+        String pass = creds[1];
 
         String destClusterName = cmd.getOptionValue("dest_cluster");
 
@@ -1773,8 +1801,9 @@ public class FileUtility
                               + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
         }
 
-        String user = cmd.getOptionValue("user");
-        String pass = cmd.getOptionValue("pass");
+        String[] creds = getCredentials(cmd);
+        String user = creds[0];
+        String pass = creds[1];
 
         String destClusterName = cmd.getOptionValue("dest_cluster");
 
