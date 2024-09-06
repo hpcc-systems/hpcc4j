@@ -190,21 +190,23 @@ public class PlatformTester
                 System.out.println("If missing dependancies arise, test will halt!");
                 System.out.println("    otel.traces.exporter sys property: "+System.getProperty("otel.traces.exporter"));
                 System.out.println("    OTEL_TRACES_EXPORTER Env var: " + System.getenv("OTEL_TRACES_EXPORTER"));
-                System.out.println("        OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
-                System.out.println("        otel.traces.sampler sys property: "+System.getProperty("otel.traces.sampler"));
+                System.out.println("    OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
+                System.out.println("    otel.traces.sampler sys property: "+System.getProperty("otel.traces.sampler"));
                 System.out.println("    otel.logs.exporter: "+ System.getProperty("otel.logs.exporter"));
                 System.out.println("    OTEL_LOGS_EXPORTER Env var: " + System.getenv("OTEL_LOGS_EXPORTER"));
                 System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
                 System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
-                globalOTel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
-            }
-            else
-            {
-                globalOTel = GlobalOpenTelemetry.get();
+                if (!Utils.isOtelJavaagentUsed())
+                {
+                    globalOTel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+                }
             }
 
-            Span rootSpan = globalOTel.getTracer("PlatformTester").spanBuilder("rootspan").startSpan();
+            if (globalOTel == null)
+                globalOTel = GlobalOpenTelemetry.get();
+
+            Span rootSpan = globalOTel.getTracer("PlatformTester").spanBuilder("PlatformTest").startSpan();
             try (Scope scope = rootSpan.makeCurrent())
             {
                 Platform platform = Platform.get(prot, hpccServer, port, user, pass);
