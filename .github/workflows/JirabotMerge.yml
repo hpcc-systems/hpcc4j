@@ -95,9 +95,33 @@ jobs:
                 major, minor, point = map(int, version)
                 return f"{major}.{minor}.{point}"
 
+            def createReleaseTagPattern(major = None, minor = None, point = None):
+                releaseTagPattern = 'hpcc4j_'
+                if major is not None:
+                    releaseTagPattern += str(major) + '\.'
+                else:
+                    releaseTagPattern += '[0-9]+\.'
+
+                if minor is not None:
+                    releaseTagPattern += str(minor) + '\.'
+                else:
+                    releaseTagPattern += '[0-9]+\.'
+
+                if point is not None:
+                    releaseTagPattern += str(point) + '(-[0-9]+)?'
+                else:
+                    releaseTagPattern += '[0-9]+(-[0-9]+)?'
+
+                releaseTagPattern += '-release$'
+
+                return releaseTagPattern
+
+            def getLatestSemVer(major = None, minor = None, point = None):
+                cmd = "git tag --list --sort=-v:refname | grep -E '" + createReleaseTagPattern(major, minor, point) + "' | head -n 1"
+                return getTagVersionForCmd(cmd)
+
             def generateFixVersionList(jira, projectName, branchName):
-                cmd = "git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1"
-                latestVersion = getTagVersionForCmd(cmd)
+                latestVersion = getLatestSemVer()
 
                 # If we are merging into master we assume it is going into the next minor release
                 fixVersions = []
@@ -110,14 +134,12 @@ jobs:
                     branchVersion = extractVersion(branchVersionMatch.group(1))
 
                     # Get latest release in branch
-                    findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
-                    latestBranchVer = getTagVersionForCmd(findLatestBranchVer)
+                    latestBranchVer = getLatestSemVer(branchVersion[0], branchVersion[1])
 
                     curMajor = branchVersion[0]
                     latestMajor = latestVersion[0]
                     while curMajor <= latestMajor:
-                        cmd = "git tag --list 'hpcc4j_" + str(curMajor) + "*-release' --sort=-v:refname | head -n 1"
-                        latestVersionInMajor = getTagVersionForCmd(cmd)
+                        latestVersionInMajor = getLatestSemVer(curMajor)
 
                         curMinor = 0
                         if curMajor == branchVersion[0]:
@@ -126,7 +148,7 @@ jobs:
                         latestMinor = latestVersionInMajor[1]
 
                         while curMinor <= latestMinor:
-                            latestPointInMinor = getTagVersionForCmd("git tag --list 'hpcc4j_" + str(curMajor) + "." + str(curMinor) + "*-release' --sort=-v:refname | head -n 1")
+                            latestPointInMinor = getLatestSemVer(curMajor, curMinor)
                             fixVersions.append(buildVersionString([latestPointInMinor[0], latestPointInMinor[1], latestPointInMinor[2] + 2]))
                             curMinor += 2
                         curMajor += 1
