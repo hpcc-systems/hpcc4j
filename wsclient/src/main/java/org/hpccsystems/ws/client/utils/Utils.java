@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
+import java.lang.management.ManagementFactory;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -1260,5 +1261,79 @@ public class Utils
         }
 
         return traceparent;
+    }
+
+    /**
+     * Checks if a specified VM argument is present.
+     *
+     * This method retrieves the list of VM arguments and searches for the specified argument name.
+     * If the argument is found, it returns true. If the argument is not found, it returns false.
+     *
+     * @param vmArgName the name of the VM argument to search for
+     * @return {@code true} if the specified VM argument is present, {@code false} otherwise
+     */
+    static public boolean containsVMArgument(String vmArgName)
+    {
+        List<String> argslist = ManagementFactory.getRuntimeMXBean().getInputArguments();
+        for (String string : argslist)
+        {
+            if(string.matches("(?i)(" + vmArgName + "):.*"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Fetches the value of a specified VM argument.
+     *
+     * This method retrieves the list of VM arguments and searches for the specified argument name.
+     * If the argument is found, it returns the value associated with it. If the argument is not found,
+     * it returns an empty string.
+     *
+     * @param vmArgName the name of the VM argument to search for
+     * @return the value of the specified VM argument, or an empty string if the argument is not found
+     */
+    static public String fetchVMArgument(String vmArgName)
+    {
+        List<String> argslist = ManagementFactory.getRuntimeMXBean().getInputArguments();
+        for (String string : argslist)
+        {
+            if(string.matches("(?i)(" + vmArgName + "):.*"))
+            {
+                String[] keyval = string.split(vmArgName+":");
+
+                return keyval[1];
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Checks if the OpenTelemetry Java agent is used by inspecting the VM arguments.
+     *
+     * This method fetches the VM argument specified by "-javaagent" and checks if it contains
+     * the term "opentelemetry". If the argument is found and contains "opentelemetry", it returns true.
+     * Otherwise, it returns false.
+     *
+     * @return {@code true} if the OpenTelemetry Java agent is detected, {@code false} otherwise.
+     */
+    static public boolean isOtelJavaagentUsed()
+    {
+        String javaAgentPath = fetchVMArgument("-javaagent");
+        if (!javaAgentPath.isEmpty())
+        {
+            System.out.println("javaagent VM argument detected: " + javaAgentPath);
+
+            File jaFile = new File(javaAgentPath);
+
+            if (jaFile.getName().contains("opentelemetry") || jaFile.getName().contains("otel"))
+            {
+                System.out.println("Otel javaagent argument detected: " + javaAgentPath);
+                return true;
+            }
+        }
+        return false;
     }
 }

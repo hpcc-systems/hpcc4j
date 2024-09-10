@@ -33,6 +33,7 @@ import java.util.concurrent.Future;
 import org.hpccsystems.ws.client.HPCCWsTopologyClient.TopologyGroupQueryKind;
 import org.hpccsystems.ws.client.platform.Platform;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.junit.Assert;
@@ -135,9 +136,13 @@ public abstract class BaseRemoteTest
             System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
             System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
-            globalOTel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+            if (!Utils.isOtelJavaagentUsed())
+            {
+                globalOTel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+            }
         }
-        else
+
+        if (globalOTel == null)
         {
             globalOTel = GlobalOpenTelemetry.get();
         }
