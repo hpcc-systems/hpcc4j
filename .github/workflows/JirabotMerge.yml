@@ -47,6 +47,7 @@ jobs:
           PULL_REQUEST_TITLE : ${{ github.event.pull_request.title }}
           PULL_REQUEST_AUTHOR_NAME : ${{ github.event.pull_request.user.login }}
           PULL_URL: ${{ github.event.pull_request.html_url }}
+          PROJECT_CONFIG: ${{ vars.PROJECT_CONFIG}}
           COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ github.ref_name }}
@@ -95,9 +96,40 @@ jobs:
                 major, minor, point = map(int, version)
                 return f"{major}.{minor}.{point}"
 
-            def generateFixVersionList(jira, projectName, branchName):
-                cmd = "git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1"
-                latestVersion = getTagVersionForCmd(cmd)
+            def createReleaseTagPattern(projectConfig, major = None, minor = None, point = None):
+                releaseTagPrefix = projectConfig.get('tagPrefix')
+                releaseTagPostfix = projectConfig.get('tagPostfix')
+
+                if releaseTagPrefix is None or releaseTagPostfix is None:
+                    print('Error: PROJECT_CONFIG is missing required fields: tagPrefix and/or tagPostfix')
+                    sys.exit(1)
+
+                releaseTagPattern = releaseTagPrefix
+                if major is not None:
+                    releaseTagPattern += str(major) + '\.'
+                else:
+                    releaseTagPattern += '[0-9]+\.'
+
+                if minor is not None:
+                    releaseTagPattern += str(minor) + '\.'
+                else:
+                    releaseTagPattern += '[0-9]+\.'
+
+                if point is not None:
+                    releaseTagPattern += str(point) + '(-[0-9]+)?'
+                else:
+                    releaseTagPattern += '[0-9]+(-[0-9]+)?'
+
+                releaseTagPattern += releaseTagPostfix + '$'
+
+                return releaseTagPattern
+
+            def getLatestSemVer(projectConfig, major = None, minor = None, point = None):
+                cmd = "git tag --list --sort=-v:refname | grep -E '" + createReleaseTagPattern(projectConfig, major, minor, point) + "' | head -n 1"
+                return getTagVersionForCmd(cmd)
+
+            def generateFixVersionList(jira, projectConfig, projectName, branchName):
+                latestVersion = getLatestSemVer(projectConfig)
 
                 # If we are merging into master we assume it is going into the next minor release
                 fixVersions = []
@@ -110,14 +142,12 @@ jobs:
                     branchVersion = extractVersion(branchVersionMatch.group(1))
 
                     # Get latest release in branch
-                    findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
-                    latestBranchVer = getTagVersionForCmd(findLatestBranchVer)
+                    latestBranchVer = getLatestSemVer(projectConfig, branchVersion[0], branchVersion[1])
 
                     curMajor = branchVersion[0]
                     latestMajor = latestVersion[0]
                     while curMajor <= latestMajor:
-                        cmd = "git tag --list 'hpcc4j_" + str(curMajor) + "*-release' --sort=-v:refname | head -n 1"
-                        latestVersionInMajor = getTagVersionForCmd(cmd)
+                        latestVersionInMajor = getLatestSemVer(projectConfig, curMajor)
 
                         curMinor = 0
                         if curMajor == branchVersion[0]:
@@ -126,7 +156,7 @@ jobs:
                         latestMinor = latestVersionInMajor[1]
 
                         while curMinor <= latestMinor:
-                            latestPointInMinor = getTagVersionForCmd("git tag --list 'hpcc4j_" + str(curMajor) + "." + str(curMinor) + "*-release' --sort=-v:refname | head -n 1")
+                            latestPointInMinor = getLatestSemVer(projectConfig, curMajor, curMinor)
                             fixVersions.append(buildVersionString([latestPointInMinor[0], latestPointInMinor[1], latestPointInMinor[2] + 2]))
                             curMinor += 2
                         curMajor += 1
@@ -214,7 +244,20 @@ jobs:
             github_token = os.environ['GITHUB_TOKEN']
             branch_name = os.environ['BRANCH_NAME']
             comments_url = os.environ['COMMENTS_URL']
-            project_name = 'HPCC4J'
+
+            projectConfig = json.loads(os.environ['PROJECT_CONFIG'])
+            if not isinstance(projectConfig, dict):
+                print('Error: PROJECT_CONFIG is not a valid JSON object, aborting.')
+                sys.exit(1)
+
+            if 'tagPrefix' not in projectConfig or 'tagPostfix' not in projectConfig:
+                print('Error: PROJECT_CONFIG is missing required fields: tagPrefix and/or tagPostfix')
+                sys.exit(1)
+
+            project_name = projectConfig.get('projectName')
+            if project_name is None:
+                print('Error: PROJECT_CONFIG is missing required field: projectName')
+                sys.exit(1)
 
             result = ''
             issuem = re.search("(" + project_name + ")-[0-9]+", title, re.IGNORECASE)
@@ -230,7 +273,7 @@ jobs:
 
                 result = 'Jirabot Action Result:\n'
 
-                fixVersions = generateFixVersionList(jira, project_name, branch_name)
+                fixVersions = generateFixVersionList(jira, projectConfig, project_name, branch_name)
                 result += resolveIssue(jira, project_name, issue, fixVersions)
                 jira.issue_add_comment(issue_name, result)
 
