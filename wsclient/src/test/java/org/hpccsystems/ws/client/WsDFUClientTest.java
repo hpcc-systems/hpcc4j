@@ -6,11 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,6 +29,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.NodeList;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 
 public class WsDFUClientTest extends BaseRemoteTest
@@ -54,6 +54,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testFileTypeWrapper()
     {
 
@@ -398,6 +399,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getClustersTest() throws Exception
     {
         DFUFileDetailWrapper fileWrapper = wsdfuclient.getFileDetails(logicalfilename, null);
@@ -407,6 +409,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void createSuperFileTest() throws Exception
     {
         try
@@ -425,6 +428,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void createNewSuperFileWrapperTest() throws Exception
     {
         assumeNotNull(testfilename);
@@ -444,6 +448,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void createNewSuperFileNoSubfilesTest() throws Exception
     {
         assumeNotNull(testfilename);

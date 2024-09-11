@@ -22,6 +22,8 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpGroupWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  *
  * Convenient interface which exposes most common HPCC-centric activities.
@@ -286,6 +288,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws java.lang.Exception
      *             the exception
      */
+    @WithSpan
     public synchronized boolean pingServer() throws Exception
     {
         HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
@@ -307,6 +310,7 @@ public class HPCCWsClient extends DataSingleton
      *
      * @return a boolean.
      */
+    @WithSpan
     public boolean isContainerized()
     {
         HPCCWsSMCClient wsSMCClient = getWsSMCClient();
@@ -331,6 +335,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws HpccContainerizedUnsupportedException if unsupported HPCC deployment encountered
      * @throws Exception  a {@link java.lang.Exception} object.
      */
+    @WithSpan
     public List<TpGroupWrapper> getTopologyGroups(TopologyGroupQueryKind kind) throws HpccContainerizedUnsupportedException, Exception
     {
         HPCCWsTopologyClient wsTopologyClient = getWsTopologyClient();
@@ -672,6 +677,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws java.lang.Exception
      *             the exception
      */
+    @WithSpan
     public String[] getAvailableClusterGroups() throws Exception
     {
         HPCCWsTopologyClient hpccWsTopologyClient = HPCCWsTopologyClient.get(connection);
@@ -706,6 +712,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public String[] getAvailableClusterNames(String clusterGroupType) throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
@@ -725,6 +732,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public List<String> getAvailableTargetClusterNames() throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
         HPCCWsTopologyClient wsTopologyClient = HPCCWsTopologyClient.get(connection);
@@ -750,6 +758,7 @@ public class HPCCWsClient extends DataSingleton
      *            - Boolean, overwrite possibly sprayed file of same name
      * @return - Boolean, success.
      */
+    @WithSpan
     public boolean sprayFlatHPCCFile(String fileName, String targetFileLabel, int recordSize, String targetCluster, boolean overwritesprayedfile)
     {
         boolean success = true;
@@ -802,6 +811,7 @@ public class HPCCWsClient extends DataSingleton
      *            - SprayVariableFormat
      * @return - Boolean, success.
      */
+    @WithSpan
     public boolean sprayCustomCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, String escapedEscapeSequence,
             String escapedFieldDelim, String escapedQuote, String escapedRecTerminator, boolean overwritesprayedfile, SprayVariableFormat format)
     {
@@ -835,6 +845,7 @@ public class HPCCWsClient extends DataSingleton
      *            - Boolean, overwrite possibly sprayed file of same name
      * @return - Boolean, success.
      */
+    @WithSpan
     public boolean sprayDefaultCSVHPCCFile(String fileName, String targetFileLabel, String targetCluster, boolean overwritesprayedfile)
     {
         boolean success = false;
@@ -871,6 +882,7 @@ public class HPCCWsClient extends DataSingleton
      *            - SprayVariableFormat
      * @return - Boolean, success.
      */
+    @WithSpan
     public boolean sprayVariableHPCCFile(String fileName, String targetFileLabel, String targetCluster, DelimitedDataOptions options,
             boolean overwritesprayedfile, SprayVariableFormat format)
     {
@@ -935,6 +947,7 @@ public class HPCCWsClient extends DataSingleton
      *            Target machine user account password
      * @return true, if successful
      */
+    @WithSpan
     public boolean uploadFileToHPCC(String localFileName, String targetFilename, String machineLoginUser, String password)
     {
         try
@@ -963,6 +976,7 @@ public class HPCCWsClient extends DataSingleton
      *            Fully qualified local file name to be uploaded
      * @return true, if successful
      */
+    @WithSpan
     public boolean httpUploadFileToFirstHPCCLandingZone(String localFileName)
     {
         try
@@ -990,6 +1004,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws java.lang.Exception
      *             the exception
      */
+    @WithSpan
     public String submitECLandGetResults(WorkunitWrapper wu) throws Exception
     {
         String results = null;
@@ -1024,6 +1039,7 @@ public class HPCCWsClient extends DataSingleton
      * @throws java.lang.Exception
      *             the exception
      */
+    @WithSpan
     public List<List<Object>> submitECLandGetResultsList(WorkunitWrapper wu) throws Exception
     {
         List<List<Object>> resultsList;
@@ -1039,6 +1055,7 @@ public class HPCCWsClient extends DataSingleton
      *            - The workunit info to be submitted
      * @return - If successful, the resulting WUID, which can be used to query info, including results
      */
+    @WithSpan
     public String submitECLandGetWUID(WorkunitWrapper wu)
     {
         String WUID = null;

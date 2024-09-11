@@ -10,6 +10,8 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.junit.Assert;
 import org.junit.Test;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 public class WsSMCClientTest extends BaseRemoteTest
 {
     private static HPCCWsSMCClient client = wsclient.getWsSMCClient();
@@ -78,6 +80,7 @@ public class WsSMCClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testHPCCBuild()
     {
         try

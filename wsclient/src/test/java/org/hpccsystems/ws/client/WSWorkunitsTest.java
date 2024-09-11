@@ -38,10 +38,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.SpanKind;
-import io.opentelemetry.api.trace.StatusCode;
-import io.opentelemetry.context.Scope;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSWorkunitsTest extends BaseRemoteTest
@@ -62,8 +59,10 @@ public class WSWorkunitsTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testMultipleWsWUInits() throws InterruptedException
     {
+
         Callable<String> callableTask = () ->
         {
             HPCCWsWorkUnitsClient wswu = new HPCCWsWorkUnitsClient(wsclient.connection);
@@ -74,6 +73,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testSharedWsWUgets() throws InterruptedException
     {
         Callable<String> callableTask = () -> {
@@ -87,30 +87,18 @@ public class WSWorkunitsTest extends BaseRemoteTest
     @Test
     public void stageA_ping() throws Exception
     {
-        Span pingSpan = getRemoteTestTraceBuilder("WsWUTests-PingTest").setSpanKind(SpanKind.CLIENT).startSpan();
-
-        try (Scope innerScope = pingSpan.makeCurrent())
+        try
         {
-            try
-            {
-                Assert.assertTrue(client.ping());
-                pingSpan.setStatus(StatusCode.OK);
-            }
-            catch (AxisFault e)
-            {
-                pingSpan.recordException(e);
-                e.printStackTrace();
-                Assert.fail();
-            }
-            catch (Exception e)
-            {
-               pingSpan.recordException(e);
-               Assert.fail(e.toString());
-            }
+            Assert.assertTrue(client.ping());
         }
-        finally
+        catch (AxisFault e)
         {
-            pingSpan.end();
+            e.printStackTrace();
+            Assert.fail();
+        }
+        catch (Exception e)
+        {
+           Assert.fail(e.toString());
         }
     }
 

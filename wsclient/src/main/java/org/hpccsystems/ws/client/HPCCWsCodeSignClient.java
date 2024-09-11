@@ -40,6 +40,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wscodesign.SignResponseWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyResponseWrapper;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates ECL Code signing and verification related activities.
  */
@@ -220,6 +222,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.ListUserIDsResponseWrapper} object.
      * @throws java.lang.Exception if any.
      */
+    @WithSpan
     public ListUserIDsResponseWrapper listUserIDs(ListUserIDsRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -254,6 +257,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.SignResponseWrapper} object.
      * @throws java.lang.Exception if any.
      */
+    @WithSpan
     public SignResponseWrapper sign(SignRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -288,6 +292,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.wscodesign.VerifyResponseWrapper} object.
      * @throws java.lang.Exception if any.
      */
+    @WithSpan
     public VerifyResponseWrapper verify(VerifyRequestWrapper req) throws Exception
     {
         if (req == null)

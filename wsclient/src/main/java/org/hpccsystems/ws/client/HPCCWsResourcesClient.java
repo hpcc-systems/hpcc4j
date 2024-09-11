@@ -40,6 +40,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryResponseWra
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryResponseWrapper;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 
 /**
  * Facilitates discovery of containerized HPCC Systems resources.
@@ -235,6 +237,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      *         {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.ServiceQueryResponseWrapper}
      *         object.
      */
+    @WithSpan
     public ServiceQueryResponseWrapper serviceQuery(ServiceQueryRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -273,6 +276,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      *         {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.TargetQueryResponseWrapper}
      *         object.
      */
+    @WithSpan
     public TargetQueryResponseWrapper targetQuery(TargetQueryRequestWrapper req) throws Exception
     {
         if (req == null)
@@ -311,6 +315,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
      *         {@link org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryResponseWrapper}
      *         object.
      */
+    @WithSpan
     public WebLinksQueryResponseWrapper webLinks(WebLinksQueryRequestWrapper req) throws Exception
     {
         if (req == null)

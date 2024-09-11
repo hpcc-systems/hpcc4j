@@ -59,6 +59,9 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfXRefMessageWrapper;
 import org.hpccsystems.ws.client.wrappers.ArrayOfXRefNodeWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesResponseWrapper;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates XRef Logical File System actions on target HPCC instance.
  *
@@ -429,7 +432,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
-    public String action(String cluster, String action, String type, EspStringArray xrefFilesArray) throws Exception
+    @WithSpan
+    public String action(@SpanAttribute String cluster,@SpanAttribute  String action,@SpanAttribute  String type, EspStringArray xrefFilesArray) throws Exception
     {
         if (isTargetHPCCContainerized())
             throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.action not supported in CONTAINERIZED mode");
@@ -463,6 +467,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @param cluster a {@link java.lang.String} object.
      * @throws Exception a {@link java.lang.Exception} object.
      */
+    @WithSpan
     public void cleanDirectories(String cluster) throws Exception
     {
         if (isTargetHPCCContainerized())
@@ -497,6 +502,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
+    @WithSpan
     public String buildCancel() throws Exception
     {
         if (isTargetHPCCContainerized())
@@ -526,7 +532,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
-    public String build(String cluster) throws Exception
+    @WithSpan
+    public String build(@SpanAttribute String cluster) throws Exception
     {
         if (isTargetHPCCContainerized())
             throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.build not supported in CONTAINERIZED mode");
@@ -556,7 +563,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefFileWrapper} object.
      */
-    public ArrayOfXRefFileWrapper foundFiles(String cluster) throws Exception
+    @WithSpan
+    public ArrayOfXRefFileWrapper foundFiles(@SpanAttribute String cluster) throws Exception
     {
         if (isTargetHPCCContainerized())
             throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.foundFiles not supported in CONTAINERIZED mode");
@@ -587,7 +595,8 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefMessageWrapper} object.
      */
-    public ArrayOfXRefMessageWrapper messages(String cluster) throws Exception
+    @WithSpan
+    public ArrayOfXRefMessageWrapper messages(@SpanAttribute String cluster) throws Exception
     {
         if (isTargetHPCCContainerized())
             throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.messages not supported in CONTAINERIZED mode");
@@ -617,6 +626,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wsdfuxref.DFUXRefUnusedFilesRespon
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.wrappers.ArrayOfXRefNodeWrapper} object.
      */
+    @WithSpan
     public ArrayOfXRefNodeWrapper list() throws Exception
     {
         if (isTargetHPCCContainerized())

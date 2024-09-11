@@ -50,6 +50,8 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WUQueryWrapper;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 public class Platform extends DataSingleton
 {
     public static final String API_ID = "org.hpccsystems.ws.client"; //$NON-NLS-1$
@@ -63,6 +65,7 @@ public class Platform extends DataSingleton
      *            the conn
      * @return the platform
      */
+    @WithSpan
     public static Platform get(Connection conn)
     {
         if (conn == null)
@@ -72,7 +75,7 @@ public class Platform extends DataSingleton
     }
 
     /**
-     * Gets the.
+     * Gets a representation of the target HPCC Systems platform based on the connection parameter.
      *
      * @param protocol
      *            the protocol
@@ -86,6 +89,7 @@ public class Platform extends DataSingleton
      *            the pass
      * @return the platform
      */
+    @WithSpan
     public static Platform get(String protocol, String ip, int port, String user, String pass)
     {
         if (ip == null || ip.isEmpty() || port <= 0)
@@ -208,6 +212,7 @@ public class Platform extends DataSingleton
      * @param hpccconn
      *            the hpccconn
      */
+    @WithSpan
     protected Platform(Connection hpccconn)
     {
         this(hpccconn, HPCCWsClientPool.DEFAULT_EXPIRE_MILLIS);
@@ -221,6 +226,7 @@ public class Platform extends DataSingleton
      * @param pooltimeoutmillis
      *            the pooltimeoutmillis
      */
+    @WithSpan
     protected Platform(Connection hpccconn, long pooltimeoutmillis)
     {
         hpccClientPool = new HPCCWsClientPool(hpccconn, pooltimeoutmillis);

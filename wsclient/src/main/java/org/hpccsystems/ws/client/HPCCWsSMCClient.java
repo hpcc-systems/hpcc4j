@@ -35,6 +35,8 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssmc.GetBuildInfoResponseWrapper;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Use as soap client for HPCC WsSMC web service, also known as eclwatch
  */
@@ -209,6 +211,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      * @throws java.lang.Exception
      *             the exception
      */
+    @WithSpan
     public String getHPCCBuild() throws Exception
     {
         String build = null;
@@ -252,6 +255,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
     * @throws java.lang.Exception
     *             the exception
     */
+   @WithSpan
    public boolean isContainerized() throws Exception
    {
        verifyStub();
@@ -297,6 +301,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
      * @throws java.lang.Exception
      *             the exception
      */
+    @WithSpan
     public GetBuildInfoResponseWrapper getBuildInfo() throws Exception
     {
         verifyStub();

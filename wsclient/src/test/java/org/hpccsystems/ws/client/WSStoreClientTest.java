@@ -38,6 +38,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSStoreClientTest extends BaseRemoteTest
 {
@@ -106,21 +108,25 @@ public class WSStoreClientTest extends BaseRemoteTest
         System.out.println(tabstr);
     }
 
+    @WithSpan
     public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.fetchKeyMetaData(storename, namespace, key, global);
     }
 
+    @WithSpan
     public String fetchvalue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.fetchValue(storename, namespace, key, global);
     }
 
+    @WithSpan
     public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.fetchValueEncrypted(storename, namespace, key, global, secretKey);
     }
 
+    @WithSpan
     public void listNamespaceKeys(String store, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Listing Namespace Keys for default." + namespace + "...");
@@ -141,6 +147,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void listNamespaces()
     {
         try
@@ -176,6 +183,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a3fetchAllNSKeysTest()
     {
         try
@@ -196,6 +204,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a2setTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
@@ -218,6 +227,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a3setEncryptedTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
@@ -265,6 +275,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a3setEncryptedCustomTest()
     {
         //Generating random data as key content, client must keep track of this key in order to decrypt
@@ -342,6 +353,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a4deleteTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
@@ -358,6 +370,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a1createStoreTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
@@ -374,6 +387,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void z91deleteNSTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
@@ -388,6 +402,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b1createEncodedStoreTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeNotNull(encodedUserClient);
@@ -405,6 +420,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void zz91deleteEncodedNSTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeNotNull(encodedUserClient);
@@ -420,6 +436,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void a3fetchInvalidKeyTest()
     {
         try
@@ -440,6 +457,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b4fetchAllEncodedNSKeysTest()
     {
         Assume.assumeNotNull(encodedUserClient);
@@ -461,6 +479,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b4fetchEncodedNSKeysAttributesTest()
     {
         Assume.assumeNotNull(encodedUserClient);
@@ -482,6 +501,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b4fetchEncodedKeyTest()
     {
         Assume.assumeNotNull(encodedUserClient);
@@ -509,6 +529,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b3setEncodedTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeNotNull(encodedUserClient);
@@ -534,6 +555,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b4setEncryptedTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try
@@ -581,6 +603,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b4setEncryptedCustomTest()
     {
         //Generating random data as key content, client must keep track of this key in order to decrypt
@@ -658,6 +681,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void b5deleteTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         try

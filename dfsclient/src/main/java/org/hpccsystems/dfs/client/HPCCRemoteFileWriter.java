@@ -15,14 +15,10 @@ package org.hpccsystems.dfs.client;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 
-import org.hpccsystems.dfs.client.RowServiceOutputStream;
-import org.hpccsystems.dfs.client.Utils;
-
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
-import io.opentelemetry.semconv.ServerAttributes;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;

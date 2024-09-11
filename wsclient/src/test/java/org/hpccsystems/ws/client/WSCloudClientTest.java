@@ -23,10 +23,11 @@ import static org.junit.Assume.assumeTrue;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSCloudClientTest extends BaseRemoteTest
@@ -51,6 +52,7 @@ public class WSCloudClientTest extends BaseRemoteTest
 
 
     @Test
+    @WithSpan
     public void getPodsTest()
     {
         assumeTrue("Target HPCC cluster does not appear to be containerized, invalidating test", isContainerizedTarget);
