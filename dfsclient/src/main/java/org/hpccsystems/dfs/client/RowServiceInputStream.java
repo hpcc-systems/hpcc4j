@@ -1272,14 +1272,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
             }
 
-            if (readSpan != null)
-            {
-                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                        AttributeKey.longKey("read.offset"), streamPos,
-                                                        AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
-                readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
-            }
-
             // Create the read ahead request
             if (this.simulateFail) this.handle = -1;
             String readAheadRequest = (this.forceTokenUse) ? this.makeTokenRequest() : this.makeHandleRequest();
