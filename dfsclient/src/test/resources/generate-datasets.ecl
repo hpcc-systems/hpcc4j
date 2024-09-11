@@ -2,7 +2,7 @@ IMPORT Std;
 
 unique_keys :=  100000;  // Should be less than number of records
 unique_values := 10212; // Should be less than number of records
-totalrecs1 := 10000;
+totalrecs1 := 100000;
 
 childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3};
 
