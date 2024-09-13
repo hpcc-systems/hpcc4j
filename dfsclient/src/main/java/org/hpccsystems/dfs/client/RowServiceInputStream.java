@@ -696,7 +696,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     /**
      * The delay in milliseconds between read requests. Primarily used for testing.
-     * @param sleepTimeMS
+     * @param sleepTimeMS the sleep time in milliseconds
      */
     public void setReadRequestDelay(int sleepTimeMS)
     {
@@ -1270,14 +1270,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     // We don't care about waking early
                 }
-            }
-
-            if (readSpan != null)
-            {
-                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                        AttributeKey.longKey("read.offset"), streamPos,
-                                                        AttributeKey.longKey("read.size"), Long.valueOf(maxReadSizeKB*1000));
-                readSpan.addEvent("RowServiceInputStream.readRequest", attributes);
             }
 
             // Create the read ahead request
