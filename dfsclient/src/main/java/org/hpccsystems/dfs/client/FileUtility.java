@@ -843,11 +843,13 @@ public class FileUtility
                         readContext.originalRD = recordDef;
                         HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, filePart, new HPCCRecordBuilder(recordDef));
 
+                        long recCount = 0;
                         while (fileReader.hasNext())
                         {
                             HPCCRecord record = fileReader.next();
-                            context.getCurrentOperation().recordsRead.incrementAndGet();
+                            recCount++;
                         }
+                        context.getCurrentOperation().recordsRead.addAndGet(recCount);
 
                         fileReader.close();
                         context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
@@ -893,13 +895,15 @@ public class FileUtility
                 {
                     try
                     {
+                        long recCount = 0;
                         while (fileReader.hasNext())
                         {
                             splitTable.addRecordPosition(fileReader.getStreamPosition());
                             HPCCRecord record = fileReader.next();
                             fileWriter.writeRecord(record);
-                            context.getCurrentOperation().recordsRead.incrementAndGet();
+                            recCount++;
                         }
+                        context.getCurrentOperation().recordsRead.addAndGet(recCount);
 
                         splitTable.finish(fileReader.getStreamPosition());
 
@@ -1019,14 +1023,18 @@ public class FileUtility
                     {
                         for (int k = 0; k < fileReaders.length; k++)
                         {
+                            long recordsRead = 0;
+                            long recordsWritten = 0;
                             HpccRemoteFileReader<HPCCRecord> fileReader = fileReaders[k];
                             while (fileReader.hasNext())
                             {
                                 HPCCRecord record = fileReader.next();
                                 fileWriter.writeRecord(record);
-                                context.getCurrentOperation().recordsWritten.incrementAndGet();
-                                context.getCurrentOperation().recordsRead.incrementAndGet();
+                                recordsRead++;
+                                recordsWritten++;
                             }
+                            context.getCurrentOperation().recordsWritten.addAndGet(recordsWritten);
+                            context.getCurrentOperation().recordsRead.addAndGet(recordsRead);
 
                             fileReader.close();
                             context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
@@ -1178,13 +1186,18 @@ public class FileUtility
                                 splitEnd = endingSplit.splitEnd;
                             }
 
+                            long recordsRead = 0;
+                            long recordsWritten = 0;
                             while (fileReader.hasNext() && fileReader.getStreamPosAfterLastRecord() < splitEnd)
                             {
                                 HPCCRecord record = (HPCCRecord) fileReader.getNext();
                                 fileWriter.writeRecord(record);
-                                context.getCurrentOperation().recordsWritten.incrementAndGet();
-                                context.getCurrentOperation().recordsRead.incrementAndGet();
+                                recordsRead++;
+                                recordsWritten++;
                             }
+
+                            context.getCurrentOperation().recordsWritten.addAndGet(recordsWritten);
+                            context.getCurrentOperation().recordsRead.addAndGet(recordsRead);
 
                             context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosAfterLastRecord());
                             inputStreams[j].close();
