@@ -36,6 +36,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSCodeSignClientTest extends BaseRemoteTest
 {
@@ -87,6 +89,7 @@ public class WSCodeSignClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void signTest()
     {
         try
@@ -125,6 +128,7 @@ public class WSCodeSignClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void verifyTest()
     {
         signed = "adsfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd";

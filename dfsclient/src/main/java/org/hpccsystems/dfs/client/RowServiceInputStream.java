@@ -47,9 +47,7 @@ import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.semconv.ExceptionAttributes;
-import io.opentelemetry.semconv.ServerAttributes;
 import io.opentelemetry.semconv.ServiceAttributes;
 
 /**

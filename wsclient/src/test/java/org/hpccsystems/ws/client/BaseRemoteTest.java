@@ -45,6 +45,7 @@ import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.SpanBuilder;
 import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
@@ -285,6 +286,7 @@ public abstract class BaseRemoteTest
         }
     }
 
+    @WithSpan
     public static String executeECLScript(String eclFile) throws Exception
     {
         InputStream resourceStream = BaseRemoteTest.class.getClassLoader().getResourceAsStream(eclFile);

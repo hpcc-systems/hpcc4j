@@ -17,7 +17,6 @@
 
 package org.hpccsystems.ws.client;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNotNull;
 
@@ -40,10 +39,11 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetAliases_type0Wrapper
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySetQueries_type0Wrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.QuerySignatureWrapper;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSSQLClientTest extends BaseRemoteTest
@@ -116,6 +116,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void AAA2testGetTables() throws Exception
     {
         try
@@ -144,6 +145,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void AAA1testGetClusters() throws Exception
     {
         try
@@ -175,6 +177,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testInvalidGetTables() throws Exception
     {
         try
@@ -199,6 +202,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testGetDBVersion() throws Exception
     {
         try
@@ -216,6 +220,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testGetStoreProcs() throws Exception
     {
         try
@@ -330,6 +335,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testSQLExecution() throws Exception
     {
         assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
@@ -350,6 +356,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void executeSQLWUIDResponseTest() throws Exception
     {
         assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
@@ -367,6 +374,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void executeSQLWUResponseTest() throws Exception
     {
         assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
@@ -383,6 +391,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void executeSQLFullResponseTest() throws Exception
     {
         assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);
@@ -397,6 +406,7 @@ public class WSSQLClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void preparedSQLTest() throws Exception
     {
         assumeNotNull("Cannot test sql execution - could not find any clusters", validClusterName);

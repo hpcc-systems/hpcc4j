@@ -78,6 +78,9 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.WsDFUClientStubWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates Logical File System actions on target HPCC Systems instance.
  *
@@ -583,6 +586,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws java.lang.Exception general exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
+    @WithSpan
     public AddtoSuperfileResponseWrapper addToSuperFile(AddtoSuperfileRequestWrapper request) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (request == null)
@@ -1816,8 +1820,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, int expirySeconds,
-            Boolean compressed, DFUFileTypeWrapper type, String requestId) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public DFUCreateFileWrapper createFileAndAcquireAccess(@SpanAttribute String fileName, @SpanAttribute  String cluster, @SpanAttribute  String eclRecordDefinition, @SpanAttribute  int expirySeconds,
+            @SpanAttribute Boolean compressed, DFUFileTypeWrapper type, @SpanAttribute String requestId) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
@@ -1921,7 +1926,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public void publishFile(String fileId, String eclRecordDefinition, long totalRecords, long fileSize, Boolean overwrite)
+    @WithSpan
+    public void publishFile(@SpanAttribute String fileId, @SpanAttribute  String eclRecordDefinition, @SpanAttribute long totalRecords,@SpanAttribute  long fileSize, @SpanAttribute  Boolean overwrite)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); // Throws exception if stub failed
@@ -1988,7 +1994,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public DFUFileDetailWrapper getFileDetails(String logicalname, String clustername, boolean jsonTypeInfo, boolean binTypeInfo)
+    @WithSpan 
+    public DFUFileDetailWrapper getFileDetails(@SpanAttribute String logicalname, @SpanAttribute  String clustername, @SpanAttribute boolean jsonTypeInfo, @SpanAttribute  boolean binTypeInfo)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         // try drea?

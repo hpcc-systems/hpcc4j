@@ -26,6 +26,9 @@ import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates File I/O actions on target HPCC instance.
  *
@@ -270,7 +273,8 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean createHPCCFile(String fileName, String targetLandingZone, boolean overwritefile, String lzAddress) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public boolean createHPCCFile(@SpanAttribute String fileName, @SpanAttribute String targetLandingZone, boolean overwritefile,@SpanAttribute  String lzAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
@@ -338,7 +342,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean writeHPCCFileData(byte[] data, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize, String lzAddress)
+    @WithSpan
+    public boolean writeHPCCFileData(byte[] data, @SpanAttribute String fileName, @SpanAttribute String targetLandingZone,
+                                     @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = true;
@@ -452,7 +458,9 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String readFileData(String dropzone, String fileName, long datasize, long offset, String dropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public String readFileData(@SpanAttribute String dropzone,@SpanAttribute  String fileName,@SpanAttribute long datasize,
+                               @SpanAttribute long offset, @SpanAttribute String dropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         ReadFileDataRequest readFileDataRequest = new ReadFileDataRequest();
         readFileDataRequest.setDestDropZone(dropzone);

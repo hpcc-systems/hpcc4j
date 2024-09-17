@@ -28,6 +28,8 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class FileSprayClientTest extends BaseRemoteTest
 {
@@ -133,6 +135,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testfetchDropZones()
     {
         try
@@ -173,6 +176,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testUploadFile()
     {
         File uploadFile = new File("src/test/resources/filespraytest/HPCC4J274deleteDropzoneFileTest.csv");
@@ -194,6 +198,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testSprayCSV() //invalid if testUploadFile unsuccessful
     {
         boolean isContainerized = false;
@@ -231,6 +236,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testDeleteDropZoneFile()
     {
         testUploadFile();
@@ -267,6 +273,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testDespray()
     {
         boolean isContainerized = false;
@@ -300,6 +307,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testDeleteDropZoneFileInvalidFile()
     {
         List<String> badFileName = new ArrayList<>();
@@ -336,6 +344,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testfetchDropZonesBadURL()
     {
         try
@@ -366,6 +375,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testallparamsdzsearchwithfirstlocaldzfound()
     {
         try
@@ -396,6 +406,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testRenameLogicalFile()
     {
         assumeNotNull(renameSrcName);
@@ -424,6 +435,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void ensuredTrailingSlashDZSince7_12_98()
     {
         try
@@ -449,6 +461,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void downLoadFileTest()
     {
          if (foundLocalDZ == null)

@@ -44,6 +44,9 @@ import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCQuerySetWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.HPCCTableWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wssql.NamedValueWrapper;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates SQL based action onto target HPCC Systems instance.
  *
@@ -274,7 +277,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String[] getTargetClusters(String filter) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public String[] getTargetClusters(@SpanAttribute String filter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -314,7 +318,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public HPCCTableWrapper[] getTables(String filter) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public HPCCTableWrapper[] getTables(@SpanAttribute String filter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -368,7 +373,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public HPCCQuerySetWrapper[] getStoredProcedures(String querysetname) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public HPCCQuerySetWrapper[] getStoredProcedures(@SpanAttribute String querysetname) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -529,7 +535,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText, String targetCluster, String targetQuerySet, Integer resultLimit,
+    @WithSpan
+    public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText,@SpanAttribute String targetCluster,@SpanAttribute String targetQuerySet, Integer resultLimit,
             Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait)
             throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
@@ -664,7 +671,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public GetResultsResponseWrapper getResultResponse(String wuid, Integer resultWindowStart, Integer resultWindowCount, Boolean suppressXmlSchema)
+    @WithSpan
+    public GetResultsResponseWrapper getResultResponse(@SpanAttribute String wuid, Integer resultWindowStart, Integer resultWindowCount, Boolean suppressXmlSchema)
             throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
@@ -763,7 +771,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public ECLWorkunitWrapper prepareSQL(String sqlText, String targetCluster, String targetQuerySet, Integer wait)
+    @WithSpan
+    public ECLWorkunitWrapper prepareSQL(String sqlText, @SpanAttribute String targetCluster, @SpanAttribute String targetQuerySet, Integer wait)
             throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
@@ -900,7 +909,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public ExecutePreparedSQLResponseWrapper executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper [] variables, Integer wait,
+    @WithSpan
+    public ExecutePreparedSQLResponseWrapper executePreparedSQL(@SpanAttribute String wuid, @SpanAttribute String targetCluster, NamedValueWrapper [] variables, Integer wait,
             Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema,
             Boolean suppressResults) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {

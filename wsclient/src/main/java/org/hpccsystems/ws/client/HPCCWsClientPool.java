@@ -3,6 +3,8 @@ package org.hpccsystems.ws.client;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.utils.ObjectPool;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * <p>HPCCWsClientPool class.</p>
  *
@@ -76,6 +78,7 @@ public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
      * @param timeout
      *            the timeout
      */
+    @WithSpan
     public HPCCWsClientPool(Connection connection, long timeout)
     {
         super(timeout);
@@ -89,6 +92,7 @@ public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
      */
     /** {@inheritDoc} */
     @Override
+    @WithSpan
     protected HPCCWsClient create()
     {
         return (new HPCCWsClient(m_connection));
@@ -101,6 +105,7 @@ public class HPCCWsClientPool extends ObjectPool<HPCCWsClient>
      */
     /** {@inheritDoc} */
     @Override
+    @WithSpan
     public boolean validate(HPCCWsClient client)
     {
         try

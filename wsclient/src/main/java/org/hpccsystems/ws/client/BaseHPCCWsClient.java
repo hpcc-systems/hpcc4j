@@ -1,7 +1,6 @@
 package org.hpccsystems.ws.client;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -43,14 +42,12 @@ import org.w3c.dom.NodeList;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
-import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanBuilder;
 import io.opentelemetry.api.trace.SpanKind;
-import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.Context;
-import io.opentelemetry.context.Scope;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.opentelemetry.semconv.HttpAttributes;
 import io.opentelemetry.semconv.ServerAttributes;
 
@@ -91,6 +88,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return targetsContainerizedHPCC;
     }
 
+    @WithSpan
     private boolean getTargetHPCCIsContainerized(Connection conn) throws Exception
     {
         if (wsconn == null)
@@ -155,6 +153,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         return targetHPCCBuildVersion;
     }
 
+    @WithSpan
     private String getTargetHPCCBuildVersionString() throws Exception
     {
         if (wsconn == null)
@@ -266,47 +265,29 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         if (fetchVersionAndContainerMode)
         {
-            Span fetchHPCCVerSpan = getWsClientSpanBuilder("FetchHPCCVersion").setSpanKind(SpanKind.INTERNAL).startSpan();
-            try (Scope scope = fetchHPCCVerSpan.makeCurrent())
+            try
             {
-                try
-                {
-                    targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersionString());
-                }
-                catch (Exception e)
-                {
-                    initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
-                    if (!e.getLocalizedMessage().isEmpty())
-                        initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
-                    success = false;
-                }
+                targetHPCCBuildVersion = new Version(getTargetHPCCBuildVersionString());
             }
-            finally
+            catch (Exception e)
             {
-                fetchHPCCVerSpan.setStatus(success ? StatusCode.OK : StatusCode.ERROR, initErrMessage);
-                fetchHPCCVerSpan.end();
+                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
+                if (!e.getLocalizedMessage().isEmpty())
+                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+                success = false;
             }
 
-            Span fetchHPCCContainerMode = getWsClientSpanBuilder("FetchHPCCContainerMode").startSpan();
-            try (Scope scope = fetchHPCCContainerMode.makeCurrent())
+            try
             {
-                try
-                {
-                    targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
-                }
-                catch (Exception e)
-                {
-                    initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
-                    if (!e.getLocalizedMessage().isEmpty())
-                        initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
-
-                    success = false;
-                }
+                targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
             }
-            finally
+            catch (Exception e)
             {
-                fetchHPCCContainerMode.setStatus(success ? StatusCode.OK : StatusCode.ERROR, initErrMessage);
-                fetchHPCCContainerMode.end();
+                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
+                if (!e.getLocalizedMessage().isEmpty())
+                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+
+                success = false;
             }
         }
         if (!initErrMessage.isEmpty())

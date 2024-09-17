@@ -64,6 +64,7 @@
     <project.benchmarking>false</project.benchmarking>
     <opentelemetry.bom.version>1.38.0</opentelemetry.bom.version>
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
+    <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
   </properties>
 
   <scm>
@@ -137,6 +138,12 @@
     </dependency>
     <dependency>
       <!-- Not managed by opentelemetry-bom -->
+      <groupId>io.opentelemetry.instrumentation</groupId>
+      <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+      <version>${opentelemetry.instrumentation.annotations.version}</version>
+    </dependency>
+    <dependency>
+      <!-- Not managed by opentelemetry-bom -->
       <groupId>io.opentelemetry.semconv</groupId>
       <artifactId>opentelemetry-semconv</artifactId>
       <version>1.25.0-alpha</version>
@@ -190,29 +197,29 @@
       <type>pom</type>
     </dependency>
     <dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-kernel</artifactId>
-			<version>${axis2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-transport-http</artifactId>
-			<version>${axis2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-transport-local</artifactId>
-			<version>${axis2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-adb</artifactId>
-			<version>${axis2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-jaxws</artifactId>
-			<version>${axis2.version}</version>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2-kernel</artifactId>
+      <version>${axis2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2-transport-http</artifactId>
+      <version>${axis2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2-transport-local</artifactId>
+      <version>${axis2.version}</version>
+    </dependency>
+	<dependency>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2-adb</artifactId>
+      <version>${axis2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2-jaxws</artifactId>
+      <version>${axis2.version}</version>
     </dependency>
   </dependencies>
 
