@@ -87,6 +87,7 @@ public class FileUtility
             public String currentOperationDesc = "";
             public long operationStartNS = 0;
 
+
             public List<String> errorMessages = new ArrayList<String>();
             public List<String> warnMessages = new ArrayList<String>();
 
@@ -155,6 +156,9 @@ public class FileUtility
 
         private Stack<TaskOperation> operations = new Stack<TaskOperation>();
         public List<JSONObject> operationResults = new ArrayList<JSONObject>();
+
+        public int readRetries = HpccRemoteFileReader.DEFAULT_READ_RETRIES;
+        public int socketOpTimeoutMS = RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS;
 
         public void setCurrentOperationSpanAttributes(Attributes attributes)
         {
@@ -545,6 +549,46 @@ public class FileUtility
         }
     }
 
+    private static int getReadRetries(CommandLine cmd)
+    {
+        int readRetries = HpccRemoteFileReader.DEFAULT_READ_RETRIES;
+        String retriesStr = cmd.getOptionValue("read_retries");
+        if (retriesStr != null)
+        {
+            try
+            {
+                readRetries = Integer.parseInt(retriesStr);
+            }
+            catch(Exception e)
+            {
+                System.out.println("Invalid option value for read_retries: "
+                                + retriesStr + ", must be an integer. Defaulting to: " + HpccRemoteFileReader.DEFAULT_READ_RETRIES + " retries.");
+            }
+        }
+
+        return readRetries;
+    }
+
+    private static int getSocketOpTimeoutMS(CommandLine cmd)
+    {
+        int socketOpTimeoutS = RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS / 1000;
+        String timeoutStr = cmd.getOptionValue("socket_timeout_seconds");
+        if (timeoutStr != null)
+        {
+            try
+            {
+                socketOpTimeoutS = Integer.parseInt(timeoutStr);
+            }
+            catch(Exception e)
+            {
+                System.out.println("Invalid option value for socket_timeout: "
+                                + timeoutStr + ", must be an integer. Defaulting to: " + socketOpTimeoutS + " seconds.");
+            }
+        }
+
+        return socketOpTimeoutS * 1000;
+    }
+
     private static Options getReadOptions()
     {
         Options options = new Options();
@@ -554,6 +598,10 @@ public class FileUtility
         options.addOption("format", true, "Specifies the output format to be used when writing files to disk. Defaults to Thor files.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("out", true, "Specifies the directory that the files should be written to.");
+        options.addOption("filter", true, "Specifies a filter to apply to the files read from the cluster.");
+        options.addOption("ignore_tlk", false, "Ignore the TLK file when reading Index files.");
+        options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
+        options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
 
         options.addOption(Option.builder("read")
                                 .argName("files")
@@ -576,6 +624,10 @@ public class FileUtility
         options.addOption("access_expiry_seconds", true, "Access token expiration seconds.");
         options.addOption("read_request_size", true, "The size of the read requests in KB sent to the rowservice.");
         options.addOption("read_request_delay", true, "The delay in MS between read requests sent to the rowservice.");
+        options.addOption("filter", true, "Specifies a filter to apply to the files read from the cluster.");
+        options.addOption("ignore_tlk", false, "Ignore the TLK file when reading Index files.");
+        options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
+        options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
 
         options.addOption(Option.builder("file_parts")
                                 .argName("_file_parts")
@@ -595,6 +647,10 @@ public class FileUtility
         options.addRequiredOption("dest_cluster", "Destination Cluster Name", true, "Specifies the name of the cluster to write files back to.");
         options.addOption("dest_url", "Destination Cluster URL", true, "Specifies the URL of the ESP to write to.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
+        options.addOption("filter", true, "Specifies a filter to apply to the files read from the cluster.");
+        options.addOption("ignore_tlk", false, "Ignore the TLK file when reading Index files.");
+        options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
+        options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
 
         options.addOption(Option.builder("copy")
                                 .argName("files")
@@ -616,6 +672,7 @@ public class FileUtility
         options.addOption("dest_url", "Destination Cluster URL", true, "Specifies the URL of the ESP to write to.");
         options.addRequiredOption("dest_cluster", "Destination Cluster Name", true, "Specifies the name of the cluster to write files back to.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
+        options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
 
         options.addOption(Option.builder("write")
                                 .argName("files")
@@ -847,8 +904,11 @@ public class FileUtility
                         readContext.parentSpan = context.getCurrentOperation().operationSpan;
                         readContext.originalRD = recordDef;
                         readContext.readSizeKB = readRequestSize;
+                        readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
+
                         HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, filePart, new HPCCRecordBuilder(recordDef));
                         fileReader.getInputStream().setReadRequestDelay(readRequestDelay);
+                        fileReader.setMaxReadRetries(context.readRetries);
 
                         while (fileReader.hasNext())
                         {
@@ -881,7 +941,10 @@ public class FileUtility
             HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
             readContext.parentSpan = context.getCurrentOperation().operationSpan;
             readContext.originalRD = recordDef;
+            readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
+
             final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[taskIndex], new HPCCRecordBuilder(recordDef));
+            filePartReader.setMaxReadRetries(context.readRetries);
 
             final String filePath = outFilePaths[taskIndex];
             final FileOutputStream outStream = new FileOutputStream(filePath);
@@ -1004,7 +1067,9 @@ public class FileUtility
                 HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
                 readContext.parentSpan = context.getCurrentOperation().operationSpan;
                 readContext.originalRD = recordDef;
+                readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
                 filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(recordDef));
+                filePartReaders[j].setMaxReadRetries(context.readRetries);
             }
             incomingFilePartIndex += numIncomingParts;
 
@@ -1142,6 +1207,7 @@ public class FileUtility
             writeContext.parentSpan = context.getCurrentOperation().operationSpan;
             writeContext.recordDef = recordDef;
             writeContext.fileCompression = CompressionAlgorithm.NONE;
+            writeContext.socketOpTimeoutMs = context.socketOpTimeoutMS;
             HPCCRemoteFileWriter<HPCCRecord> filePartWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext, outFilePart, recordAccessor);
 
             tasks[taskIndex] = new Runnable()
@@ -1253,6 +1319,9 @@ public class FileUtility
             formatStr = "THOR";
         }
 
+        context.readRetries = getReadRetries(cmd);
+        context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
+
         FileFormat format = FileFormat.THOR;
         switch (formatStr.toUpperCase())
         {
@@ -1266,6 +1335,9 @@ public class FileUtility
                 System.out.println("Error unsupported format specified: " + format);
                 return;
         }
+
+        String filter = cmd.getOptionValue("filter");
+        boolean ignoreTLK = cmd.hasOption("ignore_tlk");
 
         String[] datasets = cmd.getOptionValues("read");
         for (int i = 0; i < datasets.length; i++)
@@ -1284,6 +1356,22 @@ public class FileUtility
                 String error = "Error while attempting to open file: '" + datasetName + "': " + e.getMessage();
                 context.addError(error);
                 return;
+            }
+
+            file.setUseTLK(!ignoreTLK);
+
+            if (filter != null)
+            {
+                try
+                {
+                    file.setFilter(filter);
+                }
+                catch (Exception e)
+                {
+                    String error = "Error while attempting to set filter for: '" + datasetName + "': " + e.getMessage();
+                    context.addError(error);
+                    return;
+                }
             }
 
             DataPartition[] fileParts = null;
@@ -1463,6 +1551,9 @@ public class FileUtility
                               + readRequestDelayStr + ", must be an integer. Defaulting to: " + DEFAULT_READ_REQUEST_DELAY + "ms.");
         }
 
+        context.readRetries = getReadRetries(cmd);
+        context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
+
         String formatStr = cmd.getOptionValue("format");
         if (formatStr == null)
         {
@@ -1483,6 +1574,9 @@ public class FileUtility
                 return;
         }
 
+        String filter = cmd.getOptionValue("filter");
+        boolean ignoreTLK = cmd.hasOption("ignore_tlk");
+
         String datasetName = cmd.getOptionValue("read_test");
         context.startOperation("FileUtility.ReadTest_" + datasetName);
 
@@ -1498,6 +1592,22 @@ public class FileUtility
         {
             context.addError("Error while attempting to open file: '" + datasetName + "': " + e.getMessage());
             return;
+        }
+
+        file.setUseTLK(!ignoreTLK);
+
+        if (filter != null)
+        {
+            try
+            {
+                file.setFilter(filter);
+            }
+            catch (Exception e)
+            {
+                String error = "Error while attempting to set filter for: '" + datasetName + "': " + e.getMessage();
+                context.addError(error);
+                return;
+            }
         }
 
         DataPartition[] fileParts = null;
@@ -1666,6 +1776,12 @@ public class FileUtility
             return;
         }
 
+        String filter = cmd.getOptionValue("filter");
+        boolean ignoreTLK = cmd.hasOption("ignore_tlk");
+
+        context.readRetries = getReadRetries(cmd);
+        context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
+
         for (int i = 0; i < copyPairs.length; i+=2)
         {
             String srcFile = copyPairs[i];
@@ -1684,6 +1800,22 @@ public class FileUtility
             {
                 context.addError("Error while attempting to open file: '" + srcFile + "': " + e.getMessage());
                 return;
+            }
+
+            file.setUseTLK(!ignoreTLK);
+
+            if (filter != null)
+            {
+                try
+                {
+                    file.setFilter(filter);
+                }
+                catch (Exception e)
+                {
+                    String error = "Error while attempting to set filter for: '" + srcFile + "': " + e.getMessage();
+                    context.addError(error);
+                    return;
+                }
             }
 
             DataPartition[] srcFileParts = null;
