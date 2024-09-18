@@ -75,7 +75,7 @@ public class FileUtility
     private static final int NUM_DEFAULT_THREADS = 4;
     static private final int DEFAULT_ACCESS_EXPIRY_SECONDS = 120;
 
-    private static boolean otelInitialized = false;
+    private static boolean otelNeedsInit = true;
 
     private static class TaskContext
     {
@@ -1973,7 +1973,7 @@ public class FileUtility
      */
     public static JSONArray run(String[] args)
     {
-        if (!otelInitialized)
+        if (otelNeedsInit)
         {
             if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
             {
@@ -1989,10 +1989,13 @@ public class FileUtility
                 System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
                 System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
-                OpenTelemetry otel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+                if (!org.hpccsystems.ws.client.utils.Utils.isOtelJavaagentUsed())
+                {
+                    AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+                }
             }
 
-            otelInitialized = true;
+            otelNeedsInit = false;
         }
 
         Options options = getTopLevelOptions();
