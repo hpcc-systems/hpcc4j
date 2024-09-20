@@ -1412,8 +1412,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     @Override
     public int available() throws IOException
     {
-        String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
-
         // Do the check for closed first here to avoid data races
         if (this.closed.get())
         {
@@ -1426,6 +1424,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int availBytes = bufferLen - this.readPos;
             if (availBytes == 0)
             {
+                String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+
                 // this.bufferWriteMutex.release();
                 IOException wrappedException = new IOException(prefix + "End of input stream, bufferLen:" + bufferLen + ", this.readPos:" + this.readPos + ", availableBytes=0");
                 throw wrappedException;
