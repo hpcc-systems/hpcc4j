@@ -40,6 +40,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSResroucesClientTest extends BaseRemoteTest
 {
@@ -66,6 +68,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void serviceQueryTest()
     {
         Assume.assumeTrue("Target HPCC does not seem to be containerized", iscontainerized);
@@ -99,6 +102,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testTargetQueryNullType() throws Exception
     {
         // Create a target query request
@@ -125,6 +129,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testTargetQueryAllType() throws Exception
     {
         // Create a target query request
@@ -138,6 +143,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testTargetQueryRoxieType() throws Exception
     {
         // Create a target query request
@@ -151,6 +157,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testWebLinksQuery() throws Exception
     {
         // Create a web links query request

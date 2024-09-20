@@ -36,12 +36,15 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSTopologyClientTest extends BaseRemoteTest
 {
     HPCCWsTopologyClient client = wsclient.getWsTopologyClient();
 
     @Test
+    @WithSpan
     public void getContainerizedDataStoragePlanesTest() throws Exception
     {
         System.out.println("Fetching containerized data storage planes...");
@@ -60,6 +63,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getTopologyGroupsOnBareMetalTest() throws HpccContainerizedUnsupportedException, Exception
     {
         System.out.println("Fetching data storage planes...");
@@ -77,6 +81,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void containerizedInvalidMethodsTest() throws Exception
     {
         Assume.assumeTrue("Test only valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -113,6 +118,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void printValidTargetClustersTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -121,6 +127,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getValidTargetGroupsTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -128,6 +135,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getValidTargetGroupNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -141,6 +149,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void queryDropzoneTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Dropzones Test ------------------");
@@ -163,6 +172,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getValidThorTargetClusterNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Thor clusters Name Test ------------------");
@@ -175,6 +185,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getValidRoxieTargetClusterNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------Roxie clusters Name Test ------------------");
@@ -187,6 +198,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getValidTargetClusterNamesTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------all cluster types Name Test ------------------");
@@ -199,6 +211,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getClusterInfoTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         Assume.assumeFalse("getClusterInfoTest not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -213,6 +226,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getInvalidClusterInfoTest() throws Exception
     {
         Assume.assumeFalse("getInvalidClusterInfoTest not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -231,6 +245,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getBlankClusterInfoTest() throws Exception
     {
         Assume.assumeFalse("getBlankClusterInfoTest not valid on containerized HPCC environment", client.isTargetHPCCContainerized());
@@ -248,6 +263,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getLogicalClustersTest() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("----------------------get logical clusterTest ------------------");

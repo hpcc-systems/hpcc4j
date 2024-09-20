@@ -36,6 +36,9 @@ import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.AddPackageRequest
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.BasePackageStatusWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.DeletePackageRequestWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDataWrapper;
+
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
@@ -575,7 +578,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
      *             the array of esp exception wrapper
      */
-    public BasePackageStatusWrapper activatePackage(boolean globalScope, String packageMapName, String process, String target)
+    @WithSpan
+    public BasePackageStatusWrapper activatePackage(@SpanAttribute boolean globalScope, @SpanAttribute String packageMapName, @SpanAttribute String process, @SpanAttribute String target)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to activate package: " + packageMapName);
@@ -626,7 +630,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
      *             the array of esp exception wrapper
      */
-    public BasePackageStatusWrapper getPackage(String process, String target) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public BasePackageStatusWrapper getPackage(@SpanAttribute String process, @SpanAttribute String target) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
@@ -677,7 +682,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws Exception a {@link java.lang.Exception} object.
      *             - Caller should handle exception in case of errors
      */
-    public BasePackageStatusWrapper removePartFromPackageMap(final boolean globalScope, final String partName, final String target, final String packageMap)
+    @WithSpan
+    public BasePackageStatusWrapper removePartFromPackageMap(@SpanAttribute final boolean globalScope, final String partName, final String target, final String packageMap)
             throws Exception
     {
         log.debug("Attempting to remove package part.");

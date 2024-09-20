@@ -37,6 +37,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSPackageProcessTest extends BaseRemoteTest
 {
@@ -84,6 +86,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void BBB1_listPackageTest() throws Exception
     {
         List<PackageListMapDataWrapper> packages = client.listPackages("*", targetRoxieName, null);
@@ -110,6 +113,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void getPackageTest() throws Exception
     {
         Assume.assumeNotNull(validPackageID);
@@ -121,6 +125,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void AAA1addPackageTest() throws Exception
     {
         System.out.println("WsPackageProcess junittest: AddPackageTest(" + StaticPMName + ") ...");
@@ -147,6 +152,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void AAA1addPackageTestWrapper()
     {
         System.out.println("WsPackageProcess junittest: addPackageTestWrapper(" + StaticPMName + ") ...");
@@ -187,6 +193,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void ZZZ2deletePackageTest() throws Exception
     {
         DeletePackageResponse delpackageresp = client.deletePackage(StaticPMName, "*");
@@ -196,6 +203,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void ZZZ2deletePackageTestWrapper()
     {
         System.out.println("WsPackageProcess junittest: deletePackageTestWrapper(" + StaticPMName + ")...");

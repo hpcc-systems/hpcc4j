@@ -47,9 +47,7 @@ import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.semconv.ExceptionAttributes;
-import io.opentelemetry.semconv.ServerAttributes;
 import io.opentelemetry.semconv.ServiceAttributes;
 
 /**
@@ -1435,8 +1433,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     @Override
     public int available() throws IOException
     {
-        String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
-
         // Do the check for closed first here to avoid data races
         if (this.closed.get())
         {
@@ -1449,6 +1445,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int availBytes = bufferLen - this.readPos;
             if (availBytes == 0)
             {
+                String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+
                 // this.bufferWriteMutex.release();
                 IOException wrappedException = new IOException(prefix + "End of input stream, bufferLen:" + bufferLen + ", this.readPos:" + this.readPos + ", availableBytes=0");
                 throw wrappedException;

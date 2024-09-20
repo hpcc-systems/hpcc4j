@@ -47,6 +47,9 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpServicesWrapper;
 import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpTargetClusterWrapper;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates accessing HPCC Systems instance topology information.
  *
@@ -297,7 +300,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws HpccContainerizedUnsupportedException if kind not provided while targeting baremetal HPCC environment
      * @throws Exception if error encountered
      */
-    public List<TpGroupWrapper> getTopologyGroups(String kind) throws HpccContainerizedUnsupportedException, Exception
+    @WithSpan
+    public List<TpGroupWrapper> getTopologyGroups(@SpanAttribute String kind) throws HpccContainerizedUnsupportedException, Exception
     {
         if (kind == null || kind.isEmpty())
         {
@@ -350,6 +354,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public boolean printValidTargetClusters(PrintStream stream) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
@@ -408,6 +413,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public List<TpTargetClusterWrapper> getValidTargetGroups() throws Exception, ArrayOfEspExceptionWrapper
     {
         List<TpTargetClusterWrapper> tpTargetClusters = null;
@@ -449,6 +455,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public String[] getValidTargetGroupNames() throws Exception, ArrayOfEspExceptionWrapper
     {
         if (isTargetHPCCContainerized())
@@ -519,7 +526,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public List<TpDropZoneWrapper> queryDropzones(String namefilter) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public List<TpDropZoneWrapper> queryDropzones(@SpanAttribute String namefilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); // Throws exception if stub failed
 
@@ -573,7 +581,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws Exception
      *             the exception
      */
-    private String[] extractClusterNames(String clusterGroupType, boolean targetClusterNamesOnly) throws Exception
+    @WithSpan
+    private String[] extractClusterNames(@SpanAttribute String clusterGroupType, @SpanAttribute boolean targetClusterNamesOnly) throws Exception
     {
         List<String> tpClusterNames = new ArrayList<String>();
 
@@ -712,6 +721,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public TpServicesWrapper getServices() throws Exception, ArrayOfEspExceptionWrapper
     {
         if (isTargetHPCCContainerized())
@@ -751,7 +761,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public TpClusterInfoResponseWrapper getClusterInfo(String clusterName) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public TpClusterInfoResponseWrapper getClusterInfo(@SpanAttribute String clusterName) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (isTargetHPCCContainerized())
             throw new HpccContainerizedUnsupportedException("getClusterInfo: WsTopology.tpClusterInfo() not supported in CONTAINERIZED mode");
@@ -788,6 +799,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public List<TpLogicalClusterWrapper> getLogicalClusters() throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); // Throws exception if stub failed

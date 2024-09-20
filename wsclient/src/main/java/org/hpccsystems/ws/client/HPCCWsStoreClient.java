@@ -39,6 +39,9 @@ import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.WsstoreStub;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates access to HPCC Systems key/value based Storage.
  *
@@ -249,7 +252,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String[] listNamespaces(String storename, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public String[] listNamespaces(@SpanAttribute String storename,@SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String namespaces[] = null;
         ListNamespacesRequest request = new ListNamespacesRequest();
@@ -293,7 +297,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String[] listNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public String[] listNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace,@SpanAttribute  boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String keyset[] = null;
         ListKeysRequest request = new ListKeysRequest();
@@ -340,7 +345,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String fetchValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public String fetchValue(@SpanAttribute String storename,@SpanAttribute String namespace,@SpanAttribute String key,@SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String value = null;
 
@@ -391,7 +397,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, Cipher cipher)
+    @WithSpan
+    public String fetchValueEncrypted(@SpanAttribute String storename,@SpanAttribute String namespace,@SpanAttribute String key, boolean global, Cipher cipher)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         String value = fetchValue(storename, namespace, key, global);
@@ -450,7 +457,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public Properties fetchKeyMetaData(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public Properties fetchKeyMetaData(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         Properties props = new Properties();
 
@@ -503,7 +511,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public Properties fetchAllNSKeys(String storename, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public Properties fetchAllNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         Properties props = new Properties();
 
@@ -560,7 +569,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean setValue(String storename, String namespace, String key, String value, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public boolean setValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, String value, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         SetRequest request = new SetRequest();
         request.setStoreName(storename);
@@ -660,7 +670,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean deleteValue(String storename, String namespace, String key, boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public boolean deleteValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         DeleteRequest request = new DeleteRequest();
         request.setStoreName(storename);
@@ -705,7 +716,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean deleteNamespace(String storename, String namespace, boolean global, String targetuser) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public boolean deleteNamespace(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global, @SpanAttribute String targetuser) throws Exception, ArrayOfEspExceptionWrapper
     {
         DeleteNamespaceRequest request = new DeleteNamespaceRequest();
         request.setStoreName(storename);
@@ -749,7 +761,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean createStore(String storename, String description, String type) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public boolean createStore(@SpanAttribute String storename, @SpanAttribute String description, @SpanAttribute String type) throws Exception, ArrayOfEspExceptionWrapper
     {
         CreateStoreRequest request = new CreateStoreRequest();
         request.setName(storename);
