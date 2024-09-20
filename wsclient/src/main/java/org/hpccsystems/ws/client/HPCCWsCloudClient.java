@@ -32,6 +32,8 @@ import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingRequest;
 import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudStub;
 import org.hpccsystems.ws.client.utils.Connection;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Provides Containerized HPCC cluster information.
  */
@@ -216,6 +218,7 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
      * @return a JSON formatted list of available pods - in raw k8s format.
      * @throws java.lang.Exception if any.
      */
+    @WithSpan
     public String getPods() throws Exception
     {
         verifyStub();

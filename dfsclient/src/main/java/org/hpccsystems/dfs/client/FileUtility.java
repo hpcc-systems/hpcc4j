@@ -78,7 +78,7 @@ public class FileUtility
     static private final int DEFAULT_READ_REQUEST_SIZE = 4096;
     static private final int DEFAULT_READ_REQUEST_DELAY = 0;
 
-    private static boolean otelInitialized = false;
+    private static boolean otelNeedsInit = true;
 
     private static class TaskContext
     {
@@ -910,11 +910,13 @@ public class FileUtility
                         fileReader.getInputStream().setReadRequestDelay(readRequestDelay);
                         fileReader.setMaxReadRetries(context.readRetries);
 
+                        long recCount = 0;
                         while (fileReader.hasNext())
                         {
                             HPCCRecord record = fileReader.next();
-                            context.getCurrentOperation().recordsRead.incrementAndGet();
+                            recCount++;
                         }
+                        context.getCurrentOperation().recordsRead.addAndGet(recCount);
 
                         fileReader.close();
                         context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
@@ -963,13 +965,15 @@ public class FileUtility
                 {
                     try
                     {
+                        long recCount = 0;
                         while (fileReader.hasNext())
                         {
                             splitTable.addRecordPosition(fileReader.getStreamPosition());
                             HPCCRecord record = fileReader.next();
                             fileWriter.writeRecord(record);
-                            context.getCurrentOperation().recordsRead.incrementAndGet();
+                            recCount++;
                         }
+                        context.getCurrentOperation().recordsRead.addAndGet(recCount);
 
                         splitTable.finish(fileReader.getStreamPosition());
 
@@ -1091,14 +1095,18 @@ public class FileUtility
                     {
                         for (int k = 0; k < fileReaders.length; k++)
                         {
+                            long recordsRead = 0;
+                            long recordsWritten = 0;
                             HpccRemoteFileReader<HPCCRecord> fileReader = fileReaders[k];
                             while (fileReader.hasNext())
                             {
                                 HPCCRecord record = fileReader.next();
                                 fileWriter.writeRecord(record);
-                                context.getCurrentOperation().recordsWritten.incrementAndGet();
-                                context.getCurrentOperation().recordsRead.incrementAndGet();
+                                recordsRead++;
+                                recordsWritten++;
                             }
+                            context.getCurrentOperation().recordsWritten.addAndGet(recordsWritten);
+                            context.getCurrentOperation().recordsRead.addAndGet(recordsRead);
 
                             fileReader.close();
                             context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
@@ -1251,13 +1259,18 @@ public class FileUtility
                                 splitEnd = endingSplit.splitEnd;
                             }
 
+                            long recordsRead = 0;
+                            long recordsWritten = 0;
                             while (fileReader.hasNext() && fileReader.getStreamPosAfterLastRecord() < splitEnd)
                             {
                                 HPCCRecord record = (HPCCRecord) fileReader.getNext();
                                 fileWriter.writeRecord(record);
-                                context.getCurrentOperation().recordsWritten.incrementAndGet();
-                                context.getCurrentOperation().recordsRead.incrementAndGet();
+                                recordsRead++;
+                                recordsWritten++;
                             }
+
+                            context.getCurrentOperation().recordsWritten.addAndGet(recordsWritten);
+                            context.getCurrentOperation().recordsRead.addAndGet(recordsRead);
 
                             context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosAfterLastRecord());
                             inputStreams[j].close();
@@ -2124,7 +2137,7 @@ public class FileUtility
      */
     public static JSONArray run(String[] args)
     {
-        if (!otelInitialized)
+        if (otelNeedsInit)
         {
             if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
             {
@@ -2140,10 +2153,13 @@ public class FileUtility
                 System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
                 System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
-                OpenTelemetry otel = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+                if (!org.hpccsystems.ws.client.utils.Utils.isOtelJavaagentUsed())
+                {
+                    AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+                }
             }
 
-            otelInitialized = true;
+            otelNeedsInit = false;
         }
 
         Options options = getTopLevelOptions();

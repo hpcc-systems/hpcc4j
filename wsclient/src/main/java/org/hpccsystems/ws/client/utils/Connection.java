@@ -24,6 +24,8 @@ import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.context.Scope;
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.opentelemetry.semconv.HttpAttributes;
 import io.opentelemetry.semconv.ServerAttributes;
 
@@ -1055,68 +1057,58 @@ public class Connection
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link java.lang.String} object.
      */
-    public String sendHTTPRequest(String uri, String method) throws Exception
+    @WithSpan
+    public String sendHTTPRequest(@SpanAttribute String uri, @SpanAttribute String method) throws Exception
     {
         if (method == null || method.isEmpty())
             throw new Exception ("Must provide valid HTTP method");
 
         URL url = new URL (getBaseUrl() + (uri != null && uri.startsWith("/") ? "" : "/") + uri);
 
-        Span sendHTTPReqSpan = GlobalOpenTelemetry.get().getTracer(BaseHPCCWsClient.PROJECT_NAME)
-                .spanBuilder(method.toUpperCase() + " " + url.toExternalForm())
-                .setAttribute(ServerAttributes.SERVER_ADDRESS, getHost())
-                .setAttribute(ServerAttributes.SERVER_PORT, Long.getLong(getPort()))
-                .setAttribute(HttpAttributes.HTTP_REQUEST_METHOD, method)
-                .setSpanKind(SpanKind.CLIENT)
-                .startSpan();
-
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //throws IOException
 
         Connection.log.info("Sending HTTP " + method + "Request to:" + url.toString());
 
+        boolean isTraced = Span.current().isRecording();
         if (hasCredentials())
         {
             httpURLConnection.setRequestProperty("Authorization", getBasicAuthString());
-            sendHTTPReqSpan.setAttribute("hasCredentials", true);
+            if (isTraced)
+                Span.current().setAttribute("hasCredentials", true);
         }
         else
         {
-            sendHTTPReqSpan.setAttribute("hasCredentials", false);
+            if (isTraced)
+                Span.current().setAttribute("hasCredentials", false);
         }
 
-        try (Scope scope = sendHTTPReqSpan.makeCurrent())
+        if (isTraced)
+             httpURLConnection.setRequestProperty("traceparent", Utils.getCurrentSpanTraceParentHeader());
+
+        httpURLConnection.setRequestMethod(method); //throws ProtocolException
+
+        int responseCode = httpURLConnection.getResponseCode(); //throws IOException
+
+        Connection.log.info("HTTP Response code: " + responseCode);
+
+        if (responseCode == HttpURLConnection.HTTP_OK) //success
         {
-            httpURLConnection.setRequestProperty("traceparent", Utils.getCurrentSpanTraceParentHeader());
-            httpURLConnection.setRequestMethod(method); //throws ProtocolException
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream())); //throws IOException
+            String inputLine;
+            StringBuffer response = new StringBuffer();
 
-            int responseCode = httpURLConnection.getResponseCode(); //throws IOException
-            sendHTTPReqSpan.setAttribute("http.response.status_code", responseCode);
-            Connection.log.info("HTTP Response code: " + responseCode);
-
-            if (responseCode == HttpURLConnection.HTTP_OK) //success
+            while ((inputLine = in.readLine()) != null) // throws IOException
             {
-                BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream())); //throws IOException
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                while ((inputLine = in.readLine()) != null) // throws IOException
-                {
-                    response.append(inputLine);
-                }
-
-                in.close(); //throws IOException
-                sendHTTPReqSpan.setStatus(StatusCode.OK);
-                return response.toString();
+                response.append(inputLine);
             }
-            else
-            {
-                sendHTTPReqSpan.setStatus(StatusCode.ERROR);
-                throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage() );
-            }
+
+            in.close(); //throws IOException
+
+            return response.toString();
         }
-        finally
+        else
         {
-            sendHTTPReqSpan.end();
+            throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage() );
         }
     }
 }

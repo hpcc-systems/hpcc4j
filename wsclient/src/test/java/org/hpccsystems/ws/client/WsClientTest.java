@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 public class WsClientTest extends BaseRemoteTest
 {
     static
@@ -18,6 +20,7 @@ public class WsClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testAvailableClusterGroups()
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", wsclient.isContainerized());
@@ -39,6 +42,7 @@ public class WsClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testGetAvailableClusterNames()
     {
         try
@@ -58,6 +62,7 @@ public class WsClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testGetAvailableRoxieClusterNames()
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", wsclient.isContainerized());
@@ -84,6 +89,7 @@ public class WsClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void testGetAvailableThorClusterNames()
     {
         Assume.assumeFalse("Test not valid on containerized HPCC environment", wsclient.isContainerized());

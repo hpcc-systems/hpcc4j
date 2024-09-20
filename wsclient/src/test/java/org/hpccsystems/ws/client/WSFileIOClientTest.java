@@ -37,6 +37,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import static org.junit.Assume.assumeFalse;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -75,6 +77,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void copyFile() throws Exception
     {
         String lzfile=System.currentTimeMillis() + "_csvtest.csv";
@@ -158,6 +161,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void AcreateHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         if (isContainerized)
@@ -175,6 +179,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void BwriteHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
@@ -190,6 +195,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     }
 
     @Test
+    @WithSpan
     public void CreadHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");

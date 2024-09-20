@@ -89,6 +89,9 @@ import org.hpccsystems.ws.client.wrappers.gen.filespray.PhysicalFileStructWrappe
 import org.hpccsystems.ws.client.wrappers.gen.filespray.ProgressResponseWrapper;
 import org.w3c.dom.Document;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Facilitates File Spray related activities.
  * This includes listing available dropzones, uploading files to dropzone, listing files in a dropzone,
@@ -356,7 +359,6 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         {
             initErrMessage += "\nCould not initialize FileSprayStub - Review all HPCC connection values";
         }
-
     }
 
     /**
@@ -421,6 +423,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public boolean handleSprayResponse(ProgressResponseWrapper progressResponseWrapper, int maxRetries, int milliesBetweenRetry)
             throws Exception, org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
     {
@@ -560,7 +563,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public List<DropZoneWrapper> fetchDropZones(String dropzoneNetAddress) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public List<DropZoneWrapper> fetchDropZones(@SpanAttribute String dropzoneNetAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -621,7 +625,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public String copyFile(String from, String to, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public String copyFile(@SpanAttribute String from, @SpanAttribute String to, @SpanAttribute boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
         Copy cp = new Copy();
@@ -671,7 +676,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public DropZoneFilesResponseWrapper fetchDropZones(String dzname, String netaddress, String os, String path, String subfolder, boolean dironly,
+    @WithSpan
+    public DropZoneFilesResponseWrapper fetchDropZones(@SpanAttribute String dzname, @SpanAttribute String netaddress, @SpanAttribute String os, @SpanAttribute String path, String subfolder, boolean dironly,
             boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
@@ -699,6 +705,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @WithSpan
     public DropZoneFilesResponseWrapper fetchDropZones(DropZoneFilesRequestWrapper szrequest) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (szrequest == null) throw new Exception("DropZoneFilesRequestWrapper null detected");
@@ -740,7 +747,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public PhysicalFileStruct[] dzFileSearch(String dzname, String netaddr, String namefilter) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public PhysicalFileStruct[] dzFileSearch(@SpanAttribute String dzname, @SpanAttribute String netaddr, @SpanAttribute String namefilter) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -788,7 +796,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public List<PhysicalFileStructWrapper> listFiles(String netAddress, String path, String OS) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public List<PhysicalFileStructWrapper> listFiles(@SpanAttribute String netAddress, @SpanAttribute String path, @SpanAttribute String OS) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -994,8 +1003,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayVariable(DelimitedDataOptions options, DropZoneWrapper targetDropZone, String sourceFileName,
-            String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format, Integer sourceMaxRecordSize,
+    @WithSpan
+    public ProgressResponseWrapper sprayVariable(@SpanAttribute DelimitedDataOptions options, @SpanAttribute DropZoneWrapper targetDropZone, @SpanAttribute String sourceFileName,
+            @SpanAttribute String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format, Integer sourceMaxRecordSize,
             Integer maxConnections, Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Boolean recordStructurePresent,
             Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1149,8 +1159,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayXML(DropZoneWrapper targetDropZone, String sourceFileName, String targetFileName, String prefix,
-            String destGroup, String rowtag, boolean overwrite, SprayVariableFormat format, Integer maxrecsize, Integer maxConnections,
+    @WithSpan
+    public ProgressResponseWrapper sprayXML(@SpanAttribute DropZoneWrapper targetDropZone,@SpanAttribute String sourceFileName,@SpanAttribute String targetFileName, String prefix,
+            @SpanAttribute String destGroup, String rowtag, boolean overwrite, SprayVariableFormat format, Integer maxrecsize, Integer maxConnections,
             Boolean replicate, Boolean compress, Boolean failIfNoSourceFile, Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
@@ -1303,7 +1314,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper sprayFixed(DropZoneWrapper targetDropZone, String sourceFileName, int recordSize, String targetFileLabel,
+    @WithSpan
+    public ProgressResponseWrapper sprayFixed(@SpanAttribute DropZoneWrapper targetDropZone, @SpanAttribute String sourceFileName, int recordSize, String targetFileLabel,
             String prefix, String destGroup, boolean overwrite, Integer maxConnections, Boolean compress, Boolean replicate,
             Boolean failIfNoSourceFile, Integer expireDays, String decryptKey, String encryptKey, Boolean nosplit, Boolean recordStructurePresent,
             Integer transferBufferSize, Boolean wrap) throws Exception, ArrayOfEspExceptionWrapper
@@ -1364,7 +1376,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public ProgressResponseWrapper getDfuProgress(String dfuwuid) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public ProgressResponseWrapper getDfuProgress(@SpanAttribute String dfuwuid) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -1411,7 +1424,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean uploadFile(File file, String targetDropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public boolean uploadFile(@SpanAttribute File file, @SpanAttribute String targetDropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DropZoneWrapper> dropZones = fetchDropZones(targetDropzoneAddress);
         if (dropZones == null || dropZones.size() <= 0) throw new Exception("Could not fetch target dropzone information");
@@ -1469,7 +1483,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *            - The target dropzone
      * @return - Boolean, success
      */
-    public boolean uploadLargeFile(File uploadFile, DropZoneWrapper dropZone)
+    @WithSpan
+    public boolean uploadLargeFile(@SpanAttribute File uploadFile, @SpanAttribute DropZoneWrapper dropZone)
     {
         if (uploadFile == null || dropZone == null)
         {
@@ -1619,7 +1634,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws Exception
      *             the exception
      */
-    private boolean uploadFile(File file, DropZoneWrapper dropZone) throws Exception
+    @WithSpan
+    private boolean uploadFile(@SpanAttribute File file, @SpanAttribute DropZoneWrapper dropZone) throws Exception
     {
         if (file == null) return false;
         String filename = file.getName();
