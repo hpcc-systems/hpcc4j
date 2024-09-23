@@ -2349,6 +2349,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append(getFilePartCopy() + 1);
         sb.append("\", \n");
 
+        if (this.dataPart.isTLK())
+        {
+            sb.append("\"isTlk\" : \"true\",\n");
+        }
+
         // Do not apply filters and limits when inFetchingMode
         if (inFetchingMode == false)
         {
