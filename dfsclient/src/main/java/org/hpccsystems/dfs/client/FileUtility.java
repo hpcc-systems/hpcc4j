@@ -159,6 +159,7 @@ public class FileUtility
 
         public int readRetries = HpccRemoteFileReader.DEFAULT_READ_RETRIES;
         public int socketOpTimeoutMS = RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        public int initialReadSizeKB = RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
 
         public void setCurrentOperationSpanAttributes(Attributes attributes)
         {
@@ -350,6 +351,26 @@ public class FileUtility
         }
 
         return new String[] {user, pass};
+    }
+
+    private static void applyGlobalConfig(CommandLine cmd)
+    {
+        int concurrentStartups = -1;
+        String concurrentStartupsStr = cmd.getOptionValue("connection_startup_limit", "" + -1);
+        try
+        {
+            concurrentStartups = Integer.parseInt(concurrentStartupsStr);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Invalid option value for connection_startup_limit: "
+                              + concurrentStartupsStr + ", must be an integer.");
+        }
+
+        if (concurrentStartups > 0)
+        {
+            RowServiceInputStream.setMaxConcurrentConnectionStartups(concurrentStartups);
+        }
     }
 
     private static enum FileFormat
@@ -589,6 +610,23 @@ public class FileUtility
         return socketOpTimeoutS * 1000;
     }
 
+    private static int getInitialReadSizeKB(CommandLine cmd)
+    {
+        int initialReadSizeKB = RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
+        String initialReadSizeStr = cmd.getOptionValue("initial_read_size", "" + initialReadSizeKB);
+        try
+        {
+            initialReadSizeKB = Integer.parseInt(initialReadSizeStr);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Invalid option value for initial_read_size: "
+                              + initialReadSizeStr + ", must be an integer. Defaulting to: " + RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB + "KB.");
+        }
+
+        return initialReadSizeKB;
+    }
+
     private static Options getReadOptions()
     {
         Options options = new Options();
@@ -602,6 +640,8 @@ public class FileUtility
         options.addOption("ignore_tlk", false, "Ignore the TLK file when reading Index files.");
         options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
+        options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
+                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
 
         options.addOption(Option.builder("read")
                                 .argName("files")
@@ -622,12 +662,16 @@ public class FileUtility
         options.addOption("pass", true, "Specifies the password used to connect. Defaults to null.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("access_expiry_seconds", true, "Access token expiration seconds.");
+        options.addOption("initial_read_size", true, "The size of the initial read request in KB sent to the rowservice,"
+                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
         options.addOption("read_request_size", true, "The size of the read requests in KB sent to the rowservice.");
         options.addOption("read_request_delay", true, "The delay in MS between read requests sent to the rowservice.");
         options.addOption("filter", true, "Specifies a filter to apply to the files read from the cluster.");
         options.addOption("ignore_tlk", false, "Ignore the TLK file when reading Index files.");
         options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
+        options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
+                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
 
         options.addOption(Option.builder("file_parts")
                                 .argName("_file_parts")
@@ -651,6 +695,8 @@ public class FileUtility
         options.addOption("ignore_tlk", false, "Ignore the TLK file when reading Index files.");
         options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
+        options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
+                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
 
         options.addOption(Option.builder("copy")
                                 .argName("files")
@@ -673,6 +719,8 @@ public class FileUtility
         options.addRequiredOption("dest_cluster", "Destination Cluster Name", true, "Specifies the name of the cluster to write files back to.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
+        options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
+                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
 
         options.addOption(Option.builder("write")
                                 .argName("files")
@@ -903,6 +951,7 @@ public class FileUtility
                         HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
                         readContext.parentSpan = context.getCurrentOperation().operationSpan;
                         readContext.originalRD = recordDef;
+                        readContext.initialReadSizeKB = context.initialReadSizeKB;
                         readContext.readSizeKB = readRequestSize;
                         readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
 
@@ -942,6 +991,7 @@ public class FileUtility
             readContext.parentSpan = context.getCurrentOperation().operationSpan;
             readContext.originalRD = recordDef;
             readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
+            readContext.initialReadSizeKB = context.initialReadSizeKB;
 
             final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[taskIndex], new HPCCRecordBuilder(recordDef));
             filePartReader.setMaxReadRetries(context.readRetries);
@@ -1068,6 +1118,7 @@ public class FileUtility
                 readContext.parentSpan = context.getCurrentOperation().operationSpan;
                 readContext.originalRD = recordDef;
                 readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
+                readContext.initialReadSizeKB = context.initialReadSizeKB;
                 filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(recordDef));
                 filePartReaders[j].setMaxReadRetries(context.readRetries);
             }
@@ -1299,6 +1350,8 @@ public class FileUtility
         String user = creds[0];
         String pass = creds[1];
 
+        applyGlobalConfig(cmd);
+
         String outputPath = cmd.getOptionValue("out",".");
 
         int numThreads = NUM_DEFAULT_THREADS;
@@ -1321,6 +1374,7 @@ public class FileUtility
 
         context.readRetries = getReadRetries(cmd);
         context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
+        context.initialReadSizeKB = getInitialReadSizeKB(cmd);
 
         FileFormat format = FileFormat.THOR;
         switch (formatStr.toUpperCase())
@@ -1501,6 +1555,8 @@ public class FileUtility
         String user = creds[0];
         String pass = creds[1];
 
+        applyGlobalConfig(cmd);
+
         String outputPath = cmd.getOptionValue("out",".");
 
         int numThreads = NUM_DEFAULT_THREADS;
@@ -1553,6 +1609,7 @@ public class FileUtility
 
         context.readRetries = getReadRetries(cmd);
         context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
+        context.initialReadSizeKB = getInitialReadSizeKB(cmd);
 
         String formatStr = cmd.getOptionValue("format");
         if (formatStr == null)
@@ -1733,6 +1790,8 @@ public class FileUtility
         String user = creds[0];
         String pass = creds[1];
 
+        applyGlobalConfig(cmd);
+
         String destClusterName = cmd.getOptionValue("dest_cluster");
 
         String srcURL = cmd.getOptionValue("url");
@@ -1781,6 +1840,7 @@ public class FileUtility
 
         context.readRetries = getReadRetries(cmd);
         context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
+        context.initialReadSizeKB = getInitialReadSizeKB(cmd);
 
         for (int i = 0; i < copyPairs.length; i+=2)
         {
@@ -1936,6 +1996,8 @@ public class FileUtility
         String[] creds = getCredentials(cmd);
         String user = creds[0];
         String pass = creds[1];
+
+        applyGlobalConfig(cmd);
 
         String destClusterName = cmd.getOptionValue("dest_cluster");
 
