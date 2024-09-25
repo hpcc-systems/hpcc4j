@@ -106,14 +106,14 @@ jobs:
 
                 releaseTagPattern = releaseTagPrefix
                 if major is not None:
-                    releaseTagPattern += str(major) + '\.'
+                    releaseTagPattern += str(major) + '\\.'
                 else:
-                    releaseTagPattern += '[0-9]+\.'
+                    releaseTagPattern += '[0-9]+\\.'
 
                 if minor is not None:
-                    releaseTagPattern += str(minor) + '\.'
+                    releaseTagPattern += str(minor) + '\\.'
                 else:
-                    releaseTagPattern += '[0-9]+\.'
+                    releaseTagPattern += '[0-9]+\\.'
 
                 if point is not None:
                     releaseTagPattern += str(point) + '(-[0-9]+)?'
@@ -254,14 +254,21 @@ jobs:
                 print('Error: PROJECT_CONFIG is missing required fields: tagPrefix and/or tagPostfix')
                 sys.exit(1)
 
-            project_name = projectConfig.get('projectName')
-            if project_name is None:
-                print('Error: PROJECT_CONFIG is missing required field: projectName')
+            project_prefixes = projectConfig.get('projectPrefixes')
+            if not project_prefixes:
+                print('Error: PROJECT_CONFIG is missing required field: projectPrefixes. Add a "projectPrefixes" JSON array of project prefix strings to the PROJECT_CONFIG.')
                 sys.exit(1)
 
+            if not isinstance(project_prefixes, list):
+                print('Error: PROJECT_CONFIG field projectPrefixes is not a valid JSON array, aborting.')
+                sys.exit(1)
+
+            project_list_regex = '|'.join(project_prefixes)
+
             result = ''
-            issuem = re.search("(" + project_name + ")-[0-9]+", title, re.IGNORECASE)
+            issuem = re.search("(" + project_list_regex + ")-[0-9]+", title, re.IGNORECASE)
             if issuem:
+                project_name = issuem.group(1)
                 issue_name = issuem.group()
 
                 jira = Jira(url=jira_url, username=jirabot_user, password=jirabot_pass, cloud=True)
