@@ -70,6 +70,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         public int socketOpTimeoutMS = -1;
         public int recordReadLimit = -1;
         public boolean createPrefetchThread = true;
+        public int initialReadSizeKB = -1;
         public int readSizeKB = -1;
         public int readRequestSpanBatchSize = -1; // The number of read requests before creating a new span
         public Span parentSpan = null;
@@ -85,6 +86,21 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         context.recordReadLimit = recordReadLimit;
         context.createPrefetchThread = createPrefetchThread;
         context.readSizeKB = readSizeKB;
+
+        return context;
+    }
+
+    private static RowServiceInputStream.StreamContext constructStreamContext(FileReadContext readContext)
+    {
+        RowServiceInputStream.StreamContext context = new RowServiceInputStream.StreamContext();
+        context.recordDefinition = readContext.originalRD;
+        context.recordReadLimit = readContext.recordReadLimit;
+        context.createPrefetchThread = readContext.createPrefetchThread;
+        context.maxReadSizeKB = readContext.readSizeKB;
+        context.initialReadSizeKB = readContext.initialReadSizeKB;
+        context.connectTimeoutMS = readContext.connectTimeout;
+        context.socketOpTimeoutMS = readContext.socketOpTimeoutMS;
+        context.createPrefetchThread = readContext.createPrefetchThread;
 
         return context;
     }
@@ -284,12 +300,15 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             throw e;
         }
 
+        RowServiceInputStream.StreamContext streamContext = constructStreamContext(context);
+        streamContext.projectedRecordDefinition = projectedRecordDefinition;
+        streamContext.fileReadSpan = this.readSpan;
+
         if (resumeInfo == null)
         {
-            this.inputStream = new RowServiceInputStream(this.dataPartition, context.originalRD, projectedRecordDefinition, context.connectTimeout,
-                                                        context.recordReadLimit, context.createPrefetchThread, context.readSizeKB, null,
-                                                        false, context.socketOpTimeoutMS, this.readSpan);
+            this.inputStream = new RowServiceInputStream(streamContext, this.dataPartition, null);
             this.inputStream.setReadRequestSpanBatchSize(context.readRequestSpanBatchSize);
+
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
             this.binaryRecordReader.initialize(this.recordBuilder);
 
@@ -304,9 +323,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             restartInfo.streamPos = resumeInfo.inputStreamPos;
             restartInfo.tokenBin = resumeInfo.tokenBin;
 
-            this.inputStream = new RowServiceInputStream(this.dataPartition, context.originalRD, projectedRecordDefinition, context.connectTimeout,
-                                                        context.recordReadLimit, context.createPrefetchThread, context.readSizeKB, restartInfo,
-                                                        false, context.socketOpTimeoutMS, this.readSpan);
+            this.inputStream = new RowServiceInputStream(streamContext, this.dataPartition, restartInfo);
             this.inputStream.setReadRequestSpanBatchSize(context.readRequestSpanBatchSize);
 
             long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
@@ -383,9 +400,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             {
                 this.readSpan = createReadSpan(context, dataPartition);
 
-                this.inputStream = new RowServiceInputStream(this.dataPartition, context.originalRD,this.recordBuilder.getRecordDefinition(),
-                                                            context.connectTimeout, context.recordReadLimit, context.createPrefetchThread,
-                                                            context.readSizeKB, restartInfo, false, context.socketOpTimeoutMS, this.readSpan);
+                RowServiceInputStream.StreamContext streamContext = constructStreamContext(context);
+                streamContext.projectedRecordDefinition = this.recordBuilder.getRecordDefinition();
+                streamContext.fileReadSpan = this.readSpan;
+
+                this.inputStream = new RowServiceInputStream(streamContext, this.dataPartition, restartInfo);
                 this.inputStream.setReadRequestSpanBatchSize(context.readRequestSpanBatchSize);
                 long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
                 if (bytesToSkip < 0)

@@ -64,12 +64,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         public int requestSize = 0;
     };
 
-    public static class RestartInformation
-    {
-        public long streamPos = 0;
-        public byte[] tokenBin = null;
-    }
-
     private static class RowServiceResponse
     {
         int len = 0;
@@ -78,12 +72,52 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         String errorMessage = null;
     }
 
+    public static class RestartInformation
+    {
+        public long streamPos = 0;
+        public byte[] tokenBin = null;
+    }
+
+    public static class StreamContext
+    {
+        public FieldDef recordDefinition = null;
+        public FieldDef projectedRecordDefinition = null;
+        public int recordReadLimit = -1;
+        public int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
+        public int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
+        public boolean createPrefetchThread = true;
+        public boolean isFetching = false;
+        public int connectTimeoutMS = DEFAULT_CONNECT_TIMEOUT_MILIS;
+        public int socketOpTimeoutMS = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        public Span fileReadSpan = null;
+    };
+
+    private static StreamContext constructStreamContext(FieldDef rd, FieldDef pRd, int connectTimeout, int limit,
+                                                        boolean createPrefetchThread, int maxReadSizeInKB,
+                                                        boolean isFetching, int socketOpTimeoutMS, Span rdSpan)
+    {
+        StreamContext ctx = new StreamContext();
+        ctx.recordDefinition = rd;
+        ctx.projectedRecordDefinition = pRd;
+        ctx.recordReadLimit = limit;
+        ctx.maxReadSizeKB = maxReadSizeInKB;
+        ctx.createPrefetchThread = createPrefetchThread;
+        ctx.isFetching = isFetching;
+        ctx.connectTimeoutMS = connectTimeout;
+        ctx.socketOpTimeoutMS = socketOpTimeoutMS;
+        ctx.fileReadSpan = rdSpan;
+        return ctx;
+    }
+
     public static final int          DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE = 25;
     public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
     public static final int          DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on read / write operations
+    public static final int          DEFAULT_MAX_CONCURRENT_CONNECTION_STARTUPS = 100;
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
     public static final int          DEFAULT_MAX_READ_SIZE_KB = 4096;
+    public static final int          DEFAULT_INITIAL_REQUEST_READ_SIZE_KB = 256;
+
     private static final int         SHORT_SLEEP_MS           = 1;
     private static final int         LONG_WAIT_THRESHOLD_US   = 100;
     private static final int         MAX_HOT_LOOP_NS          = 10000;
@@ -109,8 +143,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public static final String PARTIAL_BLOCK_READS_METRIC = "numPartialBlockReads";
     public static final String BLOCK_READS_METRIC = "numBlockReads";
 
+    private static AtomicInteger     connectionStartupCount = new AtomicInteger(0);
+    private static int maxConcurrentStartups = DEFAULT_MAX_CONCURRENT_CONNECTION_STARTUPS;
+
     private AtomicBoolean            active = new AtomicBoolean(false);
     private AtomicBoolean            closed = new AtomicBoolean(false);
+    private boolean                  isFirstReadRequest = false;
     private boolean                  simulateFail = false;
     private boolean                  forceTokenUse = false;
     private boolean                  inFetchingMode = false;
@@ -188,6 +226,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
 
     private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
+    private int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
 
     // Buffer compact threshold should always be smaller than buffer prefetch threshold
     private int bufferPrefetchThresholdKB = DEFAULT_MAX_READ_SIZE_KB/2;
@@ -394,13 +433,32 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB,
                                 RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS, Span rdSpan) throws Exception
     {
-        this.recordDefinition = rd;
-        this.projectedRecordDefinition = pRd;
-        this.inFetchingMode = isFetching;
+        this(constructStreamContext(rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB,
+                                    isFetching, socketOpTimeoutMS, rdSpan), dp, restartInfo);
+    }
 
-        if (maxReadSizeInKB > 0)
+    /**
+     * A plain socket connect to a THOR node for remote read
+     *
+     * @param context Streaming configuration context
+     * @param dp Data partition to read
+     * @param restartInfo Restart information, can be null
+     * @throws Exception general exception
+     */
+    public RowServiceInputStream(StreamContext context, DataPartition dp, RestartInformation restartInfo) throws Exception
+    {
+        this.recordDefinition = context.recordDefinition;
+        this.projectedRecordDefinition = context.projectedRecordDefinition;
+        this.inFetchingMode = context.isFetching;
+
+        if (context.maxReadSizeKB > 0)
         {
-            this.maxReadSizeKB = maxReadSizeInKB;
+            this.maxReadSizeKB = context.maxReadSizeKB;
+        }
+
+        if (context.initialReadSizeKB > 0)
+        {
+            this.initialReadSizeKB = context.initialReadSizeKB;
         }
 
         this.bufferPrefetchThresholdKB = this.maxReadSizeKB/2;
@@ -411,9 +469,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         this.dataPart = dp;
 
-        if (rdSpan != null && rdSpan.getSpanContext().isValid())
+        if (context.fileReadSpan != null && context.fileReadSpan.getSpanContext().isValid())
         {
-            this.fileReadSpan = rdSpan;
+            this.fileReadSpan = context.fileReadSpan;
             this.traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(fileReadSpan);
         }
 
@@ -431,17 +489,17 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         this.tokenBin = null;
         this.simulateFail = false;
 
-        if (connectTimeout > 0)
+        if (context.connectTimeoutMS > 0)
         {
-            this.connectTimeout = connectTimeout;
+            this.connectTimeout = context.connectTimeoutMS;
         }
 
-        if (socketOpTimeoutMS > 0)
+        if (context.socketOpTimeoutMS > 0)
         {
-            this.socketOpTimeoutMs = socketOpTimeoutMS;
+            this.socketOpTimeoutMs = context.socketOpTimeoutMS;
         }
 
-        this.recordLimit = limit;
+        this.recordLimit = context.recordReadLimit;
 
         this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
         this.readBuffer = new byte[this.readBufferCapacity.get()];
@@ -513,7 +571,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             }
         }
 
-        if (createPrefetchThread)
+        if (context.createPrefetchThread)
         {
             RowServiceInputStream rowInputStream = this;
             Runnable prefetchTask = new Runnable()
@@ -690,6 +748,15 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public int getHandle()
     {
         return handle;
+    }
+
+    /**
+     * Sets the global max concurrent connection startups.
+     * @param max the new max concurrent connection startups
+     */
+    public static void setMaxConcurrentConnectionStartups(int max)
+    {
+        maxConcurrentStartups = max;
     }
 
     /**
@@ -1250,6 +1317,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         finishReadRequestSpan();
 
+        // After we have read the first request allow another connection to start
+        if (isFirstReadRequest)
+        {
+            isFirstReadRequest = false;
+            connectionStartupCount.decrementAndGet();
+        }
 
         //------------------------------------------------------------------------------
         // Send read ahead request
@@ -1467,6 +1540,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     @Override
     public void close() throws IOException
     {
+        // If we close before the first read request is finished we need to decrement the connection count
+        if (isFirstReadRequest)
+        {
+            isFirstReadRequest = false;
+            connectionStartupCount.decrementAndGet();
+        }
+
         // Using getAndSet to prevent main thread and background thread from
         // closing at the same time
         if (this.closed.getAndSet(true) == false)
@@ -1783,6 +1863,22 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void makeActive() throws HpccFileException
     {
+        // Limit the number of concurrent connection startups
+        int currentCount = connectionStartupCount.get();
+        int newCount = currentCount+1;
+        isFirstReadRequest = true;
+        while (newCount > maxConcurrentStartups || !connectionStartupCount.compareAndSet(currentCount, newCount))
+        {
+            try
+            {
+                Thread.sleep(1);
+            }
+            catch (InterruptedException e) {} // We don't care about waking early
+
+            currentCount = connectionStartupCount.get();
+            newCount = currentCount+1;
+        }
+
         this.active.set(false);
         this.handle = 0;
         String prefix = "RowServiceInputStream.makeActive, file "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
@@ -1794,7 +1890,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             connectSpan = Utils.createChildSpan(fileReadSpan, "Connect");
             connectSpan.setAttribute("server.index", getFilePartCopy());
         }
-
 
         boolean needsRetry = false;
         do
@@ -2014,6 +2109,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 needsRetry = true;
                 if (!setNextFilePartCopy())
                 {
+                    // This connection has failed, decrement the connection count to allow another connection to start
+                    isFirstReadRequest = false;
+                    connectionStartupCount.decrementAndGet();
+
                     throw new HpccFileException(prefix + " Unsuccessfuly attempted to connect to all file part copies", e);
                 }
             }
@@ -2309,7 +2408,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\", \n");
-        sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
+        sb.append("\"replyLimit\" : " + this.initialReadSizeKB + ",\n");
 
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
         sb.append(trace);
@@ -2386,6 +2485,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         sb.append(RFCCodes.RFCStreamReadCmd);
         sb.append("{ \"format\" : \"binary\",\n");
         sb.append("  \"handle\" : \"" + Integer.toString(this.handle) + "\",");
+        sb.append("\"replyLimit\" : " + this.maxReadSizeKB + ",\n");
 
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
         sb.append(trace);
