@@ -839,7 +839,7 @@ public class FileUtility
             for (int j = 0; j < numIncomingParts; j++)
             {
                 DataPartition inFilePart = inFileParts[incomingFilePartIndex + j];
-                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(inFilePart, recordDef, new HPCCRecordBuilder(recordDef));
+                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(inFilePart, recordDef, new HPCCRecordBuilder(file.getProjectedRecordDefinition()));
             }
             incomingFilePartIndex += numIncomingParts;
 

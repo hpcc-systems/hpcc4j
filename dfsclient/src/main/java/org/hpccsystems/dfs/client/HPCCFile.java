@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FileFilter;
+import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.dfs.cluster.ClusterRemapper;
@@ -231,9 +232,25 @@ public class HPCCFile implements Serializable
         this.columnPruner = new ColumnPruner(projectList);
         if (this.recordDefinition != null)
         {
-            this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+            updateProjectedRecordDef();
         }
         return this;
+    }
+
+    private void updateProjectedRecordDef() throws Exception
+    {
+        this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+
+        // By default project all sub-integer types to standard integers
+        for (int i = 0; i < this.projectedRecordDefinition.getNumDefs(); i++)
+        {
+            FieldDef field = this.projectedRecordDefinition.getDef(i);
+            if (field.isNonStandardInt())
+            {
+                field.setSourceType(HpccSrcType.LITTLE_ENDIAN);
+            }
+
+        }
     }
 
     /**
@@ -502,7 +519,7 @@ public class HPCCFile implements Serializable
                     this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
                 }
 
-                this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+                updateProjectedRecordDef();
             }
             else
                 throw new HpccFileException("Could not fetch metadata for file: '" + fileName + "'");
